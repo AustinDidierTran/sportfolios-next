@@ -96,6 +96,7 @@ export default function Login() {
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: async (values) => {
+      console.log("onSubmit");
       if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
         const { firstName, lastName, email, password } = values;
 

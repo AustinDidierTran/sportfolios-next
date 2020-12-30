@@ -6,7 +6,8 @@ import api from "../../../../actions/api";
 import Add from "@material-ui/icons/AddCircle";
 
 import styles from "./NewEmailField.module.css";
-import { IconButton, TextField, Tooltip } from "@material-ui/core";
+import { TextField } from "../../../../components/Custom";
+import { IconButton, Tooltip } from "@material-ui/core";
 import { Store } from "../../../../Store";
 
 export default function EmailField(props) {

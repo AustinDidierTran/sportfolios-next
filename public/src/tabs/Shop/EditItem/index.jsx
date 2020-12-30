@@ -5,15 +5,14 @@ import { useContext } from "react";
 import styles from "./EditItem.module.css";
 import { Store } from "../../../Store";
 
-import { TextField, Typography } from "@material-ui/core";
+import { TextareaAutosize, Typography } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import { Button, Paper, Input } from "../../../components/Custom";
+import { Button, Input, Paper, TextField } from "../../../components/Custom";
 import { editItem, onImgUpload } from "../../../utils/shop";
 import { ERROR_ENUM } from "../../../../common/errors";
 import { useTranslation } from "react-i18next";
 import AddSizes from "../AddSizes";
-import { TextareaAutosize } from "@material-ui/core";
 import { useRouter } from "next/router";
 
 export default function EditItem(props) {

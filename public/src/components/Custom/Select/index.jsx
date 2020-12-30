@@ -4,9 +4,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { useTranslation } from "react-i18next";
-import { FormHelperText } from "@material-ui/core";
+import { FormHelperText, Typography } from "@material-ui/core";
 import { SELECT_ENUM } from "../../../../common/enums";
-import { Typography } from "@material-ui/core";
 
 export default function CustomSelect(props) {
   const { t } = useTranslation();

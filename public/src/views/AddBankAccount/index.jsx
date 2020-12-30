@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
-import { TextField, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import styles from "./AddBankAccount.module.css";
 import CountrySelect from "./CountrySelect";
 import CurrencySelect from "./CurrencySelect";
 import { formatRoute, goTo } from "../../actions/goTo";
 import { hasXDigits } from "../../utils/validators";
-import { IgContainer, Paper, Button } from "../../components/Custom";
+import { Button, IgContainer, Paper, TextField } from "../../components/Custom";
 import api from "../../actions/api";
 import { ERROR_ENUM } from "../../../../common/errors";
 import { ACTION_ENUM, Store } from "../../Store";

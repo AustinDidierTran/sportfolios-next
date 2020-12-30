@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import { Table } from "../../../components/Custom";
 
-import { CardContent, TextField } from "@material-ui/core";
-import { Paper, Button } from "../../../components/Custom";
+import { CardContent } from "@material-ui/core";
+import { Button, Paper, TextField } from "../../../components/Custom";
 import styles from "./GoogleAnalyticsPageviewsTable.module.css";
 import api from "../../../actions/api";
 import { useFormik } from "formik";

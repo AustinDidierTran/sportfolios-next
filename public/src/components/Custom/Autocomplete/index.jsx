@@ -3,8 +3,8 @@ import React from "react";
 import isEqual from "lodash/isEqual";
 
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { InputAdornment, TextField } from "@material-ui/core";
-import { Icon } from "../../Custom";
+import { InputAdornment } from "@material-ui/core";
+import { Icon, TextField } from "../../Custom";
 
 import { useApiRoute } from "../../../hooks/queries";
 import { useTranslation } from "react-i18next";

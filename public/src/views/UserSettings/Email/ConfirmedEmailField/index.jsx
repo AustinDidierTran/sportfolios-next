@@ -3,7 +3,8 @@ import CheckCircle from "@material-ui/icons/CheckCircle";
 import Delete from "@material-ui/icons/Delete";
 
 import styles from "./ConfirmedEmailField.module.css";
-import { IconButton, TextField, Tooltip } from "@material-ui/core";
+import { TextField } from "../../../../components/Custom";
+import { IconButton, Tooltip } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 
 export default function ConfirmedEmailField(props) {

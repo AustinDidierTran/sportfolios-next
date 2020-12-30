@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-import { ListItem, ListItemText } from "@material-ui/core";
+import { Divider, ListItem, ListItemText } from "@material-ui/core";
 import { FormDialog } from "../..";
 import { useTranslation } from "react-i18next";
 import styles from "./MemberImportItem.module.css";
@@ -11,7 +11,6 @@ import {
 } from "../../../../utils/stringFormats";
 import { IconButton } from "../..";
 import moment from "moment";
-import { Divider } from "@material-ui/core";
 import {
   FORM_DIALOG_TYPE_ENUM,
   LIST_ITEM_ENUM,

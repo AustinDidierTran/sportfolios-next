@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
-import { ListItem, ListItemText } from "@material-ui/core";
+import { Divider, ListItem, ListItemText } from "@material-ui/core";
 import { DownloadReportDialog, IconButton } from "../../..";
 import { useTranslation } from "react-i18next";
 import { formatDate, formatPrice } from "../../../../../utils/stringFormats";
-import { Divider } from "@material-ui/core";
 import api from "../../../../../actions/api";
 import { formatRoute } from "../../../../../actions/goTo";
 import {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ListItem, ListItemText } from "@material-ui/core";
+import { Divider, ListItem, ListItemText } from "@material-ui/core";
 import { FormDialog, Icon } from "../../../Custom";
 
 import { useTranslation } from "react-i18next";
@@ -8,7 +8,6 @@ import styles from "./MemberItem.module.css";
 import { formatDate, getMembershipName } from "../../../../utils/stringFormats";
 import { IconButton } from "../..";
 import moment from "moment";
-import { Divider } from "@material-ui/core";
 import {
   FORM_DIALOG_TYPE_ENUM,
   INVOICE_STATUS_ENUM,

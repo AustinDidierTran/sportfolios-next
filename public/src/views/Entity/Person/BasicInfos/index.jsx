@@ -11,8 +11,9 @@ import {
   Button,
   Input,
   LoadingSpinner,
+  TextField,
 } from "../../../../components/Custom";
-import { Container, Typography, TextField } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { getInitialsFromName } from "../../../../utils/stringFormats";
 /* eslint-disable-next-line */
 import api, { changeEntityName } from "../../../../actions/api";

@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useFormik } from "formik";
-import { TextField, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import {
-  Paper,
-  LoadingSpinner,
-  IgContainer,
   Button,
+  IgContainer,
+  LoadingSpinner,
+  Paper,
+  TextField,
 } from "../../components/Custom";
 import CountrySelect from "../../views/AddBankAccount/CountrySelect";
 import CardSection from "../../utils/stripe/Payment/CardSection";

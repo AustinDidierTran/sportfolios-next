@@ -4,7 +4,6 @@ import moment from "moment";
 import api from "../../actions/api";
 import { formatRoute, goTo, ROUTES } from "../../actions/goTo";
 import { formatDate } from "../../utils/stringFormats";
-import { Typography } from "@material-ui/core";
 import {
   LoadingSpinner,
   Icon,
@@ -17,7 +16,7 @@ import {
   SEVERITY_ENUM,
   TABS_ENUM,
 } from "../../../../common/enums";
-import { Fab, makeStyles, Tooltip } from "@material-ui/core";
+import { Fab, makeStyles, Tooltip, Typography } from "@material-ui/core";
 import styles from "./ScheduleInteractiveTool.module.css";
 import GameCard from "./GameCard";
 import AddGame from "./AddGame";

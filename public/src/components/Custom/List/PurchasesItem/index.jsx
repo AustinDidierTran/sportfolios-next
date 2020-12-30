@@ -1,6 +1,11 @@
 import React from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 import { Avatar, IconButton } from "../../../Custom";
 import { useTranslation } from "react-i18next";
 import styles from "./PurchasesItem.module.css";
@@ -8,7 +13,6 @@ import styles from "./PurchasesItem.module.css";
 import { formatPrice, formatDate } from "../../../../utils/stringFormats";
 import moment from "moment";
 import { GLOBAL_ENUM, IMAGE_ENUM } from "../../../../../common/enums";
-import { Divider } from "@material-ui/core";
 
 export default function PurchasesItem(props) {
   const { t } = useTranslation();

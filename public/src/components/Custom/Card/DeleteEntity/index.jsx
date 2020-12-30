@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-import { Paper, Button } from "../..";
-import { TextField } from "@material-ui/core";
+import { Paper, Button, TextField } from "../..";
 import { useFormInput } from "../../../../hooks/forms";
 import { deleteEntity } from "../../../../actions/api";
 import { goTo, ROUTES } from "../../../../actions/goTo";

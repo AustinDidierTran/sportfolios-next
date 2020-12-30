@@ -15,9 +15,10 @@ import {
   Button,
   Paper,
   LoadingSpinner,
+  TextField,
 } from "../../../components/Custom";
 
-import { Typography, TextField, Container } from "@material-ui/core";
+import { Typography, Container } from "@material-ui/core";
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();

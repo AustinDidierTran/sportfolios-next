@@ -6,16 +6,17 @@ import {
   CardActions,
   CardContent,
   Divider,
-  TextField,
   Typography,
 } from "@material-ui/core";
-import { Paper } from "../../../components/Custom";
+import { Paper, TextField } from "../../../components/Custom";
 import { LOGIN_STATE_ENUM } from "../../../../common/enums";
 import { AddGaEvent } from "../../../components/Custom/Analytics";
 
 export default function LoginCard(props) {
   const { t } = useTranslation();
   const { formik } = props;
+
+  console.log({ formik });
 
   return (
     <Paper className={styles.card}>
@@ -44,12 +45,16 @@ export default function LoginCard(props) {
             className={styles.button}
             type="submit"
             style={{ color: "#fff" }}
-            onClick={() =>
-              AddGaEvent({
-                category: "Login",
-                action: "User clicked to log in",
-                label: "Login_page",
-              })
+            onClick={
+              () => {
+                console.log("hey");
+                formik.handleSubmit();
+              }
+              // AddGaEvent({
+              //   category: "Login",
+              //   action: "User clicked to log in",
+              //   label: "Login_page",
+              // })
             }
           >
             {t("login")}

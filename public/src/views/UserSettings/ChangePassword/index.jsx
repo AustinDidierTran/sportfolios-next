@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
-import { Card, TextField } from "@material-ui/core";
-import { Button, List } from "../../../components/Custom";
+import { Card } from "@material-ui/core";
+import { Button, List, TextField } from "../../../components/Custom";
 import styles from "./ChangePassword.module.css";
 
 import { Store, ACTION_ENUM } from "../../../Store";

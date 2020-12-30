@@ -5,7 +5,7 @@ import CardSection from "./CardSection";
 import { Button } from "@material-ui/core";
 import api from "../../../actions/api";
 import { useFormInput } from "../../../hooks/forms";
-import { TextField } from "@material-ui/core";
+import { TextField } from "../../../components/Custom";
 import styles from "./CheckoutForm.module.css";
 import { useRouter } from "next/router";
 

@@ -3,10 +3,15 @@ import React, { useMemo } from "react";
 import styles from "./ScoreSuggestion.module.css";
 
 import { IconButton } from "../../";
-import { Typography, ListItemText, Card } from "@material-ui/core";
+import {
+  Card,
+  Chip,
+  ListItemText,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { formatDate } from "../../../../utils/stringFormats";
 import { STATUS_ENUM } from "../../../../../common/enums";
-import { Chip, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import api from "../../../../actions/api";

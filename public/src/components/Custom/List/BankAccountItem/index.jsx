@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText, Radio } from "@material-ui/core";
 import { Icon, IconButton } from "../..";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../../../../utils/stringFormats";
 import moment from "moment";
 import api from "../../../../actions/api";
-import { Radio } from "@material-ui/core";
 import { formatRoute } from "../../../../actions/goTo";
 import { AlertDialog } from "../../Dialog";
 

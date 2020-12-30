@@ -1,12 +1,16 @@
 import React from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 import { Avatar, Select } from "../../../Custom";
 import { useTranslation } from "react-i18next";
 import styles from "./CartItem.module.css";
 import { formatPrice } from "../../../../utils/stringFormats";
 import { GLOBAL_ENUM, IMAGE_ENUM } from "../../../../../common/enums";
-import { Divider } from "@material-ui/core";
 
 export default function CartItem(props) {
   const { t } = useTranslation();

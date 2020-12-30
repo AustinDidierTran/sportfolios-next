@@ -1,10 +1,14 @@
 import React from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemSecondaryAction,
+} from "@material-ui/core";
 import { Button } from "../../../Custom";
 import { useTranslation } from "react-i18next";
 import { APP_ENUM } from "../../../../../common/enums";
-import { ListItemSecondaryAction } from "@material-ui/core";
 import styles from "./AppItem.module.css";
 
 const images = {

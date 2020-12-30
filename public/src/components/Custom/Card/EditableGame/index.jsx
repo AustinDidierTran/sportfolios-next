@@ -2,7 +2,8 @@ import React from "react";
 
 import styles from "./EditableGameItem.module.css";
 
-import { Card, TextField } from "@material-ui/core";
+import { Card } from "@material-ui/core";
+import { TextField } from "../..";
 import { useFormInput } from "../../../../hooks/forms";
 import { useEffect } from "react";
 import Team from "./Team";

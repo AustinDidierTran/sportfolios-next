@@ -2,7 +2,8 @@ import React from "react";
 
 import styles from "./Team.module.css";
 
-import { Typography, TextField } from "@material-ui/core";
+import { TextField } from "../../..";
+import { Typography } from "@material-ui/core";
 
 export default function Team(props) {
   const { team, getRank } = props;

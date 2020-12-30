@@ -2,8 +2,8 @@ import React from "react";
 
 import { useTranslation } from "react-i18next";
 import styles from "./Teams.module.css";
-import { Avatar, Paper } from "../../../../../components/Custom";
-import { TextField, List, ListItem } from "@material-ui/core";
+import { Avatar, Paper, TextField } from "../../../../../components/Custom";
+import { List, ListItem } from "@material-ui/core";
 
 import history from "../../../../../stores/history";
 

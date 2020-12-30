@@ -6,9 +6,9 @@ import {
   Avatar,
   AddressSearchInput,
   LoadingSpinner,
+  TextField,
 } from "../../components/Custom";
-import { TextField, Typography } from "@material-ui/core";
-import MenuItem from "@material-ui/core/MenuItem";
+import { MenuItem, Typography } from "@material-ui/core";
 import api from "../../actions/api";
 import { useTranslation } from "react-i18next";
 import { getInitialsFromName } from "../../utils/stringFormats";

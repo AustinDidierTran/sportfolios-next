@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 
-import { List, Icon } from "../..";
-import { TextField } from "@material-ui/core";
+import { List, Icon, TextField } from "../..";
 import { formatRoute } from "../../../../actions/goTo";
 import { useApiRoute } from "../../../../hooks/queries";
 import { InputAdornment } from "@material-ui/core";

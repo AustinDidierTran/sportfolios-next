@@ -1,7 +1,6 @@
 import React, { useState, useContext, useMemo } from "react";
-import { ListItem, ListItemText } from "@material-ui/core";
+import { Divider, ListItem, ListItemText } from "@material-ui/core";
 import { FormDialog, IconButton, AlertDialog } from "../../../Custom";
-import { Divider } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { formatDate, formatPrice } from "../../../../utils/stringFormats";
 import moment from "moment";
