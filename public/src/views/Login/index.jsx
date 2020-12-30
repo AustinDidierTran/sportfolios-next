@@ -24,14 +24,17 @@ import { useRouter } from "next/router";
 export default function Login() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { successRoute, redirectUrl } = router.query;
+
+  // TODO: Should be renamed redirectUrl everywhere
+  const { redirectUrl } = router.query;
   const {
     state: { isAuthenticated },
     dispatch,
   } = useContext(Store);
   useEffect(() => {
     if (isAuthenticated) {
-      router.push(ROUTES.home);
+      const route = redirectUrl || ROUTES.home;
+      router.push(route);
     }
   }, [isAuthenticated]);
   const validate = (values) => {
@@ -107,7 +110,7 @@ export default function Login() {
             lastName,
             email,
             password,
-            successRoute,
+            redirectUrl,
           }),
         });
         if (res.status === 403) {
@@ -166,9 +169,9 @@ export default function Login() {
             });
             if (redirectUrl) {
               goTo(decodeURI(redirectUrl));
-            } else if (successRoute) {
+            } else if (redirectUrl) {
               goTo(ROUTES.confirmEmailSuccess, null, {
-                successRoute,
+                redirectUrl,
               });
             } else {
               if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
@@ -210,7 +213,7 @@ export default function Login() {
           <div className={styles.logo}>
             <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
           </div>
-          <SignupCard successRoute={successRoute} formik={formik} />
+          <SignupCard redirectUrl={redirectUrl} formik={formik} />
         </Container>
       </div>
     );

@@ -7,14 +7,9 @@ import { goTo, ROUTES } from "../../actions/goTo";
 import { Store, ACTION_ENUM } from "../../Store";
 import { useRouter } from "next/router";
 
-export default function ConfirmEmail(props) {
-  const {
-    match: {
-      params: { token },
-    },
-  } = props;
+export default function ConfirmEmail() {
   const router = useRouter();
-  const { successRoute } = router.query;
+  const { redirectUrl, token } = router.query;
   const { dispatch } = useContext(Store);
 
   const confirmEmail = async () => {
@@ -37,8 +32,8 @@ export default function ConfirmEmail(props) {
         payload: userInfo,
       });
 
-      if (successRoute) {
-        goTo(ROUTES.confirmEmailSuccess, null, { successRoute });
+      if (redirectUrl) {
+        goTo(ROUTES.confirmEmailSuccess, null, { redirectUrl });
       } else {
         goTo(ROUTES.confirmEmailSuccess);
       }

@@ -129,7 +129,7 @@ export default function App() {
                   component={ConfirmEmailSuccess}
                 />
                 <Route
-                  path={ROUTES.recoveryEmail}
+                  path={ROUTES.passwordRecovery}
                   component={PasswordRecovery}
                 />
                 <Route
@@ -201,7 +201,6 @@ export default function App() {
                   path={ROUTES.importMembers}
                   component={ImportMembers}
                 />
-                <Route exact path={ROUTES.stripe} component={Stripe} />
                 <Route
                   exact
                   path={ROUTES.shopDetails}

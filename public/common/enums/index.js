@@ -219,7 +219,7 @@ const ROUTES_ENUM = {
   organizationList: "/page/organizationList",
   privacyPolicy: "/page/privacy",
   productAddedToCart: "/page/productAddedToCart",
-  recoveryEmail: "/page/recoveryEmail",
+  passwordRecovery: "/page/passwordRecovery",
   registrationStatus: "/page/registrationStatus",
   createReport: "/page/createReport",
   sales: "/page/sales/:id",

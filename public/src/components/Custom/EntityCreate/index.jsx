@@ -15,7 +15,7 @@ import {
   GLOBAL_ENUM,
   STATUS_ENUM,
   TABS_ENUM,
-} from "../../../../../common/enums";
+} from "../../../../common/enums";
 import ComponentFactory from "../ComponentFactory";
 import { Store } from "../../../Store";
 import { useRouter } from "next/router";
@@ -186,10 +186,6 @@ export default function EntityCreate() {
   const handleCancel = () => {
     goTo(ROUTES.home);
   };
-
-  if (!type) {
-    goTo(ROUTES.entityNotFound);
-  }
 
   if (isSubmitting) {
     return <LoadingSpinner />;

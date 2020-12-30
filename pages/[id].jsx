@@ -1,10 +1,10 @@
 import React from "react";
+import Error from "next/error";
 import { formatRoute } from "../public/src/actions/goTo";
 import { GLOBAL_ENUM } from "../public/common/enums";
 import { useApiRoute } from "../public/src/hooks/queries";
 import { LoadingSpinner } from "../public/src/components/Custom";
 import { useRouter } from "next/router";
-import EntityNotFound from "../public/src/views/Entity/EntityNotFound";
 import Event from "../public/src/views/Entity/Event";
 import Organization from "../public/src/views/Entity/Organization";
 import Person from "../public/src/views/Entity/Person";
@@ -33,13 +33,13 @@ export default function Entity() {
   }
 
   if (!response) {
-    return <EntityNotFound />;
+    return <Error />;
   }
 
   const EntityObject = EntityMap[response.basicInfos.type];
 
   if (!EntityObject) {
-    return <EntityNotFound />;
+    return <Error />;
   }
   return <EntityObject {...response} />;
 }

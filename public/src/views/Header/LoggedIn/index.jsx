@@ -19,6 +19,7 @@ import useStyles from "./useStyles";
 import { useTranslation } from "react-i18next";
 
 import styles from "./LoggedIn.module.css";
+import { ROUTES } from "../../../actions/goTo";
 
 export default function LoggedIn(props) {
   const {
@@ -102,7 +103,7 @@ export default function LoggedIn(props) {
       <AppBar position="static" className={styles.appBar}>
         <Toolbar className={styles.toolbarDesktop}>
           <Typography className={classes.title} variant="h6" noWrap>
-            <Link href={"/"} className={classes.titleLink}>
+            <Link href={ROUTES.home} className={classes.titleLink}>
               Sportfolios
             </Link>
           </Typography>

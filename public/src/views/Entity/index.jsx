@@ -6,8 +6,8 @@ import { GLOBAL_ENUM } from "../../../../common/enums";
 import { useApiRoute } from "../../hooks/queries";
 import { LoadingSpinner } from "../../components/Custom";
 import { useRouter } from "next/router";
+import Error from "next/error";
 
-const EntityNotFound = loadable(() => import("./EntityNotFound"));
 const Event = loadable(() => import("./Event"));
 const Organization = loadable(() => import("./Organization"));
 const Person = loadable(() => import("./Person"));
@@ -36,13 +36,13 @@ export default function Entity() {
   }
 
   if (!response) {
-    return <EntityNotFound />;
+    return <Error />;
   }
 
   const EntityObject = EntityMap[response.basicInfos.type];
 
   if (!EntityObject) {
-    return <EntityNotFound />;
+    return <Error />;
   }
   return <EntityObject {...response} />;
 }

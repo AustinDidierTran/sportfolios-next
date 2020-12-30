@@ -9,12 +9,12 @@ import { useRouter } from "next/router";
 export default function ConfirmEmailSuccess() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { successRoute } = router.query;
+  const { redirectUrl } = router.query;
 
   useEffect(() => {
     setTimeout(() => {
-      if (successRoute) {
-        goTo(successRoute);
+      if (redirectUrl) {
+        goTo(redirectUrl);
       } else {
         goTo(ROUTES.home);
       }
@@ -26,7 +26,7 @@ export default function ConfirmEmailSuccess() {
       name: t("go_to_page"),
       endIcon: "ExitToApp",
       onClick: () => {
-        goTo(successRoute);
+        goTo(redirectUrl);
       },
       color: "primary",
     },
@@ -43,7 +43,7 @@ export default function ConfirmEmailSuccess() {
     },
   ];
 
-  if (successRoute) {
+  if (redirectUrl) {
     return (
       <MessageAndButtons
         buttons={successButtons}

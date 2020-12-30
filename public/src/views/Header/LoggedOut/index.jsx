@@ -5,6 +5,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import styles from "../Header.module.css";
+import { ROUTES } from "../../../actions/goTo";
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -61,7 +62,7 @@ export default function LoggedOut() {
             variant="h6"
             noWrap
           >
-            <Link href={"/"}>Sportfolios</Link>
+            <Link href={ROUTES.home}>Sportfolios</Link>
           </Typography>
           <div className={classes.search}></div>
           <div className={classes.grow} />

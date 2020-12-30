@@ -217,7 +217,7 @@ export default function EventRegistration() {
         severity: SEVERITY_ENUM.INFO,
       });
       goToAndReplace(ROUTES.login, null, {
-        successRoute: `/eventRegistration/${eventId}`,
+        redirectUrl: `/eventRegistration/${eventId}`,
       });
     }
   }, []);

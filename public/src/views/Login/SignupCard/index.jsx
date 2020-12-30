@@ -14,6 +14,7 @@ import {
 import { Paper } from "../../../components/Custom";
 import { LOGIN_STATE_ENUM } from "../../../../common/enums";
 import Link from "next/link";
+import { ROUTES } from "../../../actions/goTo";
 
 export default function SignupCard(props) {
   const { t } = useTranslation();
@@ -53,7 +54,11 @@ export default function SignupCard(props) {
           />
           <Typography variant="caption" color="textSecondary">
             {t("privacy_signup") + " "}
-            <Link target="_blank" rel="noopener noreferrer" href="/privacy">
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={ROUTES.privacyPolicy}
+            >
               {t("here")}
             </Link>
           </Typography>

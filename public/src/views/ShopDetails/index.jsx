@@ -68,7 +68,7 @@ export default function ShopDetails() {
           severity: SEVERITY_ENUM.INFO,
         });
         goToAndReplace(ROUTES.login, null, {
-          successRoute: formatRoute(ROUTES.shopDetails, {
+          redirectUrl: formatRoute(ROUTES.shopDetails, {
             id,
             stripePriceId,
           }),

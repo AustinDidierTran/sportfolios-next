@@ -130,7 +130,7 @@ export default function CustomerForm(props) {
             // ...customer, payment_method: id
           },
         };
-        //TODO: Send all params (new userInfo, to DB, AND alter Store.js to fetch userInfo in init())
+        // TODO: Send all params (new userInfo, to DB, AND alter Store.js to fetch userInfo in init())
         dispatch({
           type: ACTION_ENUM.UPDATE_USER_INFO,
           payload: { ...userInfo, ...params },
