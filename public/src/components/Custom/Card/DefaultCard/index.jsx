@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card } from '../../../MUI';
+import React from "react";
+import { Card } from "@material-ui/core";
 
 export default function DefaultCard() {
   return (

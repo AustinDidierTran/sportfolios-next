@@ -6,7 +6,7 @@ import { goTo, ROUTES } from "../../actions/goTo";
 import { Store, ACTION_ENUM } from "../../Store";
 
 import { Container } from "../../components/Custom";
-import { Typography, Button } from "../../components/MUI";
+import { Typography, Button } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";

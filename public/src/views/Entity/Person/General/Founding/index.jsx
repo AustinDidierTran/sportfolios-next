@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import { useTranslation } from 'react-i18next';
-import styles from './Funding.module.css';
-import { Typography, Container } from '../../../../../components/MUI';
-import { Button, Paper } from '../../../../../components/Custom';
+import { useTranslation } from "react-i18next";
+import styles from "./Funding.module.css";
+import { Typography, Container } from "@material-ui/core";
+import { Button, Paper } from "../../../../../components/Custom";
 
-import LinearProgress from '@material-ui/core/LinearProgress';
-import CardHeader from '@material-ui/core/CardHeader';
-import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from "@material-ui/core/LinearProgress";
+import CardHeader from "@material-ui/core/CardHeader";
+import { withStyles } from "@material-ui/core/styles";
 
 export default function Funding(props) {
   const { isSelf, description, name, goal, reach } = props;
   const { t } = useTranslation();
 
   const onEdit = () => {
-    alert('Edit');
+    alert("Edit");
   };
 
   const onFunding = () => {
-    alert('Merci pour votre financement!');
+    alert("Merci pour votre financement!");
   };
 
   const onButtonClick = () => {
@@ -39,12 +39,12 @@ export default function Funding(props) {
     },
   })(LinearProgress);
 
-  const buttonLabel = isSelf ? t('edit') : t('donate');
+  const buttonLabel = isSelf ? t("edit") : t("donate");
 
-  const endIcon = isSelf ? 'Edit' : 'AttachMoney';
+  const endIcon = isSelf ? "Edit" : "AttachMoney";
 
   return (
-    <Paper className={styles.card} title={t('funding')}>
+    <Paper className={styles.card} title={t("funding")}>
       <CardHeader title={name} subheader={description} />
       <Container className={styles.container}>
         <div className={styles.bar}>
@@ -68,7 +68,7 @@ export default function Funding(props) {
           variant="h5"
           color="primary"
         >
-          {t('funding_goal', { goal })}
+          {t("funding_goal", { goal })}
         </Typography>
         <Typography
           className={styles.progression}
@@ -79,11 +79,7 @@ export default function Funding(props) {
           {percentage()}%
         </Typography>
         <div className={styles.edit}>
-          <Button
-            endIcon={endIcon}
-            onClick={onButtonClick}
-            color="primary"
-          >
+          <Button endIcon={endIcon} onClick={onButtonClick} color="primary">
             {buttonLabel}
           </Button>
         </div>

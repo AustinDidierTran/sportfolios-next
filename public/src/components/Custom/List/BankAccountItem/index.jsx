@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from '../../../MUI';
-import { Icon, IconButton } from '../..';
-import { useTranslation } from 'react-i18next';
-import { formatDate } from '../../../../utils/stringFormats';
-import moment from 'moment';
-import api from '../../../../actions/api';
-import { Radio } from '@material-ui/core';
-import { formatRoute } from '../../../../actions/goTo';
-import { AlertDialog } from '../../Dialog';
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Icon, IconButton } from "../..";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "../../../../utils/stringFormats";
+import moment from "moment";
+import api from "../../../../actions/api";
+import { Radio } from "@material-ui/core";
+import { formatRoute } from "../../../../actions/goTo";
+import { AlertDialog } from "../../Dialog";
 
 export default function BankAccountItem(props) {
   const { t } = useTranslation();
@@ -23,8 +23,8 @@ export default function BankAccountItem(props) {
   const [openDelete, setOpenDelete] = useState(false);
 
   const onChange = async () => {
-    await api('/api/stripe/defaultBankAccount', {
-      method: 'PUT',
+    await api("/api/stripe/defaultBankAccount", {
+      method: "PUT",
       body: JSON.stringify({
         bankAccountId,
       }),
@@ -34,35 +34,33 @@ export default function BankAccountItem(props) {
 
   const onDelete = async () => {
     await api(
-      formatRoute('/api/stripe/bankAccount', null, {
+      formatRoute("/api/stripe/bankAccount", null, {
         bankAccountId,
       }),
       {
-        method: 'DELETE',
-      },
+        method: "DELETE",
+      }
     );
     update();
   };
 
   return (
     <>
-      <ListItem style={{ width: '100%' }}>
+      <ListItem style={{ width: "100%" }}>
         <ListItemIcon>
           <Icon icon="AccountBalance" />
         </ListItemIcon>
         <ListItemText
           primary={`**** **** **** ${last4}`}
-          secondary={`${t('created_on')} ${formatDate(
-            moment(createdAt),
-          )}`}
+          secondary={`${t("created_on")} ${formatDate(moment(createdAt))}`}
         />
         <ListItemText
-          secondary={t('default')}
-          style={{ textAlign: 'end', margin: '4px' }}
+          secondary={t("default")}
+          style={{ textAlign: "end", margin: "4px" }}
         />
         <Radio
           checked={isDefault}
-          label={t('default')}
+          label={t("default")}
           color="primary"
           onClick={onChange}
         />
@@ -74,8 +72,8 @@ export default function BankAccountItem(props) {
             onClick={() => {
               setOpenDelete(true);
             }}
-            style={{ color: 'grey' }}
-            tooltip={t('remove')}
+            style={{ color: "grey" }}
+            tooltip={t("remove")}
           />
         )}
       </ListItem>
@@ -85,7 +83,7 @@ export default function BankAccountItem(props) {
           setOpenDelete(false);
         }}
         onSubmit={onDelete}
-        title={t('remove_bank_account_confirmation', { last4 })}
+        title={t("remove_bank_account_confirmation", { last4 })}
       />
     </>
   );

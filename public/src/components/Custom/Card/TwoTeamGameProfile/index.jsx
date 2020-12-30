@@ -1,17 +1,16 @@
-import React from 'react';
-import { Typography, Card } from '../../../MUI';
-import { Avatar } from '../../../Custom';
+import React from "react";
+import { Typography, Card, ListItemText, makeStyles } from "@material-ui/core";
+import { Avatar } from "../../../Custom";
 import {
   formatDate,
   getInitialsFromName,
-} from '../../../../utils/stringFormats';
-import { ListItemText, makeStyles } from '@material-ui/core';
-import moment from 'moment';
+} from "../../../../utils/stringFormats";
+import moment from "moment";
 
-import styles from './TwoTeamGameProfile.module.css';
-import { AvatarGroup } from '@material-ui/lab';
+import styles from "./TwoTeamGameProfile.module.css";
+import { AvatarGroup } from "@material-ui/lab";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -50,8 +49,8 @@ export default function TwoTeamGameProfile(props) {
         </Typography>
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(timeslot), 'HH:mm')}
-          secondary={formatDate(moment(timeslot), 'D MMM')}
+          primary={formatDate(moment(timeslot), "HH:mm")}
+          secondary={formatDate(moment(timeslot), "D MMM")}
         ></ListItemText>
         <Typography className={styles.field} color="textSecondary">
           {field}
@@ -97,14 +96,10 @@ export default function TwoTeamGameProfile(props) {
         </AvatarGroup>
 
         <Typography className={styles.name1}>{team1.name}</Typography>
-        <Typography className={styles.score1}>
-          {team1.score}
-        </Typography>
+        <Typography className={styles.score1}>{team1.score}</Typography>
         <Typography className={styles.union}>-</Typography>
         <Typography className={styles.name2}>{team2.name}</Typography>
-        <Typography className={styles.score2}>
-          {team2.score}
-        </Typography>
+        <Typography className={styles.score2}>{team2.score}</Typography>
       </div>
     </Card>
   );

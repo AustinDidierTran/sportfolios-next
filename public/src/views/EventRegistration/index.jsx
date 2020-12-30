@@ -18,7 +18,7 @@ import {
   REJECTION_ENUM,
 } from "../../../../common/enums";
 import styles from "./EventRegistration.module.css";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import { Store, ACTION_ENUM } from "../../Store";
 import { ERROR_ENUM, errors } from "../../../../common/errors";

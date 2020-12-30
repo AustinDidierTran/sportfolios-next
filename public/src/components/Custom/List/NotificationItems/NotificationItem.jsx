@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   ListItem,
   ListItemText,
   ListItemAvatar,
   ListItemSecondaryAction,
-} from '@material-ui/core';
-import { Avatar, Icon } from '../..';
-import styles from './NotificationItem.module.css';
-import api from '../../../../actions/api';
-import { timestampToRelativeTime } from '../../../../utils/stringFormats';
-import { Typography } from '../../../MUI';
+  Typography,
+} from "@material-ui/core";
+import { Avatar, Icon } from "../..";
+import styles from "./NotificationItem.module.css";
+import api from "../../../../actions/api";
+import { timestampToRelativeTime } from "../../../../utils/stringFormats";
 
 export default function NotificationItem(props) {
   const {
@@ -25,8 +25,8 @@ export default function NotificationItem(props) {
 
   function handleClick() {
     if (!clicked) {
-      api('/api/notifications/click', {
-        method: 'PUT',
+      api("/api/notifications/click", {
+        method: "PUT",
         body: JSON.stringify({
           notificationId: id,
         }),
@@ -45,13 +45,13 @@ export default function NotificationItem(props) {
       </ListItemAvatar>
       <ListItemText
         className={styles.text}
-        style={{ whiteSpace: 'pre-line' }}
+        style={{ whiteSpace: "pre-line" }}
         disableTypography
         primary={<Typography>{description}</Typography>}
         secondary={
           <Typography
             color="textSecondary"
-            style={{ color: clicked ? 'textSecondary' : '#18b393' }}
+            style={{ color: clicked ? "textSecondary" : "#18b393" }}
           >
             {timestampToRelativeTime(new Date(created_at))}
           </Typography>
@@ -67,11 +67,11 @@ export default function NotificationItem(props) {
 
       <ListItemSecondaryAction
         style={{
-          justifyContent: 'flex-end',
-          display: 'flex',
-          position: 'relative',
-          transform: 'translateY(-25%)',
-          right: '0',
+          justifyContent: "flex-end",
+          display: "flex",
+          position: "relative",
+          transform: "translateY(-25%)",
+          right: "0",
         }}
       >
         {buttons}

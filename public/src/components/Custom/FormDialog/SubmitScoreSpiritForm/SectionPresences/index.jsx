@@ -3,7 +3,7 @@ import { Divider } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { Button, Collapse, IconButton, MultiSelect } from "../../..";
-import { Typography } from "../../../../MUI";
+import { Typography } from "@material-ui/core";
 import api from "../../../../../actions/api";
 import AddPlayer from "../AddPlayer";
 import { formatRoute } from "../../../../../actions/goTo";

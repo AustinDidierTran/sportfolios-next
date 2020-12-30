@@ -7,7 +7,7 @@ import {
   ImageCard,
   LoadingSpinner,
 } from "../../components/Custom";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import Description from "./Description";
 import { formatRoute, goTo, ROUTES } from "../../actions/goTo";

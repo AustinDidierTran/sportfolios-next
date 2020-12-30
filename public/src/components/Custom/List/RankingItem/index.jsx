@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { ListItem, ListItemText } from '../../../MUI';
-import styles from './RankingItem.module.css';
-import Divider from '@material-ui/core/Divider';
+import { ListItem, ListItemText } from "@material-ui/core";
+import styles from "./RankingItem.module.css";
+import Divider from "@material-ui/core/Divider";
 
 export default function RankingItem(props) {
   const { index, name } = props;
@@ -12,16 +12,13 @@ export default function RankingItem(props) {
       <>
         <ListItem
           style={{
-            width: '100%',
-            padding: '0px',
-            backGroundColor: 'grey',
+            width: "100%",
+            padding: "0px",
+            backGroundColor: "grey",
           }}
         >
-          <div className={styles.main} style={{ width: '100%' }}>
-            <ListItemText
-              className={styles.position}
-              secondary={index + 1}
-            />
+          <div className={styles.main} style={{ width: "100%" }}>
+            <ListItemText className={styles.position} secondary={index + 1} />
             <ListItemText className={styles.name} primary={name} />
           </div>
         </ListItem>
@@ -33,16 +30,13 @@ export default function RankingItem(props) {
     <>
       <ListItem
         style={{
-          width: '100%',
-          padding: '0px',
-          backGroundColor: 'primary',
+          width: "100%",
+          padding: "0px",
+          backGroundColor: "primary",
         }}
       >
-        <div className={styles.main} style={{ width: '100%' }}>
-          <ListItemText
-            className={styles.position}
-            secondary={index + 1}
-          />
+        <div className={styles.main} style={{ width: "100%" }}>
+          <ListItemText className={styles.position} secondary={index + 1} />
           <ListItemText className={styles.name} primary={name} />
         </div>
       </ListItem>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styles from './BasicInfos.module.css';
+import React, { useState, useEffect } from "react";
+import styles from "./BasicInfos.module.css";
 
-import { Avatar } from '../../../components/Custom';
-import { Container, Typography } from '../../../components/MUI';
-import { getInitialsFromName } from '../../../utils/stringFormats';
-import { useFormInput } from '../../../hooks/forms';
+import { Avatar } from "../../../components/Custom";
+import { Container, Typography } from "@material-ui/core";
+import { getInitialsFromName } from "../../../utils/stringFormats";
+import { useFormInput } from "../../../hooks/forms";
 
 export default function BasicInfos(props) {
   const {
@@ -27,7 +27,7 @@ export default function BasicInfos(props) {
       <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
       <div className={styles.fullName}>
         <Typography variant="h3" className={styles.text}>
-          {`${name.value}${surname ? ' ' + surname : ''}`}
+          {`${name.value}${surname ? " " + surname : ""}`}
         </Typography>
       </div>
     </Container>

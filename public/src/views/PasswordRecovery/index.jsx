@@ -11,7 +11,7 @@ import {
   Divider,
   TextField,
   Typography,
-} from "../../components/MUI";
+} from "@material-ui/core";
 import { Paper } from "../../components/Custom";
 import api from "../../actions/api";
 import { goTo, ROUTES } from "../../actions/goTo";

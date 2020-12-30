@@ -1,11 +1,10 @@
-import React from 'react';
-import Delete from '@material-ui/icons/Delete';
-import Error from '@material-ui/icons/Error';
-import { TextField } from '../../../../components/MUI';
+import React from "react";
+import Delete from "@material-ui/icons/Delete";
+import Error from "@material-ui/icons/Error";
 
-import styles from './UnconfirmedEmailField.module.css';
-import { IconButton, Tooltip } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import styles from "./UnconfirmedEmailField.module.css";
+import { IconButton, TextField, Tooltip } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 export default function UnconfirmedEmailField(props) {
   const { t } = useTranslation();
@@ -22,14 +21,14 @@ export default function UnconfirmedEmailField(props) {
         className={styles.TextField}
       />
       <span className={styles.unconfirmedIcon}>
-        <Tooltip title={t('unconfirmed_email')}>
+        <Tooltip title={t("unconfirmed_email")}>
           <IconButton color="secondary" size="small">
             <Error color="secondary" />
           </IconButton>
         </Tooltip>
       </span>
       <span className={styles.deleteIcon}>
-        <Tooltip title={t('delete_this_email_from_your_account')}>
+        <Tooltip title={t("delete_this_email_from_your_account")}>
           <IconButton size="small">
             <Delete size="small" />
           </IconButton>

@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import api from "../../actions/api";
 import { formatRoute, goTo, ROUTES, goToAndReplace } from "../../actions/goTo";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import { Button, Paper, IgContainer, Select } from "../../components/Custom";
 import { useEffect } from "react";
 import { formatPrice } from "../../utils/stringFormats";

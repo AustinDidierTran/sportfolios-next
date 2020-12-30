@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./Create.module.css";
 
 import { Paper, Button, IgContainer, LoadingSpinner } from "../../Custom";
-import { CardActions, CardContent } from "../../MUI";
+import { CardActions, CardContent } from "@material-ui/core";
 import {
   COMPONENT_TYPE_ENUM,
   GLOBAL_ENUM,

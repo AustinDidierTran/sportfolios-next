@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from "../../../MUI";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { Button } from "../../../Custom";
 import { useTranslation } from "react-i18next";
 import { APP_ENUM } from "../../../../../common/enums";

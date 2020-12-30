@@ -1,21 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Icon } from '../../../Custom';
-import { useTranslation } from 'react-i18next';
-import { Typography } from '../../../MUI';
+import React, { useEffect, useMemo, useState } from "react";
+import { Button, Icon } from "../../../Custom";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@material-ui/core';
+  Typography,
+} from "@material-ui/core";
 
-import styles from './SubmitScoreSpiritForm.module.css';
-import SectionScore from './SectionScore';
-import SectionSpirit from './SectionSpirit';
-import SectionPresences from './SectionPresences';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
+import styles from "./SubmitScoreSpiritForm.module.css";
+import SectionScore from "./SectionScore";
+import SectionSpirit from "./SectionSpirit";
+import SectionPresences from "./SectionPresences";
+import api from "../../../../actions/api";
+import { formatRoute } from "../../../../actions/goTo";
 
 export default function SubmitScoreDialog(props) {
   const { open, onClose, gameId, submissionerInfos } = props;
@@ -23,10 +23,10 @@ export default function SubmitScoreDialog(props) {
 
   const getData = async () => {
     const { data } = await api(
-      formatRoute('/api/entity/gameSubmissionInfos', null, {
+      formatRoute("/api/entity/gameSubmissionInfos", null, {
         gameId,
         rosterId: submissionerInfos.myTeam.rosterId,
-      }),
+      })
     );
     setsubmissionInfos(data);
   };
@@ -34,13 +34,12 @@ export default function SubmitScoreDialog(props) {
   const [submissionInfos, setsubmissionInfos] = useState({});
 
   const personName = useMemo(
-    () => submissionerInfos?.person?.completeName || '',
-    [submissionerInfos?.person],
+    () => submissionerInfos?.person?.completeName || "",
+    [submissionerInfos?.person]
   );
-  const teamName = useMemo(
-    () => submissionerInfos?.myTeam?.name || '',
-    [submissionerInfos?.myTeam],
-  );
+  const teamName = useMemo(() => submissionerInfos?.myTeam?.name || "", [
+    submissionerInfos?.myTeam,
+  ]);
 
   useEffect(() => {
     if (open) {
@@ -50,9 +49,7 @@ export default function SubmitScoreDialog(props) {
 
   const SubmittedCheck = (
     <div className={styles.submitted}>
-      <Typography className={styles.submitText}>
-        {t('submitted')}
-      </Typography>
+      <Typography className={styles.submitText}>{t("submitted")}</Typography>
       <Icon icon="CheckCircleOutline" color="#54AF51" />
     </div>
   );
@@ -62,16 +59,14 @@ export default function SubmitScoreDialog(props) {
       open={open}
       onClose={onClose}
       aria-labelledby="form-dialog-title"
-      maxWidth={'xs'}
+      maxWidth={"xs"}
       fullWidth
     >
-      <DialogTitle id="form-dialog-title">
-        {t('submit_score')}
-      </DialogTitle>
+      <DialogTitle id="form-dialog-title">{t("submit_score")}</DialogTitle>
       <div>
         <DialogContent>
           <DialogContentText>
-            {t('submitting_as_for', {
+            {t("submitting_as_for", {
               person: personName,
               team: teamName,
             })}
@@ -98,7 +93,7 @@ export default function SubmitScoreDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
-            {t('close')}
+            {t("close")}
           </Button>
         </DialogActions>
       </div>

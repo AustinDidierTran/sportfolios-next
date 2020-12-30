@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import styles from './BasicInfos.module.css';
-import { uploadEntityPicture } from '../../../actions/aws';
-import { ACTION_ENUM, Store } from '../../../Store';
-import { useFormInput } from '../../../hooks/forms';
-import { useEditor } from '../../../hooks/roles';
-import { changeEntityName } from '../../../actions/api';
+import styles from "./BasicInfos.module.css";
+import { uploadEntityPicture } from "../../../actions/aws";
+import { ACTION_ENUM, Store } from "../../../Store";
+import { useFormInput } from "../../../hooks/forms";
+import { useEditor } from "../../../hooks/roles";
+import { changeEntityName } from "../../../actions/api";
 
 import {
   Avatar,
@@ -15,25 +15,16 @@ import {
   Button,
   Paper,
   LoadingSpinner,
-} from '../../../components/Custom';
+} from "../../../components/Custom";
 
-import {
-  Typography,
-  TextField,
-  Container,
-} from '../../../components/MUI';
+import { Typography, TextField, Container } from "@material-ui/core";
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
   const {
-    basicInfos: {
-      id,
-      name: initialName,
-      photoUrl: initialPhotoUrl,
-      role,
-    },
+    basicInfos: { id, name: initialName, photoUrl: initialPhotoUrl, role },
   } = props;
 
   const isEditor = useEditor(role);
@@ -58,9 +49,9 @@ export default function BasicInfos(props) {
 
   const onSave = async () => {
     if (name.value.length < 1) {
-      name.setError(t('value_is_required'));
+      name.setError(t("value_is_required"));
     } else if (name.value.length > 255) {
-      name.setError(t('value_is_too_long'));
+      name.setError(t("value_is_too_long"));
     } else {
       setIsLoading(true);
       name.setError(false);
@@ -117,8 +108,8 @@ export default function BasicInfos(props) {
 
   if (isEditMode) {
     return (
-      <Paper style={{ textAlign: 'center' }} title={name.value}>
-        <Container style={{ paddingBottom: '16px' }}>
+      <Paper style={{ textAlign: "center" }} title={name.value}>
+        <Container style={{ paddingBottom: "16px" }}>
           {isLoading ? (
             <LoadingSpinner isComponent />
           ) : (
@@ -137,8 +128,8 @@ export default function BasicInfos(props) {
           />
           <TextField
             {...name.inputProps}
-            placeholder={t('name')}
-            label={t('name')}
+            placeholder={t("name")}
+            label={t("name")}
             error={name.error}
             className={styles.textField}
             namespace="Name"
@@ -148,18 +139,18 @@ export default function BasicInfos(props) {
               className={styles.save}
               endIcon="Check"
               onClick={onSave}
-              style={{ marginRight: '8px' }}
+              style={{ marginRight: "8px" }}
             >
-              {t('save')}
+              {t("save")}
             </Button>
             <Button
               className={styles.cancel}
               endIcon="Close"
               onClick={onCancel}
-              style={{ marginLeft: '8px' }}
+              style={{ marginLeft: "8px" }}
               color="secondary"
             >
-              {t('cancel')}
+              {t("cancel")}
             </Button>
           </div>
         </Container>
@@ -193,9 +184,9 @@ export default function BasicInfos(props) {
               className={styles.button}
               endIcon="Edit"
               onClick={onEdit}
-              style={{ margin: '8px' }}
+              style={{ margin: "8px" }}
             >
-              {t('edit')}
+              {t("edit")}
             </Button>
           </Container>
         ) : (

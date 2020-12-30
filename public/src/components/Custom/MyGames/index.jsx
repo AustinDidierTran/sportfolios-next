@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "..";
-import { Typography } from "../../MUI";
+import { Typography } from "@material-ui/core";
 import { CARD_TYPE_ENUM, TABS_ENUM } from "../../../../common/enums";
 import { goTo, ROUTES } from "../../../actions/goTo";
 import { useTranslation } from "react-i18next";

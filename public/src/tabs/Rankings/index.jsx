@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import api from "../../actions/api";
 import { formatRoute } from "../../actions/goTo";
 import { LoadingSpinner } from "../../components/Custom";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import PhaseRankings from "./PhaseRanking";
 import Ranking from "./Ranking";
 import { updateRanking } from "./RankingFunctions";

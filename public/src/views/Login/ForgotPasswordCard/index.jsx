@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 
 import styles from "./ForgotPasswordCard.module.css";
 
-import Button from "../../../components/MUI/Button";
+import { Button } from "../../../components/Custom";
 import {
   CardActions,
   CardContent,
   Divider,
   TextField,
   Typography,
-} from "../../../components/MUI";
+} from "@material-ui/core";
 import { Paper } from "../../../components/Custom";
 import { LOGIN_STATE_ENUM } from "../../../../common/enums";
 

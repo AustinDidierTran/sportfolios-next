@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
-import { TextField } from '../../MUI';
+import { TextField } from "@material-ui/core";
 
 export default function CustomFileInput(props) {
   const { onChange } = props;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, TeamSearchList } from "../../../components/Custom";
-import { Typography } from "../../../components/MUI";
+import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { useFormInput } from "../../../hooks/forms";
 import TeamItem from "../../../components/Custom/List/TeamItem";

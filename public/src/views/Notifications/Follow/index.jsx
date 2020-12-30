@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import styles from './Follow.module.css';
-import { Avatar, Paper } from '../../../components/Custom';
-import { useTranslation } from 'react-i18next';
-import { getInitialsFromName } from '../../../utils/stringFormats';
-import history from '../../../stores/history';
+import styles from "./Follow.module.css";
+import { Avatar, Paper } from "../../../components/Custom";
+import { useTranslation } from "react-i18next";
+import { getInitialsFromName } from "../../../utils/stringFormats";
+import history from "../../../stores/history";
 
-import { Button, Typography } from '../../../components/MUI';
+import { Button, Typography } from "@material-ui/core";
 
 export default function Follow(props) {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ export default function Follow(props) {
         />
         <Typography>
           <b>{`${first_name} ${last_name}`}</b>
-          {t('follow_notification_text')}
+          {t("follow_notification_text")}
         </Typography>
       </div>
       <Button
@@ -38,7 +38,7 @@ export default function Follow(props) {
         className={buttonState ? styles.button : styles.buttonpressed}
         onClick={onFollow}
       >
-        {buttonState ? t('follow') : t('following')}
+        {buttonState ? t("follow") : t("following")}
       </Button>
     </Paper>
   );

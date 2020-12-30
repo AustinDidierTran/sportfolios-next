@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from "../../../MUI";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { Avatar, Select } from "../../../Custom";
 import { useTranslation } from "react-i18next";
 import styles from "./CartItem.module.css";

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 
 import styles from "./ShopItem.module.css";
 
-import { Typography } from "../../../MUI";
+import { Typography } from "@material-ui/core";
 import { Paper, Button } from "../..";
 import CardContent from "@material-ui/core/CardContent";
 import { goTo, ROUTES, formatRoute } from "../../../../actions/goTo";

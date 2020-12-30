@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import isEqual from 'lodash/isEqual';
+import isEqual from "lodash/isEqual";
 
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { TextField } from '../../MUI';
-import { Icon } from '../../Custom';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { InputAdornment, TextField } from "@material-ui/core";
+import { Icon } from "../../Custom";
 
-import { useApiRoute } from '../../../hooks/queries';
-import { useTranslation } from 'react-i18next';
-import { InputAdornment } from '@material-ui/core';
+import { useApiRoute } from "../../../hooks/queries";
+import { useTranslation } from "react-i18next";
 
 export default function CustomAutocomplete(props) {
   const { t } = useTranslation();
@@ -33,9 +32,7 @@ export default function CustomAutocomplete(props) {
 
     if (!formik && !onChange) {
       /* eslint-disable-next-line */
-      console.error(
-        'Handle Change on Custom Autocomplete does nothing',
-      );
+      console.error("Handle Change on Custom Autocomplete does nothing");
     }
 
     if (formik) {
@@ -50,11 +47,11 @@ export default function CustomAutocomplete(props) {
   return (
     <Autocomplete
       autoHighlight
-      getOptionLabel={option => option.display}
+      getOptionLabel={(option) => option.display}
       options={options}
       getOptionSelected={isEqual}
       clearOnEscape
-      renderInput={params => {
+      renderInput={(params) => {
         return (
           <TextField
             {...params}
@@ -65,11 +62,11 @@ export default function CustomAutocomplete(props) {
             type={type}
             label={t(namespace)}
             fullWidth
-            placeholder={t('search_sportfolios')}
+            placeholder={t("search_sportfolios")}
             inputProps={{
               ...params.inputProps,
               classes: inputProps.classes,
-              autoComplete: 'new-password',
+              autoComplete: "new-password",
             }}
             InputProps={{
               ...params.InputProps,

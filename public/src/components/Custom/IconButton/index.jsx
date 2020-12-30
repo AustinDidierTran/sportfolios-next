@@ -1,21 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { Tooltip } from '@material-ui/core';
-
-import { Icon } from '../../Custom';
-import { Badge, IconButton } from '../../MUI';
+import { Icon } from "../../Custom";
+import { Badge, IconButton, Tooltip } from "@material-ui/core";
 
 export default function CustomIconButton(props) {
   const {
-    icon = 'Add',
+    icon = "Add",
     onClick = () => {},
-    size = 'small',
-    tooltip = '',
-    fontSize = 'default',
+    size = "small",
+    tooltip = "",
+    fontSize = "default",
 
     // badge props
     withBadge = false,
-    badgeColor = 'error',
+    badgeColor = "error",
     badgeContent = 0,
 
     ...otherProps
@@ -29,7 +27,7 @@ export default function CustomIconButton(props) {
             size={size}
             onClick={onClick}
             {...otherProps}
-            style={{ color: '#fff', ...props.style }}
+            style={{ color: "#fff", ...props.style }}
           >
             <Badge
               invisible={!badgeContent}
@@ -51,7 +49,7 @@ export default function CustomIconButton(props) {
           size={size}
           onClick={onClick}
           {...otherProps}
-          style={{ color: '#fff', ...props.style }}
+          style={{ color: "#fff", ...props.style }}
         >
           <Icon icon={icon} fontSize={fontSize} />
         </IconButton>

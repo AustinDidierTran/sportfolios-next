@@ -5,7 +5,7 @@ import { useContext } from "react";
 import styles from "./EditItem.module.css";
 import { Store } from "../../../Store";
 
-import { TextField, Typography } from "../../../components/MUI";
+import { TextField, Typography } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Paper, Input } from "../../../components/Custom";

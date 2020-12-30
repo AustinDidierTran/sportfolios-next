@@ -1,5 +1,5 @@
 import React, { useState, useContext, useMemo } from "react";
-import { ListItem, ListItemText } from "../../../MUI";
+import { ListItem, ListItemText } from "@material-ui/core";
 import { FormDialog, IconButton, AlertDialog } from "../../../Custom";
 import { Divider } from "@material-ui/core";
 import { useTranslation } from "react-i18next";

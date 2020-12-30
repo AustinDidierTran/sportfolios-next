@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { useTranslation } from 'react-i18next';
-import styles from './EventsOfInterest.module.css';
-import Register from '../../../Entity/NextEvents/Register';
-import Results from '../../../Entity/NextEvents/Results';
-import Schedule from '../../../Entity/NextEvents/Schedule';
+import { useTranslation } from "react-i18next";
+import styles from "./EventsOfInterest.module.css";
+import Register from "../../../Entity/NextEvents/Register";
+import Results from "../../../Entity/NextEvents/Results";
+import Schedule from "../../../Entity/NextEvents/Schedule";
 import {
   Typography,
   ListItem,
   ListItemIcon,
   Container,
-} from '../../../../components/MUI';
-import { Avatar, List, Paper } from '../../../../components/Custom';
-import history from '../../../../stores/history';
-import { EVENT_STATUS_ENUM } from '../../../Entity/NextEvents';
+} from "@material-ui/core";
+import { Avatar, List, Paper } from "../../../../components/Custom";
+import history from "../../../../stores/history";
+import { EVENT_STATUS_ENUM } from "../../../Entity/NextEvents";
 
 export default function EventsOfInterest(props) {
   const { t } = useTranslation();
@@ -22,21 +22,13 @@ export default function EventsOfInterest(props) {
 
   return (
     <Paper className={styles.card}>
-      <Typography
-        className={styles.title}
-        variant="h5"
-        color="primary"
-      >
-        {t('events_that_might_interest_you')}
+      <Typography className={styles.title} variant="h5" color="primary">
+        {t("events_that_might_interest_you")}
       </Typography>
       <List
         items={events}
         rowRenderer={(event, index) => (
-          <ListItem
-            button
-            onClick={() => history.push('/event')}
-            key={index}
-          >
+          <ListItem button onClick={() => history.push("/event")} key={index}>
             <Container className={styles.event}>
               <ListItemIcon>
                 <Avatar

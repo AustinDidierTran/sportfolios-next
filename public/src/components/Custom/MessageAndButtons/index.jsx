@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Paper, Button, IgContainer } from "..";
-import { Typography } from "../../MUI";
+import { Typography } from "@material-ui/core";
 import LoadingSpinner from "../LoadingSpinner";
 import styles from "./MessageAndButtons.module.css";
 import { LOGO_ENUM } from "../../../../common/enums";

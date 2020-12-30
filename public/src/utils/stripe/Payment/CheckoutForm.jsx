@@ -2,7 +2,7 @@ import React from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 
 import CardSection from "./CardSection";
-import { Button } from "../../../components/MUI";
+import { Button } from "@material-ui/core";
 import api from "../../../actions/api";
 import { useFormInput } from "../../../hooks/forms";
 import { TextField } from "@material-ui/core";

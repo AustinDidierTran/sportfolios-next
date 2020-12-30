@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItemText, TextField } from "../../MUI";
+import { ListItemText, TextField } from "@material-ui/core";
 import { Select, MultiSelect, Button, CheckBox, List } from "../../Custom";
 import { COMPONENT_TYPE_ENUM } from "../../../../common/enums";
 import { InputAdornment } from "@material-ui/core";

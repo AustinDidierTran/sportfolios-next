@@ -6,7 +6,7 @@ import { formatRoute } from "../../actions/goTo";
 import styles from "./Rosters.module.css";
 
 import Rosters from "./Rosters";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { LoadingSpinner } from "../../components/Custom";
 import { useRouter } from "next/router";

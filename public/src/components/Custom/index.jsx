@@ -42,5 +42,8 @@ export { default as SnackBar } from "./SnackBar";
 export { default as SpeedDial } from "./SpeedDial";
 export { default as Stepper } from "./Stepper";
 export { default as StepperWithHooks } from "./StepperWithHooks";
+export { default as Tab } from "./Tab";
 export { default as Table } from "./Table";
+export { default as Tabs } from "./Tabs";
 export { default as TeamSearchList } from "./SearchList/TeamSearchList";
+export { default as TextField } from "./TextField";

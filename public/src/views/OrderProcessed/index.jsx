@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { formatPrice, formatPageTitle } from "../../utils/stringFormats";
 
 import { Paper, Button, IgContainer } from "../../components/Custom";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import styles from "./OrderProcessed.module.css";
 import { LOGO_ENUM } from "../../../../common/enums";
 import { goTo } from "../../actions/goTo";

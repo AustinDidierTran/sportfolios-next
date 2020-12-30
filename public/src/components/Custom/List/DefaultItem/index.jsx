@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from '../../../MUI';
-import { Icon } from '../..';
-import { ListItemSecondaryAction } from '@material-ui/core';
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
+import { Icon } from "../..";
 
 export default function DefaultItem(props) {
   const {
@@ -20,7 +24,7 @@ export default function DefaultItem(props) {
       button={Boolean(onClick)}
       onClick={onClick}
       selected={selected}
-      style={{ width: '100%' }}
+      style={{ width: "100%" }}
     >
       {iconComponent ? (
         <ListItemIcon>{iconComponent}</ListItemIcon>
@@ -29,10 +33,7 @@ export default function DefaultItem(props) {
           <Icon icon={icon}></Icon>
         </ListItemIcon>
       )}
-      <ListItemText
-        primary={value}
-        secondary={description}
-      ></ListItemText>
+      <ListItemText primary={value} secondary={description}></ListItemText>
       <ListItemSecondaryAction>
         <>{secondaryAction}</>
       </ListItemSecondaryAction>

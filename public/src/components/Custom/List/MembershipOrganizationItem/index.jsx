@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { ListItem, ListItemText } from '../../../MUI';
-import { Button, Collapse, IconButton } from '../../../Custom';
-import { useTranslation } from 'react-i18next';
-import { Divider } from '@material-ui/core';
-import { formatPrice } from '../../../../utils/stringFormats';
-import styles from './MembershipOrganizationItem.module.css';
+import React, { useState, useMemo } from "react";
+import { Divider, ListItem, ListItemText } from "@material-ui/core";
+import { Button, Collapse, IconButton } from "../../../Custom";
+import { useTranslation } from "react-i18next";
+import { formatPrice } from "../../../../utils/stringFormats";
+import styles from "./MembershipOrganizationItem.module.css";
 
 export default function MembershipOrganizationItem(props) {
   const { t } = useTranslation();
@@ -25,8 +24,8 @@ export default function MembershipOrganizationItem(props) {
   };
 
   const icon = useMemo(
-    () => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'),
-    [expanded],
+    () => (expanded ? "KeyboardArrowUp" : "KeyboardArrowDown"),
+    [expanded]
   );
 
   return (
@@ -40,46 +39,40 @@ export default function MembershipOrganizationItem(props) {
           onClick={handleExpand}
           aria-expanded={expanded}
           icon={icon}
-          style={{ color: 'grey' }}
+          style={{ color: "grey" }}
         />
       </ListItem>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <div style={{ backgroundColor: '#F5F5F5' }}>
+        <div style={{ backgroundColor: "#F5F5F5" }}>
           <ListItem>
             <ListItemText
               primary={membershipType}
-              secondary={`${t('expire_on')} ${expirationDate}`}
+              secondary={`${t("expire_on")} ${expirationDate}`}
             ></ListItemText>
           </ListItem>
           <ListItem className={styles.money}>
-            <ListItemText
-              primary={`${t('subtotal')}:`}
-            ></ListItemText>
-            <ListItemText
-              primary={`${formatPrice(price)}`}
-            ></ListItemText>
+            <ListItemText primary={`${t("subtotal")}:`}></ListItemText>
+            <ListItemText primary={`${formatPrice(price)}`}></ListItemText>
           </ListItem>
-          {taxRates.map(t => (
+          {taxRates.map((t) => (
             <ListItem className={styles.money}>
               <ListItemText
                 primary={`${t.display_name} (${t.percentage}%)`}
                 secondary={t.description}
               ></ListItemText>
               <ListItemText
-                primary={`${formatPrice(
-                  (price * t.percentage) / 100,
-                )}`}
+                primary={`${formatPrice((price * t.percentage) / 100)}`}
               ></ListItemText>
             </ListItem>
           ))}
           <Divider />
           <ListItem className={styles.money}>
-            <ListItemText primary={`${t('total')}:`} />
+            <ListItemText primary={`${t("total")}:`} />
             <ListItemText
               primary={`${formatPrice(
                 taxRates.reduce((prev, curr) => {
                   return prev + (price * curr.percentage) / 100;
-                }, 0) + price,
+                }, 0) + price
               )}`}
             />
           </ListItem>
@@ -90,9 +83,9 @@ export default function MembershipOrganizationItem(props) {
             }}
             endIcon="Delete"
             color="secondary"
-            style={{ margin: '8px' }}
+            style={{ margin: "8px" }}
           >
-            {t('delete')}
+            {t("delete")}
           </Button>
         </div>
       </Collapse>

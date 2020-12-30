@@ -1,21 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import { ROUTES, goTo } from '../../../actions/goTo';
+import { ROUTES, goTo } from "../../../actions/goTo";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import styles from './EntityNotFound.module.css';
+import styles from "./EntityNotFound.module.css";
 
-import {
-  Paper,
-  Button,
-  IgContainer,
-} from '../../../components/Custom';
-import {
-  Typography,
-  CardActions,
-  CardContent,
-} from '../../../components/MUI';
+import { Paper, Button, IgContainer } from "../../../components/Custom";
+import { Typography, CardActions, CardContent } from "@material-ui/core";
 
 export default function EntityNotFound() {
   const { t } = useTranslation();
@@ -33,7 +25,7 @@ export default function EntityNotFound() {
               404
             </Typography>
             <Typography gutterBottom variant="h3" component="h2">
-              {t('page_not_found')}
+              {t("page_not_found")}
             </Typography>
           </CardContent>
           <CardActions className={styles.buttons}>
@@ -45,7 +37,7 @@ export default function EntityNotFound() {
               endIcon="Home"
               onClick={handleClick}
             >
-              {t('return_home')}
+              {t("return_home")}
             </Button>
           </CardActions>
         </Paper>

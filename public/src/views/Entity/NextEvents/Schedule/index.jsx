@@ -1,9 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 
-import styles from './Schedule.module.css';
+import styles from "./Schedule.module.css";
 
-import { Container, Button } from '../../../../components/MUI';
+import { Container, Button } from "@material-ui/core";
 // import { TABS_ENUM } from '../../../Event';
 
 export default function Schedule() {
@@ -21,7 +21,7 @@ export default function Schedule() {
         color="primary"
         className={styles.button}
       >
-        {t('schedule')}
+        {t("schedule")}
       </Button>
     </Container>
   );

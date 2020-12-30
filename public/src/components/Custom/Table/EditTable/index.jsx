@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Table,
   TableBody,
@@ -7,10 +7,10 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '../../../MUI';
+} from "@material-ui/core";
 
-import CreateRow from './CreateRow';
-import DataRow from './DataRow';
+import CreateRow from "./CreateRow";
+import DataRow from "./DataRow";
 
 export default function EditTable(props) {
   const { t } = useTranslation();
@@ -35,11 +35,11 @@ export default function EditTable(props) {
             {headers.map((h, index) => (
               <TableCell key={index}>{h.display}</TableCell>
             ))}
-            <TableCell>{t('actions')}</TableCell>
+            <TableCell>{t("actions")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(d => (
+          {data.map((d) => (
             <DataRow
               datum={d}
               headers={headers}

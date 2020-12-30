@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import { IconButton } from '../../../components/Custom';
-import { goTo, ROUTES } from '../../../actions/goTo';
-import { Store } from '../../../Store';
-import { Badge } from '../../../components/MUI';
+import React, { useContext } from "react";
+import { IconButton } from "../../../components/Custom";
+import { goTo, ROUTES } from "../../../actions/goTo";
+import { Store } from "../../../Store";
+import { Badge } from "@material-ui/core";
 
 export default function CartIcon() {
   const {

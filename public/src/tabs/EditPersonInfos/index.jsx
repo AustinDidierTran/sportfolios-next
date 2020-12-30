@@ -7,7 +7,7 @@ import {
   AddressSearchInput,
   LoadingSpinner,
 } from "../../components/Custom";
-import { TextField, Typography } from "../../components/MUI";
+import { TextField, Typography } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import api from "../../actions/api";
 import { useTranslation } from "react-i18next";

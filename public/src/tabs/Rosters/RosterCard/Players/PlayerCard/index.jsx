@@ -8,7 +8,7 @@ import { Tooltip } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { FormDialog, Icon, IconButton } from "../../../../../components/Custom";
 import PersonInfoDialog from "../../../../../components/Custom/Dialog/PersonInfosDialog";
-import { Typography } from "../../../../../components/MUI";
+import { Typography } from "@material-ui/core";
 import api from "../../../../../actions/api";
 import { formatRoute } from "../../../../../actions/goTo";
 import PaymentChip from "../../../../../tabs/Settings/TeamRegistered/PaymentChip";

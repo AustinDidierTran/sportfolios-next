@@ -1,30 +1,23 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  ENTITIES_ROLE_ENUM,
-  GLOBAL_ENUM,
-} from '../../../../../common/enums';
+import React, { useState, useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from "../../../../../common/enums";
 
-import styles from './BasicInfos.module.css';
+import styles from "./BasicInfos.module.css";
 
-import { ACTION_ENUM, Store } from '../../../Store';
+import { ACTION_ENUM, Store } from "../../../Store";
 
 import {
   Avatar,
   Button,
   Input,
   LoadingSpinner,
-} from '../../../components/Custom';
-import {
-  Container,
-  Typography,
-  TextField,
-} from '../../../components/MUI';
-import { getInitialsFromName } from '../../../utils/stringFormats';
+} from "../../../components/Custom";
+import { Container, Typography, TextField } from "@material-ui/core";
+import { getInitialsFromName } from "../../../utils/stringFormats";
 /* eslint-disable-next-line */
-import api, { changeEntityName } from '../../../actions/api';
-import { useFormInput } from '../../../hooks/forms';
-import { uploadEntityPicture } from '../../../actions/aws';
+import api, { changeEntityName } from "../../../actions/api";
+import { useFormInput } from "../../../hooks/forms";
+import { uploadEntityPicture } from "../../../actions/aws";
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();
@@ -77,7 +70,7 @@ export default function BasicInfos(props) {
 
     const res = await Promise.all(promises);
 
-    const resErrors = res.filter(r => r.status !== 200);
+    const resErrors = res.filter((r) => r.status !== 200);
 
     if (!resErrors.length) {
       setEditMode(false);
@@ -122,11 +115,7 @@ export default function BasicInfos(props) {
     <Container className={styles.card}>
       <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
       {isEditMode ? (
-        <Input
-          type="file"
-          onChange={onImgChange}
-          isVisible={isEditMode}
-        />
+        <Input type="file" onChange={onImgChange} isVisible={isEditMode} />
       ) : (
         <></>
       )}
@@ -136,41 +125,40 @@ export default function BasicInfos(props) {
             <TextField
               namespace="name"
               type="text"
-              label={t('name')}
+              label={t("name")}
               {...name.inputProps}
             />
           </>
         ) : (
           <Typography variant="h3" className={styles.text}>
-            {`${name.value}${surname ? ' ' + surname : ''}`}
+            {`${name.value}${surname ? " " + surname : ""}`}
           </Typography>
         )}
       </div>
-      {role === ENTITIES_ROLE_ENUM.ADMIN &&
-      type !== GLOBAL_ENUM.PERSON ? (
+      {role === ENTITIES_ROLE_ENUM.ADMIN && type !== GLOBAL_ENUM.PERSON ? (
         isEditMode ? (
           <div className={styles.editor}>
             <Button
               className={styles.save}
               endIcon="Check"
               onClick={onSave}
-              style={{ marginRight: '8px' }}
+              style={{ marginRight: "8px" }}
             >
-              {t('save')}
+              {t("save")}
             </Button>
             <Button
               className={styles.cancel}
               endIcon="Close"
               onClick={onCancel}
-              style={{ marginLeft: '8px' }}
+              style={{ marginLeft: "8px" }}
               color="secondary"
             >
-              {t('cancel')}
+              {t("cancel")}
             </Button>
           </div>
         ) : (
           <Button onClick={onEdit} endIcon="Edit">
-            {t('edit')}
+            {t("edit")}
           </Button>
         )
       ) : (

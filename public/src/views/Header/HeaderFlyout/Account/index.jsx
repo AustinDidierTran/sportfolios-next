@@ -8,11 +8,7 @@ import {
 } from "@material-ui/core";
 import { HEADER_FLYOUT_TYPE_ENUM } from "../../../../../common/enums";
 import { Avatar, Button, Icon } from "../../../../components/Custom";
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "../../../../components/MUI";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { ACTION_ENUM, Store } from "../../../../Store";
 import { getInitialsFromName } from "../../../../utils/stringFormats";
 import { useTranslation } from "react-i18next";

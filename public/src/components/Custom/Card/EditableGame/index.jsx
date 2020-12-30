@@ -1,27 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import styles from './EditableGameItem.module.css';
+import styles from "./EditableGameItem.module.css";
 
-import { Card, TextField } from '../../../MUI';
-import { useFormInput } from '../../../../hooks/forms';
-import { useEffect } from 'react';
-import Team from './Team';
+import { Card, TextField } from "@material-ui/core";
+import { useFormInput } from "../../../../hooks/forms";
+import { useEffect } from "react";
+import Team from "./Team";
 
 export default function EditableGameItem(props) {
-  const {
-    teams,
-    changeScore,
-    saveGame,
-    field,
-    time,
-    id,
-    getRank,
-  } = props;
+  const { teams, changeScore, saveGame, field, time, id, getRank } = props;
 
   const fieldInput = useFormInput(field);
   const timeInput = useFormInput(time);
 
-  const theTeams = teams.map(team => {
+  const theTeams = teams.map((team) => {
     return { ...team, input: useFormInput(team.score) };
   });
 

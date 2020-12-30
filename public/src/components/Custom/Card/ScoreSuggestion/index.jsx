@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import styles from "./ScoreSuggestion.module.css";
 
 import { IconButton } from "../../";
-import { Typography, ListItemText, Card } from "../../../MUI";
+import { Typography, ListItemText, Card } from "@material-ui/core";
 import { formatDate } from "../../../../utils/stringFormats";
 import { STATUS_ENUM } from "../../../../../common/enums";
 import { Chip, makeStyles } from "@material-ui/core";

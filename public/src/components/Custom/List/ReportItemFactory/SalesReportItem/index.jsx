@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ListItem, ListItemText } from "../../../../MUI";
+import { ListItem, ListItemText } from "@material-ui/core";
 import { DownloadReportDialog, IconButton } from "../../..";
 import { useTranslation } from "react-i18next";
 import { formatDate, formatPrice } from "../../../../../utils/stringFormats";

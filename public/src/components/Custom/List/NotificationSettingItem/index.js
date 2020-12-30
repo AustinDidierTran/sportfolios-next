@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NOTIFICATION_MEDIA, SEVERITY_ENUM } from "../../../../../common/enums";
 import { Icon } from "../../../Custom";
-import { Typography } from "../../../MUI";
+import { Typography } from "@material-ui/core";
 import { Store, ACTION_ENUM } from "../../../../Store";
 
 export default function NotificationSettingsItem(props) {

@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-} from 'react-beautiful-dnd';
-import Divider from '@material-ui/core/Divider';
-import { ListItem, ListItemText } from '../../MUI';
-import styles from './DnDSimpleList.module.css';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Divider from "@material-ui/core/Divider";
+import { ListItem, ListItemText } from "@material-ui/core";
+import styles from "./DnDSimpleList.module.css";
 
 const grid = 8;
 
@@ -20,15 +16,15 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  userSelect: "none",
+  background: isDragging ? "#F0F0F0" : "white",
   ...draggableStyle,
 });
 
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
+const getListStyle = (isDraggingOver) => ({
+  background: isDraggingOver ? "whitesmoke" : "white",
   padding: grid,
-  width: '100%',
+  width: "100%",
 });
 
 export default function CustomSimpleListDnD(props) {
@@ -40,14 +36,14 @@ export default function CustomSimpleListDnD(props) {
     setItems(itemsProps);
   }, [itemsProps]);
 
-  const onDragEnd = result => {
+  const onDragEnd = (result) => {
     if (!result.destination) {
       return;
     }
     const newItems = reorder(
       items,
       result.source.index,
-      result.destination.index,
+      result.destination.index
     );
     setItems(newItems);
   };
@@ -62,11 +58,7 @@ export default function CustomSimpleListDnD(props) {
             style={getListStyle(snapshot.isDraggingOver)}
           >
             {items.map((item, index) => (
-              <Draggable
-                key={item.id}
-                draggableId={item.id}
-                index={index}
-              >
+              <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -74,15 +66,12 @@ export default function CustomSimpleListDnD(props) {
                     {...provided.dragHandleProps}
                     style={getItemStyle(
                       snapshot.isDragging,
-                      provided.draggableProps.style,
+                      provided.draggableProps.style
                     )}
                   >
                     {withIndex ? (
                       <ListItem>
-                        <div
-                          className={styles.main}
-                          style={{ width: '100%' }}
-                        >
+                        <div className={styles.main} style={{ width: "100%" }}>
                           <ListItemText
                             className={styles.position}
                             secondary={index + 1}
@@ -95,7 +84,7 @@ export default function CustomSimpleListDnD(props) {
                       </ListItem>
                     ) : (
                       <ListItem>
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: "100%" }}>
                           <ListItemText primary={item.content} />
                         </div>
                       </ListItem>

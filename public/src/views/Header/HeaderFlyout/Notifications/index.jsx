@@ -9,7 +9,7 @@ import {
 import api from "../../../../actions/api";
 import { formatRoute } from "../../../../actions/goTo";
 import { ACTION_ENUM, Store } from "../../../../Store";
-import { Typography } from "../../../../components/MUI";
+import { Typography } from "@material-ui/core";
 
 import styles from "../HeaderFlyout.module.css";
 

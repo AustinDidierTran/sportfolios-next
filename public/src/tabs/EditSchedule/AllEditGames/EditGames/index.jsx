@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import styles from './EditGames.module.css';
-import { Collapse, IconButton } from '../../../../components/Custom';
-import { Typography } from '../../../../components/MUI';
-import { Divider } from '@material-ui/core';
-import ScoreSuggestion from './ScoreSuggestion';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState, useMemo } from "react";
+import styles from "./EditGames.module.css";
+import { Collapse, IconButton } from "../../../../components/Custom";
+import { Divider, Typography } from "@material-ui/core";
+import ScoreSuggestion from "./ScoreSuggestion";
+import { useTranslation } from "react-i18next";
 
 export default function EditGames(props) {
   const { games, title, isOpen, update } = props;
@@ -17,8 +16,8 @@ export default function EditGames(props) {
   };
 
   const icon = useMemo(
-    () => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'),
-    [expanded],
+    () => (expanded ? "KeyboardArrowUp" : "KeyboardArrowDown"),
+    [expanded]
   );
 
   useEffect(() => {
@@ -30,17 +29,11 @@ export default function EditGames(props) {
       <div className={styles.collapse} onClick={handleExpand}>
         <div className={styles.nothing} />
         {games.length > 99 ? (
-          <Typography
-            className={styles.seeScore}
-            color="textSecondary"
-          >
+          <Typography className={styles.seeScore} color="textSecondary">
             {`${title} (99+)`}
           </Typography>
         ) : (
-          <Typography
-            className={styles.seeScore}
-            color="textSecondary"
-          >
+          <Typography className={styles.seeScore} color="textSecondary">
             {`${title} (${games.length})`}
           </Typography>
         )}
@@ -48,7 +41,7 @@ export default function EditGames(props) {
           aria-expanded={expanded}
           icon={icon}
           className={styles.iconButton}
-          style={{ color: 'grey' }}
+          style={{ color: "grey" }}
         />
       </div>
       <Divider className={styles.divider} />
@@ -60,18 +53,12 @@ export default function EditGames(props) {
       >
         {games.length ? (
           <>
-            {games.map(game => (
-              <ScoreSuggestion
-                game={game}
-                update={update}
-                key={game.id}
-              />
+            {games.map((game) => (
+              <ScoreSuggestion game={game} update={update} key={game.id} />
             ))}
           </>
         ) : (
-          <Typography color="textSecondary">
-            {t('no_games')}
-          </Typography>
+          <Typography color="textSecondary">{t("no_games")}</Typography>
         )}
       </Collapse>
     </>

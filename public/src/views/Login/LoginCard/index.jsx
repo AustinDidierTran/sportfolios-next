@@ -8,7 +8,7 @@ import {
   Divider,
   TextField,
   Typography,
-} from "../../../components/MUI";
+} from "@material-ui/core";
 import { Paper } from "../../../components/Custom";
 import { LOGIN_STATE_ENUM } from "../../../../common/enums";
 import { AddGaEvent } from "../../../components/Custom/Analytics";

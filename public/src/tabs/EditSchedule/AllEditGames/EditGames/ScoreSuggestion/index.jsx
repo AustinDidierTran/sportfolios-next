@@ -4,7 +4,7 @@ import api from "../../../../../actions/api";
 import { formatRoute } from "../../../../../actions/goTo";
 import EditGame from "./EditGame";
 import { Card, IconButton, Collapse } from "../../../../../components/Custom";
-import { Typography } from "../../../../../components/MUI";
+import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import styles from "./ScoreSuggestion.module.css";
 import { makeStyles } from "@material-ui/core/styles";

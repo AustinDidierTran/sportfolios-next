@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-} from 'react-beautiful-dnd';
-import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
-import { Icon, Button } from '../';
-import { ListItem, ListItemText } from '../../MUI';
-import styles from './AccordionDnD.module.css';
-import { ListItemIcon } from '@material-ui/core';
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Divider from "@material-ui/core/Divider";
+import { makeStyles } from "@material-ui/core/styles";
+import { Icon, Button } from "../";
+import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
+import styles from "./AccordionDnD.module.css";
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
-    justifySelf: 'end',
+    "&:hover, &.Mui-focusVisible": { backgroundColor: "lightGrey" },
+    justifySelf: "end",
   },
 }));
 
@@ -31,24 +26,18 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  userSelect: "none",
+  background: isDragging ? "#F0F0F0" : "white",
   ...draggableStyle,
 });
 
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
-  width: '100%',
+const getListStyle = (isDraggingOver) => ({
+  background: isDraggingOver ? "whitesmoke" : "white",
+  width: "100%",
 });
 
 export default function CustomAccordionDnD(props) {
-  const {
-    title,
-    items: itemsProps,
-    withIndex,
-    buttons,
-    ...otherProps
-  } = props;
+  const { title, items: itemsProps, withIndex, buttons, ...otherProps } = props;
   const classes = useStyles();
 
   const [expanded, setExpanded] = useState(false);
@@ -63,28 +52,22 @@ export default function CustomAccordionDnD(props) {
     setExpanded(exp);
   };
 
-  const onDragEnd = result => {
+  const onDragEnd = (result) => {
     if (!result.destination) {
       return;
     }
     const newItems = reorder(
       items,
       result.source.index,
-      result.destination.index,
+      result.destination.index
     );
     setItems(newItems);
   };
 
   return (
-    <Accordion
-      expanded={expanded}
-      onChange={onExpand}
-      {...otherProps}
-    >
+    <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
       <AccordionSummary
-        expandIcon={
-          <Icon icon="ExpandMore" className={classes.primary} />
-        }
+        expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}
       >
         <ListItemText primary={title} />
       </AccordionSummary>
@@ -126,20 +109,17 @@ export default function CustomAccordionDnD(props) {
                           {...provided.dragHandleProps}
                           style={getItemStyle(
                             snapshot.isDragging,
-                            provided.draggableProps.style,
+                            provided.draggableProps.style
                           )}
                         >
                           {withIndex ? (
                             <ListItem>
                               <ListItemIcon>
-                                <Icon
-                                  icon="Reorder"
-                                  color="textSecondary"
-                                />
+                                <Icon icon="Reorder" color="textSecondary" />
                               </ListItemIcon>
                               <div
                                 className={styles.main}
-                                style={{ width: '100%' }}
+                                style={{ width: "100%" }}
                               >
                                 <ListItemText
                                   className={styles.position}
@@ -153,10 +133,8 @@ export default function CustomAccordionDnD(props) {
                             </ListItem>
                           ) : (
                             <ListItem>
-                              <div style={{ width: '100%' }}>
-                                <ListItemText
-                                  primary={item.content}
-                                />
+                              <div style={{ width: "100%" }}>
+                                <ListItemText primary={item.content} />
                               </div>
                             </ListItem>
                           )}

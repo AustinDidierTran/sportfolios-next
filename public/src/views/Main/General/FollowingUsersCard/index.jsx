@@ -1,13 +1,13 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-import styles from './FollowingUsersCard.module.css';
+import styles from "./FollowingUsersCard.module.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-import { Avatar, Paper } from '../../../../components/Custom';
+import { Avatar, Paper } from "../../../../components/Custom";
 
 import {
   List,
@@ -24,8 +24,8 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-} from '../../../../components/MUI';
-import { goTo, ROUTES } from '../../../../actions/goTo';
+} from "@material-ui/core";
+import { goTo, ROUTES } from "../../../../actions/goTo";
 
 export default function FollowingUsersCard(props) {
   const { t } = useTranslation();
@@ -33,21 +33,20 @@ export default function FollowingUsersCard(props) {
 
   const { users } = props;
 
-  const fullName = user => `${user.first_name} ${user.last_name}`;
+  const fullName = (user) => `${user.first_name} ${user.last_name}`;
 
-  const initials = user =>
+  const initials = (user) =>
     fullName(user)
       .split(/(?:-| )+/)
       .reduce(
-        (prev, curr, index) =>
-          index <= 2 ? `${prev}${curr[0]}` : prev,
-        '',
+        (prev, curr, index) => (index <= 2 ? `${prev}${curr[0]}` : prev),
+        ""
       );
 
   return (
     <Paper className={styles.card}>
       <Typography gutterBottom component="h2" variant="h5">
-        {t('following')}
+        {t("following")}
       </Typography>
       <List
         component="nav"
@@ -57,12 +56,10 @@ export default function FollowingUsersCard(props) {
         className={styles.list}
       >
         {users.length ? (
-          users.map(user => (
+          users.map((user) => (
             <ListItem
               button
-              onClick={() =>
-                goTo(ROUTES.entity, { id: user.user_id })
-              }
+              onClick={() => goTo(ROUTES.entity, { id: user.user_id })}
               key={fullName(user)}
             >
               <ListItemIcon className={styles.icon}>
@@ -78,7 +75,7 @@ export default function FollowingUsersCard(props) {
           ))
         ) : (
           <Typography gutterBottom component="h4" variant="h5">
-            {t('no_following')}
+            {t("no_following")}
           </Typography>
         )}
       </List>

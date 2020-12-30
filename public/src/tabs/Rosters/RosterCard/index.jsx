@@ -3,7 +3,7 @@ import styles from "./RosterCard.module.css";
 import { Paper, Icon, Avatar } from "../../../components/Custom";
 
 import Players from "./Players";
-import { Typography } from "../../../components/MUI";
+import { Typography } from "@material-ui/core";
 import Tag from "../Tag";
 import {
   ROSTER_ROLE_ENUM,

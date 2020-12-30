@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { TextField } from '../../MUI';
+import { TextField } from "@material-ui/core";
 
-import FileInput from './FileInput';
+import FileInput from "./FileInput";
 
-import DateInput from './DateInput';
+import DateInput from "./DateInput";
 
-import DateTimeInput from './TimeInput';
+import DateTimeInput from "./TimeInput";
 
 export default function CustomInput(props) {
   const { isVisible = true, type, ...inputProps } = props;
@@ -15,15 +15,15 @@ export default function CustomInput(props) {
     return <></>;
   }
   switch (type) {
-    case 'date':
+    case "date":
       return <DateInput {...props} />;
-    case 'time':
+    case "time":
       return <DateTimeInput type="time" {...inputProps} />;
-    case 'file':
+    case "file":
       return <FileInput type="file" {...inputProps} />;
-    case 'number':
+    case "number":
       return <TextField type="number" {...inputProps} />;
-    case 'text':
+    case "text":
       return <TextField type="text" {...inputProps} />;
     default:
       return <TextField {...props} />;

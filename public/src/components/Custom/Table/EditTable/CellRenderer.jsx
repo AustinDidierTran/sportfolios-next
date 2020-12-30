@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import Input from '../../Input';
-import { TableCell } from '../../../MUI';
+import Input from "../../Input";
+import { TableCell } from "@material-ui/core";
 
 export default function CellRenderer(props) {
   const {
     error,
-    header: { display, value, type = 'text' },
+    header: { display, value, type = "text" },
     index,
     ...values
   } = props;
 
   switch (type) {
-    case 'number':
+    case "number":
       return (
         <TableCell key={index}>
           <Input

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Paper } from "../../components/Custom";
-import { TextField } from "../../components/MUI";
+import { TextField } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import AddTeams from "./AddTeams";
 import Games from "./Games";

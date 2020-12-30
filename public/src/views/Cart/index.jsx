@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import TabsGenerator from "../../tabs";
 import { goTo, ROUTES } from "../../actions/goTo";
-import { Tab, Tabs } from "../../components/MUI";
+import { Tab, Tabs } from "@material-ui/core";
 import { IgContainer, Paper } from "../../components/Custom";
 import { TABS_ENUM } from "../../../../common/enums";
 import { useRouter } from "next/router";

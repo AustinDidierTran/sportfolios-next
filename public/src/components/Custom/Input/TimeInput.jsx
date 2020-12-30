@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import { TextField } from '../../MUI';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import moment from "moment";
+import { TextField } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 export default function CustomDateInput(props) {
   const { error, value } = { ...props };
@@ -13,9 +13,9 @@ export default function CustomDateInput(props) {
     var date = moment(value);
 
     if (!date.isValid()) {
-      setInputError(t('invalid_date_it_should_follow'));
+      setInputError(t("invalid_date_it_should_follow"));
     } else if (date > moment()) {
-      setInputError(t('date_in_future'));
+      setInputError(t("date_in_future"));
     } else {
       setInputError();
     }

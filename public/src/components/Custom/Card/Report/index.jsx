@@ -1,6 +1,5 @@
-import { CardActionArea } from '@material-ui/core';
-import React from 'react';
-import { Card, ListItemText } from '../../../MUI';
+import React from "react";
+import { Card, CardActionArea, ListItemText } from "@material-ui/core";
 
 export default function Report(props) {
   const { title, description, onClick } = props;

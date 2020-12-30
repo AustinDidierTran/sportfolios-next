@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import React, { useContext } from "react";
+import { Store, SCREENSIZE_ENUM } from "../../../Store";
 
-import { AppBar, Toolbar } from '../../../components/MUI';
+import { AppBar, Toolbar } from "@material-ui/core";
 
-import styles from './Default.module.css';
-import LoggedIn from '../LoggedIn';
+import styles from "./Default.module.css";
+import LoggedIn from "../LoggedIn";
 
 export default function DefaultHeader(props) {
   const {

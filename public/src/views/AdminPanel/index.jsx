@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import styles from './AdminPanel.module.css';
+import styles from "./AdminPanel.module.css";
 
-import { Typography } from '../../components/MUI';
-import { Container } from '../../components/Custom';
-import SportsTable from './SportsTable';
-import UsersTable from './UsersTable';
-import GaEventsTable from './GoogleAnalyticsEventsTable';
-import GaPageviewsTable from './GoogleAnalyticsPageviewsTable';
-import TaxRatesTable from './TaxRatesTable';
+import { Typography } from "@material-ui/core";
+import { Container } from "../../components/Custom";
+import SportsTable from "./SportsTable";
+import UsersTable from "./UsersTable";
+import GaEventsTable from "./GoogleAnalyticsEventsTable";
+import GaPageviewsTable from "./GoogleAnalyticsPageviewsTable";
+import TaxRatesTable from "./TaxRatesTable";
 
 export default function AdminPanel() {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ export default function AdminPanel() {
         className={styles.title}
         style={{ marginTop: 24 }}
       >
-        {t('admin_panel')}
+        {t("admin_panel")}
       </Typography>
       <UsersTable />
       <SportsTable />

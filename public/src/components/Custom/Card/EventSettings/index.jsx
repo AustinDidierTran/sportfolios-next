@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { useFormInput } from '../../../../hooks/forms';
-import { Input, Paper, Button } from '../../../Custom';
-import { List, ListItem } from '../../../MUI';
-import { useTranslation } from 'react-i18next';
-import styles from './EventSettings.module.css';
+import { useFormInput } from "../../../../hooks/forms";
+import { Input, Paper, Button } from "../../../Custom";
+import { List, ListItem } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
+import styles from "./EventSettings.module.css";
 
 export default function EventSettings(props) {
   const { fields, onSave } = props;
@@ -12,7 +12,7 @@ export default function EventSettings(props) {
 
   const values = fields.reduce(
     (prev, f) => [...prev, useFormInput(f.initialValue)],
-    [],
+    []
   );
 
   useEffect(() => {
@@ -22,16 +22,16 @@ export default function EventSettings(props) {
   }, [fields]);
 
   const onReset = () => {
-    Object.keys(values).forEach(key => values[key].reset());
+    Object.keys(values).forEach((key) => values[key].reset());
   };
 
   const handleSave = async () => {
     let isValid = true;
     const start_date = values[1].value;
     const end_date = values[2].value;
-    Object.keys(values).forEach(key => {
-      if (values[key].value === '' || values[key].value === null) {
-        values[key].setError(t('value_is_required'));
+    Object.keys(values).forEach((key) => {
+      if (values[key].value === "" || values[key].value === null) {
+        values[key].setError(t("value_is_required"));
         isValid = false;
       } else {
         values[key].setError(null);
@@ -39,9 +39,9 @@ export default function EventSettings(props) {
     });
 
     fields.map((f, index) => {
-      if (f.display === t('maximum_spots')) {
+      if (f.display === t("maximum_spots")) {
         if (values[index].value < 0) {
-          values[index].setError(t('invalid_input'));
+          values[index].setError(t("invalid_input"));
           isValid = false;
         }
       }
@@ -73,10 +73,10 @@ export default function EventSettings(props) {
           size="small"
           variant="contained"
           endIcon="Check"
-          style={{ marginTop: '8px' }}
+          style={{ marginTop: "8px" }}
           onClick={handleSave}
         >
-          {t('save')}
+          {t("save")}
         </Button>
       </List>
     </Paper>

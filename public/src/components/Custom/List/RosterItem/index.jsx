@@ -1,6 +1,6 @@
 import React, { useMemo, useContext } from "react";
 import { Select, IconButton } from "../../../Custom";
-import { ListItem, ListItemIcon, Typography } from "../../../MUI";
+import { ListItem, ListItemIcon, Typography } from "@material-ui/core";
 import { Avatar } from "../..";
 import { getInitialsFromName } from "../../../../utils/stringFormats/index";
 import { useTranslation } from "react-i18next";

@@ -1,13 +1,13 @@
-import React from 'react';
-import { TableCell } from '../../../../MUI';
-import { Button, IconButton } from '../../../../Custom';
-import { goTo } from '../../../../../actions/goTo';
-import Switch from '@material-ui/core/Switch';
+import React from "react";
+import { TableCell } from "@material-ui/core";
+import { Button, IconButton } from "../../../../Custom";
+import { goTo } from "../../../../../actions/goTo";
+import Switch from "@material-ui/core/Switch";
 
 export default function TableFactory(props) {
   const { d, h } = props;
 
-  if (h.type === 'button') {
+  if (h.type === "button") {
     return (
       <TableCell>
         <Button
@@ -22,7 +22,7 @@ export default function TableFactory(props) {
     );
   }
 
-  if (h.type === 'toggle') {
+  if (h.type === "toggle") {
     return (
       <TableCell>
         <Switch
@@ -35,13 +35,13 @@ export default function TableFactory(props) {
       </TableCell>
     );
   }
-  if (h.type === 'iconButton') {
+  if (h.type === "iconButton") {
     return (
       <TableCell>
         <IconButton
           onClick={d.onIconButtonClick}
           icon={d.icon}
-          style={{ color: 'primary' }}
+          style={{ color: "primary" }}
         />
       </TableCell>
     );

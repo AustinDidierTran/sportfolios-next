@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Games.module.css';
-import Game from './Game';
-import { Collapse, IconButton } from '../../../../components/Custom';
-import { Typography } from '../../../../components/MUI';
-import { Divider } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from "react";
+import styles from "./Games.module.css";
+import Game from "./Game";
+import { Collapse, IconButton } from "../../../../components/Custom";
+import { Divider, Typography } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 export default function Games(props) {
   const { games, title, isOpen } = props;
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(isOpen);
-  const [icon, setIcon] = useState('KeyboardArrowDown');
+  const [icon, setIcon] = useState("KeyboardArrowDown");
 
   const handleExpand = () => {
     const newExpanded = !expanded;
     setExpanded(newExpanded);
     if (newExpanded === true) {
-      setIcon('KeyboardArrowUp');
+      setIcon("KeyboardArrowUp");
     } else {
-      setIcon('KeyboardArrowDown');
+      setIcon("KeyboardArrowDown");
     }
   };
 
   useEffect(() => {
     setExpanded(isOpen);
     if (isOpen) {
-      setIcon('KeyboardArrowUp');
+      setIcon("KeyboardArrowUp");
     }
   }, [isOpen]);
 
@@ -35,17 +34,11 @@ export default function Games(props) {
       <div className={styles.collapse} onClick={handleExpand}>
         <div className={styles.nothing} />
         {games.length > 99 ? (
-          <Typography
-            className={styles.seeScore}
-            color="textSecondary"
-          >
+          <Typography className={styles.seeScore} color="textSecondary">
             {`${title} (99+)`}
           </Typography>
         ) : (
-          <Typography
-            className={styles.seeScore}
-            color="textSecondary"
-          >
+          <Typography className={styles.seeScore} color="textSecondary">
             {`${title} (${games.length})`}
           </Typography>
         )}
@@ -53,7 +46,7 @@ export default function Games(props) {
           aria-expanded={expanded}
           icon={icon}
           className={styles.iconButton}
-          style={{ color: 'grey' }}
+          style={{ color: "grey" }}
         />
       </div>
       <Divider className={styles.divider} />
@@ -64,11 +57,9 @@ export default function Games(props) {
         className={styles.games}
       >
         {games.length ? (
-          games.map(game => <Game game={game} key={game.id} />)
+          games.map((game) => <Game game={game} key={game.id} />)
         ) : (
-          <Typography color="textSecondary">
-            {t('no_games')}
-          </Typography>
+          <Typography color="textSecondary">{t("no_games")}</Typography>
         )}
       </Collapse>
     </>

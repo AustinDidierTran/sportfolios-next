@@ -4,7 +4,7 @@ import { Store } from "../../Store";
 import LoggedIn from "./LoggedIn";
 import Default from "./Default";
 import LoggedOut from "./LoggedOut";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import api from "../../actions/api";
 import { GLOBAL_ENUM } from "../../../common/enums";
 import CartIcon from "../Cart/CartICon";

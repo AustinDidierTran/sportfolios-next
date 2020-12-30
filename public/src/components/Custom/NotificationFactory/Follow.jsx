@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import { Avatar } from '..';
+import { Avatar } from "..";
 
-import { ListItem, ListItemIcon, ListItemText } from '../../MUI';
-import { goTo, ROUTES } from '../../../actions/goTo';
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { goTo, ROUTES } from "../../../actions/goTo";
 
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import styles from './NotificationFactory.module.css';
-import api from '../../../actions/api';
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import styles from "./NotificationFactory.module.css";
+import api from "../../../actions/api";
 
 export default function FollowNotification(props) {
   const { t } = useTranslation();
@@ -29,8 +29,8 @@ export default function FollowNotification(props) {
   ]);
 
   const text = useMemo(
-    () => t('follow_notification_text', { follower: fullName }),
-    [fullName],
+    () => t("follow_notification_text", { follower: fullName }),
+    [fullName]
   );
 
   const initials = useMemo(
@@ -38,17 +38,16 @@ export default function FollowNotification(props) {
       fullName
         .split(/(?:-| )+/)
         .reduce(
-          (prev, curr, index) =>
-            index <= 2 ? `${prev}${curr[0]}` : prev,
-          '',
+          (prev, curr, index) => (index <= 2 ? `${prev}${curr[0]}` : prev),
+          ""
         ),
-    [fullName],
+    [fullName]
   );
 
   const onClick = async () => {
     if (!seen_at) {
-      await api('/api/notifications/follow/see', {
-        method: 'POST',
+      await api("/api/notifications/follow/see", {
+        method: "POST",
         body: JSON.stringify({
           follower,
         }),
@@ -68,11 +67,7 @@ export default function FollowNotification(props) {
         />
       </ListItemIcon>
       <ListItemText primary={text} />
-      {seen_at ? (
-        <></>
-      ) : (
-        <FiberManualRecordIcon style={{ color: '#54b095' }} />
-      )}
+      {seen_at ? <></> : <FiberManualRecordIcon style={{ color: "#54b095" }} />}
     </ListItem>
   );
 }

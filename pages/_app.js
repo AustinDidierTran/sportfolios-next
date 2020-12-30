@@ -1,4 +1,4 @@
-import { StoreProvider } from "../public/src/Store";
+import { Store, StoreProvider } from "../public/src/Store";
 import "../styles/globals.css";
 import { I18nextProvider } from "react-i18next";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -27,7 +27,9 @@ function MyApp({ Component, pageProps }) {
               <div className={styles.header}>
                 <Header />
               </div>
-              <Component {...pageProps} />
+              <div className={styles.main}>
+                <Component {...pageProps} />
+              </div>
               <SpeedDial />
               <SnackBar />
               <BottomNavigation />

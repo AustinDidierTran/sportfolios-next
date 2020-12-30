@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useFormInput } from '../../../../hooks/forms';
-import { TableRow, TableCell } from '../../../MUI';
+import { useFormInput } from "../../../../hooks/forms";
+import { TableRow, TableCell } from "@material-ui/core";
 
-import IconButton from '../../IconButton';
+import IconButton from "../../IconButton";
 
 // Buttons
-import CellRenderer from './CellRenderer';
+import CellRenderer from "./CellRenderer";
 
 export default function CreateRow(props) {
   const { allowCreate, headers, onCreate, validationSchema } = props;
@@ -15,16 +15,16 @@ export default function CreateRow(props) {
   const values = headers.reduce(
     (prev, h) => ({
       ...prev,
-      [h.value]: useFormInput(h.initialValue || ''),
+      [h.value]: useFormInput(h.initialValue || ""),
     }),
-    {},
+    {}
   );
 
   const onReset = () => {
-    Object.keys(values).forEach(key => values[key].reset());
+    Object.keys(values).forEach((key) => values[key].reset());
   };
 
-  const validateValues = async v => {
+  const validateValues = async (v) => {
     if (!validationSchema) {
       return true;
     }
@@ -49,7 +49,7 @@ export default function CreateRow(props) {
         ...prev,
         [key]: values[key].value,
       }),
-      {},
+      {}
     );
 
     return validationSchema.cast(flattenedValues);
@@ -59,7 +59,7 @@ export default function CreateRow(props) {
     const formattedValues = flattenValues();
 
     const { isValid, errors, validatedValues } = await validateValues(
-      formattedValues,
+      formattedValues
     );
 
     if (!isValid) {

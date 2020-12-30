@@ -18,7 +18,7 @@ import {
   SEVERITY_ENUM,
   STATUS_ENUM,
 } from "../../../../common/enums";
-import { ListItem, ListItemText } from "../../components/MUI";
+import { ListItem, ListItemText } from "@material-ui/core";
 import { useFormik } from "formik";
 import styles from "./ImportMembers.module.css";
 import { validateDateWithYear, validateEmail } from "../../utils/stringFormats";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Paper, Button } from "../../../components/Custom";
-import { Typography } from "../../../components/MUI";
+import { Typography } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
 import { formatRoute } from "../../../actions/goTo";

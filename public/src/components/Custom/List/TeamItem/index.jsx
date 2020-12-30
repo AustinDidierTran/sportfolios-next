@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from "react";
 
-import { ListItem, ListItemIcon, ListItemText } from '../../../MUI';
-import { Avatar, Icon } from '../..';
-import { getInitialsFromName } from '../../../../utils/stringFormats/index';
-import { useTranslation } from 'react-i18next';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import styles from './TeamItem.module.css';
-import IconButton from '@material-ui/core/IconButton';
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Avatar, Icon } from "../..";
+import { getInitialsFromName } from "../../../../utils/stringFormats/index";
+import { useTranslation } from "react-i18next";
+import { goTo, ROUTES } from "../../../../actions/goTo";
+import styles from "./TeamItem.module.css";
+import IconButton from "@material-ui/core/IconButton";
 
 export default function TeamItem(props) {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export default function TeamItem(props) {
   const initials = useMemo(() => getInitialsFromName(name), [name]);
 
   const handleClick = useCallback(
-    e => {
+    (e) => {
       if (notClickable || isRegistered) {
         return;
       }
@@ -38,7 +38,7 @@ export default function TeamItem(props) {
         goTo(ROUTES.entity, { id });
       }
     },
-    [id, onClick, name],
+    [id, onClick, name]
   );
 
   return (
@@ -47,7 +47,7 @@ export default function TeamItem(props) {
       onClick={handleClick}
       selected={selected}
       style={{
-        opacity: isRegistered ? '0.4' : '1',
+        opacity: isRegistered ? "0.4" : "1",
       }}
     >
       <ListItemIcon>
@@ -59,17 +59,13 @@ export default function TeamItem(props) {
             initials={initials}
           ></Avatar>
         ) : (
-          <Avatar
-            photoUrl={photoUrl}
-            icon={icon}
-            initials={initials}
-          ></Avatar>
+          <Avatar photoUrl={photoUrl} icon={icon} initials={initials}></Avatar>
         )}
       </ListItemIcon>
       <ListItemText
         className={styles.text}
         primary={name}
-        secondary={secondary || t('team')}
+        secondary={secondary || t("team")}
       ></ListItemText>
       {onDelete ? (
         <IconButton

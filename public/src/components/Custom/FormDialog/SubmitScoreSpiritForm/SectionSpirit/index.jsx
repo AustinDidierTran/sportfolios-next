@@ -10,7 +10,7 @@ import {
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { Button, Collapse, IconButton } from "../../..";
-import { TextField, Typography } from "../../../../MUI";
+import { TextField, Typography } from "@material-ui/core";
 import { STATUS_ENUM, SEVERITY_ENUM } from "../../../../../../common/enums";
 import { ACTION_ENUM, Store } from "../../../../../Store";
 import api from "../../../../../actions/api";

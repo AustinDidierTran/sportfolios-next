@@ -7,7 +7,7 @@ import {
 
 import Link from "next/link";
 
-import { AppBar, Toolbar, Typography } from "../../../components/MUI";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import {
   IconButton,
   SearchInput,

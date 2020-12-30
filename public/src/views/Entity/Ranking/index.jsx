@@ -1,55 +1,50 @@
-import React from 'react';
+import React from "react";
 
-import {
-  List,
-  ListItem,
-  Typography,
-  Container,
-} from '../../../components/MUI';
-import { Avatar, Paper } from '../../../components/Custom';
-import styles from './Ranking.module.css';
-import { useTranslation } from 'react-i18next';
+import { List, ListItem, Typography, Container } from "@material-ui/core";
+import { Avatar, Paper } from "../../../components/Custom";
+import styles from "./Ranking.module.css";
+import { useTranslation } from "react-i18next";
 
 export default function Ranking() {
   const { t } = useTranslation();
 
   const categories = [
     {
-      name: 'Élite',
+      name: "Élite",
       teams: [
         {
           name: "Sherbrooke Gentlemen's Club",
-          initials: 'SGC',
+          initials: "SGC",
           photoUrl: null,
           position: 3,
         },
-        { name: 'Manic', initials: 'M', photoUrl: null, position: 2 },
+        { name: "Manic", initials: "M", photoUrl: null, position: 2 },
         {
-          name: 'Quake',
-          initials: 'Qk',
+          name: "Quake",
+          initials: "Qk",
           photoUrl: null,
           position: 1,
         },
       ],
     },
     {
-      name: 'Compétitif',
+      name: "Compétitif",
       teams: [
         {
-          name: 'Magma',
-          initials: 'Mg',
+          name: "Magma",
+          initials: "Mg",
           photoUrl: null,
           position: 3,
         },
         {
-          name: 'Inferno',
-          initials: 'If',
+          name: "Inferno",
+          initials: "If",
           photoUrl: null,
           position: 2,
         },
         {
-          name: 'Mesa',
-          initials: 'Ms',
+          name: "Mesa",
+          initials: "Ms",
           photoUrl: null,
           position: 1,
         },
@@ -57,13 +52,13 @@ export default function Ranking() {
     },
   ];
 
-  categories.map(categorie =>
-    categorie.teams.sort((a, b) => a.position - b.position),
+  categories.map((categorie) =>
+    categorie.teams.sort((a, b) => a.position - b.position)
   );
   return (
     <Paper className={styles.bigCard}>
       <Typography variant="h3" className={styles.title}>
-        {t('preranking')}
+        {t("preranking")}
       </Typography>
       <hr className={styles.divider}></hr>
       {categories.map((categorie, index) => (

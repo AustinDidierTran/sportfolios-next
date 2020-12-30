@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useFormik } from "formik";
-import { TextField, Typography } from "../../components/MUI";
+import { TextField, Typography } from "@material-ui/core";
 import {
   Paper,
   LoadingSpinner,

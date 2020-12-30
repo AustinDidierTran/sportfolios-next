@@ -4,7 +4,7 @@ import moment from "moment";
 import api from "../../actions/api";
 import { formatRoute, goTo, ROUTES } from "../../actions/goTo";
 import { formatDate } from "../../utils/stringFormats";
-import { Typography } from "../../components/MUI";
+import { Typography } from "@material-ui/core";
 import {
   LoadingSpinner,
   Icon,

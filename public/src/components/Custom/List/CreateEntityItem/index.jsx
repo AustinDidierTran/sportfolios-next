@@ -1,8 +1,8 @@
-import React from 'react';
-import { Icon } from '../..';
-import { ListItem, ListItemIcon, ListItemText } from '../../../MUI';
+import React from "react";
+import { Icon } from "../..";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import styles from './CreateEntityItem.module.css';
+import styles from "./CreateEntityItem.module.css";
 
 export default function CreateEntityItem(props) {
   const { icon, title, description, onClick } = props;

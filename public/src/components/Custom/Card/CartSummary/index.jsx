@@ -1,8 +1,7 @@
-import { Divider } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../../../../../common/utils/stringFormat";
-import { Card, ListItemText } from "../../../MUI";
+import { Card, Divider, ListItemText } from "@material-ui/core";
 import styles from "./CartSummary.module.css";
 
 export default function CartSummary(props) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Table,
@@ -7,9 +7,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '../../../MUI';
-import TableFactory from './TableFactory';
-import styles from './ViewTable.module.css';
+} from "@material-ui/core";
+import TableFactory from "./TableFactory";
+import styles from "./ViewTable.module.css";
 
 export default function ViewTable(props) {
   const { data, description, headers, onRowClick, title } = props;
@@ -35,10 +35,7 @@ export default function ViewTable(props) {
         </TableHead>
         <TableBody>
           {data.map((d, index) => (
-            <TableRow
-              key={index}
-              onClick={onRowClick && onRowClick(d)}
-            >
+            <TableRow key={index} onClick={onRowClick && onRowClick(d)}>
               {headers.map((h, index) => (
                 <TableFactory d={d} h={h} key={index} />
               ))}

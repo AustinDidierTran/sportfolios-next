@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { fade, makeStyles } from "@material-ui/core/styles";
 
-import { AppBar, Toolbar, Typography } from "../../../components/MUI";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import styles from "../Header.module.css";
 const useStyles = makeStyles((theme) => ({
   grow: {

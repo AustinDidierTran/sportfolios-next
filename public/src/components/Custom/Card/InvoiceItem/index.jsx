@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import styles from './Item.module.css';
+import styles from "./Item.module.css";
 
-import { Typography } from '../../../MUI';
-import { Paper } from '../..';
+import { Typography } from "@material-ui/core";
+import { Paper } from "../..";
 
-import { makeStyles } from '@material-ui/core/styles';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import { makeStyles } from "@material-ui/core/styles";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles({
   media: {

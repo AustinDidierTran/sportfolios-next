@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ListItem, ListItemText } from "../../../MUI";
+import { ListItem, ListItemText } from "@material-ui/core";
 import { FormDialog, Icon } from "../../../Custom";
 
 import { useTranslation } from "react-i18next";

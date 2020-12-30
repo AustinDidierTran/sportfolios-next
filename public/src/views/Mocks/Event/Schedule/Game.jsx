@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
-import { Typography } from '../../../../components/MUI';
-import styles from './Game.module.css';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from "@material-ui/core";
+import styles from "./Game.module.css";
 
 export default function Game(props) {
   const { game } = props;
@@ -16,16 +15,12 @@ export default function Game(props) {
           ? game.startTime
           : `${game.startTime} - ${game.endTime}`
         : null,
-    [window.innerWidth],
+    [window.innerWidth]
   );
 
-  return game.type == 'game' ? (
+  return game.type == "game" ? (
     <Container className={styles.game}>
-      <Typography
-        className={styles.time}
-        variant="h6"
-        color="textSecondary"
-      >
+      <Typography className={styles.time} variant="h6" color="textSecondary">
         {time}
       </Typography>
       <Typography className={styles.leftTeamScore} variant="h5">
@@ -43,28 +38,16 @@ export default function Game(props) {
       <Typography className={styles.rightTeamScore} variant="h5">
         {game.rightTeamScore}
       </Typography>
-      <Typography
-        className={styles.field}
-        variant="h6"
-        color="textSecondary"
-      >
+      <Typography className={styles.field} variant="h6" color="textSecondary">
         {game.field}
       </Typography>
     </Container>
   ) : (
     <Container className={styles.bail}>
-      <Typography
-        className={styles.time}
-        variant="h6"
-        color="textSecondary"
-      >
+      <Typography className={styles.time} variant="h6" color="textSecondary">
         {time}
       </Typography>
-      <Typography
-        className={styles.bailtxt}
-        variant="h6"
-        color="secondary"
-      >
+      <Typography className={styles.bailtxt} variant="h6" color="secondary">
         BAIL
       </Typography>
     </Container>
