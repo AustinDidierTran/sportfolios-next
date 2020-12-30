@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@loadable/component": "^5.14.1",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -24,6 +25,7 @@
     "react-csv": "^2.0.3",
     "react-dom": "17.0.1",
     "react-ga": "^3.3.0",
+    "react-helmet": "^6.1.0",
     "react-i18next": "^11.8.5",
     "socket.io-client": "^3.0.4",
     "stripe": "^8.129.0",

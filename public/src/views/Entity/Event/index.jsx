@@ -7,9 +7,8 @@ import { goTo, ROUTES } from "../../../actions/goTo";
 import TabsGenerator from "../../../tabs";
 import { formatPageTitle } from "../../../utils/stringFormats";
 import { Helmet } from "react-helmet";
-import { ENTITIES_ROLE_ENUM, TABS_ENUM } from "../../../../../common/enums";
+import { ENTITIES_ROLE_ENUM, TABS_ENUM } from "../../../../common/enums";
 import { AddGaEvent } from "../../../components/Custom/Analytics";
-import Div100vh from "react-div-100vh";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 const useStyles = makeStyles((theme) => ({
@@ -155,57 +154,55 @@ export default function Event(props) {
   }, [isAdmin]);
 
   return (
-    <Div100vh>
-      <IgContainer>
-        <Helmet>
-          <meta property="og:title" content={basicInfos.name} />
-          <meta property="og:description" content={ogDescription} />
-          <meta property="og:image" content={basicInfos.photoUrl} />
-          <meta property="og:type" content="website" />
-          <meta property="og:locale" content="fr_CA" />
-        </Helmet>
-        <Paper>
-          <Tabs
-            value={states.findIndex((s) => s.value === eventState)}
-            indicatorColor="primary"
-            textColor="primary"
+    <IgContainer>
+      <Helmet>
+        <meta property="og:title" content={basicInfos.name} />
+        <meta property="og:description" content={ogDescription} />
+        <meta property="og:image" content={basicInfos.photoUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_CA" />
+      </Helmet>
+      <Paper>
+        <Tabs
+          value={states.findIndex((s) => s.value === eventState)}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          {states.map((s, index) => (
+            <Tab
+              key={index}
+              onClick={() => onClick(s)}
+              label={window.innerWidth < 768 ? null : s.label}
+              icon={<Icon icon={s.icon} />}
+              style={{
+                minWidth:
+                  window.innerWidth < 768
+                    ? window.innerWidth / states.length
+                    : 700 / states.length,
+              }}
+            />
+          ))}
+        </Tabs>
+      </Paper>
+      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
+      basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
+        <Tooltip title={title}>
+          <Fab
+            color="primary"
+            onClick={onSwitch}
+            className={
+              window.innerWidth < 768 ? classes.fabMobile : classes.fab
+            }
           >
-            {states.map((s, index) => (
-              <Tab
-                key={index}
-                onClick={() => onClick(s)}
-                label={window.innerWidth < 768 ? null : s.label}
-                icon={<Icon icon={s.icon} />}
-                style={{
-                  minWidth:
-                    window.innerWidth < 768
-                      ? window.innerWidth / states.length
-                      : 700 / states.length,
-                }}
-              />
-            ))}
-          </Tabs>
-        </Paper>
-        {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
-        basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
-          <Tooltip title={title}>
-            <Fab
-              color="primary"
-              onClick={onSwitch}
-              className={
-                window.innerWidth < 768 ? classes.fabMobile : classes.fab
-              }
-            >
-              <Icon icon="Autorenew" />
-            </Fab>
-          </Tooltip>
-        ) : (
-          <></>
-        )}
-        <div>
-          <OpenTab basicInfos={basicInfos} />
-        </div>
-      </IgContainer>
-    </Div100vh>
+            <Icon icon="Autorenew" />
+          </Fab>
+        </Tooltip>
+      ) : (
+        <></>
+      )}
+      <div>
+        <OpenTab basicInfos={basicInfos} />
+      </div>
+    </IgContainer>
   );
 }

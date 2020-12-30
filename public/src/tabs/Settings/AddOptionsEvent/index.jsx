@@ -15,7 +15,7 @@ import {
   STATUS_ENUM,
   FORM_DIALOG_TYPE_ENUM,
   LIST_ITEM_ENUM,
-} from "../../../../../common/enums";
+} from "../../../../common/enums";
 import { Store, ACTION_ENUM } from "../../../Store";
 
 export default function AddOptionsEvent() {

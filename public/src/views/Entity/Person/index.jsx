@@ -6,7 +6,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import TabsGenerator from "../../../tabs";
 import { goTo, ROUTES } from "../../../actions/goTo";
-import { TABS_ENUM } from "../../../../../common/enums";
+import { TABS_ENUM } from "../../../../common/enums";
+import { useRouter } from "next/router";
 
 export default function Person(props) {
   const { basicInfos } = props;

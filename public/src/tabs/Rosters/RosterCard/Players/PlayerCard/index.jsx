@@ -1,30 +1,20 @@
-import React, { useState } from 'react';
-import styles from './PlayerCard.module.css';
+import React, { useState } from "react";
+import styles from "./PlayerCard.module.css";
 import {
   ROSTER_ROLE_ENUM,
   FORM_DIALOG_TYPE_ENUM,
-} from '../../../../../../../common/enums';
-import { Tooltip } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import {
-  FormDialog,
-  Icon,
-  IconButton,
-} from '../../../../../components/Custom';
-import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
-import { Typography } from '../../../../../components/MUI';
-import api from '../../../../../actions/api';
-import { formatRoute } from '../../../../../actions/goTo';
-import PaymentChip from '../../../../../tabs/Settings/TeamRegistered/PaymentChip';
+} from "../../../../../../common/enums";
+import { Tooltip } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
+import { FormDialog, Icon, IconButton } from "../../../../../components/Custom";
+import PersonInfoDialog from "../../../../../components/Custom/Dialog/PersonInfosDialog";
+import { Typography } from "../../../../../components/MUI";
+import api from "../../../../../actions/api";
+import { formatRoute } from "../../../../../actions/goTo";
+import PaymentChip from "../../../../../tabs/Settings/TeamRegistered/PaymentChip";
 
 export default function PlayerCard(props) {
-  const {
-    isEditable,
-    player,
-    onDelete,
-    onRoleUpdate,
-    withInfos,
-  } = props;
+  const { isEditable, player, onDelete, onRoleUpdate, withInfos } = props;
   const { t } = useTranslation();
   const [playerInfos, setPlayerInfos] = useState(null);
   const [open, setOpen] = useState(false);
@@ -40,23 +30,23 @@ export default function PlayerCard(props) {
 
   const onPlayerAccept = () => {
     // eslint-disable-next-line
-    console.log('accepting');
+    console.log("accepting");
     // do things
     closePlayerAcceptation();
   };
 
   const onPlayerDecline = () => {
     // eslint-disable-next-line
-    console.log('declining');
+    console.log("declining");
     // do things
     closePlayerAcceptation();
   };
 
   const getPersonInfos = async () => {
     const { data } = await api(
-      formatRoute('/api/entity/personInfos', null, {
+      formatRoute("/api/entity/personInfos", null, {
         entityId: player.personId,
-      }),
+      })
     );
     setPlayerInfos(data);
   };
@@ -70,16 +60,16 @@ export default function PlayerCard(props) {
     onRoleUpdate(playerId, newRole);
   };
 
-  const getIconFromRole = role => {
+  const getIconFromRole = (role) => {
     switch (role) {
       case ROSTER_ROLE_ENUM.COACH:
-        return 'SportsWhistle';
+        return "SportsWhistle";
       case ROSTER_ROLE_ENUM.CAPTAIN:
-        return 'Stars';
+        return "Stars";
       case ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN:
-        return 'TextFormat';
+        return "TextFormat";
       default:
-        return 'Person';
+        return "Person";
     }
   };
 
@@ -94,8 +84,8 @@ export default function PlayerCard(props) {
               <Tooltip
                 title={t(
                   player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN
-                    ? 'assistant_captain'
-                    : player.role,
+                    ? "assistant_captain"
+                    : player.role
                 )}
               >
                 <div>
@@ -115,9 +105,9 @@ export default function PlayerCard(props) {
             {withInfos ? (
               <IconButton
                 icon="Info"
-                style={{ color: 'grey' }}
+                style={{ color: "grey" }}
                 onClick={onAboutClick}
-                tooltip={t('infos')}
+                tooltip={t("infos")}
               />
             ) : (
               <></>
@@ -125,8 +115,8 @@ export default function PlayerCard(props) {
             <IconButton
               onClick={() => setOpenOptions(true)}
               icon="Edit"
-              style={{ color: 'grey' }}
-              tooltip={t('edit')}
+              style={{ color: "grey" }}
+              tooltip={t("edit")}
             />
           </div>
         </div>
@@ -162,8 +152,8 @@ export default function PlayerCard(props) {
             <Tooltip
               title={t(
                 player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN
-                  ? 'assistant_captain'
-                  : player.role,
+                  ? "assistant_captain"
+                  : player.role
               )}
             >
               <div>

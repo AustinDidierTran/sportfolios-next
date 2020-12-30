@@ -7,9 +7,9 @@ import {
   STATUS_ENUM,
   SEVERITY_ENUM,
   COMPONENT_TYPE_ENUM,
-} from "../../../../../../../../../common/enums";
+} from "../../../../../../../../common/enums";
 import { useFormik } from "formik";
-import { ERROR_ENUM } from "../../../../../../../../../common/errors";
+import { ERROR_ENUM } from "../../../../../../../../common/errors";
 import { useContext } from "react";
 import { Store, ACTION_ENUM } from "../../../../../../../Store";
 import { getGameOptions } from "../../../../../../Schedule/ScheduleFunctions";

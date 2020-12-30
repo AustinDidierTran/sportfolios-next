@@ -1,8 +1,8 @@
-import { Typography } from '@material-ui/core';
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { GLOBAL_ENUM } from '../../../../../../../common/enums';
-import { Button, List } from '../../../../../components/Custom';
+import { Typography } from "@material-ui/core";
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { GLOBAL_ENUM } from "../../../../../../common/enums";
+import { Button, List } from "../../../../../components/Custom";
 
 export default function PersonsQuickAdd(props) {
   const { t } = useTranslation();
@@ -20,10 +20,10 @@ export default function PersonsQuickAdd(props) {
 
   const items = useMemo(
     () =>
-      persons.sort(personsSortingFunction).map(p => ({
+      persons.sort(personsSortingFunction).map((p) => ({
         ...p,
         type: GLOBAL_ENUM.PERSON,
-        completeName: p.name + ' ' + p.surname,
+        completeName: p.name + " " + p.surname,
         secondaryActions: [
           p.teamPlayerId ? (
             <Button
@@ -31,7 +31,7 @@ export default function PersonsQuickAdd(props) {
               endIcon="Delete"
               onClick={() => onRemove(p.teamPlayerId)}
             >
-              {t('remove')}
+              {t("remove")}
             </Button>
           ) : (
             <Button
@@ -42,13 +42,13 @@ export default function PersonsQuickAdd(props) {
                 })
               }
             >
-              {t('add')}
+              {t("add")}
             </Button>
           ),
         ],
         notClickable: true,
       })),
-    [persons],
+    [persons]
   );
 
   return (

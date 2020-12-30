@@ -1,24 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CLIENT_BASE_URL } from '../../../../../../conf';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
+import React, { useContext, useEffect, useState } from "react";
+import { CLIENT_BASE_URL } from "../../../../../../conf";
+import api from "../../../../actions/api";
+import { formatRoute } from "../../../../actions/goTo";
 import {
   STATUS_ENUM,
   ROUTES_ENUM,
   ERROR_ENUM,
   SEVERITY_ENUM,
-} from '../../../../../../common/enums';
-import {
-  AlertDialog,
-  IconButton,
-} from '../../../../components/Custom';
-import { Typography } from '@material-ui/core';
-import styles from './RosterInviteLink.module.css';
-import CopyToClipBoard from '../../../../components/Custom/IconButton/CopyToClipboard';
-import { useTranslation } from 'react-i18next';
-import { Store, ACTION_ENUM } from '../../../../Store';
-import moment from 'moment';
-import { formatDate } from '../../../../utils/stringFormats';
+} from "../../../../../common/enums";
+import { AlertDialog, IconButton } from "../../../../components/Custom";
+import { Typography } from "@material-ui/core";
+import styles from "./RosterInviteLink.module.css";
+import CopyToClipBoard from "../../../../components/Custom/IconButton/CopyToClipboard";
+import { useTranslation } from "react-i18next";
+import { Store, ACTION_ENUM } from "../../../../Store";
+import moment from "moment";
+import { formatDate } from "../../../../utils/stringFormats";
 
 export default function RosterInviteLink(props) {
   const { dispatch } = useContext(Store);
@@ -42,9 +39,9 @@ export default function RosterInviteLink(props) {
 
   async function fetchLink() {
     const res = await api(
-      formatRoute('/api/entity/rosterInviteToken', null, {
+      formatRoute("/api/entity/rosterInviteToken", null, {
         rosterId,
-      }),
+      })
     );
     if (res.status !== STATUS_ENUM.SUCCESS_STRING) {
       setLink(null);
@@ -55,7 +52,7 @@ export default function RosterInviteLink(props) {
   function makeToastLinkIsCopied() {
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
-      message: t('link_has_been_copied_and_will_expire', {
+      message: t("link_has_been_copied_and_will_expire", {
         expireDate,
       }),
       severity: SEVERITY_ENUM.SUCCESS,
@@ -72,9 +69,9 @@ export default function RosterInviteLink(props) {
   }
   async function changeToken() {
     const res = await api(
-      formatRoute('/api/entity/newRosterInviteToken', null, {
+      formatRoute("/api/entity/newRosterInviteToken", null, {
         rosterId,
-      }),
+      })
     );
     if (res.status !== STATUS_ENUM.SUCCESS_STRING) {
       return;
@@ -106,31 +103,29 @@ export default function RosterInviteLink(props) {
       <div className={styles.linkDiv}>
         <CopyToClipBoard
           copyText={link}
-          text={t('copy_invite_link')}
+          text={t("copy_invite_link")}
           style={{
-            color: 'secondary',
-            textTransform: 'none',
+            color: "secondary",
+            textTransform: "none",
             fontSize: 15,
             fontWeight: 400,
           }}
-          snackBarText={t('link_has_been_copied_and_will_expire', {
+          snackBarText={t("link_has_been_copied_and_will_expire", {
             expireDate,
           })}
         />
         <IconButton
           icon="Replay"
           onClick={() => setAlertOpened(true)}
-          tooltip={t('get_a_new_link')}
-          style={{ color: 'secondary' }}
+          tooltip={t("get_a_new_link")}
+          style={{ color: "secondary" }}
         ></IconButton>
       </div>
       <AlertDialog
         open={alertOpened}
         onSubmit={onConfirm}
         onCancel={() => setAlertOpened(false)}
-        description={t(
-          'by_getting_a_new_link_the_old_one_will_expires',
-        )}
+        description={t("by_getting_a_new_link_the_old_one_will_expires")}
       />
     </div>
   );

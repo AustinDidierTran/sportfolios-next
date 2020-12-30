@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styles from './Cart.module.css';
-import api from '../../actions/api';
-import { goTo, ROUTES } from '../../actions/goTo';
-import {
-  CARD_TYPE_ENUM,
-  LIST_ITEM_ENUM,
-} from '../../../../common/enums';
-import { useTranslation } from 'react-i18next';
-import { formatPageTitle } from '../../utils/stringFormats';
+import React, { useState, useEffect } from "react";
+import styles from "./Cart.module.css";
+import api from "../../actions/api";
+import { goTo, ROUTES } from "../../actions/goTo";
+import { CARD_TYPE_ENUM, LIST_ITEM_ENUM } from "../../../common/enums";
+import { useTranslation } from "react-i18next";
+import { formatPageTitle } from "../../utils/stringFormats";
 import {
   Button,
   MessageAndButtons,
@@ -15,12 +12,12 @@ import {
   ContainerBottomFixed,
   LoadingSpinner,
   Card,
-} from '../../components/Custom';
-import { useContext } from 'react';
-import { Store, ACTION_ENUM } from '../../Store';
+} from "../../components/Custom";
+import { useContext } from "react";
+import { Store, ACTION_ENUM } from "../../Store";
 
 const getCartItems = async () => {
-  const { data: cartItems } = await api('/api/shop/getCartItems');
+  const { data: cartItems } = await api("/api/shop/getCartItems");
   return cartItems;
 };
 
@@ -32,7 +29,7 @@ export default function Cart() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    document.title = formatPageTitle(t('cart'));
+    document.title = formatPageTitle(t("cart"));
   }, []);
 
   const fetchItems = async () => {
@@ -52,8 +49,8 @@ export default function Cart() {
   }, []);
 
   const updateQuantity = async (quantity, cartItemId) => {
-    const { data } = await api('/api/shop/updateCartItems', {
-      method: 'POST',
+    const { data } = await api("/api/shop/updateCartItems", {
+      method: "POST",
       body: JSON.stringify({
         quantity,
         cartItemId,
@@ -74,18 +71,18 @@ export default function Cart() {
   if (items.length < 1) {
     const buttons = [
       {
-        name: t('home'),
+        name: t("home"),
         onClick: () => {
           goTo(ROUTES.home);
         },
-        endIcon: 'Home',
-        color: 'primary',
+        endIcon: "Home",
+        color: "primary",
       },
     ];
     return (
       <MessageAndButtons
         buttons={buttons}
-        message={t('cart_empty_go_shop')}
+        message={t("cart_empty_go_shop")}
         withoutIgContainer
       />
     );
@@ -122,7 +119,7 @@ export default function Cart() {
             style={{ margin: 8 }}
             className={styles.button}
           >
-            {t('checkout')}
+            {t("checkout")}
           </Button>
         </div>
       </ContainerBottomFixed>

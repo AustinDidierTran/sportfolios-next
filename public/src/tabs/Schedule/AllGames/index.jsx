@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Games.module.css";
-import { SELECT_ENUM } from "../../../../../common/enums";
+import { SELECT_ENUM } from "../../../../common/enums";
 import api from "../../../actions/api";
 import { formatRoute } from "../../../actions/goTo";
 import moment from "moment";
@@ -9,6 +9,7 @@ import Games from "./Games";
 import { useTranslation } from "react-i18next";
 import ProTip from "./ProTip";
 import { LoadingSpinner } from "../../../components/Custom";
+import { useRouter } from "next/router";
 
 export default function AllGames() {
   const { t } = useTranslation();
@@ -22,9 +23,8 @@ export default function AllGames() {
     getGames();
   }, [eventId]);
 
-  const scoreIsSubmitted = (game) => {
-    return game.teams[0].score != 0 || game.teams[1].score != 0;
-  };
+  const scoreIsSubmitted = (game) =>
+    game.teams[0].score != 0 || game.teams[1].score != 0;
 
   const sortGames = (games) => {
     const pastGames = games

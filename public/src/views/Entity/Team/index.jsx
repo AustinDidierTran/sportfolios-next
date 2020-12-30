@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import { goTo, ROUTES } from "../../../actions/goTo";
 import TabsGenerator from "../../../tabs";
 import { formatPageTitle } from "../../../utils/stringFormats";
-import { TABS_ENUM } from "../../../../../common/enums";
+import { TABS_ENUM } from "../../../../common/enums";
 import { useRouter } from "next/router";
 
 export default function Team(props) {

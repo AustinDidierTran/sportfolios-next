@@ -17,6 +17,7 @@ import moment from "moment";
 import styles from "./EventInfo.module.css";
 import { CardContent } from "@material-ui/core";
 import { useRouter } from "next/router";
+import { useApiRoute } from "../../hooks/queries";
 
 const getEvent = async (eventId) => {
   const { data } = await api(
@@ -57,10 +58,18 @@ export default function TabEventInfo() {
   }, [id]);
 
   const getOptions = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/options", null, { eventId: id })
+    const { data, status } = await api(
+      formatRoute("/api/entity/options", null, { eventId: id }),
+      {
+        method: "GET",
+      }
     );
-    setOptions(data);
+
+    console.log({ status });
+
+    if (data) {
+      setOptions(data);
+    }
   };
 
   const isEarly = useMemo(() => {

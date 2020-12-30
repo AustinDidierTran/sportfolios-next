@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { FormDialog } from '../../../../../../../components/Custom';
-import { useTranslation } from 'react-i18next';
-import api from '../../../../../../../actions/api';
+import { FormDialog } from "../../../../../../../components/Custom";
+import { useTranslation } from "react-i18next";
+import api from "../../../../../../../actions/api";
 import {
   STATUS_ENUM,
   SEVERITY_ENUM,
-} from '../../../../../../../../../common/enums';
-import { useFormik } from 'formik';
-import { ERROR_ENUM } from '../../../../../../../../../common/errors';
-import { useContext } from 'react';
-import { Store, ACTION_ENUM } from '../../../../../../../Store';
+} from "../../../../../../../../common/enums";
+import { useFormik } from "formik";
+import { ERROR_ENUM } from "../../../../../../../../common/errors";
+import { useContext } from "react";
+import { Store, ACTION_ENUM } from "../../../../../../../Store";
 
 export default function EnterScore(props) {
   const { game, update, open: openProps, onClose } = props;
@@ -24,11 +24,11 @@ export default function EnterScore(props) {
   }, [openProps]);
 
   useEffect(() => {
-    formik.setFieldValue('score1', game.teams[0].score);
-    formik.setFieldValue('score2', game.teams[1].score);
+    formik.setFieldValue("score1", game.teams[0].score);
+    formik.setFieldValue("score2", game.teams[1].score);
   }, [game]);
 
-  const validate = values => {
+  const validate = (values) => {
     const { score1, score2 } = values;
     const errors = {};
     if (isNaN(score1)) {
@@ -42,16 +42,16 @@ export default function EnterScore(props) {
 
   const formik = useFormik({
     initialValues: {
-      score1: '',
-      score2: '',
+      score1: "",
+      score2: "",
     },
     validate,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { score1, score2 } = values;
-      const res = await api('/api/entity/gameScore', {
-        method: 'POST',
+      const res = await api("/api/entity/gameScore", {
+        method: "POST",
         body: JSON.stringify({
           eventId: game.event_id,
           gameId: game.id,
@@ -80,13 +80,13 @@ export default function EnterScore(props) {
   const formButtons = [
     {
       onClick: onClose,
-      name: t('cancel'),
-      color: 'secondary',
+      name: t("cancel"),
+      color: "secondary",
     },
     {
-      type: 'submit',
-      name: t('done'),
-      color: 'primary',
+      type: "submit",
+      name: t("done"),
+      color: "primary",
     },
   ];
 
@@ -94,20 +94,20 @@ export default function EnterScore(props) {
     (prev, curr, index) => [
       ...prev,
       {
-        type: 'number',
+        type: "number",
         namespace: `score${index + 1}`,
-        label: `${t('score')} ${curr.name}`,
+        label: `${t("score")} ${curr.name}`,
         autoFocus: index === 0,
       },
     ],
-    [],
+    []
   );
 
   return (
     <FormDialog
       open={open}
       onClose={onClose}
-      title={t('enter_score')}
+      title={t("enter_score")}
       fields={fields}
       formik={formik}
       buttons={formButtons}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Paper } from "../../../components/Custom";
-import { LIST_ITEM_ENUM } from "../../../../../common/enums";
+import { LIST_ITEM_ENUM } from "../../../../common/enums";
 import { useTranslation } from "react-i18next";
 import api from "../../../actions/api";
 import { List } from "../../../components/Custom";

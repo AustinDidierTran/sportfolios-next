@@ -1,21 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
-import {
-  Card,
-  AlertDialog,
-} from '../../../../../../components/Custom';
-import { useTranslation } from 'react-i18next';
-import api from '../../../../../../actions/api';
+import { Card, AlertDialog } from "../../../../../../components/Custom";
+import { useTranslation } from "react-i18next";
+import api from "../../../../../../actions/api";
 import {
   CARD_TYPE_ENUM,
   SEVERITY_ENUM,
   STATUS_ENUM,
-} from '../../../../../../../../common/enums';
-import EditGameDialog from './EditGameDialog';
-import { formatRoute } from '../../../../../../actions/goTo';
-import EnterScore from './EnterScore';
-import { ACTION_ENUM, Store } from '../../../../../../Store';
-import { ERROR_ENUM } from '../../../../../../../../common/errors';
+} from "../../../../../../../common/enums";
+import EditGameDialog from "./EditGameDialog";
+import { formatRoute } from "../../../../../../actions/goTo";
+import EnterScore from "./EnterScore";
+import { ACTION_ENUM, Store } from "../../../../../../Store";
+import { ERROR_ENUM } from "../../../../../../../common/errors";
 
 export default function EditGame(props) {
   const { game, update, withoutEdit } = props;
@@ -52,20 +49,20 @@ export default function EditGame(props) {
 
   const onDeleteConfirmed = async () => {
     const res = await api(
-      formatRoute('/api/entity/game', null, {
+      formatRoute("/api/entity/game", null, {
         eventId: game.event_id,
         gameId: game.id,
       }),
       {
-        method: 'DELETE',
-      },
+        method: "DELETE",
+      }
     );
     if (res.status === STATUS_ENUM.SUCCESS) {
       setDeleteDialogIsOpen(false);
       update();
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('game_deleted'),
+        message: t("game_deleted"),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -87,8 +84,8 @@ export default function EditGame(props) {
       const anchor = document.getElementById(hash);
       setTimeout(() => {
         anchor?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+          behavior: "smooth",
+          block: "start",
         });
       }, 500);
     }
@@ -134,7 +131,7 @@ export default function EditGame(props) {
         open={deleteDialogIsOpen}
         onCancel={closeDelete}
         onSubmit={onDeleteConfirmed}
-        title={t('delete_game_confirmation')}
+        title={t("delete_game_confirmation")}
       />
     </div>
   );

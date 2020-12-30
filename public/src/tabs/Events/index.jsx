@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import styles from "./Events.module.css";
 import { formatRoute } from "../../actions/goTo";
-import { CARD_TYPE_ENUM } from "../../../../common/enums";
+import { CARD_TYPE_ENUM } from "../../../common/enums";
 import Card from "../../components/Custom/Card";
 import api from "../../actions/api";
 import { Typography } from "@material-ui/core";

@@ -5,7 +5,7 @@ import api from "../../../actions/api";
 import { formatRoute, goTo, ROUTES } from "../../../actions/goTo";
 
 import { List } from "../../../components/Custom";
-import { LIST_ITEM_ENUM } from "../../../../../common/enums";
+import { LIST_ITEM_ENUM } from "../../../../common/enums";
 import { useRouter } from "next/router";
 
 export default function Reports() {

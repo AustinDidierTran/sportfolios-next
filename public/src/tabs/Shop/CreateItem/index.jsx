@@ -11,13 +11,13 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Paper, Input } from "../../../components/Custom";
 import { createItem, onImgUpload } from "../../../utils/shop";
-import { ERROR_ENUM } from "../../../../../common/errors";
+import { ERROR_ENUM } from "../../../../common/errors";
 import { useTranslation } from "react-i18next";
 import AddSizes from "../AddSizes";
 import { TextareaAutosize } from "@material-ui/core";
 import api from "../../../actions/api";
 import { formatRoute } from "../../../actions/goTo";
-import { GLOBAL_ENUM } from "../../../../../common/enums";
+import { GLOBAL_ENUM } from "../../../../common/enums";
 
 export default function CreateItem(props) {
   const router = useRouter();

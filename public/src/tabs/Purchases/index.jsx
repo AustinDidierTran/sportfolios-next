@@ -1,13 +1,11 @@
-import React from 'react';
-import { List, LoadingSpinner } from '../../components/Custom';
-import { useApiRoute } from '../../hooks/queries';
-import { LIST_ITEM_ENUM } from '../../../../common/enums';
-import moment from 'moment';
+import React from "react";
+import { List, LoadingSpinner } from "../../components/Custom";
+import { useApiRoute } from "../../hooks/queries";
+import { LIST_ITEM_ENUM } from "../../../common/enums";
+import moment from "moment";
 
 export default function PurchasesTab() {
-  const { response: purchases, isLoading } = useApiRoute(
-    '/api/shop/purchases',
-  );
+  const { response: purchases, isLoading } = useApiRoute("/api/shop/purchases");
   if (isLoading) {
     return <LoadingSpinner />;
   }

@@ -3,14 +3,14 @@ import { FormDialog } from "../../../../components/Custom";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 
-import { ERROR_ENUM } from "../../../../../../common/errors";
+import { ERROR_ENUM } from "../../../../../common/errors";
 import api from "../../../../actions/api";
 import { Store, ACTION_ENUM } from "../../../../Store";
 import {
   SEVERITY_ENUM,
   STATUS_ENUM,
   COMPONENT_TYPE_ENUM,
-} from "../../../../../../common/enums";
+} from "../../../../../common/enums";
 import { getFutureGameOptions } from "../../../Schedule/ScheduleFunctions";
 import validator from "validator";
 import { useRouter } from "next/router";

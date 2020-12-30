@@ -5,7 +5,7 @@ import styles from "./TimeSlotSelect.module.css";
 import { useTranslation } from "react-i18next";
 import api from "../../../../../actions/api";
 import { formatRoute } from "../../../../../actions/goTo";
-import { SELECT_ENUM } from "../../../../../../../common/enums";
+import { SELECT_ENUM } from "../../../../../../common/enums";
 import { formatDate } from "../../../../../utils/stringFormats";
 import moment from "moment";
 

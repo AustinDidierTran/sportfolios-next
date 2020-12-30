@@ -1,25 +1,20 @@
-import React, {
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import styles from './Players.module.css';
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import styles from "./Players.module.css";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import PlayerCard from './PlayerCard';
-import { Typography, Divider } from '@material-ui/core';
+import PlayerCard from "./PlayerCard";
+import { Typography, Divider } from "@material-ui/core";
 import {
   LoadingSpinner,
   PersonSearchList,
-} from '../../../../components/Custom';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
-import PersonsQuickAdd from './PersonsQuickAdd';
-import { Store } from '../../../../Store';
-import { ROSTER_ROLE_ENUM } from '../../../../../../common/enums';
-import RosterInviteLink from '../RosterInviteLink';
+} from "../../../../components/Custom";
+import api from "../../../../actions/api";
+import { formatRoute } from "../../../../actions/goTo";
+import PersonsQuickAdd from "./PersonsQuickAdd";
+import { Store } from "../../../../Store";
+import { ROSTER_ROLE_ENUM } from "../../../../../common/enums";
+import RosterInviteLink from "../RosterInviteLink";
 
 export default function Players(props) {
   const { t } = useTranslation();
@@ -50,16 +45,16 @@ export default function Players(props) {
     }
     setIsLoading(true);
     const { data } = await api(
-      formatRoute('/api/entity/getRoster', null, {
+      formatRoute("/api/entity/getRoster", null, {
         rosterId,
         withSub: true,
-      }),
+      })
     );
-    setBlackList(data.map(d => d.personId));
+    setBlackList(data.map((d) => d.personId));
     setIsLoading(false);
   };
 
-  const onPlayerAddToRoster = async person => {
+  const onPlayerAddToRoster = async (person) => {
     setIsLoading(true);
     const player = {
       personId: person.id,
@@ -72,7 +67,7 @@ export default function Players(props) {
     setIsLoading(false);
   };
 
-  const handleDelete = async id => {
+  const handleDelete = async (id) => {
     setIsLoading(true);
     await onDelete(id);
     //TODO: handle blacklist in frontend and backend
@@ -89,17 +84,17 @@ export default function Players(props) {
     if (!withMyPersonsQuickAdd) {
       return;
     }
-    const mapFunction = p => ({
+    const mapFunction = (p) => ({
       ...p,
       photoUrl: p.photo_url,
-      teamPlayerId: players.find(q => p.entity_id === q.personId)?.id,
+      teamPlayerId: players.find((q) => p.entity_id === q.personId)?.id,
     });
 
     if (!whiteList) {
       return userInfo.persons.map(mapFunction);
     }
     return userInfo.persons
-      .filter(p => whiteList.includes(p.entity_id))
+      .filter((p) => whiteList.includes(p.entity_id))
       .map(mapFunction);
   }, [players, withMyPersonsQuickAdd, whiteList]);
 
@@ -127,9 +122,9 @@ export default function Players(props) {
           <PersonSearchList
             blackList={blackList}
             whiteList={whiteList}
-            label={t('enter_player_name')}
+            label={t("enter_player_name")}
             onClick={onPlayerAddToRoster}
-            secondary={t('player')}
+            secondary={t("player")}
             withoutIcon
             autoFocus
             rosterId={rosterId}
@@ -138,7 +133,7 @@ export default function Players(props) {
         <RosterInviteLink rosterId={rosterId} />
         <Divider variant="middle" light />
         <PersonsQuickAdd
-          title={t('my_persons')}
+          title={t("my_persons")}
           titleClassName={styles.listTitle}
           onAdd={onPlayerAddToRoster}
           persons={playersQuickAdd}
@@ -150,9 +145,9 @@ export default function Players(props) {
           {players.length ? (
             <div className={styles.player}>
               <Typography className={styles.listTitle} variant="h6">
-                {t('roster')}
+                {t("roster")}
               </Typography>
-              {players.map(player => (
+              {players.map((player) => (
                 <PlayerCard
                   player={player}
                   isEditable={editableRole}
@@ -163,7 +158,7 @@ export default function Players(props) {
               ))}
             </div>
           ) : (
-            <Typography>{t('empty_roster_add_players')}</Typography>
+            <Typography>{t("empty_roster_add_players")}</Typography>
           )}
         </>
       </div>
@@ -173,7 +168,7 @@ export default function Players(props) {
   return (
     <div className={styles.card}>
       <PersonsQuickAdd
-        title={t('my_persons')}
+        title={t("my_persons")}
         onAdd={onPlayerAddToRoster}
         persons={playersQuickAdd}
         titleClassName={styles.listTitle}
@@ -184,11 +179,11 @@ export default function Players(props) {
       {
         <>
           <Typography className={styles.listTitle} variant="h6">
-            {t('roster')}
+            {t("roster")}
           </Typography>
           {players.length ? (
             <div className={styles.player}>
-              {players.map(player => (
+              {players.map((player) => (
                 <PlayerCard
                   player={player}
                   isEditable={editableRole}
@@ -200,7 +195,7 @@ export default function Players(props) {
               ))}
             </div>
           ) : (
-            <Typography>{t('empty_roster_add_players')}</Typography>
+            <Typography>{t("empty_roster_add_players")}</Typography>
           )}
         </>
       }

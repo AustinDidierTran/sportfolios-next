@@ -13,7 +13,7 @@ import {
 import {
   FORM_DIALOG_TYPE_ENUM,
   LIST_ITEM_ENUM,
-} from "../../../../../common/enums";
+} from "../../../../common/enums";
 import { useTranslation } from "react-i18next";
 import api from "../../../actions/api";
 import { formatRoute, goTo, ROUTES } from "../../../actions/goTo";

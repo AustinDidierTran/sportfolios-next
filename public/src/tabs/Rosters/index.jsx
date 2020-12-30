@@ -9,6 +9,7 @@ import Rosters from "./Rosters";
 import { Typography } from "../../components/MUI";
 import { useTranslation } from "react-i18next";
 import { LoadingSpinner } from "../../components/Custom";
+import { useRouter } from "next/router";
 
 export default function TabRosters(props) {
   const { isEventAdmin } = props;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./EditResults.module.css";
-import { SELECT_ENUM } from "../../../../common/enums";
+import { SELECT_ENUM } from "../../../common/enums";
 import api from "../../actions/api";
 import { formatRoute } from "../../actions/goTo";
 import moment from "moment";

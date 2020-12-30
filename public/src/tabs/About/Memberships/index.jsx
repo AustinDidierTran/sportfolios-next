@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { Paper, Button, FormDialog, List } from "../../../components/Custom";
 import { formatDate, getMembershipName } from "../../../utils/stringFormats";
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  GLOBAL_ENUM,
-} from "../../../../../common/enums";
+import { FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from "../../../../common/enums";
 import { useTranslation } from "react-i18next";
 import api from "../../../actions/api";
 import { formatRoute } from "../../../actions/goTo";

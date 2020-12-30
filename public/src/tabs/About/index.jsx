@@ -1,11 +1,11 @@
-import React from 'react';
-import { Paper, MyGames } from '../../components/Custom';
-import styles from './About.module.css';
-import { GLOBAL_ENUM } from '../../../../common/enums';
-import loadable from '@loadable/component';
+import React from "react";
+import { Paper, MyGames } from "../../components/Custom";
+import styles from "./About.module.css";
+import { GLOBAL_ENUM } from "../../../common/enums";
+import loadable from "@loadable/component";
 
-const BasicInfos = loadable(() => import('./BasicInfos'));
-const Memberships = loadable(() => import('./Memberships'));
+const BasicInfos = loadable(() => import("./BasicInfos"));
+const Memberships = loadable(() => import("./Memberships"));
 
 export default function TabAbout(props) {
   const { basicInfos, gamesInfos } = props;
@@ -45,6 +45,6 @@ export default function TabAbout(props) {
         </>
       );
     default:
-      throw 'type not defined';
+      throw "type not defined";
   }
 }

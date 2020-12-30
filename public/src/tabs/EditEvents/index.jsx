@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import styles from "./EditEvents.module.css";
 import { goTo, ROUTES, formatRoute } from "../../actions/goTo";
-import { CARD_TYPE_ENUM, GLOBAL_ENUM } from "../../../../common/enums";
+import { CARD_TYPE_ENUM, GLOBAL_ENUM } from "../../../common/enums";
 import Card from "../../components/Custom/Card";
 import api from "../../actions/api";
 import { useRouter } from "next/router";

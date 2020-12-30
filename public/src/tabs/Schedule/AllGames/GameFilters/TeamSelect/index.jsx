@@ -5,7 +5,7 @@ import styles from "./TeamSelect.module.css";
 import { useTranslation } from "react-i18next";
 import api from "../../../../../actions/api";
 import { formatRoute } from "../../../../../actions/goTo";
-import { SELECT_ENUM } from "../../../../../../../common/enums";
+import { SELECT_ENUM } from "../../../../../../common/enums";
 import { useRouter } from "next/router";
 
 export default function TeamSelect(props) {

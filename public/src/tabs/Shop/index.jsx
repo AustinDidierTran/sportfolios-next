@@ -10,8 +10,8 @@ import { useEditor } from "../../hooks/roles";
 
 import CreateItem from "./CreateItem";
 import api from "../../actions/api";
-import { CARD_TYPE_ENUM } from "../../../../common/enums";
-import { FEATURE_FLAGS } from "../../../../common/flags";
+import { CARD_TYPE_ENUM } from "../../../common/enums";
+import { FEATURE_FLAGS } from "../../../common/flags";
 import { useTranslation } from "react-i18next";
 
 export default function Shop(props) {

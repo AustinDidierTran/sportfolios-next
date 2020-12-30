@@ -12,7 +12,7 @@ import styles from "./ManageRoles.module.css";
 import { goTo, ROUTES } from "../../../actions/goTo";
 import AddAdmins from "./AddAdmins";
 import { getInitialsFromName } from "../../../utils/stringFormats";
-import { GLOBAL_ENUM } from "../../../../../common/enums";
+import { GLOBAL_ENUM } from "../../../../common/enums";
 import { useRouter } from "next/router";
 
 export default function ManageRoles() {

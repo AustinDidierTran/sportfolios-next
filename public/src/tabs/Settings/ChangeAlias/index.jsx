@@ -12,10 +12,10 @@ import {
   STATUS_ENUM,
   SEVERITY_ENUM,
   TABS_ENUM,
-} from "../../../../../common/enums";
+} from "../../../../common/enums";
 import { useContext } from "react";
 import { Store, ACTION_ENUM } from "../../../Store";
-import { ERROR_ENUM } from "../../../../../common/errors";
+import { ERROR_ENUM } from "../../../../common/errors";
 import validator from "validator";
 import { useRouter } from "next/router";
 

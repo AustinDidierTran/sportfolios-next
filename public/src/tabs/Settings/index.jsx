@@ -5,7 +5,7 @@ import {
   ENTITIES_ROLE_ENUM,
   CARD_TYPE_ENUM,
   GLOBAL_ENUM,
-} from "../../../../common/enums";
+} from "../../../common/enums";
 import { Card } from "../../components/Custom";
 import { useAdmin, useEditor } from "../../hooks/roles";
 import styles from "./Settings.module.css";
