@@ -16,12 +16,13 @@ import {
   STATUS_ENUM,
   TABS_ENUM,
 } from "../../../../../common/enums";
-import { useQuery } from "../../../hooks/queries";
 import ComponentFactory from "../ComponentFactory";
 import { Store } from "../../../Store";
+import { useRouter } from "next/router";
 
 export default function EntityCreate() {
-  const { type } = useQuery();
+  const router = useRouter();
+  const { type } = router.query;
   const { t } = useTranslation();
   const {
     state: { userInfo },

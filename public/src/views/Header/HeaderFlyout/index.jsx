@@ -4,17 +4,17 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-} from 'react';
-import { Paper, Typography } from '@material-ui/core';
+} from "react";
+import { Paper, Typography } from "@material-ui/core";
 
-import Create from './Create';
-import Notifications from './Notifications';
-import Account from './Account';
+import Create from "./Create";
+import Notifications from "./Notifications";
+import Account from "./Account";
 
-import { ACTION_ENUM, Store } from '../../../Store';
-import { HEADER_FLYOUT_TYPE_ENUM } from '../../../../../common/enums';
-import { useTranslation } from 'react-i18next';
-import styles from './HeaderFlyout.module.css';
+import { ACTION_ENUM, Store } from "../../../Store";
+import { HEADER_FLYOUT_TYPE_ENUM } from "../../../../common/enums";
+import { useTranslation } from "react-i18next";
+import styles from "./HeaderFlyout.module.css";
 
 export default function HeaderFlyout(props) {
   const { refCreateEntity, refNotifications, refAccount } = props;
@@ -27,7 +27,7 @@ export default function HeaderFlyout(props) {
   const ref = useRef(null);
 
   const handleClick = useCallback(
-    e => {
+    (e) => {
       if (
         ref.current &&
         !ref.current.contains(e.target) &&
@@ -44,13 +44,13 @@ export default function HeaderFlyout(props) {
         });
       }
     },
-    [flyoutType],
+    [flyoutType]
   );
 
   useEffect(() => {
-    window.addEventListener('click', handleClick);
+    window.addEventListener("click", handleClick);
     return () => {
-      window.removeEventListener('click', handleClick);
+      window.removeEventListener("click", handleClick);
     };
   }, []);
 

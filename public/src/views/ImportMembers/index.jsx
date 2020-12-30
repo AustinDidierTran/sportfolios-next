@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CSVLink } from 'react-csv';
+import React, { useContext, useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
 import {
   Paper,
   Button,
@@ -9,32 +9,30 @@ import {
   ContainerBottomFixed,
   Select,
   LoadingSpinner,
-} from '../../components/Custom';
-import { useTranslation } from 'react-i18next';
-import { ExcelRenderer } from 'react-excel-renderer';
-import { ACTION_ENUM, Store } from '../../Store';
+} from "../../components/Custom";
+import { useTranslation } from "react-i18next";
+import { ExcelRenderer } from "react-excel-renderer";
+import { ACTION_ENUM, Store } from "../../Store";
 import {
   LIST_ITEM_ENUM,
   SEVERITY_ENUM,
   STATUS_ENUM,
-} from '../../../../common/enums';
-import { ListItem, ListItemText } from '../../components/MUI';
-import { useFormik } from 'formik';
-import styles from './ImportMembers.module.css';
-import {
-  validateDateWithYear,
-  validateEmail,
-} from '../../utils/stringFormats';
-import api from '../../actions/api';
-import { useQuery } from '../../hooks/queries';
-import { getMembershipName } from '../../../../common/functions';
-import moment from 'moment';
-import { ERROR_ENUM } from '../../../../common/errors';
+} from "../../../../common/enums";
+import { ListItem, ListItemText } from "../../components/MUI";
+import { useFormik } from "formik";
+import styles from "./ImportMembers.module.css";
+import { validateDateWithYear, validateEmail } from "../../utils/stringFormats";
+import api from "../../actions/api";
+import { getMembershipName } from "../../../../common/functions";
+import moment from "moment";
+import { ERROR_ENUM } from "../../../../common/errors";
+import { useRouter } from "next/router";
 
 export default function ImportMembers() {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { id } = useQuery();
+  const router = useRouter();
+  const { id } = router.query;
   const [isLoading, setIsLoading] = useState();
 
   useEffect(() => {
@@ -44,7 +42,7 @@ export default function ImportMembers() {
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
     const data = res.data.reduce((prev, curr) => {
-      if (!prev.some(p => p.value === curr.membership_type)) {
+      if (!prev.some((p) => p.value === curr.membership_type)) {
         const res = {
           display: t(getMembershipName(curr.membership_type)),
           value: curr.membership_type,
@@ -53,44 +51,44 @@ export default function ImportMembers() {
       }
       return prev;
     }, []);
-    formik.setFieldValue('memberships', data);
-    formik.setFieldValue('membership', data[0].value);
+    formik.setFieldValue("memberships", data);
+    formik.setFieldValue("membership", data[0].value);
   };
 
   const formik = useFormik({
     initialValues: {
       members: [],
-      fileName: '',
+      fileName: "",
       dialogOpen: false,
-      memberships: '',
-      membership: '',
+      memberships: "",
+      membership: "",
     },
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       const { members, membership } = values;
-      const language = localStorage.getItem('i18nextLng');
+      const language = localStorage.getItem("i18nextLng");
       const res = await api(`/api/entity/importMembers`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           membershipType: membership,
           organizationId: id,
           language,
-          members: members.map(m => {
+          members: members.map((m) => {
             const expirationDate = moment();
-            expirationDate.set('year', m.year);
-            expirationDate.set('month', m.month - 1);
-            expirationDate.set('date', m.day);
+            expirationDate.set("year", m.year);
+            expirationDate.set("month", m.month - 1);
+            expirationDate.set("date", m.day);
             return { email: m.email, expirationDate };
           }),
         }),
       });
       if (res.status === STATUS_ENUM.SUCCESS) {
-        formik.setFieldValue('dialogOpen', false);
+        formik.setFieldValue("dialogOpen", false);
         history.back();
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('transfer_completed'),
+          message: t("transfer_completed"),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 3000,
         });
@@ -105,15 +103,15 @@ export default function ImportMembers() {
     },
   });
 
-  const fileHandler = async event => {
+  const fileHandler = async (event) => {
     if (!event.target.files.length) {
       return;
     }
     let fileObj = event.target.files[0];
-    if (fileObj.type != 'text/csv') {
+    if (fileObj.type != "text/csv") {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('invalid_file_format'),
+        message: t("invalid_file_format"),
         severity: SEVERITY_ENUM.ERROR,
         duration: 5000,
       });
@@ -121,7 +119,7 @@ export default function ImportMembers() {
     }
     setIsLoading(true);
     try {
-      formik.setFieldValue('fileName', fileObj.name);
+      formik.setFieldValue("fileName", fileObj.name);
       const resp = await ExcelRenderer(fileObj);
       resp.rows.splice(0, 2);
       const rows = resp.rows.map((r, index) => ({
@@ -133,12 +131,12 @@ export default function ImportMembers() {
         key: index,
       }));
       const tempMembers = formik.values.members;
-      rows.forEach(r => {
-        if (tempMembers.findIndex(m => r.email === m.email) === -1) {
+      rows.forEach((r) => {
+        if (tempMembers.findIndex((m) => r.email === m.email) === -1) {
           tempMembers.push(r);
         }
       });
-      formik.setFieldValue('members', tempMembers);
+      formik.setFieldValue("members", tempMembers);
     } catch (err) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -151,24 +149,19 @@ export default function ImportMembers() {
   };
 
   const completeTransfer = () => {
-    const incorrectMembers = formik.values.members.reduce(
-      (prev, curr) => {
-        if (
-          !validateEmail(curr.email) ||
-          !validateDateWithYear(
-            `${curr.day}/${curr.month}/${curr.year}`,
-          )
-        ) {
-          return prev + 1;
-        }
-        return prev;
-      },
-      0,
-    );
+    const incorrectMembers = formik.values.members.reduce((prev, curr) => {
+      if (
+        !validateEmail(curr.email) ||
+        !validateDateWithYear(`${curr.day}/${curr.month}/${curr.year}`)
+      ) {
+        return prev + 1;
+      }
+      return prev;
+    }, 0);
     if (!formik.values.memberships.length) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you_need_to_have_a_membership_available'),
+        message: t("you_need_to_have_a_membership_available"),
         severity: SEVERITY_ENUM.ERROR,
         duration: 5000,
       });
@@ -177,30 +170,29 @@ export default function ImportMembers() {
     if (incorrectMembers > 0) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t(
-          'you_still_have_x_members_with_incorrect_information',
-          { incorrectMembers },
-        ),
+        message: t("you_still_have_x_members_with_incorrect_information", {
+          incorrectMembers,
+        }),
         severity: SEVERITY_ENUM.ERROR,
         duration: 5000,
       });
       return;
     }
-    formik.setFieldValue('dialogOpen', true);
+    formik.setFieldValue("dialogOpen", true);
   };
 
   const headers = [
-    { label: '', key: 'emails' },
-    { label: t('member_expiration_date'), key: 'day' },
-    { label: '', key: 'month' },
-    { label: '', key: 'year' },
+    { label: "", key: "emails" },
+    { label: t("member_expiration_date"), key: "day" },
+    { label: "", key: "month" },
+    { label: "", key: "year" },
   ];
   const dataTemplate = [
     {
-      emails: t('emails'),
-      day: t('day'),
-      month: t('month'),
-      year: t('year'),
+      emails: t("emails"),
+      day: t("day"),
+      month: t("month"),
+      year: t("year"),
     },
   ];
 
@@ -208,48 +200,46 @@ export default function ImportMembers() {
 
   return (
     <IgContainer>
-      <Paper title={t('import_members')}>
+      <Paper title={t("import_members")}>
         <ListItem>
           <ListItemText
-            primary={t('step_1')}
-            secondary={t('download_excel_template')}
+            primary={t("step_1")}
+            secondary={t("download_excel_template")}
           />
           <CSVLink
             data={dataTemplate}
             headers={headers}
-            style={{ textDecoration: 'none' }}
-            filename={t('import_members') + '.csv'}
+            style={{ textDecoration: "none" }}
+            filename={t("import_members") + ".csv"}
           >
             <Button
               variant="outlined"
               endIcon="GetApp"
-              style={{ margin: '8px' }}
+              style={{ margin: "8px" }}
             >
-              {t('download')}
+              {t("download")}
             </Button>
           </CSVLink>
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={t('step_2')}
-            secondary={t(
-              'import_your_excel_sheet_with_all_your_members',
-            )}
+            primary={t("step_2")}
+            secondary={t("import_your_excel_sheet_with_all_your_members")}
           />
           <Button
             variant="outlined"
             endIcon="CloudUploadIcon"
             component="label"
-            style={{ margin: '8px' }}
+            style={{ margin: "8px" }}
           >
-            {t('import')}
+            {t("import")}
             <input type="file" onChange={fileHandler} hidden />
           </Button>
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={t('step_3')}
-            secondary={t('choose_membership')}
+            primary={t("step_3")}
+            secondary={t("choose_membership")}
           />
           <div className={styles.div}>
             {memberships.length ? (
@@ -258,16 +248,16 @@ export default function ImportMembers() {
                 namespace="membership"
                 autoFocus
                 margin="dense"
-                label={t('membership')}
+                label={t("membership")}
                 formik={formik}
               />
             ) : (
               <ListItemText
-                primary={t('you_need_to_have_a_membership_available')}
+                primary={t("you_need_to_have_a_membership_available")}
                 secondary={t(
-                  'you_can_go_to_your_organization_settings_to_add_one',
+                  "you_can_go_to_your_organization_settings_to_add_one"
                 )}
-                primaryTypographyProps={{ color: 'secondary' }}
+                primaryTypographyProps={{ color: "secondary" }}
               />
             )}
           </div>
@@ -281,7 +271,7 @@ export default function ImportMembers() {
           className={styles.button}
           endIcon="Replay"
         >
-          {t('reset')}
+          {t("reset")}
         </Button>
       </div>
       {isLoading ? (
@@ -294,20 +284,18 @@ export default function ImportMembers() {
       <AlertDialog
         open={dialogOpen}
         onCancel={() => {
-          formik.setFieldValue('dialogOpen', false);
+          formik.setFieldValue("dialogOpen", false);
         }}
-        title={t('complete_transfer')}
-        description={t('import_members_confirmation', {
-          membersAmount: members.length || '',
-          membershipName: t(
-            getMembershipName(formik.values.membership),
-          ),
+        title={t("complete_transfer")}
+        description={t("import_members_confirmation", {
+          membersAmount: members.length || "",
+          membershipName: t(getMembershipName(formik.values.membership)),
         })}
         onSubmit={formik.handleSubmit}
       />
       <ContainerBottomFixed>
         <Button onClick={completeTransfer} style={{ margin: 8 }}>
-          {t('complete_transfer')}
+          {t("complete_transfer")}
         </Button>
       </ContainerBottomFixed>
     </IgContainer>

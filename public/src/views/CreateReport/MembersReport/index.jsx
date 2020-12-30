@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -6,12 +7,12 @@ import {
 } from "../../../../common/enums";
 import { goTo } from "../../../actions/goTo";
 import { Card, FormDialog } from "../../../components/Custom";
-import { useQuery } from "../../../hooks/queries";
 
 export default function MembersReport() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const { id } = useQuery();
+  const router = useRouter();
+  const { id } = router.query;
 
   const onClose = () => {
     setOpen(false);

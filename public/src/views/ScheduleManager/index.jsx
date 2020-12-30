@@ -8,16 +8,17 @@ import Ranking from "./Ranking";
 import styles from "./ScheduleManager.module.css";
 import { goTo, ROUTES } from "../../actions/goTo";
 import { GLOBAL_ENUM } from "../../../../common/enums";
-import { useQuery } from "../../hooks/queries";
 import { v4 as uuidv4 } from "uuid";
 import { updateRanking } from "./RankingFunctions";
 import { formatPageTitle } from "../../utils/stringFormats";
 import { useFormInput } from "../../hooks/forms";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 export default function ScheduleManager() {
   const { t } = useTranslation();
-  const { teams, games, ranking, title } = useQuery();
+  const router = useRouter();
+  const { teams, games, ranking, title } = router.query;
 
   useEffect(() => {
     document.title = formatPageTitle(getTitle());

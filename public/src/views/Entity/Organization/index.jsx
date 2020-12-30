@@ -3,7 +3,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Paper, IgContainer, Icon } from "../../../components/Custom";
 
 import { Tabs, Tab, Tooltip, Fab, makeStyles } from "@material-ui/core";
-import { useQuery } from "../../../hooks/queries";
 import TabsGenerator from "../../../tabs";
 import Div100vh from "react-div-100vh";
 import { goTo, ROUTES } from "../../../actions/goTo";
@@ -33,8 +32,8 @@ export default function Organization(props) {
   const classes = useStyles();
   const { basicInfos } = props;
   const router = useRouter();
-  const { id } = router.query;
-  const query = useQuery();
+  const { query } = router;
+  const { id } = query;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);

@@ -1,22 +1,17 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useContext,
-} from 'react';
-import { useTranslation } from 'react-i18next';
-import { List } from '../../../../components/Custom';
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { List } from "../../../../components/Custom";
 import {
   LIST_ITEM_ENUM,
   HEADER_FLYOUT_TYPE_ENUM,
   STATUS_ENUM,
-} from '../../../../../../common/enums';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { Typography } from '../../../../components/MUI';
+} from "../../../../../common/enums";
+import api from "../../../../actions/api";
+import { formatRoute } from "../../../../actions/goTo";
+import { ACTION_ENUM, Store } from "../../../../Store";
+import { Typography } from "../../../../components/MUI";
 
-import styles from '../HeaderFlyout.module.css';
+import styles from "../HeaderFlyout.module.css";
 
 export default function Notifications(props) {
   const { isMobileView } = props;
@@ -61,8 +56,7 @@ export default function Notifications(props) {
       return;
     }
 
-    const hasOverflowingChildren =
-      element.offsetHeight < element.scrollHeight;
+    const hasOverflowingChildren = element.offsetHeight < element.scrollHeight;
     if (!hasOverflowingChildren) {
       loadMoreItems();
     }
@@ -70,10 +64,10 @@ export default function Notifications(props) {
 
   const getNotifications = async () => {
     const { status, data } = await api(
-      formatRoute('/api/notifications/all', null, {
+      formatRoute("/api/notifications/all", null, {
         currentPage: currentPage.current,
         perPage: 5,
-      }),
+      })
     );
 
     if (status === STATUS_ENUM.ERROR) {
@@ -81,7 +75,7 @@ export default function Notifications(props) {
     }
 
     if (data.length) {
-      setNotifications(notifications => [...notifications, ...data]);
+      setNotifications((notifications) => [...notifications, ...data]);
     } else {
       setHasMoreItem(false);
     }
@@ -101,7 +95,7 @@ export default function Notifications(props) {
           items={[
             {
               type: LIST_ITEM_ENUM.AVATAR_TEXT_SKELETON,
-              key: '0',
+              key: "0",
               quantity: 4,
             },
           ]}
@@ -110,7 +104,7 @@ export default function Notifications(props) {
     );
   }
 
-  let items = notifications.map(notif => ({
+  let items = notifications.map((notif) => ({
     ...notif,
     key: notif.id,
     onClick: () => handleNotifClick(),
@@ -119,7 +113,7 @@ export default function Notifications(props) {
   if (hasMoreItem) {
     items.push({
       type: LIST_ITEM_ENUM.AVATAR_TEXT_SKELETON,
-      key: 'skeleton',
+      key: "skeleton",
     });
     if (isMobileView) {
       for (let i = 1; i < 5; i++) {
@@ -141,9 +135,9 @@ export default function Notifications(props) {
         }
       >
         <Typography align="center" variant="body2">
-          <b>{t('no_notifications')}</b>
+          <b>{t("no_notifications")}</b>
           <br />
-          {t('no_notifications_message')}
+          {t("no_notifications_message")}
         </Typography>
       </div>
     );

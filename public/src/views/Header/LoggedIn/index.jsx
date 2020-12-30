@@ -3,7 +3,7 @@ import { Store, SCREENSIZE_ENUM, ACTION_ENUM } from "../../../Store";
 import {
   SOCKET_EVENT,
   HEADER_FLYOUT_TYPE_ENUM,
-} from "../../../../../common/enums";
+} from "../../../../common/enums";
 
 import Link from "next/link";
 
@@ -76,76 +76,77 @@ export default function LoggedIn(props) {
   const refNotifications = useRef(null);
   const refAccount = useRef(null);
 
-  if (screenSize !== SCREENSIZE_ENUM.xs) {
-    {
-      return showBar ? (
-        <div className={classes.grow}>
-          <AppBar position="static" className={styles.appBar}>
-            <Toolbar className={styles.toolbarDesktop}>
-              <Typography className={classes.title} variant="h6" noWrap>
-                <Link href={"/"} className={classes.titleLink}>
-                  Sportfolios
-                </Link>
-              </Typography>
-              <SearchInput apiRoute="/api/data/search/previous" />
-              <div className={classes.grow} />
-              <div className={styles.sectionDesktop}>
-                <ProfileChip
-                  photoUrl={photoUrl}
-                  nameObj={nameObj}
-                  entityId={userInfo.primaryPerson?.entity_id}
-                />
-                <div ref={refCreateEntity}>
-                  <IconButton
-                    className={styles.iconButton}
-                    icon="Add"
-                    size="medium"
-                    onClick={handleCreateClick}
-                    style={{ color: "white" }}
-                    tooltip={t("create")}
-                  />
-                </div>
-                <div ref={refNotifications}>
-                  <NotificationModule
-                    className={styles.iconButton}
-                    onClick={handleNotificationClick}
-                  />
-                </div>
-                <div ref={refAccount}>
-                  <IconButton
-                    className={styles.iconButton}
-                    icon="ArrowDropDown"
-                    size="medium"
-                    onClick={handlePlusClick}
-                    style={{ color: "white" }}
-                    tooltip={t("account")}
-                    withBadge
-                    badgeContent={totalCartItems}
-                  />
-                </div>
-                <HeaderFlyout
-                  refCreateEntity={refCreateEntity}
-                  refNotifications={refNotifications}
-                  refAccount={refAccount}
-                />
+  if (screenSize === SCREENSIZE_ENUM.xs) {
+    // mobile here
+    return (
+      <div className={classes.grow}>
+        <AppBar position="static" className={styles.appBar}>
+          <Toolbar className="toolBar">
+            <div className={styles.container}>
+              <div>
+                <SearchInput apiRoute="/api/data/search/previous" />
               </div>
-            </Toolbar>
-          </AppBar>
-        </div>
-      ) : (
-        <></>
-      );
-    }
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
   }
-  // mobile here
+
+  if (!showBar) {
+    return <></>;
+  }
+
   return (
     <div className={classes.grow}>
       <AppBar position="static" className={styles.appBar}>
-        <Toolbar className="toolBar">
-          <div className={styles.container}>
-            <div>
-              <SearchInput apiRoute="/api/data/search/previous" />
+        <Toolbar className={styles.toolbarDesktop}>
+          <Typography className={classes.title} variant="h6" noWrap>
+            <Link href={"/"} className={classes.titleLink}>
+              Sportfolios
+            </Link>
+          </Typography>
+          <SearchInput apiRoute="/api/data/search/previous" />
+          <div className={classes.grow} />
+          <div className={styles.sectionDesktop}>
+            <ProfileChip
+              photoUrl={photoUrl}
+              nameObj={nameObj}
+              entityId={userInfo.primaryPerson?.entity_id}
+            />
+            <div ref={refCreateEntity}>
+              <IconButton
+                className={styles.iconButton}
+                icon="Add"
+                size="medium"
+                onClick={handleCreateClick}
+                style={{ color: "white" }}
+                tooltip={t("create")}
+              />
             </div>
+            <div ref={refNotifications}>
+              <NotificationModule
+                className={styles.iconButton}
+                onClick={handleNotificationClick}
+              />
+            </div>
+            <div ref={refAccount}>
+              <IconButton
+                className={styles.iconButton}
+                icon="ArrowDropDown"
+                size="medium"
+                onClick={handlePlusClick}
+                style={{ color: "white" }}
+                tooltip={t("account")}
+                withBadge
+                badgeContent={totalCartItems}
+              />
+            </div>
+            <HeaderFlyout
+              refCreateEntity={refCreateEntity}
+              refNotifications={refNotifications}
+              refAccount={refAccount}
+            />
           </div>
         </Toolbar>
       </AppBar>

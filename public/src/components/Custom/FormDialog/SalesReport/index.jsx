@@ -10,14 +10,15 @@ import {
   REPORT_TYPE_ENUM,
 } from "../../../../../common/enums";
 import BasicFormDialog from "../BasicFormDialog";
-import { useQuery } from "../../../../hooks/queries";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 export default function SalesReport(props) {
   const { open: openProps, onClose, handleCreated } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { id: entityId } = useQuery();
+  const router = useRouter();
+  const { id: entityId } = router.query;
 
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   CARD_TYPE_ENUM,
   FORM_DIALOG_TYPE_ENUM,
-} from '../../../../../common/enums';
-import { goTo } from '../../../actions/goTo';
-import { Card, FormDialog } from '../../../components/Custom';
-import { useQuery } from '../../../hooks/queries';
+} from "../../../../../common/enums";
+import { goTo } from "../../../actions/goTo";
+import { Card, FormDialog } from "../../../components/Custom";
 
 export default function MembersReport() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const { id } = useQuery();
+  const router = useRouter();
+  const { id } = router.query;
 
   const onClose = () => {
     setOpen(false);
@@ -25,8 +26,8 @@ export default function MembersReport() {
     <>
       <Card
         items={{
-          title: t('sales'),
-          description: t('sales_report_description'),
+          title: t("sales"),
+          description: t("sales_report_description"),
           onClick: () => {
             setOpen(true);
           },

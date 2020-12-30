@@ -6,7 +6,7 @@ import Default from "./Default";
 import LoggedOut from "./LoggedOut";
 import { Typography } from "../../components/MUI";
 import api from "../../actions/api";
-import { GLOBAL_ENUM } from "../../../../common/enums";
+import { GLOBAL_ENUM } from "../../../common/enums";
 import CartIcon from "../Cart/CartICon";
 import validator from "validator";
 import { useRouter } from "next/router";
@@ -18,16 +18,16 @@ const getEntity = async (entityId) => {
 
 export default function Header() {
   const {
-    state: { authToken },
+    state: { isAuthenticated },
   } = useContext(Store);
-  const isAuthenticated = Boolean(authToken);
+  console.log({ isAuthenticated });
+
   const router = useRouter();
-  const location = router.pathname;
   const [path, setPath] = useState("");
   const [entity, setEntity] = useState({});
 
   const fetchData = async () => {
-    const pth = location.pathname.split("/")[1] || "";
+    const pth = router.pathname.split("/")[1] || "";
 
     if (
       [
@@ -43,7 +43,7 @@ export default function Header() {
     ) {
       setPath(pth);
     } else if (["eventRegistration"].includes(pth)) {
-      const id = location.pathname.split("/")[2] || "";
+      const id = router.pathname.split("/")[2] || "";
       const ent = await getEntity(id);
       setPath(ent.type);
       setEntity(ent);
@@ -58,7 +58,7 @@ export default function Header() {
 
   useEffect(() => {
     fetchData();
-  }, [location]);
+  }, [router.pathname]);
 
   if (isAuthenticated) {
     switch (path) {

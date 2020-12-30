@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Autocomplete } from "../../Custom";
 import { goTo, goToAndReplace, ROUTES } from "../../../actions/goTo";
-import { useApiRoute, useQuery } from "../../../hooks/queries";
+import { useApiRoute } from "../../../hooks/queries";
 
 import styles from "./SearchInput.module.css";
 import { useRouter } from "next/router";
@@ -27,7 +27,7 @@ export default function SearchInput(props) {
   const { searchQuery = "/api/data/search/previous", type } = props;
   const router = useRouter();
   const location = router.pathname;
-  const { query: queryQuery } = useQuery();
+  const { query: queryQuery } = router.query;
 
   const { response: apiRes } = useApiRoute(searchQuery);
 

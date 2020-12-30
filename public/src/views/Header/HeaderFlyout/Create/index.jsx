@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { List } from '../../../../components/Custom';
+import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { List } from "../../../../components/Custom";
 import {
   GLOBAL_ENUM,
   LIST_ITEM_ENUM,
   HEADER_FLYOUT_TYPE_ENUM,
-} from '../../../../../../common/enums';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { ACTION_ENUM, Store } from '../../../../Store';
+} from "../../../../../common/enums";
+import { goTo, ROUTES } from "../../../../actions/goTo";
+import { ACTION_ENUM, Store } from "../../../../Store";
 
-import styles from '../HeaderFlyout.module.css';
+import styles from "../HeaderFlyout.module.css";
 
 export default function Create() {
   const { t } = useTranslation();
@@ -19,33 +19,33 @@ export default function Create() {
     {
       type: LIST_ITEM_ENUM.CREATE_ENTITY,
       key: GLOBAL_ENUM.PERSON,
-      icon: 'Person',
-      title: t('person'),
-      description: t('create_entity_person'),
+      icon: "Person",
+      title: t("person"),
+      description: t("create_entity_person"),
       onClick: () => createPerson(),
     },
     {
       type: LIST_ITEM_ENUM.CREATE_ENTITY,
       key: GLOBAL_ENUM.TEAM,
-      icon: 'Group',
-      title: t('team'),
-      description: t('create_entity_team'),
+      icon: "Group",
+      title: t("team"),
+      description: t("create_entity_team"),
       onClick: () => createTeam(),
     },
     {
       type: LIST_ITEM_ENUM.CREATE_ENTITY,
       key: GLOBAL_ENUM.EVENT,
-      icon: 'Event',
-      title: t('event'),
-      description: t('create_entity_event'),
+      icon: "Event",
+      title: t("event"),
+      description: t("create_entity_event"),
       onClick: () => createEvent(),
     },
     {
       type: LIST_ITEM_ENUM.CREATE_ENTITY,
       key: GLOBAL_ENUM.ORGANIZATION,
-      icon: 'Business',
-      title: t('organization'),
-      description: t('create_organization'),
+      icon: "Business",
+      title: t("organization"),
+      description: t("create_organization"),
       onClick: () => createOrganization(),
     },
   ];

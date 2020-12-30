@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import styles from "./Login.module.css";
 import api from "../../actions/api";
@@ -9,7 +9,6 @@ import { Container } from "../../components/Custom";
 import { Typography, Button } from "../../components/MUI";
 
 import { useTranslation } from "react-i18next";
-import { useQuery } from "../../hooks/queries";
 import { useFormik } from "formik";
 
 import SignupCard from "./SignupCard";
@@ -20,11 +19,21 @@ import {
   SEVERITY_ENUM,
   LOGIN_STATE_ENUM,
 } from "../../../common/enums";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
   const { t } = useTranslation();
-  const { successRoute, redirectUrl } = useQuery();
-  const { dispatch } = useContext(Store);
+  const { successRoute, redirectUrl } = router.query;
+  const {
+    state: { isAuthenticated },
+    dispatch,
+  } = useContext(Store);
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push(ROUTES.home);
+    }
+  }, [isAuthenticated]);
   const validate = (values) => {
     const errors = {};
     if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {

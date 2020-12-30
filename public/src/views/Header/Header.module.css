@@ -9,6 +9,11 @@
   flex-grow: 1;
 }
 
+.titleLink {
+  color: white;
+  text-decoration: none;
+}
+
 .menuButton {
   margin-right: 16px;
 }

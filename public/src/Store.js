@@ -102,6 +102,7 @@ function reducer(state, action) {
         ...state,
         authToken: action.payload.authToken || action.payload,
         userInfo: action.payload.userInfo || state.userInfo,
+        isAuthenticated: true,
       };
     }
     case ACTION_ENUM.LOGOUT: {
@@ -118,6 +119,7 @@ function reducer(state, action) {
         ...state,
         authToken: null,
         userInfo: {},
+        isAuthenticated: false,
       };
     }
     case ACTION_ENUM.UPDATE_PROFILE_PICTURE: {
@@ -158,7 +160,7 @@ function reducer(state, action) {
     }
     case ACTION_ENUM.UPDATE_USER_INFO: {
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
-      return { ...state, userInfo: action.payload };
+      return { ...state, userInfo: action.payload, isAuthenticated: true };
     }
     case ACTION_ENUM.WINDOW_RESIZE: {
       const found = BREAKPOINTS.find(({ value }) => value < action.payload) || {
@@ -207,6 +209,8 @@ export function StoreProvider(props) {
   const init = async () => {
     const authToken = handleLocalAuthToken(localStorage.getItem("authToken"));
 
+    console.log({ authToken });
+
     if (authToken) {
       const res = await fetch(`${API_BASE_URL}/api/user/userInfo`, {
         headers: {
@@ -214,7 +218,10 @@ export function StoreProvider(props) {
         },
       });
 
-      if (res.status === errors[ERROR_ENUM.TOKEN_EXPIRED].code) {
+      const { status } = res;
+
+      if (status === errors[ERROR_ENUM.TOKEN_EXPIRED].code) {
+        console.log("Inside yeahhh");
         dispatch({
           type: ACTION_ENUM.CLEAR_USER_INFO,
         });
@@ -222,6 +229,8 @@ export function StoreProvider(props) {
       }
 
       const { data } = await res.json();
+
+      console.log({ data });
 
       if (data) {
         dispatch({

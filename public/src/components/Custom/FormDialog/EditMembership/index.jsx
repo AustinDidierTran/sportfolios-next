@@ -12,9 +12,9 @@ import {
 } from "../../../../../common/enums";
 import BasicFormDialog from "../BasicFormDialog";
 import moment from "moment";
-import { useQuery } from "../../../../hooks/queries";
 import { getMembershipName } from "../../../../utils/stringFormats";
 import LoadingSpinner from "../../LoadingSpinner";
+import { useRouter } from "next/router";
 
 export default function EditMembership(props) {
   const {
@@ -27,7 +27,8 @@ export default function EditMembership(props) {
   } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { id: entityId } = useQuery();
+  const router = useRouter();
+  const { id: entityId } = router.query;
 
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

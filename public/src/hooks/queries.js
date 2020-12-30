@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { ERROR_ENUM } from "../../common/errors";
 import api from "../actions/api";
 
 const paramsToObject = (entries) => {
@@ -12,26 +12,17 @@ const paramsToObject = (entries) => {
   return result;
 };
 
-export const useQuery = () => {
-  const router = useRouter();
-  const { search } = router.query;
-  const urlParams = new URLSearchParams(search);
-  const entries = urlParams.entries();
-  const params = paramsToObject(entries);
-
-  return params;
-};
-
 export const useApiRoute = (route, options = {}) => {
   const { defaultValue } = options;
   const [isLoading, setIsLoading] = useState(true);
   const [response, setResponse] = useState(defaultValue);
+  const [status, setStatus] = useState(200);
 
-  const updateResponse = async () => {
+  const refetch = async () => {
     setIsLoading(true);
     try {
-      const { data } = await api(route, options);
-
+      const { data, status } = await api(route, options);
+      setStatus(status);
       setResponse(data);
       setIsLoading(false);
     } catch (err) {
@@ -42,11 +33,11 @@ export const useApiRoute = (route, options = {}) => {
 
   useEffect(() => {
     if (route) {
-      updateResponse();
+      refetch();
     } else {
       setResponse(defaultValue);
     }
   }, [route]);
 
-  return { response, isLoading };
+  return { response, isLoading, refetch, status };
 };

@@ -44,7 +44,7 @@ export default function SpeedDialTooltipOpen() {
   const location = router.pathname;
 
   const actions = useMemo(() => {
-    const path = location.pathname.split("/")[1] || "";
+    const path = location.split("/")[1] || "";
     switch (path) {
       case VIEW_ENUM.CART:
         setHidden(true);

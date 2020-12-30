@@ -13,14 +13,15 @@ import {
 } from "../../../../../common/enums";
 import BasicFormDialog from "../BasicFormDialog";
 import moment from "moment";
-import { useQuery } from "../../../../hooks/queries";
 import { IconButton } from "../..";
+import { useRouter } from "next/router";
 
 export default function AddMember(props) {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { id: entityId } = useQuery();
+  const router = useRouter();
+  const { id: entityId } = router.query;
 
   const [open, setOpen] = useState(false);
   const [persons, setPersons] = useState([]);

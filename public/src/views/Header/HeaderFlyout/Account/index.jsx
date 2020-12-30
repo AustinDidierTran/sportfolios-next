@@ -1,33 +1,33 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from "react";
 import {
   Badge,
   Divider,
   List,
   ListItemAvatar,
   makeStyles,
-} from '@material-ui/core';
-import { HEADER_FLYOUT_TYPE_ENUM } from '../../../../../../common/enums';
-import { Avatar, Button, Icon } from '../../../../components/Custom';
+} from "@material-ui/core";
+import { HEADER_FLYOUT_TYPE_ENUM } from "../../../../../common/enums";
+import { Avatar, Button, Icon } from "../../../../components/Custom";
 import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '../../../../components/MUI';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { getInitialsFromName } from '../../../../utils/stringFormats';
-import { useTranslation } from 'react-i18next';
+} from "../../../../components/MUI";
+import { ACTION_ENUM, Store } from "../../../../Store";
+import { getInitialsFromName } from "../../../../utils/stringFormats";
+import { useTranslation } from "react-i18next";
 
-import styles from '../HeaderFlyout.module.css';
-import { goTo, ROUTES } from '../../../../actions/goTo';
+import styles from "../HeaderFlyout.module.css";
+import { goTo, ROUTES } from "../../../../actions/goTo";
 
 const useStyles = makeStyles({
   avatar: {
-    width: '60px !important',
-    height: '60px !important',
-    fontSize: '24px',
+    width: "60px !important",
+    height: "60px !important",
+    fontSize: "24px",
   },
   noBorder: {
-    border: 'none',
+    border: "none",
   },
 });
 
@@ -51,12 +51,12 @@ export default function Plus() {
       name: userInfo.primaryPerson?.name,
       surname: userInfo.primaryPerson?.surname,
     }),
-    [userInfo.primaryPerson],
+    [userInfo.primaryPerson]
   );
 
   const totalCartItems = useMemo(
     () => items.reduce((prev, item) => prev + item.quantity, 0),
-    [items],
+    [items]
   );
 
   const handleItemClick = () => {
@@ -85,14 +85,14 @@ export default function Plus() {
 
   const listItems = [
     {
-      primary: t('cart'),
-      icon: 'ShoppingCartOutlined',
+      primary: t("cart"),
+      icon: "ShoppingCartOutlined",
       onClick: () => handleViewCartClick(),
       badgeContent: totalCartItems,
     },
     {
-      primary: t('settings'),
-      icon: 'Settings',
+      primary: t("settings"),
+      icon: "Settings",
       onClick: () => handleViewSettingsClick(),
       badgeContent: 0,
     },
@@ -106,11 +106,11 @@ export default function Plus() {
           button
           onClick={handleViewProfileClick}
         >
-          <ListItemAvatar style={{ marginRight: '8px' }}>
+          <ListItemAvatar style={{ marginRight: "8px" }}>
             <Avatar
               className={
                 photoUrl
-                  ? [classes.avatar, classes.noBorder].join(' ')
+                  ? [classes.avatar, classes.noBorder].join(" ")
                   : classes.avatar
               }
               photoUrl={photoUrl}
@@ -119,7 +119,7 @@ export default function Plus() {
           </ListItemAvatar>
           <ListItemText
             primary={`${nameObj.name} ${nameObj.surname}`}
-            secondary={t('view_your_profile')}
+            secondary={t("view_your_profile")}
           />
         </ListItem>
 
@@ -143,16 +143,13 @@ export default function Plus() {
 
         <Divider className={styles.plusDivider} />
 
-        <ListItem
-          className={styles.plusItem}
-          onClick={handleLogoutClick}
-        >
+        <ListItem className={styles.plusItem} onClick={handleLogoutClick}>
           <Button
             className={styles.plusLogout}
             startIcon="Power"
             color="secondary"
           >
-            {t('logout')}
+            {t("logout")}
           </Button>
         </ListItem>
       </List>

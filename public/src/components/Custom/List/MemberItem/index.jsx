@@ -13,16 +13,17 @@ import {
   FORM_DIALOG_TYPE_ENUM,
   INVOICE_STATUS_ENUM,
 } from "../../../../../common/enums";
-import { useQuery } from "../../../../hooks/queries";
 import { AlertDialog } from "../../Dialog";
 import api from "../../../../actions/api";
 import { formatRoute, goTo, ROUTES } from "../../../../actions/goTo";
+import { useRouter } from "next/router";
 
 export default function MemberItem(props) {
   const { t } = useTranslation();
 
   const { person, memberType, expirationDate, update, status } = props;
-  const { id: entityId } = useQuery();
+  const router = useRouter();
+  const { id: entityId } = router.query;
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 

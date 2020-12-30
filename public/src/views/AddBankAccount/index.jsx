@@ -9,7 +9,6 @@ import { formatRoute, goTo } from "../../actions/goTo";
 import { hasXDigits } from "../../utils/validators";
 import { IgContainer, Paper, Button } from "../../components/Custom";
 import api from "../../actions/api";
-import { useQuery } from "../../hooks/queries";
 import { ERROR_ENUM } from "../../../../common/errors";
 import { ACTION_ENUM, Store } from "../../Store";
 import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../common/enums";
@@ -18,8 +17,7 @@ import { useRouter } from "next/router";
 export default function AddBankAccount() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { id } = router.query;
-  const { entityId } = useQuery();
+  const { entityId, id } = router.query;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { dispatch } = useContext(Store);
 

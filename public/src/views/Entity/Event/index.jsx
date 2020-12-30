@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { Paper, IgContainer, Icon } from "../../../components/Custom";
 
-import { useQuery } from "../../../hooks/queries";
-
 import { Tabs, Tab, Tooltip, Fab, makeStyles } from "@material-ui/core";
 import { goTo, ROUTES } from "../../../actions/goTo";
 import TabsGenerator from "../../../tabs";
@@ -36,8 +34,8 @@ export default function Event(props) {
   const classes = useStyles();
   const { basicInfos } = props;
   const router = useRouter();
-  const { id } = router.query;
-  const query = useQuery();
+  const { query } = router;
+  const { id } = query;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
