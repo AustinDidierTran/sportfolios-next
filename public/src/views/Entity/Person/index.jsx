@@ -1,9 +1,13 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-import { Paper, IgContainer, Icon } from "../../../components/Custom";
+import {
+  Paper,
+  IgContainer,
+  Icon,
+  Tab,
+  Tabs,
+} from "../../../components/Custom";
 import { formatPageTitle } from "../../../utils/stringFormats";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import TabsGenerator from "../../../tabs";
 import { goTo, ROUTES } from "../../../actions/goTo";
 import { TABS_ENUM } from "../../../../common/enums";
@@ -38,40 +42,19 @@ export default function Person(props) {
   return (
     <IgContainer>
       <Paper>
-        {window.innerWidth < 768 ? (
-          <Tabs
-            value={states.findIndex((s) => s.value === eventState)}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            {states.map((s, index) => (
-              <Tab
-                key={index}
-                onClick={() => onClick(s)}
-                icon={<Icon icon={s.icon} />}
-                style={{
-                  minWidth: window.innerWidth / states.length,
-                }}
-              />
-            ))}
-          </Tabs>
-        ) : (
-          <Tabs
-            value={states.findIndex((s) => s.value === eventState)}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            {states.map((s, index) => (
-              <Tab
-                key={index}
-                onClick={() => onClick(s)}
-                label={s.label}
-                icon={<Icon icon={s.icon} />}
-                style={{ minWidth: 700 / states.length }}
-              />
-            ))}
-          </Tabs>
-        )}
+        <Tabs
+          value={states.findIndex((s) => s.value === eventState)}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          {states.map((s, index) => (
+            <Tab
+              key={index}
+              onClick={() => onClick(s)}
+              icon={<Icon icon={s.icon} />}
+            />
+          ))}
+        </Tabs>
       </Paper>
       <div>
         <OpenTab {...props} />

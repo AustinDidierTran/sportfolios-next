@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from "react";
 import {
   GLOBAL_ENUM,
   STATUS_ENUM,
   SEVERITY_ENUM,
   FORM_DIALOG_TYPE_ENUM,
-} from '../../../../../common/enums';
-import { Card } from '@material-ui/core';
-import styles from './MyPersons.module.css';
-import { formatRoute } from '../../../actions/goTo';
-import api from '../../../actions/api';
+} from "../../../../common/enums";
+import { Card } from "@material-ui/core";
+import styles from "./MyPersons.module.css";
+import { formatRoute } from "../../../actions/goTo";
+import api from "../../../actions/api";
 import {
   LoadingSpinner,
   List,
@@ -16,11 +16,11 @@ import {
   AlertDialog,
   IconButton,
   Button,
-} from '../../../components/Custom';
-import { useTranslation } from 'react-i18next';
-import EditPrimaryPerson from './EditPrimaryPerson';
-import { Store, ACTION_ENUM } from '../../../Store';
-import { ERROR_ENUM, errors } from '../../../../../common/errors';
+} from "../../../components/Custom";
+import { useTranslation } from "react-i18next";
+import EditPrimaryPerson from "./EditPrimaryPerson";
+import { Store, ACTION_ENUM } from "../../../Store";
+import { ERROR_ENUM, errors } from "../../../../common/errors";
 
 export default function MyPersons() {
   const { t } = useTranslation();
@@ -33,11 +33,12 @@ export default function MyPersons() {
   const [declineDialog, setDeclineDialog] = useState(false);
   const { dispatch } = useContext(Store);
 
+  // TODO: use the useApiRoute function, and ownedpersons should
   const fetchOwnedPersons = async () => {
     const { data } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
+      formatRoute("/api/user/ownedPersons", null, {
         type: GLOBAL_ENUM.PERSON,
-      }),
+      })
     );
     //Permet de mettre la primary person comme 1er élément de la liste
     for (var i = 0; i < data.length; i++) {
@@ -66,8 +67,8 @@ export default function MyPersons() {
   };
 
   const showErrorMessage = (
-    message = t('something_went_wrong'),
-    duration = 4000,
+    message = t("something_went_wrong"),
+    duration = 4000
   ) =>
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
@@ -86,75 +87,72 @@ export default function MyPersons() {
 
   const confirmDecline = async () => {
     const res = await api(
-      formatRoute('/api/user/declinePersonTransfer', null, {
+      formatRoute("/api/user/declinePersonTransfer", null, {
         id: selectedPerson.id,
-      }),
+      })
     );
     if (res.status === STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
-      showSuccessMessage(t('person_transfer_declined'));
+      showSuccessMessage(t("person_transfer_declined"));
     }
     closeDeclineDialog();
     fetchOwnedPersons();
   };
 
-  const approveTransfer = async person => {
+  const approveTransfer = async (person) => {
     const res = await api(
-      formatRoute('/api/user/acceptPersonTransfer', null, {
+      formatRoute("/api/user/acceptPersonTransfer", null, {
         id: person.id,
-      }),
+      })
     );
     if (res.status === STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
-      showSuccessMessage(t('person_transfer_done'));
+      showSuccessMessage(t("person_transfer_done"));
     }
     fetchOwnedPersons();
   };
 
   const confirmCancelPersonTransfer = async () => {
     const res = await api(
-      formatRoute('/api/user/transferPerson', null, {
+      formatRoute("/api/user/transferPerson", null, {
         id: selectedPerson.id,
       }),
-      { method: 'DELETE' },
+      { method: "DELETE" }
     );
     if (res.status === STATUS_ENUM.ERROR) {
       showErrorMessage(res.message);
     } else {
-      showSuccessMessage(t('person_transfer_canceled'));
+      showSuccessMessage(t("person_transfer_canceled"));
     }
     closeCancelPersonTransfer();
     fetchOwnedPersons();
   };
 
-  const onSendEmail = async email => {
-    const res = await api('/api/user/transferPerson', {
-      method: 'POST',
+  const onSendEmail = async (email) => {
+    const res = await api("/api/user/transferPerson", {
+      method: "POST",
       body: JSON.stringify({
         email,
         sendedPersonId: selectedPerson.id,
       }),
     });
     if (res.status === errors[ERROR_ENUM.VALUE_IS_INVALID].code) {
-      showErrorMessage(t('cant_transfer_person_to_your_own_email'));
+      showErrorMessage(t("cant_transfer_person_to_your_own_email"));
     } else if (res.status == STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
-      showSuccessMessage(
-        t('person_transfer_email_sent', { email }),
-        3000,
-      );
+      showSuccessMessage(t("person_transfer_email_sent", { email }), 3000);
     }
     closeSendPerson();
     fetchOwnedPersons();
   };
 
-  const submitPrimaryPerson = async newPrimaryPersonId => {
+  const submitPrimaryPerson = async (newPrimaryPersonId) => {
     if (persons[0].id !== newPrimaryPersonId) {
-      const res = await api('/api/user/primaryPerson', {
-        method: 'PUT',
+      const res = await api("/api/user/primaryPerson", {
+        method: "PUT",
         body: JSON.stringify({
           primaryPersonId: newPrimaryPersonId,
         }),
@@ -162,7 +160,7 @@ export default function MyPersons() {
       if (res.status === STATUS_ENUM.ERROR) {
         showErrorMessage();
       } else {
-        showSuccessMessage(t('primary_person_changed'));
+        showSuccessMessage(t("primary_person_changed"));
         fetchOwnedPersons();
       }
     }
@@ -173,48 +171,48 @@ export default function MyPersons() {
     fetchOwnedPersons();
   }, []);
 
-  const transferedPersonActions = person => [
+  const transferedPersonActions = (person) => [
     <IconButton
-      tooltip={t('cancel_person_transfer')}
+      tooltip={t("cancel_person_transfer")}
       edge="end"
       onClick={() => {
         setSelectedPerson(person);
         setConfirmCancelation(true);
       }}
       icon="CancelSend"
-      style={{ color: 'secondary' }}
+      style={{ color: "secondary" }}
       size="medium"
     />,
   ];
 
   const primaryPersonActions = () => [
     <IconButton
-      tooltip={t('edit_your_primary_person')}
+      tooltip={t("edit_your_primary_person")}
       edge="end"
       onClick={() => {
         setEditPrimaryPerson(true);
       }}
       icon="Edit"
-      style={{ color: 'secondary' }}
+      style={{ color: "secondary" }}
       size="medium"
     />,
   ];
 
-  const secondaryPersonActions = person => [
+  const secondaryPersonActions = (person) => [
     <IconButton
-      tooltip={t('transfer_this_person')}
+      tooltip={t("transfer_this_person")}
       edge="end"
       onClick={() => {
         setSelectedPerson(person);
         setSendPerson(true);
       }}
       icon="Send"
-      style={{ color: 'secondary' }}
+      style={{ color: "secondary" }}
       size="medium"
     />,
   ];
 
-  const awaitingApprovalPersonAction = person =>
+  const awaitingApprovalPersonAction = (person) =>
     window.innerWidth >= 768
       ? [
           <Button
@@ -227,7 +225,7 @@ export default function MyPersons() {
             color="secondary"
             style={{ marginRight: 5 }}
           >
-            {t('decline')}
+            {t("decline")}
           </Button>,
           <Button
             endIcon="Check"
@@ -237,50 +235,50 @@ export default function MyPersons() {
             }}
             color="primary"
           >
-            {t('accept')}
+            {t("accept")}
           </Button>,
         ]
       : [
           <IconButton
-            tooltip={t('cancel')}
+            tooltip={t("cancel")}
             size="medium"
             onClick={() => {
               setSelectedPerson(person);
               setDeclineDialog(true);
             }}
-            style={{ color: 'secondary' }}
+            style={{ color: "secondary" }}
             icon="Delete"
           />,
           <IconButton
-            tooltip={t('confirm')}
+            tooltip={t("confirm")}
             size="medium"
             onClick={() => {
               approveTransfer(person);
             }}
-            style={{ color: 'secondary' }}
+            style={{ color: "secondary" }}
             icon="Check"
           />,
         ];
 
-  const items = persons.map(person => {
+  const items = persons.map((person) => {
     let subtitle;
     let actions;
     if (person.isPrimaryPerson) {
-      subtitle = t('primary_person');
+      subtitle = t("primary_person");
       actions = primaryPersonActions();
     } else if (person.isToBeTransfered) {
-      subtitle = t('person_awaiting_transfer');
+      subtitle = t("person_awaiting_transfer");
       actions = transferedPersonActions(person);
     } else if (person.isAwaitingApproval) {
-      subtitle = t('awaiting_your_approval');
+      subtitle = t("awaiting_your_approval");
       actions = awaitingApprovalPersonAction(person);
     } else {
-      subtitle = t('secondary_person');
+      subtitle = t("secondary_person");
       actions = secondaryPersonActions(person);
     }
     return {
       ...person,
-      completeName: person.name + ' ' + person.surname,
+      completeName: person.name + " " + person.surname,
       secondary: subtitle,
       secondaryActions: actions,
       key: person.id,
@@ -294,7 +292,7 @@ export default function MyPersons() {
   return (
     <>
       <Card className={styles.card}>
-        <List title={t('my_persons')} items={items} />
+        <List title={t("my_persons")} items={items} />
       </Card>
       <EditPrimaryPerson
         open={editPrimaryPerson}
@@ -304,10 +302,10 @@ export default function MyPersons() {
       />
       <AlertDialog
         open={confirmCancelation}
-        title={t('cancel_person_transfer_confirmation', {
+        title={t("cancel_person_transfer_confirmation", {
           name: selectedPerson
-            ? selectedPerson.name + ' ' + selectedPerson.surname
-            : '',
+            ? selectedPerson.name + " " + selectedPerson.surname
+            : "",
         })}
         onSubmit={confirmCancelPersonTransfer}
         onCancel={closeCancelPersonTransfer}
@@ -318,23 +316,20 @@ export default function MyPersons() {
           open: sendPerson,
           onClose: closeSendPerson,
           title:
-            t('to_transfer') +
+            t("to_transfer") +
             (selectedPerson
-              ? ' ' +
-                selectedPerson.name +
-                ' ' +
-                selectedPerson.surname
-              : ''),
-          description: t('transfer_person_description'),
+              ? " " + selectedPerson.name + " " + selectedPerson.surname
+              : ""),
+          description: t("transfer_person_description"),
           onSubmit: onSendEmail,
         }}
       />
       <AlertDialog
         open={declineDialog}
-        title={t('cancel_person_transfer_confirmation', {
+        title={t("cancel_person_transfer_confirmation", {
           name: selectedPerson
-            ? selectedPerson.name + ' ' + selectedPerson.surname
-            : '',
+            ? selectedPerson.name + " " + selectedPerson.surname
+            : "",
         })}
         onSubmit={confirmDecline}
         onCancel={closeDeclineDialog}

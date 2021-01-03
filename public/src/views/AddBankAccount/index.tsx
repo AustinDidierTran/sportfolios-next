@@ -1,43 +1,53 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { Typography } from "@material-ui/core";
+
+// @ts-ignore
 import styles from "./AddBankAccount.module.css";
 import CountrySelect from "./CountrySelect";
 import CurrencySelect from "./CurrencySelect";
-import { formatRoute, goTo } from "../../actions/goTo";
+import { goTo } from "../../actions/goTo";
 import { hasXDigits } from "../../utils/validators";
 import { Button, IgContainer, Paper, TextField } from "../../components/Custom";
 import api from "../../actions/api";
-import { ERROR_ENUM } from "../../../../common/errors";
+import { ERROR_ENUM } from "../../../common/errors";
 import { ACTION_ENUM, Store } from "../../Store";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../common/enums";
-import { useRouter } from "next/router";
+import { SEVERITY_ENUM, STATUS_ENUM } from "../../../common/enums";
 
-export default function AddBankAccount() {
+interface IProps {
+  entityId: string;
+  id: string;
+}
+
+interface IErrors {
+  country?: string;
+  currency?: string;
+  accountHolderName?: string;
+  transitNumber?: string;
+  institutionNumber?: string;
+  accountNumber?: string;
+}
+
+interface IValues {
+  country?: string;
+  currency?: string;
+  accountHolderName?: string;
+  transitNumber?: number;
+  institutionNumber?: number;
+  accountNumber?: number;
+}
+
+const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
+  const { entityId, id } = props;
   const { t } = useTranslation();
-  const router = useRouter();
-  const { entityId, id } = router.query;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
-    hasStripeAccount();
-  }, []);
-
-  const hasStripeAccount = async () => {
-    const { data: hasStripeAccount } = await api(
-      formatRoute("/api/stripe/hasStripeAccount", null, { entityId })
-    );
-    if (!hasStripeAccount) {
-      goTo(`/${entityId}?tab=settings`);
-    }
-  };
-
   const isANumber = (number) => !isNaN(Number(number));
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: IValues) => {
+    const errors: IErrors = {};
     const {
       country,
       currency,
@@ -91,7 +101,7 @@ export default function AddBankAccount() {
     validate,
     validateOnChange: false,
     validateOnBlur: true,
-    onSubmit: async (values) => {
+    onSubmit: async (values: IValues) => {
       try {
         setIsSubmitting(true);
         const {
@@ -197,4 +207,6 @@ export default function AddBankAccount() {
       </Paper>
     </IgContainer>
   );
-}
+};
+
+export default AddBankAccount;

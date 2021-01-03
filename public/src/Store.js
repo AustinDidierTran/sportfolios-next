@@ -209,8 +209,6 @@ export function StoreProvider(props) {
   const init = async () => {
     const authToken = handleLocalAuthToken(localStorage.getItem("authToken"));
 
-    console.log({ authToken });
-
     if (authToken) {
       const res = await fetch(`${API_BASE_URL}/api/user/userInfo`, {
         headers: {
@@ -242,6 +240,10 @@ export function StoreProvider(props) {
           i18n.changeLanguage(data.language);
         }
       }
+    } else {
+      dispatch({
+        type: ACTION_ENUM.LOGOUT,
+      });
     }
 
     const res2 = await api("/api/shop/getCartItems");

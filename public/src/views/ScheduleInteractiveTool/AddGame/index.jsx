@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
 import {
   COMPONENT_TYPE_ENUM,
   STATUS_ENUM,
   SEVERITY_ENUM,
-} from '../../../../../common/enums';
-import { ERROR_ENUM } from '../../../../../common/errors';
-import { FormDialog } from '../../../components/Custom';
-import { formatDate } from '../../../utils/stringFormats';
-import { Store, ACTION_ENUM } from '../../../Store';
-import moment from 'moment';
-import api from '../../../actions/api';
+} from "../../../../common/enums";
+import { ERROR_ENUM } from "../../../../common/errors";
+import { FormDialog } from "../../../components/Custom";
+import { formatDate } from "../../../utils/stringFormats";
+import { Store, ACTION_ENUM } from "../../../Store";
+import moment from "moment";
+import api from "../../../actions/api";
 
 export default function AddGame(props) {
   const { t } = useTranslation();
@@ -38,7 +38,14 @@ export default function AddGame(props) {
     onClose();
   };
 
-  const validate = values => {
+  const description = useMemo(() => {
+    return `${field?.name}, ${formatDate(
+      moment(timeslot?.date),
+      "DD MMM HH:mm"
+    )}`;
+  }, [field, timeslot]);
+
+  const validate = (values) => {
     const { phase, team1, team2 } = values;
     const errors = {};
     if (!phase.length) {
@@ -55,18 +62,18 @@ export default function AddGame(props) {
 
   const formik = useFormik({
     initialValues: {
-      phase: '',
-      team1: '',
-      team2: '',
+      phase: "",
+      team1: "",
+      team2: "",
     },
     validate,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       const { phase, team1, team2 } = values;
 
-      const { status, data } = await api('/api/entity/game', {
-        method: 'POST',
+      const { status, data } = await api("/api/entity/game", {
+        method: "POST",
         body: JSON.stringify({
           eventId,
           phaseId: phase,
@@ -77,10 +84,7 @@ export default function AddGame(props) {
         }),
       });
 
-      if (
-        status === STATUS_ENUM.ERROR ||
-        status === STATUS_ENUM.UNAUTHORIZED
-      ) {
+      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -92,7 +96,7 @@ export default function AddGame(props) {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('game_added'),
+        message: t("game_added"),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
@@ -106,13 +110,13 @@ export default function AddGame(props) {
   const buttons = [
     {
       onClick: onFinish,
-      name: t('cancel'),
-      color: 'secondary',
+      name: t("cancel"),
+      color: "secondary",
     },
     {
-      type: 'submit',
-      name: t('add'),
-      color: 'primary',
+      type: "submit",
+      name: t("add"),
+      color: "primary",
     },
   ];
 
@@ -120,31 +124,28 @@ export default function AddGame(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: phases,
-      namespace: 'phase',
-      label: t('phase'),
+      namespace: "phase",
+      label: t("phase"),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: teams,
-      namespace: 'team1',
-      label: t('team_1'),
+      namespace: "team1",
+      label: t("team_1"),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: teams,
-      namespace: 'team2',
-      label: t('team_2'),
+      namespace: "team2",
+      label: t("team_2"),
     },
   ];
 
   return (
     <FormDialog
       open={open}
-      title={t('create_a_game')}
-      description={`${field?.name}, ${formatDate(
-        moment(timeslot?.date),
-        'DD MMM HH:mm',
-      )}`}
+      title={t("create_a_game")}
+      description={description}
       buttons={buttons}
       fields={fields}
       formik={formik}

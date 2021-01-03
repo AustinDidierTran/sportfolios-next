@@ -106,10 +106,6 @@ export default function App() {
                   path={ROUTES.redirectWithToken}
                   component={RedirectWithToken}
                 />
-                <Route
-                  path={ROUTES.redirectWithToken}
-                  component={RedirectWithToken}
-                />
                 <Route path={ROUTES.privacyPolicy} component={PrivacyPolicy} />
                 <Route
                   path={ROUTES.addPaymentMethod}

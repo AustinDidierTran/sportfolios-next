@@ -11,11 +11,7 @@ import {
   Button,
 } from "../../components/Custom";
 import { Store, ACTION_ENUM } from "../../Store";
-import {
-  STATUS_ENUM,
-  SEVERITY_ENUM,
-  TABS_ENUM,
-} from "../../../../common/enums";
+import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from "../../../common/enums";
 import { Fab, makeStyles, Tooltip, Typography } from "@material-ui/core";
 import styles from "./ScheduleInteractiveTool.module.css";
 import GameCard from "./GameCard";
@@ -24,8 +20,7 @@ import AddField from "../../tabs/EditSchedule/CreateSchedule/AddField";
 import AddTimeSlot from "../../tabs/EditSchedule/CreateSchedule/AddTimeSlot";
 
 import RGL from "react-grid-layout";
-import "react-grid-layout/css/styles.css";
-import "./overridden-placeholder.css";
+
 import { useRouter } from "next/router";
 const ReactGridLayout = RGL;
 

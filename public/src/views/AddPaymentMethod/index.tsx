@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { Typography } from "@material-ui/core";
 import {
@@ -8,38 +8,43 @@ import {
   Paper,
   TextField,
 } from "../../components/Custom";
-import CountrySelect from "../../views/AddBankAccount/CountrySelect";
+import CountrySelect from "../AddBankAccount/CountrySelect";
 import CardSection from "../../utils/stripe/Payment/CardSection";
+
+// @ts-ignore
 import styles from "./AddPaymentMethod.module.css";
 import { useTranslation } from "react-i18next";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import api from "../../actions/api";
-import { goTo, ROUTES } from "../../actions/goTo";
+import { goTo } from "../../actions/goTo";
 import { Store, ACTION_ENUM } from "../../Store";
-import { SEVERITY_ENUM } from "../../../../common/enums";
-import { useRouter } from "next/router";
+import { SEVERITY_ENUM } from "../../../common/enums";
 
-export default function AddPaymentMethod() {
+interface IProps {
+  redirect: string;
+}
+
+interface IError {
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  line1?: string;
+  city?: string;
+  country?: string;
+  state?: string;
+  postalCode?: string;
+}
+
+const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
+  const { redirect } = props;
   const { t } = useTranslation();
-  const router = useRouter();
   const { dispatch } = useContext(Store);
   const stripe = useStripe();
   const elements = useElements();
-  const { redirect: redirectProps } = router.query;
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const isANumber = (number) => isNaN(Number(number));
 
-  const [redirect, setRedirect] = useState(ROUTES.userSettings);
-
-  useEffect(() => {
-    if (redirectProps) {
-      setRedirect(redirectProps);
-    }
-  }, [redirectProps]);
-
   const validate = (values) => {
-    const errors = {};
+    const errors: IError = {};
 
     const {
       name,
@@ -88,40 +93,31 @@ export default function AddPaymentMethod() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      setIsSubmitting(true);
       const { token: stripeToken } = await stripe.createToken(
         elements.getElement(CardElement)
       );
 
       const params = { ...values, stripeToken };
-      try {
-        setIsLoading(true);
-        const res = await api("/api/stripe/paymentMethod", {
-          method: "POST",
-          body: JSON.stringify(params),
+      const res = await api("/api/stripe/paymentMethod", {
+        method: "POST",
+        body: JSON.stringify(params),
+      });
+
+      if (res.status === 200) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t("credit_card_added"),
+          severity: SEVERITY_ENUM.SUCCESS,
         });
-
-        if (res.status === 200) {
-          setIsLoading(false);
-          dispatch({
-            type: ACTION_ENUM.SNACK_BAR,
-            message: t("credit_card_added"),
-            severity: SEVERITY_ENUM.SUCCESS,
-          });
-          goTo(redirect);
-        }
-
-        setIsSubmitting(false);
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        setIsSubmitting(false);
+        goTo(redirect);
       }
     },
   });
-  if (isLoading) {
+
+  if (formik.isSubmitting) {
     return <LoadingSpinner />;
   }
+
   return (
     <IgContainer>
       <Paper>
@@ -208,7 +204,6 @@ export default function AddPaymentMethod() {
           <Button
             color="primary"
             type="submit"
-            disabled={isSubmitting}
             style={{ margin: "16px", width: "25%" }}
           >
             {t("submit")}
@@ -219,4 +214,6 @@ export default function AddPaymentMethod() {
       </Paper>
     </IgContainer>
   );
-}
+};
+
+export default AddPaymentMethod;

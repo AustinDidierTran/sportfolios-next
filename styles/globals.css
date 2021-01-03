@@ -27,3 +27,7 @@ a {
     min-height: -webkit-fill-available;
   }
 }
+
+.react-grid-item.react-grid-placeholder {
+  background-color: #18b393;
+}
