@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import ListItemText from "@material-ui/core/ListItemText";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import { Icon } from "../";
-import { makeStyles } from "@material-ui/core/styles";
+import { Icon } from '../';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    "&:hover, &.Mui-focusVisible": { backgroundColor: "lightGrey" },
-    justifySelf: "end",
+    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    justifySelf: 'end',
   },
 }));
 
@@ -28,9 +28,7 @@ export default function CustomAccordion(props) {
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
-      <AccordionSummary
-        expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}
-      >
+      <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
         <ListItemText primary={title} />
       </AccordionSummary>
       <AccordionDetails>{content}</AccordionDetails>

@@ -16,22 +16,18 @@ export default function CurrencySelect(props) {
   const { t } = useTranslation();
   const { formik } = props;
 
-  const content = option => (
-    <React.Fragment>{option.display}</React.Fragment>
-  );
+  const content = (option) => <React.Fragment>{option.display}</React.Fragment>;
 
   const options = useMemo(() =>
     currencies
       .map(
-        currency => ({
+        (currency) => ({
           display: t(currency.currency),
           value: currency.code,
         }),
-        [currencies],
+        [currencies]
       )
-      .filter(currency =>
-        whitelistedCurrencies.includes(currency.value),
-      ),
+      .filter((currency) => whitelistedCurrencies.includes(currency.value))
   );
 
   return (

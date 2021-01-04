@@ -1,19 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FormDialog } from "../../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useEffect, useContext } from 'react';
+import { FormDialog } from '../../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-  COMPONENT_TYPE_ENUM,
-} from "../../../../../common/enums";
-import { getFutureGameOptions } from "../../../Schedule/ScheduleFunctions";
-import validator from "validator";
-import { useRouter } from "next/router";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { getFutureGameOptions } from '../../../Schedule/ScheduleFunctions';
+import validator from 'validator';
+import { useRouter } from 'next/router';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
@@ -68,11 +64,11 @@ export default function AddGame(props) {
 
   const formik = useFormik({
     initialValues: {
-      phase: "",
-      field: "",
-      time: "",
-      team1: "",
-      team2: "",
+      phase: '',
+      field: '',
+      time: '',
+      team1: '',
+      team2: '',
     },
     validate,
     validateOnChange: false,
@@ -93,8 +89,8 @@ export default function AddGame(props) {
       } else {
         name2 = team2;
       }
-      const res = await api("/api/entity/game", {
-        method: "POST",
+      const res = await api('/api/entity/game', {
+        method: 'POST',
         body: JSON.stringify({
           eventId,
           phaseId: phase,
@@ -107,10 +103,7 @@ export default function AddGame(props) {
         }),
       });
 
-      if (
-        res.status === STATUS_ENUM.ERROR ||
-        res.status === STATUS_ENUM.UNAUTHORIZED
-      ) {
+      if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -122,7 +115,7 @@ export default function AddGame(props) {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("game_added"),
+        message: t('game_added'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
@@ -134,13 +127,13 @@ export default function AddGame(props) {
   const buttons = [
     {
       onClick: onFinish,
-      name: t("finish"),
-      color: "grey",
+      name: t('finish'),
+      color: 'grey',
     },
     {
-      type: "submit",
-      name: t("add"),
-      color: "primary",
+      type: 'submit',
+      name: t('add'),
+      color: 'primary',
     },
   ];
 
@@ -148,39 +141,39 @@ export default function AddGame(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.phases,
-      namespace: "phase",
-      label: t("phase"),
+      namespace: 'phase',
+      label: t('phase'),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "field",
-      label: t("field"),
+      namespace: 'field',
+      label: t('field'),
       options: gameOptions.fields,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "time",
-      label: t("time_slot"),
+      namespace: 'time',
+      label: t('time_slot'),
       options: gameOptions.timeSlots,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
-      namespace: "team1",
-      label: t("team_1"),
+      namespace: 'team1',
+      label: t('team_1'),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
-      namespace: "team2",
-      label: t("team_2"),
+      namespace: 'team2',
+      label: t('team_2'),
     },
   ];
 
   return (
     <FormDialog
       open={open}
-      title={t("create_a_game")}
+      title={t('create_a_game')}
       buttons={buttons}
       fields={fields}
       formik={formik}

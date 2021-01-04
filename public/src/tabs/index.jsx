@@ -1,26 +1,26 @@
-import loadable from "@loadable/component";
-import { useTranslation } from "react-i18next";
-import { TABS_ENUM } from "../../common/enums";
-import { ENTITIES_ROLE_ENUM } from "../Store";
+import loadable from '@loadable/component';
+import { useTranslation } from 'react-i18next';
+import { TABS_ENUM } from '../../common/enums';
+import { ENTITIES_ROLE_ENUM } from '../Store';
 
-const About = loadable(() => import("./About"));
-const Cart = loadable(() => import("./Cart"));
-const EditPersonInfos = loadable(() => import("./EditPersonInfos"));
-const EditRankings = loadable(() => import("./EditRankings"));
-const EditResults = loadable(() => import("./EditResults"));
-const EditRosters = loadable(() => import("./EditRosters"));
-const EditSchedule = loadable(() => import("./EditSchedule"));
-const EventInfo = loadable(() => import("./EventInfo"));
-const Events = loadable(() => import("./Events"));
-const General = loadable(() => import("./General"));
-const Purchases = loadable(() => import("./Purchases"));
-const Rankings = loadable(() => import("./Rankings"));
-const Results = loadable(() => import("./Results"));
-const Rosters = loadable(() => import("./Rosters"));
-const Schedule = loadable(() => import("./Schedule"));
-const Settings = loadable(() => import("./Settings"));
-const Shop = loadable(() => import("./Shop"));
-const EditEvents = loadable(() => import("./EditEvents"));
+const About = loadable(() => import('./About'));
+const Cart = loadable(() => import('./Cart'));
+const EditPersonInfos = loadable(() => import('./EditPersonInfos'));
+const EditRankings = loadable(() => import('./EditRankings'));
+const EditResults = loadable(() => import('./EditResults'));
+const EditRosters = loadable(() => import('./EditRosters'));
+const EditSchedule = loadable(() => import('./EditSchedule'));
+const EventInfo = loadable(() => import('./EventInfo'));
+const Events = loadable(() => import('./Events'));
+const General = loadable(() => import('./General'));
+const Purchases = loadable(() => import('./Purchases'));
+const Rankings = loadable(() => import('./Rankings'));
+const Results = loadable(() => import('./Results'));
+const Rosters = loadable(() => import('./Rosters'));
+const Schedule = loadable(() => import('./Schedule'));
+const Settings = loadable(() => import('./Settings'));
+const Shop = loadable(() => import('./Shop'));
+const EditEvents = loadable(() => import('./EditEvents'));
 
 export default function Tabs(props) {
   const { t } = useTranslation();
@@ -33,8 +33,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.ABOUT,
           component: About,
-          label: t("about"),
-          icon: "Info",
+          label: t('about'),
+          icon: 'Info',
         },
       ];
     }
@@ -44,8 +44,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.CART,
           component: Cart,
-          label: t("cart"),
-          icon: "ShoppingCartOutlined",
+          label: t('cart'),
+          icon: 'ShoppingCartOutlined',
         },
       ];
     }
@@ -55,8 +55,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.PURCHASES,
           component: Purchases,
-          label: t("purchases"),
-          icon: "Store",
+          label: t('purchases'),
+          icon: 'Store',
         },
       ];
     }
@@ -66,8 +66,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.EVENT_INFO,
           component: EventInfo,
-          label: t("info"),
-          icon: "Info",
+          label: t('info'),
+          icon: 'Info',
         },
       ];
     }
@@ -77,8 +77,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.ROSTERS,
           component: Rosters,
-          label: t("rosters"),
-          icon: "Group",
+          label: t('rosters'),
+          icon: 'Group',
         },
       ];
     }
@@ -88,8 +88,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.EVENTS,
           component: Events,
-          label: t("events"),
-          icon: "Event",
+          label: t('events'),
+          icon: 'Event',
         },
       ];
     }
@@ -99,8 +99,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.SCHEDULE,
           component: Schedule,
-          label: t("schedule"),
-          icon: "Assignment",
+          label: t('schedule'),
+          icon: 'Assignment',
         },
       ];
     }
@@ -110,8 +110,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.RESULTS,
           component: Results,
-          label: t("results"),
-          icon: "EmojiEvents",
+          label: t('results'),
+          icon: 'EmojiEvents',
         },
       ];
     }
@@ -121,8 +121,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.RANKINGS,
           component: Rankings,
-          label: t("rankings"),
-          icon: "FormatListNumbered",
+          label: t('rankings'),
+          icon: 'FormatListNumbered',
         },
       ];
     }
@@ -132,8 +132,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.GENERAL,
           component: General,
-          label: t("general"),
-          icon: "Folder",
+          label: t('general'),
+          icon: 'Folder',
         },
       ];
     }
@@ -142,22 +142,20 @@ export default function Tabs(props) {
         ...prev,
         {
           component: Settings,
-          label: t("settings"),
-          icon: "Settings",
+          label: t('settings'),
+          icon: 'Settings',
           value: TABS_ENUM.SETTINGS,
         },
       ];
     }
     if (l === TABS_ENUM.EDIT_PERSON_INFOS) {
-      if (
-        [ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)
-      ) {
+      if ([ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)) {
         return [
           ...prev,
           {
             component: EditPersonInfos,
-            label: t("edit_infos"),
-            icon: "Edit",
+            label: t('edit_infos'),
+            icon: 'Edit',
             value: TABS_ENUM.EDIT_PERSON_INFOS,
           },
         ];
@@ -165,15 +163,13 @@ export default function Tabs(props) {
       return prev;
     }
     if (l === TABS_ENUM.EDIT_EVENTS) {
-      if (
-        [ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)
-      ) {
+      if ([ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)) {
         return [
           ...prev,
           {
             component: EditEvents,
-            label: t("events"),
-            icon: "Event",
+            label: t('events'),
+            icon: 'Event',
             value: TABS_ENUM.EDIT_EVENTS,
           },
         ];
@@ -181,15 +177,13 @@ export default function Tabs(props) {
       return prev;
     }
     if (l === TABS_ENUM.EDIT_SCHEDULE) {
-      if (
-        [ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)
-      ) {
+      if ([ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)) {
         return [
           ...prev,
           {
             component: EditSchedule,
-            label: t("schedule"),
-            icon: "Assignment",
+            label: t('schedule'),
+            icon: 'Assignment',
             value: TABS_ENUM.EDIT_SCHEDULE,
           },
         ];
@@ -197,15 +191,13 @@ export default function Tabs(props) {
       return prev;
     }
     if (l === TABS_ENUM.EDIT_RANKINGS) {
-      if (
-        [ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)
-      ) {
+      if ([ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)) {
         return [
           ...prev,
           {
             component: EditRankings,
-            label: t("rankings"),
-            icon: "FormatListNumbered",
+            label: t('rankings'),
+            icon: 'FormatListNumbered',
             value: TABS_ENUM.EDIT_RANKINGS,
           },
         ];
@@ -213,15 +205,13 @@ export default function Tabs(props) {
       return prev;
     }
     if (l === TABS_ENUM.EDIT_ROSTERS) {
-      if (
-        [ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)
-      ) {
+      if ([ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)) {
         return [
           ...prev,
           {
             component: EditRosters,
-            label: t("rosters"),
-            icon: "Group",
+            label: t('rosters'),
+            icon: 'Group',
             value: TABS_ENUM.EDIT_ROSTERS,
           },
         ];
@@ -229,15 +219,13 @@ export default function Tabs(props) {
       return prev;
     }
     if (l === TABS_ENUM.EDIT_RESULTS) {
-      if (
-        [ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)
-      ) {
+      if ([ENTITIES_ROLE_ENUM.ADMIN, ENTITIES_ROLE_ENUM.EDITOR].includes(role)) {
         return [
           ...prev,
           {
             component: EditResults,
-            label: t("results"),
-            icon: "EmojiEvents",
+            label: t('results'),
+            icon: 'EmojiEvents',
             value: TABS_ENUM.EDIT_RESULTS,
           },
         ];
@@ -250,8 +238,8 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.SHOP,
           component: Shop,
-          label: t("shop"),
-          icon: "Store",
+          label: t('shop'),
+          icon: 'Store',
         },
       ];
     }

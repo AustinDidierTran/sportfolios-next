@@ -1,10 +1,6 @@
 import React, { useMemo, useContext } from 'react';
 import { SEVERITY_ENUM } from '../../../../../common/enums';
-import {
-  TeamSearchList,
-  List,
-  Button,
-} from '../../../components/Custom';
+import { TeamSearchList, List, Button } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './AddTeams.module.css';
@@ -17,7 +13,7 @@ export default function AddTeams(props) {
   const { dispatch } = useContext(Store);
   const { addTeam, teams, save } = props;
 
-  const blackList = useMemo(() => teams.map(t => t.team_id), [teams]);
+  const blackList = useMemo(() => teams.map((t) => t.team_id), [teams]);
 
   const onSave = () => {
     dispatch({
@@ -30,12 +26,7 @@ export default function AddTeams(props) {
 
   return (
     <div className={styles.main}>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        component="p"
-        style={{ marginBottom: '8px' }}
-      >
+      <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
         {t('add_the_teams_you_want_in_your_tournament')}
       </Typography>
       <TeamSearchList
@@ -51,13 +42,9 @@ export default function AddTeams(props) {
         autoFocus
       />
       <hr />
-      <Typography style={{ marginTop: '16px' }}>
-        {t('teams')}
-      </Typography>
+      <Typography style={{ marginTop: '16px' }}>{t('teams')}</Typography>
       {teams.length === 0 ? (
-        <Typography style={{ marginBottom: '32px' }}>
-          {t('no_teams')}
-        </Typography>
+        <Typography style={{ marginBottom: '32px' }}>{t('no_teams')}</Typography>
       ) : (
         <div style={{ marginBottom: '16px' }}>
           <List items={teams} />

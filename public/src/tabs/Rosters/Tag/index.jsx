@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
-import styles from "./Tag.module.css";
+import React, { useMemo } from 'react';
+import styles from './Tag.module.css';
 
-import { Icon } from "../../../components/Custom";
-import { Typography } from "@material-ui/core";
-import { TAG_TYPE_ENUM } from "../../../../common/enums";
-import { useTranslation } from "react-i18next";
+import { Icon } from '../../../components/Custom';
+import { Typography } from '@material-ui/core';
+import { TAG_TYPE_ENUM } from '../../../../common/enums';
+import { useTranslation } from 'react-i18next';
 
 export default function Tag(props) {
   const { t } = useTranslation();
@@ -15,35 +15,35 @@ export default function Tag(props) {
       case TAG_TYPE_ENUM.ACCEPTED:
       case TAG_TYPE_ENUM.ACCEPTED_FREE:
         return {
-          name: t("accepted"),
-          backgroundColor: "#4fc947",
-          color: "#fff",
+          name: t('accepted'),
+          backgroundColor: '#4fc947',
+          color: '#fff',
         };
 
       case TAG_TYPE_ENUM.PENDING:
         return {
-          name: t("pending"),
-          backgroundColor: "#ffca61",
-          color: "#fff",
+          name: t('pending'),
+          backgroundColor: '#ffca61',
+          color: '#fff',
         };
 
       case TAG_TYPE_ENUM.REGISTERED:
         return {
-          backgroundColor: "#4fc947",
-          icon: "FiberManualRecord",
+          backgroundColor: '#4fc947',
+          icon: 'FiberManualRecord',
         };
 
       case TAG_TYPE_ENUM.UNREGISTERED:
         return {
-          backgroundColor: "#ff723b",
-          icon: "FiberManualRecord",
+          backgroundColor: '#ff723b',
+          icon: 'FiberManualRecord',
         };
 
       default:
         return {
-          name: t("DEFAULT"),
-          backgroundColor: "#cf8f8a",
-          color: "#fff",
+          name: t('DEFAULT'),
+          backgroundColor: '#cf8f8a',
+          color: '#fff',
         };
     }
   }, [type]);
@@ -53,14 +53,9 @@ export default function Tag(props) {
   }
 
   return (
-    <div
-      className={styles.tag}
-      style={{ backgroundColor: selectTag.backgroundColor }}
-    >
+    <div className={styles.tag} style={{ backgroundColor: selectTag.backgroundColor }}>
       <div className={styles.name}>
-        <Typography style={{ fontSize: 12, color: selectTag.color }}>
-          {selectTag.name}
-        </Typography>
+        <Typography style={{ fontSize: 12, color: selectTag.color }}>{selectTag.name}</Typography>
       </div>
     </div>
   );

@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from 'react';
 
-import { Paper, IgContainer, Icon } from "../../../components/Custom";
+import { Paper, IgContainer, Icon } from '../../../components/Custom';
 
-import { Tabs, Tab, Tooltip, Fab, makeStyles } from "@material-ui/core";
-import TabsGenerator from "../../../tabs";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import { formatPageTitle } from "../../../utils/stringFormats";
-import { ENTITIES_ROLE_ENUM, TABS_ENUM } from "../../../../common/enums";
-import { useTranslation } from "react-i18next";
+import { Tabs, Tab, Tooltip, Fab, makeStyles } from '@material-ui/core';
+import TabsGenerator from '../../../tabs';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import { formatPageTitle } from '../../../utils/stringFormats';
+import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(2) + 58,
     right: theme.spacing(2),
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
   fab: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2) + (window.innerWidth - 700) / 2,
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
 }));
 
@@ -63,10 +63,7 @@ export default function Organization(props) {
       return states.find((s) => s.value == eventState).component;
     } else {
       if (adminState.map((a) => a.value).includes(eventState)) {
-        if (
-          basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
-          basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR
-        ) {
+        if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
           setIsAdmin(true);
           setStates(adminState);
           return;
@@ -98,9 +95,9 @@ export default function Organization(props) {
 
   const title = useMemo(() => {
     if (isAdmin) {
-      return t("player_view");
+      return t('player_view');
     } else {
-      return t("admin_view");
+      return t('admin_view');
     }
   }, [isAdmin]);
 
@@ -115,11 +112,7 @@ export default function Organization(props) {
   return (
     <IgContainer>
       <Paper>
-        <Tabs
-          value={states.findIndex((s) => s.value === eventState)}
-          indicatorColor="primary"
-          textColor="primary"
-        >
+        <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
             <Tab
               key={index}
@@ -127,25 +120,15 @@ export default function Organization(props) {
               label={window.innerWidth < 768 ? null : s.label}
               icon={<Icon icon={s.icon} />}
               style={{
-                minWidth:
-                  window.innerWidth < 768
-                    ? window.innerWidth / states.length
-                    : 700 / states.length,
+                minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
               }}
             />
           ))}
         </Tabs>
       </Paper>
-      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
-      basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
+      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
         <Tooltip title={title}>
-          <Fab
-            color="primary"
-            onClick={onSwitch}
-            className={
-              window.innerWidth < 768 ? classes.fabMobile : classes.fab
-            }
-          >
+          <Fab color="primary" onClick={onSwitch} className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}>
             <Icon icon="Autorenew" />
           </Fab>
         </Tooltip>

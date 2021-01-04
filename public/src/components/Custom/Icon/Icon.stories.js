@@ -29,7 +29,7 @@ export default {
   },
 };
 
-const Template = args => <Icon {...args} />;
+const Template = (args) => <Icon {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

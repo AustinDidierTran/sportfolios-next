@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { FormDialog } from "../../../../../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import api from "../../../../../../../actions/api";
-import {
-  STATUS_ENUM,
-  SEVERITY_ENUM,
-  COMPONENT_TYPE_ENUM,
-} from "../../../../../../../../common/enums";
-import { useFormik } from "formik";
-import { ERROR_ENUM } from "../../../../../../../../common/errors";
-import { useContext } from "react";
-import { Store, ACTION_ENUM } from "../../../../../../../Store";
-import { getGameOptions } from "../../../../../../Schedule/ScheduleFunctions";
-import validator from "validator";
-import { useRouter } from "next/router";
+import { FormDialog } from '../../../../../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import api from '../../../../../../../actions/api';
+import { STATUS_ENUM, SEVERITY_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../../../../common/enums';
+import { useFormik } from 'formik';
+import { ERROR_ENUM } from '../../../../../../../../common/errors';
+import { useContext } from 'react';
+import { Store, ACTION_ENUM } from '../../../../../../../Store';
+import { getGameOptions } from '../../../../../../Schedule/ScheduleFunctions';
+import validator from 'validator';
+import { useRouter } from 'next/router';
 
 export default function EditGameDialog(props) {
   const { game, update, open, onClose } = props;
@@ -40,11 +36,11 @@ export default function EditGameDialog(props) {
   }, [open]);
 
   useEffect(() => {
-    formik.setFieldValue("phase", game.phase_id);
-    formik.setFieldValue("field", game.field_id);
-    formik.setFieldValue("time", game.timeslot_id);
-    formik.setFieldValue("team1", game.teams[0].roster_id);
-    formik.setFieldValue("team2", game.teams[1].roster_id);
+    formik.setFieldValue('phase', game.phase_id);
+    formik.setFieldValue('field', game.field_id);
+    formik.setFieldValue('time', game.timeslot_id);
+    formik.setFieldValue('team1', game.teams[0].roster_id);
+    formik.setFieldValue('team2', game.teams[1].roster_id);
   }, [game]);
 
   const closeEdit = () => {
@@ -53,11 +49,11 @@ export default function EditGameDialog(props) {
 
   const formik = useFormik({
     initialValues: {
-      phase: "",
-      field: "",
-      time: "",
-      team1: "",
-      team2: "",
+      phase: '',
+      field: '',
+      time: '',
+      team1: '',
+      team2: '',
     },
     validateOnChange: false,
     validateOnBlur: false,
@@ -77,8 +73,8 @@ export default function EditGameDialog(props) {
       } else {
         name2 = team2;
       }
-      const res = await api("/api/entity/game", {
-        method: "PUT",
+      const res = await api('/api/entity/game', {
+        method: 'PUT',
         body: JSON.stringify({
           gameId: game.id,
           phaseId: phase,
@@ -109,13 +105,13 @@ export default function EditGameDialog(props) {
   const buttons = [
     {
       onClick: closeEdit,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("done"),
-      color: "primary",
+      type: 'submit',
+      name: t('done'),
+      color: 'primary',
     },
   ];
 
@@ -123,32 +119,32 @@ export default function EditGameDialog(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.phases,
-      namespace: "phase",
-      label: t("phase"),
+      namespace: 'phase',
+      label: t('phase'),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "field",
-      label: t("field"),
+      namespace: 'field',
+      label: t('field'),
       options: gameOptions.fields,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "time",
-      label: t("time_slot"),
+      namespace: 'time',
+      label: t('time_slot'),
       options: gameOptions.timeSlots,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
-      namespace: "team1",
-      label: t("team_1"),
+      namespace: 'team1',
+      label: t('team_1'),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
-      namespace: "team2",
-      label: t("team_2"),
+      namespace: 'team2',
+      label: t('team_2'),
     },
   ];
 
@@ -157,7 +153,7 @@ export default function EditGameDialog(props) {
       <FormDialog
         open={edit}
         onClose={closeEdit}
-        title={t("edit_game")}
+        title={t('edit_game')}
         fields={fields}
         formik={formik}
         buttons={buttons}

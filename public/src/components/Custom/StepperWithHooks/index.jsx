@@ -9,24 +9,14 @@ import { useTranslation } from 'react-i18next';
 import { ContainerBottomFixed } from '../../Custom';
 
 export default function CustomStepperWithHooks(props) {
-  const {
-    activeStep,
-    completed,
-    Back,
-    handleBack,
-    handleNext,
-    Next,
-    handleReset,
-    finish,
-    steps,
-  } = props;
+  const { activeStep, completed, Back, handleBack, handleNext, Next, handleReset, finish, steps } = props;
   const { t } = useTranslation();
 
   return (
     <div className={styles.all}>
       <div className={styles.stepper}>
         <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map(step => {
+          {steps.map((step) => {
             const { label } = step;
             const stepProps = {};
             const labelProps = {};
@@ -42,18 +32,14 @@ export default function CustomStepperWithHooks(props) {
       <div className={styles.display}>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={styles.instructions}>
-              {t('all_steps_completed')}
-            </Typography>
+            <Typography className={styles.instructions}>{t('all_steps_completed')}</Typography>
             <Button onClick={handleReset} className={styles.button}>
               {t('reset')}
             </Button>
           </div>
         ) : (
           <div>
-            <div className={styles.content}>
-              {steps[activeStep].content}
-            </div>
+            <div className={styles.content}>{steps[activeStep].content}</div>
             <ContainerBottomFixed>
               <div className={styles.buttons}>
                 <div className={styles.button}>
@@ -94,9 +80,7 @@ export default function CustomStepperWithHooks(props) {
                       disabled={!completed.has(activeStep)}
                       style={{ color: 'white' }}
                     >
-                      {activeStep === steps.length - 1
-                        ? t('finish')
-                        : t('next')}
+                      {activeStep === steps.length - 1 ? t('finish') : t('next')}
                     </Button>
                   </div>
                 )}

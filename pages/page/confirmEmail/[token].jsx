@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
-import React from "react";
-import ConfirmEmail from "../../../public/src/views/ConfirmEmail";
+import { useRouter } from 'next/router';
+import React from 'react';
+import ConfirmEmail from '../../../public/src/views/ConfirmEmail';
 
 const ConfirmEmailRoute = () => {
   const router = useRouter();
@@ -9,8 +9,8 @@ const ConfirmEmailRoute = () => {
   const { dispatch } = useContext(Store);
 
   const confirmEmail = async () => {
-    const res = await api("/api/auth/confirmEmail", {
-      method: "POST",
+    const res = await api('/api/auth/confirmEmail', {
+      method: 'POST',
       body: JSON.stringify({
         token,
       }),

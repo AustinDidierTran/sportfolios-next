@@ -1,20 +1,15 @@
-import React, { useState, useContext, useEffect, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useContext, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-  COMPONENT_TYPE_ENUM,
-  MEMBERSHIP_TYPE_ENUM,
-} from "../../../../../common/enums";
-import BasicFormDialog from "../BasicFormDialog";
-import moment from "moment";
-import { IconButton } from "../..";
-import { useRouter } from "next/router";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_TYPE_ENUM } from '../../../../../common/enums';
+import BasicFormDialog from '../BasicFormDialog';
+import moment from 'moment';
+import { IconButton } from '../..';
+import { useRouter } from 'next/router';
 
 export default function AddMember(props) {
   const { open: openProps, onClose, update } = props;
@@ -40,8 +35,8 @@ export default function AddMember(props) {
 
   const formik = useFormik({
     initialValues: {
-      membership: "",
-      expirationDate: "",
+      membership: '',
+      expirationDate: '',
     },
     validate,
     validateOnChange: false,
@@ -51,7 +46,7 @@ export default function AddMember(props) {
       const res = await Promise.all(
         persons.map(async (person) => {
           const res = await api(`/api/entity/memberManually`, {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify({
               membershipType: membership,
               organizationId: entityId,
@@ -63,10 +58,7 @@ export default function AddMember(props) {
         })
       );
 
-      if (
-        res.some((r) => r.status === STATUS_ENUM.ERROR) ||
-        res.some((r) => r.status >= 400)
-      ) {
+      if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status >= 400)) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -74,7 +66,7 @@ export default function AddMember(props) {
           duration: 4000,
         });
       } else {
-        const message = persons.length ? "members_added" : "member_added";
+        const message = persons.length ? 'members_added' : 'member_added';
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t(message),
@@ -89,11 +81,8 @@ export default function AddMember(props) {
 
   useEffect(() => {
     setOpen(openProps);
-    formik.setFieldValue("membership", MEMBERSHIP_TYPE_ENUM.RECREATIONAL);
-    formik.setFieldValue(
-      "expirationDate",
-      moment().add(1, "year").format("YYYY-MM-DD")
-    );
+    formik.setFieldValue('membership', MEMBERSHIP_TYPE_ENUM.RECREATIONAL);
+    formik.setFieldValue('expirationDate', moment().add(1, 'year').format('YYYY-MM-DD'));
   }, [openProps]);
 
   const handleClose = () => {
@@ -114,59 +103,53 @@ export default function AddMember(props) {
       persons.map((person) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
-        secondary: t("player"),
+        secondary: t('player'),
         notClickable: true,
         secondaryActions: [
-          <IconButton
-            icon="Remove"
-            style={{ color: "secondary" }}
-            onClick={() => removePerson(person)}
-          />,
+          <IconButton icon="Remove" style={{ color: 'secondary' }} onClick={() => removePerson(person)} />,
         ],
       })),
     [persons]
   );
 
-  const blackList = useMemo(() => persons.map((person) => person.id), [
-    persons,
-  ]);
+  const blackList = useMemo(() => persons.map((person) => person.id), [persons]);
 
   const fields = [
     ...personComponent,
     {
       componentType: COMPONENT_TYPE_ENUM.PERSON_SEARCH_LIST,
-      namespace: "person",
-      label: t("player"),
+      namespace: 'person',
+      label: t('player'),
       blackList,
       onClick,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "membership",
-      label: t("membership"),
+      namespace: 'membership',
+      label: t('membership'),
       options: [
         {
-          display: t("recreational"),
+          display: t('recreational'),
           value: MEMBERSHIP_TYPE_ENUM.RECREATIONAL,
         },
         {
-          display: t("competitive"),
+          display: t('competitive'),
           value: MEMBERSHIP_TYPE_ENUM.COMPETITIVE,
         },
         {
-          display: t("elite"),
+          display: t('elite'),
           value: MEMBERSHIP_TYPE_ENUM.ELITE,
         },
         {
-          display: t("junior"),
+          display: t('junior'),
           value: MEMBERSHIP_TYPE_ENUM.JUNIOR,
         },
       ],
     },
     {
-      namespace: "expirationDate",
-      label: t("expiration_date"),
-      type: "date",
+      namespace: 'expirationDate',
+      label: t('expiration_date'),
+      type: 'date',
       shrink: true,
     },
   ];
@@ -174,20 +157,20 @@ export default function AddMember(props) {
   const buttons = [
     {
       onClick: handleClose,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("add"),
-      color: "primary",
+      type: 'submit',
+      name: t('add'),
+      color: 'primary',
     },
   ];
 
   return (
     <BasicFormDialog
       open={open}
-      title={t("add_membership")}
+      title={t('add_membership')}
       buttons={buttons}
       fields={fields}
       formik={formik}

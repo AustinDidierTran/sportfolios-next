@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Paper, Button } from "../../../components/Custom";
-import { Typography } from "@material-ui/core";
+import { Paper, Button } from '../../../components/Custom';
+import { Typography } from '@material-ui/core';
 
-import { useTranslation } from "react-i18next";
-import { formatRoute } from "../../../actions/goTo";
-import api from "../../../actions/api";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import styles from "./Description.module.css";
-import { useRouter } from "next/router";
+import { useTranslation } from 'react-i18next';
+import { formatRoute } from '../../../actions/goTo';
+import api from '../../../actions/api';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import styles from './Description.module.css';
+import { useRouter } from 'next/router';
 
 export default function Description() {
   const { t } = useTranslation();
@@ -18,9 +18,9 @@ export default function Description() {
 
   const [edit, setEdit] = useState(false);
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
-  const [temp, setTemp] = useState("");
+  const [temp, setTemp] = useState('');
 
   useEffect(() => {
     getDescription();
@@ -28,7 +28,7 @@ export default function Description() {
 
   const getDescription = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/generalInfos", null, {
+      formatRoute('/api/entity/generalInfos', null, {
         entityId: eventId,
       })
     );
@@ -42,8 +42,8 @@ export default function Description() {
 
   const updateDescription = async (temp) => {
     const encoded = encodeURIComponent(temp);
-    await api("/api/entity/updateGeneralInfos", {
-      method: "PUT",
+    await api('/api/entity/updateGeneralInfos', {
+      method: 'PUT',
       body: JSON.stringify({
         description: encoded,
         entityId: eventId,
@@ -83,10 +83,10 @@ export default function Description() {
             size="small"
             variant="contained"
             endIcon="Check"
-            style={{ margin: "8px" }}
+            style={{ margin: '8px' }}
             onClick={onSave}
           >
-            {t("save")}
+            {t('save')}
           </Button>
           <Button
             className={styles.cancel}
@@ -94,10 +94,10 @@ export default function Description() {
             variant="contained"
             color="secondary"
             endIcon="Close"
-            style={{ margin: "8px" }}
+            style={{ margin: '8px' }}
             onClick={onCancel}
           >
-            {t("cancel")}
+            {t('cancel')}
           </Button>
         </div>
       </Paper>
@@ -106,20 +106,9 @@ export default function Description() {
   if (text) {
     return (
       <Paper title="Description">
-        <TextareaAutosize
-          className={styles.textarea}
-          placeholder="Description"
-          value={text}
-          disabled
-        />
-        <Button
-          size="small"
-          variant="contained"
-          endIcon="Edit"
-          style={{ margin: "8px" }}
-          onClick={onEdit}
-        >
-          {t("edit")}
+        <TextareaAutosize className={styles.textarea} placeholder="Description" value={text} disabled />
+        <Button size="small" variant="contained" endIcon="Edit" style={{ margin: '8px' }} onClick={onEdit}>
+          {t('edit')}
         </Button>
       </Paper>
     );
@@ -127,16 +116,16 @@ export default function Description() {
 
   return (
     <Paper title="Description">
-      <Typography>{t("no_description")}</Typography>
+      <Typography>{t('no_description')}</Typography>
       <Button
         size="small"
         variant="contained"
         endIcon="Edit"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={onEdit}
         className={styles.button}
       >
-        {t("edit")}
+        {t('edit')}
       </Button>
     </Paper>
   );

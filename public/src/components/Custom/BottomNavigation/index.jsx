@@ -1,23 +1,23 @@
-import React, { useContext, useMemo, useState, useEffect } from "react";
+import React, { useContext, useMemo, useState, useEffect } from 'react';
 
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import styles from "./BottomNavigation.module.css";
-import { Icon } from "../../Custom";
-import { Badge } from "@material-ui/core";
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import styles from './BottomNavigation.module.css';
+import { Icon } from '../../Custom';
+import { Badge } from '@material-ui/core';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import { ROUTES, goTo } from "../../../actions/goTo";
-import { Store, SCREENSIZE_ENUM } from "../../../Store";
-import api from "../../../actions/api";
-import { STATUS_ENUM, SOCKET_EVENT } from "../../../../common/enums";
+import { ROUTES, goTo } from '../../../actions/goTo';
+import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import api from '../../../actions/api';
+import { STATUS_ENUM, SOCKET_EVENT } from '../../../../common/enums';
 
 const TABS_ENUM = {
-  HOME: "home",
-  PROFILE: "profile",
-  NOTIFICATIONS: "notifications",
-  MENU: "menu",
+  HOME: 'home',
+  PROFILE: 'profile',
+  NOTIFICATIONS: 'notifications',
+  MENU: 'menu',
 };
 
 export default function CustomBottomNavigation() {
@@ -38,10 +38,7 @@ export default function CustomBottomNavigation() {
     [TABS_ENUM.PROFILE]: [
       ROUTES.entity,
       {
-        id:
-          userInfo &&
-          userInfo.primaryPerson &&
-          userInfo.primaryPerson.entity_id,
+        id: userInfo && userInfo.primaryPerson && userInfo.primaryPerson.entity_id,
       },
     ],
     [TABS_ENUM.NOTIFICATIONS]: [ROUTES.notifications],
@@ -53,15 +50,13 @@ export default function CustomBottomNavigation() {
     goTo(...routeEnum[newValue]);
   };
 
-  const displayNav = useMemo(
-    () =>
-      screenSize === SCREENSIZE_ENUM.xs &&
-      Boolean(userInfo && userInfo.user_id),
-    [screenSize, userInfo && userInfo.user_id]
-  );
+  const displayNav = useMemo(() => screenSize === SCREENSIZE_ENUM.xs && Boolean(userInfo && userInfo.user_id), [
+    screenSize,
+    userInfo && userInfo.user_id,
+  ]);
 
   const fetchUnreadNotificationsCount = async () => {
-    const res = await api("/api/notifications/unseenCount");
+    const res = await api('/api/notifications/unseenCount');
     if (res.status == STATUS_ENUM.SUCCESS_STRING) {
       setUnreadNotificationsCount(Number(res.data));
     }
@@ -72,23 +67,11 @@ export default function CustomBottomNavigation() {
   }, []);
 
   return displayNav ? (
-    <BottomNavigation
-      value={value}
-      onChange={handleChange}
-      className={styles.bottomnavigation}
-    >
+    <BottomNavigation value={value} onChange={handleChange} className={styles.bottomnavigation}>
+      <BottomNavigationAction label={t('home')} value={TABS_ENUM.HOME} icon={<Icon icon="Home" />} />
+      <BottomNavigationAction label={t('profile')} value={TABS_ENUM.PROFILE} icon={<Icon icon="Person" />} />
       <BottomNavigationAction
-        label={t("home")}
-        value={TABS_ENUM.HOME}
-        icon={<Icon icon="Home" />}
-      />
-      <BottomNavigationAction
-        label={t("profile")}
-        value={TABS_ENUM.PROFILE}
-        icon={<Icon icon="Person" />}
-      />
-      <BottomNavigationAction
-        label={t("notifications")}
+        label={t('notifications')}
         value={TABS_ENUM.NOTIFICATIONS}
         onClick={() => setUnreadNotificationsCount(0)}
         icon={
@@ -97,11 +80,7 @@ export default function CustomBottomNavigation() {
           </Badge>
         }
       />
-      <BottomNavigationAction
-        label={t("menu")}
-        value={TABS_ENUM.MENU}
-        icon={<Icon icon="Menu" />}
-      />
+      <BottomNavigationAction label={t('menu')} value={TABS_ENUM.MENU} icon={<Icon icon="Menu" />} />
     </BottomNavigation>
   ) : (
     <></>

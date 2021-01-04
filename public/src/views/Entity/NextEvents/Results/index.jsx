@@ -1,9 +1,9 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./Results.module.css";
+import styles from './Results.module.css';
 
-import { Container, Button } from "@material-ui/core";
+import { Container, Button } from '@material-ui/core';
 
 export default function Results() {
   const { t } = useTranslation();
@@ -11,7 +11,7 @@ export default function Results() {
   return (
     <Container className={styles.container}>
       <Button variant="contained" color="primary" className={styles.button}>
-        {t("results")}
+        {t('results')}
       </Button>
     </Container>
   );

@@ -1,12 +1,9 @@
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  CARD_TYPE_ENUM,
-  FORM_DIALOG_TYPE_ENUM,
-} from "../../../../common/enums";
-import { goTo } from "../../../actions/goTo";
-import { Card, FormDialog } from "../../../components/Custom";
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { CARD_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { goTo } from '../../../actions/goTo';
+import { Card, FormDialog } from '../../../components/Custom';
 
 export default function MembersReport() {
   const { t } = useTranslation();
@@ -26,8 +23,8 @@ export default function MembersReport() {
     <>
       <Card
         items={{
-          title: t("members"),
-          description: t("members_report_description"),
+          title: t('members'),
+          description: t('members_report_description'),
           onClick: () => {
             setOpen(true);
           },

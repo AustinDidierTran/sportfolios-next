@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Tab from "@material-ui/core/Tab";
-import { Icon } from "..";
+import React, { useState, useEffect } from 'react';
+import Tab from '@material-ui/core/Tab';
+import { Icon } from '..';
 
 export default function CustomTab(props) {
   const { icon, label, onClick } = props;
@@ -12,9 +12,9 @@ export default function CustomTab(props) {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

@@ -11,15 +11,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         authToken ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={`/login?redirectUrl=${encodeURIComponent(
-              history.location.pathname +
-                history.location.search +
-                history.location.hash,
+              history.location.pathname + history.location.search + history.location.hash
             )}`}
           />
         )

@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@material-ui/core';
 import api from '../../../actions/api';
-import {
-  LoadingSpinner,
-  List,
-  Button,
-  AlertDialog,
-  IconButton,
-} from '../../../components/Custom';
+import { LoadingSpinner, List, Button, AlertDialog, IconButton } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 
 export default function TransferedPeople() {
@@ -47,7 +41,7 @@ export default function TransferedPeople() {
     return <LoadingSpinner isComponent />;
   }
 
-  const actions = person =>
+  const actions = (person) =>
     window.innerWidth >= 768
       ? [
           <Button
@@ -95,7 +89,7 @@ export default function TransferedPeople() {
           />,
         ];
 
-  const items = people.map(person => ({
+  const items = people.map((person) => ({
     ...person,
     photoUrl: person.photo_url,
     completeName: person.name + ' ' + person.surname,
@@ -108,16 +102,8 @@ export default function TransferedPeople() {
       <Card style={{ marginTop: 16 }}>
         <List title={t('awaiting_your_approval')} items={items} />
       </Card>
-      <AlertDialog
-        open={declineDialog}
-        onSubmit={confirmDecline}
-        onCancel={closeDeclineDialog}
-      />
-      <AlertDialog
-        open={approveDialog}
-        onSubmit={confirmApprove}
-        onCancel={closeApproveDialog}
-      />
+      <AlertDialog open={declineDialog} onSubmit={confirmDecline} onCancel={closeDeclineDialog} />
+      <AlertDialog open={approveDialog} onSubmit={confirmApprove} onCancel={closeApproveDialog} />
     </>
   );
 }

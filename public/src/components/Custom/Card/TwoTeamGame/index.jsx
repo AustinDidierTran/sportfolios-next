@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./TwoTeamGame.module.css";
+import styles from './TwoTeamGame.module.css';
 
-import { ListItemText, Typography, Card } from "@material-ui/core";
-import { formatDate } from "../../../../utils/stringFormats";
-import moment from "moment";
+import { ListItemText, Typography, Card } from '@material-ui/core';
+import { formatDate } from '../../../../utils/stringFormats';
+import moment from 'moment';
 
 export default function TwoTeamGame(props) {
   const { teams, field, start_time, phaseName, onClick, isPastGame } = props;
@@ -22,8 +22,8 @@ export default function TwoTeamGame(props) {
         </Typography>
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(start_time), "HH:mm")}
-          secondary={formatDate(moment(start_time), "D MMM")}
+          primary={formatDate(moment(start_time), 'HH:mm')}
+          secondary={formatDate(moment(start_time), 'D MMM')}
         ></ListItemText>
         <Typography className={styles.field} color="textSecondary">
           {field}

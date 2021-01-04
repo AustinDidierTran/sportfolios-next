@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from 'react';
 
-import { Paper, Avatar, Select } from "../../../components/Custom";
-import { List, ListItem, ListItemText } from "@material-ui/core";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Paper, Avatar, Select } from '../../../components/Custom';
+import { List, ListItem, ListItemText } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-import { getEntityTypeName } from "../../../utils/stringFormats";
-import { ENTITIES_ROLE_ENUM } from "../../../Store";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import styles from "./ManageRoles.module.css";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import AddAdmins from "./AddAdmins";
-import { getInitialsFromName } from "../../../utils/stringFormats";
-import { GLOBAL_ENUM } from "../../../../common/enums";
-import { useRouter } from "next/router";
+import { getEntityTypeName } from '../../../utils/stringFormats';
+import { ENTITIES_ROLE_ENUM } from '../../../Store';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import styles from './ManageRoles.module.css';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import AddAdmins from './AddAdmins';
+import { getInitialsFromName } from '../../../utils/stringFormats';
+import { GLOBAL_ENUM } from '../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function ManageRoles() {
   const { t } = useTranslation();
@@ -47,15 +47,12 @@ export default function ManageRoles() {
     updateEntities();
   }, []);
 
-  const blackList = useMemo(
-    () => entities.map((entity) => entity.entity_id_admin),
-    [entities]
-  );
+  const blackList = useMemo(() => entities.map((entity) => entity.entity_id_admin), [entities]);
 
   const updateRole = async (entity_id_admin, role) => {
     if (entity.type === GLOBAL_ENUM.PERSON) {
       await api(`/api/entity/role`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify({
           entity_id,
           entity_id_admin,
@@ -67,10 +64,10 @@ export default function ManageRoles() {
     const arr = entities.filter((e) => e.role === ENTITIES_ROLE_ENUM.ADMIN);
 
     if (arr.length < 2 && arr[0].entity_id_admin === entity_id_admin) {
-      throw "Last Admin";
+      throw 'Last Admin';
     } else {
       await api(`/api/entity/role`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify({
           entity_id,
           entity_id_admin,
@@ -82,7 +79,7 @@ export default function ManageRoles() {
 
   const onClick = async (e, { id }) => {
     await api(`/api/entity/role`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         entity_id_admin: id,
         role: ENTITIES_ROLE_ENUM.EDITOR,
@@ -98,13 +95,13 @@ export default function ManageRoles() {
   };
 
   const items = [
-    { display: t("admin"), value: ENTITIES_ROLE_ENUM.ADMIN },
-    { display: t("editor"), value: ENTITIES_ROLE_ENUM.EDITOR },
-    { display: t("remove"), value: ENTITIES_ROLE_ENUM.VIEWER },
+    { display: t('admin'), value: ENTITIES_ROLE_ENUM.ADMIN },
+    { display: t('editor'), value: ENTITIES_ROLE_ENUM.EDITOR },
+    { display: t('remove'), value: ENTITIES_ROLE_ENUM.VIEWER },
   ];
 
   return (
-    <Paper title={t("admins")}>
+    <Paper title={t('admins')}>
       {entities.map((e, index) => [
         <List disablePadding className={styles.list} key={index}>
           <ListItem
@@ -116,21 +113,13 @@ export default function ManageRoles() {
             <ListItemIcon>
               <Avatar
                 photoUrl={e.photoUrl}
-                initials={getInitialsFromName(
-                  e.surname ? `${e.name} ${e.surname}` : e.name
-                )}
+                initials={getInitialsFromName(e.surname ? `${e.name} ${e.surname}` : e.name)}
               />
             </ListItemIcon>
             {e.surname ? (
-              <ListItemText
-                primary={`${e.name} ${e.surname}`}
-                secondary={t(getEntityTypeName(e.type))}
-              ></ListItemText>
+              <ListItemText primary={`${e.name} ${e.surname}`} secondary={t(getEntityTypeName(e.type))}></ListItemText>
             ) : (
-              <ListItemText
-                primary={`${e.name}`}
-                secondary={t(getEntityTypeName(e.type))}
-              ></ListItemText>
+              <ListItemText primary={`${e.name}`} secondary={t(getEntityTypeName(e.type))}></ListItemText>
             )}
           </ListItem>
           <Select

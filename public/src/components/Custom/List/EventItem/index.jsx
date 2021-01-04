@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from 'react';
 
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Avatar } from "../..";
-import { getInitialsFromName } from "../../../../utils/stringFormats/index";
-import { useTranslation } from "react-i18next";
-import { goTo, ROUTES } from "../../../../actions/goTo";
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Avatar } from '../..';
+import { getInitialsFromName } from '../../../../utils/stringFormats/index';
+import { useTranslation } from 'react-i18next';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 
 export default function EventItem(props) {
   const { t } = useTranslation();
@@ -22,16 +22,11 @@ export default function EventItem(props) {
   }, [id, onClick]);
 
   return (
-    <ListItem
-      button
-      onClick={handleClick}
-      selected={selected}
-      style={{ width: "100%" }}
-    >
+    <ListItem button onClick={handleClick} selected={selected} style={{ width: '100%' }}>
       <ListItemIcon>
         <Avatar photoUrl={photoUrl} initials={initials}></Avatar>
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t("event")}></ListItemText>
+      <ListItemText primary={name} secondary={t('event')}></ListItemText>
     </ListItem>
   );
 }

@@ -12,7 +12,7 @@ export default function EnterEmail(props) {
     onClose();
   };
 
-  const validate = values => {
+  const validate = (values) => {
     return validateEmail(values.email);
   };
 
@@ -29,9 +29,7 @@ export default function EnterEmail(props) {
     },
   });
 
-  const isValidEmail = useMemo(() => validate(formik.values), [
-    formik.values && formik.values.email,
-  ]);
+  const isValidEmail = useMemo(() => validate(formik.values), [formik.values && formik.values.email]);
 
   const fields = [
     {

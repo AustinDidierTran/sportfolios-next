@@ -1,25 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-  COMPONENT_TYPE_ENUM,
-  MEMBERSHIP_LENGTH_ENUM,
-} from "../../../../../common/enums";
-import BasicFormDialog from "../BasicFormDialog";
-import { formatRoute } from "../../../../actions/goTo";
-import {
-  formatDate,
-  formatPrice,
-  getMembershipName,
-} from "../../../../utils/stringFormats";
-import moment from "moment";
-import { getExpirationDate } from "../../../../utils/memberships";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_LENGTH_ENUM } from '../../../../../common/enums';
+import BasicFormDialog from '../BasicFormDialog';
+import { formatRoute } from '../../../../actions/goTo';
+import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
+import moment from 'moment';
+import { getExpirationDate } from '../../../../utils/memberships';
 
 export default function BecomeMember(props) {
   const { open: openProps, onClose, update } = props;
@@ -43,10 +34,8 @@ export default function BecomeMember(props) {
   }, [openProps]);
 
   const getPersons = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/primaryPerson", null, null)
-    );
-    formik.setFieldValue("person", data.id);
+    const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null));
+    formik.setFieldValue('person', data.id);
     const res = userInfo.persons.map((p) => ({
       value: p.entity_id,
       display: `${p.name} ${p?.surname}`,
@@ -56,7 +45,7 @@ export default function BecomeMember(props) {
 
   const getMemberships = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/memberships", null, {
+      formatRoute('/api/entity/memberships', null, {
         id,
       })
     );
@@ -66,7 +55,7 @@ export default function BecomeMember(props) {
       display: formatMembership(d),
     }));
     if (memberships[0]) {
-      formik.setFieldValue("type", memberships[0].value);
+      formik.setFieldValue('type', memberships[0].value);
     }
     setMemberships(memberships);
   };
@@ -76,29 +65,21 @@ export default function BecomeMember(props) {
     const name = getMembershipName(membership_type);
     if (length) {
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_YEAR) {
-        return `${t(name)} | ${formatPrice(price)} (${t("one_year")})`;
+        return `${t(name)} | ${formatPrice(price)} (${t('one_year')})`;
       }
       if (length === MEMBERSHIP_LENGTH_ENUM.SIX_MONTH) {
-        return `${t(name)} | ${formatPrice(price)} (${t("six_month")})`;
+        return `${t(name)} | ${formatPrice(price)} (${t('six_month')})`;
       }
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
-        return `${t(name)} | ${formatPrice(price)} (${t("one_month")})`;
+        return `${t(name)} | ${formatPrice(price)} (${t('one_month')})`;
       }
     }
     if (fixed_date) {
       let finalDate;
-      if (
-        moment(new Date(fixed_date)).set("year", moment().get("year")) <
-        moment()
-      ) {
-        finalDate = moment(new Date(fixed_date))
-          .set("year", moment().get("year"))
-          .add(1, "year");
+      if (moment(new Date(fixed_date)).set('year', moment().get('year')) < moment()) {
+        finalDate = moment(new Date(fixed_date)).set('year', moment().get('year')).add(1, 'year');
       } else {
-        finalDate = moment(new Date(fixed_date)).set(
-          "year",
-          moment().get("year")
-        );
+        finalDate = moment(new Date(fixed_date)).set('year', moment().get('year'));
       }
       return `${t(name)} | ${formatPrice(price)} (${formatDate(finalDate)})`;
     }
@@ -122,8 +103,8 @@ export default function BecomeMember(props) {
 
   const formik = useFormik({
     initialValues: {
-      person: "",
-      type: "",
+      person: '',
+      type: '',
     },
     validate,
     validateOnChange: false,
@@ -132,16 +113,13 @@ export default function BecomeMember(props) {
       const { person, type } = values;
       const membership = fullMemberships.find((m) => m.id === type);
       const res = await api(`/api/entity/member`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           membershipId: type,
           membershipType: membership.membership_type,
           organizationId: membership.entity_id,
           personId: person,
-          expirationDate: getExpirationDate(
-            membership.length,
-            membership.fixed_date
-          ),
+          expirationDate: getExpirationDate(membership.length, membership.fixed_date),
         }),
       });
       if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
@@ -154,7 +132,7 @@ export default function BecomeMember(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("membership_added"),
+          message: t('membership_added'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 4000,
         });
@@ -166,14 +144,14 @@ export default function BecomeMember(props) {
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "person",
-      label: t("person"),
+      namespace: 'person',
+      label: t('person'),
       options: persons,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "type",
-      label: t("type"),
+      namespace: 'type',
+      label: t('type'),
       options: memberships,
     },
   ];
@@ -181,20 +159,20 @@ export default function BecomeMember(props) {
   const buttons = [
     {
       onClick: handleClose,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("add"),
-      color: "primary",
+      type: 'submit',
+      name: t('add'),
+      color: 'primary',
     },
   ];
 
   return (
     <BasicFormDialog
       open={open}
-      title={t("become_member")}
+      title={t('become_member')}
       buttons={buttons}
       fields={fields}
       formik={formik}

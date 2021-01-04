@@ -1,9 +1,9 @@
-import React from "react";
-import { Card } from "..";
-import { Typography } from "@material-ui/core";
-import { CARD_TYPE_ENUM, TABS_ENUM } from "../../../../common/enums";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Card } from '..';
+import { Typography } from '@material-ui/core';
+import { CARD_TYPE_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import { useTranslation } from 'react-i18next';
 
 export default function MyGames(props) {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ export default function MyGames(props) {
   return (
     <div>
       <Typography variant="h6" color="textPrimary" style={{ marginBottom: 4 }}>
-        {t("future_games")}
+        {t('future_games')}
       </Typography>
       {gamesInfos.length ? (
         gamesInfos.map((game) => (
@@ -30,7 +30,7 @@ export default function MyGames(props) {
           />
         ))
       ) : (
-        <Typography color="textSecondary">{t("no_games")}</Typography>
+        <Typography color="textSecondary">{t('no_games')}</Typography>
       )}
     </div>
   );

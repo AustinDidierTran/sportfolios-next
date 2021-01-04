@@ -1,19 +1,19 @@
-import React, { useState, useContext } from "react";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
-import { Typography } from "@material-ui/core";
+import React, { useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import { Typography } from '@material-ui/core';
 
 // @ts-ignore
-import styles from "./AddBankAccount.module.css";
-import CountrySelect from "./CountrySelect";
-import CurrencySelect from "./CurrencySelect";
-import { goTo } from "../../actions/goTo";
-import { hasXDigits } from "../../utils/validators";
-import { Button, IgContainer, Paper, TextField } from "../../components/Custom";
-import api from "../../actions/api";
-import { ERROR_ENUM } from "../../../common/errors";
-import { ACTION_ENUM, Store } from "../../Store";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../common/enums";
+import styles from './AddBankAccount.module.css';
+import CountrySelect from './CountrySelect';
+import CurrencySelect from './CurrencySelect';
+import { goTo } from '../../actions/goTo';
+import { hasXDigits } from '../../utils/validators';
+import { Button, IgContainer, Paper, TextField } from '../../components/Custom';
+import api from '../../actions/api';
+import { ERROR_ENUM } from '../../../common/errors';
+import { ACTION_ENUM, Store } from '../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 
 interface IProps {
   entityId: string;
@@ -48,48 +48,41 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
 
   const validate = (values: IValues) => {
     const errors: IErrors = {};
-    const {
-      country,
-      currency,
-      accountHolderName,
-      transitNumber,
-      institutionNumber,
-      accountNumber,
-    } = values;
+    const { country, currency, accountHolderName, transitNumber, institutionNumber, accountNumber } = values;
 
     if (!country) {
-      errors.country = t("value_is_required");
+      errors.country = t('value_is_required');
     }
 
     if (!currency) {
-      errors.currency = t("value_is_required");
+      errors.currency = t('value_is_required');
     }
     if (!accountHolderName) {
-      errors.accountHolderName = t("value_is_required");
+      errors.accountHolderName = t('value_is_required');
     }
 
     if (!isANumber(transitNumber)) {
-      errors.transitNumber = t("value_must_be_numeric");
+      errors.transitNumber = t('value_must_be_numeric');
     } else if (hasXDigits(transitNumber, 5)) {
-      errors.transitNumber = t("value_must_have_x_digits", {
+      errors.transitNumber = t('value_must_have_x_digits', {
         digits: 5,
       });
     }
 
     if (!isANumber(institutionNumber)) {
-      errors.institutionNumber = t("value_must_be_numeric");
+      errors.institutionNumber = t('value_must_be_numeric');
     } else if (hasXDigits(institutionNumber, 5)) {
-      errors.institutionNumber = t("value_must_have_x_digits", {
+      errors.institutionNumber = t('value_must_have_x_digits', {
         digits: 5,
       });
     }
 
     if (!accountNumber) {
-      errors.accountNumber = t("value_is_required");
+      errors.accountNumber = t('value_is_required');
     } else if (!isANumber(accountNumber)) {
-      errors.accountNumber = t("value_must_be_numeric");
+      errors.accountNumber = t('value_must_be_numeric');
     } else if (hasXDigits(accountNumber, 7)) {
-      errors.transitNumber = t("value_must_have_x_digits", {
+      errors.transitNumber = t('value_must_have_x_digits', {
         digits: 7,
       });
     }
@@ -97,21 +90,14 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
   };
 
   const formik = useFormik({
-    initialValues: { country: "CA", currency: "CAD" },
+    initialValues: { country: 'CA', currency: 'CAD' },
     validate,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: async (values: IValues) => {
       try {
         setIsSubmitting(true);
-        const {
-          country,
-          currency,
-          accountHolderName,
-          accountNumber,
-          transitNumber,
-          institutionNumber,
-        } = values;
+        const { country, currency, accountHolderName, accountNumber, transitNumber, institutionNumber } = values;
 
         const params = {
           entityId,
@@ -123,8 +109,8 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
           accountNumber,
           id,
         };
-        const res = await api("/api/stripe/externalAccount", {
-          method: "POST",
+        const res = await api('/api/stripe/externalAccount', {
+          method: 'POST',
           body: JSON.stringify(params),
         });
         if (res.status === STATUS_ENUM.ERROR) {
@@ -152,7 +138,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
           <form onSubmit={formik.handleSubmit}>
             <div className={styles.content}>
               <Typography gutterBottom variant="h5" component="h2">
-                {t("add_bank_account")}
+                {t('add_bank_account')}
               </Typography>
               <CountrySelect formik={formik} />
               <CurrencySelect formik={formik} />
@@ -160,47 +146,42 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
                 namespace="accountHolderName"
                 formik={formik}
                 type="accountHolderName"
-                label={t("account_holder_name")}
+                label={t('account_holder_name')}
                 fullWidth
               />
               <TextField
                 namespace="transitNumber"
                 formik={formik}
                 type="number"
-                label={t("transit_number")}
+                label={t('transit_number')}
                 fullWidth
               />
               <TextField
                 namespace="institutionNumber"
                 formik={formik}
                 type="number"
-                label={t("institution_number")}
+                label={t('institution_number')}
                 fullWidth
               />
               <TextField
                 namespace="accountNumber"
                 formik={formik}
                 type="accountNumber"
-                label={t("account_number")}
+                label={t('account_number')}
                 fullWidth
               />
             </div>
             <Button
               color="secondary"
-              style={{ margin: "16px", width: "25%" }}
+              style={{ margin: '16px', width: '25%' }}
               onClick={() => {
                 goTo(entityId);
               }}
             >
-              {t("cancel")}
+              {t('cancel')}
             </Button>
-            <Button
-              color="primary"
-              type="submit"
-              disabled={isSubmitting}
-              style={{ margin: "16px", width: "25%" }}
-            >
-              {t("submit")}
+            <Button color="primary" type="submit" disabled={isSubmitting} style={{ margin: '16px', width: '25%' }}>
+              {t('submit')}
             </Button>
           </form>
         </div>

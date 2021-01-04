@@ -15,16 +15,13 @@ function main() {
       window.addEventListener('load', () => {
         navigator.serviceWorker
           .register('/service-worker.js')
-          .then(registration => {
+          .then((registration) => {
             /* eslint-disable-next-line */
             console.log('SW registered: ', registration);
           })
-          .catch(registrationError => {
+          .catch((registrationError) => {
             /* eslint-disable-next-line */
-            console.log(
-              'SW registration failed: ',
-              registrationError,
-            );
+            console.log('SW registration failed: ', registrationError);
           });
       });
     }
@@ -41,6 +38,6 @@ function main() {
         </BrowserRouter>
       </I18nextProvider>
     </StoreProvider>,
-    app,
+    app
   );
 }

@@ -17,7 +17,7 @@ export default function EditPrimaryPerson(props) {
   const { persons, open, handleClose, handleSubmit } = props;
   const [selectedValue, setSelectedValue] = useState(persons[0].id);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
 

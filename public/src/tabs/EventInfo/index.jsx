@@ -1,25 +1,19 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from 'react';
 
-import {
-  Paper,
-  Button,
-  ContainerBottomFixed,
-  ImageCard,
-  LoadingSpinner,
-} from "../../components/Custom";
-import { CardContent, Typography } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import Description from "./Description";
-import { formatRoute, goTo, ROUTES } from "../../actions/goTo";
-import { formatIntervalDate, formatDate } from "../../utils/stringFormats";
-import api from "../../actions/api";
-import moment from "moment";
-import styles from "./EventInfo.module.css";
-import { useRouter } from "next/router";
+import { Paper, Button, ContainerBottomFixed, ImageCard, LoadingSpinner } from '../../components/Custom';
+import { CardContent, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import Description from './Description';
+import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { formatIntervalDate, formatDate } from '../../utils/stringFormats';
+import api from '../../actions/api';
+import moment from 'moment';
+import styles from './EventInfo.module.css';
+import { useRouter } from 'next/router';
 
 const getEvent = async (eventId) => {
   const { data } = await api(
-    formatRoute("/api/entity/eventInfos", null, {
+    formatRoute('/api/entity/eventInfos', null, {
       id: eventId,
     })
   );
@@ -27,7 +21,7 @@ const getEvent = async (eventId) => {
 };
 const getTeams = async (eventId) => {
   const { data: teams } = await api(
-    formatRoute("/api/entity/allTeamsRegisteredInfos", null, {
+    formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
       eventId,
     })
   );
@@ -44,7 +38,7 @@ export default function TabEventInfo() {
   const [teams, setTeams] = useState([]);
   const [canRegister, setCanRegister] = useState(false);
   const [remainingSpots, setRemainingSpots] = useState(null);
-  const [color, setColor] = useState("textSecondary");
+  const [color, setColor] = useState('textSecondary');
   const [isLoading, setIsLoading] = useState(true);
 
   const goToRegistration = () => {
@@ -56,12 +50,9 @@ export default function TabEventInfo() {
   }, [id]);
 
   const getOptions = async () => {
-    const { data, status } = await api(
-      formatRoute("/api/entity/options", null, { eventId: id }),
-      {
-        method: "GET",
-      }
-    );
+    const { data, status } = await api(formatRoute('/api/entity/options', null, { eventId: id }), {
+      method: 'GET',
+    });
 
     console.log({ status });
 
@@ -75,9 +66,7 @@ export default function TabEventInfo() {
   }, [options]);
 
   const isLate = useMemo(() => {
-    return options.every(
-      (option) => moment(option.endTime).add(24, "hours") < moment()
-    );
+    return options.every((option) => moment(option.endTime).add(24, 'hours') < moment());
   }, [options]);
 
   const RegistrationStart = useMemo(() => {
@@ -96,9 +85,9 @@ export default function TabEventInfo() {
 
   const getColor = () => {
     if (remainingSpots <= Math.ceil(event.maximumSpots * 0.2)) {
-      setColor("secondary");
+      setColor('secondary');
     } else {
-      setColor("textSecondary");
+      setColor('textSecondary');
     }
   };
 
@@ -110,7 +99,7 @@ export default function TabEventInfo() {
 
   const getRemainingSpots = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/remainingSpots", null, {
+      formatRoute('/api/entity/remainingSpots', null, {
         id,
       })
     );
@@ -153,29 +142,29 @@ export default function TabEventInfo() {
     if (options.length < 1) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t("registrations_closed_for_now")}
+          {t('registrations_closed_for_now')}
         </Typography>
       );
     } else if (isFull) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t("event_is_full")}
+          {t('event_is_full')}
         </Typography>
       );
     } else if (isLate) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t("registrations_ended")}&nbsp;{registrationEnd}
+          {t('registrations_ended')}&nbsp;{registrationEnd}
         </Typography>
       );
     } else if (isEarly) {
       return (
         <>
           <Typography variant="body2" color="textSecondary" component="p">
-            {t("registrations_open_on")}&nbsp;{RegistrationStart}
+            {t('registrations_open_on')}&nbsp;{RegistrationStart}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {t("registrations_ends_on")}&nbsp;
+            {t('registrations_ends_on')}&nbsp;
             {registrationEnd}
           </Typography>
         </>
@@ -183,7 +172,7 @@ export default function TabEventInfo() {
     } else {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t("registrations_ends_on")}&nbsp;
+          {t('registrations_ends_on')}&nbsp;
           {registrationEnd}
         </Typography>
       );
@@ -200,7 +189,7 @@ export default function TabEventInfo() {
         <Paper className={styles.paper}>
           <ImageCard
             onClick={() => goTo(ROUTES.entity, { id })}
-            photoUrl={event.photoUrl || ""}
+            photoUrl={event.photoUrl || ''}
             className={styles.media}
           />
           <CardContent className={styles.content}>
@@ -216,14 +205,14 @@ export default function TabEventInfo() {
               {getDate()}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {event.location || "Sherbrooke"}
+              {event.location || 'Sherbrooke'}
             </Typography>
             {remainingSpots ? (
               <>
                 {!isFull ? (
                   <Typography variant="body2" color={color} component="p">
                     {remainingSpots}&nbsp;
-                    {t("places_left")}
+                    {t('places_left')}
                   </Typography>
                 ) : (
                   <></>
@@ -247,12 +236,12 @@ export default function TabEventInfo() {
               size="small"
               variant="contained"
               endIcon="SupervisedUserCircle"
-              style={{ margin: "8px" }}
+              style={{ margin: '8px' }}
               onClick={goToRegistration}
               className={styles.button}
               hidden
             >
-              {t("register")}
+              {t('register')}
             </Button>
           ) : (
             <></>

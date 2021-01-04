@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { Button, TeamSearchList } from "../../../components/Custom";
-import { Typography } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { useFormInput } from "../../../hooks/forms";
-import TeamItem from "../../../components/Custom/List/TeamItem";
-import styles from "./TeamSelect.module.css";
+import React, { useEffect } from 'react';
+import { Button, TeamSearchList } from '../../../components/Custom';
+import { Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { useFormInput } from '../../../hooks/forms';
+import TeamItem from '../../../components/Custom/List/TeamItem';
+import styles from './TeamSelect.module.css';
 
 export default function TeamSelect(props) {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
   const { stepHook, formik } = props;
-  const query = useFormInput("");
+  const query = useFormInput('');
 
   const { team } = formik.values;
 
@@ -22,7 +22,7 @@ export default function TeamSelect(props) {
   }, [team]);
 
   const handleClick = (e) => {
-    formik.setFieldValue("team", {
+    formik.setFieldValue('team', {
       id: undefined,
       name: e.target.value,
     });
@@ -30,55 +30,40 @@ export default function TeamSelect(props) {
   };
 
   const onChange = () => {
-    formik.setFieldValue("team", null);
+    formik.setFieldValue('team', null);
     stepHook.handleNotCompleted(1);
   };
 
   if (team) {
     return (
       <div className={styles.main}>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          component="p"
-          style={{ marginBottom: "8px" }}
-        >
-          {t("you_can_always_change_your_team_name_in_your_team_profile")}
+        <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
+          {t('you_can_always_change_your_team_name_in_your_team_profile')}
         </Typography>
-        <TeamItem
-          {...team}
-          secondary="Selected Team"
-          className={styles.main}
-          notClickable
-        />
+        <TeamItem {...team} secondary="Selected Team" className={styles.main} notClickable />
 
         <Button
           className={styles.item}
           size="small"
           variant="contained"
           endIcon="Undo"
-          style={{ margin: "8px" }}
+          style={{ margin: '8px' }}
           onClick={onChange}
         >
-          {t("change_team")}
+          {t('change_team')}
         </Button>
       </div>
     );
   }
   return (
     <div className={styles.main}>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        component="p"
-        style={{ marginBottom: "8px" }}
-      >
-        {t("you_can_always_change_your_team_name_in_your_team_profile")}
+      <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
+        {t('you_can_always_change_your_team_name_in_your_team_profile')}
       </Typography>
       <TeamSearchList
         className={styles.item}
         clearOnSelect={false}
-        label={t("enter_team_name")}
+        label={t('enter_team_name')}
         onClick={handleClick}
         query={query}
         allowCreate

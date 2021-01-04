@@ -2,7 +2,7 @@ import api from '../../actions/api';
 import { uploadPicture } from '../../actions/aws';
 import { ACTION_ENUM } from '../../Store';
 
-const createProduct = async params => {
+const createProduct = async (params) => {
   const {
     data: { id: product_id },
   } = await api('/api/stripe/createProduct', {
@@ -12,7 +12,7 @@ const createProduct = async params => {
   return product_id;
 };
 
-const createPrice = async params => {
+const createPrice = async (params) => {
   const {
     data: { id: price_id },
   } = await api('/api/stripe/createPrice', {
@@ -22,16 +22,8 @@ const createPrice = async params => {
   return price_id;
 };
 
-const createItem = async params => {
-  const {
-    name,
-    description,
-    amount,
-    photoUrl,
-    entityId,
-    sizes,
-    type,
-  } = params;
+const createItem = async (params) => {
+  const { name, description, amount, photoUrl, entityId, sizes, type } = params;
   const itemParams = {
     stripeProduct: {
       name: name,
@@ -60,16 +52,8 @@ const createItem = async params => {
   return item;
 };
 
-const editItem = async params => {
-  const {
-    name,
-    description,
-    amount,
-    photoUrl,
-    entityId,
-    sizes,
-    stripePriceIdToUpdate,
-  } = params;
+const editItem = async (params) => {
+  const { name, description, amount, photoUrl, entityId, sizes, stripePriceIdToUpdate } = params;
   const itemParams = {
     stripeProduct: {
       name: name,
@@ -111,10 +95,4 @@ const onImgUpload = async (id, img, dispatch) => {
   return { status: 404, photoUrl: photoUrl };
 };
 
-export {
-  createProduct,
-  createPrice,
-  createItem,
-  onImgUpload,
-  editItem,
-};
+export { createProduct, createPrice, createItem, onImgUpload, editItem };

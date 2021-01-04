@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useFormInput } from "../../../hooks/forms";
-import { useContext } from "react";
+import { useFormInput } from '../../../hooks/forms';
+import { useContext } from 'react';
 
-import styles from "./CreateItem.module.css";
-import { Store, ACTION_ENUM } from "../../../Store";
+import styles from './CreateItem.module.css';
+import { Store, ACTION_ENUM } from '../../../Store';
 
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import { Button, Paper, Input, TextField } from "../../../components/Custom";
-import { createItem, onImgUpload } from "../../../utils/shop";
-import { ERROR_ENUM } from "../../../../common/errors";
-import { useTranslation } from "react-i18next";
-import AddSizes from "../AddSizes";
-import { TextareaAutosize } from "@material-ui/core";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import { GLOBAL_ENUM } from "../../../../common/enums";
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import { Button, Paper, Input, TextField } from '../../../components/Custom';
+import { createItem, onImgUpload } from '../../../utils/shop';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { useTranslation } from 'react-i18next';
+import AddSizes from '../AddSizes';
+import { TextareaAutosize } from '@material-ui/core';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import { GLOBAL_ENUM } from '../../../../common/enums';
 
 export default function CreateItem(props) {
   const router = useRouter();
@@ -31,9 +31,9 @@ export default function CreateItem(props) {
   const [error, setError] = useState(null);
   const [sizes, setSizes] = useState([]);
 
-  const name = useFormInput("");
-  const amount = useFormInput("");
-  const description = useFormInput("");
+  const name = useFormInput('');
+  const amount = useFormInput('');
+  const description = useFormInput('');
 
   const handleChange = (value) => {
     setSizes(value);
@@ -50,7 +50,7 @@ export default function CreateItem(props) {
 
   const getHasBankAccount = async () => {
     const res = await api(
-      formatRoute("/api/stripe/eventHasBankAccount", null, {
+      formatRoute('/api/stripe/eventHasBankAccount', null, {
         id,
       })
     );
@@ -62,8 +62,8 @@ export default function CreateItem(props) {
     if (!hasBankAccount) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("cant_add_product_no_bank_account"),
-        severity: "error",
+        message: t('cant_add_product_no_bank_account'),
+        severity: 'error',
       });
       setIsCreating(false);
     } else {
@@ -122,76 +122,40 @@ export default function CreateItem(props) {
   if (!isCreating) {
     return (
       <div className={styles.button}>
-        <Button onClick={reset} endIcon="Add" style={{ margin: "8px" }}>
-          {t("add_new_product")}
+        <Button onClick={reset} endIcon="Add" style={{ margin: '8px' }}>
+          {t('add_new_product')}
         </Button>
       </div>
     );
   }
 
   return (
-    <Paper style={{ marginBottom: "8px" }}>
+    <Paper style={{ marginBottom: '8px' }}>
       {photoUrl ? (
         <>
           <CardMedia className={styles.media} image={photoUrl} />
-          <Button
-            onClick={() => setPhotoUrl(null)}
-            style={{ margin: "8px" }}
-            endIcon="Undo"
-          >
-            {t("change")}
+          <Button onClick={() => setPhotoUrl(null)} style={{ margin: '8px' }} endIcon="Undo">
+            {t('change')}
           </Button>
         </>
       ) : (
         <div className={styles.media}>
           <Input type="file" error={error} onChange={onImgChange} />
-          <Button
-            onClick={onUpload}
-            style={{ margin: "8px" }}
-            endIcon="Publish"
-          >
-            {t("upload")}
+          <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
+            {t('upload')}
           </Button>
         </div>
       )}
       <CardContent className={styles.infos}>
-        <TextField
-          {...name.inputProps}
-          label={t("name")}
-          className={styles.name}
-          onChange={validateName}
-        />
-        <TextField
-          {...amount.inputProps}
-          type="number"
-          label={t("price")}
-          className={styles.price}
-        />
-        <TextareaAutosize
-          {...description.inputProps}
-          placeholder="Description"
-          className={styles.description}
-        />
-        <AddSizes
-          className={styles.sizes}
-          handleChange={handleChange}
-          sizes={sizes}
-        />
-        <Button
-          size="small"
-          endIcon="Store"
-          onClick={addToStore}
-          className={styles.cart}
-        >
-          {t("add")}
+        <TextField {...name.inputProps} label={t('name')} className={styles.name} onChange={validateName} />
+        <TextField {...amount.inputProps} type="number" label={t('price')} className={styles.price} />
+        <TextareaAutosize {...description.inputProps} placeholder="Description" className={styles.description} />
+        <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
+        <Button size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
+          {t('add')}
         </Button>
-        <Button
-          onClick={reset}
-          color="secondary"
-          endIcon="Close"
-          className={styles.cancel}
-        >
-          {t("cancel")}
+        <Button onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
+          {t('cancel')}
         </Button>
       </CardContent>
     </Paper>

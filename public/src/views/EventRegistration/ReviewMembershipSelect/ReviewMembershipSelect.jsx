@@ -9,11 +9,11 @@ export default function ReviewMembershipSelect(props) {
   const paymentOption = useFormInput('');
 
   const onChange = useCallback(
-    e => {
+    (e) => {
       paymentOption.onChange(e);
       onClick(e);
     },
-    [onClick, paymentOption],
+    [onClick, paymentOption]
   );
 
   return (

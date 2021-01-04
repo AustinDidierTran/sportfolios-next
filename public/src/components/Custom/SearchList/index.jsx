@@ -1,13 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import { List, Icon } from "../../Custom";
-import { TextField } from "..";
-import { formatRoute } from "../../../actions/goTo";
-import { useApiRoute } from "../../../hooks/queries";
-import { useFormInput } from "../../../hooks/forms";
-import { InputAdornment } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { GLOBAL_ENUM } from "../../../../common/enums";
+import { List, Icon } from '../../Custom';
+import { TextField } from '..';
+import { formatRoute } from '../../../actions/goTo';
+import { useApiRoute } from '../../../hooks/queries';
+import { useFormInput } from '../../../hooks/forms';
+import { InputAdornment } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { GLOBAL_ENUM } from '../../../../common/enums';
 
 export default function SearchList(props) {
   const {
@@ -25,11 +25,11 @@ export default function SearchList(props) {
   } = props;
 
   const { t } = useTranslation();
-  const query = useFormInput("");
+  const query = useFormInput('');
 
   const optionsRoute = useMemo(() => {
     if (whiteList) {
-      const res = formatRoute("/api/data/search/global", null, {
+      const res = formatRoute('/api/data/search/global', null, {
         whiteList: JSON.stringify(whiteList),
         query: query.value,
         type,
@@ -38,7 +38,7 @@ export default function SearchList(props) {
     }
     if (blackList) {
       if (blackList.length > 0) {
-        const res = formatRoute("/api/data/search/global", null, {
+        const res = formatRoute('/api/data/search/global', null, {
           blackList: JSON.stringify(blackList),
           query: query.value,
           type,
@@ -47,7 +47,7 @@ export default function SearchList(props) {
       }
     }
 
-    const res = formatRoute("/api/data/search/global", null, {
+    const res = formatRoute('/api/data/search/global', null, {
       query: query.value,
       type,
     });
@@ -65,12 +65,12 @@ export default function SearchList(props) {
 
   const options = useMemo(() => {
     if (allowCreate) {
-      let uniqueSecondary = "";
+      let uniqueSecondary = '';
       if (type === GLOBAL_ENUM.TEAM) {
-        uniqueSecondary = t("click_to_create_new_team");
+        uniqueSecondary = t('click_to_create_new_team');
       }
       if (type === GLOBAL_ENUM.PERSON) {
-        uniqueSecondary = t("add_player_with_no_account");
+        uniqueSecondary = t('add_player_with_no_account');
       }
       return [
         {
@@ -80,7 +80,7 @@ export default function SearchList(props) {
           onClick: (...args) => {
             handleClick(...args);
           },
-          icon: "Add",
+          icon: 'Add',
           inverseColor: true,
         },
         ...response.entities
@@ -107,14 +107,14 @@ export default function SearchList(props) {
 
   const handleChange = (value) => {
     if (value.length > 64) {
-      query.setError(t("max_length"));
+      query.setError(t('max_length'));
     } else {
       query.setError(null);
       query.onChange(value);
     }
   };
   const onEnter = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       if (e.target.value) {
         const entity = {};
         entity.id = options[0].id;
@@ -139,7 +139,7 @@ export default function SearchList(props) {
           size="small"
           label={label}
           autoFocus={autoFocus}
-          style={{ width: "100%", ...style }}
+          style={{ width: '100%', ...style }}
           onKeyPress={onEnter}
         />
       ) : (
@@ -147,7 +147,7 @@ export default function SearchList(props) {
           {...query.inputProps}
           variant="outlined"
           label={label}
-          style={{ margin: "8px", ...style }}
+          style={{ margin: '8px', ...style }}
           size="small"
           autoFocus={autoFocus}
           onKeyPress={onEnter}

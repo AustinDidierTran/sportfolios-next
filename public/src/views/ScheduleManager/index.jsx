@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Container, Paper, TextField } from "../../components/Custom";
-import { useTranslation } from "react-i18next";
-import AddTeams from "./AddTeams";
-import Games from "./Games";
-import Ranking from "./Ranking";
-import styles from "./ScheduleManager.module.css";
-import { goTo, ROUTES } from "../../actions/goTo";
-import { GLOBAL_ENUM } from "../../../../common/enums";
-import { v4 as uuidv4 } from "uuid";
-import { updateRanking } from "./RankingFunctions";
-import { formatPageTitle } from "../../utils/stringFormats";
-import { useFormInput } from "../../hooks/forms";
-import moment from "moment";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import { Container, Paper, TextField } from '../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import AddTeams from './AddTeams';
+import Games from './Games';
+import Ranking from './Ranking';
+import styles from './ScheduleManager.module.css';
+import { goTo, ROUTES } from '../../actions/goTo';
+import { GLOBAL_ENUM } from '../../../../common/enums';
+import { v4 as uuidv4 } from 'uuid';
+import { updateRanking } from './RankingFunctions';
+import { formatPageTitle } from '../../utils/stringFormats';
+import { useFormInput } from '../../hooks/forms';
+import moment from 'moment';
+import { useRouter } from 'next/router';
 
 export default function ScheduleManager() {
   const { t } = useTranslation();
@@ -24,9 +24,7 @@ export default function ScheduleManager() {
   }, [title]);
 
   const onDelete = (id) => {
-    setTempGames((oldGames) =>
-      oldGames.filter((game) => !game.teams.map((g) => g.id).includes(id))
-    );
+    setTempGames((oldGames) => oldGames.filter((game) => !game.teams.map((g) => g.id).includes(id)));
     setTempTeams((oldTeam) => {
       return oldTeam.filter((r) => r.id !== id);
     });
@@ -70,7 +68,7 @@ export default function ScheduleManager() {
     if (title) {
       return JSON.parse(title);
     }
-    return "Pool Play";
+    return 'Pool Play';
   };
 
   const [tempGames, setTempGames] = useState(getGames());
@@ -82,7 +80,7 @@ export default function ScheduleManager() {
     const id = team.id || uuidv4();
     const games = tempTeams.map((opponent, index) => ({
       id: uuidv4(),
-      field: "Terrain",
+      field: 'Terrain',
       time: null,
       teams: [
         {
@@ -106,7 +104,7 @@ export default function ScheduleManager() {
         id,
         type: GLOBAL_ENUM.TEAM,
         name: team.name,
-        secondary: t("team"),
+        secondary: t('team'),
         onDelete,
         notClickable: true,
         random: Math.random(),
@@ -120,7 +118,7 @@ export default function ScheduleManager() {
 
   const sortGame = () => {
     const res = tempGames.sort((a, b) => {
-      return moment(a.time, "HH:mm") - moment(b.time, "HH:mm");
+      return moment(a.time, 'HH:mm') - moment(b.time, 'HH:mm');
     });
     setTempGames(res);
   };
@@ -156,12 +154,7 @@ export default function ScheduleManager() {
     <Paper className={styles.main}>
       <TextField className={styles.title} size="sm" {...tempTitle.inputProps} />
       <Container className={styles.container}>
-        <AddTeams
-          className={styles.teams}
-          addTeam={addTeam}
-          teams={tempTeams}
-          save={save}
-        />
+        <AddTeams className={styles.teams} addTeam={addTeam} teams={tempTeams} save={save} />
         <Games
           className={styles.games}
           games={tempGames}
@@ -169,11 +162,7 @@ export default function ScheduleManager() {
           saveGame={saveGame}
           getRank={getRank}
         />
-        <Ranking
-          className={styles.ranking}
-          ranking={tempRanking}
-          games={tempGames}
-        />
+        <Ranking className={styles.ranking} ranking={tempRanking} games={tempGames} />
       </Container>
     </Paper>
   );

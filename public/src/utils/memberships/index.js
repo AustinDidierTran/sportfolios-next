@@ -1,7 +1,4 @@
-import {
-  getMembershipLength,
-  getMembershipUnit,
-} from '../stringFormats';
+import { getMembershipLength, getMembershipUnit } from '../stringFormats';
 import { ROUTES, goTo } from '../../actions/goTo';
 import api from '../../actions/api';
 import moment from 'moment';
@@ -16,11 +13,9 @@ export const addMembership = async (personId, stripePriceId) => {
   goTo(ROUTES.cart);
 };
 
-export const getMemberships = async entityId => {
-  const { data } = await api(
-    `/api/entity/memberships/?id=${entityId}`,
-  );
-  return data.map(d => ({
+export const getMemberships = async (entityId) => {
+  const { data } = await api(`/api/entity/memberships/?id=${entityId}`);
+  return data.map((d) => ({
     entityId: d.entity_id,
     fixedDate: d.fixed_date,
     length: d.length,
@@ -30,13 +25,7 @@ export const getMemberships = async entityId => {
   }));
 };
 
-export const updateMembership = async (
-  membershipType,
-  personId,
-  entityId,
-  expirationDate,
-  stripePriceId,
-) => {
+export const updateMembership = async (membershipType, personId, entityId, expirationDate, stripePriceId) => {
   await api('/api/entity/member', {
     method: 'PUT',
     body: JSON.stringify({
@@ -57,18 +46,10 @@ export const updateMembership = async (
 
 export const getExpirationDate = (length, date) => {
   if (length) {
-    return moment().add(
-      getMembershipLength(length),
-      getMembershipUnit(length),
-    );
+    return moment().add(getMembershipLength(length), getMembershipUnit(length));
   } else if (date) {
-    if (
-      moment(new Date(date)).set('year', moment().get('year')) <
-      moment()
-    ) {
-      return moment(new Date(date))
-        .set('year', moment().get('year'))
-        .add(1, 'year');
+    if (moment(new Date(date)).set('year', moment().get('year')) < moment()) {
+      return moment(new Date(date)).set('year', moment().get('year')).add(1, 'year');
     } else {
       return moment(new Date(date)).set('year', moment().get('year'));
     }

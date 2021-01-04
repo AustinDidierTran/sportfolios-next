@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Divider, ListItem, ListItemText } from "@material-ui/core";
-import { FormDialog, Icon } from "../../../Custom";
+import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import { FormDialog, Icon } from '../../../Custom';
 
-import { useTranslation } from "react-i18next";
-import styles from "./MemberItem.module.css";
-import { formatDate, getMembershipName } from "../../../../utils/stringFormats";
-import { IconButton } from "../..";
-import moment from "moment";
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  INVOICE_STATUS_ENUM,
-} from "../../../../../common/enums";
-import { AlertDialog } from "../../Dialog";
-import api from "../../../../actions/api";
-import { formatRoute, goTo, ROUTES } from "../../../../actions/goTo";
-import { useRouter } from "next/router";
+import { useTranslation } from 'react-i18next';
+import styles from './MemberItem.module.css';
+import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
+import { IconButton } from '../..';
+import moment from 'moment';
+import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../common/enums';
+import { AlertDialog } from '../../Dialog';
+import api from '../../../../actions/api';
+import { formatRoute, goTo, ROUTES } from '../../../../actions/goTo';
+import { useRouter } from 'next/router';
 
 export default function MemberItem(props) {
   const { t } = useTranslation();
@@ -43,13 +40,13 @@ export default function MemberItem(props) {
 
   const confirmDelete = async () => {
     await api(
-      formatRoute("/api/entity/member", null, {
+      formatRoute('/api/entity/member', null, {
         memberType,
         organizationId: entityId,
         personId: person.id,
       }),
       {
-        method: "DELETE",
+        method: 'DELETE',
       }
     );
     setOpenDelete(false);
@@ -58,7 +55,7 @@ export default function MemberItem(props) {
 
   return (
     <>
-      <ListItem style={{ width: "100%" }} className={styles.listItem} button>
+      <ListItem style={{ width: '100%' }} className={styles.listItem} button>
         <ListItemText
           className={styles.item1}
           primary={`${person?.name} ${person?.surname}`}
@@ -68,10 +65,10 @@ export default function MemberItem(props) {
         ></ListItemText>
         {moment(expirationDate) < moment() ? (
           <ListItemText
-            secondaryTypographyProps={{ color: "secondary" }}
+            secondaryTypographyProps={{ color: 'secondary' }}
             className={styles.item2}
             primary={t(getMembershipName(memberType))}
-            secondary={`${t("expired_on")}
+            secondary={`${t('expired_on')}
               ${formatDate(moment(expirationDate))}`}
             onClick={() => {
               goTo(ROUTES.entity, { id: person.id });
@@ -81,7 +78,7 @@ export default function MemberItem(props) {
           <ListItemText
             className={styles.item2}
             primary={t(getMembershipName(memberType))}
-            secondary={`${t("valid_until")}
+            secondary={`${t('valid_until')}
               ${formatDate(moment(expirationDate))}`}
             onClick={() => {
               goTo(ROUTES.entity, { id: person.id });
@@ -99,8 +96,7 @@ export default function MemberItem(props) {
             expirationDate,
           }}
         />
-        {status === INVOICE_STATUS_ENUM.PAID ||
-        status === INVOICE_STATUS_ENUM.FREE ? (
+        {status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE ? (
           <Icon icon="AttachMoney" color="green" />
         ) : (
           <Icon icon="MoneyOff" color="red" />
@@ -109,23 +105,23 @@ export default function MemberItem(props) {
           className={styles.iconButton}
           variant="contained"
           icon="Edit"
-          tooltip={t("edit")}
+          tooltip={t('edit')}
           onClick={onOpen}
-          style={{ color: "primary" }}
+          style={{ color: 'primary' }}
         />
         <IconButton
           className={styles.iconButton}
           variant="contained"
           icon="Delete"
-          tooltip={t("delete")}
+          tooltip={t('delete')}
           onClick={onDelete}
-          style={{ color: "primary" }}
+          style={{ color: 'primary' }}
         />
         <AlertDialog
           open={openDelete}
           onCancel={onCancel}
           onSubmit={confirmDelete}
-          title={t("delete_member_confirmation")}
+          title={t('delete_member_confirmation')}
         />
       </ListItem>
       <Divider />

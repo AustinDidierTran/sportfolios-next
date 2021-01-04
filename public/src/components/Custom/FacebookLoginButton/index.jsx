@@ -1,14 +1,10 @@
-import React from "react";
-import { useFacebookSDK } from "../../../hooks/setup";
-import { FACEBOOK_STATUS_ENUM } from "../../../../common/enums";
+import React from 'react';
+import { useFacebookSDK } from '../../../hooks/setup';
+import { FACEBOOK_STATUS_ENUM } from '../../../../common/enums';
 
 export default function FacebookLoginButton(props) {
   useFacebookSDK();
-  const {
-    onSuccessfulConnection,
-    onAuthorizationNotGiven,
-    onConnectionFailure,
-  } = props;
+  const { onSuccessfulConnection, onAuthorizationNotGiven, onConnectionFailure } = props;
 
   const statusChangeCallback = (response) => {
     if (response.status === FACEBOOK_STATUS_ENUM.CONNECTED) {

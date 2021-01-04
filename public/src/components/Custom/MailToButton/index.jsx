@@ -11,7 +11,7 @@ export default function MailtoButton(props) {
   const [emailsFormatted, setEmailsFormatted] = useState([]);
 
   useEffect(() => {
-    setEmailsFormatted(emails.map(email => email.email));
+    setEmailsFormatted(emails.map((email) => email.email));
   }, [emails]);
   const onClick = () => {
     mailTo(emailsFormatted, subject, message);

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useFormInput } from "../../../../hooks/forms";
-import { TableRow, TableCell } from "@material-ui/core";
+import { useFormInput } from '../../../../hooks/forms';
+import { TableRow, TableCell } from '@material-ui/core';
 
-import IconButton from "../../IconButton";
+import IconButton from '../../IconButton';
 
 // Buttons
-import CellRenderer from "./CellRenderer";
+import CellRenderer from './CellRenderer';
 
 export default function CreateRow(props) {
   const { allowCreate, headers, onCreate, validationSchema } = props;
@@ -15,7 +15,7 @@ export default function CreateRow(props) {
   const values = headers.reduce(
     (prev, h) => ({
       ...prev,
-      [h.value]: useFormInput(h.initialValue || ""),
+      [h.value]: useFormInput(h.initialValue || ''),
     }),
     {}
   );
@@ -58,9 +58,7 @@ export default function CreateRow(props) {
   const onSave = async () => {
     const formattedValues = flattenValues();
 
-    const { isValid, errors, validatedValues } = await validateValues(
-      formattedValues
-    );
+    const { isValid, errors, validatedValues } = await validateValues(formattedValues);
 
     if (!isValid) {
       setValidationErrors(errors);
@@ -74,13 +72,7 @@ export default function CreateRow(props) {
   return allowCreate ? (
     <TableRow>
       {headers.map((h, index) => (
-        <CellRenderer
-          error={validationErrors[h.value]}
-          header={h}
-          key={index}
-          index={index}
-          {...values[h.value]}
-        />
+        <CellRenderer error={validationErrors[h.value]} header={h} key={index} index={index} {...values[h.value]} />
       ))}
       <TableCell>
         <IconButton size="small" onClick={onSave} icon="Add" />

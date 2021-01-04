@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import { ROUTES_ENUM, STATUS_ENUM } from "../../../../common/enums/index.js";
-import api from "../../actions/api/index.js";
-import { formatRoute, goTo } from "../../actions/goTo";
-import { IgContainer, LoadingSpinner } from "../../components/Custom";
-import { Store } from "../../Store.js";
-import RosterCard from "../../tabs/Rosters/RosterCard/index.jsx";
+import { ROUTES_ENUM, STATUS_ENUM } from '../../../../common/enums/index.js';
+import api from '../../actions/api/index.js';
+import { formatRoute, goTo } from '../../actions/goTo';
+import { IgContainer, LoadingSpinner } from '../../components/Custom';
+import { Store } from '../../Store.js';
+import RosterCard from '../../tabs/Rosters/RosterCard/index.jsx';
 
 export default function RosterInvite() {
   const {
@@ -18,7 +18,7 @@ export default function RosterInvite() {
 
   const fetchRoster = async () => {
     const res = await api(
-      formatRoute("/api/entity/rosterFromInviteToken", null, {
+      formatRoute('/api/entity/rosterFromInviteToken', null, {
         token,
       })
     );

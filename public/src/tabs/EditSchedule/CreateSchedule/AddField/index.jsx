@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FormDialog } from "../../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useEffect, useContext } from 'react';
+import { FormDialog } from '../../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../../common/enums";
-import { useRouter } from "next/router";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function AddField(props) {
   const { t } = useTranslation();
@@ -34,22 +34,22 @@ export default function AddField(props) {
       errors.field = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
     if (field.length > 64) {
-      formik.setFieldValue("field", field.slice(0, 64));
+      formik.setFieldValue('field', field.slice(0, 64));
     }
     return errors;
   };
 
   const formik = useFormik({
     initialValues: {
-      field: "",
+      field: '',
     },
     validate,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { field } = values;
-      const { status, data } = await api("/api/entity/field", {
-        method: "POST",
+      const { status, data } = await api('/api/entity/field', {
+        method: 'POST',
         body: JSON.stringify({
           field,
           eventId,
@@ -70,7 +70,7 @@ export default function AddField(props) {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("field_added"),
+        message: t('field_added'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
@@ -85,29 +85,29 @@ export default function AddField(props) {
   const buttons = [
     {
       onClick: onFinish,
-      name: t("finish"),
-      color: "default",
+      name: t('finish'),
+      color: 'default',
     },
     {
-      type: "submit",
-      name: t("add"),
-      color: "primary",
+      type: 'submit',
+      name: t('add'),
+      color: 'primary',
     },
   ];
 
   const fields = [
     {
-      namespace: "field",
-      id: "field",
-      type: "text",
-      label: t("field"),
+      namespace: 'field',
+      id: 'field',
+      type: 'text',
+      label: t('field'),
     },
   ];
 
   return (
     <FormDialog
       open={open}
-      title={t("add_field")}
+      title={t('add_field')}
       buttons={buttons}
       fields={fields}
       formik={formik}

@@ -1,32 +1,29 @@
-import React from "react";
+import React from 'react';
 
-import { useTranslation } from "react-i18next";
-import styles from "./Teams.module.css";
-import { Avatar, Paper, TextField } from "../../../../../components/Custom";
-import { List, ListItem } from "@material-ui/core";
+import { useTranslation } from 'react-i18next';
+import styles from './Teams.module.css';
+import { Avatar, Paper, TextField } from '../../../../../components/Custom';
+import { List, ListItem } from '@material-ui/core';
 
-import history from "../../../../../stores/history";
+import history from '../../../../../stores/history';
 
-import { getInitialsFromName } from "../../../../../utils/stringFormats";
+import { getInitialsFromName } from '../../../../../utils/stringFormats';
 
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 export default function Teams(props) {
   const { t } = useTranslation();
   const { teams } = props;
 
   return (
-    <Paper className={styles.card} title={t("teams")}>
+    <Paper className={styles.card} title={t('teams')}>
       <List disablePadding>
         {teams.map((team, index) => {
           const { highlight, name, photoUrl } = team;
           return (
-            <ListItem button key={index} onClick={() => history.push("/team")}>
+            <ListItem button key={index} onClick={() => history.push('/team')}>
               <ListItemIcon>
-                <Avatar
-                  initials={getInitialsFromName(name)}
-                  photoUrl={photoUrl}
-                />
+                <Avatar initials={getInitialsFromName(name)} photoUrl={photoUrl} />
               </ListItemIcon>
               <TextField disabled value={name} className={styles.textField} />
               <span className={styles.highlight}>{highlight}</span>

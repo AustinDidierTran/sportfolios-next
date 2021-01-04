@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import styles from "./Results.module.css";
-import { SELECT_ENUM } from "../../../common/enums";
-import api from "../../actions/api";
-import { formatRoute } from "../../actions/goTo";
-import moment from "moment";
-import Game from "../Schedule/AllGames/Games/Game";
-import GameFilters from "../Schedule/AllGames/GameFilters";
-import SubmitScore from "../Schedule/AllGames/ProTip";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import styles from './Results.module.css';
+import { SELECT_ENUM } from '../../../common/enums';
+import api from '../../actions/api';
+import { formatRoute } from '../../actions/goTo';
+import moment from 'moment';
+import Game from '../Schedule/AllGames/Games/Game';
+import GameFilters from '../Schedule/AllGames/GameFilters';
+import SubmitScore from '../Schedule/AllGames/ProTip';
+import { useRouter } from 'next/router';
 
 export default function Results() {
   const router = useRouter();
@@ -20,21 +20,13 @@ export default function Results() {
   }, [eventId]);
   const sortGames = (games) => {
     const res = games
-      .filter(
-        (game) =>
-          moment(game.start_time)
-            .set("hour", 0)
-            .set("minute", 0)
-            .add(1, "day") < moment()
-      )
+      .filter((game) => moment(game.start_time).set('hour', 0).set('minute', 0).add(1, 'day') < moment())
       .sort((a, b) => moment(a.start_time) - moment(b.start_time));
     return res;
   };
 
   const getGames = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/games", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/games', null, { eventId }));
     const res = sortGames(data);
     setGames(res);
     return res;
@@ -43,9 +35,7 @@ export default function Results() {
   const filter = async (teamName, phaseId, field, timeSlot) => {
     let games = await getGames();
     if (teamName != SELECT_ENUM.ALL) {
-      games = games.filter((game) =>
-        game.teams.some((team) => team.name === teamName)
-      );
+      games = games.filter((game) => game.teams.some((team) => team.name === teamName));
     }
     if (phaseId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.phase_id === phaseId);
@@ -55,9 +45,7 @@ export default function Results() {
     }
     if (timeSlot != SELECT_ENUM.ALL) {
       games = games.filter(
-        (game) =>
-          moment(game.start_time).format("YYYY M D") ===
-          moment(timeSlot).format("YYYY M D")
+        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
       );
     }
     setGames(games);
@@ -71,7 +59,7 @@ export default function Results() {
     <>
       <SubmitScore />
       <GameFilters update={filter} onlyPast={onlyPast} />
-      <div className={styles.main} style={{ marginTop: "16px" }}>
+      <div className={styles.main} style={{ marginTop: '16px' }}>
         {games.map((game, index) => (
           <Game update={update} game={game} key={index} />
         ))}

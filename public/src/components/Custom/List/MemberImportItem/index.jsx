@@ -1,20 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState } from 'react';
 
-import { Divider, ListItem, ListItemText } from "@material-ui/core";
-import { FormDialog } from "../..";
-import { useTranslation } from "react-i18next";
-import styles from "./MemberImportItem.module.css";
-import {
-  formatDate,
-  validateDateWithYear,
-  validateEmail,
-} from "../../../../utils/stringFormats";
-import { IconButton } from "../..";
-import moment from "moment";
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  LIST_ITEM_ENUM,
-} from "../../../../../common/enums";
+import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import { FormDialog } from '../..';
+import { useTranslation } from 'react-i18next';
+import styles from './MemberImportItem.module.css';
+import { formatDate, validateDateWithYear, validateEmail } from '../../../../utils/stringFormats';
+import { IconButton } from '../..';
+import moment from 'moment';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../../common/enums';
 
 export default function MemberImportItem(props) {
   const { t } = useTranslation();
@@ -40,9 +33,9 @@ export default function MemberImportItem(props) {
       return;
     }
     const mom = moment();
-    mom.set("year", year);
-    mom.set("month", month - 1);
-    mom.set("date", day);
+    mom.set('year', year);
+    mom.set('month', month - 1);
+    mom.set('date', day);
     if (!mom.isValid()) {
       return;
     }
@@ -59,26 +52,26 @@ export default function MemberImportItem(props) {
 
   const handleDelete = () => {
     formik.setFieldValue(
-      "members",
+      'members',
       formik.values.members.filter((member) => member.email !== email)
     );
   };
 
   return (
     <>
-      <ListItem style={{ width: "100%" }} className={styles.listItem}>
+      <ListItem style={{ width: '100%' }} className={styles.listItem}>
         <ListItemText
           className={styles.item1}
           primary={email}
-          secondaryTypographyProps={{ color: "secondary" }}
-          secondary={validateEmail(email) ? "" : t("invalid_email")}
+          secondaryTypographyProps={{ color: 'secondary' }}
+          secondary={validateEmail(email) ? '' : t('invalid_email')}
         />
         {!expirationDate ? (
           <ListItemText
             className={styles.date}
-            primaryTypographyProps={{ color: "secondary" }}
+            primaryTypographyProps={{ color: 'secondary' }}
             className={styles.item2}
-            primary={`${t("invalid_date")}: ${day}-${month}-${year}`}
+            primary={`${t('invalid_date')}: ${day}-${month}-${year}`}
             secondary="dd-mm-yyyy"
           />
         ) : (
@@ -86,15 +79,12 @@ export default function MemberImportItem(props) {
             {expirationDate < moment() ? (
               <ListItemText
                 className={styles.date}
-                secondaryTypographyProps={{ color: "secondary" }}
+                secondaryTypographyProps={{ color: 'secondary' }}
                 primary={formatDate(expirationDate)}
-                secondary={t("expired")}
+                secondary={t('expired')}
               />
             ) : (
-              <ListItemText
-                className={styles.date}
-                primary={formatDate(expirationDate)}
-              />
+              <ListItemText className={styles.date} primary={formatDate(expirationDate)} />
             )}
           </>
         )}
@@ -108,18 +98,8 @@ export default function MemberImportItem(props) {
             updateMember,
           }}
         />
-        <IconButton
-          icon="Edit"
-          tooltip={t("edit")}
-          onClick={onOpen}
-          style={{ color: "primary" }}
-        />
-        <IconButton
-          icon="Delete"
-          tooltip={t("delete")}
-          onClick={handleDelete}
-          style={{ color: "primary" }}
-        />
+        <IconButton icon="Edit" tooltip={t('edit')} onClick={onOpen} style={{ color: 'primary' }} />
+        <IconButton icon="Delete" tooltip={t('delete')} onClick={handleDelete} style={{ color: 'primary' }} />
       </ListItem>
       <Divider />
     </>

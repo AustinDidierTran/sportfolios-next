@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { TableRow, TableCell } from "@material-ui/core";
-import CellRenderer from "./CellRenderer";
+import { TableRow, TableCell } from '@material-ui/core';
+import CellRenderer from './CellRenderer';
 
-import { useFormInput } from "../../../../hooks/forms";
+import { useFormInput } from '../../../../hooks/forms';
 
-import IconButton from "../../IconButton";
+import IconButton from '../../IconButton';
 
 // Buttons
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export default function DataRow(props) {
   const { datum, headers, onEdit, validationSchema } = props;
@@ -18,7 +18,7 @@ export default function DataRow(props) {
   let values = headers.reduce(
     (prev, h) => ({
       ...prev,
-      [h.value]: useFormInput(datum[h.value] || ""),
+      [h.value]: useFormInput(datum[h.value] || ''),
     }),
     {}
   );
@@ -79,9 +79,7 @@ export default function DataRow(props) {
     // Saving...
     const formattedValues = flattenValues();
 
-    const { isValid, errors, validatedValues } = await validateValues(
-      formattedValues
-    );
+    const { isValid, errors, validatedValues } = await validateValues(formattedValues);
 
     if (!isValid) {
       setValidationErrors(errors);
@@ -97,13 +95,7 @@ export default function DataRow(props) {
     <TableRow>
       {headers.map((h, index) =>
         h.isEditable !== false ? (
-          <CellRenderer
-            header={h}
-            index={index}
-            error={validationErrors[h.value]}
-            key={index}
-            {...values[h.value]}
-          />
+          <CellRenderer header={h} index={index} error={validationErrors[h.value]} key={index} {...values[h.value]} />
         ) : (
           <TableCell key={index}>{datum[h.value]}</TableCell>
         )

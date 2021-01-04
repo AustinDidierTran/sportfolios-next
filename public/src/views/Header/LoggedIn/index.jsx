@@ -1,25 +1,18 @@
-import React, { useContext, useMemo, useRef } from "react";
-import { Store, SCREENSIZE_ENUM, ACTION_ENUM } from "../../../Store";
-import {
-  SOCKET_EVENT,
-  HEADER_FLYOUT_TYPE_ENUM,
-} from "../../../../common/enums";
+import React, { useContext, useMemo, useRef } from 'react';
+import { Store, SCREENSIZE_ENUM, ACTION_ENUM } from '../../../Store';
+import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM } from '../../../../common/enums';
 
-import Link from "next/link";
+import Link from 'next/link';
 
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import {
-  IconButton,
-  SearchInput,
-  ProfileChip,
-} from "../../../components/Custom";
-import HeaderFlyout from "../HeaderFlyout";
-import NotificationModule from "./NotificationModule";
-import useStyles from "./useStyles";
-import { useTranslation } from "react-i18next";
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { IconButton, SearchInput, ProfileChip } from '../../../components/Custom';
+import HeaderFlyout from '../HeaderFlyout';
+import NotificationModule from './NotificationModule';
+import useStyles from './useStyles';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./LoggedIn.module.css";
-import { ROUTES } from "../../../actions/goTo";
+import styles from './LoggedIn.module.css';
+import { ROUTES } from '../../../actions/goTo';
 
 export default function LoggedIn(props) {
   const {
@@ -37,9 +30,7 @@ export default function LoggedIn(props) {
 
   socket.emit(SOCKET_EVENT.CONNECTED_USER, userInfo.user_id);
 
-  const photoUrl = useMemo(() => userInfo.primaryPerson?.photo_url, [
-    userInfo.primaryPerson,
-  ]);
+  const photoUrl = useMemo(() => userInfo.primaryPerson?.photo_url, [userInfo.primaryPerson]);
 
   const nameObj = useMemo(
     () => ({
@@ -49,10 +40,7 @@ export default function LoggedIn(props) {
     [userInfo.primaryPerson]
   );
 
-  const totalCartItems = useMemo(
-    () => items.reduce((prev, item) => prev + item.quantity, 0),
-    [items]
-  );
+  const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 
   const handleCreateClick = () => {
     dispatch({
@@ -110,26 +98,19 @@ export default function LoggedIn(props) {
           <SearchInput apiRoute="/api/data/search/previous" />
           <div className={classes.grow} />
           <div className={styles.sectionDesktop}>
-            <ProfileChip
-              photoUrl={photoUrl}
-              nameObj={nameObj}
-              entityId={userInfo.primaryPerson?.entity_id}
-            />
+            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson?.entity_id} />
             <div ref={refCreateEntity}>
               <IconButton
                 className={styles.iconButton}
                 icon="Add"
                 size="medium"
                 onClick={handleCreateClick}
-                style={{ color: "white" }}
-                tooltip={t("create")}
+                style={{ color: 'white' }}
+                tooltip={t('create')}
               />
             </div>
             <div ref={refNotifications}>
-              <NotificationModule
-                className={styles.iconButton}
-                onClick={handleNotificationClick}
-              />
+              <NotificationModule className={styles.iconButton} onClick={handleNotificationClick} />
             </div>
             <div ref={refAccount}>
               <IconButton
@@ -137,8 +118,8 @@ export default function LoggedIn(props) {
                 icon="ArrowDropDown"
                 size="medium"
                 onClick={handlePlusClick}
-                style={{ color: "white" }}
-                tooltip={t("account")}
+                style={{ color: 'white' }}
+                tooltip={t('account')}
                 withBadge
                 badgeContent={totalCartItems}
               />

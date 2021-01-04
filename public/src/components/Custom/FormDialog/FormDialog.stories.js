@@ -82,7 +82,7 @@ export default {
   },
 };
 
-const Template = args => <FormDialog {...args} />;
+const Template = (args) => <FormDialog {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

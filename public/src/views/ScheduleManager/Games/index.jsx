@@ -10,16 +10,10 @@ export default function Games(props) {
   const { games, changeScore, saveGame, getRank } = props;
   return (
     <div className={styles.main}>
-      <Typography style={{ marginBottom: '8px' }}>
-        {t('games')}
-      </Typography>
+      <Typography style={{ marginBottom: '8px' }}>{t('games')}</Typography>
       {games.map((game, index) => {
         return (
-          <Card
-            items={{ ...game, changeScore, saveGame, getRank }}
-            type={CARD_TYPE_ENUM.EDITABLE_GAME}
-            key={index}
-          />
+          <Card items={{ ...game, changeScore, saveGame, getRank }} type={CARD_TYPE_ENUM.EDITABLE_GAME} key={index} />
         );
       })}
     </div>

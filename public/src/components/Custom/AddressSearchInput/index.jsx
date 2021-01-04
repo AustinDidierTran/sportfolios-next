@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
-import { GOOGLE_PLACES_API_KEY } from "../../../../../conf";
-import { useTranslation } from "react-i18next";
-import styles from "./AddressSearchInput.module.css";
-import { v4 as uuidv4 } from "uuid";
+import { GOOGLE_PLACES_API_KEY } from '../../../../../conf';
+import { useTranslation } from 'react-i18next';
+import styles from './AddressSearchInput.module.css';
+import { v4 as uuidv4 } from 'uuid';
 
 // REFERENCE: https://medium.com/better-programming/the-best-practice-with-google-place-autocomplete-api-on-react-939211e8b4ce
 // REFERENCE: https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
@@ -11,30 +11,23 @@ import { v4 as uuidv4 } from "uuid";
 let autoComplete;
 
 function AddressSearchInput(props) {
-  const {
-    language: languageProp,
-    addressChanged,
-    formik,
-    namespace,
-    country,
-  } = props;
+  const { language: languageProp, addressChanged, formik, namespace, country } = props;
   const { t } = useTranslation();
   const autoCompleteRef = useRef(null);
 
   useEffect(() => {
-    loadGooglePlaces(
-      `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_PLACES_API_KEY}&libraries=places`,
-      () => handleScriptLoad(autoCompleteRef)
+    loadGooglePlaces(`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_PLACES_API_KEY}&libraries=places`, () =>
+      handleScriptLoad(autoCompleteRef)
     );
   }, []);
 
   const loadGooglePlaces = (url, callback) => {
-    const existingScript = document.getElementById("googlePlaces");
+    const existingScript = document.getElementById('googlePlaces');
 
     if (!existingScript) {
-      const script = document.createElement("script");
+      const script = document.createElement('script');
       script.src = url;
-      script.id = "googlePlaces";
+      script.id = 'googlePlaces';
       document.body.appendChild(script);
 
       script.onload = () => {
@@ -48,34 +41,31 @@ function AddressSearchInput(props) {
   function handleScriptLoad(autoCompleteRef) {
     const options = {
       sessiontoken: uuidv4(),
-      types: ["address"],
+      types: ['address'],
       componentRestrictions: { country },
       language: `${languageProp}`,
     };
 
-    autoComplete = new window.google.maps.places.Autocomplete(
-      autoCompleteRef.current,
-      options
-    );
-    autoComplete.setFields(["address_components", "formatted_address"]);
-    autoComplete.addListener("place_changed", () => handlePlaceSelect());
+    autoComplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, options);
+    autoComplete.setFields(['address_components', 'formatted_address']);
+    autoComplete.addListener('place_changed', () => handlePlaceSelect());
   }
 
   const PLACES_CATEGORIES = {
-    STREET_NUMBER: "street_number",
-    ROUTE: "route",
-    LOCALITY: "locality",
-    STATE: "administrative_area_level_1",
-    COUNTRY: "country",
-    ZIP: "postal_code",
+    STREET_NUMBER: 'street_number',
+    ROUTE: 'route',
+    LOCALITY: 'locality',
+    STATE: 'administrative_area_level_1',
+    COUNTRY: 'country',
+    ZIP: 'postal_code',
   };
 
   async function handlePlaceSelect() {
     const addressObject = autoComplete.getPlace();
     const fullAddress = addressObject.address_components;
 
-    let street_number = "";
-    let route = "";
+    let street_number = '';
+    let route = '';
     let outputAddress = {
       street_address: null,
       city: null,
@@ -120,9 +110,9 @@ function AddressSearchInput(props) {
         ref={autoCompleteRef}
         id={namespace}
         name={namespace}
-        value={(formik && formik.values[namespace]) || ""}
+        value={(formik && formik.values[namespace]) || ''}
         onChange={onChange}
-        placeholder={t("address")}
+        placeholder={t('address')}
       />
     </div>
   );

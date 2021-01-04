@@ -25,21 +25,13 @@ export default function TransferPerson(props) {
       goTo(ROUTES.entityNotFound);
       return;
     }
-    const res = await api(
-      formatRoute('/api/user/transferPerson', null, { token }),
-    );
+    const res = await api(formatRoute('/api/user/transferPerson', null, { token }));
 
     if (res.status === STATUS_ENUM.ERROR) {
       goTo(ROUTES.entityNotFound);
       return;
     }
-    const {
-      email,
-      personId,
-      isPending,
-      userInfo,
-      authToken,
-    } = res.data;
+    const { email, personId, isPending, userInfo, authToken } = res.data;
     if (!isPending) {
       goTo(ROUTES.transferPersonExpired);
       return;
@@ -72,15 +64,12 @@ export default function TransferPerson(props) {
     fetchTransferInfos();
   }, []);
 
-  const validate = values => {
+  const validate = (values) => {
     const errors = {};
 
     if (!values.password) {
       errors.password = t('value_is_required');
-    } else if (
-      values.password.length < 8 ||
-      values.password.length > 24
-    ) {
+    } else if (values.password.length < 8 || values.password.length > 24) {
       errors.password = t('password_length');
     }
   };
@@ -93,7 +82,7 @@ export default function TransferPerson(props) {
     validate,
     validateOnChange: false,
     validateOnBlur: true,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       const { email, password } = values;
 
       const res = await api('/api/auth/transferPersonSignup', {

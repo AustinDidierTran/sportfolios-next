@@ -1,6 +1,6 @@
 const { MEMBERSHIP_TYPE_ENUM } = require('../enums');
 
-const getMembershipName = type => {
+const getMembershipName = (type) => {
   if (type === MEMBERSHIP_TYPE_ENUM.RECREATIONAL) {
     return 'recreational_member';
   } else if (type === MEMBERSHIP_TYPE_ENUM.COMPETITIVE) {

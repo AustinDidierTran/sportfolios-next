@@ -10,7 +10,7 @@ export default {
   component: MultiSelect,
 };
 
-const Template = args => <MultiSelect {...args} />;
+const Template = (args) => <MultiSelect {...args} />;
 
 const options = Object.keys(SIZES_ENUM);
 
@@ -25,10 +25,5 @@ export const WithValues = Template.bind({});
 WithValues.args = {
   label: 'MultiSelect',
   options,
-  values: [
-    SIZES_ENUM.L,
-    SIZES_ENUM.M,
-    SIZES_ENUM.SM,
-    SIZES_ENUM.XXXS,
-  ],
+  values: [SIZES_ENUM.L, SIZES_ENUM.M, SIZES_ENUM.SM, SIZES_ENUM.XXXS],
 };

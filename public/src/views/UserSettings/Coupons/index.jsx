@@ -1,20 +1,20 @@
-import React, { useContext, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button, List, Paper, TextField } from "../../../components/Custom";
-import { ListItem } from "@material-ui/core";
-import styles from "./Coupons.module.css";
-import api from "../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../Store";
-import { formatRoute } from "../../../actions/goTo";
-import { useFormik } from "formik";
-import CouponFactory from "./CouponFactory";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../common/enums";
+import React, { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button, List, Paper, TextField } from '../../../components/Custom';
+import { ListItem } from '@material-ui/core';
+import styles from './Coupons.module.css';
+import api from '../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { formatRoute } from '../../../actions/goTo';
+import { useFormik } from 'formik';
+import CouponFactory from './CouponFactory';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 
 export default function Coupons() {
   const { dispatch } = useContext(Store);
   const { t } = useTranslation();
   const [items, setItems] = useState(null);
-  const [type, setType] = useState("");
+  const [type, setType] = useState('');
   const [open, setOpen] = useState(false);
 
   const onClose = () => {
@@ -23,22 +23,18 @@ export default function Coupons() {
 
   const formik = useFormik({
     initialValues: {
-      token: "",
+      token: '',
     },
     onSubmit: async (values) => {
       const { token } = values;
-      const {
-        data,
-        status,
-      } = await api(
-        formatRoute("/api/user/getTokenPromoCode", null, { token }),
-        { method: "GET" }
-      );
+      const { data, status } = await api(formatRoute('/api/user/getTokenPromoCode', null, { token }), {
+        method: 'GET',
+      });
       if (status === STATUS_ENUM.SUCCESS) {
         if (data?.used) {
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,
-            message: t("coupon_already_used"),
+            message: t('coupon_already_used'),
             severity: SEVERITY_ENUM.ERROR,
             duration: 4000,
           });
@@ -50,7 +46,7 @@ export default function Coupons() {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("invalid_coupon"),
+          message: t('invalid_coupon'),
           severity: SEVERITY_ENUM.ERROR,
           duration: 4000,
         });
@@ -61,21 +57,11 @@ export default function Coupons() {
   return (
     <Paper>
       <form onSubmit={formik.handleSubmit}>
-        <List title={t("coupon_code")} />
+        <List title={t('coupon_code')} />
         <ListItem className={styles.listItem}>
-          <TextField
-            label={t("code")}
-            formik={formik}
-            namespace="token"
-            fullWidth
-          />
-          <Button
-            type="submit"
-            color="primary"
-            className={styles.button}
-            style={{ margin: "8px" }}
-          >
-            {t("apply")}
+          <TextField label={t('code')} formik={formik} namespace="token" fullWidth />
+          <Button type="submit" color="primary" className={styles.button} style={{ margin: '8px' }}>
+            {t('apply')}
           </Button>
         </ListItem>
       </form>

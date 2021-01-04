@@ -1,5 +1,5 @@
 const getRankingInfos = (teams, games) => {
-  const ranking = teams.map(team => ({
+  const ranking = teams.map((team) => ({
     id: team.id,
     name: team.name,
     wins: 0,
@@ -11,12 +11,8 @@ const getRankingInfos = (teams, games) => {
   }));
 
   games.reduce((ranking, game) => {
-    const index0 = ranking.findIndex(
-      r => r.id === game.teams[0].team_id,
-    );
-    const index1 = ranking.findIndex(
-      r => r.id === game.teams[1].team_id,
-    );
+    const index0 = ranking.findIndex((r) => r.id === game.teams[0].team_id);
+    const index1 = ranking.findIndex((r) => r.id === game.teams[1].team_id);
     const {
       id: id0,
       name: name0,
@@ -75,7 +71,7 @@ const getRankingInfos = (teams, games) => {
   return [ranking];
 };
 
-const applyVictoryRule = ranking => {
+const applyVictoryRule = (ranking) => {
   const updatedRanking = ranking
     .reduce((prevRanking, currentEntry) => {
       if (!Array.isArray(currentEntry)) {
@@ -88,7 +84,7 @@ const applyVictoryRule = ranking => {
 
       const winSortedArray = [];
 
-      currentEntry.forEach(team => {
+      currentEntry.forEach((team) => {
         if (Array.isArray(winSortedArray[team.wins])) {
           winSortedArray[team.wins].push(team);
         } else {
@@ -101,12 +97,12 @@ const applyVictoryRule = ranking => {
       }
       return [...prevRanking, ...winSortedArray];
     }, [])
-    .filter(r => r);
+    .filter((r) => r);
 
   return updatedRanking;
 };
 
-const applyLoseRule = ranking => {
+const applyLoseRule = (ranking) => {
   const updatedRanking = ranking
     .reduce((prevRanking, currentEntry) => {
       if (!Array.isArray(currentEntry)) {
@@ -118,7 +114,7 @@ const applyLoseRule = ranking => {
       }
       const loseSortedArray = [];
 
-      currentEntry.forEach(team => {
+      currentEntry.forEach((team) => {
         if (Array.isArray(loseSortedArray[team.loses])) {
           loseSortedArray[team.loses].push(team);
         } else {
@@ -130,11 +126,11 @@ const applyLoseRule = ranking => {
       }
       return [...prevRanking, ...loseSortedArray];
     }, [])
-    .filter(r => r);
+    .filter((r) => r);
   return updatedRanking;
 };
 
-const applyDifferentialRule = ranking => {
+const applyDifferentialRule = (ranking) => {
   const updatedRanking = ranking
     .reduce((prevRanking, currentEntry) => {
       if (!Array.isArray(currentEntry)) {
@@ -145,15 +141,13 @@ const applyDifferentialRule = ranking => {
         return [...prevRanking, currentEntry[0]];
       }
 
-      const differentials = currentEntry.map(
-        t => Number(t.pointAgainst) - Number(t.pointFor),
-      );
+      const differentials = currentEntry.map((t) => Number(t.pointAgainst) - Number(t.pointFor));
 
       const offSet = Math.max(...differentials);
 
       const differentialSortedArray = [];
 
-      currentEntry.forEach(team => {
+      currentEntry.forEach((team) => {
         const index = team.pointFor - team.pointAgainst + offSet;
         if (Array.isArray(differentialSortedArray[index])) {
           differentialSortedArray[index].push(team);
@@ -168,81 +162,58 @@ const applyDifferentialRule = ranking => {
       }
       return [...prevRanking, ...differentialSortedArray];
     }, [])
-    .filter(r => r);
+    .filter((r) => r);
   return updatedRanking;
 };
 
-const applyRandomRule = ranking => {
-  const updatedRanking = ranking.reduce(
-    (prevRanking, currentEntry) => {
-      if (!Array.isArray(currentEntry)) {
-        // Already sorted, leave it like this
-        return [...prevRanking, currentEntry];
-      }
-
-      const randomlySortedArray = currentEntry.sort(
-        (a, b) => b.random - a.random,
-      );
-
-      return [...prevRanking, ...randomlySortedArray];
-    },
-    [],
-  );
-  return updatedRanking;
-};
-
-const applyGameBetweenTeamRules = (
-  games,
-  ranking,
-  prevRankingLength,
-) => {
-  const updatedRanking = ranking.reduce(
-    (prevRanking, currentEntry) => {
-      if (!Array.isArray(currentEntry)) {
-        // Already sorted, leave it like this
-        return [...prevRanking, currentEntry];
-      }
-      if (currentEntry.length < 2) {
-        return [...prevRanking, currentEntry[0]];
-      }
-
-      if (currentEntry.length < prevRankingLength) {
-        const teamIds = currentEntry.map(r => r.id);
-
-        const interestingGames = games.filter(g =>
-          g.teams.every(team => teamIds.includes(team.team_id)),
-        );
-        const newRanking = getRankingInfos(
-          currentEntry,
-          interestingGames,
-        );
-
-        const newEntry = applyRules(
-          interestingGames,
-          newRanking,
-          prevRankingLength,
-        );
-
-        const mappedEntry = newEntry.map(entry => {
-          if (!Array.isArray(entry)) {
-            return currentEntry.find(curr => curr.id === entry.id);
-          }
-
-          if (entry.length === 1) {
-            return currentEntry.find(curr => curr.id === entry[0].id);
-          }
-
-          return entry.map(entry =>
-            currentEntry.find(curr => curr.id === entry.id),
-          );
-        });
-
-        return [...prevRanking, ...mappedEntry];
-      }
+const applyRandomRule = (ranking) => {
+  const updatedRanking = ranking.reduce((prevRanking, currentEntry) => {
+    if (!Array.isArray(currentEntry)) {
+      // Already sorted, leave it like this
       return [...prevRanking, currentEntry];
-    },
-    [],
-  );
+    }
+
+    const randomlySortedArray = currentEntry.sort((a, b) => b.random - a.random);
+
+    return [...prevRanking, ...randomlySortedArray];
+  }, []);
+  return updatedRanking;
+};
+
+const applyGameBetweenTeamRules = (games, ranking, prevRankingLength) => {
+  const updatedRanking = ranking.reduce((prevRanking, currentEntry) => {
+    if (!Array.isArray(currentEntry)) {
+      // Already sorted, leave it like this
+      return [...prevRanking, currentEntry];
+    }
+    if (currentEntry.length < 2) {
+      return [...prevRanking, currentEntry[0]];
+    }
+
+    if (currentEntry.length < prevRankingLength) {
+      const teamIds = currentEntry.map((r) => r.id);
+
+      const interestingGames = games.filter((g) => g.teams.every((team) => teamIds.includes(team.team_id)));
+      const newRanking = getRankingInfos(currentEntry, interestingGames);
+
+      const newEntry = applyRules(interestingGames, newRanking, prevRankingLength);
+
+      const mappedEntry = newEntry.map((entry) => {
+        if (!Array.isArray(entry)) {
+          return currentEntry.find((curr) => curr.id === entry.id);
+        }
+
+        if (entry.length === 1) {
+          return currentEntry.find((curr) => curr.id === entry[0].id);
+        }
+
+        return entry.map((entry) => currentEntry.find((curr) => curr.id === entry.id));
+      });
+
+      return [...prevRanking, ...mappedEntry];
+    }
+    return [...prevRanking, currentEntry];
+  }, []);
 
   return updatedRanking;
 };
@@ -251,31 +222,19 @@ const applyRules = (games, initialRanking) => {
   const rankingWithVictoryRule = applyVictoryRule(initialRanking);
   const rankingWithLoseRule = applyLoseRule(rankingWithVictoryRule);
 
-  const rankingWithGameBetweenRules = applyGameBetweenTeamRules(
-    games,
-    rankingWithLoseRule,
-    initialRanking[0].length,
-  );
+  const rankingWithGameBetweenRules = applyGameBetweenTeamRules(games, rankingWithLoseRule, initialRanking[0].length);
 
-  const rankingWithDifferentialRule = applyDifferentialRule(
-    rankingWithGameBetweenRules,
-  );
+  const rankingWithDifferentialRule = applyDifferentialRule(rankingWithGameBetweenRules);
 
   return rankingWithDifferentialRule;
 };
 
 export const updateRanking = (teams, games) => {
   // Filter games that have not been played
-  const playedGames = games.filter(game =>
-    game.teams.map(t => Number(t.score)).some(score => score !== 0),
-  );
+  const playedGames = games.filter((game) => game.teams.map((t) => Number(t.score)).some((score) => score !== 0));
 
   const ranking = getRankingInfos(teams, playedGames);
-  const rankingWithAppliedRules = applyRules(
-    playedGames,
-    ranking,
-    ranking[0].length,
-  );
+  const rankingWithAppliedRules = applyRules(playedGames, ranking, ranking[0].length);
 
   const rankingWithRandom = applyRandomRule(rankingWithAppliedRules);
 

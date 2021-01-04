@@ -1,25 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./TwoTeamGameEditable.module.css";
+import styles from './TwoTeamGameEditable.module.css';
 
-import { ListItemText, Typography, Card } from "@material-ui/core";
-import { formatDate } from "../../../../utils/stringFormats";
-import moment from "moment";
+import { ListItemText, Typography, Card } from '@material-ui/core';
+import { formatDate } from '../../../../utils/stringFormats';
+import moment from 'moment';
 
-import { IconButton } from "../..";
-import { useTranslation } from "react-i18next";
+import { IconButton } from '../..';
+import { useTranslation } from 'react-i18next';
 
 export default function TwoTeamGameEditable(props) {
   const { t } = useTranslation();
-  const {
-    teams,
-    field,
-    start_time,
-    phaseName,
-    onClick,
-    onEdit,
-    onDelete,
-  } = props;
+  const { teams, field, start_time, phaseName, onClick, onEdit, onDelete } = props;
 
   const team1 = teams[0];
   const team2 = teams[1];
@@ -33,8 +25,8 @@ export default function TwoTeamGameEditable(props) {
           </Typography>
           <ListItemText
             className={styles.time}
-            primary={formatDate(moment(start_time), "HH:mm")}
-            secondary={formatDate(moment(start_time), "D MMM")}
+            primary={formatDate(moment(start_time), 'HH:mm')}
+            secondary={formatDate(moment(start_time), 'D MMM')}
           ></ListItemText>
           <Typography className={styles.field} color="textSecondary">
             {field}
@@ -53,16 +45,16 @@ export default function TwoTeamGameEditable(props) {
           <IconButton
             className={styles.icon}
             onClick={onEdit}
-            tooltip={t("edit_game")}
+            tooltip={t('edit_game')}
             icon="Edit"
-            style={{ color: "primary" }}
+            style={{ color: 'primary' }}
           />
           <IconButton
             className={styles.icon}
             onClick={onDelete}
-            tooltip={t("delete")}
+            tooltip={t('delete')}
             icon="Delete"
-            style={{ color: "primary" }}
+            style={{ color: 'primary' }}
           />
         </div>
       ) : (
@@ -70,9 +62,9 @@ export default function TwoTeamGameEditable(props) {
           <IconButton
             className={styles.icon}
             onClick={onDelete}
-            tooltip={t("delete")}
+            tooltip={t('delete')}
             icon="Delete"
-            style={{ color: "primary" }}
+            style={{ color: 'primary' }}
           />
         </div>
       )}

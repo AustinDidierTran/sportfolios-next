@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import React, { useMemo } from "react";
-import { TABS_ENUM } from "../../public/common/enums";
-import Cart from "../../public/src/views/Cart";
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
+import { TABS_ENUM } from '../../public/common/enums';
+import Cart from '../../public/src/views/Cart';
 
 const CartRoute = (props) => {
   const router = useRouter();

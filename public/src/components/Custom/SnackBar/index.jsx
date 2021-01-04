@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import { Store } from "../../../Store";
-import { POSITION_ENUM } from "../../../../common/enums";
+import React, { useState, useContext, useEffect } from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { Store } from '../../../Store';
+import { POSITION_ENUM } from '../../../../common/enums';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

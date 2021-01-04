@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import React, { useMemo } from "react";
-import { ROUTES } from "../../public/src/actions/goTo";
-import AddPaymentMethod from "../../public/src/views/AddPaymentMethod";
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
+import { ROUTES } from '../../public/src/actions/goTo';
+import AddPaymentMethod from '../../public/src/views/AddPaymentMethod';
 
 const AddPaymentMethodRoute = (props) => {
   const router = useRouter();

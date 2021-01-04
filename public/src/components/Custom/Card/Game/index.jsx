@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./GameItem.module.css";
+import styles from './GameItem.module.css';
 
-import { ListItemText, Typography, Card } from "@material-ui/core";
-import { formatDate } from "../../../../utils/stringFormats";
-import moment from "moment";
+import { ListItemText, Typography, Card } from '@material-ui/core';
+import { formatDate } from '../../../../utils/stringFormats';
+import moment from 'moment';
 
 export default function GameItem(props) {
   const { teams, field, start_time: startTime, phaseName } = props;
@@ -17,8 +17,8 @@ export default function GameItem(props) {
         </Typography>
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(startTime), "HH:mm")}
-          secondary={formatDate(moment(startTime), "ddd")}
+          primary={formatDate(moment(startTime), 'HH:mm')}
+          secondary={formatDate(moment(startTime), 'ddd')}
         ></ListItemText>
         <Typography className={styles.field} color="textSecondary">
           {field}

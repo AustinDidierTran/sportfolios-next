@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { REPORT_TYPE_ENUM } from "../../../../../common/enums";
-import MembersReportItem from "./MembersReportItem";
-import SalesReportItem from "./SalesReportItem";
+import { REPORT_TYPE_ENUM } from '../../../../../common/enums';
+import MembersReportItem from './MembersReportItem';
+import SalesReportItem from './SalesReportItem';
 
 const ReportMap = {
   [REPORT_TYPE_ENUM.MEMBERS]: MembersReportItem,

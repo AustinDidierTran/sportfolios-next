@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 // @ts-ignore
-import styles from "./Home.module.css";
+import styles from './Home.module.css';
 
-import { Card, IgContainer } from "../../components/Custom";
+import { Card, IgContainer } from '../../components/Custom';
 
 interface IPost {
   cardType: string;
@@ -11,7 +11,7 @@ interface IPost {
 
 interface IProps {
   posts: Array<IPost>;
-  refetch: Function
+  refetch: Function;
 }
 
 const Home: React.FunctionComponent<IProps> = ({ posts, refetch }) => {
@@ -19,15 +19,11 @@ const Home: React.FunctionComponent<IProps> = ({ posts, refetch }) => {
     <IgContainer>
       <div className={styles.general}>
         {posts.map((e, index) => (
-          <Card
-            type={e.cardType}
-            items={{ ...e, update: refetch }}
-            key={index}
-          />
+          <Card type={e.cardType} items={{ ...e, update: refetch }} key={index} />
         ))}
       </div>
     </IgContainer>
   );
-}
+};
 
-export default Home
+export default Home;

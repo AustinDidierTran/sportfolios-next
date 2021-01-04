@@ -1,18 +1,18 @@
-import { FORM_DIALOG_TYPE_ENUM } from "../../../../common/enums";
-import AddEventPaymentOption from "./AddEventPaymentOption";
-import EditEventPaymentOption from "./EditEventPaymentOption";
-import AddMember from "./AddMember";
-import AddMembership from "./AddMembership";
-import BecomeMember from "./BecomeMember";
-import BecomeMemberCoupon from "./BecomeMemberCoupon";
-import MembersReport from "./MembersReport";
-import SalesReport from "./SalesReport";
-import EditMembership from "./EditMembership";
-import EditMemberImport from "./EditMemberImport";
-import EnterEmail from "./EnterEmail";
-import CreateTaxRate from "./CreateTaxRate";
-import RosterPlayerOptions from "./RosterPlayerOptions";
-import SubmitScoreAndSpiritForm from "./SubmitScoreSpiritForm";
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import AddEventPaymentOption from './AddEventPaymentOption';
+import EditEventPaymentOption from './EditEventPaymentOption';
+import AddMember from './AddMember';
+import AddMembership from './AddMembership';
+import BecomeMember from './BecomeMember';
+import BecomeMemberCoupon from './BecomeMemberCoupon';
+import MembersReport from './MembersReport';
+import SalesReport from './SalesReport';
+import EditMembership from './EditMembership';
+import EditMemberImport from './EditMemberImport';
+import EnterEmail from './EnterEmail';
+import CreateTaxRate from './CreateTaxRate';
+import RosterPlayerOptions from './RosterPlayerOptions';
+import SubmitScoreAndSpiritForm from './SubmitScoreSpiritForm';
 
 const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.ADD_EVENT_PAYMENT_OPTION]: AddEventPaymentOption,

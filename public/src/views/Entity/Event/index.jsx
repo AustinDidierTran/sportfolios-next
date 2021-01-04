@@ -1,30 +1,30 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { Paper, IgContainer, Icon } from "../../../components/Custom";
+import { Paper, IgContainer, Icon } from '../../../components/Custom';
 
-import { Tabs, Tab, Tooltip, Fab, makeStyles } from "@material-ui/core";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import TabsGenerator from "../../../tabs";
-import { formatPageTitle } from "../../../utils/stringFormats";
-import { Helmet } from "react-helmet";
-import { ENTITIES_ROLE_ENUM, TABS_ENUM } from "../../../../common/enums";
-import { AddGaEvent } from "../../../components/Custom/Analytics";
-import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+import { Tabs, Tab, Tooltip, Fab, makeStyles } from '@material-ui/core';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import TabsGenerator from '../../../tabs';
+import { formatPageTitle } from '../../../utils/stringFormats';
+import { Helmet } from 'react-helmet';
+import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { AddGaEvent } from '../../../components/Custom/Analytics';
+import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(2) + 58,
     right: theme.spacing(2),
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
   fab: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2) + (window.innerWidth - 700) / 2,
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
 }));
 
@@ -39,31 +39,21 @@ export default function Event(props) {
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
     AddGaEvent({
-      category: "Visit",
-      action: "User visited event",
-      label: "Event_page",
+      category: 'Visit',
+      action: 'User visited event',
+      label: 'Event_page',
     });
   }, [basicInfos.name]);
 
   const [isAdmin, setIsAdmin] = useState(false);
 
   const userState = TabsGenerator({
-    list: [
-      TABS_ENUM.SCHEDULE,
-      TABS_ENUM.RANKINGS,
-      TABS_ENUM.ROSTERS,
-      TABS_ENUM.EVENT_INFO,
-    ],
+    list: [TABS_ENUM.SCHEDULE, TABS_ENUM.RANKINGS, TABS_ENUM.ROSTERS, TABS_ENUM.EVENT_INFO],
     role: basicInfos.role,
   });
 
   const adminState = TabsGenerator({
-    list: [
-      TABS_ENUM.EDIT_SCHEDULE,
-      TABS_ENUM.EDIT_RANKINGS,
-      TABS_ENUM.EDIT_ROSTERS,
-      TABS_ENUM.SETTINGS,
-    ],
+    list: [TABS_ENUM.EDIT_SCHEDULE, TABS_ENUM.EDIT_RANKINGS, TABS_ENUM.EDIT_ROSTERS, TABS_ENUM.SETTINGS],
     role: basicInfos.role,
   });
 
@@ -71,10 +61,7 @@ export default function Event(props) {
 
   const getEventState = () => {
     if (adminState.map((a) => a.value).includes(query.tab)) {
-      if (
-        basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
-        basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR
-      ) {
+      if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
         return query.tab;
       } else {
         goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
@@ -98,10 +85,7 @@ export default function Event(props) {
       return states.find((s) => s.value == eventState).component;
     } else {
       if (adminState.map((a) => a.value).includes(eventState)) {
-        if (
-          basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
-          basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR
-        ) {
+        if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
           setIsAdmin(true);
           setStates(adminState);
           return;
@@ -146,11 +130,11 @@ export default function Event(props) {
     if (basicInfos.description) {
       return decodeURIComponent(basicInfos.description);
     }
-    return "";
+    return '';
   }, [basicInfos]);
 
   const title = useMemo(() => {
-    return isAdmin ? t("player_view") : t("admin_view");
+    return isAdmin ? t('player_view') : t('admin_view');
   }, [isAdmin]);
 
   return (
@@ -163,11 +147,7 @@ export default function Event(props) {
         <meta property="og:locale" content="fr_CA" />
       </Helmet>
       <Paper>
-        <Tabs
-          value={states.findIndex((s) => s.value === eventState)}
-          indicatorColor="primary"
-          textColor="primary"
-        >
+        <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
             <Tab
               key={index}
@@ -175,25 +155,15 @@ export default function Event(props) {
               label={window.innerWidth < 768 ? null : s.label}
               icon={<Icon icon={s.icon} />}
               style={{
-                minWidth:
-                  window.innerWidth < 768
-                    ? window.innerWidth / states.length
-                    : 700 / states.length,
+                minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
               }}
             />
           ))}
         </Tabs>
       </Paper>
-      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN ||
-      basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
+      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
         <Tooltip title={title}>
-          <Fab
-            color="primary"
-            onClick={onSwitch}
-            className={
-              window.innerWidth < 768 ? classes.fabMobile : classes.fab
-            }
-          >
+          <Fab color="primary" onClick={onSwitch} className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}>
             <Icon icon="Autorenew" />
           </Fab>
         </Tooltip>

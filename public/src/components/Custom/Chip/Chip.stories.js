@@ -23,7 +23,7 @@ export default {
   },
 };
 
-const Template = args => <Chip {...args} />;
+const Template = (args) => <Chip {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

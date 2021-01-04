@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
-import { Chip, ListItem, ListItemText } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { INVOICE_STATUS_ENUM } from "../../../../../common/enums";
-import { goTo, ROUTES } from "../../../../actions/goTo";
+import React, { useMemo } from 'react';
+import { Chip, ListItem, ListItemText } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { INVOICE_STATUS_ENUM } from '../../../../../common/enums';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 
 export default function MembershipItem(props) {
   const { t } = useTranslation();
@@ -10,28 +10,22 @@ export default function MembershipItem(props) {
 
   const label = useMemo(() => {
     if (status === INVOICE_STATUS_ENUM.PAID) {
-      return t("paid");
+      return t('paid');
     } else if (status === INVOICE_STATUS_ENUM.FREE) {
-      return t("free");
+      return t('free');
     } else {
-      return t("not_paid");
+      return t('not_paid');
     }
   }, [status]);
   const color = useMemo(() => {
-    if (
-      status === INVOICE_STATUS_ENUM.PAID ||
-      status === INVOICE_STATUS_ENUM.FREE
-    ) {
-      return "primary";
+    if (status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE) {
+      return 'primary';
     } else {
-      return "secondary";
+      return 'secondary';
     }
   }, [status]);
   const onClick = useMemo(() => {
-    if (
-      status === INVOICE_STATUS_ENUM.PAID ||
-      status === INVOICE_STATUS_ENUM.FREE
-    ) {
+    if (status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE) {
       return () => {};
     } else {
       return () => goTo(ROUTES.cart);
@@ -39,7 +33,7 @@ export default function MembershipItem(props) {
   }, [status]);
 
   return (
-    <ListItem style={{ width: "100%" }}>
+    <ListItem style={{ width: '100%' }}>
       <ListItemText primary={primary} secondary={secondary}></ListItemText>
       <Chip label={label} color={color} variant="outlined" onClick={onClick} />
     </ListItem>

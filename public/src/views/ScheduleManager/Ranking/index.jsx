@@ -10,9 +10,7 @@ export default function Ranking(props) {
   const { ranking } = props;
   return (
     <div className={styles.main}>
-      <Typography style={{ marginBottom: '8px' }}>
-        {t('ranking')}
-      </Typography>
+      <Typography style={{ marginBottom: '8px' }}>{t('ranking')}</Typography>
       <List
         items={ranking.map((r, index) => ({
           ...r,

@@ -1,24 +1,21 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState } from 'react';
 
-import { Paper, Button, TextField } from "../..";
-import { useFormInput } from "../../../../hooks/forms";
-import { deleteEntity } from "../../../../actions/api";
-import { goTo, ROUTES } from "../../../../actions/goTo";
+import { Paper, Button, TextField } from '../..';
+import { useFormInput } from '../../../../hooks/forms';
+import { deleteEntity } from '../../../../actions/api';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 
-import styles from "./DeleteEntity.module.css";
-import { useTranslation } from "react-i18next";
+import styles from './DeleteEntity.module.css';
+import { useTranslation } from 'react-i18next';
 
 export default function DeleteEntity(props) {
   const { t } = useTranslation();
   const { id, name, ...otherProps } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validator = useFormInput("");
+  const validator = useFormInput('');
 
-  const isValid = useMemo(() => validator.value === name, [
-    validator.value,
-    name,
-  ]);
+  const isValid = useMemo(() => validator.value === name, [validator.value, name]);
 
   const handleClick = async () => {
     setIsSubmitting(true);
@@ -33,24 +30,15 @@ export default function DeleteEntity(props) {
   };
 
   return (
-    <Paper
-      title={t("delete")}
-      childrenProps={{ className: styles.paper }}
-      {...otherProps}
-    >
+    <Paper title={t('delete')} childrenProps={{ className: styles.paper }} {...otherProps}>
       <TextField
         className={styles.textfield}
-        helperText={t("delete_confirmation_text", { name })}
+        helperText={t('delete_confirmation_text', { name })}
         {...validator.inputProps}
       />
 
-      <Button
-        className={styles.button}
-        color="secondary"
-        onClick={handleClick}
-        disabled={isSubmitting || !isValid}
-      >
-        {t("delete")}
+      <Button className={styles.button} color="secondary" onClick={handleClick} disabled={isSubmitting || !isValid}>
+        {t('delete')}
       </Button>
     </Paper>
   );

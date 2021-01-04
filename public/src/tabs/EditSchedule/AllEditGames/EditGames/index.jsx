@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
-import styles from "./EditGames.module.css";
-import { Collapse, IconButton } from "../../../../components/Custom";
-import { Divider, Typography } from "@material-ui/core";
-import ScoreSuggestion from "./ScoreSuggestion";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState, useMemo } from 'react';
+import styles from './EditGames.module.css';
+import { Collapse, IconButton } from '../../../../components/Custom';
+import { Divider, Typography } from '@material-ui/core';
+import ScoreSuggestion from './ScoreSuggestion';
+import { useTranslation } from 'react-i18next';
 
 export default function EditGames(props) {
   const { games, title, isOpen, update } = props;
@@ -15,10 +15,7 @@ export default function EditGames(props) {
     setExpanded(!expanded);
   };
 
-  const icon = useMemo(
-    () => (expanded ? "KeyboardArrowUp" : "KeyboardArrowDown"),
-    [expanded]
-  );
+  const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
 
   useEffect(() => {
     setExpanded(isOpen);
@@ -37,20 +34,10 @@ export default function EditGames(props) {
             {`${title} (${games.length})`}
           </Typography>
         )}
-        <IconButton
-          aria-expanded={expanded}
-          icon={icon}
-          className={styles.iconButton}
-          style={{ color: "grey" }}
-        />
+        <IconButton aria-expanded={expanded} icon={icon} className={styles.iconButton} style={{ color: 'grey' }} />
       </div>
       <Divider className={styles.divider} />
-      <Collapse
-        in={expanded}
-        timeout="auto"
-        unmountOnExit
-        className={styles.games}
-      >
+      <Collapse in={expanded} timeout="auto" unmountOnExit className={styles.games}>
         {games.length ? (
           <>
             {games.map((game) => (
@@ -58,7 +45,7 @@ export default function EditGames(props) {
             ))}
           </>
         ) : (
-          <Typography color="textSecondary">{t("no_games")}</Typography>
+          <Typography color="textSecondary">{t('no_games')}</Typography>
         )}
       </Collapse>
     </>

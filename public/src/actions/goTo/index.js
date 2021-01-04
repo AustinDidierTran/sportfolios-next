@@ -1,10 +1,10 @@
-import history from "../../stores/history";
-import { getFormattedMailTo } from "../../utils/stringFormats";
-import api from "../api";
-import { ROUTES_ENUM } from "../../../common/enums";
-import { formatRoute } from "../../../common/utils/stringFormat";
-export { formatRoute } from "../../../common/utils/stringFormat";
-import Router from "next/router";
+import history from '../../stores/history';
+import { getFormattedMailTo } from '../../utils/stringFormats';
+import api from '../api';
+import { ROUTES_ENUM } from '../../../common/enums';
+import { formatRoute } from '../../../common/utils/stringFormat';
+export { formatRoute } from '../../../common/utils/stringFormat';
+import Router from 'next/router';
 
 export const ROUTES = ROUTES_ENUM;
 
@@ -22,18 +22,12 @@ export const goToLink = (route) => {
 
 export const goToAlias = async (entityId, params, queryParams) => {
   const { data } = await api(
-    formatRoute("/api/entity/alias", null, {
+    formatRoute('/api/entity/alias', null, {
       entityId,
     })
   );
 
-  Router.push(
-    formatRoute(
-      data ? data.alias || data.entityId : ROUTES.entityNotFound,
-      params,
-      queryParams
-    )
-  );
+  Router.push(formatRoute(data ? data.alias || data.entityId : ROUTES.entityNotFound, params, queryParams));
 };
 
 export const goToAndReplace = (route, params, queryParams) => {
@@ -46,9 +40,5 @@ export const goBack = () => {
 };
 
 export const mailTo = (emailsFormatted, subject, message) => {
-  document.location.href = getFormattedMailTo(
-    emailsFormatted,
-    subject,
-    message
-  );
+  document.location.href = getFormattedMailTo(emailsFormatted, subject, message);
 };

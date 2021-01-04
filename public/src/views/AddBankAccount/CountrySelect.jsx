@@ -6,11 +6,7 @@ import { Select } from '../../components/Custom';
 // ⚠️ No support for IE 11
 function countryToFlag(isoCode) {
   return typeof String.fromCodePoint !== 'undefined'
-    ? isoCode
-        .toUpperCase()
-        .replace(/./g, char =>
-          String.fromCodePoint(char.charCodeAt(0) + 127397),
-        )
+    ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
     : isoCode;
 }
 
@@ -18,7 +14,7 @@ export default function CountrySelect(props) {
   const { formik } = props;
   const { t } = useTranslation();
 
-  const content = option => {
+  const content = (option) => {
     return (
       <React.Fragment>
         <span>{countryToFlag(option.value)}</span>
@@ -29,11 +25,11 @@ export default function CountrySelect(props) {
 
   const options = useMemo(
     () =>
-      countries.map(country => ({
+      countries.map((country) => ({
         value: country.code,
         display: country.label,
       })),
-    [countries],
+    [countries]
   );
 
   return (

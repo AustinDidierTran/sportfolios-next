@@ -1,18 +1,13 @@
-import React, { useEffect, useMemo, useContext, useState } from "react";
+import React, { useEffect, useMemo, useContext, useState } from 'react';
 
-import { Card, FormDialog } from "../../../../../components/Custom";
-import {
-  CARD_TYPE_ENUM,
-  COMPONENT_TYPE_ENUM,
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-} from "../../../../../../common/enums";
-import SubmitScoreDialog from "../../../../../components/Custom/FormDialog/SubmitScoreSpiritForm";
-import { ACTION_ENUM, Store } from "../../../../../Store";
-import api from "../../../../../actions/api";
-import { formatRoute } from "../../../../../actions/goTo";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import { Card, FormDialog } from '../../../../../components/Custom';
+import { CARD_TYPE_ENUM, COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import SubmitScoreDialog from '../../../../../components/Custom/FormDialog/SubmitScoreSpiritForm';
+import { ACTION_ENUM, Store } from '../../../../../Store';
+import api from '../../../../../actions/api';
+import { formatRoute } from '../../../../../actions/goTo';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
 export default function Game(props) {
   const { game, isPastGame } = props;
@@ -22,13 +17,9 @@ export default function Game(props) {
   } = useContext(Store);
   const { t } = useTranslation();
 
-  const [selectedSubmissionerInfos, setSelectedSubmissionerInfos] = useState(
-    {}
-  );
+  const [selectedSubmissionerInfos, setSelectedSubmissionerInfos] = useState({});
   const [submitScore, setSubmitScore] = useState(false);
-  const [possibleSubmissionersInfos, setpossibleSubmissionersInfos] = useState(
-    []
-  );
+  const [possibleSubmissionersInfos, setpossibleSubmissionersInfos] = useState([]);
 
   const closeSubmitScore = () => {
     setSubmitScore(false);
@@ -36,7 +27,7 @@ export default function Game(props) {
 
   const openSubmitScore = async () => {
     const { status, data } = await api(
-      formatRoute("/api/entity/getPossibleSubmissionerInfos", null, {
+      formatRoute('/api/entity/getPossibleSubmissionerInfos', null, {
         gameId: game.id,
         teamsIds: JSON.stringify(
           game.teams.map((t) => ({
@@ -45,13 +36,13 @@ export default function Game(props) {
           }))
         ),
       }),
-      { method: "GET" }
+      { method: 'GET' }
     );
 
     if (status === STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("you_are_not_in_any_of_these_teans"),
+        message: t('you_are_not_in_any_of_these_teans'),
         severity: SEVERITY_ENUM.INFO,
       });
     } else if (data) {
@@ -71,7 +62,7 @@ export default function Game(props) {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("invalid_roster_role_to_submit_score"),
+        message: t('invalid_roster_role_to_submit_score'),
         severity: SEVERITY_ENUM.INFO,
       });
     }
@@ -100,30 +91,25 @@ export default function Game(props) {
 
   useEffect(() => {
     if (possibleTeams.length) {
-      formik.setFieldValue("team", possibleTeams[0].rosterId);
+      formik.setFieldValue('team', possibleTeams[0].rosterId);
     }
   }, [possibleTeams]);
 
   useEffect(() => {
-    if (
-      possibleSubmissioners.length === 1 &&
-      possibleSubmissioners[0].length === 1
-    ) {
-      formik.setFieldValue("person", possibleSubmissioners[0][0]);
+    if (possibleSubmissioners.length === 1 && possibleSubmissioners[0].length === 1) {
+      formik.setFieldValue('person', possibleSubmissioners[0][0]);
     }
   }, [possibleSubmissioners]);
 
   const formik = useFormik({
     initialValues: {
-      team: "",
-      person: "",
+      team: '',
+      person: '',
     },
     onSubmit: async (values) => {
       const { team, person } = values;
 
-      const choice = possibleSubmissionersInfos.find(
-        (s) => s.myTeam.rosterId === team
-      );
+      const choice = possibleSubmissionersInfos.find((s) => s.myTeam.rosterId === team);
       setSelectedSubmissionerInfos({
         myTeam: choice.myTeam,
         enemyTeam: choice.enemyTeam,
@@ -162,9 +148,9 @@ export default function Game(props) {
           };
         });
       if (options.some((o) => o.value === userInfo.primaryPerson.entity_id)) {
-        formik.setFieldValue("person", userInfo.primaryPerson.entity_id);
+        formik.setFieldValue('person', userInfo.primaryPerson.entity_id);
       } else {
-        formik.setFieldValue("person", options[0].value);
+        formik.setFieldValue('person', options[0].value);
       }
       return options;
     } else {
@@ -172,25 +158,21 @@ export default function Game(props) {
     }
   }, [formik.values.team]);
 
-  const disableTeamSelect = useMemo(() => optionsTeam?.length === 1, [
-    optionsTeam,
-  ]);
-  const disablePersonSelect = useMemo(() => optionsPerson?.length === 1, [
-    optionsPerson,
-  ]);
+  const disableTeamSelect = useMemo(() => optionsTeam?.length === 1, [optionsTeam]);
+  const disablePersonSelect = useMemo(() => optionsPerson?.length === 1, [optionsPerson]);
 
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "team",
-      label: t("submit_for_team"),
+      namespace: 'team',
+      label: t('submit_for_team'),
       options: optionsTeam,
       showTextIfOnlyOneOption: disableTeamSelect,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "person",
-      label: t("submit_as"),
+      namespace: 'person',
+      label: t('submit_as'),
       options: optionsPerson,
       showTextIfOnlyOneOption: disablePersonSelect,
     },
@@ -199,13 +181,13 @@ export default function Game(props) {
   const buttons = [
     {
       onClick: () => setChooseSubmitter(false),
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("choose"),
-      color: "primary",
+      type: 'submit',
+      name: t('choose'),
+      color: 'primary',
     },
   ];
 
@@ -228,7 +210,7 @@ export default function Game(props) {
       <FormDialog
         open={chooseSubmitter}
         onClose={handleChooseSubmitterClose}
-        title={t("choose_submitter")}
+        title={t('choose_submitter')}
         fields={fields}
         formik={formik}
         buttons={buttons}

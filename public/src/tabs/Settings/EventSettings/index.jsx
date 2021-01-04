@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react';
 
-import { Paper, Card } from "../../../components/Custom";
+import { Paper, Card } from '../../../components/Custom';
 
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import { CARD_TYPE_ENUM, SEVERITY_ENUM } from "../../../../common/enums";
-import moment from "moment";
-import styles from "./EventSettings.module.css";
-import { Store, ACTION_ENUM } from "../../../Store";
-import { useRouter } from "next/router";
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import moment from 'moment';
+import styles from './EventSettings.module.css';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { useRouter } from 'next/router';
 
 export default function EventSettings() {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ export default function EventSettings() {
 
   const getInfos = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/event", null, {
+      formatRoute('/api/entity/event', null, {
         eventId,
       })
     );
@@ -34,34 +34,30 @@ export default function EventSettings() {
 
   const fields = [
     {
-      helperText: t("maximum_spots"),
-      type: "number",
+      helperText: t('maximum_spots'),
+      type: 'number',
       initialValue: infos.maximum_spots || 0,
     },
     {
-      helperText: t("event_start"),
-      type: "date",
-      initialValue: moment(infos.start_date).format("YYYY-MM-DD"),
+      helperText: t('event_start'),
+      type: 'date',
+      initialValue: moment(infos.start_date).format('YYYY-MM-DD'),
     },
     {
-      helperText: t("event_end"),
-      type: "date",
-      initialValue: moment(infos.end_date).format("YYYY-MM-DD"),
+      helperText: t('event_end'),
+      type: 'date',
+      initialValue: moment(infos.end_date).format('YYYY-MM-DD'),
     },
   ];
 
   const onSave = async (values) => {
-    const [
-      { value: maximumSpots },
-      { value: eventStart },
-      { value: eventEnd },
-    ] = values;
+    const [{ value: maximumSpots }, { value: eventStart }, { value: eventEnd }] = values;
     if (maximumSpots < 0) {
       values[0].setError(true);
       return;
     }
     await api(`/api/entity/updateEvent`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({
         eventId,
         maximumSpots,
@@ -71,14 +67,14 @@ export default function EventSettings() {
     });
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
-      message: t("informations_saved"),
+      message: t('informations_saved'),
       severity: SEVERITY_ENUM.SUCCESS,
     });
     getInfos();
   };
 
   return (
-    <Paper title={t("event_settings")} className={styles.paper}>
+    <Paper title={t('event_settings')} className={styles.paper}>
       <Card items={{ fields, onSave }} type={CARD_TYPE_ENUM.EVENT_SETTINGS} />
     </Paper>
   );

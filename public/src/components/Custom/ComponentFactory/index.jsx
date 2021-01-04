@@ -1,17 +1,10 @@
-import React from "react";
-import { ListItemText } from "@material-ui/core";
-import {
-  Select,
-  MultiSelect,
-  Button,
-  CheckBox,
-  List,
-  TextField,
-} from "../../Custom";
-import { COMPONENT_TYPE_ENUM } from "../../../../common/enums";
-import { InputAdornment } from "@material-ui/core";
-import PersonSearchList from "../SearchList/PersonSearchList";
-import PersonItem from "../List/PersonItem";
+import React from 'react';
+import { ListItemText } from '@material-ui/core';
+import { Select, MultiSelect, Button, CheckBox, List, TextField } from '../../Custom';
+import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
+import { InputAdornment } from '@material-ui/core';
+import PersonSearchList from '../SearchList/PersonSearchList';
+import PersonItem from '../List/PersonItem';
 
 export default function ComponentFactory(props) {
   const { component } = props;
@@ -24,9 +17,7 @@ export default function ComponentFactory(props) {
         label={component.label}
         value={component.defaultValue}
         style={component.style}
-        showtextifonlyoneoption={
-          component?.showTextIfOnlyOneOption?.toString() || "false"
-        }
+        showtextifonlyoneoption={component?.showTextIfOnlyOneOption?.toString() || 'false'}
         disabled={component.disabled}
       />
     );
@@ -70,11 +61,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST_ITEM) {
     return (
-      <ListItemText
-        primary={component.primary}
-        secondary={component.secondary}
-        style={{ overflowWrap: "anywhere" }}
-      />
+      <ListItemText primary={component.primary} secondary={component.secondary} style={{ overflowWrap: 'anywhere' }} />
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST) {
@@ -118,9 +105,7 @@ export default function ComponentFactory(props) {
       InputLabelProps={{ shrink: component.shrink }}
       InputProps={{
         endAdornment: component.endAdorment ? (
-          <InputAdornment position="end">
-            {component.endAdorment}
-          </InputAdornment>
+          <InputAdornment position="end">{component.endAdorment}</InputAdornment>
         ) : (
           <></>
         ),

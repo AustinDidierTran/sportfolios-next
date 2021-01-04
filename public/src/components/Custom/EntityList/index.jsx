@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { useTranslation } from "react-i18next";
-import styles from "./EntityList.module.css";
-import {
-  Paper,
-  List,
-  Button,
-  FeatureContainer,
-} from "../../../components/Custom";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import api from "../../../actions/api";
+import { useTranslation } from 'react-i18next';
+import styles from './EntityList.module.css';
+import { Paper, List, Button, FeatureContainer } from '../../../components/Custom';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import api from '../../../actions/api';
 
-import { GLOBAL_ENUM } from "../../../../common/enums";
-import { useMemo } from "react";
-import { FEATURE_FLAGS } from "../../../../common/flags";
+import { GLOBAL_ENUM } from '../../../../common/enums';
+import { useMemo } from 'react';
+import { FEATURE_FLAGS } from '../../../../common/flags';
 
 export default function EntityList(props) {
   const { t } = useTranslation();
@@ -23,7 +18,7 @@ export default function EntityList(props) {
   const [entities, setEntities] = useState([]);
 
   const getEntities = async () => {
-    const route = type ? `/api/entity/all?type=${type}` : "/api/entity/all";
+    const route = type ? `/api/entity/all?type=${type}` : '/api/entity/all';
 
     const { data } = await api(route);
 
@@ -37,50 +32,37 @@ export default function EntityList(props) {
   const entityDictionary = useMemo(
     () => ({
       [GLOBAL_ENUM.ORGANIZATION]: {
-        title: t("organizations"),
-        buttonLabel: t("create_organization"),
+        title: t('organizations'),
+        buttonLabel: t('create_organization'),
       },
       [GLOBAL_ENUM.TEAM]: {
-        title: t("teams"),
-        buttonLabel: t("create_team"),
+        title: t('teams'),
+        buttonLabel: t('create_team'),
       },
       [GLOBAL_ENUM.PERSON]: {
-        title: t("people"),
-        buttonLabel: t("create_person"),
+        title: t('people'),
+        buttonLabel: t('create_person'),
         flag: FEATURE_FLAGS.CHILD_ACCOUNTS,
       },
       [GLOBAL_ENUM.EVENT]: {
-        title: t("event"),
-        buttonLabel: t("create_event"),
+        title: t('event'),
+        buttonLabel: t('create_event'),
       },
     }),
     []
   );
 
-  const entityObject = useMemo(() => entityDictionary[type] || {}, [
-    entityDictionary,
-    type,
-  ]);
+  const entityObject = useMemo(() => entityDictionary[type] || {}, [entityDictionary, type]);
 
   const handleClick = () => {
     goTo(ROUTES.create, null, { type });
   };
 
   return (
-    <Paper
-      childrenProps={{ className: styles.card }}
-      title={entityObject.title}
-    >
-      <FeatureContainer
-        feature={entityObject.flag}
-        options={{ displayComingSoon: true }}
-      >
+    <Paper childrenProps={{ className: styles.card }} title={entityObject.title}>
+      <FeatureContainer feature={entityObject.flag} options={{ displayComingSoon: true }}>
         <>
-          <Button
-            onClick={handleClick}
-            style={{ marginBottom: 16 }}
-            className={styles.button}
-          >
+          <Button onClick={handleClick} style={{ marginBottom: 16 }} className={styles.button}>
             {entityObject.buttonLabel}
           </Button>
           <List

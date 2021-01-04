@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { formatPrice, formatPageTitle } from "../../utils/stringFormats";
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { formatPrice, formatPageTitle } from '../../utils/stringFormats';
 
-import { Paper, Button, IgContainer } from "../../components/Custom";
-import { Typography } from "@material-ui/core";
-import styles from "./OrderProcessed.module.css";
-import { LOGO_ENUM } from "../../../../common/enums";
-import { goTo } from "../../actions/goTo";
-import { useRouter } from "next/router";
+import { Paper, Button, IgContainer } from '../../components/Custom';
+import { Typography } from '@material-ui/core';
+import styles from './OrderProcessed.module.css';
+import { LOGO_ENUM } from '../../../../common/enums';
+import { goTo } from '../../actions/goTo';
+import { useRouter } from 'next/router';
 
 export default function OrderProcessed() {
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function OrderProcessed() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = formatPageTitle(t("order_processed_title"));
+    document.title = formatPageTitle(t('order_processed_title'));
   }, []);
 
   const goToReceipt = () => {
@@ -24,56 +24,52 @@ export default function OrderProcessed() {
 
   const totalFormatted = formatPrice(paid);
 
-  const cardNumber = "**** **** **** " + last4;
+  const cardNumber = '**** **** **** ' + last4;
 
   return (
     <IgContainer>
-      <Paper style={{ textAlign: "center" }}>
+      <Paper style={{ textAlign: 'center' }}>
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
         </div>
-        <Typography style={{ margin: "8px" }} variant="h5">
-          {t("order_processed")}
+        <Typography style={{ margin: '8px' }} variant="h5">
+          {t('order_processed')}
         </Typography>
-        <Typography style={{ margin: "8px" }}>
+        <Typography style={{ margin: '8px' }}>
           Total:&nbsp;
           {totalFormatted}
         </Typography>
-        <Typography style={{ margin: "8px" }}>
-          {t("paid_with")}
+        <Typography style={{ margin: '8px' }}>
+          {t('paid_with')}
           &nbsp;
           {cardNumber}
         </Typography>
-        <Typography
-          style={{ margin: "8px" }}
-          color="textSecondary"
-          component="p"
-        >
-          {t("to_see_your_receipt")}
+        <Typography style={{ margin: '8px' }} color="textSecondary" component="p">
+          {t('to_see_your_receipt')}
         </Typography>
         <Button
           size="small"
           variant="contained"
           endIcon="Home"
           style={{
-            margin: "8px",
+            margin: '8px',
           }}
           onClick={() => {
-            goTo("/");
+            goTo('/');
           }}
         >
-          {t("home")}
+          {t('home')}
         </Button>
         <Button
           size="small"
           variant="contained"
           endIcon="Receipt"
           style={{
-            margin: "8px",
+            margin: '8px',
           }}
           onClick={goToReceipt}
         >
-          {t("receipt")}
+          {t('receipt')}
         </Button>
       </Paper>
     </IgContainer>

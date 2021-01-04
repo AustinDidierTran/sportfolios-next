@@ -16,32 +16,14 @@ export default function CustomFormDialog(props) {
     const FormDialog = FormDialogFactory({ type });
     return <FormDialog {...items} />;
   }
-  const {
-    open,
-    title,
-    description,
-    buttons,
-    fields,
-    formik,
-    onClose,
-  } = props;
+  const { open, title, description, buttons, fields, formik, onClose } = props;
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      aria-labelledby="form-dialog-title"
-      maxWidth={'xs'}
-      fullWidth
-    >
+    <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={'xs'} fullWidth>
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <form onSubmit={formik.handleSubmit}>
         <div>
           <DialogContent>
-            {description ? (
-              <DialogContentText>{description}</DialogContentText>
-            ) : (
-              <></>
-            )}
+            {description ? <DialogContentText>{description}</DialogContentText> : <></>}
             {fields.map((field, index) => (
               <div style={{ marginTop: '8px' }} key={index}>
                 <ComponentFactory component={{ ...field, formik }} />
@@ -50,12 +32,7 @@ export default function CustomFormDialog(props) {
           </DialogContent>
           <DialogActions>
             {buttons.map((button, index) => (
-              <Button
-                onClick={button.onClick}
-                color={button.color}
-                type={button.type}
-                key={index}
-              >
+              <Button onClick={button.onClick} color={button.color} type={button.type} key={index}>
                 {button.name}
               </Button>
             ))}

@@ -9,7 +9,7 @@ export default {
   component: AlertDialog,
 };
 
-const Template = args => <AlertDialog {...args} />;
+const Template = (args) => <AlertDialog {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

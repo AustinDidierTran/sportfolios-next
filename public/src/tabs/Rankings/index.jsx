@@ -1,13 +1,13 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import api from "../../actions/api";
-import { formatRoute } from "../../actions/goTo";
-import { LoadingSpinner } from "../../components/Custom";
-import { Typography } from "@material-ui/core";
-import PhaseRankings from "./PhaseRanking";
-import Ranking from "./Ranking";
-import { updateRanking } from "./RankingFunctions";
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import api from '../../actions/api';
+import { formatRoute } from '../../actions/goTo';
+import { LoadingSpinner } from '../../components/Custom';
+import { Typography } from '@material-ui/core';
+import PhaseRankings from './PhaseRanking';
+import Ranking from './Ranking';
+import { updateRanking } from './RankingFunctions';
 
 export default function Rankings() {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function Rankings() {
 
   const getRankings = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/rankings", null, {
+      formatRoute('/api/entity/rankings', null, {
         eventId,
       })
     );
@@ -39,9 +39,7 @@ export default function Rankings() {
       });
     setPreRanking(ranking);
 
-    const { data: games } = await api(
-      formatRoute("/api/entity/teamGames", null, { eventId })
-    );
+    const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
 
     games.map((game) => {
       const res1 = ranking.find((r) => game.teams[0].team_id === r.id);
@@ -64,22 +62,13 @@ export default function Rankings() {
     return <LoadingSpinner />;
   }
   if (!preRanking.length && !ranking.length) {
-    return (
-      <Typography style={{ margin: "8px" }}>
-        {t("no_teams_registered")}
-      </Typography>
-    );
+    return <Typography style={{ margin: '8px' }}>{t('no_teams_registered')}</Typography>;
   }
   return (
     <>
-      <Ranking ranking={preRanking} title={t("preranking")}></Ranking>
+      <Ranking ranking={preRanking} title={t('preranking')}></Ranking>
       <PhaseRankings />
-      <Ranking
-        ranking={ranking}
-        title={t("statistics")}
-        withStats
-        withoutPosition
-      ></Ranking>
+      <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition></Ranking>
     </>
   );
 }

@@ -1,18 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import {
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core";
-import { Avatar, IconButton } from "../../../Custom";
-import { useTranslation } from "react-i18next";
-import styles from "./PurchasesItem.module.css";
+import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Avatar, IconButton } from '../../../Custom';
+import { useTranslation } from 'react-i18next';
+import styles from './PurchasesItem.module.css';
 // import MailtoButton from '../../MailToButton';
-import { formatPrice, formatDate } from "../../../../utils/stringFormats";
-import moment from "moment";
-import { GLOBAL_ENUM, IMAGE_ENUM } from "../../../../../common/enums";
+import { formatPrice, formatDate } from '../../../../utils/stringFormats';
+import moment from 'moment';
+import { GLOBAL_ENUM, IMAGE_ENUM } from '../../../../../common/enums';
 
 export default function PurchasesItem(props) {
   const { t } = useTranslation();
@@ -37,7 +32,7 @@ export default function PurchasesItem(props) {
     if (team) {
       return (
         <>
-          <ListItem style={{ width: "100%" }}>
+          <ListItem style={{ width: '100%' }}>
             <div className={styles.div}>
               <ListItemIcon>
                 <Avatar
@@ -46,17 +41,11 @@ export default function PurchasesItem(props) {
                   className={styles.photo}
                 ></Avatar>
               </ListItemIcon>
-              <ListItemText
-                className={styles.name}
-                primary={description}
-                secondary={team.name}
-              />
+              <ListItemText className={styles.name} primary={description} secondary={team.name} />
               <ListItemText
                 className={styles.quantity}
                 primary={
-                  metadata?.isIndividualOption
-                    ? `${formatPrice(amount)} - ${metadata?.name}`
-                    : formatPrice(amount)
+                  metadata?.isIndividualOption ? `${formatPrice(amount)} - ${metadata?.name}` : formatPrice(amount)
                 }
                 secondary={label}
               />
@@ -65,17 +54,10 @@ export default function PurchasesItem(props) {
             emails={email}
             className={styles.mail}
           /> */}
-              <IconButton
-                onClick={goToReceipt}
-                tooltip={t("receipt")}
-                icon="Receipt"
-                style={{ color: "primary" }}
-              />
+              <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
               <ListItemText
                 className={styles.date}
-                secondary={`${t("purchased_on")}: ${formatDate(
-                  moment(createdAt)
-                )}`}
+                secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
               ></ListItemText>
             </div>
           </ListItem>
@@ -86,7 +68,7 @@ export default function PurchasesItem(props) {
     if (person) {
       return (
         <>
-          <ListItem style={{ width: "100%" }}>
+          <ListItem style={{ width: '100%' }}>
             <div className={styles.div}>
               <ListItemIcon>
                 <Avatar
@@ -95,17 +77,11 @@ export default function PurchasesItem(props) {
                   className={styles.photo}
                 ></Avatar>
               </ListItemIcon>
-              <ListItemText
-                className={styles.name}
-                primary={description}
-                secondary={person.complete_name}
-              />
+              <ListItemText className={styles.name} primary={description} secondary={person.complete_name} />
               <ListItemText
                 className={styles.quantity}
                 primary={
-                  metadata?.isIndividualOption
-                    ? `${formatPrice(amount)} - ${metadata?.name}`
-                    : formatPrice(amount)
+                  metadata?.isIndividualOption ? `${formatPrice(amount)} - ${metadata?.name}` : formatPrice(amount)
                 }
                 secondary={label}
               />
@@ -114,17 +90,10 @@ export default function PurchasesItem(props) {
             emails={email}
             className={styles.mail}
           /> */}
-              <IconButton
-                onClick={goToReceipt}
-                tooltip={t("receipt")}
-                icon="Receipt"
-                style={{ color: "primary" }}
-              />
+              <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
               <ListItemText
                 className={styles.date}
-                secondary={`${t("purchased_on")}: ${formatDate(
-                  moment(createdAt)
-                )}`}
+                secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
               ></ListItemText>
             </div>
           </ListItem>
@@ -138,38 +107,25 @@ export default function PurchasesItem(props) {
     const { organization, person } = metadata;
     return (
       <>
-        <ListItem style={{ width: "100%" }}>
+        <ListItem style={{ width: '100%' }}>
           <div className={styles.div}>
             <ListItemIcon>
               <Avatar
-                photoUrl={
-                  organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT
-                }
+                photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                 variant="square"
                 className={styles.photo}
               ></Avatar>
             </ListItemIcon>
-            <ListItemText
-              className={styles.name}
-              primary={t(label)}
-              secondary={organization?.name}
-            ></ListItemText>
+            <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
             <ListItemText
               className={styles.quantity}
               primary={formatPrice(amount)}
               secondary={`${person?.name} ${person?.surname}`}
             ></ListItemText>
-            <IconButton
-              onClick={goToReceipt}
-              tooltip={t("receipt")}
-              icon="Receipt"
-              style={{ color: "primary" }}
-            />
+            <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
             <ListItemText
               className={styles.date}
-              secondary={`${t("purchased_on")}: ${formatDate(
-                moment(createdAt)
-              )}`}
+              secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
             ></ListItemText>
           </div>
         </ListItem>
@@ -182,41 +138,26 @@ export default function PurchasesItem(props) {
     const { size } = metadata;
     return (
       <>
-        <ListItem style={{ width: "100%" }}>
+        <ListItem style={{ width: '100%' }}>
           <div className={styles.div}>
             <ListItemIcon>
-              <Avatar
-                photoUrl={photoUrl}
-                variant="square"
-                className={styles.photo}
-              ></Avatar>
+              <Avatar photoUrl={photoUrl} variant="square" className={styles.photo}></Avatar>
             </ListItemIcon>
-            <ListItemText
-              className={styles.name}
-              primary={label}
-              secondary={t(size) || ""}
-            ></ListItemText>
+            <ListItemText className={styles.name} primary={label} secondary={t(size) || ''}></ListItemText>
             <ListItemText
               className={styles.quantity}
               primary={formatPrice(amount)}
-              secondary={t("Qt", { quantity })}
+              secondary={t('Qt', { quantity })}
             ></ListItemText>
             {/* <MailtoButton
           edge="end"
           emails={email}
           className={styles.mail}
         /> */}
-            <IconButton
-              onClick={goToReceipt}
-              tooltip={t("receipt")}
-              icon="Receipt"
-              style={{ color: "primary" }}
-            />
+            <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
             <ListItemText
               className={styles.date}
-              secondary={`${t("purchased_on")}: ${formatDate(
-                moment(createdAt)
-              )}`}
+              secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
             ></ListItemText>
           </div>
         </ListItem>

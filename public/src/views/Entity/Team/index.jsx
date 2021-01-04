@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Paper, IgContainer, Icon } from "../../../components/Custom";
+import { Paper, IgContainer, Icon } from '../../../components/Custom';
 
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
-import { goTo, ROUTES } from "../../../actions/goTo";
-import TabsGenerator from "../../../tabs";
-import { formatPageTitle } from "../../../utils/stringFormats";
-import { TABS_ENUM } from "../../../../common/enums";
-import { useRouter } from "next/router";
+import { goTo, ROUTES } from '../../../actions/goTo';
+import TabsGenerator from '../../../tabs';
+import { formatPageTitle } from '../../../utils/stringFormats';
+import { TABS_ENUM } from '../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function Team(props) {
   const { basicInfos } = props;
@@ -38,11 +38,7 @@ export default function Team(props) {
     <IgContainer>
       <Paper>
         {window.innerWidth < 768 ? (
-          <Tabs
-            value={states.findIndex((s) => s.value === eventState)}
-            indicatorColor="primary"
-            textColor="primary"
-          >
+          <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
             {states.map((s, index) => (
               <Tab
                 key={index}
@@ -55,11 +51,7 @@ export default function Team(props) {
             ))}
           </Tabs>
         ) : (
-          <Tabs
-            value={states.findIndex((s) => s.value === eventState)}
-            indicatorColor="primary"
-            textColor="primary"
-          >
+          <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
             {states.map((s, index) => (
               <Tab
                 key={index}

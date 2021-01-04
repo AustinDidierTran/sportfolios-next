@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import api from "../../../actions/api";
-import {
-  Button,
-  RadioGroup,
-  LoadingSpinner,
-  ContainerBottomFixed,
-} from "../../../components/Custom";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import { useTranslation } from "react-i18next";
-import { checkout } from "../../../utils/stripe";
-import styles from "./ChoosePaymentMethod.module.css";
-import { Typography } from "@material-ui/core";
-import { LOGO_ENUM } from "../../../../../common/enums";
-import { formatPrice } from "../../../utils/stringFormats";
+import React, { useEffect, useState } from 'react';
+import api from '../../../actions/api';
+import { Button, RadioGroup, LoadingSpinner, ContainerBottomFixed } from '../../../components/Custom';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import { useTranslation } from 'react-i18next';
+import { checkout } from '../../../utils/stripe';
+import styles from './ChoosePaymentMethod.module.css';
+import { Typography } from '@material-ui/core';
+import { LOGO_ENUM } from '../../../../../common/enums';
+import { formatPrice } from '../../../utils/stringFormats';
 
 export default function ChoosePaymentMethod(props) {
   const { response } = props;
@@ -24,14 +19,14 @@ export default function ChoosePaymentMethod(props) {
 
   const getPaymentMethods = async () => {
     setIsLoading(true);
-    const { data } = await api("/api/stripe/paymentMethods");
+    const { data } = await api('/api/stripe/paymentMethods');
     data.forEach((d) => {
       if (d.is_default) {
         setPaymentMethod(d.payment_method_id);
       }
     });
     const pms = data.map((d) => ({
-      display: t("card_ending_with", { last4: d.last4 }),
+      display: t('card_ending_with', { last4: d.last4 }),
       value: d.payment_method_id,
       last4: d.last4,
     }));
@@ -76,24 +71,24 @@ export default function ChoosePaymentMethod(props) {
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
         </div>
-        <Typography>{t("waiting_for_payment")}</Typography>
+        <Typography>{t('waiting_for_payment')}</Typography>
         <LoadingSpinner isComponent />
       </div>
     );
   }
 
   return (
-    <div style={{ paddingBottom: 16, textAlign: "center" }}>
+    <div style={{ paddingBottom: 16, textAlign: 'center' }}>
       <div className={styles.logo}>
         <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
       </div>
-      <Typography variant="h6" style={{ marginBottom: "8px" }}>
-        {t("amount_to_pay", { amount: formatPrice(response) })}
+      <Typography variant="h6" style={{ marginBottom: '8px' }}>
+        {t('amount_to_pay', { amount: formatPrice(response) })}
       </Typography>
       <RadioGroup
         namespace="paymentMethod"
         options={paymentMethods}
-        title={t("select_payment_method")}
+        title={t('select_payment_method')}
         onChange={onChange}
         value={paymentMethod}
         centered
@@ -101,42 +96,38 @@ export default function ChoosePaymentMethod(props) {
       <br />
       {paymentMethods.length ? (
         <>
-          <Button
-            color="default"
-            style={{ margin: "4px" }}
-            onClick={() => goTo(ROUTES.userSettings)}
-          >
-            {t("edit_credit_cards")}
+          <Button color="default" style={{ margin: '4px' }} onClick={() => goTo(ROUTES.userSettings)}>
+            {t('edit_credit_cards')}
           </Button>
           <Button
             color="default"
-            style={{ margin: "4px" }}
+            style={{ margin: '4px' }}
             onClick={() =>
               goTo(ROUTES.addPaymentMethod, null, {
                 redirect: ROUTES.checkout,
               })
             }
           >
-            {t("add_credit_card")}
+            {t('add_credit_card')}
           </Button>
         </>
       ) : (
         <Button
           color="primary"
-          style={{ marginTop: "8px" }}
+          style={{ marginTop: '8px' }}
           onClick={() =>
             goTo(ROUTES.addPaymentMethod, null, {
               redirect: ROUTES.checkout,
             })
           }
         >
-          {t("add_credit_card")}
+          {t('add_credit_card')}
         </Button>
       )}
 
       <ContainerBottomFixed>
         <Button disabled={!paymentMethod} onClick={pay} style={{ margin: 8 }}>
-          {t("pay")}
+          {t('pay')}
         </Button>
       </ContainerBottomFixed>
     </div>

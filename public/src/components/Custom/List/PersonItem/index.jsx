@@ -1,17 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
-} from "@material-ui/core";
-import { Avatar } from "../../../Custom";
-import { getInitialsFromName } from "../../../../utils/stringFormats/index";
-import { useTranslation } from "react-i18next";
-import { goTo, ROUTES } from "../../../../actions/goTo";
-import { useCallback } from "react";
-import styles from "./PersonItem.module.css";
+import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import { Avatar } from '../../../Custom';
+import { getInitialsFromName } from '../../../../utils/stringFormats/index';
+import { useTranslation } from 'react-i18next';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import { useCallback } from 'react';
+import styles from './PersonItem.module.css';
 
 export default function PersonItem(props) {
   const { t } = useTranslation();
@@ -31,10 +26,7 @@ export default function PersonItem(props) {
     disabled,
   } = props;
 
-  const initials = useMemo(() => getInitialsFromName(completeName || name), [
-    completeName,
-    name,
-  ]);
+  const initials = useMemo(() => getInitialsFromName(completeName || name), [completeName, name]);
 
   const handleClick = useCallback(
     (e) => {
@@ -65,7 +57,7 @@ export default function PersonItem(props) {
         selected={selected}
         onClick={notClickable ? null : handleClick}
         style={{
-          width: "100%",
+          width: '100%',
           secondaryAction: {
             paddingRight: 96,
           },
@@ -73,17 +65,12 @@ export default function PersonItem(props) {
         disabled={disabled}
       >
         <ListItemIcon>
-          <Avatar
-            className={className}
-            photoUrl={photoUrl}
-            icon={icon}
-            initials={initials}
-          ></Avatar>
+          <Avatar className={className} photoUrl={photoUrl} icon={icon} initials={initials}></Avatar>
         </ListItemIcon>
         <ListItemText
           className={styles.text}
           primary={completeName || name}
-          secondary={secondary || t("person")}
+          secondary={secondary || t('person')}
         ></ListItemText>
         <ListItemSecondaryAction>
           {secondaryActions ? (

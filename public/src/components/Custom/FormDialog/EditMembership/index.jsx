@@ -1,30 +1,19 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-  COMPONENT_TYPE_ENUM,
-} from "../../../../../common/enums";
-import BasicFormDialog from "../BasicFormDialog";
-import moment from "moment";
-import { getMembershipName } from "../../../../utils/stringFormats";
-import LoadingSpinner from "../../LoadingSpinner";
-import { useRouter } from "next/router";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import BasicFormDialog from '../BasicFormDialog';
+import moment from 'moment';
+import { getMembershipName } from '../../../../utils/stringFormats';
+import LoadingSpinner from '../../LoadingSpinner';
+import { useRouter } from 'next/router';
 
 export default function EditMembership(props) {
-  const {
-    open: openProps,
-    onClose,
-    update,
-    person,
-    membership,
-    expirationDate,
-  } = props;
+  const { open: openProps, onClose, update, person, membership, expirationDate } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const router = useRouter();
@@ -44,7 +33,7 @@ export default function EditMembership(props) {
 
   const formik = useFormik({
     initialValues: {
-      expirationDate: "",
+      expirationDate: '',
     },
     validate,
     validateOnChange: false,
@@ -53,7 +42,7 @@ export default function EditMembership(props) {
       setIsLoading(true);
       const { expirationDate } = values;
       const res = await api(`/api/entity/memberManually`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           membershipType: membership,
           organizationId: entityId,
@@ -72,7 +61,7 @@ export default function EditMembership(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("membership_edited"),
+          message: t('membership_edited'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
@@ -88,10 +77,7 @@ export default function EditMembership(props) {
   }, [openProps]);
 
   useEffect(() => {
-    formik.setFieldValue(
-      "expirationDate",
-      moment(expirationDate).format("YYYY-MM-DD")
-    );
+    formik.setFieldValue('expirationDate', moment(expirationDate).format('YYYY-MM-DD'));
   }, [expirationDate]);
 
   const handleClose = () => {
@@ -105,9 +91,9 @@ export default function EditMembership(props) {
       secondary: t(getMembershipName(membership)),
     },
     {
-      namespace: "expirationDate",
-      label: t("expiration_date"),
-      type: "date",
+      namespace: 'expirationDate',
+      label: t('expiration_date'),
+      type: 'date',
       shrink: true,
     },
   ];
@@ -115,13 +101,13 @@ export default function EditMembership(props) {
   const buttons = [
     {
       onClick: handleClose,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("edit"),
-      color: "primary",
+      type: 'submit',
+      name: t('edit'),
+      color: 'primary',
     },
   ];
 
@@ -131,7 +117,7 @@ export default function EditMembership(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t("edit_membership")}
+      title={t('edit_membership')}
       buttons={buttons}
       fields={fields}
       formik={formik}

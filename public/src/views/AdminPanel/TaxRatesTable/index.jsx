@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  AlertDialog,
-  Button,
-  FormDialog,
-  LoadingSpinner,
-  Table,
-} from "../../../components/Custom";
-import { CardContent } from "@material-ui/core";
-import { Paper } from "../../../components/Custom";
-import styles from "./TaxRatesTable.module.css";
-import api from "../../../actions/api";
-import { FORM_DIALOG_TYPE_ENUM } from "../../../../../common/enums";
-import { formatRoute } from "../../../actions/goTo";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AlertDialog, Button, FormDialog, LoadingSpinner, Table } from '../../../components/Custom';
+import { CardContent } from '@material-ui/core';
+import { Paper } from '../../../components/Custom';
+import styles from './TaxRatesTable.module.css';
+import api from '../../../actions/api';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
+import { formatRoute } from '../../../actions/goTo';
 
 export default function TaxeRatesTable() {
   const { t } = useTranslation();
@@ -24,8 +18,8 @@ export default function TaxeRatesTable() {
 
   const updateTax = async (taxRateId, active) => {
     setIsLoading(true);
-    await api("/api/admin/updateActiveStatusTaxRate", {
-      method: "PUT",
+    await api('/api/admin/updateActiveStatusTaxRate', {
+      method: 'PUT',
       body: JSON.stringify({
         taxRateId,
         active: !active,
@@ -44,11 +38,11 @@ export default function TaxeRatesTable() {
     setIsLoading(true);
     if (deletingId) {
       await api(
-        formatRoute("/api/admin/deleteTaxRate", null, {
+        formatRoute('/api/admin/deleteTaxRate', null, {
           taxRateId: deletingId,
         }),
         {
-          method: "DELETE",
+          method: 'DELETE',
         }
       );
       getTaxes();
@@ -58,13 +52,13 @@ export default function TaxeRatesTable() {
   };
 
   const getTaxes = async () => {
-    const res = await api("/api/admin/taxRates");
+    const res = await api('/api/admin/taxRates');
     const arr = res.data.map((d) => ({
       isChecked: d.active,
       handleChange: () => {
         updateTax(d.id, d.active);
       },
-      color: "primary",
+      color: 'primary',
       tax: d.display_name,
       description: d.description,
       percentage: `${d.percentage} %`,
@@ -72,7 +66,7 @@ export default function TaxeRatesTable() {
       onIconButtonClick: () => {
         onDelete(d.id);
       },
-      icon: "Delete",
+      icon: 'Delete',
     }));
     setTaxes(arr);
   };
@@ -82,15 +76,15 @@ export default function TaxeRatesTable() {
   }, []);
 
   const headers = [
-    { display: t("tax"), value: "tax" },
-    { display: t("description"), value: "description" },
-    { display: t("percentage"), value: "percentage" },
-    { display: t("inclusive"), value: "inclusive" },
+    { display: t('tax'), value: 'tax' },
+    { display: t('description'), value: 'description' },
+    { display: t('percentage'), value: 'percentage' },
+    { display: t('inclusive'), value: 'inclusive' },
     {
-      display: t("active"),
-      type: "toggle",
+      display: t('active'),
+      type: 'toggle',
     },
-    { display: t("delete"), type: "iconButton", value: "delete" },
+    { display: t('delete'), type: 'iconButton', value: 'delete' },
   ];
 
   const onClose = () => {
@@ -104,14 +98,14 @@ export default function TaxeRatesTable() {
   return (
     <Paper className={styles.card}>
       <CardContent className={styles.inputs}>
-        <Table title={t("taxes")} headers={headers} data={taxes} />
+        <Table title={t('taxes')} headers={headers} data={taxes} />
         <Button
-          style={{ margin: "8px" }}
+          style={{ margin: '8px' }}
           onClick={() => {
             setOpen(true);
           }}
         >
-          {t("add_tax")}
+          {t('add_tax')}
         </Button>
       </CardContent>
       <FormDialog
@@ -128,7 +122,7 @@ export default function TaxeRatesTable() {
           setOpenDelete(false);
         }}
         onSubmit={handleDelete}
-        title={t("delete_tax_confirmation")}
+        title={t('delete_tax_confirmation')}
       />
     </Paper>
   );

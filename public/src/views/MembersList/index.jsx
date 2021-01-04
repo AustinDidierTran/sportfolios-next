@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { formatPageTitle } from "../../utils/stringFormats";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { formatPageTitle } from '../../utils/stringFormats';
 
-import {
-  Paper,
-  Button,
-  IgContainer,
-  FormDialog,
-  IconButton,
-} from "../../components/Custom";
-import api from "../../actions/api";
-import { formatRoute, goToAndReplace, ROUTES } from "../../actions/goTo";
-import { List } from "../../components/Custom";
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  LIST_ITEM_ENUM,
-  STATUS_ENUM,
-} from "../../../../common/enums";
-import styles from "./MembersList.module.css";
-import { useRouter } from "next/router";
+import { Paper, Button, IgContainer, FormDialog, IconButton } from '../../components/Custom';
+import api from '../../actions/api';
+import { formatRoute, goToAndReplace, ROUTES } from '../../actions/goTo';
+import { List } from '../../components/Custom';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import styles from './MembersList.module.css';
+import { useRouter } from 'next/router';
 
 export default function MembersList() {
   const router = useRouter();
@@ -30,11 +20,7 @@ export default function MembersList() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    organization
-      ? (document.title = formatPageTitle(
-          t("members_list", { organization: organization?.name })
-        ))
-      : "";
+    organization ? (document.title = formatPageTitle(t('members_list', { organization: organization?.name }))) : '';
   }, [organization]);
 
   useEffect(() => {
@@ -45,14 +31,12 @@ export default function MembersList() {
   const getEntity = async () => {
     const {
       data: { basicInfos: data },
-    } = await api(formatRoute("/api/entity", null, { id }));
+    } = await api(formatRoute('/api/entity', null, { id }));
     setOrganization(data);
   };
 
   const getMembers = async () => {
-    const { data, status } = await api(
-      formatRoute("/api/entity/organizationMembers", null, { id })
-    );
+    const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }));
     if (status === STATUS_ENUM.ERROR_STRING) {
       goToAndReplace(ROUTES.entityNotFound);
     } else {
@@ -77,9 +61,9 @@ export default function MembersList() {
   return (
     <IgContainer>
       <Paper
-        style={{ textAlign: "center" }}
-        title={t("members_list", {
-          organization: organization?.name || "",
+        style={{ textAlign: 'center' }}
+        title={t('members_list', {
+          organization: organization?.name || '',
         })}
       >
         <div className={styles.button}>
@@ -88,19 +72,19 @@ export default function MembersList() {
             onClick={() => {
               history.back();
             }}
-            tooltip={t("back")}
-            style={{ color: "primary", margin: "8px" }}
+            tooltip={t('back')}
+            style={{ color: 'primary', margin: '8px' }}
           />
           <Button
             size="small"
             variant="contained"
             style={{
-              margin: "8px",
-              width: "fit-content",
+              margin: '8px',
+              width: 'fit-content',
             }}
             onClick={onOpen}
           >
-            {t("add_membership")}
+            {t('add_membership')}
           </Button>
         </div>
         <List items={members} />

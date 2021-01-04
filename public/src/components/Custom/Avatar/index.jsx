@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import { Avatar, makeStyles } from "@material-ui/core";
-import { Icon } from "../../Custom";
-import clsx from "clsx";
+import { Avatar, makeStyles } from '@material-ui/core';
+import { Icon } from '../../Custom';
+import clsx from 'clsx';
 
-import styles from "./Avatar.module.css";
+import styles from './Avatar.module.css';
 
 const useStyles = makeStyles({
   avatarNoBackgroundColor: {
-    backgroundColor: "transparent !important",
+    backgroundColor: 'transparent !important',
   },
 });
 
@@ -17,11 +17,11 @@ export default function CustomAvatar(props) {
   const classes = useStyles();
 
   let className = clsx(styles.avatar, props.className);
-  if (props.size === "sm") {
+  if (props.size === 'sm') {
     className = clsx(styles.avatar, styles.sm, props.className);
-  } else if (props.size === "md") {
+  } else if (props.size === 'md') {
     className = clsx(styles.avatar, styles.md, props.className);
-  } else if (props.size === "lg") {
+  } else if (props.size === 'lg') {
     className = clsx(styles.lg, styles.avatar, props.className);
   }
 
@@ -29,7 +29,7 @@ export default function CustomAvatar(props) {
     return (
       <Avatar
         {...otherProps}
-        className={[className, classes.avatarNoBackgroundColor].join(" ")}
+        className={[className, classes.avatarNoBackgroundColor].join(' ')}
         src={photoUrl}
         alt={initials}
       >

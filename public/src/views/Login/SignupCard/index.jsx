@@ -1,20 +1,13 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./SignupCard.module.css";
+import styles from './SignupCard.module.css';
 
-import {
-  Button,
-  CardContent,
-  CardActions,
-  Divider,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import { Paper } from "../../../components/Custom";
-import { LOGIN_STATE_ENUM } from "../../../../common/enums";
-import Link from "next/link";
-import { ROUTES } from "../../../actions/goTo";
+import { Button, CardContent, CardActions, Divider, TextField, Typography } from '@material-ui/core';
+import { Paper } from '../../../components/Custom';
+import { LOGIN_STATE_ENUM } from '../../../../common/enums';
+import Link from 'next/link';
+import { ROUTES } from '../../../actions/goTo';
 
 export default function SignupCard(props) {
   const { t } = useTranslation();
@@ -24,42 +17,14 @@ export default function SignupCard(props) {
     <Paper className={styles.signup}>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
-          <TextField
-            namespace="firstName"
-            formik={formik}
-            type="text"
-            label={t("first_name")}
-            fullWidth
-          />
-          <TextField
-            namespace="lastName"
-            formik={formik}
-            type="text"
-            label={t("last_name")}
-            fullWidth
-          />
-          <TextField
-            namespace="email"
-            formik={formik}
-            type="email"
-            label={t("email")}
-            fullWidth
-          />
-          <TextField
-            namespace="password"
-            formik={formik}
-            label={t("password")}
-            type="password"
-            fullWidth
-          />
+          <TextField namespace="firstName" formik={formik} type="text" label={t('first_name')} fullWidth />
+          <TextField namespace="lastName" formik={formik} type="text" label={t('last_name')} fullWidth />
+          <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth />
+          <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
           <Typography variant="caption" color="textSecondary">
-            {t("privacy_signup") + " "}
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              href={ROUTES.privacyPolicy}
-            >
-              {t("here")}
+            {t('privacy_signup') + ' '}
+            <Link target="_blank" rel="noopener noreferrer" href={ROUTES.privacyPolicy}>
+              {t('here')}
             </Link>
           </Typography>
         </CardContent>
@@ -70,27 +35,24 @@ export default function SignupCard(props) {
             variant="contained"
             className={styles.button}
             type="submit"
-            style={{ color: "#fff" }}
+            style={{ color: '#fff' }}
           >
-            {t("signup")}
+            {t('signup')}
           </Button>
         </CardActions>
         <Divider />
         <CardActions className={styles.linksContainer}>
-          <div
-            className={styles.typo}
-            onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.LOGIN })}
-          >
+          <div className={styles.typo} onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.LOGIN })}>
             <Typography
               style={{
-                textDecoration: "none",
-                color: "grey",
-                margin: "0 auto",
+                textDecoration: 'none',
+                color: 'grey',
+                margin: '0 auto',
                 fontSize: 12,
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
             >
-              {t("have_an_account_signin")}
+              {t('have_an_account_signin')}
             </Typography>
           </div>
         </CardActions>

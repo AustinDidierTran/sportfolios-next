@@ -1,15 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@material-ui/core";
-import TableFactory from "./TableFactory";
-import styles from "./ViewTable.module.css";
+import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import TableFactory from './TableFactory';
+import styles from './ViewTable.module.css';
 
 export default function ViewTable(props) {
   const { data, description, headers, onRowClick, title } = props;

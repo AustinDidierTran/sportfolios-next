@@ -24,7 +24,7 @@ const date = {
           moment.locale(locale);
           resolve();
         })
-        .catch(err => reject(err));
+        .catch((err) => reject(err));
     });
   },
 

@@ -1,17 +1,13 @@
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import React, { useContext, useEffect } from "react";
-import { ROUTES } from "../public/src/actions/goTo";
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import React, { useContext, useEffect } from 'react';
+import { ROUTES } from '../public/src/actions/goTo';
 
-const LoadingSpinner = dynamic(
-  import("../public/src/components/Custom/LoadingSpinner")
-);
-const IgContainer = dynamic(
-  import("../public/src/components/Custom/IgContainer")
-);
-import { useApiRoute } from "../public/src/hooks/queries";
-import { Store } from "../public/src/Store";
-const Home = dynamic(import("../public/src/views/Home"));
+const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
+const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
+import { useApiRoute } from '../public/src/hooks/queries';
+import { Store } from '../public/src/Store';
+const Home = dynamic(import('../public/src/views/Home'));
 
 export default function HomeRoute() {
   const router = useRouter();
@@ -26,13 +22,10 @@ export default function HomeRoute() {
     }
   }, [isAuthenticated]);
 
-  const { isLoading, refetch, response: posts } = useApiRoute(
-    "/api/entity/forYouPage",
-    {
-      defaultValue: [],
-      method: "GET",
-    }
-  );
+  const { isLoading, refetch, response: posts } = useApiRoute('/api/entity/forYouPage', {
+    defaultValue: [],
+    method: 'GET',
+  });
 
   if (isLoading) {
     return (

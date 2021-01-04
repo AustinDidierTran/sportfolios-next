@@ -1,25 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from 'react';
 
-import styles from "./Login.module.css";
-import api from "../../actions/api";
-import { goTo, ROUTES } from "../../actions/goTo";
-import { Store, ACTION_ENUM } from "../../Store";
+import styles from './Login.module.css';
+import api from '../../actions/api';
+import { goTo, ROUTES } from '../../actions/goTo';
+import { Store, ACTION_ENUM } from '../../Store';
 
-import { Container } from "../../components/Custom";
-import { Typography, Button } from "@material-ui/core";
+import { Container } from '../../components/Custom';
+import { Typography, Button } from '@material-ui/core';
 
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import SignupCard from "./SignupCard";
-import LoginCard from "./LoginCard";
-import ForgotPasswordCard from "./ForgotPasswordCard";
-import {
-  LOGO_ENUM,
-  SEVERITY_ENUM,
-  LOGIN_STATE_ENUM,
-} from "../../../common/enums";
-import { useRouter } from "next/router";
+import SignupCard from './SignupCard';
+import LoginCard from './LoginCard';
+import ForgotPasswordCard from './ForgotPasswordCard';
+import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function Login() {
   const router = useRouter();
@@ -41,47 +37,41 @@ export default function Login() {
     const errors = {};
     if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
       if (!values.email) {
-        errors.email = t("value_is_required");
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = t("invalid_email");
+        errors.email = t('value_is_required');
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = t('invalid_email');
       }
 
       if (!values.firstName) {
-        errors.firstName = t("value_is_required");
+        errors.firstName = t('value_is_required');
       }
 
       if (!values.lastName) {
-        errors.lastName = t("value_is_required");
+        errors.lastName = t('value_is_required');
       }
 
       if (!values.password) {
-        errors.password = t("value_is_required");
+        errors.password = t('value_is_required');
       } else if (values.password.length < 8 || values.password.length > 24) {
-        errors.password = t("password_length");
+        errors.password = t('password_length');
       }
     } else if (formik.status.state === LOGIN_STATE_ENUM.LOGIN) {
       if (!values.email) {
-        errors.email = t("value_is_required");
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = t("invalid_email");
+        errors.email = t('value_is_required');
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = t('invalid_email');
       }
 
       if (!values.password) {
-        errors.password = t("value_is_required");
+        errors.password = t('value_is_required');
       } else if (values.password.length < 8 || values.password.length > 24) {
-        errors.password = t("password_length");
+        errors.password = t('password_length');
       }
     } else if (formik.status.state === LOGIN_STATE_ENUM.FORGOT_PASSWORD) {
       if (!values.email) {
-        errors.email = t("value_is_required");
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = t("invalid_email");
+        errors.email = t('value_is_required');
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = t('invalid_email');
       }
     }
     return errors;
@@ -89,8 +79,8 @@ export default function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     initialStatus: {
       state: LOGIN_STATE_ENUM.LOGIN,
@@ -99,12 +89,12 @@ export default function Login() {
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: async (values) => {
-      console.log("onSubmit");
+      console.log('onSubmit');
       if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
         const { firstName, lastName, email, password } = values;
 
-        const res = await api("/api/auth/signup", {
-          method: "POST",
+        const res = await api('/api/auth/signup', {
+          method: 'POST',
           body: JSON.stringify({
             firstName,
             lastName,
@@ -114,16 +104,16 @@ export default function Login() {
           }),
         });
         if (res.status === 403) {
-          formik.setFieldError("email", t("email_already_used"));
+          formik.setFieldError('email', t('email_already_used'));
         } else if (res.status >= 400) {
-          formik.setFieldError("firstName", t("something_went_wrong"));
+          formik.setFieldError('firstName', t('something_went_wrong'));
         } else {
           goTo(ROUTES.confirmationEmailSent, { email });
         }
       } else if (formik.status.state === LOGIN_STATE_ENUM.LOGIN) {
         const { email, password } = values;
-        const res = await api("/api/auth/login", {
-          method: "POST",
+        const res = await api('/api/auth/login', {
+          method: 'POST',
           body: JSON.stringify({
             email,
             password,
@@ -132,28 +122,28 @@ export default function Login() {
 
         if (res.status === 401) {
           // Email is not validated
-          await api("/api/auth/sendConfirmationEmail", {
-            method: "POST",
+          await api('/api/auth/sendConfirmationEmail', {
+            method: 'POST',
             body: JSON.stringify({
               email,
             }),
           });
-          formik.setFieldError("email", t("email_not_confirmed"));
+          formik.setFieldError('email', t('email_not_confirmed'));
         } else if (res.status === 403) {
           // Password is not good
-          formik.setFieldError("password", t("email_password_no_match"));
+          formik.setFieldError('password', t('email_password_no_match'));
         } else if (res.status === 404) {
           formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP });
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,
-            message: t("you_have_no_account_with_this_email_create_one"),
+            message: t('you_have_no_account_with_this_email_create_one'),
             severity: SEVERITY_ENUM.INFO,
           });
         } else {
           let { data } = res;
 
           if (data) {
-            if (typeof data === "string") {
+            if (typeof data === 'string') {
               data = JSON.parse(data);
             }
 
@@ -184,8 +174,8 @@ export default function Login() {
         }
       } else if (formik.status.state === LOGIN_STATE_ENUM.FORGOT_PASSWORD) {
         const { email } = values;
-        const res = await api("/api/auth/recoveryEmail", {
-          method: "POST",
+        const res = await api('/api/auth/recoveryEmail', {
+          method: 'POST',
           body: JSON.stringify({
             email,
           }),
@@ -193,13 +183,13 @@ export default function Login() {
 
         if (res.status === 404) {
           // Email not found
-          formik.setFieldError("email", t("email_not_found"));
+          formik.setFieldError('email', t('email_not_found'));
           formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP });
         }
         if (res.status === 200) {
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,
-            message: t("confirmation_email_sent"),
+            message: t('confirmation_email_sent'),
           });
         }
       }
@@ -240,7 +230,7 @@ export default function Login() {
         </div>
         <LoginCard formik={formik} />
         <div className={styles.or}>
-          <Typography style={{ fontSize: 12 }}>{t("or")}</Typography>
+          <Typography style={{ fontSize: 12 }}>{t('or')}</Typography>
         </div>
 
         <Button
@@ -248,9 +238,9 @@ export default function Login() {
           color="primary"
           onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP })}
           className={styles.buttonSignup}
-          style={{ borderWidth: "2px" }}
+          style={{ borderWidth: '2px' }}
         >
-          {t("signup")}
+          {t('signup')}
         </Button>
       </Container>
     </div>

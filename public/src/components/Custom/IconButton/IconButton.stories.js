@@ -35,7 +35,7 @@ export default {
   },
 };
 
-const Template = args => <IconButton {...args} />;
+const Template = (args) => <IconButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

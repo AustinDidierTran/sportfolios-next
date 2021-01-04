@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useFormInput } from "../../../hooks/forms";
-import { useContext } from "react";
+import React, { useState } from 'react';
+import { useFormInput } from '../../../hooks/forms';
+import { useContext } from 'react';
 
-import styles from "./EditItem.module.css";
-import { Store } from "../../../Store";
+import styles from './EditItem.module.css';
+import { Store } from '../../../Store';
 
-import { TextareaAutosize, Typography } from "@material-ui/core";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import { Button, Input, Paper, TextField } from "../../../components/Custom";
-import { editItem, onImgUpload } from "../../../utils/shop";
-import { ERROR_ENUM } from "../../../../common/errors";
-import { useTranslation } from "react-i18next";
-import AddSizes from "../AddSizes";
-import { useRouter } from "next/router";
+import { TextareaAutosize, Typography } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import { Button, Input, Paper, TextField } from '../../../components/Custom';
+import { editItem, onImgUpload } from '../../../utils/shop';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { useTranslation } from 'react-i18next';
+import AddSizes from '../AddSizes';
+import { useRouter } from 'next/router';
 
 export default function EditItem(props) {
   const router = useRouter();
@@ -94,71 +94,40 @@ export default function EditItem(props) {
   if (!isEditing) {
     return (
       <div className={styles.button}>
-        <Button onClick={reset} endIcon="Add" style={{ margin: "8px" }}>
-          {t("add_new_product")}
+        <Button onClick={reset} endIcon="Add" style={{ margin: '8px' }}>
+          {t('add_new_product')}
         </Button>
       </div>
     );
   }
 
   return (
-    <Paper style={{ marginBottom: "8px" }}>
+    <Paper style={{ marginBottom: '8px' }}>
       {photoUrl ? (
         <>
           <CardMedia className={styles.media} image={photoUrl} />
-          <Button
-            onClick={() => setPhotoUrl(null)}
-            style={{ margin: "8px" }}
-            endIcon="Undo"
-          >
-            {t("change")}
+          <Button onClick={() => setPhotoUrl(null)} style={{ margin: '8px' }} endIcon="Undo">
+            {t('change')}
           </Button>
         </>
       ) : (
         <div className={styles.media}>
           <Input type="file" error={error} onChange={onImgChange} />
-          <Button
-            onClick={onUpload}
-            style={{ margin: "8px" }}
-            endIcon="Publish"
-          >
-            {t("upload")}
+          <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
+            {t('upload')}
           </Button>
         </div>
       )}
       <CardContent className={styles.infos}>
-        <TextField
-          {...name.inputProps}
-          label={t("name")}
-          className={styles.name}
-          onChange={validateName}
-        />
+        <TextField {...name.inputProps} label={t('name')} className={styles.name} onChange={validateName} />
         <Typography className={styles.price}>{`${amount} CAD`}</Typography>
-        <TextareaAutosize
-          {...description.inputProps}
-          placeholder="Description"
-          className={styles.description}
-        />
-        <AddSizes
-          className={styles.sizes}
-          handleChange={handleChange}
-          sizes={sizes}
-        />
-        <Button
-          size="small"
-          endIcon="Store"
-          onClick={addToStore}
-          className={styles.cart}
-        >
-          {t("done")}
+        <TextareaAutosize {...description.inputProps} placeholder="Description" className={styles.description} />
+        <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
+        <Button size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
+          {t('done')}
         </Button>
-        <Button
-          onClick={reset}
-          color="secondary"
-          endIcon="Close"
-          className={styles.cancel}
-        >
-          {t("cancel")}
+        <Button onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
+          {t('cancel')}
         </Button>
       </CardContent>
     </Paper>

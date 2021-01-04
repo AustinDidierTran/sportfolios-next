@@ -1,16 +1,10 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import styles from "./LoginCard.module.css";
-import {
-  Button,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography,
-} from "@material-ui/core";
-import { Paper, TextField } from "../../../components/Custom";
-import { LOGIN_STATE_ENUM } from "../../../../common/enums";
-import { AddGaEvent } from "../../../components/Custom/Analytics";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import styles from './LoginCard.module.css';
+import { Button, CardActions, CardContent, Divider, Typography } from '@material-ui/core';
+import { Paper, TextField } from '../../../components/Custom';
+import { LOGIN_STATE_ENUM } from '../../../../common/enums';
+import { AddGaEvent } from '../../../components/Custom/Analytics';
 
 export default function LoginCard(props) {
   const { t } = useTranslation();
@@ -22,20 +16,8 @@ export default function LoginCard(props) {
     <Paper className={styles.card}>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
-          <TextField
-            namespace="email"
-            formik={formik}
-            type="email"
-            label={t("email")}
-            fullWidth
-          />
-          <TextField
-            namespace="password"
-            formik={formik}
-            label={t("password")}
-            type="password"
-            fullWidth
-          />
+          <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth />
+          <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
         </CardContent>
         <CardActions>
           <Button
@@ -44,10 +26,10 @@ export default function LoginCard(props) {
             variant="contained"
             className={styles.button}
             type="submit"
-            style={{ color: "#fff" }}
+            style={{ color: '#fff' }}
             onClick={
               () => {
-                console.log("hey");
+                console.log('hey');
                 formik.handleSubmit();
               }
               // AddGaEvent({
@@ -57,7 +39,7 @@ export default function LoginCard(props) {
               // })
             }
           >
-            {t("login")}
+            {t('login')}
           </Button>
         </CardActions>
         <Divider />
@@ -65,10 +47,10 @@ export default function LoginCard(props) {
           <Typography
             style={{
               fontSize: 12,
-              textDecoration: "none",
-              color: "grey",
-              margin: "0 auto",
-              cursor: "pointer",
+              textDecoration: 'none',
+              color: 'grey',
+              margin: '0 auto',
+              cursor: 'pointer',
             }}
             onClick={() =>
               formik.setStatus({
@@ -76,7 +58,7 @@ export default function LoginCard(props) {
               })
             }
           >
-            {t("forgot_password")}
+            {t('forgot_password')}
           </Typography>
         </CardActions>
       </form>

@@ -1,17 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FormDialog } from "../../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useEffect, useContext } from 'react';
+import { FormDialog } from '../../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  GLOBAL_ENUM,
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-} from "../../../../../common/enums";
-import { useRouter } from "next/router";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function AddTeam(props) {
   const { t } = useTranslation();
@@ -38,14 +34,14 @@ export default function AddTeam(props) {
       errors.name = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
     if (name.length > 64) {
-      formik.setFieldValue("name", name.slice(0, 64));
+      formik.setFieldValue('name', name.slice(0, 64));
     }
     return errors;
   };
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: '',
     },
     validate,
     validateOnChange: true,
@@ -54,22 +50,22 @@ export default function AddTeam(props) {
       const { name } = values;
       const {
         data: { basicInfos: team },
-      } = await api("/api/entity", {
-        method: "POST",
+      } = await api('/api/entity', {
+        method: 'POST',
         body: JSON.stringify({
           name: name,
           type: GLOBAL_ENUM.TEAM,
         }),
       });
-      const { data } = await api("/api/entity/register", {
-        method: "POST",
+      const { data } = await api('/api/entity/register', {
+        method: 'POST',
         body: JSON.stringify({
           eventId,
           teamId: team.id,
         }),
       });
-      const res = await api("/api/entity/addTeamToSchedule", {
-        method: "POST",
+      const res = await api('/api/entity/addTeamToSchedule', {
+        method: 'POST',
         body: JSON.stringify({
           eventId,
           name,
@@ -88,7 +84,7 @@ export default function AddTeam(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("team_added"),
+          message: t('team_added'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
@@ -99,33 +95,26 @@ export default function AddTeam(props) {
   const buttons = [
     {
       onClick: onFinish,
-      name: t("finish"),
-      color: "grey",
+      name: t('finish'),
+      color: 'grey',
     },
     {
-      type: "submit",
-      name: t("add"),
-      color: "primary",
+      type: 'submit',
+      name: t('add'),
+      color: 'primary',
     },
   ];
 
   const fields = [
     {
-      namespace: "name",
-      id: "name",
-      type: "text",
-      label: t("name"),
+      namespace: 'name',
+      id: 'name',
+      type: 'text',
+      label: t('name'),
     },
   ];
 
   return (
-    <FormDialog
-      open={open}
-      title={t("add_team")}
-      buttons={buttons}
-      fields={fields}
-      formik={formik}
-      onClose={onClose}
-    />
+    <FormDialog open={open} title={t('add_team')} buttons={buttons} fields={fields} formik={formik} onClose={onClose} />
   );
 }

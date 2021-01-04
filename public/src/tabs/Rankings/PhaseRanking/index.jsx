@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import Ranking from "../Ranking";
-import { updateRanking } from "../RankingFunctions";
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import Ranking from '../Ranking';
+import { updateRanking } from '../RankingFunctions';
 export default function PhaseRankings() {
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -12,14 +12,14 @@ export default function PhaseRankings() {
 
   const getPhases = async () => {
     const { data: phases } = await api(
-      formatRoute("/api/entity/phases", null, {
+      formatRoute('/api/entity/phases', null, {
         eventId,
       })
     );
     const res = await Promise.all(
       phases.map(async (phase) => {
         const { data: games } = await api(
-          formatRoute("/api/entity/phasesGameAndTeams", null, {
+          formatRoute('/api/entity/phasesGameAndTeams', null, {
             eventId,
             phaseId: phase.id,
           })
@@ -66,12 +66,7 @@ export default function PhaseRankings() {
   return (
     <>
       {phases.map((phase, index) => (
-        <Ranking
-          key={index}
-          ranking={phase.ranking}
-          title={phase.title}
-          withStats
-        ></Ranking>
+        <Ranking key={index} ranking={phase.ranking} title={phase.title} withStats></Ranking>
       ))}
     </>
   );

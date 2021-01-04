@@ -1,17 +1,11 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect } from 'react';
 
-import {
-  Paper,
-  IgContainer,
-  Icon,
-  Tab,
-  Tabs,
-} from "../../../components/Custom";
-import { formatPageTitle } from "../../../utils/stringFormats";
-import TabsGenerator from "../../../tabs";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import { TABS_ENUM } from "../../../../common/enums";
-import { useRouter } from "next/router";
+import { Paper, IgContainer, Icon, Tab, Tabs } from '../../../components/Custom';
+import { formatPageTitle } from '../../../utils/stringFormats';
+import TabsGenerator from '../../../tabs';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import { TABS_ENUM } from '../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function Person(props) {
   const { basicInfos } = props;
@@ -29,10 +23,7 @@ export default function Person(props) {
 
   const [eventState, setEventState] = useState(TABS_ENUM.ABOUT);
 
-  const OpenTab = useMemo(
-    () => states.find((s) => s.value == eventState).component,
-    [eventState, states]
-  );
+  const OpenTab = useMemo(() => states.find((s) => s.value == eventState).component, [eventState, states]);
 
   const onClick = (s) => {
     goTo(ROUTES.entity, { id }, { tab: s.value });
@@ -42,17 +33,9 @@ export default function Person(props) {
   return (
     <IgContainer>
       <Paper>
-        <Tabs
-          value={states.findIndex((s) => s.value === eventState)}
-          indicatorColor="primary"
-          textColor="primary"
-        >
+        <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
-            <Tab
-              key={index}
-              onClick={() => onClick(s)}
-              icon={<Icon icon={s.icon} />}
-            />
+            <Tab key={index} onClick={() => onClick(s)} icon={<Icon icon={s.icon} />} />
           ))}
         </Tabs>
       </Paper>

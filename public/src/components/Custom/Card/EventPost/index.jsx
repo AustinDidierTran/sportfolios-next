@@ -14,17 +14,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { goToAlias } from '../../../../actions/goTo';
 import moment from 'moment';
 import { formatIntervalDate } from '../../../../utils/stringFormats';
-import {
-  Button,
-  Avatar,
-  ImageCard,
-} from '../../../../components/Custom';
+import { Button, Avatar, ImageCard } from '../../../../components/Custom';
 import { useContext } from 'react';
 import { Store, SCREENSIZE_ENUM } from '../../../../Store';
 import styles from './EventPost.module.css';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     flex: '1 1 auto',
@@ -62,17 +58,7 @@ export default function EventPost(props) {
   const {
     state: { screenSize },
   } = useContext(Store);
-  const {
-    eventId,
-    creator,
-    description,
-    quickDescription,
-    startDate,
-    endDate,
-    location,
-    name,
-    photoUrl,
-  } = props;
+  const { eventId, creator, description, quickDescription, startDate, endDate, location, name, photoUrl } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -99,47 +85,22 @@ export default function EventPost(props) {
       />
       <ImageCard
         onClick={() => goToAlias(eventId)}
-        className={
-          screenSize == SCREENSIZE_ENUM.xs
-            ? classes.media
-            : classes.media2
-        }
+        className={screenSize == SCREENSIZE_ENUM.xs ? classes.media : classes.media2}
         photoUrl={photoUrl || ''}
       />
       <CardContent>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          component="p"
-          align="left"
-        >
-          {(quickDescription &&
-            decodeURIComponent(quickDescription)) ||
-            t('event')}
+        <Typography variant="body2" color="textSecondary" component="p" align="left">
+          {(quickDescription && decodeURIComponent(quickDescription)) || t('event')}
         </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          component="p"
-          align="left"
-        >
+        <Typography variant="body2" color="textSecondary" component="p" align="left">
           {formatIntervalDate(moment(startDate), moment(endDate))}
         </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          component="p"
-          align="left"
-        >
+        <Typography variant="body2" color="textSecondary" component="p" align="left">
           {location || ''}
         </Typography>
       </CardContent>
       <CardActions className={styles.actions} disableSpacing>
-        <Button
-          onClick={() => goToAlias(eventId)}
-          style={{ width: '50px' }}
-          className={styles.eventButton}
-        >
+        <Button onClick={() => goToAlias(eventId)} style={{ width: '50px' }} className={styles.eventButton}>
           {t('learn_more')}
         </Button>
         {flag ? (
@@ -159,9 +120,7 @@ export default function EventPost(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>
-            {decodeURIComponent(description) || ''}
-          </Typography>
+          <Typography paragraph>{decodeURIComponent(description) || ''}</Typography>
         </CardContent>
       </Collapse>
     </Card>

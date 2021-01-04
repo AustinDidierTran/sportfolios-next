@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FormDialog } from "../../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useEffect, useContext } from 'react';
+import { FormDialog } from '../../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../../common/enums";
-import { useRouter } from "next/router";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function AddPhase(props) {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ export default function AddPhase(props) {
     const { phase } = values;
     const errors = {};
     if (phase.length > 64) {
-      formik.setFieldValue("phase", phase.slice(0, 64));
+      formik.setFieldValue('phase', phase.slice(0, 64));
     }
     if (!phase.length) {
       errors.phase = t(ERROR_ENUM.VALUE_IS_REQUIRED);
@@ -41,15 +41,15 @@ export default function AddPhase(props) {
 
   const formik = useFormik({
     initialValues: {
-      phase: "",
+      phase: '',
     },
     validate,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { phase } = values;
-      const res = await api("/api/entity/phase", {
-        method: "POST",
+      const res = await api('/api/entity/phase', {
+        method: 'POST',
         body: JSON.stringify({
           phase,
           eventId,
@@ -58,10 +58,7 @@ export default function AddPhase(props) {
 
       resetForm();
 
-      if (
-        res.status === STATUS_ENUM.ERROR ||
-        res.status === STATUS_ENUM.UNAUTHORIZED
-      ) {
+      if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -73,7 +70,7 @@ export default function AddPhase(props) {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("phase_added"),
+        message: t('phase_added'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
@@ -83,29 +80,29 @@ export default function AddPhase(props) {
   const buttons = [
     {
       onClick: handleClose,
-      name: t("finish"),
-      color: "grey",
+      name: t('finish'),
+      color: 'grey',
     },
     {
-      type: "submit",
-      name: t("add"),
-      color: "primary",
+      type: 'submit',
+      name: t('add'),
+      color: 'primary',
     },
   ];
 
   const fields = [
     {
-      namespace: "phase",
-      id: "phase",
-      label: "Phase",
-      type: "phase",
+      namespace: 'phase',
+      id: 'phase',
+      label: 'Phase',
+      type: 'phase',
     },
   ];
 
   return (
     <FormDialog
       open={open}
-      title={t("create_a_phase")}
+      title={t('create_a_phase')}
       buttons={buttons}
       fields={fields}
       formik={formik}

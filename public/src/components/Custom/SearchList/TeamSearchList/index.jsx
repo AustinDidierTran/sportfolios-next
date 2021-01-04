@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import { List, Icon, TextField } from "../..";
-import { formatRoute } from "../../../../actions/goTo";
-import { useApiRoute } from "../../../../hooks/queries";
-import { InputAdornment } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { GLOBAL_ENUM } from "../../../../../common/enums";
+import { List, Icon, TextField } from '../..';
+import { formatRoute } from '../../../../actions/goTo';
+import { useApiRoute } from '../../../../hooks/queries';
+import { InputAdornment } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { GLOBAL_ENUM } from '../../../../../common/enums';
 
 export default function TeamSearchList(props) {
   const {
@@ -23,7 +23,7 @@ export default function TeamSearchList(props) {
   const { t } = useTranslation();
 
   const optionsRoute = useMemo(() => {
-    const res = formatRoute("/api/data/search/myTeamsSearch", null, {
+    const res = formatRoute('/api/data/search/myTeamsSearch', null, {
       query: formik.values.teamSearchQuery,
       eventId,
     });
@@ -35,8 +35,8 @@ export default function TeamSearchList(props) {
   });
 
   const handleClick = (...args) => {
-    formik.setFieldValue("team", args[1]);
-    formik.setFieldValue("teamSearchQuery", "");
+    formik.setFieldValue('team', args[1]);
+    formik.setFieldValue('teamSearchQuery', '');
   };
 
   const options = useMemo(() => {
@@ -45,20 +45,18 @@ export default function TeamSearchList(props) {
         {
           name: formik.values.teamSearchQuery,
           type: GLOBAL_ENUM.TEAM,
-          secondary: t("click_to_create_new_team"),
+          secondary: t('click_to_create_new_team'),
           onClick: (...args) => {
             handleClick(...args);
           },
-          icon: "Add",
+          icon: 'Add',
           inverseColor: true,
         },
         ...response.entities
           .filter((entity) => !rejectedTypes.includes(entity.type))
           .map((e) => ({
             ...e,
-            secondary: e.isRegistered
-              ? t("team_already_registered")
-              : secondary,
+            secondary: e.isRegistered ? t('team_already_registered') : secondary,
             onClick: (...args) => {
               handleClick(...args);
             },
@@ -69,7 +67,7 @@ export default function TeamSearchList(props) {
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({
         ...e,
-        secondary: e.isRegistered ? t("already_registered") : secondary,
+        secondary: e.isRegistered ? t('already_registered') : secondary,
         onClick: (...args) => {
           handleClick(...args);
         },
@@ -78,14 +76,14 @@ export default function TeamSearchList(props) {
 
   const handleChange = (value) => {
     if (value.length > 64) {
-      formik.setFieldError("teamSearchQuery", t("max_length"));
+      formik.setFieldError('teamSearchQuery', t('max_length'));
     } else {
-      formik.setFieldError("teamSearchQuery", null);
-      formik.setFieldValue("teamSearchQuery", value);
+      formik.setFieldError('teamSearchQuery', null);
+      formik.setFieldValue('teamSearchQuery', value);
     }
   };
   const onEnter = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       if (e.target.value) {
         const entity = {};
         entity.id = options[0].id;
@@ -95,7 +93,7 @@ export default function TeamSearchList(props) {
           entity.name = options[0].name;
         }
         onClick(e, entity);
-        formik.setFieldValue("teamSearchQuery", "");
+        formik.setFieldValue('teamSearchQuery', '');
       }
     }
   };
@@ -109,14 +107,14 @@ export default function TeamSearchList(props) {
           size="small"
           label={label}
           autoFocus={autoFocus}
-          style={{ width: "100%", ...style }}
+          style={{ width: '100%', ...style }}
           onKeyPress={onEnter}
         />
       ) : (
         <TextField
           variant="outlined"
           label={label}
-          style={{ margin: "8px", ...style }}
+          style={{ margin: '8px', ...style }}
           size="small"
           autoFocus={autoFocus}
           onKeyPress={onEnter}
@@ -129,11 +127,7 @@ export default function TeamSearchList(props) {
           }}
         />
       )}
-      {formik.values.teamSearchQuery.length === 0 ? (
-        <></>
-      ) : (
-        <List items={options}></List>
-      )}
+      {formik.values.teamSearchQuery.length === 0 ? <></> : <List items={options}></List>}
     </>
   );
 }

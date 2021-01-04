@@ -48,7 +48,7 @@ export default {
   },
 };
 
-const Template = args => <Dialog {...args} />;
+const Template = (args) => <Dialog {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "../../components/Custom";
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect } from 'react';
+import { Button } from '../../components/Custom';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./EditEvents.module.css";
-import { goTo, ROUTES, formatRoute } from "../../actions/goTo";
-import { CARD_TYPE_ENUM, GLOBAL_ENUM } from "../../../common/enums";
-import Card from "../../components/Custom/Card";
-import api from "../../actions/api";
-import { useRouter } from "next/router";
+import styles from './EditEvents.module.css';
+import { goTo, ROUTES, formatRoute } from '../../actions/goTo';
+import { CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
+import Card from '../../components/Custom/Card';
+import api from '../../actions/api';
+import { useRouter } from 'next/router';
 
 export default function Events(props) {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export default function Events(props) {
 
   const getEntityEvents = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/ownedEvents", null, {
+      formatRoute('/api/entity/ownedEvents', null, {
         organizationId: id,
       })
     );
@@ -44,8 +44,8 @@ export default function Events(props) {
   return (
     <div className={styles.div}>
       <div className={styles.buttonDiv}>
-        <Button onClick={handleClick} style={{ margin: "8px" }}>
-          {t("create_event")}
+        <Button onClick={handleClick} style={{ margin: '8px' }}>
+          {t('create_event')}
         </Button>
       </div>
 

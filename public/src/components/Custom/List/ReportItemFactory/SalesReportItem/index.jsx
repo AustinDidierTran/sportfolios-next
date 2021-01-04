@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
-import { ListItem, ListItemText } from "@material-ui/core";
-import { DownloadReportDialog, IconButton } from "../../..";
-import { useTranslation } from "react-i18next";
-import { formatDate, formatPrice } from "../../../../../utils/stringFormats";
-import { Divider } from "@material-ui/core";
-import api from "../../../../../actions/api";
-import { formatRoute } from "../../../../../actions/goTo";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../../../common/enums";
-import moment from "moment";
-import { ACTION_ENUM, Store } from "../../../../../Store";
-import { ERROR_ENUM } from "../../../../../../common/errors";
-import { AlertDialog } from "../../../Dialog";
-import { getProductDetail, getProductName } from "../../../../../utils/Cart";
+import React, { useContext, useState } from 'react';
+import { ListItem, ListItemText } from '@material-ui/core';
+import { DownloadReportDialog, IconButton } from '../../..';
+import { useTranslation } from 'react-i18next';
+import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
+import { Divider } from '@material-ui/core';
+import api from '../../../../../actions/api';
+import { formatRoute } from '../../../../../actions/goTo';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import moment from 'moment';
+import { ACTION_ENUM, Store } from '../../../../../Store';
+import { ERROR_ENUM } from '../../../../../../common/errors';
+import { AlertDialog } from '../../../Dialog';
+import { getProductDetail, getProductName } from '../../../../../utils/Cart';
 
 export default function ReportItem(props) {
   const { t } = useTranslation();
@@ -32,11 +32,11 @@ export default function ReportItem(props) {
 
   const confirmDelete = async () => {
     await api(
-      formatRoute("/api/entity/report", null, {
+      formatRoute('/api/entity/report', null, {
         reportId,
       }),
       {
-        method: "DELETE",
+        method: 'DELETE',
       }
     );
     setOpenDelete(false);
@@ -44,9 +44,7 @@ export default function ReportItem(props) {
   };
 
   const handleClick = async () => {
-    const res = await api(
-      formatRoute("/api/entity/generateReport", null, { reportId })
-    );
+    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }));
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let sumSubTotal = 0;
       let sumTotalTax = 0;
@@ -67,7 +65,7 @@ export default function ReportItem(props) {
           name: d.person.name,
           surname: d.person.surname,
           email: d.email,
-          purchasedOn: formatDate(moment(d.created_at), "YYYY-MM-DD HH:mm"),
+          purchasedOn: formatDate(moment(d.created_at), 'YYYY-MM-DD HH:mm'),
           price: formatPrice(d.unit_amount),
           quantity: d.quantity,
           subtotal: formatPrice(d.subtotal),
@@ -78,7 +76,7 @@ export default function ReportItem(props) {
         };
       });
       const totalRow = {
-        price: `${t("totals")}:`,
+        price: `${t('totals')}:`,
         quantity: sumQuantity,
         subtotal: formatPrice(sumSubTotal),
         totalTax: formatPrice(sumTotalTax),
@@ -97,46 +95,43 @@ export default function ReportItem(props) {
       });
     }
   };
-  const reportName = `${t("sales_on")} ${formatDate(moment(metadata.date))}`;
+  const reportName = `${t('sales_on')} ${formatDate(moment(metadata.date))}`;
 
   const headers = [
-    { label: t("type"), key: "type" },
-    { label: t("product_detail"), key: "detail" },
-    { label: t("buyers_name"), key: "name" },
-    { label: t("surname"), key: "surname" },
-    { label: t("email"), key: "email" },
-    { label: t("purchased_on"), key: "purchasedOn" },
-    { label: t("price"), key: "price" },
-    { label: t("quantity"), key: "quantity" },
-    { label: t("subtotal"), key: "subtotal" },
-    { label: t("tax_total"), key: "totalTax" },
-    { label: t("total"), key: "total" },
-    { label: t("plateform_fees"), key: "plateformFees" },
-    { label: t("total_net"), key: "totalNet" },
+    { label: t('type'), key: 'type' },
+    { label: t('product_detail'), key: 'detail' },
+    { label: t('buyers_name'), key: 'name' },
+    { label: t('surname'), key: 'surname' },
+    { label: t('email'), key: 'email' },
+    { label: t('purchased_on'), key: 'purchasedOn' },
+    { label: t('price'), key: 'price' },
+    { label: t('quantity'), key: 'quantity' },
+    { label: t('subtotal'), key: 'subtotal' },
+    { label: t('tax_total'), key: 'totalTax' },
+    { label: t('total'), key: 'total' },
+    { label: t('plateform_fees'), key: 'plateformFees' },
+    { label: t('total_net'), key: 'totalNet' },
   ];
 
-  const fileName = `${metadata.organizationName} ${t("sales")} ${formatDate(
-    moment(metadata.date),
-    "YYYY-MM-DD"
-  )}.csv`;
+  const fileName = `${metadata.organizationName} ${t('sales')} ${formatDate(moment(metadata.date), 'YYYY-MM-DD')}.csv`;
 
   return (
     <>
-      <ListItem style={{ width: "100%" }}>
+      <ListItem style={{ width: '100%' }}>
         <ListItemText primary={reportName}></ListItemText>
         <IconButton
           variant="contained"
           icon="GetApp"
-          tooltip={t("download_report")}
-          style={{ color: "primary", margin: "8px" }}
+          tooltip={t('download_report')}
+          style={{ color: 'primary', margin: '8px' }}
           onClick={handleClick}
         />
         <IconButton
           variant="contained"
           icon="Delete"
-          tooltip={t("delete")}
+          tooltip={t('delete')}
           onClick={onDelete}
-          style={{ color: "primary" }}
+          style={{ color: 'primary' }}
         />
         <DownloadReportDialog
           fileName={fileName}
@@ -144,7 +139,7 @@ export default function ReportItem(props) {
           onClose={() => {
             setOpen(false);
           }}
-          title={t("download_report")}
+          title={t('download_report')}
           data={data}
           headers={headers}
         />
@@ -153,7 +148,7 @@ export default function ReportItem(props) {
         open={openDelete}
         onCancel={onCancel}
         onSubmit={confirmDelete}
-        title={t("delete_report_confirmation")}
+        title={t('delete_report_confirmation')}
       />
       <Divider />
     </>

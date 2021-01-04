@@ -29,7 +29,7 @@ export default {
   },
 };
 
-const Template = args => <Avatar {...args} />;
+const Template = (args) => <Avatar {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

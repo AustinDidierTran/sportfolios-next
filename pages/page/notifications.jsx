@@ -1,5 +1,5 @@
-import React from "react";
-import NotificationsMobile from "../../public/src/views/Notifications";
+import React from 'react';
+import NotificationsMobile from '../../public/src/views/Notifications';
 
 const NotificationsRoute = (props) => {
   return <NotificationsMobile />;

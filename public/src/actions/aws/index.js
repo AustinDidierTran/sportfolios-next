@@ -12,10 +12,8 @@ const uploadToS3 = async (file, signedRequest) => {
   const options = {
     headers: {
       'Access-Control-Allow-Origin': 's3.amazonaws.com',
-      'Access-Control-Allow-Methods':
-        'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers':
-        'Origin, Content-Type, X-Auth-Token',
+      'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
       'Content-Type': file.type,
     },
   };

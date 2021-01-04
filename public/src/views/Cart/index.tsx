@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import TabsGenerator from "../../tabs";
-import { goTo, ROUTES } from "../../actions/goTo";
-import { IgContainer, Paper, Tab, Tabs } from "../../components/Custom";
-import { TABS_ENUM } from "../../../common/enums";
-import { useRouter } from "next/router";
+import TabsGenerator from '../../tabs';
+import { goTo, ROUTES } from '../../actions/goTo';
+import { IgContainer, Paper, Tab, Tabs } from '../../components/Custom';
+import { TABS_ENUM } from '../../../common/enums';
+import { useRouter } from 'next/router';
 
 interface IProps {
   openTab: string;
@@ -26,19 +26,10 @@ const Cart: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <IgContainer>
-      <Paper style={{ marginBottom: "8px" }}>
-        <Tabs
-          value={states.findIndex((s) => s.value === openTab)}
-          indicatorColor="primary"
-          textColor="primary"
-        >
+      <Paper style={{ marginBottom: '8px' }}>
+        <Tabs value={states.findIndex((s) => s.value === openTab)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
-            <Tab
-              key={index}
-              onClick={() => onClick(s)}
-              label={s.label}
-              icon={s.icon}
-            />
+            <Tab key={index} onClick={() => onClick(s)} label={s.label} icon={s.icon} />
           ))}
         </Tabs>
       </Paper>

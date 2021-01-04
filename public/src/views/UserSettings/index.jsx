@@ -22,9 +22,7 @@ export default function UserSettings() {
     document.title = formatPageTitle(t('settings'));
   }, []);
 
-  const isLoggedIn = useMemo(() => Boolean(state.userInfo), [
-    state.userInfo,
-  ]);
+  const isLoggedIn = useMemo(() => Boolean(state.userInfo), [state.userInfo]);
 
   //Scroll to given section specified with # in the url
   const scroll = () => {

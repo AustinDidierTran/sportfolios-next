@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import styles from "./Games.module.css";
-import { SELECT_ENUM } from "../../../../common/enums";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import moment from "moment";
-import GameFilters from "./GameFilters";
-import Games from "./Games";
-import { useTranslation } from "react-i18next";
-import ProTip from "./ProTip";
-import { LoadingSpinner } from "../../../components/Custom";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import styles from './Games.module.css';
+import { SELECT_ENUM } from '../../../../common/enums';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import moment from 'moment';
+import GameFilters from './GameFilters';
+import Games from './Games';
+import { useTranslation } from 'react-i18next';
+import ProTip from './ProTip';
+import { LoadingSpinner } from '../../../components/Custom';
+import { useRouter } from 'next/router';
 
 export default function AllGames() {
   const { t } = useTranslation();
@@ -23,36 +23,27 @@ export default function AllGames() {
     getGames();
   }, [eventId]);
 
-  const scoreIsSubmitted = (game) =>
-    game.teams[0].score != 0 || game.teams[1].score != 0;
+  const scoreIsSubmitted = (game) => game.teams[0].score != 0 || game.teams[1].score != 0;
 
   const sortGames = (games) => {
     const pastGames = games
       .filter(
         (game) =>
-          moment(game.start_time)
-            .set("hour", 0)
-            .set("minute", 0)
-            .add(1, "day") < moment() && scoreIsSubmitted(game)
+          moment(game.start_time).set('hour', 0).set('minute', 0).add(1, 'day') < moment() && scoreIsSubmitted(game)
       )
       .sort((a, b) => moment(a.start_time) - moment(b.start_time));
     setPastGames(pastGames);
     const res = games
       .filter(
         (game) =>
-          moment(game.start_time)
-            .set("hour", 0)
-            .set("minute", 0)
-            .add(1, "day") > moment() || !scoreIsSubmitted(game)
+          moment(game.start_time).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !scoreIsSubmitted(game)
       )
       .sort((a, b) => moment(a.start_time) - moment(b.start_time));
     setGames(res);
   };
 
   const getGames = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/games", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/games', null, { eventId }));
     sortGames(data);
     setIsLoading(false);
     return data;
@@ -61,9 +52,7 @@ export default function AllGames() {
   const filter = async (teamId, phaseId, fieldId, timeSlot) => {
     let games = await getGames();
     if (teamId != SELECT_ENUM.ALL) {
-      games = games.filter((game) =>
-        game.teams.some((team) => team.roster_id === teamId)
-      );
+      games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
     }
     if (phaseId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.phase_id === phaseId);
@@ -73,9 +62,7 @@ export default function AllGames() {
     }
     if (timeSlot != SELECT_ENUM.ALL) {
       games = games.filter(
-        (game) =>
-          moment(game.start_time).format("YYYY M D") ===
-          moment(timeSlot).format("YYYY M D")
+        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
       );
     }
     sortGames(games);
@@ -89,19 +76,9 @@ export default function AllGames() {
     <>
       <ProTip />
       <GameFilters update={filter} />
-      <div className={styles.main} style={{ marginTop: "16px" }}>
-        <Games
-          games={pastGames}
-          style={{ marginBottom: "16px" }}
-          title={t("past_games")}
-          isOpen={false}
-        />
-        <Games
-          games={games}
-          style={{ marginBottom: "16px" }}
-          title={t("upcoming_games")}
-          isOpen
-        />
+      <div className={styles.main} style={{ marginTop: '16px' }}>
+        <Games games={pastGames} style={{ marginBottom: '16px' }} title={t('past_games')} isOpen={false} />
+        <Games games={games} style={{ marginBottom: '16px' }} title={t('upcoming_games')} isOpen />
       </div>
     </>
   );

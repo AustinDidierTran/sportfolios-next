@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Games.module.css";
-import Game from "./Game";
-import { Collapse, IconButton } from "../../../../components/Custom";
-import { Divider, Typography } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react';
+import styles from './Games.module.css';
+import Game from './Game';
+import { Collapse, IconButton } from '../../../../components/Custom';
+import { Divider, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 export default function Games(props) {
   const { games, title, isOpen } = props;
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(isOpen);
-  const [icon, setIcon] = useState("KeyboardArrowDown");
+  const [icon, setIcon] = useState('KeyboardArrowDown');
 
   const handleExpand = () => {
     const newExpanded = !expanded;
     setExpanded(newExpanded);
     if (newExpanded === true) {
-      setIcon("KeyboardArrowUp");
+      setIcon('KeyboardArrowUp');
     } else {
-      setIcon("KeyboardArrowDown");
+      setIcon('KeyboardArrowDown');
     }
   };
 
   useEffect(() => {
     setExpanded(isOpen);
     if (isOpen) {
-      setIcon("KeyboardArrowUp");
+      setIcon('KeyboardArrowUp');
     }
   }, [isOpen]);
 
@@ -42,24 +42,14 @@ export default function Games(props) {
             {`${title} (${games.length})`}
           </Typography>
         )}
-        <IconButton
-          aria-expanded={expanded}
-          icon={icon}
-          className={styles.iconButton}
-          style={{ color: "grey" }}
-        />
+        <IconButton aria-expanded={expanded} icon={icon} className={styles.iconButton} style={{ color: 'grey' }} />
       </div>
       <Divider className={styles.divider} />
-      <Collapse
-        in={expanded}
-        timeout="auto"
-        unmountOnExit
-        className={styles.games}
-      >
+      <Collapse in={expanded} timeout="auto" unmountOnExit className={styles.games}>
         {games.length ? (
           games.map((game) => <Game game={game} key={game.id} />)
         ) : (
-          <Typography color="textSecondary">{t("no_games")}</Typography>
+          <Typography color="textSecondary">{t('no_games')}</Typography>
         )}
       </Collapse>
     </>

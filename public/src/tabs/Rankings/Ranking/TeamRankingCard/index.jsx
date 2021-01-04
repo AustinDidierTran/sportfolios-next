@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import api from "../../../../actions/api";
-import { formatRoute } from "../../../../actions/goTo";
-import styles from "./TeamRankingCard.module.css";
-import { Typography } from "@material-ui/core";
+import React, { useEffect, useState } from 'react';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../actions/goTo';
+import styles from './TeamRankingCard.module.css';
+import { Typography } from '@material-ui/core';
 
 export default function TeamRankingCard(props) {
   const { position, teamId } = props;
@@ -12,7 +12,7 @@ export default function TeamRankingCard(props) {
     const {
       data: { basicInfos: data },
     } = await api(
-      formatRoute("/api/entity", null, {
+      formatRoute('/api/entity', null, {
         id: teamId,
       })
     );

@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from 'react';
 
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Avatar, Icon } from "../..";
-import { getInitialsFromName } from "../../../../utils/stringFormats/index";
-import { useTranslation } from "react-i18next";
-import { goTo, ROUTES } from "../../../../actions/goTo";
-import styles from "./TeamItem.module.css";
-import IconButton from "@material-ui/core/IconButton";
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Avatar, Icon } from '../..';
+import { getInitialsFromName } from '../../../../utils/stringFormats/index';
+import { useTranslation } from 'react-i18next';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import styles from './TeamItem.module.css';
+import IconButton from '@material-ui/core/IconButton';
 
 export default function TeamItem(props) {
   const { t } = useTranslation();
@@ -47,26 +47,17 @@ export default function TeamItem(props) {
       onClick={handleClick}
       selected={selected}
       style={{
-        opacity: isRegistered ? "0.4" : "1",
+        opacity: isRegistered ? '0.4' : '1',
       }}
     >
       <ListItemIcon>
         {inverseColor ? (
-          <Avatar
-            className={styles.avatar}
-            photoUrl={photoUrl}
-            icon={icon}
-            initials={initials}
-          ></Avatar>
+          <Avatar className={styles.avatar} photoUrl={photoUrl} icon={icon} initials={initials}></Avatar>
         ) : (
           <Avatar photoUrl={photoUrl} icon={icon} initials={initials}></Avatar>
         )}
       </ListItemIcon>
-      <ListItemText
-        className={styles.text}
-        primary={name}
-        secondary={secondary || t("team")}
-      ></ListItemText>
+      <ListItemText className={styles.text} primary={name} secondary={secondary || t('team')}></ListItemText>
       {onDelete ? (
         <IconButton
           edge="end"

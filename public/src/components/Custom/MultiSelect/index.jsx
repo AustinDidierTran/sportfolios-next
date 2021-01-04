@@ -7,7 +7,7 @@ import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   formControl: {
     width: '100%',
   },
@@ -44,14 +44,7 @@ function getStyles(opt, options, theme) {
 export default function CustomMultiSelect(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const {
-    formik,
-    label,
-    onChange,
-    options,
-    values,
-    disabled = false,
-  } = props;
+  const { formik, label, onChange, options, values, disabled = false } = props;
 
   const handleChange = (event, ...args) => {
     if (formik) {
@@ -72,27 +65,17 @@ export default function CustomMultiSelect(props) {
           value={values}
           onChange={handleChange}
           input={<Input />}
-          renderValue={selected => (
+          renderValue={(selected) => (
             <div className={classes.chips}>
-              {selected.map(item => {
-                return (
-                  <Chip
-                    key={item?.value || item}
-                    label={item?.display || item}
-                    className={classes.chip}
-                  />
-                );
+              {selected.map((item) => {
+                return <Chip key={item?.value || item} label={item?.display || item} className={classes.chip} />;
               })}
             </div>
           )}
           MenuProps={MenuProps}
         >
-          {options.map(opt => (
-            <MenuItem
-              key={opt?.value || opt}
-              value={opt}
-              style={getStyles(opt, options, theme)}
-            >
+          {options.map((opt) => (
+            <MenuItem key={opt?.value || opt} value={opt} style={getStyles(opt, options, theme)}>
               {opt?.display || opt}
             </MenuItem>
           ))}

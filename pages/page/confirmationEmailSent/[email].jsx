@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { goTo, ROUTES } from "../../../public/src/actions/goTo";
-import { ACTION_ENUM, Store } from "../../../public/src/Store";
-import ConfirmationEmailSent from "../../../public/src/views/ConfirmationEmailSent";
+import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { goTo, ROUTES } from '../../../public/src/actions/goTo';
+import { ACTION_ENUM, Store } from '../../../public/src/Store';
+import ConfirmationEmailSent from '../../../public/src/views/ConfirmationEmailSent';
 
 const ConfirmationEmailSentRoute = () => {
   const router = useRouter();
@@ -10,8 +10,8 @@ const ConfirmationEmailSentRoute = () => {
   const { dispatch } = useContext(Store);
 
   const confirmEmail = async () => {
-    const res = await api("/api/auth/confirmEmail", {
-      method: "POST",
+    const res = await api('/api/auth/confirmEmail', {
+      method: 'POST',
       body: JSON.stringify({
         token,
       }),

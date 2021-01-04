@@ -1,7 +1,7 @@
-import { useEffect, useContext } from "react";
-import { FACEBOOK_APP_ID } from "../../../conf";
-import { Store } from "../../src/Store";
-import { LANGUAGE_ENUM } from "../../common/enums";
+import { useEffect, useContext } from 'react';
+import { FACEBOOK_APP_ID } from '../../../conf';
+import { Store } from '../../src/Store';
+import { LANGUAGE_ENUM } from '../../common/enums';
 export const useFacebookSDK = () => {
   const {
     state: { userInfo },
@@ -13,7 +13,7 @@ export const useFacebookSDK = () => {
         cookie: true, // enable cookies to allow the server to access
         // the session
         xfbml: true, // parse social plugins on this page
-        version: "v8.0",
+        version: 'v8.0',
         status: true,
       });
     };
@@ -26,13 +26,13 @@ export const useFacebookSDK = () => {
       js = d.createElement(s);
       js.id = id;
       if (language == LANGUAGE_ENUM.FRANCAIS) {
-        js.src = "//connect.facebook.net/fr_CA/sdk.js";
+        js.src = '//connect.facebook.net/fr_CA/sdk.js';
       } else {
-        js.src = "//connect.facebook.net/en_US/sdk.js";
+        js.src = '//connect.facebook.net/en_US/sdk.js';
       }
 
       fjs.parentNode.insertBefore(js, fjs);
-    })(document, "script", "facebook-jssdk");
+    })(document, 'script', 'facebook-jssdk');
   };
 
   useEffect(() => {

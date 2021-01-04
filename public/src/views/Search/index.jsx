@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { IgContainer, LoadingSpinner } from "../../components/Custom";
+import { IgContainer, LoadingSpinner } from '../../components/Custom';
 
-import EntitySearch from "./EntitySearch/index";
+import EntitySearch from './EntitySearch/index';
 
-import api from "../../actions/api";
-import { formatRoute } from "../../actions/goTo";
-import { useRouter } from "next/router";
+import api from '../../actions/api';
+import { formatRoute } from '../../actions/goTo';
+import { useRouter } from 'next/router';
 
 export default function Search(props) {
   const router = useRouter();
@@ -18,9 +18,7 @@ export default function Search(props) {
   const [entities, setEntities] = useState([]);
   const [timeoutRef, setTimeoutRef] = useState(null);
   const asyncFetchResult = async () => {
-    const res = await api(
-      formatRoute("/api/data/search/global", null, { query, type })
-    );
+    const res = await api(formatRoute('/api/data/search/global', null, { query, type }));
 
     setEntities(res.data.entities);
 

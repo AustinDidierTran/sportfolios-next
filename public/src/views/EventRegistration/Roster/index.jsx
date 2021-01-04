@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import {
-  LIST_ITEM_ENUM,
-  ROSTER_ROLE_ENUM,
-  SEVERITY_ENUM,
-} from '../../../../../common/enums';
+import { LIST_ITEM_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { List } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
@@ -26,7 +22,7 @@ export default function Roster(props) {
 
   const roster = useMemo(
     () =>
-      formik.values.roster.map(p => ({
+      formik.values.roster.map((p) => ({
         ...p,
         key: p.personId,
         type: LIST_ITEM_ENUM.ROSTER_ITEM,
@@ -34,7 +30,7 @@ export default function Roster(props) {
           onDelete({ personId: p.personId });
         },
       })),
-    [formik.values.roster],
+    [formik.values.roster]
   );
 
   useEffect(() => {
@@ -51,22 +47,17 @@ export default function Roster(props) {
     stepHook.handleCompleted(2);
   }, []);
 
-  const blackList = useMemo(() => roster.map(r => r.personId), [
-    roster,
-  ]);
+  const blackList = useMemo(() => roster.map((r) => r.personId), [roster]);
 
-  const addPerson = async person => {
-    const role =
-      roster.length === 0
-        ? ROSTER_ROLE_ENUM.CAPTAIN
-        : ROSTER_ROLE_ENUM.PLAYER;
+  const addPerson = async (person) => {
+    const role = roster.length === 0 ? ROSTER_ROLE_ENUM.CAPTAIN : ROSTER_ROLE_ENUM.PLAYER;
     if (person.id) {
       const {
         data: { basicInfos: data },
       } = await api(
         formatRoute('/api/entity', null, {
           id: person.id,
-        }),
+        })
       );
 
       formik.setFieldValue('roster', [
@@ -79,7 +70,7 @@ export default function Roster(props) {
         },
       ]);
     } else {
-      const ids = roster.map(p => {
+      const ids = roster.map((p) => {
         return !isNaN(p.personId) ? p.personId : 0;
       });
 
@@ -98,15 +89,9 @@ export default function Roster(props) {
     inputRef.current.focus();
   };
 
-  const onDelete = body => {
+  const onDelete = (body) => {
     const { personId } = body;
-    if (
-      !roster.some(
-        p =>
-          p.role !== ROSTER_ROLE_ENUM.PLAYER &&
-          p.personId !== personId,
-      )
-    ) {
+    if (!roster.some((p) => p.role !== ROSTER_ROLE_ENUM.PLAYER && p.personId !== personId)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team_player_role_error'),
@@ -115,22 +100,15 @@ export default function Roster(props) {
     } else {
       formik.setFieldValue(
         'roster',
-        roster.filter(r => r.personId !== personId),
+        roster.filter((r) => r.personId !== personId)
       );
     }
   };
 
   return (
     <div className={styles.main}>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        component="p"
-        style={{ marginBottom: '8px' }}
-      >
-        {t(
-          'roster_doesnt_have_to_be_final_only_for_pre_ranking_purpose',
-        )}
+      <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
+        {t('roster_doesnt_have_to_be_final_only_for_pre_ranking_purpose')}
       </Typography>
       <PersonSearchList
         className={styles.item}
@@ -144,13 +122,9 @@ export default function Roster(props) {
         autoFocus
       />
       <hr />
-      <Typography style={{ marginTop: '16px' }}>
-        {t('roster')}
-      </Typography>
+      <Typography style={{ marginTop: '16px' }}>{t('roster')}</Typography>
       {roster.length === 0 ? (
-        <Typography style={{ marginBottom: '32px' }}>
-          {t('no_roster')}
-        </Typography>
+        <Typography style={{ marginBottom: '32px' }}>{t('no_roster')}</Typography>
       ) : (
         <div style={{ marginBottom: '16px' }}>
           <List formik={formik} items={roster} />

@@ -1,22 +1,16 @@
-import React, { useContext } from "react";
-import { Store, SCREENSIZE_ENUM } from "../../../Store";
+import React, { useContext } from 'react';
+import { Store, SCREENSIZE_ENUM } from '../../../Store';
 
-import { AppBar, Toolbar } from "@material-ui/core";
+import { AppBar, Toolbar } from '@material-ui/core';
 
-import styles from "./Default.module.css";
-import LoggedIn from "../LoggedIn";
+import styles from './Default.module.css';
+import LoggedIn from '../LoggedIn';
 
 export default function DefaultHeader(props) {
   const {
     state: { screenSize },
   } = useContext(Store);
-  const {
-    Item1 = () => <></>,
-    Item2 = () => <></>,
-    Item3 = () => <></>,
-    Item4 = () => <></>,
-    showBar = true,
-  } = props;
+  const { Item1 = () => <></>, Item2 = () => <></>, Item3 = () => <></>, Item4 = () => <></>, showBar = true } = props;
 
   const It1 = () => {
     return (

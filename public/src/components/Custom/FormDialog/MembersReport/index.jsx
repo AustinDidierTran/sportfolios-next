@@ -1,17 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-  REPORT_TYPE_ENUM,
-} from "../../../../../common/enums";
-import BasicFormDialog from "../BasicFormDialog";
-import moment from "moment";
-import { useRouter } from "next/router";
+import React, { useState, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM, REPORT_TYPE_ENUM } from '../../../../../common/enums';
+import BasicFormDialog from '../BasicFormDialog';
+import moment from 'moment';
+import { useRouter } from 'next/router';
 
 export default function MembersReport(props) {
   const { open: openProps, onClose, handleCreated } = props;
@@ -34,7 +30,7 @@ export default function MembersReport(props) {
 
   const formik = useFormik({
     initialValues: {
-      date: "",
+      date: '',
     },
     validate,
     validateOnChange: false,
@@ -43,7 +39,7 @@ export default function MembersReport(props) {
       setIsSubmitting(true);
       const { date } = values;
       const res = await api(`/api/entity/report`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           type: REPORT_TYPE_ENUM.MEMBERS,
           organizationId: entityId,
@@ -60,7 +56,7 @@ export default function MembersReport(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("report_created"),
+          message: t('report_created'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 4000,
         });
@@ -72,15 +68,15 @@ export default function MembersReport(props) {
   });
 
   useEffect(() => {
-    formik.setFieldValue("date", moment().format("YYYY-MM-DD"));
+    formik.setFieldValue('date', moment().format('YYYY-MM-DD'));
     setOpen(openProps);
   }, [openProps]);
 
   const fields = [
     {
-      namespace: "date",
-      label: t("date"),
-      type: "date",
+      namespace: 'date',
+      label: t('date'),
+      type: 'date',
       shrink: true,
     },
   ];
@@ -88,21 +84,21 @@ export default function MembersReport(props) {
   const buttons = [
     {
       onClick: onClose,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
       disabled: isSubmitting,
     },
     {
-      type: "submit",
-      name: t("create"),
-      color: "primary",
+      type: 'submit',
+      name: t('create'),
+      color: 'primary',
     },
   ];
 
   return (
     <BasicFormDialog
       open={open}
-      title={t("choose_date")}
+      title={t('choose_date')}
       buttons={buttons}
       fields={fields}
       formik={formik}

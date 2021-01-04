@@ -18,11 +18,9 @@ i18n.use(LanguageDetector).init({
   interpolation: {
     escapeValue: false, // not needed for react!!
     formatSeparator: ',',
-    format: function(value, format, lng) {
+    format: function (value, format, lng) {
       if (moment.isMoment(value)) {
-        return moment(value)
-          .locale(lng)
-          .format(format);
+        return moment(value).locale(lng).format(format);
       }
       return value;
     },

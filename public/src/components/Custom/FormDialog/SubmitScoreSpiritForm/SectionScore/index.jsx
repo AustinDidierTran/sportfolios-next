@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { useFormik } from "formik";
-import { Collapse } from "../../..";
-import { Button, IconButton, TextField } from "../../..";
-import { Chip, Divider, Typography } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { STATUS_ENUM, SEVERITY_ENUM } from "../../../../../../common/enums";
-import { ERROR_ENUM } from "../../../../../../common/errors";
-import api from "../../../../../actions/api";
-import { ACTION_ENUM, Store } from "../../../../../Store";
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useFormik } from 'formik';
+import { Collapse } from '../../..';
+import { Button, IconButton, TextField } from '../../..';
+import { Chip, Divider, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { ERROR_ENUM } from '../../../../../../common/errors';
+import api from '../../../../../actions/api';
+import { ACTION_ENUM, Store } from '../../../../../Store';
 
-import styles from "../SubmitScoreSpiritForm.module.css";
+import styles from '../SubmitScoreSpiritForm.module.css';
 
 export default function SectionScore(props) {
   const { suggestions, gameId, IsSubmittedCheck, submissionerInfos } = props;
@@ -18,10 +18,7 @@ export default function SectionScore(props) {
 
   const [expanded, setExpanded] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const expandedIcon = useMemo(
-    () => (!expanded ? "KeyboardArrowDown" : "KeyboardArrowUp"),
-    [expanded]
-  );
+  const expandedIcon = useMemo(() => (!expanded ? 'KeyboardArrowDown' : 'KeyboardArrowUp'), [expanded]);
 
   const validate = (values) => {
     const { scoreTeam1, scoreTeam2 } = values;
@@ -50,8 +47,8 @@ export default function SectionScore(props) {
       score[submissionerInfos.myTeam.rosterId] = scoreTeam1;
       score[submissionerInfos.enemyTeam.rosterId] = scoreTeam2;
 
-      const { status } = await api("/api/entity/suggestScore", {
-        method: "POST",
+      const { status } = await api('/api/entity/suggestScore', {
+        method: 'POST',
         body: JSON.stringify({
           game_id: gameId,
           submitted_by_roster: submissionerInfos.myTeam.rosterId,
@@ -65,7 +62,7 @@ export default function SectionScore(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("an_error_has_occured"),
+          message: t('an_error_has_occured'),
           severity: SEVERITY_ENUM.ERROR,
         });
       }
@@ -74,8 +71,8 @@ export default function SectionScore(props) {
 
   const [acceptedOrRefused, setAcceptedOrRefused] = useState(false);
   const handleAcceptSuggestion = async () => {
-    const { status } = await api("/api/entity/acceptScore", {
-      method: "POST",
+    const { status } = await api('/api/entity/acceptScore', {
+      method: 'POST',
       body: JSON.stringify({
         id: enemyScoreSuggestion.id,
         submitted_by_roster: submissionerInfos.myTeam.rosterId,
@@ -89,7 +86,7 @@ export default function SectionScore(props) {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("an_error_has_occured"),
+        message: t('an_error_has_occured'),
         severity: SEVERITY_ENUM.ERROR,
       });
     }
@@ -105,66 +102,46 @@ export default function SectionScore(props) {
   };
 
   const myScoreSuggestion = useMemo(
-    () =>
-      suggestions?.find(
-        (s) => s.submitted_by_roster === submissionerInfos.myTeam.rosterId
-      ),
+    () => suggestions?.find((s) => s.submitted_by_roster === submissionerInfos.myTeam.rosterId),
     [suggestions]
   );
   const enemyScoreSuggestion = useMemo(
-    () =>
-      suggestions?.find(
-        (s) => s.submitted_by_roster === submissionerInfos.enemyTeam.rosterId
-      ),
+    () => suggestions?.find((s) => s.submitted_by_roster === submissionerInfos.enemyTeam.rosterId),
     [suggestions]
   );
-  const showSuggestion = useMemo(
-    () => enemyScoreSuggestion && !myScoreSuggestion && !acceptedOrRefused,
-    [myScoreSuggestion, enemyScoreSuggestion, acceptedOrRefused]
-  );
+  const showSuggestion = useMemo(() => enemyScoreSuggestion && !myScoreSuggestion && !acceptedOrRefused, [
+    myScoreSuggestion,
+    enemyScoreSuggestion,
+    acceptedOrRefused,
+  ]);
 
   useEffect(() => {
     if (myScoreSuggestion) {
       submittedState(true);
-      formik.setFieldValue(
-        "scoreTeam1",
-        myScoreSuggestion.score[submissionerInfos.myTeam.rosterId]
-      );
-      formik.setFieldValue(
-        "scoreTeam2",
-        myScoreSuggestion.score[submissionerInfos.enemyTeam.rosterId]
-      );
+      formik.setFieldValue('scoreTeam1', myScoreSuggestion.score[submissionerInfos.myTeam.rosterId]);
+      formik.setFieldValue('scoreTeam2', myScoreSuggestion.score[submissionerInfos.enemyTeam.rosterId]);
     } else if (enemyScoreSuggestion) {
-      formik.setFieldValue(
-        "scoreTeam1",
-        enemyScoreSuggestion.score[submissionerInfos.myTeam.rosterId]
-      );
-      formik.setFieldValue(
-        "scoreTeam2",
-        enemyScoreSuggestion.score[submissionerInfos.enemyTeam.rosterId]
-      );
+      formik.setFieldValue('scoreTeam1', enemyScoreSuggestion.score[submissionerInfos.myTeam.rosterId]);
+      formik.setFieldValue('scoreTeam2', enemyScoreSuggestion.score[submissionerInfos.enemyTeam.rosterId]);
     }
   }, [suggestions]);
 
   const getChipColor = (status) => {
     switch (status) {
       case STATUS_ENUM.ACCEPTED:
-        return "primary";
+        return 'primary';
       case STATUS_ENUM.REFUSED:
-        return "secondary";
+        return 'secondary';
 
       default:
-        return "default";
+        return 'default';
     }
   };
 
   return (
     <div>
-      <div
-        className={styles.collapseHeader}
-        onClick={() => setExpanded(!expanded)}
-      >
-        <Typography>{t("score")}</Typography>
+      <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
+        <Typography>{t('score')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
           <IconButton
@@ -172,7 +149,7 @@ export default function SectionScore(props) {
             aria-expanded={expanded}
             icon={expandedIcon}
             style={{
-              color: "primary",
+              color: 'primary',
             }}
           />
         </div>
@@ -180,28 +157,22 @@ export default function SectionScore(props) {
       <Divider />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <div>
-          {showSuggestion &&
-          enemyScoreSuggestion.status === STATUS_ENUM.PENDING &&
-          !acceptedOrRefused ? (
-            <Typography className={styles.suggestedBy}>
-              {"*" + t("suggested_by_the_other_team")}
-            </Typography>
+          {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
+            <Typography className={styles.suggestedBy}>{'*' + t('suggested_by_the_other_team')}</Typography>
           ) : (
             <></>
           )}
           <div className={styles.scores}>
-            <Typography className={styles.teamName}>{`${
-              submissionerInfos.myTeam.name
-            }: (${t("your_team")})`}</Typography>
+            <Typography className={styles.teamName}>{`${submissionerInfos.myTeam.name}: (${t(
+              'your_team'
+            )})`}</Typography>
             <TextField
               type="number"
               namespace="scoreTeam1"
               formik={formik}
               formikDisabled={isSubmitted || showSuggestion}
             />
-            <Typography
-              className={styles.teamName}
-            >{`${submissionerInfos.enemyTeam.name}:`}</Typography>
+            <Typography className={styles.teamName}>{`${submissionerInfos.enemyTeam.name}:`}</Typography>
             <TextField
               type="number"
               namespace="scoreTeam2"
@@ -210,26 +181,24 @@ export default function SectionScore(props) {
             />
           </div>
 
-          {showSuggestion &&
-          enemyScoreSuggestion.status === STATUS_ENUM.PENDING &&
-          !acceptedOrRefused ? (
+          {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <div className={styles.divSubmitScoreButton}>
               <div className={styles.acceptRefuseScore}>
                 <IconButton
                   color="primary"
                   icon="CheckCircle"
                   fontSize="large"
-                  style={{ color: "#18B393" }}
+                  style={{ color: '#18B393' }}
                   onClick={handleAcceptSuggestion}
-                  tooltip={t("accept")}
+                  tooltip={t('accept')}
                 />
                 <IconButton
                   color="secondary"
                   icon="Cancel"
                   fontSize="large"
-                  style={{ color: "#f44336" }}
+                  style={{ color: '#f44336' }}
                   onClick={handleRefuseSuggestion}
-                  tooltip={t("refuse")}
+                  tooltip={t('refuse')}
                 />
               </div>
             </div>
@@ -246,11 +215,11 @@ export default function SectionScore(props) {
                 <Button
                   className={styles.submitButton}
                   onClick={() => formik.handleSubmit()}
-                  color={"primary"}
+                  color={'primary'}
                   variant="text"
                   disabled={isSubmitted || showSuggestion}
                 >
-                  {t("submit")}
+                  {t('submit')}
                 </Button>
               )}
             </div>

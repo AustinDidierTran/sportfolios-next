@@ -1,28 +1,24 @@
-import React from "react";
+import React from 'react';
 
-import loadable from "@loadable/component";
-import {
-  ENTITIES_ROLE_ENUM,
-  CARD_TYPE_ENUM,
-  GLOBAL_ENUM,
-} from "../../../common/enums";
-import { Card } from "../../components/Custom";
-import { useAdmin, useEditor } from "../../hooks/roles";
-import styles from "./Settings.module.css";
-import BottomPageLogo from "../../components/Custom/BottomPageLogo";
-import { useRouter } from "next/router";
+import loadable from '@loadable/component';
+import { ENTITIES_ROLE_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
+import { Card } from '../../components/Custom';
+import { useAdmin, useEditor } from '../../hooks/roles';
+import styles from './Settings.module.css';
+import BottomPageLogo from '../../components/Custom/BottomPageLogo';
+import { useRouter } from 'next/router';
 
-const AddMembership = loadable(() => import("./AddMembership"));
-const AddOptionsEvent = loadable(() => import("./AddOptionsEvent"));
-const BankAccount = loadable(() => import("./BankAccount"));
-const BasicInfos = loadable(() => import("./BasicInfos"));
-const ChangeAlias = loadable(() => import("./ChangeAlias"));
-const Description = loadable(() => import("./Description"));
-const EventSettings = loadable(() => import("./EventSettings"));
-const ManageRoles = loadable(() => import("./ManageRoles"));
-const QuickDescription = loadable(() => import("./QuickDescription"));
-const Reports = loadable(() => import("./Reports"));
-const TeamRegistered = loadable(() => import("./TeamRegistered"));
+const AddMembership = loadable(() => import('./AddMembership'));
+const AddOptionsEvent = loadable(() => import('./AddOptionsEvent'));
+const BankAccount = loadable(() => import('./BankAccount'));
+const BasicInfos = loadable(() => import('./BasicInfos'));
+const ChangeAlias = loadable(() => import('./ChangeAlias'));
+const Description = loadable(() => import('./Description'));
+const EventSettings = loadable(() => import('./EventSettings'));
+const ManageRoles = loadable(() => import('./ManageRoles'));
+const QuickDescription = loadable(() => import('./QuickDescription'));
+const Reports = loadable(() => import('./Reports'));
+const TeamRegistered = loadable(() => import('./TeamRegistered'));
 
 export default function EntitySettings(props) {
   const router = useRouter();
@@ -43,10 +39,7 @@ export default function EntitySettings(props) {
           <div className={styles.div}>
             <BankAccount />
             <ManageRoles role={role} />
-            <Card
-              items={{ id, name: basicInfos.name }}
-              type={CARD_TYPE_ENUM.DELETE_ENTITY}
-            />
+            <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
           </div>
         );
@@ -73,10 +66,7 @@ export default function EntitySettings(props) {
             <TeamRegistered />
             <AddOptionsEvent />
             <ManageRoles role={role} />
-            <Card
-              items={{ id, name: basicInfos.name }}
-              type={CARD_TYPE_ENUM.DELETE_ENTITY}
-            />
+            <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
           </div>
         );
@@ -105,10 +95,7 @@ export default function EntitySettings(props) {
             <BankAccount />
             <Reports />
             <ManageRoles role={role} />
-            <Card
-              items={{ id, name: basicInfos.name }}
-              type={CARD_TYPE_ENUM.DELETE_ENTITY}
-            />
+            <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
           </div>
         );
@@ -143,6 +130,6 @@ export default function EntitySettings(props) {
       }
       return <></>;
     default:
-      throw "type not defined";
+      throw 'type not defined';
   }
 }

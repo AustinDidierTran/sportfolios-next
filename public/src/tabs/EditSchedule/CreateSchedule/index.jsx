@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
-import { Button } from "../../../components/Custom";
-import styles from "../EditSchedule.module.css";
-import { useTranslation } from "react-i18next";
-import AddGame from "./AddGame";
-import AddPhase from "./AddPhase";
-import AddTimeSlot from "./AddTimeSlot";
-import AddTeam from "./AddTeam";
-import AddField from "./AddField";
-import { goTo, ROUTES } from "../../../actions/goTo";
-import { Store, SCREENSIZE_ENUM } from "../../../Store";
-import { useRouter } from "next/router";
+import React, { useContext, useState } from 'react';
+import { Button } from '../../../components/Custom';
+import styles from '../EditSchedule.module.css';
+import { useTranslation } from 'react-i18next';
+import AddGame from './AddGame';
+import AddPhase from './AddPhase';
+import AddTimeSlot from './AddTimeSlot';
+import AddTeam from './AddTeam';
+import AddField from './AddField';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { useRouter } from 'next/router';
 
 export default function ScheduleTab(props) {
   const { t } = useTranslation();
@@ -63,66 +63,65 @@ export default function ScheduleTab(props) {
         size="small"
         variant="contained"
         endIcon="Add"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={openTime}
         className={styles.button}
       >
-        {t("add_time_slot")}
+        {t('add_time_slot')}
       </Button>
       <Button
         size="small"
         variant="contained"
         endIcon="Add"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={openField}
         className={styles.button}
       >
-        {t("add_field")}
+        {t('add_field')}
       </Button>
       <Button
         size="small"
         variant="contained"
         endIcon="Add"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={openTeam}
         className={styles.button}
         disabled // will be changed
       >
-        {t("add_team")}
+        {t('add_team')}
       </Button>
       <Button
         size="small"
         variant="contained"
         endIcon="Add"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={openPhase}
         className={styles.button}
       >
-        {t("add_phase")}
+        {t('add_phase')}
       </Button>
       <Button
         size="small"
         variant="contained"
         endIcon="Add"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={openGame}
         className={styles.button}
       >
-        {t("add_game")}
+        {t('add_game')}
       </Button>
-      {screenSize === SCREENSIZE_ENUM.sm ||
-      screenSize === SCREENSIZE_ENUM.xs ? (
+      {screenSize === SCREENSIZE_ENUM.sm || screenSize === SCREENSIZE_ENUM.xs ? (
         <></>
       ) : (
         <Button
           size="small"
           variant="contained"
           endIcon="Build"
-          style={{ margin: "8px" }}
+          style={{ margin: '8px' }}
           onClick={() => goTo(ROUTES.scheduleInteractiveTool, { id })}
           className={styles.button}
         >
-          {t("interactive_tool")}
+          {t('interactive_tool')}
         </Button>
       )}
       <AddTimeSlot isOpen={time} onClose={closeTime} />

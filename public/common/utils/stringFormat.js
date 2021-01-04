@@ -4,19 +4,16 @@ const fillWithZeros = (number, zeros = 0) => {
   }
   const parsedNumber = Number(number);
 
-  const numberOfDigits =
-    parsedNumber === 0
-      ? 1
-      : Math.floor(Math.log(parsedNumber) / Math.log(10)) + 1;
+  const numberOfDigits = parsedNumber === 0 ? 1 : Math.floor(Math.log(parsedNumber) / Math.log(10)) + 1;
 
   const zerosToAdd = zeros - numberOfDigits;
 
   const zerosArray = Array(zerosToAdd).fill(0);
 
-  return zerosArray.reduce(prev => `0${prev}`, `${parsedNumber}`);
+  return zerosArray.reduce((prev) => `0${prev}`, `${parsedNumber}`);
 };
 
-const formatPrice = price => (price / 100).toFixed(2);
+const formatPrice = (price) => (price / 100).toFixed(2);
 
 const formatRoute = (route, params, queryParams) => {
   if (!route) {
@@ -29,10 +26,7 @@ const formatRoute = (route, params, queryParams) => {
   }
 
   const withParams = params
-    ? Object.keys(params).reduce(
-        (prev, curr) => prev.replace(`:${curr}`, params[curr]),
-        route,
-      )
+    ? Object.keys(params).reduce((prev, curr) => prev.replace(`:${curr}`, params[curr]), route)
     : route;
 
   if (!queryParams) {
@@ -40,11 +34,8 @@ const formatRoute = (route, params, queryParams) => {
   }
 
   return Object.keys(queryParams).reduce(
-    (prev, key, index) =>
-      index === 0
-        ? `${prev}?${key}=${queryParams[key]}`
-        : `${prev}&${key}=${queryParams[key]}`,
-    withParams,
+    (prev, key, index) => (index === 0 ? `${prev}?${key}=${queryParams[key]}` : `${prev}&${key}=${queryParams[key]}`),
+    withParams
   );
 };
 

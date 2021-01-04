@@ -1,28 +1,13 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@material-ui/core";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 
-import CreateRow from "./CreateRow";
-import DataRow from "./DataRow";
+import CreateRow from './CreateRow';
+import DataRow from './DataRow';
 
 export default function EditTable(props) {
   const { t } = useTranslation();
-  const {
-    allowCreate,
-    data,
-    headers,
-    onCreate,
-    onEdit,
-    title,
-    validationSchema,
-  } = props;
+  const { allowCreate, data, headers, onCreate, onEdit, title, validationSchema } = props;
 
   return (
     <>
@@ -35,18 +20,12 @@ export default function EditTable(props) {
             {headers.map((h, index) => (
               <TableCell key={index}>{h.display}</TableCell>
             ))}
-            <TableCell>{t("actions")}</TableCell>
+            <TableCell>{t('actions')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((d) => (
-            <DataRow
-              datum={d}
-              headers={headers}
-              onEdit={onEdit}
-              validationSchema={validationSchema}
-              key={d.id}
-            />
+            <DataRow datum={d} headers={headers} onEdit={onEdit} validationSchema={validationSchema} key={d.id} />
           ))}
           <CreateRow
             allowCreate={allowCreate}

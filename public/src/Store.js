@@ -1,19 +1,19 @@
-import React, { useReducer, useEffect } from "react";
-import { goTo, ROUTES } from "./actions/goTo";
+import React, { useReducer, useEffect } from 'react';
+import { goTo, ROUTES } from './actions/goTo';
 
-import { API_BASE_URL } from "../../conf";
-import i18n from "./i18n";
-import api from "./actions/api";
-import { errors, ERROR_ENUM } from "../common/errors";
-import { io } from "socket.io-client";
-import { HEADER_FLYOUT_TYPE_ENUM } from "../common/enums";
+import { API_BASE_URL } from '../../conf';
+import i18n from './i18n';
+import api from './actions/api';
+import { errors, ERROR_ENUM } from '../common/errors';
+import { io } from 'socket.io-client';
+import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
 export const Store = React.createContext();
 
 const handleLocalAuthToken = (token) => {
-  if (token === "null") {
+  if (token === 'null') {
     return;
   }
-  if (token === "undefined") {
+  if (token === 'undefined') {
     return;
   }
 
@@ -21,11 +21,11 @@ const handleLocalAuthToken = (token) => {
 };
 
 export const SCREENSIZE_ENUM = {
-  xs: "xs",
-  sm: "sm",
-  md: "md",
-  lg: "lg",
-  xl: "xl",
+  xs: 'xs',
+  sm: 'sm',
+  md: 'md',
+  lg: 'lg',
+  xl: 'xl',
 };
 
 export const BREAKPOINTS = [
@@ -50,19 +50,19 @@ const initialState = {
 };
 
 export const ACTION_ENUM = {
-  CLEAR_USER_INFO: "clear_user_info",
-  HEADER_FLYOUT: "header_flyout",
-  LOGIN: "login",
-  LOGOUT: "logout",
-  SNACK_BAR: "snack_bar",
-  UPDATE_PROFILE_PICTURE: "update_profile_picture",
-  UPDATE_STORE_ITEM_PICTURE: "update_store_item_picture",
-  UPDATE_CART: "update_cart",
-  UPDATE_ORGANIZATION_PROFILE_PICTURE: "update_organization_profile_picture",
-  UPDATE_USER_INFO: "update_user_info",
-  WINDOW_RESIZE: "window_resize",
-  SET_GA_PAGEVIEWS: "set_ga_pageviews",
-  SET_GA_EVENTS: "set_ga_events",
+  CLEAR_USER_INFO: 'clear_user_info',
+  HEADER_FLYOUT: 'header_flyout',
+  LOGIN: 'login',
+  LOGOUT: 'logout',
+  SNACK_BAR: 'snack_bar',
+  UPDATE_PROFILE_PICTURE: 'update_profile_picture',
+  UPDATE_STORE_ITEM_PICTURE: 'update_store_item_picture',
+  UPDATE_CART: 'update_cart',
+  UPDATE_ORGANIZATION_PROFILE_PICTURE: 'update_organization_profile_picture',
+  UPDATE_USER_INFO: 'update_user_info',
+  WINDOW_RESIZE: 'window_resize',
+  SET_GA_PAGEVIEWS: 'set_ga_pageviews',
+  SET_GA_EVENTS: 'set_ga_events',
 };
 
 export const ENTITIES_ROLE_ENUM = {
@@ -81,22 +81,15 @@ function reducer(state, action) {
   switch (action.type) {
     case ACTION_ENUM.LOGIN: {
       if (action.payload.authToken) {
-        localStorage.setItem("authToken", action.payload.authToken);
+        localStorage.setItem('authToken', action.payload.authToken);
       } else {
-        localStorage.setItem("authToken", action.payload);
+        localStorage.setItem('authToken', action.payload);
       }
       if (action.payload.userInfo) {
-        localStorage.setItem(
-          "userInfo",
-          JSON.stringify(action.payload.userInfo)
-        );
+        localStorage.setItem('userInfo', JSON.stringify(action.payload.userInfo));
       }
       if (action.payload.route) {
-        goTo(
-          action.payload.route,
-          action.payload.params,
-          action.payload.queryParams
-        );
+        goTo(action.payload.route, action.payload.params, action.payload.queryParams);
       }
       return {
         ...state,
@@ -106,14 +99,10 @@ function reducer(state, action) {
       };
     }
     case ACTION_ENUM.LOGOUT: {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("userInfo");
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userInfo');
       action.payload
-        ? goTo(
-            action.payload.route,
-            action.payload.params,
-            action.payload.queryParams
-          )
+        ? goTo(action.payload.route, action.payload.params, action.payload.queryParams)
         : goTo(ROUTES.login);
       return {
         ...state,
@@ -127,7 +116,7 @@ function reducer(state, action) {
         ...state.userInfo,
         photoUrl: action.payload,
       };
-      localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
+      localStorage.setItem('userInfo', JSON.stringify(newUserInfo));
       return { ...state, userInfo: newUserInfo };
     }
     case ACTION_ENUM.UPDATE_ORGANIZATION_PROFILE_PICTURE: {
@@ -135,12 +124,12 @@ function reducer(state, action) {
         ...state.organization,
         photoUrl: action.payload,
       };
-      localStorage.setItem("organization", JSON.stringify(newOrganizationInfo));
+      localStorage.setItem('organization', JSON.stringify(newOrganizationInfo));
       return { ...state, organization: newOrganizationInfo };
     }
     case ACTION_ENUM.CLEAR_USER_INFO: {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("userInfo");
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userInfo');
       return {
         ...state,
         authToken: null,
@@ -159,7 +148,7 @@ function reducer(state, action) {
       };
     }
     case ACTION_ENUM.UPDATE_USER_INFO: {
-      localStorage.setItem("userInfo", JSON.stringify(action.payload));
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
       return { ...state, userInfo: action.payload, isAuthenticated: true };
     }
     case ACTION_ENUM.WINDOW_RESIZE: {
@@ -174,11 +163,11 @@ function reducer(state, action) {
       return { ...state, cart: action.payload };
     }
     case ACTION_ENUM.SET_GA_PAGEVIEWS: {
-      localStorage.setItem("activeGaPageviews", JSON.stringify(action.payload));
+      localStorage.setItem('activeGaPageviews', JSON.stringify(action.payload));
       return { ...state, activeGaEvents: action.payload };
     }
     case ACTION_ENUM.SET_GA_EVENTS: {
-      localStorage.setItem("activeGaEvents", JSON.stringify(action.payload));
+      localStorage.setItem('activeGaEvents', JSON.stringify(action.payload));
       return { ...state, activeGaPageviews: action.payload };
     }
     case ACTION_ENUM.HEADER_FLYOUT: {
@@ -207,7 +196,7 @@ export function StoreProvider(props) {
   };
 
   const init = async () => {
-    const authToken = handleLocalAuthToken(localStorage.getItem("authToken"));
+    const authToken = handleLocalAuthToken(localStorage.getItem('authToken'));
 
     if (authToken) {
       const res = await fetch(`${API_BASE_URL}/api/user/userInfo`, {
@@ -219,7 +208,7 @@ export function StoreProvider(props) {
       const { status } = res;
 
       if (status === errors[ERROR_ENUM.TOKEN_EXPIRED].code) {
-        console.log("Inside yeahhh");
+        console.log('Inside yeahhh');
         dispatch({
           type: ACTION_ENUM.CLEAR_USER_INFO,
         });
@@ -246,7 +235,7 @@ export function StoreProvider(props) {
       });
     }
 
-    const res2 = await api("/api/shop/getCartItems");
+    const res2 = await api('/api/shop/getCartItems');
     if (res2 && res2.data) {
       dispatch({
         type: ACTION_ENUM.UPDATE_CART,
@@ -254,7 +243,7 @@ export function StoreProvider(props) {
       });
     }
 
-    const res3 = await api("/api/ga/activePageviews");
+    const res3 = await api('/api/ga/activePageviews');
     if (res3 && res3.data) {
       dispatch({
         type: ACTION_ENUM.SET_GA_PAGEVIEWS,
@@ -262,7 +251,7 @@ export function StoreProvider(props) {
       });
     }
 
-    const res4 = await api("/api/ga/activeEvents");
+    const res4 = await api('/api/ga/activeEvents');
     if (res4 && res4.data) {
       dispatch({
         type: ACTION_ENUM.SET_GA_EVENTS,
@@ -274,9 +263,9 @@ export function StoreProvider(props) {
   useEffect(() => {
     init();
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

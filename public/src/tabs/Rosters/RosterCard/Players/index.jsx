@@ -1,20 +1,17 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import styles from "./Players.module.css";
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import styles from './Players.module.css';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import PlayerCard from "./PlayerCard";
-import { Typography, Divider } from "@material-ui/core";
-import {
-  LoadingSpinner,
-  PersonSearchList,
-} from "../../../../components/Custom";
-import api from "../../../../actions/api";
-import { formatRoute } from "../../../../actions/goTo";
-import PersonsQuickAdd from "./PersonsQuickAdd";
-import { Store } from "../../../../Store";
-import { ROSTER_ROLE_ENUM } from "../../../../../common/enums";
-import RosterInviteLink from "../RosterInviteLink";
+import PlayerCard from './PlayerCard';
+import { Typography, Divider } from '@material-ui/core';
+import { LoadingSpinner, PersonSearchList } from '../../../../components/Custom';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../actions/goTo';
+import PersonsQuickAdd from './PersonsQuickAdd';
+import { Store } from '../../../../Store';
+import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
+import RosterInviteLink from '../RosterInviteLink';
 
 export default function Players(props) {
   const { t } = useTranslation();
@@ -45,7 +42,7 @@ export default function Players(props) {
     }
     setIsLoading(true);
     const { data } = await api(
-      formatRoute("/api/entity/getRoster", null, {
+      formatRoute('/api/entity/getRoster', null, {
         rosterId,
         withSub: true,
       })
@@ -93,9 +90,7 @@ export default function Players(props) {
     if (!whiteList) {
       return userInfo.persons.map(mapFunction);
     }
-    return userInfo.persons
-      .filter((p) => whiteList.includes(p.entity_id))
-      .map(mapFunction);
+    return userInfo.persons.filter((p) => whiteList.includes(p.entity_id)).map(mapFunction);
   }, [players, withMyPersonsQuickAdd, whiteList]);
 
   const playersSortingFunction = (a, b) => {
@@ -122,9 +117,9 @@ export default function Players(props) {
           <PersonSearchList
             blackList={blackList}
             whiteList={whiteList}
-            label={t("enter_player_name")}
+            label={t('enter_player_name')}
             onClick={onPlayerAddToRoster}
-            secondary={t("player")}
+            secondary={t('player')}
             withoutIcon
             autoFocus
             rosterId={rosterId}
@@ -133,7 +128,7 @@ export default function Players(props) {
         <RosterInviteLink rosterId={rosterId} />
         <Divider variant="middle" light />
         <PersonsQuickAdd
-          title={t("my_persons")}
+          title={t('my_persons')}
           titleClassName={styles.listTitle}
           onAdd={onPlayerAddToRoster}
           persons={playersQuickAdd}
@@ -145,7 +140,7 @@ export default function Players(props) {
           {players.length ? (
             <div className={styles.player}>
               <Typography className={styles.listTitle} variant="h6">
-                {t("roster")}
+                {t('roster')}
               </Typography>
               {players.map((player) => (
                 <PlayerCard
@@ -158,7 +153,7 @@ export default function Players(props) {
               ))}
             </div>
           ) : (
-            <Typography>{t("empty_roster_add_players")}</Typography>
+            <Typography>{t('empty_roster_add_players')}</Typography>
           )}
         </>
       </div>
@@ -168,7 +163,7 @@ export default function Players(props) {
   return (
     <div className={styles.card}>
       <PersonsQuickAdd
-        title={t("my_persons")}
+        title={t('my_persons')}
         onAdd={onPlayerAddToRoster}
         persons={playersQuickAdd}
         titleClassName={styles.listTitle}
@@ -179,7 +174,7 @@ export default function Players(props) {
       {
         <>
           <Typography className={styles.listTitle} variant="h6">
-            {t("roster")}
+            {t('roster')}
           </Typography>
           {players.length ? (
             <div className={styles.player}>
@@ -195,7 +190,7 @@ export default function Players(props) {
               ))}
             </div>
           ) : (
-            <Typography>{t("empty_roster_add_players")}</Typography>
+            <Typography>{t('empty_roster_add_players')}</Typography>
           )}
         </>
       }

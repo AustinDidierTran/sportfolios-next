@@ -9,7 +9,7 @@ export default {
   component: Input,
 };
 
-const Template = args => <Input {...args} />;
+const Template = (args) => <Input {...args} />;
 
 export const Text = Template.bind({});
 Text.args = {

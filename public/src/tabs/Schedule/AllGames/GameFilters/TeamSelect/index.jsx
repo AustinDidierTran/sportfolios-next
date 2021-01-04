@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Select } from "../../../../../components/Custom";
-import styles from "./TeamSelect.module.css";
-import { useTranslation } from "react-i18next";
-import api from "../../../../../actions/api";
-import { formatRoute } from "../../../../../actions/goTo";
-import { SELECT_ENUM } from "../../../../../../common/enums";
-import { useRouter } from "next/router";
+import { Select } from '../../../../../components/Custom';
+import styles from './TeamSelect.module.css';
+import { useTranslation } from 'react-i18next';
+import api from '../../../../../actions/api';
+import { formatRoute } from '../../../../../actions/goTo';
+import { SELECT_ENUM } from '../../../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function TeamSelect(props) {
   const { onChange, teamId } = props;
@@ -21,9 +21,7 @@ export default function TeamSelect(props) {
   }, []);
 
   const getTeams = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/teamsSchedule", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/teamsSchedule', null, { eventId }));
     const res = data
       //TO BE REMOVED ONLY FOR MEMPHRE
       .filter((d) => d.name.length > 2)
@@ -32,7 +30,7 @@ export default function TeamSelect(props) {
         display: d.name,
       }));
 
-    setTeams([{ value: SELECT_ENUM.ALL, display: t("all_teams") }, ...res]);
+    setTeams([{ value: SELECT_ENUM.ALL, display: t('all_teams') }, ...res]);
   };
 
   const handleChange = (teamId) => {
@@ -47,7 +45,7 @@ export default function TeamSelect(props) {
         namespace="team"
         autoFocus
         margin="dense"
-        label={t("team")}
+        label={t('team')}
         fullWidth
         onChange={handleChange}
         value={teamId}

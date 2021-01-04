@@ -1,47 +1,30 @@
-import React, { useState, useContext, useMemo } from "react";
-import { Divider, ListItem, ListItemText } from "@material-ui/core";
-import { FormDialog, IconButton, AlertDialog } from "../../../Custom";
-import { useTranslation } from "react-i18next";
-import { formatDate, formatPrice } from "../../../../utils/stringFormats";
-import moment from "moment";
-import { ACTION_ENUM, Store } from "../../../../Store";
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-} from "../../../../../common/enums";
-import api from "../../../../actions/api";
-import { formatRoute } from "../../../../actions/goTo";
-import CollapsePaymentOption from "./CollapsePaymentOption";
+import React, { useState, useContext, useMemo } from 'react';
+import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import { FormDialog, IconButton, AlertDialog } from '../../../Custom';
+import { useTranslation } from 'react-i18next';
+import { formatDate, formatPrice } from '../../../../utils/stringFormats';
+import moment from 'moment';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../actions/goTo';
+import CollapsePaymentOption from './CollapsePaymentOption';
 
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
   const { option, update } = props;
-  const {
-    id,
-    name,
-    team_price,
-    individual_price,
-    startTime,
-    endTime,
-    owner,
-    taxRates,
-    team_activity,
-  } = option;
+  const { id, name, team_price, individual_price, startTime, endTime, owner, taxRates, team_activity } = option;
 
   const { dispatch } = useContext(Store);
   const [alertDialog, setAlertDialog] = useState(false);
   const [edit, setEdit] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  const icon = useMemo(
-    () => (expanded ? "KeyboardArrowUp" : "KeyboardArrowDown"),
-    [expanded]
-  );
+  const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
 
   const onDelete = async () => {
-    await api(formatRoute("/api/entity/option", null, { id }), {
-      method: "DELETE",
+    await api(formatRoute('/api/entity/option', null, { id }), {
+      method: 'DELETE',
     });
     update();
     setAlertDialog(false);
@@ -57,8 +40,8 @@ export default function EventPaymentOptionItem(props) {
     const start = new Date(`${openDate} ${openTime}`).getTime();
     const end = new Date(`${closeDate} ${closeTime}`).getTime();
 
-    const res = await api("/api/entity/updateOption", {
-      method: "PUT",
+    const res = await api('/api/entity/updateOption', {
+      method: 'PUT',
       body: JSON.stringify({
         id,
         startTime: start,
@@ -69,13 +52,13 @@ export default function EventPaymentOptionItem(props) {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("changes_saved"),
+        message: t('changes_saved'),
         severity: SEVERITY_ENUM.SUCCESS,
       });
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("an_error_has_occured"),
+        message: t('an_error_has_occured'),
         severity: SEVERITY_ENUM.ERROR,
       });
       return;
@@ -87,22 +70,15 @@ export default function EventPaymentOptionItem(props) {
     <div>
       <ListItem onClick={handleExpand}>
         <ListItemText
-          primary={`${name} | ${t("price_team")} ${
-            team_price === 0 ? t("free") : formatPrice(team_price)
-          }, ${t("price_individual")} ${
-            individual_price === 0 ? t("free") : formatPrice(individual_price)
-          }`}
-          secondary={t("open_from_to", {
-            startDate: formatDate(moment(startTime), "MMM D"),
-            endDate: formatDate(moment(endTime), "MMM D"),
+          primary={`${name} | ${t('price_team')} ${team_price === 0 ? t('free') : formatPrice(team_price)}, ${t(
+            'price_individual'
+          )} ${individual_price === 0 ? t('free') : formatPrice(individual_price)}`}
+          secondary={t('open_from_to', {
+            startDate: formatDate(moment(startTime), 'MMM D'),
+            endDate: formatDate(moment(endTime), 'MMM D'),
           })}
         />
-        <IconButton
-          onClick={handleExpand}
-          aria-expanded={expanded}
-          icon={icon}
-          style={{ color: "grey" }}
-        />
+        <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
       <CollapsePaymentOption
         teamPrice={team_price}
@@ -132,8 +108,8 @@ export default function EventPaymentOptionItem(props) {
         open={alertDialog}
         onSubmit={onDelete}
         onCancel={() => setAlertDialog(false)}
-        description={t("delete_payment_option_confirmation")}
-        title={t("delete_payment_option")}
+        description={t('delete_payment_option_confirmation')}
+        title={t('delete_payment_option')}
       />
     </div>
   );

@@ -1,19 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
-import { Autocomplete } from "../../Custom";
-import { goTo, goToAndReplace, ROUTES } from "../../../actions/goTo";
-import { useApiRoute } from "../../../hooks/queries";
+import { makeStyles } from '@material-ui/core/styles';
+import { Autocomplete } from '../../Custom';
+import { goTo, goToAndReplace, ROUTES } from '../../../actions/goTo';
+import { useApiRoute } from '../../../hooks/queries';
 
-import styles from "./SearchInput.module.css";
-import { useRouter } from "next/router";
+import styles from './SearchInput.module.css';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
     color: theme.palette.common.white,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "100%",
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '100%',
       minWidth: 240,
     },
   },
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchInput(props) {
   const classes = useStyles();
-  const { searchQuery = "/api/data/search/previous", type } = props;
+  const { searchQuery = '/api/data/search/previous', type } = props;
   const router = useRouter();
   const location = router.pathname;
   const { query: queryQuery } = router.query;

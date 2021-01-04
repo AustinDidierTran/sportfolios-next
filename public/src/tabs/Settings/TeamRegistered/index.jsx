@@ -1,32 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react';
 
-import {
-  Paper,
-  MailToButton,
-  AlertDialog,
-  IconButton,
-  LoadingSpinner,
-} from "../../../components/Custom";
-import PaymentChip from "./PaymentChip";
+import { Paper, MailToButton, AlertDialog, IconButton, LoadingSpinner } from '../../../components/Custom';
+import PaymentChip from './PaymentChip';
 
-import { withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
-import styles from "./TeamRegistered.module.css";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import { unregisterTeams } from "../../../actions/api/helpers";
-import { formatPrice } from "../../../utils/stringFormats";
-import { SEVERITY_ENUM, STATUS_ENUM } from "../../../../common/enums";
-import { ERROR_ENUM } from "../../../../common/errors";
-import { Store, ACTION_ENUM } from "../../../Store";
-import { useRouter } from "next/router";
+import styles from './TeamRegistered.module.css';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import { unregisterTeams } from '../../../actions/api/helpers';
+import { formatPrice } from '../../../utils/stringFormats';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { useRouter } from 'next/router';
 
 export default function TeamRegistered() {
   const { t } = useTranslation();
@@ -35,9 +29,7 @@ export default function TeamRegistered() {
   const { dispatch } = useContext(Store);
 
   const [teams, setTeams] = useState([]);
-  const [teamsThatCanBeUnregistered, setTeamsThatCanBeUnregistered] = useState(
-    []
-  );
+  const [teamsThatCanBeUnregistered, setTeamsThatCanBeUnregistered] = useState([]);
   const [maximumSpots, setMaximumSpots] = useState();
   const [acceptedSpots, setAcceptedSpots] = useState();
   const [openUnregister, setOpenUnregister] = useState(false);
@@ -55,7 +47,7 @@ export default function TeamRegistered() {
 
   const getTeams = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/allTeamsRegisteredInfos", null, {
+      formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
         eventId,
       })
     );
@@ -68,7 +60,7 @@ export default function TeamRegistered() {
 
   const getCanUnregisterTeamsList = async (rosterIds) => {
     const { data } = await api(
-      formatRoute("/api/entity/canUnregisterTeamsList", null, {
+      formatRoute('/api/entity/canUnregisterTeamsList', null, {
         eventId,
         rosterIds: JSON.stringify(rosterIds),
       })
@@ -86,7 +78,7 @@ export default function TeamRegistered() {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("this_team_cannot_be_deleted"),
+        message: t('this_team_cannot_be_deleted'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
@@ -103,7 +95,7 @@ export default function TeamRegistered() {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("cant_unregister_any_teams"),
+        message: t('cant_unregister_any_teams'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
@@ -122,7 +114,7 @@ export default function TeamRegistered() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("team_unregister_success"),
+        message: t('team_unregister_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -150,7 +142,7 @@ export default function TeamRegistered() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("teams_unregister_success"),
+        message: t('teams_unregister_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -168,7 +160,7 @@ export default function TeamRegistered() {
 
   const getMaximumSpots = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/event", null, {
+      formatRoute('/api/entity/event', null, {
         eventId,
       })
     );
@@ -177,7 +169,7 @@ export default function TeamRegistered() {
 
   const getAcceptedSpots = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/allTeamsAcceptedRegistered", null, {
+      formatRoute('/api/entity/allTeamsAcceptedRegistered', null, {
         eventId,
       })
     );
@@ -202,7 +194,7 @@ export default function TeamRegistered() {
 
   const StyledTableRow = withStyles((theme) => ({
     root: {
-      "&:nth-of-type(odd)": {
+      '&:nth-of-type(odd)': {
         backgroundColor: theme.palette.action.hover,
       },
     },
@@ -216,15 +208,15 @@ export default function TeamRegistered() {
             <TableRow>
               {maximumSpots ? (
                 <StyledTableCell colSpan={4}>
-                  {t("registration_status")}:&nbsp;
+                  {t('registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
-                  {t("accepted")}
+                  {t('accepted')}
                 </StyledTableCell>
               ) : (
                 <StyledTableCell colSpan={4}>
-                  {t("registration_status")}:&nbsp;
+                  {t('registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
-                  {t("accepted")}
+                  {t('accepted')}
                 </StyledTableCell>
               )}
               <StyledTableCell align="center">
@@ -233,9 +225,9 @@ export default function TeamRegistered() {
                     //color="primary"
                     variant="contained"
                     icon="MoneyOff"
-                    tooltip={t("unregister_all")}
+                    tooltip={t('unregister_all')}
                     onClick={() => handleUnregisterAllClick()}
-                    style={{ color: "#f44336" }}
+                    style={{ color: '#f44336' }}
                   />
                 ) : (
                   <></>
@@ -245,19 +237,17 @@ export default function TeamRegistered() {
           </TableHead>
           <TableHead>
             <TableRow>
-              <StyledTableCell>{t("team")}</StyledTableCell>
-              <StyledTableCell>{t("captain")}</StyledTableCell>
-              <StyledTableCell>{t("option")}</StyledTableCell>
-              <StyledTableCell align="center">{t("status")}</StyledTableCell>
-              <StyledTableCell align="center">{t("actions")}</StyledTableCell>
+              <StyledTableCell>{t('team')}</StyledTableCell>
+              <StyledTableCell>{t('captain')}</StyledTableCell>
+              <StyledTableCell>{t('option')}</StyledTableCell>
+              <StyledTableCell align="center">{t('status')}</StyledTableCell>
+              <StyledTableCell align="center">{t('actions')}</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>
-                  {t("unregister_pending")}
-                </StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -276,15 +266,11 @@ export default function TeamRegistered() {
                     {team.option ? (
                       <StyledTableCell component="th" scope="row">
                         {team.option.name}&nbsp;
-                        {`(${
-                          team.option.team_price === 0
-                            ? t("free")
-                            : formatPrice(team.option.team_price)
-                        })`}
+                        {`(${team.option.team_price === 0 ? t('free') : formatPrice(team.option.team_price)})`}
                       </StyledTableCell>
                     ) : (
                       <StyledTableCell component="th" scope="row">
-                        {t("no_option")}
+                        {t('no_option')}
                       </StyledTableCell>
                     )}
 
@@ -296,9 +282,9 @@ export default function TeamRegistered() {
                       <IconButton
                         variant="contained"
                         icon="MoneyOff"
-                        tooltip={t("unregister")}
+                        tooltip={t('unregister')}
                         onClick={() => handleUnregisterClick(team.rosterId)}
-                        style={{ color: "primary" }}
+                        style={{ color: 'primary' }}
                       />
                     </StyledTableCell>
                   </StyledTableRow>
@@ -306,9 +292,7 @@ export default function TeamRegistered() {
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={5}>
-                  {t("no_teams_registered")}
-                </StyledTableCell>
+                <StyledTableCell colSpan={5}>{t('no_teams_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>
@@ -318,7 +302,7 @@ export default function TeamRegistered() {
         open={openUnregister}
         onCancel={onCloseUnregister}
         onSubmit={onUnregisterTeam}
-        title={t("are_you_sure_you_want_to_unregister_this_team")}
+        title={t('are_you_sure_you_want_to_unregister_this_team')}
         description={teams.find((x) => x.rosterId === rosterId)?.name}
       />
       <AlertDialog
@@ -327,17 +311,17 @@ export default function TeamRegistered() {
         onSubmit={onUnregisterAll}
         title={
           teamsThatCanBeUnregistered.length < teams.length
-            ? t("cant_unregister_all_teams", {
+            ? t('cant_unregister_all_teams', {
                 howManyCanUnregister: teamsThatCanBeUnregistered.length,
                 totalOfTeams: teams.length,
               })
-            : t("are_you_sure_you_want_to_unregister_all_teams")
+            : t('are_you_sure_you_want_to_unregister_all_teams')
         }
         description={teamsThatCanBeUnregistered
           .map(function (rosterId) {
             return teams.find((x) => x.rosterId === rosterId)?.name;
           })
-          .join(", ")}
+          .join(', ')}
       />
     </Paper>
   );

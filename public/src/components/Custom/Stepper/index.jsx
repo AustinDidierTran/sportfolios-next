@@ -13,7 +13,7 @@ export default function CustomStepper(props) {
   const { t } = useTranslation();
   const { steps, next, setNext, showButtons } = props;
 
-  const isStepOptional = step => {
+  const isStepOptional = (step) => {
     return [
       /* Include optional steps */
     ].includes(step);
@@ -23,7 +23,7 @@ export default function CustomStepper(props) {
     return false;
   };
 
-  const isStepSkipped = step => {
+  const isStepSkipped = (step) => {
     return skipped.has(step);
   };
 
@@ -34,12 +34,12 @@ export default function CustomStepper(props) {
       newSkipped.delete(activeStep);
     }
 
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
 
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleSkip = () => {
@@ -47,8 +47,8 @@ export default function CustomStepper(props) {
       throw new Error("You can't skip a step that isn't optional.");
     }
 
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-    setSkipped(prevSkipped => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
       newSkipped.add(activeStep);
       return newSkipped;
@@ -100,51 +100,32 @@ export default function CustomStepper(props) {
       <div className={styles.display}>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={styles.instructions}>
-              {t('all_steps_completed')}
-            </Typography>
+            <Typography className={styles.instructions}>{t('all_steps_completed')}</Typography>
             <Button onClick={handleReset} className={styles.button}>
               {t('reset')}
             </Button>
           </div>
         ) : (
           <div>
-            <div className={styles.content}>
-              {steps[activeStep].content}
-            </div>
+            <div className={styles.content}>{steps[activeStep].content}</div>
             {showButtons ? (
               <div className={styles.buttons}>
                 <div className={styles.button}>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    variant="contained"
-                    color="primary"
-                  >
+                  <Button disabled={activeStep === 0} onClick={handleBack} variant="contained" color="primary">
                     {t('back')}
                   </Button>
                 </div>
 
                 {isStepOptional(activeStep) && (
                   <div className={styles.button}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleSkip}
-                    >
+                    <Button variant="contained" color="primary" onClick={handleSkip}>
                       {t('skip')}
                     </Button>
                   </div>
                 )}
                 <div className={styles.button}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1
-                      ? t('finish')
-                      : t('next')}
+                  <Button variant="contained" color="primary" onClick={handleNext}>
+                    {activeStep === steps.length - 1 ? t('finish') : t('next')}
                   </Button>
                 </div>
               </div>

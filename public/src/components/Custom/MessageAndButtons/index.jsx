@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Paper, Button, IgContainer } from "..";
-import { Typography } from "@material-ui/core";
-import LoadingSpinner from "../LoadingSpinner";
-import styles from "./MessageAndButtons.module.css";
-import { LOGO_ENUM } from "../../../../common/enums";
+import { Paper, Button, IgContainer } from '..';
+import { Typography } from '@material-ui/core';
+import LoadingSpinner from '../LoadingSpinner';
+import styles from './MessageAndButtons.module.css';
+import { LOGO_ENUM } from '../../../../common/enums';
 
 export default function MessageAndButtons(props) {
   const { buttons, message, withoutIgContainer } = props;
@@ -23,20 +23,20 @@ export default function MessageAndButtons(props) {
 
   if (withoutIgContainer) {
     return (
-      <Paper style={{ textAlign: "center", height: "100%" }}>
+      <Paper style={{ textAlign: 'center', height: '100%' }}>
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
         </div>
-        <Typography style={{ paddingBottom: "16px" }}>{message}</Typography>
+        <Typography style={{ paddingBottom: '16px' }}>{message}</Typography>
         <div className={styles.buttons}>
           {buttons.map((button, index) => (
             <Button
-              href={button.href || ""}
+              href={button.href || ''}
               size="small"
               variant="contained"
               endIcon={button.endIcon}
               style={{
-                marginBottom: "16px",
+                marginBottom: '16px',
               }}
               onClick={() => {
                 handleClick(button);
@@ -55,7 +55,7 @@ export default function MessageAndButtons(props) {
 
   return (
     <IgContainer>
-      <Paper style={{ textAlign: "center", height: "100%" }}>
+      <Paper style={{ textAlign: 'center', height: '100%' }}>
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
         </div>
@@ -64,12 +64,12 @@ export default function MessageAndButtons(props) {
         <div className={styles.buttons}>
           {buttons.map((button, index) => (
             <Button
-              href={button.href || ""}
+              href={button.href || ''}
               size="small"
               variant="contained"
               endIcon={button.endIcon}
               style={{
-                marginBottom: "16px",
+                marginBottom: '16px',
               }}
               onClick={() => {
                 handleClick(button);

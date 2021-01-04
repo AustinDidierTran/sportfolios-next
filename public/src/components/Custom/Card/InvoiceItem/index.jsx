@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./Item.module.css";
+import styles from './Item.module.css';
 
-import { Typography } from "@material-ui/core";
-import { Paper } from "../..";
+import { Typography } from '@material-ui/core';
+import { Paper } from '../..';
 
-import { makeStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+import { makeStyles } from '@material-ui/core/styles';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles({
   media: {
@@ -16,12 +16,7 @@ const useStyles = makeStyles({
 });
 
 export default function Item(props) {
-  const {
-    label: name,
-    amount: price,
-    photo_url: photoUrl,
-    description,
-  } = props;
+  const { label: name, amount: price, photo_url: photoUrl, description } = props;
   const classes = useStyles();
 
   return (
@@ -34,12 +29,7 @@ export default function Item(props) {
         <Typography variant="h5" className={styles.price}>
           {price / 100}
         </Typography>
-        <Typography
-          variant="h6"
-          color="textSecondary"
-          component="p"
-          className={styles.description}
-        >
+        <Typography variant="h6" color="textSecondary" component="p" className={styles.description}>
           {description}
         </Typography>
       </CardContent>

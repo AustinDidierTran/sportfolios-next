@@ -1,11 +1,11 @@
-import React from "react";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { useTranslation } from "react-i18next";
-import { FormHelperText, Typography } from "@material-ui/core";
-import { SELECT_ENUM } from "../../../../common/enums";
+import React from 'react';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { useTranslation } from 'react-i18next';
+import { FormHelperText, Typography } from '@material-ui/core';
+import { SELECT_ENUM } from '../../../../common/enums';
 
 export default function CustomSelect(props) {
   const { t } = useTranslation();
@@ -17,12 +17,12 @@ export default function CustomSelect(props) {
     namespace,
     onChange,
     options,
-    showtextifonlyoneoption = "false",
+    showtextifonlyoneoption = 'false',
     value: valueProp,
   } = props;
 
   //Value cannot be undefined so it is set to an empty string by default
-  let value = "";
+  let value = '';
   if (formik) {
     value = formik.values[namespace];
   } else if (valueProp) {
@@ -39,21 +39,19 @@ export default function CustomSelect(props) {
     }
   };
 
-  if (showtextifonlyoneoption === "true" && options.length) {
-    return (
-      <Typography align="left">{`${label}: ${options[0].display}`}</Typography>
-    );
+  if (showtextifonlyoneoption === 'true' && options.length) {
+    return <Typography align="left">{`${label}: ${options[0].display}`}</Typography>;
   }
 
   return (
-    <FormControl className={className} style={{ width: "100%" }}>
+    <FormControl className={className} style={{ width: '100%' }}>
       <InputLabel>{label}</InputLabel>
       <Select
         id={namespace}
         name={namespace}
         {...props}
         error={Boolean((formik && formik.errors[namespace]) || error)}
-        value={!options?.length && value === SELECT_ENUM.ALL ? "" : value}
+        value={!options?.length && value === SELECT_ENUM.ALL ? '' : value}
         onChange={handleChange}
       >
         <MenuItem disabled value="">
@@ -69,9 +67,7 @@ export default function CustomSelect(props) {
           <div />
         )}
       </Select>
-      <FormHelperText
-        error={Boolean((formik && formik.errors[namespace]) || error)}
-      >
+      <FormHelperText error={Boolean((formik && formik.errors[namespace]) || error)}>
         {(formik && formik.errors[namespace]) || error}
       </FormHelperText>
     </FormControl>

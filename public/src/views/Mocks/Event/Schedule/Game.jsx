@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import { Container, Typography } from "@material-ui/core";
-import styles from "./Game.module.css";
+import { Container, Typography } from '@material-ui/core';
+import styles from './Game.module.css';
 
 export default function Game(props) {
   const { game } = props;
@@ -9,16 +9,11 @@ export default function Game(props) {
   const MIN_WIDTH = 768;
 
   const time = useMemo(
-    () =>
-      game
-        ? window.innerWidth < MIN_WIDTH
-          ? game.startTime
-          : `${game.startTime} - ${game.endTime}`
-        : null,
+    () => (game ? (window.innerWidth < MIN_WIDTH ? game.startTime : `${game.startTime} - ${game.endTime}`) : null),
     [window.innerWidth]
   );
 
-  return game.type == "game" ? (
+  return game.type == 'game' ? (
     <Container className={styles.game}>
       <Typography className={styles.time} variant="h6" color="textSecondary">
         {time}

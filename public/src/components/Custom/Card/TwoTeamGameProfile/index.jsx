@@ -1,14 +1,11 @@
-import React from "react";
-import { Typography, Card, ListItemText, makeStyles } from "@material-ui/core";
-import { Avatar } from "../../../Custom";
-import {
-  formatDate,
-  getInitialsFromName,
-} from "../../../../utils/stringFormats";
-import moment from "moment";
+import React from 'react';
+import { Typography, Card, ListItemText, makeStyles } from '@material-ui/core';
+import { Avatar } from '../../../Custom';
+import { formatDate, getInitialsFromName } from '../../../../utils/stringFormats';
+import moment from 'moment';
 
-import styles from "./TwoTeamGameProfile.module.css";
-import { AvatarGroup } from "@material-ui/lab";
+import styles from './TwoTeamGameProfile.module.css';
+import { AvatarGroup } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -20,16 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TwoTeamGameProfile(props) {
   const classes = useStyles();
-  const {
-    event_id,
-    event_name,
-    field,
-    timeslot,
-    team_names,
-    team_scores,
-    playersinfos,
-    onClick,
-  } = props;
+  const { event_id, event_name, field, timeslot, team_names, team_scores, playersinfos, onClick } = props;
   const team1 = {
     name: team_names[0],
     score: team_scores[0],
@@ -49,18 +37,14 @@ export default function TwoTeamGameProfile(props) {
         </Typography>
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(timeslot), "HH:mm")}
-          secondary={formatDate(moment(timeslot), "D MMM")}
+          primary={formatDate(moment(timeslot), 'HH:mm')}
+          secondary={formatDate(moment(timeslot), 'D MMM')}
         ></ListItemText>
         <Typography className={styles.field} color="textSecondary">
           {field}
         </Typography>
 
-        <AvatarGroup
-          className={styles.players1}
-          classes={{ avatar: classes.avatar }}
-          max={4}
-        >
+        <AvatarGroup className={styles.players1} classes={{ avatar: classes.avatar }} max={4}>
           {team1.players
             ? team1.players.map((p, index) => (
                 <Avatar
@@ -75,11 +59,7 @@ export default function TwoTeamGameProfile(props) {
               ))
             : undefined}
         </AvatarGroup>
-        <AvatarGroup
-          className={styles.players2}
-          classes={{ avatar: classes.avatar }}
-          max={4}
-        >
+        <AvatarGroup className={styles.players2} classes={{ avatar: classes.avatar }} max={4}>
           {team2.players
             ? team2.players.map((p, index) => (
                 <Avatar

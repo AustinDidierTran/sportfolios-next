@@ -1,13 +1,8 @@
-import {
-  CardActions,
-  CardContent,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import React from "react";
-import { Paper, Button } from "../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import styles from "./RegisterCard.module.css";
+import { CardActions, CardContent, TextField, Typography } from '@material-ui/core';
+import React from 'react';
+import { Paper, Button } from '../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import styles from './RegisterCard.module.css';
 export default function RegisterCard(props) {
   const { t } = useTranslation();
   const { formik } = props;
@@ -19,28 +14,15 @@ export default function RegisterCard(props) {
           <Typography
             style={{
               fontSize: 16,
-              textDecoration: "none",
-              margin: "auto",
-              textAlign: "center",
+              textDecoration: 'none',
+              margin: 'auto',
+              textAlign: 'center',
             }}
           >
-            {t("create_an_account_to_accept_person_transfer")}
+            {t('create_an_account_to_accept_person_transfer')}
           </Typography>
-          <TextField
-            namespace="email"
-            formik={formik}
-            type="email"
-            label={t("email")}
-            fullWidth
-            formikDisabled
-          />
-          <TextField
-            namespace="password"
-            formik={formik}
-            label={t("password")}
-            type="password"
-            fullWidth
-          />
+          <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth formikDisabled />
+          <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
         </CardContent>
         <CardActions>
           <Button
@@ -49,10 +31,10 @@ export default function RegisterCard(props) {
             color="primary"
             variant="contained"
             type="submit"
-            style={{ color: "#fff" }}
+            style={{ color: '#fff' }}
             fullWidth
           >
-            {t("signup")}
+            {t('signup')}
           </Button>
         </CardActions>
       </form>

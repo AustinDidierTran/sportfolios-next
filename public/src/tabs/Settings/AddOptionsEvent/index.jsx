@@ -1,22 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  Paper,
-  Button,
-  List,
-  FormDialog,
-  LoadingSpinner,
-} from "../../../components/Custom";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import styles from "./AddOptionsEvent.module.css";
-import {
-  SEVERITY_ENUM,
-  STATUS_ENUM,
-  FORM_DIALOG_TYPE_ENUM,
-  LIST_ITEM_ENUM,
-} from "../../../../common/enums";
-import { Store, ACTION_ENUM } from "../../../Store";
+import React, { useEffect, useState, useContext } from 'react';
+import { Paper, Button, List, FormDialog, LoadingSpinner } from '../../../components/Custom';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import styles from './AddOptionsEvent.module.css';
+import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
+import { Store, ACTION_ENUM } from '../../../Store';
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
@@ -33,9 +22,7 @@ export default function AddOptionsEvent() {
   }, [eventId]);
 
   const getOptions = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/options", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
     const dataOptions = data.map((o) => ({
       option: o,
       type: LIST_ITEM_ENUM.EVENT_PAYMENT_OPTION,
@@ -70,7 +57,7 @@ export default function AddOptionsEvent() {
 
     setIsLoading(true);
     const res = await api(`/api/entity/option`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         eventId,
         name,
@@ -86,7 +73,7 @@ export default function AddOptionsEvent() {
     if (res.status === STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("an_error_has_occured"),
+        message: t('an_error_has_occured'),
         severity: SEVERITY_ENUM.ERROR,
       });
       setIsLoading(false);
@@ -98,20 +85,16 @@ export default function AddOptionsEvent() {
 
   if (isLoading) {
     return (
-      <Paper title={t("payment_options")}>
+      <Paper title={t('payment_options')}>
         <LoadingSpinner isComponent />
       </Paper>
     );
   }
 
   return (
-    <Paper title={t("payment_options")}>
-      <Button
-        className={styles.addButton}
-        color="primary"
-        onClick={() => setOpen(true)}
-      >
-        {t("add_payment_option")}
+    <Paper title={t('payment_options')}>
+      <Button className={styles.addButton} color="primary" onClick={() => setOpen(true)}>
+        {t('add_payment_option')}
       </Button>
       <List items={options} />
       <FormDialog

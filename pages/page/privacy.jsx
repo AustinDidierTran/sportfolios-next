@@ -1,5 +1,5 @@
-import React from "react";
-import PrivacyPolicy from "../../public/src/views/PrivacyPolicy";
+import React from 'react';
+import PrivacyPolicy from '../../public/src/views/PrivacyPolicy';
 
 const PrivacyRoute = (props) => {
   return <PrivacyPolicy />;

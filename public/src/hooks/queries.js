@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { ERROR_ENUM } from "../../common/errors";
-import api from "../actions/api";
+import { useEffect, useState } from 'react';
+import { ERROR_ENUM } from '../../common/errors';
+import api from '../actions/api';
 
 const paramsToObject = (entries) => {
   let result = {};

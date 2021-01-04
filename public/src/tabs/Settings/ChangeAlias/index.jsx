@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Button, Paper, TextField } from "../../../components/Custom";
-import { Typography } from "@material-ui/core";
+import { Button, Paper, TextField } from '../../../components/Custom';
+import { Typography } from '@material-ui/core';
 
-import { useTranslation } from "react-i18next";
-import { formatRoute, goToAlias, ROUTES } from "../../../actions/goTo";
-import api from "../../../actions/api";
-import styles from "./ChangeAlias.module.css";
-import { useFormik } from "formik";
-import {
-  STATUS_ENUM,
-  SEVERITY_ENUM,
-  TABS_ENUM,
-} from "../../../../common/enums";
-import { useContext } from "react";
-import { Store, ACTION_ENUM } from "../../../Store";
-import { ERROR_ENUM } from "../../../../common/errors";
-import validator from "validator";
-import { useRouter } from "next/router";
+import { useTranslation } from 'react-i18next';
+import { formatRoute, goToAlias, ROUTES } from '../../../actions/goTo';
+import api from '../../../actions/api';
+import styles from './ChangeAlias.module.css';
+import { useFormik } from 'formik';
+import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { useContext } from 'react';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { ERROR_ENUM } from '../../../../common/errors';
+import validator from 'validator';
+import { useRouter } from 'next/router';
 
 export default function ChangeAlias() {
   const { t } = useTranslation();
@@ -35,12 +31,12 @@ export default function ChangeAlias() {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue("alias", theAlias);
+    formik.setFieldValue('alias', theAlias);
   }, [theAlias]);
 
   const getAlias = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/alias", null, {
+      formatRoute('/api/entity/alias', null, {
         entityId,
       })
     );
@@ -53,11 +49,11 @@ export default function ChangeAlias() {
     if (!alias) {
       errors.alias = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     } else if (!/^[\w.-]+$/.test(alias)) {
-      errors.alias = t("invalid_alias");
+      errors.alias = t('invalid_alias');
     } else if (
       validator.isUUID(alias) ||
       Object.values(ROUTES)
-        .map((r) => r.split("/")[1].toLowerCase())
+        .map((r) => r.split('/')[1].toLowerCase())
         .includes(alias.toLowerCase())
     ) {
       errors.alias = t(ERROR_ENUM.VALUE_IS_INVALID);
@@ -67,7 +63,7 @@ export default function ChangeAlias() {
 
   const formik = useFormik({
     initialValues: {
-      alias: "",
+      alias: '',
     },
     validate,
     validateOnChange: false,
@@ -76,16 +72,16 @@ export default function ChangeAlias() {
       const { alias } = values;
       let res = {};
       if (!theAlias) {
-        res = await api("/api/entity/alias", {
-          method: "POST",
+        res = await api('/api/entity/alias', {
+          method: 'POST',
           body: JSON.stringify({
             entityId,
             alias,
           }),
         });
       } else {
-        res = await api("/api/entity/alias", {
-          method: "PUT",
+        res = await api('/api/entity/alias', {
+          method: 'PUT',
           body: JSON.stringify({
             entityId,
             alias,
@@ -95,7 +91,7 @@ export default function ChangeAlias() {
       if (res.status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("alias_is_already_used"),
+          message: t('alias_is_already_used'),
           severity: SEVERITY_ENUM.ERROR,
         });
       } else {
@@ -115,11 +111,11 @@ export default function ChangeAlias() {
 
   if (edit) {
     return (
-      <Paper title={t("alias")}>
+      <Paper title={t('alias')}>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             namespace="alias"
-            label={t("alias")}
+            label={t('alias')}
             formik={formik}
             type="text"
             fullWidth
@@ -127,23 +123,11 @@ export default function ChangeAlias() {
             autoFocus
           />
           <div className={styles.buttons}>
-            <Button
-              size="small"
-              color="primary"
-              className={styles.save}
-              type="submit"
-              endIcon="Check"
-            >
-              {t("save")}
+            <Button size="small" color="primary" className={styles.save} type="submit" endIcon="Check">
+              {t('save')}
             </Button>
-            <Button
-              size="small"
-              color="secondary"
-              className={styles.cancel}
-              endIcon="Close"
-              onClick={onCancel}
-            >
-              {t("cancel")}
+            <Button size="small" color="secondary" className={styles.cancel} endIcon="Close" onClick={onCancel}>
+              {t('cancel')}
             </Button>
           </div>
         </form>
@@ -152,33 +136,27 @@ export default function ChangeAlias() {
   }
   if (theAlias) {
     return (
-      <Paper title={t("alias")}>
+      <Paper title={t('alias')}>
         <Typography>{theAlias}</Typography>
-        <Button
-          size="small"
-          variant="contained"
-          endIcon="Edit"
-          style={{ margin: "8px" }}
-          onClick={onEdit}
-        >
-          {t("edit")}
+        <Button size="small" variant="contained" endIcon="Edit" style={{ margin: '8px' }} onClick={onEdit}>
+          {t('edit')}
         </Button>
       </Paper>
     );
   }
 
   return (
-    <Paper title={t("alias")}>
-      <Typography>{t("no_alias")}</Typography>
+    <Paper title={t('alias')}>
+      <Typography>{t('no_alias')}</Typography>
       <Button
         size="small"
         variant="contained"
         endIcon="Edit"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={onEdit}
         className={styles.button}
       >
-        {t("edit")}
+        {t('edit')}
       </Button>
     </Paper>
   );

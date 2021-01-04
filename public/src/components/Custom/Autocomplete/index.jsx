@@ -1,27 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import isEqual from "lodash/isEqual";
+import isEqual from 'lodash/isEqual';
 
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { InputAdornment } from "@material-ui/core";
-import { Icon, TextField } from "../../Custom";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { InputAdornment } from '@material-ui/core';
+import { Icon, TextField } from '../../Custom';
 
-import { useApiRoute } from "../../../hooks/queries";
-import { useTranslation } from "react-i18next";
+import { useApiRoute } from '../../../hooks/queries';
+import { useTranslation } from 'react-i18next';
 
 export default function CustomAutocomplete(props) {
   const { t } = useTranslation();
-  const {
-    formik,
-    inputProps = {},
-    namespace,
-    onChange,
-    optionsRoute,
-    type,
-    icon,
-    iconColor,
-    ...otherProps
-  } = props;
+  const { formik, inputProps = {}, namespace, onChange, optionsRoute, type, icon, iconColor, ...otherProps } = props;
 
   const { response: options } = useApiRoute(optionsRoute, {
     defaultValue: [],
@@ -32,7 +22,7 @@ export default function CustomAutocomplete(props) {
 
     if (!formik && !onChange) {
       /* eslint-disable-next-line */
-      console.error("Handle Change on Custom Autocomplete does nothing");
+      console.error('Handle Change on Custom Autocomplete does nothing');
     }
 
     if (formik) {
@@ -62,11 +52,11 @@ export default function CustomAutocomplete(props) {
             type={type}
             label={t(namespace)}
             fullWidth
-            placeholder={t("search_sportfolios")}
+            placeholder={t('search_sportfolios')}
             inputProps={{
               ...params.inputProps,
               classes: inputProps.classes,
-              autoComplete: "new-password",
+              autoComplete: 'new-password',
             }}
             InputProps={{
               ...params.InputProps,

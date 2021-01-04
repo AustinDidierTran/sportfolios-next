@@ -178,11 +178,5 @@ export default function CustomIcon(props) {
 
   const Icon = icons[icon];
 
-  return (
-    <Icon
-      style={{ fill: color }}
-      fontSize={fontSize}
-      onClick={onClick}
-    />
-  );
+  return <Icon style={{ fill: color }} fontSize={fontSize} onClick={onClick} />;
 }

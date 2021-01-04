@@ -1,27 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import Input from "../../Input";
-import { TableCell } from "@material-ui/core";
+import Input from '../../Input';
+import { TableCell } from '@material-ui/core';
 
 export default function CellRenderer(props) {
   const {
     error,
-    header: { display, value, type = "text" },
+    header: { display, value, type = 'text' },
     index,
     ...values
   } = props;
 
   switch (type) {
-    case "number":
+    case 'number':
       return (
         <TableCell key={index}>
-          <Input
-            label={display}
-            namespace={value}
-            error={error}
-            type="number"
-            {...values.inputProps}
-          />
+          <Input label={display} namespace={value} error={error} type="number" {...values.inputProps} />
         </TableCell>
       );
     default:
@@ -29,13 +23,7 @@ export default function CellRenderer(props) {
 
   return (
     <TableCell key={index}>
-      <Input
-        label={display}
-        namespace={value}
-        error={error}
-        type={type}
-        {...values.inputProps}
-      />
+      <Input label={display} namespace={value} error={error} type={type} {...values.inputProps} />
     </TableCell>
   );
 }

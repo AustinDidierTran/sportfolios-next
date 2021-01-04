@@ -1,24 +1,20 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from 'react';
 
-import styles from "./ShopDetails.module.css";
-import { useTranslation } from "react-i18next";
+import styles from './ShopDetails.module.css';
+import { useTranslation } from 'react-i18next';
 
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import api from "../../actions/api";
-import { formatRoute, goTo, ROUTES, goToAndReplace } from "../../actions/goTo";
-import { Button, Paper, IgContainer, Select } from "../../components/Custom";
-import { useEffect } from "react";
-import { formatPrice } from "../../utils/stringFormats";
-import { useFormik } from "formik";
-import {
-  CircularProgress,
-  TextareaAutosize,
-  Typography,
-} from "@material-ui/core";
-import { Store, ACTION_ENUM } from "../../Store";
-import { SEVERITY_ENUM } from "../../../../common/enums";
-import { useRouter } from "next/router";
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import api from '../../actions/api';
+import { formatRoute, goTo, ROUTES, goToAndReplace } from '../../actions/goTo';
+import { Button, Paper, IgContainer, Select } from '../../components/Custom';
+import { useEffect } from 'react';
+import { formatPrice } from '../../utils/stringFormats';
+import { useFormik } from 'formik';
+import { CircularProgress, TextareaAutosize, Typography } from '@material-ui/core';
+import { Store, ACTION_ENUM } from '../../Store';
+import { SEVERITY_ENUM } from '../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function ShopDetails() {
   const {
@@ -34,9 +30,7 @@ export default function ShopDetails() {
 
   const text = useMemo(() => decodeURIComponent(description), [description]);
   const fetchItem = async () => {
-    const { data } = await api(
-      formatRoute("/api/shop/getItem", null, { id: stripePriceId })
-    );
+    const { data } = await api(formatRoute('/api/shop/getItem', null, { id: stripePriceId }));
     setItem(data);
 
     setIsLoading(false);
@@ -47,7 +41,7 @@ export default function ShopDetails() {
     const { quantity } = values;
 
     if (quantity < 1) {
-      errors.quantity = t("quantity_cant_be_null");
+      errors.quantity = t('quantity_cant_be_null');
     }
   };
 
@@ -64,7 +58,7 @@ export default function ShopDetails() {
       if (!isAuthenticated) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("you_need_to_create_an_account"),
+          message: t('you_need_to_create_an_account'),
           severity: SEVERITY_ENUM.INFO,
         });
         goToAndReplace(ROUTES.login, null, {
@@ -84,8 +78,8 @@ export default function ShopDetails() {
       }
 
       /* eslint-disable-next-line */
-      const res = await api("/api/shop/addCartItem", {
-        method: "POST",
+      const res = await api('/api/shop/addCartItem', {
+        method: 'POST',
         body: JSON.stringify({
           stripePriceId,
           metadata,
@@ -104,7 +98,7 @@ export default function ShopDetails() {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           severity: SEVERITY_ENUM.ERROR,
-          message: t("something_went_wrong"),
+          message: t('something_went_wrong'),
         });
       }
     },
@@ -113,7 +107,7 @@ export default function ShopDetails() {
   const sizeOptions = useMemo(() => {
     if (metadata && metadata.sizes) {
       const sizes = JSON.parse(metadata.sizes);
-      formik.setFieldValue("size", sizes[0]);
+      formik.setFieldValue('size', sizes[0]);
       return sizes.map((size) => ({
         value: size,
         display: t(`sizes_enum_${size.toLowerCase()}`),
@@ -155,40 +149,19 @@ export default function ShopDetails() {
             <Typography variant="h6" className={styles.price}>
               {formatPrice(price)}
             </Typography>
-            <TextareaAutosize
-              className={styles.description}
-              placeholder="Description"
-              value={text}
-              disabled
-            />
+            <TextareaAutosize className={styles.description} placeholder="Description" value={text} disabled />
             {sizeOptions.length > 0 ? (
               <div className={styles.sizes}>
-                <Select
-                  label={t("size")}
-                  formik={formik}
-                  namespace="size"
-                  options={sizeOptions}
-                />
+                <Select label={t('size')} formik={formik} namespace="size" options={sizeOptions} />
               </div>
             ) : (
               <></>
             )}
             <div className={styles.quantity}>
-              <Select
-                label={t("quantity")}
-                formik={formik}
-                namespace="quantity"
-                options={quantityOptions}
-              />
+              <Select label={t('quantity')} formik={formik} namespace="quantity" options={quantityOptions} />
             </div>
-            <Button
-              type="submit"
-              size="small"
-              color="primary"
-              endIcon="AddShoppingCart"
-              className={styles.cart}
-            >
-              {t("add_to_cart")}
+            <Button type="submit" size="small" color="primary" endIcon="AddShoppingCart" className={styles.cart}>
+              {t('add_to_cart')}
             </Button>
           </CardContent>
         </Paper>

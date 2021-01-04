@@ -1,24 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
-import styles from "./EditPersonInfos.module.css";
-import {
-  Paper,
-  Button,
-  Avatar,
-  AddressSearchInput,
-  LoadingSpinner,
-  TextField,
-} from "../../components/Custom";
-import { MenuItem, Typography } from "@material-ui/core";
-import api from "../../actions/api";
-import { useTranslation } from "react-i18next";
-import { getInitialsFromName } from "../../utils/stringFormats";
-import { uploadEntityPicture } from "../../actions/aws";
-import { useFormik } from "formik";
-import { formatRoute } from "../.../../../actions/goTo";
-import { ACTION_ENUM, Store } from "../../Store";
-import { GENDER_ENUM, STATUS_ENUM, SEVERITY_ENUM } from "../../../common/enums";
-import { ERROR_ENUM } from "../../../common/errors";
-const moment = require("moment");
+import React, { useState, useEffect, useContext } from 'react';
+import styles from './EditPersonInfos.module.css';
+import { Paper, Button, Avatar, AddressSearchInput, LoadingSpinner, TextField } from '../../components/Custom';
+import { MenuItem, Typography } from '@material-ui/core';
+import api from '../../actions/api';
+import { useTranslation } from 'react-i18next';
+import { getInitialsFromName } from '../../utils/stringFormats';
+import { uploadEntityPicture } from '../../actions/aws';
+import { useFormik } from 'formik';
+import { formatRoute } from '../.../../../actions/goTo';
+import { ACTION_ENUM, Store } from '../../Store';
+import { GENDER_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
+import { ERROR_ENUM } from '../../../common/errors';
+const moment = require('moment');
 
 export default function EditPersonInfos(props) {
   const { basicInfos } = props;
@@ -28,12 +21,7 @@ export default function EditPersonInfos(props) {
     dispatch,
   } = useContext(Store);
 
-  const {
-    id: personId,
-    name: nameProp,
-    surname: surnameProp,
-    photoUrl: initialPhotoUrl,
-  } = basicInfos;
+  const { id: personId, name: nameProp, surname: surnameProp, photoUrl: initialPhotoUrl } = basicInfos;
 
   const [isLoading, setIsLoading] = useState(false);
   const [img, setImg] = useState(null);
@@ -41,13 +29,11 @@ export default function EditPersonInfos(props) {
   const [personInfos, setPersonInfos] = useState({});
   const [changesMade, setChangesMade] = useState(false);
 
-  const initials = getInitialsFromName(
-    surnameProp ? `${nameProp} ${surnameProp}` : nameProp
-  );
+  const initials = getInitialsFromName(surnameProp ? `${nameProp} ${surnameProp}` : nameProp);
 
   const getPersonInfos = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/personInfos", null, {
+      formatRoute('/api/entity/personInfos', null, {
         entityId: personId,
       })
     );
@@ -60,15 +46,12 @@ export default function EditPersonInfos(props) {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue("name", personInfos.name || "");
-    formik.setFieldValue("surname", personInfos.surname || "");
-    formik.setFieldValue("birthDate", personInfos.birthDate || "");
-    formik.setFieldValue("gender", personInfos.gender || "");
-    formik.setFieldValue("address", personInfos.address || "");
-    formik.setFieldValue(
-      "addressFormatted",
-      personInfos.formattedAddress || ""
-    );
+    formik.setFieldValue('name', personInfos.name || '');
+    formik.setFieldValue('surname', personInfos.surname || '');
+    formik.setFieldValue('birthDate', personInfos.birthDate || '');
+    formik.setFieldValue('gender', personInfos.gender || '');
+    formik.setFieldValue('address', personInfos.address || '');
+    formik.setFieldValue('addressFormatted', personInfos.formattedAddress || '');
     setPhotoUrl(personInfos.photoUrl);
   }, [personInfos]);
 
@@ -92,12 +75,12 @@ export default function EditPersonInfos(props) {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      surname: "",
-      birthDate: "",
-      gender: "",
-      formattedAddress: "",
-      address: "",
+      name: '',
+      surname: '',
+      birthDate: '',
+      gender: '',
+      formattedAddress: '',
+      address: '',
     },
     validate,
     validateOnChange: false,
@@ -114,7 +97,7 @@ export default function EditPersonInfos(props) {
       }
 
       const res = await api(`/api/entity/updatePersonInfos`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify({
           entityId: personId,
           personInfos: { name, surname, birthDate, gender, address },
@@ -123,7 +106,7 @@ export default function EditPersonInfos(props) {
       if (res.status === STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t("informations_saved"),
+          message: t('informations_saved'),
           severity: SEVERITY_ENUM.SUCCESS,
         });
       } else {
@@ -153,7 +136,7 @@ export default function EditPersonInfos(props) {
   };
 
   const addressChanged = (newAddress) => {
-    formik.setFieldValue("address", newAddress);
+    formik.setFieldValue('address', newAddress);
     setChangesMade(true);
   };
 
@@ -172,15 +155,11 @@ export default function EditPersonInfos(props) {
         <Button
           variant="outlined"
           endIcon="CloudUploadIcon"
-          style={{ marginTop: "8px", marginBottom: "16px" }}
+          style={{ marginTop: '8px', marginBottom: '16px' }}
           component="label"
         >
-          {t("change_picture")}
-          <input
-            onChange={(e) => onImgChange(e.target.files[0])}
-            type="file"
-            hidden
-          />
+          {t('change_picture')}
+          <input onChange={(e) => onImgChange(e.target.files[0])} type="file" hidden />
         </Button>
 
         <div className={styles.div2equal}>
@@ -189,7 +168,7 @@ export default function EditPersonInfos(props) {
             className={styles.zone1}
             formik={formik}
             type="name"
-            helperText={t("first_name")}
+            helperText={t('first_name')}
             onChange={valueChanged}
           />
           <TextField
@@ -197,7 +176,7 @@ export default function EditPersonInfos(props) {
             className={styles.zone2}
             formik={formik}
             type="surname"
-            helperText={t("last_name")}
+            helperText={t('last_name')}
             onChange={valueChanged}
           />
         </div>
@@ -209,10 +188,10 @@ export default function EditPersonInfos(props) {
             type="date"
             InputProps={{
               inputProps: {
-                max: moment(new Date()).format("YYYY-MM-DD"),
+                max: moment(new Date()).format('YYYY-MM-DD'),
               },
             }}
-            helperText={t("birth_date")}
+            helperText={t('birth_date')}
             onChange={valueChanged}
           />
           <TextField
@@ -221,14 +200,12 @@ export default function EditPersonInfos(props) {
             formik={formik}
             select
             type="gender"
-            helperText={t("gender")}
+            helperText={t('gender')}
             onChange={valueChanged}
           >
-            <MenuItem value={GENDER_ENUM.FEMALE}>{t("female")}</MenuItem>
-            <MenuItem value={GENDER_ENUM.MALE}>{t("male")}</MenuItem>
-            <MenuItem value={GENDER_ENUM.NOT_SPECIFIED}>
-              {t("do_not_specify")}
-            </MenuItem>
+            <MenuItem value={GENDER_ENUM.FEMALE}>{t('female')}</MenuItem>
+            <MenuItem value={GENDER_ENUM.MALE}>{t('male')}</MenuItem>
+            <MenuItem value={GENDER_ENUM.NOT_SPECIFIED}>{t('do_not_specify')}</MenuItem>
           </TextField>
         </div>
 
@@ -244,7 +221,7 @@ export default function EditPersonInfos(props) {
         {personInfos.formattedAddress ? (
           <div className={styles.address}>
             <Typography variant="caption" color="textSecondary">
-              {t("address")}
+              {t('address')}
             </Typography>
           </div>
         ) : (
@@ -253,21 +230,12 @@ export default function EditPersonInfos(props) {
 
         {changesMade ? (
           <div className={styles.buttons}>
-            <Button
-              endIcon="SaveIcon"
-              style={{ marginRight: "8px" }}
-              type="submit"
-            >
-              {t("save")}
+            <Button endIcon="SaveIcon" style={{ marginRight: '8px' }} type="submit">
+              {t('save')}
             </Button>
 
-            <Button
-              endIcon="Cancel"
-              onClick={onCancel}
-              style={{ marginLeft: "8px" }}
-              color="secondary"
-            >
-              {t("cancel")}
+            <Button endIcon="Cancel" onClick={onCancel} style={{ marginLeft: '8px' }} color="secondary">
+              {t('cancel')}
             </Button>
           </div>
         ) : (

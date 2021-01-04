@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Button, Paper } from "../../../components/Custom";
-import { LIST_ITEM_ENUM } from "../../../../common/enums";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import { List } from "../../../components/Custom";
-import { formatRoute, goTo, ROUTES } from "../../../actions/goTo";
-import { ListItemText } from "@material-ui/core";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import { Button, Paper } from '../../../components/Custom';
+import { LIST_ITEM_ENUM } from '../../../../common/enums';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { List } from '../../../components/Custom';
+import { formatRoute, goTo, ROUTES } from '../../../actions/goTo';
+import { ListItemText } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 export default function BankAccount() {
   const { t } = useTranslation();
@@ -22,13 +22,9 @@ export default function BankAccount() {
   }, []);
 
   const getBankAccounts = async () => {
-    const { data: hasStripeAccount } = await api(
-      formatRoute("/api/stripe/hasStripeAccount", null, { entityId })
-    );
+    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }));
     setHasAccount(hasStripeAccount);
-    const { data: bankAccounts } = await api(
-      formatRoute("/api/stripe/bankAccounts", null, { entityId })
-    );
+    const { data: bankAccounts } = await api(formatRoute('/api/stripe/bankAccounts', null, { entityId }));
     const res = bankAccounts.map((b) => ({
       type: LIST_ITEM_ENUM.BANK_ACCOUNT,
       last4: b.last4,
@@ -45,7 +41,7 @@ export default function BankAccount() {
   const handleClick = async () => {
     if (!hasAccount) {
       const { data } = await api(
-        formatRoute("/api/stripe/accountLink", null, {
+        formatRoute('/api/stripe/accountLink', null, {
           entityId,
         })
       );
@@ -57,16 +53,11 @@ export default function BankAccount() {
     }
   };
   return (
-    <Paper title={t("bank_accounts")}>
-      <Button
-        size="small"
-        variant="contained"
-        style={{ margin: "8px" }}
-        onClick={handleClick}
-      >
-        {t("add_bank_account")}
+    <Paper title={t('bank_accounts')}>
+      <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={handleClick}>
+        {t('add_bank_account')}
       </Button>
-      <ListItemText secondary={t("bank_accounts_information")} />
+      <ListItemText secondary={t('bank_accounts_information')} />
       <List items={bankAccounts} />
     </Paper>
   );

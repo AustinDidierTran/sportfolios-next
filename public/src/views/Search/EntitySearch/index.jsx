@@ -14,18 +14,15 @@ export default function EntitySearch(props) {
 
   const items = useMemo(
     () =>
-      entities.map(entity => ({
+      entities.map((entity) => ({
         ...entity,
         key: entity.id,
       })),
-    [entities],
+    [entities]
   );
 
   return (
-    <Paper
-      className={styles.card}
-      title={t('search_results', { query })}
-    >
+    <Paper className={styles.card} title={t('search_results', { query })}>
       <List items={items} />
     </Paper>
   );

@@ -1,20 +1,20 @@
-import React from "react";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import React from 'react';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
-import CardSection from "./CardSection";
-import { Button } from "@material-ui/core";
-import api from "../../../actions/api";
-import { useFormInput } from "../../../hooks/forms";
-import { TextField } from "../../../components/Custom";
-import styles from "./CheckoutForm.module.css";
-import { useRouter } from "next/router";
+import CardSection from './CardSection';
+import { Button } from '@material-ui/core';
+import api from '../../../actions/api';
+import { useFormInput } from '../../../hooks/forms';
+import { TextField } from '../../../components/Custom';
+import styles from './CheckoutForm.module.css';
+import { useRouter } from 'next/router';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
   const { id } = router.query;
-  const name = useFormInput("");
+  const name = useFormInput('');
   const amount = useFormInput();
 
   const handleSubmit = async (event) => {
@@ -28,8 +28,8 @@ export default function CheckoutForm() {
       return;
     }
 
-    const paymentIntent = await api("/api/stripe/paymentIntent", {
-      method: "POST",
+    const paymentIntent = await api('/api/stripe/paymentIntent', {
+      method: 'POST',
       body: JSON.stringify({ id: id, amount: amount.value }),
     });
     const secret = paymentIntent.data.client_secret;
@@ -50,10 +50,10 @@ export default function CheckoutForm() {
     } else {
       // The payment has been processed!
       /* eslint-disable-next-line */
-      console.log("payment processed");
-      if (res.paymentIntent.status === "succeeded") {
+      console.log('payment processed');
+      if (res.paymentIntent.status === 'succeeded') {
         /* eslint-disable-next-line */
-        console.log("res", res);
+        console.log('res', res);
       }
     }
   };
@@ -68,11 +68,7 @@ export default function CheckoutForm() {
           <TextField {...amount.inputProps} placeholder="Amount" />
         </div>
         <CardSection className={styles.card} />
-        <Button
-          disabled={!stripe}
-          className={styles.button}
-          onClick={handleSubmit}
-        >
+        <Button disabled={!stripe} className={styles.button} onClick={handleSubmit}>
           Confirm order
         </Button>
       </div>

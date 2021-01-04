@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { ListItem, ListItemIcon, ListItemText, Radio } from "@material-ui/core";
-import { Icon, IconButton } from "../../../Custom";
-import { useTranslation } from "react-i18next";
-import { formatDate } from "../../../../utils/stringFormats";
-import moment from "moment";
-import api from "../../../../actions/api";
-import { formatRoute } from "../../../../actions/goTo";
-import { AlertDialog } from "../../Dialog";
+import { ListItem, ListItemIcon, ListItemText, Radio } from '@material-ui/core';
+import { Icon, IconButton } from '../../../Custom';
+import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../../../utils/stringFormats';
+import moment from 'moment';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../actions/goTo';
+import { AlertDialog } from '../../Dialog';
 
 export default function CreditCardItem(props) {
   const { t } = useTranslation();
@@ -15,8 +15,8 @@ export default function CreditCardItem(props) {
   const [openDelete, setOpenDelete] = useState(false);
 
   const onChange = async () => {
-    await api("/api/stripe/defaultCreditCard", {
-      method: "PUT",
+    await api('/api/stripe/defaultCreditCard', {
+      method: 'PUT',
       body: JSON.stringify({
         customerId,
       }),
@@ -25,39 +25,31 @@ export default function CreditCardItem(props) {
   };
 
   const onDelete = async () => {
-    await api(formatRoute("/api/stripe/creditCard", null, { customerId }), {
-      method: "DELETE",
+    await api(formatRoute('/api/stripe/creditCard', null, { customerId }), {
+      method: 'DELETE',
     });
     update();
   };
 
   return (
     <>
-      <ListItem style={{ width: "100%" }}>
+      <ListItem style={{ width: '100%' }}>
         <ListItemIcon>
           <Icon icon="CreditCard" />
         </ListItemIcon>
         <ListItemText
           primary={`**** **** **** ${last4}`}
-          secondary={`${t("created_on")} ${formatDate(moment(createdAt))}`}
+          secondary={`${t('created_on')} ${formatDate(moment(createdAt))}`}
         />
-        <ListItemText
-          secondary={t("default")}
-          style={{ textAlign: "end", margin: "4px" }}
-        />
-        <Radio
-          checked={isDefault}
-          label={t("default")}
-          color="primary"
-          onClick={onChange}
-        />
+        <ListItemText secondary={t('default')} style={{ textAlign: 'end', margin: '4px' }} />
+        <Radio checked={isDefault} label={t('default')} color="primary" onClick={onChange} />
         <IconButton
           icon="Delete"
           onClick={() => {
             setOpenDelete(true);
           }}
-          style={{ color: "grey" }}
-          tooltip={t("delete")}
+          style={{ color: 'grey' }}
+          tooltip={t('delete')}
         />
       </ListItem>
       <AlertDialog
@@ -66,7 +58,7 @@ export default function CreditCardItem(props) {
           setOpenDelete(false);
         }}
         onSubmit={onDelete}
-        title={t("delete_credit_card_confirmation", { last4 })}
+        title={t('delete_credit_card_confirmation', { last4 })}
       />
     </>
   );

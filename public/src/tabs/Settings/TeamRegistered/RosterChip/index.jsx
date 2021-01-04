@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -23,19 +23,9 @@ export default function RosterChips(props) {
   return (
     <div className={classes.root}>
       {state ? (
-        <Chip
-          label="Conforme"
-          variant="outlined"
-          icon={<FaceIcon />}
-          color="primary"
-        />
+        <Chip label="Conforme" variant="outlined" icon={<FaceIcon />} color="primary" />
       ) : (
-        <Chip
-          label="Non-Conforme"
-          variant="outlined"
-          icon={<FaceIcon />}
-          color="secondary"
-        />
+        <Chip label="Non-Conforme" variant="outlined" icon={<FaceIcon />} color="secondary" />
       )}
     </div>
   );

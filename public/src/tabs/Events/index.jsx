@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./Events.module.css";
-import { formatRoute } from "../../actions/goTo";
-import { CARD_TYPE_ENUM } from "../../../common/enums";
-import Card from "../../components/Custom/Card";
-import api from "../../actions/api";
-import { Typography } from "@material-ui/core";
-import { useRouter } from "next/router";
+import styles from './Events.module.css';
+import { formatRoute } from '../../actions/goTo';
+import { CARD_TYPE_ENUM } from '../../../common/enums';
+import Card from '../../components/Custom/Card';
+import api from '../../actions/api';
+import { Typography } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 export default function EditEvents() {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ export default function EditEvents() {
 
   const getEntityEvents = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/ownedEvents", null, {
+      formatRoute('/api/entity/ownedEvents', null, {
         organizationId: id,
       })
     );
@@ -43,7 +43,7 @@ export default function EditEvents() {
             ))}
           </>
         ) : (
-          <Typography>{t("this_organization_has_no_events")}</Typography>
+          <Typography>{t('this_organization_has_no_events')}</Typography>
         )}
       </div>
     </div>

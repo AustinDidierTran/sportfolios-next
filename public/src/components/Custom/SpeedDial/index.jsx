@@ -1,34 +1,34 @@
-import React, { useState, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Backdrop from "@material-ui/core/Backdrop";
-import SpeedDial from "@material-ui/lab/SpeedDial";
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import React, { useState, useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Backdrop from '@material-ui/core/Backdrop';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 
-import { GLOBAL_ENUM, VIEW_ENUM } from "../../../../common/enums";
-import { goTo, ROUTES } from "../../../actions/goTo";
+import { GLOBAL_ENUM, VIEW_ENUM } from '../../../../common/enums';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
-import { Icon } from "..";
-import { useMemo } from "react";
-import { Store, SCREENSIZE_ENUM } from "../../../Store";
-import { useRouter } from "next/router";
+import { Icon } from '..';
+import { useMemo } from 'react';
+import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   speedDial: {
-    position: "absolute",
-    bottom: "80px",
+    position: 'absolute',
+    bottom: '80px',
     right: theme.spacing(2),
     zIndex: theme.zIndex.drawer + 2,
   },
   speedDial2: {
-    position: "absolute",
-    bottom: "40px",
-    right: "40px",
+    position: 'absolute',
+    bottom: '40px',
+    right: '40px',
     zIndex: theme.zIndex.drawer + 2,
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
+    color: '#fff',
   },
 }));
 
@@ -44,14 +44,14 @@ export default function SpeedDialTooltipOpen() {
   const location = router.pathname;
 
   const actions = useMemo(() => {
-    const path = location.split("/")[1] || "";
+    const path = location.split('/')[1] || '';
     switch (path) {
       case VIEW_ENUM.CART:
         setHidden(true);
         return [
           {
-            icon: "PeopleIcon",
-            name: "CART",
+            icon: 'PeopleIcon',
+            name: 'CART',
             onClick: () => {
               goTo(ROUTES.create, null, { type: GLOBAL_ENUM.TEAM });
               setOpen(false);
@@ -62,8 +62,8 @@ export default function SpeedDialTooltipOpen() {
         setHidden(true);
         return [
           {
-            icon: "Business",
-            name: "MENU",
+            icon: 'Business',
+            name: 'MENU',
             onClick: () => {
               goTo(ROUTES.create, null, { type: GLOBAL_ENUM.EVENT });
               setOpen(false);
@@ -76,16 +76,16 @@ export default function SpeedDialTooltipOpen() {
         setHidden(true);
         return [
           {
-            icon: "Event",
-            name: "Event",
+            icon: 'Event',
+            name: 'Event',
             onClick: () => {
               goTo(ROUTES.create, null, { type: GLOBAL_ENUM.EVENT });
               setOpen(false);
             },
           },
           {
-            icon: "Business",
-            name: "Organization",
+            icon: 'Business',
+            name: 'Organization',
             onClick: () => {
               goTo(ROUTES.create, null, {
                 type: GLOBAL_ENUM.ORGANIZATION,
@@ -94,8 +94,8 @@ export default function SpeedDialTooltipOpen() {
             },
           },
           {
-            icon: "PeopleIcon",
-            name: "Team",
+            icon: 'PeopleIcon',
+            name: 'Team',
             onClick: () => {
               goTo(ROUTES.create, null, { type: GLOBAL_ENUM.TEAM });
               setOpen(false);
@@ -118,13 +118,9 @@ export default function SpeedDialTooltipOpen() {
       <SpeedDial
         ariaLabel="SpeedDial"
         className={classes.speedDial}
-        className={
-          screenSize == SCREENSIZE_ENUM.xs
-            ? classes.speedDial
-            : classes.speedDial2
-        }
+        className={screenSize == SCREENSIZE_ENUM.xs ? classes.speedDial : classes.speedDial2}
         hidden={hidden}
-        icon={<SpeedDialIcon style={{ color: "#fff" }} />}
+        icon={<SpeedDialIcon style={{ color: '#fff' }} />}
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}

@@ -1,17 +1,13 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
-import { useTranslation } from "react-i18next";
-import { List } from "../../../../components/Custom";
-import {
-  LIST_ITEM_ENUM,
-  HEADER_FLYOUT_TYPE_ENUM,
-  STATUS_ENUM,
-} from "../../../../../common/enums";
-import api from "../../../../actions/api";
-import { formatRoute } from "../../../../actions/goTo";
-import { ACTION_ENUM, Store } from "../../../../Store";
-import { Typography } from "@material-ui/core";
+import React, { useRef, useState, useEffect, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { List } from '../../../../components/Custom';
+import { LIST_ITEM_ENUM, HEADER_FLYOUT_TYPE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../actions/goTo';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { Typography } from '@material-ui/core';
 
-import styles from "../HeaderFlyout.module.css";
+import styles from '../HeaderFlyout.module.css';
 
 export default function Notifications(props) {
   const { isMobileView } = props;
@@ -35,11 +31,7 @@ export default function Notifications(props) {
 
   function scrollHandler(e) {
     let element = e.target;
-    if (
-      element.scrollHeight - Math.ceil(element.scrollTop) <=
-        element.clientHeight &&
-      hasMoreItem
-    ) {
+    if (element.scrollHeight - Math.ceil(element.scrollTop) <= element.clientHeight && hasMoreItem) {
       //user is at the end of the list so load more items
       loadMoreItems();
     }
@@ -64,7 +56,7 @@ export default function Notifications(props) {
 
   const getNotifications = async () => {
     const { status, data } = await api(
-      formatRoute("/api/notifications/all", null, {
+      formatRoute('/api/notifications/all', null, {
         currentPage: currentPage.current,
         perPage: 5,
       })
@@ -95,7 +87,7 @@ export default function Notifications(props) {
           items={[
             {
               type: LIST_ITEM_ENUM.AVATAR_TEXT_SKELETON,
-              key: "0",
+              key: '0',
               quantity: 4,
             },
           ]}
@@ -113,7 +105,7 @@ export default function Notifications(props) {
   if (hasMoreItem) {
     items.push({
       type: LIST_ITEM_ENUM.AVATAR_TEXT_SKELETON,
-      key: "skeleton",
+      key: 'skeleton',
     });
     if (isMobileView) {
       for (let i = 1; i < 5; i++) {
@@ -127,17 +119,11 @@ export default function Notifications(props) {
 
   if (!notifications || !notifications.length) {
     return (
-      <div
-        className={
-          isMobileView
-            ? styles.mobileNotificationsContainer
-            : styles.notificationsContainer
-        }
-      >
+      <div className={isMobileView ? styles.mobileNotificationsContainer : styles.notificationsContainer}>
         <Typography align="center" variant="body2">
-          <b>{t("no_notifications")}</b>
+          <b>{t('no_notifications')}</b>
           <br />
-          {t("no_notifications_message")}
+          {t('no_notifications_message')}
         </Typography>
       </div>
     );
@@ -145,11 +131,7 @@ export default function Notifications(props) {
 
   return (
     <div
-      className={
-        isMobileView
-          ? styles.mobileNotificationsContainer
-          : styles.notificationsContainer
-      }
+      className={isMobileView ? styles.mobileNotificationsContainer : styles.notificationsContainer}
       ref={div}
       onScroll={scrollHandler}
     >

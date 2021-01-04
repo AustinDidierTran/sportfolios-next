@@ -1,19 +1,15 @@
-import React, { useMemo } from "react";
-import { Card, Tooltip, Typography } from "@material-ui/core";
-import { Avatar } from "../../../components/Custom";
-import styles from "./GameCard.module.css";
-import { formatDate, getInitialsFromName } from "../../../utils/stringFormats";
-import moment from "moment";
+import React, { useMemo } from 'react';
+import { Card, Tooltip, Typography } from '@material-ui/core';
+import { Avatar } from '../../../components/Custom';
+import styles from './GameCard.module.css';
+import { formatDate, getInitialsFromName } from '../../../utils/stringFormats';
+import moment from 'moment';
 
 export default function GamCard(props) {
   const { team1, team2, timeSlots, fields, x, y } = props;
 
   const tooltip = useMemo(
-    () =>
-      `${team1} vs ${team2}, ${fields[x]?.field}, ${formatDate(
-        moment(timeSlots[y]?.date),
-        "DD MMM HH:mm"
-      )}`,
+    () => `${team1} vs ${team2}, ${fields[x]?.field}, ${formatDate(moment(timeSlots[y]?.date), 'DD MMM HH:mm')}`,
     [x, y]
   );
 
@@ -25,7 +21,7 @@ export default function GamCard(props) {
       // Firefox requires some kind of initialization
       // which we can do by adding this attribute
       // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-      onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+      onDragStart={(e) => e.dataTransfer.setData('text/plain', '')}
     >
       <Tooltip title={tooltip} enterDelay={500}>
         <div className={styles.gameDiv}>

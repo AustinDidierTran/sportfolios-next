@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import api from "../../actions/api";
-import { formatRoute } from "../../actions/goTo";
+import api from '../../actions/api';
+import { formatRoute } from '../../actions/goTo';
 
-import styles from "./Rosters.module.css";
+import styles from './Rosters.module.css';
 
-import Rosters from "./Rosters";
-import { Typography } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { LoadingSpinner } from "../../components/Custom";
-import { useRouter } from "next/router";
+import Rosters from './Rosters';
+import { Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { LoadingSpinner } from '../../components/Custom';
+import { useRouter } from 'next/router';
 
 export default function TabRosters(props) {
   const { isEventAdmin } = props;
@@ -21,7 +21,7 @@ export default function TabRosters(props) {
 
   const getRosters = async (eventId) => {
     const { data } = await api(
-      formatRoute("/api/entity/allTeamsRegisteredInfos", null, {
+      formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
         eventId,
       })
     );
@@ -48,8 +48,8 @@ export default function TabRosters(props) {
 
   if (!rosters.length) {
     return (
-      <Typography color="textSecondary" style={{ margin: "16px" }}>
-        {t("there_is_no_rosters_for_this_event")}
+      <Typography color="textSecondary" style={{ margin: '16px' }}>
+        {t('there_is_no_rosters_for_this_event')}
       </Typography>
     );
   }
@@ -57,11 +57,7 @@ export default function TabRosters(props) {
   return (
     <div className={styles.contain}>
       <div className={styles.rosters}>
-        <Rosters
-          isEventAdmin={isEventAdmin}
-          rosters={rosters}
-          update={getData}
-        />
+        <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />
       </div>
     </div>
   );

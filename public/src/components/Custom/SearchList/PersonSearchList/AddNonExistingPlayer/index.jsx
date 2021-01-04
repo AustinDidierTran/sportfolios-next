@@ -3,11 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FormDialog } from '../../../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../actions/api';
-import {
-  SEVERITY_ENUM,
-  COMPONENT_TYPE_ENUM,
-  STATUS_ENUM,
-} from '../../../../../../../common/enums';
+import { SEVERITY_ENUM, COMPONENT_TYPE_ENUM, STATUS_ENUM } from '../../../../../../../common/enums';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../../../common/errors';
 import { useContext } from 'react';
@@ -16,16 +12,7 @@ import { formatRoute } from '../../../../../actions/goTo';
 import { validateEmail } from '../../../../../utils/stringFormats';
 
 export default function AddNonExistingPlayer(props) {
-  const {
-    open: openProps,
-    handleClose,
-    name,
-    isSub,
-    onChange,
-    onClose,
-    rosterId,
-    addedByEventAdmin,
-  } = props;
+  const { open: openProps, handleClose, name, isSub, onChange, onClose, rosterId, addedByEventAdmin } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
@@ -41,13 +28,11 @@ export default function AddNonExistingPlayer(props) {
     setOpen(openProps);
   }, [openProps]);
 
-  const validateEmailisUnique = async email => {
-    const { data } = await api(
-      formatRoute('/api/entity/uniqueEmail', null, { email }),
-    );
+  const validateEmailisUnique = async (email) => {
+    const { data } = await api(formatRoute('/api/entity/uniqueEmail', null, { email }));
     return data;
   };
-  const validate = async values => {
+  const validate = async (values) => {
     const { name, surname, email } = values;
     const errors = {};
     if (!name) {

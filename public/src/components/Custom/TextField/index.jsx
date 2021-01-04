@@ -1,20 +1,9 @@
-import React from "react";
-import { TextField, Typography } from "@material-ui/core";
+import React from 'react';
+import { TextField, Typography } from '@material-ui/core';
 // See native documentation here: https://material-ui.com/components/text-fields/
 
 export default function CustomTextField(props) {
-  const {
-    disabled,
-    error,
-    formik,
-    hidden,
-    namespace,
-    onChange,
-    color,
-    variant,
-    formikDisabled,
-    ...otherProps
-  } = props;
+  const { disabled, error, formik, hidden, namespace, onChange, color, variant, formikDisabled, ...otherProps } = props;
 
   const handleChange = (event, ...args) => {
     if (formik) {

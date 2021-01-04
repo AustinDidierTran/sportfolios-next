@@ -1,24 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import styles from "./BasicInfos.module.css";
-import { uploadEntityPicture } from "../../../actions/aws";
-import { ACTION_ENUM, Store } from "../../../Store";
-import { useFormInput } from "../../../hooks/forms";
-import { useEditor } from "../../../hooks/roles";
-import { changeEntityName } from "../../../actions/api";
+import styles from './BasicInfos.module.css';
+import { uploadEntityPicture } from '../../../actions/aws';
+import { ACTION_ENUM, Store } from '../../../Store';
+import { useFormInput } from '../../../hooks/forms';
+import { useEditor } from '../../../hooks/roles';
+import { changeEntityName } from '../../../actions/api';
 
-import {
-  Avatar,
-  Input,
-  Button,
-  Paper,
-  LoadingSpinner,
-  TextField,
-} from "../../../components/Custom";
+import { Avatar, Input, Button, Paper, LoadingSpinner, TextField } from '../../../components/Custom';
 
-import { Typography, Container } from "@material-ui/core";
+import { Typography, Container } from '@material-ui/core';
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();
@@ -50,9 +43,9 @@ export default function BasicInfos(props) {
 
   const onSave = async () => {
     if (name.value.length < 1) {
-      name.setError(t("value_is_required"));
+      name.setError(t('value_is_required'));
     } else if (name.value.length > 255) {
-      name.setError(t("value_is_too_long"));
+      name.setError(t('value_is_too_long'));
     } else {
       setIsLoading(true);
       name.setError(false);
@@ -109,49 +102,34 @@ export default function BasicInfos(props) {
 
   if (isEditMode) {
     return (
-      <Paper style={{ textAlign: "center" }} title={name.value}>
-        <Container style={{ paddingBottom: "16px" }}>
+      <Paper style={{ textAlign: 'center' }} title={name.value}>
+        <Container style={{ paddingBottom: '16px' }}>
           {isLoading ? (
             <LoadingSpinner isComponent />
           ) : (
-            <Avatar
-              className={styles.avatar}
-              photoUrl={photoUrl}
-              variant="square"
-              size="lg"
-            />
+            <Avatar className={styles.avatar} photoUrl={photoUrl} variant="square" size="lg" />
           )}
-          <Input
-            className={styles.input}
-            type="file"
-            onChange={onImgChange}
-            isVisible={isEditMode}
-          />
+          <Input className={styles.input} type="file" onChange={onImgChange} isVisible={isEditMode} />
           <TextField
             {...name.inputProps}
-            placeholder={t("name")}
-            label={t("name")}
+            placeholder={t('name')}
+            label={t('name')}
             error={name.error}
             className={styles.textField}
             namespace="Name"
           />
           <div className={styles.editor}>
-            <Button
-              className={styles.save}
-              endIcon="Check"
-              onClick={onSave}
-              style={{ marginRight: "8px" }}
-            >
-              {t("save")}
+            <Button className={styles.save} endIcon="Check" onClick={onSave} style={{ marginRight: '8px' }}>
+              {t('save')}
             </Button>
             <Button
               className={styles.cancel}
               endIcon="Close"
               onClick={onCancel}
-              style={{ marginLeft: "8px" }}
+              style={{ marginLeft: '8px' }}
               color="secondary"
             >
-              {t("cancel")}
+              {t('cancel')}
             </Button>
           </div>
         </Container>
@@ -162,12 +140,7 @@ export default function BasicInfos(props) {
   return (
     <Paper title={name.value}>
       <Container className={styles.paper}>
-        <Avatar
-          className={styles.avatar}
-          photoUrl={photoUrl}
-          variant="square"
-          size="lg"
-        />
+        <Avatar className={styles.avatar} photoUrl={photoUrl} variant="square" size="lg" />
         {name ? (
           <div className={styles.fullName}>
             <Typography variant="h3" className={styles.title}>
@@ -185,9 +158,9 @@ export default function BasicInfos(props) {
               className={styles.button}
               endIcon="Edit"
               onClick={onEdit}
-              style={{ margin: "8px" }}
+              style={{ margin: '8px' }}
             >
-              {t("edit")}
+              {t('edit')}
             </Button>
           </Container>
         ) : (

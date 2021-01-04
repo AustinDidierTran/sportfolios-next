@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Select } from "../../../../../components/Custom";
-import styles from "./PhaseSelect.module.css";
-import { useTranslation } from "react-i18next";
-import api from "../../../../../actions/api";
-import { formatRoute } from "../../../../../actions/goTo";
-import { SELECT_ENUM } from "../../../../../../common/enums";
-import { useRouter } from "next/router";
+import { Select } from '../../../../../components/Custom';
+import styles from './PhaseSelect.module.css';
+import { useTranslation } from 'react-i18next';
+import api from '../../../../../actions/api';
+import { formatRoute } from '../../../../../actions/goTo';
+import { SELECT_ENUM } from '../../../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function PhaseSelect(props) {
   const { onChange, phaseId } = props;
@@ -21,15 +21,13 @@ export default function PhaseSelect(props) {
   }, []);
 
   const getPhases = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/phases", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/phases', null, { eventId }));
     const res = data.map((d) => ({
       value: d.id,
       display: d.name,
     }));
 
-    setPhases([{ value: SELECT_ENUM.ALL, display: t("all_phases") }, ...res]);
+    setPhases([{ value: SELECT_ENUM.ALL, display: t('all_phases') }, ...res]);
   };
 
   const handleChange = (phaseId) => {
@@ -46,7 +44,7 @@ export default function PhaseSelect(props) {
         namespace="phase"
         autoFocus
         margin="dense"
-        label={t("phase")}
+        label={t('phase')}
         fullWidth
         onChange={handleChange}
         value={phaseId}

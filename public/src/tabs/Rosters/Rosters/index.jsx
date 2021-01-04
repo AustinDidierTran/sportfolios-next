@@ -5,7 +5,7 @@ import RosterCard from '../RosterCard';
 export default function Rosters(props) {
   const { isEventAdmin, rosters, update } = props;
   const [expandedIndex, setExpandedIndex] = useState();
-  const onExpand = index => {
+  const onExpand = (index) => {
     if (expandedIndex === index) {
       setExpandedIndex(null);
     } else {

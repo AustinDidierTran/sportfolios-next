@@ -1,26 +1,17 @@
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  COMPONENT_TYPE_ENUM,
-  ROSTER_ROLE_ENUM,
-} from "../../../../../common/enums";
-import BasicFormDialog from "../BasicFormDialog";
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { COMPONENT_TYPE_ENUM, ROSTER_ROLE_ENUM } from '../../../../../common/enums';
+import BasicFormDialog from '../BasicFormDialog';
 
 export default function RosterPlayersOptions(props) {
   const { t } = useTranslation();
-  const {
-    open: openProps,
-    onClose,
-    onPlayerRemove,
-    onRoleUpdate,
-    player,
-  } = props;
+  const { open: openProps, onClose, onPlayerRemove, onRoleUpdate, player } = props;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(openProps);
-    formik.setFieldValue("role", player.role);
+    formik.setFieldValue('role', player.role);
   }, [openProps]);
 
   const handleClose = () => {
@@ -29,12 +20,12 @@ export default function RosterPlayersOptions(props) {
   };
 
   const onShouldRemoveChange = (value) => {
-    formik.setFieldValue("shouldRemove", value);
+    formik.setFieldValue('shouldRemove', value);
   };
 
   const formik = useFormik({
     initialValues: {
-      role: "",
+      role: '',
       shouldRemove: false,
     },
     onSubmit: async (values) => {
@@ -53,57 +44,54 @@ export default function RosterPlayersOptions(props) {
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: "role",
-      label:
-        formik.values.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN
-          ? t("assistant_captain")
-          : t("role"),
+      namespace: 'role',
+      label: formik.values.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? t('assistant_captain') : t('role'),
       options: [
         {
-          display: t("coach"),
+          display: t('coach'),
           value: ROSTER_ROLE_ENUM.COACH,
         },
         {
-          display: t("captain"),
+          display: t('captain'),
           value: ROSTER_ROLE_ENUM.CAPTAIN,
         },
         {
-          display: t("assistant_captain"),
+          display: t('assistant_captain'),
           value: ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN,
         },
         {
-          display: t("player"),
+          display: t('player'),
           value: ROSTER_ROLE_ENUM.PLAYER,
         },
       ],
     },
     {
       componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
-      namespace: "remove",
-      label: t("remove_from_roster"),
+      namespace: 'remove',
+      label: t('remove_from_roster'),
       checked: formik.values.shouldRemove,
       onChange: onShouldRemoveChange,
-      color: "primary",
+      color: 'primary',
     },
   ];
 
   const buttons = [
     {
       onClick: handleClose,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("edit"),
-      color: "primary",
+      type: 'submit',
+      name: t('edit'),
+      color: 'primary',
     },
   ];
 
   return (
     <BasicFormDialog
       open={open}
-      title={t("edit_player")}
+      title={t('edit_player')}
       buttons={buttons}
       fields={fields}
       formik={formik}

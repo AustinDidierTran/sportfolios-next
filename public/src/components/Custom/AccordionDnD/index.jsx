@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Divider from "@material-ui/core/Divider";
-import { makeStyles } from "@material-ui/core/styles";
-import { Icon, Button } from "../";
-import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
-import styles from "./AccordionDnD.module.css";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
+import { Icon, Button } from '../';
+import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
+import styles from './AccordionDnD.module.css';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    "&:hover, &.Mui-focusVisible": { backgroundColor: "lightGrey" },
-    justifySelf: "end",
+    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    justifySelf: 'end',
   },
 }));
 
@@ -26,14 +26,14 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  background: isDragging ? "#F0F0F0" : "white",
+  userSelect: 'none',
+  background: isDragging ? '#F0F0F0' : 'white',
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "whitesmoke" : "white",
-  width: "100%",
+  background: isDraggingOver ? 'whitesmoke' : 'white',
+  width: '100%',
 });
 
 export default function CustomAccordionDnD(props) {
@@ -56,19 +56,13 @@ export default function CustomAccordionDnD(props) {
     if (!result.destination) {
       return;
     }
-    const newItems = reorder(
-      items,
-      result.source.index,
-      result.destination.index
-    );
+    const newItems = reorder(items, result.source.index, result.destination.index);
     setItems(newItems);
   };
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
-      <AccordionSummary
-        expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}
-      >
+      <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
         <ListItemText primary={title} />
       </AccordionSummary>
       <AccordionDetails>
@@ -91,49 +85,29 @@ export default function CustomAccordionDnD(props) {
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
+                <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
                   {items.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
                       {(provided, snapshot) => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
+                          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                         >
                           {withIndex ? (
                             <ListItem>
                               <ListItemIcon>
                                 <Icon icon="Reorder" color="textSecondary" />
                               </ListItemIcon>
-                              <div
-                                className={styles.main}
-                                style={{ width: "100%" }}
-                              >
-                                <ListItemText
-                                  className={styles.position}
-                                  secondary={index + 1}
-                                />
-                                <ListItemText
-                                  className={styles.name}
-                                  primary={item.content}
-                                />
+                              <div className={styles.main} style={{ width: '100%' }}>
+                                <ListItemText className={styles.position} secondary={index + 1} />
+                                <ListItemText className={styles.name} primary={item.content} />
                               </div>
                             </ListItem>
                           ) : (
                             <ListItem>
-                              <div style={{ width: "100%" }}>
+                              <div style={{ width: '100%' }}>
                                 <ListItemText primary={item.content} />
                               </div>
                             </ListItem>

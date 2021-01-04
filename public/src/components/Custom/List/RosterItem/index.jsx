@@ -1,13 +1,13 @@
-import React, { useMemo, useContext } from "react";
-import { Select, IconButton } from "../../../Custom";
-import { ListItem, ListItemIcon, Typography } from "@material-ui/core";
-import { Avatar } from "../..";
-import { getInitialsFromName } from "../../../../utils/stringFormats/index";
-import { useTranslation } from "react-i18next";
-import { ROSTER_ROLE_ENUM, SEVERITY_ENUM } from "../../../../../common/enums";
-import { ACTION_ENUM, Store } from "../../../../Store";
+import React, { useMemo, useContext } from 'react';
+import { Select, IconButton } from '../../../Custom';
+import { ListItem, ListItemIcon, Typography } from '@material-ui/core';
+import { Avatar } from '../..';
+import { getInitialsFromName } from '../../../../utils/stringFormats/index';
+import { useTranslation } from 'react-i18next';
+import { ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
+import { ACTION_ENUM, Store } from '../../../../Store';
 
-import styles from "./RosterItem.module.css";
+import styles from './RosterItem.module.css';
 
 export default function RosterItem(props) {
   const { t } = useTranslation();
@@ -20,13 +20,11 @@ export default function RosterItem(props) {
   const handleRoleChange = (newRole) => {
     if (
       newRole === ROSTER_ROLE_ENUM.PLAYER &&
-      !roster.some(
-        (p) => p.role !== ROSTER_ROLE_ENUM.PLAYER && p.personId !== personId
-      )
+      !roster.some((p) => p.role !== ROSTER_ROLE_ENUM.PLAYER && p.personId !== personId)
     ) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("team_player_role_error"),
+        message: t('team_player_role_error'),
         severity: SEVERITY_ENUM.ERROR,
       });
     } else {
@@ -42,19 +40,19 @@ export default function RosterItem(props) {
         onChange={(newRole) => handleRoleChange(newRole)}
         options={[
           {
-            display: t("coach"),
+            display: t('coach'),
             value: ROSTER_ROLE_ENUM.COACH,
           },
           {
-            display: t("captain"),
+            display: t('captain'),
             value: ROSTER_ROLE_ENUM.CAPTAIN,
           },
           {
-            display: t("assistant_captain"),
+            display: t('assistant_captain'),
             value: ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN,
           },
           {
-            display: t("player"),
+            display: t('player'),
             value: ROSTER_ROLE_ENUM.PLAYER,
           },
         ]}
@@ -68,16 +66,10 @@ export default function RosterItem(props) {
         <Avatar photoUrl={photoUrl} initials={initials}></Avatar>
       </ListItemIcon>
       <div className={styles.text}>
-        <Typography>{`${name}${surname ? ` ${surname}` : ""}`}</Typography>
+        <Typography>{`${name}${surname ? ` ${surname}` : ''}`}</Typography>
         {RoleSelect}
       </div>
-      <IconButton
-        icon="Delete"
-        style={{ color: "grey" }}
-        tooltip={t("remove")}
-        edge="end"
-        onClick={onDelete}
-      />
+      <IconButton icon="Delete" style={{ color: 'grey' }} tooltip={t('remove')} edge="end" onClick={onDelete} />
     </ListItem>
   );
 }

@@ -8,17 +8,9 @@ const AdminRoute = ({ component: Component, ...rest }) => {
     state: { userInfo },
   } = useContext(Store);
 
-  const isAdmin =
-    userInfo && userInfo.app_role === APP_ROLES.APP_ADMIN;
+  const isAdmin = userInfo && userInfo.app_role === APP_ROLES.APP_ADMIN;
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAdmin ? <Component {...props} /> : <Redirect to="/" />
-      }
-    />
-  );
+  return <Route {...rest} render={(props) => (isAdmin ? <Component {...props} /> : <Redirect to="/" />)} />;
 };
 
 export default AdminRoute;

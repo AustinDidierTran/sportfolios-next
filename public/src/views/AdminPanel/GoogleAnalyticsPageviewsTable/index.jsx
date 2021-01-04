@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import { Table } from "../../../components/Custom";
+import { Table } from '../../../components/Custom';
 
-import { CardContent } from "@material-ui/core";
-import { Button, Paper, TextField } from "../../../components/Custom";
-import styles from "./GoogleAnalyticsPageviewsTable.module.css";
-import api from "../../../actions/api";
-import { useFormik } from "formik";
-import { ERROR_ENUM } from "../../../../../common/errors";
+import { CardContent } from '@material-ui/core';
+import { Button, Paper, TextField } from '../../../components/Custom';
+import styles from './GoogleAnalyticsPageviewsTable.module.css';
+import api from '../../../actions/api';
+import { useFormik } from 'formik';
+import { ERROR_ENUM } from '../../../../../common/errors';
 
 export default function GaPageviewsTable() {
   const { t } = useTranslation();
   const [pageViews, setPageviews] = useState([]);
 
   const updatePageviews = async () => {
-    const res = await api("/api/admin/gaPageviews");
+    const res = await api('/api/admin/gaPageviews');
 
     const newPageviews = res.data.map((d) => {
       const onToggle = async (event) => {
         const res = await api(`/api/admin/gaPageviews/${d.id}`, {
-          method: "PUT",
+          method: 'PUT',
           body: JSON.stringify({
             enabled: event.target.checked,
           }),
@@ -37,8 +37,8 @@ export default function GaPageviewsTable() {
         name: d.pathname,
         isChecked: d.enabled,
         handleChange: onToggle,
-        color: "primary",
-        inputProps: { "aria-label": "secondary checkbox" },
+        color: 'primary',
+        inputProps: { 'aria-label': 'secondary checkbox' },
       };
     });
 
@@ -55,7 +55,7 @@ export default function GaPageviewsTable() {
 
     if (!newPathname) {
       errors.newPathname = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    } else if (!newPathname.startsWith("/")) {
+    } else if (!newPathname.startsWith('/')) {
       errors.newPathname = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
     return errors;
@@ -63,15 +63,15 @@ export default function GaPageviewsTable() {
 
   const formik = useFormik({
     initialValues: {
-      newPathname: "",
+      newPathname: '',
     },
     validate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values, { resetForm }) => {
       const { newPathname } = values;
-      const res = await api("/api/admin/gaPageview", {
-        method: "POST",
+      const res = await api('/api/admin/gaPageview', {
+        method: 'POST',
         body: JSON.stringify({
           pathname: newPathname,
           enabled: true,
@@ -85,29 +85,25 @@ export default function GaPageviewsTable() {
   });
 
   const headers = [
-    { display: t("pathname"), value: "pathname" },
+    { display: t('pathname'), value: 'pathname' },
     {
-      display: t("status"),
-      type: "toggle",
-      value: "enabled",
+      display: t('status'),
+      type: 'toggle',
+      value: 'enabled',
     },
   ];
 
   return (
     <Paper className={styles.card}>
       <CardContent className={styles.inputs}>
-        <Table
-          title={t("ga_pageviews_table_title")}
-          headers={headers}
-          data={pageViews}
-        />
+        <Table title={t('ga_pageviews_table_title')} headers={headers} data={pageViews} />
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.addPageview}>
             <TextField
               id="newPathname"
               namespace="newPathname"
               variant="outlined"
-              label={t("add") + " " + t("pathname")}
+              label={t('add') + ' ' + t('pathname')}
               placeholder="/sportfoliosRoute"
               formik={formik}
             ></TextField>
@@ -116,10 +112,10 @@ export default function GaPageviewsTable() {
               size="medium"
               variant="contained"
               endIcon="Add"
-              style={{ margin: "8px", maxHeight: "40px" }}
+              style={{ margin: '8px', maxHeight: '40px' }}
               type="submit"
             >
-              {t("add")}
+              {t('add')}
             </Button>
           </div>
         </form>

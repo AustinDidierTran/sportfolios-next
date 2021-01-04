@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Container, Typography } from "@material-ui/core";
-import styles from "./Game.module.css";
+import { Container, Typography } from '@material-ui/core';
+import styles from './Game.module.css';
 
 export const GAME_TYPES = {
-  GAME: "game",
-  BAIL: "bail",
+  GAME: 'game',
+  BAIL: 'bail',
 };
 
 export default function Game(props) {

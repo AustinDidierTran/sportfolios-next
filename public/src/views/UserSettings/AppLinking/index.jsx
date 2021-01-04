@@ -1,20 +1,14 @@
-import { Card } from "@material-ui/core";
-import React, { useState, useEffect, useContext } from "react";
-import { List, AlertDialog } from "../../../components/Custom";
-import { useFacebookSDK } from "../../../hooks/setup";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import {
-  STATUS_ENUM,
-  SEVERITY_ENUM,
-  APP_ENUM,
-  FACEBOOK_STATUS_ENUM,
-  LIST_ITEM_ENUM,
-} from "../../../../common/enums";
-import { ERROR_ENUM, errors } from "../../../../common/errors";
-import { Store, ACTION_ENUM } from "../../../Store";
-import styles from "./AppLinking.module.css";
-import conf from "../../../../../conf";
+import { Card } from '@material-ui/core';
+import React, { useState, useEffect, useContext } from 'react';
+import { List, AlertDialog } from '../../../components/Custom';
+import { useFacebookSDK } from '../../../hooks/setup';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { STATUS_ENUM, SEVERITY_ENUM, APP_ENUM, FACEBOOK_STATUS_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM, errors } from '../../../../common/errors';
+import { Store, ACTION_ENUM } from '../../../Store';
+import styles from './AppLinking.module.css';
+import conf from '../../../../../conf';
 
 export default function AppLinking() {
   useFacebookSDK();
@@ -23,14 +17,14 @@ export default function AppLinking() {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const [alertDialog, setAlertDialog] = useState(false);
-  const [selectedApp, setSelectedApp] = useState("");
+  const [selectedApp, setSelectedApp] = useState('');
   const [fbUserId, setFBUserId] = useState();
   const {
     state: { userInfo },
   } = useContext(Store);
 
   const fetchConnectedApp = async () => {
-    const res = await api("/api/user/connectedApps");
+    const res = await api('/api/user/connectedApps');
     if (res.status === STATUS_ENUM.ERROR) {
       return;
     }
@@ -52,45 +46,34 @@ export default function AppLinking() {
   }, []);
 
   const onSuccessfulFBConnection = () => {
-    FB.api(
-      "/me",
-      "GET",
-      { fields: "id,email,picture,first_name,last_name" },
-      async function (response) {
-        const {
-          id: facebook_id,
-          first_name: name,
-          last_name: surname,
+    FB.api('/me', 'GET', { fields: 'id,email,picture,first_name,last_name' }, async function (response) {
+      const { id: facebook_id, first_name: name, last_name: surname, email, picture } = response;
+      const res = await api('/api/user/facebookConnection', {
+        method: 'POST',
+        body: JSON.stringify({
+          facebook_id,
+          name,
+          surname,
           email,
-          picture,
-        } = response;
-        const res = await api("/api/user/facebookConnection", {
-          method: "POST",
-          body: JSON.stringify({
-            facebook_id,
-            name,
-            surname,
-            email,
-            picture: picture ? picture.data.url : null,
-          }),
-        });
-        if (res.status === errors[ERROR_ENUM.ACCESS_DENIED].code) {
-          showErrorToast(t("account_already_linked"));
-        } else if (res.status === STATUS_ENUM.SUCCESS) {
-          setIsLinkedFB(true);
-          setFBUserId(facebook_id);
-        } else {
-          showErrorToast();
-          onFBUnlink();
-        }
+          picture: picture ? picture.data.url : null,
+        }),
+      });
+      if (res.status === errors[ERROR_ENUM.ACCESS_DENIED].code) {
+        showErrorToast(t('account_already_linked'));
+      } else if (res.status === STATUS_ENUM.SUCCESS) {
+        setIsLinkedFB(true);
+        setFBUserId(facebook_id);
+      } else {
+        showErrorToast();
+        onFBUnlink();
       }
-    );
+    });
   };
 
   const showErrorToast = (message, duration) => {
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
-      message: message || t("something_went_wrong"),
+      message: message || t('something_went_wrong'),
       severity: SEVERITY_ENUM.ERROR,
       duration: duration || 4000,
     });
@@ -115,17 +98,14 @@ export default function AppLinking() {
   };
 
   const onFBUnlinkConfirmed = async () => {
-    const res = await api("/api/user/facebookConnection", {
-      method: "DELETE",
+    const res = await api('/api/user/facebookConnection', {
+      method: 'DELETE',
     });
     if (fbUserId == conf.FACEBOOK_ADMIN_ID) {
       setIsLinkedFB(false);
     } else if (res.status === STATUS_ENUM.SUCCESS) {
-      await FB.api("/me/permissions", "DELETE", {}, function (response) {
-        if (
-          response.success ||
-          response.error.subcode == 466 /*Permissions already revoked*/
-        ) {
+      await FB.api('/me/permissions', 'DELETE', {}, function (response) {
+        if (response.success || response.error.subcode == 466 /*Permissions already revoked*/) {
           FB.logout();
           setIsLinkedFB(false);
         } else {
@@ -139,10 +119,7 @@ export default function AppLinking() {
   };
 
   const openMessenger = () => {
-    const win = window.open(
-      `https://www.m.me/${conf.FACEBOOK_PAGE_ID}?ref=${userInfo.user_id}`,
-      "_blank"
-    );
+    const win = window.open(`https://www.m.me/${conf.FACEBOOK_PAGE_ID}?ref=${userInfo.user_id}`, '_blank');
     if (win != null) {
       win.focus();
     }
@@ -151,8 +128,8 @@ export default function AppLinking() {
   const onMessengerConnect = async () => {
     //if is already linked on facebook, try to link automaticaly by getting his messenger ID
     if (fbUserId) {
-      const res = await api("/api/user/messengerConnection", {
-        method: "POST",
+      const res = await api('/api/user/messengerConnection', {
+        method: 'POST',
         body: JSON.stringify({
           facebook_id: fbUserId,
         }),
@@ -175,8 +152,8 @@ export default function AppLinking() {
   };
 
   const onMessengerUnlinkConfirmed = async () => {
-    const res = await api("/api/user/messengerConnection", {
-      method: "DELETE",
+    const res = await api('/api/user/messengerConnection', {
+      method: 'DELETE',
     });
     if (res.status === STATUS_ENUM.SUCCESS) {
       setIsLinkedMessenger(false);
@@ -190,14 +167,14 @@ export default function AppLinking() {
     {
       onConnect: () => {
         FB.login((response) => loginCallback(response), {
-          scope: "public_profile, email",
+          scope: 'public_profile, email',
         });
       },
       onDisconnect: onFBUnlink,
       app: APP_ENUM.FACEBOOK,
       isConnected: isLinkedFB,
       type: LIST_ITEM_ENUM.APP_ITEM,
-      description: t("facebook_description"),
+      description: t('facebook_description'),
       key: APP_ENUM.FACEBOOK,
     },
     {
@@ -206,7 +183,7 @@ export default function AppLinking() {
       app: APP_ENUM.MESSENGER,
       isConnected: isLinkedMessenger,
       type: LIST_ITEM_ENUM.APP_ITEM,
-      description: t("messenger_description"),
+      description: t('messenger_description'),
       key: APP_ENUM.MESSENGER,
     },
   ];
@@ -219,11 +196,11 @@ export default function AppLinking() {
   return (
     <>
       <Card className={styles.main}>
-        <List title={t("my_apps")} items={items}></List>
+        <List title={t('my_apps')} items={items}></List>
       </Card>
       <AlertDialog
         open={alertDialog}
-        description={t("disconnect_app", { appName: selectedApp })}
+        description={t('disconnect_app', { appName: selectedApp })}
         onSubmit={unlinkConfirmedFunctions[selectedApp]}
         onCancel={() => setAlertDialog(false)}
       />

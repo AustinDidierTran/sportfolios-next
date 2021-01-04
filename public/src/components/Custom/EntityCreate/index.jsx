@@ -1,24 +1,19 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { useFormik } from "formik";
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useFormik } from 'formik';
 
-import api from "../../../actions/api";
-import { ROUTES, goTo, formatRoute } from "../../../actions/goTo";
+import api from '../../../actions/api';
+import { ROUTES, goTo, formatRoute } from '../../../actions/goTo';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import styles from "./Create.module.css";
+import styles from './Create.module.css';
 
-import { Paper, Button, IgContainer, LoadingSpinner } from "../../Custom";
-import { CardActions, CardContent } from "@material-ui/core";
-import {
-  COMPONENT_TYPE_ENUM,
-  GLOBAL_ENUM,
-  STATUS_ENUM,
-  TABS_ENUM,
-} from "../../../../common/enums";
-import ComponentFactory from "../ComponentFactory";
-import { Store } from "../../../Store";
-import { useRouter } from "next/router";
+import { Paper, Button, IgContainer, LoadingSpinner } from '../../Custom';
+import { CardActions, CardContent } from '@material-ui/core';
+import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import ComponentFactory from '../ComponentFactory';
+import { Store } from '../../../Store';
+import { useRouter } from 'next/router';
 
 export default function EntityCreate() {
   const router = useRouter();
@@ -33,17 +28,15 @@ export default function EntityCreate() {
 
   const titleDictionary = useMemo(
     () => ({
-      [GLOBAL_ENUM.ORGANIZATION]: t("create_organization"),
-      [GLOBAL_ENUM.TEAM]: t("create_team"),
-      [GLOBAL_ENUM.PERSON]: t("create_person"),
-      [GLOBAL_ENUM.EVENT]: t("create_event"),
+      [GLOBAL_ENUM.ORGANIZATION]: t('create_organization'),
+      [GLOBAL_ENUM.TEAM]: t('create_team'),
+      [GLOBAL_ENUM.PERSON]: t('create_person'),
+      [GLOBAL_ENUM.EVENT]: t('create_event'),
     }),
     []
   );
 
-  const entityObject = useMemo(() => ({ title: titleDictionary[type] }), [
-    type,
-  ]);
+  const entityObject = useMemo(() => ({ title: titleDictionary[type] }), [type]);
 
   const creatingEntity = useMemo(() => Number(type), [type]);
 
@@ -53,27 +46,24 @@ export default function EntityCreate() {
     }
 
     let creatorEntityType;
-    if (
-      creatingEntity === GLOBAL_ENUM.TEAM ||
-      creatingEntity === GLOBAL_ENUM.ORGANIZATION
-    ) {
+    if (creatingEntity === GLOBAL_ENUM.TEAM || creatingEntity === GLOBAL_ENUM.ORGANIZATION) {
       creatorEntityType = GLOBAL_ENUM.PERSON;
     } else if (creatingEntity === GLOBAL_ENUM.EVENT) {
       creatorEntityType = GLOBAL_ENUM.ORGANIZATION;
     }
 
     const { status, data } = await api(
-      formatRoute("/api/entity/allOwned", null, {
+      formatRoute('/api/entity/allOwned', null, {
         type: creatorEntityType,
       }),
-      { method: "GET" }
+      { method: 'GET' }
     );
 
     if (status === STATUS_ENUM.SUCCESS) {
       setCreatorOptions(
         data.map((c) => ({
           value: c.id,
-          display: `${c.name}${c.surname ? ` ${c.surname}` : ""}`,
+          display: `${c.name}${c.surname ? ` ${c.surname}` : ''}`,
         }))
       );
     }
@@ -90,12 +80,9 @@ export default function EntityCreate() {
     }
 
     if (creatingEntity === GLOBAL_ENUM.EVENT) {
-      formik.setFieldValue("creator", creatorOptions[0].value);
-    } else if (
-      creatingEntity === GLOBAL_ENUM.TEAM ||
-      creatingEntity === GLOBAL_ENUM.ORGANIZATION
-    ) {
-      formik.setFieldValue("creator", userInfo.primaryPerson.entity_id);
+      formik.setFieldValue('creator', creatorOptions[0].value);
+    } else if (creatingEntity === GLOBAL_ENUM.TEAM || creatingEntity === GLOBAL_ENUM.ORGANIZATION) {
+      formik.setFieldValue('creator', userInfo.primaryPerson.entity_id);
     }
   }, [creatorOptions]);
 
@@ -103,26 +90,26 @@ export default function EntityCreate() {
     if (creatingEntity === GLOBAL_ENUM.PERSON) {
       return [
         {
-          namespace: "name",
-          label: t("name"),
-          type: "text",
+          namespace: 'name',
+          label: t('name'),
+          type: 'text',
         },
         {
-          namespace: "surname",
-          label: t("surname"),
-          type: "text",
+          namespace: 'surname',
+          label: t('surname'),
+          type: 'text',
         },
       ];
     }
     return [
       {
-        namespace: "name",
-        label: t("name"),
-        type: "text",
+        namespace: 'name',
+        label: t('name'),
+        type: 'text',
       },
       {
-        namespace: "creator",
-        label: t("create_as"),
+        namespace: 'creator',
+        label: t('create_as'),
         componentType: COMPONENT_TYPE_ENUM.SELECT,
         showTextIfOnlyOneOption: creatorOptions.length === 1,
         options: creatorOptions,
@@ -134,28 +121,28 @@ export default function EntityCreate() {
     const errors = {};
     const { name, surname, creator } = values;
     if (!name) {
-      errors.name = t("value_is_required");
+      errors.name = t('value_is_required');
     } else {
       if (name.length > 64) {
-        formik.setFieldValue("name", name.slice(0, 64));
+        formik.setFieldValue('name', name.slice(0, 64));
       }
     }
     if (creatingEntity === GLOBAL_ENUM.PERSON && !surname.length) {
-      errors.surname = t("value_is_required");
+      errors.surname = t('value_is_required');
     } else if (surname.length > 64) {
-      formik.setFieldValue("surname", surname.slice(0, 64));
+      formik.setFieldValue('surname', surname.slice(0, 64));
     }
     if (creatingEntity !== GLOBAL_ENUM.PERSON && !creator.length) {
-      errors.creator = t("value_is_required");
+      errors.creator = t('value_is_required');
     }
     return errors;
   };
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      surname: "",
-      creator: "",
+      name: '',
+      surname: '',
+      creator: '',
     },
     validate,
     validateOnChange: false,
@@ -164,8 +151,8 @@ export default function EntityCreate() {
       const { name, surname, creator } = values;
       setIsSubmitting(true);
       try {
-        const res = await api("/api/entity", {
-          method: "POST",
+        const res = await api('/api/entity', {
+          method: 'POST',
           body: JSON.stringify({
             name,
             surname,
@@ -177,7 +164,7 @@ export default function EntityCreate() {
         setIsSubmitting(false);
       } catch (err) {
         setIsSubmitting(false);
-        formik.setFieldError("name", t("something_went_wrong"));
+        formik.setFieldError('name', t('something_went_wrong'));
         throw err;
       }
     },
@@ -198,7 +185,7 @@ export default function EntityCreate() {
           <Paper className={styles.card} title={entityObject.title}>
             <CardContent>
               {fields.map((field, index) => (
-                <div style={{ marginTop: "8px" }} key={index}>
+                <div style={{ marginTop: '8px' }} key={index}>
                   <ComponentFactory component={{ ...field, formik }} />
                 </div>
               ))}
@@ -213,7 +200,7 @@ export default function EntityCreate() {
                   type="submit"
                   endIcon="Check"
                 >
-                  {t("done")}
+                  {t('done')}
                 </Button>
                 <Button
                   size="small"
@@ -223,7 +210,7 @@ export default function EntityCreate() {
                   endIcon="Close"
                   onClick={handleCancel}
                 >
-                  {t("cancel")}
+                  {t('cancel')}
                 </Button>
               </>
             </CardActions>

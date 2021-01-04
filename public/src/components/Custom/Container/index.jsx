@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Container from "@material-ui/core/Container";
+import React, { useEffect, useState } from 'react';
+import Container from '@material-ui/core/Container';
 
 export default function CustomContainer(props) {
   const [gutters, setGutters] = useState(false);
@@ -10,9 +10,9 @@ export default function CustomContainer(props) {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

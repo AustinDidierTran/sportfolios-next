@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {
-  AlertDialog,
-  Button,
-  FormDialog,
-  Paper,
-} from "../../../components/Custom";
-import {
-  getMembershipName,
-  getMembershipType,
-  getExpirationDate,
-} from "../../../utils/stringFormats";
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  LIST_ITEM_ENUM,
-} from "../../../../common/enums";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import { formatRoute, goTo, ROUTES } from "../../../actions/goTo";
-import { List } from "../../../components/Custom";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import { AlertDialog, Button, FormDialog, Paper } from '../../../components/Custom';
+import { getMembershipName, getMembershipType, getExpirationDate } from '../../../utils/stringFormats';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { formatRoute, goTo, ROUTES } from '../../../actions/goTo';
+import { List } from '../../../components/Custom';
+import { useRouter } from 'next/router';
 
 export default function AddMembership() {
   const { t } = useTranslation();
@@ -59,11 +47,11 @@ export default function AddMembership() {
   const deleteConfirmed = async () => {
     closeAlertDialog();
     await api(
-      formatRoute("/api/entity/membership", null, {
+      formatRoute('/api/entity/membership', null, {
         membershipId: deletedId,
       }),
       {
-        method: "DELETE",
+        method: 'DELETE',
       }
     );
     getMemberships();
@@ -83,33 +71,28 @@ export default function AddMembership() {
   };
 
   return (
-    <Paper title={t("memberships")}>
-      <Button
-        size="small"
-        variant="contained"
-        style={{ margin: "8px" }}
-        onClick={onOpen}
-      >
-        {t("add_membership")}
+    <Paper title={t('memberships')}>
+      <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
+        {t('add_membership')}
       </Button>
       <Button
         size="small"
         variant="contained"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={() => {
           goTo(ROUTES.membersList, null, { id });
         }}
       >
-        {t("member_list")}
+        {t('member_list')}
       </Button>
       <Button
         variant="contained"
-        style={{ margin: "8px" }}
+        style={{ margin: '8px' }}
         onClick={() => {
           goTo(ROUTES.importMembers, null, { id });
         }}
       >
-        {t("import_members")}
+        {t('import_members')}
       </Button>
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP}
@@ -123,8 +106,8 @@ export default function AddMembership() {
         open={alertDialog}
         onSubmit={deleteConfirmed}
         onCancel={closeAlertDialog}
-        description={t("delete_membership_confirmation")}
-        title={t("delete_membership")}
+        description={t('delete_membership_confirmation')}
+        title={t('delete_membership')}
       />
       <List items={options} />
     </Paper>

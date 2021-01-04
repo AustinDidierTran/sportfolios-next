@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Select } from "../../../../../components/Custom";
-import styles from "./FieldSelect.module.css";
-import { useTranslation } from "react-i18next";
-import api from "../../../../../actions/api";
-import { formatRoute } from "../../../../../actions/goTo";
-import { SELECT_ENUM } from "../../../../../../common/enums";
-import { useRouter } from "next/router";
+import { Select } from '../../../../../components/Custom';
+import styles from './FieldSelect.module.css';
+import { useTranslation } from 'react-i18next';
+import api from '../../../../../actions/api';
+import { formatRoute } from '../../../../../actions/goTo';
+import { SELECT_ENUM } from '../../../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function FieldSelect(props) {
   const { onChange, fieldId } = props;
@@ -21,14 +21,12 @@ export default function FieldSelect(props) {
   }, []);
 
   const getFields = async () => {
-    const { data } = await api(
-      formatRoute("/api/entity/fields", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/fields', null, { eventId }));
     const res = data.map((d) => ({
       value: d.id,
       display: d.field,
     }));
-    setFields([{ value: SELECT_ENUM.ALL, display: t("all_fields") }, ...res]);
+    setFields([{ value: SELECT_ENUM.ALL, display: t('all_fields') }, ...res]);
   };
 
   const handleChange = (fieldId) => {
@@ -43,7 +41,7 @@ export default function FieldSelect(props) {
         namespace="field"
         autoFocus
         margin="dense"
-        label={t("field")}
+        label={t('field')}
         fullWidth
         onChange={handleChange}
         value={fieldId}

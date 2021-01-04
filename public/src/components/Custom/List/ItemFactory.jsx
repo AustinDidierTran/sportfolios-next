@@ -1,40 +1,36 @@
-import {
-  GLOBAL_ENUM,
-  LIST_ITEM_ENUM,
-  NOTIFICATION_TYPE,
-} from "../../../../common/enums";
-import AppItem from "./AppItem";
-import BankAccountItem from "./BankAccountItem";
-import CartItem from "./CartItem";
-import CreateEntityItem from "./CreateEntityItem";
-import CreditCardItem from "./CreditCardItem";
-import DefaultItem from "./DefaultItem";
-import EventCreatorItem from "./EventCreatorItem";
-import EventItem from "./EventItem";
-import EventPaymentOptionItem from "./EventPaymentOptionItem";
-import MemberItem from "./MemberItem";
-import MemberImportItem from "./MemberImportItem";
-import MembershipDetailItem from "./MembershipDetailItem";
-import MembershipItem from "./MembershipItem";
-import MembershipOrganizationItem from "./MembershipOrganizationItem";
-import OrganizationItem from "./OrganizationItem";
-import PaymentOptionItem from "./PaymentOptionItem";
-import PersonItem from "./PersonItem";
-import PurchasesItem from "./PurchasesItem";
-import RankingItem from "./RankingItem";
-import RankingWithStatsItem from "./RankingWithStatsItem";
-import ReportItemFactory from "./ReportItemFactory";
-import RosterItem from "./RosterItem";
-import SalesItem from "./SalesItem";
-import TeamItem from "./TeamItem";
+import { GLOBAL_ENUM, LIST_ITEM_ENUM, NOTIFICATION_TYPE } from '../../../../common/enums';
+import AppItem from './AppItem';
+import BankAccountItem from './BankAccountItem';
+import CartItem from './CartItem';
+import CreateEntityItem from './CreateEntityItem';
+import CreditCardItem from './CreditCardItem';
+import DefaultItem from './DefaultItem';
+import EventCreatorItem from './EventCreatorItem';
+import EventItem from './EventItem';
+import EventPaymentOptionItem from './EventPaymentOptionItem';
+import MemberItem from './MemberItem';
+import MemberImportItem from './MemberImportItem';
+import MembershipDetailItem from './MembershipDetailItem';
+import MembershipItem from './MembershipItem';
+import MembershipOrganizationItem from './MembershipOrganizationItem';
+import OrganizationItem from './OrganizationItem';
+import PaymentOptionItem from './PaymentOptionItem';
+import PersonItem from './PersonItem';
+import PurchasesItem from './PurchasesItem';
+import RankingItem from './RankingItem';
+import RankingWithStatsItem from './RankingWithStatsItem';
+import ReportItemFactory from './ReportItemFactory';
+import RosterItem from './RosterItem';
+import SalesItem from './SalesItem';
+import TeamItem from './TeamItem';
 import {
   RosterNotification,
   ScoreSubmissionConflictNotification,
   ScoreSubmissionRequestNotification,
   ConfirmOrDeclineScoreNotification,
-} from "./NotificationItems";
-import { AvatarAndTextSkeleton } from "./SkeletonItems";
-import NotificationSettingItem from "./NotificationSettingItem";
+} from './NotificationItems';
+import { AvatarAndTextSkeleton } from './SkeletonItems';
+import NotificationSettingItem from './NotificationSettingItem';
 
 const ItemMap = {
   [GLOBAL_ENUM.EVENT]: EventItem,

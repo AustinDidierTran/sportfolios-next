@@ -1,5 +1,5 @@
-import React from "react";
-import PasswordRecovery from "../../public/src/views/PasswordRecovery";
+import React from 'react';
+import PasswordRecovery from '../../public/src/views/PasswordRecovery';
 
 const PasswordRecoveryRoute = (props) => {
   return <PasswordRecovery />;

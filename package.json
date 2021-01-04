@@ -7,6 +7,11 @@
     "build": "next build",
     "start": "next start"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "dependencies": {
     "@loadable/component": "^5.14.1",
     "@material-ui/core": "^4.11.2",
@@ -34,6 +39,9 @@
     "validator": "^13.5.2"
   },
   "devDependencies": {
+    "husky": "^4.3.6",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
     "typescript": "^4.1.3"
   }
 }

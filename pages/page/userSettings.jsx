@@ -1,5 +1,5 @@
-import React from "react";
-import UserSettings from "../../public/src/views/UserSettings";
+import React from 'react';
+import UserSettings from '../../public/src/views/UserSettings';
 
 const UserSettingsRoute = (props) => {
   return <UserSettings />;

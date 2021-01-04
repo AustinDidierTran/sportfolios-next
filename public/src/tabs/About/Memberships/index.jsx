@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import moment from "moment";
-import { Paper, Button, FormDialog, List } from "../../../components/Custom";
-import { formatDate, getMembershipName } from "../../../utils/stringFormats";
-import { FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from "../../../../common/enums";
-import { useTranslation } from "react-i18next";
-import api from "../../../actions/api";
-import { formatRoute } from "../../../actions/goTo";
-import { Store } from "../../../Store";
-import { Divider, Typography } from "@material-ui/core";
+import React, { useContext, useEffect, useState } from 'react';
+import moment from 'moment';
+import { Paper, Button, FormDialog, List } from '../../../components/Custom';
+import { formatDate, getMembershipName } from '../../../utils/stringFormats';
+import { FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
+import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../actions/goTo';
+import { Store } from '../../../Store';
+import { Divider, Typography } from '@material-ui/core';
 
 export default function Memberships() {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export default function Memberships() {
 
   const getHasMemberships = async () => {
     const { data } = await api(
-      formatRoute("/api/entity/hasMemberships", null, {
+      formatRoute('/api/entity/hasMemberships', null, {
         id,
       })
     );
@@ -39,14 +39,14 @@ export default function Memberships() {
     const members = await Promise.all(
       userInfo.persons.map(async (p) => {
         const { data } = await api(
-          formatRoute("/api/entity/members", null, {
+          formatRoute('/api/entity/members', null, {
             id,
             personId: p.entity_id,
           })
         );
         if (data.length) {
           const person = await api(
-            formatRoute("/api/entity", null, {
+            formatRoute('/api/entity', null, {
               id: p.entity_id,
             })
           );
@@ -84,7 +84,7 @@ export default function Memberships() {
 
   const getSecondary = (member) => {
     const expirationDate = formatDate(moment(member.expirationDate));
-    return `${t("expire_on")} ${expirationDate}`;
+    return `${t('expire_on')} ${expirationDate}`;
   };
 
   const onOpen = () => {
@@ -97,20 +97,13 @@ export default function Memberships() {
   return (
     <>
       {hasMemberships ? (
-        <Button
-          size="small"
-          variant="contained"
-          style={{ margin: "8px" }}
-          onClick={onOpen}
-        >
-          {t("become_member")}
+        <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
+          {t('become_member')}
         </Button>
       ) : (
-        <Typography style={{ margin: "16px" }}>
-          {t("this_organization_has_no_memberships_available")}
-        </Typography>
+        <Typography style={{ margin: '16px' }}>{t('this_organization_has_no_memberships_available')}</Typography>
       )}
-      <Paper title={t("memberships")}>
+      <Paper title={t('memberships')}>
         <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
           items={{
@@ -130,9 +123,7 @@ export default function Memberships() {
             ))}
           </>
         ) : (
-          <Typography style={{ margin: "16px" }}>
-            {t("you_are_not_a_member_of_this_organization")}
-          </Typography>
+          <Typography style={{ margin: '16px' }}>{t('you_are_not_a_member_of_this_organization')}</Typography>
         )}
       </Paper>
     </>

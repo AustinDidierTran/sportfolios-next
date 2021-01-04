@@ -1,24 +1,18 @@
-import React, { useState, useContext, useMemo, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { ENTITIES_ROLE_ENUM } from "../../../../../../common/enums";
+import React, { useState, useContext, useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ENTITIES_ROLE_ENUM } from '../../../../../../common/enums';
 
-import styles from "./BasicInfos.module.css";
+import styles from './BasicInfos.module.css';
 
-import { ACTION_ENUM, Store } from "../../../../Store";
+import { ACTION_ENUM, Store } from '../../../../Store';
 
-import {
-  Avatar,
-  Button,
-  Input,
-  LoadingSpinner,
-  TextField,
-} from "../../../../components/Custom";
-import { Container, Typography } from "@material-ui/core";
-import { getInitialsFromName } from "../../../../utils/stringFormats";
+import { Avatar, Button, Input, LoadingSpinner, TextField } from '../../../../components/Custom';
+import { Container, Typography } from '@material-ui/core';
+import { getInitialsFromName } from '../../../../utils/stringFormats';
 /* eslint-disable-next-line */
-import api, { changeEntityName } from "../../../../actions/api";
-import { useFormInput } from "../../../../hooks/forms";
-import { uploadEntityPicture } from "../../../../actions/aws";
+import api, { changeEntityName } from '../../../../actions/api';
+import { useFormInput } from '../../../../hooks/forms';
+import { uploadEntityPicture } from '../../../../actions/aws';
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();
@@ -30,13 +24,7 @@ export default function BasicInfos(props) {
   const [isEditMode, setEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    id,
-    name: nameProp,
-    surname: surnameProp,
-    photoUrl: initialPhotoUrl,
-    role,
-  } = props.basicInfos;
+  const { id, name: nameProp, surname: surnameProp, photoUrl: initialPhotoUrl, role } = props.basicInfos;
 
   const [photoUrl, setPhotoUrl] = useState(initialPhotoUrl);
 
@@ -47,10 +35,10 @@ export default function BasicInfos(props) {
   const initials = getInitialsFromName(completeName);
   const name = useFormInput(nameProp);
   const surname = useFormInput(surnameProp);
-  const completeName = useMemo(
-    () => (surname.value ? `${name.value} ${surname.value}` : name.value),
-    [name.value, surname.value]
-  );
+  const completeName = useMemo(() => (surname.value ? `${name.value} ${surname.value}` : name.value), [
+    name.value,
+    surname.value,
+  ]);
   const onNameChange = async () => {
     const res = await changeEntityName(id, {
       name: name.value,
@@ -137,26 +125,12 @@ export default function BasicInfos(props) {
   return (
     <Container className={styles.card}>
       <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
-      {isEditMode ? (
-        <Input type="file" onChange={onImgChange} isVisible={isEditMode} />
-      ) : (
-        <></>
-      )}
+      {isEditMode ? <Input type="file" onChange={onImgChange} isVisible={isEditMode} /> : <></>}
       <div className={styles.fullName}>
         {isEditMode ? (
           <>
-            <TextField
-              namespace="name"
-              type="text"
-              label={t("name")}
-              {...name.inputProps}
-            />
-            <TextField
-              namespace="surname"
-              type="text"
-              label={t("surname")}
-              {...surname.inputProps}
-            />
+            <TextField namespace="name" type="text" label={t('name')} {...name.inputProps} />
+            <TextField namespace="surname" type="text" label={t('surname')} {...surname.inputProps} />
           </>
         ) : (
           <Typography variant="h3" className={styles.text}>
@@ -167,27 +141,22 @@ export default function BasicInfos(props) {
       {role === ENTITIES_ROLE_ENUM.ADMIN ? (
         isEditMode ? (
           <div className={styles.editor}>
-            <Button
-              className={styles.save}
-              endIcon="Check"
-              onClick={onSave}
-              style={{ marginRight: "8px" }}
-            >
-              {t("save")}
+            <Button className={styles.save} endIcon="Check" onClick={onSave} style={{ marginRight: '8px' }}>
+              {t('save')}
             </Button>
             <Button
               className={styles.cancel}
               endIcon="Close"
               onClick={onCancel}
-              style={{ marginLeft: "8px" }}
+              style={{ marginLeft: '8px' }}
               color="secondary"
             >
-              {t("cancel")}
+              {t('cancel')}
             </Button>
           </div>
         ) : (
           <Button onClick={onEdit} endIcon="Edit">
-            {t("edit")}
+            {t('edit')}
           </Button>
         )
       ) : (

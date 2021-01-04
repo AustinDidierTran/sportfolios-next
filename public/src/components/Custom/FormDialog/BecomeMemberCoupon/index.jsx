@@ -1,21 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
+import React, { useState, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from "../../../../../common/errors";
-import api from "../../../../actions/api";
-import { Store, ACTION_ENUM } from "../../../../Store";
-import {
-  SEVERITY_ENUM,
-  COMPONENT_TYPE_ENUM,
-  GLOBAL_ENUM,
-  STATUS_ENUM,
-  TABS_ENUM,
-} from "../../../../../common/enums";
-import BasicFormDialog from "../BasicFormDialog";
-import { formatRoute, goTo, ROUTES } from "../../../../actions/goTo";
-import { formatDate } from "../../../../utils/stringFormats";
-import moment from "moment";
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import { SEVERITY_ENUM, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../../common/enums';
+import BasicFormDialog from '../BasicFormDialog';
+import { formatRoute, goTo, ROUTES } from '../../../../actions/goTo';
+import { formatDate } from '../../../../utils/stringFormats';
+import moment from 'moment';
 
 export default function BecomeMemberCoupon(props) {
   const { t } = useTranslation();
@@ -39,7 +33,7 @@ export default function BecomeMemberCoupon(props) {
 
   const getOrganization = async () => {
     const { data } = await api(
-      formatRoute("/api/entity", null, {
+      formatRoute('/api/entity', null, {
         id: organizationId,
       })
     );
@@ -48,7 +42,7 @@ export default function BecomeMemberCoupon(props) {
 
   const getPersons = async () => {
     const { data } = await api(
-      formatRoute("/api/user/ownedPersons", null, {
+      formatRoute('/api/user/ownedPersons', null, {
         type: GLOBAL_ENUM.PERSON,
       })
     );
@@ -64,7 +58,7 @@ export default function BecomeMemberCoupon(props) {
       value: d.id,
     }));
     setPersons(res);
-    formik.setFieldValue("person", res[0].value);
+    formik.setFieldValue('person', res[0].value);
   };
 
   const validate = (values) => {
@@ -78,7 +72,7 @@ export default function BecomeMemberCoupon(props) {
 
   const formik = useFormik({
     initialValues: {
-      person: "",
+      person: '',
     },
     validate,
     validateOnChange: false,
@@ -86,7 +80,7 @@ export default function BecomeMemberCoupon(props) {
     onSubmit: async (values) => {
       const { person } = values;
       const res = await api(`/api/entity/memberManually`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           membershipType,
           organizationId,
@@ -96,7 +90,7 @@ export default function BecomeMemberCoupon(props) {
       });
       if (res.status === STATUS_ENUM.SUCCESS) {
         await api(`/api/user/useToken`, {
-          method: "PUT",
+          method: 'PUT',
           body: JSON.stringify({
             tokenId: token_id,
           }),
@@ -117,8 +111,8 @@ export default function BecomeMemberCoupon(props) {
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: t("become_member_of", {
-        organizationName: organization?.basicInfos?.name || "",
+      primary: t('become_member_of', {
+        organizationName: organization?.basicInfos?.name || '',
         expirationDate: formatDate(moment(expirationDate)),
       }),
     },
@@ -129,8 +123,8 @@ export default function BecomeMemberCoupon(props) {
         }
       : {
           componentType: COMPONENT_TYPE_ENUM.SELECT,
-          namespace: "person",
-          label: t("person"),
+          namespace: 'person',
+          label: t('person'),
           options: persons,
         },
   ];
@@ -138,21 +132,21 @@ export default function BecomeMemberCoupon(props) {
   const buttons = [
     {
       onClick: onClose,
-      name: t("cancel"),
-      color: "secondary",
+      name: t('cancel'),
+      color: 'secondary',
     },
     {
-      type: "submit",
-      name: t("apply"),
-      color: "primary",
+      type: 'submit',
+      name: t('apply'),
+      color: 'primary',
     },
   ];
 
   return (
     <BasicFormDialog
       open={open}
-      title={t("member_coupon")}
-      description={t("this_coupon_is_only_good_once")}
+      title={t('member_coupon')}
+      description={t('this_coupon_is_only_good_once')}
       buttons={buttons}
       fields={fields}
       formik={formik}

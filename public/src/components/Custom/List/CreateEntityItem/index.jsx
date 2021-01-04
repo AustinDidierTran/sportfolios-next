@@ -1,8 +1,8 @@
-import React from "react";
-import { Icon } from "../..";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import React from 'react';
+import { Icon } from '../..';
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
-import styles from "./CreateEntityItem.module.css";
+import styles from './CreateEntityItem.module.css';
 
 export default function CreateEntityItem(props) {
   const { icon, title, description, onClick } = props;
@@ -12,11 +12,7 @@ export default function CreateEntityItem(props) {
       <ListItemIcon>
         <Icon icon={icon} />
       </ListItemIcon>
-      <ListItemText
-        className={styles.text}
-        primary={title}
-        secondary={description}
-      />
+      <ListItemText className={styles.text} primary={title} secondary={description} />
     </ListItem>
   );
 }

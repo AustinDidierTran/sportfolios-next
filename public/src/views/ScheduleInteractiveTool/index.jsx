@@ -1,61 +1,56 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-import { useTranslation } from "react-i18next";
-import moment from "moment";
-import api from "../../actions/api";
-import { formatRoute, goTo, ROUTES } from "../../actions/goTo";
-import { formatDate } from "../../utils/stringFormats";
-import {
-  LoadingSpinner,
-  Icon,
-  AlertDialog,
-  Button,
-} from "../../components/Custom";
-import { Store, ACTION_ENUM } from "../../Store";
-import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from "../../../common/enums";
-import { Fab, makeStyles, Tooltip, Typography } from "@material-ui/core";
-import styles from "./ScheduleInteractiveTool.module.css";
-import GameCard from "./GameCard";
-import AddGame from "./AddGame";
-import AddField from "../../tabs/EditSchedule/CreateSchedule/AddField";
-import AddTimeSlot from "../../tabs/EditSchedule/CreateSchedule/AddTimeSlot";
+import React, { useEffect, useState, useContext, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+import api from '../../actions/api';
+import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { formatDate } from '../../utils/stringFormats';
+import { LoadingSpinner, Icon, AlertDialog, Button } from '../../components/Custom';
+import { Store, ACTION_ENUM } from '../../Store';
+import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../common/enums';
+import { Fab, makeStyles, Tooltip, Typography } from '@material-ui/core';
+import styles from './ScheduleInteractiveTool.module.css';
+import GameCard from './GameCard';
+import AddGame from './AddGame';
+import AddField from '../../tabs/EditSchedule/CreateSchedule/AddField';
+import AddTimeSlot from '../../tabs/EditSchedule/CreateSchedule/AddTimeSlot';
 
-import RGL from "react-grid-layout";
+import RGL from 'react-grid-layout';
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 const ReactGridLayout = RGL;
 
 const useStyles = makeStyles((theme) => ({
   fabBack: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(3),
     right: theme.spacing(4),
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
   fabAdd: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(5) + 56,
     right: theme.spacing(4),
     zIndex: 100,
-    color: "white",
-    backgroundColor: "#1c1cff",
-    "&:hover": {
-      background: "#0000b5",
+    color: 'white',
+    backgroundColor: '#1c1cff',
+    '&:hover': {
+      background: '#0000b5',
     },
   },
   fabCancel: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(7) + 112,
     right: theme.spacing(4),
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
   fabSave: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing(9) + 168,
     right: theme.spacing(4),
     zIndex: 100,
-    color: "white",
+    color: 'white',
   },
 }));
 
@@ -91,9 +86,7 @@ export default function ScheduleInteractiveTool() {
 
   const getData = async () => {
     setIsLoading(true);
-    const { data } = await api(
-      formatRoute("/api/entity/interactiveTool", null, { eventId })
-    );
+    const { data } = await api(formatRoute('/api/entity/interactiveTool', null, { eventId }));
 
     setPhases(
       data.phases.map((p) => ({
@@ -177,9 +170,7 @@ export default function ScheduleInteractiveTool() {
 
   const onDragStop = (layout, oldItem, newItem) => {
     setGames((games) => {
-      const oldGameIndex = games.findIndex(
-        (g) => g.x === oldItem.x && g.y === oldItem.y
-      );
+      const oldGameIndex = games.findIndex((g) => g.x === oldItem.x && g.y === oldItem.y);
 
       games[oldGameIndex] = {
         ...games[oldGameIndex],
@@ -215,10 +206,7 @@ export default function ScheduleInteractiveTool() {
     const gameIds = games.map((g) => g.id);
     const onlyGames = layout.filter((g) => gameIds.includes(g.i));
     const changedGames = onlyGames.filter(
-      ({ x: x1, y: y1, i: i1 }) =>
-        !initialLayout.some(
-          ({ x: x2, y: y2, i: i2 }) => x1 === x2 && y1 === y2 && i1 === i2
-        )
+      ({ x: x1, y: y1, i: i1 }) => !initialLayout.some(({ x: x2, y: y2, i: i2 }) => x1 === x2 && y1 === y2 && i1 === i2)
     );
 
     const gamesToUpdate = changedGames.reduce(
@@ -234,20 +222,17 @@ export default function ScheduleInteractiveTool() {
     );
 
     const res = await api(`/api/entity/updateGamesInteractiveTool`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({
         eventId,
         games: gamesToUpdate,
       }),
     });
 
-    if (
-      res.status === STATUS_ENUM.ERROR ||
-      res.status === STATUS_ENUM.UNAUTHORIZED
-    ) {
+    if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t("an_error_has_occured"),
+        message: t('an_error_has_occured'),
         severity: SEVERITY_ENUM.ERROR,
       });
       return;
@@ -257,7 +242,7 @@ export default function ScheduleInteractiveTool() {
 
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
-      message: t("changes_saved"),
+      message: t('changes_saved'),
       severity: SEVERITY_ENUM.SUCCESS,
     });
 
@@ -280,7 +265,7 @@ export default function ScheduleInteractiveTool() {
   const handleMoveMode = () => {
     setIsAddingGames(false);
     setButtonsAdd([]);
-    setLayout(layout.filter((item) => item.i[0] !== "+"));
+    setLayout(layout.filter((item) => item.i[0] !== '+'));
   };
 
   const handleAddMode = () => {
@@ -369,11 +354,7 @@ export default function ScheduleInteractiveTool() {
   };
 
   const AddGames = buttonsAdd.map((b) => (
-    <div
-      className={styles.divAddGame}
-      key={b.i}
-      onClick={() => handleAddGameAt(b.x, b.y)}
-    >
+    <div className={styles.divAddGame} key={b.i} onClick={() => handleAddGameAt(b.x, b.y)}>
       <Icon icon="Add" color="#18b393" />
     </div>
   ));
@@ -386,22 +367,13 @@ export default function ScheduleInteractiveTool() {
 
   const Times = timeslots.map((t) => (
     <div className={styles.divTime} key={t.id}>
-      <Typography className={styles.label}>
-        {formatDate(moment(t.date), "DD MMM HH:mm")}
-      </Typography>
+      <Typography className={styles.label}>{formatDate(moment(t.date), 'DD MMM HH:mm')}</Typography>
     </div>
   ));
 
   const Games = games.map((g) => (
     <div className={styles.itemDiv} key={g.id}>
-      <GameCard
-        team1={g.teams[0].name}
-        team2={g.teams[1].name}
-        fields={fields}
-        timeSlots={timeslots}
-        x={g.x}
-        y={g.y}
-      />
+      <GameCard team1={g.teams[0].name} team2={g.teams[1].name} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
     </div>
   ));
 
@@ -441,7 +413,7 @@ export default function ScheduleInteractiveTool() {
             endIcon="Add"
             disabled={isAddingGames}
           >
-            {t("field")}
+            {t('field')}
           </Button>
           <Button
             onClick={handleAddTimeslot}
@@ -452,7 +424,7 @@ export default function ScheduleInteractiveTool() {
             endIcon="Add"
             disabled={isAddingGames}
           >
-            {t("time_slot")}
+            {t('time_slot')}
           </Button>
         </div>
         <div className={styles.displayFields} ref={refFields}>
@@ -513,41 +485,31 @@ export default function ScheduleInteractiveTool() {
         </div>
       </div>
 
-      <Tooltip title={t("back")}>
+      <Tooltip title={t('back')}>
         <Fab color="primary" onClick={handleBack} className={classes.fabBack}>
           <Icon icon="ArrowBack" />
         </Fab>
       </Tooltip>
       {isAddingGames ? (
-        <Tooltip title={t("move_mode")}>
+        <Tooltip title={t('move_mode')}>
           <Fab onClick={handleMoveMode} className={classes.fabAdd}>
             <Icon icon="OpenWith" />
           </Fab>
         </Tooltip>
       ) : (
-        <Tooltip title={t("add_mode")}>
+        <Tooltip title={t('add_mode')}>
           <Fab onClick={handleAddMode} className={classes.fabAdd}>
             <Icon icon="Add" />
           </Fab>
         </Tooltip>
       )}
-      <Tooltip title={madeChanges ? t("cancel") : ""}>
-        <Fab
-          color="secondary"
-          onClick={handleCancel}
-          className={classes.fabCancel}
-          disabled={!madeChanges}
-        >
+      <Tooltip title={madeChanges ? t('cancel') : ''}>
+        <Fab color="secondary" onClick={handleCancel} className={classes.fabCancel} disabled={!madeChanges}>
           <Icon icon="Cancel" />
         </Fab>
       </Tooltip>
-      <Tooltip title={madeChanges ? t("save") : ""}>
-        <Fab
-          color="primary"
-          onClick={handleSave}
-          className={classes.fabSave}
-          disabled={!madeChanges}
-        >
+      <Tooltip title={madeChanges ? t('save') : ''}>
+        <Fab color="primary" onClick={handleSave} className={classes.fabSave} disabled={!madeChanges}>
           <Icon icon="SaveIcon" />
         </Fab>
       </Tooltip>
@@ -555,8 +517,8 @@ export default function ScheduleInteractiveTool() {
         open={alertDialog}
         onSubmit={handleDialogSubmit}
         onCancel={handleDialogCancel}
-        description={t("quit_interactive_tool_confirmation")}
-        title={t("quit_interactive_tool")}
+        description={t('quit_interactive_tool_confirmation')}
+        title={t('quit_interactive_tool')}
       />
       <AddGame
         eventId={eventId}
@@ -568,11 +530,7 @@ export default function ScheduleInteractiveTool() {
         phases={phases}
         teams={teams}
       />
-      <AddField
-        isOpen={addFieldDialog}
-        onClose={() => setAddFieldDialog(false)}
-        addFieldToGrid={addFieldToGrid}
-      />
+      <AddField isOpen={addFieldDialog} onClose={() => setAddFieldDialog(false)} addFieldToGrid={addFieldToGrid} />
       <AddTimeSlot
         isOpen={addTimeslotDialog}
         onClose={() => setAddTimeslotDialog(false)}

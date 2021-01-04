@@ -24,35 +24,19 @@ export default function Menu() {
     },
     {
       name: t('create_person'),
-      route: formatRoute(
-        ROUTES.create,
-        {},
-        { type: GLOBAL_ENUM.PERSON },
-      ),
+      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.PERSON }),
     },
     {
       name: t('create_event'),
-      route: formatRoute(
-        ROUTES.create,
-        {},
-        { type: GLOBAL_ENUM.EVENT },
-      ),
+      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.EVENT }),
     },
     {
       name: t('create_team'),
-      route: formatRoute(
-        ROUTES.create,
-        {},
-        { type: GLOBAL_ENUM.TEAM },
-      ),
+      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.TEAM }),
     },
     {
       name: t('create_organization'),
-      route: formatRoute(
-        ROUTES.create,
-        {},
-        { type: GLOBAL_ENUM.ORGANIZATION },
-      ),
+      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.ORGANIZATION }),
     },
     {
       name: t('logout'),

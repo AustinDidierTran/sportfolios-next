@@ -1,4 +1,4 @@
-import { GLOBAL_ENUM, MEMBERSHIP_TYPE_ENUM } from "../../../common/enums";
+import { GLOBAL_ENUM, MEMBERSHIP_TYPE_ENUM } from '../../../common/enums';
 
 const groupBy = (list, keyGetter) => {
   const map = new Map();
@@ -35,22 +35,22 @@ const getProductName = (type) => {
     return type;
   }
   if (type === GLOBAL_ENUM.EVENT) {
-    return "event";
+    return 'event';
   }
-  return "";
+  return '';
 };
 
 const getMembershipName = (type) => {
   if (type === MEMBERSHIP_TYPE_ENUM.RECREATIONAL) {
-    return "Recreational member";
+    return 'Recreational member';
   } else if (type === MEMBERSHIP_TYPE_ENUM.COMPETITIVE) {
-    return "Competitive member";
+    return 'Competitive member';
   } else if (type === MEMBERSHIP_TYPE_ENUM.ELITE) {
-    return "Elite member";
+    return 'Elite member';
   } else if (type === MEMBERSHIP_TYPE_ENUM.JUNIOR) {
-    return "Junior member";
+    return 'Junior member';
   } else {
-    return "";
+    return '';
   }
 };
 const getProductDetail = (metadata) => {
@@ -58,14 +58,14 @@ const getProductDetail = (metadata) => {
     case GLOBAL_ENUM.MEMBERSHIP:
       return getMembershipName(metadata.membership_type);
     case GLOBAL_ENUM.SHOP_ITEM:
-      return "";
+      return '';
     case GLOBAL_ENUM.EVENT:
       if (metadata.isIndividualOption) {
         return `${metadata.event.basicInfos.name} | registration for ${metadata.name} | ${metadata.team.name}`;
       }
       return `${metadata.event.basicInfos.name} | registration for ${metadata.team.name}`;
     default:
-      return "";
+      return '';
   }
 };
 
