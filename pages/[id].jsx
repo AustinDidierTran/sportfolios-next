@@ -23,7 +23,6 @@ export default function EntityRoute() {
 
   const { response, isLoading } = useApiRoute(formatRoute('/api/entity', null, { id }), {
     defaultValue: {},
-    ifCondition: id !== undefined,
   });
 
   if (isLoading) {

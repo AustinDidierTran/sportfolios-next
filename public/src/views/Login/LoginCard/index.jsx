@@ -25,17 +25,14 @@ export default function LoginCard(props) {
             className={styles.button}
             type="submit"
             style={{ color: '#fff' }}
-            onClick={
-              () => {
-                console.log('hey');
-                formik.handleSubmit();
-              }
-              // AddGaEvent({
-              //   category: "Login",
-              //   action: "User clicked to log in",
-              //   label: "Login_page",
-              // })
-            }
+            onClick={() => {
+              formik.handleSubmit();
+              AddGaEvent({
+                category: 'Login',
+                action: 'User clicked to log in',
+                label: 'Login_page',
+              });
+            }}
           >
             {t('login')}
           </Button>

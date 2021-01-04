@@ -208,7 +208,6 @@ export function StoreProvider(props) {
       const { status } = res;
 
       if (status === errors[ERROR_ENUM.TOKEN_EXPIRED].code) {
-        console.log('Inside yeahhh');
         dispatch({
           type: ACTION_ENUM.CLEAR_USER_INFO,
         });
