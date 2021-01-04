@@ -54,8 +54,6 @@ export default function TabEventInfo() {
       method: 'GET',
     });
 
-    console.log({ status });
-
     if (data) {
       setOptions(data);
     }

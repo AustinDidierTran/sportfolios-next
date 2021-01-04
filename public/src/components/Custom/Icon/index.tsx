@@ -99,14 +99,14 @@ const icons = {
   Autorenew,
   Build,
   Business,
+  Cancel,
+  CancelSend,
+  Chat,
   Check,
   CheckCircle,
   CheckCircleOutline,
-  Chat,
   Close,
   CloudUploadIcon,
-  Cancel,
-  CancelSend,
   Create,
   CreditCard,
   Deck,
@@ -119,6 +119,7 @@ const icons = {
   EmojiObjects,
   Event,
   ExitToApp,
+  ExpandLess,
   ExpandMore,
   Facebook,
   FavoriteIcon,
@@ -130,8 +131,8 @@ const icons = {
   GetApp,
   GridOn,
   Group,
-  Home,
   Help,
+  Home,
   Info,
   KeyboardArrowDown,
   KeyboardArrowUp,
@@ -169,14 +170,21 @@ const icons = {
   SupervisedUserCircle,
   TextFormat,
   Undo,
-  ExpandLess,
-  ExpandMore,
 };
 
-export default function CustomIcon(props) {
+interface IProps {
+  icon: string;
+  color?: string;
+  onClick: Function;
+  fontSize: number;
+}
+
+const CustomIcon: React.FunctionComponent<IProps> = (props) => {
   const { icon, color = 'primary', onClick, fontSize } = props;
 
   const Icon = icons[icon];
 
   return <Icon style={{ fill: color }} fontSize={fontSize} onClick={onClick} />;
-}
+};
+
+export default CustomIcon;

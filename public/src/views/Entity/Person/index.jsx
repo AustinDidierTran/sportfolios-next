@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 
-import { Paper, IgContainer, Icon, Tab, Tabs } from '../../../components/Custom';
+import { Paper, IgContainer, Tab, Tabs } from '../../../components/Custom';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import TabsGenerator from '../../../tabs';
 import { goTo, ROUTES } from '../../../actions/goTo';
@@ -35,7 +35,7 @@ export default function Person(props) {
       <Paper>
         <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
-            <Tab key={index} onClick={() => onClick(s)} icon={<Icon icon={s.icon} />} />
+            <Tab key={index} onClick={() => onClick(s)} icon={s.icon} label={s.label} />
           ))}
         </Tabs>
       </Paper>

@@ -7,6 +7,8 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+const conf = require('./conf');
+
 const httpsOptions = {
   key: fs.readFileSync('./certificates/localhost.key'),
   cert: fs.readFileSync('./certificates/localhost.crt'),
@@ -18,6 +20,6 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   }).listen(3000, (err) => {
     if (err) throw err;
-    console.log('> Ready on https://localhost:3000');
+    console.log(`> Ready on ${conf.CLIENT_BASE_URL}`);
   });
 });

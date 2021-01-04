@@ -7,7 +7,7 @@ export default function CustomTab(props) {
   const [displayText, setDisplayText] = useState(false);
 
   const handleResize = () => {
-    setDisplayText(Boolean(window.innerWidth > 768));
+    setDisplayText(Boolean(window.innerWidth > 600));
   };
 
   useEffect(() => {
@@ -18,9 +18,9 @@ export default function CustomTab(props) {
     };
   }, []);
 
-  return displayText ? (
-    <Tab icon={<Icon icon={icon} />} label={label} onClick={onClick} />
-  ) : (
-    <Tab icon={<Icon icon={icon} />} aria-label={label} onClick={onClick} />
-  );
+  if (displayText) {
+    return <Tab icon={<Icon icon={icon} />} label={label} onClick={onClick} />;
+  }
+
+  return <Tab icon={<Icon icon={icon} />} aria-label={label} onClick={onClick} />;
 }

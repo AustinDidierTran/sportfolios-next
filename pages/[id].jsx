@@ -17,12 +17,13 @@ const EntityMap = {
   [GLOBAL_ENUM.EVENT]: Event,
 };
 
-export default function Entity() {
+export default function EntityRoute() {
   const router = useRouter();
   const { id } = router.query;
 
   const { response, isLoading } = useApiRoute(formatRoute('/api/entity', null, { id }), {
     defaultValue: {},
+    ifCondition: id !== undefined,
   });
 
   if (isLoading) {

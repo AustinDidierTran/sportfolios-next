@@ -20,7 +20,6 @@ export default function Header() {
   const {
     state: { isAuthenticated },
   } = useContext(Store);
-  console.log({ isAuthenticated });
 
   const router = useRouter();
   const [path, setPath] = useState('');

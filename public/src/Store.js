@@ -217,8 +217,6 @@ export function StoreProvider(props) {
 
       const { data } = await res.json();
 
-      console.log({ data });
-
       if (data) {
         dispatch({
           type: ACTION_ENUM.UPDATE_USER_INFO,

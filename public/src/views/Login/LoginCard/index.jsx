@@ -10,8 +10,6 @@ export default function LoginCard(props) {
   const { t } = useTranslation();
   const { formik } = props;
 
-  console.log({ formik });
-
   return (
     <Paper className={styles.card}>
       <form onSubmit={formik.handleSubmit}>

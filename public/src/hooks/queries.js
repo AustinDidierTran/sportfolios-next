@@ -13,7 +13,7 @@ const paramsToObject = (entries) => {
 };
 
 export const useApiRoute = (route, options = {}) => {
-  const { defaultValue } = options;
+  const { defaultValue, ifCondition } = options;
   const [isLoading, setIsLoading] = useState(true);
   const [response, setResponse] = useState(defaultValue);
   const [status, setStatus] = useState(200);
@@ -32,7 +32,7 @@ export const useApiRoute = (route, options = {}) => {
   };
 
   useEffect(() => {
-    if (route) {
+    if (route && ifCondition) {
       refetch();
     } else {
       setResponse(defaultValue);
