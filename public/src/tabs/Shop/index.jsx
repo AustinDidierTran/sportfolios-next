@@ -13,6 +13,7 @@ import api from '../../actions/api';
 import { CARD_TYPE_ENUM } from '../../../common/enums';
 import { FEATURE_FLAGS } from '../../../common/flags';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
 
 export default function Shop(props) {
   const { t } = useTranslation();

@@ -17,6 +17,7 @@ import { TextareaAutosize } from '@material-ui/core';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../actions/goTo';
 import { GLOBAL_ENUM } from '../../../../common/enums';
+import { useRouter } from 'next/router';
 
 export default function CreateItem(props) {
   const router = useRouter();

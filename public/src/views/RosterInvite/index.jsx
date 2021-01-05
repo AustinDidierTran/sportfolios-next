@@ -6,6 +6,7 @@ import { formatRoute, goTo } from '../../actions/goTo';
 import { IgContainer, LoadingSpinner } from '../../components/Custom';
 import { Store } from '../../Store.js';
 import RosterCard from '../../tabs/Rosters/RosterCard/index.jsx';
+import { useRouter } from 'next/router';
 
 export default function RosterInvite() {
   const {

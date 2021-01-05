@@ -8,6 +8,7 @@ import { formatRoute } from '../../../../../actions/goTo';
 import { SELECT_ENUM } from '../../../../../../common/enums';
 import { formatDate } from '../../../../../utils/stringFormats';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 
 export default function TimeSlotSelect(props) {
   const { onChange, timeSlot } = props;

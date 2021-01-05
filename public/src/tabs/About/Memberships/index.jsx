@@ -8,6 +8,7 @@ import api from '../../../actions/api';
 import { formatRoute } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import { Divider, Typography } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 export default function Memberships() {
   const { t } = useTranslation();

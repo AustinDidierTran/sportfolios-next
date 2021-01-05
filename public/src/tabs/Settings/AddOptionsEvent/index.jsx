@@ -6,6 +6,7 @@ import { formatRoute } from '../../../actions/goTo';
 import styles from './AddOptionsEvent.module.css';
 import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
+import { useRouter } from 'next/router';
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
