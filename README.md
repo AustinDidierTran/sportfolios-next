@@ -2,11 +2,38 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, make sure you have your two projects at the same level:
+
+![](projects.png)
+
+After, install yarn:
 
 ```bash
-npm run dev
-# or
+brew install yarn
+```
+
+Then create your certificates:
+
+```bash
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```
+
+Put your files (localhost.crt and localhost.key) in a folder at the root named certificates:
+
+![](certificates.png)
+
+If you have a problem with your certificates you can consult this article:
+
+```bash
+https://anmagpie.medium.com/secure-your-local-development-server-with-https-next-js-81ac6b8b3d68
+```
+
+Then, run the development server:
+
+```bash
 yarn dev
 ```
 
