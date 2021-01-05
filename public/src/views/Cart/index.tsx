@@ -4,7 +4,6 @@ import TabsGenerator from '../../tabs';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { IgContainer, Paper, Tab, Tabs } from '../../components/Custom';
 import { TABS_ENUM } from '../../../common/enums';
-import { useRouter } from 'next/router';
 
 interface IProps {
   openTab: string;

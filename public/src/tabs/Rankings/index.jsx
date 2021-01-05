@@ -62,7 +62,11 @@ export default function Rankings() {
     return <LoadingSpinner />;
   }
   if (!preRanking.length && !ranking.length) {
-    return <Typography style={{ margin: '8px' }}>{t('no_teams_registered')}</Typography>;
+    return (
+      <Typography color="textSecondary" style={{ margin: '16px' }}>
+        {t('no_teams_registered')}
+      </Typography>
+    );
   }
   return (
     <>

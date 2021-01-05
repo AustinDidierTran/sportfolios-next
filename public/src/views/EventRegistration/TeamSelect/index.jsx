@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
 import TeamItem from '../../../components/Custom/List/TeamItem';
 import styles from './TeamSelect.module.css';
+import { useRouter } from 'next/router';
 
 export default function TeamSelect(props) {
   const { t } = useTranslation();

@@ -6,6 +6,7 @@ import styles from './PersonSelect.module.css';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../actions/goTo';
 import PersonItem from '../../../components/Custom/List/PersonItem';
+import { useRouter } from 'next/router';
 
 export default function PersonSelect(props) {
   const { t } = useTranslation();

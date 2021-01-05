@@ -8,6 +8,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
