@@ -42,6 +42,7 @@ export default function Header() {
     ) {
       setPath(pth);
     } else if (['eventRegistration'].includes(pth)) {
+      console.log('oui?');
       const id = router.pathname.split('/')[2] || '';
       const ent = await getEntity(id);
       setPath(ent.type);

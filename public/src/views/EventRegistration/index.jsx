@@ -5,11 +5,11 @@ import { useStepper } from '../../hooks/forms';
 import api from '../../actions/api';
 import { formatRoute, ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
-import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../../common/enums';
+import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import styles from './EventRegistration.module.css';
 import { Container, Typography } from '@material-ui/core';
 import { Store, ACTION_ENUM } from '../../Store';
-import { ERROR_ENUM, errors } from '../../../../common/errors';
+import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
 
 import PersonSelect from './PersonSelect';
@@ -32,7 +32,7 @@ export default function EventRegistration() {
   const { id: eventId } = router.query;
   const [isLoading, setIsLoading] = useState(false);
   const {
-    state: { authToken },
+    state: { isAuthenticated },
     dispatch,
   } = useContext(Store);
 
@@ -187,7 +187,7 @@ export default function EventRegistration() {
   };
 
   useEffect(() => {
-    const isAuthenticated = Boolean(authToken);
+    console.log({ isAuthenticated });
     if (isAuthenticated) {
       getData();
     } else {
@@ -197,7 +197,7 @@ export default function EventRegistration() {
         severity: SEVERITY_ENUM.INFO,
       });
       goToAndReplace(ROUTES.login, null, {
-        redirectUrl: `/eventRegistration/${eventId}`,
+        redirectUrl: `/page/eventRegistration/${eventId}`,
       });
     }
   }, []);

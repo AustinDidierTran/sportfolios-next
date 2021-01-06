@@ -1,6 +1,7 @@
 import React from 'react';
+import EventRegistration from '../../../public/src/views/EventRegistration';
 
-const EventRegistrationRoute = (props) => {
+const EventRegistrationRoute = () => {
   return <EventRegistration />;
 };
 
