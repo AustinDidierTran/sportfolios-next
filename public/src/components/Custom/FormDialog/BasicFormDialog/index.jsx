@@ -9,6 +9,8 @@ import { ComponentFactory } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 export default function BasicFormDialog(props) {
   const { t } = useTranslation();
+  const { open, title, description, buttons = defaultButtons, fields, formik, onClose } = props;
+
   const defaultButtons = [
     {
       onClick: onClose,
@@ -21,33 +23,13 @@ export default function BasicFormDialog(props) {
       color: 'primary',
     },
   ];
-
-  const {
-    open,
-    title,
-    description,
-    buttons = defaultButtons,
-    fields,
-    formik,
-    onClose,
-  } = props;
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      aria-labelledby="form-dialog-title"
-      maxWidth={'xs'}
-      fullWidth
-    >
+    <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={'xs'} fullWidth>
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <form onSubmit={formik?.handleSubmit}>
         <div>
           <DialogContent>
-            {description ? (
-              <DialogContentText>{description}</DialogContentText>
-            ) : (
-              <></>
-            )}
+            {description ? <DialogContentText>{description}</DialogContentText> : <></>}
             {fields.map((field, index) => (
               <div style={{ marginTop: '8px' }} key={index}>
                 <ComponentFactory component={{ ...field, formik }} />

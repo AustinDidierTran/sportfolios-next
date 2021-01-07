@@ -11,6 +11,7 @@ export default function CustomCheckBox(props) {
   };
   return (
     <FormControlLabel
+      style={{ margin: '0px' }}
       control={
         <Checkbox
           checked={checked}

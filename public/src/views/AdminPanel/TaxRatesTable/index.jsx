@@ -5,7 +5,7 @@ import { CardContent } from '@material-ui/core';
 import { Paper } from '../../../components/Custom';
 import styles from './TaxRatesTable.module.css';
 import api from '../../../actions/api';
-import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../actions/goTo';
 
 export default function TaxeRatesTable() {

@@ -37,7 +37,8 @@
     "socket.io-client": "^3.0.4",
     "stripe": "^8.129.0",
     "uuid": "^8.3.2",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "husky": "^4.3.6",

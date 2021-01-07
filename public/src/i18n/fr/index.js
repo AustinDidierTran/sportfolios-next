@@ -203,6 +203,7 @@ export default {
     default: 'Par défaut',
     delete_bank_account_confirmation:
       'Êtes-vous certain de vouloir supprimer votre compte bancaire finissant par {{last4}}?',
+    delete_cart_item_confirmation: 'Êtes-vous certain de vouloir supprimer cet article de votre panier?',
     delete_confirmation_text: 'Pour supprimer, écrivez {{name}}',
     delete_credit_card_confirmation:
       'Êtes-vous certain de vouloir supprimer votre carte de crédit finissant par {{last4}}?',

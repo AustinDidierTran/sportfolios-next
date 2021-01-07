@@ -198,6 +198,7 @@ export default {
     decline: 'Decline',
     default: 'Default',
     delete_bank_account_confirmation: 'Are you sure you want to delete your bank account ending with {{last4}}?',
+    delete_cart_item_confirmation: 'Are you sure you want to delete this item from your cart?',
     delete_confirmation_text: 'To delete, type {{name}}',
     delete_credit_card_confirmation: 'Are you sure you want to delete your credit card ending with {{last4}}?',
     delete_game_confirmation: 'Are you sure you want to delete this game?',

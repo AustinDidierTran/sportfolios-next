@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 
 import { Table } from '../../../components/Custom';
 
@@ -20,9 +20,10 @@ export default function SportsTable() {
     setSports(res.data);
   };
 
-  const validationSchema = Yup.object({
-    name: Yup.string().required(t('value_is_required')),
-    scoreType: Yup.number()
+  const validationSchema = yup.object({
+    name: yup.string().required(t('value_is_required')),
+    scoreType: yup
+      .number()
       .min(0, 'Should be either 0 or 1')
       .max(1, 'Should be either 0 or 1')
       .required(t('value_is_required')),
