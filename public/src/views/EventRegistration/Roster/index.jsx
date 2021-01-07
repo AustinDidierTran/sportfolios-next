@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import { LIST_ITEM_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
+import { LIST_ITEM_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { List } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
@@ -13,7 +13,7 @@ import { ACTION_ENUM, Store } from '../../../Store';
 export default function Roster(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const query = useFormInput('');
   const {
     state: { userInfo },
@@ -86,7 +86,9 @@ export default function Roster(props) {
         },
       ]);
     }
-    inputRef.current.focus();
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   const onDelete = (body) => {
@@ -120,6 +122,7 @@ export default function Roster(props) {
         secondary={t('player')}
         withoutIcon
         autoFocus
+        inputRef={inputRef}
       />
       <hr />
       <Typography style={{ marginTop: '16px' }}>{t('roster')}</Typography>

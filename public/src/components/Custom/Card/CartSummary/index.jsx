@@ -16,8 +16,8 @@ export default function CartSummary(props) {
         <ListItemText primary={t('subtotal')} className={styles.primary} />
         <ListItemText secondary={`${formatPrice(subtotal)} $`} />
       </div>
-      {taxes.map((t) => (
-        <div className={styles.div}>
+      {taxes.map((t, index) => (
+        <div className={styles.div} key={index}>
           <ListItemText className={styles.primary} primary={`${t.displayName} (${t.percentage}%)`} />
           <ListItemText secondary={`${formatPrice(t.amount)} $`} />
         </div>

@@ -9,7 +9,18 @@ import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../common/enums';
 
 export default function PersonSearchList(props) {
-  const { blackList, whiteList, label, onClick, rejectedTypes = [], withoutIcon, secondary, style, autoFocus } = props;
+  const {
+    blackList,
+    whiteList,
+    label,
+    onClick,
+    rejectedTypes = [],
+    withoutIcon,
+    secondary,
+    style,
+    autoFocus,
+    inputRef,
+  } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
 
@@ -78,6 +89,7 @@ export default function PersonSearchList(props) {
           autoFocus={autoFocus}
           style={{ width: '100%', ...style }}
           onKeyPress={onEnter}
+          inputRef={inputRef}
         />
       ) : (
         <TextField
@@ -88,6 +100,7 @@ export default function PersonSearchList(props) {
           size="small"
           autoFocus={autoFocus}
           onKeyPress={onEnter}
+          inputRef={inputRef}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

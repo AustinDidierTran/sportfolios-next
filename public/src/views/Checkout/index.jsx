@@ -6,6 +6,7 @@ import ChoosePaymentMethod from './ChoosePaymentMethod';
 import { formatPageTitle } from '../../utils/stringFormats';
 import { Paper, IgContainer } from '../../components/Custom';
 import { useTranslation } from 'react-i18next';
+import { goTo, ROUTES } from '../../actions/goTo';
 
 const Checkout = (props) => {
   const { total } = props;
@@ -14,6 +15,10 @@ const Checkout = (props) => {
   useEffect(() => {
     document.title = formatPageTitle(t('checkout'));
   }, []);
+
+  if (total <= 0) {
+    goTo(ROUTES.cart);
+  }
 
   return (
     <IgContainer>

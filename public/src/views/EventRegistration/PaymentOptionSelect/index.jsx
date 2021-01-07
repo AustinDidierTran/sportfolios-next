@@ -15,7 +15,9 @@ export default function PaymentOptionSelect(props) {
   const { id: eventId } = router.query;
 
   useEffect(() => {
-    getOptions();
+    if (eventId) {
+      getOptions();
+    }
   }, []);
 
   const onChange = (e, value) => {
@@ -24,6 +26,7 @@ export default function PaymentOptionSelect(props) {
   };
 
   const getOptions = async () => {
+    console.log({ eventId });
     const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
 
     const options = data
