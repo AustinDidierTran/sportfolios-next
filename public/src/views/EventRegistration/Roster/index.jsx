@@ -86,7 +86,6 @@ export default function Roster(props) {
         },
       ]);
     }
-    console.log({ inputRef });
     if (inputRef.current) {
       inputRef.current.focus();
     }

@@ -187,7 +187,6 @@ export default function EventRegistration() {
   };
 
   useEffect(() => {
-    console.log({ isAuthenticated });
     if (isAuthenticated) {
       getData();
     } else {

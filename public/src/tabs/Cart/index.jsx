@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styles from './Cart.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
@@ -41,6 +41,13 @@ export default function Cart() {
     fetchItems();
   }, []);
 
+  const disabled = useMemo(() => {
+    if (total.total <= 0) {
+      return true;
+    }
+    return false;
+  }, [total]);
+
   const updateQuantity = async (quantity, cartItemId) => {
     const { data } = await api('/api/shop/updateCartItems', {
       method: 'POST',
@@ -74,14 +81,15 @@ export default function Cart() {
     ];
     return <MessageAndButtons buttons={buttons} message={t('cart_empty_go_shop')} withoutIgContainer />;
   }
-
   return (
     <>
       <div className={styles.cart}>
         <List
           items={items.map((item, index) => ({
             ...item,
+            checked: item.selected,
             updateQuantity,
+            fetchItems,
             type: LIST_ITEM_ENUM.CART,
             key: index,
           }))}
@@ -105,6 +113,7 @@ export default function Cart() {
             }}
             style={{ margin: 8 }}
             className={styles.button}
+            disabled={disabled}
           >
             {t('checkout')}
           </Button>

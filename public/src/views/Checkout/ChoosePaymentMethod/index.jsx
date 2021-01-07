@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { checkout } from '../../../utils/stripe';
 import styles from './ChoosePaymentMethod.module.css';
 import { Typography } from '@material-ui/core';
-import { LOGO_ENUM } from '../../../../../common/enums';
+import { LOGO_ENUM } from '../../../../common/enums';
 import { formatPrice } from '../../../utils/stringFormats';
 
 export default function ChoosePaymentMethod(props) {
