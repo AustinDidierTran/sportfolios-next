@@ -175,8 +175,8 @@ const icons = {
 interface IProps {
   icon: string;
   color?: string;
-  onClick: Function;
-  fontSize: number;
+  onClick?: Function;
+  fontSize?: number;
 }
 
 const CustomIcon: React.FunctionComponent<IProps> = (props) => {

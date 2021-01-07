@@ -1,10 +1,16 @@
 import React, { useMemo } from 'react';
 
-import Button from '@material-ui/core/Button';
-import { Icon } from '../../Custom';
+import { Button, ButtonProps } from '@material-ui/core';
+import { Icon } from '..';
 
-export default function CustomButton(props) {
-  const { color, variant, textColor, style, size, ...otherProps } = props;
+interface IProps extends ButtonProps {
+  textColor?: string;
+  startIcon?: string;
+  endIcon?: string;
+}
+
+const CustomButton: React.FC<IProps> = (props) => {
+  const { color = 'primary', variant = 'contained', size = 'small', textColor, style, ...otherProps } = props;
 
   let defaultTextColor = 'white';
   if (variant === 'outlined' || variant === 'text') {
@@ -27,16 +33,18 @@ export default function CustomButton(props) {
 
   return (
     <Button
-      size={size || 'small'}
-      variant={variant || 'contained'}
-      color={color || 'primary'}
       {...otherProps}
+      variant={variant}
       style={{
         color: textColor || defaultTextColor,
         ...style,
       }}
+      color={color}
+      size={size}
       startIcon={startIcon}
       endIcon={endIcon}
     />
   );
-}
+};
+
+export default CustomButton;
