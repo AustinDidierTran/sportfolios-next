@@ -4,9 +4,6 @@ module.exports = {
   //API_BASE_URL: 'https://private-4f97fa-sportfolios.apiary-mock.com',
   CLIENT_BASE_URL: 'https://localhost:3000',
   TOKEN_SECRET: '942ad648-fd13-4386-a8ea-a0d4e75324ef',
-  optimizely: {
-    sdkKey: 'FB1UUSgMgYx8J4VJ2ixc6',
-  },
   STRIPE: {
     publicKey: 'pk_test_qd1ulz9FxZA3aj2OcBfjqqro00G1K5WrTb',
   },
