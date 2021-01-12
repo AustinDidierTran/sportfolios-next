@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPrice, formatPageTitle } from '../../utils/stringFormats';
 
@@ -8,14 +8,26 @@ import styles from './OrderProcessed.module.css';
 import { LOGO_ENUM } from '../../../common/enums';
 import { goTo } from '../../actions/goTo';
 import { useRouter } from 'next/router';
+import { ACTION_ENUM, Store } from '../../Store';
+import api from '../../actions/api';
 
 export default function OrderProcessed() {
   const router = useRouter();
   const { paid, last4, receiptUrl } = router.query;
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
+
+  const updateCart = async () => {
+    const { data: cartItems } = await api('/api/shop/getCartItems');
+    dispatch({
+      type: ACTION_ENUM.UPDATE_CART,
+      payload: cartItems,
+    });
+  };
 
   useEffect(() => {
     document.title = formatPageTitle(t('order_processed_title'));
+    updateCart();
   }, []);
 
   const goToReceipt = () => {

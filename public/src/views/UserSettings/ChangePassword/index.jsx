@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Card } from '@material-ui/core';
 import { Button, List, TextField } from '../../../components/Custom';
+// @ts-ignore
 import styles from './ChangePassword.module.css';
 
 import { Store, ACTION_ENUM } from '../../../Store';
@@ -103,7 +104,7 @@ export default function ChangePassword() {
             className={styles.textField}
           />
         </div>
-        <Button color="primary" type="submit" className={styles.button}>
+        <Button color="primary" type="submit" style={{ marginTop: '16px', marginBottom: '8px' }}>
           {t('change_password')}
         </Button>
       </form>

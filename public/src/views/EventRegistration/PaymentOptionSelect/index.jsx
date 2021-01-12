@@ -26,7 +26,6 @@ export default function PaymentOptionSelect(props) {
   };
 
   const getOptions = async () => {
-    console.log({ eventId });
     const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
 
     const options = data

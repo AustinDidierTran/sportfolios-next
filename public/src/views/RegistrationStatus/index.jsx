@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MessageAndButtons } from '../../components/Custom';
@@ -6,11 +6,26 @@ import { STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import { goTo, ROUTES } from '../../actions/goTo';
 import RosterInviteLink from '../../tabs/Rosters/RosterCard/RosterInviteLink';
 import { useRouter } from 'next/router';
+import api from '../../actions/api';
+import { ACTION_ENUM, Store } from '../../Store';
 
 export default function RegistrationStatus() {
   const { t } = useTranslation();
   const router = useRouter();
   const { reason, status, rosterId } = router.query;
+  const { dispatch } = useContext(Store);
+
+  const updateCart = async () => {
+    const { data: cartItems } = await api('/api/shop/getCartItems');
+    dispatch({
+      type: ACTION_ENUM.UPDATE_CART,
+      payload: cartItems,
+    });
+  };
+
+  useEffect(() => {
+    updateCart();
+  }, []);
 
   const goToCart = () => {
     goTo(ROUTES.cart);
