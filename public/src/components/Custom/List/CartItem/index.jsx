@@ -7,6 +7,8 @@ import styles from './CartItem.module.css';
 import { formatPrice } from '../../../../utils/stringFormats';
 import { GLOBAL_ENUM, IMAGE_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
+import { AlertDialog } from '../../Dialog';
+import { formatRoute } from '../../../../actions/goTo';
 
 export default function CartItem(props) {
   const { t } = useTranslation();
@@ -45,6 +47,24 @@ export default function CartItem(props) {
     });
     fetchItems();
     setDisabled(false);
+  };
+
+  const onClick = () => {
+    setOpen(true);
+  };
+
+  const onDelete = async () => {
+    await api(
+      formatRoute('/api/shop/deleteCartItem', null, {
+        cartItemId: id,
+      }),
+      {
+        method: 'DELETE',
+      }
+    );
+    fetchItems();
+
+    setOpen(false);
   };
 
   const { type } = metadata;

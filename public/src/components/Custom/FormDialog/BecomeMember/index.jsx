@@ -11,6 +11,7 @@ import { formatRoute } from '../../../../actions/goTo';
 import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
+import { useRouter } from 'next/router';
 
 export default function BecomeMember(props) {
   const { open: openProps, onClose, update } = props;
