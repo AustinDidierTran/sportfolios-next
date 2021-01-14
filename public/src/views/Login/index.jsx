@@ -91,7 +91,6 @@ export default function Login() {
     onSubmit: async (values) => {
       if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
         const { firstName, lastName, email, password } = values;
-
         const res = await api('/api/auth/signup', {
           method: 'POST',
           body: JSON.stringify({

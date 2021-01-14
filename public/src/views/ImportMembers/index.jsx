@@ -13,15 +13,15 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ExcelRenderer } from 'react-excel-renderer';
 import { ACTION_ENUM, Store } from '../../Store';
-import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ListItem, ListItemText } from '@material-ui/core';
 import { useFormik } from 'formik';
 import styles from './ImportMembers.module.css';
 import { validateDateWithYear, validateEmail } from '../../utils/stringFormats';
 import api from '../../actions/api';
-import { getMembershipName } from '../../../../common/functions';
+import { getMembershipName } from '../../../common/functions';
 import moment from 'moment';
-import { ERROR_ENUM } from '../../../../common/errors';
+import { ERROR_ENUM } from '../../../common/errors';
 import { useRouter } from 'next/router';
 
 export default function ImportMembers() {
@@ -37,6 +37,9 @@ export default function ImportMembers() {
 
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
+    if (!res.data) {
+      return;
+    }
     const data = res.data.reduce((prev, curr) => {
       if (!prev.some((p) => p.value === curr.membership_type)) {
         const res = {
@@ -241,7 +244,7 @@ export default function ImportMembers() {
           onClick={() => {
             location.reload();
           }}
-          className={styles.button}
+          style={{ margin: 8 }}
           endIcon="Replay"
         >
           {t('reset')}

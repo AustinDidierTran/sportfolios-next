@@ -9,7 +9,7 @@ import { Paper } from '../../components/Custom';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
-import { LOGO_ENUM } from '../../../../common/enums';
+import { LOGO_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 
 export default function PasswordRecovery() {

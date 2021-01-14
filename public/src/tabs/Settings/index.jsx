@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import loadable from '@loadable/component';
 import { ENTITIES_ROLE_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
@@ -63,7 +63,7 @@ export default function EntitySettings(props) {
             <QuickDescription />
             <Description />
             <EventSettings />
-            <TeamRegistered />
+            <TeamRegistered id="teamRegistered" />
             <AddOptionsEvent />
             <ManageRoles role={role} />
             <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
