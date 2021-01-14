@@ -15,6 +15,10 @@ const fillWithZeros = (number, zeros = 0) => {
 
 const formatPrice = (price) => (price / 100).toFixed(2);
 
+const formatClientRoute = (route, params, queryParams) => {
+  return formatRoute(`${CLIENT_BASE_URL}${route}`, params, queryParams);
+};
+
 const formatRoute = (route, params, queryParams) => {
   if (!route) {
     /* eslint-disable-next-line */
@@ -43,4 +47,5 @@ module.exports = {
   formatPrice,
   fillWithZeros,
   formatRoute,
+  formatClientRoute,
 };

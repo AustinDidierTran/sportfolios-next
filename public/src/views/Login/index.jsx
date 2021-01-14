@@ -106,7 +106,6 @@ export default function Login() {
         } else if (res.status >= 400) {
           formik.setFieldError('firstName', t('something_went_wrong'));
         } else {
-          console.log('goTO');
           goTo(ROUTES.confirmationEmailSent, { email });
         }
       } else if (formik.status.state === LOGIN_STATE_ENUM.LOGIN) {
