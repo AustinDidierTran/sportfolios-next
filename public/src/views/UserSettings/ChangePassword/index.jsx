@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Card } from '@material-ui/core';
 import { Button, List, TextField } from '../../../components/Custom';
-// @ts-ignore
 import styles from './ChangePassword.module.css';
 
 import { Store, ACTION_ENUM } from '../../../Store';
