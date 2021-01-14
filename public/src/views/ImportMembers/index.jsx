@@ -37,20 +37,21 @@ export default function ImportMembers() {
 
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
-    if (res.data) {
-      const data = res.data.reduce((prev, curr) => {
-        if (!prev.some((p) => p.value === curr.membership_type)) {
-          const res = {
-            display: t(getMembershipName(curr.membership_type)),
-            value: curr.membership_type,
-          };
-          prev.push(res);
-        }
-        return prev;
-      }, []);
-      formik.setFieldValue('memberships', data);
-      formik.setFieldValue('membership', data[0].value);
+    if (!res.data) {
+      return;
     }
+    const data = res.data.reduce((prev, curr) => {
+      if (!prev.some((p) => p.value === curr.membership_type)) {
+        const res = {
+          display: t(getMembershipName(curr.membership_type)),
+          value: curr.membership_type,
+        };
+        prev.push(res);
+      }
+      return prev;
+    }, []);
+    formik.setFieldValue('memberships', data);
+    formik.setFieldValue('membership', data[0].value);
   };
 
   const formik = useFormik({
