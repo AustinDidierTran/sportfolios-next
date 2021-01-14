@@ -1,7 +1,7 @@
 .div {
   display: grid;
   grid-template-columns: 4fr 8fr 8fr 1fr 1fr;
-  grid-template-areas: 'photo name quantity select' 'date date date mail';
+  grid-template-areas: 'photo name quantity select .' 'date date date mail .';
   width: 100%;
   align-items: center;
 }
