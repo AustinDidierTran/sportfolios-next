@@ -8,14 +8,13 @@ import RegisterCard from './RegisterCard';
 import styles from './TransferPerson.module.css';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { LOGO_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { LOGO_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { useRouter } from 'next/router';
 
-export default function TransferPerson(props) {
-  const {
-    match: {
-      params: { token },
-    },
-  } = props;
+export default function TransferPerson() {
+  const router = useRouter();
+  const { token } = router.query;
+
   const { dispatch } = useContext(Store);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);

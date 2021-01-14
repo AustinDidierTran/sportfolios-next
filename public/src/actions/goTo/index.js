@@ -1,4 +1,3 @@
-import history from '../../stores/history';
 import { getFormattedMailTo } from '../../utils/stringFormats';
 import api from '../api';
 import { ROUTES_ENUM } from '../../../common/enums';

@@ -89,10 +89,8 @@ export default function Login() {
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: async (values) => {
-      console.log('???');
       if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
         const { firstName, lastName, email, password } = values;
-        console.log('1');
         const res = await api('/api/auth/signup', {
           method: 'POST',
           body: JSON.stringify({
@@ -103,7 +101,6 @@ export default function Login() {
             redirectUrl,
           }),
         });
-        console.log({ res });
         if (res.status === 403) {
           formik.setFieldError('email', t('email_already_used'));
         } else if (res.status >= 400) {

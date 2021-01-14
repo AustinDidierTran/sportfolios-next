@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { STATUS_ENUM } from '../../../../common/enums';
+import { STATUS_ENUM } from '../../../common/enums';
 import { Store, ACTION_ENUM } from '../../Store';
 import { goTo, formatRoute } from '../../actions/goTo';
 import { Container } from '@material-ui/core';
@@ -12,6 +12,9 @@ export default function RedirectWithToken() {
   const realUrl = decodeURI(url);
   const { dispatch } = useContext(Store);
   const login = async () => {
+    if (!token) {
+      return;
+    }
     const res = await api(
       formatRoute('/api/auth/loginWithToken', null, {
         token,
@@ -33,7 +36,7 @@ export default function RedirectWithToken() {
 
   useEffect(() => {
     login();
-  }, []);
+  }, [token]);
 
   return (
     <div>
