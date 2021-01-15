@@ -13,12 +13,10 @@ import { CardActions, CardContent } from '@material-ui/core';
 import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
-import { useRouter } from 'next/router';
 
-export default function EntityCreate() {
-  const router = useRouter();
-  const { type } = router.query;
+export default function EntityCreate(props) {
   const { t } = useTranslation();
+  const { type } = props;
   const {
     state: { userInfo },
   } = useContext(Store);
@@ -82,6 +80,9 @@ export default function EntityCreate() {
     if (creatingEntity === GLOBAL_ENUM.EVENT) {
       formik.setFieldValue('creator', creatorOptions[0].value);
     } else if (creatingEntity === GLOBAL_ENUM.TEAM || creatingEntity === GLOBAL_ENUM.ORGANIZATION) {
+      if (!userInfo.primaryPerson) {
+        return;
+      }
       formik.setFieldValue('creator', userInfo.primaryPerson.entity_id);
     }
   }, [creatorOptions]);
