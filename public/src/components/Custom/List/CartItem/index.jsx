@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Avatar, Select, CheckBox } from '../../../Custom';
+import { Avatar, Select, CheckBox, IconButton } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './CartItem.module.css';
 import { formatPrice } from '../../../../utils/stringFormats';
@@ -28,6 +28,7 @@ export default function CartItem(props) {
   } = props;
 
   const [disabled, setDisabled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const quantityOptions = Array(Math.max(101, quantity + 1))
     .fill(0)
@@ -96,10 +97,25 @@ export default function CartItem(props) {
                 }
                 secondary={label}
               />
-              <CheckBox disabled={disabled} checked={checked} onChange={handleChange} />
+              <CheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+              <IconButton
+                variant="contained"
+                onClick={onClick}
+                icon="Delete"
+                tooltip={t('delete')}
+                style={{ color: 'primary' }}
+              ></IconButton>
             </div>
           </ListItem>
           <Divider />
+          <AlertDialog
+            open={open}
+            onCancel={() => {
+              setOpen(false);
+            }}
+            title={t('delete_cart_item_confirmation')}
+            onSubmit={onDelete}
+          />
         </>
       );
     }
@@ -130,10 +146,25 @@ export default function CartItem(props) {
                 }
                 secondary={label}
               />
-              <CheckBox disabled={disabled} checked={checked} onChange={handleChange} />
+              <CheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+              <IconButton
+                variant="contained"
+                onClick={onClick}
+                icon="Delete"
+                tooltip={t('delete')}
+                style={{ color: 'primary' }}
+              ></IconButton>
             </div>
           </ListItem>
           <Divider />
+          <AlertDialog
+            open={open}
+            onCancel={() => {
+              setOpen(false);
+            }}
+            title={t('delete_cart_item_confirmation')}
+            onSubmit={onDelete}
+          />
         </>
       );
     }
@@ -157,10 +188,25 @@ export default function CartItem(props) {
               primary={taxRates.length ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
               secondary={`${person?.name} ${person?.surname}`}
             ></ListItemText>
-            <CheckBox disabled={disabled} checked={checked} onChange={handleChange} />
+            <CheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+            <IconButton
+              variant="contained"
+              onClick={onClick}
+              icon="Delete"
+              tooltip={t('delete')}
+              style={{ color: 'primary' }}
+            ></IconButton>
           </div>
         </ListItem>
         <Divider />
+        <AlertDialog
+          open={open}
+          onCancel={() => {
+            setOpen(false);
+          }}
+          title={t('delete_cart_item_confirmation')}
+          onSubmit={onDelete}
+        />
       </>
     );
   }

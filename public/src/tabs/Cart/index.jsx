@@ -58,7 +58,7 @@ export default function Cart() {
     });
     const { items: itemsProp, total: totalProp } = data;
     setItems(itemsProp);
-    setTotal(totalProp.total);
+    setTotal(totalProp);
     dispatch({
       type: ACTION_ENUM.UPDATE_CART,
       payload: data,

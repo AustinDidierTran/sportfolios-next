@@ -9,7 +9,7 @@ import { Button, Paper, TextField } from '../../../components/Custom';
 import styles from './GoogleAnalyticsPageviewsTable.module.css';
 import api from '../../../actions/api';
 import { useFormik } from 'formik';
-import { ERROR_ENUM } from '../../../../../common/errors';
+import { ERROR_ENUM } from '../../../../common/errors';
 
 export default function GaPageviewsTable() {
   const { t } = useTranslation();
