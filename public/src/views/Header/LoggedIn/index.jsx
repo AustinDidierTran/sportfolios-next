@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './LoggedIn.module.css';
 import { ROUTES } from '../../../actions/goTo';
+import api from '../../../actions/api';
 
 export default function LoggedIn(props) {
   const {
@@ -42,6 +43,14 @@ export default function LoggedIn(props) {
 
   const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 
+  const updateCart = async () => {
+    const { data: cartItems } = await api('/api/shop/getCartItems');
+    dispatch({
+      type: ACTION_ENUM.UPDATE_CART,
+      payload: cartItems,
+    });
+  };
+
   const handleCreateClick = () => {
     dispatch({
       type: ACTION_ENUM.HEADER_FLYOUT,
@@ -59,6 +68,7 @@ export default function LoggedIn(props) {
       type: ACTION_ENUM.HEADER_FLYOUT,
       flyoutType: HEADER_FLYOUT_TYPE_ENUM.ACCOUNT,
     });
+    updateCart();
   };
 
   const refCreateEntity = useRef(null);
