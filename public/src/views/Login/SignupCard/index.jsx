@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './SignupCard.module.css';
 
-import { Button, CardContent, CardActions, Divider, TextField, Typography } from '@material-ui/core';
-import { Paper } from '../../../components/Custom';
+import { Button, CardContent, CardActions, Divider, Typography } from '@material-ui/core';
+import { Paper, TextField } from '../../../components/Custom';
 import { LOGIN_STATE_ENUM } from '../../../../common/enums';
 import Link from 'next/link';
 import { ROUTES } from '../../../actions/goTo';

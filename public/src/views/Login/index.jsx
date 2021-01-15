@@ -79,6 +79,8 @@ export default function Login() {
 
   const formik = useFormik({
     initialValues: {
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
     },
