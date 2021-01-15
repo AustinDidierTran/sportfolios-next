@@ -103,7 +103,7 @@ export default function ChangePassword() {
             className={styles.textField}
           />
         </div>
-        <Button color="primary" type="submit" style={{ marginTop: '16px', marginBottom: '8px' }}>
+        <Button color="primary" type="submit" className={styles.button}>
           {t('change_password')}
         </Button>
       </form>
