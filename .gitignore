@@ -34,3 +34,7 @@ yarn-error.log*
 .vercel
 
 /certificates
+
+# next-with-workbox
+public/sw.js
+public/sw.js.map
