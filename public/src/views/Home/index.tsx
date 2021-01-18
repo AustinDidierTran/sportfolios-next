@@ -14,7 +14,7 @@ interface IProps {
   refetch: Function;
 }
 
-const Home: React.FunctionComponent<IProps> = ({ posts, refetch }) => {
+const Home: React.FunctionComponent<IProps> = ({ posts = [], refetch }) => {
   return (
     <IgContainer>
       <div className={styles.general}>

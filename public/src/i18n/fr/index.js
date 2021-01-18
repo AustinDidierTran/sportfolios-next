@@ -80,8 +80,12 @@ export default {
     apply: 'Appliquer',
     are_you_sure_you_want_to_unregister_all_teams:
       "Êtes-vous sûr de vouloir désinscrire toutes les équipes et de rembourser tous les paiements d'équipes et individuels en lien avec celles-ci (si applicable)?",
+    are_you_sure_you_want_to_unregister_all_players:
+      'Êtes-vous sûr de vouloir désinscrire tous les joueurs et de les rembourser (si applicable)?',
     are_you_sure_you_want_to_unregister_this_team:
       "Êtes-vous sûr de vouloir désinscrire cette équipe et de rembourser tous les paiements d'équipes et individuels en lien evec celle-ci (si applicable)?",
+    are_you_sure_you_want_to_unregister_this_player:
+      'Êtes-vous sûr de vouloir désinscrire ce joueur et le rembourser (si applicable)?',
     assistant_captain: 'Assistant capitaine',
     at: 'à',
     athlete_history: "Historique de l'athlète",
@@ -423,6 +427,7 @@ export default {
     no_owner_free_payment_option: 'Pas de propriétaire, option de paiement gratuite',
     no_payment_method: "Il n'y a actuellement aucune méthode de paiement",
     no_person_selected: 'Aucune personne sélectionnée',
+    no_players_registered: 'Aucun joueur inscrit',
     no_remaining_spots:
       "Désolé, votre inscription a été refusé. L'événement est maintenant plein et il n'y a plus de place.",
     no_roster: 'Aucun alignement',
@@ -509,6 +514,7 @@ export default {
     plateform_fees: 'Frais de plateforme',
     player_added: 'Joueur ajouté',
     player_name: 'Nom du joueur',
+    players_unregister_success: 'Joueurs désinscrits avec succès',
     player_view: 'Vue du joueur',
     player: 'Joueur',
     players: 'Joueurs',

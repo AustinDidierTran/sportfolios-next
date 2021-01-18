@@ -24,24 +24,24 @@ export default function BecomeMember(props) {
   const { id } = router.query;
 
   const [open, setOpen] = useState(false);
-  const [persons, setPersons] = useState(userInfo.persons);
+  const [people, setPeople] = useState(userInfo.people);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
 
   useEffect(() => {
     setOpen(openProps);
-    getPersons();
+    getPeople();
     getMemberships();
   }, [openProps]);
 
-  const getPersons = async () => {
+  const getPeople = async () => {
     const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null));
     formik.setFieldValue('person', data.id);
-    const res = userInfo.persons.map((p) => ({
+    const res = userInfo.people.map((p) => ({
       value: p.entity_id,
       display: `${p.name} ${p?.surname}`,
     }));
-    setPersons(res);
+    setPeople(res);
   };
 
   const getMemberships = async () => {
@@ -147,7 +147,7 @@ export default function BecomeMember(props) {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'person',
       label: t('person'),
-      options: persons,
+      options: people,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,

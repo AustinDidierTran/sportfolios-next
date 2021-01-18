@@ -19,13 +19,13 @@ export default function AddMember(props) {
   const { id: entityId } = router.query;
 
   const [open, setOpen] = useState(false);
-  const [persons, setPersons] = useState([]);
+  const [people, setPeople] = useState([]);
 
   const validate = (values) => {
     const { expirationDate } = values;
     const errors = {};
-    if (!persons.length) {
-      errors.persons = t(ERROR_ENUM.VALUE_IS_REQUIRED);
+    if (!people.length) {
+      errors.people = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
     if (!expirationDate) {
       errors.expirationDate = t(ERROR_ENUM.VALUE_IS_REQUIRED);
@@ -44,7 +44,7 @@ export default function AddMember(props) {
     onSubmit: async (values) => {
       const { membership, expirationDate } = values;
       const res = await Promise.all(
-        persons.map(async (person) => {
+        people.map(async (person) => {
           const res = await api(`/api/entity/memberManually`, {
             method: 'POST',
             body: JSON.stringify({
@@ -66,7 +66,7 @@ export default function AddMember(props) {
           duration: 4000,
         });
       } else {
-        const message = persons.length ? 'members_added' : 'member_added';
+        const message = people.length ? 'members_added' : 'member_added';
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t(message),
@@ -86,21 +86,21 @@ export default function AddMember(props) {
   }, [openProps]);
 
   const handleClose = () => {
-    setPersons([]);
+    setPeople([]);
     onClose();
   };
 
   const onClick = (newPerson) => {
-    setPersons([...persons, newPerson]);
+    setPeople([...people, newPerson]);
   };
 
   const removePerson = (person) => {
-    const newPersons = persons.filter((p) => p.id != person.id);
-    setPersons(newPersons);
+    const newPeople = people.filter((p) => p.id != person.id);
+    setPeople(newPeople);
   };
   const personComponent = useMemo(
     () =>
-      persons.map((person) => ({
+      people.map((person) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
         secondary: t('player'),
@@ -109,10 +109,10 @@ export default function AddMember(props) {
           <IconButton icon="Remove" style={{ color: 'secondary' }} onClick={() => removePerson(person)} />,
         ],
       })),
-    [persons]
+    [people]
   );
 
-  const blackList = useMemo(() => persons.map((person) => person.id), [persons]);
+  const blackList = useMemo(() => people.map((person) => person.id), [people]);
 
   const fields = [
     ...personComponent,

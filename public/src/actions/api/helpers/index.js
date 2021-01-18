@@ -40,6 +40,13 @@ export const unregisterTeams = async ({ eventId, rosterIds }) => {
     method: 'POST',
     body: JSON.stringify({ eventId, rosterIds }),
   });
+  return data;
+};
 
+export const unregisterPeople = async ({ eventId, people }) => {
+  const data = await api('/api/entity/unregisterPeople', {
+    method: 'POST',
+    body: JSON.stringify({ eventId, people }),
+  });
   return data;
 };

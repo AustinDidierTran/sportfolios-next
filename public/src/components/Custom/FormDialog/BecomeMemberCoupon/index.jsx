@@ -18,13 +18,13 @@ export default function BecomeMemberCoupon(props) {
   const { open: openProps, onClose, items } = props;
   const { metadata, token_id } = items;
   const { expirationDate, membershipType, organizationId } = metadata;
-  const [persons, setPersons] = useState([]);
+  const [people, setPeople] = useState([]);
   const [open, setOpen] = useState(false);
   const [organization, setOrganization] = useState({});
 
   useEffect(() => {
     setOpen(openProps);
-    getPersons();
+    getPeople();
   }, [openProps]);
 
   useEffect(() => {
@@ -40,9 +40,9 @@ export default function BecomeMemberCoupon(props) {
     setOrganization(data);
   };
 
-  const getPersons = async () => {
+  const getPeople = async () => {
     const { data } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
+      formatRoute('/api/user/ownedPeople', null, {
         type: GLOBAL_ENUM.PERSON,
       })
     );
@@ -57,7 +57,7 @@ export default function BecomeMemberCoupon(props) {
       display: d.complete_name,
       value: d.id,
     }));
-    setPersons(res);
+    setPeople(res);
     formik.setFieldValue('person', res[0].value);
   };
 
@@ -116,16 +116,16 @@ export default function BecomeMemberCoupon(props) {
         expirationDate: formatDate(moment(expirationDate)),
       }),
     },
-    persons.length === 1
+    people.length === 1
       ? {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-          primary: persons[0]?.display,
+          primary: people[0]?.display,
         }
       : {
           componentType: COMPONENT_TYPE_ENUM.SELECT,
           namespace: 'person',
           label: t('person'),
-          options: persons,
+          options: people,
         },
   ];
 
