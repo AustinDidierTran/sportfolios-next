@@ -8,14 +8,32 @@ import styles from './App.module.css';
 import Header from '../public/src/views/Header';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { useEffect } from 'react';
+import { Workbox } from 'workbox-window';
+import { Helmet } from 'react-helmet';
 
 import conf from '../conf';
 import { BottomNavigation, SnackBar, SpeedDial } from '../public/src/components/Custom';
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    if (!('serviceWorker' in navigator)) {
+      console.warn('Pwa support is disabled');
+      return;
+    }
+
+    const wb = new Workbox('/sw.js', { scope: '/' });
+    wb.register();
+  }, []);
+
   return (
     <StoreProvider>
+      <Helmet>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="apple-touch-icon" href="src/images/apple-touch-icon-180x180.png" />
+      </Helmet>
       <I18nextProvider i18n={i18n}>
         <ThemeProvider theme={theme}>
           <Elements stripe={stripePromise}>
