@@ -11,11 +11,16 @@ import { Typography, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import SignupCard from './SignupCard';
+// import SignupCard from './SignupCard';
 import LoginCard from './LoginCard';
-import ForgotPasswordCard from './ForgotPasswordCard';
+// import ForgotPasswordCard from './ForgotPasswordCard';
 import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
+
+import loadable from '@loadable/component';
+
+const SignupComponent = loadable(() => import('./SignupCard'));
+const ForgotPasswordComponent = loadable(() => import('./ForgotPasswordCard'));
 
 export default function Login() {
   const router = useRouter();
@@ -203,7 +208,7 @@ export default function Login() {
           <div className={styles.logo}>
             <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
           </div>
-          <SignupCard redirectUrl={redirectUrl} formik={formik} />
+          <SignupComponent redirectUrl={redirectUrl} formik={formik} />
         </Container>
       </div>
     );
@@ -216,7 +221,7 @@ export default function Login() {
           <div className={styles.logo}>
             <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
           </div>
-          <ForgotPasswordCard formik={formik} />
+          <ForgotPasswordComponent formik={formik} />
         </Container>
       </div>
     );
