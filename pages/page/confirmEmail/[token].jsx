@@ -1,6 +1,9 @@
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
-import React from 'react';
 import ConfirmEmail from '../../../public/src/views/ConfirmEmail';
+import { ACTION_ENUM, Store } from '../../../public/src/Store';
+import api from '../../../public/src/actions/api';
+import { goTo, ROUTES } from '../../../public/src/actions/goTo';
 
 const ConfirmEmailRoute = () => {
   const router = useRouter();
@@ -9,6 +12,9 @@ const ConfirmEmailRoute = () => {
   const { dispatch } = useContext(Store);
 
   const confirmEmail = async () => {
+    if (!token) {
+      return;
+    }
     const res = await api('/api/auth/confirmEmail', {
       method: 'POST',
       body: JSON.stringify({
@@ -42,7 +48,7 @@ const ConfirmEmailRoute = () => {
 
   React.useEffect(() => {
     confirmEmail();
-  }, []);
+  }, [redirectUrl, token]);
 
   return <ConfirmEmail redirectUrl={redirectUrl} token={token} />;
 };
