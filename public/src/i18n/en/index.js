@@ -177,6 +177,7 @@ export default {
     create_entity_person: 'Add a secondary person to your account',
     create_entity_team: 'Create your team',
     create_event: 'Create Event',
+    create_your_event: 'Create your event',
     create_new_account: 'Create new account',
     create_organization: 'Create Organization',
     create_person: 'Create Person',

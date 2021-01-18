@@ -1,14 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GLOBAL_ENUM } from '../../../common/enums';
 import { EntityCreate } from '../../components/Custom';
 import { formatPageTitle } from '../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 export default function CreateEvent() {
   const { t } = useTranslation();
-  useEffect(() => {
-    document.title = formatPageTitle(t('create_event'));
-  }, []);
 
-  return <EntityCreate type={GLOBAL_ENUM.EVENT} />;
+  return (
+    <>
+      <Helmet>
+        <meta property="og:title" content={formatPageTitle(t('create_event'))} />
+        <meta property="og:description" content={t('create_your_event')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_CA" />
+        <title>{formatPageTitle(t('create_event'))}</title>
+      </Helmet>
+      <EntityCreate type={GLOBAL_ENUM.EVENT} />
+    </>
+  );
 }
