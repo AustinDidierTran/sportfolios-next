@@ -91,12 +91,11 @@ export default function AddMember(props) {
   };
 
   const onClick = (newPerson) => {
-    setPeople([...people, newPerson]);
+    setPeople((p) => [...p, newPerson]);
   };
 
   const removePerson = (person) => {
-    const newPeople = people.filter((p) => p.id != person.id);
-    setPeople(newPeople);
+    setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
   const personComponent = useMemo(
     () =>

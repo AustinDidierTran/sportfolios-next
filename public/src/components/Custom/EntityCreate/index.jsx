@@ -56,7 +56,6 @@ export default function EntityCreate(props) {
       }),
       { method: 'GET' }
     );
-    console.log({ data });
 
     if (status === STATUS_ENUM.SUCCESS) {
       setCreatorOptions(
