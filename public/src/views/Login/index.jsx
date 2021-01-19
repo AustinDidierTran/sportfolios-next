@@ -205,7 +205,7 @@ export default function Login() {
       <div className={styles.main}>
         <Container className={styles.container}>
           <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
           </div>
           <SignupComponent redirectUrl={redirectUrl} formik={formik} />
         </Container>
@@ -218,7 +218,7 @@ export default function Login() {
       <div className={styles.main}>
         <Container className={styles.container}>
           <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
           </div>
           <ForgotPasswordComponent formik={formik} />
         </Container>
@@ -230,7 +230,7 @@ export default function Login() {
     <div className={styles.main}>
       <Container className={styles.container}>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
         </div>
         <LoginCard formik={formik} />
         <div className={styles.or}>
