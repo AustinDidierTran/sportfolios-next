@@ -55,22 +55,22 @@ export default function Create() {
 
   const createPerson = () => {
     // TODO: handle creation better than this redirect (form?)
-    goTo(ROUTES.create, {}, { type: GLOBAL_ENUM.PERSON });
+    goTo(ROUTES.createPerson);
     handleCreateClick();
   };
   const createTeam = () => {
     // TODO: handle creation better than this redirect (form?)
-    goTo(ROUTES.create, {}, { type: GLOBAL_ENUM.TEAM });
+    goTo(ROUTES.createTeam);
     handleCreateClick();
   };
   const createEvent = () => {
     // TODO: handle creation better than this redirect (form?)
-    goTo(ROUTES.create, {}, { type: GLOBAL_ENUM.EVENT });
+    goTo(ROUTES.createEvent);
     handleCreateClick();
   };
   const createOrganization = () => {
     // TODO: handle creation better than this redirect (form?)
-    goTo(ROUTES.create, {}, { type: GLOBAL_ENUM.ORGANIZATION });
+    goTo(ROUTES.createOrganization);
     handleCreateClick();
   };
 

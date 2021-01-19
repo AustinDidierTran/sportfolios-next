@@ -16,6 +16,7 @@ export { default as ContainerBottomFixed } from './ContainerBottomFixed';
 export { default as Dialog, AlertDialog } from './Dialog';
 export { default as DownloadReportDialog } from './Dialog/DownloadReportDialog';
 export { default as DnDSimpleList } from './DnDSimpleList';
+export { default as EntityCreate } from './EntityCreate';
 export { default as EntityList } from './EntityList';
 export { default as FacebookLoginButton } from './FacebookLoginButton';
 export { default as FeatureContainer } from './FeatureContainer';
