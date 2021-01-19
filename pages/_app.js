@@ -13,7 +13,13 @@ import { Workbox } from 'workbox-window';
 import { Helmet } from 'react-helmet';
 
 import conf from '../conf';
-import { BottomNavigation, SnackBar, SpeedDial } from '../public/src/components/Custom';
+
+import loadable from '@loadable/component';
+
+const BottomNavigation = loadable(() => import('../public/src/components/Custom/BottomNavigation'));
+const SnackBar = loadable(() => import('../public/src/components/Custom/SnackBar'));
+const SpeedDial = loadable(() => import('../public/src/components/Custom/SpeedDial'));
+
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {

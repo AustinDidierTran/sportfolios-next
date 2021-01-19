@@ -6,14 +6,13 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
 
 import { Container } from '../../components/Custom';
-import { Typography, Button } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-// import SignupCard from './SignupCard';
 import LoginCard from './LoginCard';
-// import ForgotPasswordCard from './ForgotPasswordCard';
 import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 

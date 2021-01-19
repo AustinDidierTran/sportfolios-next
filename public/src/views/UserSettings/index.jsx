@@ -1,19 +1,23 @@
 import React, { useEffect, useContext, useMemo } from 'react';
 
 import { formatPageTitle } from '../../utils/stringFormats';
-import { IgContainer, LoadingSpinner } from '../../components/Custom';
+import IgContainer from '../../components/Custom/IgContainer';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import { Store } from '../../Store';
 import { useTranslation } from 'react-i18next';
 import AppLinking from './AppLinking';
 import BasicInfo from './BasicInfo';
-import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import ChangePassword from './ChangePassword';
-import CreditCards from './CreditCards';
-import Disconnect from './Disconnect';
 import Email from './Email';
 import MyPersons from './MyPersons';
-import Notifications from './Notifications';
 import Coupons from './Coupons';
+
+import loadable from '@loadable/component';
+
+const CreditCards = loadable(() => import('./CreditCards'));
+const Disconnect = loadable(() => import('./Disconnect'));
+const Notifications = loadable(() => import('./Notifications'));
+const BottomPageLogo = loadable(() => import('../../components/Custom/BottomPageLogo'));
 
 export default function UserSettings() {
   const { t } = useTranslation();

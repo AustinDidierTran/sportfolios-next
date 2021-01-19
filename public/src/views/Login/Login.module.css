@@ -29,11 +29,6 @@
   height: 200px;
 }
 
-.img {
-  width: 100%;
-  height: auto;
-}
-
 .container {
   margin-top: 32px;
   display: grid !important;
