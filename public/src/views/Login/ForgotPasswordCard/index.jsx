@@ -3,9 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './ForgotPasswordCard.module.css';
 
-import { Button } from '../../../components/Custom';
-import { CardActions, CardContent, Divider, TextField, Typography } from '@material-ui/core';
-import { Paper } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import Paper from '../../../components/Custom/Paper';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
 import { LOGIN_STATE_ENUM } from '../../../../common/enums';
 
 export default function ForgotPassword(props) {

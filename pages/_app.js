@@ -1,16 +1,17 @@
-import { Store, StoreProvider } from '../public/src/Store';
+import { StoreProvider } from '../public/src/Store';
 import '../styles/globals.css';
 import { I18nextProvider } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../public/theme';
 import i18n from '../public/src/i18n';
 import styles from './App.module.css';
-import Header from '../public/src/views/Header';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useEffect } from 'react';
+import React from 'react';
 import { Workbox } from 'workbox-window';
 import { Helmet } from 'react-helmet';
+
+import Header from '../public/src/views/Header';
 
 import conf from '../conf';
 

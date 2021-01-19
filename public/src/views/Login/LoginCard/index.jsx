@@ -1,10 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './LoginCard.module.css';
-import { Button, CardActions, CardContent, Divider, Typography } from '@material-ui/core';
-import { Paper, TextField } from '../../../components/Custom';
+
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import Paper from '../../../components/Custom/Paper';
+import TextField from '../../../components/Custom/TextField';
+
 import { LOGIN_STATE_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
+
+// import loadable from '@loadable/component';
+
+// const Paper = loadable(() => import('../../../components/Custom/Paper'))
+// const TextField = loadable(() => import('../../../components/Custom/TextField'))
 
 export default function LoginCard(props) {
   const { t } = useTranslation();

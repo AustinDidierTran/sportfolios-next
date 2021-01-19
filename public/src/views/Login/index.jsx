@@ -1,21 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-
+import React from 'react';
 import styles from './Login.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { Store, ACTION_ENUM } from '../../Store';
-
-import { Container } from '../../components/Custom';
+import { Store } from '../../Store';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import Container from '../../components/Custom/Container';
+import LoginCard from './LoginCard';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-
-import LoginCard from './LoginCard';
-import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
-
+import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
 import loadable from '@loadable/component';
 
 const SignupComponent = loadable(() => import('./SignupCard'));
@@ -30,8 +25,8 @@ export default function Login() {
   const {
     state: { isAuthenticated },
     dispatch,
-  } = useContext(Store);
-  useEffect(() => {
+  } = React.useContext(Store);
+  React.useEffect(() => {
     if (isAuthenticated) {
       const route = redirectUrl || ROUTES.home;
       router.push(route);
@@ -139,7 +134,7 @@ export default function Login() {
         } else if (res.status === 404) {
           formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP });
           dispatch({
-            type: ACTION_ENUM.SNACK_BAR,
+            type: Store.ACTION_ENUM.SNACK_BAR,
             message: t('you_have_no_account_with_this_email_create_one'),
             severity: SEVERITY_ENUM.INFO,
           });
@@ -154,11 +149,11 @@ export default function Login() {
             const { token, userInfo } = data;
 
             dispatch({
-              type: ACTION_ENUM.LOGIN,
+              type: Store.ACTION_ENUM.LOGIN,
               payload: token,
             });
             dispatch({
-              type: ACTION_ENUM.UPDATE_USER_INFO,
+              type: Store.ACTION_ENUM.UPDATE_USER_INFO,
               payload: userInfo,
             });
             if (redirectUrl) {
@@ -192,7 +187,7 @@ export default function Login() {
         }
         if (res.status === 200) {
           dispatch({
-            type: ACTION_ENUM.SNACK_BAR,
+            type: Store.ACTION_ENUM.SNACK_BAR,
             message: t('confirmation_email_sent'),
           });
         }
@@ -227,7 +222,7 @@ export default function Login() {
   }
 
   return (
-    <div className={styles.main}>
+    <div>
       <Container className={styles.container}>
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
@@ -236,7 +231,6 @@ export default function Login() {
         <div className={styles.or}>
           <Typography style={{ fontSize: 12 }}>{t('or')}</Typography>
         </div>
-
         <Button
           variant="outlined"
           color="primary"
