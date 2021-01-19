@@ -140,6 +140,8 @@ export default {
     choose: 'Choisir',
     city: 'Ville',
     clear_all: 'Réinitialiser',
+    clear_cart: 'Vider le panier',
+    clear_cart_confirmation: 'Êtes-vous certain de vouloir vider le panier',
     click_to_create_new_team: 'Cliquer pour créer votre nouvelle équipe',
     close: 'Fermer',
     closing_of_registration: 'Fermeture des inscriptions',
