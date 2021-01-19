@@ -134,6 +134,8 @@ export default {
     choose: 'Choose',
     city: 'City',
     clear_all: 'Clear all',
+    clear_cart: 'Clear cart',
+    clear_cart_confirmation: 'Are you sur you want to clear your cart',
     click_to_create_new_team: 'Click to create your new team',
     close: 'Close',
     closing_of_registration: 'Closing of registration',

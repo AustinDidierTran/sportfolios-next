@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Avatar, Select, CheckBox, IconButton } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './CartItem.module.css';
 import { formatPrice } from '../../../../utils/stringFormats';
-import { GLOBAL_ENUM, IMAGE_ENUM } from '../../../../../common/enums';
+import { GLOBAL_ENUM, IMAGE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import { AlertDialog } from '../../Dialog';
 import { formatRoute } from '../../../../actions/goTo';
+import { ACTION_ENUM } from '../../../../Store';
+import { ERROR_ENUM } from '../../../../../common/errors';
+import { Store } from '@material-ui/icons';
 
 export default function CartItem(props) {
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
 
   const {
     id,
@@ -55,7 +59,7 @@ export default function CartItem(props) {
   };
 
   const onDelete = async () => {
-    await api(
+    const res = await api(
       formatRoute('/api/shop/deleteCartItem', null, {
         cartItemId: id,
       }),
@@ -64,8 +68,15 @@ export default function CartItem(props) {
       }
     );
     fetchItems();
-
     setOpen(false);
+    if (res.status !== STATUS_ENUM.SUCCESS) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    }
   };
 
   const { type } = metadata;
