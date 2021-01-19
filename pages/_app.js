@@ -18,13 +18,15 @@ const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
-    if (!('serviceWorker' in navigator)) {
-      console.warn('Pwa support is disabled');
-      return;
-    }
+    if (process.env.NODE_ENV === 'production') {
+      if (!('serviceWorker' in navigator)) {
+        console.warn('Pwa support is disabled');
+        return;
+      }
 
-    const wb = new Workbox('/sw.js', { scope: '/' });
-    wb.register();
+      const wb = new Workbox('/sw.js', { scope: '/' });
+      wb.register();
+    }
   }, []);
 
   return (
