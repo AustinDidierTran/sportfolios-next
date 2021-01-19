@@ -13,6 +13,7 @@ export default function MailtoButton(props) {
   useEffect(() => {
     setEmailsFormatted(emails.map((email) => email.email));
   }, [emails]);
+
   const onClick = () => {
     mailTo(emailsFormatted, subject, message);
   };

@@ -78,8 +78,12 @@ export default {
     apply: 'Apply',
     are_you_sure_you_want_to_unregister_all_teams:
       'Are you sure you want to unregister all teams and refund all team and individual payments related to them (if applicable)?',
+    are_you_sure_you_want_to_unregister_all_players:
+      'Are you sure you want to unregister all players and refund them (if applicable)?',
     are_you_sure_you_want_to_unregister_this_team:
       'Are you sure you want to unregister this team and refund all team and individual payments related to it (if applicable)?',
+    are_you_sure_you_want_to_unregister_this_player:
+      'Are you sure you want to unregister this player and refund him (if applicable)?',
     assistant_captain: 'Assistant captain',
     at: 'at',
     athlete_history: 'Athlete history',
@@ -420,6 +424,7 @@ export default {
     no_owner_free_payment_option: 'No owner, free payment option',
     no_payment_method: 'There is currently no payment method',
     no_person_selected: 'No person selected',
+    no_players_registered: 'No players registered',
     no_remaining_spots:
       'Sorry, your registration has been refused. Event is now full and there are no available spots left.',
     no_roster: 'No roster',
@@ -506,6 +511,7 @@ export default {
     plateform_fees: 'Plateform fees',
     player_added: 'Player added',
     player_name: 'Player name',
+    players_unregister_success: 'Players unregistered successfully',
     player_view: 'Player view',
     player: 'Player',
     players: 'Players',

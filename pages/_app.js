@@ -1,4 +1,4 @@
-import { Store, StoreProvider } from '../public/src/Store';
+import { StoreProvider } from '../public/src/Store';
 import '../styles/globals.css';
 import { I18nextProvider } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';

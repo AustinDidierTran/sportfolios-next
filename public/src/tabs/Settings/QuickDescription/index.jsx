@@ -34,7 +34,7 @@ export default function QuickDescription() {
       })
     );
 
-    if (data.quickDescription) {
+    if (data?.quickDescription) {
       setText(decodeURIComponent(data.quickDescription));
       setTemp(decodeURIComponent(data.quickDescription));
     } else {

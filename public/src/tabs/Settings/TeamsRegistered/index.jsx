@@ -11,7 +11,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import styles from './TeamRegistered.module.css';
+import styles from './TeamsRegistered.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../actions/goTo';
@@ -22,7 +22,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 
-export default function TeamRegistered() {
+export default function TeamsRegistered() {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -199,6 +199,10 @@ export default function TeamRegistered() {
       },
     },
   }))(TableRow);
+
+  if (teams.length < 1) {
+    return <></>;
+  }
 
   return (
     <Paper className={styles.paper}>
