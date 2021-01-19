@@ -1,3 +1,4 @@
+import React from 'react';
 import { StoreProvider } from '../public/src/Store';
 import '../styles/globals.css';
 import { I18nextProvider } from 'react-i18next';
@@ -7,7 +8,6 @@ import i18n from '../public/src/i18n';
 import styles from './App.module.css';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import React from 'react';
 import { Workbox } from 'workbox-window';
 import { Helmet } from 'react-helmet';
 
@@ -24,7 +24,7 @@ const SpeedDial = loadable(() => import('../public/src/components/Custom/SpeedDi
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
+  React.useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       if (!('serviceWorker' in navigator)) {
         console.warn('Pwa support is disabled');

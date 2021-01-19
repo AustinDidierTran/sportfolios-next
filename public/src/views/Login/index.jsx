@@ -6,13 +6,13 @@ import { Store } from '../../Store';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '../../components/Custom/Container';
-import LoginCard from './LoginCard';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
 import loadable from '@loadable/component';
 
+const LoginCard = loadable(() => import('./LoginCard'));
 const SignupComponent = loadable(() => import('./SignupCard'));
 const ForgotPasswordComponent = loadable(() => import('./ForgotPasswordCard'));
 
