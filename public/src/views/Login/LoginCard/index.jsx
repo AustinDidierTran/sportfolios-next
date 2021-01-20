@@ -13,11 +13,6 @@ import TextField from '../../../components/Custom/TextField';
 import { LOGIN_STATE_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 
-// import loadable from '@loadable/component';
-
-// const Paper = loadable(() => import('../../../components/Custom/Paper'))
-// const TextField = loadable(() => import('../../../components/Custom/TextField'))
-
 export default function LoginCard(props) {
   const { t } = useTranslation();
   const { formik } = props;

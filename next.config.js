@@ -4,6 +4,6 @@ module.exports = withWorkbox({
   workbox: {
     swDest: '/sw.js',
     swSrc: '/worker.js',
-    force: true,
+    force: false,
   },
 });

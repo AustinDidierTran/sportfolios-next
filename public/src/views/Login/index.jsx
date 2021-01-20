@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Login.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { Store } from '../../Store';
+import { Store, ACTION_ENUM } from '../../Store';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '../../components/Custom/Container';
@@ -149,11 +149,11 @@ export default function Login() {
             const { token, userInfo } = data;
 
             dispatch({
-              type: Store.ACTION_ENUM.LOGIN,
+              type: ACTION_ENUM.LOGIN,
               payload: token,
             });
             dispatch({
-              type: Store.ACTION_ENUM.UPDATE_USER_INFO,
+              type: ACTION_ENUM.UPDATE_USER_INFO,
               payload: userInfo,
             });
             if (redirectUrl) {

@@ -19,6 +19,7 @@ export const ContainerBottomFixed = loadable(() => import('./ContainerBottomFixe
 export const Dialog = loadable(() => import('./Dialog'));
 export const DownloadReportDialog = loadable(() => import('./Dialog/DownloadReportDialog'));
 export const DnDSimpleList = loadable(() => import('./DnDSimpleList'));
+export const EntityCreate = loadable(() => import('./EntityCreate'));
 export const EntityList = loadable(() => import('./EntityList'));
 export const FacebookLoginButton = loadable(() => import('./FacebookLoginButton'));
 export const FeatureContainer = loadable(() => import('./FeatureContainer'));
