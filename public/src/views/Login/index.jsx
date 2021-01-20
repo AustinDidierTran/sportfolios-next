@@ -13,8 +13,8 @@ import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enum
 import loadable from '@loadable/component';
 
 const LoginCard = loadable(() => import('./LoginCard'));
-const SignupComponent = loadable(() => import('./SignupCard'));
-const ForgotPasswordComponent = loadable(() => import('./ForgotPasswordCard'));
+const SignupCard = loadable(() => import('./SignupCard'));
+const ForgotPasswordCard = loadable(() => import('./ForgotPasswordCard'));
 
 export default function Login() {
   const router = useRouter();
@@ -202,7 +202,7 @@ export default function Login() {
           <div className={styles.logo}>
             <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
           </div>
-          <SignupComponent redirectUrl={redirectUrl} formik={formik} />
+          <SignupCard redirectUrl={redirectUrl} formik={formik} />
         </Container>
       </div>
     );
@@ -215,7 +215,7 @@ export default function Login() {
           <div className={styles.logo}>
             <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
           </div>
-          <ForgotPasswordComponent formik={formik} />
+          <ForgotPasswordCard formik={formik} />
         </Container>
       </div>
     );
