@@ -74,14 +74,6 @@ export default function EventRegistration() {
             status: INVOICE_STATUS_ENUM.OPEN,
           }),
         });
-        await api('/api/entity/addTeamToSchedule', {
-          method: 'POST',
-          body: JSON.stringify({
-            eventId: event.id,
-            name: team.name,
-            rosterId: data.rosterId,
-          }),
-        });
 
         setIsLoading(false);
         if (status < 300) {

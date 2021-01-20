@@ -48,39 +48,32 @@ export default function AddTeam(props) {
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { name } = values;
-      const {
-        data: { basicInfos: team },
-      } = await api('/api/entity', {
-        method: 'POST',
-        body: JSON.stringify({
-          name: name,
-          type: GLOBAL_ENUM.TEAM,
-        }),
-      });
-      const { data } = await api('/api/entity/register', {
-        method: 'POST',
-        body: JSON.stringify({
-          eventId,
-          teamId: team.id,
-        }),
-      });
-      const res = await api('/api/entity/addTeamToSchedule', {
+
+      const { status, data } = await api('/api/entity/addTeamAsAdmin', {
         method: 'POST',
         body: JSON.stringify({
           eventId,
           name,
-          rosterId: data.rosterId,
         }),
       });
-
+      onClose();
       resetForm();
-      if (res.status === STATUS_ENUM.ERROR) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
+      if (status === STATUS_ENUM.ERROR) {
+        if (data.reason) {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t(data.reason),
+            severity: SEVERITY_ENUM.ERROR,
+            duration: 4000,
+          });
+        } else {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: ERROR_ENUM.ERROR_OCCURED,
+            severity: SEVERITY_ENUM.ERROR,
+            duration: 4000,
+          });
+        }
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
