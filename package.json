@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
+<<<<<<< HEAD
     "build": "NODE_OPTIONS=--max_old_space_size=8192 next build",
+=======
+    "build": "NODE_OPTIONS=--max_old_space_size=4096 next build",
+>>>>>>> 7ae193b... Wcs 748 1 (#19)
     "start": "next start"
   },
   "husky": {

@@ -74,7 +74,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 #### How to use
 
+<<<<<<< HEAD
 1. `import loadable from '@loadable/component'`
+=======
+1. `ìmport loadable from '@loadable/component'`
+>>>>>>> 7ae193b... Wcs 748 1 (#19)
 2. With the component that will become loadable:
    `const MyComponent = loadable(() => import('../MyComponent'));`
 3. In the return/render function:
