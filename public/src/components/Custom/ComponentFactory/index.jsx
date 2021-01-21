@@ -1,6 +1,13 @@
 import React from 'react';
+
 import { ListItemText } from '@material-ui/core';
-import { Select, MultiSelect, Button, CheckBox, List, TextField } from '../../Custom';
+import CustomTextField from '../TextField';
+import CustomButton from '../Button';
+import CustomSelect from '../Select';
+import CustomMultiSelect from '../MultiSelect';
+import CustomCheckBox from '../CheckBox';
+import CustomList from '../List';
+
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import { InputAdornment } from '@material-ui/core';
 import PersonSearchList from '../SearchList/PersonSearchList';
@@ -10,7 +17,7 @@ export default function ComponentFactory(props) {
   const { component } = props;
   if (component.componentType === COMPONENT_TYPE_ENUM.SELECT) {
     return (
-      <Select
+      <CustomSelect
         options={component.options}
         formik={component.formik}
         namespace={component.namespace}
@@ -24,7 +31,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.MULTISELECT) {
     return (
-      <MultiSelect
+      <CustomMultiSelect
         formik={component.formik}
         label={component.label}
         options={component.options}
@@ -36,7 +43,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.BUTTON) {
     return (
-      <Button
+      <CustomButton
         children={component.children}
         namespace={component.namespace}
         endIcon={component.endIcon}
@@ -49,7 +56,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.CHECKBOX) {
     return (
-      <CheckBox
+      <CustomCheckBox
         checked={component.checked}
         onChange={component.onChange}
         label={component.label}
@@ -65,7 +72,7 @@ export default function ComponentFactory(props) {
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST) {
-    return <List items={component.items} />;
+    return <CustomList items={component.items} />;
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.PERSON_SEARCH_LIST) {
     return (
@@ -99,7 +106,7 @@ export default function ComponentFactory(props) {
     return <> </>;
   }
   return (
-    <TextField
+    <CustomTextField
       formik={component.formik}
       namespace={component.namespace}
       InputLabelProps={{ shrink: component.shrink }}

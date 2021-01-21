@@ -1,6 +1,7 @@
 import React from 'react';
 import { TableCell } from '@material-ui/core';
-import { Button, IconButton } from '../../../../Custom';
+import CustomButton from '../../../Button';
+import CustomIconButton from '../../../IconButton';
 import { goTo } from '../../../../../actions/goTo';
 import Switch from '@material-ui/core/Switch';
 
@@ -10,14 +11,14 @@ export default function TableFactory(props) {
   if (h.type === 'button') {
     return (
       <TableCell>
-        <Button
+        <CustomButton
           className={styles.button}
           onClick={() => {
             goTo(d.buttonRoute, d.id);
           }}
         >
           {d[h.value]}
-        </Button>
+        </CustomButton>
       </TableCell>
     );
   }
@@ -38,7 +39,7 @@ export default function TableFactory(props) {
   if (h.type === 'iconButton') {
     return (
       <TableCell>
-        <IconButton onClick={d.onIconButtonClick} icon={d.icon} style={{ color: 'primary' }} />
+        <CustomIconButton onClick={d.onIconButtonClick} icon={d.icon} style={{ color: 'primary' }} />
       </TableCell>
     );
   }

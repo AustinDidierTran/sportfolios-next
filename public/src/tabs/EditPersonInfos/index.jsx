@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { getInitialsFromName } from '../../utils/stringFormats';
 import { uploadEntityPicture } from '../../actions/aws';
 import { useFormik } from 'formik';
-import { formatRoute } from '../.../../../actions/goTo';
 import { ACTION_ENUM, Store } from '../../Store';
 import { GENDER_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
+import { formatRoute } from '../../../common/utils/stringFormat';
 const moment = require('moment');
 
 export default function EditPersonInfos(props) {

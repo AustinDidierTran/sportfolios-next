@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Avatar } from '../../../Custom';
 import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../actions/goTo';
+import CustomAvatar from '../../Avatar';
 
 export default function OrganizationItem(props) {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ export default function OrganizationItem(props) {
   return (
     <ListItem button onClick={handleClick} selected={selected} style={{ width: '100%' }}>
       <ListItemIcon>
-        <Avatar photoUrl={photoUrl} initials={initials}></Avatar>
+        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
       </ListItemIcon>
       <ListItemText primary={name} secondary={t('organization')}></ListItemText>
     </ListItem>

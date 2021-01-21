@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CLIENT_BASE_URL } from '../../../../../../conf';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
 import { STATUS_ENUM, ROUTES_ENUM, ERROR_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { AlertDialog, IconButton } from '../../../../components/Custom';
 import { Typography } from '@material-ui/core';
@@ -11,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import moment from 'moment';
 import { formatDate } from '../../../../utils/stringFormats';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function RosterInviteLink(props) {
   const { dispatch } = useContext(Store);

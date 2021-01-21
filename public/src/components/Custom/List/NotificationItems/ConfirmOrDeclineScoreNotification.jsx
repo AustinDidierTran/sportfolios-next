@@ -3,9 +3,9 @@ import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { SEVERITY_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../../common/enums';
-import { Button } from '../../../Custom';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
+import CustomButton from '../../Button';
 
 export default function ConfirmOrDeclineScoreNotification(props) {
   const { t } = useTranslation();
@@ -78,7 +78,7 @@ export default function ConfirmOrDeclineScoreNotification(props) {
   }, []);
 
   const buttons = [
-    <Button
+    <CustomButton
       key={'button1' + props.id}
       color="primary"
       variant="contained"
@@ -87,8 +87,8 @@ export default function ConfirmOrDeclineScoreNotification(props) {
       disabled={submitted}
     >
       {submitted ? t('confirmed') : t('confirm')}
-    </Button>,
-    <Button
+    </CustomButton>,
+    <CustomButton
       key={'button2' + props.id}
       style={{ marginRight: '10px' }}
       textColor="grey"
@@ -96,7 +96,7 @@ export default function ConfirmOrDeclineScoreNotification(props) {
       onClick={handleClick}
     >
       {t('see_more')}
-    </Button>,
+    </CustomButton>,
   ];
 
   return (

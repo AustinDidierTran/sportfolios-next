@@ -4,7 +4,6 @@ import { Paper, Card } from '../../../components/Custom';
 
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import moment from 'moment';
 import styles from './EventSettings.module.css';

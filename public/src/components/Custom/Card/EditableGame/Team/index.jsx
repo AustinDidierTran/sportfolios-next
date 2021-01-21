@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Team.module.css';
 
-import { TextField } from '../../..';
+import CustomTextField from '../../../TextField';
 import { Typography } from '@material-ui/core';
 
 export default function Team(props) {
@@ -16,7 +16,7 @@ export default function Team(props) {
       <Typography className={styles.name} variant="h6">
         {team.name}
       </Typography>
-      <TextField className={styles.score} type="number" {...team.input.inputProps} />
+      <CustomTextField className={styles.score} type="number" {...team.input.inputProps} />
     </div>
   );
 }

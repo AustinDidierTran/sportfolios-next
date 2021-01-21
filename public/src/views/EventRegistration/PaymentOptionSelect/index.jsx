@@ -5,8 +5,8 @@ import styles from './PaymentOptionSelect.module.css';
 import moment from 'moment';
 import { formatPrice } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function PaymentOptionSelect(props) {
   const { t } = useTranslation();

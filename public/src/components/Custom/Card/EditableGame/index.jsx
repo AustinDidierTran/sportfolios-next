@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './EditableGameItem.module.css';
 
 import { Card } from '@material-ui/core';
-import { TextField } from '../..';
+import CustomTextField from '../../TextField';
 import { useFormInput } from '../../../../hooks/forms';
 import { useEffect } from 'react';
 import Team from './Team';
@@ -43,8 +43,14 @@ export default function EditableGameItem(props) {
   return (
     <Card className={styles.game}>
       <div className={styles.main}>
-        <TextField className={styles.field} {...fieldInput.inputProps} variant="outlined" size="small" />
-        <TextField variant="outlined" size="small" type="time" className={styles.time} {...timeInput.inputProps} />
+        <CustomTextField className={styles.field} {...fieldInput.inputProps} variant="outlined" size="small" />
+        <CustomTextField
+          variant="outlined"
+          size="small"
+          type="time"
+          className={styles.time}
+          {...timeInput.inputProps}
+        />
       </div>
       {theTeams.map((team, index) => (
         <Team team={team} getRank={getRank} key={index} />

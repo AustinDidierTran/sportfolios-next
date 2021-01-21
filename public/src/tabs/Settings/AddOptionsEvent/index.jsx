@@ -2,11 +2,11 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Paper, Button, List, FormDialog, LoadingSpinner } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import styles from './AddOptionsEvent.module.css';
 import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();

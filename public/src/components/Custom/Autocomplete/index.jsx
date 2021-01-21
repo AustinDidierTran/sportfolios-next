@@ -4,10 +4,10 @@ import isEqual from 'lodash/isEqual';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { InputAdornment } from '@material-ui/core';
-import { Icon, TextField } from '../../Custom';
-
 import { useApiRoute } from '../../../hooks/queries';
 import { useTranslation } from 'react-i18next';
+import CustomTextField from '../TextField';
+import CustomIcon from '../Icon';
 
 export default function CustomAutocomplete(props) {
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ export default function CustomAutocomplete(props) {
       clearOnEscape
       renderInput={(params) => {
         return (
-          <TextField
+          <CustomTextField
             {...params}
             {...inputProps}
             onChange={onChange}
@@ -67,7 +67,7 @@ export default function CustomAutocomplete(props) {
                 <>
                   {icon ? (
                     <InputAdornment>
-                      <Icon icon={icon} color={iconColor} />
+                      <CustomIcon icon={icon} color={iconColor} />
                     </InputAdornment>
                   ) : (
                     <></>

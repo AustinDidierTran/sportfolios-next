@@ -15,8 +15,8 @@ import {
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { validateDate } from '../../../../utils/stringFormats';
-import { formatRoute } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function AddMembership(props) {
   const { open: openProps, onClose, update } = props;

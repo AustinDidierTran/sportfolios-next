@@ -2,17 +2,21 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 
 import api from '../../../actions/api';
-import { ROUTES, goTo, formatRoute } from '../../../actions/goTo';
+import { ROUTES, goTo } from '../../../actions/goTo';
 
 import { useTranslation } from 'react-i18next';
 
 import styles from './Create.module.css';
 
-import { Paper, Button, IgContainer, LoadingSpinner } from '../../Custom';
+import CustomPaper from '../Paper';
+import CustomButton from '../Button';
+import IgContainer from '../IgContainer';
+import LoadingSpinner from '../LoadingSpinner';
 import { CardActions, CardContent } from '@material-ui/core';
 import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function EntityCreate(props) {
   const { t } = useTranslation();
@@ -183,7 +187,7 @@ export default function EntityCreate(props) {
     <IgContainer>
       <div className={styles.main}>
         <form onSubmit={formik.handleSubmit}>
-          <Paper className={styles.card} title={entityObject.title}>
+          <CustomPaper className={styles.card} title={entityObject.title}>
             <CardContent>
               {fields.map((field, index) => (
                 <div style={{ marginTop: '8px' }} key={index}>
@@ -193,7 +197,7 @@ export default function EntityCreate(props) {
             </CardContent>
             <CardActions className={styles.buttons}>
               <>
-                <Button
+                <CustomButton
                   size="small"
                   color="primary"
                   variant="contained"
@@ -202,8 +206,8 @@ export default function EntityCreate(props) {
                   endIcon="Check"
                 >
                   {t('done')}
-                </Button>
-                <Button
+                </CustomButton>
+                <CustomButton
                   size="small"
                   color="secondary"
                   variant="contained"
@@ -212,10 +216,10 @@ export default function EntityCreate(props) {
                   onClick={handleCancel}
                 >
                   {t('cancel')}
-                </Button>
+                </CustomButton>
               </>
             </CardActions>
-          </Paper>
+          </CustomPaper>
         </form>
       </div>
     </IgContainer>

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from './EditResults.module.css';
 import { SELECT_ENUM } from '../../../common/enums';
 import api from '../../actions/api';
-import { formatRoute } from '../../actions/goTo';
 import moment from 'moment';
 import GameFilters from '../Schedule/AllGames/GameFilters';
 import ScoreSuggestion from '../EditSchedule/AllEditGames/EditGames/ScoreSuggestion';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function EditResults() {
   const router = useRouter();

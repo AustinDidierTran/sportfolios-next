@@ -6,9 +6,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormDialogFactory from './FormDialogFactory';
-import { ComponentFactory } from '../../Custom';
+import ComponentFactory from '../ComponentFactory';
 
-export { default as FormDialogFactory } from './FormDialogFactory';
+// export { default as FormDialogFactory } from './FormDialogFactory';
 
 export default function CustomFormDialog(props) {
   const { items, type } = props;

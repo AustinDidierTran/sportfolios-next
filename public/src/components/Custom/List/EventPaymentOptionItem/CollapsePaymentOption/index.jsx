@@ -1,10 +1,11 @@
 import React from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import { Collapse, Button } from '../../..';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import moment from 'moment';
 import styles from './CollapsePaymentOption.module.css';
+import CustomTypography from '../../../Collapse';
+import CustomButton from '../../../Button';
 
 export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ export default function CollapsePaymentOption(props) {
   } = props;
 
   return (
-    <Collapse in={expanded} timeout="auto" unmountOnExit>
+    <CustomTypography in={expanded} timeout="auto" unmountOnExit>
       <div style={{ backgroundColor: '#F5F5F5' }}>
         <ListItem>
           <ListItemText
@@ -74,7 +75,7 @@ export default function CollapsePaymentOption(props) {
           </ListItem>
           <Divider />
         </>
-        <Button
+        <CustomButton
           endIcon="Edit"
           onClick={() => {
             setEdit(true);
@@ -82,11 +83,11 @@ export default function CollapsePaymentOption(props) {
           style={{ margin: '8px' }}
         >
           {t('edit')}
-        </Button>
-        <Button endIcon="Delete" onClick={() => setAlertDialog(true)} color="secondary" style={{ margin: '8px' }}>
+        </CustomButton>
+        <CustomButton endIcon="Delete" onClick={() => setAlertDialog(true)} color="secondary" style={{ margin: '8px' }}>
           {t('delete')}
-        </Button>
+        </CustomButton>
       </div>
-    </Collapse>
+    </CustomTypography>
   );
 }

@@ -1,9 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import { Button, Collapse, IconButton } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../utils/stringFormats';
 import styles from './MembershipOrganizationItem.module.css';
+import CustomTypography from '../../Collapse';
+import CustomIconButton from '../../IconButton';
+import CustomButton from '../../Button';
 
 export default function MembershipOrganizationItem(props) {
   const { t } = useTranslation();
@@ -21,9 +23,9 @@ export default function MembershipOrganizationItem(props) {
     <>
       <ListItem onClick={handleExpand}>
         <ListItemText primary={`${membership} | ${formatPrice(price)}`} secondary={membershipType}></ListItemText>
-        <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <CustomTypography in={expanded} timeout="auto" unmountOnExit>
         <div style={{ backgroundColor: '#F5F5F5' }}>
           <ListItem>
             <ListItemText primary={membershipType} secondary={`${t('expire_on')} ${expirationDate}`}></ListItemText>
@@ -50,7 +52,7 @@ export default function MembershipOrganizationItem(props) {
             />
           </ListItem>
           <Divider />
-          <Button
+          <CustomButton
             onClick={() => {
               onDelete(id);
             }}
@@ -59,9 +61,9 @@ export default function MembershipOrganizationItem(props) {
             style={{ margin: '8px' }}
           >
             {t('delete')}
-          </Button>
+          </CustomButton>
         </div>
-      </Collapse>
+      </CustomTypography>
       <Divider />
     </>
   );

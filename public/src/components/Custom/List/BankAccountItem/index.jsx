@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 import { ListItem, ListItemIcon, ListItemText, Radio } from '@material-ui/core';
-import { Icon, IconButton } from '../..';
+import CustomIcon from '../../Icon';
+import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
-import { AlertDialog } from '../../Dialog';
+import AlertDialog from '../../Dialog/AlertDialog';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function BankAccountItem(props) {
   const { t } = useTranslation();
@@ -40,7 +41,7 @@ export default function BankAccountItem(props) {
     <>
       <ListItem style={{ width: '100%' }}>
         <ListItemIcon>
-          <Icon icon="AccountBalance" />
+          <CustomIcon icon="AccountBalance" />
         </ListItemIcon>
         <ListItemText
           primary={`**** **** **** ${last4}`}
@@ -51,7 +52,7 @@ export default function BankAccountItem(props) {
         {removeDelete ? (
           <></>
         ) : (
-          <IconButton
+          <CustomIconButton
             icon="Delete"
             onClick={() => {
               setOpenDelete(true);

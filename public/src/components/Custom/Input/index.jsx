@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField } from '..';
+import CustomTextField from '../TextField';
 
 import FileInput from './FileInput';
 
@@ -22,10 +22,10 @@ export default function CustomInput(props) {
     case 'file':
       return <FileInput type="file" {...inputProps} />;
     case 'number':
-      return <TextField type="number" {...inputProps} />;
+      return <CustomTextField type="number" {...inputProps} />;
     case 'text':
-      return <TextField type="text" {...inputProps} />;
+      return <CustomTextField type="text" {...inputProps} />;
     default:
-      return <TextField {...props} />;
+      return <CustomTextField {...props} />;
   }
 }

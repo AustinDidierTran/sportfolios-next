@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip, makeStyles } from '@material-ui/core';
-import { Avatar } from '../';
+import CustomAvatar from '../Avatar';
 
 import styles from './ProfileChip.module.css';
 import { getInitialsFromName } from '../../../utils/stringFormats';
@@ -26,12 +26,8 @@ export default function ProfileChip(props) {
       className={styles.chip}
       label={nameObj.name}
       avatar={
-        <Avatar
-          className={
-            photoUrl
-              ? [classes.avatar, classes.noBorder].join(' ')
-              : classes.avatar
-          }
+        <CustomAvatar
+          className={photoUrl ? [classes.avatar, classes.noBorder].join(' ') : classes.avatar}
           photoUrl={photoUrl}
           initials={getInitialsFromName(nameObj)}
         />

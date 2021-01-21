@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styles from './Results.module.css';
 import { SELECT_ENUM } from '../../../common/enums';
 import api from '../../actions/api';
-import { formatRoute } from '../../actions/goTo';
 import moment from 'moment';
 import Game from '../Schedule/AllGames/Games/Game';
 import GameFilters from '../Schedule/AllGames/GameFilters';
 import SubmitScore from '../Schedule/AllGames/ProTip';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function Results() {
   const router = useRouter();

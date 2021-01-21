@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Button, Collapse, IconButton, MultiSelect } from '../../..';
 import {} from '@material-ui/core';
 import api from '../../../../../actions/api';
 import AddPlayer from '../AddPlayer';
-import { formatRoute } from '../../../../../actions/goTo';
 import { PLAYER_ATTENDANCE_STATUS, STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import CustomTypography from '../../../Collapse';
+import CustomButton from '../../../Button';
+import CustomIconButton from '../../../IconButton';
+import CustomMultiSelect from '../../../MultiSelect';
 
 export default function SectionSpirit(props) {
   const { submittedAttendances, gameId, IsSubmittedCheck, submissionerInfos } = props;
@@ -141,7 +144,7 @@ export default function SectionSpirit(props) {
         <Typography>{t('roster')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
-          <IconButton
+          <CustomIconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
             icon={expandedIcon}
@@ -150,18 +153,18 @@ export default function SectionSpirit(props) {
         </div>
       </div>
       <Divider />
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <CustomTypography in={expanded} timeout="auto" unmountOnExit>
         <div className={styles.attendances}>
-          <MultiSelect
+          <CustomMultiSelect
             label={t('attendances')}
             options={fullRoster}
             values={formik.values.attendances}
             onChange={handleAttendancesChange}
           />
         </div>
-        <Button className={styles.addSubButton} endIcon="Add" onClick={() => setAddPlayer(true)}>
+        <CustomButton className={styles.addSubButton} endIcon="Add" onClick={() => setAddPlayer(true)}>
           {t('add_sub')}
-        </Button>
+        </CustomButton>
         <AddPlayer
           open={addPlayer}
           onClose={() => setAddPlayer(false)}
@@ -170,16 +173,16 @@ export default function SectionSpirit(props) {
           updateRoster={updateRoster}
         />
         <div className={styles.divSubmitButton}>
-          <Button
+          <CustomButton
             className={styles.submitButton}
             onClick={() => formik.handleSubmit()}
             color={'primary'}
             variant="text"
           >
             {t('submit')}
-          </Button>
+          </CustomButton>
         </div>
-      </Collapse>
+      </CustomTypography>
     </div>
   );
 }

@@ -7,9 +7,10 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatRoute, goTo, ROUTES } from '../../../../actions/goTo';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function BecomeMemberCoupon(props) {
   const { t } = useTranslation();

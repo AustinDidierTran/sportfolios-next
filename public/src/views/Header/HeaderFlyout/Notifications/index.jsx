@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { List } from '../../../../components/Custom';
+import List from '../../../../components/Custom/List';
 import { LIST_ITEM_ENUM, HEADER_FLYOUT_TYPE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { Typography } from '@material-ui/core';
 
 import styles from '../HeaderFlyout.module.css';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function Notifications(props) {
   const { isMobileView } = props;
