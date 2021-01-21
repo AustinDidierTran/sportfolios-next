@@ -86,7 +86,6 @@ export default function ScheduleTab(props) {
         style={{ margin: '8px' }}
         onClick={openTeam}
         className={styles.button}
-        disabled // will be changed
       >
         {t('add_team')}
       </Button>
