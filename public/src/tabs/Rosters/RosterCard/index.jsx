@@ -1,6 +1,10 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import styles from './RosterCard.module.css';
 import { Paper, Icon, Avatar } from '../../../components/Custom';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Players from './Players';
 import { Typography } from '@material-ui/core';
@@ -15,22 +19,39 @@ const isEven = (n) => {
   return n % 2 == 0;
 };
 
+const useStyles = makeStyles((theme) => ({
+  evenGreen: {
+    backgroundColor: '#19bf9d',
+    color: '#fff',
+  },
+  oddGreen: { backgroundColor: '#18B393', color: '#fff' },
+  even: { backgroundColor: '#f1f1f1' },
+  odd: { backgroundColor: '#f9f9f9' },
+}));
+
 export default function RosterCard(props) {
+  const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const {
     isEventAdmin,
     roster,
-    expanded,
-    onExpand: onExpandProp,
     whiteList,
     index = 0,
     update = () => {},
+    expanded: expandedProps,
     withMyPersonsQuickAdd,
     editableRoster: editableRosterProp,
     editableRole: editableRoleProp,
   } = props;
   const { position, name, players, rosterId, role, registrationStatus } = roster;
+
+  const [expanded, setExpanded] = useState(expandedProps);
+
+  const onExpand = () => {
+    const exp = !expanded;
+    setExpanded(exp);
+  };
 
   const deletePlayerFromRoster = async (id) => {
     const res = await api(
@@ -151,44 +172,27 @@ export default function RosterCard(props) {
     isEventAdmin,
   ]);
 
-  const onExpand = () => {
-    onExpandProp(index);
-  };
-
   const greenBackground = isEventAdmin || role != ROSTER_ROLE_ENUM.VIEWER;
   const style = useMemo(() => {
     if (greenBackground && isEven(index)) {
-      return { backgroundColor: '#19bf9d', color: '#fff' };
-    }
-    if (greenBackground && !isEven(index)) {
-      return { backgroundColor: '#18B393', color: '#fff' };
-    }
-    if (!greenBackground && isEven(index)) {
-      return { backgroundColor: '#f2f2f2' };
+      return classes.evenGreen;
+    } else if (greenBackground && !isEven(index)) {
+      return classes.oddGreen;
+    } else if (!greenBackground && isEven(index)) {
+      return classes.even;
+    } else {
+      return classes.odd;
     }
   }, [greenBackground, index]);
 
   return (
-    <Paper className={styles.paper}>
-      <div className={styles.card} style={style} onClick={onExpand}>
-        <div className={styles.default}>
-          <div className={styles.position}>{position || '-'}</div>
-          <div className={styles.title}>
-            <div className={styles.name}>
-              <Typography>{name.toUpperCase()}</Typography>
-            </div>
-            <Avatar className={styles.avatar} photoUrl={roster.photoUrl} size="sm" />
-          </div>
-          <div className={styles.pod}>
-            <Tag type={registrationStatus} />
-          </div>
-          <div className={styles.expand}>
-            <Icon icon={expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'} />
-          </div>
-        </div>
-      </div>
-      <div className={styles.expanded} hidden={!expanded}>
+    <Accordion expanded={expanded} onChange={onExpand}>
+      <AccordionSummary className={style} expandIcon={<Icon icon="ExpandMore" />}>
+        <Typography style={{ margin: '4px' }}>{name}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
         <Players
+          className={styles.players}
           withPlayersInfos={isEventAdmin}
           editableRoster={editableRoster}
           editableRole={editableRole}
@@ -200,7 +204,7 @@ export default function RosterCard(props) {
           onRoleUpdate={updatePlayerRole}
           withMyPersonsQuickAdd={withMyPersonsQuickAdd}
         />
-      </div>
-    </Paper>
+      </AccordionDetails>
+    </Accordion>
   );
 }

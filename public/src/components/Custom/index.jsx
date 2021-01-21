@@ -1,6 +1,6 @@
 import loadable from '@loadable/component';
 
-export const Accordion = loadable(() => ìmport('./Accordion'));
+export const Accordion = loadable(() => import('./Accordion'));
 export const AccordionDnD = loadable(() => import('./AccordionDnD'));
 export const AlertDialog = loadable(() => import('./Dialog/AlertDialog'));
 export const Autocomplete = loadable(() => import('./Autocomplete'));

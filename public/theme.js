@@ -66,7 +66,7 @@ theme.typography.h5 = {
 theme.typography.h6 = {
   fontFamily: 'Helvetica',
   fontWeight: 350,
-  fontSize: '0.8rem',
+  fontSize: '1rem',
   [theme.breakpoints.up('sm')]: {
     fontSize: '1.2rem',
   },

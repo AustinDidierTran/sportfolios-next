@@ -54,11 +54,5 @@ export default function TabRosters(props) {
     );
   }
 
-  return (
-    <div className={styles.contain}>
-      <div className={styles.rosters}>
-        <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />
-      </div>
-    </div>
-  );
+  return <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />;
 }

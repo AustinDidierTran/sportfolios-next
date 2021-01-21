@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Divider, Typography } from '@material-ui/core';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../../common/enums';
@@ -45,6 +45,7 @@ export default function PersonsQuickAdd(props) {
       <Typography className={titleClassName} variant="h6">
         {title}
       </Typography>
+      <Divider />
       <List items={items} />
     </>
   );
