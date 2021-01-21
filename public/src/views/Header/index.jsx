@@ -1,10 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { Store } from '../../Store';
-
 import LoggedIn from './LoggedIn';
 import Default from './Default';
 import LoggedOut from './LoggedOut';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import api from '../../actions/api';
 import { GLOBAL_ENUM } from '../../../common/enums';
 import CartIcon from '../Cart/CartICon';
@@ -19,11 +18,11 @@ const getEntity = async (entityId) => {
 export default function Header() {
   const {
     state: { isAuthenticated },
-  } = useContext(Store);
+  } = React.useContext(Store);
 
   const router = useRouter();
-  const [path, setPath] = useState('');
-  const [entity, setEntity] = useState({});
+  const [path, setPath] = React.useState('');
+  const [entity, setEntity] = React.useState({});
 
   const fetchData = async () => {
     const pth = router.pathname.split('/')[1] || '';
@@ -55,7 +54,7 @@ export default function Header() {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchData();
   }, [router.pathname]);
 

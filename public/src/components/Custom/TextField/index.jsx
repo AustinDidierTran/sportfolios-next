@@ -1,5 +1,7 @@
 import React from 'react';
-import { TextField, Typography } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
 // See native documentation here: https://material-ui.com/components/text-fields/
 
 export default function CustomTextField(props) {
