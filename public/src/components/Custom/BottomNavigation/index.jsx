@@ -4,6 +4,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import styles from './BottomNavigation.module.css';
 import CustomIcon from '../Icon';
+
 import Badge from '@material-ui/core/Badge';
 
 import { useTranslation } from 'react-i18next';
