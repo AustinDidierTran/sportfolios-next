@@ -44,7 +44,7 @@ export default function EditPersonInfos(props) {
 
   const uploadImageProps = {
     multiple: false,
-    accept: '.jpg, .png, .jpeg',
+    accept: '.jpg, .png, .jpeg, .gif, .webp',
     onStart(file) {
       // Show preview
       if (file.type.split('/')[0] === 'image') {
