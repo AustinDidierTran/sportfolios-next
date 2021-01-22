@@ -2,6 +2,7 @@ import { getFormattedMailTo } from '../../utils/stringFormats';
 import { ROUTES_ENUM } from '../../../common/enums';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import Router from 'next/router';
+import api from '../api';
 
 export const ROUTES = ROUTES_ENUM;
 
