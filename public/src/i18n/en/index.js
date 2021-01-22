@@ -348,6 +348,7 @@ export default {
     invalid_date: 'Invalid date',
     invalid_email: 'Invalid email address.',
     invalid_file_format: 'Invalid file format. Only csv files are accepted.',
+    invalid_file_image: 'nvalid file format. Only  jpg, png and jpeg files are accepted.',
     invalid_information: 'Invalid information',
     invalid_input: 'Invalid input',
     invalid_roster_role_to_submit_score:
