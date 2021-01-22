@@ -32,7 +32,7 @@ const changeEntityURL = async (id, url) => {
 };
 
 export async function uploadEntityPicture(id, img) {
-  if (!img) {
+  if (img.type.split('/')[0] != 'image') {
     throw 'Please select an image';
   }
 

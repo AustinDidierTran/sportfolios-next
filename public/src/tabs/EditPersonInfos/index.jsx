@@ -12,6 +12,7 @@ import { ACTION_ENUM, Store } from '../../Store';
 import { GENDER_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 const moment = require('moment');
+import Upload from 'rc-upload';
 
 export default function EditPersonInfos(props) {
   const { basicInfos } = props;
@@ -39,6 +40,25 @@ export default function EditPersonInfos(props) {
     );
 
     setPersonInfos(data);
+  };
+
+  const uploadImageProps = {
+    multiple: false,
+    accept: '.jpg, .png, .jpeg',
+    onStart(file) {
+      // Show preview
+      if (file.type.split('/')[0] === 'image') {
+        setImg(file);
+        setPhotoUrl(URL.createObjectURL(file)); // used as a preview only
+        setChangesMade(true);
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid_file_image'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+      }
+    },
   };
 
   useEffect(() => {
@@ -89,11 +109,17 @@ export default function EditPersonInfos(props) {
 
       setIsLoading(true);
 
-      if (img) {
+      if (img && img.type.split('/')[0] === 'image') {
         const photoUrl = await uploadEntityPicture(personId, img);
         if (photoUrl) {
           setPhotoUrl(photoUrl);
         }
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid_file_image'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
       }
 
       const res = await api(`/api/entity/updatePersonInfos`, {
@@ -128,13 +154,6 @@ export default function EditPersonInfos(props) {
     setChangesMade(false);
   };
 
-  // Show preview
-  const onImgChange = (file) => {
-    setImg(file);
-    setPhotoUrl(URL.createObjectURL(file)); // used as a preview only
-    setChangesMade(true);
-  };
-
   const addressChanged = (newAddress) => {
     formik.setFieldValue('address', newAddress);
     setChangesMade(true);
@@ -152,15 +171,16 @@ export default function EditPersonInfos(props) {
     <Paper className={styles.card} formik={formik}>
       <form onSubmit={formik.handleSubmit}>
         <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
-        <Button
-          variant="outlined"
-          endIcon="CloudUploadIcon"
-          style={{ marginTop: '8px', marginBottom: '16px' }}
-          component="label"
-        >
-          {t('change_picture')}
-          <input onChange={(e) => onImgChange(e.target.files[0])} type="file" hidden />
-        </Button>
+        <Upload {...uploadImageProps}>
+          <Button
+            variant="outlined"
+            endIcon="CloudUploadIcon"
+            style={{ marginTop: '8px', marginBottom: '16px' }}
+            component="label"
+          >
+            {t('change_picture')}
+          </Button>
+        </Upload>
 
         <div className={styles.div2equal}>
           <TextField
