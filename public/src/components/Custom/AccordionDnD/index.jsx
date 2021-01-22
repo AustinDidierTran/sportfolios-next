@@ -65,7 +65,7 @@ export default function CustomAccordionDnD(props) {
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
-      <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
+      <AccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
         <ListItemText primary={title} />
       </AccordionSummary>
       <AccordionDetails>

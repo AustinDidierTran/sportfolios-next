@@ -9,6 +9,7 @@ import moment from 'moment';
 import styles from './EventSettings.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function EventSettings() {
   const { t } = useTranslation();
