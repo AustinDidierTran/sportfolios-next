@@ -6,9 +6,9 @@ import { useFormInput } from '../../../hooks/forms';
 import styles from './Roster.module.css';
 import { Typography } from '@material-ui/core';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import PersonSearchList from '../../../components/Custom/SearchList/PersonSearchList';
 import { ACTION_ENUM, Store } from '../../../Store';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function Roster(props) {
   const { t } = useTranslation();

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './AllEditGames.module.css';
 import { SELECT_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import moment from 'moment';
 import GameFilters from '../../Schedule/AllGames/GameFilters';
 import ProTip from './ProTip';
@@ -10,6 +9,7 @@ import EditGames from './EditGames';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../../components/Custom';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function AllEditGames(props) {
   const { t } = useTranslation();

@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 
-import { List, Icon, TextField } from '../..';
-import { formatRoute } from '../../../../actions/goTo';
+import CustomIcon from '../../Icon';
+import CustomList from '../../List';
+import CustomTextField from '../../TextField';
 import { useApiRoute } from '../../../../hooks/queries';
 import { InputAdornment } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../common/enums';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function TeamSearchList(props) {
   const {
@@ -101,7 +103,7 @@ export default function TeamSearchList(props) {
   return (
     <>
       {withoutIcon ? (
-        <TextField
+        <CustomTextField
           onChange={handleChange}
           variant="outlined"
           size="small"
@@ -111,7 +113,7 @@ export default function TeamSearchList(props) {
           onKeyPress={onEnter}
         />
       ) : (
-        <TextField
+        <CustomTextField
           variant="outlined"
           label={label}
           style={{ margin: '8px', ...style }}
@@ -121,13 +123,13 @@ export default function TeamSearchList(props) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Icon icon="Search" />
+                <CustomIcon icon="Search" />
               </InputAdornment>
             ),
           }}
         />
       )}
-      {formik.values.teamSearchQuery.length === 0 ? <></> : <List items={options}></List>}
+      {formik.values.teamSearchQuery.length === 0 ? <></> : <CustomList items={options}></CustomList>}
     </>
   );
 }

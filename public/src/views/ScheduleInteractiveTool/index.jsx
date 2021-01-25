@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import api from '../../actions/api';
-import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
 import { formatDate } from '../../utils/stringFormats';
 import { LoadingSpinner, Icon, AlertDialog, Button } from '../../components/Custom';
 import { Store, ACTION_ENUM } from '../../Store';
@@ -17,6 +17,7 @@ import AddTimeSlot from '../../tabs/EditSchedule/CreateSchedule/AddTimeSlot';
 import RGL from 'react-grid-layout';
 
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 const ReactGridLayout = RGL;
 
 const useStyles = makeStyles((theme) => ({

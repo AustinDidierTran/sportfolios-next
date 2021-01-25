@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Avatar, MailToButton } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './SalesItem.module.css';
 import { formatPrice, formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
+import CustomAvatar from '../../Avatar';
+import MailtoButton from '../../MailToButton';
+
 export default function SalesItem(props) {
   const { t } = useTranslation();
 
@@ -16,7 +18,7 @@ export default function SalesItem(props) {
     <ListItem button style={{ width: '100%' }}>
       <div className={styles.div}>
         <ListItemIcon>
-          <Avatar photoUrl={photoUrl} variant="square" className={styles.photo}></Avatar>
+          <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
         </ListItemIcon>
         <ListItemText className={styles.name} primary={label} secondary={t(metadata.size)}></ListItemText>
         <ListItemText
@@ -34,7 +36,7 @@ export default function SalesItem(props) {
           <></>
         )}
 
-        <MailToButton emails={emails} className={styles.mail} />
+        <MailtoButton emails={emails} className={styles.mail} />
         <ListItemText
           className={styles.date}
           secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}

@@ -8,7 +8,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import { GLOBAL_ENUM, VIEW_ENUM } from '../../../../common/enums';
 import { goTo, ROUTES } from '../../../actions/goTo';
 
-import { Icon } from '..';
+import CustomIcon from '../Icon';
 import { useMemo } from 'react';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
@@ -128,7 +128,7 @@ export default function SpeedDialTooltipOpen() {
         {actions.map((action) => (
           <SpeedDialAction
             key={action.name}
-            icon={<Icon icon={action.icon} />}
+            icon={<CustomIcon icon={action.icon} />}
             tooltipTitle={action.name}
             tooltipOpen
             onClick={action.onClick}

@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import { FormDialog, Icon } from '../../../Custom';
-
 import { useTranslation } from 'react-i18next';
 import styles from './MemberItem.module.css';
 import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
-import { IconButton } from '../..';
 import moment from 'moment';
 import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../common/enums';
-import { AlertDialog } from '../../Dialog';
+import AlertDialog from '../../Dialog/AlertDialog';
 import api from '../../../../actions/api';
-import { formatRoute, goTo, ROUTES } from '../../../../actions/goTo';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
+import CustomFormDialog from '../../FormDialog';
+import CustomIcon from '../../Icon';
+import CustomIconButton from '../../IconButton';
 
 export default function MemberItem(props) {
   const { t } = useTranslation();
@@ -85,7 +86,7 @@ export default function MemberItem(props) {
             }}
           ></ListItemText>
         )}
-        <FormDialog
+        <CustomFormDialog
           type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP}
           items={{
             open,
@@ -97,11 +98,11 @@ export default function MemberItem(props) {
           }}
         />
         {status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE ? (
-          <Icon icon="AttachMoney" color="green" />
+          <CustomIcon icon="AttachMoney" color="green" />
         ) : (
-          <Icon icon="MoneyOff" color="red" />
+          <CustomIcon icon="MoneyOff" color="red" />
         )}
-        <IconButton
+        <CustomIconButton
           className={styles.iconButton}
           variant="contained"
           icon="Edit"
@@ -109,7 +110,7 @@ export default function MemberItem(props) {
           onClick={onOpen}
           style={{ color: 'primary' }}
         />
-        <IconButton
+        <CustomIconButton
           className={styles.iconButton}
           variant="contained"
           icon="Delete"

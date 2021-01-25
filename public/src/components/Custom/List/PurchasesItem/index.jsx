@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Avatar, IconButton } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './PurchasesItem.module.css';
 // import MailtoButton from '../../MailToButton';
 import { formatPrice, formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { GLOBAL_ENUM, IMAGE_ENUM } from '../../../../../common/enums';
+import CustomAvatar from '../../Avatar';
+import CustomIconButton from '../../IconButton';
 
 export default function PurchasesItem(props) {
   const { t } = useTranslation();
@@ -35,11 +36,11 @@ export default function PurchasesItem(props) {
           <ListItem style={{ width: '100%' }}>
             <div className={styles.div}>
               <ListItemIcon>
-                <Avatar
+                <CustomAvatar
                   photoUrl={photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                   variant="square"
                   className={styles.photo}
-                ></Avatar>
+                ></CustomAvatar>
               </ListItemIcon>
               <ListItemText className={styles.name} primary={description} secondary={team.name} />
               <ListItemText
@@ -54,7 +55,12 @@ export default function PurchasesItem(props) {
             emails={email}
             className={styles.mail}
           /> */}
-              <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
+              <CustomIconButton
+                onClick={goToReceipt}
+                tooltip={t('receipt')}
+                icon="Receipt"
+                style={{ color: 'primary' }}
+              />
               <ListItemText
                 className={styles.date}
                 secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
@@ -71,11 +77,11 @@ export default function PurchasesItem(props) {
           <ListItem style={{ width: '100%' }}>
             <div className={styles.div}>
               <ListItemIcon>
-                <Avatar
+                <CustomAvatar
                   photoUrl={photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                   variant="square"
                   className={styles.photo}
-                ></Avatar>
+                ></CustomAvatar>
               </ListItemIcon>
               <ListItemText className={styles.name} primary={description} secondary={person.complete_name} />
               <ListItemText
@@ -90,7 +96,12 @@ export default function PurchasesItem(props) {
             emails={email}
             className={styles.mail}
           /> */}
-              <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
+              <CustomIconButton
+                onClick={goToReceipt}
+                tooltip={t('receipt')}
+                icon="Receipt"
+                style={{ color: 'primary' }}
+              />
               <ListItemText
                 className={styles.date}
                 secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
@@ -110,11 +121,11 @@ export default function PurchasesItem(props) {
         <ListItem style={{ width: '100%' }}>
           <div className={styles.div}>
             <ListItemIcon>
-              <Avatar
+              <CustomAvatar
                 photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                 variant="square"
                 className={styles.photo}
-              ></Avatar>
+              ></CustomAvatar>
             </ListItemIcon>
             <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
             <ListItemText
@@ -122,7 +133,12 @@ export default function PurchasesItem(props) {
               primary={formatPrice(amount)}
               secondary={`${person?.name} ${person?.surname}`}
             ></ListItemText>
-            <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
+            <CustomIconButton
+              onClick={goToReceipt}
+              tooltip={t('receipt')}
+              icon="Receipt"
+              style={{ color: 'primary' }}
+            />
             <ListItemText
               className={styles.date}
               secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
@@ -141,7 +157,7 @@ export default function PurchasesItem(props) {
         <ListItem style={{ width: '100%' }}>
           <div className={styles.div}>
             <ListItemIcon>
-              <Avatar photoUrl={photoUrl} variant="square" className={styles.photo}></Avatar>
+              <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
             </ListItemIcon>
             <ListItemText className={styles.name} primary={label} secondary={t(size) || ''}></ListItemText>
             <ListItemText
@@ -154,7 +170,12 @@ export default function PurchasesItem(props) {
           emails={email}
           className={styles.mail}
         /> */}
-            <IconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
+            <CustomIconButton
+              onClick={goToReceipt}
+              tooltip={t('receipt')}
+              icon="Receipt"
+              style={{ color: 'primary' }}
+            />
             <ListItemText
               className={styles.date}
               secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}

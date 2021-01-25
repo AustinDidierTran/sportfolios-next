@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 
 import { useFormInput } from '../../../../hooks/forms';
-import { Input, Paper, Button } from '../../../Custom';
+import CustomButton from '../../Button';
+import CustomInput from '../../Input';
+import CustomPaper from '../../Paper';
+
 import { List, ListItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styles from './EventSettings.module.css';
@@ -53,17 +56,23 @@ export default function EventSettings(props) {
   };
 
   return (
-    <Paper className={styles.paper}>
+    <CustomPaper className={styles.paper}>
       <List>
         {fields.map((f, index) => (
           <ListItem key={index}>
-            <Input fullWidth helperText={f.helperText} label={f.display} type={f.type} {...values[index]} />
+            <CustomInput fullWidth helperText={f.helperText} label={f.display} type={f.type} {...values[index]} />
           </ListItem>
         ))}
-        <Button size="small" variant="contained" endIcon="Check" style={{ marginTop: '8px' }} onClick={handleSave}>
+        <CustomButton
+          size="small"
+          variant="contained"
+          endIcon="Check"
+          style={{ marginTop: '8px' }}
+          onClick={handleSave}
+        >
           {t('save')}
-        </Button>
+        </CustomButton>
       </List>
-    </Paper>
+    </CustomPaper>
   );
 }

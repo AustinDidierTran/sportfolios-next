@@ -3,8 +3,8 @@ import isArray from 'lodash/isArray';
 
 import moment from 'moment';
 import 'moment/locale/fr';
-import { formatRoute } from '../../actions/goTo';
 import i18n from '../../i18n';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export const getInitialsFromName = (completeName) => {
   if (!completeName) {
@@ -21,7 +21,6 @@ export const getInitialsFromName = (completeName) => {
         .toUpperCase()
     );
   }
-
   return `${completeName?.name ? completeName?.name[0] : ''}${completeName?.surname ? completeName?.surname[0] : ''}`;
 };
 

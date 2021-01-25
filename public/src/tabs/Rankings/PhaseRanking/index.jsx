@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import Ranking from '../Ranking';
 import { updateRanking } from '../RankingFunctions';
 export default function PhaseRankings() {

@@ -8,8 +8,8 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../../../common/errors';
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../../../Store';
-import { formatRoute } from '../../../../../actions/goTo';
 import { validateEmail } from '../../../../../utils/stringFormats';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function AddNonExistingPlayer(props) {
   const { open: openProps, handleClose, name, isSub, onChange, onClose, rosterId, addedByEventAdmin } = props;

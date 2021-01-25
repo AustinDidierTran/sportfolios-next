@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styles from './Stepper.module.css';
 import { useTranslation } from 'react-i18next';
-import { ContainerBottomFixed } from '../../Custom';
+import ContainerBottomFixed from '../ContainerBottomFixed';
 
 export default function CustomStepperWithHooks(props) {
   const { activeStep, completed, Back, handleBack, handleNext, Next, handleReset, finish, steps } = props;

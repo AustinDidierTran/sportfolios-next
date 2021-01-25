@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import styles from './Shop.module.css';
-import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
 
 import { Container } from '@material-ui/core';
 import { FeatureContainer, Button } from '../../components/Custom';
@@ -14,6 +14,7 @@ import { CARD_TYPE_ENUM } from '../../../common/enums';
 import { FEATURE_FLAGS } from '../../../common/flags';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function Shop(props) {
   const { t } = useTranslation();

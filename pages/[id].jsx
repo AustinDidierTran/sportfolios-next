@@ -1,6 +1,5 @@
 import React from 'react';
 import Error from 'next/error';
-import { formatRoute } from '../public/src/actions/goTo';
 import { GLOBAL_ENUM } from '../public/common/enums';
 import { useApiRoute } from '../public/src/hooks/queries';
 import { LoadingSpinner } from '../public/src/components/Custom';
@@ -9,6 +8,7 @@ import Event from '../public/src/views/Entity/Event';
 import Organization from '../public/src/views/Entity/Organization';
 import Person from '../public/src/views/Entity/Person';
 import Team from '../public/src/views/Entity/Team';
+import { formatRoute } from '../public/common/utils/stringFormat';
 
 const EntityMap = {
   [GLOBAL_ENUM.PERSON]: Person,
@@ -28,7 +28,6 @@ export default function EntityRoute() {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
   if (!response) {
     return <Error />;
   }

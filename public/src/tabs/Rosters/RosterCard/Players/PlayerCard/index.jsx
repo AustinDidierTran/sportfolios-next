@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { FormDialog, Icon, IconButton } from '../../../../../components/Custom';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
-import { formatRoute } from '../../../../../actions/goTo';
 import PaymentChip from '../../../../Settings/TeamsRegistered/PaymentChip';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function PlayerCard(props) {
   const { isEditable, player, onDelete, onRoleUpdate, withInfos } = props;

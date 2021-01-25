@@ -4,9 +4,10 @@ import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { List } from '../../../components/Custom';
-import { formatRoute, goTo, ROUTES } from '../../../actions/goTo';
+import { goTo, ROUTES } from '../../../actions/goTo';
 import { ListItemText } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function BankAccount() {
   const { t } = useTranslation();

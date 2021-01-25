@@ -8,7 +8,10 @@ import { Store } from '../../../Store';
 import { TextareaAutosize, Typography } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Button, Input, Paper, TextField } from '../../../components/Custom';
+import CustomButton from '../../../components/Custom/Button';
+import CustomInput from '../../../components/Custom/Input';
+import CustomPaper from '../../../components/Custom/Paper';
+import CustomTextField from '../../../components/Custom/TextField';
 import { editItem, onImgUpload } from '../../../utils/shop';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
@@ -94,42 +97,42 @@ export default function EditItem(props) {
   if (!isEditing) {
     return (
       <div className={styles.button}>
-        <Button onClick={reset} endIcon="Add" style={{ margin: '8px' }}>
+        <CustomButton onClick={reset} endIcon="Add" style={{ margin: '8px' }}>
           {t('add_new_product')}
-        </Button>
+        </CustomButton>
       </div>
     );
   }
 
   return (
-    <Paper style={{ marginBottom: '8px' }}>
+    <CustomPaper style={{ marginBottom: '8px' }}>
       {photoUrl ? (
         <>
           <CardMedia className={styles.media} image={photoUrl} />
-          <Button onClick={() => setPhotoUrl(null)} style={{ margin: '8px' }} endIcon="Undo">
+          <CustomButton onClick={() => setPhotoUrl(null)} style={{ margin: '8px' }} endIcon="Undo">
             {t('change')}
-          </Button>
+          </CustomButton>
         </>
       ) : (
         <div className={styles.media}>
-          <Input type="file" error={error} onChange={onImgChange} />
-          <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
+          <CustomInput type="file" error={error} onChange={onImgChange} />
+          <CustomButton onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
             {t('upload')}
-          </Button>
+          </CustomButton>
         </div>
       )}
       <CardContent className={styles.infos}>
-        <TextField {...name.inputProps} label={t('name')} className={styles.name} onChange={validateName} />
+        <CustomTextField {...name.inputProps} label={t('name')} className={styles.name} onChange={validateName} />
         <Typography className={styles.price}>{`${amount} CAD`}</Typography>
         <TextareaAutosize {...description.inputProps} placeholder="Description" className={styles.description} />
         <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
-        <Button size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
+        <CustomButton size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
           {t('done')}
-        </Button>
-        <Button onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
+        </CustomButton>
+        <CustomButton onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
           {t('cancel')}
-        </Button>
+        </CustomButton>
       </CardContent>
-    </Paper>
+    </CustomPaper>
   );
 }

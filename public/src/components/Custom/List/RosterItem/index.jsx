@@ -1,13 +1,14 @@
 import React, { useMemo, useContext } from 'react';
-import { Select, IconButton } from '../../../Custom';
 import { ListItem, ListItemIcon, Typography } from '@material-ui/core';
-import { Avatar } from '../..';
 import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 
 import styles from './RosterItem.module.css';
+import CustomAvatar from '../../Avatar';
+import CustomSelect from '../../Select';
+import CustomIconButton from '../../IconButton';
 
 export default function RosterItem(props) {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ export default function RosterItem(props) {
 
   const RoleSelect = (
     <div>
-      <Select
+      <CustomSelect
         className={styles.select}
         value={roster[index].role}
         onChange={(newRole) => handleRoleChange(newRole)}
@@ -63,13 +64,13 @@ export default function RosterItem(props) {
   return (
     <ListItem className={styles.item}>
       <ListItemIcon>
-        <Avatar photoUrl={photoUrl} initials={initials}></Avatar>
+        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
       </ListItemIcon>
       <div className={styles.text}>
         <Typography>{`${name}${surname ? ` ${surname}` : ''}`}</Typography>
         {RoleSelect}
       </div>
-      <IconButton icon="Delete" style={{ color: 'grey' }} tooltip={t('remove')} edge="end" onClick={onDelete} />
+      <CustomIconButton icon="Delete" style={{ color: 'grey' }} tooltip={t('remove')} edge="end" onClick={onDelete} />
     </ListItem>
   );
 }

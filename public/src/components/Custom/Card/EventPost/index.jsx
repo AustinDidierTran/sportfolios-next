@@ -14,7 +14,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { goToAlias } from '../../../../actions/goTo';
 import moment from 'moment';
 import { formatIntervalDate } from '../../../../utils/stringFormats';
-import { Button, Avatar, ImageCard } from '../../../../components/Custom';
+import CustomButton from '../../Button';
+import CustomAvatar from '../../Avatar';
+import ImageCard from '../../ImageCard';
 import { useContext } from 'react';
 import { Store, SCREENSIZE_ENUM } from '../../../../Store';
 import styles from './EventPost.module.css';
@@ -69,11 +71,11 @@ export default function EventPost(props) {
       <CardHeader
         className={styles.header}
         avatar={
-          <Avatar
+          <CustomAvatar
             aria-label="recipe"
             className={classes.avatar}
             photoUrl={(creator && creator.photoUrl) || ''}
-          ></Avatar>
+          ></CustomAvatar>
         }
         action={
           <IconButton aria-label="settings">
@@ -100,9 +102,9 @@ export default function EventPost(props) {
         </Typography>
       </CardContent>
       <CardActions className={styles.actions} disableSpacing>
-        <Button onClick={() => goToAlias(eventId)} style={{ width: '50px' }} className={styles.eventButton}>
+        <CustomButton onClick={() => goToAlias(eventId)} style={{ width: '50px' }} className={styles.eventButton}>
           {t('learn_more')}
-        </Button>
+        </CustomButton>
         {flag ? (
           <IconButton
             className={clsx(classes.expand, {

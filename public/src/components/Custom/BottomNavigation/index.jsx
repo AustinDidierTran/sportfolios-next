@@ -3,7 +3,8 @@ import React, { useContext, useMemo, useState, useEffect } from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import styles from './BottomNavigation.module.css';
-import Icon from '../../Custom/Icon';
+import CustomIcon from '../Icon';
+
 import Badge from '@material-ui/core/Badge';
 
 import { useTranslation } from 'react-i18next';
@@ -68,19 +69,19 @@ export default function CustomBottomNavigation() {
 
   return displayNav ? (
     <BottomNavigation value={value} onChange={handleChange} className={styles.bottomnavigation}>
-      <BottomNavigationAction label={t('home')} value={TABS_ENUM.HOME} icon={<Icon icon="Home" />} />
-      <BottomNavigationAction label={t('profile')} value={TABS_ENUM.PROFILE} icon={<Icon icon="Person" />} />
+      <BottomNavigationAction label={t('home')} value={TABS_ENUM.HOME} icon={<CustomIcon icon="Home" />} />
+      <BottomNavigationAction label={t('profile')} value={TABS_ENUM.PROFILE} icon={<CustomIcon icon="Person" />} />
       <BottomNavigationAction
         label={t('notifications')}
         value={TABS_ENUM.NOTIFICATIONS}
         onClick={() => setUnreadNotificationsCount(0)}
         icon={
           <Badge badgeContent={unreadNotificationsCount} color="error">
-            <Icon icon="Notifications" />
+            <CustomIcon icon="Notifications" />
           </Badge>
         }
       />
-      <BottomNavigationAction label={t('menu')} value={TABS_ENUM.MENU} icon={<Icon icon="Menu" />} />
+      <BottomNavigationAction label={t('menu')} value={TABS_ENUM.MENU} icon={<CustomIcon icon="Menu" />} />
     </BottomNavigation>
   ) : (
     <></>

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Autocomplete } from '../../Custom';
+import CustomAutocomplete from '../Autocomplete';
 import { goTo, goToAndReplace, ROUTES } from '../../../actions/goTo';
 import { useApiRoute } from '../../../hooks/queries';
 
@@ -55,7 +55,7 @@ export default function SearchInput(props) {
   };
 
   return (
-    <Autocomplete
+    <CustomAutocomplete
       classes={classes}
       options={options}
       onChange={onChange}

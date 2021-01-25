@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Button, Paper } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute, goTo, ROUTES } from '../../../actions/goTo';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
 import { List } from '../../../components/Custom';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function Reports() {
   const { t } = useTranslation();

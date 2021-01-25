@@ -3,9 +3,11 @@ import React, { useState, useMemo } from 'react';
 import styles from './ShopItem.module.css';
 
 import { Typography } from '@material-ui/core';
-import { Paper, Button } from '../..';
+import CustomButton from '../../Button';
+import CustomPaper from '../../Paper';
+
 import CardContent from '@material-ui/core/CardContent';
-import { goTo, ROUTES, formatRoute } from '../../../../actions/goTo';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 import { formatPrice } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../actions/api';
@@ -13,6 +15,7 @@ import ImageCard from '../../ImageCard';
 
 import EditItem from '../../../../tabs/Shop/EditItem';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function ShopItem(props) {
   const router = useRouter();
@@ -63,7 +66,7 @@ export default function ShopItem(props) {
   }
 
   return (
-    <Paper className={styles.root}>
+    <CustomPaper className={styles.root}>
       <ImageCard className={styles.media} image={photoUrl} onClick={onPaperClick} />
       <CardContent className={styles.infos}>
         <Typography gutterBottom variant="h5" className={styles.name}>
@@ -84,21 +87,24 @@ export default function ShopItem(props) {
 
         {isEditor ? (
           <div className={styles.buttons}>
-            <Button onClick={editItem} endIcon="Settings" color="primary" className={styles.button}>
+            <CustomButton onClick={editItem} endIcon="Settings" color="primary" className={styles.button}>
               {t('edit')}
-            </Button>
-            <Button onClick={deleteItem} endIcon="Delete" color="secondary" className={styles.button}>
+            </CustomButton>
+            <CustomButton onClick={deleteItem} endIcon="Delete" color="secondary" className={styles.button}>
               {t('delete')}
-            </Button>
+            </CustomButton>
           </div>
         ) : (
           <div className={styles.otherButtonMain}>
-            <Button onClick={() => goTo(ROUTES.shopDetails, { id, stripePriceId })} className={styles.otherButton}>
+            <CustomButton
+              onClick={() => goTo(ROUTES.shopDetails, { id, stripePriceId })}
+              className={styles.otherButton}
+            >
               {t('learn_more')}
-            </Button>
+            </CustomButton>
           </div>
         )}
       </CardContent>
-    </Paper>
+    </CustomPaper>
   );
 }

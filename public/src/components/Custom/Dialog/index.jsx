@@ -11,25 +11,14 @@ export default function CustomDialog(props) {
 
   return (
     <div>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        aria-labelledby="dialog-title"
-        aria-describedby="dialog-description"
-      >
+      <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
         <DialogTitle id="dialog-title">{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="dialog-description">
-            {description}
-          </DialogContentText>
+          <DialogContentText id="dialog-description">{description}</DialogContentText>
         </DialogContent>
         <DialogActions>
           {buttons.map((button, index) => (
-            <Button
-              onClick={button.onClick}
-              color={button.color || 'primary'}
-              key={index}
-            >
+            <Button onClick={button.onClick} color={button.color || 'primary'} key={index}>
               {button.name}
             </Button>
           ))}
@@ -38,5 +27,3 @@ export default function CustomDialog(props) {
     </div>
   );
 }
-
-export { default as AlertDialog } from './AlertDialog';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Icon } from '../../Custom';
+import CustomIcon from '../Icon';
 import { Badge, IconButton, Tooltip } from '@material-ui/core';
 
 export default function CustomIconButton(props) {
@@ -25,7 +25,7 @@ export default function CustomIconButton(props) {
         <div>
           <IconButton size={size} onClick={onClick} {...otherProps} style={{ color: '#fff', ...props.style }}>
             <Badge invisible={!badgeContent} badgeContent={badgeContent} color={badgeColor}>
-              <Icon icon={icon} fontSize={fontSize} />
+              <CustomIcon icon={icon} fontSize={fontSize} />
             </Badge>
           </IconButton>
         </div>
@@ -37,7 +37,7 @@ export default function CustomIconButton(props) {
     <Tooltip title={tooltip}>
       <div>
         <IconButton size={size} onClick={onClick} {...otherProps} style={{ color: '#fff', ...props.style }}>
-          <Icon icon={icon} fontSize={fontSize} />
+          <CustomIcon icon={icon} fontSize={fontSize} />
         </IconButton>
       </div>
     </Tooltip>

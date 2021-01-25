@@ -15,9 +15,9 @@ import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
 import { TextareaAutosize } from '@material-ui/core';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function CreateItem(props) {
   const router = useRouter();
