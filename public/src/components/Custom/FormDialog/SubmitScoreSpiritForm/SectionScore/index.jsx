@@ -8,7 +8,7 @@ import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
-import CustomTypography from '../../../Collapse';
+import CustomCollapse from '../../../Collapse';
 import CustomTextField from '../../../TextField';
 import CustomIconButton from '../../../IconButton';
 import CustomButton from '../../../Button';
@@ -157,7 +157,7 @@ export default function SectionScore(props) {
         </div>
       </div>
       <Divider />
-      <CustomTypography in={expanded} timeout="auto" unmountOnExit>
+      <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         <div>
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <Typography className={styles.suggestedBy}>{'*' + t('suggested_by_the_other_team')}</Typography>
@@ -227,7 +227,7 @@ export default function SectionScore(props) {
             </div>
           )}
         </div>
-      </CustomTypography>
+      </CustomCollapse>
     </div>
   );
 }

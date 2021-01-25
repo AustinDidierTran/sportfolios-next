@@ -28,7 +28,6 @@ export default function EntityRoute() {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  formatRoute;
   if (!response) {
     return <Error />;
   }

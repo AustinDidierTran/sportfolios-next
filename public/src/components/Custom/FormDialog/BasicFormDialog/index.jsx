@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ComponentFactory from '../../ComponentFactory'; //3333333333333333333333333333333333333333333333
+import ComponentFactory from '../../ComponentFactory';
 import { useTranslation } from 'react-i18next';
 
 export default function BasicFormDialog(props) {

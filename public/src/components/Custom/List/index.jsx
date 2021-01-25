@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// export { default as ItemFactory } from './ItemFactory';
-
 export default function CustomList(props) {
   const { title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 

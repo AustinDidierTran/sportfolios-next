@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import moment from 'moment';
 import styles from './CollapsePaymentOption.module.css';
-import CustomTypography from '../../../Collapse';
+import CustomCollapse from '../../../Collapse';
 import CustomButton from '../../../Button';
 
 export default function CollapsePaymentOption(props) {
@@ -23,7 +23,7 @@ export default function CollapsePaymentOption(props) {
   } = props;
 
   return (
-    <CustomTypography in={expanded} timeout="auto" unmountOnExit>
+    <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
       <div style={{ backgroundColor: '#F5F5F5' }}>
         <ListItem>
           <ListItemText
@@ -88,6 +88,6 @@ export default function CollapsePaymentOption(props) {
           {t('delete')}
         </CustomButton>
       </div>
-    </CustomTypography>
+    </CustomCollapse>
   );
 }

@@ -8,7 +8,7 @@ import api from '../../../../../actions/api';
 import styles from '../SubmitScoreSpiritForm.module.css';
 import CustomTextField from '../../../TextField';
 import CustomIconButton from '../../../IconButton';
-import CustomTypography from '../../../Collapse';
+import CustomCollapse from '../../../Collapse';
 import CustomButton from '../../../Button';
 
 export default function SectionSpirit(props) {
@@ -116,7 +116,7 @@ export default function SectionSpirit(props) {
         </div>
       </div>
       <Divider />
-      <CustomTypography in={expanded} timeout="auto" unmountOnExit>
+      <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         {isSubmitted ? (
           <div>
             <Typography className={styles.totalSpirit}>{`Total: ${
@@ -152,7 +152,7 @@ export default function SectionSpirit(props) {
         ) : (
           <></>
         )}
-      </CustomTypography>
+      </CustomCollapse>
     </div>
   );
 }

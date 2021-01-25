@@ -1,6 +1,6 @@
 import React from 'react';
 import Collapse from '@material-ui/core/Collapse';
 
-export default function CustomTypography(props) {
+export default function CustomCollapse(props) {
   return <Collapse {...props} />;
 }

@@ -8,8 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormDialogFactory from './FormDialogFactory';
 import ComponentFactory from '../ComponentFactory';
 
-// export { default as FormDialogFactory } from './FormDialogFactory';
-
 export default function CustomFormDialog(props) {
   const { items, type } = props;
   if (type) {
