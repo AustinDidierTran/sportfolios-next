@@ -26,7 +26,7 @@ export default function AddGame(props) {
   };
 
   const description = useMemo(() => {
-    return `${field?.name}, ${formatDate(moment(timeslot?.date), 'DD MMM HH:mm')}`;
+    return `${field?.name}, ${'abc'}`;
   }, [field, timeslot]);
 
   const validate = (values) => {

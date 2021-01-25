@@ -1,5 +1,5 @@
 import React, { useMemo, useContext } from 'react';
-import { SEVERITY_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM } from '../../../../common/enums';
 import { TeamSearchList, List, Button } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';

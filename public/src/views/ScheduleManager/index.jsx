@@ -6,7 +6,7 @@ import Games from './Games';
 import Ranking from './Ranking';
 import styles from './ScheduleManager.module.css';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM } from '../../../common/enums';
 import { v4 as uuidv4 } from 'uuid';
 import { updateRanking } from './RankingFunctions';
 import { formatPageTitle } from '../../utils/stringFormats';

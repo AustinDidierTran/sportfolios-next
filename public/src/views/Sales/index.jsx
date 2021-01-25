@@ -2,7 +2,7 @@ import React from 'react';
 import { IgContainer, List } from '../../components/Custom';
 import { useApiRoute } from '../../hooks/queries';
 import { CircularProgress } from '@material-ui/core';
-import { LIST_ITEM_ENUM } from '../../../../common/enums';
+import { LIST_ITEM_ENUM } from '../../../common/enums';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 

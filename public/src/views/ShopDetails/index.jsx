@@ -13,7 +13,7 @@ import { formatPrice } from '../../utils/stringFormats';
 import { useFormik } from 'formik';
 import { CircularProgress, TextareaAutosize, Typography } from '@material-ui/core';
 import { Store, ACTION_ENUM } from '../../Store';
-import { SEVERITY_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 
 export default function ShopDetails() {

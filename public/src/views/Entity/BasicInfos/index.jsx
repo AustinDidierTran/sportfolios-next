@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 
 import styles from './BasicInfos.module.css';
 

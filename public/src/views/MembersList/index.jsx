@@ -6,7 +6,7 @@ import { Paper, Button, IgContainer, FormDialog, IconButton } from '../../compon
 import api from '../../actions/api';
 import { formatRoute, goToAndReplace, ROUTES } from '../../actions/goTo';
 import { List } from '../../components/Custom';
-import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM, STATUS_ENUM } from '../../../common/enums';
 import styles from './MembersList.module.css';
 import { useRouter } from 'next/router';
 
