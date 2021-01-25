@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Paper, Button, List, FormDialog, LoadingSpinner } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './AddOptionsEvent.module.css';
-import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import CustomPaper from '../../../components/Custom/Paper';
+import CustomButton from '../../../components/Custom/Button';
+import CustomLoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import EventPaymentOptionList from './EventPaymentOptionList';
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
@@ -26,7 +29,7 @@ export default function AddOptionsEvent() {
     const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
     const dataOptions = data.map((o) => ({
       option: o,
-      type: LIST_ITEM_ENUM.EVENT_PAYMENT_OPTION,
+      // type: LIST_ITEM_ENUM.EVENT_PAYMENT_OPTION,
       update: getOptions,
       key: o.id,
     }));
@@ -86,19 +89,19 @@ export default function AddOptionsEvent() {
 
   if (isLoading) {
     return (
-      <Paper title={t('payment_options')}>
-        <LoadingSpinner isComponent />
-      </Paper>
+      <CustomPaper title={t('payment_options')}>
+        <CustomLoadingSpinner isComponent />
+      </CustomPaper>
     );
   }
 
   return (
-    <Paper title={t('payment_options')}>
-      <Button className={styles.addButton} color="primary" onClick={() => setOpen(true)}>
+    <CustomPaper title={t('payment_options')}>
+      <CustomButton className={styles.addButton} color="primary" onClick={() => setOpen(true)}>
         {t('add_payment_option')}
-      </Button>
-      <List items={options} />
-      <FormDialog
+      </CustomButton>
+      <EventPaymentOptionList items={options} />
+      <CustomFormDialog
         type={FORM_DIALOG_TYPE_ENUM.ADD_EVENT_PAYMENT_OPTION}
         items={{
           open,
@@ -106,6 +109,6 @@ export default function AddOptionsEvent() {
           addOptionToEvent,
         }}
       />
-    </Paper>
+    </CustomPaper>
   );
 }

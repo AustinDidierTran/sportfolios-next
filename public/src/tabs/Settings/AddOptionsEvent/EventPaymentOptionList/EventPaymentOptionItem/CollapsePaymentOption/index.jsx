@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
+import { formatDate, formatPrice } from '../../../../../../utils/stringFormats';
 import moment from 'moment';
 import styles from './CollapsePaymentOption.module.css';
 import CustomCollapse from '../../../Collapse';
