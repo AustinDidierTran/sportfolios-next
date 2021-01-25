@@ -10,6 +10,7 @@ import CustomPaper from '../../../components/Custom/Paper';
 import CustomButton from '../../../components/Custom/Button';
 import CustomLoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import EventPaymentOptionList from './EventPaymentOptionList';
+import CustomFormDialog from '../../../components/Custom/FormDialog';
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
@@ -29,7 +30,6 @@ export default function AddOptionsEvent() {
     const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
     const dataOptions = data.map((o) => ({
       option: o,
-      // type: LIST_ITEM_ENUM.EVENT_PAYMENT_OPTION,
       update: getOptions,
       key: o.id,
     }));

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import styles from './MemberImportItem.module.css';
 import { formatDate, validateDateWithYear, validateEmail } from '../../../../utils/stringFormats';
 import moment from 'moment';
-import EditMemberImportDialog from './EditMemberImportDialog';
 import CustomIconButton from '../../../../components/Custom/IconButton';
 import { LIST_ITEM_ENUM } from '../../../../../common/enums';
 
@@ -88,12 +87,15 @@ export default function MemberImportItem(props) {
             )}
           </>
         )}
-        <EditMemberImportDialog
-          open={open}
-          onClose={onClose}
-          email={email}
-          expirationDate={expirationDate}
-          updateMember={updateMember}
+        <CustomFormDialog
+          type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBER_IMPORT}
+          items={{
+            open,
+            onClose,
+            email,
+            expirationDate,
+            updateMember,
+          }}
         />
         <CustomIconButton icon="Edit" tooltip={t('edit')} onClick={onOpen} style={{ color: 'primary' }} />
         <CustomIconButton icon="Delete" tooltip={t('delete')} onClick={handleDelete} style={{ color: 'primary' }} />

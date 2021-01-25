@@ -1,16 +1,16 @@
 import React, { useState, useContext, useMemo } from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import AlertDialog from '../../Dialog/AlertDialog';
-import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import moment from 'moment';
-import { ACTION_ENUM, Store } from '../../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
-import api from '../../../../../actions/api';
 import CollapsePaymentOption from './CollapsePaymentOption';
+import AlertDialog from '../../../../../components/Custom/Dialog/AlertDialog';
+import CustomIconButton from '../../../../../components/Custom/IconButton';
 import { formatRoute } from '../../../../../../common/utils/stringFormat';
-import EditEventPaymentOptionDialog from './EditEventPaymentOptionDialog';
+import { ACTION_ENUM, Store } from '../../../../../Store';
+import api from '../../../../../actions/api';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
+import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
@@ -95,13 +95,16 @@ export default function EventPaymentOptionItem(props) {
         setAlertDialog={setAlertDialog}
       />
       <Divider />
-      <EditEventPaymentOptionDialog
-        open={edit}
-        onClose={() => {
-          setEdit(false);
+      <CustomFormDialog
+        type={FORM_DIALOG_TYPE_ENUM.EDIT_EVENT_PAYMENT_OPTION}
+        items={{
+          open: edit,
+          onClose: () => {
+            setEdit(false);
+          },
+          option,
+          editOptionEvent,
         }}
-        option={option}
-        editOptionEvent={editOptionEvent}
       />
       <AlertDialog
         open={alertDialog}
