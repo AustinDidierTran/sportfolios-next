@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Players from './Players';
 import { Typography } from '@material-ui/core';
-import Tag from '../Tag';
 import { ROSTER_ROLE_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
@@ -21,12 +20,12 @@ const isEven = (n) => {
 
 const useStyles = makeStyles((theme) => ({
   evenGreen: {
-    backgroundColor: '#19bf9d',
+    backgroundColor: theme.palette.primary.lightDark,
     color: '#fff',
   },
-  oddGreen: { backgroundColor: '#18B393', color: '#fff' },
-  even: { backgroundColor: '#f1f1f1' },
-  odd: { backgroundColor: '#f9f9f9' },
+  oddGreen: { backgroundColor: theme.palette.primary.main, color: '#fff' },
+  even: { backgroundColor: theme.palette.shadesOfGrey.light },
+  odd: { backgroundColor: theme.palette.shadesOfGrey.veryLight },
 }));
 
 export default function RosterCard(props) {
@@ -44,7 +43,7 @@ export default function RosterCard(props) {
     editableRoster: editableRosterProp,
     editableRole: editableRoleProp,
   } = props;
-  const { position, name, players, rosterId, role, registrationStatus } = roster;
+  const { name, players, rosterId, role } = roster;
 
   const [expanded, setExpanded] = useState(expandedProps);
 

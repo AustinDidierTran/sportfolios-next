@@ -2,23 +2,22 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { ROUTES_ENUM, STATUS_ENUM } from '../../../common/enums/index.js';
 import api from '../../actions/api/index.js';
-import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
 import { IgContainer, LoadingSpinner, Button } from '../../components/Custom';
 import { Store } from '../../Store.js';
 import RosterCard from '../../tabs/Rosters/RosterCard/index.jsx';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import styles from './RosterInvite.module.css';
+import { formatRoute } from '../../../common/utils/stringFormat.js';
 
-export default function RosterInvite() {
+export default function RosterInvite(props) {
   const { t } = useTranslation();
   const {
     state: { userInfo },
   } = useContext(Store);
+  const { token } = props;
   const [roster, setRoster] = useState();
   const [eventId, setEventId] = useState('');
-  const router = useRouter();
-  const { token } = router.query;
 
   const fetchRoster = async () => {
     if (!token) {
