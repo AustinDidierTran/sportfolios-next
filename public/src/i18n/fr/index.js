@@ -545,9 +545,8 @@ export default {
     purchases: 'Achats',
     quantity: 'Quantité',
     quick_description: 'Description courte',
-    quit_interactive_tool_confirmation:
-      "Êtes-vous certain de vouloir quitter l'outil interactif sans sauvegarder les changements apportés?",
-    quit_interactive_tool: "Quitter l'outil interactif",
+    quit_interactive_tool_confirmation: 'Des changements ont été apportés. Voulez-vous quitter sans les sauvergarder ?',
+    quit_interactive_tool: 'AVERTISSEMENT',
     ranking: 'Classement',
     rankings: 'Classements',
     receipt: 'Reçu',

@@ -539,9 +539,8 @@ export default {
     qt: 'Qt: {{quantity}}',
     quantity: 'Quantity',
     quick_description: 'Short description',
-    quit_interactive_tool_confirmation:
-      'Are you sure you want to quit the interactive tool without saving the changes made?',
-    quit_interactive_tool: 'Quit interactive tool',
+    quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them ?',
+    quit_interactive_tool: 'WARNING',
     ranking: 'Ranking',
     rankings: 'Rankings',
     receipt: 'Receipt',
