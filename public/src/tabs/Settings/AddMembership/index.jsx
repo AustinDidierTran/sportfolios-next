@@ -4,9 +4,10 @@ import { getMembershipName, getMembershipType, getExpirationDate } from '../../.
 import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute, goTo, ROUTES } from '../../../actions/goTo';
+import { goTo, ROUTES } from '../../../actions/goTo';
 import { List } from '../../../components/Custom';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function AddMembership() {
   const { t } = useTranslation();

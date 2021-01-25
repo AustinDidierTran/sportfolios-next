@@ -4,7 +4,6 @@ import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styles from './PersonSelect.module.css';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import PersonItem from '../../../components/Custom/List/PersonItem';
 import { useRouter } from 'next/router';
 

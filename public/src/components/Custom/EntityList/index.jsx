@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import styles from './EntityList.module.css';
-import { Paper, List, Button, FeatureContainer } from '../../../components/Custom';
+import CustomButton from '../Button';
+import CustomList from '../List';
+import CustomPaper from '../Paper';
+import FeatureContainer from '../FeatureContainer';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 
@@ -59,13 +62,13 @@ export default function EntityList(props) {
   };
 
   return (
-    <Paper childrenProps={{ className: styles.card }} title={entityObject.title}>
+    <CustomPaper childrenProps={{ className: styles.card }} title={entityObject.title}>
       <FeatureContainer feature={entityObject.flag} options={{ displayComingSoon: true }}>
         <>
-          <Button onClick={handleClick} style={{ marginBottom: 16 }} className={styles.button}>
+          <CustomButton onClick={handleClick} style={{ marginBottom: 16 }} className={styles.button}>
             {entityObject.buttonLabel}
-          </Button>
-          <List
+          </CustomButton>
+          <CustomList
             items={entities.map((entity, index) => ({
               id: entity.id,
               name: entity.name,
@@ -76,6 +79,6 @@ export default function EntityList(props) {
           />
         </>
       </FeatureContainer>
-    </Paper>
+    </CustomPaper>
   );
 }

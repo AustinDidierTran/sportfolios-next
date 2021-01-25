@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 
-import { List, Icon } from '../../Custom';
-import { TextField } from '..';
-import { formatRoute } from '../../../actions/goTo';
+import CustomIcon from '../Icon';
+import CustomList from '../List';
+import CustomTextField from '../TextField';
 import { useApiRoute } from '../../../hooks/queries';
 import { useFormInput } from '../../../hooks/forms';
 import { InputAdornment } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../common/enums';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function SearchList(props) {
   const {
@@ -132,7 +133,7 @@ export default function SearchList(props) {
   return (
     <>
       {withoutIcon ? (
-        <TextField
+        <CustomTextField
           {...query.inputProps}
           onChange={handleChange}
           variant="outlined"
@@ -143,7 +144,7 @@ export default function SearchList(props) {
           onKeyPress={onEnter}
         />
       ) : (
-        <TextField
+        <CustomTextField
           {...query.inputProps}
           variant="outlined"
           label={label}
@@ -154,13 +155,13 @@ export default function SearchList(props) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Icon icon="Search" />
+                <CustomIcon icon="Search" />
               </InputAdornment>
             ),
           }}
         />
       )}
-      {query.value.length === 0 ? <></> : <List items={options}></List>}
+      {query.value.length === 0 ? <></> : <CustomList items={options}></CustomList>}
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Icon } from '../../../Custom';
+import CustomButton from '../../Button';
+import CustomIcon from '../../Icon';
 import { useTranslation } from 'react-i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core';
 
@@ -8,7 +9,7 @@ import SectionScore from './SectionScore';
 import SectionSpirit from './SectionSpirit';
 import SectionPresences from './SectionPresences';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function SubmitScoreDialog(props) {
   const { open, onClose, gameId, submissionerInfos } = props;
@@ -38,7 +39,7 @@ export default function SubmitScoreDialog(props) {
   const SubmittedCheck = (
     <div className={styles.submitted}>
       <Typography className={styles.submitText}>{t('submitted')}</Typography>
-      <Icon icon="CheckCircleOutline" color="#54AF51" />
+      <CustomIcon icon="CheckCircleOutline" color="#54AF51" />
     </div>
   );
 
@@ -74,9 +75,9 @@ export default function SubmitScoreDialog(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <CustomButton onClick={onClose} color="primary">
             {t('close')}
-          </Button>
+          </CustomButton>
         </DialogActions>
       </div>
     </Dialog>

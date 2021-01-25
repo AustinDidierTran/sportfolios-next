@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import api from '../../actions/api';
-import { formatRoute } from '../../actions/goTo';
 
 import styles from './Rosters.module.css';
 
@@ -10,6 +9,7 @@ import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function TabRosters(props) {
   const { isEventAdmin } = props;

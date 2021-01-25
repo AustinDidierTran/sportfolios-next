@@ -5,8 +5,8 @@ import { IgContainer, LoadingSpinner } from '../../components/Custom';
 import EntitySearch from './EntitySearch/index';
 
 import api from '../../actions/api';
-import { formatRoute } from '../../actions/goTo';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function Search(props) {
   const router = useRouter();

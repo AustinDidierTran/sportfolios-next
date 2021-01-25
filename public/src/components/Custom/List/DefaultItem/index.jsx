@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
-import { Icon } from '../..';
+import CustomIcon from '../../Icon';
 
 export default function DefaultItem(props) {
   const { onClick, selected, iconComponent, icon, value, secondaryAction, description } = props;
@@ -12,7 +12,7 @@ export default function DefaultItem(props) {
         <ListItemIcon>{iconComponent}</ListItemIcon>
       ) : (
         <ListItemIcon>
-          <Icon icon={icon}></Icon>
+          <CustomIcon icon={icon}></CustomIcon>
         </ListItemIcon>
       )}
       <ListItemText primary={value} secondary={description}></ListItemText>

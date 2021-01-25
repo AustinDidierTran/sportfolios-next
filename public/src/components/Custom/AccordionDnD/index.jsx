@@ -6,9 +6,12 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import { Icon, Button } from '../';
-import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import styles from './AccordionDnD.module.css';
+import CustomIcon from '../Icon';
+import CustomButton from '../Button';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -62,13 +65,13 @@ export default function CustomAccordionDnD(props) {
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
-      <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
+      <AccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
         <ListItemText primary={title} />
       </AccordionSummary>
       <AccordionDetails>
         <div className={styles.div}>
           {buttons.map((button, index) => (
-            <Button
+            <CustomButton
               onClick={() => {
                 button.onClick(items);
               }}
@@ -80,7 +83,7 @@ export default function CustomAccordionDnD(props) {
               key={index}
             >
               {button.name}
-            </Button>
+            </CustomButton>
           ))}
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
@@ -97,8 +100,8 @@ export default function CustomAccordionDnD(props) {
                         >
                           {withIndex ? (
                             <ListItem>
-                              <ListItemIcon>
-                                <Icon icon="Reorder" color="textSecondary" />
+                              <ListItemIcon> 
+                                <CustomIcon icon="Reorder" color="textSecondary" /> 
                               </ListItemIcon>
                               <div className={styles.main} style={{ width: '100%' }}>
                                 <ListItemText className={styles.position} secondary={index + 1} />

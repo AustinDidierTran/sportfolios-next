@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../../../../actions/api';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../../common/enums';
 import EditGameDialog from './EditGameDialog';
-import { formatRoute } from '../../../../../../actions/goTo';
 import EnterScore from './EnterScore';
 import { ACTION_ENUM, Store } from '../../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../../common/errors';
+import { formatRoute } from '../../../../../../../common/utils/stringFormat';
 
 export default function EditGame(props) {
   const { game, update, withoutEdit } = props;

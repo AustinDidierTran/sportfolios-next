@@ -4,9 +4,9 @@ import { Select } from '../../../../../components/Custom';
 import styles from './FieldSelect.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../actions/api';
-import { formatRoute } from '../../../../../actions/goTo';
 import { SELECT_ENUM } from '../../../../../../common/enums';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function FieldSelect(props) {
   const { onChange, fieldId } = props;

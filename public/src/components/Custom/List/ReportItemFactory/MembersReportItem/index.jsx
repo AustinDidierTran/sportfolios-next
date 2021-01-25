@@ -1,16 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import { DownloadReportDialog, IconButton } from '../../..';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
-import { formatRoute } from '../../../../../actions/goTo';
 import { INVOICE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import { getMembershipName } from '../../../../../../common/functions';
-import { AlertDialog } from '../../../Dialog';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import AlertDialog from '../../../Dialog/AlertDialog';
+import CustomIconButton from '../../../IconButton';
+import DownloadReportDialog from '../../../Dialog/DownloadReportDialog';
 
 export default function MembersReportItem(props) {
   const { t } = useTranslation();
@@ -111,14 +112,14 @@ export default function MembersReportItem(props) {
     <>
       <ListItem style={{ width: '100%' }}>
         <ListItemText primary={reportName}></ListItemText>
-        <IconButton
+        <CustomIconButton
           variant="contained"
           icon="GetApp"
           tooltip={t('download_report')}
           style={{ color: 'primary', margin: '8px' }}
           onClick={handleClick}
         />
-        <IconButton
+        <CustomIconButton
           variant="contained"
           icon="Delete"
           tooltip={t('delete')}

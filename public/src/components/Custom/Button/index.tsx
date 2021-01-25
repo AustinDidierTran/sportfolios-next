@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Button, ButtonProps } from '@material-ui/core';
-import { Icon } from '..';
+import CustomIcon from '../Icon';
 
 interface IProps extends ButtonProps {
   textColor?: string;
@@ -21,14 +21,14 @@ const CustomButton: React.FC<IProps> = (props) => {
     if (!props.startIcon) {
       return null;
     }
-    return <Icon icon={props.startIcon} />;
+    return <CustomIcon icon={props.startIcon} />;
   }, [props.startIcon]);
 
   const endIcon = useMemo(() => {
     if (!props.endIcon) {
       return null;
     }
-    return <Icon icon={props.endIcon} />;
+    return <CustomIcon icon={props.endIcon} />;
   }, [props.endIcon]);
 
   return (

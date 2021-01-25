@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { TextField } from '..';
+import CustomTextField from '../TextField';
 import { useTranslation } from 'react-i18next';
 
 export default function CustomDateInput(props) {
@@ -23,7 +23,7 @@ export default function CustomDateInput(props) {
 
   return (
     <>
-      <TextField
+      <CustomTextField
         error={error || inputError}
         type="time"
         inputProps={{

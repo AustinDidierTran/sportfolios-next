@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Item.module.css';
 
 import { Typography } from '@material-ui/core';
-import { Paper } from '../..';
+import CustomPaper from '../../Paper';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
@@ -20,7 +20,7 @@ export default function Item(props) {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root}>
+    <CustomPaper className={classes.root}>
       <CardMedia className={classes.media} image={photoUrl} />
       <CardContent className={styles.infos}>
         <Typography gutterBottom variant="h5" className={styles.name}>
@@ -33,6 +33,6 @@ export default function Item(props) {
           {description}
         </Typography>
       </CardContent>
-    </Paper>
+    </CustomPaper>
   );
 }

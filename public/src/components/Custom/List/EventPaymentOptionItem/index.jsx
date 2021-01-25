@@ -1,14 +1,16 @@
 import React, { useState, useContext, useMemo } from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import { FormDialog, IconButton, AlertDialog } from '../../../Custom';
+import CustomFormDialog from '../../FormDialog';
+import AlertDialog from '../../Dialog/AlertDialog';
+import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
 import CollapsePaymentOption from './CollapsePaymentOption';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
@@ -78,7 +80,7 @@ export default function EventPaymentOptionItem(props) {
             endDate: formatDate(moment(endTime), 'MMM D'),
           })}
         />
-        <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
       <CollapsePaymentOption
         teamPrice={team_price}
@@ -93,7 +95,7 @@ export default function EventPaymentOptionItem(props) {
         setAlertDialog={setAlertDialog}
       />
       <Divider />
-      <FormDialog
+      <CustomFormDialog
         type={FORM_DIALOG_TYPE_ENUM.EDIT_EVENT_PAYMENT_OPTION}
         items={{
           open: edit,

@@ -4,11 +4,11 @@ import { Paper, Button } from '../../../components/Custom';
 import { Typography } from '@material-ui/core';
 
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import styles from './QuickDescription.module.css';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function QuickDescription() {
   const { t } = useTranslation();
