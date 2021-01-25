@@ -104,7 +104,6 @@ export default function CustomAccordionDnD(props) {
                               <div className={styles.main} style={{ width: '100%' }}>
                                 <ListItemText className={styles.position} secondary={index + 1} />
                                 <ListItemText className={styles.name} primary={item.content} />
-                                <CustomIcon></CustomIcon>
                               </div>
                             </ListItem>
                           ) : (

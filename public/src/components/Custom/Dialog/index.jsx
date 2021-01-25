@@ -27,5 +27,3 @@ export default function CustomDialog(props) {
     </div>
   );
 }
-
-// export { default as AlertDialog } from './AlertDialog';

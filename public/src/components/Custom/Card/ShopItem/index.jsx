@@ -67,7 +67,7 @@ export default function ShopItem(props) {
 
   return (
     <CustomPaper className={styles.root}>
-      <ImageCard className={styles.media} image={photoUrl} onClick={onCustomClick} />
+      <ImageCard className={styles.media} image={photoUrl} onClick={onPaperClick} />
       <CardContent className={styles.infos}>
         <Typography gutterBottom variant="h5" className={styles.name}>
           {name}
