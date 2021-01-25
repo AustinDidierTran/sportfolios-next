@@ -100,7 +100,9 @@ export default function CustomAccordionDnD(props) {
                         >
                           {withIndex ? (
                             <ListItem>
-                              <ListItemIcon>{/* <Icon icon="Reorder" color="textSecondary" /> */}</ListItemIcon>
+                              <ListItemIcon> 
+                                <Icon icon="Reorder" color="textSecondary" /> 
+                              </ListItemIcon>
                               <div className={styles.main} style={{ width: '100%' }}>
                                 <ListItemText className={styles.position} secondary={index + 1} />
                                 <ListItemText className={styles.name} primary={item.content} />
