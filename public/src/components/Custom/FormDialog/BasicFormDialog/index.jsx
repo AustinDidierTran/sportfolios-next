@@ -5,6 +5,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+<<<<<<< HEAD
+=======
+import ComponentFactory from '../../ComponentFactory';
+>>>>>>> 2023787... enlever comments oubliés
 import { useTranslation } from 'react-i18next';
 import ComponentFactory from '../../ComponentFactory';
 
