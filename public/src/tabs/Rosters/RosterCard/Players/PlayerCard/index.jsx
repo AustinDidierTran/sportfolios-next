@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styles from './PlayerCard.module.css';
 import { ROSTER_ROLE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../../../common/enums';
-import { Tooltip, Typography } from '@material-ui/core';
+import { Divider, Tooltip, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FormDialog, Icon, IconButton } from '../../../../../components/Custom';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
@@ -10,7 +10,7 @@ import PaymentChip from '../../../../Settings/TeamsRegistered/PaymentChip';
 import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function PlayerCard(props) {
-  const { isEditable, player, onDelete, onRoleUpdate, withInfos } = props;
+  const { isEditable, player, onDelete, onRoleUpdate, withInfos, index } = props;
   const { t } = useTranslation();
   const [playerInfos, setPlayerInfos] = useState(null);
   const [open, setOpen] = useState(false);
@@ -69,9 +69,17 @@ export default function PlayerCard(props) {
     }
   };
 
+  const className = useMemo(() => {
+    if (index % 2 === 0) {
+      return styles.card;
+    } else {
+      return styles.greycard;
+    }
+  }, [index]);
+
   if (isEditable) {
     return (
-      <div className={styles.card}>
+      <div className={className}>
         <div className={styles.player}>
           <div className={styles.position}>
             {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
@@ -130,7 +138,7 @@ export default function PlayerCard(props) {
   }
 
   return (
-    <div className={styles.card}>
+    <div className={className}>
       <div className={styles.player}>
         <div className={styles.position}>
           {player.role === ROSTER_ROLE_ENUM.PLAYER ? (

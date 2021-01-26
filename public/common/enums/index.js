@@ -232,7 +232,7 @@ const ROUTES_ENUM = {
   transferPersonExpired: '/page/transferPersonExpired',
   userSettings: '/page/userSettings',
   redirectWithToken: '/page/redirect',
-  rosterInviteLink: '/page/invite/roster/:token',
+  rosterInviteLink: '/page/inviteRoster/:token',
 };
 
 const STATUS_ENUM = {
