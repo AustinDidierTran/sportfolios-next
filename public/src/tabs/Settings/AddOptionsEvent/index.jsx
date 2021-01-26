@@ -6,11 +6,13 @@ import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../c
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-import CustomPaper from '../../../components/Custom/Paper';
-import CustomButton from '../../../components/Custom/Button';
-import CustomLoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import loadable from '@loadable/component';
 import EventPaymentOptionList from './EventPaymentOptionList';
-import CustomFormDialog from '../../../components/Custom/FormDialog';
+
+const CustomPaper = loadable(() => import('../../../components/Custom/Paper'));
+const CustomButton = loadable(() => import('../../../components/Custom/Button'));
+const CustomLoadingSpinner = loadable(() => import('../../../components/Custom/LoadingSpinner'));
+const CustomFormDialog = loadable(() => import('../../../components/Custom/FormDialog'));
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
