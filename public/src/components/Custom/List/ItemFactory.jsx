@@ -7,9 +7,6 @@ import CreditCardItem from './CreditCardItem';
 import DefaultItem from './DefaultItem';
 import EventCreatorItem from './EventCreatorItem';
 import EventItem from './EventItem';
-import EventPaymentOptionItem from './EventPaymentOptionItem';
-import MemberItem from './MemberItem';
-import MemberImportItem from './MemberImportItem';
 import MembershipDetailItem from './MembershipDetailItem';
 import MembershipItem from './MembershipItem';
 import MembershipOrganizationItem from './MembershipOrganizationItem';
@@ -44,9 +41,6 @@ const ItemMap = {
   [LIST_ITEM_ENUM.CREATE_ENTITY]: CreateEntityItem,
   [LIST_ITEM_ENUM.CREDIT_CARD]: CreditCardItem,
   [LIST_ITEM_ENUM.EVENT_CREATOR]: EventCreatorItem,
-  [LIST_ITEM_ENUM.EVENT_PAYMENT_OPTION]: EventPaymentOptionItem,
-  [LIST_ITEM_ENUM.MEMBER_IMPORT]: MemberImportItem,
-  [LIST_ITEM_ENUM.MEMBER]: MemberItem,
   [LIST_ITEM_ENUM.MEMBERSHIP_DETAIL]: MembershipDetailItem,
   [LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION]: MembershipOrganizationItem,
   [LIST_ITEM_ENUM.MEMBERSHIP]: MembershipItem,

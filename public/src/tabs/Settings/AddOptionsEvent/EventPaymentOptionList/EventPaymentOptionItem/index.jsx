@@ -1,16 +1,16 @@
 import React, { useState, useContext, useMemo } from 'react';
 import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import CustomFormDialog from '../../FormDialog';
-import AlertDialog from '../../Dialog/AlertDialog';
-import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice } from '../../../../utils/stringFormats';
 import moment from 'moment';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
-import api from '../../../../actions/api';
 import CollapsePaymentOption from './CollapsePaymentOption';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import AlertDialog from '../../../../../components/Custom/Dialog/AlertDialog';
+import CustomIconButton from '../../../../../components/Custom/IconButton';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { ACTION_ENUM, Store } from '../../../../../Store';
+import api from '../../../../../actions/api';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
+import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
