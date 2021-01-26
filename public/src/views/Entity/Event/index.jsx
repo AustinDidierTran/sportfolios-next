@@ -34,7 +34,11 @@ export default function Event(props) {
   const { basicInfos } = props;
   const router = useRouter();
   const { query } = router;
-  const { id } = query;
+  const { id, tab } = query;
+
+  useEffect(() => {
+    onClick({ value: tab });
+  }, [tab]);
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
