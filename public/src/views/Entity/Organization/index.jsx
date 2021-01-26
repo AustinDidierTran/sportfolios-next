@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { Paper, IgContainer, Icon } from '../../../components/Custom';
+import { Paper, IgContainer, Icon, HeaderHomeOrg } from '../../../components/Custom';
 
 import { Tabs, Tab, Tooltip, Fab, makeStyles } from '@material-ui/core';
 import TabsGenerator from '../../../tabs';
@@ -111,34 +111,41 @@ export default function Organization(props) {
   }
 
   return (
-    <IgContainer>
-      <Paper>
-        <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
-          {states.map((s, index) => (
-            <Tab
-              key={index}
-              onClick={() => onClick(s)}
-              label={window.innerWidth < 768 ? null : s.label}
-              icon={<Icon icon={s.icon} />}
-              style={{
-                minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
-              }}
-            />
-          ))}
-        </Tabs>
-      </Paper>
-      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
-        <Tooltip title={title}>
-          <Fab color="primary" onClick={onSwitch} className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}>
-            <Icon icon="Autorenew" />
-          </Fab>
-        </Tooltip>
-      ) : (
-        <></>
-      )}
-      <div>
-        <OpenTab basicInfos={basicInfos} />
-      </div>
-    </IgContainer>
+    <>
+      <HeaderHomeOrg photoUrl={basicInfos.photoUrl} />
+      <IgContainer>
+        <Paper>
+          <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
+            {states.map((s, index) => (
+              <Tab
+                key={index}
+                onClick={() => onClick(s)}
+                label={window.innerWidth < 768 ? null : s.label}
+                icon={<Icon icon={s.icon} />}
+                style={{
+                  minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
+                }}
+              />
+            ))}
+          </Tabs>
+        </Paper>
+        {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
+          <Tooltip title={title}>
+            <Fab
+              color="primary"
+              onClick={onSwitch}
+              className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
+            >
+              <Icon icon="Autorenew" />
+            </Fab>
+          </Tooltip>
+        ) : (
+          <></>
+        )}
+        <div>
+          <OpenTab basicInfos={basicInfos} />
+        </div>
+      </IgContainer>
+    </>
   );
 }
