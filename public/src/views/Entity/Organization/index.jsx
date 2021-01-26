@@ -99,8 +99,8 @@ export default function Organization(props) {
             </Fab>
           </Tooltip>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
         <div></div>
       </IgContainer>
     </>
