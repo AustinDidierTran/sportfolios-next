@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import loadable from '@loadable/component';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import ListMembers from './MembersList';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const CustomPaper = loadable(() => import('../../components/Custom/Paper'));
 const CustomButton = loadable(() => import('../../components/Custom/Button'));
