@@ -37,10 +37,6 @@ export default function Event(props) {
   const { id, tab } = query;
 
   useEffect(() => {
-    onClick({ value: tab });
-  }, [tab]);
-
-  useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
     AddGaEvent({
       category: 'Visit',
@@ -48,8 +44,6 @@ export default function Event(props) {
       label: 'Event_page',
     });
   }, [basicInfos.name]);
-
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const userState = TabsGenerator({
     list: [TABS_ENUM.SCHEDULE, TABS_ENUM.RANKINGS, TABS_ENUM.ROSTERS, TABS_ENUM.EVENT_INFO],
@@ -61,20 +55,19 @@ export default function Event(props) {
     role: basicInfos.role,
   });
 
+  const [isAdmin, setIsAdmin] = useState(false);
   const [states, setStates] = useState(userState);
 
-  const getEventState = () => {
-    if (adminState.map((a) => a.value).includes(query.tab)) {
+  useEffect(() => {
+    if (adminState.map((a) => a.value).includes(tab)) {
       if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-        return query.tab;
+        return tab;
       } else {
         goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
       }
     }
-    return query.tab || TABS_ENUM.SCHEDULE;
-  };
-
-  const [eventState, setEventState] = useState(getEventState());
+    return tab || TABS_ENUM.SCHEDULE;
+  }, [tab]);
 
   const getStates = (isAdmin) => {
     if (isAdmin) {
@@ -85,10 +78,10 @@ export default function Event(props) {
   };
 
   const OpenTab = useMemo(() => {
-    if (states.map((s) => s.value).includes(eventState)) {
-      return states.find((s) => s.value == eventState).component;
+    if (states.map((s) => s.value).includes(tab)) {
+      return states.find((s) => s.value == tab).component;
     } else {
-      if (adminState.map((a) => a.value).includes(eventState)) {
+      if (adminState.map((a) => a.value).includes(tab)) {
         if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
           setIsAdmin(true);
           setStates(adminState);
@@ -97,13 +90,11 @@ export default function Event(props) {
       }
       setIsAdmin(false);
       setStates(userState);
-      setEventState(TABS_ENUM.SCHEDULE);
     }
-  }, [eventState, states]);
+  }, [tab, states]);
 
   const onClick = (s) => {
     goTo(ROUTES.entity, { id }, { tab: s.value });
-    setEventState(s.value);
   };
 
   const onSwitch = () => {
@@ -112,10 +103,8 @@ export default function Event(props) {
     getStates(newState);
     if (newState) {
       goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.EDIT_SCHEDULE });
-      setEventState(TABS_ENUM.EDIT_SCHEDULE);
     } else {
       goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
-      setEventState(TABS_ENUM.SCHEDULE);
     }
   };
 
@@ -151,7 +140,7 @@ export default function Event(props) {
         <meta property="og:locale" content="fr_CA" />
       </Helmet>
       <Paper>
-        <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
+        <Tabs value={states.findIndex((s) => s.value === tab)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
             <Tab
               key={index}
