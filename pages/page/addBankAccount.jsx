@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { formatRoute } from '../../public/common/utils/stringFormat';
 import api from '../../public/src/actions/api';
-import { formatRoute, goTo } from '../../public/src/actions/goTo';
+import { goTo } from '../../public/src/actions/goTo';
 import AddBankAccount from '../../public/src/views/AddBankAccount';
 
 const AddBankAccountRoute = (props) => {

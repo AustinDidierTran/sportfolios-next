@@ -3,7 +3,7 @@ import { Paper, StepperWithHooks, IgContainer, LoadingSpinner } from '../../comp
 import Roster from './Roster';
 import { useStepper } from '../../hooks/forms';
 import api from '../../actions/api';
-import { formatRoute, ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
+import { ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import styles from './EventRegistration.module.css';
@@ -11,11 +11,11 @@ import { Container, Typography } from '@material-ui/core';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
-
 import PersonSelect from './PersonSelect';
 import PaymentOptionSelect from './PaymentOptionSelect/index';
 import TeamSelect from './TeamSelect/index';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 const getEvent = async (eventId) => {
   const { data } = await api(
