@@ -44,7 +44,7 @@ export default function Organization(props) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const userState = TabsGenerator({
-    list: [TABS_ENUM.EVENTS, TABS_ENUM.ABOUT],
+    list: [TABS_ENUM.EVENTS, TABS_ENUM.ABOUT, TABS_ENUM.ABOUT, TABS_ENUM.ABOUT],
     role: basicInfos.role,
   });
 
@@ -112,23 +112,38 @@ export default function Organization(props) {
 
   return (
     <>
-      <HeaderHomeOrg photoUrl={basicInfos.photoUrl} />
+      <HeaderHomeOrg
+        photoUrl={basicInfos.photoUrl}
+        navigationComponent={
+          <Paper>
+            <Tabs
+              value={states.findIndex((s) => s.value === eventState)}
+              TabIndicatorProps={{ style: { display: 'none' } }}
+              style={{
+                color: 'white',
+                backgroundColor: '#18B393',
+              }}
+              variant="scrollable"
+              scrollButtons="off"
+            >
+              {states.map((s, index) => (
+                <Tab
+                  key={index}
+                  onClick={() => onClick(s)}
+                  label={s.label}
+                  fontSize={0.6}
+                  style={{
+                    borderRightColor: 'white',
+                    borderRightStyle: states.length === index + 1 ? 'none' : 'solid',
+                    borderRightWidth: 1,
+                  }}
+                />
+              ))}
+            </Tabs>
+          </Paper>
+        }
+      />
       <IgContainer>
-        <Paper>
-          <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
-            {states.map((s, index) => (
-              <Tab
-                key={index}
-                onClick={() => onClick(s)}
-                label={window.innerWidth < 768 ? null : s.label}
-                icon={<Icon icon={s.icon} />}
-                style={{
-                  minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
-                }}
-              />
-            ))}
-          </Tabs>
-        </Paper>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={title}>
             <Fab

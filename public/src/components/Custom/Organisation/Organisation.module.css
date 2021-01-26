@@ -11,6 +11,7 @@
   align-self: right;
   justify-self: center;
   width: 50% !important;
+  height: 30.04px;
 }
 .root {
   flex-grow: 1;
@@ -21,12 +22,13 @@
 
 .paper {
   margin: auto;
-  height: 200px;
+  min-height: 200px;
 }
 
-.gridButton {
-}
-.gridText {
+.navigation {
+  flex-grow: 1;
+  margin: auto;
+  max-width: 700px;
 }
 
 @media (max-width: 600px) {
@@ -47,6 +49,7 @@
 
   .gridButton {
     justify-content: center;
+    padding-bottom: 10px;
   }
 
   .root {

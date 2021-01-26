@@ -9,11 +9,11 @@ import Paper from '@material-ui/core/Paper';
 import styles from './Organisation.module.css';
 
 export default function HeaderHomeOrg(props) {
-  const { type, photoUrl, ...otherProps } = props;
+  const { type, photoUrl, navigationComponent, ...otherProps } = props;
   const { t } = useTranslation();
 
   return (
-    <Paper className={styles.paper} boxShadow={2}>
+    <Paper className={styles.paper}>
       <div className={styles.root}>
         <Grid container>
           <Grid item lg={4} xs={12}>
@@ -31,6 +31,7 @@ export default function HeaderHomeOrg(props) {
           </Grid>
         </Grid>
       </div>
+      <div className={styles.navigation}>{navigationComponent}</div>
     </Paper>
   );
 }
