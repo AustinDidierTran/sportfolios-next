@@ -4,7 +4,7 @@ import { formatPageTitle } from '../../utils/stringFormats';
 
 import { MessageAndButtons } from '../../components/Custom';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { TABS_ENUM } from '../../../../common/enums';
+import { TABS_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 
 export default function ProductAddedToCart() {

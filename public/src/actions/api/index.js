@@ -5,8 +5,7 @@ const api = async (route, { method, body } = {}) => {
   const headers = {
     'Content-Type': 'application/json',
   };
-
-  const authToken = localStorage.getItem('authToken');
+  const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
 
   if (authToken && authToken !== 'null') {
     headers.Authorization = authToken;

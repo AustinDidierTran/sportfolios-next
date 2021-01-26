@@ -35,9 +35,9 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
   const { dispatch } = useContext(Store);
   const stripe = useStripe();
   const elements = useElements();
-  const isANumber = (number) => isNaN(Number(number));
+  const isANumber = (number: any) => isNaN(Number(number));
 
-  const validate = (values) => {
+  const validate = (values: IError) => {
     const errors: IError = {};
 
     const { name, email, phoneNumber, line1, city, country, state, postalCode } = values;
@@ -78,7 +78,7 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { token: stripeToken } = await stripe.createToken(elements.getElement(CardElement));
+      const { token: stripeToken } = await stripe!.createToken(elements!.getElement(CardElement)!);
 
       const params = { ...values, stripeToken };
       const res = await api('/api/stripe/paymentMethod', {

@@ -87,6 +87,9 @@ export default function ScheduleInteractiveTool() {
 
   const getData = async () => {
     setIsLoading(true);
+    if (!eventId) {
+      return;
+    }
     const { data } = await api(formatRoute('/api/entity/interactiveTool', null, { eventId }));
 
     setPhases(
@@ -115,7 +118,7 @@ export default function ScheduleInteractiveTool() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [eventId]);
 
   useEffect(() => {
     const timeArr = timeslots.reduce(
