@@ -553,6 +553,7 @@ export default {
     redirect_to_home: 'You will soon be redirected to the home page. Click below to be redirected instantly.',
     redirect_to_success_route:
       'You are now well authenticated. You will soon be redirected to your requested page. Click below to be redirected instantly.',
+    redo: 'Redo',
     refund: 'Refund',
     refunded: 'Refunded',
     refuse: 'Refuse',
@@ -732,6 +733,7 @@ export default {
     type_address: 'Type an address',
     type: 'Type',
     unconfirmed_email: 'Unconfirmed email',
+    undo: 'Undo',
     unlink_facebook_account: 'Disconnect my Facebook account',
     unregister_all: 'Unregister all',
     unregister_pending: 'Unregistrations and refunds in progress, please wait...',

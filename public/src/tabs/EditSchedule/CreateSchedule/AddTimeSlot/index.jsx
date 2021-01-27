@@ -59,6 +59,8 @@ export default function AddTimeSlot(props) {
         }),
       });
 
+      console.log(eventId);
+
       if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,

@@ -18,6 +18,7 @@ import RGL from 'react-grid-layout';
 
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+
 const ReactGridLayout = RGL;
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +54,38 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     color: 'white',
   },
+  fabRedo: {
+    position: 'absolute',
+    bottom: theme.spacing(11) + 224,
+    right: theme.spacing(4),
+    zIndex: 100,
+    color: 'blue',
+  },
+  fabUndo: {
+    position: 'absolute',
+    bottom: theme.spacing(13) + 280,
+    right: theme.spacing(4),
+    zIndex: 100,
+    color: 'blue',
+  },
 }));
+
+var undoLog = [];
+var redoLog = [];
+
+class addGameCommand {
+  previousState;
+
+  constructor(state) {
+    this.previousState = state;
+  }
+
+  execute() {}
+
+  undo() {}
+
+  redo() {}
+}
 
 export default function ScheduleInteractiveTool() {
   const router = useRouter();
@@ -71,6 +103,8 @@ export default function ScheduleInteractiveTool() {
   const [madeChanges, setMadeChanges] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAddingGames, setIsAddingGames] = useState(false);
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
 
   const [buttonsAdd, setButtonsAdd] = useState([]);
   const [layout, setLayout] = useState([]);
@@ -84,6 +118,33 @@ export default function ScheduleInteractiveTool() {
   const [addGameTimeslot, setAddGameTimeslot] = useState({});
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
+
+  //================================================================================
+  class addTimeSlotCommand {
+    newState;
+    previousState;
+    type = 'timeSlotCommand';
+
+    constructor(pState, nState) {
+      this.previousState = pState;
+      this.newState = nState;
+    }
+
+    execute() {
+      // console.log('executed  ' + this.type);
+      setTimeslots(this.newState);
+    }
+
+    undo() {
+      // console.log(this.type + ' has been reverted!')
+    }
+
+    redo() {
+      // console.log(this.type + ' has been redone!')
+    }
+  }
+
+  //===============================================================================
 
   const getData = async () => {
     setIsLoading(true);
@@ -350,12 +411,51 @@ export default function ScheduleInteractiveTool() {
   };
 
   const addTimeslotToGrid = (timeslot) => {
-    setTimeslots(timeslots.concat([timeslot]));
+    const command = new addTimeSlotCommand(timeslots, timeslots.concat([timeslot]));
+    // console.log('command created')
+    executeCommand(command);
+    // setTimeslots(timeslots.concat([timeslot]));
   };
 
   const addFieldToGrid = (field) => {
     setFields(fields.concat([field]));
   };
+
+  //===========================================================================
+
+  function executeCommand(command) {
+    // console.log('command in exec');
+
+    command.execute();
+    undoLog.push(command);
+    setCanUndo(true);
+    console.log(undoLog.length);
+  }
+
+  function undoCommand() {
+    // console.log(undoLog.length);
+    const command = undoLog[undoLog.length - 1];
+    command.undo();
+    undoLog.pop();
+    if (!undoLog.length) {
+      setCanUndo(false);
+    }
+    redoLog.push(command);
+    setCanRedo(true);
+  }
+
+  function redoCommand() {
+    const command = redoLog[redoLog.length - 1];
+    command.redo();
+    redoLog.pop();
+    if (!redoLog.length) {
+      setCanRedo(false);
+    }
+    undoLog.push(command);
+    setCanUndo(true);
+  }
+
+  //=========================================================================
 
   const AddGames = buttonsAdd.map((b) => (
     <div className={styles.divAddGame} key={b.i} onClick={() => handleAddGameAt(b.x, b.y)}>
@@ -517,6 +617,20 @@ export default function ScheduleInteractiveTool() {
           <Icon icon="SaveIcon" />
         </Fab>
       </Tooltip>
+
+      {/*------------------------------------------------------------------        */}
+      <Tooltip title={canUndo ? t('undo') : ''}>
+        <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
+          <Icon icon="Undo" />
+        </Fab>
+      </Tooltip>
+      <Tooltip title={canRedo ? t('redo') : ''}>
+        <Fab onClick={redoCommand} className={classes.fabRedo} disabled={!canRedo}>
+          <Icon icon="Redo" />
+        </Fab>
+      </Tooltip>
+      {/*------------------------------------------------------------------        */}
+
       <AlertDialog
         open={alertDialog}
         onSubmit={handleDialogSubmit}
