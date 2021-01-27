@@ -1,7 +1,7 @@
 import React from 'react';
 import ImportMembers from '../../public/src/views/ImportMembers';
 
-const ImportMembersRoute = (props) => {
+const ImportMembersRoute = () => {
   return <ImportMembers />;
 };
 

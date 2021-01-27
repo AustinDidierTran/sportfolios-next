@@ -7,7 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 
 import Game from './Game';
 
-import { Typography, Container } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import { Paper } from '../../../components/Custom';
 
 import styles from './Schedule.module.css';

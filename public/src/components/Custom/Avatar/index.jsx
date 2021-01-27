@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Avatar, makeStyles } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
 import CustomIcon from '../Icon';
 import clsx from 'clsx';
 

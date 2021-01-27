@@ -1,5 +1,8 @@
 import React, { useState, useContext, useMemo } from 'react';
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
+
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import CollapsePaymentOption from './CollapsePaymentOption';
@@ -8,7 +11,7 @@ import CustomIconButton from '../../../../../components/Custom/IconButton';
 import { formatRoute } from '../../../../../../common/utils/stringFormat';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 

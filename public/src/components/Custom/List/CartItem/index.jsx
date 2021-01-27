@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 
-import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import CustomAvatar from '../../Avatar';
 import CustomCheckBox from '../../CheckBox';
 import CustomIconButton from '../../IconButton';
@@ -11,9 +14,8 @@ import { formatPrice } from '../../../../utils/stringFormats';
 import { GLOBAL_ENUM, IMAGE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
-import { ACTION_ENUM } from '../../../../Store';
+import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { Store } from '@material-ui/icons';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function CartItem(props) {

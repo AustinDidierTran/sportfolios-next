@@ -3,24 +3,15 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './Schedule.module.css';
 
-import { Container, Button } from '@material-ui/core';
-// import { TABS_ENUM } from '../../../Event';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 
 export default function Schedule() {
   const { t } = useTranslation();
 
-  // const handleClick = () => {
-  //   goTo(ROUTES.mockEvent, { openTab: TABS_ENUM.SCHEDULE });
-  // };
-
   return (
     <Container className={styles.container}>
-      <Button
-        variant="contained"
-        // onClick={handleClick}
-        color="primary"
-        className={styles.button}
-      >
+      <Button variant="contained" color="primary" className={styles.button}>
         {t('schedule')}
       </Button>
     </Container>

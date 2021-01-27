@@ -1,5 +1,10 @@
 import React from 'react';
-import { ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Typography from '@material-ui/core/Typography';
+
 import styles from './NotificationItem.module.css';
 import api from '../../../../actions/api';
 import { timestampToRelativeTime } from '../../../../utils/stringFormats';

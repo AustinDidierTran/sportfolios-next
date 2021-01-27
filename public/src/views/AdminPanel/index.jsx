@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './AdminPanel.module.css';
 
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { Container } from '../../components/Custom';
 import SportsTable from './SportsTable';
 import UsersTable from './UsersTable';

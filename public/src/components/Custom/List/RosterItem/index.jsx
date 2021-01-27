@@ -1,5 +1,8 @@
 import React, { useMemo, useContext } from 'react';
-import { ListItem, ListItemIcon, Typography } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
+
 import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';

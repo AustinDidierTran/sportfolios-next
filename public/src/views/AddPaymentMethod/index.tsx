@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useFormik } from 'formik';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { Button, IgContainer, LoadingSpinner, Paper, TextField } from '../../components/Custom';
 import CountrySelect from '../AddBankAccount/CountrySelect';
 import CardSection from '../../utils/stripe/Payment/CardSection';

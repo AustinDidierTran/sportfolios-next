@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 import { List } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './Notifications.module.css';

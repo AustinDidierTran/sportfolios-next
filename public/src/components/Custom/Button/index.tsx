@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Button, ButtonProps } from '@material-ui/core';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import CustomIcon from '../Icon';
 
 interface IProps extends ButtonProps {

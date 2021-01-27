@@ -1,8 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Paper, IgContainer, Icon } from '../../../components/Custom';
-
-import { Tabs, Tab, Tooltip, Fab, makeStyles } from '@material-ui/core';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/core/styles';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import TabsGenerator from '../../../tabs';
 import { formatPageTitle } from '../../../utils/stringFormats';
@@ -11,6 +14,7 @@ import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
     position: 'absolute',

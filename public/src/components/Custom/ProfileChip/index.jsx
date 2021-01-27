@@ -1,5 +1,7 @@
 import React from 'react';
-import { Chip, makeStyles } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@material-ui/core/styles';
+
 import CustomAvatar from '../Avatar';
 
 import styles from './ProfileChip.module.css';

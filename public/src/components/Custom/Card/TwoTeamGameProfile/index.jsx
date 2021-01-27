@@ -1,5 +1,9 @@
 import React from 'react';
-import { Typography, Card, ListItemText, makeStyles } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import { makeStyles } from '@material-ui/core/styles';
+
 import CustomAvatar from '../../Avatar';
 import { formatDate, getInitialsFromName } from '../../../../utils/stringFormats';
 import moment from 'moment';

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button, Paper, TextField } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
-
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { goToAlias, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';

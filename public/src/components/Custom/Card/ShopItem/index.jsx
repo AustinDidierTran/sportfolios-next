@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 
 import styles from './ShopItem.module.css';
 
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import CustomButton from '../../Button';
 import CustomPaper from '../../Paper';
 

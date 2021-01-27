@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Paper, Button } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
-
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';

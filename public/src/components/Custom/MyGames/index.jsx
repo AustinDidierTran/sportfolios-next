@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomCard from '../Card';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 import { CARD_TYPE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';

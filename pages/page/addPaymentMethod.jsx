@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { ROUTES } from '../../public/src/actions/goTo';
 import AddPaymentMethod from '../../public/src/views/AddPaymentMethod';
 
-const AddPaymentMethodRoute = (props) => {
+const AddPaymentMethodRoute = () => {
   const router = useRouter();
   const { redirect: redirectProps } = router.query;
 
@@ -11,7 +11,6 @@ const AddPaymentMethodRoute = (props) => {
     if (redirectProps) {
       return redirectProps;
     }
-
     return ROUTES.userSettings;
   });
 

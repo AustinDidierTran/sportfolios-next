@@ -4,11 +4,13 @@ import { GLOBAL_ENUM } from '../public/common/enums';
 import { useApiRoute } from '../public/src/hooks/queries';
 import { LoadingSpinner } from '../public/src/components/Custom';
 import { useRouter } from 'next/router';
-import Event from '../public/src/views/Entity/Event';
-import Organization from '../public/src/views/Entity/Organization';
-import Person from '../public/src/views/Entity/Person';
-import Team from '../public/src/views/Entity/Team';
 import { formatRoute } from '../public/common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const Event = loadable(() => import('../public/src/views/Entity/Event'));
+const Organization = loadable(() => import('../public/src/views/Entity/Organization'));
+const Person = loadable(() => import('../public/src/views/Entity/Person'));
+const Team = loadable(() => import('../public/src/views/Entity/Team'));
 
 const EntityMap = {
   [GLOBAL_ENUM.PERSON]: Person,

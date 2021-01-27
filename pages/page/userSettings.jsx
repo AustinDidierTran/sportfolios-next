@@ -1,7 +1,7 @@
 import React from 'react';
 import UserSettings from '../../public/src/views/UserSettings';
 
-const UserSettingsRoute = (props) => {
+const UserSettingsRoute = () => {
   return <UserSettings />;
 };
 

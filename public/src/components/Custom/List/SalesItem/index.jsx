@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { useTranslation } from 'react-i18next';
 import styles from './SalesItem.module.css';
 import { formatPrice, formatDate } from '../../../../utils/stringFormats';

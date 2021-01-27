@@ -1,6 +1,8 @@
 import React from 'react';
 import CustomIcon from '../../Icon';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import styles from './CreateEntityItem.module.css';
 

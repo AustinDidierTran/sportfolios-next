@@ -1,7 +1,7 @@
 import React from 'react';
 import PrivacyPolicy from '../../public/src/views/PrivacyPolicy';
 
-const PrivacyRoute = (props) => {
+const PrivacyRoute = () => {
   return <PrivacyPolicy />;
 };
 

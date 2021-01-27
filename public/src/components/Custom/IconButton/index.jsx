@@ -1,7 +1,10 @@
 import React from 'react';
 
 import CustomIcon from '../Icon';
-import { Badge, IconButton, Tooltip } from '@material-ui/core';
+
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function CustomIconButton(props) {
   const {

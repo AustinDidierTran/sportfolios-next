@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import {
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Button,
-  DialogActions,
-} from '@material-ui/core';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 import { useTranslation } from 'react-i18next';
 
 export default function EditPrimaryPerson(props) {

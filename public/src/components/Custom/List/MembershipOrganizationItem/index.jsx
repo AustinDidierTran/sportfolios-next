@@ -1,5 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../utils/stringFormats';
 import styles from './MembershipOrganizationItem.module.css';

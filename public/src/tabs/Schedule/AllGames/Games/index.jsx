@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './Games.module.css';
 import Game from './Game';
 import { Collapse, IconButton } from '../../../../components/Custom';
-import { Divider, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 
 export default function Games(props) {

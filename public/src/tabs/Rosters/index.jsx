@@ -5,7 +5,7 @@ import api from '../../actions/api';
 import styles from './Rosters.module.css';
 
 import Rosters from './Rosters';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';

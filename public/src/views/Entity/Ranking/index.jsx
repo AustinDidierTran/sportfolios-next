@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { List, ListItem, Typography, Container } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import { Avatar, Paper } from '../../../components/Custom';
 import styles from './Ranking.module.css';
 import { useTranslation } from 'react-i18next';

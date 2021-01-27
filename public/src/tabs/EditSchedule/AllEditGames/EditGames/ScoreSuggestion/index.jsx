@@ -3,7 +3,8 @@ import { CARD_TYPE_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import api from '../../../../../actions/api';
 import EditGame from './EditGame';
 import { Card, IconButton, Collapse } from '../../../../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 import { useTranslation } from 'react-i18next';
 import styles from './ScoreSuggestion.module.css';
 import { makeStyles } from '@material-ui/core/styles';
