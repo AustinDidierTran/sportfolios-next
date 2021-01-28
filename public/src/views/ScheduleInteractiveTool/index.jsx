@@ -68,12 +68,8 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     color: 'blue',
   },
-  clear: {
-    position: 'absolute',
-    bottom: theme.spacing(15) + 336,
-    right: theme.spacing(4),
-    zIndex: 100,
-    color: 'orange',
+  button: {
+    margin: 6,
   },
 }));
 
@@ -111,6 +107,48 @@ export default function ScheduleInteractiveTool() {
   const [addGameTimeslot, setAddGameTimeslot] = useState({});
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
+
+  class addFieldCommand {
+    newState = [];
+    previousState = [];
+    field;
+    type = 'fieldCommand';
+
+    constructor(pState, field) {
+      this.previousState = pState;
+      this.field = field;
+      this.newState = this.previousState.concat([field]);
+    }
+
+    execute() {
+      setCanRedo(false);
+      redoLog.length = 0;
+      setFields(this.newState);
+    }
+
+    async undo() {
+      await api(
+        formatRoute('/api/entity/field', null, {
+          fieldId: this.field.id,
+        }),
+        {
+          method: 'DELETE',
+        }
+      );
+      setFields(this.previousState);
+    }
+
+    async redo() {
+      await api('/api/entity/field', {
+        method: 'POST',
+        body: JSON.stringify({
+          field: this.field,
+          eventId,
+        }),
+      });
+      setFields(this.newState);
+    }
+  }
 
   class addTimeSlotCommand {
     date;
@@ -426,7 +464,8 @@ export default function ScheduleInteractiveTool() {
   };
 
   const addFieldToGrid = (field) => {
-    setFields(fields.concat([field]));
+    const command = new addFieldCommand(fields, field);
+    executeCommand(command);
   };
 
   function executeCommand(command) {
@@ -512,7 +551,7 @@ export default function ScheduleInteractiveTool() {
             onClick={handleAddField}
             color="primary"
             variant="contained"
-            className={styles.button}
+            className={classes.button}
             type="submit"
             endIcon="Add"
             disabled={isAddingGames}
@@ -523,7 +562,7 @@ export default function ScheduleInteractiveTool() {
             onClick={handleAddTimeslot}
             color="primary"
             variant="contained"
-            className={styles.button}
+            className={classes.button}
             type="submit"
             endIcon="Add"
             disabled={isAddingGames}
