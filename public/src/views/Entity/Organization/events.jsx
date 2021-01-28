@@ -54,8 +54,8 @@ export default function OrganizationEvents(props) {
             </Fab>
           </Tooltip>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
         <div>
           <Events {...{ basicInfos }} />
         </div>

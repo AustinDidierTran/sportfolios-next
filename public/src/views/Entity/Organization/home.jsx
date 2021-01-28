@@ -55,8 +55,8 @@ export default function OrganizationHome(props) {
             </Fab>
           </Tooltip>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
         <div>
           <Home {...{ basicInfos }} />
         </div>

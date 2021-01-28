@@ -43,8 +43,8 @@ export default function EditEvents() {
             ))}
           </>
         ) : (
-          <Typography>{t('this_organization_has_no_events')}</Typography>
-        )}
+            <Typography>{t('this_organization_has_no_events')}</Typography>
+          )}
       </div>
     </div>
   );

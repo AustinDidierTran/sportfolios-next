@@ -52,8 +52,8 @@ export default function OrganizationLeague(props) {
             </Fab>
           </Tooltip>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
         <div>Onglet ligue</div>
       </IgContainer>
     </>

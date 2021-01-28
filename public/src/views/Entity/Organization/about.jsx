@@ -53,8 +53,8 @@ export default function OrganizationAbout(props) {
             </Fab>
           </Tooltip>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
         <div>
           <About {...{ basicInfos }} />
         </div>

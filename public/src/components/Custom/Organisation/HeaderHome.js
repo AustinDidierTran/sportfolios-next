@@ -1,16 +1,22 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import { Avatar } from '../../Custom';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
+import { useRouter } from 'next/router';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import styles from './Organisation.module.css';
 
 export default function HeaderHomeOrg(props) {
-  const { type, photoUrl, ...otherProps } = props;
+  const { type, photoUrl, navigationComponent, basicInfos, navTabs, ...otherProps } = props;
   const { t } = useTranslation();
+  const router = useRouter();
+  const { query, route } = router;
+  const onglet = route.split('/')[2] ? route.split('/')[2] : 'home';
+  const { id } = query;
 
   return (
     <Paper className={styles.paper} boxShadow={2}>
@@ -30,6 +36,42 @@ export default function HeaderHomeOrg(props) {
             </Grid>
           </Grid>
         </Grid>
+      </div>
+      <div className={styles.navigation}>
+        <Paper>
+          <Tabs
+            value={navTabs.findIndex((s) => s.value === onglet)}
+            TabIndicatorProps={{ style: { display: 'none' } }}
+            style={{
+              color: 'white',
+              backgroundColor: '#18B393',
+            }}
+            variant="scrollable"
+            scrollButtons="off"
+          >
+            {navTabs.map((s, index) => (
+              <Tab
+                key={t(index)}
+                onClick={() => {
+                  router.push({
+                    pathname: '/[pid]/[slug]',
+                    query: {
+                      pid: id,
+                      slug: s.value,
+                    },
+                  });
+                }}
+                label={s.label}
+                fontSize={0.6}
+                style={{
+                  borderRightColor: 'white',
+                  borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
+                  borderRightWidth: 1,
+                }}
+              />
+            ))}
+          </Tabs>
+        </Paper>
       </div>
     </Paper>
   );
