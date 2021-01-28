@@ -1,15 +1,31 @@
+const withPlugins = require('next-compose-plugins');
+
+const withWorkbox = require('next-with-workbox');
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const withWorkbox = require('next-with-workbox');
+module.exports = withPlugins([
+  [withBundleAnalyzer],
 
-module.exports = withBundleAnalyzer(
-  withWorkbox({
-    workbox: {
-      swDest: '/sw.js',
-      swSrc: '/worker.js',
-      force: false,
+  [
+    withWorkbox,
+    {
+      workbox: {
+        swDest: '/sw.js',
+        swSrc: '/worker.js',
+        force: false,
+      },
     },
-  })
-);
+  ],
+
+  /*[yourPluginExample, {
+    
+    config here: true
+    moreConfig: {
+      ...
+    },
+   }
+  ], */
+]);

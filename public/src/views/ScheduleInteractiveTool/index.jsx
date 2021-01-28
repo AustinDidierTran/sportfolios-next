@@ -68,24 +68,17 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     color: 'blue',
   },
+  clear: {
+    position: 'absolute',
+    bottom: theme.spacing(15) + 336,
+    right: theme.spacing(4),
+    zIndex: 100,
+    color: 'orange',
+  },
 }));
 
 var undoLog = [];
 var redoLog = [];
-
-class addGameCommand {
-  previousState;
-
-  constructor(state) {
-    this.previousState = state;
-  }
-
-  execute() {}
-
-  undo() {}
-
-  redo() {}
-}
 
 export default function ScheduleInteractiveTool() {
   const router = useRouter();
@@ -119,32 +112,49 @@ export default function ScheduleInteractiveTool() {
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
 
-  //================================================================================
   class addTimeSlotCommand {
-    newState;
-    previousState;
+    date;
+    newState = [];
+    previousState = [];
+    timeSlot;
     type = 'timeSlotCommand';
 
-    constructor(pState, nState) {
+    constructor(pState, timeSlot, realDate) {
+      this.date = realDate;
       this.previousState = pState;
-      this.newState = nState;
+      this.timeSlot = timeSlot;
+      this.newState = this.previousState.concat([timeSlot]);
     }
 
     execute() {
-      // console.log('executed  ' + this.type);
+      console.log(this.timeSlot.id);
       setTimeslots(this.newState);
     }
 
-    undo() {
-      // console.log(this.type + ' has been reverted!')
+    async undo() {
+      console.log('dgfdfg');
+      await api(
+        formatRoute('/api/entity/timeSlot', null, {
+          timeSlotId: this.timeSlot.id,
+        }),
+        {
+          method: 'DELETE',
+        }
+      );
+      setTimeslots(this.previousState);
     }
 
-    redo() {
-      // console.log(this.type + ' has been redone!')
+    async redo() {
+      await api('/api/entity/timeSlots', {
+        method: 'POST',
+        body: JSON.stringify({
+          date: this.date,
+          eventId,
+        }),
+      });
+      setTimeslots(this.newState);
     }
   }
-
-  //===============================================================================
 
   const getData = async () => {
     setIsLoading(true);
@@ -410,8 +420,8 @@ export default function ScheduleInteractiveTool() {
     setAddTimeslotDialog(true);
   };
 
-  const addTimeslotToGrid = (timeslot) => {
-    const command = new addTimeSlotCommand(timeslots, timeslots.concat([timeslot]));
+  const addTimeslotToGrid = (timeSlot, realDate, eventId) => {
+    const command = new addTimeSlotCommand(timeslots, timeSlot, realDate);
     // console.log('command created')
     executeCommand(command);
     // setTimeslots(timeslots.concat([timeslot]));
@@ -424,16 +434,12 @@ export default function ScheduleInteractiveTool() {
   //===========================================================================
 
   function executeCommand(command) {
-    // console.log('command in exec');
-
     command.execute();
     undoLog.push(command);
     setCanUndo(true);
-    console.log(undoLog.length);
   }
 
   function undoCommand() {
-    // console.log(undoLog.length);
     const command = undoLog[undoLog.length - 1];
     command.undo();
     undoLog.pop();
@@ -453,6 +459,14 @@ export default function ScheduleInteractiveTool() {
     }
     undoLog.push(command);
     setCanUndo(true);
+  }
+
+  function clearHistory() {
+    undoLog.length = 0;
+    redoLog.length = 0;
+    setCanUndo(false);
+    setCanRedo(false);
+    console.log('logs cleared');
   }
 
   //=========================================================================
@@ -619,6 +633,12 @@ export default function ScheduleInteractiveTool() {
       </Tooltip>
 
       {/*------------------------------------------------------------------        */}
+      <Tooltip title="clear">
+        <Fab onClick={clearHistory} className={classes.clear}>
+          <Icon icon="Reorder" />
+        </Fab>
+      </Tooltip>
+
       <Tooltip title={canUndo ? t('undo') : ''}>
         <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
           <Icon icon="Undo" />

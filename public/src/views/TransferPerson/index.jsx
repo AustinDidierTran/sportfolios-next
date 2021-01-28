@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Container } from '../../components/Custom';
 import api from '../../actions/api';
-import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
 import validator from 'validator';
 import RegisterCard from './RegisterCard';
@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { LOGO_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function TransferPerson() {
   const router = useRouter();

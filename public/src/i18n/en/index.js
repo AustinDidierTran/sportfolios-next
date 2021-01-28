@@ -751,6 +751,7 @@ export default {
     value_is_invalid: 'Value is invalid',
     value_is_required: 'Value is required',
     value_is_too_long: 'Value is too long.',
+    value_is_in_past: 'Value cannot be set in the past',
     value_must_be_numeric: 'Value must be a number.',
     value_must_have_x_digits: 'Value must have {{digits}} digits.',
     view_your_profile: 'View your profile',

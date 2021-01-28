@@ -760,6 +760,7 @@ export default {
     value_is_invalid: 'La valeur entrée est invalide',
     value_is_required: 'Une valeur est obligatoire',
     value_is_too_long: 'La valeur est trop longue',
+    value_is_in_past: 'La valeur ne peut pas être dans le passé',
     value_must_be_numeric: 'La valeur doit être numérique.',
     value_must_have_x_digits: 'La valeur doit avoir {{digits}} chiffres.',
     view_your_profile: 'Voir votre profil',
