@@ -368,6 +368,7 @@ export default {
     last_name: 'Nom de famille',
     learn_more: 'En apprendre plus',
     length: 'Durée',
+    league: 'Ligue',
     line1: 'Ligne 1',
     line2: 'Ligne 2',
     link_bank_account: 'Lier le compte bancaire',
