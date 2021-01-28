@@ -426,6 +426,7 @@ export default {
     no_bank_account_linked: "Vous n'avez pas de compte en banque relié, l'option de paiement doit etre gratuite.",
     no_description: 'Aucune description',
     no_games: 'Aucune partie',
+    no_members_message: "Vous n'avez pas de membres",
     no_notifications_message: 'Revenez plus tard.',
     no_notifications: 'Pas de notifications',
     no_option: 'Aucune option',
@@ -433,6 +434,7 @@ export default {
     no_payment_method: "Il n'y a actuellement aucune méthode de paiement",
     no_person_selected: 'Aucune personne sélectionnée',
     no_players_registered: 'Aucun joueur inscrit',
+    no_purchases_message: "Vous n'avez aucun achat",
     no_remaining_spots:
       "Désolé, votre inscription a été refusé. L'événement est maintenant plein et il n'y a plus de place.",
     no_roster: 'Aucun alignement',

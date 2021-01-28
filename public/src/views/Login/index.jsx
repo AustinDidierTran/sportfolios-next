@@ -1,15 +1,11 @@
 import React from 'react';
-import styles from './Login.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Container from '../../components/Custom/Container';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
+import { SEVERITY_ENUM, LOGIN_STATE_ENUM, PASSWORD_LENGTH_ENUM } from '../../../common/enums';
 import loadable from '@loadable/component';
 
 const LoginCard = loadable(() => import('./LoginCard'));
@@ -51,7 +47,10 @@ export default function Login() {
 
       if (!values.password) {
         errors.password = t('value_is_required');
-      } else if (values.password.length < 8 || values.password.length > 24) {
+      } else if (
+        values.password.length < PASSWORD_LENGTH_ENUM.MIN_LENGTH ||
+        values.password.length > PASSWORD_LENGTH_ENUM.MAX_LENGTH
+      ) {
         errors.password = t('password_length');
       }
     } else if (formik.status.state === LOGIN_STATE_ENUM.LOGIN) {
@@ -63,7 +62,10 @@ export default function Login() {
 
       if (!values.password) {
         errors.password = t('value_is_required');
-      } else if (values.password.length < 8 || values.password.length > 24) {
+      } else if (
+        values.password.length < PASSWORD_LENGTH_ENUM.MIN_LENGTH ||
+        values.password.length > PASSWORD_LENGTH_ENUM.MAX_LENGTH
+      ) {
         errors.password = t('password_length');
       }
     } else if (formik.status.state === LOGIN_STATE_ENUM.FORGOT_PASSWORD) {
@@ -196,51 +198,12 @@ export default function Login() {
   });
 
   if (formik.status.state === LOGIN_STATE_ENUM.SIGNUP) {
-    return (
-      <div className={styles.main}>
-        <Container className={styles.container}>
-          <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
-          </div>
-          <SignupCard redirectUrl={redirectUrl} formik={formik} />
-        </Container>
-      </div>
-    );
+    return <SignupCard redirectUrl={redirectUrl} formik={formik} />;
   }
 
   if (formik.status.state === LOGIN_STATE_ENUM.FORGOT_PASSWORD) {
-    return (
-      <div className={styles.main}>
-        <Container className={styles.container}>
-          <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
-          </div>
-          <ForgotPasswordCard formik={formik} />
-        </Container>
-      </div>
-    );
+    return <ForgotPasswordCard formik={formik} />;
   }
 
-  return (
-    <div>
-      <Container className={styles.container}>
-        <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
-        </div>
-        <LoginCard formik={formik} />
-        <div className={styles.or}>
-          <Typography style={{ fontSize: 12 }}>{t('or')}</Typography>
-        </div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP })}
-          className={styles.buttonSignup}
-          style={{ borderWidth: '2px' }}
-        >
-          {t('signup')}
-        </Button>
-      </Container>
-    </div>
-  );
+  return <LoginCard formik={formik} />;
 }

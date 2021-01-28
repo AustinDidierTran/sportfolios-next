@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import TabsGenerator from '../../tabs';
 import { goTo, ROUTES } from '../../actions/goTo';
