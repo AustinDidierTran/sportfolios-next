@@ -127,12 +127,12 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
-      console.log(this.timeSlot.id);
+      setCanRedo(false);
+      redoLog.length = 0;
       setTimeslots(this.newState);
     }
 
     async undo() {
-      console.log('dgfdfg');
       await api(
         formatRoute('/api/entity/timeSlot', null, {
           timeSlotId: this.timeSlot.id,
@@ -420,18 +420,14 @@ export default function ScheduleInteractiveTool() {
     setAddTimeslotDialog(true);
   };
 
-  const addTimeslotToGrid = (timeSlot, realDate, eventId) => {
+  const addTimeslotToGrid = (timeSlot, realDate) => {
     const command = new addTimeSlotCommand(timeslots, timeSlot, realDate);
-    // console.log('command created')
     executeCommand(command);
-    // setTimeslots(timeslots.concat([timeslot]));
   };
 
   const addFieldToGrid = (field) => {
     setFields(fields.concat([field]));
   };
-
-  //===========================================================================
 
   function executeCommand(command) {
     command.execute();
@@ -460,16 +456,6 @@ export default function ScheduleInteractiveTool() {
     undoLog.push(command);
     setCanUndo(true);
   }
-
-  function clearHistory() {
-    undoLog.length = 0;
-    redoLog.length = 0;
-    setCanUndo(false);
-    setCanRedo(false);
-    console.log('logs cleared');
-  }
-
-  //=========================================================================
 
   const AddGames = buttonsAdd.map((b) => (
     <div className={styles.divAddGame} key={b.i} onClick={() => handleAddGameAt(b.x, b.y)}>
@@ -633,12 +619,6 @@ export default function ScheduleInteractiveTool() {
       </Tooltip>
 
       {/*------------------------------------------------------------------        */}
-      <Tooltip title="clear">
-        <Fab onClick={clearHistory} className={classes.clear}>
-          <Icon icon="Reorder" />
-        </Fab>
-      </Tooltip>
-
       <Tooltip title={canUndo ? t('undo') : ''}>
         <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
           <Icon icon="Undo" />
