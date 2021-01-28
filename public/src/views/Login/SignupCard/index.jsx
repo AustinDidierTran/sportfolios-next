@@ -44,9 +44,6 @@ export default function SignupCard(props) {
             variant="contained"
             className={styles.button}
             type="submit"
-            onClick={() => {
-              formik.handleSubmit();
-            }}
             style={{ color: '#fff' }}
           >
             {t('signup')}

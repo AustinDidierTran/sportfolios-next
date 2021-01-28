@@ -255,7 +255,8 @@ export default {
     email_confirm_failure:
       'Email confirmation failed. To send a new email, try to login again. By doing so, we will send you a new confirmation email.',
     email_confirm_success: 'Email successfully confirmed!',
-    email_confirmed: 'An email has just been sent to {{email}}. Please, go look at your inbox to confirm your email.',
+    email_confirmed:
+      "An email has just been sent to {{email}}. Please, go look at your inbox to confirm your email. Don't forget to look in your spam folder!",
     email_not_confirmed:
       'Email has not been confirmed. A new confirmation email has been sent. Please look at your emails.',
     email_not_found: 'There is no account with this email.',
