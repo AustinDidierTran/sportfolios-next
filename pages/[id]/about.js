@@ -1,14 +1,14 @@
 import React from 'react';
 import Error from 'next/error';
-import { GLOBAL_ENUM } from '../public/common/enums';
-import { useApiRoute } from '../public/src/hooks/queries';
-import { LoadingSpinner } from '../public/src/components/Custom';
+import { GLOBAL_ENUM } from '../../public/common/enums';
+import { useApiRoute } from '../../public/src/hooks/queries';
+import { LoadingSpinner } from '../../public/src/components/Custom';
 import { useRouter } from 'next/router';
-import Event from '../public/src/views/Entity/Event';
-import Organization from '../public/src/views/Entity/Organization/home';
-import Person from '../public/src/views/Entity/Person';
-import Team from '../public/src/views/Entity/Team';
-import { formatRoute } from '../public/common/utils/stringFormat';
+import Event from '../../public/src/views/Entity/Event';
+import Organization from '../../public/src/views/Entity/Organization/about.jsx';
+import Person from '../../public/src/views/Entity/Person';
+import Team from '../../public/src/views/Entity/Team';
+import { formatRoute } from '../../public/common/utils/stringFormat';
 
 const EntityMap = {
   [GLOBAL_ENUM.PERSON]: Person,
@@ -21,7 +21,7 @@ export default function EntityRoute() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { response, isLoading } = useApiRoute(formatRoute('/api/entity', null, { id }), {
+  const { response, isLoading } = useApiRoute(formatRoute('/api/entity/about', null, { id }), {
     defaultValue: {},
   });
 
@@ -37,5 +37,6 @@ export default function EntityRoute() {
   if (!EntityObject) {
     return <Error />;
   }
+
   return <EntityObject {...response} />;
 }

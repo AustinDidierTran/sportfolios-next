@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { Paper, IgContainer, Icon, HeaderHomeOrg } from '../../../components/Custom';
+import { IgContainer, Icon, HeaderHomeOrg } from '../../../components/Custom';
 
-import { Tabs, Tab, Tooltip, Fab, makeStyles } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/core/styles';
 import TabsGenerator from '../../../tabs';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { formatPageTitle } from '../../../utils/stringFormats';
@@ -33,7 +35,7 @@ export default function Organization(props) {
   const { basicInfos } = props;
   const router = useRouter();
   const { query } = router;
-  const { id } = query;
+  const { id, tab } = query;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -43,43 +45,23 @@ export default function Organization(props) {
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const userState = TabsGenerator({
-    list: [TABS_ENUM.EVENTS, TABS_ENUM.ABOUT, TABS_ENUM.ABOUT, TABS_ENUM.ABOUT],
+  const userTabs = TabsGenerator({
+    list: [TABS_ENUM.EVENTS, TABS_ENUM.ABOUT],
     role: basicInfos.role,
   });
 
-  const adminState = TabsGenerator({
+  const adminTabs = TabsGenerator({
     list: [TABS_ENUM.EDIT_EVENTS, TABS_ENUM.SETTINGS],
     role: basicInfos.role,
   });
 
-  const [states, setStates] = useState(userState);
+  // const [states, setStates] = useState(userState);
 
   const getStates = (isAdmin) => {
     isAdmin ? setStates(adminState) : setStates(userState);
   };
 
-  const OpenTab = useMemo(() => {
-    if (states.map((s) => s.value).includes(eventState)) {
-      return states.find((s) => s.value == eventState).component;
-    } else {
-      if (adminState.map((a) => a.value).includes(eventState)) {
-        if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-          setIsAdmin(true);
-          setStates(adminState);
-          return;
-        }
-      }
-      setIsAdmin(false);
-      setStates(userState);
-      setEventState(TABS_ENUM.EVENTS);
-    }
-  }, [eventState, states]);
-
-  const onClick = (s) => {
-    goTo(ROUTES.entity, { id }, { tab: s.value });
-    setEventState(s.value);
-  };
+  const OpenTab = useMemo(() => {}, [tab]);
 
   const onSwitch = () => {
     const newState = !isAdmin;
@@ -102,47 +84,9 @@ export default function Organization(props) {
     }
   }, [isAdmin]);
 
-  if (!states || states.length == 1) {
-    return (
-      <IgContainer>
-        <OpenTab basicInfos={basicInfos} />
-      </IgContainer>
-    );
-  }
-
   return (
     <>
-      <HeaderHomeOrg
-        photoUrl={basicInfos.photoUrl}
-        navigationComponent={
-          <Paper>
-            <Tabs
-              value={states.findIndex((s) => s.value === eventState)}
-              TabIndicatorProps={{ style: { display: 'none' } }}
-              style={{
-                color: 'white',
-                backgroundColor: '#18B393',
-              }}
-              variant="scrollable"
-              scrollButtons="off"
-            >
-              {states.map((s, index) => (
-                <Tab
-                  key={index}
-                  onClick={() => onClick(s)}
-                  label={s.label}
-                  fontSize={0.6}
-                  style={{
-                    borderRightColor: 'white',
-                    borderRightStyle: states.length === index + 1 ? 'none' : 'solid',
-                    borderRightWidth: 1,
-                  }}
-                />
-              ))}
-            </Tabs>
-          </Paper>
-        }
-      />
+      <HeaderHomeOrg photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={title}>
@@ -157,9 +101,7 @@ export default function Organization(props) {
         ) : (
           <></>
         )}
-        <div>
-          <OpenTab basicInfos={basicInfos} />
-        </div>
+        <div></div>
       </IgContainer>
     </>
   );
