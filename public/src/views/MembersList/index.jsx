@@ -9,6 +9,8 @@ import styles from './MembersList.module.css';
 import { useRouter } from 'next/router';
 import loadable from '@loadable/component';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import ListMembers from './MembersList';
+import { Typography } from '@material-ui/core';
 
 const CustomPaper = loadable(() => import('../../components/Custom/Paper'));
 const CustomButton = loadable(() => import('../../components/Custom/Button'));
@@ -91,7 +93,13 @@ export default function MembersList() {
             {t('add_membership')}
           </CustomButton>
         </div>
-        <MembersList items={members} />
+        {members.length < 1 ? (
+          <Typography color="textSecondary" style={{ margin: '16px' }}>
+            {t('no_members_message')}
+          </Typography>
+        ) : (
+          <ListMembers items={members} />
+        )}
         <CustomFormDialog
           type={FORM_DIALOG_TYPE_ENUM.ADD_MEMBER}
           items={{

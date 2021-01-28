@@ -421,6 +421,7 @@ export default {
     no_description: 'No Description',
     no_following: 'You are following no one',
     no_games: 'No games',
+    no_members_message: 'You have no members',
     no_notifications_message: 'Come back later.',
     no_notifications: 'No Notifications',
     no_option: 'No option',
@@ -428,6 +429,7 @@ export default {
     no_payment_method: 'There is currently no payment method',
     no_person_selected: 'No person selected',
     no_players_registered: 'No players registered',
+    no_purchases_message: 'You did not purchase anything yet',
     no_remaining_spots:
       'Sorry, your registration has been refused. Event is now full and there are no available spots left.',
     no_roster: 'No roster',
