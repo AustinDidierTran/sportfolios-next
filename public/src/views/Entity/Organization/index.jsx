@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { IgContainer, Icon, HeaderHomeOrg } from '../../../components/Custom';
+import IgContainer from '../../../components/Custom/IgContainer';
+import Icon from '../../../components/Custom/Icon';
+import HeaderHomeOrg from '../../../components/Custom/HeaderHomeOrg';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
