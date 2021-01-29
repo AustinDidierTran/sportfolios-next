@@ -14,6 +14,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
 import { useRouter } from 'next/router';
+import Upload from 'rc-upload';
 
 export default function EditItem(props) {
   const router = useRouter();
