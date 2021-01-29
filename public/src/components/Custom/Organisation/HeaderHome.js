@@ -51,7 +51,7 @@ export default function HeaderHomeOrg(props) {
           >
             {navTabs.map((s, index) => (
               <Tab
-                key={t(index)}
+                key={index}
                 onClick={() => {
                   router.push({
                     pathname: '/[pid]/[slug]',
@@ -61,7 +61,7 @@ export default function HeaderHomeOrg(props) {
                     },
                   });
                 }}
-                label={s.label}
+                label={t(s.label)}
                 fontSize={0.6}
                 style={{
                   borderRightColor: 'white',
