@@ -18,6 +18,7 @@ import api from '../../../actions/api';
 import { formatRoute } from '../../../actions/goTo';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
+import Upload from 'rc-upload';
 
 export default function CreateItem(props) {
   const router = useRouter();
