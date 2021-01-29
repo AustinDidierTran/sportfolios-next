@@ -3,7 +3,11 @@ import React, { useMemo } from 'react';
 import styles from './ScoreSuggestion.module.css';
 
 import CustomIconButton from '../../IconButton';
-import { Card, Chip, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Chip from '@material-ui/core/Chip';
+import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { formatDate } from '../../../../utils/stringFormats';
 import { STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';

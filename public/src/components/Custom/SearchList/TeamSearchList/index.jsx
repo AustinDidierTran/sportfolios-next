@@ -4,7 +4,7 @@ import CustomIcon from '../../Icon';
 import CustomList from '../../List';
 import CustomTextField from '../../TextField';
 import { useApiRoute } from '../../../../hooks/queries';
-import { InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../common/enums';
 import { formatRoute } from '../../../../../common/utils/stringFormat';

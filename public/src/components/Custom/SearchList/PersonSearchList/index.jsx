@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 
 import { useApiRoute } from '../../../../hooks/queries';
 import { useFormInput } from '../../../../hooks/forms';
-import { InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../common/enums';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 import CustomTextField from '../../TextField';
 import CustomIcon from '../../Icon';
-import CustomList from '../../List';
+import PersonList from './PersonList';
 
 export default function PersonSearchList(props) {
   const {
@@ -112,7 +112,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      {query.value.length === 0 ? <></> : <CustomList items={options}></CustomList>}
+      {query.value.length === 0 ? <></> : <PersonList items={options}></PersonList>}
     </>
   );
 }

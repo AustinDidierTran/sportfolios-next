@@ -1,11 +1,13 @@
 import React from 'react';
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import moment from 'moment';
 import styles from './CollapsePaymentOption.module.css';
-import CustomCollapse from '../../../Collapse';
-import CustomButton from '../../../Button';
+import CustomButton from '../../../../../../components/Custom/Button';
+import CustomCollapse from '../../../../../../components/Custom/Collapse';
+import { formatDate, formatPrice } from '../../../../../../utils/stringFormats';
 
 export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();

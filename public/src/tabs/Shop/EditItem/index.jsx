@@ -5,7 +5,8 @@ import { useContext } from 'react';
 import styles from './EditItem.module.css';
 import { Store } from '../../../Store';
 
-import { TextareaAutosize, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CustomButton from '../../../components/Custom/Button';

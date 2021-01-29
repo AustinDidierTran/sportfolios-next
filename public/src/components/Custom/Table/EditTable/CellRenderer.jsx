@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Input from '../../Input';
-import { TableCell } from '@material-ui/core';
+import TableCell from '@material-ui/core/TableCell';
 
 export default function CellRenderer(props) {
   const {

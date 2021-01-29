@@ -1,15 +1,5 @@
 .card {
-  display: flex;
-  flex-direction: column;
-}
-
-.add {
-  display: flex;
-  flex-direction: row;
-}
-
-.button {
-  flex: 1 1 auto;
+  width: 100%;
 }
 
 .searchList {
@@ -24,7 +14,10 @@
 }
 
 .listTitle {
-  padding-left: 10px;
-  padding-top: 10px;
   text-align: left;
+  margin-bottom: 4px !important;
+}
+
+.divider {
+  margin-bottom: 16px !important;
 }

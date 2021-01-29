@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { List } from '../../../components/Custom';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import { ListItemText } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 

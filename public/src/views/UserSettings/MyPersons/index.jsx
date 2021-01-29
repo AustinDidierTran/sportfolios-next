@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { GLOBAL_ENUM, STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import { Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 import styles from './MyPersons.module.css';
 import api from '../../../actions/api';
 import { LoadingSpinner, List, FormDialog, AlertDialog, IconButton, Button } from '../../../components/Custom';

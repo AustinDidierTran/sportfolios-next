@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { getMembershipName } from '../../../../utils/stringFormats';
 import { MEMBERSHIP_TYPE_ENUM } from '../../../../Store';

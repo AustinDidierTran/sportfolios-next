@@ -1,9 +1,8 @@
-import {
-  Avatar,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { Skeleton } from '@material-ui/lab';
 import { uniqueId } from 'lodash';
 import React from 'react';
@@ -13,8 +12,8 @@ export default function AvatarAndTextSkeleton(props) {
   const item = (
     <ListItem>
       <ListItemAvatar>
-        <Skeleton variant="circle">
-          <Avatar variant="circle" />
+        <Skeleton variant="circular">
+          <Avatar variant="circular" />
         </Skeleton>
       </ListItemAvatar>
 

@@ -4,7 +4,8 @@ import CustomButton from '../Button';
 import CustomPaper from '../Paper';
 import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 import styles from './MessageAndButtons.module.css';
 import { LOGO_ENUM } from '../../../../common/enums';
 

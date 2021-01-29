@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import loadable from '@loadable/component';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import styles from './MemberItem.module.css';
-import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
+import { useRouter } from 'next/router';
+import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
 import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../common/enums';
-import AlertDialog from '../../Dialog/AlertDialog';
+import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
 import api from '../../../../actions/api';
 import { goTo, ROUTES } from '../../../../actions/goTo';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
-import CustomFormDialog from '../../FormDialog';
-import CustomIcon from '../../Icon';
-import CustomIconButton from '../../IconButton';
+
+const CustomIcon = loadable(() => import('../../../../components/Custom/Icon'));
+const CustomFormDialog = loadable(() => import('../../../../components/Custom/FormDialog'));
+const CustomIconButton = loadable(() => import('../../../../components/Custom/IconButton'));
 
 export default function MemberItem(props) {
   const { t } = useTranslation();

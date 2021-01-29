@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import i18n from '../../../i18n';
 import { useTranslation } from 'react-i18next';
-import { CardContent } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
 import { Paper, Select } from '../../../components/Custom';
 import styles from './BasicInfo.module.css';
 

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
-
-import { Paper, Button, IgContainer, FormDialog, IconButton } from '../../components/Custom';
+import IgContainer from '../../components/Custom/IgContainer';
 import api from '../../actions/api';
-import { formatRoute, goToAndReplace, ROUTES } from '../../actions/goTo';
-import { List } from '../../components/Custom';
-import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { goToAndReplace, ROUTES } from '../../actions/goTo';
+import { FORM_DIALOG_TYPE_ENUM, STATUS_ENUM } from '../../../common/enums';
 import styles from './MembersList.module.css';
 import { useRouter } from 'next/router';
+import loadable from '@loadable/component';
+import { formatRoute } from '../../../common/utils/stringFormat';
+
+const CustomPaper = loadable(() => import('../../components/Custom/Paper'));
+const CustomButton = loadable(() => import('../../components/Custom/Button'));
+const CustomFormDialog = loadable(() => import('../../components/Custom/FormDialog'));
+const CustomIconButton = loadable(() => import('../../components/Custom/IconButton'));
 
 export default function MembersList() {
   const router = useRouter();
@@ -42,7 +47,6 @@ export default function MembersList() {
     } else {
       const res = data.map((d, index) => ({
         ...d,
-        type: LIST_ITEM_ENUM.MEMBER,
         update: getMembers,
         key: index,
       }));
@@ -60,14 +64,14 @@ export default function MembersList() {
 
   return (
     <IgContainer>
-      <Paper
+      <CustomPaper
         style={{ textAlign: 'center' }}
         title={t('members_list', {
           organization: organization?.name || '',
         })}
       >
         <div className={styles.button}>
-          <IconButton
+          <CustomIconButton
             icon="ArrowBack"
             onClick={() => {
               history.back();
@@ -75,7 +79,7 @@ export default function MembersList() {
             tooltip={t('back')}
             style={{ color: 'primary', margin: '8px' }}
           />
-          <Button
+          <CustomButton
             size="small"
             variant="contained"
             style={{
@@ -85,10 +89,10 @@ export default function MembersList() {
             onClick={onOpen}
           >
             {t('add_membership')}
-          </Button>
+          </CustomButton>
         </div>
-        <List items={members} />
-        <FormDialog
+        <MembersList items={members} />
+        <CustomFormDialog
           type={FORM_DIALOG_TYPE_ENUM.ADD_MEMBER}
           items={{
             open,
@@ -96,7 +100,7 @@ export default function MembersList() {
             update: getMembers,
           }}
         />
-      </Paper>
+      </CustomPaper>
     </IgContainer>
   );
 }

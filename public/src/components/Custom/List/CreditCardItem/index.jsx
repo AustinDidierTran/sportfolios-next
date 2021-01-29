@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import { ListItem, ListItemIcon, ListItemText, Radio } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Radio from '@material-ui/core/Radio';
+
 import CustomIcon from '../../Icon';
 import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';

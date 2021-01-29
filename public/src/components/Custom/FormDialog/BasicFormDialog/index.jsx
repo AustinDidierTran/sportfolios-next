@@ -5,8 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ComponentFactory from '../../ComponentFactory';
 import { useTranslation } from 'react-i18next';
+import ComponentFactory from '../../ComponentFactory';
 
 export default function BasicFormDialog(props) {
   const { t } = useTranslation();

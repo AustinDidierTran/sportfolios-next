@@ -5,7 +5,7 @@ import api from '../../actions/api';
 import styles from './Rosters.module.css';
 
 import Rosters from './Rosters';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';
@@ -54,11 +54,5 @@ export default function TabRosters(props) {
     );
   }
 
-  return (
-    <div className={styles.contain}>
-      <div className={styles.rosters}>
-        <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />
-      </div>
-    </div>
-  );
+  return <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import TransferPersonExpired from '../../public/src/views/TransferPerson/TransferPersonExpired';
 
-const TransferPersonExpiredRoute = (props) => {
+const TransferPersonExpiredRoute = () => {
   return <TransferPersonExpired />;
 };
 

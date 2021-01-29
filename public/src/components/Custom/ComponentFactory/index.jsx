@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListItemText } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
 import CustomTextField from '../TextField';
 import CustomButton from '../Button';
 import CustomSelect from '../Select';
@@ -9,7 +9,7 @@ import CustomCheckBox from '../CheckBox';
 import CustomList from '../List';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
-import { InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonSearchList from '../SearchList/PersonSearchList';
 import PersonItem from '../List/PersonItem';
 

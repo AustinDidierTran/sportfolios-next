@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import { useFormInput } from '../../../../hooks/forms';
-import { TableRow, TableCell } from '@material-ui/core';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 import IconButton from '../../IconButton';
 

@@ -1,10 +1,10 @@
 import React, { useContext, useMemo, useRef } from 'react';
 import { Store, SCREENSIZE_ENUM, ACTION_ENUM } from '../../../Store';
 import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM } from '../../../../common/enums';
-
 import Link from 'next/link';
-
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import { IconButton, SearchInput, ProfileChip } from '../../../components/Custom';
 import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';

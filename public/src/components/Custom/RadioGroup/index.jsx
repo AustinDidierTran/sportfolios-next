@@ -1,5 +1,11 @@
 import React from 'react';
-import { FormControl, FormLabel, Radio, RadioGroup, FormControlLabel, ListItemText } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import styles from './RadioGroup.module.css';
 
 export default function CustomRadioGroup(props) {

@@ -4,7 +4,7 @@ import List from '../../../../components/Custom/List';
 import { LIST_ITEM_ENUM, HEADER_FLYOUT_TYPE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import styles from '../HeaderFlyout.module.css';
 import { formatRoute } from '../../../../../common/utils/stringFormat';

@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+
 import styles from './Players.module.css';
-
 import { useTranslation } from 'react-i18next';
-
 import PlayerCard from './PlayerCard';
-import { Typography, Divider } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { LoadingSpinner, PersonSearchList } from '../../../../components/Custom';
 import api from '../../../../actions/api';
 import PersonsQuickAdd from './PersonsQuickAdd';
 import { Store } from '../../../../Store';
-import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
 import RosterInviteLink from '../RosterInviteLink';
+import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function Players(props) {
@@ -29,9 +29,12 @@ export default function Players(props) {
   } = props;
   const [blackList, setBlackList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const {
     state: { userInfo },
   } = useContext(Store);
+
   useEffect(() => {
     getBlackList();
   }, [rosterId, editableRoster, withMyPersonsQuickAdd]);
@@ -103,6 +106,14 @@ export default function Players(props) {
     return a.name.localeCompare(b.name);
   };
 
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   if (!players) {
     return null;
   }
@@ -113,6 +124,10 @@ export default function Players(props) {
   if (editableRoster) {
     return (
       <div className={styles.card}>
+        <Typography className={styles.listTitle} variant="h6">
+          {t('add_players')}
+        </Typography>
+        <Divider className={styles.divider} />
         <div className={styles.searchList}>
           <PersonSearchList
             blackList={blackList}
@@ -126,7 +141,6 @@ export default function Players(props) {
           />
         </div>
         <RosterInviteLink rosterId={rosterId} />
-        <Divider variant="middle" light />
         <PersonsQuickAdd
           title={t('my_persons')}
           titleClassName={styles.listTitle}
@@ -135,62 +149,63 @@ export default function Players(props) {
           onRemove={handleDelete}
           personsSortingFunction={playersSortingFunction}
         />
-        <Divider variant="middle" />
-        <>
-          {players.length ? (
-            <div className={styles.player}>
-              <Typography className={styles.listTitle} variant="h6">
-                {t('roster')}
-              </Typography>
-              {players.map((player) => (
-                <PlayerCard
-                  player={player}
-                  isEditable={editableRole}
-                  onDelete={handleDelete}
-                  onRoleUpdate={handleRoleUpdate}
-                  key={player.id}
-                />
-              ))}
-            </div>
-          ) : (
-            <Typography>{t('empty_roster_add_players')}</Typography>
-          )}
-        </>
+        {players.length ? (
+          <div className={styles.player}>
+            <Typography className={styles.listTitle} variant="h6">
+              {t('roster')}
+            </Typography>
+            <Divider className={styles.divider} />
+            {players.map((player, index) => (
+              <PlayerCard
+                index={index}
+                player={player}
+                isEditable={editableRole}
+                onDelete={handleDelete}
+                onRoleUpdate={handleRoleUpdate}
+                key={player.id}
+              />
+            ))}
+          </div>
+        ) : (
+          <Typography>{t('empty_roster')}</Typography>
+        )}
       </div>
     );
   }
-
   return (
     <div className={styles.card}>
       <PersonsQuickAdd
         title={t('my_persons')}
+        titleClassName={styles.listTitle}
         onAdd={onPlayerAddToRoster}
         persons={playersQuickAdd}
-        titleClassName={styles.listTitle}
         onRemove={handleDelete}
         personsSortingFunction={playersSortingFunction}
       />
-      <Divider variant="middle" />
+      <Typography className={styles.listTitle} variant="h6">
+        {t('roster')}
+      </Typography>
+      <Divider className={styles.divider} />
       {
         <>
-          <Typography className={styles.listTitle} variant="h6">
-            {t('roster')}
-          </Typography>
           {players.length ? (
             <div className={styles.player}>
-              {players.map((player) => (
-                <PlayerCard
-                  player={player}
-                  isEditable={editableRole}
-                  onDelete={handleDelete}
-                  onRoleUpdate={handleRoleUpdate}
-                  withInfos={withPlayersInfos}
-                  key={player.id}
-                />
-              ))}
+              {players.map((player, index) => {
+                return (
+                  <PlayerCard
+                    index={index}
+                    player={player}
+                    isEditable={editableRole}
+                    onDelete={handleDelete}
+                    onRoleUpdate={handleRoleUpdate}
+                    withInfos={withPlayersInfos}
+                    key={player.id}
+                  />
+                );
+              })}
             </div>
           ) : (
-            <Typography>{t('empty_roster_add_players')}</Typography>
+            <Typography>{t('empty_roster')}</Typography>
           )}
         </>
       }

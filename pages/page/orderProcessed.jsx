@@ -1,7 +1,7 @@
 import React from 'react';
 import OrderProcessed from '../../public/src/views/OrderProcessed';
 
-const OrderProcessedRoute = (props) => {
+const OrderProcessedRoute = () => {
   return <OrderProcessed />;
 };
 

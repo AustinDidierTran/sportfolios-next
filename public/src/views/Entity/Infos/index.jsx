@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import { Container, Typography, List } from '@material-ui/core';
-
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import { Paper } from '../../../components/Custom';
 
 import styles from './Infos.module.css';

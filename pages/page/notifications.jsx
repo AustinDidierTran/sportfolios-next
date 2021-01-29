@@ -1,7 +1,7 @@
 import React from 'react';
 import NotificationsMobile from '../../public/src/views/Notifications';
 
-const NotificationsRoute = (props) => {
+const NotificationsRoute = () => {
   return <NotificationsMobile />;
 };
 

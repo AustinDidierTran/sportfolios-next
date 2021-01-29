@@ -38,6 +38,7 @@ export default {
     add_phase: 'Ajouter une phase',
     add_player_with_no_account: 'Ajouter un joueur sans compte',
     add_player: 'Ajouter un joueur',
+    add_players: 'Ajouter des joueurs',
     add_sub: 'Ajouter un remplaçant',
     add_tax: 'Ajouter une taxe',
     add_team: 'Ajouter une équipe',
@@ -601,6 +602,8 @@ export default {
       "L'alignement aide le responsable du tournoi à classer ses équipes. Vous pouvez entrer votre alignement au meilleur de vos connaissances, mais il n'a pas de besoin d'être final.",
     roster: 'Alignement',
     rosters: 'Alignements',
+    roster_selection_message:
+      'Ajoutez vos cooéquipiers qui ont déjà un compte. Lorsque vous allez être inscrit, vous allez pouvoir inviter le reste de votre équipe avec un lien.',
     rules_knowledge_and_use: 'Connaissances et application des règlements',
     s: 'Small',
     S: 'Small',

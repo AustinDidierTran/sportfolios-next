@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from '../../public/src/views/Search';
 
-const SearchRoute = (props) => {
+const SearchRoute = () => {
   return <Search />;
 };
 

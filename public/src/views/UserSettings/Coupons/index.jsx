@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, List, Paper, TextField } from '../../../components/Custom';
-import { ListItem } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
 import styles from './Coupons.module.css';
 import api from '../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../Store';

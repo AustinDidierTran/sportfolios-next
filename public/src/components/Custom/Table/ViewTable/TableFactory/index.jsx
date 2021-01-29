@@ -1,5 +1,6 @@
 import React from 'react';
-import { TableCell } from '@material-ui/core';
+
+import TableCell from '@material-ui/core/TableCell';
 import CustomButton from '../../../Button';
 import CustomIconButton from '../../../IconButton';
 import { goTo } from '../../../../../actions/goTo';

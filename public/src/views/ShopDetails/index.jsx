@@ -6,15 +6,18 @@ import { useTranslation } from 'react-i18next';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import api from '../../actions/api';
-import { formatRoute, goTo, ROUTES, goToAndReplace } from '../../actions/goTo';
+import { goTo, ROUTES, goToAndReplace } from '../../actions/goTo';
 import { Button, Paper, IgContainer, Select } from '../../components/Custom';
 import { useEffect } from 'react';
 import { formatPrice } from '../../utils/stringFormats';
 import { useFormik } from 'formik';
-import { CircularProgress, TextareaAutosize, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Store, ACTION_ENUM } from '../../Store';
 import { SEVERITY_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function ShopDetails() {
   const {

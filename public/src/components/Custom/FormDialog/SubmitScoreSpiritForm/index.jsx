@@ -2,7 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import CustomButton from '../../Button';
 import CustomIcon from '../../Icon';
 import { useTranslation } from 'react-i18next';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 import styles from './SubmitScoreSpiritForm.module.css';
 import SectionScore from './SectionScore';
