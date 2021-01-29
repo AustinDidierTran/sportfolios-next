@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
-import HeaderHomeOrg from '../../../components/Custom/HeaderHomeOrg';
+import HeaderHome from '../../../components/Custom/HeaderHome';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
@@ -88,7 +88,7 @@ export default function Organization(props) {
 
   return (
     <>
-      <HeaderHomeOrg photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
+      <HeaderHome photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={title}>

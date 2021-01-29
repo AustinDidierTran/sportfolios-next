@@ -1,5 +1,7 @@
 import React from 'react';
 import Error from 'next/error';
+import loadable from '@loadable/component';
+
 import { GLOBAL_ENUM } from '../../public/common/enums';
 import { useApiRoute } from '../../public/src/hooks/queries';
 import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';

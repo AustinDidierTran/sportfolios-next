@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { IgContainer, Icon, HeaderHomeOrg } from '../../../components/Custom';
+import IgContainer from '../../../components/Custom/IgContainer';
+import Icon from '../../../components/Custom/Icon';
+import HeaderHome from '../../../components/Custom/HeaderHome';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
@@ -39,7 +41,7 @@ export default function OrganizationAbout(props) {
 
   return (
     <>
-      <HeaderHomeOrg photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={navBar} />
+      <HeaderHome photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={navBar} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={t('player_view')}>
