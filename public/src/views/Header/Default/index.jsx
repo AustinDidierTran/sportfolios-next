@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
-
-import { AppBar, Toolbar } from '@material-ui/core';
-
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import styles from './Default.module.css';
 import LoggedIn from '../LoggedIn';
 

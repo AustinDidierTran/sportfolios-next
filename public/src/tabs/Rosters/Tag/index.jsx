@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styles from './Tag.module.css';
 
 import { Icon } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { TAG_TYPE_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 

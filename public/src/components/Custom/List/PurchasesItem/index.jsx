@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { useTranslation } from 'react-i18next';
 import styles from './PurchasesItem.module.css';
 // import MailtoButton from '../../MailToButton';

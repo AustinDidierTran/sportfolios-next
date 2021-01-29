@@ -1,5 +1,8 @@
-import { CardActions, CardContent, TextField, Typography } from '@material-ui/core';
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import { Paper, Button } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './RegisterCard.module.css';

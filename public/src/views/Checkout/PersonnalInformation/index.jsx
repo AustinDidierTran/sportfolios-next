@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import styles from './PersonnalInformation.module.css';
 import api from '../../../actions/api';
-
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { Button, TextField } from '../../../components/Custom';
 import CountrySelect from '../../../views/AddBankAccount/CountrySelect';
 

@@ -6,8 +6,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 import Game from './Game';
-
-import { Container, Paper, Typography } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 import styles from './Schedule.module.css';
 import { useTranslation } from 'react-i18next';

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import {} from '@material-ui/core';
 import api from '../../../../../actions/api';
 import AddPlayer from '../AddPlayer';
 import { PLAYER_ATTENDANCE_STATUS, STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';

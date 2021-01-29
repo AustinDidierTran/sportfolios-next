@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 import api from '../../../actions/api';
 import { LoadingSpinner, List, Button, AlertDialog, IconButton } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';

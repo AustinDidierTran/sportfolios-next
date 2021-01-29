@@ -3,7 +3,7 @@ import { CLIENT_BASE_URL } from '../../../../../../conf';
 import api from '../../../../actions/api';
 import { STATUS_ENUM, ROUTES_ENUM, ERROR_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { AlertDialog, IconButton } from '../../../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import styles from './RosterInviteLink.module.css';
 import CopyToClipBoard from '../../../../components/Custom/IconButton/CopyToClipboard';
 import { useTranslation } from 'react-i18next';

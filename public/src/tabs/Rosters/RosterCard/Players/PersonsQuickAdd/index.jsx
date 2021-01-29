@@ -1,5 +1,6 @@
-import { Divider, Typography } from '@material-ui/core';
 import React, { useMemo } from 'react';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../../common/enums';
 import { Button, List } from '../../../../../components/Custom';

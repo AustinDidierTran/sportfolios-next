@@ -4,7 +4,8 @@ import Delete from '@material-ui/icons/Delete';
 
 import styles from './ConfirmedEmailField.module.css';
 import { TextField } from '../../../../components/Custom';
-import { IconButton, Tooltip } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import { useTranslation } from 'react-i18next';
 
 export default function ConfirmedEmailField(props) {

@@ -7,7 +7,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Players from './Players';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { ROSTER_ROLE_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';

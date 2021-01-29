@@ -1,5 +1,5 @@
-import { Card } from '@material-ui/core';
 import React, { useState, useEffect, useContext } from 'react';
+import Card from '@material-ui/core/Card';
 import { List, AlertDialog } from '../../../components/Custom';
 import { useFacebookSDK } from '../../../hooks/setup';
 import { useTranslation } from 'react-i18next';

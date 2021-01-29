@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import styles from './RankingItem.module.css';
 import Divider from '@material-ui/core/Divider';
 

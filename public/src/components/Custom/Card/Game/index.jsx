@@ -1,8 +1,9 @@
 import React from 'react';
 
 import styles from './GameItem.module.css';
-
-import { ListItemText, Typography, Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import ListItemText from '@material-ui/core/ListItemText';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 

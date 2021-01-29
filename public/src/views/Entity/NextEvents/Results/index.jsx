@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Results.module.css';
-
-import { Container, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 
 export default function Results() {
   const { t } = useTranslation();

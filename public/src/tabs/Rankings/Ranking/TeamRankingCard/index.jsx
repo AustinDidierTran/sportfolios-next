@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../actions/api';
 import styles from './TeamRankingCard.module.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function TeamRankingCard(props) {

@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import styles from './PlayerCard.module.css';
 import { ROSTER_ROLE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../../../common/enums';
-import { Divider, Tooltip, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 import { useTranslation } from 'react-i18next';
 import { FormDialog, Icon, IconButton } from '../../../../../components/Custom';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { IconButton } from '../../../components/Custom';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { Badge } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
 
 export default function CartIcon() {
   const {

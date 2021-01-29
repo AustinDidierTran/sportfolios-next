@@ -4,7 +4,7 @@ import { TeamSearchList, List, Button } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './AddTeams.module.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../../Store';
 
 export default function AddTeams(props) {

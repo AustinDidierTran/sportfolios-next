@@ -2,7 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import { Paper, IgContainer, Icon } from '../../../components/Custom';
 
-import { Tabs, Tab, Tooltip, Fab, makeStyles } from '@material-ui/core';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/core/styles';
 import TabsGenerator from '../../../tabs';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { formatPageTitle } from '../../../utils/stringFormats';

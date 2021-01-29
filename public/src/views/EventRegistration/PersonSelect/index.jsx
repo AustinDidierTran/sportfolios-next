@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { IconButton } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import styles from './PersonSelect.module.css';
 import api from '../../../actions/api';

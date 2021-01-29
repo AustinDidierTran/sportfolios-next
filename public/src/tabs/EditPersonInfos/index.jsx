@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styles from './EditPersonInfos.module.css';
 import { Paper, Button, Avatar, AddressSearchInput, LoadingSpinner, TextField } from '../../components/Custom';
-import { MenuItem, Typography } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+
 import api from '../../actions/api';
 import { useTranslation } from 'react-i18next';
 import { getInitialsFromName } from '../../utils/stringFormats';

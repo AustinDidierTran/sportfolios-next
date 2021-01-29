@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { getInitialsFromName } from '../../../utils/stringFormats';
 import history from '../../../stores/history';
 
-import { Button, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 export default function Follow(props) {
   const { t } = useTranslation();

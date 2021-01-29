@@ -16,7 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { formatDate } from '../../../../utils/stringFormats';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 export default function GameFilters(props) {
   const { update } = props;

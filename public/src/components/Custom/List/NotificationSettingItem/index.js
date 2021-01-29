@@ -1,9 +1,16 @@
-import { List, ListItem, ListItemText, ListItemIcon, Switch, Collapse } from '@material-ui/core';
 import React, { useContext } from 'react';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Switch from '@material-ui/core/Switch';
+import Collapse from '@material-ui/core/Collapse';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NOTIFICATION_MEDIA, SEVERITY_ENUM } from '../../../../../common/enums';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 import { Store, ACTION_ENUM } from '../../../../Store';
 import CustomIcon from '../../Icon';
 

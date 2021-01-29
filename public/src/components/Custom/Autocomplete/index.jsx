@@ -3,7 +3,7 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { useApiRoute } from '../../../hooks/queries';
 import { useTranslation } from 'react-i18next';
 import CustomTextField from '../TextField';

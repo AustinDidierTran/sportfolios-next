@@ -5,7 +5,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { checkout } from '../../../utils/stripe';
 import styles from './ChoosePaymentMethod.module.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { LOGO_ENUM } from '../../../../common/enums';
 import { formatPrice } from '../../../utils/stringFormats';
 
