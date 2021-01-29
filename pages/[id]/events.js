@@ -2,7 +2,7 @@ import React from 'react';
 import Error from 'next/error';
 import { GLOBAL_ENUM } from '../../public/common/enums';
 import { useApiRoute } from '../../public/src/hooks/queries';
-import { LoadingSpinner } from '../../public/src/components/Custom';
+import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import { useRouter } from 'next/router';
 import Event from '../../public/src/views/Entity/Event';
 import Organization from '../../public/src/views/Entity/Organization/events.jsx';
