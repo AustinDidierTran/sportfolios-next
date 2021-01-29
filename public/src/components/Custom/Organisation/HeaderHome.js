@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from '../../Custom';
+import Avatar from '../../Custom/Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
