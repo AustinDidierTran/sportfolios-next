@@ -11,7 +11,11 @@ import { changeEntityName } from '../../../actions/api';
 
 import { Avatar, Input, Button, Paper, LoadingSpinner, TextField } from '../../../components/Custom';
 
-import { Typography, Container } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+
+import Upload from 'rc-upload';
+import { SEVERITY_ENUM } from '../../../../../public/common/enums';
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();
@@ -82,8 +86,22 @@ export default function BasicInfos(props) {
 
   const onEdit = async () => setEditMode(true);
 
-  const onImgChange = ([file]) => {
-    setImg(file);
+  const uploadImageProps = {
+    multiple: false,
+    accept: '.jpg, .png, .jpeg, .gif, .webp',
+    onStart(file) {
+      // Show preview
+      if (file.type.split('/')[0] === 'image') {
+        setImg(file);
+        setPhotoUrl(URL.createObjectURL(file));
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid_file_image'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+      }
+    },
   };
 
   const onImgUpload = async () => {
@@ -109,7 +127,18 @@ export default function BasicInfos(props) {
           ) : (
             <Avatar className={styles.avatar} photoUrl={photoUrl} variant="square" size="lg" />
           )}
-          <Input className={styles.input} type="file" onChange={onImgChange} isVisible={isEditMode} />
+          <div>
+            <Upload {...uploadImageProps}>
+              <Button
+                variant="outlined"
+                endIcon="CloudUploadIcon"
+                style={{ marginTop: '8px', marginBottom: '16px' }}
+                component="label"
+              >
+                {t('change_picture')}
+              </Button>
+            </Upload>
+          </div>
           <TextField
             {...name.inputProps}
             placeholder={t('name')}
