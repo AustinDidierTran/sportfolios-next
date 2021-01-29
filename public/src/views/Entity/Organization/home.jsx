@@ -2,7 +2,9 @@ const Home = loadable(() => import('../../../tabs/Home'));
 
 import React, { useEffect } from 'react';
 
-import { IgContainer, Icon, HeaderHomeOrg } from '../../../components/Custom';
+import IgContainer from '../../../components/Custom/IgContainer';
+import Icon from '../../../components/Custom/Icon';
+import HeaderHomeOrg from '../../../components/Custom/HeaderHomeOrg';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
