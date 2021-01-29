@@ -4,7 +4,7 @@ import { GLOBAL_ENUM } from '../../public/common/enums';
 import { useApiRoute } from '../../public/src/hooks/queries';
 import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import { useRouter } from 'next/router';
-import Event from '../../public/src/views/Entity/Event';
+const Event = loadable(()=> import('../../public/src/views/Entity/Event');
 import Organization from '../../public/src/views/Entity/Organization/league.jsx';
 import Person from '../../public/src/views/Entity/Person';
 import Team from '../../public/src/views/Entity/Team';
