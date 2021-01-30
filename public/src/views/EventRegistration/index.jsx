@@ -37,6 +37,12 @@ export default function EventRegistration() {
     dispatch,
   } = useContext(Store);
 
+  useEffect(() => {
+    if (!eventId) {
+      goTo(ROUTES.home);
+    }
+  }, [eventId]);
+
   const formik = useFormik({
     initialValues: {
       event: {},
@@ -202,7 +208,7 @@ export default function EventRegistration() {
     <IgContainer>
       <Paper className={styles.paper}>
         <div className={styles.typo}>
-          <Typography variant="h3">{formik.values.event.name || ''}</Typography>
+          <Typography variant="h3">{formik?.values?.event?.name || ''}</Typography>
         </div>
         <Container>
           <StepperWithHooks
