@@ -6,6 +6,7 @@ import api from '../../../actions/api';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './AddCreditCard.module.css';
 import CardSection from '../../../utils/stripe/Payment/CardSection';
+import { useTranslation } from 'react-i18next';
 
 export async function getCustomer() {
   const { data } = await api('/api/stripe/getCustomer');
@@ -29,6 +30,7 @@ export async function attachPaymentMethod(attachPaymentMethodParams) {
 }
 
 export default function CheckoutForm(props) {
+  const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const name = useFormInput('');
@@ -89,7 +91,7 @@ export default function CheckoutForm(props) {
           <TextField {...name.inputProps} placeholder="Name" />
         </div>
         <Button disabled={!stripe} className={styles.button} onClick={handleSubmit}>
-          Add credit card
+          {t(add_credit_card)}
         </Button>
       </div>
     </form>
