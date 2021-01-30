@@ -65,12 +65,16 @@ export default function Event(props) {
   useEffect(() => {
     if (adminState.map((a) => a.value).includes(tab)) {
       if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-        return tab;
+        goTo(ROUTES.entity, { id }, { tab });
       } else {
         goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
       }
     }
-    return tab || TABS_ENUM.SCHEDULE;
+    if (tab) {
+      goTo(ROUTES.entity, { id }, { tab });
+    } else {
+      goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
+    }
   }, [tab]);
 
   const getStates = (isAdmin) => {
@@ -94,6 +98,7 @@ export default function Event(props) {
       }
       setIsAdmin(false);
       setStates(userState);
+      return;
     }
   }, [tab, states]);
 
@@ -134,6 +139,9 @@ export default function Event(props) {
     return isAdmin ? t('player_view') : t('admin_view');
   }, [isAdmin]);
 
+  if (!states || !OpenTab || !tab) {
+    return <></>;
+  }
   return (
     <IgContainer>
       <Helmet>
