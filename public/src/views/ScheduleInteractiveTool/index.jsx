@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import api from '../../actions/api';
@@ -21,6 +21,7 @@ import RGL from 'react-grid-layout';
 
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+
 const ReactGridLayout = RGL;
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +57,27 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     color: 'white',
   },
+  fabRedo: {
+    position: 'absolute',
+    bottom: theme.spacing(11) + 224,
+    right: theme.spacing(4),
+    zIndex: 100,
+    color: 'blue',
+  },
+  fabUndo: {
+    position: 'absolute',
+    bottom: theme.spacing(13) + 280,
+    right: theme.spacing(4),
+    zIndex: 100,
+    color: 'blue',
+  },
+  button: {
+    margin: 6,
+  },
 }));
+
+var undoLog = [];
+var redoLog = [];
 
 export default function ScheduleInteractiveTool() {
   const router = useRouter();
@@ -87,6 +108,90 @@ export default function ScheduleInteractiveTool() {
   const [addGameTimeslot, setAddGameTimeslot] = useState({});
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
+
+  class addFieldCommand {
+    newState = [];
+    previousState = [];
+    field;
+    type = 'fieldCommand';
+
+    constructor(pState, field) {
+      this.previousState = pState;
+      this.field = field;
+      this.newState = this.previousState.concat([field]);
+    }
+
+    execute() {
+      redoLog.length = 0;
+      setFields(this.newState);
+    }
+
+    async undo() {
+      await api(
+        formatRoute('/api/entity/field', null, {
+          fieldId: this.field.id,
+        }),
+        {
+          method: 'DELETE',
+        }
+      );
+      setFields(this.previousState);
+    }
+
+    async redo() {
+      await api('/api/entity/field', {
+        method: 'POST',
+        body: JSON.stringify({
+          field: this.field,
+          eventId,
+        }),
+      });
+      setFields(this.newState);
+    }
+  }
+
+  class addTimeSlotCommand {
+    date;
+    newState = [];
+    previousState = [];
+    timeSlot;
+    type = 'timeSlotCommand';
+
+    constructor(pState, timeSlot, realDate) {
+      this.date = realDate;
+      this.previousState = pState;
+      this.timeSlot = timeSlot;
+      this.newState = this.previousState.concat([timeSlot]);
+    }
+
+    execute() {
+      redoLog.length = 0;
+      setTimeslots(this.newState);
+    }
+
+    async undo() {
+      await api(
+        formatRoute('/api/entity/timeSlot', null, {
+          timeSlotId: this.timeSlot.id,
+        }),
+        {
+          method: 'DELETE',
+        }
+      );
+      setTimeslots(this.previousState);
+    }
+
+    async redo() {
+      await api('/api/entity/timeSlots', {
+        method: 'POST',
+        body: JSON.stringify({
+          date: this.date,
+          eventId,
+        }),
+      });
+      setTimeslots(this.newState);
+    }
+  }
 
   const getData = async () => {
     setIsLoading(true);
@@ -352,13 +457,37 @@ export default function ScheduleInteractiveTool() {
     setAddTimeslotDialog(true);
   };
 
-  const addTimeslotToGrid = (timeslot) => {
-    setTimeslots(timeslots.concat([timeslot]));
+  const addTimeslotToGrid = (timeSlot, realDate) => {
+    const command = new addTimeSlotCommand(timeslots, timeSlot, realDate);
+    executeCommand(command);
   };
 
   const addFieldToGrid = (field) => {
-    setFields(fields.concat([field]));
+    const command = new addFieldCommand(fields, field);
+    executeCommand(command);
   };
+
+  const canUndo = useMemo(() => undoLog.length > 0, [undoLog.length]);
+  const canRedo = useMemo(() => redoLog.length > 0, [redoLog.length]);
+
+  function executeCommand(command) {
+    command.execute();
+    undoLog.push(command);
+  }
+
+  function undoCommand() {
+    const command = undoLog[undoLog.length - 1];
+    command.undo();
+    undoLog.pop();
+    redoLog.push(command);
+  }
+
+  function redoCommand() {
+    const command = redoLog[redoLog.length - 1];
+    command.redo();
+    redoLog.pop();
+    undoLog.push(command);
+  }
 
   const AddGames = buttonsAdd.map((b) => (
     <div className={styles.divAddGame} key={b.i} onClick={() => handleAddGameAt(b.x, b.y)}>
@@ -415,7 +544,7 @@ export default function ScheduleInteractiveTool() {
             onClick={handleAddField}
             color="primary"
             variant="contained"
-            className={styles.button}
+            className={classes.button}
             type="submit"
             endIcon="Add"
             disabled={isAddingGames}
@@ -426,7 +555,7 @@ export default function ScheduleInteractiveTool() {
             onClick={handleAddTimeslot}
             color="primary"
             variant="contained"
-            className={styles.button}
+            className={classes.button}
             type="submit"
             endIcon="Add"
             disabled={isAddingGames}
@@ -520,6 +649,18 @@ export default function ScheduleInteractiveTool() {
           <Icon icon="SaveIcon" />
         </Fab>
       </Tooltip>
+
+      <Tooltip title={canUndo ? t('undo') : ''}>
+        <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
+          <Icon icon="Undo" />
+        </Fab>
+      </Tooltip>
+      <Tooltip title={canRedo ? t('redo') : ''}>
+        <Fab onClick={redoCommand} className={classes.fabRedo} disabled={!canRedo}>
+          <Icon icon="Redo" />
+        </Fab>
+      </Tooltip>
+
       <AlertDialog
         open={alertDialog}
         onSubmit={handleDialogSubmit}
