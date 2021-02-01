@@ -18,6 +18,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
 import { useRouter } from 'next/router';
+import Upload from 'rc-upload';
 
 export default function EditItem(props) {
   const router = useRouter();
@@ -39,8 +40,20 @@ export default function EditItem(props) {
     setSizes(value);
   };
 
-  const onImgChange = async ([file]) => {
-    setImg(file);
+  const uploadImageProps = {
+    multiple: false,
+    accept: '.jpg, .png, .jpeg, .gif, .webp',
+    onStart(file) {
+      if (file.type.split('/')[0] === 'image') {
+        setImg(file);
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid_file_image'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+      }
+    },
   };
 
   const onUpload = async () => {
@@ -116,8 +129,18 @@ export default function EditItem(props) {
         </>
       ) : (
         <div className={styles.media}>
-          <CustomInput type="file" error={error} onChange={onImgChange} />
-          <CustomButton onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
+          <Upload {...uploadImageProps}>
+            <Button
+              variant="outlined"
+              endIcon="CloudUploadIcon"
+              style={{ marginTop: '8px', marginBottom: '16px' }}
+              component="label"
+            >
+              {t('change_picture')}
+            </Button>
+          </Upload>
+          <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
+
             {t('upload')}
           </CustomButton>
         </div>
