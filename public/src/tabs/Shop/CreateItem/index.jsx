@@ -17,6 +17,8 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import api from '../../../actions/api';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
+
+import Upload from 'rc-upload';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function CreateItem(props) {
@@ -40,8 +42,20 @@ export default function CreateItem(props) {
     setSizes(value);
   };
 
-  const onImgChange = async ([file]) => {
-    setImg(file);
+  const uploadImageProps = {
+    multiple: false,
+    accept: '.jpg, .png, .jpeg, .gif, .webp',
+    onStart(file) {
+      if (file.type.split('/')[0] === 'image') {
+        setImg(file);
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid_file_image'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+      }
+    },
   };
 
   const onUpload = async () => {
@@ -141,7 +155,16 @@ export default function CreateItem(props) {
         </>
       ) : (
         <div className={styles.media}>
-          <Input type="file" error={error} onChange={onImgChange} />
+          <Upload {...uploadImageProps}>
+            <Button
+              variant="outlined"
+              endIcon="CloudUploadIcon"
+              style={{ marginTop: '8px', marginBottom: '16px' }}
+              component="label"
+            >
+              {t('change_picture')}
+            </Button>
+          </Upload>
           <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
             {t('upload')}
           </Button>
