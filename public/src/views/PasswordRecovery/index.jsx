@@ -8,38 +8,37 @@ import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { Paper } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import TextField from '../../components/Custom/TextField';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
+import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
 import { LOGO_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
+import * as yup from 'yup';
 
 export default function PasswordRecovery() {
   const { dispatch } = useContext(Store);
   const { t } = useTranslation();
   const router = useRouter();
   const { token, email } = router.query;
-  const validate = (values) => {
-    const errors = {};
-    if (!values.password) {
-      errors.password = t('value_is_required');
-    } else if (values.password.length < 8 || values.password.length > 24) {
-      errors.password = t('password_length');
-    }
-    return errors;
-  };
+
+  const validationSchema = yup.object().shape({
+    password: yup
+      .string()
+      .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('password_length'))
+      .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('password_length'))
+      .required(t('value_is_required')),
+  });
 
   const formik = useFormik({
     initialValues: {
-      email: '',
       password: '',
     },
-    validate,
     validateOnChange: false,
-    validateOnBlur: false,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { password } = values;
       const res = await api('/api/auth/recoverPassword', {

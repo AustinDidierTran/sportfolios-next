@@ -1,26 +1,71 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './SignupCard.module.css';
+import styles from './Signup.module.css';
 
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import Container from '../../../components/Custom/Container';
-import { LOGIN_STATE_ENUM, LOGO_ENUM } from '../../../../common/enums';
+import Container from '../../components/Custom/Container';
+import Paper from '../../components/Custom/Paper';
+import TextField from '../../components/Custom/TextField';
+import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
+import { LOGO_ENUM } from '../../../common/enums';
 import Link from 'next/link';
-import { ROUTES } from '../../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import api from '../../actions/api';
+import { useRouter } from 'next/router';
 
-import loadable from '@loadable/component';
-
-const Paper = loadable(() => import('../../../components/Custom/Paper'));
-const TextField = loadable(() => import('../../../components/Custom/TextField'));
-
-export default function SignupCard(props) {
+export default function Signup() {
   const { t } = useTranslation();
-  const { formik } = props;
+  const router = useRouter();
+  const { redirectUrl } = router.query;
+
+  const validationSchema = yup.object().shape({
+    firstName: yup.string().required(t('value_is_required')),
+    lastName: yup.string().required(t('value_is_required')),
+    email: yup.string().email(t('invalid_email')).required(t('value_is_required')),
+    password: yup
+      .string()
+      .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('password_length'))
+      .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('password_length'))
+      .required(t('value_is_required')),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    },
+    validateOnChange: false,
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      const { firstName, lastName, email, password } = values;
+      const res = await api('/api/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          redirectUrl,
+        }),
+      });
+      if (res.status === 403) {
+        formik.setFieldError('email', t('email_already_used'));
+      } else if (res.status >= 400) {
+        formik.setFieldError('firstName', t('something_went_wrong'));
+      } else {
+        goTo(ROUTES.confirmationEmailSent, { email });
+      }
+    },
+  });
 
   return (
     <Container className={styles.container}>
@@ -48,9 +93,6 @@ export default function SignupCard(props) {
               variant="contained"
               className={styles.button}
               type="submit"
-              onClick={() => {
-                formik.handleSubmit();
-              }}
               style={{ color: '#fff' }}
             >
               {t('signup')}
@@ -58,7 +100,7 @@ export default function SignupCard(props) {
           </CardActions>
           <Divider />
           <CardActions className={styles.linksContainer}>
-            <div className={styles.typo} onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.LOGIN })}>
+            <div className={styles.typo} onClick={() => goTo(ROUTES.login)}>
               <Typography
                 style={{
                   textDecoration: 'none',
