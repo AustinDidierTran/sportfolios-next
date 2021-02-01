@@ -1,7 +1,11 @@
 .card {
   display: flex;
   flex-direction: column;
-  margin: 0 16px;
+}
+.greycard {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(240, 240, 240);
 }
 
 .player {
@@ -22,12 +26,6 @@
 
 .position > div {
   display: flex;
-}
-
-.about {
-  grid-area: position;
-  justify-self: center;
-  align-self: center;
 }
 
 .name {

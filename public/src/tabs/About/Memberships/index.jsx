@@ -5,10 +5,12 @@ import { formatDate, getMembershipName } from '../../../utils/stringFormats';
 import { FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { Divider, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function Memberships() {
   const { t } = useTranslation();

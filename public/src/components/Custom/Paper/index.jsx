@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 
@@ -8,11 +8,11 @@ export default function CustomPaper(props) {
   const { title, children, childrenProps, ...paperProps } = props;
   const {
     state: { screenSize },
-  } = useContext(Store);
+  } = React.useContext(Store);
 
-  const [elevation, setElevation] = useState(0);
+  const [elevation, setElevation] = React.useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (screenSize === SCREENSIZE_ENUM.xs) {
       setElevation(0);
     } else {

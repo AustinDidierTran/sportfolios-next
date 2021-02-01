@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button, Paper, TextField } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
-
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import { formatRoute, goToAlias, ROUTES } from '../../../actions/goTo';
+import { goToAlias, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import styles from './ChangeAlias.module.css';
 import { useFormik } from 'formik';
@@ -14,6 +13,7 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
 import validator from 'validator';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function ChangeAlias() {
   const { t } = useTranslation();

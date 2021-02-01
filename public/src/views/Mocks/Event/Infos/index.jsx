@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Container, Typography, List } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import Container from '@material-ui/core/Container';
 import { Paper } from '../../../../components/Custom';
 
 import styles from './Infos.module.css';

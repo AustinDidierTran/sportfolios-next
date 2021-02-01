@@ -3,19 +3,20 @@ import { Paper, StepperWithHooks, IgContainer, LoadingSpinner } from '../../comp
 import Roster from './Roster';
 import { useStepper } from '../../hooks/forms';
 import api from '../../actions/api';
-import { formatRoute, ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
+import { ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import styles from './EventRegistration.module.css';
-import { Container, Typography } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
-
 import PersonSelect from './PersonSelect';
 import PaymentOptionSelect from './PaymentOptionSelect/index';
 import TeamSelect from './TeamSelect/index';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 const getEvent = async (eventId) => {
   const { data } = await api(
@@ -35,6 +36,12 @@ export default function EventRegistration() {
     state: { isAuthenticated },
     dispatch,
   } = useContext(Store);
+
+  useEffect(() => {
+    if (!eventId) {
+      goTo(ROUTES.home);
+    }
+  }, [eventId]);
 
   const formik = useFormik({
     initialValues: {
@@ -72,14 +79,6 @@ export default function EventRegistration() {
             paymentOption,
             roster,
             status: INVOICE_STATUS_ENUM.OPEN,
-          }),
-        });
-        await api('/api/entity/addTeamToSchedule', {
-          method: 'POST',
-          body: JSON.stringify({
-            eventId: event.id,
-            name: team.name,
-            rosterId: data.rosterId,
           }),
         });
 
@@ -209,7 +208,7 @@ export default function EventRegistration() {
     <IgContainer>
       <Paper className={styles.paper}>
         <div className={styles.typo}>
-          <Typography variant="h3">{formik.values.event.name || ''}</Typography>
+          <Typography variant="h3">{formik?.values?.event?.name || ''}</Typography>
         </div>
         <Container>
           <StepperWithHooks

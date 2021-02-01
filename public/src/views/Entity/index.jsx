@@ -1,12 +1,12 @@
 import React from 'react';
 import loadable from '@loadable/component';
 
-import { formatRoute } from '../../actions/goTo';
-import { GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM } from '../../../common/enums';
 import { useApiRoute } from '../../hooks/queries';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 const Event = loadable(() => import('./Event'));
 const Organization = loadable(() => import('./Organization'));

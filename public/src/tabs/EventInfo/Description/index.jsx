@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Paper } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import { useTranslation } from 'react-i18next';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';

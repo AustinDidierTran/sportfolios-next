@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductAddedToCart from '../../public/src/views/ProductAddedToCart';
 
-const ProductAddedToCartRoute = (props) => {
+const ProductAddedToCartRoute = () => {
   return <ProductAddedToCart />;
 };
 

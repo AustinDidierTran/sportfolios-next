@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { IconButton } from '../../Custom';
 import { unregister } from '../../../actions/api/helpers';
 import { useTranslation } from 'react-i18next';
+import CustomIconButton from '../IconButton';
 
 export default function UnregisterButton(props) {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export default function UnregisterButton(props) {
   };
 
   return (
-    <IconButton
+    <CustomIconButton
       color="primary"
       variant="contained"
       icon="MoneyOff"

@@ -2,11 +2,13 @@ import React from 'react';
 
 import styles from './TwoTeamGameEditable.module.css';
 
-import { ListItemText, Typography, Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import ListItemText from '@material-ui/core/ListItemText';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 
-import { IconButton } from '../..';
+import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
 
 export default function TwoTeamGameEditable(props) {
@@ -42,14 +44,14 @@ export default function TwoTeamGameEditable(props) {
       </div>
       {onEdit ? (
         <div className={styles.buttonsContainer}>
-          <IconButton
+          <CustomIconButton
             className={styles.icon}
             onClick={onEdit}
             tooltip={t('edit_game')}
             icon="Edit"
             style={{ color: 'primary' }}
           />
-          <IconButton
+          <CustomIconButton
             className={styles.icon}
             onClick={onDelete}
             tooltip={t('delete')}
@@ -59,7 +61,7 @@ export default function TwoTeamGameEditable(props) {
         </div>
       ) : (
         <div className={styles.buttonContainer}>
-          <IconButton
+          <CustomIconButton
             className={styles.icon}
             onClick={onDelete}
             tooltip={t('delete')}

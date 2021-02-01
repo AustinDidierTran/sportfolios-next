@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Paper } from '../../../components/Custom';
-import { CircularProgress } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import styles from './LoadingSpinner.module.css';
+import CustomPaper from '../Paper';
 
 export default function LoadingSpinner(props) {
   const { isComponent } = props;
@@ -16,8 +17,8 @@ export default function LoadingSpinner(props) {
   }
 
   return (
-    <Paper>
+    <CustomPaper>
       <CircularProgress className={styles.page} />
-    </Paper>
+    </CustomPaper>
   );
 }

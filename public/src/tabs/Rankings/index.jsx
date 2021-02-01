@@ -2,12 +2,12 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../actions/api';
-import { formatRoute } from '../../actions/goTo';
 import { LoadingSpinner } from '../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import PhaseRankings from './PhaseRanking';
 import Ranking from './Ranking';
 import { updateRanking } from './RankingFunctions';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function Rankings() {
   const router = useRouter();

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-import { Container, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import { Paper } from '../../../components/Custom';
-
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
 import styles from './Event.module.css';
 import Schedule from './Schedule';
 import Infos from './Infos';

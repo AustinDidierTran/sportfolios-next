@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react';
-import { Chip, ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import Chip from '@material-ui/core/Chip';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { useTranslation } from 'react-i18next';
 import { INVOICE_STATUS_ENUM } from '../../../../../common/enums';
 import { goTo, ROUTES } from '../../../../actions/goTo';

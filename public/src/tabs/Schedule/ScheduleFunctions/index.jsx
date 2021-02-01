@@ -1,8 +1,8 @@
-import { formatRoute } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import { SELECT_ENUM } from '../../../../common/enums';
 import moment from 'moment';
 import { formatDate } from '../../../utils/stringFormats';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export const getPhases = async (eventId, withoutAll) => {
   const { data } = await api(formatRoute('/api/entity/phases', null, { eventId }));

@@ -7,11 +7,11 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_LENGTH_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatRoute } from '../../../../actions/goTo';
 import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function BecomeMember(props) {
   const { open: openProps, onClose, update } = props;

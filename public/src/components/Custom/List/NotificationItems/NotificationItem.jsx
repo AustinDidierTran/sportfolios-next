@@ -1,9 +1,15 @@
 import React from 'react';
-import { ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core';
-import { Avatar, Icon } from '../..';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Typography from '@material-ui/core/Typography';
+
 import styles from './NotificationItem.module.css';
 import api from '../../../../actions/api';
 import { timestampToRelativeTime } from '../../../../utils/stringFormats';
+import CustomAvatar from '../../Avatar';
+import CustomIcon from '../../Icon';
 
 export default function NotificationItem(props) {
   const { clicked, description, photoUrl, onClick, initials, id, created_at, buttons } = props;
@@ -23,7 +29,7 @@ export default function NotificationItem(props) {
   return (
     <ListItem classes={{ container: clicked ? styles.old : styles.new }} ContainerProps={{ onClick: handleClick }}>
       <ListItemAvatar>
-        <Avatar photoUrl={photoUrl} initials={initials} />
+        <CustomAvatar photoUrl={photoUrl} initials={initials} />
       </ListItemAvatar>
       <ListItemText
         className={styles.text}
@@ -40,7 +46,7 @@ export default function NotificationItem(props) {
         <></>
       ) : (
         <div className={styles.dot}>
-          <Icon icon="Dot" color="#18b393" />
+          <CustomIcon icon="Dot" color="#18b393" />
         </div>
       )}
 

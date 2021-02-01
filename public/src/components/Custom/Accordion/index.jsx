@@ -4,9 +4,8 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import { Icon } from '../';
 import { makeStyles } from '@material-ui/core/styles';
+import CustomIcon from '../Icon';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -28,7 +27,7 @@ export default function CustomAccordion(props) {
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
-      <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
+      <AccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
         <ListItemText primary={title} />
       </AccordionSummary>
       <AccordionDetails>{content}</AccordionDetails>

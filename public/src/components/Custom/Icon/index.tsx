@@ -64,6 +64,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import Publish from '@material-ui/icons/Publish';
 import RateReview from '@material-ui/icons/RateReview';
 import Receipt from '@material-ui/icons/Receipt';
+import Redo from '@material-ui/icons/Redo';
 import Remove from '@material-ui/icons/Remove';
 import RemoveShoppingCart from '@material-ui/icons/RemoveShoppingCart';
 import Reorder from '@material-ui/icons/Reorder';
@@ -85,7 +86,7 @@ import Undo from '@material-ui/icons/Undo';
 import Chat from '@material-ui/icons/Chat';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 
-const icons = {
+const icons: any = {
   AccountBalance,
   AccountCircle,
   Add,
@@ -152,6 +153,7 @@ const icons = {
   Publish,
   RateReview,
   Receipt,
+  Redo,
   Remove,
   RemoveShoppingCart,
   Reorder,
@@ -173,7 +175,7 @@ const icons = {
 };
 
 interface IProps {
-  icon: string;
+  icon: keyof typeof icons;
   color?: string;
   onClick?: Function;
   fontSize?: number;
@@ -184,7 +186,7 @@ const CustomIcon: React.FunctionComponent<IProps> = (props) => {
 
   const Icon = icons[icon];
 
-  return <Icon style={{ fill: color }} fontSize={fontSize} onClick={onClick} />;
+  return <Icon style={{ fill: color }} fontSize={'default'} component={'svg'} />;
 };
 
 export default CustomIcon;

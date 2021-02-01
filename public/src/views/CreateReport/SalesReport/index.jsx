@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CARD_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
+import { CARD_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { goTo } from '../../../actions/goTo';
 import { Card, FormDialog } from '../../../components/Custom';
 

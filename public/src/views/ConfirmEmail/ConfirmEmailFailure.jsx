@@ -2,8 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Paper } from '../../components/Custom';
-
-import { CardActions, CardContent, Container, Typography } from '@material-ui/core';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 import styles from './ConfirmEmail.module.css';
 import { goTo, ROUTES } from '../../actions/goTo';

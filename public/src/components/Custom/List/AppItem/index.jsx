@@ -1,7 +1,10 @@
 import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
-import { Button } from '../../../Custom';
+import CustomButton from '../../Button';
 import { useTranslation } from 'react-i18next';
 import { APP_ENUM } from '../../../../../common/enums';
 import styles from './AppItem.module.css';
@@ -23,14 +26,14 @@ export default function AppItem(props) {
   const actions = secondaryActions ? (
     secondaryActions
   ) : (
-    <Button
+    <CustomButton
       className={styles.button}
       onClick={isConnected ? onDisconnect : onConnect}
       variant="outlined"
       color={isConnected ? 'secondary' : 'primary'}
     >
       {isConnected ? t('disconnect') : t('connect')}
-    </Button>
+    </CustomButton>
   );
 
   return (

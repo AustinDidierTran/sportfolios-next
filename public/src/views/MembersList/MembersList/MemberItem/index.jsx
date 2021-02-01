@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
-import { FormDialog, Icon } from '../../../Custom';
-
+import loadable from '@loadable/component';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import styles from './MemberItem.module.css';
-import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
-import { IconButton } from '../..';
 import moment from 'moment';
-import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../common/enums';
-import { AlertDialog } from '../../Dialog';
-import api from '../../../../actions/api';
-import { formatRoute, goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
+import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
+import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../common/enums';
+import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
+import api from '../../../../actions/api';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
+
+const CustomIcon = loadable(() => import('../../../../components/Custom/Icon'));
+const CustomFormDialog = loadable(() => import('../../../../components/Custom/FormDialog'));
+const CustomIconButton = loadable(() => import('../../../../components/Custom/IconButton'));
 
 export default function MemberItem(props) {
   const { t } = useTranslation();
@@ -85,7 +90,7 @@ export default function MemberItem(props) {
             }}
           ></ListItemText>
         )}
-        <FormDialog
+        <CustomFormDialog
           type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP}
           items={{
             open,
@@ -97,11 +102,11 @@ export default function MemberItem(props) {
           }}
         />
         {status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE ? (
-          <Icon icon="AttachMoney" color="green" />
+          <CustomIcon icon="AttachMoney" color="green" />
         ) : (
-          <Icon icon="MoneyOff" color="red" />
+          <CustomIcon icon="MoneyOff" color="red" />
         )}
-        <IconButton
+        <CustomIconButton
           className={styles.iconButton}
           variant="contained"
           icon="Edit"
@@ -109,7 +114,7 @@ export default function MemberItem(props) {
           onClick={onOpen}
           style={{ color: 'primary' }}
         />
-        <IconButton
+        <CustomIconButton
           className={styles.iconButton}
           variant="contained"
           icon="Delete"

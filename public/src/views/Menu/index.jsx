@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../Store';
 
 import { Paper } from '../../components/Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { GLOBAL_ENUM } from '../../../common/enums';
 import { formatRoute } from '../../../common/utils/stringFormat';
 

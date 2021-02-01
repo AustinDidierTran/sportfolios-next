@@ -3,7 +3,8 @@ import Delete from '@material-ui/icons/Delete';
 import Error from '@material-ui/icons/Error';
 
 import styles from './UnconfirmedEmailField.module.css';
-import { IconButton, Tooltip } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import { TextField } from '../../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 

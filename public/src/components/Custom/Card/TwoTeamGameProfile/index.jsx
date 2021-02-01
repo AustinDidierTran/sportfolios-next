@@ -1,6 +1,10 @@
 import React from 'react';
-import { Typography, Card, ListItemText, makeStyles } from '@material-ui/core';
-import { Avatar } from '../../../Custom';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import { makeStyles } from '@material-ui/core/styles';
+
+import CustomAvatar from '../../Avatar';
 import { formatDate, getInitialsFromName } from '../../../../utils/stringFormats';
 import moment from 'moment';
 
@@ -47,7 +51,7 @@ export default function TwoTeamGameProfile(props) {
         <AvatarGroup className={styles.players1} classes={{ avatar: classes.avatar }} max={4}>
           {team1.players
             ? team1.players.map((p, index) => (
-                <Avatar
+                <CustomAvatar
                   key={`team1-${index}`}
                   className={styles.bubbleStack}
                   photoUrl={p.photo}
@@ -62,7 +66,7 @@ export default function TwoTeamGameProfile(props) {
         <AvatarGroup className={styles.players2} classes={{ avatar: classes.avatar }} max={4}>
           {team2.players
             ? team2.players.map((p, index) => (
-                <Avatar
+                <CustomAvatar
                   key={`team2-${index}`}
                   className={styles.bubbleStack}
                   photoUrl={p.photo}

@@ -8,7 +8,7 @@ import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
-import { IconButton } from '../..';
+import CustomIconButton from '../../IconButton';
 import { useRouter } from 'next/router';
 
 export default function AddMember(props) {
@@ -105,7 +105,7 @@ export default function AddMember(props) {
         secondary: t('player'),
         notClickable: true,
         secondaryActions: [
-          <IconButton icon="Remove" style={{ color: 'secondary' }} onClick={() => removePerson(person)} />,
+          <CustomIconButton icon="Remove" style={{ color: 'secondary' }} onClick={() => removePerson(person)} />,
         ],
       })),
     [people]

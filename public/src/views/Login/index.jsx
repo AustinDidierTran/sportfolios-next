@@ -1,21 +1,20 @@
-import React, { useContext, useEffect } from 'react';
-
+import React from 'react';
 import styles from './Login.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
-
-import { Container } from '../../components/Custom';
-import { Typography, Button } from '@material-ui/core';
-
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Container from '../../components/Custom/Container';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-
-import SignupCard from './SignupCard';
-import LoginCard from './LoginCard';
-import ForgotPasswordCard from './ForgotPasswordCard';
-import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
+import { LOGO_ENUM, SEVERITY_ENUM, LOGIN_STATE_ENUM } from '../../../common/enums';
+import loadable from '@loadable/component';
+
+const LoginCard = loadable(() => import('./LoginCard'));
+const SignupCard = loadable(() => import('./SignupCard'));
+const ForgotPasswordCard = loadable(() => import('./ForgotPasswordCard'));
 
 export default function Login() {
   const router = useRouter();
@@ -26,8 +25,8 @@ export default function Login() {
   const {
     state: { isAuthenticated },
     dispatch,
-  } = useContext(Store);
-  useEffect(() => {
+  } = React.useContext(Store);
+  React.useEffect(() => {
     if (isAuthenticated) {
       const route = redirectUrl || ROUTES.home;
       router.push(route);
@@ -135,7 +134,7 @@ export default function Login() {
         } else if (res.status === 404) {
           formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP });
           dispatch({
-            type: ACTION_ENUM.SNACK_BAR,
+            type: Store.ACTION_ENUM.SNACK_BAR,
             message: t('you_have_no_account_with_this_email_create_one'),
             severity: SEVERITY_ENUM.INFO,
           });
@@ -188,7 +187,7 @@ export default function Login() {
         }
         if (res.status === 200) {
           dispatch({
-            type: ACTION_ENUM.SNACK_BAR,
+            type: Store.ACTION_ENUM.SNACK_BAR,
             message: t('confirmation_email_sent'),
           });
         }
@@ -201,7 +200,7 @@ export default function Login() {
       <div className={styles.main}>
         <Container className={styles.container}>
           <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
           </div>
           <SignupCard redirectUrl={redirectUrl} formik={formik} />
         </Container>
@@ -214,7 +213,7 @@ export default function Login() {
       <div className={styles.main}>
         <Container className={styles.container}>
           <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
           </div>
           <ForgotPasswordCard formik={formik} />
         </Container>
@@ -223,16 +222,15 @@ export default function Login() {
   }
 
   return (
-    <div className={styles.main}>
+    <div>
       <Container className={styles.container}>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
         </div>
         <LoginCard formik={formik} />
         <div className={styles.or}>
           <Typography style={{ fontSize: 12 }}>{t('or')}</Typography>
         </div>
-
         <Button
           variant="outlined"
           color="primary"

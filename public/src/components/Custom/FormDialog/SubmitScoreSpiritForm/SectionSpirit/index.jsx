@@ -1,12 +1,22 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Typography from '@material-ui/core/Typography';
+
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Button, Collapse, IconButton, TextField } from '../../..';
 import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
 import styles from '../SubmitScoreSpiritForm.module.css';
+import CustomTextField from '../../../TextField';
+import CustomIconButton from '../../../IconButton';
+import CustomCollapse from '../../../Collapse';
+import CustomButton from '../../../Button';
 
 export default function SectionSpirit(props) {
   const { submittedSpirit, gameId, IsSubmittedCheck, submissionerInfos } = props;
@@ -104,7 +114,7 @@ export default function SectionSpirit(props) {
         <Typography>{t('spirit')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
-          <IconButton
+          <CustomIconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
             icon={expandedIcon}
@@ -113,14 +123,14 @@ export default function SectionSpirit(props) {
         </div>
       </div>
       <Divider />
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         {isSubmitted ? (
           <div>
             <Typography className={styles.totalSpirit}>{`Total: ${
               submittedSpirit?.spirit_score || spiritTotal
             }`}</Typography>
             {formik.values.comment ? (
-              <TextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
+              <CustomTextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
             ) : (
               <></>
             )}
@@ -132,24 +142,24 @@ export default function SectionSpirit(props) {
             </Typography>
             {RadioButtons}
             <Typography className={styles.totalSpirit}>{`Total: ${spiritTotal}`}</Typography>
-            <TextField type="text" namespace="comment" placeholder={t('comments')} formik={formik} fullWidth />
+            <CustomTextField type="text" namespace="comment" placeholder={t('comments')} formik={formik} fullWidth />
           </div>
         )}
         {!isSubmitted ? (
           <div className={styles.divSubmitButton}>
-            <Button
-              className={styles.submitButton}
+            <CustomButton
+              className={styles.submitCustomButton}
               onClick={() => formik.handleSubmit()}
               color={'primary'}
               variant="text"
             >
               {t('submit')}
-            </Button>
+            </CustomButton>
           </div>
         ) : (
           <></>
         )}
-      </Collapse>
+      </CustomCollapse>
     </div>
   );
 }

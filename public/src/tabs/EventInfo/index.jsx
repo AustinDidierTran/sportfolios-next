@@ -1,15 +1,17 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
 import { Paper, Button, ContainerBottomFixed, ImageCard, LoadingSpinner } from '../../components/Custom';
-import { CardContent, Typography } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import Description from './Description';
-import { formatRoute, goTo, ROUTES } from '../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
 import { formatIntervalDate, formatDate } from '../../utils/stringFormats';
 import api from '../../actions/api';
 import moment from 'moment';
 import styles from './EventInfo.module.css';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 const getEvent = async (eventId) => {
   const { data } = await api(

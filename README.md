@@ -59,3 +59,76 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+---
+
+# React | Next.js : Best practices for a perfomant app
+
+## Loadable component :
+
+#### Use case
+
+- Overloaded DOM
+- Complex/Large components that aren't immediatly necessary on the page
+- Component that don't render immediatly in the viewport
+
+#### How to use
+
+1. `import loadable from '@loadable/component'`
+2. With the component that will become loadable:
+   `const MyComponent = loadable(() => import('../MyComponent'));`
+3. In the return/render function:
+   `<MyComponent />`
+
+---
+
+## Material-ui
+
+- Use named imports when posssible
+- `material-ui/icons` is known for increasing bundle size massively, avoid it if possible.
+
+---
+
+## Image compression
+
+- Set the width and height attributes of images inline :
+  `<img width="200px" height="200px" />`
+
+---
+
+## Large library/Default and Named imports
+
+- **AVOID** :
+
+  - ![](https://i.imgur.com/gtONOHM.png)
+
+- **DO INSTEAD** :
+  - ![](https://i.imgur.com/xEEU7V4.png)
+
+## LightHouse Performance and PWA audits
+
+### General tips
+
+Lighthouse audits may vary when performed. It is recommended to average at least 5 runs to establish standards.
+
+**Important :** one should note that any chrome extensions and/or devTools extensions may hinder Lighthouse audits and result in poor performance score. It is better to test in a browser with **no** extensions or in incognito mode.
+
+### Hardware recommended
+
+- 4-8 GB of RAM
+- At least 2 dedicated core
+- If possible, run on a dedicated machine
+
+### External factors
+
+- Comment and/or remove non-determinist code
+- Run Lighthouse with devTools in horizontal mode, if devTools take to much space, it may influence audits
+- Use localhost
+- Anti-virus software can influence audits
+
+### Official doc
+
+- **Variability** : https://github.com/GoogleChrome/lighthouse/blob/master/docs/variability.md
+- **Performance audits** : https://github.com/GoogleChrome/lighthouse/blob/master/docs/scoring.md#performance
+
+---

@@ -1,7 +1,11 @@
 import React, { useMemo } from 'react';
 
-import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
-import { Avatar } from '../../../Custom';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import CustomAvatar from '../../Avatar';
 import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../actions/goTo';
@@ -65,7 +69,7 @@ export default function PersonItem(props) {
         disabled={disabled}
       >
         <ListItemIcon>
-          <Avatar className={className} photoUrl={photoUrl} icon={icon} initials={initials}></Avatar>
+          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} initials={initials}></CustomAvatar>
         </ListItemIcon>
         <ListItemText
           className={styles.text}

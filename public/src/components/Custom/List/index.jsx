@@ -2,7 +2,9 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { List, ListSubheader } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+
 import ItemFactory from './ItemFactory';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,8 +17,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
 }));
-
-export { default as ItemFactory } from './ItemFactory';
 
 export default function CustomList(props) {
   const { title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;

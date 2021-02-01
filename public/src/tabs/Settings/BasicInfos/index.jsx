@@ -8,11 +8,9 @@ import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormInput } from '../../../hooks/forms';
 import { useEditor } from '../../../hooks/roles';
 import { changeEntityName } from '../../../actions/api';
-
-import { Avatar, Input, Button, Paper, LoadingSpinner, TextField } from '../../../components/Custom';
-
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import { Avatar, Input, Button, Paper, LoadingSpinner, TextField } from '../../../components/Custom';
 
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM } from '../../../../../public/common/enums';

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
-import { Collapse } from '../../..';
-import { Button, IconButton, TextField } from '../../..';
-import { Chip, Divider, Typography } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
 import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
@@ -10,6 +11,10 @@ import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
+import CustomCollapse from '../../../Collapse';
+import CustomTextField from '../../../TextField';
+import CustomIconButton from '../../../IconButton';
+import CustomButton from '../../../Button';
 
 export default function SectionScore(props) {
   const { suggestions, gameId, IsSubmittedCheck, submissionerInfos } = props;
@@ -144,7 +149,7 @@ export default function SectionScore(props) {
         <Typography>{t('score')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
-          <IconButton
+          <CustomIconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
             icon={expandedIcon}
@@ -155,7 +160,7 @@ export default function SectionScore(props) {
         </div>
       </div>
       <Divider />
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         <div>
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <Typography className={styles.suggestedBy}>{'*' + t('suggested_by_the_other_team')}</Typography>
@@ -166,14 +171,14 @@ export default function SectionScore(props) {
             <Typography className={styles.teamName}>{`${submissionerInfos.myTeam.name}: (${t(
               'your_team'
             )})`}</Typography>
-            <TextField
+            <CustomTextField
               type="number"
               namespace="scoreTeam1"
               formik={formik}
               formikDisabled={isSubmitted || showSuggestion}
             />
             <Typography className={styles.teamName}>{`${submissionerInfos.enemyTeam.name}:`}</Typography>
-            <TextField
+            <CustomTextField
               type="number"
               namespace="scoreTeam2"
               formik={formik}
@@ -184,7 +189,7 @@ export default function SectionScore(props) {
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <div className={styles.divSubmitScoreButton}>
               <div className={styles.acceptRefuseScore}>
-                <IconButton
+                <CustomIconButton
                   color="primary"
                   icon="CheckCircle"
                   fontSize="large"
@@ -192,7 +197,7 @@ export default function SectionScore(props) {
                   onClick={handleAcceptSuggestion}
                   tooltip={t('accept')}
                 />
-                <IconButton
+                <CustomIconButton
                   color="secondary"
                   icon="Cancel"
                   fontSize="large"
@@ -212,7 +217,7 @@ export default function SectionScore(props) {
                   variant="outlined"
                 />
               ) : (
-                <Button
+                <CustomButton
                   className={styles.submitButton}
                   onClick={() => formik.handleSubmit()}
                   color={'primary'}
@@ -220,12 +225,12 @@ export default function SectionScore(props) {
                   disabled={isSubmitted || showSuggestion}
                 >
                   {t('submit')}
-                </Button>
+                </CustomButton>
               )}
             </div>
           )}
         </div>
-      </Collapse>
+      </CustomCollapse>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import api from '../../actions/api';
-import { formatRoute } from '../../actions/goTo';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
 import { AccordionDnD } from '../../components/Custom';
@@ -8,6 +7,7 @@ import { ACTION_ENUM, Store } from '../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../common/utils/stringFormat';
 
 export default function EditRankings() {
   const { t } = useTranslation();

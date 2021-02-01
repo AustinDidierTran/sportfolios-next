@@ -5,9 +5,9 @@ import { CARD_TYPE_ENUM, COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from 
 import SubmitScoreDialog from '../../../../../components/Custom/FormDialog/SubmitScoreSpiritForm';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
-import { formatRoute } from '../../../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function Game(props) {
   const { game, isPastGame } = props;

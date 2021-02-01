@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { GLOBAL_ENUM, STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import { Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 import styles from './MyPersons.module.css';
-import { formatRoute } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import { LoadingSpinner, List, FormDialog, AlertDialog, IconButton, Button } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import EditPrimaryPerson from './EditPrimaryPerson';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM, errors } from '../../../../common/errors';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function MyPersons() {
   const { t } = useTranslation();

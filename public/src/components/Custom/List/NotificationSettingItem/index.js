@@ -1,11 +1,18 @@
-import { List, ListItem, ListItemText, ListItemIcon, Switch, Collapse } from '@material-ui/core';
 import React, { useContext } from 'react';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Switch from '@material-ui/core/Switch';
+import Collapse from '@material-ui/core/Collapse';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NOTIFICATION_MEDIA, SEVERITY_ENUM } from '../../../../../common/enums';
-import { Icon } from '../../../Custom';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 import { Store, ACTION_ENUM } from '../../../../Store';
+import CustomIcon from '../../Icon';
 
 export default function NotificationSettingsItem(props) {
   const { t } = useTranslation();
@@ -33,13 +40,13 @@ export default function NotificationSettingsItem(props) {
     <>
       <ListItem button onClick={handleClick}>
         <ListItemIcon>
-          <Icon icon={icon} />
+          <CustomIcon icon={icon} />
         </ListItemIcon>
         <ListItemText
           primary={name}
           secondary={[emailString, chatbotString].filter(Boolean).join(', ') || t('notifications_disabled')}
         />
-        <Icon icon={open ? 'ExpandLess' : 'ExpandMore'} />
+        <CustomIcon icon={open ? 'ExpandLess' : 'ExpandMore'} />
       </ListItem>
       <Collapse in={open} timeaout="auto" unmountOnExit>
         <Typography variant="body2" align="left" style={{ paddingLeft: '20px' }}>
@@ -48,7 +55,7 @@ export default function NotificationSettingsItem(props) {
         <List component="div" disablePadding>
           <ListItem dense style={{ paddingLeft: 30 }}>
             <ListItemIcon>
-              <Icon icon="Mail" />
+              <CustomIcon icon="Mail" />
             </ListItemIcon>
             <ListItemText primary={t('email')} />
             <Switch
@@ -65,7 +72,7 @@ export default function NotificationSettingsItem(props) {
           </ListItem>
           <ListItem dense style={{ paddingLeft: 30 }} onClick={onChatbotClick}>
             <ListItemIcon>
-              <Icon icon="Chat" />
+              <CustomIcon icon="Chat" />
             </ListItemIcon>
             <ListItemText primary={t('chatbot')} />
 

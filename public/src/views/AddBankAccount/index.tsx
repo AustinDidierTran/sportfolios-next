@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 // @ts-ignore
 import styles from './AddBankAccount.module.css';
@@ -44,7 +44,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { dispatch } = useContext(Store);
 
-  const isANumber = (number) => !isNaN(Number(number));
+  const isANumber = (number: number | undefined) => !isNaN(Number(number));
 
   const validate = (values: IValues) => {
     const errors: IErrors = {};

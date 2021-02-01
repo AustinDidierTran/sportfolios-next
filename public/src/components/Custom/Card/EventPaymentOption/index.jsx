@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Button, Paper, List } from '../../../Custom';
+import CustomButton from '../../Button';
+import CustomList from '../../List';
+import CustomPaper from '../../Paper';
 import { useTranslation } from 'react-i18next';
 import { LIST_ITEM_ENUM } from '../../../../../../common/enums';
 import styles from './EventPaymentOption.module.css';
@@ -21,10 +23,10 @@ export default function EventPaymentOption(props) {
   }));
 
   return (
-    <Paper>
+    <CustomPaper>
       <div>
-        <List items={items} />
-        <Button
+        <CustomList items={items} />
+        <CustomButton
           size="small"
           variant="contained"
           color="secondary"
@@ -35,8 +37,8 @@ export default function EventPaymentOption(props) {
           className={styles.button}
         >
           {t('delete')}
-        </Button>
+        </CustomButton>
       </div>
-    </Paper>
+    </CustomPaper>
   );
 }

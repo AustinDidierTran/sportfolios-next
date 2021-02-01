@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import { Button } from '../../../Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './MembershipDetailItem.module.css';
 import { addMembership, getExpirationDate } from '../../../../utils/memberships';
 import { updateMembership } from '../../../../utils/memberships';
 import { formatPrice } from '../../../../utils/stringFormats';
+import CustomButton from '../../Button';
 
 export default function MembershipDetailItem(props) {
   const { t } = useTranslation();
@@ -56,13 +57,13 @@ export default function MembershipDetailItem(props) {
         secondary={t('price')}
       ></ListItemText>
       {isMember ? (
-        <Button className={styles.button} onClick={() => clickRenewMember()}>
+        <CustomButton className={styles.button} onClick={() => clickRenewMember()}>
           {t('renew_membership')}
-        </Button>
+        </CustomButton>
       ) : (
-        <Button className={styles.button} onClick={() => clickBecomeMember()}>
+        <CustomButton className={styles.button} onClick={() => clickBecomeMember()}>
           {t('become_member')}
-        </Button>
+        </CustomButton>
       )}
     </ListItem>
   );

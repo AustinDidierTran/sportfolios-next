@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './BasicInfos.module.css';
 
 import { Avatar } from '../../../components/Custom';
-import { Container, Typography } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+
 import { getInitialsFromName } from '../../../utils/stringFormats';
 import { useFormInput } from '../../../hooks/forms';
 

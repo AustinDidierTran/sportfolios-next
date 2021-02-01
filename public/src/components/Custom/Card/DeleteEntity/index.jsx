@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 
-import { Paper, Button, TextField } from '../..';
+import CustomButton from '../../Button';
+import CustomPaper from '../../Paper';
+import CustomTextField from '../../TextField';
 import { useFormInput } from '../../../../hooks/forms';
 import { deleteEntity } from '../../../../actions/api';
 import { goTo, ROUTES } from '../../../../actions/goTo';
@@ -30,16 +32,21 @@ export default function DeleteEntity(props) {
   };
 
   return (
-    <Paper title={t('delete')} childrenProps={{ className: styles.paper }} {...otherProps}>
-      <TextField
+    <CustomPaper title={t('delete')} childrenProps={{ className: styles.paper }} {...otherProps}>
+      <CustomTextField
         className={styles.textfield}
         helperText={t('delete_confirmation_text', { name })}
         {...validator.inputProps}
       />
 
-      <Button className={styles.button} color="secondary" onClick={handleClick} disabled={isSubmitting || !isValid}>
+      <CustomButton
+        className={styles.button}
+        color="secondary"
+        onClick={handleClick}
+        disabled={isSubmitting || !isValid}
+      >
         {t('delete')}
-      </Button>
-    </Paper>
+      </CustomButton>
+    </CustomPaper>
   );
 }

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AlertDialog, Button, FormDialog, LoadingSpinner, Table } from '../../../components/Custom';
-import { CardContent } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
 import { Paper } from '../../../components/Custom';
 import styles from './TaxRatesTable.module.css';
 import api from '../../../actions/api';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../actions/goTo';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function TaxeRatesTable() {
   const { t } = useTranslation();

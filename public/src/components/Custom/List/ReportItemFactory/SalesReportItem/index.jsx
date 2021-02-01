@@ -1,17 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { ListItem, ListItemText } from '@material-ui/core';
-import { DownloadReportDialog, IconButton } from '../../..';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
-import { Divider } from '@material-ui/core';
 import api from '../../../../../actions/api';
-import { formatRoute } from '../../../../../actions/goTo';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
-import { AlertDialog } from '../../../Dialog';
+import AlertDialog from '../../../Dialog/AlertDialog';
 import { getProductDetail, getProductName } from '../../../../../utils/Cart';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import CustomIconButton from '../../../IconButton';
+import DownloadReportDialog from '../../../Dialog/DownloadReportDialog';
 
 export default function ReportItem(props) {
   const { t } = useTranslation();
@@ -119,14 +122,14 @@ export default function ReportItem(props) {
     <>
       <ListItem style={{ width: '100%' }}>
         <ListItemText primary={reportName}></ListItemText>
-        <IconButton
+        <CustomIconButton
           variant="contained"
           icon="GetApp"
           tooltip={t('download_report')}
           style={{ color: 'primary', margin: '8px' }}
           onClick={handleClick}
         />
-        <IconButton
+        <CustomIconButton
           variant="contained"
           icon="Delete"
           tooltip={t('delete')}

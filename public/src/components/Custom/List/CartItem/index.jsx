@@ -1,17 +1,22 @@
 import React, { useContext, useState } from 'react';
 
-import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Avatar, Select, CheckBox, IconButton } from '../../../Custom';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import CustomAvatar from '../../Avatar';
+import CustomCheckBox from '../../CheckBox';
+import CustomIconButton from '../../IconButton';
+import CustomSelect from '../../Select';
 import { useTranslation } from 'react-i18next';
 import styles from './CartItem.module.css';
 import { formatPrice } from '../../../../utils/stringFormats';
 import { GLOBAL_ENUM, IMAGE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
-import { AlertDialog } from '../../Dialog';
-import { formatRoute } from '../../../../actions/goTo';
-import { ACTION_ENUM } from '../../../../Store';
+import AlertDialog from '../../Dialog/AlertDialog';
+import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { Store } from '@material-ui/icons';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function CartItem(props) {
   const { t } = useTranslation();
@@ -88,11 +93,11 @@ export default function CartItem(props) {
           <ListItem style={{ width: '100%' }}>
             <div className={styles.div}>
               <ListItemIcon>
-                <Avatar
+                <CustomAvatar
                   photoUrl={photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                   variant="square"
                   className={styles.photo}
-                ></Avatar>
+                ></CustomAvatar>
               </ListItemIcon>
               <ListItemText className={styles.name} primary={description} secondary={team.name} />
               <ListItemText
@@ -108,14 +113,14 @@ export default function CartItem(props) {
                 }
                 secondary={label}
               />
-              <CheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
-              <IconButton
+              <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+              <CustomIconButton
                 variant="contained"
                 onClick={onClick}
                 icon="Delete"
                 tooltip={t('delete')}
                 style={{ color: 'primary' }}
-              ></IconButton>
+              ></CustomIconButton>
             </div>
           </ListItem>
           <Divider />
@@ -137,11 +142,11 @@ export default function CartItem(props) {
           <ListItem style={{ width: '100%' }}>
             <div className={styles.div}>
               <ListItemIcon>
-                <Avatar
+                <CustomAvatar
                   photoUrl={photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                   variant="square"
                   className={styles.photo}
-                ></Avatar>
+                ></CustomAvatar>
               </ListItemIcon>
               <ListItemText className={styles.name} primary={description} secondary={person.complete_name} />
               <ListItemText
@@ -157,14 +162,14 @@ export default function CartItem(props) {
                 }
                 secondary={label}
               />
-              <CheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
-              <IconButton
+              <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+              <CustomIconButton
                 variant="contained"
                 onClick={onClick}
                 icon="Delete"
                 tooltip={t('delete')}
                 style={{ color: 'primary' }}
-              ></IconButton>
+              ></CustomIconButton>
             </div>
           </ListItem>
           <Divider />
@@ -187,11 +192,11 @@ export default function CartItem(props) {
         <ListItem style={{ width: '100%' }}>
           <div className={styles.div}>
             <ListItemIcon>
-              <Avatar
+              <CustomAvatar
                 photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
                 variant="square"
                 className={styles.photo}
-              ></Avatar>
+              ></CustomAvatar>
             </ListItemIcon>
             <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
             <ListItemText
@@ -199,14 +204,14 @@ export default function CartItem(props) {
               primary={taxRates.length ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
               secondary={`${person?.name} ${person?.surname}`}
             ></ListItemText>
-            <CheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
-            <IconButton
+            <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+            <CustomIconButton
               variant="contained"
               onClick={onClick}
               icon="Delete"
               tooltip={t('delete')}
               style={{ color: 'primary' }}
-            ></IconButton>
+            ></CustomIconButton>
           </div>
         </ListItem>
         <Divider />
@@ -228,7 +233,7 @@ export default function CartItem(props) {
         <ListItem style={{ width: '100%' }}>
           <div className={styles.div}>
             <ListItemIcon>
-              <Avatar photoUrl={photoUrl} variant="square" className={styles.photo}></Avatar>
+              <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
             </ListItemIcon>
             <ListItemText className={styles.name} primary={label} secondary={t(size) || ''}></ListItemText>
             <ListItemText
@@ -236,8 +241,8 @@ export default function CartItem(props) {
               primary={taxRates.length ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
               secondary={`Qt: ${quantity}`}
             ></ListItemText>
-            <CheckBox disabled={disabled} checked={checked} onChange={handleChange} />
-            <Select
+            <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} />
+            <CustomSelect
               className={styles.select}
               onChange={(value) => {
                 updateQuantity(value, id);

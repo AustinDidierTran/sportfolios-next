@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Tab from '@material-ui/core/Tab';
-import { Icon } from '..';
+import CustomIcon from '../Icon';
 
 export default function CustomTab(props) {
   const { icon, label, onClick } = props;
@@ -19,8 +19,8 @@ export default function CustomTab(props) {
   }, []);
 
   if (displayText) {
-    return <Tab icon={<Icon icon={icon} />} label={label} onClick={onClick} />;
+    return <Tab icon={<CustomIcon icon={icon} />} label={label} onClick={onClick} />;
   }
 
-  return <Tab icon={<Icon icon={icon} />} aria-label={label} onClick={onClick} />;
+  return <Tab icon={<CustomIcon icon={icon} />} aria-label={label} onClick={onClick} />;
 }

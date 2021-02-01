@@ -1,9 +1,9 @@
 import React from 'react';
-import { LIST_ITEM_ENUM } from '../../../../../common/enums';
+import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { List } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './Ranking.module.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 export default function Ranking(props) {
   const { t } = useTranslation();

@@ -7,7 +7,8 @@ import styles from './BasicInfos.module.css';
 import { ACTION_ENUM, Store } from '../../../../Store';
 
 import { Avatar, Button, Input, LoadingSpinner, TextField } from '../../../../components/Custom';
-import { Container, Typography } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import { getInitialsFromName } from '../../../../utils/stringFormats';
 /* eslint-disable-next-line */
 import api, { changeEntityName } from '../../../../actions/api';

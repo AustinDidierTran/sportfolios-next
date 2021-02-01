@@ -38,6 +38,7 @@ export default {
     add_phase: 'Add phase',
     add_player_with_no_account: 'Add player with no account',
     add_player: 'Add player',
+    add_players: 'Add players',
     add_sub: 'Add sub',
     add_tax: 'Add tax',
     add_team: 'Add team',
@@ -168,7 +169,7 @@ export default {
     contact_us: 'Contact us',
     contact: 'Contact',
     copied: 'Copied',
-    copy_link: 'Copy invite link',
+    copy_invite_link: 'Copy invite link',
     copy_to_clipboard: 'Copy to clipboard',
     country: 'Country',
     coupon_already_used: 'Coupon already used',
@@ -254,7 +255,8 @@ export default {
     email_confirm_failure:
       'Email confirmation failed. To send a new email, try to login again. By doing so, we will send you a new confirmation email.',
     email_confirm_success: 'Email successfully confirmed!',
-    email_confirmed: 'An email has just been sent to {{email}}. Please, go look at your inbox to confirm your email.',
+    email_confirmed:
+      "An email has just been sent to {{email}}. Please, go look at your inbox to confirm your email. Don't forget to look in your spam folder!",
     email_not_confirmed:
       'Email has not been confirmed. A new confirmation email has been sent. Please look at your emails.',
     email_not_found: 'There is no account with this email.',
@@ -538,9 +540,8 @@ export default {
     qt: 'Qt: {{quantity}}',
     quantity: 'Quantity',
     quick_description: 'Short description',
-    quit_interactive_tool_confirmation:
-      'Are you sure you want to quit the interactive tool without saving the changes made?',
-    quit_interactive_tool: 'Quit interactive tool',
+    quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them?',
+    quit_interactive_tool: 'WARNING',
     ranking: 'Ranking',
     rankings: 'Rankings',
     receipt: 'Receipt',
@@ -553,6 +554,7 @@ export default {
     redirect_to_home: 'You will soon be redirected to the home page. Click below to be redirected instantly.',
     redirect_to_success_route:
       'You are now well authenticated. You will soon be redirected to your requested page. Click below to be redirected instantly.',
+    redo: 'Redo',
     refund: 'Refund',
     refunded: 'Refunded',
     refuse: 'Refuse',
@@ -597,6 +599,8 @@ export default {
       "Entering your roster helps the event manager better rank teams for the schedule. Enter it the best you can, even if it's not final.",
     roster: 'Roster',
     rosters: 'Rosters',
+    roster_selection_message:
+      "Add your teammates that already have an account. When registered you'll be able to invite the rest of your team with a link.",
     rules_knowledge_and_use: 'Rules Knowledge and Use',
     s: 'Small',
     S: 'Small',
@@ -730,6 +734,7 @@ export default {
     type_address: 'Type an address',
     type: 'Type',
     unconfirmed_email: 'Unconfirmed email',
+    undo: 'Undo',
     unlink_facebook_account: 'Disconnect my Facebook account',
     unregister_all: 'Unregister all',
     unregister_pending: 'Unregistrations and refunds in progress, please wait...',
@@ -747,6 +752,7 @@ export default {
     value_is_invalid: 'Value is invalid',
     value_is_required: 'Value is required',
     value_is_too_long: 'Value is too long.',
+    value_is_in_past: 'Value cannot be set in the past',
     value_must_be_numeric: 'Value must be a number.',
     value_must_have_x_digits: 'Value must have {{digits}} digits.',
     view_your_profile: 'View your profile',

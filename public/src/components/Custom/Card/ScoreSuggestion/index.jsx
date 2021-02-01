@@ -2,8 +2,12 @@ import React, { useMemo } from 'react';
 
 import styles from './ScoreSuggestion.module.css';
 
-import { IconButton } from '../../';
-import { Card, Chip, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import CustomIconButton from '../../IconButton';
+import Card from '@material-ui/core/Card';
+import Chip from '@material-ui/core/Chip';
+import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { formatDate } from '../../../../utils/stringFormats';
 import { STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
@@ -90,7 +94,7 @@ export default function ScoreSuggestion(props) {
           />
         </div>
         <div className={styles.buttons}>
-          <IconButton
+          <CustomIconButton
             className={classes.primary}
             icon="Check"
             color="inherit"
@@ -98,7 +102,7 @@ export default function ScoreSuggestion(props) {
             style={{ margin: '4px' }}
             tooltip={t('accept')}
           />
-          <IconButton
+          <CustomIconButton
             className={classes.secondary}
             color="inherit"
             icon="Close"

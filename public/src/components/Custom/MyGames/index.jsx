@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card } from '..';
-import { Typography } from '@material-ui/core';
+import CustomCard from '../Card';
+import Typography from '@material-ui/core/Typography';
+
 import { CARD_TYPE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +21,7 @@ export default function MyGames(props) {
       </Typography>
       {gamesInfos.length ? (
         gamesInfos.map((game) => (
-          <Card
+          <CustomCard
             key={game.id}
             items={{
               ...game,

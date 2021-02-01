@@ -7,6 +7,7 @@ import api from './actions/api';
 import { errors, ERROR_ENUM } from '../common/errors';
 import { io } from 'socket.io-client';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
+
 export const Store = React.createContext();
 
 const handleLocalAuthToken = (token) => {

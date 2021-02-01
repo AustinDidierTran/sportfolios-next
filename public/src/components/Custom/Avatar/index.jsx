@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Avatar, makeStyles } from '@material-ui/core';
-import { Icon } from '../../Custom';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import CustomIcon from '../Icon';
 import clsx from 'clsx';
 
 import styles from './Avatar.module.css';
@@ -41,7 +42,7 @@ export default function CustomAvatar(props) {
   if (icon) {
     return (
       <Avatar {...otherProps} className={className} alt={initials}>
-        <Icon icon={icon}></Icon>
+        <CustomIcon icon={icon}></CustomIcon>
       </Avatar>
     );
   }

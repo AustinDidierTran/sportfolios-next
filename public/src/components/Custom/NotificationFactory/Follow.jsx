@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import { Avatar } from '..';
 
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { goTo, ROUTES } from '../../../actions/goTo';
 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';

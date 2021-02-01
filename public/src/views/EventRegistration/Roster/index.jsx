@@ -4,11 +4,11 @@ import { List } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './Roster.module.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../actions/goTo';
 import PersonSearchList from '../../../components/Custom/SearchList/PersonSearchList';
 import { ACTION_ENUM, Store } from '../../../Store';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function Roster(props) {
   const { t } = useTranslation();
@@ -110,7 +110,7 @@ export default function Roster(props) {
   return (
     <div className={styles.main}>
       <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
-        {t('roster_doesnt_have_to_be_final_only_for_pre_ranking_purpose')}
+        {t('roster_selection_message')}
       </Typography>
       <PersonSearchList
         className={styles.item}

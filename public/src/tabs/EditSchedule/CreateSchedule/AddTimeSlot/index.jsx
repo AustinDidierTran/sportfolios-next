@@ -78,7 +78,7 @@ export default function AddTimeSlot(props) {
 
       // used in interactive tool
       if (addTimeslotToGrid) {
-        addTimeslotToGrid(data);
+        addTimeslotToGrid(data, realDate);
       }
     },
   });

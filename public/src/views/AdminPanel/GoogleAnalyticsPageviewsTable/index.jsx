@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
 import { Table } from '../../../components/Custom';
-
-import { CardContent } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
 import { Button, Paper, TextField } from '../../../components/Custom';
 import styles from './GoogleAnalyticsPageviewsTable.module.css';
 import api from '../../../actions/api';

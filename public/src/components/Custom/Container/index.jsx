@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Container from '@material-ui/core/Container';
 
 export default function CustomContainer(props) {
-  const [gutters, setGutters] = useState(false);
+  const [gutters, setGutters] = React.useState(false);
 
   const handleResize = () => {
     setGutters(Boolean(window.innerWidth < 768));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => {

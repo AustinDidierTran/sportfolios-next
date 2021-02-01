@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 
-import { ListItem, ListItemIcon, ListItemText, Radio } from '@material-ui/core';
-import { Icon, IconButton } from '../../../Custom';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Radio from '@material-ui/core/Radio';
+
+import CustomIcon from '../../Icon';
+import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
-import { AlertDialog } from '../../Dialog';
+import AlertDialog from '../../Dialog/AlertDialog';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function CreditCardItem(props) {
   const { t } = useTranslation();
@@ -35,7 +40,7 @@ export default function CreditCardItem(props) {
     <>
       <ListItem style={{ width: '100%' }}>
         <ListItemIcon>
-          <Icon icon="CreditCard" />
+          <CustomIcon icon="CreditCard" />
         </ListItemIcon>
         <ListItemText
           primary={`**** **** **** ${last4}`}
@@ -43,7 +48,7 @@ export default function CreditCardItem(props) {
         />
         <ListItemText secondary={t('default')} style={{ textAlign: 'end', margin: '4px' }} />
         <Radio checked={isDefault} label={t('default')} color="primary" onClick={onChange} />
-        <IconButton
+        <CustomIconButton
           icon="Delete"
           onClick={() => {
             setOpenDelete(true);

@@ -7,9 +7,9 @@ import { FIELD_GROUP_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import api from '../../../../actions/api';
-import { formatRoute } from '../../../../actions/goTo';
 import { useFields } from '../../../../hooks/fields';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function AddEventPaymentOption(props) {
   const { open, onClose, addOptionToEvent } = props;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import styles from './Review.module.css';
-import { Container, Button, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import CustomCard from '../../../components/Custom/Card';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { CARD_TYPE_ENUM } from '../../../../../common/enums';
+import { CARD_TYPE_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { checkout, clearCart, createRefund, getCartItems } from '../../../utils/stripe';
 import { formatPrice } from '../../../utils/stringFormats';

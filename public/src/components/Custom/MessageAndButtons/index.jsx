@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
-import { Paper, Button, IgContainer } from '..';
-import { Typography } from '@material-ui/core';
+import CustomButton from '../Button';
+import CustomPaper from '../Paper';
+import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
+import Typography from '@material-ui/core/Typography';
+
 import styles from './MessageAndButtons.module.css';
 import { LOGO_ENUM } from '../../../../common/enums';
 
@@ -23,14 +26,14 @@ export default function MessageAndButtons(props) {
 
   if (withoutIgContainer) {
     return (
-      <Paper style={{ textAlign: 'center', height: '100%' }}>
+      <CustomPaper style={{ textAlign: 'center', height: '100%' }}>
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
         </div>
         <Typography style={{ paddingBottom: '16px' }}>{message}</Typography>
         <div className={styles.buttons}>
           {buttons.map((button, index) => (
-            <Button
+            <CustomButton
               href={button.href || ''}
               size="small"
               variant="contained"
@@ -46,16 +49,16 @@ export default function MessageAndButtons(props) {
               key={index}
             >
               {button.name}
-            </Button>
+            </CustomButton>
           ))}
         </div>
-      </Paper>
+      </CustomPaper>
     );
   }
 
   return (
     <IgContainer>
-      <Paper style={{ textAlign: 'center', height: '100%' }}>
+      <CustomPaper style={{ textAlign: 'center', height: '100%' }}>
         <div className={styles.logo}>
           <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
         </div>
@@ -63,7 +66,7 @@ export default function MessageAndButtons(props) {
         <div className={styles.content}>{props.children}</div>
         <div className={styles.buttons}>
           {buttons.map((button, index) => (
-            <Button
+            <CustomButton
               href={button.href || ''}
               size="small"
               variant="contained"
@@ -79,10 +82,10 @@ export default function MessageAndButtons(props) {
               key={index}
             >
               {button.name}
-            </Button>
+            </CustomButton>
           ))}
         </div>
-      </Paper>
+      </CustomPaper>
     </IgContainer>
   );
 }
