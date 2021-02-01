@@ -540,7 +540,7 @@ export default {
     qt: 'Qt: {{quantity}}',
     quantity: 'Quantity',
     quick_description: 'Short description',
-    quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them ?',
+    quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them?',
     quit_interactive_tool: 'WARNING',
     ranking: 'Ranking',
     rankings: 'Rankings',

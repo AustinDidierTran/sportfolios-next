@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import api from '../../actions/api';
@@ -95,8 +95,6 @@ export default function ScheduleInteractiveTool() {
   const [madeChanges, setMadeChanges] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAddingGames, setIsAddingGames] = useState(false);
-  const [canUndo, setCanUndo] = useState(false);
-  const [canRedo, setCanRedo] = useState(false);
 
   const [buttonsAdd, setButtonsAdd] = useState([]);
   const [layout, setLayout] = useState([]);
@@ -124,7 +122,6 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
-      setCanRedo(false);
       redoLog.length = 0;
       setFields(this.newState);
     }
@@ -168,7 +165,6 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
-      setCanRedo(false);
       redoLog.length = 0;
       setTimeslots(this.newState);
     }
@@ -471,32 +467,26 @@ export default function ScheduleInteractiveTool() {
     executeCommand(command);
   };
 
+  const canUndo = useMemo(() => undoLog.length > 0, [undoLog.length]);
+  const canRedo = useMemo(() => redoLog.length > 0, [redoLog.length]);
+
   function executeCommand(command) {
     command.execute();
     undoLog.push(command);
-    setCanUndo(true);
   }
 
   function undoCommand() {
     const command = undoLog[undoLog.length - 1];
     command.undo();
     undoLog.pop();
-    if (!undoLog.length) {
-      setCanUndo(false);
-    }
     redoLog.push(command);
-    setCanRedo(true);
   }
 
   function redoCommand() {
     const command = redoLog[redoLog.length - 1];
     command.redo();
     redoLog.pop();
-    if (!redoLog.length) {
-      setCanRedo(false);
-    }
     undoLog.push(command);
-    setCanUndo(true);
   }
 
   const AddGames = buttonsAdd.map((b) => (
@@ -660,7 +650,6 @@ export default function ScheduleInteractiveTool() {
         </Fab>
       </Tooltip>
 
-      {/*------------------------------------------------------------------        */}
       <Tooltip title={canUndo ? t('undo') : ''}>
         <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
           <Icon icon="Undo" />
@@ -671,7 +660,6 @@ export default function ScheduleInteractiveTool() {
           <Icon icon="Redo" />
         </Fab>
       </Tooltip>
-      {/*------------------------------------------------------------------        */}
 
       <AlertDialog
         open={alertDialog}

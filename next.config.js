@@ -19,13 +19,4 @@ module.exports = withPlugins([
       },
     },
   ],
-
-  /*[yourPluginExample, {
-    
-    config here: true
-    moreConfig: {
-      ...
-    },
-   }
-  ], */
 ]);

@@ -31,17 +31,6 @@ export default function AddTimeSlot(props) {
   const validate = (values) => {
     const { date, time } = values;
     const errors = {};
-    const nowDate = Date.now();
-    const realDate = new Date(`${date} ${time}`).getTime();
-    if (realDate + 60000 < nowDate) {
-      errors.past = t(ERROR_ENUM.VALUE_IS_IN_PAST);
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('value_is_in_past'),
-        severity: SEVERITY_ENUM.ERROR,
-        duration: 2000,
-      });
-    }
     if (!time.length) {
       errors.time = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
