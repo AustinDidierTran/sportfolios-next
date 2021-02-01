@@ -104,3 +104,31 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - **DO INSTEAD** :
   - ![](https://i.imgur.com/xEEU7V4.png)
+
+## LightHouse Performance and PWA audits
+
+### General tips
+
+Lighthouse audits may vary when performed. It is recommended to average at least 5 runs to establish standards.
+
+**Important :** one should note that any chrome extensions and/or devTools extensions may hinder Lighthouse audits and result in poor performance score. It is better to test in a browser with **no** extensions or in incognito mode.
+
+### Hardware recommended
+
+- 4-8 GB of RAM
+- At least 2 dedicated core
+- If possible, run on a dedicated machine
+
+### External factors
+
+- Comment and/or remove non-determinist code
+- Run Lighthouse with devTools in horizontal mode, if devTools take to much space, it may influence audits
+- Use localhost
+- Anti-virus software can influence audits
+
+### Official doc
+
+- **Variability** : https://github.com/GoogleChrome/lighthouse/blob/master/docs/variability.md
+- **Performance audits** : https://github.com/GoogleChrome/lighthouse/blob/master/docs/scoring.md#performance
+
+---
