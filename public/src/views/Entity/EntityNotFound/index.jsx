@@ -7,7 +7,9 @@ import { useTranslation } from 'react-i18next';
 import styles from './EntityNotFound.module.css';
 
 import { Paper, Button, IgContainer } from '../../../components/Custom';
-import { Typography, CardActions, CardContent } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 export default function EntityNotFound() {
   const { t } = useTranslation();

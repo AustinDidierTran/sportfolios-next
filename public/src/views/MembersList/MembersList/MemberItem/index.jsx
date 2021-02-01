@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
 import loadable from '@loadable/component';
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import styles from './MemberItem.module.css';
 import moment from 'moment';

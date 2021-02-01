@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Item.module.css';
 
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import CustomPaper from '../../Paper';
 
 import { makeStyles } from '@material-ui/core/styles';

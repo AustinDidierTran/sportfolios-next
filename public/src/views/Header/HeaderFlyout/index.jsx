@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
-import { Paper, Typography } from '@material-ui/core';
-
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Create from './Create';
 import Notifications from './Notifications';
 import Account from './Account';

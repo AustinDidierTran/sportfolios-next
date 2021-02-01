@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { Button, IgContainer, LoadingSpinner, Paper, TextField } from '../../components/Custom';
 import CountrySelect from '../AddBankAccount/CountrySelect';
 import CardSection from '../../utils/stripe/Payment/CardSection';
@@ -13,6 +13,7 @@ import api from '../../actions/api';
 import { goTo } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
 import { SEVERITY_ENUM } from '../../../common/enums';
+import { ERROR_ENUM } from '../../../common/errors';
 
 interface IProps {
   redirect: string;
@@ -32,10 +33,11 @@ interface IError {
 const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
   const { redirect } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
+  const { dispatch } = React.useContext(Store);
   const stripe = useStripe();
   const elements = useElements();
   const isANumber = (number: any) => isNaN(Number(number));
+  const [stripeToken, setStripeToken] = React.useState();
 
   const validate = (values: IError) => {
     const errors: IError = {};
@@ -78,8 +80,14 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { token: stripeToken } = await stripe!.createToken(elements!.getElement(CardElement)!);
-
+      if (!stripeToken) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t(ERROR_ENUM.ERROR_OCCURED),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+        return;
+      }
       const params = { ...values, stripeToken };
       const res = await api('/api/stripe/paymentMethod', {
         method: 'POST',
@@ -136,7 +144,16 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
           >
             {t('cancel')}
           </Button>
-          <Button color="primary" type="submit" style={{ margin: '16px', width: '25%' }}>
+          <Button
+            color="primary"
+            onClick={async () => {
+              const { token } = await stripe!.createToken(elements!.getElement(CardElement)!);
+              //@ts-ignore
+              setStripeToken(token);
+              formik.handleSubmit();
+            }}
+            style={{ margin: '16px', width: '25%' }}
+          >
             {t('submit')}
           </Button>
           <br />

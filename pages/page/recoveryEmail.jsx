@@ -1,7 +1,7 @@
 import React from 'react';
 import PasswordRecovery from '../../public/src/views/PasswordRecovery';
 
-const PasswordRecoveryRoute = (props) => {
+const PasswordRecoveryRoute = () => {
   return <PasswordRecovery />;
 };
 

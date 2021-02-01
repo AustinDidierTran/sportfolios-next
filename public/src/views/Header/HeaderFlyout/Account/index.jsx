@@ -1,8 +1,14 @@
 import React, { useContext, useMemo } from 'react';
-import { Badge, Divider, List, ListItemAvatar, makeStyles } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from '@material-ui/core/styles';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../../../../../common/enums';
 import { Avatar, Button, Icon } from '../../../../components/Custom';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { getInitialsFromName } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';

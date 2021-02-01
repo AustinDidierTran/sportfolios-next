@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { List, LoadingSpinner, Button } from '../../../components/Custom';
 import styles from './CreditCards.module.css';
-import { Card, Typography, ListItem } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Divider from '@material-ui/core/Divider';
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import styles from './DnDSimpleList.module.css';
 
 const grid = 8;

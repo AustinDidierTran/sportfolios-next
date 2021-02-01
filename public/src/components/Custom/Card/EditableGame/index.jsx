@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './EditableGameItem.module.css';
 
-import { Card } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 import CustomTextField from '../../TextField';
 import { useFormInput } from '../../../../hooks/forms';
 import { useEffect } from 'react';

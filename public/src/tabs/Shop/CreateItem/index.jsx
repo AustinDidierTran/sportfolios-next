@@ -13,7 +13,7 @@ import { createItem, onImgUpload } from '../../../utils/shop';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
-import { TextareaAutosize } from '@material-ui/core';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import api from '../../../actions/api';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';

@@ -3,13 +3,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Teams.module.css';
 import { Avatar, Paper, TextField } from '../../../../../components/Custom';
-import { List, ListItem } from '@material-ui/core';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import history from '../../../../../stores/history';
-
-import { getInitialsFromName } from '../../../../../utils/stringFormats';
-
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { getInitialsFromName } from '../../../../../utils/stringFormats';
 
 export default function Teams(props) {
   const { t } = useTranslation();

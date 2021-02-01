@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { CardMedia } from '@material-ui/core';
+import CardMedia from '@material-ui/core/CardMedia';
 
 import styles from './ImageCard.module.css';
 import { IMAGE_ENUM } from '../../../../common/enums';

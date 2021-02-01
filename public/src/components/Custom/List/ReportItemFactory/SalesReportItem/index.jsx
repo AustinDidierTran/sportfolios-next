@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
-import { Divider } from '@material-ui/core';
 import api from '../../../../../actions/api';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';

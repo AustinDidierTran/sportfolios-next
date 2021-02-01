@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { TABS_ENUM } from '../../public/common/enums';
 import Cart from '../../public/src/views/Cart';
 
-const CartRoute = (props) => {
+const CartRoute = () => {
   const router = useRouter();
   const { tab } = router.query;
 

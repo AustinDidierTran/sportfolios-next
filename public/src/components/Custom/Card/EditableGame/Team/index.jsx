@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Team.module.css';
 
 import CustomTextField from '../../../TextField';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 export default function Team(props) {
   const { team, getRank } = props;

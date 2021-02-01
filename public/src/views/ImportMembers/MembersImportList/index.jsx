@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-import { List, ListSubheader } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import MemberImportItem from './MemberImportItem';
 
 const useStyles = makeStyles((theme) => ({

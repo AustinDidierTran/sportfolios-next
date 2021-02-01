@@ -8,10 +8,9 @@ import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormInput } from '../../../hooks/forms';
 import { useEditor } from '../../../hooks/roles';
 import { changeEntityName } from '../../../actions/api';
-
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import { Avatar, Input, Button, Paper, LoadingSpinner, TextField } from '../../../components/Custom';
-
-import { Typography, Container } from '@material-ui/core';
 
 export default function BasicInfos(props) {
   const { t } = useTranslation();

@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Typography from '@material-ui/core/Typography';
+
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';

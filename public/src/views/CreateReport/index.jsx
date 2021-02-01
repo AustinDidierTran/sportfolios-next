@@ -4,7 +4,7 @@ import { formatPageTitle } from '../../utils/stringFormats';
 import { Paper, IgContainer, IconButton } from '../../components/Custom';
 import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
-import { ListItemText } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
 import styles from './CreateReport.module.css';
 
 export default function CreateReport() {

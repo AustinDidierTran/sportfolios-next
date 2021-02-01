@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Container, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import styles from './Game.module.css';
 
 export const GAME_TYPES = {

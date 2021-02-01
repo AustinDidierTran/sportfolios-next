@@ -7,7 +7,8 @@ import { ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import styles from './EventRegistration.module.css';
-import { Container, Typography } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
@@ -35,6 +36,12 @@ export default function EventRegistration() {
     state: { isAuthenticated },
     dispatch,
   } = useContext(Store);
+
+  useEffect(() => {
+    if (!eventId) {
+      goTo(ROUTES.home);
+    }
+  }, [eventId]);
 
   const formik = useFormik({
     initialValues: {
@@ -201,7 +208,7 @@ export default function EventRegistration() {
     <IgContainer>
       <Paper className={styles.paper}>
         <div className={styles.typo}>
-          <Typography variant="h3">{formik.values.event.name || ''}</Typography>
+          <Typography variant="h3">{formik?.values?.event?.name || ''}</Typography>
         </div>
         <Container>
           <StepperWithHooks

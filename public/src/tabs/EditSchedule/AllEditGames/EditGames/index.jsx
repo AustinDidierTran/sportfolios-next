@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './EditGames.module.css';
 import { Collapse, IconButton } from '../../../../components/Custom';
-import { Divider, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
 import ScoreSuggestion from './ScoreSuggestion';
 import { useTranslation } from 'react-i18next';
 

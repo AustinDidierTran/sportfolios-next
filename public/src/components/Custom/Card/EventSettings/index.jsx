@@ -4,8 +4,8 @@ import { useFormInput } from '../../../../hooks/forms';
 import CustomButton from '../../Button';
 import CustomInput from '../../Input';
 import CustomPaper from '../../Paper';
-
-import { List, ListItem } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import { useTranslation } from 'react-i18next';
 import styles from './EventSettings.module.css';
 

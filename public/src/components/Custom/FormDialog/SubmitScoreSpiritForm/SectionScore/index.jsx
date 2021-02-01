@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
-import { Chip, Divider, Typography } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
 import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';

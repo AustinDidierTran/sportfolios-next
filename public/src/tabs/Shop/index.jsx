@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Shop.module.css';
 import { goTo, ROUTES } from '../../actions/goTo';
 
-import { Container } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
 import { FeatureContainer, Button } from '../../components/Custom';
 import CustomCard from '../../components/Custom/Card';
 import { useEditor } from '../../hooks/roles';

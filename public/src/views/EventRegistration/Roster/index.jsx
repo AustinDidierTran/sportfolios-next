@@ -4,7 +4,7 @@ import { List } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './Roster.module.css';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import api from '../../../actions/api';
 import PersonSearchList from '../../../components/Custom/SearchList/PersonSearchList';
 import { ACTION_ENUM, Store } from '../../../Store';

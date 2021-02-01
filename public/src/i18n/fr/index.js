@@ -264,7 +264,7 @@ export default {
       'La confirmation du courriel a échoué. Veuillez réessayer de vous connecter et suite à cette tentative, nous allons vous renvoyer un nouveau courriel de confirmation.',
     email_confirm_success: 'Courriel confirmé avec succès!',
     email_confirmed:
-      'Un courriel de confirmation a été envoyé à {{email}}. Veuillez regarder vos courriels pour confirmer votre compte.',
+      "Un courriel de confirmation a été envoyé à {{email}}. Veuillez regarder vos courriels pour confirmer votre compte. N'oubliez pas de regarder dans vos courriels indésirables!",
     email_not_confirmed:
       'Adresse courriel non confirmé. Un nouveau courriel de confirmation a été envoyé. Svp, regardez vos courriels.',
     email_not_found: "Il n'existe pas de compte avec ce courriel",

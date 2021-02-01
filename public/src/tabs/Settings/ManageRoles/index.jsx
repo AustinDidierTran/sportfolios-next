@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
 import { Paper, Avatar, Select } from '../../../components/Custom';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import { getEntityTypeName } from '../../../utils/stringFormats';
