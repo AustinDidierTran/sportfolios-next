@@ -1,22 +1,57 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './ForgotPasswordCard.module.css';
-
-import Button from '../../../components/Custom/Button';
-import Paper from '../../../components/Custom/Paper';
+import styles from './ForgotPassword.module.css';
+import Button from '../../components/Custom/Button';
+import Paper from '../../components/Custom/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import TextField from '../../../components/Custom/TextField';
-import Container from '../../../components/Custom/Container';
+import TextField from '../../components/Custom/TextField';
+import Container from '../../components/Custom/Container';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { LOGO_ENUM } from '../../../common/enums';
+import { goTo, ROUTES } from '../../actions/goTo';
+import api from '../../actions/api';
+import { ACTION_ENUM, Store } from '../../Store';
 
-import { LOGO_ENUM, LOGIN_STATE_ENUM } from '../../../../common/enums';
-
-export default function ForgotPassword(props) {
+export default function ForgotPassword() {
   const { t } = useTranslation();
-  const { formik } = props;
+  const { dispatch } = React.useContext(Store);
+
+  const validationSchema = yup.object().shape({
+    email: yup.string().email(t('invalid_email')).required(t('value_is_required')),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+    },
+    validateOnChange: false,
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      const { email } = values;
+      const res = await api('/api/auth/recoveryEmail', {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+        }),
+      });
+
+      if (res.status === 404) {
+        // Email not found
+        formik.setFieldError('email', t('email_not_found'));
+      }
+      if (res.status === 200) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('confirmation_email_sent'),
+        });
+      }
+    },
+  });
 
   return (
     <Container className={styles.container}>
@@ -52,7 +87,7 @@ export default function ForgotPassword(props) {
                   margin: '0 16px',
                   cursor: 'pointer',
                 }}
-                onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.LOGIN })}
+                onClick={() => goTo(ROUTES.login)}
               >
                 {t('have_an_account_signin')}
               </Typography>
@@ -65,7 +100,7 @@ export default function ForgotPassword(props) {
                   margin: '0 16px',
                   cursor: 'pointer',
                 }}
-                onClick={() => formik.setStatus({ state: LOGIN_STATE_ENUM.SIGNUP })}
+                onClick={() => goTo(ROUTES.signup)}
               >
                 {t('no_account_signup')}
               </Typography>

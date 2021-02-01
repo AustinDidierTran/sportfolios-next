@@ -201,13 +201,15 @@ const ROUTES_ENUM = {
   confirmEmail: '/page/confirmEmail/:token',
   confirmEmailFailure: '/page/ConfirmEmailFailure',
   confirmEmailSuccess: '/page/confirmEmailSuccess',
-  createPerson: '/page/createPerson',
-  createTeam: '/page/createTeam',
-  createOrganization: '/page/createOrganization',
   createEvent: '/page/createEvent',
+  createOrganization: '/page/createOrganization',
+  createPerson: '/page/createPerson',
+  createReport: '/page/createReport',
+  createTeam: '/page/createTeam',
   entity: '/:id',
   entityNotFound: '/page/entityNotFound',
   eventRegistration: '/page/eventRegistration/:id',
+  forgotPassword: '/page/forgotPassword',
   home: '/',
   importMembers: '/page/importMembers',
   login: '/page/login',
@@ -217,22 +219,22 @@ const ROUTES_ENUM = {
   notifications: '/page/notifications',
   orderProcessed: '/page/orderProcessed',
   organizationList: '/page/organizationList',
+  passwordRecovery: '/page/passwordRecovery',
   privacyPolicy: '/page/privacy',
   productAddedToCart: '/page/productAddedToCart',
-  passwordRecovery: '/page/passwordRecovery',
+  redirectWithToken: '/page/redirect',
   registrationStatus: '/page/registrationStatus',
-  createReport: '/page/createReport',
+  rosterInviteLink: '/page/inviteRoster/:token',
   sales: '/page/sales/:id',
   scheduleInteractiveTool: '/page/scheduleInteractiveTool/:id',
   scheduleManager: '/page/scheduleManager',
   search: '/page/search',
   shopDetails: '/page/shopDetails/:id/:stripePriceId',
+  signup: '/page/signup',
   stripe: '/page/stripe',
   transferPerson: '/page/transferPerson/:token',
   transferPersonExpired: '/page/transferPersonExpired',
   userSettings: '/page/userSettings',
-  redirectWithToken: '/page/redirect',
-  rosterInviteLink: '/page/inviteRoster/:token',
 };
 
 const STATUS_ENUM = {
@@ -329,11 +331,6 @@ const LOGIN_STATE_ENUM = {
   LOGIN: 'login',
   SIGNUP: 'signup',
   FORGOT_PASSWORD: 'forgotPassword',
-};
-
-const PASSWORD_LENGTH_ENUM = {
-  MIN_LENGTH: 8,
-  MAX_LENGTH: 24,
 };
 
 const GLOBAL_ENUM = {
@@ -505,7 +502,6 @@ module.exports = {
   MONTH_NAMES,
   NOTIFICATION_MEDIA,
   NOTIFICATION_TYPE,
-  PASSWORD_LENGTH_ENUM,
   PERSON_TRANSFER_STATUS_ENUM,
   PLATEFORM_FEES,
   PLAYER_ATTENDANCE_STATUS,
