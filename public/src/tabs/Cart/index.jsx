@@ -5,15 +5,13 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import { CARD_TYPE_ENUM, LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
-import {
-  Button,
-  MessageAndButtons,
-  List,
-  ContainerBottomFixed,
-  LoadingSpinner,
-  Card,
-  AlertDialog,
-} from '../../components/Custom';
+import Button from '../../components/Custom/Button';
+import MessageAndButtons from '../../components/Custom/MessageAndButtons';
+import List from '../../components/Custom/List';
+import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import Card from '../../components/Custom/Card';
+import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM } from '../../../common/errors';

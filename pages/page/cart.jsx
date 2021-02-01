@@ -13,7 +13,6 @@ const CartRoute = () => {
     }
     return TABS_ENUM.CART;
   });
-
   return <Cart openTab={openTab} />;
 };
 

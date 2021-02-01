@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node --max-old-space-size=8192 server.js",
+    "dev": "node --max_old_space_size=8192 server.js",
     "build": "NODE_OPTIONS=--max_old_space_size=8192 next build",
     "start": "next start"
   },

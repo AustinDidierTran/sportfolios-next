@@ -10,7 +10,6 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CustomButton from '../../../components/Custom/Button';
-import CustomInput from '../../../components/Custom/Input';
 import CustomPaper from '../../../components/Custom/Paper';
 import CustomTextField from '../../../components/Custom/TextField';
 import { editItem, onImgUpload } from '../../../utils/shop';
@@ -139,8 +138,7 @@ export default function EditItem(props) {
               {t('change_picture')}
             </Button>
           </Upload>
-          <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
-
+          <CustomButton onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
             {t('upload')}
           </CustomButton>
         </div>
