@@ -63,8 +63,6 @@ export default function Organization(props) {
     isAdmin ? setStates(adminState) : setStates(userState);
   };
 
-  const OpenTab = useMemo(() => {}, [tab]);
-
   const onSwitch = () => {
     const newState = !isAdmin;
     setIsAdmin(newState);
@@ -88,7 +86,7 @@ export default function Organization(props) {
 
   return (
     <>
-      <HeaderHome photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
+      <HeaderHome basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={title}>

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OrganizationAbout(props) {
+export default function OrganizationLeague(props) {
   const { t } = useTranslation();
   const classes = useStyles();
   const { basicInfos, navBar } = props;
@@ -39,7 +39,7 @@ export default function OrganizationAbout(props) {
 
   return (
     <>
-      <HeaderHome photoUrl={basicInfos.photoUrl} basicInfos={basicInfos} navTabs={navBar} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={t('player_view')}>
