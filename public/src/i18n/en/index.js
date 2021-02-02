@@ -644,6 +644,7 @@ export default {
     send_new_confirmation_email: 'Send new confirmation email',
     send_password_recovery_email: 'Send password recovery email',
     settings: 'Settings',
+    share: 'Share',
     share_the_invite_link: 'Share the invite link',
     shop: 'Shop',
     signup: 'Signup',

@@ -649,6 +649,7 @@ export default {
     send_password_recovery_email: 'Envoyer le courriel de réinitialisation de mot de passe',
     send: 'envoyer',
     settings: 'Paramètres',
+    share: 'Partager',
     share_the_invite_link: "Partager le lien d'invitation",
     shop: 'Boutique',
     signup: "S'enregistrer",
