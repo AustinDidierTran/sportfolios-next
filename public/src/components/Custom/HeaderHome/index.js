@@ -51,9 +51,13 @@ export default function HeaderHome(props) {
           </Grid>
           <Grid item lg={8} md={8} sm={12} xs={12} container>
             <Grid container className={styles.gridText}>
-              <div className={styles.title}>{basicInfos.name}</div>
+              <Grid container item className={styles.title}>
+                {basicInfos.name}
+              </Grid>
 
-              <div className={styles.subtitle}>3068 College Sherbrooke QC J1M 1V6</div>
+              <Grid container item className={styles.subtitle}>
+                {basicInfos.city}
+              </Grid>
             </Grid>
             <Grid container className={styles.gridButton}>
               {/* Rediriger vers l'onglet affiliation */}
