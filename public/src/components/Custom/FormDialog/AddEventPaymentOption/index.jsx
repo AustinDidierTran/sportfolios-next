@@ -10,6 +10,7 @@ import api from '../../../../actions/api';
 import { useFields } from '../../../../hooks/fields';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
+import * as yup from 'yup';
 
 export default function AddEventPaymentOption(props) {
   const { open, onClose, addOptionToEvent } = props;
@@ -19,6 +20,8 @@ export default function AddEventPaymentOption(props) {
   const [taxes, setTaxes] = useState([]);
   const [allTaxes, setAllTaxes] = useState([]);
   const [teamActivity, setTeamActivity] = useState(true);
+  const [teamAcceptation, setTeamAcceptation] = useState(false);
+  const [playerAcceptation, setPlayerAcceptation] = useState(false);
   const router = useRouter();
 
   const { id: eventId } = router.query;
@@ -60,31 +63,31 @@ export default function AddEventPaymentOption(props) {
     onClose();
   };
 
+  const validationSchema = yup.object().shape({
+    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    teamPrice: teamActivity
+      ? yup.number().positive(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED))
+      : yup.number().positive(t(ERROR_ENUM.VALUE_IS_INVALID)),
+    playerPrice: yup.number().positive().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    openDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    closeDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    openTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    closeTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
+
   const validate = (values) => {
-    const { name, teamPrice, playerPrice, ownerId, openDate, openTime, closeDate, closeTime } = values;
+    const { teamPrice, playerPrice, ownerId, openDate, openTime, closeDate, closeTime } = values;
     const errors = {};
-    if (!name) {
-      errors.name = t(ERROR_ENUM.VALUE_IS_REQUIRED);
+
+    if (teamPrice > 0 && !ownerId) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('no_bank_account_linked'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      errors.teamPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
-    if (teamActivity) {
-      if (!teamPrice && teamPrice !== 0) {
-        errors.teamPrice = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-      }
-      if (teamPrice > 0 && !ownerId) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('no_bank_account_linked'),
-          severity: SEVERITY_ENUM.ERROR,
-        });
-        errors.teamPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
-      }
-      if (teamPrice < 0) {
-        errors.teamPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
-      }
-    }
-    if (!playerPrice && playerPrice !== 0) {
-      errors.playerPrice = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
+
     if (playerPrice > 0 && !ownerId) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -93,26 +96,11 @@ export default function AddEventPaymentOption(props) {
       });
       errors.playerPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
-    if (playerPrice < 0) {
-      errors.playerPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
-    }
-    if (!openDate.length) {
-      errors.openDate = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!openTime.length) {
-      errors.openTime = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!closeDate.length) {
-      errors.closeDate = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
     if (closeDate < openDate) {
       errors.closeDate = t(ERROR_ENUM.CLOSE_AFTER_OPEN);
     }
     if (closeDate === openDate && closeTime < openTime) {
       errors.closeTime = t(ERROR_ENUM.CLOSE_AFTER_OPEN);
-    }
-    if (!closeTime.length) {
-      errors.closeTime = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
     return errors;
   };
@@ -127,20 +115,29 @@ export default function AddEventPaymentOption(props) {
       closeDate: moment().add(1, 'month').format('YYYY-MM-DD'),
       closeTime: '23:59',
     },
+    validationSchema: validationSchema,
     validate,
     validateOnChange: false,
     onSubmit: (values) => {
+      let teamAcc = teamAcceptation;
       const taxRatesId = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id);
       if (!teamActivity) {
         values.teamPrice = 0;
+        teamAcc = false;
       }
-      addOptionToEvent({ ...values, taxRatesId, teamActivity });
+      addOptionToEvent({ ...values, taxRatesId, teamActivity, teamAcceptation: teamAcc, playerAcceptation });
       onClose();
     },
   });
 
-  const onChange = () => {
-    setTeamActivity(!teamActivity);
+  const onChange = (value) => {
+    setTeamActivity(value);
+  };
+  const onTeamChange = (value) => {
+    setTeamAcceptation(value);
+  };
+  const onPlayerChange = (value) => {
+    setPlayerAcceptation(value);
   };
 
   const getPriceWithTax = (amount, taxes) => {
@@ -163,14 +160,18 @@ export default function AddEventPaymentOption(props) {
   }, [formik.values.playerPrice, taxes]);
 
   const fields = useFields(FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION, {
-    teamActivity,
-    ownersId,
     allTaxes,
+    handleChange,
     onChange,
-    teamPriceTotal,
+    onPlayerChange,
+    onTeamChange,
+    ownersId,
+    playerAcceptation,
     playerPriceTotal,
     taxes,
-    handleChange,
+    teamAcceptation,
+    teamActivity,
+    teamPriceTotal,
   });
   const buttons = [
     {
@@ -192,6 +193,7 @@ export default function AddEventPaymentOption(props) {
       fields={fields}
       formik={formik}
       onClose={handleClose}
+      dialogContentStyle={{ paddingTop: '0px' }}
     />
   );
 }

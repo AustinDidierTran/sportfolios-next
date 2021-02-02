@@ -6,6 +6,7 @@ export default {
     accept_person_transfer_confirmation: 'Are you sure you want to accept the transfer of {{name}}?',
     accept: 'Accept',
     acceptation: 'Acceptation',
+    acceptation_step: 'Acceptation step',
     accepted: 'Accepted',
     account_already_exists: 'Account already exists',
     account_already_linked: 'This account is already linked to another Sportfolios user.',
@@ -486,6 +487,7 @@ export default {
     past_games: 'Past games',
     pathname: 'Pathname',
     pay: 'Pay',
+    payment: 'Payment',
     payment_date: 'Payment date',
     payment_individual: 'Individual payment',
     payment_method_added: 'You successfully added a new payment method!',
@@ -515,6 +517,8 @@ export default {
     phone_number: 'Phone Number',
     places_left: 'places left',
     plateform_fees: 'Plateform fees',
+    team_acceptation_step_message:
+      'Do you want to manually accept or decline every player that registered to your event before they make a payment?',
     player_added: 'Player added',
     player_name: 'Player name',
     players_unregister_success: 'Players unregistered successfully',
@@ -696,7 +700,11 @@ export default {
     taxes: 'Taxes',
     team_1: 'Team 1',
     team_2: 'Team 2',
+    team_acceptation_step_message:
+      'Do you want to manually accept or decline every team that registered to your event before they make a payment?',
     team_activity: 'Team activity',
+    team_activity_or_individual_activity:
+      'The players need to register a team? Then it is a team activity. You can still ask for individual payment!',
     team_added: 'Team added',
     team_already_registered: 'Team already registered',
     team_history: 'Team History',
