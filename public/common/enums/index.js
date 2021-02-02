@@ -43,16 +43,17 @@ const SIZES_ENUM = {
 };
 
 const COMPONENT_TYPE_ENUM = {
-  LIST: 'list',
-  SELECT: 'select',
-  TEXTFIELD: 'textfield',
-  MULTISELECT: 'multiselect',
   BUTTON: 'button',
   CHECKBOX: 'checkbox',
-  LIST_ITEM: 'list item',
-  PERSON_SEARCH_LIST: 'person search list',
-  PERSON_ITEM: 'person item',
+  DIVIDER: 'divider',
   EMPTY: 'empty',
+  LIST_ITEM: 'list item',
+  LIST: 'list',
+  MULTISELECT: 'multiselect',
+  PERSON_ITEM: 'person item',
+  PERSON_SEARCH_LIST: 'person search list',
+  SELECT: 'select',
+  TEXTFIELD: 'textfield',
 };
 
 const ROSTER_ROLE_ENUM = {

@@ -12,6 +12,7 @@ import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonSearchList from '../SearchList/PersonSearchList';
 import PersonItem from '../List/PersonItem';
+import Divider from '@material-ui/core/Divider';
 
 export default function ComponentFactory(props) {
   const { component } = props;
@@ -63,13 +64,22 @@ export default function ComponentFactory(props) {
         namespace={component.namespace}
         color={component.color}
         name={component.name}
+        tooltip={component.tooltip}
       />
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST_ITEM) {
     return (
-      <ListItemText primary={component.primary} secondary={component.secondary} style={{ overflowWrap: 'anywhere' }} />
+      <ListItemText
+        primary={component.primary}
+        primaryTypographyProps={component.primaryTypographyProps}
+        secondary={component.secondary}
+        style={{ overflowWrap: 'anywhere' }}
+      />
     );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.DIVIDER) {
+    return <Divider style={component.style} />;
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST) {
     return <CustomList items={component.items} />;
