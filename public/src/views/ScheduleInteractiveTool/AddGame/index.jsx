@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { COMPONENT_TYPE_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { FormDialog } from '../../../components/Custom';
-import { formatDate } from '../../../utils/stringFormats';
 import { Store, ACTION_ENUM } from '../../../Store';
-import moment from 'moment';
 import api from '../../../actions/api';
+import { formatDate } from '../../../utils/stringFormats';
+import moment from 'moment';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ export default function AddGame(props) {
   };
 
   const description = useMemo(() => {
-    return `${field?.name}, ${'abc'}`;
+    return `${field?.name}, ${formatDate(moment(timeslot.date))}`;
   }, [field, timeslot]);
 
   const validate = (values) => {
@@ -44,6 +44,22 @@ export default function AddGame(props) {
     return errors;
   };
 
+  const sendToInteractiveTool = (values) => {
+    const { phase, team1, team2 } = values;
+    const timeslotId = timeslot.id;
+    const fieldId = field.id;
+
+    const game = {
+      field_id: fieldId,
+      timeslot_id: timeslotId,
+      teamsId: [team1, team2],
+      phase_id: phase,
+    };
+
+    createCard(game);
+    onFinish();
+  };
+
   const formik = useFormik({
     initialValues: {
       phase: '',
@@ -53,42 +69,7 @@ export default function AddGame(props) {
     validate,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values) => {
-      const { phase, team1, team2 } = values;
-
-      const { status, data } = await api('/api/entity/game', {
-        method: 'POST',
-        body: JSON.stringify({
-          eventId,
-          phaseId: phase,
-          fieldId: field.id,
-          timeslotId: timeslot.id,
-          rosterId1: team1,
-          rosterId2: team2,
-        }),
-      });
-
-      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-        return;
-      }
-
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('game_added'),
-        severity: SEVERITY_ENUM.SUCCESS,
-        duration: 2000,
-      });
-
-      createCard(data.game);
-
-      onFinish();
-    },
+    onSubmit: sendToInteractiveTool,
   });
 
   const buttons = [
