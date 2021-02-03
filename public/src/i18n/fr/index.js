@@ -6,6 +6,7 @@ export default {
     accept_person_transfer_confirmation: 'Êtes vous certain de vouloir accepter le transfert de {{name}}?',
     accept: 'Accepter',
     acceptation: 'Acceptation',
+    acceptation_step: "Étape d'acceptation",
     accepted: 'Accepté',
     account_already_exists: 'Le compte existe déjà',
     account_already_linked: 'Ce compte est déjà lié à un compte Sportfolios.',
@@ -490,6 +491,7 @@ export default {
     past_games: 'Parties antérieurs',
     pathname: 'Chemin',
     pay: 'Payer',
+    payment: 'Paiement',
     payment_date: 'Date de paiement',
     payment_individual: 'Paiement individuel',
     payment_method_added: 'Vous avez ajouté une nouvelle option de paiement!',
@@ -519,6 +521,8 @@ export default {
     phone_number: 'Numéro de téléphone',
     places_left: 'places restantes',
     plateform_fees: 'Frais de plateforme',
+    player_acceptation_step_message:
+      "Voulez-vous accepter ou refuser manuellement chaque joueur qui s'inscrit à votre tournoi avant qu'ils effectuent le paiement?",
     player_added: 'Joueur ajouté',
     player_name: 'Nom du joueur',
     players_unregister_success: 'Joueurs désinscrits avec succès',
@@ -701,7 +705,11 @@ export default {
     taxes: 'Taxes',
     team_1: 'Équipe 1',
     team_2: 'Équipe 2',
+    team_acceptation_step_message:
+      "Voulez-vous accepter ou refuser manuellement chaque équipe qui s'inscrit à votre tournoi avant qu'elles effectuent le paiement?",
     team_activity: "Activité d'équipe",
+    team_activity_or_individual_activity:
+      "Les participants doivent inscrire une équipe? C'est une activité d'équipe. Vous pouvez quand même demander des paiements individuelles!",
     team_added: 'Équipe ajoutée',
     team_already_registered: 'Équipe déjà inscrite',
     team_history: "Historique de l'équipe",
