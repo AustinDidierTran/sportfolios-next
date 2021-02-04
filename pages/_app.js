@@ -21,9 +21,9 @@ const SpeedDial = loadable(() => import('../public/src/components/Custom/SpeedDi
 
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
-// export function reportWebVitals(metric) {
-//   console.log({ metric });
-// }
+export function reportWebVitals(metric) {
+  console.log({ metric });
+}
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
