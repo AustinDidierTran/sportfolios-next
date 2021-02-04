@@ -1,8 +1,0 @@
-{
-  "apps": [
-    {
-      "name": "webclient-next",
-      "script": "npm run start"
-    }
-  ]
-}
