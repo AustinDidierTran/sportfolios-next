@@ -46,12 +46,12 @@ export default function AddGame(props) {
 
   const sendToInteractiveTool = (values) => {
     const { phase, team1, team2 } = values;
-    const timeslotId = timeslot.id;
-    const fieldId = field.id;
+    // console.log(timeslot);
+    // console.log(field);
 
     const game = {
-      field_id: fieldId,
-      timeslot_id: timeslotId,
+      field_id: field.id,
+      timeslot_id: timeslot.id,
       teamsId: [team1, team2],
       phase_id: phase,
     };

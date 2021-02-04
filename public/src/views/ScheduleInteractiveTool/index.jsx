@@ -128,10 +128,13 @@ export default function ScheduleInteractiveTool() {
     field;
     type = 'fieldCommand';
 
-    constructor(pState, field) {
+    constructor(pState, name) {
       this.previousState = pState;
-      this.field = field;
-      this.newState = this.previousState.concat([{ id: uuidv4(), field: field }]);
+      this.field = {
+        id: uuidv4(),
+        field: name,
+      };
+      this.newState = this.previousState.concat([this.field]);
     }
 
     execute() {
@@ -181,9 +184,12 @@ export default function ScheduleInteractiveTool() {
     type = 'timeSlotCommand';
 
     constructor(pState, realDate) {
-      this.date = realDate;
+      this.date = {
+        id: uuidv4(),
+        date: realDate,
+      };
       this.previousState = pState;
-      this.newState = this.previousState.concat([{ id: uuidv4(), date: this.date }]);
+      this.newState = this.previousState.concat([this.date]);
     }
 
     execute() {
@@ -267,6 +273,7 @@ export default function ScheduleInteractiveTool() {
           w: 1,
           h: 1,
           minW: 1,
+          maxW: 2,
           static: true,
         },
       ],
@@ -346,6 +353,24 @@ export default function ScheduleInteractiveTool() {
   };
 
   const handleSave = async () => {
+    const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((g) => g.game);
+    const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((f) => f.field);
+    const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((t) => t.date);
+
+    // console.log(gamesToAdd);
+    // console.log(fieldsToAdd);
+    // console.log(timeSlotToAdd);
+
+    const { status, data } = await api(`/api/entity/addAllInteractiveTool`, {
+      method: 'POST',
+      body: JSON.stringify({
+        eventId,
+        gamesArray: gamesToAdd,
+        fieldsArray: fieldsToAdd,
+        timeslotsArray: timeSlotToAdd,
+      }),
+    });
+
     const gameIds = games.map((g) => g.id);
     const onlyGames = layout.filter((g) => gameIds.includes(g.i));
     const changedGames = onlyGames.filter(
@@ -363,10 +388,6 @@ export default function ScheduleInteractiveTool() {
       ],
       []
     );
-
-    await saveNewFields();
-    await saveNewTimeSlot().then(saveNewGames());
-    // await saveNewGames();
 
     const res = await api(`/api/entity/updateGamesInteractiveTool`, {
       method: 'PUT',
@@ -402,108 +423,111 @@ export default function ScheduleInteractiveTool() {
 
   const saveNewGames = async () => {
     const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((g) => g.game);
-    if (gamesToAdd.length > 0) {
-      const res = await Promise.all(
-        gamesToAdd.map(async (g) => {
-          const res = await api('/api/entity/game', {
-            method: 'POST',
-            body: JSON.stringify({
-              eventId,
-              phaseId: g.phase_id,
-              fieldId: g.field_id,
-              timeslotId: g.timeslot_id,
-              rosterId1: g.teams[0].value,
-              rosterId2: g.teams[1].value,
-            }),
-          });
-          return res;
-        })
-      );
+    console.log(gamesToAdd);
+    // if (gamesToAdd.length > 0) {
+    //   const res = await Promise.all(
+    //     gamesToAdd.map(async (g) => {
+    //       const res = await api('/api/entity/game', {
+    //         method: 'POST',
+    //         body: JSON.stringify({
+    //           eventId,
+    //           phaseId: g.phase_id,
+    //           fieldId: g.field_id,
+    //           timeslotId: g.timeslot_id,
+    //           rosterId1: g.teams[0].value,
+    //           rosterId2: g.teams[1].value,
+    //         }),
+    //       });
+    //       return res;
+    //     })
+    //   );
 
-      if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-        return;
-      }
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('game_added'),
-        severity: SEVERITY_ENUM.SUCCESS,
-        duration: 2000,
-      });
-    }
+    //   if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
+    //     dispatch({
+    //       type: ACTION_ENUM.SNACK_BAR,
+    //       message: ERROR_ENUM.ERROR_OCCURED,
+    //       severity: SEVERITY_ENUM.ERROR,
+    //       duration: 4000,
+    //     });
+    //     return;
+    //   }
+    //   dispatch({
+    //     type: ACTION_ENUM.SNACK_BAR,
+    //     message: t('game_added'),
+    //     severity: SEVERITY_ENUM.SUCCESS,
+    //     duration: 2000,
+    //   });
+    // }
   };
 
   const saveNewFields = async () => {
     const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((f) => f.field);
-    if (fieldsToAdd.length > 0) {
-      const res = await Promise.all(
-        fieldsToAdd.map(async (f) => {
-          const res = await api('/api/entity/field', {
-            method: 'POST',
-            body: JSON.stringify({
-              field: f,
-              eventId,
-            }),
-          });
-          return res;
-        })
-      );
+    console.log(fieldsToAdd);
+    // if (fieldsToAdd.length > 0) {
+    //   const res = await Promise.all(
+    //     fieldsToAdd.map(async (f) => {
+    //       const res = await api('/api/entity/field', {
+    //         method: 'POST',
+    //         body: JSON.stringify({
+    //           field: f,
+    //           eventId,
+    //         }),
+    //       });
+    //       return res;
+    //     })
+    //   );
 
-      if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-        return;
-      }
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('field_added'),
-        severity: SEVERITY_ENUM.SUCCESS,
-        duration: 2000,
-      });
-    }
+    //   if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
+    //     dispatch({
+    //       type: ACTION_ENUM.SNACK_BAR,
+    //       message: ERROR_ENUM.ERROR_OCCURED,
+    //       severity: SEVERITY_ENUM.ERROR,
+    //       duration: 4000,
+    //     });
+    //     return;
+    //   }
+    //   dispatch({
+    //     type: ACTION_ENUM.SNACK_BAR,
+    //     message: t('field_added'),
+    //     severity: SEVERITY_ENUM.SUCCESS,
+    //     duration: 2000,
+    //   });
+    // }
   };
 
   const saveNewTimeSlot = async () => {
     const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((ts) => ts.date);
-    if (timeSlotToAdd.length > 0) {
-      const res = await Promise.all(
-        timeSlotToAdd.map(async (ts) => {
-          const res = await api('/api/entity/timeSlots', {
-            method: 'POST',
-            body: JSON.stringify({
-              date: ts,
-              eventId,
-            }),
-          });
-          return res;
-        })
-      );
+    console.log(timeSlotToAdd);
+    // if (timeSlotToAdd.length > 0) {
+    //   const res = await Promise.all(
+    //     timeSlotToAdd.map(async (ts) => {
+    //       const res = await api('/api/entity/timeSlots', {
+    //         method: 'POST',
+    //         body: JSON.stringify({
+    //           date: ts,
+    //           eventId,
+    //         }),
+    //       });
+    //       return res;
+    //     })
+    //   );
 
-      if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-        return;
-      }
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('time_slot_added'),
-        severity: SEVERITY_ENUM.SUCCESS,
-        duration: 2000,
-      });
-    }
+    //   if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
+    //     dispatch({
+    //       type: ACTION_ENUM.SNACK_BAR,
+    //       message: ERROR_ENUM.ERROR_OCCURED,
+    //       severity: SEVERITY_ENUM.ERROR,
+    //       duration: 4000,
+    //     });
+    //     return;
+    //   }
+    //   dispatch({
+    //     type: ACTION_ENUM.SNACK_BAR,
+    //     message: t('time_slot_added'),
+    //     severity: SEVERITY_ENUM.SUCCESS,
+    //     duration: 2000,
+    //   });
+    // }
   };
 
   const goBackToEvent = () => {
@@ -568,6 +592,7 @@ export default function ScheduleInteractiveTool() {
     const { teamsId } = game;
 
     const teamsNames = teams.filter((t) => t.value === teamsId[0] || t.value === teamsId[1]);
+    teamsNames.length === 1 ? teamsNames.push(teamsNames[0]) : '';
 
     const newGame = {
       ...game,
@@ -576,6 +601,9 @@ export default function ScheduleInteractiveTool() {
       x: gridX,
       y: gridY,
     };
+
+    // console.log(newGame.field_id);
+    // console.log(newGame.timeslot_id);
 
     const command = new addGameCommand(games, newGame);
     executeCommand(command);
@@ -728,15 +756,16 @@ export default function ScheduleInteractiveTool() {
           </div>
         </div>
         <div className={styles.displayTimeslots} ref={refTimeslots}>
-          <div style={{ height: `${timeslots?.length * 84 + 40}px` }}>
+          <div style={{ height: `${timeslots?.length * 84}px` }}>
             <ReactGridLayout
               className={styles.gridLayoutTimes}
-              width={192}
+              width={500}
               cols={fields?.length}
               rowHeight={64}
               maxRows={2}
               margin={[0, 20]}
               layout={layoutTimes}
+              isResizable={false}
             >
               {Times}
             </ReactGridLayout>
@@ -795,12 +824,6 @@ export default function ScheduleInteractiveTool() {
           <Icon icon="Cancel" />
         </Fab>
       </Tooltip>
-
-      {/* <Tooltip title={addedData || canUndo || madeChanges ? t('save') : ''}>
-        <Fab color="primary" onClick={handleSave} className={classes.fabSave} disabled={!addedData || !canUndo || !madeChanges}>
-          <Icon icon="SaveIcon" />
-        </Fab>
-      </Tooltip> */}
 
       <Tooltip title={madeChanges ? t('save') : ''}>
         <Fab color="primary" onClick={handleSave} className={classes.fabSave} disabled={!madeChanges}>

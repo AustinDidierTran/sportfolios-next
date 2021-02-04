@@ -35,6 +35,7 @@ export default function AddTimeSlotInteractiveTool(props) {
   const sendToInteractiveTool = (values) => {
     const { date, time } = values;
     const realDate = new Date(`${date} ${time}`).getTime();
+    // console.log(realDate);
     if (addTimeslotToGrid) {
       addTimeslotToGrid(realDate);
     }
