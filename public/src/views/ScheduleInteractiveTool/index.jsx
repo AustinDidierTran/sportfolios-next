@@ -357,10 +357,6 @@ export default function ScheduleInteractiveTool() {
     const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((f) => f.field);
     const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((t) => t.date);
 
-    // console.log(gamesToAdd);
-    // console.log(fieldsToAdd);
-    // console.log(timeSlotToAdd);
-
     const { status, data } = await api(`/api/entity/addAllInteractiveTool`, {
       method: 'POST',
       body: JSON.stringify({
@@ -397,7 +393,12 @@ export default function ScheduleInteractiveTool() {
       }),
     });
 
-    if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
+    if (
+      status === STATUS_ENUM.ERROR ||
+      status === STATUS_ENUM.UNAUTHORIZED ||
+      res.status === STATUS_ENUM.ERROR ||
+      res.status === STATUS_ENUM.UNAUTHORIZED
+    ) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),
@@ -419,115 +420,6 @@ export default function ScheduleInteractiveTool() {
 
     setUndoLog([]);
     setRedoLog([]);
-  };
-
-  const saveNewGames = async () => {
-    const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((g) => g.game);
-    console.log(gamesToAdd);
-    // if (gamesToAdd.length > 0) {
-    //   const res = await Promise.all(
-    //     gamesToAdd.map(async (g) => {
-    //       const res = await api('/api/entity/game', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //           eventId,
-    //           phaseId: g.phase_id,
-    //           fieldId: g.field_id,
-    //           timeslotId: g.timeslot_id,
-    //           rosterId1: g.teams[0].value,
-    //           rosterId2: g.teams[1].value,
-    //         }),
-    //       });
-    //       return res;
-    //     })
-    //   );
-
-    //   if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
-    //     dispatch({
-    //       type: ACTION_ENUM.SNACK_BAR,
-    //       message: ERROR_ENUM.ERROR_OCCURED,
-    //       severity: SEVERITY_ENUM.ERROR,
-    //       duration: 4000,
-    //     });
-    //     return;
-    //   }
-    //   dispatch({
-    //     type: ACTION_ENUM.SNACK_BAR,
-    //     message: t('game_added'),
-    //     severity: SEVERITY_ENUM.SUCCESS,
-    //     duration: 2000,
-    //   });
-    // }
-  };
-
-  const saveNewFields = async () => {
-    const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((f) => f.field);
-    console.log(fieldsToAdd);
-    // if (fieldsToAdd.length > 0) {
-    //   const res = await Promise.all(
-    //     fieldsToAdd.map(async (f) => {
-    //       const res = await api('/api/entity/field', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //           field: f,
-    //           eventId,
-    //         }),
-    //       });
-    //       return res;
-    //     })
-    //   );
-
-    //   if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
-    //     dispatch({
-    //       type: ACTION_ENUM.SNACK_BAR,
-    //       message: ERROR_ENUM.ERROR_OCCURED,
-    //       severity: SEVERITY_ENUM.ERROR,
-    //       duration: 4000,
-    //     });
-    //     return;
-    //   }
-    //   dispatch({
-    //     type: ACTION_ENUM.SNACK_BAR,
-    //     message: t('field_added'),
-    //     severity: SEVERITY_ENUM.SUCCESS,
-    //     duration: 2000,
-    //   });
-    // }
-  };
-
-  const saveNewTimeSlot = async () => {
-    const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((ts) => ts.date);
-    console.log(timeSlotToAdd);
-    // if (timeSlotToAdd.length > 0) {
-    //   const res = await Promise.all(
-    //     timeSlotToAdd.map(async (ts) => {
-    //       const res = await api('/api/entity/timeSlots', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //           date: ts,
-    //           eventId,
-    //         }),
-    //       });
-    //       return res;
-    //     })
-    //   );
-
-    //   if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status === STATUS_ENUM.UNAUTHORIZED)) {
-    //     dispatch({
-    //       type: ACTION_ENUM.SNACK_BAR,
-    //       message: ERROR_ENUM.ERROR_OCCURED,
-    //       severity: SEVERITY_ENUM.ERROR,
-    //       duration: 4000,
-    //     });
-    //     return;
-    //   }
-    //   dispatch({
-    //     type: ACTION_ENUM.SNACK_BAR,
-    //     message: t('time_slot_added'),
-    //     severity: SEVERITY_ENUM.SUCCESS,
-    //     duration: 2000,
-    //   });
-    // }
   };
 
   const goBackToEvent = () => {
@@ -601,9 +493,6 @@ export default function ScheduleInteractiveTool() {
       x: gridX,
       y: gridY,
     };
-
-    // console.log(newGame.field_id);
-    // console.log(newGame.timeslot_id);
 
     const command = new addGameCommand(games, newGame);
     executeCommand(command);
