@@ -10,7 +10,7 @@ import ComponentFactory from '../../ComponentFactory';
 
 export default function BasicFormDialog(props) {
   const { t } = useTranslation();
-  const { open, title, description, buttons = defaultButtons, fields, formik, onClose } = props;
+  const { open, title, description, buttons = defaultButtons, fields, formik, onClose, dialogContentStyle } = props;
 
   const defaultButtons = [
     {
@@ -29,7 +29,7 @@ export default function BasicFormDialog(props) {
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <form onSubmit={formik?.handleSubmit}>
         <div>
-          <DialogContent>
+          <DialogContent style={dialogContentStyle}>
             <DialogContentText>{description}</DialogContentText>
             {fields.map((field, index) => (
               <div style={{ marginTop: '8px' }} key={index}>

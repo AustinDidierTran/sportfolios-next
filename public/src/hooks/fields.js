@@ -8,14 +8,18 @@ export const useFields = (type, options) => {
   const field = useMemo(() => {
     if (type === FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION) {
       const {
-        teamActivity,
-        ownersId,
         allTaxes,
+        handleChange,
         onChange,
-        teamPriceTotal,
+        onPlayerChange,
+        onTeamChange,
+        ownersId,
+        playerAcceptation,
         playerPriceTotal,
         taxes,
-        handleChange,
+        teamAcceptation,
+        teamActivity,
+        teamPriceTotal,
       } = options;
       return [
         {
@@ -29,13 +33,38 @@ export const useFields = (type, options) => {
           namespace: 'teamActivity',
           label: t('team_activity'),
           onChange: onChange,
+          tooltip: t('team_activity_or_individual_activity'),
         },
+        teamActivity
+          ? {
+              componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+              style: { marginBottom: '24px', marginTop: '8px' },
+            }
+          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
+        teamActivity
+          ? {
+              componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+              primaryTypographyProps: { variant: 'h6' },
+              primary: t('team'),
+            }
+          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
         teamActivity
           ? {
               namespace: 'teamPrice',
               label: t('price_team'),
               type: 'number',
               endAdorment: '$',
+            }
+          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
+        teamActivity
+          ? {
+              componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
+              checked: teamAcceptation,
+              namespace: 'teamAcceptation',
+              label: t('acceptation_step'),
+              onChange: onTeamChange,
+
+              tooltip: t('team_acceptation_step_message'),
             }
           : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
         teamActivity
@@ -47,16 +76,42 @@ export const useFields = (type, options) => {
             }
           : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
         {
+          componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+          style: { marginBottom: '24px', marginTop: '16px' },
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          primaryTypographyProps: { variant: 'h6' },
+          primary: t('player'),
+        },
+        {
           namespace: 'playerPrice',
           label: t('price_individual'),
           type: 'number',
           endAdorment: '$',
         },
         {
+          componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
+          checked: playerAcceptation,
+          namespace: 'playerAcceptation',
+          label: t('acceptation_step'),
+          onChange: onPlayerChange,
+          tooltip: t('player_acceptation_step_message'),
+        },
+        {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           secondary: t('with_taxes_the_total_for_a_player_is', {
             total: playerPriceTotal,
           }),
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+          style: { marginBottom: '24px', marginTop: '16px' },
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          primaryTypographyProps: { variant: 'h6' },
+          primary: t('payment'),
         },
         ownersId.length
           ? {
@@ -80,6 +135,15 @@ export const useFields = (type, options) => {
           options: allTaxes.map((a) => a.display),
           values: taxes,
           onChange: handleChange,
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+          style: { marginBottom: '24px', marginTop: '16px' },
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          primaryTypographyProps: { variant: 'h6' },
+          primary: t('registration'),
         },
         {
           namespace: 'openDate',

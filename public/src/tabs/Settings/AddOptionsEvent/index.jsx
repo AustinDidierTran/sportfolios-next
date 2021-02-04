@@ -44,16 +44,18 @@ export default function AddOptionsEvent() {
 
   const addOptionToEvent = async (values) => {
     const {
-      name,
-      teamPrice,
-      playerPrice,
-      ownerId,
-      taxRatesId,
-      openDate,
-      openTime,
       closeDate,
       closeTime,
+      name,
+      openDate,
+      openTime,
+      ownerId,
+      playerAcceptation,
+      playerPrice,
+      taxRatesId,
+      teamAcceptation,
       teamActivity,
+      teamPrice,
     } = values;
 
     const formattedTeamPrice = Math.floor(Number(teamPrice) * 100);
@@ -65,15 +67,17 @@ export default function AddOptionsEvent() {
     const res = await api(`/api/entity/option`, {
       method: 'POST',
       body: JSON.stringify({
+        endTime: end,
         eventId,
         name,
         ownerId,
-        taxRatesId,
-        teamPrice: formattedTeamPrice,
+        playerAcceptation,
         playerPrice: formattedPlayerPrice,
         startTime: start,
-        endTime: end,
+        taxRatesId,
+        teamAcceptation,
         teamActivity,
+        teamPrice: formattedTeamPrice,
       }),
     });
     if (res.status === STATUS_ENUM.ERROR) {

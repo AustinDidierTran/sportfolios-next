@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node --max_old_space_size=8192 server.js",
-    "build": "NODE_OPTIONS=--max_old_space_size=8192 next build",
+    "build": "next build",
     "start": "next start"
   },
   "husky": {
@@ -29,6 +29,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-with-workbox": "^2.0.1",
     "node-gyp": "^7.1.2",
+    "pm2": "^4.5.4",
     "rc-upload": "^3.3.4",
     "react": "17.0.1",
     "react-beautiful-dnd": "^13.0.0",
