@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { Paper, IgContainer, Icon } from '../../../components/Custom';
+import IgContainer from '../../../components/Custom/IgContainer';
+import Icon from '../../../components/Custom/Icon';
+import HeaderHome from '../../../components/Custom/HeaderHome';
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -37,7 +37,7 @@ export default function Organization(props) {
   const { basicInfos } = props;
   const router = useRouter();
   const { query } = router;
-  const { id } = query;
+  const { id, tab } = query;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -47,42 +47,20 @@ export default function Organization(props) {
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const userState = TabsGenerator({
+  const userTabs = TabsGenerator({
     list: [TABS_ENUM.EVENTS, TABS_ENUM.ABOUT],
     role: basicInfos.role,
   });
 
-  const adminState = TabsGenerator({
+  const adminTabs = TabsGenerator({
     list: [TABS_ENUM.EDIT_EVENTS, TABS_ENUM.SETTINGS],
     role: basicInfos.role,
   });
 
-  const [states, setStates] = useState(userState);
+  // const [states, setStates] = useState(userState);
 
   const getStates = (isAdmin) => {
     isAdmin ? setStates(adminState) : setStates(userState);
-  };
-
-  const OpenTab = useMemo(() => {
-    if (states.map((s) => s.value).includes(eventState)) {
-      return states.find((s) => s.value == eventState).component;
-    } else {
-      if (adminState.map((a) => a.value).includes(eventState)) {
-        if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-          setIsAdmin(true);
-          setStates(adminState);
-          return;
-        }
-      }
-      setIsAdmin(false);
-      setStates(userState);
-      setEventState(TABS_ENUM.EVENTS);
-    }
-  }, [eventState, states]);
-
-  const onClick = (s) => {
-    goTo(ROUTES.entity, { id }, { tab: s.value });
-    setEventState(s.value);
   };
 
   const onSwitch = () => {
@@ -106,43 +84,25 @@ export default function Organization(props) {
     }
   }, [isAdmin]);
 
-  if (!states || states.length == 1) {
-    return (
-      <IgContainer>
-        <OpenTab basicInfos={basicInfos} />
-      </IgContainer>
-    );
-  }
-
   return (
-    <IgContainer>
-      <Paper>
-        <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
-          {states.map((s, index) => (
-            <Tab
-              key={index}
-              onClick={() => onClick(s)}
-              label={window.innerWidth < 768 ? null : s.label}
-              icon={<Icon icon={s.icon} />}
-              style={{
-                minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
-              }}
-            />
-          ))}
-        </Tabs>
-      </Paper>
-      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
-        <Tooltip title={title}>
-          <Fab color="primary" onClick={onSwitch} className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}>
-            <Icon icon="Autorenew" />
-          </Fab>
-        </Tooltip>
-      ) : (
-        <></>
-      )}
-      <div>
-        <OpenTab basicInfos={basicInfos} />
-      </div>
-    </IgContainer>
+    <>
+      <HeaderHome basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
+      <IgContainer>
+        {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
+          <Tooltip title={title}>
+            <Fab
+              color="primary"
+              onClick={onSwitch}
+              className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
+            >
+              <Icon icon="Autorenew" />
+            </Fab>
+          </Tooltip>
+        ) : (
+            <></>
+          )}
+        <div></div>
+      </IgContainer>
+    </>
   );
 }

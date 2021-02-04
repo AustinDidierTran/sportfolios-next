@@ -8,6 +8,7 @@ export const AddressSearchInput = loadable(() => import('./AddressSearchInput'))
 export const Avatar = loadable(() => import('./Avatar'));
 export const BottomNavigation = loadable(() => import('./BottomNavigation'));
 export const Button = loadable(() => import('./Button'));
+export const HeaderHome = loadable(() => import('./HeaderHome'));
 export const Card = loadable(() => import('./Card'));
 export const CardMedia = loadable(() => import('./CardMedia'));
 export const CheckBox = loadable(() => import('./CheckBox'));
