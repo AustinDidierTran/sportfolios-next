@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.eventButton {
+  align-self: right;
+  justify-self: center;
+  width: 50% !important;
+}
+.root {
+  flex-grow: 1;
+  margin: auto;
+  max-width: 700px;
+  padding: 38.07px;
+}
+
+.paper {
+  margin: auto;
+  height: 200px;
+}
+
+.gridButton {
+}
+.gridText {
+}
+
+@media (max-width: 600px) {
+  .avatar {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .eventButton {
+    align-self: center;
+    justify-self: center;
+    width: 50% !important;
+  }
+
+  .gridText {
+    justify-content: center;
+  }
+
+  .gridButton {
+    justify-content: center;
+  }
+
+  .root {
+    flex-grow: 1;
+    margin: auto;
+    max-width: 700px;
+    padding: 2px;
+  }
+
+  .title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .subtitle {
+    font-size: 0.8em;
+    padding: 5px;
+  }
+}

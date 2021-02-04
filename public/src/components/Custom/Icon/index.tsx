@@ -85,6 +85,7 @@ import TextFormat from '@material-ui/icons/TextFormat';
 import Undo from '@material-ui/icons/Undo';
 import Chat from '@material-ui/icons/Chat';
 import ExpandLess from '@material-ui/icons/ExpandLess';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const icons: any = {
   AccountBalance,
@@ -172,6 +173,7 @@ const icons: any = {
   SupervisedUserCircle,
   TextFormat,
   Undo,
+  MoreVertIcon,
 };
 
 interface IProps {

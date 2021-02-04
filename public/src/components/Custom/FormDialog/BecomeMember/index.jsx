@@ -37,7 +37,7 @@ export default function BecomeMember(props) {
   const getPeople = async () => {
     const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null));
     formik.setFieldValue('person', data.id);
-    const res = userInfo.people.map((p) => ({
+    const res = userInfo.persons.map((p) => ({
       value: p.entity_id,
       display: `${p.name} ${p?.surname}`,
     }));

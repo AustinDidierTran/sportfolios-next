@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.eventButton {
+  align-self: right;
+  justify-self: center;
+  width: 50% !important;
+  height: 30.04px;
+}
+.optionsButton {
+  color: white !important;
+  background-color: #18b393 !important;
+  margin-left: 5px !important;
+  height: 30.04px !important;
+  min-width: 30px !important;
+}
+.root {
+  flex-grow: 1;
+  margin: auto;
+  max-width: 700px;
+  padding: 38.07px;
+}
+
+.paper {
+  margin: auto;
+  min-height: 200px;
+}
+
+.navigation {
+  flex-grow: 1;
+  margin: auto;
+  max-width: 700px;
+}
+
+.MuiTabs-root {
+  min-height: none !important;
+}
+
+.MuiTab-root {
+  min-height: none !important;
+}
+
+@media (min-width: 600px) {
+  .MuiTab-root {
+    min-width: 80px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .avatar {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .eventButton {
+    align-self: center;
+    justify-self: center;
+    width: 50% !important;
+  }
+
+  .gridText {
+    justify-content: center;
+    max-width: 300px;
+    margin: auto;
+  }
+
+  .gridButton {
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  .root {
+    flex-grow: 1;
+    margin: auto;
+    max-width: 700px;
+  }
+
+  .title {
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .subtitle {
+    justify-content: center;
+    font-size: 0.8em;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    flex-grow: 1;
+    margin: auto;
+    max-width: 700px;
+    padding: 2px;
+  }
+}
