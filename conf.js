@@ -1,6 +1,8 @@
 module.exports = {
-  API_BASE_URL: 'https://staging.api.sportfolios.app',
-  CLIENT_BASE_URL: 'https://staging.sportfolios.app',
+  // OR http://localhost:1337 if you want to point to your local server
+  API_BASE_URL: 'http://localhost:1337',
+  //API_BASE_URL: 'https://private-4f97fa-sportfolios.apiary-mock.com',
+  CLIENT_BASE_URL: 'https://localhost:3000',
   TOKEN_SECRET: '942ad648-fd13-4386-a8ea-a0d4e75324ef',
   STRIPE: {
     publicKey: 'pk_test_qd1ulz9FxZA3aj2OcBfjqqro00G1K5WrTb',
