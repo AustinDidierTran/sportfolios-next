@@ -61,7 +61,7 @@ export const useFields = (type, options) => {
               componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
               checked: teamAcceptation,
               namespace: 'teamAcceptation',
-              label: t('acceptation_step'),
+              label: t('manual_acceptation'),
               onChange: onTeamChange,
 
               tooltip: t('team_acceptation_step_message'),
@@ -94,7 +94,7 @@ export const useFields = (type, options) => {
           componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
           checked: playerAcceptation,
           namespace: 'playerAcceptation',
-          label: t('acceptation_step'),
+          label: t('manual_acceptation'),
           onChange: onPlayerChange,
           tooltip: t('player_acceptation_step_message'),
         },

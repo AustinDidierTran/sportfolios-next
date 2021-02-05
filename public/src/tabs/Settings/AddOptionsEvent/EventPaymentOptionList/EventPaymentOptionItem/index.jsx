@@ -18,7 +18,19 @@ import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
   const { option, update } = props;
-  const { id, name, team_price, individual_price, startTime, endTime, owner, taxRates, team_activity } = option;
+  const {
+    id,
+    name,
+    team_price,
+    individual_price,
+    startTime,
+    endTime,
+    owner,
+    taxRates,
+    team_activity,
+    team_acceptation,
+    player_acceptation,
+  } = option;
 
   const { dispatch } = useContext(Store);
   const [alertDialog, setAlertDialog] = useState(false);
@@ -96,6 +108,8 @@ export default function EventPaymentOptionItem(props) {
         expanded={expanded}
         setEdit={setEdit}
         setAlertDialog={setAlertDialog}
+        teamAcceptation={team_acceptation}
+        playerAcceptation={player_acceptation}
       />
       <Divider />
       <CustomFormDialog

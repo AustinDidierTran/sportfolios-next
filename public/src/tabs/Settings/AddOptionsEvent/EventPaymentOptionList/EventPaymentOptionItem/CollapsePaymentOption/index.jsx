@@ -22,6 +22,8 @@ export default function CollapsePaymentOption(props) {
     expanded,
     setEdit,
     setAlertDialog,
+    teamAcceptation,
+    playerAcceptation,
   } = props;
 
   return (
@@ -42,6 +44,17 @@ export default function CollapsePaymentOption(props) {
           ) : (
             <ListItemText primary={t('no_owner_free_payment_option')} secondary={t('payment_option_owner')} />
           )}
+        </ListItem>
+        <ListItem className={styles.money}>
+          <ListItemText />
+          <ListItemText primary={t('team')} />
+          <ListItemText primary={t('player')} />
+        </ListItem>
+        <Divider />
+        <ListItem className={styles.money}>
+          <ListItemText primary={t('manual_acceptation')} />
+          <ListItemText primary={teamAcceptation ? t('yes') : t('no')} />
+          <ListItemText primary={playerAcceptation ? t('yes') : t('no')} />
         </ListItem>
         <Divider />
         <>
