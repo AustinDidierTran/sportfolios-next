@@ -4,7 +4,7 @@ import { Paper, Card } from '../../../components/Custom';
 
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import moment from 'moment';
 import styles from './EventSettings.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
@@ -36,9 +36,9 @@ export default function EventSettings() {
   }, [eventId]);
 
   const validationSchema = yup.object().shape({
-    maximumSpots: yup.number().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)).positive(t(ERROR_ENUM.VALUE_IS_INVALID)),
-    eventStart: yup.date('allo').required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-    eventEnd: yup.date('allo').required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    maximumSpots: yup.number(t(ERROR_ENUM.VALUE_IS_INVALID)).min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
+    eventStart: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)),
+    eventEnd: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)),
   });
 
   const formik = useFormik({
@@ -50,18 +50,32 @@ export default function EventSettings() {
     validateOnChange: false,
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log({ values });
-      const { maximumSpots, eventStart, eventEnd } = values;
+      const { maximumSpots, startDate: startDateProps, endDate: endDateProps } = values;
+      let startDate = startDateProps;
+      if (!moment(startDateProps).isValid()) {
+        startDate = null;
+      }
+      let endDate = endDateProps;
+      if (!moment(endDateProps).isValid()) {
+        endDate = null;
+      }
       const res = await api(`/api/entity/updateEvent`, {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
           maximumSpots,
-          eventStart,
-          eventEnd,
+          startDate,
+          endDate,
         }),
       });
-      console.log({ res });
+      if (res.status === STATUS_ENUM.ERROR) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t(ERROR_ENUM.ERROR_OCCURED),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+        return;
+      }
       getInfos();
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -70,7 +84,7 @@ export default function EventSettings() {
       });
     },
   });
-  console.log({ errors: formik.errors });
+
   const fields = [
     {
       namespace: 'maximumSpots',
