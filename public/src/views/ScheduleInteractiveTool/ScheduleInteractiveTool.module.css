@@ -11,14 +11,17 @@
 
 .gridLayout {
   grid-area: grid;
+  position: relative;
 }
 
 .gridLayoutTimes {
   grid-area: timeslots;
+  position: relative;
 }
 
 .gridLayoutFields {
   grid-area: fields;
+  position: relative;
 }
 
 .divButtons {

@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
 import loadable from '@loadable/component';
+import { ga } from 'react-ga';
 
 const AddFieldInteractiveTool = loadable(() => import('./AddFieldInteractiveTool'));
 const AddTimeSlotInteractiveTool = loadable(() => import('./AddTimeSlotInteractiveTool'));
@@ -81,12 +82,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-var globalState = {
-  fieldState: [],
-  gameState: [],
-  timeSlotState: [],
-};
-
 export default function ScheduleInteractiveTool() {
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -114,6 +109,9 @@ export default function ScheduleInteractiveTool() {
   const [initialLayout, setInitialLayout] = useState([]);
   const [layoutTimes, setLayoutTimes] = useState([]);
   const [layoutFields, setLayoutFields] = useState([]);
+  const [initialLayoutFields, setInitialLayoutFields] = useState([]);
+  const [initialLayoutGames, setInitialLayoutGames] = useState([]);
+  const [initialLayoutTimeslots, setInitialLayoutTimeslots] = useState([]);
 
   const [alertDialog, setAlertDialog] = useState(false);
   const [addGameDialog, setAddGameDialog] = useState(false);
@@ -138,13 +136,11 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
-      globalState.fieldState = this.newState;
-      setFields(globalState.fieldState);
+      setFields(this.newState);
     }
 
     undo() {
-      globalState.fieldState = this.previousState;
-      setFields(globalState.fieldState);
+      setFields(this.previousState);
     }
     redo() {
       this.execute();
@@ -164,14 +160,89 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
-      globalState.gameState = this.newState;
-      setGames(globalState.gameState);
+      setGames(this.newState);
     }
 
     undo() {
-      globalState.gameState = this.previousState;
-      setGames(globalState.gameState);
+      setGames(this.previousState);
     }
+    redo() {
+      this.execute();
+    }
+  }
+
+  class moveGameCommand {
+    game;
+    oldCoord;
+    newCoord;
+    type = 'moveCommand';
+
+    constructor(oldCoord, newCoord, movedGame) {
+      this.game = movedGame;
+      this.oldCoord = oldCoord;
+      this.newCoord = newCoord;
+    }
+
+    execute() {
+      setGames((games) => {
+        const index = games.findIndex((g) => g.x === this.oldCoord.x && g.y === this.oldCoord.y);
+
+        games[index] = {
+          ...games[index],
+          x: this.newCoord.x,
+          y: this.newCoord.y,
+        };
+        return games;
+      });
+
+      const gameArr = games.reduce(
+        (prev, game) => [
+          ...prev,
+          {
+            i: game.id,
+            x: game.x,
+            y: game.y,
+            w: 1,
+            h: 1,
+            isBounded: true,
+          },
+        ],
+        []
+      );
+
+      setLayout(gameArr);
+    }
+
+    undo() {
+      setGames((games) => {
+        const index = games.findIndex((g) => g.x === this.newCoord.x && g.y === this.newCoord.y);
+        games[index] = {
+          ...games[index],
+          x: this.oldCoord.x,
+          y: this.oldCoord.y,
+        };
+
+        return games;
+      });
+
+      const gameArr = games.reduce(
+        (prev, game) => [
+          ...prev,
+          {
+            i: game.id,
+            x: game.x,
+            y: game.y,
+            w: 1,
+            h: 1,
+            isBounded: true,
+          },
+        ],
+        []
+      );
+
+      setLayout(gameArr);
+    }
+
     redo() {
       this.execute();
     }
@@ -193,13 +264,11 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
-      globalState.timeSlotState = this.newState;
-      setTimeslots(globalState.timeSlotState);
+      setTimeslots(this.newState);
     }
 
     undo() {
-      globalState.timeSlotState = this.previousState;
-      setTimeslots(globalState.timeSlotState);
+      setTimeslots(this.previousState);
     }
 
     redo() {
@@ -217,17 +286,23 @@ export default function ScheduleInteractiveTool() {
     }
     const { data } = await api(formatRoute('/api/entity/interactiveTool', null, { eventId }));
 
-    globalState.timeSlotState = data.timeSlots.map((t) => ({
+    const timeslots = data.timeSlots.map((t) => ({
       id: t.id,
       date: new Date(t.date).getTime(),
     }));
 
-    globalState.fieldState = data.fields.map((f) => ({
+    setTimeslots(timeslots);
+    setInitialLayoutTimeslots(timeslots);
+
+    const fields = data.fields.map((f) => ({
       id: f.id,
       field: f.field,
     }));
 
-    globalState.gameState = data.games.map((g) => ({
+    setFields(fields);
+    setInitialLayoutFields(fields);
+
+    const games = data.games.map((g) => ({
       field_id: g.field_id,
       timeslot_id: g.timeslot_id,
       phase_id: g.phase_id,
@@ -236,6 +311,9 @@ export default function ScheduleInteractiveTool() {
       x: data.fields.findIndex((f) => f.id === g.field_id),
       y: data.timeSlots.findIndex((ts) => ts.id === g.timeslot_id),
     }));
+
+    setGames(games);
+    setInitialLayoutGames(games);
 
     setPhases(
       data.phases.map((p) => ({
@@ -252,9 +330,6 @@ export default function ScheduleInteractiveTool() {
       }))
     );
 
-    setFields(globalState.fieldState);
-    setTimeslots(globalState.timeSlotState);
-    setGames(globalState.gameState);
     setIsLoading(false);
   };
 
@@ -273,7 +348,6 @@ export default function ScheduleInteractiveTool() {
           w: 1,
           h: 1,
           minW: 1,
-          maxW: 2,
           static: true,
         },
       ],
@@ -317,47 +391,68 @@ export default function ScheduleInteractiveTool() {
   }, [fields, timeslots, games]);
 
   const onDragStop = (layout, oldItem, newItem) => {
-    setGames((games) => {
-      const oldGameIndex = games.findIndex((g) => g.x === oldItem.x && g.y === oldItem.y);
-
-      games[oldGameIndex] = {
-        ...games[oldGameIndex],
+    if (oldItem.x !== newItem.x || oldItem.y !== newItem.y) {
+      const oldCoord = {
+        x: oldItem.x,
+        y: oldItem.y,
+      };
+      const newCoord = {
         x: newItem.x,
         y: newItem.y,
       };
 
-      return games;
-    });
+      const oldGameIndex = games.findIndex((g) => g.x === oldItem.x && g.y === oldItem.y);
+      const oldGame = games[oldGameIndex];
+      const command = new moveGameCommand(oldCoord, newCoord, oldGame);
 
-    setLayout(layout);
-    if (oldItem.x !== newItem.x || oldItem.y !== newItem.y) {
+      executeCommand(command);
+
+      // setGames((games) => {
+      //   const oldGameIndex = games.findIndex((g) => g.x === oldItem.x && g.y === oldItem.y);
+
+      //   games[oldGameIndex] = {
+      //     ...games[oldGameIndex],
+      //     x: newItem.x,
+      //     y: newItem.y,
+      //   };
+
+      //   return games;
+      // });
+
+      // setLayout(layout);
       setMadeChanges(true);
     }
   };
 
   const handleCancel = async () => {
     // fix tooltips
-    setGames(
-      games.map((g) => ({
-        ...g,
-        x: fields.findIndex((f) => f.id === g.field_id),
-        y: timeslots.findIndex((ts) => ts.id === g.timeslot_id),
-      }))
-    );
+    // setGames(
+    //   games.map((g) => ({
+    //     ...g,
+    //     x: fields.findIndex((f) => f.id === g.field_id),
+    //     y: timeslots.findIndex((ts) => ts.id === g.timeslot_id),
+    //   }))
+    // );
 
+    setTimeslots(initialLayoutTimeslots);
+    setGames(initialLayoutGames);
+    setFields(initialLayoutFields);
     setButtonsAdd([]);
     setIsAddingGames(false);
 
     setLayout(initialLayout);
     setMadeChanges(false);
+    setUndoLog([]);
+    setRedoLog([]);
   };
 
   const handleSave = async () => {
-    const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((g) => g.game);
-    const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((f) => f.field);
-    const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((t) => t.date);
+    const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((c) => c.game);
+    const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((c) => c.field);
+    const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((c) => c.date);
+    const gamesMoved = undoLog.filter((command) => command.type === 'moveCommand').map((c) => c.game);
 
-    const { status, data } = await api(`/api/entity/addAllInteractiveTool`, {
+    const { status } = await api(`/api/entity/addAllInteractiveTool`, {
       method: 'POST',
       body: JSON.stringify({
         eventId,
@@ -367,23 +462,27 @@ export default function ScheduleInteractiveTool() {
       }),
     });
 
-    const gameIds = games.map((g) => g.id);
-    const onlyGames = layout.filter((g) => gameIds.includes(g.i));
-    const changedGames = onlyGames.filter(
-      ({ x: x1, y: y1, i: i1 }) => !initialLayout.some(({ x: x2, y: y2, i: i2 }) => x1 === x2 && y1 === y2 && i1 === i2)
-    );
+    const gamesToUpdate = gamesMoved.reduce((prev, game) => {
+      const index = prev.findIndex((p) => p.id === game.id);
 
-    const gamesToUpdate = changedGames.reduce(
-      (prev, game) => [
+      if (index !== -1) {
+        prev[index] = {
+          id: game.id,
+          timeslot_id: timeslots[game.y].id,
+          field_id: fields[game.x].id,
+        };
+        return prev;
+      }
+
+      return [
         ...prev,
         {
-          gameId: game.i,
-          timeSlotId: timeslots[game.y].id,
-          fieldId: fields[game.x].id,
+          id: game.id,
+          timeslot_id: timeslots[game.y].id,
+          field_id: fields[game.x].id,
         },
-      ],
-      []
-    );
+      ];
+    }, []);
 
     const res = await api(`/api/entity/updateGamesInteractiveTool`, {
       method: 'PUT',
@@ -393,12 +492,7 @@ export default function ScheduleInteractiveTool() {
       }),
     });
 
-    if (
-      status === STATUS_ENUM.ERROR ||
-      status === STATUS_ENUM.UNAUTHORIZED ||
-      res.status === STATUS_ENUM.ERROR ||
-      res.status === STATUS_ENUM.UNAUTHORIZED
-    ) {
+    if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),
@@ -538,21 +632,22 @@ export default function ScheduleInteractiveTool() {
     setMadeChanges(true);
     setRedoLog([]);
     command.execute();
-    undoLog.push(command);
+    setUndoLog(undoLog.concat(command));
+    // undoLog.push(command);
   }
 
   function undoCommand() {
     const command = undoLog[undoLog.length - 1];
     command.undo();
     undoLog.pop();
-    redoLog.push(command);
+    setRedoLog(redoLog.concat(command));
   }
 
   function redoCommand() {
     const command = redoLog[redoLog.length - 1];
     command.redo();
     redoLog.pop();
-    undoLog.push(command);
+    setUndoLog(undoLog.concat(command));
   }
 
   const AddGames = buttonsAdd.map((b) => (
