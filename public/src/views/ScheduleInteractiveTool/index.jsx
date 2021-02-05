@@ -406,34 +406,11 @@ export default function ScheduleInteractiveTool() {
       const command = new moveGameCommand(oldCoord, newCoord, oldGame);
 
       executeCommand(command);
-
-      // setGames((games) => {
-      //   const oldGameIndex = games.findIndex((g) => g.x === oldItem.x && g.y === oldItem.y);
-
-      //   games[oldGameIndex] = {
-      //     ...games[oldGameIndex],
-      //     x: newItem.x,
-      //     y: newItem.y,
-      //   };
-
-      //   return games;
-      // });
-
-      // setLayout(layout);
       setMadeChanges(true);
     }
   };
 
   const handleCancel = async () => {
-    // fix tooltips
-    // setGames(
-    //   games.map((g) => ({
-    //     ...g,
-    //     x: fields.findIndex((f) => f.id === g.field_id),
-    //     y: timeslots.findIndex((ts) => ts.id === g.timeslot_id),
-    //   }))
-    // );
-
     setTimeslots(initialLayoutTimeslots);
     setGames(initialLayoutGames);
     setFields(initialLayoutFields);
