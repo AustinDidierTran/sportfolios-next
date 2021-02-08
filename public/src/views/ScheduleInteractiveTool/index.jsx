@@ -123,10 +123,10 @@ export default function ScheduleInteractiveTool() {
 
   const onKeyDown = (keyName, e, handle) => {
     e.preventDefault();
-    if (keyName === 'ctrl+z' && undoLog.length !== 0) {
+    if (keyName === 'ctrl+z' || (keyName === 'command+z' && undoLog.length !== 0)) {
       undoCommand();
     }
-    if (keyName === 'ctrl+y' && redoLog.length !== 0) {
+    if (keyName === 'ctrl+y' || (keyName === 'command+shift+z' && redoLog.length !== 0)) {
       redoCommand();
     }
   };
@@ -861,7 +861,7 @@ export default function ScheduleInteractiveTool() {
         </Fab>
       </Tooltip>
 
-      <Hotkeys keyName="ctrl+z, ctrl+y" onKeyDown={onKeyDown.bind(this)}>
+      <Hotkeys keyName="ctrl+z, ctrl+y, command+z, command+shift+z" onKeyDown={onKeyDown.bind(this)}>
         <Tooltip title={canUndo ? t('undo') : ''}>
           <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
             <Icon icon="Undo" />
