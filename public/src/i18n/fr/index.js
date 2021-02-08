@@ -382,6 +382,7 @@ export default {
     M: 'Medium',
     Male: 'Homme',
     male: 'Homme',
+    manual_acceptation: 'Acceptation manuelle',
     max_length: 'Longueur maximum',
     maximum_spots: 'Nombre de places',
     member_added: 'Membre ajouté',
@@ -583,7 +584,7 @@ export default {
     registration_open_date: 'Date ouverture inscriptions',
     registration_open_time: 'Heure ouverture inscriptions',
     registration_pending:
-      'Votre inscription est en attente, vous allez reçevoir un courriel pour vous avertir lorsque votre demande sera traitée ',
+      "Votre inscription est en attente d'acceptation, vous allez reçevoir un courriel pour vous avertir lorsque votre demande sera traitée",
     registration_refused: "Désolé, votre équipe n'est pas éligible pour cet événement vous avez été refusé",
     registration_status: 'État des inscriptions',
     registration: 'Inscription',
