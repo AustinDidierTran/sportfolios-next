@@ -94,6 +94,10 @@ export default function ScheduleInteractiveTool() {
   const [timeslots, setTimeslots] = useState([]);
   const [fields, setFields] = useState([]);
 
+  const [initialFields, setInitialFields] = useState([]);
+  const [initialGames, setInitialGames] = useState([]);
+  const [initialTimeslots, setInitialTimeslots] = useState([]);
+
   const [undoLog, setUndoLog] = useState([]);
   const [redoLog, setRedoLog] = useState([]);
 
@@ -107,9 +111,6 @@ export default function ScheduleInteractiveTool() {
   const [initialLayout, setInitialLayout] = useState([]);
   const [layoutTimes, setLayoutTimes] = useState([]);
   const [layoutFields, setLayoutFields] = useState([]);
-  const [initialLayoutFields, setInitialLayoutFields] = useState([]);
-  const [initialLayoutGames, setInitialLayoutGames] = useState([]);
-  const [initialLayoutTimeslots, setInitialLayoutTimeslots] = useState([]);
 
   const [alertDialog, setAlertDialog] = useState(false);
   const [addGameDialog, setAddGameDialog] = useState(false);
@@ -134,6 +135,12 @@ export default function ScheduleInteractiveTool() {
     }
 
     execute() {
+      //minWidth fix
+      if (fields.length === 1 && fields[0].id === '-1') {
+        setFields([]);
+        setLayoutFields([]);
+        this.newState = this.newState.filter((f) => f.id !== '-1');
+      }
       setFields(this.newState);
     }
 
@@ -184,13 +191,11 @@ export default function ScheduleInteractiveTool() {
     execute() {
       setGames((games) => {
         const index = games.findIndex((g) => g.x === this.oldCoord.x && g.y === this.oldCoord.y);
-
         games[index] = {
           ...games[index],
           x: this.newCoord.x,
           y: this.newCoord.y,
         };
-
         return games;
       });
 
@@ -222,7 +227,6 @@ export default function ScheduleInteractiveTool() {
           x: this.oldCoord.x,
           y: this.oldCoord.y,
         };
-
         return games;
       });
 
@@ -243,7 +247,6 @@ export default function ScheduleInteractiveTool() {
         ],
         []
       );
-
       setLayout(gameArr);
     }
 
@@ -296,15 +299,35 @@ export default function ScheduleInteractiveTool() {
     }));
 
     setTimeslots(timeslots);
-    setInitialLayoutTimeslots(timeslots);
+    setInitialTimeslots(timeslots);
 
-    const fields = data.fields.map((f) => ({
+    const fieldsData = data.fields.map((f) => ({
       id: f.id,
       field: f.field,
     }));
 
-    setFields(fields);
-    setInitialLayoutFields(fields);
+    //minWidth fix
+    if (fieldsData.length === 0) {
+      const placeHolderField = {
+        i: '-1',
+        x: 0,
+        y: 0,
+        w: 1,
+        h: 1,
+        static: true,
+      };
+
+      setFields([
+        {
+          id: '-1',
+          field: ' ',
+        },
+      ]);
+      setLayoutFields([placeHolderField]);
+    } else {
+      setFields(fieldsData);
+      setInitialFields(fieldsData);
+    }
 
     const games = data.games.map((g) => ({
       field_id: g.field_id,
@@ -317,7 +340,7 @@ export default function ScheduleInteractiveTool() {
     }));
 
     setGames(games);
-    setInitialLayoutGames(games);
+    setInitialGames(games);
 
     setPhases(
       data.phases.map((p) => ({
@@ -415,21 +438,25 @@ export default function ScheduleInteractiveTool() {
   };
 
   const handleCancel = async () => {
-    setTimeslots(initialLayoutTimeslots);
-    setGames(initialLayoutGames);
-    setFields(initialLayoutFields);
-    setButtonsAdd([]);
-    setIsAddingGames(false);
+    setTimeslots(initialTimeslots);
+    setGames(initialGames);
+    setFields(initialFields);
 
     setLayout(initialLayout);
+
+    setIsAddingGames(false);
     setMadeChanges(false);
+
+    setButtonsAdd([]);
     setUndoLog([]);
     setRedoLog([]);
   };
 
   const handleSave = async () => {
     const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((c) => c.game);
-    const fieldsToAdd = undoLog.filter((command) => command.type === 'fieldCommand').map((c) => c.field);
+    const fieldsToAdd = undoLog
+      .filter((command) => command.type === 'fieldCommand' && command.field.id !== '-1')
+      .map((c) => c.field);
     const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((c) => c.date);
     const gamesMoved = undoLog.filter((command) => command.type === 'moveCommand').map((c) => c.game);
 
@@ -531,23 +558,29 @@ export default function ScheduleInteractiveTool() {
   const handleAddMode = () => {
     setIsAddingGames(true);
     const buttonsToAdd = [];
-    for (let x = 0; x < fields.length; x++) {
-      for (let y = 0; y < timeslots.length; y++) {
-        if (!layout.find((item) => item.x === x && item.y === y)) {
-          buttonsToAdd.push({
-            i: `+${x}:${y}`,
-            x: x,
-            y: y,
-            w: 1,
-            h: 1,
-            static: true,
-          });
+
+    //minWidth fix
+    if (fields.length === 1 && fields[0].id === '-1') {
+      setButtonsAdd([]);
+      setLayout(layout.concat(buttonsToAdd));
+    } else {
+      for (let x = 0; x < fields.length; x++) {
+        for (let y = 0; y < timeslots.length; y++) {
+          if (!layout.find((item) => item.x === x && item.y === y)) {
+            buttonsToAdd.push({
+              i: `+${x}:${y}`,
+              x: x,
+              y: y,
+              w: 1,
+              h: 1,
+              static: true,
+            });
+          }
         }
       }
+      setButtonsAdd(buttonsToAdd);
+      setLayout(layout.concat(buttonsToAdd));
     }
-
-    setButtonsAdd(buttonsToAdd);
-    setLayout(layout.concat(buttonsToAdd));
   };
 
   const handleAddGameAt = (x, y) => {
@@ -623,7 +656,6 @@ export default function ScheduleInteractiveTool() {
     setRedoLog([]);
     command.execute();
     setUndoLog(undoLog.concat(command));
-    // undoLog.push(command);
   }
 
   function undoCommand() {
@@ -631,6 +663,12 @@ export default function ScheduleInteractiveTool() {
     command.undo();
     undoLog.pop();
     setRedoLog(redoLog.concat(command));
+
+    //'+' button fix
+    if (isAddingGames) {
+      setButtonsAdd([]);
+      setIsAddingGames(false);
+    }
   }
 
   function redoCommand() {
@@ -638,6 +676,12 @@ export default function ScheduleInteractiveTool() {
     command.redo();
     redoLog.pop();
     setUndoLog(undoLog.concat(command));
+
+    //'+' button fix
+    if (isAddingGames) {
+      setButtonsAdd([]);
+      setIsAddingGames(false);
+    }
   }
 
   const AddGames = buttonsAdd.map((b) => (
