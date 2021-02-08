@@ -23,7 +23,6 @@ export default function Review() {
   const onCheckout = async () => {
     /* eslint-disable-next-line */
     console.log('transfers', transfers);
-    await clearCart();
     setItems([]);
     dispatch({
       type: ACTION_ENUM.UPDATE_CART,

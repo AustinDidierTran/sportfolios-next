@@ -582,7 +582,7 @@ export default {
     registration_open_date: 'Date registrations open',
     registration_open_time: 'Time registrations open',
     registration_pending:
-      'Your acceptation is currently pending, you will receive an email when the event will adress your registration',
+      'Your registration is currently pending, you will receive an email when the event will adress your registration',
     registration_refused: 'Sorry, your team is not elligible for this event your registration has been refused',
     registration_status: 'Registration Status',
     registration: 'Registration',
