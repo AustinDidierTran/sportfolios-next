@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.sportfolios.twa",
+      "sha256_cert_fingerprints": [
+        "21:DE:07:C7:50:64:36:69:C5:02:02:3A:90:37:26:C2:9E:5C:81:68:96:73:01:FF:B9:DE:B2:36:CE:BC:61:F7"
+      ]
+    }
+  }
+]
