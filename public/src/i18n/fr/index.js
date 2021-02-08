@@ -382,6 +382,7 @@ export default {
     M: 'Medium',
     Male: 'Homme',
     male: 'Homme',
+    manual_acceptation: 'Acceptation manuelle',
     max_length: 'Longueur maximum',
     maximum_spots: 'Nombre de places',
     member_added: 'Membre ajouté',

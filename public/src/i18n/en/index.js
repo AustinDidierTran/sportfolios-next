@@ -377,6 +377,7 @@ export default {
     M: 'Medium',
     Male: 'Male',
     male: 'Male',
+    manual_acceptation: 'Manual acceptation',
     max_length: 'Maximum length',
     maximum_spots: 'Maximum spots',
     member_added: 'Member added',
