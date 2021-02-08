@@ -19,7 +19,6 @@ const api = async (route, { method, body } = {}) => {
     });
     const status = res.status;
     const { data } = await res.json();
-
     return { data, status };
   }
 

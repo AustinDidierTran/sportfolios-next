@@ -1,5 +1,4 @@
 .mainDiv {
-  top: 0;
   position: fixed;
   display: grid;
   grid-template-columns: 192px auto;
@@ -11,14 +10,17 @@
 
 .gridLayout {
   grid-area: grid;
+  position: relative;
 }
 
 .gridLayoutTimes {
   grid-area: timeslots;
+  position: relative;
 }
 
 .gridLayoutFields {
   grid-area: fields;
+  position: relative;
 }
 
 .divButtons {
@@ -78,6 +80,8 @@
   position: absolute;
   margin: 0;
   text-align: center;
+  max-width: 192px;
+  min-width: 1px;
 }
 
 .divAddGame {

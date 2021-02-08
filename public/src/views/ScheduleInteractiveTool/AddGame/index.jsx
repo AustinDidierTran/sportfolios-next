@@ -1,24 +1,16 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { FormDialog } from '../../../components/Custom';
 import { formatDate } from '../../../utils/stringFormats';
-import { Store, ACTION_ENUM } from '../../../Store';
 import moment from 'moment';
-import api from '../../../actions/api';
+import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
   const { eventId, isOpen, onClose, createCard, field, timeslot, teams, phases } = props;
-
-  const [open, setOpen] = useState(isOpen);
-
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
 
   const onFinish = () => {
     formik.resetForm();
@@ -26,22 +18,27 @@ export default function AddGame(props) {
   };
 
   const description = useMemo(() => {
-    return `${field?.name}, ${'abc'}`;
+    return `${field?.name}, ${formatDate(moment(timeslot.date))}`;
   }, [field, timeslot]);
 
-  const validate = (values) => {
+  const validationSchema = yup.object().shape({
+    phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    team1: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    team2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
+
+  const sendToInteractiveTool = (values) => {
     const { phase, team1, team2 } = values;
-    const errors = {};
-    if (!phase.length) {
-      errors.phase = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!team1.length) {
-      errors.team1 = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!team2.length) {
-      errors.team2 = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
+
+    const game = {
+      field_id: field.id,
+      timeslot_id: timeslot.id,
+      teamsId: [team1, team2],
+      phase_id: phase,
+    };
+
+    createCard(game);
+    onFinish();
   };
 
   const formik = useFormik({
@@ -50,45 +47,10 @@ export default function AddGame(props) {
       team1: '',
       team2: '',
     },
-    validate,
+    validationSchema: validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values) => {
-      const { phase, team1, team2 } = values;
-
-      const { status, data } = await api('/api/entity/game', {
-        method: 'POST',
-        body: JSON.stringify({
-          eventId,
-          phaseId: phase,
-          fieldId: field.id,
-          timeslotId: timeslot.id,
-          rosterId1: team1,
-          rosterId2: team2,
-        }),
-      });
-
-      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-        return;
-      }
-
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('game_added'),
-        severity: SEVERITY_ENUM.SUCCESS,
-        duration: 2000,
-      });
-
-      createCard(data.game);
-
-      onFinish();
-    },
+    onSubmit: sendToInteractiveTool,
   });
 
   const buttons = [
@@ -127,7 +89,7 @@ export default function AddGame(props) {
 
   return (
     <FormDialog
-      open={open}
+      open={isOpen}
       title={t('create_a_game')}
       description={description}
       buttons={buttons}
