@@ -19,6 +19,8 @@ import RGL from 'react-grid-layout';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
+import Hotkeys from 'react-hot-keys';
+
 import loadable from '@loadable/component';
 
 const AddFieldInteractiveTool = loadable(() => import('./AddFieldInteractiveTool'));
@@ -118,6 +120,16 @@ export default function ScheduleInteractiveTool() {
   const [addGameTimeslot, setAddGameTimeslot] = useState({});
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
+
+  const onKeyDown = (keyName, e, handle) => {
+    e.preventDefault();
+    if (keyName === 'ctrl+z' && undoLog.length !== 0) {
+      undoCommand();
+    }
+    if (keyName === 'ctrl+y' && redoLog.length !== 0) {
+      redoCommand();
+    }
+  };
 
   class addFieldCommand {
     newState = [];
@@ -780,7 +792,7 @@ export default function ScheduleInteractiveTool() {
               width={500}
               cols={fields?.length}
               rowHeight={64}
-              maxRows={2}
+              maxRows={timeslots?.length}
               margin={[0, 20]}
               layout={layoutTimes}
               isResizable={false}
@@ -849,16 +861,18 @@ export default function ScheduleInteractiveTool() {
         </Fab>
       </Tooltip>
 
-      <Tooltip title={canUndo ? t('undo') : ''}>
-        <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
-          <Icon icon="Undo" />
-        </Fab>
-      </Tooltip>
-      <Tooltip title={canRedo ? t('redo') : ''}>
-        <Fab onClick={redoCommand} className={classes.fabRedo} disabled={!canRedo}>
-          <Icon icon="Redo" />
-        </Fab>
-      </Tooltip>
+      <Hotkeys keyName="ctrl+z, ctrl+y" onKeyDown={onKeyDown.bind(this)}>
+        <Tooltip title={canUndo ? t('undo') : ''}>
+          <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
+            <Icon icon="Undo" />
+          </Fab>
+        </Tooltip>
+        <Tooltip title={canRedo ? t('redo') : ''}>
+          <Fab onClick={redoCommand} className={classes.fabRedo} disabled={!canRedo}>
+            <Icon icon="Redo" />
+          </Fab>
+        </Tooltip>
+      </Hotkeys>
 
       <AlertDialog
         open={alertDialog}
