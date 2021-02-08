@@ -1,41 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { ERROR_ENUM } from '../../../../common/errors';
 import moment from 'moment';
+import * as yup from 'yup';
 
 export default function AddTimeSlotInteractiveTool(props) {
   const { t } = useTranslation();
   const { isOpen, onClose, addTimeslotToGrid } = props;
-
-  const [open, setOpen] = useState(isOpen);
-
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
 
   const onFinish = () => {
     formik.resetForm();
     onClose();
   };
 
-  const validate = (values) => {
-    const { date, time } = values;
-    const errors = {};
-    if (!time.length) {
-      errors.time = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!date.length) {
-      errors.date = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    time: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    date: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
 
   const sendToInteractiveTool = (values) => {
     const { date, time } = values;
     const realDate = new Date(`${date} ${time}`).getTime();
-    // console.log(realDate);
     if (addTimeslotToGrid) {
       addTimeslotToGrid(realDate);
     }
@@ -46,7 +33,7 @@ export default function AddTimeSlotInteractiveTool(props) {
       time: '09:00',
       date: moment().format('YYYY-MM-DD'),
     },
-    validate,
+    validationSchema: validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: sendToInteractiveTool,
@@ -80,7 +67,7 @@ export default function AddTimeSlotInteractiveTool(props) {
 
   return (
     <FormDialog
-      open={open}
+      open={isOpen}
       title={t('add_time_slot')}
       buttons={buttons}
       fields={fields}

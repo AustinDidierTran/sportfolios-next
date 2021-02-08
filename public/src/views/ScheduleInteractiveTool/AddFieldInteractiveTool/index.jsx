@@ -1,38 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { ERROR_ENUM } from '../../../../common/errors';
+import * as yup from 'yup';
 
 export default function AddFieldInteractiveTool(props) {
   const { t } = useTranslation();
   const { isOpen, onClose, addFieldToGrid } = props;
-
-  const [open, setOpen] = useState(isOpen);
-
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
 
   const onFinish = () => {
     formik.resetForm();
     onClose();
   };
 
-  const validate = (values) => {
-    const { field } = values;
-    const errors = {};
-    if (!field.length) {
-      errors.field = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (field.length > 64) {
-      formik.setFieldValue('field', field.slice(0, 64));
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    field: yup.string().max(64, t(ERROR_ENUM.VALUE_IS_TOO_LONG)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
 
   const sendToInteractiveTool = (values) => {
     const { field } = values;
+    formik.setFieldValue('field', field.slice(0, 64));
     formik.resetForm();
     if (addFieldToGrid) {
       addFieldToGrid(field);
@@ -43,7 +31,7 @@ export default function AddFieldInteractiveTool(props) {
     initialValues: {
       field: '',
     },
-    validate,
+    validationSchema: validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: sendToInteractiveTool,
@@ -73,7 +61,7 @@ export default function AddFieldInteractiveTool(props) {
 
   return (
     <FormDialog
-      open={open}
+      open={isOpen}
       title={t('add_field')}
       buttons={buttons}
       fields={fields}
