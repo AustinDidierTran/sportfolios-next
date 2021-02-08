@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './Home.module.css';
 import { CARD_TYPE_ENUM } from '../../../common/enums';
 import Card from '../../components/Custom/Card';
+import PostInput from '../../components/Custom/Input/PostInput';
 import api from '../../actions/api';
 import Typography from '@material-ui/core/Typography';
 import { useRouter } from 'next/router';
@@ -41,10 +42,11 @@ export default function EditEvents() {
             {events.map((e, index) => (
               <Card type={CARD_TYPE_ENUM.EVENT} items={e} key={index} />
             ))}
+            <PostInput />
           </>
         ) : (
-            <Typography>{t('this_organization_has_no_events')}</Typography>
-          )}
+          <Typography>{t('this_organization_has_no_events')}</Typography>
+        )}
       </div>
     </div>
   );
