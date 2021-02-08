@@ -15,12 +15,11 @@ export default function AddFieldInteractiveTool(props) {
   };
 
   const validationSchema = yup.object().shape({
-    field: yup.string().max(64, t(ERROR_ENUM.VALUE_IS_TOO_LONG)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    field: yup.string().max(25, t(ERROR_ENUM.VALUE_IS_TOO_LONG)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const sendToInteractiveTool = (values) => {
     const { field } = values;
-    formik.setFieldValue('field', field.slice(0, 64));
     formik.resetForm();
     if (addFieldToGrid) {
       addFieldToGrid(field);

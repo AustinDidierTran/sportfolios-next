@@ -7,7 +7,6 @@ import { formatDate } from '../../utils/stringFormats';
 import { LoadingSpinner, Icon, Button } from '../../components/Custom';
 import { Store, ACTION_ENUM } from '../../Store';
 import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../common/enums';
-import { ERROR_ENUM } from '../../../common/errors';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,7 +20,6 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
 import loadable from '@loadable/component';
-import { ga } from 'react-ga';
 
 const AddFieldInteractiveTool = loadable(() => import('./AddFieldInteractiveTool'));
 const AddTimeSlotInteractiveTool = loadable(() => import('./AddTimeSlotInteractiveTool'));
@@ -192,8 +190,12 @@ export default function ScheduleInteractiveTool() {
           x: this.newCoord.x,
           y: this.newCoord.y,
         };
+
         return games;
       });
+
+      this.game.x = this.newCoord.x;
+      this.game.y = this.newCoord.y;
 
       const gameArr = games.reduce(
         (prev, game) => [
@@ -209,7 +211,6 @@ export default function ScheduleInteractiveTool() {
         ],
         []
       );
-
       setLayout(gameArr);
     }
 
@@ -224,6 +225,9 @@ export default function ScheduleInteractiveTool() {
 
         return games;
       });
+
+      this.game.x = this.oldCoord.x;
+      this.game.y = this.oldCoord.y;
 
       const gameArr = games.reduce(
         (prev, game) => [
@@ -447,6 +451,8 @@ export default function ScheduleInteractiveTool() {
           id: game.id,
           timeslot_id: timeslots[game.y].id,
           field_id: fields[game.x].id,
+          x: game.x,
+          y: game.y,
         };
         return prev;
       }
@@ -457,6 +463,8 @@ export default function ScheduleInteractiveTool() {
           id: game.id,
           timeslot_id: timeslots[game.y].id,
           field_id: fields[game.x].id,
+          x: game.x,
+          y: game.y,
         },
       ];
     }, []);
@@ -469,7 +477,12 @@ export default function ScheduleInteractiveTool() {
       }),
     });
 
-    if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
+    if (
+      status === STATUS_ENUM.ERROR ||
+      status === STATUS_ENUM.UNAUTHORIZED ||
+      res.status === STATUS_ENUM.ERROR ||
+      res.status === STATUS_ENUM.UNAUTHORIZED
+    ) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),
