@@ -36,6 +36,20 @@ export default function PostComment(props) {
     }
   };
 
+  const handleComment = async (e) => {
+    e.preventDefault();
+    const content = e.target.elements.content.value;
+
+    const { status, data } = await api('/api/posts/comment', {
+      method: 'POST',
+      body: JSON.stringify({
+        entityId: userInfo.primaryPerson.entity_id,
+        postId,
+        content,
+      }),
+    });
+  };
+
   useEffect(() => {
     setLiked(isLiked === 1);
   }, []);
@@ -45,6 +59,10 @@ export default function PostComment(props) {
       <div>
         <pre onClick={handleLike}>Like</pre> comment Share
       </div>
+      <form onSubmit={handleComment}>
+        <input type="text" name="content"></input>
+        <input type="submit" value="Envoyer"></input>
+      </form>
       <div>Espace commentaire</div>
     </div>
   );
