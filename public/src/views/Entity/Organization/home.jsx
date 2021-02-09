@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import PostInput from '../../../components/Custom/Input/PostInput';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-
+import { Store } from '../../../Store';
 import CustomCard from '../../../components/Custom/Card';
 import api from '../../../actions/api';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -51,10 +51,13 @@ export default function OrganizationHome(props) {
     document.title = formatPageTitle(basicInfos.name);
     initialLoad();
   }, []);
-
+  const {
+    state: { userInfo },
+  } = useContext(Store);
   const getOrganizationPostFeed = async () => {
     const { status, data } = await api(
       formatRoute('/api/posts/organizationFeed', null, {
+        userId: userInfo.primaryPerson.entity_id,
         organizationId: basicInfos.id,
         currentPage: currentPage.current,
         perPage: 5,
