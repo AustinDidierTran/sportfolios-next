@@ -101,6 +101,7 @@ const CARD_TYPE_ENUM = {
   EVENT: 'event',
   GAME: 'game',
   INVOICE: 'invoice',
+  POST: 'post',
   REPORT: 'report',
   SCORE_SUGGESTION: 'score suggestion',
   SHOP: 'shop',
