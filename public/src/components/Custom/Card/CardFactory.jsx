@@ -8,6 +8,7 @@ const EventPost = loadable(() => import('./EventPost'));
 const EventSettings = loadable(() => import('./EventSettings'));
 const Game = loadable(() => import('./Game'));
 const Invoice = loadable(() => import('./InvoiceItem'));
+const post = loadable(() => import('./Post'));
 const Report = loadable(() => import('./Report'));
 const ScoreSuggestion = loadable(() => import('./ScoreSuggestion'));
 const Shop = loadable(() => import('./ShopItem'));
@@ -25,6 +26,7 @@ const CardMap = {
   [CARD_TYPE_ENUM.EVENT]: EventPost,
   [CARD_TYPE_ENUM.GAME]: Game,
   [CARD_TYPE_ENUM.INVOICE]: Invoice,
+  [CARD_TYPE_ENUM.POST]: Post,
   [CARD_TYPE_ENUM.REPORT]: Report,
   [CARD_TYPE_ENUM.SCORE_SUGGESTION]: ScoreSuggestion,
   [CARD_TYPE_ENUM.SHOP]: Shop,
