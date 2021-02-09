@@ -29,7 +29,7 @@ export default function CustomDateInput(props) {
     images.map(async (image) => {
       const { file } = image;
       const url = await uploadPicture(postId, file);
-      const { data } = await api('/api/posts/images', {
+      const { data } = await api('/api/posts/image', {
         method: 'POST',
         body: JSON.stringify({
           postId: postId,
