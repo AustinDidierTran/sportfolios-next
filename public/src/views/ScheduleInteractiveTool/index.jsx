@@ -351,8 +351,24 @@ export default function ScheduleInteractiveTool() {
       y: data.timeSlots.findIndex((ts) => ts.id === g.timeslot_id),
     }));
 
-    setGames(games);
+    const gameArr = games.reduce(
+      (prev, game) => [
+        ...prev,
+        {
+          i: game.id,
+          x: game.x,
+          y: game.y,
+          w: 1,
+          h: 1,
+          isBounded: true,
+        },
+      ],
+      []
+    );
+
+    setInitialLayout(gameArr);
     setInitialGames(games);
+    setGames(games);
 
     setPhases(
       data.phases.map((p) => ({
@@ -425,7 +441,6 @@ export default function ScheduleInteractiveTool() {
 
     setLayoutFields(fieldArr);
     setLayoutTimes(timeArr);
-    setInitialLayout(gameArr);
     setLayout(gameArr);
   }, [fields, timeslots, games]);
 
@@ -439,22 +454,28 @@ export default function ScheduleInteractiveTool() {
         x: newItem.x,
         y: newItem.y,
       };
-
       const oldGameIndex = games.findIndex((g) => g.x === oldItem.x && g.y === oldItem.y);
       const oldGame = games[oldGameIndex];
       const command = new moveGameCommand(oldCoord, newCoord, oldGame);
 
       executeCommand(command);
-      setMadeChanges(true);
     }
   };
 
-  const handleCancel = async () => {
-    setTimeslots(initialTimeslots);
-    setGames(initialGames);
-    setFields(initialFields);
-
+  const handleCancel = () => {
+    const initGames = initialGames.map((g) => {
+      const layoutGame = initialLayout.find((l) => l.i === g.id);
+      return {
+        ...g,
+        x: layoutGame.x,
+        y: layoutGame.y,
+      };
+    });
     setLayout(initialLayout);
+
+    setTimeslots(initialTimeslots);
+    setGames(initGames);
+    setFields(initialFields);
 
     setIsAddingGames(false);
     setMadeChanges(false);
@@ -539,8 +560,10 @@ export default function ScheduleInteractiveTool() {
       severity: SEVERITY_ENUM.SUCCESS,
     });
 
+    setIsAddingGames(false);
     setMadeChanges(false);
 
+    setButtonsAdd([]);
     setUndoLog([]);
     setRedoLog([]);
   };
@@ -849,7 +872,7 @@ export default function ScheduleInteractiveTool() {
         </Tooltip>
       )}
 
-      <Tooltip title={madeChanges ? t('cancel') : ''}>
+      <Tooltip title={madeChanges ? t('cancel_all') : ''}>
         <Fab color="secondary" onClick={handleCancel} className={classes.fabCancel} disabled={!madeChanges}>
           <Icon icon="Cancel" />
         </Fab>
@@ -862,12 +885,12 @@ export default function ScheduleInteractiveTool() {
       </Tooltip>
 
       <Hotkeys keyName="ctrl+z, ctrl+y, command+z, command+shift+z" onKeyDown={onKeyDown.bind(this)}>
-        <Tooltip title={canUndo ? t('undo') : ''}>
+        <Tooltip title={canUndo ? t('undo') + ': CTRL+Z' : ''}>
           <Fab onClick={undoCommand} className={classes.fabUndo} disabled={!canUndo}>
             <Icon icon="Undo" />
           </Fab>
         </Tooltip>
-        <Tooltip title={canRedo ? t('redo') : ''}>
+        <Tooltip title={canRedo ? t('redo') + ': CTRL+Y' : ''}>
           <Fab onClick={redoCommand} className={classes.fabRedo} disabled={!canRedo}>
             <Icon icon="Redo" />
           </Fab>
