@@ -113,6 +113,7 @@ export default {
     cancel_person_transfer_confirmation: 'Êtes-vous certain de vouloir annuler le transfert de {{name}}?',
     cancel_person_transfer: 'Annuler le transfert de cette personne',
     cancel: 'Annuler',
+    cancel_all: 'Annuler tout',
     cant_add_product_no_bank_account:
       "Vous ne pouvez pas ajouter de produit car l'administrateur n'a pas de compte banquaire",
     cant_delete_paid_player:

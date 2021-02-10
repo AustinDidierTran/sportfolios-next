@@ -110,6 +110,7 @@ export default {
     cancel_person_transfer_confirmation: 'Are you sure you want to cancel the transfer of {{name}}?',
     cancel_person_transfer: 'Cancel this person transfer',
     cancel: 'Cancel',
+    cancel_all: 'Cancel all',
     cant_add_product_no_bank_account: "Can't add product admin has no bank account",
     cant_delete_paid_player:
       "You can't remove this player from the roster since he already paid. Contact an event organizer for help.",
