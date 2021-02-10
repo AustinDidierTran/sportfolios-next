@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { FormDialog, Icon, IconButton } from '../../../../../components/Custom';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
-import PaymentChip from '../../../../Settings/TeamsRegistered/PaymentChip';
+import PaymentChip from '../../../../Settings/TeamsRegistered/StatusChip';
 import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function PlayerCard(props) {
@@ -102,7 +102,6 @@ export default function PlayerCard(props) {
           <div className={styles.chip}>
             <PaymentChip status={player.paymentStatus} />
           </div>
-
           <div className={styles.icon}>
             {withInfos ? (
               <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
@@ -156,7 +155,23 @@ export default function PlayerCard(props) {
         <div className={styles.name}>
           <Typography>{player && player.name}</Typography>
         </div>
+        <div className={styles.icon}>
+          {withInfos ? (
+            <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
+      <PersonInfoDialog
+        open={open}
+        personInfos={playerInfos}
+        id
+        onClose={closePlayerAcceptation}
+        onDecline={onPlayerDecline}
+        onSubmit={onPlayerAccept}
+        withoutButton
+      />
     </div>
   );
 }

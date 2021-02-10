@@ -5,6 +5,7 @@ export default {
     about: 'À propos',
     accept_person_transfer_confirmation: 'Êtes vous certain de vouloir accepter le transfert de {{name}}?',
     accept: 'Accepter',
+    accept_teams: 'Accepter des équipes',
     acceptation: 'Acceptation',
     acceptation_step: "Étape d'acceptation",
     accepted: 'Accepté',
@@ -125,6 +126,7 @@ export default {
     cant_unregister_any_teams:
       "Aucune équipe ne peut être désinscrite de l'événement puisqu'elles sont déjà toutes dans des parties.",
     captain: 'Capitaine',
+    captains: 'Capitaines',
     card_ending_with: 'Carte finissant avec {{last4}}',
     cart_empty_go_shop: "Votre panier est vide! C'est l'heure d'aller faire des achats!",
     cart: 'Panier',
@@ -711,6 +713,8 @@ export default {
     team_2: 'Équipe 2',
     team_acceptation_step_message:
       "Voulez-vous accepter ou refuser manuellement chaque équipe qui s'inscrit à votre tournoi avant qu'elles effectuent le paiement?",
+    team_accepted: 'Équipe acceptée!',
+    team_refused: 'Équipe refusée',
     team_activity: "Activité d'équipe",
     team_activity_or_individual_activity:
       "Les participants doivent inscrire une équipe? C'est une activité d'équipe. Vous pouvez quand même demander des paiements individuelles!",
@@ -729,6 +733,7 @@ export default {
     teams: 'Équipes',
     terms_and_conditions: 'Termes et conditions',
     there_is_no_rosters_for_this_event: "Il n'y a pas d'alignements pour cet événement.",
+    there_are_no_more_team_to_accept: "Il n'y a plus d'équipe en attente",
     this_coupon_is_only_good_once: 'Ce coupon est valide pour une utilisation seulement',
     this_organization_has_no_events: "Cette organisation n'a pas d'événement",
     this_organization_has_no_memberships_available: "Cette organisation n'a pas d'affilitations disponibles",
@@ -819,6 +824,7 @@ export default {
       'Vous pouvez aller dans les paramètres de votre organisation pour en ajouter une',
     you_can_now_change_your_password:
       'Vous pouvez maintenant changer votre mot de passe pour le compte ayant le courriel {{email}}',
+    you_can_start_to_swipe: 'Swiper ou appuyer sur un bouton pour commencer!',
     you_have_no_account_with_this_email_create_one:
       "Vous n'avez de compte associé avec ce courriel! Créez votre compte!",
     you_need_to_connect_your_messenger_account:

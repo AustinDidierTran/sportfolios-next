@@ -1,0 +1,32 @@
+.card {
+  width: 95vw;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+}
+
+.header {
+  margin: 0px !important;
+}
+.div {
+  display: grid !important;
+  grid-template-columns: 1fr 2fr;
+  margin: 8px;
+}
+.buttons {
+  display: flex;
+  justify-content: center !important;
+}
+.button {
+  margin-left: 16px !important;
+  margin-top: 32px !important;
+  margin-right: 16px !important;
+}
+
+@media (min-width: 700px) {
+  .card {
+    width: 650px !important;
+    margin-left: 25px;
+    margin-right: 25px;
+    bottom: 0px;
+  }
+}

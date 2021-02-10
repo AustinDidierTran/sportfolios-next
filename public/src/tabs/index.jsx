@@ -77,7 +77,7 @@ export default function Tabs(props) {
         {
           value: TABS_ENUM.ROSTERS,
           component: Rosters,
-          label: t('rosters'),
+          label: t('teams'),
           icon: 'Group',
         },
       ];
@@ -210,7 +210,7 @@ export default function Tabs(props) {
           ...prev,
           {
             component: EditRosters,
-            label: t('rosters'),
+            label: t('teams'),
             icon: 'Group',
             value: TABS_ENUM.EDIT_ROSTERS,
           },

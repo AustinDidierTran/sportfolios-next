@@ -107,6 +107,15 @@ const CARD_TYPE_ENUM = {
   TWO_TEAM_GAME_EDITABLE: 'twoTeamGameEditable',
   TWO_TEAM_GAME: 'twoTeamGame',
   TWO_TEAM_GAME_PROFILE: 'twoTeamGameProfile',
+  ACCEPT_PLAYER_INFOS: 'accept player infos',
+  ACCEPT_TEAM_INFOS: 'accept team infos',
+};
+
+const DIRECTION_ENUM = {
+  UP: 'up',
+  DOWN: 'down',
+  LEFT: 'left',
+  RIGHT: 'right',
 };
 
 const TABS_ENUM = {
@@ -221,6 +230,7 @@ const ROUTES_ENUM = {
   orderProcessed: '/page/orderProcessed',
   organizationList: '/page/organizationList',
   passwordRecovery: '/page/passwordRecovery',
+  playersAcceptation: '/page/playersAcceptation/:id',
   privacyPolicy: '/page/privacy',
   productAddedToCart: '/page/productAddedToCart',
   redirectWithToken: '/page/redirect',
@@ -233,6 +243,7 @@ const ROUTES_ENUM = {
   shopDetails: '/page/shopDetails/:id/:stripePriceId',
   signup: '/page/signup',
   stripe: '/page/stripe',
+  teamsAcceptation: '/page/teamsAcceptation/:id',
   transferPerson: '/page/transferPerson/:token',
   transferPersonExpired: '/page/transferPersonExpired',
   userSettings: '/page/userSettings',
@@ -478,6 +489,7 @@ module.exports = {
   APP_ENUM,
   BASIC_CHATBOT_STATES,
   CARD_TYPE_ENUM,
+  DIRECTION_ENUM,
   COMPONENT_TYPE_ENUM,
   COUPON_CODE_ENUM,
   ENTITIES_ROLE_ENUM,

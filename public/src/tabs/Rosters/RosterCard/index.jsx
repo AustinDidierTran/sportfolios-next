@@ -20,7 +20,7 @@ const isEven = (n) => {
 
 const useStyles = makeStyles((theme) => ({
   evenGreen: {
-    backgroundColor: theme.palette.primary.lightDark,
+    backgroundColor: theme.palette.primary.light,
     color: '#fff',
   },
   oddGreen: { backgroundColor: theme.palette.primary.main, color: '#fff' },

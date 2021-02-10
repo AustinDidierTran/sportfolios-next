@@ -1,7 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useMemo, useEffect, useState, useContext } from 'react';
 
-import { Paper, MailToButton, AlertDialog, IconButton, LoadingSpinner } from '../../../components/Custom';
-import PaymentChip from './PaymentChip';
+import Paper from '../../../components/Custom/Paper';
+import MailToButton from '../../../components/Custom/MailToButton';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
+import IconButton from '../../../components/Custom/IconButton';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import Button from '../../../components/Custom/Button';
+import StatusChip from './StatusChip';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -21,6 +26,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
 export default function TeamsRegistered() {
   const { t } = useTranslation();
@@ -57,6 +63,10 @@ export default function TeamsRegistered() {
   useEffect(() => {
     getTeams();
   }, [eventId]);
+
+  const hasPending = useMemo(() => {
+    return teams.some((t) => t.registrationStatus === STATUS_ENUM.PENDING);
+  }, [teams]);
 
   const getCanUnregisterTeamsList = async (rosterIds) => {
     const { data } = await api(
@@ -188,7 +198,7 @@ export default function TeamsRegistered() {
     },
     body: {
       fontSize: 14,
-      maxWidth: 55,
+      maxWidth: '100%',
     },
   }))(TableCell);
 
@@ -248,6 +258,21 @@ export default function TeamsRegistered() {
               <StyledTableCell align="center">{t('actions')}</StyledTableCell>
             </TableRow>
           </TableHead>
+          <StyledTableRow align="center">
+            {hasPending ? (
+              <StyledTableCell colSpan={5}>
+                <Button
+                  onClick={() => {
+                    goTo(ROUTES.teamsAcceptation, { id: eventId });
+                  }}
+                >
+                  {t('accept_teams')}
+                </Button>
+              </StyledTableCell>
+            ) : (
+              <></>
+            )}
+          </StyledTableRow>
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
@@ -279,7 +304,12 @@ export default function TeamsRegistered() {
                     )}
 
                     <StyledTableCell align="center">
-                      <PaymentChip status={team.status} />
+                      <StatusChip
+                        status={team.status}
+                        registrationStatus={team.registrationStatus}
+                        eventId={eventId}
+                        teamId={team.teamId}
+                      />
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <MailToButton emails={team.emails} color="grey" />
