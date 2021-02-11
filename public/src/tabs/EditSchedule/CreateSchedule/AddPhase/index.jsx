@@ -8,6 +8,7 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { useRouter } from 'next/router';
+import * as yup from 'yup';
 
 export default function AddPhase(props) {
   const { t } = useTranslation();
@@ -27,23 +28,15 @@ export default function AddPhase(props) {
     onClose();
   };
 
-  const validate = (values) => {
-    const { phase } = values;
-    const errors = {};
-    if (phase.length > 64) {
-      formik.setFieldValue('phase', phase.slice(0, 64));
-    }
-    if (!phase.length) {
-      errors.phase = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    phase: yup.string().required(),
+  });
 
   const formik = useFormik({
     initialValues: {
       phase: '',
     },
-    validate,
+    validationSchema: validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
@@ -81,7 +74,7 @@ export default function AddPhase(props) {
     {
       onClick: handleClose,
       name: t('finish'),
-      color: 'grey',
+      color: 'default',
     },
     {
       type: 'submit',
@@ -96,6 +89,12 @@ export default function AddPhase(props) {
       id: 'phase',
       label: 'Phase',
       type: 'phase',
+    },
+    {
+      namespace: 'spots',
+      id: 'spots',
+      label: t('maximum_spots'),
+      type: 'spots',
     },
   ];
 

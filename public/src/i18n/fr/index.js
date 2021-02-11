@@ -254,6 +254,7 @@ export default {
     edit_mode: 'Mode édition',
     edit_payment_option: "Modifier l'option de paiement",
     edit_player: 'Modifier le joueur',
+    edit_team_number: "Modifier nombre d'équipes",
     edit_your_primary_person: 'Changer de personne primaire',
     edit: 'Modifier',
     editor: 'Éditeur',

@@ -246,6 +246,7 @@ export default {
     edit_mode: 'Edit mode',
     edit_payment_option: 'Edit payment option',
     edit_player: 'Edit player',
+    edit_team_number: 'Edit team number',
     edit_your_primary_person: 'Edit your primary person',
     edit: 'Edit',
     editor: 'Editor',

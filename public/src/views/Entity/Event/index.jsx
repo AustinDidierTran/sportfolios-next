@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { Paper, IgContainer, Icon } from '../../../components/Custom';
+import { Paper, IgContainer, Icon, Button } from '../../../components/Custom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,6 +14,7 @@ import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+import AddPhase from '../../../tabs/EditSchedule/CreateSchedule/AddPhase';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -30,6 +31,20 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     color: 'white',
   },
+  button: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: window.innerWidth / 2 - theme.spacing(10.4),
+    color: 'primary',
+    zIndex: 100,
+  },
+  buttonMobile: {
+    position: 'absolute',
+    bottom: theme.spacing(2) + 58,
+    right: window.innerWidth / 2 - theme.spacing(10.4),
+    color: 'primary',
+    zIndex: 100,
+  },
 }));
 
 export default function Event(props) {
@@ -39,6 +54,8 @@ export default function Event(props) {
   const router = useRouter();
   const { query } = router;
   const { id, tab } = query;
+
+  const [openPhase, setOpenPhase] = useState(false);
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -117,6 +134,14 @@ export default function Event(props) {
     }
   };
 
+  const openPhaseDialog = () => {
+    setOpenPhase(true);
+  };
+
+  const closePhaseDialog = () => {
+    setOpenPhase(false);
+  };
+
   if (!states || states.length == 1) {
     return (
       <IgContainer>
@@ -142,6 +167,7 @@ export default function Event(props) {
   if (!states || !OpenTab || !tab) {
     return <></>;
   }
+
   return (
     <IgContainer>
       <Helmet>
@@ -167,17 +193,39 @@ export default function Event(props) {
         </Tabs>
       </Paper>
       {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
-        <Tooltip title={title}>
-          <Fab color="primary" onClick={onSwitch} className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}>
-            <Icon icon="Autorenew" />
-          </Fab>
-        </Tooltip>
+        <>
+          <Tooltip title={title}>
+            <Fab
+              color="primary"
+              onClick={onSwitch}
+              className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
+            >
+              <Icon icon="Autorenew" />
+            </Fab>
+          </Tooltip>
+          <div>
+            {tab === TABS_ENUM.EDIT_RANKINGS ? (
+              <>
+                <Button
+                  className={window.innerWidth < 768 ? classes.buttonMobile : classes.button}
+                  onClick={openPhaseDialog}
+                  endIcon="Add"
+                >
+                  {t('add_phase')}
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+        </>
       ) : (
         <></>
       )}
       <div>
         <OpenTab basicInfos={basicInfos} />
       </div>
+      <AddPhase isOpen={openPhase} onClose={closePhaseDialog} />
     </IgContainer>
   );
 }
