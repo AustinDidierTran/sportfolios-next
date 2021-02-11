@@ -40,6 +40,16 @@ export default function HeaderHome(props) {
   };
   const update = () => {};
 
+  const handleSettingsClick = () => {
+    router.push({
+      pathname: '/[pid]/[slug]',
+      query: {
+        pid: id,
+        slug: 'edit',
+      },
+    });
+  };
+
   const seeEdit = basicInfos.role == ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role == ENTITIES_ROLE_ENUM.EDITOR;
 
   return (
@@ -132,7 +142,7 @@ export default function HeaderHome(props) {
           }}
         />
         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-          {seeEdit && <MenuItem onClick={handleClose}>{t('settings')}</MenuItem>}
+          {seeEdit && <MenuItem onClick={handleSettingsClick}>{t('settings')}</MenuItem>}
           <MenuItem onClick={handleClose}>{t('share')}</MenuItem>
         </Menu>
       </div>
