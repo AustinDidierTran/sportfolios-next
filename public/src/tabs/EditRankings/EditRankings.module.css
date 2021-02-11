@@ -1,3 +1,7 @@
+.button {
+  position: fixed;
+}
+
 .div {
   margin-top: 8px;
 }
