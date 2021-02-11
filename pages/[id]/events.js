@@ -1,16 +1,16 @@
 import React from 'react';
 import Error from 'next/error';
 import loadable from '@loadable/component';
-
 import { GLOBAL_ENUM } from '../../public/common/enums';
 import { useApiRoute } from '../../public/src/hooks/queries';
 import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../public/common/utils/stringFormat';
+
 const Event = loadable(() => import('../../public/src/views/Entity/Event'));
 const Organization = loadable(() => import('../../public/src/views/Entity/Organization/events.jsx'));
 const Person = loadable(() => import('../../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../../public/src/views/Entity/Team'));
-import { formatRoute } from '../../public/common/utils/stringFormat';
 
 const EntityMap = {
   [GLOBAL_ENUM.PERSON]: Person,

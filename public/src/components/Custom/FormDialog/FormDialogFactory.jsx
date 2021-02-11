@@ -1,18 +1,20 @@
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import AddEventPaymentOption from './AddEventPaymentOption';
-import EditEventPaymentOption from './EditEventPaymentOption';
-import AddMember from './AddMember';
-import AddMembership from './AddMembership';
-import BecomeMember from './BecomeMember';
-import BecomeMemberCoupon from './BecomeMemberCoupon';
-import MembersReport from './MembersReport';
-import SalesReport from './SalesReport';
-import EditMembership from './EditMembership';
-import EditMemberImport from './EditMemberImport';
-import EnterEmail from './EnterEmail';
-import CreateTaxRate from './CreateTaxRate';
-import RosterPlayerOptions from './RosterPlayerOptions';
-import SubmitScoreAndSpiritForm from './SubmitScoreSpiritForm';
+import loadable from '@loadable/component';
+
+const AddEventPaymentOption = loadable(() => import('./AddEventPaymentOption'));
+const EditEventPaymentOption = loadable(() => import('./EditEventPaymentOption'));
+const AddMember = loadable(() => import('./AddMember'));
+const AddMembership = loadable(() => import('./AddMembership'));
+const BecomeMember = loadable(() => import('./BecomeMember'));
+const BecomeMemberCoupon = loadable(() => import('./BecomeMemberCoupon'));
+const MembersReport = loadable(() => import('./MembersReport'));
+const SalesReport = loadable(() => import('./SalesReport'));
+const EditMembership = loadable(() => import('./EditMembership'));
+const EditMemberImport = loadable(() => import('./EditMemberImport'));
+const EnterEmail = loadable(() => import('./EnterEmail'));
+const CreateTaxRate = loadable(() => import('./CreateTaxRate'));
+const RosterPlayerOptions = loadable(() => import('./RosterPlayerOptions'));
+const SubmitScoreAndSpiritForm = loadable(() => import('./SubmitScoreSpiritForm'));
 
 const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.ADD_EVENT_PAYMENT_OPTION]: AddEventPaymentOption,

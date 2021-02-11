@@ -1,33 +1,33 @@
 import { GLOBAL_ENUM, LIST_ITEM_ENUM, NOTIFICATION_TYPE } from '../../../../common/enums';
-import AppItem from './AppItem';
-import BankAccountItem from './BankAccountItem';
-import CartItem from './CartItem';
-import CreateEntityItem from './CreateEntityItem';
-import CreditCardItem from './CreditCardItem';
-import DefaultItem from './DefaultItem';
-import EventCreatorItem from './EventCreatorItem';
-import EventItem from './EventItem';
-import MembershipDetailItem from './MembershipDetailItem';
-import MembershipItem from './MembershipItem';
-import MembershipOrganizationItem from './MembershipOrganizationItem';
-import OrganizationItem from './OrganizationItem';
-import PaymentOptionItem from './PaymentOptionItem';
-import PersonItem from './PersonItem';
-import PurchasesItem from './PurchasesItem';
-import RankingItem from './RankingItem';
-import RankingWithStatsItem from './RankingWithStatsItem';
-import ReportItemFactory from './ReportItemFactory';
-import RosterItem from './RosterItem';
-import SalesItem from './SalesItem';
-import TeamItem from './TeamItem';
-import {
-  RosterNotification,
-  ScoreSubmissionConflictNotification,
-  ScoreSubmissionRequestNotification,
-  ConfirmOrDeclineScoreNotification,
-} from './NotificationItems';
-import { AvatarAndTextSkeleton } from './SkeletonItems';
-import NotificationSettingItem from './NotificationSettingItem';
+import loadable from '@loadable/component';
+
+const AppItem = loadable(() => import('./AppItem'));
+const BankAccountItem = loadable(() => import('./BankAccountItem'));
+const CartItem = loadable(() => import('./CartItem'));
+const CreateEntityItem = loadable(() => import('./CreateEntityItem'));
+const CreditCardItem = loadable(() => import('./CreditCardItem'));
+const DefaultItem = loadable(() => import('./DefaultItem'));
+const EventCreatorItem = loadable(() => import('./EventCreatorItem'));
+const EventItem = loadable(() => import('./EventItem'));
+const MembershipDetailItem = loadable(() => import('./MembershipDetailItem'));
+const MembershipItem = loadable(() => import('./MembershipItem'));
+const MembershipOrganizationItem = loadable(() => import('./MembershipOrganizationItem'));
+const OrganizationItem = loadable(() => import('./OrganizationItem'));
+const PaymentOptionItem = loadable(() => import('./PaymentOptionItem'));
+const PersonItem = loadable(() => import('./PersonItem'));
+const PurchasesItem = loadable(() => import('./PurchasesItem'));
+const RankingItem = loadable(() => import('./RankingItem'));
+const RankingWithStatsItem = loadable(() => import('./RankingWithStatsItem'));
+const ReportItemFactory = loadable(() => import('./ReportItemFactory'));
+const RosterItem = loadable(() => import('./RosterItem'));
+const SalesItem = loadable(() => import('./SalesItem'));
+const TeamItem = loadable(() => import('./TeamItem'));
+const { AvatarAndTextSkeleton } = loadable(() => import('./SkeletonItems'));
+const NotificationSettingItem = loadable(() => import('./NotificationSettingItem'));
+const { RosterNotification } = loadable(() => import('./NotificationItems'));
+const { ScoreSubmissionConflictNotification } = loadable(() => import('./NotificationItems'));
+const { ScoreSubmissionRequestNotification } = loadable(() => import('./NotificationItems'));
+const { ConfirmOrDeclineScoreNotification } = loadable(() => import('./NotificationItems'));
 
 const ItemMap = {
   [GLOBAL_ENUM.EVENT]: EventItem,

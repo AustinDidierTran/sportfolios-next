@@ -1,18 +1,20 @@
 import { CARD_TYPE_ENUM } from '../../../../common/enums';
-import Default from './DefaultCard';
-import DeleteEntity from './DeleteEntity';
-import EditableGame from './EditableGame';
-import EventPost from './EventPost';
-import EventSettings from './EventSettings';
-import Game from './Game';
-import Invoice from './InvoiceItem';
-import Report from './Report';
-import ScoreSuggestion from './ScoreSuggestion';
-import Shop from './ShopItem';
-import TwoTeamGame from './TwoTeamGame';
-import TwoTeamGameEditable from './TwoTeamGameEditable';
-import TwoTeamGameProfile from './TwoTeamGameProfile';
-import CartSummary from './CartSummary';
+import loadable from '@loadable/component';
+
+const Default = loadable(() => import('./DefaultCard'));
+const DeleteEntity = loadable(() => import('./DeleteEntity'));
+const EditableGame = loadable(() => import('./EditableGame'));
+const EventPost = loadable(() => import('./EventPost'));
+const EventSettings = loadable(() => import('./EventSettings'));
+const Game = loadable(() => import('./Game'));
+const Invoice = loadable(() => import('./InvoiceItem'));
+const Report = loadable(() => import('./Report'));
+const ScoreSuggestion = loadable(() => import('./ScoreSuggestion'));
+const Shop = loadable(() => import('./ShopItem'));
+const TwoTeamGame = loadable(() => import('./TwoTeamGame'));
+const TwoTeamGameEditable = loadable(() => import('./TwoTeamGameEditable'));
+const TwoTeamGameProfile = loadable(() => import('./TwoTeamGameProfile'));
+const CartSummary = loadable(() => import('./CartSummary'));
 
 const CardMap = {
   [CARD_TYPE_ENUM.DELETE_ENTITY]: DeleteEntity,
