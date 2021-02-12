@@ -7,12 +7,12 @@ import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-
+import loadable from '@loadable/component';
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
+
 const Events = loadable(() => import('../../../tabs/Events'));
 
-import loadable from '@loadable/component';
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
     position: 'absolute',
@@ -54,8 +54,8 @@ export default function OrganizationEvents(props) {
             </Fab>
           </Tooltip>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
         <div>
           <Events {...{ basicInfos }} />
         </div>

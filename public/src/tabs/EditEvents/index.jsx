@@ -10,7 +10,7 @@ import api from '../../actions/api';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
-export default function Events(props) {
+export default function EditEvents(props) {
   const { t } = useTranslation();
   const { basicInfos } = props;
   const [events, setEvents] = useState([]);

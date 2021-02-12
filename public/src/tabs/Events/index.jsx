@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
-export default function EditEvents() {
+export default function Events() {
   const { t } = useTranslation();
   const [events, setEvents] = useState([]);
   const router = useRouter();
