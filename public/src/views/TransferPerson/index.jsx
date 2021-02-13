@@ -120,7 +120,7 @@ export default function TransferPerson() {
     <div>
       <Container className={styles.container}>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
         </div>
         <RegisterCard formik={formik} />
       </Container>

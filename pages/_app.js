@@ -18,10 +18,11 @@ import loadable from '@loadable/component';
 const BottomNavigation = loadable(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = loadable(() => import('../public/src/components/Custom/SnackBar'));
 const SpeedDial = loadable(() => import('../public/src/components/Custom/SpeedDial'));
-
+const LandingPage = loadable(() => import('../public/src/views//LandingPage'));
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
+  console.log({ Component });
   React.useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       if (!('serviceWorker' in navigator)) {

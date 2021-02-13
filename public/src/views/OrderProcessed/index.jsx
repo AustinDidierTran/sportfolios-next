@@ -42,7 +42,7 @@ export default function OrderProcessed() {
     <IgContainer>
       <Paper style={{ textAlign: 'center' }}>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
         </div>
         <Typography style={{ margin: '8px' }} variant="h5">
           {t('order_processed')}

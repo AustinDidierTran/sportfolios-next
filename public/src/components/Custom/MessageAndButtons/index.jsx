@@ -28,7 +28,7 @@ export default function MessageAndButtons(props) {
     return (
       <CustomPaper style={{ textAlign: 'center', height: '100%' }}>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
         </div>
         <Typography style={{ paddingBottom: '16px' }}>{message}</Typography>
         <div className={styles.buttons}>
@@ -60,7 +60,7 @@ export default function MessageAndButtons(props) {
     <IgContainer>
       <CustomPaper style={{ textAlign: 'center', height: '100%' }}>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
         </div>
         <Typography className={styles.content}>{message}</Typography>
         <div className={styles.content}>{props.children}</div>

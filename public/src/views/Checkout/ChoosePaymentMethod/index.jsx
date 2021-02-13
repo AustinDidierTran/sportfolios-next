@@ -69,7 +69,7 @@ export default function ChoosePaymentMethod(props) {
     return (
       <div>
         <div className={styles.logo}>
-          <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+          <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
         </div>
         <Typography>{t('waiting_for_payment')}</Typography>
         <LoadingSpinner isComponent />
@@ -80,7 +80,7 @@ export default function ChoosePaymentMethod(props) {
   return (
     <div style={{ paddingBottom: 16, textAlign: 'center' }}>
       <div className={styles.logo}>
-        <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+        <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
       </div>
       <Typography variant="h6" style={{ marginBottom: '8px' }}>
         {t('amount_to_pay', { amount: formatPrice(response) })}
