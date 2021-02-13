@@ -21,14 +21,14 @@ export default function StatusChip(props) {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { status, registrationStatus, eventId, teamId } = props;
+  const { status, registrationStatus, eventId, rosterId } = props;
 
   if (registrationStatus === STATUS_ENUM.PENDING) {
     return (
       <div className={classes.root}>
         <Chip
           onClick={() => {
-            goTo(ROUTES.teamsAcceptation, { id: eventId }, { teamId });
+            goTo(ROUTES.teamsAcceptation, { id: eventId }, { rosterId });
           }}
           label={t(registrationStatus)}
           style={{ border: '1px solid #CCCC00', color: '#CCCC00 ' }}

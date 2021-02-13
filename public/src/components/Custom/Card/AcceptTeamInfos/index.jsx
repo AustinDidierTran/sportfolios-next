@@ -11,7 +11,7 @@ import Players from '../../../../tabs/Rosters/RosterCard/Players';
 import { formatPrice } from '../../../../../common/utils/stringFormat';
 
 export default function AcceptTeamInfos(props) {
-  const { name, photoUrl, roster, team, paymentOption } = props;
+  const { id, name, photoUrl, roster, team, paymentOption } = props;
   const { t } = useTranslation();
   return (
     <Card className={styles.card}>
@@ -37,7 +37,7 @@ export default function AcceptTeamInfos(props) {
             editableRoster={false}
             editableRole={false}
             players={roster}
-            rosterId={team?.roster_id}
+            rosterId={id}
             withMyPersonsQuickAdd={false}
           />
         </div>

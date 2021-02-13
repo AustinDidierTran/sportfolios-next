@@ -308,7 +308,7 @@ export default function TeamsRegistered() {
                         status={team.status}
                         registrationStatus={team.registrationStatus}
                         eventId={eventId}
-                        teamId={team.teamId}
+                        rosterId={team.rosterId}
                       />
                     </StyledTableCell>
                     <StyledTableCell align="center">
