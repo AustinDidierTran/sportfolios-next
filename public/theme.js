@@ -34,6 +34,18 @@ const theme = createMuiTheme({
   },
 });
 
+theme.typography.h2 = {
+  fontFamily: 'Helvetica',
+  fontWeight: 350,
+  fontSize: '1.8rem',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '2.2rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2.8rem',
+  },
+};
+
 theme.typography.h3 = {
   fontFamily: 'Helvetica',
   fontWeight: 350,

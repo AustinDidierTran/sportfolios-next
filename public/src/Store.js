@@ -230,6 +230,7 @@ export function StoreProvider(props) {
     } else {
       dispatch({
         type: ACTION_ENUM.LOGOUT,
+        payload: { route: ROUTES.landingPage },
       });
     }
 

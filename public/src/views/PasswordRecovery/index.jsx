@@ -76,7 +76,7 @@ export default function PasswordRecovery() {
       <Paper className={styles.card}>
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.logo}>
-            <img className={styles.img} src={LOGO_ENUM.LOGO_256X256} />
+            <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
           </div>
           <CardContent>
             <Typography

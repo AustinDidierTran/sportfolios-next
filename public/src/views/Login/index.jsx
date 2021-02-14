@@ -113,7 +113,7 @@ export default function Login() {
   return (
     <Container className={styles.container}>
       <div className={styles.logo}>
-        <img src={LOGO_ENUM.LOGO_256X256} height="200px" width="200px" />
+        <img src={LOGO_ENUM.LOGO_512X512} height="200px" width="200px" />
       </div>
       <Paper className={styles.card}>
         <form onSubmit={formik.handleSubmit}>
