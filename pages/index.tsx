@@ -15,7 +15,6 @@ export default function HomeRoute() {
   const {
     state: { isAuthenticated },
   } = useContext(Store);
-  console.log({ isAuthenticated });
 
   useEffect(() => {
     if (isAuthenticated === false) {

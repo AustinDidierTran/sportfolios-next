@@ -33,16 +33,10 @@ const useStyles = makeStyles((theme) =>
       fontWeight: 150,
     },
     button: {
-      width: '40vw',
-      margin: 'auto',
-      marginTop: '36px',
-      marginBottom: '16px',
+      width: '100%',
     },
     whiteButton: {
-      width: '40vw',
-      margin: 'auto',
-      marginTop: '24px',
-      marginBottom: '64px',
+      width: '100%',
       backgroundColor: 'white',
       color: `${theme.palette.primary.main} !important`,
     },
@@ -63,109 +57,123 @@ export default function LandingPage() {
   return (
     <>
       <MobileContainer>
-        <div className={styles.logo}>
-          <img src={LOGO_ENUM.LOGO_1024X1024} height="200px" width="200px" />
-        </div>
-        <Divider variant="middle" className={classes.dividerRoot} />
-        <Typography className={classes.typo} variant="h5">
-          Modernisez votre gestion.
-        </Typography>
-        <Typography className={classes.typo} variant="h5">
-          Augmentez votre efficacité.
-        </Typography>
-        <Typography className={classes.typo} variant="h5">
-          Gagnez du temps.
-        </Typography>
-        <Divider variant="middle" className={classes.dividerRoot} />
-        <Typography className={classes.typo} variant="h5">
-          Avec nous :
-        </Typography>
-        <Typography className={classes.typo} variant="h5">
-          Les athlètes jouent;
-        </Typography>
-        <Typography className={classes.typo} variant="h5">
-          Les entraineurs entrainent;
-        </Typography>
-        <Typography className={classes.typo} variant="h5">
-          Les organisateurs organisent;
-        </Typography>
-        <Typography className={classes.typo} variant="h5">
-          C'est tout.
-        </Typography>
-        <Button
-          onClick={() => {
-            goTo(ROUTES.login);
-          }}
-          className={classes.button}
-        >
-          Accéder à la plateforme
-        </Button>
-      </MobileContainer>
-      <div className={classes.container}>
-        <MobileContainer>
-          <Typography style={{ marginTop: '16px' }} className={classes.whiteTypo} variant="h2">
-            C'est quoi,
-          </Typography>
-          <Typography style={{ margin: '8px' }} className={classes.whiteTypo} variant="h2">
-            Sportfolios?
-          </Typography>
-          <Typography style={{ margin: '16px' }} className={classes.whiteTypo} variant="h5">
-            Une plateforme
-            <strong> simple </strong>
-            et
-            <strong> intuitive </strong>
-            qui regroupe toutes les étapes nécessaires à votre planification sportive.
-          </Typography>
-          <div style={{ margin: '8px' }} />
-          <ListItem>
-            <CheckBoxIcon className={classes.checkBox} />
-            <ListItemText
-              primary="Gestion des horaires"
-              primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
-            />
-          </ListItem>
-          <ListItem>
-            <CheckBoxIcon className={classes.checkBox} />
-            <ListItemText
-              primary="Gestion des inscriptions"
-              primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
-            />
-          </ListItem>
-          <ListItem>
-            <CheckBoxIcon className={classes.checkBox} />
-            <ListItemText
-              primary="Paiements sécurisés"
-              primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
-            />
-          </ListItem>
-          <ListItem>
-            <CheckBoxIcon className={classes.checkBox} />
-            <ListItemText
-              primary="Entrée de résultats"
-              primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
-            />
-          </ListItem>
-          <ListItem>
-            <CheckBoxIcon className={classes.checkBox} />
-            <ListItemText
-              primary="Messagerie interne &
-              système de notifications aux
-              membres"
-              primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
-            />
-          </ListItem>
-          <div style={{ margin: '8px' }}></div>
-          <Typography style={{ margin: '8px' }} className={classes.whiteTypo} variant="h5">
-            Utilisez votre temps pour ce qui compte réellement. On s'occupe du reste.
-          </Typography>
+        <div className={styles.block}>
+          <div className={styles.logo}>
+            <img src={LOGO_ENUM.LOGO_1024X1024} height="200px" width="200px" />
+          </div>
+          <Divider variant="middle" className={classes.dividerRoot} />
+          <div>
+            <Typography className={classes.typo} variant="h5">
+              Modernisez votre gestion.
+            </Typography>
+            <Typography className={classes.typo} variant="h5">
+              Augmentez votre efficacité.
+            </Typography>
+            <Typography className={classes.typo} variant="h5">
+              Gagnez du temps.
+            </Typography>
+          </div>
+          <Divider variant="middle" className={classes.dividerRoot} />
+          <div>
+            <Typography className={classes.typo} variant="h5">
+              Avec nous :
+            </Typography>
+            <Typography className={classes.typo} variant="h5">
+              Les athlètes jouent;
+            </Typography>
+            <Typography className={classes.typo} variant="h5">
+              Les entraineurs entrainent;
+            </Typography>
+            <Typography className={classes.typo} variant="h5">
+              Les organisateurs organisent;
+            </Typography>
+            <Typography className={classes.typo} variant="h5">
+              C'est tout.
+            </Typography>
+          </div>
           <Button
             onClick={() => {
               goTo(ROUTES.login);
             }}
-            className={classes.whiteButton}
+            className={classes.button}
           >
-            Commencer gratuitement
+            Accéder à la plateforme
           </Button>
+        </div>
+      </MobileContainer>
+      <div className={classes.container}>
+        <MobileContainer>
+          <div className={styles.block}>
+            <div>
+              <Typography style={{ marginTop: '16px' }} className={classes.whiteTypo} variant="h2">
+                C'est quoi,
+              </Typography>
+              <Typography style={{ margin: '8px' }} className={classes.whiteTypo} variant="h2">
+                Sportfolios?
+              </Typography>
+            </div>
+            <div>
+              <Typography style={{ margin: '16px' }} className={classes.whiteTypo} variant="h5">
+                Une plateforme
+                <strong> simple </strong>
+                et
+                <strong> intuitive </strong>
+                qui regroupe toutes les étapes nécessaires à votre planification sportive.
+              </Typography>
+            </div>
+            <div>
+              <ListItem>
+                <CheckBoxIcon className={classes.checkBox} />
+                <ListItemText
+                  primary="Gestion des horaires"
+                  primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
+                />
+              </ListItem>
+              <ListItem>
+                <CheckBoxIcon className={classes.checkBox} />
+                <ListItemText
+                  primary="Gestion des inscriptions"
+                  primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
+                />
+              </ListItem>
+              <ListItem>
+                <CheckBoxIcon className={classes.checkBox} />
+                <ListItemText
+                  primary="Paiements sécurisés"
+                  primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
+                />
+              </ListItem>
+              <ListItem>
+                <CheckBoxIcon className={classes.checkBox} />
+                <ListItemText
+                  primary="Entrée de résultats"
+                  primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
+                />
+              </ListItem>
+              <ListItem>
+                <CheckBoxIcon className={classes.checkBox} />
+                <ListItemText
+                  primary="Messagerie interne &
+                système de notifications aux
+                membres"
+                  primaryTypographyProps={{ variant: 'h5', className: classes.whiteTypo }}
+                />
+              </ListItem>
+            </div>
+            <div>
+              <Typography style={{ margin: '8px' }} className={classes.whiteTypo} variant="h5">
+                Utilisez votre temps pour ce qui compte réellement. On s'occupe du reste.
+              </Typography>
+            </div>
+            <Button
+              onClick={() => {
+                goTo(ROUTES.login);
+              }}
+              className={classes.whiteButton}
+            >
+              Commencer gratuitement
+            </Button>
+          </div>
         </MobileContainer>
       </div>
     </>

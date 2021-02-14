@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet';
 import Header from '../public/src/views/Header';
 import conf from '../conf';
 import loadable from '@loadable/component';
+import { useRouter } from 'next/router';
 
 const BottomNavigation = loadable(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = loadable(() => import('../public/src/components/Custom/SnackBar'));
@@ -22,7 +23,8 @@ const LandingPage = loadable(() => import('../public/src/views//LandingPage'));
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
-  console.log({ Component });
+  const router = useRouter();
+
   React.useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       if (!('serviceWorker' in navigator)) {
@@ -46,9 +48,11 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <Elements stripe={stripePromise}>
             <div className={styles.app}>
-              <div className={styles.header}>
-                <Header />
-              </div>
+              {router.pathname !== '/page/landingPage' ? (
+                <div className={styles.header}>
+                  <Header />
+                </div>
+              ) : null}
               <div className={styles.main}>
                 <Component {...pageProps} />
               </div>
