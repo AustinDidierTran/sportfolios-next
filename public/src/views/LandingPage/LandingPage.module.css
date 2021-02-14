@@ -4,3 +4,10 @@
   width: 200px;
   height: 200px;
 }
+
+.block {
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
