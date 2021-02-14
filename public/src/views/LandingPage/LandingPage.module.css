@@ -9,5 +9,41 @@
   height: 100vh;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   flex-direction: column;
+}
+
+.dividerRoot {
+  background-color: #18b393 !important;
+  width: 100%;
+}
+
+.text {
+  font-weight: 250 !important;
+}
+
+.greenContainer {
+  background-color: #18b393 !important;
+  color: white;
+}
+
+.whiteContainer {
+  background-color: white !important;
+  color: #18b393;
+}
+
+.button,
+.whiteButton {
+  width: 100%;
+}
+
+.whiteButton {
+  background-color: white !important;
+  color: #18b393 !important;
+}
+
+.checkBox {
+  font-size: 32;
+  margin-right: 8px;
+  margin-left: 32px;
 }
