@@ -27,10 +27,6 @@ export default function SnackBar() {
 
   const handleClose = () => {
     setOpen(false);
-    setTimeout(() => {
-      setVert(POSITION_ENUM.BOTTOM);
-      setHorz(POSITION_ENUM.CENTER);
-    }, 1000);
   };
 
   return (

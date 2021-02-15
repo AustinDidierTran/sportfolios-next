@@ -1,0 +1,44 @@
+.div {
+  width: 95vw !important;
+  margin: 2.5vw !important;
+  position: fixed;
+  bottom: 64px;
+}
+.buttons {
+  display: flex;
+  justify-content: center !important;
+}
+.button {
+  margin-left: 16px !important;
+  margin-top: 32px !important;
+  margin-right: 16px !important;
+  padding: 8px !important;
+}
+.IgContainer {
+  text-align: inherit !important;
+}
+.iconButton {
+  display: grid !important;
+  grid-template-columns: 1fr 127fr;
+  margin: 16px;
+  text-align: center;
+  align-items: center;
+}
+
+.text {
+  text-align: center;
+  align-items: center;
+}
+
+@media (min-width: 600px) {
+  .div {
+    bottom: 0px;
+  }
+}
+@media (min-width: 700px) {
+  .div {
+    width: 650px !important;
+    margin: 25px !important;
+    bottom: 0px;
+  }
+}

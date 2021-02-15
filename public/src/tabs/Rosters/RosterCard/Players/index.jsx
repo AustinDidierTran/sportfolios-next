@@ -29,7 +29,6 @@ export default function Players(props) {
   } = props;
   const [blackList, setBlackList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const {
     state: { userInfo },
@@ -106,14 +105,6 @@ export default function Players(props) {
     return a.name.localeCompare(b.name);
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
   if (!players) {
     return null;
   }
@@ -162,6 +153,7 @@ export default function Players(props) {
                 isEditable={editableRole}
                 onDelete={handleDelete}
                 onRoleUpdate={handleRoleUpdate}
+                withInfos={withPlayersInfos}
                 key={player.id}
               />
             ))}

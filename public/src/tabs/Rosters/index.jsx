@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import api from '../../actions/api';
-
-import styles from './Rosters.module.css';
-
 import Rosters from './Rosters';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +50,5 @@ export default function TabRosters(props) {
       </Typography>
     );
   }
-
   return <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />;
 }

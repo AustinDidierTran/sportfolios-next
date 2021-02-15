@@ -15,6 +15,8 @@ const TwoTeamGame = loadable(() => import('./TwoTeamGame'));
 const TwoTeamGameEditable = loadable(() => import('./TwoTeamGameEditable'));
 const TwoTeamGameProfile = loadable(() => import('./TwoTeamGameProfile'));
 const CartSummary = loadable(() => import('./CartSummary'));
+const AcceptPlayerInfos = loadable(() => import('./AcceptPlayerInfos'));
+const AcceptTeamInfos = loadable(() => import('./AcceptTeamInfos'));
 
 const CardMap = {
   [CARD_TYPE_ENUM.DELETE_ENTITY]: DeleteEntity,
@@ -30,6 +32,8 @@ const CardMap = {
   [CARD_TYPE_ENUM.TWO_TEAM_GAME]: TwoTeamGame,
   [CARD_TYPE_ENUM.TWO_TEAM_GAME_PROFILE]: TwoTeamGameProfile,
   [CARD_TYPE_ENUM.CART_SUMMARY]: CartSummary,
+  [CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS]: AcceptPlayerInfos,
+  [CARD_TYPE_ENUM.ACCEPT_TEAM_INFOS]: AcceptTeamInfos,
 };
 
 export default function CardFactory(props) {

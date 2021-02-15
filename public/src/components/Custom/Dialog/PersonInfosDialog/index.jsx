@@ -10,7 +10,7 @@ import { getMembershipName } from '../../../../utils/stringFormats';
 import { MEMBERSHIP_TYPE_ENUM } from '../../../../Store';
 
 export default function PersonInfosDialog(props) {
-  const { personInfos, open, onDecline, onSubmit, onClose } = props;
+  const { personInfos, open, onDecline, onSubmit, onClose, withoutButton } = props;
   const { t } = useTranslation();
 
   return (
@@ -35,17 +35,21 @@ export default function PersonInfosDialog(props) {
             {t('member')}: {t(getMembershipName(MEMBERSHIP_TYPE_ENUM.RECREATIONAL))}
           </Typography>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose} color={'default'} variant="text">
-            {t('cancel')}
-          </Button>
-          <Button onClick={onSubmit} color={'primary'} variant="text">
-            {t('accept')}
-          </Button>
-          <Button onClick={onDecline} color={'secondary'} variant="text">
-            {t('decline')}
-          </Button>
-        </DialogActions>
+        {withoutButton ? (
+          <></>
+        ) : (
+          <DialogActions>
+            <Button onClick={onClose} color={'default'} variant="text">
+              {t('cancel')}
+            </Button>
+            <Button onClick={onSubmit} color={'primary'} variant="text">
+              {t('accept')}
+            </Button>
+            <Button onClick={onDecline} color={'secondary'} variant="text">
+              {t('decline')}
+            </Button>
+          </DialogActions>
+        )}
       </Dialog>
     </div>
   );
