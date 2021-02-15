@@ -16,6 +16,7 @@
 .dividerRoot {
   background-color: #18b393 !important;
   width: 100%;
+  max-width: 50vw;
 }
 
 .text {
@@ -32,14 +33,14 @@
   color: #18b393;
 }
 
-.button,
-.whiteButton {
-  width: 100%;
-}
-
-.whiteButton {
+.greenContainer .button {
   background-color: white !important;
   color: #18b393 !important;
+}
+
+.button {
+  width: 100% !important;
+  max-width: 75vw;
 }
 
 .checkBox {

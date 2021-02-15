@@ -22,31 +22,31 @@ export default function LandingPage() {
             </div>
             <Divider variant="middle" className={styles.dividerRoot} />
             <div>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Modernisez votre gestion.
               </Typography>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Augmentez votre efficacité.
               </Typography>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Gagnez du temps.
               </Typography>
             </div>
             <Divider variant="middle" className={styles.dividerRoot} />
             <div>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Avec nous :
               </Typography>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Les athlètes jouent;
               </Typography>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Les entraineurs entrainent;
               </Typography>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 Les organisateurs organisent;
               </Typography>
-              <Typography className={styles.text} variant="h5">
+              <Typography className={styles.text} variant="h4">
                 C'est tout.
               </Typography>
             </div>
@@ -129,7 +129,7 @@ export default function LandingPage() {
               onClick={() => {
                 goTo(ROUTES.login);
               }}
-              className={styles.whiteButton}
+              className={styles.button}
             >
               Commencer gratuitement
             </Button>
