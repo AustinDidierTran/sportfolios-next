@@ -15,6 +15,7 @@ import Header from '../public/src/views/Header';
 import conf from '../conf';
 import loadable from '@loadable/component';
 import { useRouter } from 'next/router';
+import { ROUTES_ENUM } from '../public/common/enums';
 
 const BottomNavigation = loadable(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = loadable(() => import('../public/src/components/Custom/SnackBar'));
@@ -48,7 +49,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <Elements stripe={stripePromise}>
             <div className={styles.app}>
-              {router.pathname !== '/page/landingPage' ? (
+              {router.pathname !== ROUTES_ENUM.landingPage ? (
                 <div className={styles.header}>
                   <Header />
                 </div>
@@ -58,7 +59,7 @@ function MyApp({ Component, pageProps }) {
               </div>
               <SpeedDial />
               <SnackBar />
-              <BottomNavigation />
+              {router.pathname !== ROUTES_ENUM.landingPage ? <BottomNavigation /> : null}
             </div>
           </Elements>
         </ThemeProvider>
