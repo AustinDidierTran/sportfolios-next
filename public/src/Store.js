@@ -7,6 +7,7 @@ import api from './actions/api';
 import { errors, ERROR_ENUM } from '../common/errors';
 import { io } from 'socket.io-client';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
+import { useRouter } from 'next/router';
 
 export const Store = React.createContext();
 
@@ -186,6 +187,7 @@ function reducer(state, action) {
 }
 
 export function StoreProvider(props) {
+  const router = useRouter();
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
 
@@ -228,10 +230,12 @@ export function StoreProvider(props) {
         }
       }
     } else {
-      dispatch({
-        type: ACTION_ENUM.LOGOUT,
-        payload: { route: ROUTES.landingPage },
-      });
+      if (router.pathname !== ROUTES.login) {
+        dispatch({
+          type: ACTION_ENUM.LOGOUT,
+          payload: { route: ROUTES.landingPage },
+        });
+      }
     }
 
     const res2 = await api('/api/shop/getCartItems');
