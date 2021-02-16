@@ -691,6 +691,7 @@ export default {
     selected_person: 'Personne sélectionnée',
     selected_persons: 'Personnes sélectionnées',
     selected_team: 'Équipe sélectionnée',
+    send: 'Envoyer',
     send_email: 'Envoyer un courriel',
     send_new_confirmation_email: 'Envoyer un nouveau courriel de confirmation',
     send_password_recovery_email: 'Envoyer le courriel de réinitialisation de mot de passe',
