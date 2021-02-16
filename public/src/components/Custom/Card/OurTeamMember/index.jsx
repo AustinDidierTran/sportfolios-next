@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   role: {
     color: 'white',
-    fontWeight: 150,
+    fontWeight: 250,
   },
 }));
 
@@ -37,7 +37,7 @@ export default function OurTeamMember(props) {
         </Typography>
       </CardContent>
       <CardContent className={classes.secondCardContent}>
-        <Typography variant="h7" className={classes.role}>
+        <Typography style={{ whiteSpace: 'pre-line' }} variant="h7" className={classes.role}>
           {role}
         </Typography>
       </CardContent>
