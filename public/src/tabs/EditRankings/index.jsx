@@ -133,6 +133,7 @@ export default function EditRankings() {
 
   const closeEditPhaseDialog = () => {
     setEditPhase(false);
+    setPhaseToEdit({});
   };
 
   const buttons = [
@@ -220,7 +221,7 @@ export default function EditRankings() {
         isOpen={editPhase}
         onClose={closeEditPhaseDialog}
         phaseId={phaseToEdit.id}
-        cuurentSpots={phaseToEdit.spots}
+        currentSpots={phaseToEdit.spots}
       ></EditPhase>
     </>
   );
