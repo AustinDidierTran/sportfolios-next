@@ -690,6 +690,7 @@ export default {
     selected_person: 'Selected person',
     selected_persons: 'Selected persons',
     selected_team: 'Selected team',
+    send: 'Send',
     send_email: 'Send email',
     send_new_confirmation_email: 'Send new confirmation email',
     send_password_recovery_email: 'Send password recovery email',
