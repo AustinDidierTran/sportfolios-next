@@ -12,7 +12,7 @@ import * as yup from 'yup';
 
 export default function AddPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, addToEditRankings } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -35,16 +35,18 @@ export default function AddPhase(props) {
   const formik = useFormik({
     initialValues: {
       phase: '',
+      spots: 0,
     },
     validationSchema: validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { phase } = values;
+      const { phase, spots } = values;
       const res = await api('/api/entity/phase', {
         method: 'POST',
         body: JSON.stringify({
           phase,
+          spots,
           eventId,
         }),
       });
@@ -59,6 +61,10 @@ export default function AddPhase(props) {
           duration: 4000,
         });
         return;
+      }
+
+      if (addToEditRankings) {
+        addToEditRankings(res.data);
       }
 
       dispatch({
@@ -94,7 +100,7 @@ export default function AddPhase(props) {
       namespace: 'spots',
       id: 'spots',
       label: t('maximum_spots'),
-      type: 'spots',
+      type: 'number',
     },
   ];
 

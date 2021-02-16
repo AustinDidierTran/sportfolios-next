@@ -10,6 +10,7 @@ import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from '../../components/Custom/AccordionDnD/PhaseAccordionDnD';
 import CustomButton from '../../components/Custom/Button';
 import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
+import EditPhase from './EditPhase';
 
 export default function EditRankings() {
   const { t } = useTranslation();
@@ -20,6 +21,10 @@ export default function EditRankings() {
   const [items, setItems] = useState([]);
   const [phases, setPhases] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [phaseToEdit, setPhaseToEdit] = useState({});
+
+  const [openPhase, setOpenPhase] = useState(false);
+  const [editPhase, setEditPhase] = useState(false);
 
   useEffect(() => {
     getRankings();
@@ -29,9 +34,9 @@ export default function EditRankings() {
     getPhases();
   }, []);
 
-  useEffect(() => {
+  const addToEditRankings = (phase) => {
     getPhases();
-  }, [phases]);
+  };
 
   const getRankings = async () => {
     const { data } = await api(
@@ -68,9 +73,8 @@ export default function EditRankings() {
         eventId,
       })
     );
-    //A ajouter : nbde places dispos dans le pool
-    const phases = data.map((d) => ({ content: d.name, id: d.id }));
 
+    const phases = data.map((d) => ({ content: d.name, id: d.id, spots: d.spots, isDone: d.is_done }));
     setPhases(phases);
   };
 
@@ -101,7 +105,7 @@ export default function EditRankings() {
     getRankings();
   };
 
-  const onEditTeamNumber = () => {
+  const onEditNumberOfTeams = () => {
     console.log('pressed');
   };
 
@@ -109,12 +113,34 @@ export default function EditRankings() {
     console.log('editing team: ' + item.content);
   };
 
+  const onAddTeam = () => {
+    console.log('add team');
+  };
+
+  const openPhaseDialog = () => {
+    setOpenPhase(true);
+  };
+
+  const closePhaseDialog = () => {
+    setOpenPhase(false);
+  };
+
+  const openEditPhaseDialog = (items, id) => {
+    const phase = phases.find((p) => p.id === id);
+    setPhaseToEdit(phase);
+    setEditPhase(true);
+  };
+
+  const closeEditPhaseDialog = () => {
+    setEditPhase(false);
+  };
+
   const buttons = [
     {
-      onClick: onEditTeamNumber,
+      onClick: openEditPhaseDialog,
       name: t('edit_team_number'),
       color: 'primary',
-      endIcon: 'Add',
+      endIcon: 'Edit',
     },
     {
       onClick: onSave,
@@ -130,28 +156,72 @@ export default function EditRankings() {
     },
   ];
 
-  const iconButton = {
+  const prerankingButtons = [
+    {
+      onClick: onSave,
+      name: t('save'),
+      color: 'primary',
+      endIcon: 'Check',
+    },
+    {
+      onClick: onCancel,
+      name: t('cancel'),
+      color: 'secondary',
+      endIcon: 'Close',
+    },
+  ];
+
+  const editIconButton = {
     onClick: onEditTeam,
+  };
+
+  const addIconButton = {
+    onClick: onAddTeam,
   };
 
   return (
     <>
+      <div className={styles.buttonContainer}>
+        <CustomButton className={styles.button} onClick={openPhaseDialog} endIcon="Add">
+          {t('add_phase')}
+        </CustomButton>
+      </div>
       <div className={styles.div}>
-        <PhaseAccordionDnD title={t('preranking')} items={items} withIndex buttons={buttons}></PhaseAccordionDnD>
+        <PhaseAccordionDnD
+          title={t('preranking')}
+          items={teams}
+          withIndex
+          buttons={prerankingButtons}
+          editIconButton={editIconButton}
+          addIconButton={addIconButton}
+          spots={teams.length}
+          id={'preranking'}
+        ></PhaseAccordionDnD>
       </div>
       <div>
         {phases.map((p) => (
           <div className={styles.div} key={p.id}>
             <PhaseAccordionDnD
               title={p.content}
-              items={teams}
+              items={items}
               withIndex
               buttons={buttons}
-              iconButton={iconButton}
+              editIconButton={editIconButton}
+              addIconButton={addIconButton}
+              isDone={p.isDone}
+              spots={p.spots}
+              id={p.id}
             ></PhaseAccordionDnD>
           </div>
         ))}
       </div>
+      <AddPhase isOpen={openPhase} onClose={closePhaseDialog} addToEditRankings={addToEditRankings}></AddPhase>
+      <EditPhase
+        isOpen={editPhase}
+        onClose={closeEditPhaseDialog}
+        phaseId={phaseToEdit.id}
+        cuurentSpots={phaseToEdit.spots}
+      ></EditPhase>
     </>
   );
 }

@@ -5,16 +5,39 @@
   padding: 0px;
 }
 
+.spots {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: 'positionHolder title add';
+  padding: 0px;
+}
+
+.title {
+  grid-area: title;
+}
+
+.add {
+  grid-area: add;
+  justify-self: end;
+}
+
 .position {
   grid-area: position;
 }
+
+.positionHolder {
+  grid-area: positionHolder;
+  justify-self: center;
+  padding-left: 16px;
+}
+
 .name {
   grid-area: name;
 }
 
 .edit {
   grid-area: edit;
-  justify-self: start;
+  justify-self: end;
 }
 
 .div {
@@ -41,6 +64,21 @@
 
 .iconButton {
   margin: 0px;
+}
+
+.prerankButton {
+  width: max-content !important;
+  height: 30px;
+  margin-bottom: 8px !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+}
+
+.prerankButtonContainer {
+  justify-content: start;
+  width: 100%;
+  margin-bottom: 20px !important;
+  padding-left: 57%;
 }
 
 @media (min-width: 600px) {

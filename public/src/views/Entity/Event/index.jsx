@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { Paper, IgContainer, Icon, Button } from '../../../components/Custom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,7 +13,9 @@ import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
-import AddPhase from '../../../tabs/EditSchedule/CreateSchedule/AddPhase';
+import CustomPaper from '../../../components/Custom/Paper';
+import IgContainer from '../../../components/Custom/IgContainer';
+import CustomIcon from '../../../components/Custom/Icon';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -53,8 +54,6 @@ export default function Event(props) {
   const { basicInfos } = props;
   const router = useRouter();
   const { id, tab } = router.query;
-
-  const [openPhase, setOpenPhase] = useState(false);
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -121,14 +120,6 @@ export default function Event(props) {
     }
   };
 
-  const openPhaseDialog = () => {
-    setOpenPhase(true);
-  };
-
-  const closePhaseDialog = () => {
-    setOpenPhase(false);
-  };
-
   if (!states || states.length == 1) {
     return (
       <IgContainer>
@@ -164,21 +155,21 @@ export default function Event(props) {
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="fr_CA" />
       </Helmet>
-      <Paper>
+      <CustomPaper>
         <Tabs value={states.findIndex((s) => s.value === tab)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
             <Tab
               key={index}
               onClick={() => onClick(s)}
               label={window.innerWidth < 768 ? null : s.label}
-              icon={<Icon icon={s.icon} />}
+              icon={<CustomIcon icon={s.icon} />}
               style={{
                 minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
               }}
             />
           ))}
         </Tabs>
-      </Paper>
+      </CustomPaper>
       {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
         <>
           <Tooltip title={title}>
@@ -187,24 +178,9 @@ export default function Event(props) {
               onClick={onSwitch}
               className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
             >
-              <Icon icon="Autorenew" />
+              <CustomIcon icon="Autorenew" />
             </Fab>
           </Tooltip>
-          <div>
-            {tab === TABS_ENUM.EDIT_RANKINGS ? (
-              <>
-                <Button
-                  className={window.innerWidth < 768 ? classes.buttonMobile : classes.button}
-                  onClick={openPhaseDialog}
-                  endIcon="Add"
-                >
-                  {t('add_phase')}
-                </Button>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
         </>
       ) : (
         <></>
@@ -212,7 +188,6 @@ export default function Event(props) {
       <div>
         <OpenTab basicInfos={basicInfos} />
       </div>
-      <AddPhase isOpen={openPhase} onClose={closePhaseDialog} />
     </IgContainer>
   );
 }

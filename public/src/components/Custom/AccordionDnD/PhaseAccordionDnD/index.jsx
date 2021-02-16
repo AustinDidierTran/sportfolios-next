@@ -13,6 +13,7 @@ import styles from './PhaseAccordionDnD.module.css';
 import CustomIcon from '../../Icon';
 import CustomButton from '../../Button';
 import CustomIconButton from '../../IconButton';
+import { v4 as uuidv4 } from 'uuid';
 
 import { useTranslation } from 'react-i18next';
 
@@ -43,20 +44,35 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 export default function CustomAccordionDnD(props) {
-  const { title, items: itemsProps, withIndex, buttons, iconButton, ...otherProps } = props;
+  const {
+    title,
+    items: itemsProps,
+    withIndex,
+    buttons,
+    editIconButton,
+    addIconButton,
+    isDone,
+    spots,
+    id,
+    ...otherProps
+  } = props;
   const classes = useStyles();
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(false);
   const [items, setItems] = useState(itemsProps);
+  const [emptySpots, setEmptySpots] = useState([]);
 
   useEffect(() => {
     setItems(itemsProps);
   }, [itemsProps]);
 
+  useEffect(() => {
+    setEmptySpots(getEmptySpots(spots));
+  }, []);
+
   const onExpand = () => {
-    const exp = !expanded;
-    setExpanded(exp);
+    setExpanded((exp) => !exp);
   };
 
   const onDragEnd = (result) => {
@@ -67,24 +83,38 @@ export default function CustomAccordionDnD(props) {
     setItems(newItems);
   };
 
+  const getEmptySpots = (number) => {
+    const emptySpots = [];
+
+    for (var i = 0; i < number - items.length; ++i) {
+      emptySpots.push({
+        index: i.toString(),
+        id: uuidv4(),
+      });
+    }
+    return emptySpots;
+  };
+
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
       <AccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
-        <ListItemText primary={title} />
+        <ListItemText
+          primary={title && isDone ? title + ' - ' + t('phase_done') : title + ' - ' + t('phase_in_progress')}
+        />
       </AccordionSummary>
       <AccordionDetails>
         <div className={styles.div}>
-          <div className={styles.buttonContainer}>
+          <div className={id !== 'preranking' ? styles.buttonContainer : styles.prerankButtonContainer}>
             {buttons.map((button, index) => (
               <CustomButton
                 onClick={() => {
-                  button.onClick(items);
+                  button.onClick(items, id);
                 }}
                 color={button.color}
                 type={button.type}
                 disabled={button.disabled}
                 endIcon={button.endIcon}
-                className={styles.button}
+                className={id !== 'preranking' ? styles.button : styles.prerankButton}
                 key={index}
               >
                 {button.name}
@@ -95,48 +125,78 @@ export default function CustomAccordionDnD(props) {
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {items.map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                  {spots || spots > 0 ? (
+                    <div>
+                      {items.map((item, index) => (
+                        <Draggable
+                          key={item.id ? item.id : spot.id}
+                          draggableId={item.id ? item.id : spot.id}
+                          index={index}
                         >
-                          {withIndex ? (
-                            <ListItem>
-                              <ListItemIcon>
-                                <CustomIcon icon="Reorder" color="textSecondary" />
-                              </ListItemIcon>
-                              <div className={styles.main} style={{ width: '100%' }}>
-                                <ListItemText className={styles.position} secondary={index + 1} />
-                                <ListItemText className={styles.name} primary={item.content} />
-                                <ListItemIcon className={styles.edit}>
-                                  <CustomIconButton
-                                    className={styles.iconButton}
-                                    onClick={() => {
-                                      iconButton.onClick(item);
-                                    }}
-                                    icon="Edit"
-                                    style={{ color: 'grey' }}
-                                    tooltip={t('change_team')}
-                                  ></CustomIconButton>
+                          {(provided, snapshot) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                            >
+                              <ListItem>
+                                <ListItemIcon>
+                                  <CustomIcon icon="Reorder" color="textSecondary" />
                                 </ListItemIcon>
-                              </div>
-                            </ListItem>
-                          ) : (
-                            <ListItem>
-                              <div style={{ width: '100%' }}>
-                                <ListItemText primary={item.content} />
-                              </div>
-                            </ListItem>
+                                <div className={styles.main} style={{ width: '100%' }}>
+                                  <ListItemText className={styles.position} secondary={index + 1} />
+                                  <ListItemText className={styles.name} primary={item.content} />
+                                  <ListItemIcon className={styles.edit}>
+                                    <CustomIconButton
+                                      className={styles.iconButton}
+                                      onClick={() => {
+                                        editIconButton.onClick(item);
+                                      }}
+                                      icon="Edit"
+                                      style={{ color: 'grey' }}
+                                      tooltip={t('change_team')}
+                                    ></CustomIconButton>
+                                  </ListItemIcon>
+                                </div>
+                              </ListItem>
+                              <Divider />
+                            </div>
                           )}
+                        </Draggable>
+                      ))}
+                    </div>
+                  ) : (
+                    <ListItemText className={styles.name} primary={t('no_teams_number')} />
+                  )}
+                  {emptySpots ? (
+                    <div>
+                      {emptySpots.map((spot, index) => (
+                        <div key={spot.id}>
+                          <ListItem>
+                            <div className={styles.spots} style={{ width: '100%' }}>
+                              <ListItemText className={styles.positionHolder} secondary={index + 1 + items.length} />
+                              <ListItemText className={styles.title} primary={t('add_team') + '...'} />
+                              <ListItemIcon className={styles.add}>
+                                <CustomIconButton
+                                  className={styles.iconButton}
+                                  onClick={() => {
+                                    addIconButton.onClick();
+                                  }}
+                                  icon="Add"
+                                  style={{ color: 'grey' }}
+                                  tooltip={t('change_team')}
+                                ></CustomIconButton>
+                              </ListItemIcon>
+                            </div>
+                          </ListItem>
                           <Divider />
                         </div>
-                      )}
-                    </Draggable>
-                  ))}
+                      ))}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   {provided.placeholder}
                 </div>
               )}

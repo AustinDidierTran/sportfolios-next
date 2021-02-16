@@ -1,5 +1,12 @@
 .button {
-  position: fixed;
+  position: sticky;
+  margin-top: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+.buttonContainer {
+  width: 100%;
+  justify-content: center;
 }
 
 .div {
