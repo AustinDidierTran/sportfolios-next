@@ -5,9 +5,9 @@ import { Paper, IgContainer, IconButton } from '../../components/Custom';
 import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
-import styles from './CreateReport.module.css';
+import styles from './Analytics.module.css';
 
-export default function CreateReport() {
+export default function Analytics() {
   const { t } = useTranslation();
 
   useEffect(() => {

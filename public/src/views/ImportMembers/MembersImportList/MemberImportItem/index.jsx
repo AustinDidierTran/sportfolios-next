@@ -7,8 +7,9 @@ import { useTranslation } from 'react-i18next';
 import styles from './MemberImportItem.module.css';
 import { formatDate, validateDateWithYear, validateEmail } from '../../../../utils/stringFormats';
 import moment from 'moment';
-import CustomIconButton from '../../../../components/Custom/IconButton';
-import { LIST_ITEM_ENUM } from '../../../../../common/enums';
+import IconButton from '../../../../components/Custom/IconButton';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../../common/enums';
+import FormDialog from '../../../../components/Custom/FormDialog';
 
 export default function MemberImportItem(props) {
   const { t } = useTranslation();
@@ -89,7 +90,7 @@ export default function MemberImportItem(props) {
             )}
           </>
         )}
-        <CustomFormDialog
+        <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBER_IMPORT}
           items={{
             open,
@@ -99,13 +100,8 @@ export default function MemberImportItem(props) {
             updateMember,
           }}
         />
-        <CustomIconButton icon="Edit" tooltip={t('edit.edit')} onClick={onOpen} style={{ color: 'primary' }} />
-        <CustomIconButton
-          icon="Delete"
-          tooltip={t('delete.delete')}
-          onClick={handleDelete}
-          style={{ color: 'primary' }}
-        />
+        <IconButton icon="Edit" tooltip={t('edit.edit')} onClick={onOpen} style={{ color: 'primary' }} />
+        <IconButton icon="Delete" tooltip={t('delete.delete')} onClick={handleDelete} style={{ color: 'primary' }} />
       </ListItem>
       <Divider />
     </>

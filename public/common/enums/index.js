@@ -204,6 +204,7 @@ const COUPON_CODE_ENUM = {
 };
 
 const ROUTES_ENUM = {
+  analytics: '/page/analytics',
   addBankAccount: '/page/addBankAccount',
   addPaymentMethod: '/page/addPaymentMethod',
   adminPanel: '/page/adminPanel',
@@ -216,7 +217,6 @@ const ROUTES_ENUM = {
   createEvent: '/page/createEvent',
   createOrganization: '/page/createOrganization',
   createPerson: '/page/createPerson',
-  createReport: '/page/createReport',
   createTeam: '/page/createTeam',
   entity: '/:id',
   entityNotFound: '/page/entityNotFound',

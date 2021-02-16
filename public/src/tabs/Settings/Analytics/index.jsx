@@ -9,7 +9,7 @@ import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 
-export default function Reports() {
+export default function Analytics() {
   const { t } = useTranslation();
 
   const router = useRouter();
@@ -35,16 +35,16 @@ export default function Reports() {
   };
 
   return (
-    <Paper title={t('reports')}>
+    <Paper title={t('analytics_and_reports')}>
       <Button
         size="small"
         variant="contained"
         style={{ margin: '8px' }}
         onClick={() => {
-          goTo(ROUTES.createReport, null, { id });
+          goTo(ROUTES.analytics, null, { id });
         }}
       >
-        {t('generate_report')}
+        {t('see_my_analytics')}
       </Button>
       <List items={items} />
     </Paper>

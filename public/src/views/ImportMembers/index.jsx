@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CSVLink } from 'react-csv';
-import {
-  Paper,
-  Button,
-  AlertDialog,
-  IgContainer,
-  List,
-  ContainerBottomFixed,
-  Select,
-  LoadingSpinner,
-} from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import Button from '../../components/Custom/Button';
+import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
+import IgContainer from '../../components/Custom/IgContainer';
+import List from './MembersImportList';
+import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
+import Select from '../../components/Custom/Select';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import { useTranslation } from 'react-i18next';
 import { ExcelRenderer } from 'react-excel-renderer';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -33,8 +31,10 @@ export default function ImportMembers() {
   const [isLoading, setIsLoading] = useState();
 
   useEffect(() => {
-    getMemberships();
-  }, []);
+    if (id) {
+      getMemberships();
+    }
+  }, [id]);
 
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
@@ -104,10 +104,10 @@ export default function ImportMembers() {
   });
 
   const fileHandler = async (event) => {
-    if (!event.target.files.length) {
+    if (!event?.target.files.length) {
       return;
     }
-    let fileObj = event.target.files[0];
+    let fileObj = event?.target?.files[0];
     if (fileObj.type != 'text/csv') {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -118,33 +118,34 @@ export default function ImportMembers() {
       return;
     }
     setIsLoading(true);
-    try {
-      formik.setFieldValue('fileName', fileObj.name);
-      const resp = await ExcelRenderer(fileObj);
-      resp.rows.splice(0, 2);
-      const rows = resp.rows.map((r, index) => ({
-        email: r[0],
-        day: r[1],
-        month: r[2],
-        year: r[3],
-        type: LIST_ITEM_ENUM.MEMBER_IMPORT,
-        key: index,
-      }));
-      const tempMembers = formik.values.members;
-      rows.forEach((r) => {
-        if (tempMembers.findIndex((m) => r.email === m.email) === -1) {
-          tempMembers.push(r);
-        }
-      });
-      formik.setFieldValue('members', tempMembers);
-    } catch (err) {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: err,
-        severity: SEVERITY_ENUM.ERROR,
-        duration: 4000,
-      });
-    }
+    formik.setFieldValue('fileName', fileObj.name);
+    await ExcelRenderer(fileObj, (err, resp) => {
+      if (err) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: err,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        resp.rows.splice(0, 2);
+        const rows = resp.rows.map((r, index) => ({
+          email: r[0],
+          day: r[1],
+          month: r[2],
+          year: r[3],
+          type: LIST_ITEM_ENUM.MEMBER_IMPORT,
+          key: index,
+        }));
+        const tempMembers = formik.values.members;
+        rows.forEach((r) => {
+          if (tempMembers.findIndex((m) => r.email === m.email) === -1) {
+            tempMembers.push(r);
+          }
+        });
+        formik.setFieldValue('members', tempMembers);
+      }
+    });
     setIsLoading(false);
   };
 

@@ -17,7 +17,7 @@ const Description = loadable(() => import('./Description'));
 const EventSettings = loadable(() => import('./EventSettings'));
 const ManageRoles = loadable(() => import('./ManageRoles'));
 const QuickDescription = loadable(() => import('./QuickDescription'));
-const Reports = loadable(() => import('./Reports'));
+const Analytics = loadable(() => import('./Analytics'));
 const TeamsRegistered = loadable(() => import('./TeamsRegistered'));
 const PlayersRegistered = loadable(() => import('./PlayersRegistered'));
 
@@ -96,7 +96,7 @@ export default function EntitySettings(props) {
             <BasicInfos basicInfos={basicInfos} />
             <AddMembership />
             <BankAccount />
-            <Reports />
+            <Analytics />
             <ManageRoles role={role} />
             <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
