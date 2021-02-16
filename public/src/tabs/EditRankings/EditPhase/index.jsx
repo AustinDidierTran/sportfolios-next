@@ -36,7 +36,7 @@ export default function EditPhase(props) {
     initialValues: {
       spots: 0,
     },
-    validationSchema: validationSchema,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {

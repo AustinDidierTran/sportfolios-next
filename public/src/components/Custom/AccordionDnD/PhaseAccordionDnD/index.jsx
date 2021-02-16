@@ -60,6 +60,7 @@ export default function CustomAccordionDnD(props) {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(false);
+  const [madeChanges, setMadeChanges] = useState(false);
   const [items, setItems] = useState(itemsProps);
   const [emptySpots, setEmptySpots] = useState([]);
 
@@ -81,6 +82,7 @@ export default function CustomAccordionDnD(props) {
     }
     const newItems = reorder(items, result.source.index, result.destination.index);
     setItems(newItems);
+    setMadeChanges(true);
   };
 
   const getEmptySpots = (number) => {
@@ -114,10 +116,11 @@ export default function CustomAccordionDnD(props) {
               <Button
                 onClick={() => {
                   button.onClick(items, id);
+                  setMadeChanges(false);
                 }}
                 color={button.color}
                 type={button.type}
-                disabled={isDone}
+                disabled={button.name === t('edit_team_number') ? isDone : isDone || !madeChanges}
                 endIcon={button.endIcon}
                 className={id !== 'preranking' ? styles.button : styles.prerankButton}
                 key={index}

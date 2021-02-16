@@ -37,7 +37,7 @@ export default function AddPhase(props) {
       phase: '',
       spots: 0,
     },
-    validationSchema: validationSchema,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {

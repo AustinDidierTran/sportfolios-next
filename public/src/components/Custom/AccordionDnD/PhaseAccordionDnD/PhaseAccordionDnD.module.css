@@ -63,7 +63,8 @@
 }
 
 .iconButton {
-  margin: 0px;
+  margin-right: 20px;
+  justify-self: end !important;
 }
 
 .prerankButton {
