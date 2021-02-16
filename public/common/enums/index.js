@@ -109,6 +109,7 @@ const CARD_TYPE_ENUM = {
   TWO_TEAM_GAME_PROFILE: 'twoTeamGameProfile',
   ACCEPT_PLAYER_INFOS: 'accept player infos',
   ACCEPT_TEAM_INFOS: 'accept team infos',
+  OUR_TEAM_MEMBER: ' our team member',
 };
 
 const DIRECTION_ENUM = {
@@ -435,8 +436,6 @@ const LOGO_ENUM = {
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210213-xfi77-8317ff33-3b04-49a1-afd3-420202cddf73',
   LOGO_2048X2048:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210213-i7bue-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_LOGO:
-    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-pldn3-8317ff33-3b04-49a1-afd3-420202cddf73',
   ICON_57X57:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-r4zcx-8317ff33-3b04-49a1-afd3-420202cddf73',
   ICON_72X72:
@@ -453,22 +452,45 @@ const LOGO_ENUM = {
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-lgc7l-8317ff33-3b04-49a1-afd3-420202cddf73',
   ICON_180X180:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-3yzkf-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_57X57:
+  WHITE_LOGO:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-pldn3-8317ff33-3b04-49a1-afd3-420202cddf73',
+  WHITE_LOGO_57X57:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-rbjvk-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_72X72:
+  WHITE_LOGO_72X72:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-v1upk-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_76X76:
+  WHITE_LOGO_76X76:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-35snn-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_114X114:
+  WHITE_LOGO_114X114:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-fnes3-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_120X120:
+  WHITE_LOGO_120X120:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-j4x5y-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_144X144:
+  WHITE_LOGO_144X144:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-3yog5-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_152X152:
+  WHITE_LOGO_152X152:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-vefl9-8317ff33-3b04-49a1-afd3-420202cddf73',
-  WHITE_ICON_180X180:
+  WHITE_LOGO_180X180:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200724-klr71-8317ff33-3b04-49a1-afd3-420202cddf73',
+  WHITE_LOGO_256X256:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-klobq-8317ff33-3b04-49a1-afd3-420202cddf73',
+  WHITE_LOGO_512X512:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-74mhi-8317ff33-3b04-49a1-afd3-420202cddf73',
+  WHITE_LOGO_1024X1024:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-k12j1-8317ff33-3b04-49a1-afd3-420202cddf73',
+};
+
+const PHOTO_ENUM = {
+  JULIEN:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-vl29g-8317ff33-3b04-49a1-afd3-420202cddf73',
+  ANDREANNE:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-0u6dg-8317ff33-3b04-49a1-afd3-420202cddf73',
+  MEDERIC:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-6baar-8317ff33-3b04-49a1-afd3-420202cddf73',
+  AUSTIN:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-ed5uo-8317ff33-3b04-49a1-afd3-420202cddf73',
+  EMILIE:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-16nt5-8317ff33-3b04-49a1-afd3-420202cddf73',
+  ACHILLE:
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-mpeqg-8317ff33-3b04-49a1-afd3-420202cddf73',
 };
 
 const MESSENGER_MESSAGES_EN = {
@@ -529,6 +551,7 @@ module.exports = {
   REJECTION_ENUM,
   REPORT_TYPE_ENUM,
   ROSTER_ROLE_ENUM,
+  PHOTO_ENUM,
   ROUTES_ENUM,
   SCORE_SUBMISSION_CHATBOT_STATES,
   SELECT_ENUM,
