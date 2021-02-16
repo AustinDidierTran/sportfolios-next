@@ -1,0 +1,33 @@
+.divRoot {
+  border: 0 solid white !important;
+  padding: 4px;
+  border-radius: 22px;
+  background-color: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.textField {
+  width: 97%;
+  float: left;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+}
+
+.publishButton {
+  float: right;
+}
+
+.actionsButton {
+  padding: 4px 5% !important;
+}
+
+.imagePreview {
+  width: inherit;
+  height: inherit;
+}
+
+.divImage {
+  display: inline-block;
+  position: relative;
+  height: 200px;
+}

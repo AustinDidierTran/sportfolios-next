@@ -13,8 +13,11 @@ import { Store } from '../../../Store';
 import CustomCard from '../../../components/Custom/Card';
 import api from '../../../actions/api';
 import Tooltip from '@material-ui/core/Tooltip';
+import { uploadPicture } from '../../../actions/aws';
 import loadable from '@loadable/component';
 import Fab from '@material-ui/core/Fab';
+import CustomPaper from '../../../components/Custom/Paper';
+import { useFormik } from 'formik';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -42,10 +45,7 @@ export default function OrganizationHome(props) {
   const { basicInfos, navBar } = props;
 
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasMoreItem, setHasMoreItem] = useState(true);
   const currentPage = useRef(1);
-  const div = useRef();
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -54,6 +54,7 @@ export default function OrganizationHome(props) {
   const {
     state: { userInfo },
   } = useContext(Store);
+
   const getOrganizationPostFeed = async () => {
     const { status, data } = await api(
       formatRoute('/api/posts/organizationFeed', null, {
@@ -77,7 +78,91 @@ export default function OrganizationHome(props) {
 
   const initialLoad = async () => {
     await getOrganizationPostFeed();
-    setIsLoading(false);
+  };
+
+  const handleLike = async (postId, entityId, like) => {
+    let newPost;
+    if (like) {
+      const { data, status } = await api('/api/posts/like', {
+        method: 'POST',
+        body: JSON.stringify({
+          entityId,
+          postId,
+        }),
+      });
+      if (data) newPost = data;
+    } else {
+      const { data, status } = await api('/api/posts/unlike', {
+        method: 'POST',
+        body: JSON.stringify({
+          entityId,
+          postId,
+        }),
+      });
+
+      if (data) newPost = data;
+    }
+    let oldPosts = posts;
+    if (newPost) {
+      setPosts(
+        oldPosts.map((o) => {
+          if (o.id === postId) {
+            return newPost;
+          }
+          return o;
+        })
+      );
+    }
+  };
+
+  const handlePost = async (entityId, postContent, images, post_id) => {
+    console.log('postId: ', post_id);
+    let newPost;
+    if (post_id != undefined) {
+      const { status, data } = await api('/api/posts/comment', {
+        method: 'POST',
+        body: JSON.stringify({
+          entityId,
+          postId: post_id,
+          content: postContent,
+        }),
+      });
+      if (data) newPost = data;
+      let oldPosts = posts;
+      if (newPost) {
+        setPosts(
+          oldPosts.map((o) => {
+            if (o.id === post_id) {
+              return newPost;
+            }
+            return o;
+          })
+        );
+      }
+      console.log(data);
+    } else {
+      const { data: newPostId } = await api('/api/posts/create', {
+        method: 'POST',
+        body: JSON.stringify({
+          content: postContent,
+          entity_id: entityId,
+        }),
+      });
+
+      if (images.length > 0) {
+        images.forEach(async (image) => {
+          const { file } = image;
+          const url = await uploadPicture(newPostId, file);
+          const { data } = await api('/api/posts/image', {
+            method: 'POST',
+            body: JSON.stringify({
+              postId: newPostId,
+              imageUrl: url,
+            }),
+          });
+        });
+      }
+    }
   };
 
   return (
@@ -98,9 +183,20 @@ export default function OrganizationHome(props) {
           <div></div>
         )}
         <div>
-          <PostInput />
+          <CustomPaper style={{ padding: 10, marginTop: 10, marginBottom: 10 }}>
+            <PostInput
+              entityId={basicInfos.id}
+              handlePost={handlePost}
+              canAddImage={true}
+              placeholder={t('start_a_post')}
+            />
+          </CustomPaper>
           {posts.map((post) => (
-            <CustomCard items={{ postInfo: post }} type={CARD_TYPE_ENUM.POST} key={post.id} />
+            <CustomCard
+              items={{ postInfo: post, handleLike: handleLike, handleComment: handlePost, entityId: basicInfos.id }}
+              type={CARD_TYPE_ENUM.POST}
+              key={post.id}
+            />
           ))}
         </div>
       </IgContainer>
