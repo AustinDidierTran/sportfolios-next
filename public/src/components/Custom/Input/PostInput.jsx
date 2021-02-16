@@ -3,45 +3,32 @@ import { useTranslation } from 'react-i18next';
 import Upload from 'rc-upload';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { SEVERITY_ENUM } from '../../../../common/enums';
-import api from '../../../actions/api';
-import { uploadPicture } from '../../../actions/aws';
+import styles from './PostInput.module.css';
+import TextField from '@material-ui/core/TextField';
 
+import CustomIconButton from '../IconButton';
+import { Primary } from '../Icon/Icon.stories';
 export default function CustomDateInput(props) {
   const { t } = useTranslation();
-  const {
-    state: { userInfo },
-    dispatch,
-  } = useContext(Store);
+  const { entityId, handlePost, canAddImage, postId = undefined, placeholder } = props;
+  const { dispatch } = useContext(Store);
 
+  const [postContent, setPostContent] = useState('');
   const [images, setImages] = useState([]);
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const content = event.target.elements.content.value;
 
-    const { data: postId } = await api('/api/posts/create', {
-      method: 'POST',
-      body: JSON.stringify({
-        content: content,
-        entity_id: userInfo.primaryPerson.entity_id,
-      }),
-    });
-
-    images.map(async (image) => {
-      const { file } = image;
-      const url = await uploadPicture(postId, file);
-      const { data } = await api('/api/posts/image', {
-        method: 'POST',
-        body: JSON.stringify({
-          postId: postId,
-          imageUrl: url,
-        }),
-      });
-    });
+  const handleSubmit = async () => {
+    handlePost(entityId, postContent, images, postId);
+    setPostContent('');
     setImages([]);
   };
 
+  const removeImage = (id) => {
+    let oldImages = images;
+    setImages(oldImages.filter((o) => o.file.uid !== id));
+  };
+
   const uploadImageProps = {
-    multiple: true,
+    multiple: false,
     accept: '.jpg, .png, .jpeg, .gif, .webp',
     onStart(file) {
       if (file.type.split('/')[0] === 'image') {
@@ -61,13 +48,67 @@ export default function CustomDateInput(props) {
     },
   };
 
+  const handleChange = (event) => {
+    setPostContent(event.target.value);
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="content"></input>
-        <Upload {...uploadImageProps}>Upload image</Upload>
-        <input type="submit" value="Envoyer"></input>
-      </form>
+      <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+        <div className={styles.divRoot}>
+          <TextField
+            placeholder={placeholder}
+            className={styles.textField}
+            multiline
+            rowsMax={Infinity}
+            value={postContent}
+            InputProps={{
+              disableUnderline: true,
+              endAdornment: (
+                <div style={{ display: 'flex' }}>
+                  <CustomIconButton
+                    disabled={postContent.length == 0}
+                    icon="Send"
+                    style={{ color: Primary }}
+                    onClick={handleSubmit}
+                  />
+                  {canAddImage && (
+                    <Upload {...uploadImageProps}>
+                      <CustomIconButton icon="ImageOutlinedIcon" style={{ color: Primary }} />
+                    </Upload>
+                  )}
+                </div>
+              ),
+            }}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        {images.map((image) => {
+          return (
+            <div className={styles.divImage}>
+              <CustomIconButton
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  borderRaduis: 25,
+                  padding: 2,
+                  margin: 5,
+                }}
+                icon="Clear"
+                onClick={() => {
+                  removeImage(image.file.uid);
+                }}
+              />
+              <img className={styles.imagePreview} src={URL.createObjectURL(image.file)} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

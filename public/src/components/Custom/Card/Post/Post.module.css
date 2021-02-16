@@ -3,3 +3,109 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.postHeader {
+  margin-left: 3%;
+}
+
+.postHeaderAvatar {
+  max-width: fit-content;
+}
+
+.postHeaderContent {
+  max-width: fit-content;
+}
+
+.content {
+  text-align: left;
+}
+
+.headerTitle {
+  font-weight: bold !important;
+}
+
+.actions {
+  width: 100%;
+  justify-content: center;
+}
+
+.actionsButton {
+  padding: 4px 5% !important;
+}
+
+.headerContent {
+  text-align: left;
+}
+
+.header {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.postStats {
+  display: flex !important;
+  justify-content: space-between !important;
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.54);
+  padding-bottom: 12px !important;
+  padding-top: 12px !important;
+}
+
+.likes {
+  margin-right: auto;
+}
+
+.likes div {
+  display: flex;
+  align-items: center;
+}
+
+.comments {
+  float: left;
+}
+
+.postStats div div:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.share {
+  margin-left: 5px;
+}
+
+.likesText {
+  margin-left: 5px !important;
+  font-size: 0.75rem !important;
+}
+
+.media {
+  height: 0;
+  padding-top: 56.25%;
+}
+
+.avatarComment {
+  margin-bottom: auto;
+}
+
+.headerComment {
+  padding: 4px 0px 4px 0px !important;
+}
+
+.subheaderComment {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.headerCommentContent {
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 25px;
+  padding: 15px;
+}
+
+.dateComment {
+  padding: 0px !important;
+  font-size: 0.75rem;
+  text-align: left;
+  padding-left: 70px !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
