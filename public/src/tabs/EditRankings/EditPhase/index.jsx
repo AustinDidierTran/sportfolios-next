@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -12,7 +12,7 @@ import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 
 export default function EditPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, phaseId, currentSpots } = props;
+  const { isOpen, onClose, phaseId, currentSpots, updatePhase } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -29,7 +29,7 @@ export default function EditPhase(props) {
   };
 
   const validationSchema = yup.object().shape({
-    spots: yup.string().required(),
+    spots: yup.number().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
@@ -37,11 +37,11 @@ export default function EditPhase(props) {
       spots: 0,
     },
     validationSchema: validationSchema,
-    validateOnChange: true,
+    validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       const { spots } = values;
-      const res = await api('/api/entity/phase', {
+      const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
           phaseId,
@@ -49,8 +49,6 @@ export default function EditPhase(props) {
           eventId,
         }),
       });
-
-      resetForm();
 
       if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
@@ -62,9 +60,13 @@ export default function EditPhase(props) {
         return;
       }
 
+      if (updatePhase) {
+        updatePhase();
+      }
+
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('phase_added'),
+        message: t('phase_updated'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });

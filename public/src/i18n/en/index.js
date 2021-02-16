@@ -873,6 +873,7 @@ export default {
     phase: 'Phase',
     phase_done: 'phase is over',
     phase_in_progress: 'phase is in progress',
+    phase_updated: 'phase is updated!',
     phone_number: 'Phone Number',
     places_left: 'places left',
     plateform_fees: 'Plateform fees',

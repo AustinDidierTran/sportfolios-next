@@ -115,7 +115,7 @@ export default function ScheduleInteractiveTool() {
   const [layoutFields, setLayoutFields] = useState([]);
 
   const [alertDialog, setAlertDialog] = useState(false);
-  const [cancelAlertDialog, setCancelAlertDialog] = useState(false);
+  const [cancelDialog, setCancelDialog] = useState(false);
   const [addGameDialog, setAddGameDialog] = useState(false);
   const [addGameField, setAddGameField] = useState({});
   const [addGameTimeslot, setAddGameTimeslot] = useState({});
@@ -464,7 +464,7 @@ export default function ScheduleInteractiveTool() {
   };
 
   const handleCancel = () => {
-    setCancelAlertDialog(true);
+    setCancelDialog(true);
   };
 
   const handleSave = async () => {
@@ -562,7 +562,7 @@ export default function ScheduleInteractiveTool() {
     goBackToEvent();
   };
 
-  const handleCancelChangeDialogSubmit = () => {
+  const cancelDialogSubmit = () => {
     const initGames = initialGames.map((g) => {
       const layoutGame = initialLayout.find((l) => l.i === g.id);
       return {
@@ -593,11 +593,11 @@ export default function ScheduleInteractiveTool() {
     setUndoLog([]);
     setRedoLog([]);
 
-    setCancelAlertDialog(false);
+    setCancelDialog(false);
   };
 
-  const handleCancelChangeDialogCancel = () => {
-    setCancelAlertDialog(false);
+  const cancelDialogCancel = () => {
+    setCancelDialog(false);
   };
 
   const handleDialogCancel = () => {
@@ -925,9 +925,9 @@ export default function ScheduleInteractiveTool() {
         title={t('quit_interactive_tool')}
       />
       <AlertDialog
-        open={cancelAlertDialog}
-        onSubmit={handleCancelChangeDialogSubmit}
-        onCancel={handleCancelChangeDialogCancel}
+        open={cancelDialog}
+        onSubmit={cancelDialogSubmit}
+        onCancel={cancelDialogCancel}
         description={t('cancel_changes')}
         title={t('cancel_all')}
       />

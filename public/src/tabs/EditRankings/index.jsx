@@ -28,13 +28,14 @@ export default function EditRankings() {
 
   useEffect(() => {
     getRankings();
-  }, []);
-
-  useEffect(() => {
     getPhases();
   }, []);
 
-  const addToEditRankings = (phase) => {
+  const addToEditRankings = () => {
+    getPhases();
+  };
+
+  const updatePhase = () => {
     getPhases();
   };
 
@@ -222,6 +223,7 @@ export default function EditRankings() {
         onClose={closeEditPhaseDialog}
         phaseId={phaseToEdit.id}
         currentSpots={phaseToEdit.spots}
+        updatePhase={updatePhase}
       ></EditPhase>
     </>
   );

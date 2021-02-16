@@ -29,7 +29,7 @@ export default function AddPhase(props) {
   };
 
   const validationSchema = yup.object().shape({
-    phase: yup.string().required(),
+    phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
@@ -38,7 +38,7 @@ export default function AddPhase(props) {
       spots: 0,
     },
     validationSchema: validationSchema,
-    validateOnChange: true,
+    validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { phase, spots } = values;
@@ -64,7 +64,7 @@ export default function AddPhase(props) {
       }
 
       if (addToEditRankings) {
-        addToEditRankings(res.data);
+        addToEditRankings();
       }
 
       dispatch({

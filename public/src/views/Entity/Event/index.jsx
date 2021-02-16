@@ -13,9 +13,9 @@ import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
-import CustomPaper from '../../../components/Custom/Paper';
+import Paper from '../../../components/Custom/Paper';
 import IgContainer from '../../../components/Custom/IgContainer';
-import CustomIcon from '../../../components/Custom/Icon';
+import Icon from '../../../components/Custom/Icon';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -31,20 +31,6 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2) + (window.innerWidth - 700) / 2,
     zIndex: 100,
     color: 'white',
-  },
-  button: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: window.innerWidth / 2 - theme.spacing(10.4),
-    color: 'primary',
-    zIndex: 100,
-  },
-  buttonMobile: {
-    position: 'absolute',
-    bottom: theme.spacing(2) + 58,
-    right: window.innerWidth / 2 - theme.spacing(10.4),
-    color: 'primary',
-    zIndex: 100,
   },
 }));
 
@@ -155,21 +141,21 @@ export default function Event(props) {
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="fr_CA" />
       </Helmet>
-      <CustomPaper>
+      <Paper>
         <Tabs value={states.findIndex((s) => s.value === tab)} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
             <Tab
               key={index}
               onClick={() => onClick(s)}
               label={window.innerWidth < 768 ? null : s.label}
-              icon={<CustomIcon icon={s.icon} />}
+              icon={<Icon icon={s.icon} />}
               style={{
                 minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
               }}
             />
           ))}
         </Tabs>
-      </CustomPaper>
+      </Paper>
       {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
         <>
           <Tooltip title={title}>
@@ -178,7 +164,7 @@ export default function Event(props) {
               onClick={onSwitch}
               className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
             >
-              <CustomIcon icon="Autorenew" />
+              <Icon icon="Autorenew" />
             </Fab>
           </Tooltip>
         </>
