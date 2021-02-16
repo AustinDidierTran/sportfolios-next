@@ -8,7 +8,7 @@ const EventPost = loadable(() => import('./EventPost'));
 const EventSettings = loadable(() => import('./EventSettings'));
 const Game = loadable(() => import('./Game'));
 const Invoice = loadable(() => import('./InvoiceItem'));
-const post = loadable(() => import('./Post'));
+const Post = loadable(() => import('./Post'));
 const Report = loadable(() => import('./Report'));
 const ScoreSuggestion = loadable(() => import('./ScoreSuggestion'));
 const Shop = loadable(() => import('./ShopItem'));
