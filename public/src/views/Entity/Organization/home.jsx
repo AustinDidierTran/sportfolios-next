@@ -186,17 +186,19 @@ export default function OrganizationHome(props) {
           <div></div>
         )}
         <div>
-          <CustomPaper className={classes.createPost}>
-            <PostInput
-              entityId={basicInfos.id}
-              handlePost={handlePost}
-              canAddImage={true}
-              placeholder={t('start_a_post')}
-            />
-          </CustomPaper>
+          {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN && (
+            <CustomPaper className={classes.createPost}>
+              <PostInput
+                entityId={basicInfos.id}
+                handlePost={handlePost}
+                canAddImage={true}
+                placeholder={t('start_a_post')}
+              />
+            </CustomPaper>
+          )}
           {posts.map((post) => (
             <CustomCard
-              items={{ postInfo: post, handleLike, handleComment, entityId: basicInfos.id }}
+              items={{ postInfo: post, handleLike, handleComment, entityId: userInfo.primaryPerson.entity_id }}
               type={CARD_TYPE_ENUM.POST}
               key={post.id}
             />
