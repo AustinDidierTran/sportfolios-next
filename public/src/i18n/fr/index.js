@@ -157,7 +157,7 @@ export default {
     coach: 'Entraîneur',
     code: 'Code',
     comment: 'Commenter',
-    comment_singular: '{{count}} Commentaire',
+    comment_singular: '{{count}} commentaire',
     comment_plural: '{{count}} commentaires',
     comments: 'Commentaires',
     communication: 'Communication',

@@ -16,7 +16,7 @@
 .optionsButton {
   color: white !important;
   background-color: #18b393 !important;
-  margin-left: 5px !important;
+  margin-left: 4px !important;
   height: 30.04px !important;
   min-width: 30px !important;
 }
@@ -30,7 +30,7 @@
 .paper {
   margin: auto;
   min-height: 200px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .navigation {

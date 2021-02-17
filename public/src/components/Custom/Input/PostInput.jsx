@@ -7,7 +7,6 @@ import styles from './PostInput.module.css';
 import TextField from '@material-ui/core/TextField';
 
 import CustomIconButton from '../IconButton';
-import { Primary } from '../Icon/Icon.stories';
 export default function CustomDateInput(props) {
   const { t } = useTranslation();
   const { entityId, handlePost, canAddImage, postId = undefined, placeholder } = props;
@@ -24,7 +23,7 @@ export default function CustomDateInput(props) {
 
   const removeImage = (id) => {
     let oldImages = images;
-    setImages(oldImages.filter((o) => o.file.uid !== id));
+    setImages((oldImages) => oldImages.filter((o) => o.file.uid !== id));
   };
 
   const uploadImageProps = {
@@ -54,7 +53,7 @@ export default function CustomDateInput(props) {
 
   return (
     <div>
-      <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+      <div>
         <div className={styles.divRoot}>
           <TextField
             placeholder={placeholder}
@@ -69,12 +68,12 @@ export default function CustomDateInput(props) {
                   <CustomIconButton
                     disabled={postContent.length == 0}
                     icon="Send"
-                    style={{ color: Primary }}
+                    className={styles.uploadIcon}
                     onClick={handleSubmit}
                   />
                   {canAddImage && (
                     <Upload {...uploadImageProps}>
-                      <CustomIconButton icon="ImageOutlinedIcon" style={{ color: Primary }} />
+                      <CustomIconButton icon="ImageOutlinedIcon" className={styles.uploadIcon} />
                     </Upload>
                   )}
                 </div>
@@ -85,29 +84,27 @@ export default function CustomDateInput(props) {
         </div>
       </div>
       <div>
-        {images.map((image) => {
-          return (
-            <div className={styles.divImage}>
-              <CustomIconButton
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  color: 'black',
-                  backgroundColor: 'white',
-                  borderRaduis: 25,
-                  padding: 2,
-                  margin: 5,
-                }}
-                icon="Clear"
-                onClick={() => {
-                  removeImage(image.file.uid);
-                }}
-              />
-              <img className={styles.imagePreview} src={URL.createObjectURL(image.file)} />
-            </div>
-          );
-        })}
+        {images.map((image) => (
+          <div className={styles.divImage}>
+            <CustomIconButton
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                color: 'black',
+                backgroundColor: 'white',
+                borderRaduis: 25,
+                padding: 2,
+                margin: 5,
+              }}
+              icon="Clear"
+              onClick={() => {
+                removeImage(image.file.uid);
+              }}
+            />
+            <img className={styles.imagePreview} src={URL.createObjectURL(image.file)} />
+          </div>
+        ))}
       </div>
     </div>
   );

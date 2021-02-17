@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 
 import CustomIcon from '../../Icon';
 import Card from '@material-ui/core/Card';
@@ -10,7 +10,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
-import { CardActions, CardContent, CardHeader } from '@material-ui/core';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import CustomAvatar from '../../Avatar';
 import { Store } from '../../../../Store';
 import Typography from '@material-ui/core/Typography';
@@ -51,10 +53,13 @@ export default function Post(props) {
   };
 
   const onClickComment = () => {
-    setDisplayComment(!displayComment);
+    setDisplayComment((displayComment) => !displayComment);
   };
 
-  const showStats = postInfo.likes.length > 0 || postInfo.comments.length > 0;
+  const showStats = useMemo(() => postInfo.likes.length > 0 || postInfo.comments.length > 0, [
+    postInfo.likes.length,
+    postInfo.comments.length,
+  ]);
 
   return (
     <Card className={styles.card}>
@@ -106,7 +111,7 @@ export default function Post(props) {
           startIcon={<CustomIcon icon="ThumbUpAltOutlinedIcon" color={postInfo.liked ? 'rgb(24, 179, 147)' : ''} />}
           size="small"
           className={styles.actionsButton}
-          color={postInfo.liked ? 'primary' : ''}
+          color={postInfo.liked ? 'primary' : 'default'}
         >
           {t('like')}
         </Button>
@@ -118,13 +123,10 @@ export default function Post(props) {
         >
           {t('comment')}
         </Button>
-        <Button startIcon={<CustomIcon icon="ShareOutlinedIcon" />} size="small" className={styles.actionsButton}>
-          {t('share')}
-        </Button>
       </CardActions>
       <Divider variant="middle" />
       {displayComment && (
-        <div style={{ paddingTop: 4, paddingRight: 10, paddingLeft: 10, marginTop: 2 }}>
+        <div className={styles.contentComment}>
           <PostInput
             entityId={entityId}
             handlePost={handleComment}

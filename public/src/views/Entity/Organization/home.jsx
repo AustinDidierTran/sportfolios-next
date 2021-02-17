@@ -14,10 +14,8 @@ import CustomCard from '../../../components/Custom/Card';
 import api from '../../../actions/api';
 import Tooltip from '@material-ui/core/Tooltip';
 import { uploadPicture } from '../../../actions/aws';
-import loadable from '@loadable/component';
 import Fab from '@material-ui/core/Fab';
 import CustomPaper from '../../../components/Custom/Paper';
-import { useFormik } from 'formik';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -35,7 +33,12 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   IgContainer: {
-    backgroundColor: '#f5f5f5!important',
+    backgroundColor: '#f5f5f5 !important',
+  },
+  createPost: {
+    padding: 12,
+    marginTop: 12,
+    marginBottom: 12,
   },
 }));
 
@@ -53,6 +56,7 @@ export default function OrganizationHome(props) {
   }, []);
   const {
     state: { userInfo },
+    dispatch,
   } = useContext(Store);
 
   const getOrganizationPostFeed = async () => {
@@ -66,14 +70,19 @@ export default function OrganizationHome(props) {
     );
 
     if (status === STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('something_went_wrong'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
       return;
     }
 
-    if (data && data.length) {
-      setPosts((posts) => [...posts, ...data]);
-    } else {
-      setHasMoreItem(false);
+    if (!data || !data.length) {
+      return;
     }
+
+    setPosts((posts) => [...posts, ...data]);
   };
 
   const initialLoad = async () => {
@@ -81,88 +90,71 @@ export default function OrganizationHome(props) {
   };
 
   const handleLike = async (postId, entityId, like) => {
-    let newPost;
-    if (like) {
-      const { data, status } = await api('/api/posts/like', {
-        method: 'POST',
-        body: JSON.stringify({
-          entityId,
-          postId,
-        }),
-      });
-      if (data) newPost = data;
-    } else {
-      const { data, status } = await api('/api/posts/unlike', {
-        method: 'POST',
-        body: JSON.stringify({
-          entityId,
-          postId,
-        }),
-      });
+    const apiRoute = like ? '/api/posts/like' : '/api/posts/unlike';
 
-      if (data) newPost = data;
+    const { data, status } = await api(apiRoute, {
+      method: 'POST',
+      body: JSON.stringify({
+        entityId,
+        postId,
+      }),
+    });
+
+    if (!data) {
+      return;
     }
     let oldPosts = posts;
-    if (newPost) {
-      setPosts(
-        oldPosts.map((o) => {
-          if (o.id === postId) {
-            return newPost;
-          }
-          return o;
-        })
-      );
+    setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
+  };
+
+  const handleComment = async (entityId, postContent, images, post_id) => {
+    const { status, data } = await api('/api/posts/comment', {
+      method: 'POST',
+      body: JSON.stringify({
+        entityId,
+        postId: post_id,
+        content: postContent,
+      }),
+    });
+    if (!data) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('something_went_wrong'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      return;
     }
+
+    let oldPosts = posts;
+    setPosts((oldPosts) => oldPosts.map((o) => (o.id === post_id ? data : o)));
   };
 
   const handlePost = async (entityId, postContent, images, post_id) => {
-    console.log('postId: ', post_id);
-    let newPost;
-    if (post_id != undefined) {
-      const { status, data } = await api('/api/posts/comment', {
-        method: 'POST',
-        body: JSON.stringify({
-          entityId,
-          postId: post_id,
-          content: postContent,
-        }),
-      });
-      if (data) newPost = data;
-      let oldPosts = posts;
-      if (newPost) {
-        setPosts(
-          oldPosts.map((o) => {
-            if (o.id === post_id) {
-              return newPost;
-            }
-            return o;
-          })
-        );
-      }
-      console.log(data);
-    } else {
-      const { data: newPostId } = await api('/api/posts/create', {
-        method: 'POST',
-        body: JSON.stringify({
-          content: postContent,
-          entity_id: entityId,
-        }),
-      });
+    const { data: newPostId } = await api('/api/posts/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        content: postContent,
+        entity_id: entityId,
+      }),
+    });
 
-      if (images.length > 0) {
-        images.forEach(async (image) => {
-          const { file } = image;
-          const url = await uploadPicture(newPostId, file);
-          const { data } = await api('/api/posts/image', {
-            method: 'POST',
-            body: JSON.stringify({
-              postId: newPostId,
-              imageUrl: url,
-            }),
-          });
-        });
-      }
+    if (!images.length) {
+      return;
     }
+
+    Promise.all(
+      images.map(async (image) => {
+        const { file } = image;
+        const url = await uploadPicture(newPostId, file);
+        await api('/api/posts/image', {
+          method: 'POST',
+          body: JSON.stringify({
+            postId: newPostId,
+            imageUrl: url,
+          }),
+        });
+      })
+    );
   };
 
   return (
@@ -183,7 +175,7 @@ export default function OrganizationHome(props) {
           <div></div>
         )}
         <div>
-          <CustomPaper style={{ padding: 10, marginTop: 10, marginBottom: 10 }}>
+          <CustomPaper className={classes.createPost}>
             <PostInput
               entityId={basicInfos.id}
               handlePost={handlePost}
@@ -193,7 +185,7 @@ export default function OrganizationHome(props) {
           </CustomPaper>
           {posts.map((post) => (
             <CustomCard
-              items={{ postInfo: post, handleLike: handleLike, handleComment: handlePost, entityId: basicInfos.id }}
+              items={{ postInfo: post, handleLike, handleComment, entityId: basicInfos.id }}
               type={CARD_TYPE_ENUM.POST}
               key={post.id}
             />

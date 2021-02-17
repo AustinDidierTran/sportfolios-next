@@ -151,7 +151,7 @@ export default {
     coach: 'Coach',
     code: 'Code',
     comment: 'Comment',
-    comment_singular: '{{count}} Comment',
+    comment_singular: '{{count}} comment',
     comment_plural: '{{count}} comments',
     comments: 'Comments',
     communication: 'Communication',
