@@ -70,6 +70,8 @@ export default function EditPhase(props) {
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
+
+      handleClose();
     },
   });
 
