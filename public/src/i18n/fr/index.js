@@ -667,6 +667,7 @@ export default {
     share: 'Partager',
     share_the_invite_link: "Partager le lien d'invitation",
     shop: 'Boutique',
+    show_more: 'Afficher plus',
     signup: "S'enregistrer",
     six_month: 'Six mois',
     size: 'Grandeur',

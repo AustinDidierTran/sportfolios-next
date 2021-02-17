@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext, componentDidMount } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
@@ -16,6 +16,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { uploadPicture } from '../../../actions/aws';
 import Fab from '@material-ui/core/Fab';
 import CustomPaper from '../../../components/Custom/Paper';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -79,13 +80,19 @@ export default function OrganizationHome(props) {
     }
 
     if (!data || !data.length) {
+      setHasMoreItem(false);
       return;
     }
 
-    setPosts((posts) => [...posts, ...data]);
+    setPosts((posts) => [...posts, ...data.filter((post) => posts.findIndex((t) => t.id === post.id) === -1)]);
   };
 
   const initialLoad = async () => {
+    await getOrganizationPostFeed();
+  };
+
+  const loadMorePost = async () => {
+    currentPage.current += 1;
     await getOrganizationPostFeed();
   };
 
@@ -130,7 +137,7 @@ export default function OrganizationHome(props) {
   };
 
   const handlePost = async (entityId, postContent, images, post_id) => {
-    const { data: newPostId } = await api('/api/posts/create', {
+    const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
       body: JSON.stringify({
         content: postContent,
@@ -139,22 +146,26 @@ export default function OrganizationHome(props) {
     });
 
     if (!images.length) {
+      setPosts((posts) => [newPost, ...posts]);
       return;
     }
 
     Promise.all(
       images.map(async (image) => {
         const { file } = image;
-        const url = await uploadPicture(newPostId, file);
-        await api('/api/posts/image', {
+        const url = await uploadPicture(newPost.id, file);
+        const { data: newImages } = await api('/api/posts/image', {
           method: 'POST',
           body: JSON.stringify({
-            postId: newPostId,
+            postId: newPost.id,
             imageUrl: url,
           }),
         });
+        newPost.images = newImages;
       })
-    );
+    ).then(() => {
+      setPosts((posts) => [newPost, ...posts]);
+    });
   };
 
   return (
@@ -191,6 +202,7 @@ export default function OrganizationHome(props) {
             />
           ))}
         </div>
+        <Button onClick={loadMorePost}>{t('show_more')}</Button>
       </IgContainer>
     </>
   );

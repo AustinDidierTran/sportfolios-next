@@ -665,6 +665,7 @@ export default {
     share: 'Share',
     share_the_invite_link: 'Share the invite link',
     shop: 'Shop',
+    show_more: 'Show more',
     signup: 'Signup',
     six_month: 'Six Month',
     sizes_enum_l: 'Large',
