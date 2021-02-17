@@ -80,7 +80,7 @@ export default function PlayerCard(props) {
           <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
         </div>
       </div>
-      <PersonInfoDialog open={open} personInfos={playerInfos} onClose={closePlayerAcceptation} withoutButton />
+      <PersonInfoDialog open={open} personInfos={playerInfos} id onClose={closePlayerAcceptation} withoutButton />
     </div>
   );
 }
