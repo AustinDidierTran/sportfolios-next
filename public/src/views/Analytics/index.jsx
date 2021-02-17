@@ -6,12 +6,13 @@ import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
+import GraphNumberOfMembers from './GraphNumberOfMembers';
 
 export default function Analytics() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = formatPageTitle(t('create.create_report'));
+    document.title = formatPageTitle(t('analytics'));
   }, []);
 
   return (
@@ -30,6 +31,9 @@ export default function Analytics() {
         </div>
         <MembersReport />
         <SalesReport />
+      </Paper>
+      <Paper style={{ textAlign: 'center' }} title={t('graphs')}>
+        <GraphNumberOfMembers />
       </Paper>
     </IgContainer>
   );
