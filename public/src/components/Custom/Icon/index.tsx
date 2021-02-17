@@ -197,6 +197,9 @@ interface IProps {
 const CustomIcon: React.FunctionComponent<IProps> = (props) => {
   const { icon, color = 'primary', onClick, fontSize = 'default' } = props;
 
+  if (!icon) {
+    return <></>;
+  }
   const Icon = icons[icon];
 
   return <Icon style={{ fill: color }} fontSize={fontSize} component={'svg'} />;

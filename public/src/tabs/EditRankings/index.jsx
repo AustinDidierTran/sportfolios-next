@@ -8,6 +8,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from '../../components/Custom/AccordionDnD/PhaseAccordionDnD';
+import PrerankAccordionDnD from '../../components/Custom/AccordionDnD/PrerankAccordionDnd';
 import CustomButton from '../../components/Custom/Button';
 import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
 import EditPhase from './EditPhase';
@@ -148,7 +149,7 @@ export default function EditRankings() {
       onClick: onSave,
       name: t('save'),
       color: 'primary',
-      endIcon: 'Check',
+      endIcon: 'SaveIcon',
     },
     {
       onClick: onCancel,
@@ -163,7 +164,7 @@ export default function EditRankings() {
       onClick: onSave,
       name: t('save'),
       color: 'primary',
-      endIcon: 'Check',
+      endIcon: 'SaveIcon',
     },
     {
       onClick: onCancel,
@@ -189,16 +190,14 @@ export default function EditRankings() {
         </CustomButton>
       </div>
       <div className={styles.div}>
-        <PhaseAccordionDnD
+        <PrerankAccordionDnD
           title={t('preranking')}
-          items={teams}
-          withIndex
+          teams={teams}
           buttons={prerankingButtons}
           editIconButton={editIconButton}
-          addIconButton={addIconButton}
-          spots={teams.length}
           id={'preranking'}
-        ></PhaseAccordionDnD>
+          isDone={false}
+        ></PrerankAccordionDnD>
       </div>
       <div>
         {phases.map((p) => (
