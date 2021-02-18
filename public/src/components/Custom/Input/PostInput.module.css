@@ -1,0 +1,37 @@
+.divRoot {
+  border: 0 solid white !important;
+  padding: 4px;
+  border-radius: 24px;
+  background-color: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.textField {
+  width: 97%;
+  float: left;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+}
+
+.publishButton {
+  float: right;
+}
+
+.imagePreview {
+  width: inherit;
+  height: inherit;
+}
+
+.divImage {
+  display: inline-block;
+  position: relative;
+  height: 200px;
+}
+
+.uploadIcon {
+  color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.uploadIcon:disabled {
+  color: rgba(0, 0, 0, 0.26) !important;
+}
