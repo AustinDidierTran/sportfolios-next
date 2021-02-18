@@ -95,16 +95,16 @@ export default function AddOptionsEvent() {
 
   if (isLoading) {
     return (
-      <CustomPaper title={t('payment_options')}>
+      <CustomPaper title={t('payment.payment_options')}>
         <CustomLoadingSpinner isComponent />
       </CustomPaper>
     );
   }
 
   return (
-    <CustomPaper title={t('payment_options')}>
+    <CustomPaper title={t('payment.payment_options')}>
       <CustomButton className={styles.addButton} color="primary" onClick={() => setOpen(true)}>
-        {t('add_payment_option')}
+        {t('payment.add_payment_option')}
       </CustomButton>
       <EventPaymentOptionList items={options} />
       <CustomFormDialog

@@ -36,7 +36,7 @@ export default function EventPaymentOption(props) {
           }}
           className={styles.button}
         >
-          {t('delete')}
+          {t('delete.delete')}
         </CustomButton>
       </div>
     </CustomPaper>

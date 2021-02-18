@@ -17,7 +17,7 @@ export default function ScoreSubmissionConflictNotification(props) {
     goToScrollTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.EDIT_SCHEDULE }, gameId);
   }
 
-  const description = t('score_submission_conflict_notif_description', {
+  const description = t('score.score_submission_conflict_notif_description', {
     eventName,
   });
 

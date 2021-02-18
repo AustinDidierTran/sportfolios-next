@@ -14,7 +14,7 @@ export default function Funding(props) {
   const { t } = useTranslation();
 
   const onEdit = () => {
-    alert('Edit');
+    alert('edit.edit');
   };
 
   const onFunding = () => {
@@ -39,7 +39,7 @@ export default function Funding(props) {
     },
   })(LinearProgress);
 
-  const buttonLabel = isSelf ? t('edit') : t('donate');
+  const buttonLabel = isSelf ? t('edit.edit') : t('donate');
 
   const endIcon = isSelf ? 'Edit' : 'AttachMoney';
 

@@ -7,7 +7,7 @@ import { formatPageTitle } from '../../utils/stringFormats';
 export default function CreateTeam() {
   const { t } = useTranslation();
   useEffect(() => {
-    document.title = formatPageTitle(t('create_team'));
+    document.title = formatPageTitle(t('create.create_team'));
   }, []);
 
   return <EntityCreate type={GLOBAL_ENUM.TEAM} />;

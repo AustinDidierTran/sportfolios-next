@@ -44,7 +44,7 @@ export default function AddFieldInteractiveTool(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -61,7 +61,7 @@ export default function AddFieldInteractiveTool(props) {
   return (
     <FormDialog
       open={isOpen}
-      title={t('add_field')}
+      title={t('add.add_field')}
       buttons={buttons}
       fields={fields}
       formik={formik}

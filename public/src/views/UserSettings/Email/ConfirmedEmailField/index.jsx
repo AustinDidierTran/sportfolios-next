@@ -28,7 +28,7 @@ export default function ConfirmedEmailField(props) {
       </span>
       {isDeletable ? (
         <span className={styles.deleteIcon}>
-          <Tooltip title={t('delete_this_email_from_your_account')}>
+          <Tooltip title={t('delete.delete_this_email_from_your_account')}>
             <IconButton size="small">
               <Delete size="small" />
             </IconButton>

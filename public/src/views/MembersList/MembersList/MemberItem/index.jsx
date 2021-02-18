@@ -110,7 +110,7 @@ export default function MemberItem(props) {
           className={styles.iconButton}
           variant="contained"
           icon="Edit"
-          tooltip={t('edit')}
+          tooltip={t('edit.edit')}
           onClick={onOpen}
           style={{ color: 'primary' }}
         />
@@ -118,7 +118,7 @@ export default function MemberItem(props) {
           className={styles.iconButton}
           variant="contained"
           icon="Delete"
-          tooltip={t('delete')}
+          tooltip={t('delete.delete')}
           onClick={onDelete}
           style={{ color: 'primary' }}
         />
@@ -126,7 +126,7 @@ export default function MemberItem(props) {
           open={openDelete}
           onCancel={onCancel}
           onSubmit={confirmDelete}
-          title={t('delete_member_confirmation')}
+          title={t('delete.delete_member_confirmation')}
         />
       </ListItem>
       <Divider />

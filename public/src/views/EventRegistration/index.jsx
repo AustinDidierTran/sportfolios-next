@@ -123,8 +123,8 @@ export default function EventRegistration() {
           type: ACTION_ENUM.SNACK_BAR,
           message:
             data.persons.length === 1
-              ? t('already_registered_singular', { names })
-              : t('already_registered', { names }),
+              ? t('register.already_registered_singular', { names })
+              : t('register.already_registered', { names }),
           severity: SEVERITY_ENUM.ERROR,
           duration: 6000,
         });
@@ -157,11 +157,11 @@ export default function EventRegistration() {
 
   const steps = [
     {
-      label: t('payment_options'),
+      label: t('payment.payment_options'),
       content: <PaymentOptionSelect stepHook={stepHook} formik={formik} />,
     },
     {
-      label: t('team_select'),
+      label: t('team.team_select'),
       content: <TeamSelect stepHook={stepHook} formik={formik} />,
     },
     {
@@ -171,11 +171,11 @@ export default function EventRegistration() {
   ];
   const individualSteps = [
     {
-      label: t('payment_options'),
+      label: t('payment.payment_options'),
       content: <PaymentOptionSelect stepHook={stepHook} formik={formik} />,
     },
     {
-      label: t('person_select'),
+      label: t('person.person_select'),
       content: <PersonSelect formik={formik} stepHook={stepHook} />,
     },
   ];
@@ -191,7 +191,7 @@ export default function EventRegistration() {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you_need_to_create_an_account'),
+        message: t('you.you_need_to_create_an_account'),
         severity: SEVERITY_ENUM.INFO,
       });
       goToAndReplace(ROUTES.login, null, {

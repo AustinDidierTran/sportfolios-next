@@ -29,7 +29,7 @@ export default function PlayersAndTeamsAcceptation(props) {
       update(card.items.id, STATUS_ENUM.ACCEPTED);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_accepted'),
+        message: t('team.team_accepted'),
         severity: SEVERITY_ENUM.SUCCESS,
         vertical: 'top',
       });
@@ -38,7 +38,7 @@ export default function PlayersAndTeamsAcceptation(props) {
       update(card.items.id, STATUS_ENUM.REFUSED);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_refused'),
+        message: t('team.team_refused'),
         severity: SEVERITY_ENUM.ERROR,
         vertical: 'top',
       });

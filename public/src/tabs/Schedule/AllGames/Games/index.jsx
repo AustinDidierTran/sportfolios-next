@@ -50,7 +50,7 @@ export default function Games(props) {
         {games.length ? (
           games.map((game) => <Game game={game} key={game.id} />)
         ) : (
-          <Typography color="textSecondary">{t('no_games')}</Typography>
+          <Typography color="textSecondary">{t('no.no_games')}</Typography>
         )}
       </Collapse>
     </>

@@ -11,7 +11,7 @@ export default function ProTip() {
     <div className={styles.proTip}>
       {window.innerWidth < 768 ? <></> : <Icon icon="EmojiObjects" color="grey" />}
       <Typography color="textSecondary" variant="body2">
-        {t('you_can_click_on_a_game_to_change_score')}
+        {t('you.you_can_click_on_a_game_to_change_score')}
       </Typography>
     </div>
   );

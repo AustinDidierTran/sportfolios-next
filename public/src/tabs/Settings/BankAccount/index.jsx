@@ -57,7 +57,7 @@ export default function BankAccount() {
   return (
     <Paper title={t('bank_accounts')}>
       <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={handleClick}>
-        {t('add_bank_account')}
+        {t('add.add_bank_account')}
       </Button>
       <ListItemText secondary={t('bank_accounts_information')} />
       <List items={bankAccounts} />

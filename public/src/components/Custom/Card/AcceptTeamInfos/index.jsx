@@ -23,7 +23,7 @@ export default function AcceptTeamInfos(props) {
       />
       <CardContent>
         <div className={styles.div}>
-          <Typography color="textSecondary">{`${t('payment_option')}:`}</Typography>
+          <Typography color="textSecondary">{`${t('payment.payment_option')}:`}</Typography>
           <Typography>{paymentOption?.name || t('missing_info')}</Typography>
         </div>
         <div className={styles.div}>

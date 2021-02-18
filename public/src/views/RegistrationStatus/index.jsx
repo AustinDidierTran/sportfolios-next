@@ -40,7 +40,7 @@ export default function RegistrationStatus() {
   switch (status) {
     case STATUS_ENUM.ACCEPTED_FREE:
       values = {
-        message: t('registration_accepted_free'),
+        message: t('register.registration_accepted_free'),
         children: (
           <RosterInviteLink message={t('to_invite_people_to_your_roster_share_the_invite_link')} rosterId={rosterId} />
         ),
@@ -51,7 +51,7 @@ export default function RegistrationStatus() {
       break;
     case STATUS_ENUM.ACCEPTED:
       values = {
-        message: t('registration_accepted'),
+        message: t('register.registration_accepted'),
         children: (
           <RosterInviteLink message={t('to_invite_people_to_your_roster_share_the_invite_link')} rosterId={rosterId} />
         ),
@@ -62,7 +62,7 @@ export default function RegistrationStatus() {
       break;
     case STATUS_ENUM.PENDING:
       values = {
-        message: t('registration_pending'),
+        message: t('register.registration_pending'),
         onClick: returnHome,
         button: t('home'),
         endIcon: 'Home',
@@ -71,14 +71,14 @@ export default function RegistrationStatus() {
     case STATUS_ENUM.REFUSED:
       if (reason === REJECTION_ENUM.NO_REMAINING_SPOTS) {
         values = {
-          message: t('no_remaining_spots'),
+          message: t('no.no_remaining_spots'),
           onClick: returnHome,
           button: t('home'),
           endIcon: 'Home',
         };
       } else {
         values = {
-          message: t('registration_refused'),
+          message: t('register.registration_refused'),
           onClick: returnHome,
           button: t('home'),
           endIcon: 'Home',

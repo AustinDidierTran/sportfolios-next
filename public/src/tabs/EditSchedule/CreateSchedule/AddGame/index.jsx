@@ -132,7 +132,7 @@ export default function AddGame(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -160,20 +160,20 @@ export default function AddGame(props) {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
       namespace: 'team1',
-      label: t('team_1'),
+      label: t('team.team_1'),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
       namespace: 'team2',
-      label: t('team_2'),
+      label: t('team.team_2'),
     },
   ];
 
   return (
     <FormDialog
       open={open}
-      title={t('create_a_game')}
+      title={t('create.create_a_game')}
       buttons={buttons}
       fields={fields}
       formik={formik}

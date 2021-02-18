@@ -96,7 +96,7 @@ export default function Roster(props) {
     if (!roster.some((p) => p.role !== ROSTER_ROLE_ENUM.PLAYER && p.personId !== personId)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_player_role_error'),
+        message: t('team.team_player_role_error'),
         severity: SEVERITY_ENUM.ERROR,
       });
     } else {
@@ -127,7 +127,7 @@ export default function Roster(props) {
       <hr />
       <Typography style={{ marginTop: '16px' }}>{t('roster')}</Typography>
       {roster.length === 0 ? (
-        <Typography style={{ marginBottom: '32px' }}>{t('no_roster')}</Typography>
+        <Typography style={{ marginBottom: '32px' }}>{t('no.no_roster')}</Typography>
       ) : (
         <div style={{ marginBottom: '16px' }}>
           <List formik={formik} items={roster} />

@@ -105,7 +105,7 @@ export default function TeamsRegistered() {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('cant_unregister_any_teams'),
+        message: t('register.cant_unregister_any_teams'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
@@ -124,7 +124,7 @@ export default function TeamsRegistered() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_unregister_success'),
+        message: t('team.team_unregister_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -152,7 +152,7 @@ export default function TeamsRegistered() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('teams_unregister_success'),
+        message: t('team.teams_unregister_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -222,13 +222,13 @@ export default function TeamsRegistered() {
             <TableRow>
               {maximumSpots ? (
                 <StyledTableCell colSpan={4}>
-                  {t('registration_status')}:&nbsp;
+                  {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
               ) : (
                 <StyledTableCell colSpan={4}>
-                  {t('registration_status')}:&nbsp;
+                  {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
@@ -239,7 +239,7 @@ export default function TeamsRegistered() {
                     //color="primary"
                     variant="contained"
                     icon="MoneyOff"
-                    tooltip={t('unregister_all')}
+                    tooltip={t('register.unregister_all')}
                     onClick={() => handleUnregisterAllClick()}
                     style={{ color: '#f44336' }}
                   />
@@ -251,7 +251,7 @@ export default function TeamsRegistered() {
           </TableHead>
           <TableHead>
             <TableRow>
-              <StyledTableCell>{t('team')}</StyledTableCell>
+              <StyledTableCell>{t('team.team')}</StyledTableCell>
               <StyledTableCell>{t('captain')}</StyledTableCell>
               <StyledTableCell>{t('option')}</StyledTableCell>
               <StyledTableCell align="center">{t('status')}</StyledTableCell>
@@ -276,7 +276,7 @@ export default function TeamsRegistered() {
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -299,7 +299,7 @@ export default function TeamsRegistered() {
                       </StyledTableCell>
                     ) : (
                       <StyledTableCell component="th" scope="row">
-                        {t('no_option')}
+                        {t('no.no_option')}
                       </StyledTableCell>
                     )}
 
@@ -316,7 +316,7 @@ export default function TeamsRegistered() {
                       <IconButton
                         variant="contained"
                         icon="MoneyOff"
-                        tooltip={t('unregister')}
+                        tooltip={t('register.unregister')}
                         onClick={() => handleUnregisterClick(team.rosterId)}
                         style={{ color: 'primary' }}
                       />
@@ -326,7 +326,7 @@ export default function TeamsRegistered() {
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={5}>{t('no_teams_registered')}</StyledTableCell>
+                <StyledTableCell colSpan={5}>{t('no.no_teams_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>
@@ -336,7 +336,7 @@ export default function TeamsRegistered() {
         open={openUnregister}
         onCancel={onCloseUnregister}
         onSubmit={onUnregisterTeam}
-        title={t('are_you_sure_you_want_to_unregister_this_team')}
+        title={t('register.are_you_sure_you_want_to_unregister_this_team')}
         description={teams.find((x) => x.rosterId === rosterId)?.name}
       />
       <AlertDialog
@@ -345,11 +345,11 @@ export default function TeamsRegistered() {
         onSubmit={onUnregisterAll}
         title={
           teamsThatCanBeUnregistered.length < teams.length
-            ? t('cant_unregister_all_teams', {
+            ? t('register.cant_unregister_all_teams', {
                 howManyCanUnregister: teamsThatCanBeUnregistered.length,
                 totalOfTeams: teams.length,
               })
-            : t('are_you_sure_you_want_to_unregister_all_teams')
+            : t('register.are_you_sure_you_want_to_unregister_all_teams')
         }
         description={teamsThatCanBeUnregistered
           .map(function (rosterId) {

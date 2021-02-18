@@ -30,7 +30,7 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <div className={styles.main}>
-      <MessageAndButtons buttons={buttons} message={t('email_confirmed', { email })} />
+      <MessageAndButtons buttons={buttons} message={t('email.email_confirmed', { email })} />
     </div>
   );
 };

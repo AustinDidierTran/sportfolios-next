@@ -85,7 +85,7 @@ export default function AddPhase(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -102,7 +102,7 @@ export default function AddPhase(props) {
   return (
     <FormDialog
       open={open}
-      title={t('create_a_phase')}
+      title={t('create.create_a_phase')}
       buttons={buttons}
       fields={fields}
       formik={formik}

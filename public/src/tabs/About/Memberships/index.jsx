@@ -106,7 +106,7 @@ export default function Memberships() {
       ) : (
         <Typography style={{ margin: '16px' }}>{t('this_organization_has_no_memberships_available')}</Typography>
       )}
-      <Paper title={t('memberships')}>
+      <Paper title={t('member.memberships')}>
         <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
           items={{
@@ -126,7 +126,7 @@ export default function Memberships() {
             ))}
           </>
         ) : (
-          <Typography style={{ margin: '16px' }}>{t('you_are_not_a_member_of_this_organization')}</Typography>
+          <Typography style={{ margin: '16px' }}>{t('you.you_are_not_a_member_of_this_organization')}</Typography>
         )}
       </Paper>
     </>

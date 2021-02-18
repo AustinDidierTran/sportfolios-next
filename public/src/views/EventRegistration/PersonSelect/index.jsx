@@ -57,14 +57,14 @@ export default function PersonSelect(props) {
   return (
     <div className={styles.main}>
       <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
-        {t('choose_person_you_can_choose_more_than_one_person')}
+        {t('choose.choose_person_you_can_choose_more_than_one_person')}
       </Typography>
       <Typography variant="body2" component="p" style={{ marginBottom: '8px' }}>
-        {t('selected_persons')}
+        {t('select.selected_persons')}
       </Typography>
       {formik.values.persons.length < 1 ? (
         <Typography component="p" style={{ marginBottom: '8px' }}>
-          {t('no_person_selected')}
+          {t('no.no_person_selected')}
         </Typography>
       ) : (
         <></>
@@ -92,8 +92,8 @@ export default function PersonSelect(props) {
                 addPerson(p);
               }}
               disabled={p.registered}
-              secondary={p.registered ? t('registered_singular') : null}
-              secondaryActions={[<IconButton icon="Add" toolTip={t('add')} style={{ color: 'primary' }} />]}
+              secondary={p.registered ? t('register.registered_singular') : null}
+              secondaryActions={[<IconButton icon="Add" toolTip={t('add.add')} style={{ color: 'primary' }} />]}
             />
           ))}
         </>

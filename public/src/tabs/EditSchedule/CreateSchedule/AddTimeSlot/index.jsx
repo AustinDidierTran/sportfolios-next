@@ -91,7 +91,7 @@ export default function AddTimeSlot(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -111,7 +111,7 @@ export default function AddTimeSlot(props) {
   return (
     <FormDialog
       open={open}
-      title={t('add_time_slot')}
+      title={t('add.add_time_slot')}
       buttons={buttons}
       fields={fields}
       formik={formik}

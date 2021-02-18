@@ -31,7 +31,7 @@ export default function MyGames(props) {
           />
         ))
       ) : (
-        <Typography color="textSecondary">{t('no_games')}</Typography>
+        <Typography color="textSecondary">{t('no.no_games')}</Typography>
       )}
     </div>
   );

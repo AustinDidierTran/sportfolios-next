@@ -47,14 +47,14 @@ export default function TwoTeamGameEditable(props) {
           <CustomIconButton
             className={styles.icon}
             onClick={onEdit}
-            tooltip={t('edit_game')}
+            tooltip={t('edit.edit_game')}
             icon="Edit"
             style={{ color: 'primary' }}
           />
           <CustomIconButton
             className={styles.icon}
             onClick={onDelete}
-            tooltip={t('delete')}
+            tooltip={t('delete.delete')}
             icon="Delete"
             style={{ color: 'primary' }}
           />
@@ -64,7 +64,7 @@ export default function TwoTeamGameEditable(props) {
           <CustomIconButton
             className={styles.icon}
             onClick={onDelete}
-            tooltip={t('delete')}
+            tooltip={t('delete.delete')}
             icon="Delete"
             style={{ color: 'primary' }}
           />

@@ -51,7 +51,7 @@ export default function CreateItem(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid_file_image'),
+          message: t('invalid.invalid_file_image'),
           severity: SEVERITY_ENUM.ERROR,
         });
       }
@@ -138,7 +138,7 @@ export default function CreateItem(props) {
     return (
       <div className={styles.button}>
         <Button onClick={reset} endIcon="Add" style={{ margin: '8px' }}>
-          {t('add_new_product')}
+          {t('add.add_new_product')}
         </Button>
       </div>
     );
@@ -176,7 +176,7 @@ export default function CreateItem(props) {
         <TextareaAutosize {...description.inputProps} placeholder="Description" className={styles.description} />
         <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
         <Button size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
-          {t('add')}
+          {t('add.add')}
         </Button>
         <Button onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
           {t('cancel')}

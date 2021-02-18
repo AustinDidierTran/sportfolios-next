@@ -138,13 +138,13 @@ export default function EditGameDialog(props) {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
       namespace: 'team1',
-      label: t('team_1'),
+      label: t('team.team_1'),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.teams,
       namespace: 'team2',
-      label: t('team_2'),
+      label: t('team.team_2'),
     },
   ];
 
@@ -153,7 +153,7 @@ export default function EditGameDialog(props) {
       <FormDialog
         open={edit}
         onClose={closeEdit}
-        title={t('edit_game')}
+        title={t('edit.edit_game')}
         fields={fields}
         formik={formik}
         buttons={buttons}

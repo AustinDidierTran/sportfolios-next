@@ -11,11 +11,11 @@ export default function CreateEvent() {
   return (
     <>
       <Helmet>
-        <meta property="og:title" content={formatPageTitle(t('create_event'))} />
-        <meta property="og:description" content={t('create_your_event')} />
+        <meta property="og:title" content={formatPageTitle(t('create.create_event'))} />
+        <meta property="og:description" content={t('create.create_your_event')} />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="fr_CA" />
-        <title>{formatPageTitle(t('create_event'))}</title>
+        <title>{formatPageTitle(t('create.create_event'))}</title>
       </Helmet>
       <EntityCreate type={GLOBAL_ENUM.EVENT} />
     </>

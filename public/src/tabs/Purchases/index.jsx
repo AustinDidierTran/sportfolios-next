@@ -22,7 +22,7 @@ export default function PurchasesTab() {
       }));
 
   if (purchases.length < 1) {
-    return <Typography color="textSecondary">{t('no_purchases_message')}</Typography>;
+    return <Typography color="textSecondary">{t('no.no_purchases_message')}</Typography>;
   }
   return <List items={formatPurchases()} />;
 }

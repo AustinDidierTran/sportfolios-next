@@ -64,7 +64,7 @@ export default function Rankings() {
   if (!preRanking.length && !ranking.length) {
     return (
       <Typography color="textSecondary" style={{ margin: '16px' }}>
-        {t('no_teams_registered')}
+        {t('no.no_teams_registered')}
       </Typography>
     );
   }

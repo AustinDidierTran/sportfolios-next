@@ -77,14 +77,14 @@ export default function TaxeRatesTable() {
 
   const headers = [
     { display: t('tax'), value: 'tax' },
-    { display: t('description'), value: 'description' },
+    { display: t('description.description'), value: 'description' },
     { display: t('percentage'), value: 'percentage' },
     { display: t('inclusive'), value: 'inclusive' },
     {
       display: t('active'),
       type: 'toggle',
     },
-    { display: t('delete'), type: 'iconButton', value: 'delete' },
+    { display: t('delete.delete'), type: 'iconButton', value: 'delete' },
   ];
 
   const onClose = () => {
@@ -105,7 +105,7 @@ export default function TaxeRatesTable() {
             setOpen(true);
           }}
         >
-          {t('add_tax')}
+          {t('add.add_tax')}
         </Button>
       </CardContent>
       <FormDialog
@@ -122,7 +122,7 @@ export default function TaxeRatesTable() {
           setOpenDelete(false);
         }}
         onSubmit={handleDelete}
-        title={t('delete_tax_confirmation')}
+        title={t('delete.delete_tax_confirmation')}
       />
     </Paper>
   );

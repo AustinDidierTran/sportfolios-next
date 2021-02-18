@@ -79,7 +79,7 @@ export default function MyPersons() {
     if (res.status === STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
-      showSuccessMessage(t('person_transfer_declined'));
+      showSuccessMessage(t('person.person_transfer_declined'));
     }
     closeDeclineDialog();
     fetchOwnedPersons();
@@ -94,7 +94,7 @@ export default function MyPersons() {
     if (res.status === STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
-      showSuccessMessage(t('person_transfer_done'));
+      showSuccessMessage(t('person.person_transfer_done'));
     }
     fetchOwnedPersons();
   };
@@ -109,7 +109,7 @@ export default function MyPersons() {
     if (res.status === STATUS_ENUM.ERROR) {
       showErrorMessage(res.message);
     } else {
-      showSuccessMessage(t('person_transfer_canceled'));
+      showSuccessMessage(t('person.person_transfer_canceled'));
     }
     closeCancelPersonTransfer();
     fetchOwnedPersons();
@@ -128,7 +128,7 @@ export default function MyPersons() {
     } else if (res.status == STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
-      showSuccessMessage(t('person_transfer_email_sent', { email }), 3000);
+      showSuccessMessage(t('person.person_transfer_email_sent', { email }), 3000);
     }
     closeSendPerson();
     fetchOwnedPersons();
@@ -172,7 +172,7 @@ export default function MyPersons() {
 
   const primaryPersonActions = () => [
     <IconButton
-      tooltip={t('edit_your_primary_person')}
+      tooltip={t('edit.edit_your_primary_person')}
       edge="end"
       onClick={() => {
         setEditPrimaryPerson(true);
@@ -252,7 +252,7 @@ export default function MyPersons() {
       subtitle = t('primary_person');
       actions = primaryPersonActions();
     } else if (person.isToBeTransfered) {
-      subtitle = t('person_awaiting_transfer');
+      subtitle = t('person.person_awaiting_transfer');
       actions = transferedPersonActions(person);
     } else if (person.isAwaitingApproval) {
       subtitle = t('awaiting_your_approval');

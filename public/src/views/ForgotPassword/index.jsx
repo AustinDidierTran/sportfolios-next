@@ -22,7 +22,7 @@ export default function ForgotPassword() {
   const { dispatch } = React.useContext(Store);
 
   const validationSchema = yup.object().shape({
-    email: yup.string().email(t('invalid_email')).required(t('value_is_required')),
+    email: yup.string().email(t('invalid.invalid_email')).required(t('value_is_required')),
   });
 
   const formik = useFormik({
@@ -42,7 +42,7 @@ export default function ForgotPassword() {
 
       if (res.status === 404) {
         // Email not found
-        formik.setFieldError('email', t('email_not_found'));
+        formik.setFieldError('email', t('email.email_not_found'));
       }
       if (res.status === 200) {
         dispatch({
@@ -62,7 +62,7 @@ export default function ForgotPassword() {
         <form onSubmit={formik.handleSubmit}>
           <Paper className={styles.card}>
             <CardContent>
-              <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth />
+              <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
             </CardContent>
             <CardActions>
               <Button
@@ -102,7 +102,7 @@ export default function ForgotPassword() {
                 }}
                 onClick={() => goTo(ROUTES.signup)}
               >
-                {t('no_account_signup')}
+                {t('no.no_account_signup')}
               </Typography>
             </CardActions>
           </Paper>

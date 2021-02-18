@@ -125,7 +125,7 @@ export default function BecomeMemberCoupon(props) {
       : {
           componentType: COMPONENT_TYPE_ENUM.SELECT,
           namespace: 'person',
-          label: t('person'),
+          label: t('person.person'),
           options: people,
         },
   ];
@@ -146,7 +146,7 @@ export default function BecomeMemberCoupon(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('member_coupon')}
+      title={t('member.member_coupon')}
       description={t('this_coupon_is_only_good_once')}
       buttons={buttons}
       fields={fields}

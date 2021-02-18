@@ -33,7 +33,7 @@ export default function Event(props) {
     {
       value: TABS_ENUM.REGISTER,
       component: Ranking,
-      label: t('registration'),
+      label: t('register.registration'),
     },
     {
       value: TABS_ENUM.SCHEDULE,

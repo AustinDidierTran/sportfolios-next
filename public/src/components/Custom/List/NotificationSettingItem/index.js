@@ -18,7 +18,7 @@ export default function NotificationSettingsItem(props) {
   const { t } = useTranslation();
   const { name, email, chatbot, chatbotDisabled, icon, onChange, description, notificationType } = props;
   const [open, setOpen] = useState(false);
-  const emailString = email ? t('email') : '';
+  const emailString = email ? t('email.email') : '';
   const chatbotString = chatbot ? t('chatbot') : '';
   const handleClick = () => {
     setOpen(!open);
@@ -29,7 +29,7 @@ export default function NotificationSettingsItem(props) {
     if (chatbotDisabled) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you_need_to_connect_your_messenger_account'),
+        message: t('you.you_need_to_connect_your_messenger_account'),
         severity: SEVERITY_ENUM.INFO,
         duration: 4000,
       });
@@ -57,7 +57,7 @@ export default function NotificationSettingsItem(props) {
             <ListItemIcon>
               <CustomIcon icon="Mail" />
             </ListItemIcon>
-            <ListItemText primary={t('email')} />
+            <ListItemText primary={t('email.email')} />
             <Switch
               checked={email}
               color="primary"

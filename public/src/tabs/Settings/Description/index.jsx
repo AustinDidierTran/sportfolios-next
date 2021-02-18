@@ -107,7 +107,7 @@ export default function Description() {
       <Paper title="Description">
         <TextareaAutosize className={styles.textarea} placeholder="Description" value={text} disabled />
         <Button size="small" variant="contained" endIcon="Edit" style={{ margin: '8px' }} onClick={onEdit}>
-          {t('edit')}
+          {t('edit.edit')}
         </Button>
       </Paper>
     );
@@ -115,7 +115,7 @@ export default function Description() {
 
   return (
     <Paper title="Description">
-      <Typography>{t('no_description')}</Typography>
+      <Typography>{t('no.no_description')}</Typography>
       <Button
         size="small"
         variant="contained"
@@ -124,7 +124,7 @@ export default function Description() {
         onClick={onEdit}
         className={styles.button}
       >
-        {t('edit')}
+        {t('edit.edit')}
       </Button>
     </Paper>
   );

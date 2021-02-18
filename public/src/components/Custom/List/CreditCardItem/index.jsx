@@ -44,7 +44,7 @@ export default function CreditCardItem(props) {
         </ListItemIcon>
         <ListItemText
           primary={`**** **** **** ${last4}`}
-          secondary={`${t('created_on')} ${formatDate(moment(createdAt))}`}
+          secondary={`${t('create.created_on')} ${formatDate(moment(createdAt))}`}
         />
         <ListItemText secondary={t('default')} style={{ textAlign: 'end', margin: '4px' }} />
         <Radio checked={isDefault} label={t('default')} color="primary" onClick={onChange} />
@@ -54,7 +54,7 @@ export default function CreditCardItem(props) {
             setOpenDelete(true);
           }}
           style={{ color: 'grey' }}
-          tooltip={t('delete')}
+          tooltip={t('delete.delete')}
         />
       </ListItem>
       <AlertDialog
@@ -63,7 +63,7 @@ export default function CreditCardItem(props) {
           setOpenDelete(false);
         }}
         onSubmit={onDelete}
-        title={t('delete_credit_card_confirmation', { last4 })}
+        title={t('delete.delete_credit_card_confirmation', { last4 })}
       />
     </>
   );

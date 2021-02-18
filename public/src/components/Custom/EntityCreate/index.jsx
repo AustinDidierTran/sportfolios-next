@@ -31,10 +31,10 @@ export default function EntityCreate(props) {
 
   const titleDictionary = useMemo(
     () => ({
-      [GLOBAL_ENUM.ORGANIZATION]: t('create_organization'),
-      [GLOBAL_ENUM.TEAM]: t('create_team'),
-      [GLOBAL_ENUM.PERSON]: t('create_person'),
-      [GLOBAL_ENUM.EVENT]: t('create_event'),
+      [GLOBAL_ENUM.ORGANIZATION]: t('create.create_organization'),
+      [GLOBAL_ENUM.TEAM]: t('create.create_team'),
+      [GLOBAL_ENUM.PERSON]: t('create.create_person'),
+      [GLOBAL_ENUM.EVENT]: t('create.create_event'),
     }),
     []
   );
@@ -115,7 +115,7 @@ export default function EntityCreate(props) {
       },
       {
         namespace: 'creator',
-        label: t('create_as'),
+        label: t('create.create_as'),
         componentType: COMPONENT_TYPE_ENUM.SELECT,
         showTextIfOnlyOneOption: creatorOptions.length === 1,
         options: creatorOptions,

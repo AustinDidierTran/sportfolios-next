@@ -112,7 +112,7 @@ export default function TeamSchedule() {
   return (
     <Container className={styles.container}>
       <FormControl className={styles.select}>
-        <InputLabel>{t('team')}</InputLabel>
+        <InputLabel>{t('team.team')}</InputLabel>
         <Select>
           <MenuItem value={'All Teams'}>All Teams</MenuItem>
           <MenuItem value={'Manic'}>Manic</MenuItem>

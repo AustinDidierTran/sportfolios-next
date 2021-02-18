@@ -111,7 +111,7 @@ export default function ImportMembers() {
     if (fileObj.type != 'text/csv') {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('invalid_file_format'),
+        message: t('invalid.invalid_file_format'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 5000,
       });
@@ -158,7 +158,7 @@ export default function ImportMembers() {
     if (!formik.values.memberships.length) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you_need_to_have_a_membership_available'),
+        message: t('you.you_need_to_have_a_membership_available'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 5000,
       });
@@ -167,7 +167,7 @@ export default function ImportMembers() {
     if (incorrectMembers > 0) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you_still_have_x_members_with_incorrect_information', {
+        message: t('you.you_still_have_x_members_with_incorrect_information', {
           incorrectMembers,
         }),
         severity: SEVERITY_ENUM.ERROR,
@@ -180,13 +180,13 @@ export default function ImportMembers() {
 
   const headers = [
     { label: '', key: 'emails' },
-    { label: t('member_expiration_date'), key: 'day' },
+    { label: t('member.member_expiration_date'), key: 'day' },
     { label: '', key: 'month' },
     { label: '', key: 'year' },
   ];
   const dataTemplate = [
     {
-      emails: t('emails'),
+      emails: t('email.emails'),
       day: t('day'),
       month: t('month'),
       year: t('year'),
@@ -219,7 +219,7 @@ export default function ImportMembers() {
           </Button>
         </ListItem>
         <ListItem>
-          <ListItemText primary={t('step_3')} secondary={t('choose_membership')} />
+          <ListItemText primary={t('step_3')} secondary={t('choose.choose_membership')} />
           <div className={styles.div}>
             {memberships.length ? (
               <Select
@@ -227,13 +227,13 @@ export default function ImportMembers() {
                 namespace="membership"
                 autoFocus
                 margin="dense"
-                label={t('membership')}
+                label={t('member.membership')}
                 formik={formik}
               />
             ) : (
               <ListItemText
-                primary={t('you_need_to_have_a_membership_available')}
-                secondary={t('you_can_go_to_your_organization_settings_to_add_one')}
+                primary={t('you.you_need_to_have_a_membership_available')}
+                secondary={t('you.you_can_go_to_your_organization_settings_to_add_one')}
                 primaryTypographyProps={{ color: 'secondary' }}
               />
             )}

@@ -58,7 +58,7 @@ export default function ConfirmOrDeclineScoreNotification(props) {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('score_submitted'),
+        message: t('score.score_submitted'),
         severity: SEVERITY_ENUM.SUCCESS,
       });
     }

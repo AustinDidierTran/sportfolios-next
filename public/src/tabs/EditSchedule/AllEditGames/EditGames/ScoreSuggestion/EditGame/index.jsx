@@ -117,7 +117,7 @@ export default function EditGame(props) {
         open={deleteDialogIsOpen}
         onCancel={closeDelete}
         onSubmit={onDeleteConfirmed}
-        title={t('delete_game_confirmation')}
+        title={t('delete.delete_game_confirmation')}
       />
     </div>
   );

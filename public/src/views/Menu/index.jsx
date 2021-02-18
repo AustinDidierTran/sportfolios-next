@@ -23,19 +23,19 @@ export default function Menu() {
       route: ROUTES.userSettings,
     },
     {
-      name: t('create_person'),
+      name: t('create.create_person'),
       route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.PERSON }),
     },
     {
-      name: t('create_event'),
+      name: t('create.create_event'),
       route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.EVENT }),
     },
     {
-      name: t('create_team'),
+      name: t('create.create_team'),
       route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.TEAM }),
     },
     {
-      name: t('create_organization'),
+      name: t('create.create_organization'),
       route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.ORGANIZATION }),
     },
     {
