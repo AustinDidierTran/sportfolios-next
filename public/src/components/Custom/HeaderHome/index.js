@@ -53,7 +53,7 @@ export default function HeaderHome(props) {
   const seeEdit = basicInfos.role == ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role == ENTITIES_ROLE_ENUM.EDITOR;
 
   return (
-    <Paper className={styles.paper}>
+    <Paper elevation={1} className={styles.paper}>
       <div className={styles.root}>
         <Grid container>
           <Grid item lg={4} md={4} sm={12} xs={12}>

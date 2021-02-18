@@ -15,6 +15,7 @@ import Build from '@material-ui/icons/Build';
 import Business from '@material-ui/icons/Business';
 import Cancel from '@material-ui/icons/Cancel';
 import CancelSend from '@material-ui/icons/CancelScheduleSend';
+import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import Check from '@material-ui/icons/Check';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
@@ -82,11 +83,15 @@ import Stars from '@material-ui/icons/Stars';
 import Store from '@material-ui/icons/Store';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import TextFormat from '@material-ui/icons/TextFormat';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Undo from '@material-ui/icons/Undo';
 import Chat from '@material-ui/icons/Chat';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
+import Image from '@material-ui/icons/Image';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import Clear from '@material-ui/icons/Clear';
 const icons: any = {
   AccountBalance,
   AccountCircle,
@@ -104,6 +109,7 @@ const icons: any = {
   Cancel,
   CancelSend,
   Chat,
+  ChatBubbleOutlineOutlinedIcon,
   Check,
   CheckCircle,
   CheckCircleOutline,
@@ -172,8 +178,13 @@ const icons: any = {
   Store,
   SupervisedUserCircle,
   TextFormat,
+  ThumbUpAltOutlinedIcon,
   Undo,
   MoreVertIcon,
+  ShareOutlinedIcon,
+  Image,
+  ImageOutlinedIcon,
+  Clear,
 };
 
 interface IProps {
@@ -184,11 +195,11 @@ interface IProps {
 }
 
 const CustomIcon: React.FunctionComponent<IProps> = (props) => {
-  const { icon, color = 'primary', onClick, fontSize } = props;
+  const { icon, color = 'primary', onClick, fontSize = 'default' } = props;
 
   const Icon = icons[icon];
 
-  return <Icon style={{ fill: color }} fontSize={'default'} component={'svg'} />;
+  return <Icon style={{ fill: color }} fontSize={fontSize} component={'svg'} />;
 };
 
 export default CustomIcon;
