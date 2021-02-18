@@ -22,14 +22,16 @@ export default function EditRankings() {
   const [items, setItems] = useState([]);
   const [phases, setPhases] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [rankings, setRankings] = useState([]);
   const [phaseToEdit, setPhaseToEdit] = useState({});
 
   const [openPhase, setOpenPhase] = useState(false);
   const [editPhase, setEditPhase] = useState(false);
 
   useEffect(() => {
-    getRankings();
+    getPreranking();
     getPhases();
+    // getPhaseRankings();
   }, []);
 
   const addToEditRankings = () => {
@@ -40,7 +42,7 @@ export default function EditRankings() {
     getPhases();
   };
 
-  const getRankings = async () => {
+  const getPreranking = async () => {
     const { data } = await api(
       formatRoute('/api/entity/rankings', null, {
         eventId,
@@ -76,8 +78,26 @@ export default function EditRankings() {
       })
     );
 
-    const phases = data.map((d) => ({ content: d.name, id: d.id, spots: d.spots, isDone: d.is_done }));
-    setPhases(phases);
+    const allPhases = data.map((d) => ({ content: d.name, id: d.id, spots: d.spots, isDone: d.is_done }));
+    setPhases(allPhases);
+
+    getPhaseRankings(allPhases);
+  };
+
+  //TODO: mettre le bon nom de team si roster_id est présent (faut aller fetch le roster)
+  const getPhaseRankings = async (allPhases) => {
+    const res = allPhases.map(async (p) => {
+      const phaseId = p.id;
+      const { data } = await api(
+        formatRoute('/api/entity/phaseRankings', null, {
+          phaseId,
+        }),
+        { method: 'GET' }
+      );
+      return { ...data, initialPos: data.initial_position, content: data.roster_id ? roster_id : t('add_team') };
+    });
+
+    setRankings(res);
   };
 
   const onSave = async (items) => {
@@ -104,7 +124,7 @@ export default function EditRankings() {
   };
 
   const onCancel = () => {
-    getRankings();
+    getPreranking();
   };
 
   const onEditNumberOfTeams = () => {
