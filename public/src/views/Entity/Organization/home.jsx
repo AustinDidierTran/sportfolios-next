@@ -80,7 +80,6 @@ export default function OrganizationHome(props) {
     }
 
     if (!data || !data.length) {
-      setHasMoreItem(false);
       return;
     }
 
