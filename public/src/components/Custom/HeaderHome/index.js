@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { FORM_DIALOG_TYPE_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
-import { FormDialog } from '../';
+import FormDialog from '../FormDialog';
 import styles from './HeaderHome.module.css';
 import CustomIcon from '../Icon';
 import Button from '@material-ui/core/Button';

@@ -1,0 +1,16 @@
+.card {
+  width: 100%;
+}
+
+.player {
+  flex: 1 1 auto;
+}
+
+.listTitle {
+  text-align: left;
+  margin-bottom: 4px !important;
+}
+
+.divider {
+  margin-bottom: 16px !important;
+}

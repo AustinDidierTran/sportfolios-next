@@ -7,7 +7,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '../../Avatar';
-import Players from '../../../../tabs/Rosters/RosterCard/Players';
+import Players from './Players';
 import { formatPrice } from '../../../../../common/utils/stringFormat';
 
 export default function AcceptTeamInfos(props) {
@@ -31,15 +31,7 @@ export default function AcceptTeamInfos(props) {
           <Typography>{`${formatPrice(paymentOption?.team_price)}$` || t('missing_info')}</Typography>
         </div>
         <div style={{ marginTop: '16px' }}>
-          <Players
-            className={styles.players}
-            withPlayersInfos={true}
-            editableRoster={false}
-            editableRole={false}
-            players={roster}
-            rosterId={id}
-            withMyPersonsQuickAdd={false}
-          />
+          <Players className={styles.players} players={roster} />
         </div>
       </CardContent>
     </Card>
