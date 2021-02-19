@@ -57,7 +57,9 @@ export default function TeamsRegistered() {
         eventId,
       })
     );
-    setTeams(data);
+    if (data) {
+      setTeams(data);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +67,10 @@ export default function TeamsRegistered() {
   }, [eventId]);
 
   const hasPending = useMemo(() => {
-    return teams.some((t) => t.registrationStatus === STATUS_ENUM.PENDING);
+    if (teams) {
+      return teams.some((t) => t.registrationStatus === STATUS_ENUM.PENDING);
+    }
+    return [];
   }, [teams]);
 
   const getCanUnregisterTeamsList = async (rosterIds) => {
