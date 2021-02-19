@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { Paper, IgContainer, Icon } from '../../../components/Custom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,6 +13,9 @@ import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+import Paper from '../../../components/Custom/Paper';
+import IgContainer from '../../../components/Custom/IgContainer';
+import Icon from '../../../components/Custom/Icon';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -129,6 +131,7 @@ export default function Event(props) {
   if (!states || !OpenTab) {
     return <></>;
   }
+
   return (
     <IgContainer>
       <Helmet>
@@ -154,11 +157,17 @@ export default function Event(props) {
         </Tabs>
       </Paper>
       {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
-        <Tooltip title={title}>
-          <Fab color="primary" onClick={onSwitch} className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}>
-            <Icon icon="Autorenew" />
-          </Fab>
-        </Tooltip>
+        <>
+          <Tooltip title={title}>
+            <Fab
+              color="primary"
+              onClick={onSwitch}
+              className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
+            >
+              <Icon icon="Autorenew" />
+            </Fab>
+          </Tooltip>
+        </>
       ) : (
         <></>
       )}

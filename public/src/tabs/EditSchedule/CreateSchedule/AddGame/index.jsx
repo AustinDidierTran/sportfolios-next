@@ -25,6 +25,7 @@ export default function AddGame(props) {
     const res = await getFutureGameOptions(eventId, {
       withoutAll: true,
     });
+
     setGameOptions(res);
   };
 
@@ -128,7 +129,7 @@ export default function AddGame(props) {
     {
       onClick: onFinish,
       name: t('finish'),
-      color: 'grey',
+      color: 'default',
     },
     {
       type: 'submit',

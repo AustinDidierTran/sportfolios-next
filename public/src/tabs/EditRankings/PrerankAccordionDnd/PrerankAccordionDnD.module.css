@@ -1,0 +1,45 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas: 'position name';
+  padding: 0px;
+}
+
+.position {
+  grid-area: position;
+}
+
+.name {
+  grid-area: name;
+}
+
+.div {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+.iconButton {
+  margin-right: 20px;
+  justify-self: end;
+}
+
+.prerankButton {
+  width: max-content !important;
+  height: 32px;
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+}
+
+.prerankButtonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+  .button {
+    width: 25%;
+  }
+}

@@ -1,93 +1,112 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../actions/api';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
-import { AccordionDnD } from '../../components/Custom';
-import { ACTION_ENUM, Store } from '../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
-import { ERROR_ENUM } from '../../../common/errors';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import PhaseAccordionDnD from './PhaseAccordionDnD';
+import PrerankAccordionDnD from './PrerankAccordionDnd';
+import CustomButton from '../../components/Custom/Button';
+import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function EditRankings() {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
-  const { dispatch } = useContext(Store);
 
-  const [items, setItems] = useState([]);
+  const [phases, setPhases] = useState([]);
+  const [preRanking, setPreRanking] = useState([]);
+
+  const [openPhase, setOpenPhase] = useState(false);
 
   useEffect(() => {
-    getRankings();
-  }, []);
+    if (eventId) {
+      getPreranking();
+      getPhases();
+    }
+  }, [eventId]);
 
-  const getRankings = async () => {
+  const getPreranking = async () => {
     const { data } = await api(
       formatRoute('/api/entity/rankings', null, {
         eventId,
       })
     );
-    const ranking = data
-      .map((d) => ({
-        position: d.initial_position,
-        content: d.name,
-        id: d.team_id,
-      }))
-      .sort((a, b) => a.position - b.position)
-      .map((m, index) => {
-        if (!m.position) {
-          m.position = index + 1;
-        }
-        return m;
-      });
-    setItems(ranking);
+    const ranking = data.map((d) => ({
+      position: d.position,
+      content: d.name,
+      id: d.teamId,
+    }));
+
+    setPreRanking(ranking);
   };
 
-  const onSave = async (items) => {
-    const res = await api(`/api/entity/updatePreRanking`, {
-      method: 'PUT',
-      body: JSON.stringify({
+  const getPhases = async () => {
+    const { data } = await api(
+      formatRoute('/api/entity/phases', null, {
         eventId,
-        ranking: items,
+      })
+    );
+
+    const allPhases = data.map((d) => ({
+      content: d.name,
+      id: d.id,
+      spots: d.spots,
+      isDone: d.is_done,
+      ranking: d.ranking.map((r) => {
+        if (r && r.roster_id) {
+          return { ...r, id: r.roster_id, content: r.name };
+        }
+        return { ...r, isEmpty: true, id: uuidv4() };
       }),
-    });
-    if (res.status === STATUS_ENUM.SUCCESS) {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('preranking_saved'),
-        severity: SEVERITY_ENUM.SUCCESS,
-      });
-    } else {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: ERROR_ENUM.ERROR_OCCURED,
-        severity: SEVERITY_ENUM.ERROR,
-      });
-    }
+    }));
+    setPhases(allPhases);
   };
 
-  const onCancel = () => {
-    getRankings();
+  const update = () => {
+    getPhases();
   };
 
-  const buttons = [
-    {
-      onClick: onSave,
-      name: t('save'),
-      color: 'primary',
-      endIcon: 'Check',
-    },
-    {
-      onClick: onCancel,
-      name: t('cancel'),
-      color: 'secondary',
-      endIcon: 'Close',
-    },
-  ];
+  const openPhaseDialog = () => {
+    setOpenPhase(true);
+  };
+
+  const closePhaseDialog = () => {
+    setOpenPhase(false);
+  };
 
   return (
-    <div className={styles.div}>
-      <AccordionDnD title={t('preranking')} items={items} withIndex buttons={buttons}></AccordionDnD>
-    </div>
+    <>
+      <div className={styles.buttonContainer}>
+        <CustomButton className={styles.button} onClick={openPhaseDialog} endIcon="Add">
+          {t('add.add_phase')}
+        </CustomButton>
+      </div>
+      <div className={styles.div}>
+        <PrerankAccordionDnD
+          title={t('preranking')}
+          teams={preRanking}
+          update={getPreranking}
+          id={'preranking'}
+          eventId={eventId}
+        ></PrerankAccordionDnD>
+      </div>
+      <div>
+        {phases.map((p) => (
+          <div className={styles.div} key={p.id}>
+            <PhaseAccordionDnD
+              title={p.content}
+              teams={p.ranking}
+              isDone={p.isDone}
+              spots={p.spots}
+              update={getPhases}
+              phaseId={p.id}
+            ></PhaseAccordionDnD>
+          </div>
+        ))}
+      </div>
+      <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
+    </>
   );
 }

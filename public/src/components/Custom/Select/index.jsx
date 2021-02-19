@@ -55,6 +55,7 @@ export default function CustomSelect(props) {
         error={Boolean((formik && formik.errors[namespace]) || error)}
         value={!options?.length && value === SELECT_ENUM.ALL ? '' : value}
         onChange={handleChange}
+        defaultValue=""
       >
         <MenuItem disabled value="">
           {label}

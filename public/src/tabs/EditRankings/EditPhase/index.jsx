@@ -1,27 +1,27 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FormDialog } from '../../../../components/Custom';
+import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
-import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import api from '../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
+import { FormDialog } from '../../../components/Custom';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 
-export default function AddPhase(props) {
+export default function EditPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, update } = props;
+  const { isOpen, onClose, phaseId, currentSpots, update } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
 
-  const [open, setOpen] = useState(isOpen);
-
   useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
+    if (currentSpots) {
+      formik.setFieldValue('spots', currentSpots);
+    }
+  }, [currentSpots]);
 
   const handleClose = () => {
     formik.resetForm();
@@ -29,24 +29,22 @@ export default function AddPhase(props) {
   };
 
   const validationSchema = yup.object().shape({
-    phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     spots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
     initialValues: {
-      phase: '',
       spots: 0,
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
-      const { phase, spots } = values;
-      const res = await api('/api/entity/phase', {
-        method: 'POST',
+    onSubmit: async (values) => {
+      const { spots } = values;
+      const res = await api('/api/entity/updatePhase', {
+        method: 'PUT',
         body: JSON.stringify({
-          phase,
+          phaseId,
           spots,
           eventId,
         }),
@@ -64,12 +62,12 @@ export default function AddPhase(props) {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('phase_added'),
+        message: t('phase_updated'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
       update();
-      resetForm();
+      handleClose();
     },
   });
 
@@ -81,18 +79,12 @@ export default function AddPhase(props) {
     },
     {
       type: 'submit',
-      name: t('add.add'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
 
   const fields = [
-    {
-      namespace: 'phase',
-      id: 'phase',
-      label: 'Phase',
-      type: 'phase',
-    },
     {
       namespace: 'spots',
       id: 'spots',
@@ -103,7 +95,7 @@ export default function AddPhase(props) {
 
   return (
     <FormDialog
-      open={open}
+      open={isOpen}
       title={t('create.create_a_phase')}
       buttons={buttons}
       fields={fields}
