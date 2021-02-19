@@ -505,6 +505,7 @@ export default {
       no_taxes: 'Aucune taxes',
       no_teams_registered: 'Aucune équipe inscrite',
       no_teams: 'Acune équipe',
+      no_team_number: "Veuillez sélectionner un nombre d'équipe.",
       no_users_found: 'Aucun utilisateur trouvé',
       no: 'non',
       none_feminine: 'Aucune',
