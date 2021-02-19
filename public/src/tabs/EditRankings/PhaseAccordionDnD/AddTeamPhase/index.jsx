@@ -9,24 +9,39 @@ import { Store, ACTION_ENUM } from '../../../../Store';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function AddTeamPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, phaseId, update } = props;
+  const { isOpen, onClose, phaseId, update, initialPosition, teams } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
 
   const [open, setOpen] = useState(isOpen);
-
-  console.log({ open });
+  const [availableTeams, setAvailableTeams] = useState([]);
 
   const validationSchema = yup.object().shape({
     team: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
-  const getAvailableTeams = () => {
-    //TODO getAvailableTeams
+  const getAvailableTeams = async () => {
+    const { data } = await api(
+      formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
+        eventId,
+      })
+    );
+
+    const teamsIds = teams.map((t) => t.id);
+
+    const allTeams = data.map((t) => ({
+      value: t.rosterId,
+      display: t.name,
+    }));
+
+    const availableTeams = allTeams.filter((t) => !teamsIds.includes(t.value));
+
+    setAvailableTeams(availableTeams);
   };
 
   useEffect(() => {
@@ -41,24 +56,24 @@ export default function AddTeamPhase(props) {
 
   const formik = useFormik({
     initialValues: {
-      rosterId: '',
+      team: '',
     },
     validationSchema: validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { roserId } = values;
-      console.log({ rosterId });
+      const { team } = values;
 
-      const { status, data } = await api('/api/entity/addTeamPhase', {
-        method: 'POST',
+      const { status, data } = await api('/api/entity/updateTeamPhase', {
+        method: 'PUT',
         body: JSON.stringify({
           eventId,
-          rosterId,
+          team,
           initialPosition,
-          eventId,
+          phaseId,
         }),
       });
+
       if (status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -78,11 +93,11 @@ export default function AddTeamPhase(props) {
     {
       onClick: onFinish,
       name: t('finish'),
-      color: 'grey',
+      color: 'default',
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -90,13 +105,20 @@ export default function AddTeamPhase(props) {
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: [],
+      options: availableTeams,
       namespace: 'team',
-      label: t('team'),
+      label: t('team.team'),
     },
   ];
 
   return (
-    <FormDialog open={open} title={t('add_team')} buttons={buttons} fields={fields} formik={formik} onClose={onClose} />
+    <FormDialog
+      open={open}
+      title={t('add.add_team')}
+      buttons={buttons}
+      fields={fields}
+      formik={formik}
+      onClose={onClose}
+    />
   );
 }

@@ -414,6 +414,7 @@ export default {
       delete_report_confirmation: 'Are you sure you want to delete this report?',
       delete_report: 'Delete report',
       delete_tax_confirmation: 'Are you sure you want to delete this tax?',
+      delete_team: 'Delete team',
       delete_this_email_from_your_account: 'Delete this email from your account',
       delete: 'Delete',
     },
@@ -431,6 +432,7 @@ export default {
       edit_membership: 'Edit membership',
       edit_mode: 'Edit mode',
       edit_player: 'Edit player',
+      edit_team_number: 'Edit number of teams',
       edit_your_primary_person: 'Edit your primary person',
       edit: 'Edit',
       editor: 'Editor',
@@ -913,6 +915,7 @@ export default {
     quit_interactive_tool: 'WARNING',
     ranking: 'Ranking',
     rankings: 'Rankings',
+    ranking_saved: 'Ranking saved !',
     receipt: 'Receipt',
     recent_search_results: 'Recent search results',
     recreational_member: 'Recreational Member',
@@ -1071,7 +1074,7 @@ export default {
     yes: 'yes',
 
     yesterday_at: 'Yesterday, at {{date_time}}',
-    
+
     zip_code: 'Zip code',
     sizes_enum: {
       [SIZES_ENUM.XXXS]: '3X-Small',

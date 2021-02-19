@@ -61,6 +61,8 @@ export default function PhaseAccordionDnD(props) {
   const [edit, setEdit] = useState(false);
   const [add, setAdd] = useState(false);
 
+  const [initialPosition, setInitialPosition] = useState();
+
   useEffect(() => {
     setTeams(teamsProps);
   }, [teamsProps]);
@@ -73,9 +75,11 @@ export default function PhaseAccordionDnD(props) {
     if (!result.destination) {
       return;
     }
+    if (result.destination !== result.source) {
+      setMadeChanges(true);
+    }
     const newTeams = reorder(teams, result.source.index, result.destination.index);
     setTeams(newTeams);
-    setMadeChanges(true);
   };
 
   const closeEdit = () => {
@@ -87,10 +91,13 @@ export default function PhaseAccordionDnD(props) {
   };
   const closeAdd = () => {
     setAdd(false);
+    if (update) {
+      update();
+    }
   };
 
-  const openAdd = () => {
-    console.log('allo');
+  const openAdd = (rank) => {
+    setInitialPosition(rank);
     setAdd(true);
   };
 
@@ -100,13 +107,14 @@ export default function PhaseAccordionDnD(props) {
       body: JSON.stringify({
         phaseId,
         eventId,
-        ranking: teams,
+        teams,
       }),
     });
+
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('preranking_saved'),
+        message: t('ranking_saved'),
         severity: SEVERITY_ENUM.SUCCESS,
       });
     } else {
@@ -121,7 +129,7 @@ export default function PhaseAccordionDnD(props) {
   const buttons = [
     {
       onClick: openEdit,
-      name: t('edit_team_number'),
+      name: t('edit.edit_team_number'),
       color: 'primary',
       endIcon: 'Edit',
     },
@@ -188,14 +196,16 @@ export default function PhaseAccordionDnD(props) {
                                   <ListItem>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
-                                      <ListItemText className={styles.title} primary={t('add_team') + '...'} />
+                                      <ListItemText className={styles.title} primary={t('add.add_team') + '...'} />
                                       <ListItemIcon className={styles.add}>
                                         <IconButton
                                           className={styles.iconButton}
-                                          onClick={openAdd}
+                                          onClick={() => {
+                                            openAdd(index + 1);
+                                          }}
                                           icon="Add"
                                           style={{ color: 'grey' }}
-                                          tooltip={t('add_team')}
+                                          tooltip={t('add.add_team')}
                                         ></IconButton>
                                       </ListItemIcon>
                                     </div>
@@ -214,7 +224,7 @@ export default function PhaseAccordionDnD(props) {
                                           onClick={() => {}}
                                           icon="Delete"
                                           style={{ color: 'grey' }}
-                                          tooltip={t('delete_team')}
+                                          tooltip={t('delete.delete_team')}
                                         ></IconButton>
                                       </ListItemIcon>
                                     </div>
@@ -227,7 +237,7 @@ export default function PhaseAccordionDnD(props) {
                         ))}
                       </div>
                     ) : (
-                      <ListItemText className={styles.name} primary={t('no_teams_number')} />
+                      <ListItemText className={styles.name} primary={t('no.no_teams_number')} />
                     )}
                     {provided.placeholder}
                   </div>
@@ -238,7 +248,14 @@ export default function PhaseAccordionDnD(props) {
         </AccordionDetails>
       </Accordion>
       <EditPhase isOpen={edit} onClose={closeEdit} phaseId={phaseId} currentSpots={spots} update={update} />
-      <AddTeamPhase isOpen={add} onClose={closeAdd} phaseId={phaseId} update={update} />
+      <AddTeamPhase
+        isOpen={add}
+        onClose={closeAdd}
+        phaseId={phaseId}
+        update={update}
+        initialPosition={initialPosition}
+        teams={teams}
+      />
     </>
   );
 }

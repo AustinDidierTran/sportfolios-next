@@ -27,6 +27,7 @@ export default function ComponentFactory(props) {
         style={component.style}
         showtextifonlyoneoption={component?.showTextIfOnlyOneOption?.toString() || 'false'}
         disabled={component.disabled}
+        key={component.key}
       />
     );
   }

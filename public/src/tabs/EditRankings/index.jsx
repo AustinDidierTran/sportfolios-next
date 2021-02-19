@@ -39,8 +39,6 @@ export default function EditRankings() {
       id: d.teamId,
     }));
 
-    console.log({ ranking });
-
     setPreRanking(ranking);
   };
 
@@ -57,13 +55,17 @@ export default function EditRankings() {
       spots: d.spots,
       isDone: d.is_done,
       ranking: d.ranking.map((r) => {
-        if (r.roster_id) {
-          return { ...r, id: roster_id };
+        if (r && r.roster_id) {
+          return { ...r, id: r.roster_id, content: r.name };
         }
         return { ...r, isEmpty: true, id: uuidv4() };
       }),
     }));
     setPhases(allPhases);
+  };
+
+  const update = () => {
+    getPhases();
   };
 
   const openPhaseDialog = () => {
@@ -78,7 +80,7 @@ export default function EditRankings() {
     <>
       <div className={styles.buttonContainer}>
         <CustomButton className={styles.button} onClick={openPhaseDialog} endIcon="Add">
-          {t('add_phase')}
+          {t('add.add_phase')}
         </CustomButton>
       </div>
       <div className={styles.div}>
@@ -104,7 +106,7 @@ export default function EditRankings() {
           </div>
         ))}
       </div>
-      <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={getPhases}></AddPhase>
+      <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
     </>
   );
 }

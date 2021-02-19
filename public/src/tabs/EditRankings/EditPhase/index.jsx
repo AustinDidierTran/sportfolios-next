@@ -41,7 +41,6 @@ export default function EditPhase(props) {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { spots } = values;
-      console.log({ phaseId, spots, eventId });
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
@@ -97,7 +96,7 @@ export default function EditPhase(props) {
   return (
     <FormDialog
       open={isOpen}
-      title={t('create_a_phase')}
+      title={t('create.create_a_phase')}
       buttons={buttons}
       fields={fields}
       formik={formik}
