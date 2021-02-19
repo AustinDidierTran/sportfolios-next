@@ -63,13 +63,13 @@ export const formatIntervalDate = (start, end) => {
 
 export const getEntityTypeName = (type) => {
   if (type === GLOBAL_ENUM.PERSON) {
-    return 'person';
+    return 'person.person';
   } else if (type === GLOBAL_ENUM.TEAM) {
-    return 'team';
+    return 'team.team';
   } else if (type === GLOBAL_ENUM.ORGANIZATION) {
     return 'organization';
   } else if (type === GLOBAL_ENUM.EVENT) {
-    return 'event';
+    return 'event.event';
   } else {
     return '';
   }
