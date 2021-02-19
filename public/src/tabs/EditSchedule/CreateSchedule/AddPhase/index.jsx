@@ -12,7 +12,7 @@ import * as yup from 'yup';
 
 export default function AddPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, addToEditRankings } = props;
+  const { isOpen, onClose, update } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -30,6 +30,7 @@ export default function AddPhase(props) {
 
   const validationSchema = yup.object().shape({
     phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    spots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
@@ -51,8 +52,6 @@ export default function AddPhase(props) {
         }),
       });
 
-      resetForm();
-
       if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -63,16 +62,14 @@ export default function AddPhase(props) {
         return;
       }
 
-      if (addToEditRankings) {
-        addToEditRankings();
-      }
-
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('phase_added'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
+      update();
+      resetForm();
     },
   });
 

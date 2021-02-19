@@ -12,7 +12,7 @@ import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 
 export default function EditPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, phaseId, currentSpots, updatePhase } = props;
+  const { isOpen, onClose, phaseId, currentSpots, update } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -29,7 +29,7 @@ export default function EditPhase(props) {
   };
 
   const validationSchema = yup.object().shape({
-    spots: yup.number().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    spots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
@@ -41,6 +41,7 @@ export default function EditPhase(props) {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { spots } = values;
+      console.log({ phaseId, spots, eventId });
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
@@ -60,17 +61,13 @@ export default function EditPhase(props) {
         return;
       }
 
-      if (updatePhase) {
-        updatePhase();
-      }
-
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('phase_updated'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
-
+      update();
       handleClose();
     },
   });

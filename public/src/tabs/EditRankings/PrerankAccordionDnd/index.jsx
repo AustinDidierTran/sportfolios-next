@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -10,11 +10,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './PrerankAccordionDnD.module.css';
-import Icon from '../../Icon';
-import Button from '../../Button';
-import IconButton from '../../IconButton';
-
+import Icon from '../../../components/Custom/Icon';
+import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
+import api from '../../../actions/api';
+import { ACTION_ENUM, Store } from '../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -43,9 +46,12 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 export default function PrerankAccordionDnD(props) {
-  const { title, teams: teamsProps, buttons, editIconButton, isDone, id, ...otherProps } = props;
+  const { title, teams: teamsProps, update, id, ...otherProps } = props;
   const classes = useStyles();
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
+  const router = useRouter();
+  const { id: eventId } = router.query;
 
   const [expanded, setExpanded] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
@@ -67,6 +73,48 @@ export default function PrerankAccordionDnD(props) {
     setTeams(newteams);
     setMadeChanges(true);
   };
+
+  const onCancel = () => {
+    update();
+  };
+
+  const onSave = async () => {
+    const res = await api(`/api/entity/updatePreRanking`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        eventId,
+        ranking: teams,
+      }),
+    });
+    if (res.status === STATUS_ENUM.SUCCESS) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('preranking_saved'),
+        severity: SEVERITY_ENUM.SUCCESS,
+      });
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+      });
+    }
+  };
+
+  const buttons = [
+    {
+      onClick: onSave,
+      name: t('save'),
+      color: 'primary',
+      endIcon: 'SaveIcon',
+    },
+    {
+      onClick: onCancel,
+      name: t('cancel'),
+      color: 'secondary',
+      endIcon: 'Close',
+    },
+  ];
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
@@ -100,7 +148,7 @@ export default function PrerankAccordionDnD(props) {
                   {teams ? (
                     <div>
                       {teams.map((team, index) => (
-                        <Draggable key={team.id} draggableId={team.id} index={index} isDragDisabled={isDone}>
+                        <Draggable key={team.id} draggableId={team.id} index={index}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
@@ -115,17 +163,6 @@ export default function PrerankAccordionDnD(props) {
                                 <div className={styles.main} style={{ width: '100%' }}>
                                   <ListItemText className={styles.position} secondary={index + 1} />
                                   <ListItemText className={styles.name} primary={team.content} />
-                                  <ListItemIcon className={styles.edit}>
-                                    <IconButton
-                                      className={styles.iconButton}
-                                      onClick={() => {
-                                        editIconButton.onClick(team);
-                                      }}
-                                      icon="Edit"
-                                      style={{ color: 'grey' }}
-                                      tooltip={t('change_team')}
-                                    ></IconButton>
-                                  </ListItemIcon>
                                 </div>
                               </ListItem>
                               <Divider />

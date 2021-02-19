@@ -1,7 +1,7 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 1fr 4fr;
-  grid-template-areas: 'position name edit';
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas: 'position name';
   padding: 0px;
 }
 
@@ -11,11 +11,6 @@
 
 .name {
   grid-area: name;
-}
-
-.edit {
-  grid-area: edit;
-  justify-self: end;
 }
 
 .div {
