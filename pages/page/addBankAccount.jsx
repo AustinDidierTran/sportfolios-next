@@ -5,10 +5,13 @@ import { formatRoute } from '../../public/common/utils/stringFormat';
 import api from '../../public/src/actions/api';
 import { goTo } from '../../public/src/actions/goTo';
 import AddBankAccount from '../../public/src/views/AddBankAccount';
+import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
 
 const AddBankAccountRoute = () => {
   const router = useRouter();
   const { entityId, id } = router.query;
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     hasStripeAccount();
@@ -24,6 +27,15 @@ const AddBankAccountRoute = () => {
     }
   };
 
-  return <AddBankAccount entityId={entityId} id={id} />;
+  return (
+    <>
+      <Head>
+        <meta property="og:title" content={t('metadata.addBankAccount.title')} />
+        <meta property="og:description" content={t('metadata.addBankAccount.description')} />
+        <meta property="og:image" content="" />
+      </Head>
+      <AddBankAccount entityId={entityId} id={id} />
+    </>
+  );
 };
 export default AddBankAccountRoute;
