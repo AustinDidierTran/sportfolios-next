@@ -237,7 +237,7 @@ export default function PhaseAccordionDnD(props) {
                         ))}
                       </div>
                     ) : (
-                      <ListItemText className={styles.name} primary={t('no.no_teams_number')} />
+                      <ListItemText className={styles.name} primary={t('no.no_team_number')} />
                     )}
                     {provided.placeholder}
                   </div>

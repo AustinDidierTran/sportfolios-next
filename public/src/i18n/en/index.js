@@ -499,6 +499,7 @@ export default {
       no_taxes: 'No taxes',
       no_teams_registered: 'No teams registered',
       no_teams: 'No teams',
+      no_team_number: 'Edit the number of teams. ',
       no_users_found: 'No users found',
       no: 'no',
       none_feminine: 'None',
