@@ -162,7 +162,7 @@ const FORM_DIALOG_TYPE_ENUM = {
 const HEADER_FLYOUT_TYPE_ENUM = {
   ACCOUNT: 'account',
   CLOSED: 'closed',
-  CREATE: 'create',
+  CREATE: 'create.create',
   NOTIFICATIONS: 'notifications',
   PLUS: 'plus',
 };

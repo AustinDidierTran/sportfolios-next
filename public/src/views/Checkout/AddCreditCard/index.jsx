@@ -91,7 +91,7 @@ export default function CheckoutForm(props) {
           <TextField {...name.inputProps} placeholder="Name" />
         </div>
         <Button disabled={!stripe} className={styles.button} onClick={handleSubmit}>
-          {t(add_credit_card)}
+          {t('add.add_credit_card')}
         </Button>
       </div>
     </form>

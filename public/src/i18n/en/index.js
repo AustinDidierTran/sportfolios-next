@@ -782,7 +782,16 @@ export default {
     show_more: 'Show more',
     signup: 'Signup',
     six_month: 'Six Month',
-    sizes: 'Size',
+    size: 'Size',
+    sizes_enum_l: 'Large',
+    sizes_enum_m: 'Medium',
+    sizes_enum_sm: 'Small',
+    sizes_enum_xl: 'X-Large',
+    sizes_enum_xs: 'X-Small',
+    sizes_enum_xxl: '2X-Large',
+    sizes_enum_xxs: '2X-Small',
+    sizes_enum_xxxl: '3X-Large',
+    sizes_enum_xxxs: '3X-Small',
     sizes: 'Sizes',
     some_teams_cannot_be_deleted: "Some teams can't be unregistered from the event since they are already in a game.",
     something_went_wrong: 'Something went wrong, please try again',
@@ -878,7 +887,7 @@ export default {
     yes: 'yes',
 
     yesterday_at: 'Yesterday, at {{date_time}}',
-    
+
     zip_code: 'Zip code',
     sizes_enum: {
       [SIZES_ENUM.XXXS]: '3X-Small',
