@@ -4,10 +4,13 @@ import ConfirmEmail from '../../../public/src/views/ConfirmEmail';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import api from '../../../public/src/actions/api';
 import { goTo, ROUTES } from '../../../public/src/actions/goTo';
+import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
 
 const ConfirmEmailRoute = () => {
   const router = useRouter();
   const { redirectUrl, token } = router.query;
+  const { t } = useTranslation();
 
   const { dispatch } = useContext(Store);
 
@@ -50,7 +53,16 @@ const ConfirmEmailRoute = () => {
     confirmEmail();
   }, [redirectUrl, token]);
 
-  return <ConfirmEmail redirectUrl={redirectUrl} token={token} />;
+  return (
+    <>
+      <Head>
+        <meta property="og:title" content={t('metadata.confirmEmail.title')} />
+        <meta property="og:description" content={t('metadata.confirmEmail.description')} />
+        <meta property="og:image" content="" />
+      </Head>
+      <ConfirmEmail redirectUrl={redirectUrl} token={token} />
+    </>
+  );
 };
 
 export default ConfirmEmailRoute;

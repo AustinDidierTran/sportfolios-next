@@ -1,8 +1,21 @@
 import React from 'react';
 import PasswordRecovery from '../../public/src/views/PasswordRecovery';
+import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
 
 const PasswordRecoveryRoute = () => {
-  return <PasswordRecovery />;
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <Head>
+        <meta property="og:title" content={t('metadata.recoveryEmail.title')} />
+        <meta property="og:description" content={t('metadata.recoveryEmail.description')} />
+        <meta property="og:image" content="" />
+      </Head>
+      <PasswordRecovery />
+    </>
+  );
 };
 
 export default PasswordRecoveryRoute;
