@@ -10,7 +10,7 @@ export default function Team(props) {
 
   return (
     <div className={styles.team}>
-      <Typography className={styles.position} color="textSecondary" variant="h7">
+      <Typography className={styles.position} color="textSecondary" variant="body1">
         {getRank(team.id)}
       </Typography>
       <Typography className={styles.name} variant="h6">

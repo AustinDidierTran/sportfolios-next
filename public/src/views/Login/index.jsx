@@ -85,7 +85,6 @@ export default function Login() {
           if (typeof data === 'string') {
             data = JSON.parse(data);
           }
-
           const { token, userInfo } = data;
 
           dispatch({
@@ -99,11 +98,6 @@ export default function Login() {
           if (redirectUrl) {
             goTo(decodeURI(redirectUrl));
           }
-          // } else if (redirectUrl) {
-          //   goTo(ROUTES.confirmEmailSuccess, null, {
-          //     redirectUrl,
-          //   });
-          // }
           goTo(ROUTES.home);
         }
       }

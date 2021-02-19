@@ -37,8 +37,7 @@ export default function Event(props) {
   const classes = useStyles();
   const { basicInfos } = props;
   const router = useRouter();
-  const { query } = router;
-  const { id, tab } = query;
+  const { id, tab } = router.query;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -61,21 +60,7 @@ export default function Event(props) {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [states, setStates] = useState(userState);
-
-  useEffect(() => {
-    if (adminState.map((a) => a.value).includes(tab)) {
-      if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-        goTo(ROUTES.entity, { id }, { tab });
-      } else {
-        goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
-      }
-    }
-    if (tab) {
-      goTo(ROUTES.entity, { id }, { tab });
-    } else {
-      goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
-    }
-  }, [tab]);
+  const [OpenTab, setOpenTab] = useState(userState[0].component);
 
   const getStates = (isAdmin) => {
     if (isAdmin) {
@@ -85,9 +70,11 @@ export default function Event(props) {
     }
   };
 
-  const OpenTab = useMemo(() => {
-    if (states.map((s) => s.value).includes(tab)) {
-      return states.find((s) => s.value == tab).component;
+  useEffect(() => {
+    if (!tab) {
+      setOpenTab(userState[0].component);
+    } else if (states.map((s) => s.value).includes(tab)) {
+      setOpenTab(states.find((s) => s.value == tab).component);
     } else {
       if (adminState.map((a) => a.value).includes(tab)) {
         if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
@@ -139,7 +126,7 @@ export default function Event(props) {
     return isAdmin ? t('player_view') : t('admin_view');
   }, [isAdmin]);
 
-  if (!states || !OpenTab || !tab) {
+  if (!states || !OpenTab) {
     return <></>;
   }
   return (

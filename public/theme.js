@@ -94,16 +94,4 @@ theme.typography.h6 = {
   },
 };
 
-theme.typography.h7 = {
-  fontFamily: 'Helvetica',
-  fontWeight: 350,
-  fontSize: '0.6rem',
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '1.0rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.2rem',
-  },
-};
-
 export default theme;

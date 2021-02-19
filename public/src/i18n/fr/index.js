@@ -445,6 +445,7 @@ export default {
     memberships: 'Affiliations',
     menu: 'Menu',
     message: 'Message',
+    message_sent: 'Message envoyé',
     messenger_description: 'Connecte ton compte Messenger pour activer le chatbot Sportfolios',
     minute_ago_plural: 'Il y a {{count}} minutes',
     minute_ago: 'Il y a {{count}} minute',
