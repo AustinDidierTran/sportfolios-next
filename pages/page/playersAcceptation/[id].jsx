@@ -5,9 +5,12 @@ import PlayersAcceptation from '../../../public/src/views/PlayersAcceptation';
 import { formatRoute } from '../../../public/common/utils/stringFormat';
 import { CARD_TYPE_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
+import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
 
 const PlayersAcceptationRoute = () => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const { id: eventId } = router.query;
   const [cards, setCards] = useState([]);
@@ -31,7 +34,16 @@ const PlayersAcceptationRoute = () => {
     }
   }, [eventId]);
 
-  return <PlayersAcceptation card={cards} />;
+  return (
+    <>
+      <Head>
+        <meta property="og:title" content={t('metadata.playersAcceptation.title')} />
+        <meta property="og:description" content={t('metadata.playersAcceptation.description')} />
+        <meta property="og:image" content="" />
+      </Head>
+      <PlayersAcceptation card={cards} />
+    </>
+  );
 };
 
 export default PlayersAcceptationRoute;

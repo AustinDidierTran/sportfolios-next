@@ -6,6 +6,9 @@ import { LoadingSpinner } from '../public/src/components/Custom';
 import { useRouter } from 'next/router';
 import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
+import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
+
 const Event = loadable(() => import('../public/src/views/Entity/Event'));
 const Organization = loadable(() => import('../public/src/views/Entity/Organization/home.jsx'));
 const Person = loadable(() => import('../public/src/views/Entity/Person'));
@@ -21,6 +24,7 @@ const EntityMap = {
 export default function EntityRoute() {
   const router = useRouter();
   const { id } = router.query;
+  const { t } = useTranslation();
 
   const { response, isLoading } = useApiRoute(formatRoute('/api/entity', null, { id }), {
     defaultValue: {},
@@ -38,5 +42,14 @@ export default function EntityRoute() {
   if (!EntityObject) {
     return <Error />;
   }
-  return <EntityObject {...response} />;
+  return (
+    <>
+      <Head>
+        <meta property="og:title" content={t('metadata.[id].[id].title')} />
+        <meta property="og:description" content={t('metadata.[id].[id].description')} />
+        <meta property="og:image" content="" />
+      </Head>
+      <EntityObject {...response} />
+    </>
+  );
 }

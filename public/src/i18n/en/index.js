@@ -2,6 +2,194 @@ import { SIZES_ENUM } from '../../../common/enums';
 
 export default {
   translations: {
+    metadata: {
+      forYouPage: {
+        title: '',
+        description: '',
+      },
+      '[id]': {
+        about: {
+          title: '',
+          description: '',
+        },
+        edit: {
+          title: '',
+          description: '',
+        },
+        events: {
+          title: '',
+          description: '',
+        },
+        home: {
+          title: '',
+          description: '',
+        },
+        league: {
+          title: '',
+          description: '',
+        },
+        '[id]': {
+          title: '',
+          description: '',
+        },
+      },
+      confirmationEmailSent: {
+        title: '',
+        description: '',
+      },
+      confirmEmail: {
+        title: '',
+        description: '',
+      },
+      eventRegistration: {
+        title: '',
+        description: '',
+      },
+      inviteRoster: {
+        title: '',
+        description: '',
+      },
+      playersAcceptation: {
+        title: '',
+        description: '',
+      },
+      sales: {
+        title: '',
+        description: '',
+      },
+      scheduleInteractiveTool: {
+        title: '',
+        description: '',
+      },
+      shopDetails: {
+        title: '',
+        description: '',
+      },
+      teamAcceptation: {
+        title: '',
+        description: '',
+      },
+      transerPerson: {
+        title: '',
+        description: '',
+      },
+      addBankAccount: {
+        title: '',
+        description: '',
+      },
+      addPaymentMethod: {
+        title: '',
+        description: '',
+      },
+      adminPanel: {
+        title: '',
+        description: '',
+      },
+      cart: {
+        title: '',
+        description: '',
+      },
+      checkout: {
+        title: '',
+        description: '',
+      },
+      confirmEmailFailure: {
+        title: '',
+        description: '',
+      },
+      confirmeEmailSuccess: {
+        title: '',
+        description: '',
+      },
+      createEvent: {
+        title: '',
+        description: '',
+      },
+      createOrganization: {
+        title: '',
+        description: '',
+      },
+      createPerson: {
+        title: '',
+        description: '',
+      },
+      createTeam: {
+        title: '',
+        description: '',
+      },
+      forgotPassword: {
+        title: '',
+        description: '',
+      },
+      importMembers: {
+        title: '',
+        description: '',
+      },
+      landingPage: {
+        title: '',
+        description: '',
+      },
+      login: {
+        title: '',
+        description: '',
+      },
+      membersList: {
+        title: '',
+        description: '',
+      },
+      menu: {
+        title: '',
+        description: '',
+      },
+      notifications: {
+        title: '',
+        description: '',
+      },
+      orderProcessed: {
+        title: '',
+        description: '',
+      },
+      privacy: {
+        title: '',
+        description: '',
+      },
+      productAddedToCart: {
+        title: '',
+        description: '',
+      },
+      recoveryEmail: {
+        title: '',
+        description: '',
+      },
+      redirect: {
+        title: '',
+        description: '',
+      },
+      registrationStatus: {
+        title: '',
+        description: '',
+      },
+      scheduleManager: {
+        title: '',
+        description: '',
+      },
+      search: {
+        title: '',
+        description: '',
+      },
+      signup: {
+        title: '',
+        description: '',
+      },
+      transferPersonExpired: {
+        title: '',
+        description: '',
+      },
+      userSettings: {
+        title: '',
+        description: '',
+      },
+    },
     landingPage: {
       presentation: {
         1: 'Modernize your management.',
