@@ -116,7 +116,7 @@ export default function LoggedIn(props) {
                 size="medium"
                 onClick={handleCreateClick}
                 style={{ color: 'white' }}
-                tooltip={t('create')}
+                tooltip={t('create.create')}
               />
             </div>
             <div ref={refNotifications}>

@@ -105,7 +105,7 @@ export default function ReportItem(props) {
     { label: t('product_detail'), key: 'detail' },
     { label: t('buyers_name'), key: 'name' },
     { label: t('surname'), key: 'surname' },
-    { label: t('email'), key: 'email' },
+    { label: t('email.email'), key: 'email' },
     { label: t('purchased_on'), key: 'purchasedOn' },
     { label: t('price'), key: 'price' },
     { label: t('quantity'), key: 'quantity' },
@@ -132,7 +132,7 @@ export default function ReportItem(props) {
         <CustomIconButton
           variant="contained"
           icon="Delete"
-          tooltip={t('delete')}
+          tooltip={t('delete.delete')}
           onClick={onDelete}
           style={{ color: 'primary' }}
         />
@@ -151,7 +151,7 @@ export default function ReportItem(props) {
         open={openDelete}
         onCancel={onCancel}
         onSubmit={confirmDelete}
-        title={t('delete_report_confirmation')}
+        title={t('delete.delete_report_confirmation')}
       />
       <Divider />
     </>

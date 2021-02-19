@@ -46,7 +46,7 @@ export default function EditEvents(props) {
     <div className={styles.div}>
       <div className={styles.buttonDiv}>
         <Button onClick={handleClick} style={{ margin: '8px' }}>
-          {t('create_event')}
+          {t('create.create_event')}
         </Button>
       </div>
 

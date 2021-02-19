@@ -74,7 +74,7 @@ export default function RosterCard(props) {
     if (res.status === STATUS_ENUM.METHOD_NOT_ALLOWED) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_player_role_error'),
+        message: t('team.team_player_role_error'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
@@ -126,7 +126,7 @@ export default function RosterCard(props) {
     } else if (res.status === STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_player_role_error'),
+        message: t('team.team_player_role_error'),
         severity: SEVERITY_ENUM.ERROR,
       });
     } else {
@@ -144,7 +144,7 @@ export default function RosterCard(props) {
     if (!remainsOtherPlayerWithRole(id)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_player_role_error'),
+        message: t('team.team_player_role_error'),
         severity: SEVERITY_ENUM.ERROR,
       });
       return;

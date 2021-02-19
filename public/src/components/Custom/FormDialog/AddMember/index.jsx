@@ -125,7 +125,7 @@ export default function AddMember(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'membership',
-      label: t('membership'),
+      label: t('member.membership'),
       options: [
         {
           display: t('recreational'),
@@ -161,7 +161,7 @@ export default function AddMember(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -169,7 +169,7 @@ export default function AddMember(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('add_membership')}
+      title={t('add.add_membership')}
       buttons={buttons}
       fields={fields}
       formik={formik}

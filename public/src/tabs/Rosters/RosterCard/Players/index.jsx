@@ -116,7 +116,7 @@ export default function Players(props) {
     return (
       <div className={styles.card}>
         <Typography className={styles.listTitle} variant="h6">
-          {t('add_players')}
+          {t('add.add_players')}
         </Typography>
         <Divider className={styles.divider} />
         <div className={styles.searchList}>

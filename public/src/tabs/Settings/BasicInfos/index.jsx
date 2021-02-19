@@ -95,7 +95,7 @@ export default function BasicInfos(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid_file_image'),
+          message: t('invalid.invalid_file_image'),
           severity: SEVERITY_ENUM.ERROR,
         });
       }
@@ -187,7 +187,7 @@ export default function BasicInfos(props) {
               onClick={onEdit}
               style={{ margin: '8px' }}
             >
-              {t('edit')}
+              {t('edit.edit')}
             </Button>
           </Container>
         ) : (

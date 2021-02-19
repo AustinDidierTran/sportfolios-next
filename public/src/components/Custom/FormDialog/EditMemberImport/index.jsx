@@ -52,7 +52,7 @@ export default function EditMemberImport(props) {
   const fields = [
     {
       namespace: 'email',
-      label: t('email'),
+      label: t('email.email'),
     },
     {
       namespace: 'expirationDate',
@@ -70,7 +70,7 @@ export default function EditMemberImport(props) {
     },
     {
       type: 'submit',
-      name: t('edit'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
@@ -78,7 +78,7 @@ export default function EditMemberImport(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('edit_membership')}
+      title={t('edit.edit_membership')}
       buttons={buttons}
       fields={fields}
       formik={formik}

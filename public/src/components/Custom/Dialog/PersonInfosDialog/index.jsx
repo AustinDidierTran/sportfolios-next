@@ -32,7 +32,7 @@ export default function PersonInfosDialog(props) {
           </Typography>
           {/* TODO get real infos its only a mock for now */}
           <Typography color={'textPrimary'}>
-            {t('member')}: {t(getMembershipName(MEMBERSHIP_TYPE_ENUM.RECREATIONAL))}
+            {t('member.member')}: {t(getMembershipName(MEMBERSHIP_TYPE_ENUM.RECREATIONAL))}
           </Typography>
         </DialogContent>
         {withoutButton ? (

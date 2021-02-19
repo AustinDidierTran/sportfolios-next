@@ -32,7 +32,7 @@ export default function PersonsQuickAdd(props) {
                 })
               }
             >
-              {t('add')}
+              {t('add.add')}
             </Button>
           ),
         ],

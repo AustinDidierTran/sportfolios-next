@@ -18,7 +18,7 @@ export default function AddTeams(props) {
   const onSave = () => {
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
-      message: t('teams_saved'),
+      message: t('team.teams_saved'),
       severity: SEVERITY_ENUM.SUCCESS,
     });
     save();
@@ -27,7 +27,7 @@ export default function AddTeams(props) {
   return (
     <div className={styles.main}>
       <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
-        {t('add_the_teams_you_want_in_your_tournament')}
+        {t('add.add_the_teams_you_want_in_your_tournament')}
       </Typography>
       <TeamSearchList
         className={styles.item}
@@ -36,15 +36,15 @@ export default function AddTeams(props) {
         onClick={addTeam}
         query={query}
         blackList={blackList}
-        secondary={t('team')}
+        secondary={t('team.team')}
         allowCreate
         withoutIcon
         autoFocus
       />
       <hr />
-      <Typography style={{ marginTop: '16px' }}>{t('teams')}</Typography>
+      <Typography style={{ marginTop: '16px' }}>{t('team.teams')}</Typography>
       {teams.length === 0 ? (
-        <Typography style={{ marginBottom: '32px' }}>{t('no_teams')}</Typography>
+        <Typography style={{ marginBottom: '32px' }}>{t('no.no_teams')}</Typography>
       ) : (
         <div style={{ marginBottom: '16px' }}>
           <List items={teams} />

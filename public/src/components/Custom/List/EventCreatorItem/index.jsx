@@ -28,7 +28,7 @@ export default function EventCreatorItem(props) {
       <ListItemIcon>
         <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t('event_creator')}></ListItemText>
+      <ListItemText primary={name} secondary={t('event.event_creator')}></ListItemText>
     </ListItem>
   );
 }

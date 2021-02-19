@@ -14,7 +14,7 @@ export default function Teams(props) {
   const { teams } = props;
 
   return (
-    <Paper className={styles.card} title={t('teams')}>
+    <Paper className={styles.card} title={t('team.teams')}>
       <List disablePadding>
         {teams.map((team, index) => {
           const { highlight, name, photoUrl } = team;

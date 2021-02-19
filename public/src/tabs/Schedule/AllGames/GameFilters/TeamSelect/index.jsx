@@ -45,7 +45,7 @@ export default function TeamSelect(props) {
         namespace="team"
         autoFocus
         margin="dense"
-        label={t('team')}
+        label={t('team.team')}
         fullWidth
         onChange={handleChange}
         value={teamId}

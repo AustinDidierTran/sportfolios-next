@@ -29,7 +29,7 @@ export default function ScoreSuggestion(props) {
   };
 
   const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
-  const message = useMemo(() => (expanded ? '' : t('score_suggestions')), [expanded]);
+  const message = useMemo(() => (expanded ? '' : t('score.score_suggestions')), [expanded]);
 
   useEffect(() => {
     getSuggestions();

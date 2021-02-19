@@ -65,14 +65,14 @@ export default function MemberImportItem(props) {
           className={styles.item1}
           primary={email}
           secondaryTypographyProps={{ color: 'secondary' }}
-          secondary={validateEmail(email) ? '' : t('invalid_email')}
+          secondary={validateEmail(email) ? '' : t('invalid.invalid_email')}
         />
         {!expirationDate ? (
           <ListItemText
             className={styles.date}
             primaryTypographyProps={{ color: 'secondary' }}
             className={styles.item2}
-            primary={`${t('invalid_date')}: ${day}-${month}-${year}`}
+            primary={`${t('invalid.invalid_date')}: ${day}-${month}-${year}`}
             secondary="dd-mm-yyyy"
           />
         ) : (
@@ -99,8 +99,13 @@ export default function MemberImportItem(props) {
             updateMember,
           }}
         />
-        <CustomIconButton icon="Edit" tooltip={t('edit')} onClick={onOpen} style={{ color: 'primary' }} />
-        <CustomIconButton icon="Delete" tooltip={t('delete')} onClick={handleDelete} style={{ color: 'primary' }} />
+        <CustomIconButton icon="Edit" tooltip={t('edit.edit')} onClick={onOpen} style={{ color: 'primary' }} />
+        <CustomIconButton
+          icon="Delete"
+          tooltip={t('delete.delete')}
+          onClick={handleDelete}
+          style={{ color: 'primary' }}
+        />
       </ListItem>
       <Divider />
     </>

@@ -59,27 +59,27 @@ export default function EditEventPaymentOption(props) {
   const fields = [
     {
       namespace: 'openDate',
-      label: t('registration_open_date'),
+      label: t('register.registration_open_date'),
       type: 'date',
       initialValue: moment().format('YYYY-MM-DD'),
       shrink: true,
     },
     {
       namespace: 'openTime',
-      label: t('registration_open_time'),
+      label: t('register.registration_open_time'),
       type: 'time',
       initialValue: '00:00',
       shrink: true,
     },
     {
       namespace: 'closeDate',
-      label: t('registration_close_date'),
+      label: t('register.registration_close_date'),
       type: 'date',
       shrink: true,
     },
     {
       namespace: 'closeTime',
-      label: t('registration_close_time'),
+      label: t('register.registration_close_time'),
       type: 'time',
       initialValue: '23:59',
       shrink: true,
@@ -93,7 +93,7 @@ export default function EditEventPaymentOption(props) {
     },
     {
       type: 'submit',
-      name: t('edit'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];

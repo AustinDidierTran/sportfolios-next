@@ -23,8 +23,8 @@ export default function MembersReport() {
     <>
       <Card
         items={{
-          title: t('members'),
-          description: t('members_report_description'),
+          title: t('member.members'),
+          description: t('member.members_report_description'),
           onClick: () => {
             setOpen(true);
           },

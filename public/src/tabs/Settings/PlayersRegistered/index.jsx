@@ -79,7 +79,7 @@ export default function PlayersRegistered() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_unregister_success'),
+        message: t('team.team_unregister_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -176,13 +176,13 @@ export default function PlayersRegistered() {
             <TableRow>
               {maximumSpots ? (
                 <StyledTableCell colSpan={3}>
-                  {t('registration_status')}:&nbsp;
+                  {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
               ) : (
                 <StyledTableCell colSpan={3}>
-                  {t('registration_status')}:&nbsp;
+                  {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
@@ -192,7 +192,7 @@ export default function PlayersRegistered() {
                   <IconButton
                     variant="contained"
                     icon="MoneyOff"
-                    tooltip={t('unregister_all')}
+                    tooltip={t('register.unregister_all')}
                     onClick={() => handleUnregisterAllClick()}
                     style={{ color: '#f44336' }}
                   />
@@ -213,7 +213,7 @@ export default function PlayersRegistered() {
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -234,7 +234,7 @@ export default function PlayersRegistered() {
                       </StyledTableCell>
                     ) : (
                       <StyledTableCell component="th" scope="row">
-                        {t('no_option')}
+                        {t('no.no_option')}
                       </StyledTableCell>
                     )}
 
@@ -246,7 +246,7 @@ export default function PlayersRegistered() {
                       <IconButton
                         variant="contained"
                         icon="MoneyOff"
-                        tooltip={t('unregister')}
+                        tooltip={t('register.unregister')}
                         onClick={() => handleUnregisterClick(person.personId)}
                         style={{ color: 'primary' }}
                       />
@@ -256,7 +256,7 @@ export default function PlayersRegistered() {
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('no_players_registered')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('no.no_players_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>
@@ -266,14 +266,14 @@ export default function PlayersRegistered() {
         open={openUnregister}
         onCancel={onCloseUnregister}
         onSubmit={onUnregisterPerson}
-        title={t('are_you_sure_you_want_to_unregister_this_player')}
+        title={t('register.are_you_sure_you_want_to_unregister_this_player')}
         description={players.find((x) => x.personId === personId)?.completeName}
       />
       <AlertDialog
         open={openUnregisterAll}
         onCancel={onCloseUnregisterAll}
         onSubmit={onUnregisterAll}
-        title={t('are_you_sure_you_want_to_unregister_all_players')}
+        title={t('register.are_you_sure_you_want_to_unregister_all_players')}
         description={players.map((p) => p.completeName).join(', ')}
       />
     </Paper>

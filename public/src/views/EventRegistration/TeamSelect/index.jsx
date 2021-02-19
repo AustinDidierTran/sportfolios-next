@@ -39,7 +39,7 @@ export default function TeamSelect(props) {
     return (
       <div className={styles.main}>
         <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
-          {t('you_can_always_change_your_team_name_in_your_team_profile')}
+          {t('you.you_can_always_change_your_team_name_in_your_team_profile')}
         </Typography>
         <TeamItem {...team} secondary="Selected Team" className={styles.main} notClickable />
 
@@ -59,7 +59,7 @@ export default function TeamSelect(props) {
   return (
     <div className={styles.main}>
       <Typography variant="body2" color="textSecondary" component="p" style={{ marginBottom: '8px' }}>
-        {t('you_can_always_change_your_team_name_in_your_team_profile')}
+        {t('you.you_can_always_change_your_team_name_in_your_team_profile')}
       </Typography>
       <TeamSearchList
         className={styles.item}

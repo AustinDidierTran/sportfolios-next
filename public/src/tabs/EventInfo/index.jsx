@@ -142,29 +142,29 @@ export default function TabEventInfo() {
     if (options.length < 1) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t('registrations_closed_for_now')}
+          {t('register.registrations_closed_for_now')}
         </Typography>
       );
     } else if (isFull) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t('event_is_full')}
+          {t('event.event_is_full')}
         </Typography>
       );
     } else if (isLate) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t('registrations_ended')}&nbsp;{registrationEnd}
+          {t('register.registrations_ended')}&nbsp;{registrationEnd}
         </Typography>
       );
     } else if (isEarly) {
       return (
         <>
           <Typography variant="body2" color="textSecondary" component="p">
-            {t('registrations_open_on')}&nbsp;{RegistrationStart}
+            {t('register.registrations_open_on')}&nbsp;{RegistrationStart}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {t('registrations_ends_on')}&nbsp;
+            {t('register.registrations_ends_on')}&nbsp;
             {registrationEnd}
           </Typography>
         </>
@@ -172,7 +172,7 @@ export default function TabEventInfo() {
     } else {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t('registrations_ends_on')}&nbsp;
+          {t('register.registrations_ends_on')}&nbsp;
           {registrationEnd}
         </Typography>
       );
@@ -241,7 +241,7 @@ export default function TabEventInfo() {
               className={styles.button}
               hidden
             >
-              {t('register')}
+              {t('register.register')}
             </Button>
           ) : (
             <></>

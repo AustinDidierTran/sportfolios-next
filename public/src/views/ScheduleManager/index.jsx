@@ -104,7 +104,7 @@ export default function ScheduleManager() {
         id,
         type: GLOBAL_ENUM.TEAM,
         name: team.name,
-        secondary: t('team'),
+        secondary: t('team.team'),
         onDelete,
         notClickable: true,
         random: Math.random(),

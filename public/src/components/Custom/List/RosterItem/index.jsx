@@ -28,7 +28,7 @@ export default function RosterItem(props) {
     ) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team_player_role_error'),
+        message: t('team.team_player_role_error'),
         severity: SEVERITY_ENUM.ERROR,
       });
     } else {

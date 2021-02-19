@@ -34,7 +34,7 @@ export default function EnterEmail(props) {
   const fields = [
     {
       namespace: 'email',
-      label: t('email'),
+      label: t('email.email'),
       type: 'text',
     },
   ];
@@ -47,7 +47,7 @@ export default function EnterEmail(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
       disabled: !isValidEmail,
     },

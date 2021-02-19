@@ -28,7 +28,7 @@ export default function UsersTable() {
   const headers = [
     { display: t('name'), value: 'name' },
     { display: t('surname'), value: 'surname' },
-    { display: t('emails'), value: 'emails' },
+    { display: t('email.emails'), value: 'emails' },
     { display: t('app_role'), value: 'app_role' },
   ];
 

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 export default function CreatePerson() {
   const { t } = useTranslation();
   useEffect(() => {
-    document.title = formatPageTitle(t('create_person'));
+    document.title = formatPageTitle(t('create.create_person'));
   }, []);
 
   return <EntityCreate type={GLOBAL_ENUM.PERSON} />;

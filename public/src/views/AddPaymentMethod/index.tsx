@@ -115,10 +115,10 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.content}>
             <Typography gutterBottom variant="h5" component="h2">
-              {t('personal_information')}
+              {t('person.personal_information')}
             </Typography>
             <TextField namespace="name" formik={formik} type="name" label={t('name')} fullWidth />
-            <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth />
+            <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
             <TextField namespace="phoneNumber" formik={formik} type="phoneNumber" label={t('phone_number')} fullWidth />
             <br />
             <br />

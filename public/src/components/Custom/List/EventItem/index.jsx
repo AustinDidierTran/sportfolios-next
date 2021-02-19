@@ -29,7 +29,7 @@ export default function EventItem(props) {
       <ListItemIcon>
         <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t('event')}></ListItemText>
+      <ListItemText primary={name} secondary={t('event.event')}></ListItemText>
     </ListItem>
   );
 }

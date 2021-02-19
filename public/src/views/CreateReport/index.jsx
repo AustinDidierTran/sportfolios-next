@@ -11,7 +11,7 @@ export default function CreateReport() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = formatPageTitle(t('create_report'));
+    document.title = formatPageTitle(t('create.create_report'));
   }, []);
 
   return (
@@ -26,7 +26,7 @@ export default function CreateReport() {
             tooltip={t('back')}
             style={{ color: 'primary', margin: '8px' }}
           />
-          <ListItemText primary={t('choose_your_report')} className={styles.title} />
+          <ListItemText primary={t('choose.choose_your_report')} className={styles.title} />
         </div>
         <MembersReport />
         <SalesReport />

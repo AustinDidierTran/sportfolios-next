@@ -72,9 +72,9 @@ export default function AddMembership() {
   };
 
   return (
-    <Paper title={t('memberships')}>
+    <Paper title={t('member.memberships')}>
       <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
-        {t('add_membership')}
+        {t('add.add_membership')}
       </Button>
       <Button
         size="small"
@@ -84,7 +84,7 @@ export default function AddMembership() {
           goTo(ROUTES.membersList, null, { id });
         }}
       >
-        {t('member_list')}
+        {t('member.member_list')}
       </Button>
       <Button
         variant="contained"
@@ -107,8 +107,8 @@ export default function AddMembership() {
         open={alertDialog}
         onSubmit={deleteConfirmed}
         onCancel={closeAlertDialog}
-        description={t('delete_membership_confirmation')}
-        title={t('delete_membership')}
+        description={t('delete.delete_membership_confirmation')}
+        title={t('delete.delete_membership')}
       />
       <List items={options} />
     </Paper>

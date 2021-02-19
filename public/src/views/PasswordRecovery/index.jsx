@@ -88,7 +88,7 @@ export default function PasswordRecovery() {
                 textAlign: 'center',
               }}
             >
-              {t('you_can_now_change_your_password', { email })}
+              {t('you.you_can_now_change_your_password', { email })}
             </Typography>
             <TextField namespace="password" formik={formik} label={t('new_password')} type="password" fullWidth />
           </CardContent>

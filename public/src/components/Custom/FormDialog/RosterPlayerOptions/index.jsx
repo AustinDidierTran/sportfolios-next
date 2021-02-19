@@ -83,7 +83,7 @@ export default function RosterPlayersOptions(props) {
     },
     {
       type: 'submit',
-      name: t('edit'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
@@ -91,7 +91,7 @@ export default function RosterPlayersOptions(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('edit_player')}
+      title={t('edit.edit_player')}
       buttons={buttons}
       fields={fields}
       formik={formik}

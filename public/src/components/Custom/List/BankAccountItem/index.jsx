@@ -49,7 +49,7 @@ export default function BankAccountItem(props) {
         </ListItemIcon>
         <ListItemText
           primary={`**** **** **** ${last4}`}
-          secondary={`${t('created_on')} ${formatDate(moment(createdAt))}`}
+          secondary={`${t('create.created_on')} ${formatDate(moment(createdAt))}`}
         />
         <ListItemText secondary={t('default')} style={{ textAlign: 'end', margin: '4px' }} />
         <Radio checked={isDefault} label={t('default')} color="primary" onClick={onChange} />

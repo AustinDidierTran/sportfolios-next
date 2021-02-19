@@ -31,7 +31,7 @@ export default function CollapsePaymentOption(props) {
       <div style={{ backgroundColor: '#F5F5F5' }}>
         <ListItem>
           <ListItemText
-            primary={teamActivity ? t('team_activity') : t('individual_activity')}
+            primary={teamActivity ? t('team.team_activity') : t('individual_activity')}
             secondary={t('open_from_to', {
               startDate: formatDate(moment(startTime), 'LLLL'),
               endDate: formatDate(moment(endTime), 'LLLL'),
@@ -40,21 +40,24 @@ export default function CollapsePaymentOption(props) {
         </ListItem>
         <ListItem>
           {owner.basicInfos ? (
-            <ListItemText primary={owner.basicInfos.name} secondary={t('payment_option_owner')} />
+            <ListItemText primary={owner.basicInfos.name} secondary={t('payment.payment_option_owner')} />
           ) : (
-            <ListItemText primary={t('no_owner_free_payment_option')} secondary={t('payment_option_owner')} />
+            <ListItemText
+              primary={t('payment.no_owner_free_payment_option')}
+              secondary={t('payment.payment_option_owner')}
+            />
           )}
         </ListItem>
         <ListItem className={styles.money}>
           <ListItemText />
-          <ListItemText primary={t('team')} />
+          <ListItemText primary={t('team.team')} />
           <ListItemText primary={t('player')} />
         </ListItem>
         <Divider />
         <ListItem className={styles.money}>
           <ListItemText primary={t('manual_acceptation')} />
-          <ListItemText primary={teamAcceptation ? t('yes') : t('no')} />
-          <ListItemText primary={playerAcceptation ? t('yes') : t('no')} />
+          <ListItemText primary={teamAcceptation ? t('yes') : t('no.no')} />
+          <ListItemText primary={playerAcceptation ? t('yes') : t('no.no')} />
         </ListItem>
         <Divider />
         <>
@@ -97,10 +100,10 @@ export default function CollapsePaymentOption(props) {
           }}
           style={{ margin: '8px' }}
         >
-          {t('edit')}
+          {t('edit.edit')}
         </CustomButton>
         <CustomButton endIcon="Delete" onClick={() => setAlertDialog(true)} color="secondary" style={{ margin: '8px' }}>
-          {t('delete')}
+          {t('delete.delete')}
         </CustomButton>
       </div>
     </CustomCollapse>

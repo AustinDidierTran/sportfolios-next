@@ -28,7 +28,7 @@ export default function Signup() {
   const validationSchema = yup.object().shape({
     firstName: yup.string().required(t('value_is_required')),
     lastName: yup.string().required(t('value_is_required')),
-    email: yup.string().email(t('invalid_email')).required(t('value_is_required')),
+    email: yup.string().email(t('invalid.invalid_email')).required(t('value_is_required')),
     password: yup
       .string()
       .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('password_length'))
@@ -58,7 +58,7 @@ export default function Signup() {
         }),
       });
       if (res.status === 403) {
-        formik.setFieldError('email', t('email_already_used'));
+        formik.setFieldError('email', t('email.email_already_used'));
       } else if (res.status >= 400) {
         formik.setFieldError('firstName', t('something_went_wrong'));
       } else {
@@ -77,7 +77,7 @@ export default function Signup() {
           <CardContent>
             <TextField namespace="firstName" formik={formik} type="text" label={t('first_name')} fullWidth />
             <TextField namespace="lastName" formik={formik} type="text" label={t('last_name')} fullWidth />
-            <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth />
+            <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
             <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
             <Typography variant="caption" color="textSecondary">
               {t('privacy_signup') + ' '}

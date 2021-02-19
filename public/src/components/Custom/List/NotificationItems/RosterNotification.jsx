@@ -10,7 +10,7 @@ export default function RosterNotification(props) {
 
   const { eventId, teamName } = metadata;
 
-  const description = t('added_to_roster_notif_description', {
+  const description = t('add.added_to_roster_notif_description', {
     teamName,
   });
 

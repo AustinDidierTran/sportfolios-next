@@ -90,7 +90,7 @@ export default function MembersReport(props) {
     },
     {
       type: 'submit',
-      name: t('create'),
+      name: t('create.create'),
       color: 'primary',
     },
   ];
@@ -98,7 +98,7 @@ export default function MembersReport(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('choose_date')}
+      title={t('choose.choose_date')}
       buttons={buttons}
       fields={fields}
       formik={formik}

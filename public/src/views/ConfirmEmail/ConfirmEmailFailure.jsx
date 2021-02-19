@@ -17,7 +17,7 @@ export default function ConfirmEmail() {
     <Container className={styles.container}>
       <Paper className={styles.card}>
         <CardContent>
-          <Typography>{t('email_confirm_failure')}</Typography>
+          <Typography>{t('email.email_confirm_failure')}</Typography>
         </CardContent>
         <CardActions>
           <Button endIcon="NavigateNext" onClick={() => goTo(ROUTES.login)}>

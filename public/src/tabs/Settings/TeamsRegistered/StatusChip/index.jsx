@@ -55,7 +55,7 @@ export default function StatusChip(props) {
 
   return (
     <div className={classes.root}>
-      <Chip label={t('not_paid')} icon={<AttachMoney />} color="secondary" variant="outlined" />
+      <Chip label={t('payment.not_paid')} icon={<AttachMoney />} color="secondary" variant="outlined" />
     </div>
   );
 }

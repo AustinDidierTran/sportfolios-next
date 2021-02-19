@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 export default function CreateOrganization() {
   const { t } = useTranslation();
   useEffect(() => {
-    document.title = formatPageTitle(t('create_organization'));
+    document.title = formatPageTitle(t('create.create_organization'));
   }, []);
 
   return <EntityCreate type={GLOBAL_ENUM.ORGANIZATION} />;

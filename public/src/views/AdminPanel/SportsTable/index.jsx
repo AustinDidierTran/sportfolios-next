@@ -82,7 +82,7 @@ export default function SportsTable() {
           headers={[
             { display: t('name'), type: 'text', value: 'name' },
             {
-              display: t('score_type'),
+              display: t('score.score_type'),
               initialValue: 1,
               type: 'number',
               value: 'scoreType',

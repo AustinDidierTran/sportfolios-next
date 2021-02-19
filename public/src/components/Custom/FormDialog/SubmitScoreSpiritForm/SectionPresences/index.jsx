@@ -162,7 +162,7 @@ export default function SectionSpirit(props) {
           />
         </div>
         <CustomButton className={styles.addSubButton} endIcon="Add" onClick={() => setAddPlayer(true)}>
-          {t('add_sub')}
+          {t('add.add_sub')}
         </CustomButton>
         <AddPlayer
           open={addPlayer}
