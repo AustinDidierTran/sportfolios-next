@@ -3,6 +3,10 @@ import { SIZES_ENUM } from '../../../common/enums';
 export default {
   translations: {
     metadata: {
+      forYouPage: {
+        title: '',
+        description: '',
+      },
       '[id]': {
         about: {
           title: '',
