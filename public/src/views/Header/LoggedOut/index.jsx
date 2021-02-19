@@ -57,9 +57,7 @@ export default function LoggedOut() {
       <AppBar position="static" style={{ position: 'fixed', top: 0 }}>
         <Toolbar>
           <Typography className={classes.title} style={{ fontSize: '1.5rem' }} variant="h6" noWrap>
-            <Link href={ROUTES.home} className={classes.title}>
-              Sportfolios
-            </Link>
+            <Link href={ROUTES.home}>Sportfolios</Link>
           </Typography>
           <div className={classes.search}></div>
           <div className={classes.grow} />

@@ -66,9 +66,9 @@ export default function AddEventPaymentOption(props) {
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     teamPrice: teamActivity
-      ? yup.number().positive(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED))
-      : yup.number().positive(t(ERROR_ENUM.VALUE_IS_INVALID)),
-    playerPrice: yup.number().positive().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      ? yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED))
+      : yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
+    playerPrice: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     openDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     closeDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     openTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),

@@ -803,6 +803,7 @@ export default {
     maximum_spots: 'Maximum spots',
     menu: 'Menu',
     message: 'Message',
+    message_sent: 'Message sent',
     messenger_description: "Connect with Messenger to enable Sportfolios' chatbot",
     minute_ago_plural: '{{count}} minutes ago',
     minute_ago: '{{count}} minute ago',

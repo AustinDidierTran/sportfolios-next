@@ -37,7 +37,7 @@ export default function OurTeamMember(props) {
         </Typography>
       </CardContent>
       <CardContent className={classes.secondCardContent}>
-        <Typography style={{ whiteSpace: 'pre-line' }} variant="h7" className={classes.role}>
+        <Typography style={{ whiteSpace: 'pre-line' }} variant="body1" className={classes.role}>
           {role}
         </Typography>
       </CardContent>

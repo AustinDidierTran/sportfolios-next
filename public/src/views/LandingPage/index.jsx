@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import styles from './LandingPage.module.css';
 import { CARD_TYPE_ENUM, LOGO_ENUM, PHOTO_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
@@ -15,13 +15,25 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../common/errors';
-import { Card } from '../../components/Custom';
+import Card from '../../components/Custom/Card';
+import { AddGaEvent } from '../../components/Custom/Analytics';
+
 import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
+import { formatPageTitle } from '../../utils/stringFormats';
 
 export default function LandingPage() {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
+
+  useEffect(() => {
+    document.title = formatPageTitle('Sportfolios');
+    AddGaEvent({
+      category: 'Landing page',
+      action: 'User visited landing page',
+      label: 'landing_page_visit',
+    });
+  }, []);
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -113,6 +125,11 @@ export default function LandingPage() {
             </div>
             <Button
               onClick={() => {
+                AddGaEvent({
+                  category: 'Landing page',
+                  action: 'User clicked to be redirected to login',
+                  label: 'landing_page_login',
+                });
                 goTo(ROUTES.login);
               }}
               className={styles.button}
@@ -188,6 +205,11 @@ export default function LandingPage() {
             </div>
             <Button
               onClick={() => {
+                AddGaEvent({
+                  category: 'Landing page',
+                  action: 'User clicked to be redirected to login',
+                  label: 'landing_page_login',
+                });
                 goTo(ROUTES.login);
               }}
               className={styles.button}
@@ -263,7 +285,18 @@ export default function LandingPage() {
                 rows={7}
                 rowsMax={7}
               />
-              <Button type="submit" style={{ marginTop: '16px', marginBottom: '16px' }} className={styles.button}>
+              <Button
+                type="submit"
+                style={{ marginTop: '16px', marginBottom: '16px' }}
+                onClick={() => {
+                  AddGaEvent({
+                    category: 'Landing page',
+                    action: 'User sent a message from landing page',
+                    label: 'landing_page_message',
+                  });
+                }}
+                className={styles.button}
+              >
                 {t('send')}
               </Button>
             </div>
