@@ -31,11 +31,14 @@ const getNbInCart = (cart, key) => {
 };
 
 const getProductName = (type) => {
-  if (type === GLOBAL_ENUM.MEMBERSHIP || type === GLOBAL_ENUM.SHOP_ITEM) {
+  if (type === GLOBAL_ENUM.MEMBERSHIP) {
+    return 'member.membership';
+  }
+  if (type === GLOBAL_ENUM.SHOP_ITEM) {
     return type;
   }
   if (type === GLOBAL_ENUM.EVENT) {
-    return 'event';
+    return 'event.event';
   }
   return '';
 };
