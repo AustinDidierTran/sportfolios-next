@@ -101,7 +101,7 @@ export default function EditEventPaymentOption(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('edit_payment_option')}
+      title={t('payment.edit_payment_option')}
       description={
         `${option.name} | ${t('price_team')} ` +
         (option.team_price === 0 ? t('free') : formatPrice(option.team_price)) +
