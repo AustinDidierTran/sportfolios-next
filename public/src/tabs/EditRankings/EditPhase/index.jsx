@@ -79,7 +79,7 @@ export default function EditPhase(props) {
     },
     {
       type: 'submit',
-      name: t('edit'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];

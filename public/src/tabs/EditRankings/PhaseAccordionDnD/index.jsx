@@ -164,7 +164,7 @@ export default function PhaseAccordionDnD(props) {
                   }}
                   color={button.color}
                   type={button.type}
-                  disabled={button.name === t('edit_team_number') ? isDone : isDone || !madeChanges}
+                  disabled={button.name === t('edit.edit_team_number') ? isDone : isDone || !madeChanges}
                   endIcon={window.innerWidth < 600 ? '' : button.endIcon}
                   className={styles.button}
                   key={index}

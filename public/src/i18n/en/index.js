@@ -915,7 +915,7 @@ export default {
     quit_interactive_tool: 'WARNING',
     ranking: 'Ranking',
     rankings: 'Rankings',
-    ranking_saved: 'Ranking saved !',
+    ranking_saved: 'Ranking saved!',
     receipt: 'Receipt',
     recent_search_results: 'Recent search results',
     recreational_member: 'Recreational Member',

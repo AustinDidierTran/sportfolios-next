@@ -929,7 +929,7 @@ export default {
     quit_interactive_tool: 'AVERTISSEMENT',
     ranking: 'Classement',
     rankings: 'Classements',
-    ranking_saved: 'Classement sauvegardé !',
+    ranking_saved: 'Classement sauvegardé!',
     receipt: 'Reçu',
     recent_search_results: 'Dernières recherches',
     recreational_member: 'Membre récréatif',
