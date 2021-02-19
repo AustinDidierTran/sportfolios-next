@@ -83,12 +83,12 @@ export default function ChoosePaymentMethod(props) {
         <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
       </div>
       <Typography variant="h6" style={{ marginBottom: '8px' }}>
-        {t('amount_to_pay', { amount: formatPrice(response) })}
+        {t('payment.add_payment_options', { amount: formatPrice(response) })}
       </Typography>
       <RadioGroup
         namespace="paymentMethod"
         options={paymentMethods}
-        title={t('select_payment_method')}
+        title={t('select.select_payment_method')}
         onChange={onChange}
         value={paymentMethod}
         centered
@@ -97,7 +97,7 @@ export default function ChoosePaymentMethod(props) {
       {paymentMethods.length ? (
         <>
           <Button color="default" style={{ margin: '4px' }} onClick={() => goTo(ROUTES.userSettings)}>
-            {t('edit_credit_cards')}
+            {t('edit.edit_credit_cards')}
           </Button>
           <Button
             color="default"
@@ -108,7 +108,7 @@ export default function ChoosePaymentMethod(props) {
               })
             }
           >
-            {t('add_credit_card')}
+            {t('add.add_credit_card')}
           </Button>
         </>
       ) : (
@@ -121,13 +121,13 @@ export default function ChoosePaymentMethod(props) {
             })
           }
         >
-          {t('add_credit_card')}
+          {t('add.add_credit_card')}
         </Button>
       )}
 
       <ContainerBottomFixed>
         <Button disabled={!paymentMethod} onClick={pay} style={{ margin: 8 }}>
-          {t('pay')}
+          {t('payment.pay')}
         </Button>
       </ContainerBottomFixed>
     </div>

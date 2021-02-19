@@ -49,9 +49,9 @@ export default function MembersReportItem(props) {
   const getStatusName = (status) => {
     switch (status) {
       case INVOICE_STATUS_ENUM.OPEN:
-        return t('not_paid');
+        return t('payment.not_paid');
       case INVOICE_STATUS_ENUM.PAID:
-        return t('paid');
+        return t('payment.paid');
       default:
         return '';
     }
@@ -87,18 +87,18 @@ export default function MembersReportItem(props) {
     }
   };
 
-  const reportName = `${t('members_list_on')} ${formatDate(moment(metadata.date))}`;
+  const reportName = `${t('member.members_list_on')} ${formatDate(moment(metadata.date))}`;
 
   const headers = [
     { label: t('name'), key: 'name' },
     { label: t('surname'), key: 'surname' },
-    { label: t('membership'), key: 'membership' },
+    { label: t('member.membership'), key: 'membership' },
     { label: t('price'), key: 'price' },
     { label: t('status'), key: 'status' },
-    { label: t('payment_date'), key: 'paidOn' },
-    { label: t('creation_date'), key: 'createdAt' },
+    { label: t('payment.payment_date'), key: 'paidOn' },
+    { label: t('create.creation_date'), key: 'createdAt' },
     { label: t('expiration_date'), key: 'expirationDate' },
-    { label: t('email'), key: 'email' },
+    { label: t('email.email'), key: 'email' },
     { label: t('birth_date'), key: 'birthDate' },
     { label: t('gender'), key: 'gender' },
     { label: t('city'), key: 'city' },
@@ -106,7 +106,7 @@ export default function MembersReportItem(props) {
     { label: t('zip_code'), key: 'zip' },
   ];
 
-  const fileName = `${metadata.organizationName} ${t('members')} ${formatDate(
+  const fileName = `${metadata.organizationName} ${t('member.members')} ${formatDate(
     moment(metadata.date),
     'YYYY-MM-DD'
   )}.csv`;
@@ -125,7 +125,7 @@ export default function MembersReportItem(props) {
         <CustomIconButton
           variant="contained"
           icon="Delete"
-          tooltip={t('delete')}
+          tooltip={t('delete.delete')}
           onClick={onDelete}
           style={{ color: 'primary' }}
         />
@@ -143,7 +143,7 @@ export default function MembersReportItem(props) {
           open={openDelete}
           onCancel={onCancel}
           onSubmit={confirmDelete}
-          title={t('delete_report_confirmation')}
+          title={t('delete.delete_report_confirmation')}
         />
       </ListItem>
       <Divider />

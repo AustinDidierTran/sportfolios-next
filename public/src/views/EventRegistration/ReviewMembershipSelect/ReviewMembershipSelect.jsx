@@ -20,7 +20,7 @@ export default function ReviewMembershipSelect(props) {
     <RadioGroup
       namespace="paymentOptions"
       options={paymentOptions}
-      title={t('payment_option')}
+      title={t('payment.payment_option')}
       {...paymentOption.inputProps}
       onChange={onChange}
     />

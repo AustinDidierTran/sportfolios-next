@@ -47,10 +47,12 @@ export default function ConfirmEmailSuccess() {
     return (
       <MessageAndButtons
         buttons={successButtons}
-        message={`${t('email_confirm_success')} ${t('redirect_to_success_route')}`}
+        message={`${t('email.email_confirm_success')} ${t('redirect_to_success_route')}`}
       />
     );
   }
 
-  return <MessageAndButtons buttons={buttons} message={`${t('email_confirm_success')} ${t('redirect_to_home')}`} />;
+  return (
+    <MessageAndButtons buttons={buttons} message={`${t('email.email_confirm_success')} ${t('redirect_to_home')}`} />
+  );
 }

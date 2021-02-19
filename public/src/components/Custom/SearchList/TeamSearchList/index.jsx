@@ -58,7 +58,7 @@ export default function TeamSearchList(props) {
           .filter((entity) => !rejectedTypes.includes(entity.type))
           .map((e) => ({
             ...e,
-            secondary: e.isRegistered ? t('team_already_registered') : secondary,
+            secondary: e.isRegistered ? t('team.team_already_registered') : secondary,
             onClick: (...args) => {
               handleClick(...args);
             },
@@ -69,7 +69,7 @@ export default function TeamSearchList(props) {
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({
         ...e,
-        secondary: e.isRegistered ? t('already_registered') : secondary,
+        secondary: e.isRegistered ? t('register.already_registered') : secondary,
         onClick: (...args) => {
           handleClick(...args);
         },

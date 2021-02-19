@@ -24,7 +24,7 @@ export default function Description(props) {
   return (
     <Paper className={styles.noDescription}>
       <Typography align="center" className={styles.typo}>
-        {t('no_description')}
+        {t('no.no_description')}
       </Typography>
     </Paper>
   );

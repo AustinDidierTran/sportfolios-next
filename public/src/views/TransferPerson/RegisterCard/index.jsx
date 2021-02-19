@@ -22,9 +22,9 @@ export default function RegisterCard(props) {
               textAlign: 'center',
             }}
           >
-            {t('create_an_account_to_accept_person_transfer')}
+            {t('create.create_an_account_to_accept_person_transfer')}
           </Typography>
-          <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth formikDisabled />
+          <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth formikDisabled />
           <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
         </CardContent>
         <CardActions>

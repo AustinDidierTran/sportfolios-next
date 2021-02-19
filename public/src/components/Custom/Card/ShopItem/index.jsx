@@ -88,10 +88,10 @@ export default function ShopItem(props) {
         {isEditor ? (
           <div className={styles.buttons}>
             <CustomButton onClick={editItem} endIcon="Settings" color="primary" className={styles.button}>
-              {t('edit')}
+              {t('edit.edit')}
             </CustomButton>
             <CustomButton onClick={deleteItem} endIcon="Delete" color="secondary" className={styles.button}>
-              {t('delete')}
+              {t('delete.delete')}
             </CustomButton>
           </div>
         ) : (

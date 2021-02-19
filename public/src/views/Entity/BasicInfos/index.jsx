@@ -133,7 +133,7 @@ export default function BasicInfos(props) {
           </div>
         ) : (
           <Button onClick={onEdit} endIcon="Edit">
-            {t('edit')}
+            {t('edit.edit')}
           </Button>
         )
       ) : (

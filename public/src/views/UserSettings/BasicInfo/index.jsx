@@ -67,7 +67,7 @@ export default function BasicInfo() {
         <CardContent onSubmit={submit}>
           <Select
             onChange={handleChange}
-            label={t('select_language')}
+            label={t('select.select_language')}
             namespace="language"
             value={basicInfos.language}
             options={[

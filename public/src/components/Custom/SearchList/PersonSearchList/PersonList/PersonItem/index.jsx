@@ -74,7 +74,7 @@ export default function PersonItem(props) {
         <ListItemText
           className={styles.text}
           primary={completeName || name}
-          secondary={secondary || t('person')}
+          secondary={secondary || t('person.person')}
         ></ListItemText>
         <ListItemSecondaryAction>
           {secondaryActions ? (

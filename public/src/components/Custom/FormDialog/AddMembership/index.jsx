@@ -80,7 +80,7 @@ export default function AddMembership(props) {
     if (price > 0 && !(await hasBankAccount())) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('no_bank_account_linked'),
+        message: t('no.no_bank_account_linked'),
         severity: SEVERITY_ENUM.ERROR,
       });
       errors.price = t(ERROR_ENUM.VALUE_IS_INVALID);
@@ -133,7 +133,7 @@ export default function AddMembership(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('membership_added'),
+          message: t('member.membership_added'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
@@ -154,7 +154,7 @@ export default function AddMembership(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'membership',
-      label: t('membership'),
+      label: t('member.membership'),
       options: [
         {
           display: t('recreational'),
@@ -237,7 +237,7 @@ export default function AddMembership(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -245,7 +245,7 @@ export default function AddMembership(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('add_membership')}
+      title={t('add.add_membership')}
       buttons={buttons}
       fields={fields}
       formik={formik}

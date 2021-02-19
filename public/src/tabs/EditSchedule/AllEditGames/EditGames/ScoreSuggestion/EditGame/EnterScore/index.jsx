@@ -93,7 +93,7 @@ export default function EnterScore(props) {
       {
         type: 'number',
         namespace: `score${index + 1}`,
-        label: `${t('score')} ${curr.name}`,
+        label: `${t('score.score')} ${curr.name}`,
         autoFocus: index === 0,
       },
     ],

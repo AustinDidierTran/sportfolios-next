@@ -138,7 +138,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
           <form onSubmit={formik.handleSubmit}>
             <div className={styles.content}>
               <Typography gutterBottom variant="h5" component="h2">
-                {t('add_bank_account')}
+                {t('add.add_bank_account')}
               </Typography>
               <CountrySelect formik={formik} />
               <CurrencySelect formik={formik} />

@@ -61,7 +61,7 @@ export default function EditMembership(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('membership_edited'),
+          message: t('member.membership_edited'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
@@ -106,7 +106,7 @@ export default function EditMembership(props) {
     },
     {
       type: 'submit',
-      name: t('edit'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
@@ -117,7 +117,7 @@ export default function EditMembership(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('edit_membership')}
+      title={t('edit.edit_membership')}
       buttons={buttons}
       fields={fields}
       formik={formik}

@@ -16,7 +16,7 @@ export default function Register() {
         className={styles.button}
         color="primary"
       >
-        {t('registration')}
+        {t('register.registration')}
       </Button>
     </Container>
   );

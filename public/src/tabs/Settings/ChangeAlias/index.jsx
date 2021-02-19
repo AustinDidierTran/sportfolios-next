@@ -49,7 +49,7 @@ export default function ChangeAlias() {
     if (!alias) {
       errors.alias = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     } else if (!/^[\w.-]+$/.test(alias)) {
-      errors.alias = t('invalid_alias');
+      errors.alias = t('invalid.invalid_alias');
     } else if (
       validator.isUUID(alias) ||
       Object.values(ROUTES)
@@ -139,7 +139,7 @@ export default function ChangeAlias() {
       <Paper title={t('alias')}>
         <Typography>{theAlias}</Typography>
         <Button size="small" variant="contained" endIcon="Edit" style={{ margin: '8px' }} onClick={onEdit}>
-          {t('edit')}
+          {t('edit.edit')}
         </Button>
       </Paper>
     );
@@ -147,7 +147,7 @@ export default function ChangeAlias() {
 
   return (
     <Paper title={t('alias')}>
-      <Typography>{t('no_alias')}</Typography>
+      <Typography>{t('no.no_alias')}</Typography>
       <Button
         size="small"
         variant="contained"
@@ -156,7 +156,7 @@ export default function ChangeAlias() {
         onClick={onEdit}
         className={styles.button}
       >
-        {t('edit')}
+        {t('edit.edit')}
       </Button>
     </Paper>
   );

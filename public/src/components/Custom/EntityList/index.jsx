@@ -36,20 +36,20 @@ export default function EntityList(props) {
     () => ({
       [GLOBAL_ENUM.ORGANIZATION]: {
         title: t('organizations'),
-        buttonLabel: t('create_organization'),
+        buttonLabel: t('create.create_organization'),
       },
       [GLOBAL_ENUM.TEAM]: {
-        title: t('teams'),
-        buttonLabel: t('create_team'),
+        title: t('team.teams'),
+        buttonLabel: t('create.create_team'),
       },
       [GLOBAL_ENUM.PERSON]: {
         title: t('people'),
-        buttonLabel: t('create_person'),
+        buttonLabel: t('create.create_person'),
         flag: FEATURE_FLAGS.CHILD_ACCOUNTS,
       },
       [GLOBAL_ENUM.EVENT]: {
-        title: t('event'),
-        buttonLabel: t('create_event'),
+        title: t('event.event'),
+        buttonLabel: t('create.create_event'),
       },
     }),
     []

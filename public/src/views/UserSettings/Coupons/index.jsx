@@ -46,7 +46,7 @@ export default function Coupons() {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid_coupon'),
+          message: t('invalid.invalid_coupon'),
           severity: SEVERITY_ENUM.ERROR,
           duration: 4000,
         });

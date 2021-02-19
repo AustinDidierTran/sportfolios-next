@@ -146,7 +146,7 @@ export default function SectionScore(props) {
   return (
     <div>
       <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
-        <Typography>{t('score')}</Typography>
+        <Typography>{t('score.score')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
           <CustomIconButton

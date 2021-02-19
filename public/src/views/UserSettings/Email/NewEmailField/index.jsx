@@ -25,7 +25,7 @@ export default function EmailField(props) {
     if (!values.email) {
       errors.email = t('value_is_required');
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = t('invalid_email');
+      errors.email = t('invalid.invalid_email');
     }
   };
 
@@ -50,7 +50,7 @@ export default function EmailField(props) {
       if (res.status === 200) {
         onSubmit();
       } else if (res.status === 403) {
-        formik.setFieldError('email', t('email_already_used'));
+        formik.setFieldError('email', t('email.email_already_used'));
       }
     },
   });

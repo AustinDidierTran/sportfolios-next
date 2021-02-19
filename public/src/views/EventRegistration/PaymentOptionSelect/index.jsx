@@ -36,7 +36,7 @@ export default function PaymentOptionSelect(props) {
           {
             display: `${d.name} | ${getPaymentOptionDisplay(d)}`,
             value: d.id,
-            secondary: d.team_activity ? t('team_activity') : t('individual_activity'),
+            secondary: d.team_activity ? t('team.team_activity') : t('individual_activity'),
             teamActivity: d.team_activity,
           },
         ],
@@ -51,9 +51,9 @@ export default function PaymentOptionSelect(props) {
     } else if (option.team_price === 0 && option.individual_price !== 0) {
       return `${formatPrice(option.individual_price)} (${t('per_player')})`;
     } else if (option.team_price !== 0 && option.individual_price === 0) {
-      return `${formatPrice(option.team_price)} (${t('team')})`;
+      return `${formatPrice(option.team_price)} (${t('team.team')})`;
     } else {
-      return `${formatPrice(option.team_price)} (${t('team')}) ${t('and_lowerCased')} ${formatPrice(
+      return `${formatPrice(option.team_price)} (${t('team.team')}) ${t('and_lowerCased')} ${formatPrice(
         option.individual_price
       )} (${t('per_player')})`;
     }
@@ -67,12 +67,12 @@ export default function PaymentOptionSelect(props) {
         component="p"
         style={{ marginBottom: '8px' }}
       >
-        {t('registration_can_be_payed_later')}
+        {t('register.registration_can_be_payed_later')}
       </Typography> */}
       <RadioGroup
         namespace="paymentOptions"
         options={formik.values.paymentOptions}
-        title={t('payment_options')}
+        title={t('payment.payment_options')}
         onChange={onChange}
         value={formik.values.paymentOption}
         className={styles.radio}

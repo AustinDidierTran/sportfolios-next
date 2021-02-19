@@ -127,8 +127,8 @@ export default function EventPaymentOptionItem(props) {
         open={alertDialog}
         onSubmit={onDelete}
         onCancel={() => setAlertDialog(false)}
-        description={t('delete_payment_option_confirmation')}
-        title={t('delete_payment_option')}
+        description={t('payment.delete_payment_option_confirmation')}
+        title={t('payment.delete_payment_option')}
       />
     </div>
   );

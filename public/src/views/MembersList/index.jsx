@@ -27,7 +27,9 @@ export default function MembersList() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    organization ? (document.title = formatPageTitle(t('members_list', { organization: organization?.name }))) : '';
+    organization
+      ? (document.title = formatPageTitle(t('member.members_list', { organization: organization?.name })))
+      : '';
   }, [organization]);
 
   useEffect(() => {
@@ -68,7 +70,7 @@ export default function MembersList() {
     <IgContainer>
       <CustomPaper
         style={{ textAlign: 'center' }}
-        title={t('members_list', {
+        title={t('member.members_list', {
           organization: organization?.name || '',
         })}
       >
@@ -90,12 +92,12 @@ export default function MembersList() {
             }}
             onClick={onOpen}
           >
-            {t('add_membership')}
+            {t('add.add_membership')}
           </CustomButton>
         </div>
         {members.length < 1 ? (
           <Typography color="textSecondary" style={{ margin: '16px' }}>
-            {t('no_members_message')}
+            {t('no.no_members_message')}
           </Typography>
         ) : (
           <ListMembers items={members} />

@@ -32,10 +32,10 @@ export default function DeleteEntity(props) {
   };
 
   return (
-    <CustomPaper title={t('delete')} childrenProps={{ className: styles.paper }} {...otherProps}>
+    <CustomPaper title={t('delete.delete')} childrenProps={{ className: styles.paper }} {...otherProps}>
       <CustomTextField
         className={styles.textfield}
-        helperText={t('delete_confirmation_text', { name })}
+        helperText={t('delete.delete_confirmation_text', { name })}
         {...validator.inputProps}
       />
 
@@ -45,7 +45,7 @@ export default function DeleteEntity(props) {
         onClick={handleClick}
         disabled={isSubmitting || !isValid}
       >
-        {t('delete')}
+        {t('delete.delete')}
       </CustomButton>
     </CustomPaper>
   );

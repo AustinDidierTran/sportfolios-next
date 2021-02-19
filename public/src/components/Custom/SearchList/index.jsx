@@ -71,7 +71,7 @@ export default function SearchList(props) {
         uniqueSecondary = t('click_to_create_new_team');
       }
       if (type === GLOBAL_ENUM.PERSON) {
-        uniqueSecondary = t('add_player_with_no_account');
+        uniqueSecondary = t('add.add_player_with_no_account');
       }
       return [
         {

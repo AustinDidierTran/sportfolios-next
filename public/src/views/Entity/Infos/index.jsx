@@ -57,7 +57,7 @@ export default function Infos() {
       </Paper>
       <Paper className={clsx(styles.card, styles.responsable)}>
         <Typography variant="h3" color="primary">
-          {t('event_manager')}
+          {t('event.event_manager')}
         </Typography>
         <Typography variant="h5">{infos.responsable}</Typography>
         <Typography variant="h5" color="textSecondary">

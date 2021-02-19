@@ -13,11 +13,11 @@ export default function MembershipItem(props) {
 
   const label = useMemo(() => {
     if (status === INVOICE_STATUS_ENUM.PAID) {
-      return t('paid');
+      return t('payment.paid');
     } else if (status === INVOICE_STATUS_ENUM.FREE) {
       return t('free');
     } else {
-      return t('not_paid');
+      return t('payment.not_paid');
     }
   }, [status]);
   const color = useMemo(() => {

@@ -80,7 +80,7 @@ export default function AddPlayer(props) {
     },
     {
       onClick: onPlayerAddToRoster,
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
       disabled: person ? false : true,
     },
@@ -88,7 +88,7 @@ export default function AddPlayer(props) {
 
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={'xs'} fullWidth>
-      <DialogTitle id="form-dialog-title">{t('add_player')}</DialogTitle>
+      <DialogTitle id="form-dialog-title">{t('add.add_player')}</DialogTitle>
       <div>
         <DialogContent>
           {person ? <PersonItem {...person} secondary={t('player')} notClickable /> : <></>}

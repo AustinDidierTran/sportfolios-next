@@ -61,7 +61,7 @@ export default function ShopDetails() {
       if (!isAuthenticated) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('you_need_to_create_an_account'),
+          message: t('you.you_need_to_create_an_account'),
           severity: SEVERITY_ENUM.INFO,
         });
         goToAndReplace(ROUTES.login, null, {
@@ -164,7 +164,7 @@ export default function ShopDetails() {
               <Select label={t('quantity')} formik={formik} namespace="quantity" options={quantityOptions} />
             </div>
             <Button type="submit" size="small" color="primary" endIcon="AddShoppingCart" className={styles.cart}>
-              {t('add_to_cart')}
+              {t('add.add_to_cart')}
             </Button>
           </CardContent>
         </Paper>

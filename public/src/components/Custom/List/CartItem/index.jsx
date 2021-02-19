@@ -118,7 +118,7 @@ export default function CartItem(props) {
                 variant="contained"
                 onClick={onClick}
                 icon="Delete"
-                tooltip={t('delete')}
+                tooltip={t('delete.delete')}
                 style={{ color: 'primary' }}
               ></CustomIconButton>
             </div>
@@ -129,7 +129,7 @@ export default function CartItem(props) {
             onCancel={() => {
               setOpen(false);
             }}
-            title={t('delete_cart_item_confirmation')}
+            title={t('delete.delete_cart_item_confirmation')}
             onSubmit={onDelete}
           />
         </>
@@ -167,7 +167,7 @@ export default function CartItem(props) {
                 variant="contained"
                 onClick={onClick}
                 icon="Delete"
-                tooltip={t('delete')}
+                tooltip={t('delete.delete')}
                 style={{ color: 'primary' }}
               ></CustomIconButton>
             </div>
@@ -178,7 +178,7 @@ export default function CartItem(props) {
             onCancel={() => {
               setOpen(false);
             }}
-            title={t('delete_cart_item_confirmation')}
+            title={t('delete.delete_cart_item_confirmation')}
             onSubmit={onDelete}
           />
         </>
@@ -209,7 +209,7 @@ export default function CartItem(props) {
               variant="contained"
               onClick={onClick}
               icon="Delete"
-              tooltip={t('delete')}
+              tooltip={t('delete.delete')}
               style={{ color: 'primary' }}
             ></CustomIconButton>
           </div>
@@ -220,7 +220,7 @@ export default function CartItem(props) {
           onCancel={() => {
             setOpen(false);
           }}
-          title={t('delete_cart_item_confirmation')}
+          title={t('delete.delete_cart_item_confirmation')}
           onSubmit={onDelete}
         />
       </>

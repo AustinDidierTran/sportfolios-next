@@ -104,7 +104,7 @@ export default function CreateTaxRate(props) {
     },
     {
       namespace: 'description',
-      label: t('description'),
+      label: t('description.description'),
     },
     {
       namespace: 'percentage',
@@ -129,7 +129,7 @@ export default function CreateTaxRate(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -137,7 +137,7 @@ export default function CreateTaxRate(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('add_tax')}
+      title={t('add.add_tax')}
       buttons={buttons}
       fields={fields}
       formik={formik}

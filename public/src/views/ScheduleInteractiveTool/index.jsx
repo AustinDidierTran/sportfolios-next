@@ -865,7 +865,7 @@ export default function ScheduleInteractiveTool() {
           </Fab>
         </Tooltip>
       ) : (
-        <Tooltip title={t('add_mode')}>
+        <Tooltip title={t('add.add_mode')}>
           <Fab onClick={handleAddMode} className={classes.fabAdd}>
             <Icon icon="Add" />
           </Fab>

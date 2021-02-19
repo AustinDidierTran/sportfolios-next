@@ -42,7 +42,7 @@ export default function Game(props) {
     if (status === STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you_are_not_in_any_of_these_teans'),
+        message: t('you.you_are_not_in_any_of_these_teans'),
         severity: SEVERITY_ENUM.INFO,
       });
     } else if (data) {
@@ -62,7 +62,7 @@ export default function Game(props) {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('invalid_roster_role_to_submit_score'),
+        message: t('invalid.invalid_roster_role_to_submit_score'),
         severity: SEVERITY_ENUM.INFO,
       });
     }
@@ -186,7 +186,7 @@ export default function Game(props) {
     },
     {
       type: 'submit',
-      name: t('choose'),
+      name: t('choose.choose'),
       color: 'primary',
     },
   ];
@@ -210,7 +210,7 @@ export default function Game(props) {
       <FormDialog
         open={chooseSubmitter}
         onClose={handleChooseSubmitterClose}
-        title={t('choose_submitter')}
+        title={t('choose.choose_submitter')}
         fields={fields}
         formik={formik}
         buttons={buttons}

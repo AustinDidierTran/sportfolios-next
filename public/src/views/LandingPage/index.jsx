@@ -264,7 +264,7 @@ export default function LandingPage() {
                 className={styles.textField}
               />
               <Typography className={styles.text} variant="h5">
-                {t('email')}
+                {t('email.email')}
               </Typography>
               <TextField
                 inputProps={{ style: { textAlign: 'center', paddingTop: '10px' } }}

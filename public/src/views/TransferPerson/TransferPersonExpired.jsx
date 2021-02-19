@@ -14,10 +14,7 @@ export default function TransferPersonExpired() {
   ];
   return (
     <div>
-      <MessageAndButtons
-        message={t('person_transfer_expired')}
-        buttons={buttons}
-      />
+      <MessageAndButtons message={t('person.person_transfer_expired')} buttons={buttons} />
     </div>
   );
 }

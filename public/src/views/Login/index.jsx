@@ -39,7 +39,7 @@ export default function Login() {
   }, [isAuthenticated]);
 
   const validationSchema = yup.object().shape({
-    email: yup.string().email(t('invalid_email')).required(t('value_is_required')),
+    email: yup.string().email(t('invalid.invalid_email')).required(t('value_is_required')),
     password: yup
       .string()
       .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('password_length'))
@@ -72,12 +72,12 @@ export default function Login() {
             email,
           }),
         });
-        formik.setFieldError('email', t('email_not_confirmed'));
+        formik.setFieldError('email', t('email.email_not_confirmed'));
       } else if (res.status === 403) {
         // Password is not good
-        formik.setFieldError('password', t('email_password_no_match'));
+        formik.setFieldError('password', t('email.email_password_no_match'));
       } else if (res.status === 404) {
-        formik.setFieldError('email', t('no_existing_account_with_this_email'));
+        formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
       } else {
         let { data } = res;
 
@@ -112,7 +112,7 @@ export default function Login() {
       <Paper className={styles.card}>
         <form onSubmit={formik.handleSubmit}>
           <CardContent>
-            <TextField namespace="email" formik={formik} type="email" label={t('email')} fullWidth />
+            <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
             <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
           </CardContent>
           <CardActions>

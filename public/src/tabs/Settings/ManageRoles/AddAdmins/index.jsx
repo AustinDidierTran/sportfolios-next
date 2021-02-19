@@ -13,7 +13,7 @@ export default function AddAdmins(props) {
 
   return (
     <SearchList
-      label={t('add_editor')}
+      label={t('add.add_editor')}
       query={query}
       onClick={onClick}
       blackList={blackList}

@@ -93,18 +93,18 @@ export default function EventSettings() {
     },
     {
       namespace: 'startDate',
-      helperText: t('event_start'),
+      helperText: t('event.event_start'),
       type: 'date',
     },
     {
       namespace: 'endDate',
-      helperText: t('event_end'),
+      helperText: t('event.event_end'),
       type: 'date',
     },
   ];
 
   return (
-    <Paper title={t('event_settings')} className={styles.paper}>
+    <Paper title={t('event.event_settings')} className={styles.paper}>
       <Card items={{ fields, formik }} type={CARD_TYPE_ENUM.EVENT_SETTINGS} />
     </Paper>
   );

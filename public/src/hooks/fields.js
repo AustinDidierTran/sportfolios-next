@@ -31,9 +31,9 @@ export const useFields = (type, options) => {
           componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
           checked: teamActivity,
           namespace: 'teamActivity',
-          label: t('team_activity'),
+          label: t('team.team_activity'),
           onChange: onChange,
-          tooltip: t('team_activity_or_individual_activity'),
+          tooltip: t('team.team_activity_or_individual_activity'),
         },
         teamActivity
           ? {
@@ -45,7 +45,7 @@ export const useFields = (type, options) => {
           ? {
               componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
               primaryTypographyProps: { variant: 'h6' },
-              primary: t('team'),
+              primary: t('team.team'),
             }
           : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
         teamActivity
@@ -64,7 +64,7 @@ export const useFields = (type, options) => {
               label: t('manual_acceptation'),
               onChange: onTeamChange,
 
-              tooltip: t('team_acceptation_step_message'),
+              tooltip: t('team.team_acceptation_step_message'),
             }
           : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
         teamActivity
@@ -111,18 +111,18 @@ export const useFields = (type, options) => {
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: t('payment'),
+          primary: t('payment.payment'),
         },
         ownersId.length
           ? {
               namespace: 'ownerId',
-              label: t('payment_option_owner'),
+              label: t('payment.payment_option_owner'),
               componentType: COMPONENT_TYPE_ENUM.SELECT,
               options: ownersId,
             }
           : {
               componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-              primary: t('no_admins_with_bank_account'),
+              primary: t('no.no_admins_with_bank_account'),
             },
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
@@ -143,31 +143,31 @@ export const useFields = (type, options) => {
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: t('registration'),
+          primary: t('register.registration'),
         },
         {
           namespace: 'openDate',
-          label: t('registration_open_date'),
+          label: t('register.registration_open_date'),
           type: 'date',
           initialValue: moment().format('YYYY-MM-DD'),
           shrink: true,
         },
         {
           namespace: 'openTime',
-          label: t('registration_open_time'),
+          label: t('register.registration_open_time'),
           type: 'time',
           initialValue: '00:00',
           shrink: true,
         },
         {
           namespace: 'closeDate',
-          label: t('registration_close_date'),
+          label: t('register.registration_close_date'),
           type: 'date',
           shrink: true,
         },
         {
           namespace: 'closeTime',
-          label: t('registration_close_time'),
+          label: t('register.registration_close_time'),
           type: 'time',
           initialValue: '23:59',
           shrink: true,

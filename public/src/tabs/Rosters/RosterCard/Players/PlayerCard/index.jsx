@@ -112,7 +112,7 @@ export default function PlayerCard(props) {
               onClick={() => setOpenOptions(true)}
               icon="Edit"
               style={{ color: 'grey' }}
-              tooltip={t('edit')}
+              tooltip={t('edit.edit')}
             />
           </div>
         </div>

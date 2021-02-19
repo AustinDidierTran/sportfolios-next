@@ -55,7 +55,7 @@ export default function CreditCards() {
         }
         style={{ margin: '8px' }}
       >
-        {t('add_credit_card')}
+        {t('add.add_credit_card')}
       </Button>
     </Card>
   );

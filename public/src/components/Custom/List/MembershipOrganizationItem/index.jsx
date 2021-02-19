@@ -63,7 +63,7 @@ export default function MembershipOrganizationItem(props) {
             color="secondary"
             style={{ margin: '8px' }}
           >
-            {t('delete')}
+            {t('delete.delete')}
           </CustomButton>
         </div>
       </CustomCollapse>

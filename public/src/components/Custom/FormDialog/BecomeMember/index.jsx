@@ -133,7 +133,7 @@ export default function BecomeMember(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('membership_added'),
+          message: t('member.membership_added'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 4000,
         });
@@ -146,7 +146,7 @@ export default function BecomeMember(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'person',
-      label: t('person'),
+      label: t('person.person'),
       options: people,
     },
     {
@@ -165,7 +165,7 @@ export default function BecomeMember(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];

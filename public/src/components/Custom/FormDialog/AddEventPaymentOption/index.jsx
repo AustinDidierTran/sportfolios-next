@@ -66,9 +66,9 @@ export default function AddEventPaymentOption(props) {
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     teamPrice: teamActivity
-      ? yup.number().positive(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED))
-      : yup.number().positive(t(ERROR_ENUM.VALUE_IS_INVALID)),
-    playerPrice: yup.number().positive().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      ? yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED))
+      : yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
+    playerPrice: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     openDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     closeDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     openTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -82,7 +82,7 @@ export default function AddEventPaymentOption(props) {
     if (teamPrice > 0 && !ownerId) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('no_bank_account_linked'),
+        message: t('no.no_bank_account_linked'),
         severity: SEVERITY_ENUM.ERROR,
       });
       errors.teamPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
@@ -91,7 +91,7 @@ export default function AddEventPaymentOption(props) {
     if (playerPrice > 0 && !ownerId) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('no_bank_account_linked'),
+        message: t('no.no_bank_account_linked'),
         severity: SEVERITY_ENUM.ERROR,
       });
       errors.playerPrice = t(ERROR_ENUM.VALUE_IS_INVALID);
@@ -181,14 +181,14 @@ export default function AddEventPaymentOption(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
   return (
     <BasicFormDialog
       open={open}
-      title={t('payment_option')}
+      title={t('payment.payment_option')}
       buttons={buttons}
       fields={fields}
       formik={formik}

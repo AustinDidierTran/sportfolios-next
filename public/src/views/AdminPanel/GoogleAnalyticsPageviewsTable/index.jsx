@@ -101,7 +101,7 @@ export default function GaPageviewsTable() {
               id="newPathname"
               namespace="newPathname"
               variant="outlined"
-              label={t('add') + ' ' + t('pathname')}
+              label={t('add.add') + ' ' + t('pathname')}
               placeholder="/sportfoliosRoute"
               formik={formik}
             ></TextField>
@@ -113,7 +113,7 @@ export default function GaPageviewsTable() {
               style={{ margin: '8px', maxHeight: '40px' }}
               type="submit"
             >
-              {t('add')}
+              {t('add.add')}
             </Button>
           </div>
         </form>

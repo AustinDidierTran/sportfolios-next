@@ -48,7 +48,7 @@ export default function EditItem(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid_file_image'),
+          message: t('invalid.invalid_file_image'),
           severity: SEVERITY_ENUM.ERROR,
         });
       }
@@ -111,7 +111,7 @@ export default function EditItem(props) {
     return (
       <div className={styles.button}>
         <CustomButton onClick={reset} endIcon="Add" style={{ margin: '8px' }}>
-          {t('add_new_product')}
+          {t('add.add_new_product')}
         </CustomButton>
       </div>
     );

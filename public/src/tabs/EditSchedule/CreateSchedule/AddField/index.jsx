@@ -90,7 +90,7 @@ export default function AddField(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -107,7 +107,7 @@ export default function AddField(props) {
   return (
     <FormDialog
       open={open}
-      title={t('add_field')}
+      title={t('add.add_field')}
       buttons={buttons}
       fields={fields}
       formik={formik}

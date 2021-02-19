@@ -67,7 +67,7 @@ export default function ScheduleTab(props) {
         onClick={openTime}
         className={styles.button}
       >
-        {t('add_time_slot')}
+        {t('add.add_time_slot')}
       </Button>
       <Button
         size="small"
@@ -77,7 +77,7 @@ export default function ScheduleTab(props) {
         onClick={openField}
         className={styles.button}
       >
-        {t('add_field')}
+        {t('add.add_field')}
       </Button>
       <Button
         size="small"
@@ -87,7 +87,7 @@ export default function ScheduleTab(props) {
         onClick={openTeam}
         className={styles.button}
       >
-        {t('add_team')}
+        {t('add.add_team')}
       </Button>
       <Button
         size="small"
@@ -97,7 +97,7 @@ export default function ScheduleTab(props) {
         onClick={openPhase}
         className={styles.button}
       >
-        {t('add_phase')}
+        {t('add.add_phase')}
       </Button>
       <Button
         size="small"
@@ -107,7 +107,7 @@ export default function ScheduleTab(props) {
         onClick={openGame}
         className={styles.button}
       >
-        {t('add_game')}
+        {t('add.add_game')}
       </Button>
       {screenSize === SCREENSIZE_ENUM.sm || screenSize === SCREENSIZE_ENUM.xs ? (
         <></>

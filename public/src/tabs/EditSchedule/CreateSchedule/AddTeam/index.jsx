@@ -77,7 +77,7 @@ export default function AddTeam(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('team_added'),
+          message: t('team.team_added'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
@@ -93,7 +93,7 @@ export default function AddTeam(props) {
     },
     {
       type: 'submit',
-      name: t('add'),
+      name: t('add.add'),
       color: 'primary',
     },
   ];
@@ -108,6 +108,13 @@ export default function AddTeam(props) {
   ];
 
   return (
-    <FormDialog open={open} title={t('add_team')} buttons={buttons} fields={fields} formik={formik} onClose={onClose} />
+    <FormDialog
+      open={open}
+      title={t('add.add_team')}
+      buttons={buttons}
+      fields={fields}
+      formik={formik}
+      onClose={onClose}
+    />
   );
 }

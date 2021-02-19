@@ -52,7 +52,7 @@ export default function OrderProcessed() {
           {totalFormatted}
         </Typography>
         <Typography style={{ margin: '8px' }}>
-          {t('paid_with')}
+          {t('payment.paid_with')}
           &nbsp;
           {cardNumber}
         </Typography>

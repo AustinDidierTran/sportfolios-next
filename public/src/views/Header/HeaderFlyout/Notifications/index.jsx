@@ -121,9 +121,9 @@ export default function Notifications(props) {
     return (
       <div className={isMobileView ? styles.mobileNotificationsContainer : styles.notificationsContainer}>
         <Typography align="center" variant="body2">
-          <b>{t('no_notifications')}</b>
+          <b>{t('no.no_notifications')}</b>
           <br />
-          {t('no_notifications_message')}
+          {t('no.no_notifications_message')}
         </Typography>
       </div>
     );

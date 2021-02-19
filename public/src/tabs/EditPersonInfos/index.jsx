@@ -56,7 +56,7 @@ export default function EditPersonInfos(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid_file_image'),
+          message: t('invalid.invalid_file_image'),
           severity: SEVERITY_ENUM.ERROR,
         });
       }
@@ -119,7 +119,7 @@ export default function EditPersonInfos(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid_file_image'),
+          message: t('invalid.invalid_file_image'),
           severity: SEVERITY_ENUM.ERROR,
         });
       }

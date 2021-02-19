@@ -42,7 +42,7 @@ export default function ProductAddedToCart() {
   return (
     <MessageAndButtons
       buttons={buttons}
-      message={t('your_item_has_been_added_to_cart', {
+      message={t('you.your_item_has_been_added_to_cart', {
         name,
         amount,
         total,

@@ -109,7 +109,7 @@ export default function QuickDescription() {
       <Paper title={t('quick_description')}>
         <TextareaAutosize className={styles.textarea} placeholder={t('quick_description')} value={text} disabled />
         <Button size="small" variant="contained" endIcon="Edit" style={{ margin: '8px' }} onClick={onEdit}>
-          {t('edit')}
+          {t('edit.edit')}
         </Button>
       </Paper>
     );
@@ -117,7 +117,7 @@ export default function QuickDescription() {
 
   return (
     <Paper title={t('quick_description')}>
-      <Typography>{t('no_description')}</Typography>
+      <Typography>{t('no.no_description')}</Typography>
       <Button
         size="small"
         variant="contained"
@@ -126,7 +126,7 @@ export default function QuickDescription() {
         onClick={onEdit}
         className={styles.button}
       >
-        {t('edit')}
+        {t('edit.edit')}
       </Button>
     </Paper>
   );
