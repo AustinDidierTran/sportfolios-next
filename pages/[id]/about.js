@@ -21,7 +21,7 @@ const EntityMap = {
   [GLOBAL_ENUM.EVENT]: Event,
 };
 
-export default function EntityRoute({ image }) {
+export default function EntityRoute() {
   const router = useRouter();
   const { id } = router.query;
   const { t } = useTranslation();
