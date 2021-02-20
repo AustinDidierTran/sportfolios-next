@@ -880,8 +880,8 @@ export default {
     phone_number: 'Phone Number',
     places_left: 'places left',
     plateform_fees: 'Plateform fees',
-    team_acceptation_step_message:
-      'Do you want to manually accept or decline every player that registered to your event before they make a payment?',
+    player_acceptation_step_message:
+      'Do you want to manually accept or decline every player that register to your event before they make a payment?',
     team_accepted: 'Team accepted!',
     team_refused: 'Team refused',
     player_added: 'Player added',
