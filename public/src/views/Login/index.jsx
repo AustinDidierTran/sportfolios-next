@@ -97,8 +97,9 @@ export default function Login() {
           });
           if (redirectUrl) {
             goTo(decodeURI(redirectUrl));
+          } else {
+            goTo(ROUTES.home);
           }
-          goTo(ROUTES.home);
         }
       }
     },

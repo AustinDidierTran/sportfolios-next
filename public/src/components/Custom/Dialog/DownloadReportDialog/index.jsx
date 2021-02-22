@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useTranslation } from 'react-i18next';
-import CustomButton from '../../Button';
+import Button from '../../Button';
 
 export default function DownloadReportDialog(props) {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export default function DownloadReportDialog(props) {
             style={{ textDecoration: 'none' }}
             filename={fileName}
           >
-            <CustomButton color="primary">{t('download')}</CustomButton>
+            <Button color="primary">{t('download')}</Button>
           </CSVLink>
           <Button onClick={onClose} color="secondary">
             {t('cancel')}

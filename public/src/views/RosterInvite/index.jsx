@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { ROUTES_ENUM, STATUS_ENUM } from '../../../common/enums/index.js';
 import api from '../../actions/api/index.js';
-import { goTo, ROUTES } from '../../actions/goTo';
+import { goTo, goToAndReplace, ROUTES } from '../../actions/goTo';
 import { IgContainer, LoadingSpinner, Button } from '../../components/Custom';
 import { Store } from '../../Store.js';
 import RosterCard from '../../tabs/Rosters/RosterCard/index.jsx';
@@ -13,7 +13,7 @@ import { formatRoute } from '../../../common/utils/stringFormat.js';
 export default function RosterInvite(props) {
   const { t } = useTranslation();
   const {
-    state: { userInfo },
+    state: { userInfo, isAuthenticated },
   } = useContext(Store);
   const { token } = props;
   const [roster, setRoster] = useState();
@@ -21,6 +21,14 @@ export default function RosterInvite(props) {
 
   const fetchRoster = async () => {
     if (!token) {
+      return;
+    }
+    if (!isAuthenticated) {
+      goToAndReplace(ROUTES.login, null, {
+        redirectUrl: formatRoute(ROUTES.rosterInviteLink, {
+          token,
+        }),
+      });
       return;
     }
     const res = await api(

@@ -20,8 +20,8 @@ export default function HomeRoute() {
   } = useContext(Store);
 
   useEffect(() => {
-    if (isAuthenticated === false && router.pathname !== ROUTES.login) {
-      router.push(ROUTES.landingPage);
+    if (isAuthenticated === false) {
+      router.push(ROUTES.login);
     }
   }, [isAuthenticated]);
 
