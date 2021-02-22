@@ -77,7 +77,7 @@ export default function EditRankings() {
   };
 
   return (
-    <div className={window.innerWidth < 600 ? styles.main : ''}>
+    <div className={styles.main}>
       <div className={styles.buttonContainer}>
         <CustomButton className={styles.button} onClick={openPhaseDialog} endIcon="Add">
           {t('add.add_phase')}
