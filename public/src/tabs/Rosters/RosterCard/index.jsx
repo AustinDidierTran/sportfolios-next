@@ -155,11 +155,7 @@ export default function RosterCard(props) {
     }
   };
 
-  const isTeamEditor = useMemo(
-    () =>
-      role == ROSTER_ROLE_ENUM.CAPTAIN || role == ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN || role == ROSTER_ROLE_ENUM.COACH,
-    [role]
-  );
+  const isTeamEditor = useMemo(() => role == ROSTER_ROLE_ENUM.CAPTAIN || role == ROSTER_ROLE_ENUM.COACH, [role]);
   const editableRoster = useMemo(() => editableRosterProp || isTeamEditor || isEventAdmin, [
     editableRosterProp,
     isTeamEditor,
