@@ -22,7 +22,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export default function Post(props) {
-  const { postInfo, handleLike, entityId, handleComment, handleDelete, isAdmin } = props;
+  const { postInfo, handleLike, entityId, handleComment, handleDeletePost, isAdmin } = props;
   const { t } = useTranslation();
   const [displayComment, setDisplayComment] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,7 +62,7 @@ export default function Post(props) {
   };
 
   const onClickDelete = async () => {
-    handleDelete(postInfo.id);
+    handleDeletePost(postInfo.id);
   };
 
   const onClickComment = () => {

@@ -4,6 +4,7 @@ import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
 import HeaderHome from '../../../components/Custom/HeaderHome';
 import { ENTITIES_ROLE_ENUM, STATUS_ENUM, CARD_TYPE_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -135,17 +136,19 @@ export default function OrganizationHome(props) {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === post_id ? data : o)));
   };
 
-  const handleDelete = async (post_id) => {
-    const { status } = await api('/api/posts/deletePost', {
-      method: 'POST',
-      body: JSON.stringify({
+  const handleDeletePost = async (post_id) => {
+    const { status } = await api(
+      formatRoute('/api/posts/deletePost', null, {
         postId: post_id,
       }),
-    });
+      {
+        method: 'DELETE',
+      }
+    );
     if (!status) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('something_went_wrong'),
+        message: t(ERROR_ENUM.ERROR_OCCURED),
         severity: SEVERITY_ENUM.ERROR,
       });
       return;
@@ -221,7 +224,7 @@ export default function OrganizationHome(props) {
                 postInfo: post,
                 handleLike,
                 handleComment,
-                handleDelete,
+                handleDeletePost,
                 entityId: userInfo.primaryPerson.entity_id,
                 isAdmin: basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN,
               }}
