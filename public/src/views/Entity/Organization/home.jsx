@@ -135,6 +135,26 @@ export default function OrganizationHome(props) {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === post_id ? data : o)));
   };
 
+  const handleDelete = async (post_id) => {
+    const { status } = await api('/api/posts/deletePost', {
+      method: 'POST',
+      body: JSON.stringify({
+        postId: post_id,
+      }),
+    });
+    if (!status) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('something_went_wrong'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      return;
+    }
+    let oldPosts = posts;
+    setPosts((oldPosts) => oldPosts.filter((o) => o.id !== post_id));
+    await getOrganizationPostFeed();
+  };
+
   const handlePost = async (entityId, postContent, images, post_id) => {
     const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
@@ -197,7 +217,14 @@ export default function OrganizationHome(props) {
           )}
           {posts.map((post) => (
             <CustomCard
-              items={{ postInfo: post, handleLike, handleComment, entityId: userInfo.primaryPerson.entity_id }}
+              items={{
+                postInfo: post,
+                handleLike,
+                handleComment,
+                handleDelete,
+                entityId: userInfo.primaryPerson.entity_id,
+                isAdmin: basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN,
+              }}
               type={CARD_TYPE_ENUM.POST}
               key={post.id}
             />
