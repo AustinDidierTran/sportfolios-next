@@ -1,17 +1,18 @@
 const MONTH_NAMES = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
 ];
+const MONTH_NAMES_SHORT = ['jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec'];
 
 const FIELD_GROUP_ENUM = {
   ADD_PAYMENT_OPTION: 'add payment option',
@@ -204,6 +205,7 @@ const COUPON_CODE_ENUM = {
 };
 
 const ROUTES_ENUM = {
+  analytics: '/page/analytics',
   addBankAccount: '/page/addBankAccount',
   addPaymentMethod: '/page/addPaymentMethod',
   adminPanel: '/page/adminPanel',
@@ -216,7 +218,6 @@ const ROUTES_ENUM = {
   createEvent: '/page/createEvent',
   createOrganization: '/page/createOrganization',
   createPerson: '/page/createPerson',
-  createReport: '/page/createReport',
   createTeam: '/page/createTeam',
   entity: '/:id',
   entityNotFound: '/page/entityNotFound',
@@ -543,6 +544,7 @@ module.exports = {
   MESSENGER_MESSAGES_EN,
   MILLIS_TIME_ENUM,
   MONTH_NAMES,
+  MONTH_NAMES_SHORT,
   NOTIFICATION_MEDIA,
   NOTIFICATION_TYPE,
   PERSON_TRANSFER_STATUS_ENUM,

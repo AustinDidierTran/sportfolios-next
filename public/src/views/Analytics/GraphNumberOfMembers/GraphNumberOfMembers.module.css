@@ -1,0 +1,29 @@
+.legend {
+  display: flex;
+  flex-direction: column;
+}
+.text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  margin: 4px;
+}
+
+.title {
+  margin-bottom: 8px !important;
+  margin-top: 16px !important;
+}
+
+.subTitle {
+  margin: 8px !important;
+}
+
+.iconButtonDark {
+  background-color: #008a6c !important;
+  margin-right: 8px !important;
+}
+.iconButtonMain {
+  background-color: #18b393 !important;
+  margin-right: 8px !important;
+}

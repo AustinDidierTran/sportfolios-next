@@ -7,8 +7,9 @@ import { useTranslation } from 'react-i18next';
 import styles from './MemberImportItem.module.css';
 import { formatDate, validateDateWithYear, validateEmail } from '../../../../utils/stringFormats';
 import moment from 'moment';
-import CustomIconButton from '../../../../components/Custom/IconButton';
-import { LIST_ITEM_ENUM } from '../../../../../common/enums';
+import IconButton from '../../../../components/Custom/IconButton';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../../common/enums';
+import FormDialog from '../../../../components/Custom/FormDialog';
 
 export default function MemberImportItem(props) {
   const { t } = useTranslation();
@@ -62,16 +63,13 @@ export default function MemberImportItem(props) {
     <>
       <ListItem style={{ width: '100%' }} className={styles.listItem}>
         <ListItemText
-          className={styles.item1}
           primary={email}
           secondaryTypographyProps={{ color: 'secondary' }}
           secondary={validateEmail(email) ? '' : t('invalid.invalid_email')}
         />
         {!expirationDate ? (
           <ListItemText
-            className={styles.date}
             primaryTypographyProps={{ color: 'secondary' }}
-            className={styles.item2}
             primary={`${t('invalid.invalid_date')}: ${day}-${month}-${year}`}
             secondary="dd-mm-yyyy"
           />
@@ -79,17 +77,16 @@ export default function MemberImportItem(props) {
           <>
             {expirationDate < moment() ? (
               <ListItemText
-                className={styles.date}
                 secondaryTypographyProps={{ color: 'secondary' }}
                 primary={formatDate(expirationDate)}
                 secondary={t('expired')}
               />
             ) : (
-              <ListItemText className={styles.date} primary={formatDate(expirationDate)} />
+              <ListItemText primary={formatDate(expirationDate)} />
             )}
           </>
         )}
-        <CustomFormDialog
+        <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBER_IMPORT}
           items={{
             open,
@@ -99,13 +96,8 @@ export default function MemberImportItem(props) {
             updateMember,
           }}
         />
-        <CustomIconButton icon="Edit" tooltip={t('edit.edit')} onClick={onOpen} style={{ color: 'primary' }} />
-        <CustomIconButton
-          icon="Delete"
-          tooltip={t('delete.delete')}
-          onClick={handleDelete}
-          style={{ color: 'primary' }}
-        />
+        <IconButton icon="Edit" tooltip={t('edit.edit')} onClick={onOpen} style={{ color: 'primary' }} />
+        <IconButton icon="Delete" tooltip={t('delete.delete')} onClick={handleDelete} style={{ color: 'primary' }} />
       </ListItem>
       <Divider />
     </>

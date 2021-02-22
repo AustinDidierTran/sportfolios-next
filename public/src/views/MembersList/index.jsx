@@ -33,8 +33,10 @@ export default function MembersList() {
   }, [organization]);
 
   useEffect(() => {
-    getEntity();
-    getMembers();
+    if (id) {
+      getEntity();
+      getMembers();
+    }
   }, [id]);
 
   const getEntity = async () => {
@@ -92,7 +94,7 @@ export default function MembersList() {
             }}
             onClick={onOpen}
           >
-            {t('add.add_membership')}
+            {t('add.add_member')}
           </CustomButton>
         </div>
         {members.length < 1 ? (

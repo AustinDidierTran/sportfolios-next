@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 const BasicInfos = loadable(() => import('../../../tabs/Settings/BasicInfos'));
 const AddMembership = loadable(() => import('../../../tabs/Settings/AddMembership'));
 const BankAccount = loadable(() => import('../../../tabs/Settings/BankAccount'));
-const Reports = loadable(() => import('../../../tabs/Settings/Reports'));
+const Analytics = loadable(() => import('../../../tabs/Settings/Analytics'));
 const ManageRoles = loadable(() => import('../../../tabs/Settings/ManageRoles'));
 
 export default function EntitySettings(props) {
@@ -36,7 +36,7 @@ export default function EntitySettings(props) {
             <BasicInfos basicInfos={basicInfos} />
             <AddMembership />
             <BankAccount />
-            <Reports />
+            <Analytics />
             <ManageRoles role={role} />
             <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
