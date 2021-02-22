@@ -48,7 +48,7 @@ const getListStyle = (isDraggingOver) => ({
   width: '100%',
 });
 export default function PhaseAccordionDnD(props) {
-  const { title, teams: teamsProps, update, isDone, spots, phaseId, ...otherProps } = props;
+  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, ...otherProps } = props;
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -221,7 +221,9 @@ export default function PhaseAccordionDnD(props) {
                                       <ListItemIcon className={styles.edit}>
                                         <IconButton
                                           className={styles.iconButton}
-                                          onClick={() => {}}
+                                          onClick={() => {
+                                            handleDeleteTeam(phaseId, index + 1);
+                                          }}
                                           icon="Delete"
                                           style={{ color: 'grey' }}
                                           tooltip={t('delete.delete_team')}

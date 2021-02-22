@@ -76,6 +76,18 @@ export default function EditRankings() {
     setOpenPhase(false);
   };
 
+  const handleDeleteTeam = async (phaseId, position) => {
+    const res = await api('/api/entity/teamPhase', {
+      method: 'PUT',
+      body: JSON.stringify({
+        eventId,
+        phaseId,
+        initialPosition: position,
+      }),
+    });
+    update();
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.buttonContainer}>
@@ -102,6 +114,7 @@ export default function EditRankings() {
               spots={p.spots}
               update={getPhases}
               phaseId={p.id}
+              handleDeleteTeam={handleDeleteTeam}
             ></PhaseAccordionDnD>
           </div>
         ))}
