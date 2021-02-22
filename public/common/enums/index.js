@@ -1,17 +1,18 @@
 const MONTH_NAMES = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
 ];
+const MONTH_NAMES_SHORT = ['jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec'];
 
 const FIELD_GROUP_ENUM = {
   ADD_PAYMENT_OPTION: 'add payment option',
@@ -543,6 +544,7 @@ module.exports = {
   MESSENGER_MESSAGES_EN,
   MILLIS_TIME_ENUM,
   MONTH_NAMES,
+  MONTH_NAMES_SHORT,
   NOTIFICATION_MEDIA,
   NOTIFICATION_TYPE,
   PERSON_TRANSFER_STATUS_ENUM,

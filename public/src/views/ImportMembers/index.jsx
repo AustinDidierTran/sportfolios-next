@@ -139,7 +139,7 @@ export default function ImportMembers() {
         }));
         const tempMembers = formik.values.members;
         rows.forEach((r) => {
-          if (tempMembers.findIndex((m) => r.email === m.email) === -1) {
+          if (!tempMembers.some((m) => r.email === m.email)) {
             tempMembers.push(r);
           }
         });

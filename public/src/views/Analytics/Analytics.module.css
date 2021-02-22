@@ -6,3 +6,12 @@
 .title {
   margin-right: 23px;
 }
+
+.paper {
+  text-align: center;
+  margin-top: 8px !important;
+}
+
+.iconButton {
+  margin: 8px !important;
+}

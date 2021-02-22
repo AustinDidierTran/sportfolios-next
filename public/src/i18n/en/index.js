@@ -320,6 +320,7 @@ export default {
       member_expiration_date: 'Member expiration date',
       member_list: "Members' list",
       member: 'Member',
+      members_in: 'Members in {{time}}',
       members_list_at_a_certain_date: "Members' list at a certain date",
       members_list_on: "Members' list on",
       members_list: "Members' list | {{organization}}",

@@ -324,6 +324,7 @@ export default {
       member_list: 'Liste des membres',
       member: 'Membre',
       members_added: 'Membres ajoutés',
+      members_in: 'Membres en {{time}}',
       members_list_at_a_certain_date: 'Liste des membres à une date précise',
       members_list_on: 'Liste des membres le',
       members_list: 'Liste des membres | {{organization}}',

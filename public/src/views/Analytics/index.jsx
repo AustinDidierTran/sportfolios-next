@@ -17,7 +17,7 @@ export default function Analytics() {
 
   return (
     <IgContainer>
-      <Paper style={{ textAlign: 'center' }} title={t('generate_report')}>
+      <Paper className={styles.paper} title={t('generate_report')}>
         <div className={styles.header}>
           <IconButton
             icon="ArrowBack"
@@ -25,14 +25,15 @@ export default function Analytics() {
               history.back();
             }}
             tooltip={t('back')}
-            style={{ color: 'primary', margin: '8px' }}
+            className={styles.iconButton}
+            style={{ color: 'primary' }}
           />
           <ListItemText primary={t('choose.choose_your_report')} className={styles.title} />
         </div>
         <MembersReport />
         <SalesReport />
       </Paper>
-      <Paper style={{ textAlign: 'center' }} title={t('graphs')}>
+      <Paper className={styles.paper} title={t('graphs')}>
         <GraphNumberOfMembers />
       </Paper>
     </IgContainer>

@@ -63,16 +63,13 @@ export default function MemberImportItem(props) {
     <>
       <ListItem style={{ width: '100%' }} className={styles.listItem}>
         <ListItemText
-          className={styles.item1}
           primary={email}
           secondaryTypographyProps={{ color: 'secondary' }}
           secondary={validateEmail(email) ? '' : t('invalid.invalid_email')}
         />
         {!expirationDate ? (
           <ListItemText
-            className={styles.date}
             primaryTypographyProps={{ color: 'secondary' }}
-            className={styles.item2}
             primary={`${t('invalid.invalid_date')}: ${day}-${month}-${year}`}
             secondary="dd-mm-yyyy"
           />
@@ -80,13 +77,12 @@ export default function MemberImportItem(props) {
           <>
             {expirationDate < moment() ? (
               <ListItemText
-                className={styles.date}
                 secondaryTypographyProps={{ color: 'secondary' }}
                 primary={formatDate(expirationDate)}
                 secondary={t('expired')}
               />
             ) : (
-              <ListItemText className={styles.date} primary={formatDate(expirationDate)} />
+              <ListItemText primary={formatDate(expirationDate)} />
             )}
           </>
         )}
