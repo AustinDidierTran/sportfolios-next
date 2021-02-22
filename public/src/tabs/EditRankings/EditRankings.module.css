@@ -13,6 +13,12 @@
   margin-top: 8px;
 }
 
+@media (max-width: 600px) {
+  .main {
+    padding-bottom: 200px;
+  }
+}
+
 @media (min-width: 600px) {
   .div {
     margin: 8px;

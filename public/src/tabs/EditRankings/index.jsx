@@ -77,7 +77,7 @@ export default function EditRankings() {
   };
 
   return (
-    <>
+    <div className={styles.main}>
       <div className={styles.buttonContainer}>
         <CustomButton className={styles.button} onClick={openPhaseDialog} endIcon="Add">
           {t('add.add_phase')}
@@ -107,6 +107,6 @@ export default function EditRankings() {
         ))}
       </div>
       <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
-    </>
+    </div>
   );
 }
