@@ -18,11 +18,20 @@ import { Store } from '../../../../Store';
 import Typography from '@material-ui/core/Typography';
 import PostInput from '../../Input/PostInput';
 import CardMedia from '@material-ui/core/CardMedia';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 export default function Post(props) {
-  const { postInfo, handleLike, entityId, handleComment } = props;
+  const { postInfo, handleLike, entityId, handleComment, handleDeletePost, isAdmin } = props;
   const { t } = useTranslation();
   const [displayComment, setDisplayComment] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleVisitProfile = (e) => {
     e.preventDefault();
@@ -52,6 +61,10 @@ export default function Post(props) {
     handleLike(postInfo.id, userInfo.primaryPerson.entity_id, !postInfo.liked);
   };
 
+  const onClickDelete = async () => {
+    handleDeletePost(postInfo.id);
+  };
+
   const onClickComment = () => {
     setDisplayComment((displayComment) => !displayComment);
   };
@@ -73,9 +86,13 @@ export default function Post(props) {
           <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photo_url}></CustomAvatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreHorizIcon />
-          </IconButton>
+          <>
+            {isAdmin && (
+              <IconButton aria-label="settings" onClick={handleClick}>
+                <MoreHorizIcon />
+              </IconButton>
+            )}
+          </>
         }
         title={postInfo.name + ' ' + postInfo.surname}
         subheader={getTimeToShow(postInfo.created_at)}
@@ -159,6 +176,9 @@ export default function Post(props) {
           ))}
         </div>
       )}
+      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem onClick={onClickDelete}>{t('delete.delete')}</MenuItem>
+      </Menu>
     </Card>
   );
 }
