@@ -945,6 +945,7 @@ export default {
     order_processed_title: 'Commande complétée',
     order_processed: 'Votre commande a été complétée avec succès',
     ordered: 'Commandé',
+    order_saved: 'Ordre sauvegardé!',
     organization: 'Organisation',
     organizations: 'Organisations',
     other_team_submitted_a_score_description:
@@ -969,6 +970,7 @@ export default {
     phase: 'Phase',
     phase_done: 'phase terminée',
     phase_in_progress: 'phase en cours',
+    phase_order: 'ordre de la phase',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
     places_left: 'places restantes',
@@ -1047,6 +1049,7 @@ export default {
     sales: 'Ventes',
     save_basic_info: 'Sauvegarder informations',
     save: 'Sauvegarder',
+    save_phase_order: "Sauvegarder l'ordre",
     schedule: 'Horaire',
     search_results: 'Résultats de recherche pour {{query}}',
     search_sportfolios: 'Rechercher Sportfolios',

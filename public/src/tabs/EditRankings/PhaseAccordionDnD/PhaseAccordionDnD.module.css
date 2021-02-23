@@ -21,6 +21,14 @@
   justify-self: end;
 }
 
+.order {
+  justify-self: start;
+}
+
+.orderContainer {
+  display: flex;
+}
+
 .position {
   grid-area: position;
 }

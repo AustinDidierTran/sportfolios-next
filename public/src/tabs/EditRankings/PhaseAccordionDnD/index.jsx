@@ -29,14 +29,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
   background: isDragging ? '#F0F0F0' : 'white',
@@ -47,6 +39,14 @@ const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'whitesmoke' : 'white',
   width: '100%',
 });
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
+
 export default function PhaseAccordionDnD(props) {
   const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, ...otherProps } = props;
   const classes = useStyles();
@@ -72,14 +72,13 @@ export default function PhaseAccordionDnD(props) {
   };
 
   const onDragEnd = (result) => {
-    if (!result.destination) {
+    if (result.destination.index === result.source.index) {
       return;
-    }
-    if (result.destination !== result.source) {
+    } else {
+      const newTeams = reorder(teams, result.source.index, result.destination.index);
       setMadeChanges(true);
+      setTeams(newTeams);
     }
-    const newTeams = reorder(teams, result.source.index, result.destination.index);
-    setTeams(newTeams);
   };
 
   const closeEdit = () => {
@@ -151,6 +150,9 @@ export default function PhaseAccordionDnD(props) {
     <>
       <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
+          <div className={styles.orderContainer}>
+            <ListItemText primary={order} className={styles.order} />
+          </div>
           <ListItemText primary={isDone ? title + ' - ' + t('phase_done') : title + ' - ' + t('phase_in_progress')} />
         </AccordionSummary>
         <AccordionDetails>
@@ -194,6 +196,9 @@ export default function PhaseAccordionDnD(props) {
                               >
                                 {team.isEmpty ? (
                                   <ListItem>
+                                    <ListItemIcon>
+                                      <Icon icon="Reorder" color="textSecondary" />
+                                    </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
                                       <ListItemText className={styles.title} primary={t('add.add_team') + '...'} />

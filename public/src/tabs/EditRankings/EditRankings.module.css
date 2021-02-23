@@ -1,16 +1,20 @@
 .button {
   position: sticky;
-  margin-top: 10px !important;
-  margin-bottom: 8px !important;
+  margin: 12px !important;
 }
 
 .buttonContainer {
+  display: flex;
   width: 100%;
   justify-content: center;
 }
 
 .div {
   margin-top: 8px;
+}
+
+.draggable {
+  margin-bottom: 8px;
 }
 
 @media (max-width: 600px) {
