@@ -4,190 +4,236 @@ export default {
   translations: {
     metadata: {
       forYouPage: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       '[id]': {
         about: {
-          title: '',
-          description: '',
+          title: 'Sportfolios',
+          description:
+            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
         },
         edit: {
-          title: '',
-          description: '',
+          title: 'Sportfolios',
+          description:
+            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
         },
         events: {
-          title: '',
-          description: '',
+          title: 'Sportfolios',
+          description:
+            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
         },
         home: {
-          title: '',
-          description: '',
+          title: 'Sportfolios',
+          description:
+            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
         },
         league: {
-          title: '',
-          description: '',
+          title: 'Sportfolios',
+          description:
+            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
         },
         '[id]': {
-          title: '',
-          description: '',
+          title: 'Sportfolios',
+          description:
+            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
         },
       },
       confirmationEmailSent: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       confirmEmail: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       eventRegistration: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       inviteRoster: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       playersAcceptation: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       sales: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       scheduleInteractiveTool: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       shopDetails: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       teamAcceptation: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       transerPerson: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       addBankAccount: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       addPaymentMethod: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       adminPanel: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       cart: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       checkout: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       confirmEmailFailure: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       confirmeEmailSuccess: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       createEvent: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       createOrganization: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       createPerson: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       createTeam: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       forgotPassword: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       importMembers: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       landingPage: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       login: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       membersList: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       menu: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       notifications: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       orderProcessed: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       privacy: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       productAddedToCart: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       recoveryEmail: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       redirect: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       registrationStatus: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       scheduleManager: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       search: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       signup: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       transferPersonExpired: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
       userSettings: {
-        title: '',
-        description: '',
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
     },
     landingPage: {
