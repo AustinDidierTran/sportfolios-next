@@ -86,7 +86,7 @@ export default function PlayersAndTeamsAcceptation(props) {
           <Typography color="textSecondary">{cards[0]?.items.event.name}</Typography>
         </div>
         <Typography variant="h5" className={styles.text} color="textSecondary">
-          {t('there_is_no_more_team_to_accept')}
+          {t('there_are_no_more_team_to_accept')}
         </Typography>
       </IgContainer>
     );
