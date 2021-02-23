@@ -42,6 +42,8 @@ export default function EditRankings() {
 
   const [openPhase, setOpenPhase] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isOneExpanded, setIsOneExpanded] = useState(false);
 
   useEffect(() => {
     if (eventId) {
@@ -49,6 +51,10 @@ export default function EditRankings() {
       getPhases();
     }
   }, [eventId]);
+
+  useEffect(() => {
+    setIsOneExpanded(isExpanded);
+  }, [isExpanded]);
 
   const getPreranking = async () => {
     const { data } = await api(
@@ -75,6 +81,7 @@ export default function EditRankings() {
     const allPhases = data
       .map((d) => ({
         content: d.name,
+        phaseId: d.id,
         id: d.id,
         spots: d.spots,
         isDone: d.is_done,
@@ -104,6 +111,9 @@ export default function EditRankings() {
   };
 
   const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
     if (result.destination.index === result.source.index) {
       return;
     } else {
@@ -175,7 +185,13 @@ export default function EditRankings() {
             <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
               <div>
                 {phases.map((phase, index) => (
-                  <Draggable key={phase.id} draggableId={phase.id} index={index} className={styles.draggable}>
+                  <Draggable
+                    key={phase.id}
+                    draggableId={phase.id}
+                    index={index}
+                    className={styles.draggable}
+                    isDragDisabled={isExpanded || isOneExpanded}
+                  >
                     {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
@@ -185,13 +201,11 @@ export default function EditRankings() {
                       >
                         <div className={styles.div} key={phase.id}>
                           <PhaseAccordionDnD
-                            title={phase.content}
-                            teams={phase.ranking}
-                            isDone={phase.isDone}
-                            spots={phase.spots}
+                            phase={phase}
                             update={getPhases}
-                            phaseId={phase.id}
                             handleDeleteTeam={handleDeleteTeam}
+                            setIsExpanded={setIsExpanded}
+                            isOneExpanded={isOneExpanded}
                           ></PhaseAccordionDnD>
                         </div>
                       </div>

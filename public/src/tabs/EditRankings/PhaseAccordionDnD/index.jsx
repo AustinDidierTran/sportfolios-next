@@ -48,7 +48,8 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PhaseAccordionDnD(props) {
-  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, ...otherProps } = props;
+  const { phase, handleDeleteTeam, setIsExpanded, isOneExpanded, update, ...otherProps } = props;
+  const { content, ranking, isDone, spots, phaseId } = phase;
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -57,18 +58,19 @@ export default function PhaseAccordionDnD(props) {
 
   const [expanded, setExpanded] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
-  const [teams, setTeams] = useState(teamsProps);
+  const [teams, setTeams] = useState(ranking);
   const [edit, setEdit] = useState(false);
   const [add, setAdd] = useState(false);
 
   const [initialPosition, setInitialPosition] = useState();
 
   useEffect(() => {
-    setTeams(teamsProps);
-  }, [teamsProps]);
+    setTeams(ranking);
+  }, [ranking]);
 
   const onExpand = () => {
     setExpanded((exp) => !exp);
+    setIsExpanded((exp) => !exp);
   };
 
   const onDragEnd = (result) => {
@@ -152,10 +154,12 @@ export default function PhaseAccordionDnD(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
           <div className={styles.orderContainer}>
             <ListItemIcon>
-              <Icon icon="Reorder" color="textSecondary" />
+              {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
             </ListItemIcon>
           </div>
-          <ListItemText primary={isDone ? title + ' - ' + t('phase_done') : title + ' - ' + t('phase_in_progress')} />
+          <ListItemText
+            primary={isDone ? content + ' - ' + t('phase_done') : content + ' - ' + t('phase_in_progress')}
+          />
         </AccordionSummary>
         <AccordionDetails>
           <div className={styles.div}>
@@ -203,7 +207,7 @@ export default function PhaseAccordionDnD(props) {
                                     </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
-                                      <ListItemText className={styles.title} primary={t('add.add_team') + '...'} />
+                                      <ListItemText className={styles.content} primary={t('add.add_team') + '...'} />
                                       <ListItemIcon className={styles.add}>
                                         <IconButton
                                           className={styles.iconButton}
