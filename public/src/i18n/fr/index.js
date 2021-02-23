@@ -251,6 +251,7 @@ export default {
       payment_options: 'Options de paiements',
       payment_team: "Paiement d'équipe",
       payments: 'Paiements',
+      free: 'Gratuit',
     },
     register: {
       already_registered_singular: "{{names}} est déjà inscrit à l'événement",
