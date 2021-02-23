@@ -165,10 +165,10 @@ export default function EditRankings() {
     <div className={styles.main}>
       <div className={styles.buttonContainer}>
         <Button className={styles.button} onClick={openPhaseDialog} endIcon="Add">
-          {t('add.add_phase')}
+          <div className={styles.buttonText}>{window.innerWidth < 600 ? t('add.add') : t('add.add_phase')}</div>
         </Button>
         <Button className={styles.button} onClick={handleUpdateOrder} endIcon="SaveIcon" disabled={!madeChanges}>
-          {t('save_phase_order')}
+          <div className={styles.buttonText}>{window.innerWidth < 600 ? t('save') : t('save_phase_order')}</div>
         </Button>
       </div>
       <div className={styles.div}>

@@ -21,6 +21,9 @@
   .main {
     padding-bottom: 200px;
   }
+  .buttonText {
+    margin-top: 4px;
+  }
 }
 
 @media (min-width: 600px) {
