@@ -98,7 +98,11 @@ export default function Post(props) {
         subheader={getTimeToShow(postInfo.created_at)}
       />
       <CardContent className={styles.content}>{postInfo.content}</CardContent>
-      {postInfo.images.length > 0 && <CardMedia className={styles.media} image={postInfo.images[0].image_url} />}
+      {postInfo.images.length > 0 && (
+        <div>
+          <CardMedia component="img" image={postInfo.images[0].image_url} />
+        </div>
+      )}
       {showStats && (
         <CardContent className={styles.postStats}>
           <div className={styles.likes}>
@@ -125,7 +129,7 @@ export default function Post(props) {
       <CardActions className={styles.actions}>
         <Button
           onClick={onClickLike}
-          startIcon={<CustomIcon icon="ThumbUpAltOutlinedIcon" color={postInfo.liked ? 'rgb(24, 179, 147)' : ''} />}
+          startIcon={<CustomIcon icon="FavoriteBorderIcon" color={postInfo.liked ? 'rgb(24, 179, 147)' : ''} />}
           size="small"
           className={styles.actionsButton}
           color={postInfo.liked ? 'primary' : 'default'}
