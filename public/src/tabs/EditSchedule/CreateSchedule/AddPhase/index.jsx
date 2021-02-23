@@ -41,7 +41,7 @@ export default function AddPhase(props) {
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       const { phase, spots } = values;
       const res = await api('/api/entity/phase', {
         method: 'POST',
@@ -69,7 +69,8 @@ export default function AddPhase(props) {
         duration: 2000,
       });
       update();
-      resetForm();
+      formik.setFieldValue('spots', spots);
+      formik.setFieldValue('phase', '');
     },
   });
 
