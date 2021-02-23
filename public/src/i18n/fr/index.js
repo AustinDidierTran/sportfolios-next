@@ -970,7 +970,7 @@ export default {
     phase: 'Phase',
     phase_done: 'phase terminée',
     phase_in_progress: 'phase en cours',
-    phase_order: 'ordre de la phase',
+    phase_order: 'Ordre de la phase',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
     places_left: 'places restantes',
