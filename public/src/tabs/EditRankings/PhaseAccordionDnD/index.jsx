@@ -48,7 +48,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PhaseAccordionDnD(props) {
-  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, order, ...otherProps } = props;
+  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, ...otherProps } = props;
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -151,7 +151,9 @@ export default function PhaseAccordionDnD(props) {
       <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
           <div className={styles.orderContainer}>
-            <ListItemText primary={order} className={styles.order} />
+            <ListItemIcon>
+              <Icon icon="Reorder" color="textSecondary" />
+            </ListItemIcon>
           </div>
           <ListItemText primary={isDone ? title + ' - ' + t('phase_done') : title + ' - ' + t('phase_in_progress')} />
         </AccordionSummary>

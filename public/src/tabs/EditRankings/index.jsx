@@ -190,7 +190,6 @@ export default function EditRankings() {
                             teams={phase.ranking}
                             isDone={phase.isDone}
                             spots={phase.spots}
-                            order={phase.order}
                             update={getPhases}
                             phaseId={phase.id}
                             handleDeleteTeam={handleDeleteTeam}

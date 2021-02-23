@@ -31,27 +31,24 @@ export default function AddPhase(props) {
   const validationSchema = yup.object().shape({
     phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     spots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-    order: yup.number().min(1, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
     initialValues: {
       phase: '',
       spots: 0,
-      order: 1,
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { phase, spots, order } = values;
+      const { phase, spots } = values;
       const res = await api('/api/entity/phase', {
         method: 'POST',
         body: JSON.stringify({
           phase,
           spots,
           eventId,
-          order,
         }),
       });
 
@@ -100,12 +97,6 @@ export default function AddPhase(props) {
       namespace: 'spots',
       id: 'spots',
       label: t('maximum_spots'),
-      type: 'number',
-    },
-    {
-      namespace: 'order',
-      id: 'order',
-      label: t('phase_order'),
       type: 'number',
     },
   ];
