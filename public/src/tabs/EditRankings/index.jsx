@@ -101,7 +101,6 @@ export default function EditRankings() {
 
   const closePhaseDialog = () => {
     setOpenPhase(false);
-    setMadeChanges(true);
   };
 
   const onDragEnd = (result) => {
