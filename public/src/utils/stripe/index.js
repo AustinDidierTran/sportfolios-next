@@ -8,14 +8,6 @@ export const checkout = async (paymentMethodId) => {
   return res;
 };
 
-export const clearCart = async () => {
-  const { data: newCart } = await api('/api/shop/clearCart', {
-    method: 'DELETE',
-  });
-
-  return newCart;
-};
-
 export const createRefund = async (params) => {
   const { data: receiptUrl } = await api('/api/stripe/createRefund', {
     method: 'POST',
