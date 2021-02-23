@@ -48,7 +48,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PhaseAccordionDnD(props) {
-  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, ...otherProps } = props;
+  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, order, ...otherProps } = props;
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);

@@ -35,8 +35,6 @@
 
 .positionHolder {
   grid-area: positionHolder;
-  justify-self: center;
-  padding-left: 16px;
 }
 
 .name {

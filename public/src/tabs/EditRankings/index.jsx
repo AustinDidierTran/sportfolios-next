@@ -193,6 +193,7 @@ export default function EditRankings() {
                             order={phase.order}
                             update={getPhases}
                             phaseId={phase.id}
+                            handleDeleteTeam={handleDeleteTeam}
                           ></PhaseAccordionDnD>
                         </div>
                       </div>
