@@ -808,7 +808,7 @@ export default {
     elite_member: 'Membre élite',
     elite_membership: 'Affiliation Élite',
     elite: 'Élite',
-    empty_phase_spots_warning: 'Veuillez supprimer ou remplir les places vides de démarrer la phase.',
+    empty_phase_spots_warning: 'Veuillez supprimer ou remplir les places vides avant de démarrer la phase.',
     empty_roster_add_players:
       "Votre alignement est vide. Utilisez l'outil de recherche pour ajouter des joueurs à votre alignement.",
     empty_roster: "Cet alignement est vide. Le capitaine de cette équipe n'a pas entré son alignement.",

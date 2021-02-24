@@ -790,7 +790,7 @@ export default {
     elite_member: 'Elite Member',
     elite_membership: 'Elite Membership',
     elite: 'Elite',
-    empty_phase_spots_warning: 'There is still empty spots, fill them or delete them before starting phase.',
+    empty_phase_spots_warning: 'There is still empty spots, fill them or delete them before starting the phase.',
     empty_roster_add_players: 'Your roster is empty. Use the search list to add players',
     empty_roster: "This roster is empty. The team captain didn't enter its roster.",
     enter_person_name: 'Enter person name',
