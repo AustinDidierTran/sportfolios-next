@@ -88,7 +88,7 @@ export default function EditRankings() {
         phaseId: d.id,
         id: d.id,
         spots: d.spots,
-        isDone: d.is_done,
+        status: d.status,
         order: d.phase_order,
         ranking: d.ranking.map((r) => {
           if (r && r.roster_id) {
@@ -164,6 +164,28 @@ export default function EditRankings() {
     update();
   };
 
+  const startPhase = async (phase) => {
+    const rankings = phase.ranking.map((r) => r.roster_id);
+    console.log(rankings.includes(null));
+    if (!rankings.includes(null)) {
+      const res = await api('/api/entity/startPhase', {
+        method: 'PUT',
+        body: JSON.stringify({
+          eventId,
+          phaseId: phase.phaseId,
+        }),
+      });
+      update();
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('empty_phase_spots_warning'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 2000,
+      });
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.buttonContainer}>
@@ -209,8 +231,8 @@ export default function EditRankings() {
                             handleDeleteTeam={handleDeleteTeam}
                             expandedPhases={expandedPhases}
                             setExpandedPhases={setExpandedPhases}
-
                             isOneExpanded={isOneExpanded}
+                            startPhase={startPhase}
                           ></PhaseAccordionDnD>
                         </div>
                       </div>

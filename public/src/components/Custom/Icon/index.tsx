@@ -60,6 +60,7 @@ import OpenWith from '@material-ui/icons/OpenWith';
 import PeopleIcon from '@material-ui/icons/People';
 import Person from '@material-ui/icons/Person';
 import PersonAdd from '@material-ui/icons/PersonAdd';
+import Play from '@material-ui/icons/PlayArrow';
 import Power from '@material-ui/icons/PowerSettingsNew';
 import PrintIcon from '@material-ui/icons/Print';
 import Publish from '@material-ui/icons/Publish';
@@ -156,6 +157,7 @@ const icons: any = {
   PeopleIcon,
   Person,
   PersonAdd,
+  Play,
   Power,
   PrintIcon,
   Publish,

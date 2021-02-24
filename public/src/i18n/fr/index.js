@@ -808,6 +808,7 @@ export default {
     elite_member: 'Membre élite',
     elite_membership: 'Affiliation Élite',
     elite: 'Élite',
+    empty_phase_spots_warning: 'Veuillez supprimer ou remplir les places vides de démarrer la phase.',
     empty_roster_add_players:
       "Votre alignement est vide. Utilisez l'outil de recherche pour ajouter des joueurs à votre alignement.",
     empty_roster: "Cet alignement est vide. Le capitaine de cette équipe n'a pas entré son alignement.",
@@ -971,6 +972,7 @@ export default {
     phase: 'Phase',
     phase_done: 'phase terminée',
     phase_in_progress: 'phase en cours',
+    phase_not_started: 'phase non démarrée',
     phase_order: 'Ordre de la phase',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
@@ -1095,6 +1097,7 @@ export default {
     statistics: 'Statistiques',
     status: 'Statut',
     start_a_post: 'Commencer un post',
+    start_phase: 'Démarrer',
     step_1: 'Étape 1',
     step_2: 'Étape 2',
     step_3: 'Étape 3',
