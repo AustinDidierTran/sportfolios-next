@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 
 export default function ScheduleTab() {
   const router = useRouter();
-  const { game_id } = router.query;
+  const { gameId } = router.query;
 
-  if (game_id) {
+  if (gameId) {
     return <GameDetailed />;
   }
   return <AllGames />;
