@@ -931,6 +931,7 @@ export default {
     order_processed_title: 'Order processed',
     order_processed: 'Your order has been successfully processed',
     ordered: 'Ordered',
+    order_saved: 'Order saved!',
     organization: 'Organization',
     organizations: 'Organizations',
     other_team_submitted_a_score_description:
@@ -955,6 +956,7 @@ export default {
     phase: 'Phase',
     phase_done: 'phase is over',
     phase_in_progress: 'phase is in progress',
+    phase_order: 'Phase order',
     phase_updated: 'phase is updated!',
     phone_number: 'Phone Number',
     places_left: 'places left',
@@ -1037,6 +1039,7 @@ export default {
     sales: 'Sales',
     save_basic_info: 'Save new basic infos',
     save: 'Save',
+    save_phase_order: 'Save phase order',
     schedule: 'Schedule',
     search_results: 'Search results for {{query}}',
     search_sportfolios: 'Search Sportfolios',

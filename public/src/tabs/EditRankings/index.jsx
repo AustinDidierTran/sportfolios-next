@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../../actions/api';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
@@ -6,19 +6,44 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from './PhaseAccordionDnD';
 import PrerankAccordionDnD from './PrerankAccordionDnd';
-import CustomButton from '../../components/Custom/Button';
+import Button from '../../components/Custom/Button';
 import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
 import { v4 as uuidv4 } from 'uuid';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import { ACTION_ENUM, Store } from '../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { ERROR_ENUM } from '../../../common/errors';
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  userSelect: 'none',
+  ...draggableStyle,
+});
+
+const getListStyle = (isDraggingOver) => ({
+  width: '100%',
+});
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
 
 export default function EditRankings() {
   const { t } = useTranslation();
   const router = useRouter();
+  const { dispatch } = useContext(Store);
   const { id: eventId } = router.query;
 
   const [phases, setPhases] = useState([]);
   const [preRanking, setPreRanking] = useState([]);
 
   const [openPhase, setOpenPhase] = useState(false);
+  const [madeChanges, setMadeChanges] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isOneExpanded, setIsOneExpanded] = useState(false);
 
   useEffect(() => {
     if (eventId) {
@@ -26,6 +51,10 @@ export default function EditRankings() {
       getPhases();
     }
   }, [eventId]);
+
+  useEffect(() => {
+    setIsOneExpanded(isExpanded);
+  }, [isExpanded]);
 
   const getPreranking = async () => {
     const { data } = await api(
@@ -49,18 +78,23 @@ export default function EditRankings() {
       })
     );
 
-    const allPhases = data.map((d) => ({
-      content: d.name,
-      id: d.id,
-      spots: d.spots,
-      isDone: d.is_done,
-      ranking: d.ranking.map((r) => {
-        if (r && r.roster_id) {
-          return { ...r, id: r.roster_id, content: r.name };
-        }
-        return { ...r, isEmpty: true, id: uuidv4() };
-      }),
-    }));
+    const allPhases = data
+      .map((d) => ({
+        content: d.name,
+        phaseId: d.id,
+        id: d.id,
+        spots: d.spots,
+        isDone: d.is_done,
+        order: d.phase_order,
+        ranking: d.ranking.map((r) => {
+          if (r && r.roster_id) {
+            return { ...r, id: r.roster_id, content: r.name };
+          }
+          return { ...r, isEmpty: true, id: uuidv4() };
+        }),
+      }))
+      .sort((a, b) => a.order - b.order);
+
     setPhases(allPhases);
   };
 
@@ -74,6 +108,45 @@ export default function EditRankings() {
 
   const closePhaseDialog = () => {
     setOpenPhase(false);
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    if (result.destination.index === result.source.index) {
+      return;
+    } else {
+      const newPhase = reorder(phases, result.source.index, result.destination.index);
+      setMadeChanges(true);
+      setPhases(newPhase);
+    }
+  };
+
+  const handleUpdateOrder = async () => {
+    const res = await api('/api/entity/updatePhaseOrder', {
+      method: 'PUT',
+      body: JSON.stringify({
+        orderedPhases: phases,
+        eventId,
+      }),
+    });
+
+    if (res.status === STATUS_ENUM.SUCCESS) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('order_saved'),
+        severity: SEVERITY_ENUM.SUCCESS,
+      });
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+      });
+    }
+    setMadeChanges(false);
+    update();
   };
 
   const handleDeleteTeam = async (phaseId, position) => {
@@ -91,9 +164,12 @@ export default function EditRankings() {
   return (
     <div className={styles.main}>
       <div className={styles.buttonContainer}>
-        <CustomButton className={styles.button} onClick={openPhaseDialog} endIcon="Add">
-          {t('add.add_phase')}
-        </CustomButton>
+        <Button className={styles.button} onClick={openPhaseDialog} endIcon="Add">
+          <div className={styles.buttonText}>{window.innerWidth < 600 ? t('add.add') : t('add.add_phase')}</div>
+        </Button>
+        <Button className={styles.button} onClick={handleUpdateOrder} endIcon="SaveIcon" disabled={!madeChanges}>
+          <div className={styles.buttonText}>{window.innerWidth < 600 ? t('save') : t('save_phase_order')}</div>
+        </Button>
       </div>
       <div className={styles.div}>
         <PrerankAccordionDnD
@@ -101,24 +177,47 @@ export default function EditRankings() {
           teams={preRanking}
           update={getPreranking}
           id={'preranking'}
-          eventId={eventId}
         ></PrerankAccordionDnD>
       </div>
-      <div>
-        {phases.map((p) => (
-          <div className={styles.div} key={p.id}>
-            <PhaseAccordionDnD
-              title={p.content}
-              teams={p.ranking}
-              isDone={p.isDone}
-              spots={p.spots}
-              update={getPhases}
-              phaseId={p.id}
-              handleDeleteTeam={handleDeleteTeam}
-            ></PhaseAccordionDnD>
-          </div>
-        ))}
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+              <div>
+                {phases.map((phase, index) => (
+                  <Draggable
+                    key={phase.id}
+                    draggableId={phase.id}
+                    index={index}
+                    className={styles.draggable}
+                    isDragDisabled={isExpanded || isOneExpanded}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                      >
+                        <div className={styles.div} key={phase.id}>
+                          <PhaseAccordionDnD
+                            phase={phase}
+                            update={getPhases}
+                            handleDeleteTeam={handleDeleteTeam}
+                            setIsExpanded={setIsExpanded}
+                            isOneExpanded={isOneExpanded}
+                          ></PhaseAccordionDnD>
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+              </div>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
     </div>
   );
