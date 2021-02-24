@@ -1,10 +1,10 @@
-import NotificationItem from './NotificationItem';
+import NotificationItem from '../index';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { TABS_ENUM } from '../../../../../common/enums';
+import { goTo, ROUTES } from '../../../../../actions/goTo';
+import { TABS_ENUM } from '../../../../../../common/enums';
 
-export default function RosterNotification(props) {
+export default function RosterNotificationItem(props) {
   const { t } = useTranslation();
   const { metadata, onClick, ...otherProps } = props;
 
