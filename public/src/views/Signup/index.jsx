@@ -27,7 +27,7 @@ export default function Signup() {
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required(t('value_is_required')),
-    lastName: yup.string().required(t('value_is_required')),
+    lastName: yup.string(),
     email: yup.string().email(t('invalid.invalid_email')).required(t('value_is_required')),
     password: yup
       .string()
