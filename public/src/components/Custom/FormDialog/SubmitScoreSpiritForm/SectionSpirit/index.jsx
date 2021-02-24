@@ -13,10 +13,10 @@ import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
 import styles from '../SubmitScoreSpiritForm.module.css';
-import CustomTextField from '../../../TextField';
-import CustomIconButton from '../../../IconButton';
-import CustomCollapse from '../../../Collapse';
-import CustomButton from '../../../Button';
+import TextField from '../../../TextField';
+import IconButton from '../../../IconButton';
+import Collapse from '../../../Collapse';
+import Button from '../../../Button';
 
 export default function SectionSpirit(props) {
   const { submittedSpirit, gameId, IsSubmittedCheck, submissionerInfos } = props;
@@ -114,7 +114,7 @@ export default function SectionSpirit(props) {
         <Typography>{t('spirit')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
-          <CustomIconButton
+          <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
             icon={expandedIcon}
@@ -123,14 +123,14 @@ export default function SectionSpirit(props) {
         </div>
       </div>
       <Divider />
-      <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         {isSubmitted ? (
           <div>
             <Typography className={styles.totalSpirit}>{`Total: ${
               submittedSpirit?.spirit_score || spiritTotal
             }`}</Typography>
             {formik.values.comment ? (
-              <CustomTextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
+              <TextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
             ) : (
               <></>
             )}
@@ -142,24 +142,24 @@ export default function SectionSpirit(props) {
             </Typography>
             {RadioButtons}
             <Typography className={styles.totalSpirit}>{`Total: ${spiritTotal}`}</Typography>
-            <CustomTextField type="text" namespace="comment" placeholder={t('comments')} formik={formik} fullWidth />
+            <TextField type="text" namespace="comment" placeholder={t('comments')} formik={formik} fullWidth />
           </div>
         )}
         {!isSubmitted ? (
           <div className={styles.divSubmitButton}>
-            <CustomButton
-              className={styles.submitCustomButton}
+            <Button
+              className={styles.submitButton}
               onClick={() => formik.handleSubmit()}
               color={'primary'}
               variant="text"
             >
               {t('submit')}
-            </CustomButton>
+            </Button>
           </div>
         ) : (
           <></>
         )}
-      </CustomCollapse>
+      </Collapse>
     </div>
   );
 }
