@@ -217,7 +217,7 @@ export default function PhaseAccordionDnD(props) {
                                     </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
-                                      <ListItemText className={styles.content} primary={t('add.add_team') + '...'} />
+                                      <ListItemText className={styles.title} primary={t('add.add_team') + '...'} />
                                       <ListItemIcon className={styles.add}>
                                         <IconButton
                                           className={styles.iconButton}
