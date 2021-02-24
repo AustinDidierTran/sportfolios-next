@@ -74,7 +74,7 @@ export default function CartItem(props) {
     );
     fetchItems();
     setOpen(false);
-    if (res.status !== STATUS_ENUM.SUCCESS) {
+    if (res.status > STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

@@ -92,6 +92,7 @@ import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import Image from '@material-ui/icons/Image';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import Clear from '@material-ui/icons/Clear';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const icons: any = {
   AccountBalance,
   AccountCircle,
@@ -185,6 +186,7 @@ const icons: any = {
   Image,
   ImageOutlinedIcon,
   Clear,
+  FavoriteBorderIcon,
 };
 
 interface IProps {

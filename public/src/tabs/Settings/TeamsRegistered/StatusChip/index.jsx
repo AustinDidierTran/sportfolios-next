@@ -40,7 +40,7 @@ export default function StatusChip(props) {
   if (status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE) {
     return (
       <div className={classes.root}>
-        <Chip label={t(status)} icon={<AttachMoney />} color="primary" variant="outlined" />
+        <Chip label={t(`payment.${status}`)} icon={<AttachMoney />} color="primary" variant="outlined" />
       </div>
     );
   }
@@ -48,7 +48,7 @@ export default function StatusChip(props) {
   if (status === INVOICE_STATUS_ENUM.REFUNDED) {
     return (
       <div className={classes.root}>
-        <Chip label={t('refunded')} icon={<AttachMoney />} color="secondary" variant="outlined" />
+        <Chip label={t('payment.refunded')} icon={<AttachMoney />} color="secondary" variant="outlined" />
       </div>
     );
   }

@@ -98,12 +98,6 @@ export default function EditRankings() {
         }),
       }))
       .sort((a, b) => a.order - b.order);
-
-    // const expanded = allPhases.map(p => (
-    //   false
-    // ));
-    // console.log(expanded);
-    // setExpandedPhases(expanded);
     setPhases(allPhases);
   };
 
@@ -215,6 +209,7 @@ export default function EditRankings() {
                             handleDeleteTeam={handleDeleteTeam}
                             expandedPhases={expandedPhases}
                             setExpandedPhases={setExpandedPhases}
+
                             isOneExpanded={isOneExpanded}
                           ></PhaseAccordionDnD>
                         </div>

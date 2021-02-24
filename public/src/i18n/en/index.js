@@ -297,6 +297,7 @@ export default {
       payment_options: 'Payment options',
       payment_team: 'Team payment',
       payments: 'Payments',
+      free: 'Free',
     },
     register: {
       already_registered_singular: '{{names}} is already registered to the event',

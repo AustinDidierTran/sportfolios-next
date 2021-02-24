@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import styles from './Cart.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
@@ -12,7 +12,6 @@ import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Card from '../../components/Custom/Card';
 import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
-import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM } from '../../../common/errors';
 
@@ -79,7 +78,8 @@ export default function Cart() {
     });
     fetchItems();
     setOpen(false);
-    if (res.status === STATUS_ENUM.SUCCESS) {
+
+    if (res.status > STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
