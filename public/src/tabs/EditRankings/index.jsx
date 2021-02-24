@@ -39,10 +39,10 @@ export default function EditRankings() {
 
   const [phases, setPhases] = useState([]);
   const [preRanking, setPreRanking] = useState([]);
+  const [expandedPhases, setExpandedPhases] = useState([]);
 
   const [openPhase, setOpenPhase] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isOneExpanded, setIsOneExpanded] = useState(false);
 
   useEffect(() => {
@@ -53,8 +53,12 @@ export default function EditRankings() {
   }, [eventId]);
 
   useEffect(() => {
-    setIsOneExpanded(isExpanded);
-  }, [isExpanded]);
+    if (expandedPhases.length) {
+      setIsOneExpanded(true);
+    } else {
+      setIsOneExpanded(false);
+    }
+  }, [expandedPhases.length]);
 
   const getPreranking = async () => {
     const { data } = await api(
@@ -94,7 +98,6 @@ export default function EditRankings() {
         }),
       }))
       .sort((a, b) => a.order - b.order);
-
     setPhases(allPhases);
   };
 
@@ -190,7 +193,7 @@ export default function EditRankings() {
                     draggableId={phase.id}
                     index={index}
                     className={styles.draggable}
-                    isDragDisabled={isExpanded || isOneExpanded}
+                    isDragDisabled={isOneExpanded}
                   >
                     {(provided, snapshot) => (
                       <div
@@ -204,7 +207,9 @@ export default function EditRankings() {
                             phase={phase}
                             update={getPhases}
                             handleDeleteTeam={handleDeleteTeam}
-                            setIsExpanded={setIsExpanded}
+                            expandedPhases={expandedPhases}
+                            setExpandedPhases={setExpandedPhases}
+
                             isOneExpanded={isOneExpanded}
                           ></PhaseAccordionDnD>
                         </div>
