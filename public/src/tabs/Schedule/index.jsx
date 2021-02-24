@@ -8,7 +8,7 @@ export default function ScheduleTab() {
   const { gameId } = router.query;
 
   if (gameId) {
-    return <GameDetailed />;
+    return <GameDetailed gameId={gameId} />;
   }
   return <AllGames />;
 }

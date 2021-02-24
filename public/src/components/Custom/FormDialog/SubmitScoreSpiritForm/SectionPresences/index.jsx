@@ -12,6 +12,8 @@ import CustomTypography from '../../../Collapse';
 import CustomButton from '../../../Button';
 import CustomIconButton from '../../../IconButton';
 import CustomMultiSelect from '../../../MultiSelect';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 export default function SectionSpirit(props) {
   const { submittedAttendances, gameId, IsSubmittedCheck, submissionerInfos } = props;

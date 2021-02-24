@@ -169,7 +169,7 @@ export default function SectionScore(props) {
           )}
           <div className={styles.scores}>
             <Typography className={styles.teamName}>{`${submissionerInfos.myTeam.name}: (${t(
-              'your_team'
+              'you.your_team'
             )})`}</Typography>
             <CustomTextField
               type="number"
