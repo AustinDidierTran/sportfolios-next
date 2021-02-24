@@ -69,7 +69,6 @@ export default function AddPhase(props) {
         duration: 2000,
       });
       update();
-      formik.setFieldValue('spots', spots);
       formik.setFieldValue('phase', '');
     },
   });
