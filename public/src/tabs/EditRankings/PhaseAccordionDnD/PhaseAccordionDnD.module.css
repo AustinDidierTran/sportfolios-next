@@ -25,6 +25,7 @@
 
 .orderContainer {
   display: flex;
+  padding-top: 4px;
 }
 
 .position {

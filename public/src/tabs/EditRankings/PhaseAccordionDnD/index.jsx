@@ -48,7 +48,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PhaseAccordionDnD(props) {
-  const { phase, handleDeleteTeam, setIsExpanded, isOneExpanded, update, ...otherProps } = props;
+  const { phase, handleDeleteTeam, isOneExpanded, update, expandedPhases, setExpandedPhases, ...otherProps } = props;
   const { content, ranking, isDone, spots, phaseId } = phase;
   const classes = useStyles();
   const { t } = useTranslation();
@@ -69,8 +69,18 @@ export default function PhaseAccordionDnD(props) {
   }, [ranking]);
 
   const onExpand = () => {
-    setExpanded((exp) => !exp);
-    setIsExpanded((exp) => !exp);
+    setExpanded(true);
+    if (!expandedPhases.includes(phaseId)) {
+      setExpandedPhases(expandedPhases.concat([phaseId]));
+    }
+  };
+
+  const onShrink = () => {
+    setExpanded(false);
+    if (expandedPhases.includes(phaseId)) {
+      const newExpandedPhases = expandedPhases.filter((p) => p !== phaseId);
+      setExpandedPhases(newExpandedPhases);
+    }
   };
 
   const onDragEnd = (result) => {
@@ -150,7 +160,7 @@ export default function PhaseAccordionDnD(props) {
 
   return (
     <>
-      <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
+      <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand} {...otherProps}>
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
           <div className={styles.orderContainer}>
             <ListItemIcon>
