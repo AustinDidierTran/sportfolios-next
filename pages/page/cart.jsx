@@ -16,6 +16,7 @@ const CartRoute = () => {
     }
     return TABS_ENUM.CART;
   });
+
   return (
     <>
       <Head>
