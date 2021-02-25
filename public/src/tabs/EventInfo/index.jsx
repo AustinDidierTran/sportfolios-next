@@ -21,13 +21,21 @@ const getEvent = async (eventId) => {
   );
   return data;
 };
-const getTeams = async (eventId) => {
-  const { data: teams } = await api(
-    formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
-      eventId,
+
+const getOptions = async (eventId) => {
+  const { data } = await api(formatRoute('/api/entity/options', null, { eventId }), {
+    method: 'GET',
+  });
+  return data;
+};
+
+const getRemainingSpots = async (id) => {
+  const { data } = await api(
+    formatRoute('/api/entity/remainingSpots', null, {
+      id,
     })
   );
-  return teams;
+  return data;
 };
 
 export default function TabEventInfo() {
@@ -35,12 +43,8 @@ export default function TabEventInfo() {
   const router = useRouter();
   const { id } = router.query;
   const [options, setOptions] = useState([]);
-  const [isFull, setIsFull] = useState(false);
   const [event, setEvent] = useState({});
-  const [teams, setTeams] = useState([]);
-  const [canRegister, setCanRegister] = useState(false);
   const [remainingSpots, setRemainingSpots] = useState(null);
-  const [color, setColor] = useState('textSecondary');
   const [isLoading, setIsLoading] = useState(true);
 
   const goToRegistration = () => {
@@ -48,17 +52,21 @@ export default function TabEventInfo() {
   };
 
   useEffect(() => {
-    getOptions();
+    getData();
   }, [id]);
 
-  const getOptions = async () => {
-    const { data, status } = await api(formatRoute('/api/entity/options', null, { eventId: id }), {
-      method: 'GET',
-    });
+  const getData = async () => {
+    if (id) {
+      const event = await getEvent(id);
+      setEvent(event);
 
-    if (data) {
-      setOptions(data);
+      const options = await getOptions(id);
+      setOptions(options);
+
+      const remainingSpots = await getRemainingSpots(id);
+      setRemainingSpots(remainingSpots);
     }
+    setIsLoading(false);
   };
 
   const isEarly = useMemo(() => {
@@ -79,64 +87,27 @@ export default function TabEventInfo() {
     return formatDate(moment.max(endsDate));
   }, [options]);
 
-  useEffect(() => {
-    getColor();
+  const color = useMemo(() => {
+    if (remainingSpots <= Math.ceil(event.maximumSpots * 0.2)) {
+      return 'secondary';
+    }
+    return 'textSecondary';
   }, [remainingSpots]);
 
-  const getColor = () => {
-    if (remainingSpots <= Math.ceil(event.maximumSpots * 0.2)) {
-      setColor('secondary');
-    } else {
-      setColor('textSecondary');
+  const isFull = useMemo(() => {
+    return remainingSpots < 1;
+  }, [remainingSpots]);
+
+  const canRegister = useMemo(() => {
+    if (options.length < 1 || isFull || isLate || isEarly) {
+      return false;
     }
-  };
-
-  useEffect(() => {
-    if (event.maximumSpots) {
-      getRemainingSpots();
-    }
-  }, [event]);
-
-  const getRemainingSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/remainingSpots', null, {
-        id,
-      })
-    );
-    setRemainingSpots(data);
-  };
-
-  useEffect(() => {
-    if (!event || !event.maximum_spots) {
-      setIsFull(false);
-    } else {
-      setIsFull(teams.length >= event.maximum_spots);
-    }
-  }, [options]);
-
-  const getData = async () => {
-    const event = await getEvent(id);
-    setEvent(event);
-    const teams = await getTeams(id);
-    setTeams(teams);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+    return true;
+  }, [isFull, options, isLate, isEarly]);
 
   const getDate = () => {
     return formatIntervalDate(moment(event.startDate), moment(event.endDate));
   };
-
-  useEffect(() => {
-    if (options.length < 1 || isFull || isLate || isEarly) {
-      setCanRegister(false);
-    } else {
-      setCanRegister(true);
-    }
-  }, [isFull, options, isLate, isEarly]);
 
   const Problems = () => {
     if (options.length < 1) {
@@ -145,19 +116,15 @@ export default function TabEventInfo() {
           {t('register.registrations_closed_for_now')}
         </Typography>
       );
-    } else if (isFull) {
-      return (
-        <Typography variant="body2" color="textSecondary" component="p">
-          {t('event.event_is_full')}
-        </Typography>
-      );
-    } else if (isLate) {
+    }
+    if (isLate) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
           {t('register.registrations_ended')}&nbsp;{registrationEnd}
         </Typography>
       );
-    } else if (isEarly) {
+    }
+    if (isEarly) {
       return (
         <>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -169,14 +136,20 @@ export default function TabEventInfo() {
           </Typography>
         </>
       );
-    } else {
+    }
+    if (isFull) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
-          {t('register.registrations_ends_on')}&nbsp;
-          {registrationEnd}
+          {t('event.event_is_full')}
         </Typography>
       );
     }
+    return (
+      <Typography variant="body2" color="textSecondary" component="p">
+        {t('register.registrations_ends_on')}&nbsp;
+        {registrationEnd}
+      </Typography>
+    );
   };
 
   if (isLoading) {
@@ -207,19 +180,13 @@ export default function TabEventInfo() {
             <Typography variant="body2" color="textSecondary" component="p">
               {event.location || 'Sherbrooke'}
             </Typography>
-            {remainingSpots ? (
-              <>
-                {!isFull ? (
-                  <Typography variant="body2" color={color} component="p">
-                    {remainingSpots}&nbsp;
-                    {t('places_left')}
-                  </Typography>
-                ) : (
-                  <></>
-                )}
-              </>
-            ) : (
+            {isFull ? (
               <></>
+            ) : (
+              <Typography variant="body2" color={color} component="p">
+                {remainingSpots}&nbsp;
+                {t('places_left')}
+              </Typography>
             )}
             <Problems />
           </CardContent>
