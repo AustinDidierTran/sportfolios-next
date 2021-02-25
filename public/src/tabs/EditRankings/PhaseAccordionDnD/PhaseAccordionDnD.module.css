@@ -1,7 +1,7 @@
 .main {
   display: grid;
   grid-template-columns: 1fr 1fr 6fr 2fr 1fr;
-  grid-template-areas: 'initial . name . edit';
+  grid-template-areas: 'position . name . edit';
   padding: 0px;
 }
 
@@ -28,8 +28,8 @@
   padding-top: 4px;
 }
 
-.initial {
-  grid-area: initial;
+.position {
+  grid-area: position;
   padding-left: 8px;
   align-self: center;
 }

@@ -15,7 +15,7 @@ import Button from '../../../components/Custom/Button';
 import IconButton from '../../../components/Custom/IconButton';
 import EditPhase from '../EditPhase';
 import { useTranslation } from 'react-i18next';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../Store';
 import api from '../../../actions/api';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -48,8 +48,18 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PhaseAccordionDnD(props) {
-  const { phase, handleDeleteTeam, isOneExpanded, update, expandedPhases, setExpandedPhases, ...otherProps } = props;
-  const { content, ranking, isDone, spots, phaseId } = phase;
+  const {
+    phase,
+    handleDeleteTeam,
+    isOneExpanded,
+    update,
+    expandedPhases,
+    setExpandedPhases,
+    startPhase,
+    ...otherProps
+  } = props;
+  const { content, ranking, status, spots, phaseId } = phase;
+
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -137,7 +147,17 @@ export default function PhaseAccordionDnD(props) {
     }
   };
 
-  const buttons = [
+  const getStatus = () => {
+    if (status === PHASE_STATUS_ENUM.NOT_STARTED) {
+      return content + ' - ' + t('phase_not_started');
+    }
+    if (status === PHASE_STATUS_ENUM.STARTED) {
+      return content + ' - ' + t('phase_in_progress');
+    }
+    return content + ' - ' + t('phase_done');
+  };
+
+  const notStartedButtons = [
     {
       onClick: openEdit,
       name: t('edit.edit_team_number'),
@@ -167,30 +187,53 @@ export default function PhaseAccordionDnD(props) {
               {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
             </ListItemIcon>
           </div>
-          <ListItemText
-            primary={isDone ? content + ' - ' + t('phase_done') : content + ' - ' + t('phase_in_progress')}
-          />
+          <ListItemText primary={getStatus()} />
         </AccordionSummary>
         <AccordionDetails>
           <div className={styles.div}>
-            <div className={styles.buttonContainer}>
-              {buttons.map((button, index) => (
+            {status === PHASE_STATUS_ENUM.STARTED ? (
+              <></>
+            ) : (
+              <div className={styles.buttonContainer}>
                 <Button
                   onClick={() => {
-                    button.onClick();
-                    setMadeChanges(false);
+                    startPhase(phase);
                   }}
-                  color={button.color}
-                  type={button.type}
-                  disabled={button.name === t('edit.edit_team_number') ? isDone : isDone || !madeChanges}
-                  endIcon={window.innerWidth < 600 ? '' : button.endIcon}
-                  className={styles.button}
-                  key={index}
+                  color={'primary'}
+                  endIcon="Play"
                 >
-                  {window.innerWidth < 600 ? <Icon icon={button.endIcon} tooltip={''}></Icon> : button.name}
+                  {t('start_phase')}
                 </Button>
-              ))}
-            </div>
+              </div>
+            )}
+
+            {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+              <></>
+            ) : (
+              <div className={styles.buttonContainer}>
+                {notStartedButtons.map((button, index) => (
+                  <Button
+                    onClick={() => {
+                      button.onClick();
+                      setMadeChanges(false);
+                    }}
+                    color={button.color}
+                    type={button.type}
+                    disabled={
+                      button.name === t('edit.edit_team_number')
+                        ? status !== PHASE_STATUS_ENUM.NOT_STARTED
+                        : status !== PHASE_STATUS_ENUM.NOT_STARTED || !madeChanges
+                    }
+                    endIcon={window.innerWidth < 600 ? '' : button.endIcon}
+                    className={styles.button}
+                    key={index}
+                  >
+                    {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
+                  </Button>
+                ))}
+              </div>
+            )}
+
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
@@ -202,7 +245,12 @@ export default function PhaseAccordionDnD(props) {
                     {spots || spots > 0 ? (
                       <div>
                         {teams.map((team, index) => (
-                          <Draggable key={team.id} draggableId={team.id} index={index} isDragDisabled={isDone}>
+                          <Draggable
+                            key={team.id}
+                            draggableId={team.id}
+                            index={index}
+                            isDragDisabled={status !== PHASE_STATUS_ENUM.NOT_STARTED}
+                          >
                             {(provided, snapshot) => (
                               <div
                                 ref={provided.innerRef}
@@ -213,7 +261,11 @@ export default function PhaseAccordionDnD(props) {
                                 {team.isEmpty ? (
                                   <ListItem>
                                     <ListItemIcon>
-                                      <Icon icon="Reorder" color="textSecondary" />
+                                      {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+                                        <></>
+                                      ) : (
+                                        <Icon icon="Reorder" color="textSecondary" />
+                                      )}
                                     </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
@@ -234,21 +286,29 @@ export default function PhaseAccordionDnD(props) {
                                 ) : (
                                   <ListItem>
                                     <ListItemIcon>
-                                      <Icon icon="Reorder" color="textSecondary" />
+                                      {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+                                        <></>
+                                      ) : (
+                                        <Icon icon="Reorder" color="textSecondary" />
+                                      )}
                                     </ListItemIcon>
                                     <div className={styles.main} style={{ width: '100%' }}>
                                       <ListItemText className={styles.position} secondary={index + 1} />
                                       <ListItemText className={styles.name} primary={team.content} />
                                       <ListItemIcon className={styles.edit}>
-                                        <IconButton
-                                          className={styles.iconButton}
-                                          onClick={() => {
-                                            handleDeleteTeam(phaseId, index + 1);
-                                          }}
-                                          icon="Delete"
-                                          style={{ color: 'grey' }}
-                                          tooltip={t('delete.delete_team')}
-                                        ></IconButton>
+                                        {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+                                          <></>
+                                        ) : (
+                                          <IconButton
+                                            className={styles.iconButton}
+                                            onClick={() => {
+                                              handleDeleteTeam(phaseId, index + 1);
+                                            }}
+                                            icon="Delete"
+                                            style={{ color: 'grey' }}
+                                            tooltip={t('delete.delete_team')}
+                                          ></IconButton>
+                                        )}
                                       </ListItemIcon>
                                     </div>
                                   </ListItem>

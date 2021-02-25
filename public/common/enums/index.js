@@ -92,6 +92,12 @@ const MEMBERSHIP_TYPE_ENUM = {
   NOT_SPECIFIED: 5,
 };
 
+const PHASE_STATUS_ENUM = {
+  NOT_STARTED: 'not_started',
+  STARTED: 'started',
+  DONE: 'done',
+};
+
 const PLATEFORM_FEES = 0.05;
 const CARD_TYPE_ENUM = {
   CART: 'cart',
@@ -554,6 +560,7 @@ module.exports = {
   REJECTION_ENUM,
   REPORT_TYPE_ENUM,
   ROSTER_ROLE_ENUM,
+  PHASE_STATUS_ENUM,
   PHOTO_ENUM,
   ROUTES_ENUM,
   SCORE_SUBMISSION_CHATBOT_STATES,
