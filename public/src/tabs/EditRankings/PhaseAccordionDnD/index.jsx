@@ -29,14 +29,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
   background: isDragging ? '#F0F0F0' : 'white',
@@ -47,8 +39,17 @@ const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'whitesmoke' : 'white',
   width: '100%',
 });
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
+
 export default function PhaseAccordionDnD(props) {
-  const { title, teams: teamsProps, update, isDone, spots, phaseId, handleDeleteTeam, ...otherProps } = props;
+  const { phase, handleDeleteTeam, isOneExpanded, update, expandedPhases, setExpandedPhases, ...otherProps } = props;
+  const { content, ranking, isDone, spots, phaseId } = phase;
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -57,29 +58,39 @@ export default function PhaseAccordionDnD(props) {
 
   const [expanded, setExpanded] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
-  const [teams, setTeams] = useState(teamsProps);
+  const [teams, setTeams] = useState(ranking);
   const [edit, setEdit] = useState(false);
   const [add, setAdd] = useState(false);
 
   const [initialPosition, setInitialPosition] = useState();
 
   useEffect(() => {
-    setTeams(teamsProps);
-  }, [teamsProps]);
+    setTeams(ranking);
+  }, [ranking]);
 
   const onExpand = () => {
-    setExpanded((exp) => !exp);
+    setExpanded(true);
+    if (!expandedPhases.includes(phaseId)) {
+      setExpandedPhases(expandedPhases.concat([phaseId]));
+    }
+  };
+
+  const onShrink = () => {
+    setExpanded(false);
+    if (expandedPhases.includes(phaseId)) {
+      const newExpandedPhases = expandedPhases.filter((p) => p !== phaseId);
+      setExpandedPhases(newExpandedPhases);
+    }
   };
 
   const onDragEnd = (result) => {
-    if (!result.destination) {
+    if (result.destination.index === result.source.index) {
       return;
-    }
-    if (result.destination !== result.source) {
+    } else {
+      const newTeams = reorder(teams, result.source.index, result.destination.index);
       setMadeChanges(true);
+      setTeams(newTeams);
     }
-    const newTeams = reorder(teams, result.source.index, result.destination.index);
-    setTeams(newTeams);
   };
 
   const closeEdit = () => {
@@ -149,9 +160,16 @@ export default function PhaseAccordionDnD(props) {
 
   return (
     <>
-      <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
+      <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand} {...otherProps}>
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
-          <ListItemText primary={isDone ? title + ' - ' + t('phase_done') : title + ' - ' + t('phase_in_progress')} />
+          <div className={styles.orderContainer}>
+            <ListItemIcon>
+              {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
+            </ListItemIcon>
+          </div>
+          <ListItemText
+            primary={isDone ? content + ' - ' + t('phase_done') : content + ' - ' + t('phase_in_progress')}
+          />
         </AccordionSummary>
         <AccordionDetails>
           <div className={styles.div}>
@@ -194,6 +212,9 @@ export default function PhaseAccordionDnD(props) {
                               >
                                 {team.isEmpty ? (
                                   <ListItem>
+                                    <ListItemIcon>
+                                      <Icon icon="Reorder" color="textSecondary" />
+                                    </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
                                       <ListItemText className={styles.title} primary={t('add.add_team') + '...'} />

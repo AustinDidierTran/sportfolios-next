@@ -8,10 +8,11 @@ import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
 import { formatRoute } from '../../../../../../common/utils/stringFormat';
-import CustomTypography from '../../../Collapse';
-import CustomButton from '../../../Button';
-import CustomIconButton from '../../../IconButton';
-import CustomMultiSelect from '../../../MultiSelect';
+
+import Button from '../../../Button';
+import IconButton from '../../../IconButton';
+import MultiSelect from '../../../MultiSelect';
+
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
@@ -145,7 +146,7 @@ export default function SectionSpirit(props) {
         <Typography>{t('roster')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
-          <CustomIconButton
+          <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
             icon={expandedIcon}
@@ -154,18 +155,18 @@ export default function SectionSpirit(props) {
         </div>
       </div>
       <Divider />
-      <CustomTypography in={expanded} timeout="auto" unmountOnExit>
+      <Typography in={expanded} timeout="auto" unmountOnExit>
         <div className={styles.attendances}>
-          <CustomMultiSelect
+          <MultiSelect
             label={t('attendances')}
             options={fullRoster}
             values={formik.values.attendances}
             onChange={handleAttendancesChange}
           />
         </div>
-        <CustomButton className={styles.addSubButton} endIcon="Add" onClick={() => setAddPlayer(true)}>
+        <Button className={styles.addSubButton} endIcon="Add" onClick={() => setAddPlayer(true)}>
           {t('add.add_sub')}
-        </CustomButton>
+        </Button>
         <AddPlayer
           open={addPlayer}
           onClose={() => setAddPlayer(false)}
@@ -174,16 +175,16 @@ export default function SectionSpirit(props) {
           updateRoster={updateRoster}
         />
         <div className={styles.divSubmitButton}>
-          <CustomButton
+          <Button
             className={styles.submitButton}
             onClick={() => formik.handleSubmit()}
             color={'primary'}
             variant="text"
           >
             {t('submit')}
-          </CustomButton>
+          </Button>
         </div>
-      </CustomTypography>
+      </Typography>
     </div>
   );
 }

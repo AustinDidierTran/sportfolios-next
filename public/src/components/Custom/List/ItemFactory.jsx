@@ -24,10 +24,16 @@ const SalesItem = loadable(() => import('./SalesItem'));
 const TeamItem = loadable(() => import('./TeamItem'));
 const { AvatarAndTextSkeleton } = loadable(() => import('./SkeletonItems'));
 const NotificationSettingItem = loadable(() => import('./NotificationSettingItem'));
-const { RosterNotification } = loadable(() => import('./NotificationItems'));
-const { ScoreSubmissionConflictNotification } = loadable(() => import('./NotificationItems'));
-const { ScoreSubmissionRequestNotification } = loadable(() => import('./NotificationItems'));
-const { ConfirmOrDeclineScoreNotification } = loadable(() => import('./NotificationItems'));
+const RosterNotificationItem = loadable(() => import('./NotificationItem/RosterNotificationItem'));
+const ScoreSubmissionConflictNotificationItem = loadable(() =>
+  import('./NotificationItem/ScoreSubmissionConflictNotificationItem')
+);
+const ScoreSubmissionRequestNotificationItem = loadable(() =>
+  import('./NotificationItem/ScoreSubmissionRequestNotificationItem')
+);
+const ConfirmOrDeclineScoreNotificationItem = loadable(() =>
+  import('./NotificationItem/ConfirmOrDeclineScoreNotificationItem')
+);
 
 const ItemMap = {
   [GLOBAL_ENUM.EVENT]: EventItem,
@@ -52,10 +58,10 @@ const ItemMap = {
   [LIST_ITEM_ENUM.REPORT]: ReportItemFactory,
   [LIST_ITEM_ENUM.ROSTER_ITEM]: RosterItem,
   [LIST_ITEM_ENUM.SALES]: SalesItem,
-  [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: RosterNotification,
-  [NOTIFICATION_TYPE.OTHER_TEAM_SUBMITTED_A_SCORE]: ConfirmOrDeclineScoreNotification,
-  [NOTIFICATION_TYPE.SCORE_SUBMISSION_CONFLICT]: ScoreSubmissionConflictNotification,
-  [NOTIFICATION_TYPE.SCORE_SUBMISSION_REQUEST]: ScoreSubmissionRequestNotification,
+  [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: RosterNotificationItem,
+  [NOTIFICATION_TYPE.OTHER_TEAM_SUBMITTED_A_SCORE]: ConfirmOrDeclineScoreNotificationItem,
+  [NOTIFICATION_TYPE.SCORE_SUBMISSION_CONFLICT]: ScoreSubmissionConflictNotificationItem,
+  [NOTIFICATION_TYPE.SCORE_SUBMISSION_REQUEST]: ScoreSubmissionRequestNotificationItem,
 };
 
 export default function ItemFactory(props) {

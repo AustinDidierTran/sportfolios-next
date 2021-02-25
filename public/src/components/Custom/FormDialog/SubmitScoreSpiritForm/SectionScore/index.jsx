@@ -11,10 +11,10 @@ import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
-import CustomCollapse from '../../../Collapse';
-import CustomTextField from '../../../TextField';
-import CustomIconButton from '../../../IconButton';
-import CustomButton from '../../../Button';
+import Collapse from '../../../Collapse';
+import TextField from '../../../TextField';
+import IconButton from '../../../IconButton';
+import Button from '../../../Button';
 
 export default function SectionScore(props) {
   const { suggestions, gameId, IsSubmittedCheck, submissionerInfos } = props;
@@ -149,7 +149,7 @@ export default function SectionScore(props) {
         <Typography>{t('score.score')}</Typography>
         <div className={styles.expand}>
           {isSubmitted ? IsSubmittedCheck : <></>}
-          <CustomIconButton
+          <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
             icon={expandedIcon}
@@ -160,7 +160,7 @@ export default function SectionScore(props) {
         </div>
       </div>
       <Divider />
-      <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <div>
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <Typography className={styles.suggestedBy}>{'*' + t('suggested_by_the_other_team')}</Typography>
@@ -171,14 +171,14 @@ export default function SectionScore(props) {
             <Typography className={styles.teamName}>{`${submissionerInfos.myTeam.name}: (${t(
               'you.your_team'
             )})`}</Typography>
-            <CustomTextField
+            <TextField
               type="number"
               namespace="scoreTeam1"
               formik={formik}
               formikDisabled={isSubmitted || showSuggestion}
             />
             <Typography className={styles.teamName}>{`${submissionerInfos.enemyTeam.name}:`}</Typography>
-            <CustomTextField
+            <TextField
               type="number"
               namespace="scoreTeam2"
               formik={formik}
@@ -189,7 +189,7 @@ export default function SectionScore(props) {
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <div className={styles.divSubmitScoreButton}>
               <div className={styles.acceptRefuseScore}>
-                <CustomIconButton
+                <IconButton
                   color="primary"
                   icon="CheckCircle"
                   fontSize="large"
@@ -197,7 +197,7 @@ export default function SectionScore(props) {
                   onClick={handleAcceptSuggestion}
                   tooltip={t('accept')}
                 />
-                <CustomIconButton
+                <IconButton
                   color="secondary"
                   icon="Cancel"
                   fontSize="large"
@@ -217,7 +217,7 @@ export default function SectionScore(props) {
                   variant="outlined"
                 />
               ) : (
-                <CustomButton
+                <Button
                   className={styles.submitButton}
                   onClick={() => formik.handleSubmit()}
                   color={'primary'}
@@ -225,12 +225,12 @@ export default function SectionScore(props) {
                   disabled={isSubmitted || showSuggestion}
                 >
                   {t('submit')}
-                </CustomButton>
+                </Button>
               )}
             </div>
           )}
         </div>
-      </CustomCollapse>
+      </Collapse>
     </div>
   );
 }
