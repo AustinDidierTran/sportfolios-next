@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from './PhaseAccordionDnD';
 import PrerankAccordionDnD from './PrerankAccordionDnd';
+import StartedPhase from './StartedPhase';
 import FinalRanking from './FinalRanking';
 import Button from '../../components/Custom/Button';
 import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
@@ -170,17 +171,26 @@ export default function EditRankings() {
   };
 
   const startPhase = async (phase) => {
-    const rankings = phase.ranking.map((r) => r.roster_id);
-    if (!rankings.includes(null)) {
-      const res = await api('/api/entity/updatePhase', {
-        method: 'PUT',
-        body: JSON.stringify({
-          eventId,
-          phaseId: phase.phaseId,
-          status: PHASE_STATUS_ENUM.STARTED,
-        }),
-      });
-      update();
+    if (phase.spots) {
+      const rankings = phase.ranking.map((r) => r.roster_id);
+      if (!rankings.includes(null)) {
+        const res = await api('/api/entity/updatePhase', {
+          method: 'PUT',
+          body: JSON.stringify({
+            eventId,
+            phaseId: phase.phaseId,
+            status: PHASE_STATUS_ENUM.STARTED,
+          }),
+        });
+        update();
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('empty_phase_spots_warning'),
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 2000,
+        });
+      }
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -259,6 +269,14 @@ export default function EditRankings() {
                               setExpandedPhases={setExpandedPhases}
                               isOneExpanded={isOneExpanded}
                             ></FinalRanking>
+                          ) : phase.status === PHASE_STATUS_ENUM.STARTED ? (
+                            <StartedPhase
+                              phase={phase}
+                              isOneExpanded={isOneExpanded}
+                              expandedPhases={expandedPhases}
+                              setExpandedPhases={setExpandedPhases}
+                              onOpenAlertDialog={onOpenAlertDialog}
+                            ></StartedPhase>
                           ) : (
                             <PhaseAccordionDnD
                               phase={phase}
@@ -268,7 +286,6 @@ export default function EditRankings() {
                               setExpandedPhases={setExpandedPhases}
                               isOneExpanded={isOneExpanded}
                               startPhase={startPhase}
-                              onOpenAlertDialog={onOpenAlertDialog}
                             ></PhaseAccordionDnD>
                           )}
                         </div>
