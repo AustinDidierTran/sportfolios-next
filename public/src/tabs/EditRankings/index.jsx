@@ -253,7 +253,12 @@ export default function EditRankings() {
                       >
                         <div className={styles.div} key={phase.id}>
                           {phase.status === PHASE_STATUS_ENUM.DONE ? (
-                            <FinalRanking></FinalRanking>
+                            <FinalRanking
+                              phase={phase}
+                              expandedPhases={expandedPhases}
+                              setExpandedPhases={setExpandedPhases}
+                              isOneExpanded={isOneExpanded}
+                            ></FinalRanking>
                           ) : (
                             <PhaseAccordionDnD
                               phase={phase}

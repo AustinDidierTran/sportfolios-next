@@ -1,16 +1,22 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-areas: 'position name';
+  grid-template-columns: 1fr 6fr 2fr 1fr;
+  grid-template-areas: 'position name . .';
   padding: 0px;
 }
 
 .position {
   grid-area: position;
+  padding-left: 4px;
 }
 
 .name {
   grid-area: name;
+  padding-left: 8px;
+}
+
+.title {
+  margin-left: 40px !important;
 }
 
 .div {

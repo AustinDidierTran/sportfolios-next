@@ -118,7 +118,7 @@ export default function PrerankAccordionDnD(props) {
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
       <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
-        <ListItemText primary={title} />
+        <ListItemText primary={title} className={styles.title} />
       </AccordionSummary>
       <AccordionDetails>
         <div className={styles.div}>
