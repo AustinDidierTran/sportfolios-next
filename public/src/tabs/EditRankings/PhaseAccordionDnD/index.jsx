@@ -56,6 +56,7 @@ export default function PhaseAccordionDnD(props) {
     expandedPhases,
     setExpandedPhases,
     startPhase,
+    onOpenAlertDialog,
     ...otherProps
   } = props;
   const { content, ranking, status, spots, phaseId } = phase;
@@ -192,7 +193,17 @@ export default function PhaseAccordionDnD(props) {
         <AccordionDetails>
           <div className={styles.div}>
             {status === PHASE_STATUS_ENUM.STARTED ? (
-              <></>
+              <div className={styles.buttonContainer}>
+                <Button
+                  onClick={() => {
+                    onOpenAlertDialog(phase);
+                  }}
+                  color={'primary'}
+                  endIcon="Check"
+                >
+                  {t('end_phase')}
+                </Button>
+              </div>
             ) : (
               <div className={styles.buttonContainer}>
                 <Button

@@ -6,13 +6,15 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from './PhaseAccordionDnD';
 import PrerankAccordionDnD from './PrerankAccordionDnd';
+import FinalRanking from './FinalRanking';
 import Button from '../../components/Custom/Button';
+import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
 import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { ACTION_ENUM, Store } from '../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -41,9 +43,12 @@ export default function EditRankings() {
   const [preRanking, setPreRanking] = useState([]);
   const [expandedPhases, setExpandedPhases] = useState([]);
 
+  const [phaseToEnd, setPhaseToEnd] = useState({});
+
   const [openPhase, setOpenPhase] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
   const [isOneExpanded, setIsOneExpanded] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
   useEffect(() => {
     if (eventId) {
@@ -172,7 +177,7 @@ export default function EditRankings() {
         body: JSON.stringify({
           eventId,
           phaseId: phase.phaseId,
-          status: 'started',
+          status: PHASE_STATUS_ENUM.STARTED,
         }),
       });
       update();
@@ -184,6 +189,28 @@ export default function EditRankings() {
         duration: 2000,
       });
     }
+  };
+
+  const endPhase = async () => {
+    const res = await api('/api/entity/updatePhase', {
+      method: 'PUT',
+      body: JSON.stringify({
+        eventId,
+        phaseId: phaseToEnd.phaseId,
+        status: PHASE_STATUS_ENUM.DONE,
+      }),
+    });
+    update();
+    setOpenAlertDialog(false);
+  };
+
+  const onCloseAlertDialog = () => {
+    setOpenAlertDialog(false);
+  };
+
+  const onOpenAlertDialog = (phase) => {
+    setPhaseToEnd(phase);
+    setOpenAlertDialog(true);
   };
 
   return (
@@ -225,15 +252,20 @@ export default function EditRankings() {
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <div className={styles.div} key={phase.id}>
-                          <PhaseAccordionDnD
-                            phase={phase}
-                            update={getPhases}
-                            handleDeleteTeam={handleDeleteTeam}
-                            expandedPhases={expandedPhases}
-                            setExpandedPhases={setExpandedPhases}
-                            isOneExpanded={isOneExpanded}
-                            startPhase={startPhase}
-                          ></PhaseAccordionDnD>
+                          {phase.status === PHASE_STATUS_ENUM.DONE ? (
+                            <FinalRanking></FinalRanking>
+                          ) : (
+                            <PhaseAccordionDnD
+                              phase={phase}
+                              update={getPhases}
+                              handleDeleteTeam={handleDeleteTeam}
+                              expandedPhases={expandedPhases}
+                              setExpandedPhases={setExpandedPhases}
+                              isOneExpanded={isOneExpanded}
+                              startPhase={startPhase}
+                              onOpenAlertDialog={onOpenAlertDialog}
+                            ></PhaseAccordionDnD>
+                          )}
                         </div>
                       </div>
                     )}
@@ -246,6 +278,13 @@ export default function EditRankings() {
         </Droppable>
       </DragDropContext>
       <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
+      <AlertDialog
+        open={openAlertDialog}
+        onCancel={onCloseAlertDialog}
+        onSubmit={endPhase}
+        description={t('end_phase_warning')}
+        title={t('end_phase_warning_title')}
+      ></AlertDialog>
     </div>
   );
 }
