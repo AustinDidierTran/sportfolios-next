@@ -831,7 +831,7 @@ export default {
     empty_roster: "Cet alignement est vide. Le capitaine de cette équipe n'a pas entré son alignement.",
     end_phase: 'Terminer la phase',
     end_phase_warning:
-      'Êtes-vous certain de vouloir terminer cette phase ? Il peut avoir des parties en attente du pointage.',
+      'Êtes-vous certain de vouloir terminer cette phase? Il peut avoir des parties en attente du pointage.',
     end_phase_warning_title: 'Confirmer la fin de la phase',
     enter_person_name: 'Entrez le nom du joueur',
     enter_player_name: 'Entrez le nom du joueur',

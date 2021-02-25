@@ -816,7 +816,7 @@ export default {
     empty_roster_add_players: 'Your roster is empty. Use the search list to add players',
     empty_roster: "This roster is empty. The team captain didn't enter its roster.",
     end_phase: 'End phase',
-    end_phase_warning: 'Are you sure you want to end this phase ? There might be games awaiting score submissions.',
+    end_phase_warning: 'Are you sure you want to end this phase? There might be games awaiting score submissions.',
     end_phase_warning_title: 'Confirm phase end',
     enter_person_name: 'Enter person name',
     enter_player_name: 'Enter player name',
