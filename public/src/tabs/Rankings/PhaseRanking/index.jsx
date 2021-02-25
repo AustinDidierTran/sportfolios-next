@@ -16,6 +16,7 @@ export default function PhaseRankings() {
         eventId,
       })
     );
+    phases.sort((a, b) => a.phase_order - b.phase_order);
     const res = await Promise.all(
       phases.map(async (phase) => {
         const {
