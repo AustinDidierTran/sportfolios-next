@@ -1,5 +1,6 @@
 import React from 'react';
 import Analytics from '../../public/src/views/Analytics';
+import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 
 const AnalyticsRoute = () => {
