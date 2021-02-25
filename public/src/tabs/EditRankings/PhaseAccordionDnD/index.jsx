@@ -15,7 +15,7 @@ import Button from '../../../components/Custom/Button';
 import IconButton from '../../../components/Custom/IconButton';
 import EditPhase from '../EditPhase';
 import { useTranslation } from 'react-i18next';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../Store';
 import api from '../../../actions/api';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -59,6 +59,7 @@ export default function PhaseAccordionDnD(props) {
     ...otherProps
   } = props;
   const { content, ranking, status, spots, phaseId } = phase;
+
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -147,14 +148,13 @@ export default function PhaseAccordionDnD(props) {
   };
 
   const getStatus = () => {
-    if (status === 'not_started') {
+    if (status === PHASE_STATUS_ENUM.NOT_STARTED) {
       return content + ' - ' + t('phase_not_started');
     }
-    if (status === 'started') {
+    if (status === PHASE_STATUS_ENUM.STARTED) {
       return content + ' - ' + t('phase_in_progress');
-    } else {
-      return content + ' - ' + t('phase_done');
     }
+    return content + ' - ' + t('phase_done');
   };
 
   const notStartedButtons = [
@@ -191,7 +191,7 @@ export default function PhaseAccordionDnD(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div className={styles.div}>
-            {status === 'started' ? (
+            {status === PHASE_STATUS_ENUM.STARTED ? (
               <></>
             ) : (
               <div className={styles.buttonContainer}>
@@ -207,7 +207,7 @@ export default function PhaseAccordionDnD(props) {
               </div>
             )}
 
-            {status !== 'not_started' ? (
+            {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
               <></>
             ) : (
               <div className={styles.buttonContainer}>
@@ -221,14 +221,14 @@ export default function PhaseAccordionDnD(props) {
                     type={button.type}
                     disabled={
                       button.name === t('edit.edit_team_number')
-                        ? status !== 'not_started'
-                        : status !== 'not_started' || !madeChanges
+                        ? status !== PHASE_STATUS_ENUM.NOT_STARTED
+                        : status !== PHASE_STATUS_ENUM.NOT_STARTED || !madeChanges
                     }
                     endIcon={window.innerWidth < 600 ? '' : button.endIcon}
                     className={styles.button}
                     key={index}
                   >
-                    {window.innerWidth < 600 ? <Icon icon={button.endIcon} tooltip={''}></Icon> : button.name}
+                    {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
                   </Button>
                 ))}
               </div>
@@ -249,7 +249,7 @@ export default function PhaseAccordionDnD(props) {
                             key={team.id}
                             draggableId={team.id}
                             index={index}
-                            isDragDisabled={status !== 'not_started'}
+                            isDragDisabled={status !== PHASE_STATUS_ENUM.NOT_STARTED}
                           >
                             {(provided, snapshot) => (
                               <div
@@ -261,7 +261,11 @@ export default function PhaseAccordionDnD(props) {
                                 {team.isEmpty ? (
                                   <ListItem>
                                     <ListItemIcon>
-                                      {status !== 'not_started' ? <></> : <Icon icon="Reorder" color="textSecondary" />}
+                                      {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+                                        <></>
+                                      ) : (
+                                        <Icon icon="Reorder" color="textSecondary" />
+                                      )}
                                     </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
@@ -282,13 +286,17 @@ export default function PhaseAccordionDnD(props) {
                                 ) : (
                                   <ListItem>
                                     <ListItemIcon>
-                                      {status !== 'not_started' ? <></> : <Icon icon="Reorder" color="textSecondary" />}
+                                      {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+                                        <></>
+                                      ) : (
+                                        <Icon icon="Reorder" color="textSecondary" />
+                                      )}
                                     </ListItemIcon>
                                     <div className={styles.main} style={{ width: '100%' }}>
                                       <ListItemText className={styles.position} secondary={index + 1} />
                                       <ListItemText className={styles.name} primary={team.content} />
                                       <ListItemIcon className={styles.edit}>
-                                        {status !== 'not_started' ? (
+                                        {status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
                                           <></>
                                         ) : (
                                           <IconButton

@@ -166,13 +166,13 @@ export default function EditRankings() {
 
   const startPhase = async (phase) => {
     const rankings = phase.ranking.map((r) => r.roster_id);
-    console.log(rankings.includes(null));
     if (!rankings.includes(null)) {
-      const res = await api('/api/entity/startPhase', {
+      const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
           phaseId: phase.phaseId,
+          status: 'started',
         }),
       });
       update();
