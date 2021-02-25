@@ -6,8 +6,8 @@
 
 .stats {
   display: grid;
-  grid-template-columns: 1fr 1fr 4fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: '. position team win lose pointFor pointAgainst delta';
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 'position team win lose pointFor pointAgainst delta';
   width: 100%;
 }
 
