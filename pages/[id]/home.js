@@ -31,16 +31,52 @@ export default function EntityRoute() {
   });
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <>
+        <Head>
+          <meta property="og:title" content={t('metadata.[id].home.title')} />
+          <meta property="og:description" content={t('metadata.[id].home.description')} />
+          <meta
+            property="og:image"
+            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210213-xfi77-8317ff33-3b04-49a1-afd3-420202cddf73"
+          />
+        </Head>
+        <LoadingSpinner />
+      </>
+    );
   }
   if (!response) {
-    return <Error />;
+    return (
+      <>
+        <Head>
+          <meta property="og:title" content={t('metadata.[id].home.title')} />
+          <meta property="og:description" content={t('metadata.[id].home.description')} />
+          <meta
+            property="og:image"
+            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210213-xfi77-8317ff33-3b04-49a1-afd3-420202cddf73"
+          />
+        </Head>
+        <Error />
+      </>
+    );
   }
 
   const EntityObject = EntityMap[response.basicInfos.type];
 
   if (!EntityObject) {
-    return <Error />;
+    return (
+      <>
+        <Head>
+          <meta property="og:title" content={t('metadata.[id].home.title')} />
+          <meta property="og:description" content={t('metadata.[id].home.description')} />
+          <meta
+            property="og:image"
+            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210213-xfi77-8317ff33-3b04-49a1-afd3-420202cddf73"
+          />
+        </Head>
+        <Error />
+      </>
+    );
   }
 
   return (
