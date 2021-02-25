@@ -9,17 +9,25 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '../../Avatar';
 import Players from './Players';
 import { formatPrice } from '../../../../../common/utils/stringFormat';
+import StatusChip from './StatusChip';
 
 export default function AcceptTeamInfos(props) {
-  const { id, name, photoUrl, roster, team, paymentOption } = props;
+  const { name, photoUrl, roster, paymentOption, registrationStatus } = props;
+
   const { t } = useTranslation();
   return (
     <Card className={styles.card}>
       <CardHeader
         className={styles.header}
         avatar={<Avatar aria-label="recipe" photoUrl={photoUrl}></Avatar>}
-        title={name}
-        titleTypographyProps={{ variant: 'h5' }}
+        title={
+          <div className={styles.title}>
+            <Typography variant="h5">{name}</Typography>
+            <div className={styles.chip}>
+              <StatusChip registrationStatus={registrationStatus} />
+            </div>
+          </div>
+        }
       />
       <CardContent>
         <div className={styles.div}>

@@ -363,6 +363,7 @@ export default {
       teams_saved: 'Équipes sauvegardées!',
       teams_unregister_success: 'Équipes désinscrites avec succès',
       teams: 'Équipes',
+      team_skipped: 'Équipe passée',
     },
     member: {
       member_added: 'Membre ajouté',
@@ -631,6 +632,7 @@ export default {
         'Vous avez ajouté {{amount}} {{name}} à votre panier pour un total de {{total}}.',
       your_score: 'Votre pointage',
       your_spirit: 'Votre esprit de jeu',
+      you_swiped_everyone: 'Vous avez passé tout le monde',
       your_team: 'Votre équipe',
       your_total_is: 'Votre total est de',
       your_upcoming_events: 'Vos prochains événements',
@@ -1026,6 +1028,7 @@ export default {
     refunded: 'Remboursé',
     refuse: 'Refuser',
     refused: 'Refusé',
+    refresh: 'Rafraîchir',
     remove_bank_account_confirmation:
       'Êtes-vous certain de vouloir retirer le compte bancaire finissant par {{last4}} de votre organisation?',
     remove_from_roster: "Retirer de l'alignement",
@@ -1036,6 +1039,7 @@ export default {
     reports: 'Rapports',
     reset_password: 'Réinitialiser le mot de passe',
     reset: 'Réinitialiser',
+    reserve: 'Réserver',
     results: 'Résultats',
     return_home: "Retourner à la page d'accueil",
     review: 'Passer en revue et payer',
@@ -1087,6 +1091,7 @@ export default {
     sizes_enum_xxxl: '3X-Large',
     sizes_enum_xxxs: '3X-Small',
     sizes: 'Grandeurs',
+    skip: 'Passer',
     some_teams_cannot_be_deleted:
       "Des équipes n'ont pas pu être désinscrites de l'événement puisqu'elles sont déjà dans des parties.",
     something_went_wrong: "Une erreur s'est produite. Veuillez réessayer.",

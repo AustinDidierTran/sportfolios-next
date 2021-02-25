@@ -225,6 +225,11 @@ export default {
         description:
           "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
       },
+      teamsAcceptation: {
+        title: 'Sportfolios',
+        description:
+          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+      },
       transferPersonExpired: {
         title: 'Sportfolios',
         description:
@@ -359,6 +364,7 @@ export default {
       teams_saved: 'Teams saved!',
       teams_unregister_success: 'Teams unregistered successfully',
       teams: 'Teams',
+      team_skipped: 'Team skipped',
     },
     member: {
       member_added: 'Member added',
@@ -616,6 +622,7 @@ export default {
       your_item_has_been_added_to_cart: 'You added {{amount}} {{name}} to your cart for a total of {{total}}.',
       your_score: 'Your score',
       your_spirit: 'Your spirit',
+      you_swiped_everyone: 'You swiped everyone',
       your_team: 'Your team',
       your_total_is: 'Your total is',
       your_upcoming_events: 'Your Upcoming Events',
@@ -1015,6 +1022,7 @@ export default {
     refunded: 'Refunded',
     refuse: 'Refuse',
     refused: 'Refused',
+    refresh: 'Refresh',
     remove_bank_account_confirmation:
       'Are you sure you want to remove bank account ending with {{last4}} from your organization?',
     remove_from_roster: 'Remove from roster',
@@ -1025,6 +1033,7 @@ export default {
     reports: 'Reports',
     reset_password: 'Reset password',
     reset: 'Reset',
+    reserve: 'Reserve',
     results: 'Results',
     return_home: 'Return home',
     review: 'Review & Pay',
@@ -1075,6 +1084,7 @@ export default {
     sizes_enum_xxxl: '3X-Large',
     sizes_enum_xxxs: '3X-Small',
     sizes: 'Sizes',
+    skip: 'Skip',
     some_teams_cannot_be_deleted: "Some teams can't be unregistered from the event since they are already in a game.",
     something_went_wrong: 'Something went wrong, please try again',
     spirit_chart_ligue_mardi: '0: Bad 1: Below average 2: Good or nothing to report 3: Very good 4: Exceptional',

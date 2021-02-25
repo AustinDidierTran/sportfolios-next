@@ -9,10 +9,11 @@
   justify-content: center !important;
 }
 .button {
-  margin-left: 16px !important;
-  margin-top: 32px !important;
-  margin-right: 16px !important;
+  margin: 8px !important;
   padding: 8px !important;
+}
+.refreshButton {
+  margin: 32px !important;
 }
 .IgContainer {
   text-align: inherit !important;
