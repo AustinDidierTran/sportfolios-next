@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useContext, useState } from 'react';
 
-import { Card } from '../../../../../components/Custom';
+import Card from '../../../../../components/Custom/Card';
 import { CARD_TYPE_ENUM } from '../../../../../../common/enums';
 import { useRouter } from 'next/router';
 

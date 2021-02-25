@@ -23,7 +23,7 @@ export default function GameDetailed(props) {
   const [possibleSubmissionersInfos, setpossibleSubmissionersInfos] = useState([]);
   const [submitScore, setSubmitScore] = useState(false);
 
-  useEffect(async () => {
+  const initializeGameAndTeams = async () => {
     const { status, data } = await api(
       formatRoute('/api/entity/game', null, {
         gameId: gameId,
@@ -73,6 +73,10 @@ export default function GameDetailed(props) {
         severity: SEVERITY_ENUM.INFO,
       });
     }
+  };
+
+  useEffect(() => {
+    initializeGameAndTeams();
   }, [gameId]);
 
   const openSubmitScore = async () => {
@@ -147,12 +151,10 @@ export default function GameDetailed(props) {
 
   const optionsTeam = useMemo(
     () =>
-      possibleTeams.map((t) => {
-        return {
-          value: t.rosterId,
-          display: t.name,
-        };
-      }),
+      possibleTeams.map((t) => ({
+        value: t.rosterId,
+        display: t.name,
+      })),
     [possibleTeams]
   );
 
