@@ -26,14 +26,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 const getTeamstyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
   background: isDragging ? '#F0F0F0' : 'white',
@@ -44,6 +36,13 @@ const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'whitesmoke' : 'white',
   width: '100%',
 });
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
 
 export default function PrerankAccordionDnD(props) {
   const { title, teams: teamsProps, update, id, ...otherProps } = props;
@@ -66,12 +65,12 @@ export default function PrerankAccordionDnD(props) {
   };
 
   const onDragEnd = (result) => {
-    if (!result.destination) {
+    if (result.destination.index === result.source.index) {
       return;
     }
     const newteams = reorder(teams, result.source.index, result.destination.index);
-    setTeams(newteams);
     setMadeChanges(true);
+    setTeams(newteams);
   };
 
   const onCancel = () => {

@@ -1,13 +1,13 @@
-import NotificationItem from './NotificationItem';
+import NotificationItem from '../index';
 import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { SEVERITY_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../../common/enums';
-import api from '../../../../actions/api';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import CustomButton from '../../Button';
+import { ACTION_ENUM, Store } from '../../../../../Store';
+import { SEVERITY_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../../../common/enums';
+import api from '../../../../../actions/api';
+import { goTo, ROUTES } from '../../../../../actions/goTo';
+import Button from '../../../Button';
 
-export default function ConfirmOrDeclineScoreNotification(props) {
+export default function ConfirmOrDeclineScoreNotificationItem(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const { metadata, onClick, ...otherProps } = props;
@@ -78,7 +78,7 @@ export default function ConfirmOrDeclineScoreNotification(props) {
   }, []);
 
   const buttons = [
-    <CustomButton
+    <Button
       key={'button1' + props.id}
       color="primary"
       variant="contained"
@@ -87,8 +87,8 @@ export default function ConfirmOrDeclineScoreNotification(props) {
       disabled={submitted}
     >
       {submitted ? t('confirmed') : t('confirm')}
-    </CustomButton>,
-    <CustomButton
+    </Button>,
+    <Button
       key={'button2' + props.id}
       style={{ marginRight: '10px' }}
       textColor="grey"
@@ -96,7 +96,7 @@ export default function ConfirmOrDeclineScoreNotification(props) {
       onClick={handleClick}
     >
       {t('see_more')}
-    </CustomButton>,
+    </Button>,
   ];
 
   return (

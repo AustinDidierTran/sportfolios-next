@@ -78,19 +78,10 @@ export default function EditPersonInfos(props) {
   }, [personInfos]);
 
   const validate = (values) => {
-    const { name, surname, gender } = values;
+    const { name } = values;
     const errors = {};
     if (!name.length) {
       errors.name = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!surname.length) {
-      errors.surname = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!gender.length) {
-      errors.gender = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!birthDate.value) {
-      errors.birthDate = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
     return errors;
   };

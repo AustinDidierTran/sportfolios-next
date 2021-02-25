@@ -1,9 +1,10 @@
-import NotificationItem from './NotificationItem';
+import NotificationItem from '../index';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { TABS_ENUM } from '../../../../../common/enums';
-export default function ScoreSubmissionRequestNotification(props) {
+import { goToScrollTo, ROUTES } from '../../../../../actions/goTo';
+import { TABS_ENUM } from '../../../../../../common/enums';
+
+export default function ScoreSubmissionConflictNotificationItem(props) {
   const { t } = useTranslation();
   const { metadata, onClick, ...otherProps } = props;
 
@@ -13,10 +14,11 @@ export default function ScoreSubmissionRequestNotification(props) {
     if (onClick) {
       onClick();
     }
-    goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, game: gameId });
+
+    goToScrollTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.EDIT_SCHEDULE }, gameId);
   }
 
-  const description = t('score.score_submission_request_notif_description', {
+  const description = t('score.score_submission_conflict_notif_description', {
     eventName,
   });
 

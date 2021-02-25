@@ -16,9 +16,12 @@ export default function PhaseRankings() {
         eventId,
       })
     );
+    phases.sort((a, b) => a.phase_order - b.phase_order);
     const res = await Promise.all(
       phases.map(async (phase) => {
-        const { data: games } = await api(
+        const {
+          data: { games, teams: allTeams },
+        } = await api(
           formatRoute('/api/entity/phasesGameAndTeams', null, {
             eventId,
             phaseId: phase.id,
@@ -53,6 +56,12 @@ export default function PhaseRankings() {
           const res2 = teams.find((t) => game.teams[1].team_id === t.id);
           game.teams[1].position = res2.position;
         });
+        allTeams.forEach((t) => {
+          if (!teams.map((t) => t.id).includes(t.teamId)) {
+            teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
+          }
+        });
+
         const ranking = updateRanking(teams, games);
         return { ranking, title: phase.name };
       })
@@ -63,6 +72,7 @@ export default function PhaseRankings() {
   useEffect(() => {
     getPhases();
   }, []);
+
   return (
     <>
       {phases.map((phase, index) => (

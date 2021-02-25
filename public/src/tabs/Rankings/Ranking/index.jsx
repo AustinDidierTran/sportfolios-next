@@ -33,10 +33,6 @@ export default function Ranking(props) {
     getItems();
   }, [ranking]);
 
-  if (!ranking.length) {
-    return <></>;
-  }
-
   return (
     <div className={styles.div}>
       <Accordion title={title} content={<List items={items} />} />

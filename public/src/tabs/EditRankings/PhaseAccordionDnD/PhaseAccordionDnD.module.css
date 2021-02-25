@@ -1,43 +1,54 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 1fr 4fr;
-  grid-template-areas: 'position name edit';
+  grid-template-columns: 1fr 1fr 6fr 2fr 1fr;
+  grid-template-areas: 'initial . name . edit';
   padding: 0px;
 }
 
 .spots {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: 'positionHolder title add';
+  grid-template-columns: 1fr 1fr 6fr 2fr 1fr;
+  grid-template-areas: 'positionHolder . title . add';
   padding: 0px;
 }
 
 .title {
   grid-area: title;
+  align-self: center;
 }
 
 .add {
   grid-area: add;
   justify-self: end;
+  align-self: center;
 }
 
-.position {
-  grid-area: position;
+.orderContainer {
+  display: flex;
+  padding-top: 4px;
+}
+
+.initial {
+  grid-area: initial;
+  padding-left: 8px;
+  align-self: center;
 }
 
 .positionHolder {
   grid-area: positionHolder;
-  justify-self: center;
-  padding-left: 16px;
+  padding-left: 8px;
+  align-self: center;
 }
 
 .name {
   grid-area: name;
+  align-self: center;
 }
 
 .edit {
   grid-area: edit;
   justify-self: end;
+  align-self: center;
 }
 
 .div {
@@ -64,6 +75,7 @@
 .iconButton {
   margin-right: 20px;
   justify-self: end;
+  align-self: center;
 }
 
 @media (min-width: 600px) {
