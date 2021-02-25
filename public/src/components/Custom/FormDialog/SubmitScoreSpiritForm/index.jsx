@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import CustomButton from '../../Button';
-import CustomIcon from '../../Icon';
+import Button from '../../Button';
+import Icon from '../../Icon';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -44,7 +44,7 @@ export default function SubmitScoreDialog(props) {
   const SubmittedCheck = (
     <div className={styles.submitted}>
       <Typography className={styles.submitText}>{t('submitted')}</Typography>
-      <CustomIcon icon="CheckCircleOutline" color="#54AF51" />
+      <Icon icon="CheckCircleOutline" color="#54AF51" />
     </div>
   );
 
@@ -80,9 +80,9 @@ export default function SubmitScoreDialog(props) {
           />
         </DialogContent>
         <DialogActions>
-          <CustomButton onClick={onClose} color="primary">
+          <Button onClick={onClose} color="primary">
             {t('close')}
-          </CustomButton>
+          </Button>
         </DialogActions>
       </div>
     </Dialog>
