@@ -26,21 +26,28 @@ const TeamsAcceptationRoute = () => {
   };
 
   const getCardsInfos = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/teamsPending', null, {
-        eventId,
-      })
-    );
+    if (eventId) {
+      const { data } = await api(
+        formatRoute('/api/entity/teamsPendingAndRefused', null, {
+          eventId,
+        })
+      );
 
-    const teams = data?.map((t) => {
-      return { items: t, type: CARD_TYPE_ENUM.ACCEPT_TEAM_INFOS };
-    });
-    if (rosterId) {
-      teams?.sort((a, b) => {
-        return a.items.id == rosterId ? -1 : b.items.id == rosterId ? 1 : 0;
+      const pending = data.pending?.map((t) => {
+        return { items: t, type: CARD_TYPE_ENUM.ACCEPT_TEAM_INFOS };
       });
+      const refused = data.refused?.map((t) => {
+        return { items: t, type: CARD_TYPE_ENUM.ACCEPT_TEAM_INFOS };
+      });
+      const teams = pending.concat(refused);
+
+      if (rosterId) {
+        teams?.sort((a, b) => {
+          return a.items.id == rosterId ? -1 : b.items.id == rosterId ? 1 : 0;
+        });
+      }
+      setCards(teams);
     }
-    setCards(teams);
   };
 
   useEffect(() => {
@@ -59,7 +66,7 @@ const TeamsAcceptationRoute = () => {
           content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
         />
       </Head>
-      <TeamsAcceptation cards={cards} update={update} />
+      <TeamsAcceptation cards={cards} update={update} getCards={getCardsInfos} />
     </>
   );
 };

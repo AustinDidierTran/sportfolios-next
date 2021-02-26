@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import TinderCard from 'react-tinder-card';
 import Card from '../../components/Custom/Card';
@@ -10,16 +10,63 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { ACTION_ENUM, Store } from '../../Store';
 import IgContainer from '../../components/Custom/IgContainer';
-import AcceptTeamInfos from '../../components/Custom/Card/AcceptTeamInfos';
-
-const alreadyRemoved = [];
 
 export default function PlayersAndTeamsAcceptation(props) {
-  const { cards: cardsProps, update } = props;
+  const { cards: cardsProps, update, getCards } = props;
   const { dispatch } = useContext(Store);
   const { t } = useTranslation();
 
   const [noCards, setNoCards] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [alreadyRemoved, setAlreadyRemoved] = useState([]);
+
+  useEffect(() => {
+    getCards();
+    if (document) {
+      document.onkeydown = checkKey;
+    }
+    if (window) {
+      window.onbeforeunload = onExit;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!cards || !cards.length) {
+      setNoCards(true);
+    } else {
+      setNoCards(false);
+    }
+  }, [cards]);
+
+  useEffect(() => {
+    setCards(cardsProps.map((card) => ({ items: { ...card.items, swipe }, type: card.type })));
+  }, [cardsProps]);
+
+  const childRefs = useMemo(() => {
+    if (cards) {
+      return Array(cards.length)
+        .fill(0)
+        .map((i) => React.createRef());
+    }
+    return [];
+  }, [cards]);
+
+  const checkKey = (e) => {
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+      swipe(DIRECTION_ENUM.UP);
+    } else if (e.keyCode == '37') {
+      swipe(DIRECTION_ENUM.LEFT);
+    } else if (e.keyCode == '39') {
+      swipe(DIRECTION_ENUM.RIGHT);
+    }
+  };
+
+  const onExit = () => {
+    setCards([]);
+    setAlreadyRemoved([]);
+  };
 
   const swiped = (direction, id) => {
     const card = cards.find((card) => {
@@ -43,6 +90,14 @@ export default function PlayersAndTeamsAcceptation(props) {
         vertical: 'top',
       });
     }
+    if (direction === DIRECTION_ENUM.UP) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('team.team_skipped'),
+        severity: SEVERITY_ENUM.INFO,
+        vertical: 'top',
+      });
+    }
     alreadyRemoved.push(id);
     if (alreadyRemoved.length === cards.length) {
       setNoCards(true);
@@ -50,26 +105,13 @@ export default function PlayersAndTeamsAcceptation(props) {
   };
 
   const swipe = (dir) => {
+    if (alreadyRemoved.length === cards.length) {
+      return;
+    }
     const cardsLeft = cards.filter((card) => !alreadyRemoved.includes(card.items.id));
     const index = cards.findIndex((card) => card.items.id === cardsLeft[0].items.id);
     childRefs[index].current.swipe(dir);
   };
-
-  const cards = useMemo(() => {
-    if (cardsProps) {
-      return cardsProps.map((card) => ({ items: { ...card.items, swipe }, type: card.type }));
-    }
-    return [];
-  }, [cardsProps]);
-
-  const childRefs = useMemo(() => {
-    if (cards) {
-      return Array(cards.length)
-        .fill(0)
-        .map((i) => React.createRef());
-    }
-    return [];
-  }, [cards]);
 
   if (noCards || !cards) {
     return (
@@ -86,8 +128,19 @@ export default function PlayersAndTeamsAcceptation(props) {
           <Typography color="textSecondary">{cards[0]?.items.event.name}</Typography>
         </div>
         <Typography variant="h5" className={styles.text} color="textSecondary">
-          {t('there_are_no_more_team_to_accept')}
+          {t('you.you_swiped_everyone')}
         </Typography>
+        <div className={styles.buttons}>
+          <Button
+            onClick={() => {
+              location.reload();
+            }}
+            color={'primary'}
+            className={styles.refreshButton}
+          >
+            {t('refresh')}
+          </Button>
+        </div>
       </IgContainer>
     );
   }
@@ -109,11 +162,7 @@ export default function PlayersAndTeamsAcceptation(props) {
         <div style={{ display: 'flex' }}>
           {cards.map((card, index) => (
             <div key={card.items.id}>
-              <TinderCard
-                ref={childRefs[index]}
-                onSwipe={(dir) => swiped(dir, card.items.id)}
-                preventSwipe={['up', 'down']}
-              >
+              <TinderCard ref={childRefs[index]} onSwipe={(dir) => swiped(dir, card.items.id)} preventSwipe={['down']}>
                 <Card type={card?.type} items={card?.items} />
               </TinderCard>
             </div>
@@ -129,6 +178,15 @@ export default function PlayersAndTeamsAcceptation(props) {
               className={styles.button}
             >
               {t('decline')}
+            </Button>
+            <Button
+              onClick={() => {
+                swipe(DIRECTION_ENUM.UP);
+              }}
+              color={'default'}
+              className={styles.button}
+            >
+              {t('skip')}
             </Button>
             <Button
               onClick={() => {

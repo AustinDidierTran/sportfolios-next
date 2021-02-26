@@ -37,6 +37,20 @@ export default function StatusChip(props) {
       </div>
     );
   }
+  if (registrationStatus === STATUS_ENUM.REFUSED) {
+    return (
+      <div className={classes.root}>
+        <Chip
+          onClick={() => {
+            goTo(ROUTES.teamsAcceptation, { id: eventId }, { rosterId });
+          }}
+          label={t(registrationStatus)}
+          color="secondary"
+          variant="outlined"
+        />
+      </div>
+    );
+  }
   if (status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE) {
     return (
       <div className={classes.root}>

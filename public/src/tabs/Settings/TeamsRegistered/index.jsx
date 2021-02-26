@@ -57,6 +57,7 @@ export default function TeamsRegistered() {
         eventId,
       })
     );
+
     if (data) {
       setTeams(data);
     }

@@ -21,14 +21,16 @@ export default function EventSettings() {
   const { id: eventId } = router.query;
 
   const getInfos = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/event', null, {
-        eventId,
-      })
-    );
-    formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
-    formik.setFieldValue('startDate', moment(data.start_date).format('YYYY-MM-DD'));
-    formik.setFieldValue('endDate', moment(data.end_date).format('YYYY-MM-DD'));
+    if (eventId) {
+      const { data } = await api(
+        formatRoute('/api/entity/event', null, {
+          eventId,
+        })
+      );
+      formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
+      formik.setFieldValue('startDate', moment(data.start_date).format('YYYY-MM-DD'));
+      formik.setFieldValue('endDate', moment(data.end_date).format('YYYY-MM-DD'));
+    }
   };
 
   useEffect(() => {

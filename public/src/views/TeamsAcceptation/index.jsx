@@ -3,7 +3,7 @@ import React from 'react';
 import PlayersAndTeamsAcceptation from '../PlayersAndTeamsAcceptation';
 
 export default function TeamsAcceptation(props) {
-  const { cards, update } = props;
+  const { cards, update, getCards } = props;
 
-  return <PlayersAndTeamsAcceptation cards={cards} update={update} />;
+  return <PlayersAndTeamsAcceptation cards={cards} update={update} getCards={getCards} />;
 }
