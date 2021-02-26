@@ -480,6 +480,7 @@ export default {
       edit_membership: 'Edit membership',
       edit_mode: 'Edit mode',
       edit_player: 'Edit player',
+      edit_score: 'Edit score',
       edit_team_number: 'Edit number of teams',
       edit_your_primary_person: 'Edit your primary person',
       edit: 'Edit',
