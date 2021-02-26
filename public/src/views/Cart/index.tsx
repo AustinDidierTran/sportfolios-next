@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useMemo } from 'react';
 import TabsGenerator from '../../tabs';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { IgContainer, Paper, Tab, Tabs } from '../../components/Custom';
@@ -15,6 +14,13 @@ const Cart: React.FunctionComponent<IProps> = (props) => {
   const tabsList = [TABS_ENUM.CART, TABS_ENUM.PURCHASES];
   const states = TabsGenerator({ list: tabsList });
 
+  const value = useMemo(() => {
+    if (states.findIndex((s: { value: string }) => s.value === openTab) === -1) {
+      return 0;
+    }
+    return states.findIndex((s: { value: string }) => s.value === openTab);
+  }, [openTab]);
+
   const OpenTab = tabsList.includes(openTab)
     ? states.find((s: { value: string }) => s.value == openTab).component
     : states.find((s: { value: string }) => s.value === TABS_ENUM.CART).component;
@@ -26,11 +32,7 @@ const Cart: React.FunctionComponent<IProps> = (props) => {
   return (
     <IgContainer>
       <Paper style={{ marginBottom: '8px' }}>
-        <Tabs
-          value={states.findIndex((s: { value: string }) => s.value === openTab)}
-          indicatorColor="primary"
-          textColor="primary"
-        >
+        <Tabs value={value} indicatorColor="primary" textColor="primary">
           {states.map((s: { label: any; icon: any }, index: string | number | null | undefined) => (
             <Tab key={index} onClick={() => onClick(s)} label={s.label} icon={s.icon} />
           ))}

@@ -106,6 +106,13 @@ export default function Event(props) {
     }
   };
 
+  const value = useMemo(() => {
+    if (states.findIndex((s) => s.value === tab) === -1) {
+      return 0;
+    }
+    return states.findIndex((s) => s.value === tab);
+  }, [tab]);
+
   if (!states || states.length == 1) {
     return (
       <IgContainer>
@@ -142,7 +149,7 @@ export default function Event(props) {
         <meta property="og:locale" content="fr_CA" />
       </Helmet>
       <Paper>
-        <Tabs value={states.findIndex((s) => s.value === tab)} indicatorColor="primary" textColor="primary">
+        <Tabs value={value} indicatorColor="primary" textColor="primary">
           {states.map((s, index) => (
             <Tab
               key={index}
