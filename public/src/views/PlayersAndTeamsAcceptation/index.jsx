@@ -22,15 +22,9 @@ export default function PlayersAndTeamsAcceptation(props) {
 
   useEffect(() => {
     getCards();
-  }, []);
-
-  useEffect(() => {
     if (document) {
       document.onkeydown = checkKey;
     }
-  }, []);
-
-  useEffect(() => {
     if (window) {
       window.onbeforeunload = onExit;
     }
