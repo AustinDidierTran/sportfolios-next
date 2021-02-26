@@ -6,234 +6,249 @@ export default {
       forYouPage: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       '[id]': {
         about: {
           title: 'Sportfolios',
           description:
-            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
         edit: {
           title: 'Sportfolios',
           description:
-            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
         events: {
           title: 'Sportfolios',
           description:
-            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
         home: {
           title: 'Sportfolios',
           description:
-            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
         league: {
           title: 'Sportfolios',
           description:
-            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
         '[id]': {
           title: 'Sportfolios',
           description:
-            "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
       },
       confirmationEmailSent: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       confirmEmail: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       eventRegistration: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       inviteRoster: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       playersAcceptation: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       sales: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       scheduleInteractiveTool: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       shopDetails: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       teamAcceptation: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       transerPerson: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       addBankAccount: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       addPaymentMethod: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       adminPanel: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
+      analytics: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       cart: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       checkout: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       confirmEmailFailure: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       confirmeEmailSuccess: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       createEvent: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       createOrganization: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       createPerson: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       createTeam: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       forgotPassword: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       importMembers: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       landingPage: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       login: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       membersList: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       menu: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       notifications: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       orderProcessed: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       privacy: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       productAddedToCart: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       recoveryEmail: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       redirect: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       registrationStatus: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       scheduleManager: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       search: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       signup: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
+      teamsAcceptation: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
+      transferPerson: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       transferPersonExpired: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
       userSettings: {
         title: 'Sportfolios',
         description:
-          "Create an account or log into Sportfolios. Modernise your organization's brand and increase your efficiency in your operations. Spend less time doing logistics and spend more time with your community.",
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
     },
     landingPage: {
