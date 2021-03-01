@@ -7,6 +7,12 @@ import api from '../api';
 export const ROUTES = ROUTES_ENUM;
 
 export const goTo = (route, params, queryParams) => {
+  if (route === ROUTES.entity) {
+    const { id } = params;
+    goToAlias(id, params, queryParams);
+    return;
+  }
+
   Router.push(formatRoute(route, params, queryParams));
 };
 
@@ -25,7 +31,16 @@ export const goToAlias = async (entityId, params, queryParams) => {
     })
   );
 
-  Router.push(formatRoute(data ? data.alias || data.entityId : ROUTES.entityNotFound, params, queryParams));
+  if (!data) {
+    Router.push(ROUTES.entityNotFound);
+  }
+
+  const entity = data.alias || data.entityId;
+
+  const allParams = { id: entity, ...params };
+  const route = formatRoute(ROUTES.entity, allParams, queryParams);
+
+  Router.push(route);
 };
 
 export const goToAndReplace = (route, params, queryParams) => {
