@@ -302,10 +302,10 @@ export default function GameDetailed(props) {
           ))}
         </div>
         <div>
-          {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
+          {possibleSubmissioners.length > 0 && !game.score_submited && (
             <CustomButton onClick={openSubmitScore}>{t('submit_score')}</CustomButton>
           )}
-          {possibleSubmissioners.length > 0 && game.scoreSubmited && <div>{t('score.score_confirmed')}</div>}
+          {possibleSubmissioners.length > 0 && game.score_submited && <div>{t('score.score_confirmed')}</div>}
         </div>
       </div>
       <SubmitScoreDialog
