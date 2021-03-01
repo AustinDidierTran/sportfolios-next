@@ -35,10 +35,10 @@ export default function Rankings() {
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
 
     games.map((game) => {
-      const res1 = ranking.find((r) => game.teams[0].team_id === r.id);
+      const res1 = ranking.find((r) => game.teams[0].teamId === r.teamId);
       game.teams[0].position = res1.position;
 
-      const res2 = ranking.find((r) => game.teams[1].team_id === r.id);
+      const res2 = ranking.find((r) => game.teams[1].teamId === r.teamId);
       game.teams[1].position = res2.position;
     });
 

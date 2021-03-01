@@ -19,13 +19,13 @@
 
 .mobileNotificationsContainer {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .notificationsContainer {
   flex: 1;
   margin-left: 8px;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .notificationsContainer::-webkit-scrollbar {
