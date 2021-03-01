@@ -1,0 +1,21 @@
+.root {
+  background-color: white;
+}
+
+.iconOptions {
+  margin-left: auto;
+}
+
+.header {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.teamContent {
+  margin-left: auto;
+  margin-right: auto;
+}

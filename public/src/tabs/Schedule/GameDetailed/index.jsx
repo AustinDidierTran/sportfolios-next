@@ -1,31 +1,44 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Store } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../../Store';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
 import SubmitScoreDialog from '../../../components/Custom/FormDialog/SubmitScoreSpiritForm';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { useFormik } from 'formik';
+import styles from './GameDetailed.module.css';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import CustomIconButton from '../../../components/Custom/IconButton';
+import { useRouter } from 'next/router';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import EnterScore from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore';
+import EditGameDialog from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EditGameDialog';
 
 export default function GameDetailed(props) {
-  const { gameId } = props;
+  const { gameId, basicInfos } = props;
   const { t } = useTranslation();
   const {
     dispatch,
     state: { userInfo },
   } = useContext(Store);
-
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState({});
   const [selectedSubmissionerInfos, setSelectedSubmissionerInfos] = useState({});
   const [possibleSubmissionersInfos, setpossibleSubmissionersInfos] = useState([]);
   const [submitScore, setSubmitScore] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [edit, setEdit] = useState(false);
+  const [gameDialog, setGameDialog] = useState(false);
 
-  const initializeGameAndTeams = async () => {
+  const getGame = async () => {
     const { status, data } = await api(
-      formatRoute('/api/entity/game', null, {
+      formatRoute('/api/entity/gameInfo', null, {
         gameId: gameId,
       }),
       { method: 'GET' }
@@ -40,12 +53,14 @@ export default function GameDetailed(props) {
       return;
     }
     setGame(data);
+  };
 
+  const getSubmissioner = async () => {
     const { status: statusSubmit, data: dataSubmit } = await api(
       formatRoute('/api/entity/getPossibleSubmissionerInfos', null, {
-        gameId: data.id,
+        gameId: game.id,
         teamsIds: JSON.stringify(
-          data.teams.map((t) => ({
+          game.teams.map((t) => ({
             rosterId: t.roster_id,
             name: t.name,
           }))
@@ -55,6 +70,7 @@ export default function GameDetailed(props) {
     );
 
     if (statusSubmit === STATUS_ENUM.FORBIDDEN) {
+      setIsLoading(false);
       return;
     } else if (dataSubmit) {
       setpossibleSubmissionersInfos(dataSubmit);
@@ -66,18 +82,26 @@ export default function GameDetailed(props) {
           person: dataSubmit[0].myAdminPersons[0],
         });
       }
-    } else {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('invalid.invalid_roster_role_to_submit_score'),
-        severity: SEVERITY_ENUM.INFO,
-      });
     }
   };
 
   useEffect(() => {
-    initializeGameAndTeams();
+    getGame();
   }, [gameId]);
+
+  useEffect(() => {
+    if (!game || !game.teams) {
+      return;
+    }
+    getSubmissioner();
+    setIsLoading(false);
+  }, [game]);
+
+  useEffect(() => {
+    if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
+      setIsAdmin(true);
+    }
+  }, [basicInfos]);
 
   const openSubmitScore = async () => {
     if (possibleSubmissionersInfos.length === 1 && possibleSubmissionersInfos[0].myAdminPersons.length === 1) {
@@ -212,9 +236,77 @@ export default function GameDetailed(props) {
     },
   ];
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const goBack = () => {
+    router.push({
+      pathname: router.query.id,
+      query: {
+        tab: router.query.tab,
+      },
+    });
+  };
+
+  const gameClick = () => {
+    setGameDialog(true);
+  };
+
+  const closeGameDialog = () => {
+    setGameDialog(false);
+  };
+
+  const editClick = () => {
+    setEdit(true);
+  };
+
+  const closeEdit = () => {
+    setEdit(false);
+  };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
-    <>
-      {possibleSubmissioners.length > 0 && <CustomButton onClick={openSubmitScore}>{t('submit_score')}</CustomButton>}
+    <div className={styles.root}>
+      <div className={styles.baseContent}>
+        <div className={styles.header}>
+          <div>
+            <CustomIconButton icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
+          </div>
+
+          <div className={styles.iconOptions}>
+            {isAdmin && (
+              <CustomIconButton
+                icon="MoreVertIcon"
+                className={styles.iconOptions}
+                style={{ color: 'primary' }}
+                onClick={handleClick}
+              />
+            )}
+          </div>
+        </div>
+        <div className={styles.content}>
+          {game.teams.map((team) => (
+            <div className={styles.teamContent}>
+              <div>{team.name}</div>
+              <div>{team.score}</div>
+            </div>
+          ))}
+        </div>
+        <div>
+          {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
+            <CustomButton onClick={openSubmitScore}>{t('submit_score')}</CustomButton>
+          )}
+          {possibleSubmissioners.length > 0 && game.scoreSubmited && <div>{t('score.score_confirmed')}</div>}
+        </div>
+      </div>
       <SubmitScoreDialog
         open={submitScore}
         onClose={closeSubmitScore}
@@ -229,6 +321,18 @@ export default function GameDetailed(props) {
         formik={formik}
         buttons={buttons}
       />
-    </>
+      <EditGameDialog open={edit} onClose={closeEdit} game={game} />
+      <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} />
+      {isAdmin && (
+        <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+          <MenuItem onClick={gameClick} update={getGame}>
+            {t('edit.edit_score')}
+          </MenuItem>
+          <MenuItem onClick={editClick} update={getGame}>
+            {t('edit.edit_game')}
+          </MenuItem>
+        </Menu>
+      )}
+    </div>
   );
 }
