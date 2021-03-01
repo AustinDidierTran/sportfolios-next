@@ -578,6 +578,7 @@ export default {
       selected_team: 'Selected team',
     },
     score: {
+      score_confirmed: 'Score confirmed',
       score_submission_conflict_description:
         'Notification received if you are the admin of an event and there is a score conflict',
       score_submission_conflict_notif_description: 'A game from the event {{eventName}} has score conflicts.',
