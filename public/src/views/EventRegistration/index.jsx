@@ -57,7 +57,6 @@ export default function EventRegistration() {
     },
     onSubmit: async (values) => {
       const { event, team, roster, paymentOption, persons, teamActivity, informations } = values;
-      console.log({ informations });
       let newTeamId = null;
       setIsLoading(true);
       if (teamActivity) {
@@ -184,9 +183,7 @@ export default function EventRegistration() {
       <AdditionalInformation
         stepHook={stepHook}
         formik={formik}
-        informations={
-          'hbgksejhbgelkrgblejnrglwekjbglkejrgergergergerg ergjberjhgbgejhrbger ergkjebrgker wgbrgjhberg gerjghebj gbgejebgj egebebgbebg eghe'
-        }
+        informations={'Message contenant les informations qui sont demandées au joueur (va être changé)'}
         index={formik.values.teamActivity ? 3 : 2}
       />
     ),
