@@ -27,7 +27,7 @@ export default function AddTeamPhase(props) {
 
   const getAvailableTeams = async () => {
     const { data } = await api(
-      formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
+      formatRoute('/api/entity/allTeamsAcceptedInfos', null, {
         eventId,
       })
     );

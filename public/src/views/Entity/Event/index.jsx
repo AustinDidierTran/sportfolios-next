@@ -111,7 +111,7 @@ export default function Event(props) {
       return 0;
     }
     return states.findIndex((s) => s.value === tab);
-  }, [tab]);
+  }, [tab, states]);
 
   if (!states || states.length == 1) {
     return (

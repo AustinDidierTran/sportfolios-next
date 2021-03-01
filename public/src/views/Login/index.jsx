@@ -105,6 +105,14 @@ export default function Login() {
     },
   });
 
+  const goToSignUp = () => {
+    if (redirectUrl) {
+      goTo(ROUTES.signup, null, { redirectUrl });
+    } else {
+      goTo(ROUTES.signup);
+    }
+  };
+
   return (
     <Container className={styles.container}>
       <div className={styles.logo}>
@@ -158,7 +166,7 @@ export default function Login() {
       <Button
         variant="outlined"
         color="primary"
-        onClick={() => goTo(ROUTES.signup)}
+        onClick={goToSignUp}
         className={styles.buttonSignup}
         style={{ borderWidth: '2px' }}
       >
