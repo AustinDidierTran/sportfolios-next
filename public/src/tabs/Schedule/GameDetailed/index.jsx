@@ -50,6 +50,7 @@ export default function GameDetailed(props) {
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
+      goBack();
       return;
     }
     setGame(data);
