@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Paper, TextField } from '../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import { goToAlias, ROUTES } from '../../../actions/goTo';
+import { goTo, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import styles from './ChangeAlias.module.css';
 import { useFormik } from 'formik';
-import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM, ROUTES_ENUM } from '../../../../common/enums';
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -96,7 +96,7 @@ export default function ChangeAlias() {
         });
       } else {
         setEdit(false);
-        goToAlias(alias, null, { tab: TABS_ENUM.SETTINGS });
+        goTo(ROUTES.entity, { id: entityId }, { tab: TABS_ENUM.SETTINGS });
       }
     },
   });
