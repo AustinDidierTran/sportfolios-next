@@ -1,0 +1,13 @@
+.textField {
+  width: 100%;
+}
+.infos {
+  margin: 16px !important;
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .textField {
+    width: 75%;
+  }
+}

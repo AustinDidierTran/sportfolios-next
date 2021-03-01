@@ -683,7 +683,7 @@ export default {
     action_confirmation: 'Are you sure you want to perform this action?',
     actions: 'Actions',
     active: 'Active',
-
+    additional_information: 'Additional information',
     address: 'Address',
     admin_has_no_bank_account: "You can't create a payment option if admin doesn't have a bank account",
     admin_panel: 'Admin Panel',

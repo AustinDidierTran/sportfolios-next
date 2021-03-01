@@ -701,6 +701,7 @@ export default {
     admin: 'Admin',
     admins: 'Administrateurs',
     adress: 'Addresse',
+    additional_information: 'Information supplémentaire',
     advanced_filters: 'Filtres avancés',
     alias_is_already_used: "L'alias est déjà utilisé",
     alias: 'Alias',

@@ -13,22 +13,20 @@ export default function CustomStepperWithHooks(props) {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.all}>
-      <div className={styles.stepper}>
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map((step) => {
-            const { label } = step;
-            const stepProps = {};
-            const labelProps = {};
+    <div className={styles.main}>
+      <Stepper activeStep={activeStep} className={styles.stepper} alternativeLabel>
+        {steps.map((step) => {
+          const { label } = step;
+          const stepProps = {};
+          const labelProps = {};
 
-            return (
-              <Step key={label} {...stepProps}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-      </div>
+          return (
+            <Step key={label} {...stepProps} className={styles.step}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
       <div className={styles.display}>
         {activeStep === steps.length ? (
           <div>
