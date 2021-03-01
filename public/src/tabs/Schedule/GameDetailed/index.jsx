@@ -322,7 +322,7 @@ export default function GameDetailed(props) {
         formik={formik}
         buttons={buttons}
       />
-      <EditGameDialog open={edit} onClose={closeEdit} game={game} />
+      <EditGameDialog open={edit} onClose={closeEdit} game={game} update={closeEdit} />
       <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} />
       {isAdmin && (
         <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
