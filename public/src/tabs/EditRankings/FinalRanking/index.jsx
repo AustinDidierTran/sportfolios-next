@@ -4,15 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
 import styles from './FinalRanking.module.css';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Icon from '../../../components/Custom/Icon';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { LIST_ITEM_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { updateRanking } from '../../Rankings/RankingFunctions';
-import { Accordion, AccordionDetails, Divider, ListItem, ListItemText } from '@material-ui/core';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Icon from '../../../components/Custom/Icon';
+import Button from '../../../components/Custom/Button';
 
 export default function FinalRanking(props) {
-  const { phase, isOneExpanded, expandedPhases, setExpandedPhases, ...otherProps } = props;
+  const { phase, isOneExpanded, expandedPhases, setExpandedPhases, onOpenAlertDialog, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
@@ -32,6 +37,7 @@ export default function FinalRanking(props) {
     if (!expandedPhases.includes(phaseId)) {
       setExpandedPhases(expandedPhases.concat([phaseId]));
     }
+    update();
   };
 
   const onShrink = () => {
@@ -98,6 +104,10 @@ export default function FinalRanking(props) {
     setItems(rankingStats);
   };
 
+  const update = () => {
+    getRankings();
+  };
+
   return (
     <>
       <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand} {...otherProps}>
@@ -107,10 +117,29 @@ export default function FinalRanking(props) {
               {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
             </ListItemIcon>
           </div>
-          <ListItemText primary={phase.content + ' - ' + t('phase_done')}></ListItemText>
+          {phase.status === PHASE_STATUS_ENUM.DONE ? (
+            <ListItemText primary={phase.content + ' - ' + t('phase_done')}></ListItemText>
+          ) : (
+            <ListItemText primary={phase.content + ' - ' + t('phase_in_progress')}></ListItemText>
+          )}
         </AccordionSummary>
         <AccordionDetails>
           <div className={styles.div}>
+            {phase.status === PHASE_STATUS_ENUM.DONE ? (
+              <></>
+            ) : (
+              <div className={styles.buttonContainer}>
+                <Button
+                  onClick={() => {
+                    onOpenAlertDialog(phase);
+                  }}
+                  color={'primary'}
+                  endIcon="Check"
+                >
+                  {t('end_phase')}
+                </Button>
+              </div>
+            )}
             {items.map((item, index) => (
               <div key={index}>
                 <ListItem>

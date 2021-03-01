@@ -39,3 +39,10 @@
 .delta {
   grid-area: delta;
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}

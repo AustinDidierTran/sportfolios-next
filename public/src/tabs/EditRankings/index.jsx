@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from './PhaseAccordionDnD';
 import PrerankAccordionDnD from './PrerankAccordionDnd';
-import StartedPhase from './StartedPhase';
 import FinalRanking from './FinalRanking';
 import Button from '../../components/Custom/Button';
 import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
@@ -262,21 +261,14 @@ export default function EditRankings() {
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <div className={styles.div} key={phase.id}>
-                          {phase.status === PHASE_STATUS_ENUM.DONE ? (
+                          {phase.status === PHASE_STATUS_ENUM.DONE || phase.status === PHASE_STATUS_ENUM.STARTED ? (
                             <FinalRanking
                               phase={phase}
                               expandedPhases={expandedPhases}
                               setExpandedPhases={setExpandedPhases}
                               isOneExpanded={isOneExpanded}
-                            ></FinalRanking>
-                          ) : phase.status === PHASE_STATUS_ENUM.STARTED ? (
-                            <StartedPhase
-                              phase={phase}
-                              isOneExpanded={isOneExpanded}
-                              expandedPhases={expandedPhases}
-                              setExpandedPhases={setExpandedPhases}
                               onOpenAlertDialog={onOpenAlertDialog}
-                            ></StartedPhase>
+                            ></FinalRanking>
                           ) : (
                             <PhaseAccordionDnD
                               phase={phase}
