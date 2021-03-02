@@ -17,7 +17,10 @@ import { useRouter } from 'next/router';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import EnterScore from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore';
 import EditGameDialog from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EditGameDialog';
-
+import RosterDisplay from '../../../components/Custom/RosterDisplay';
+import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;
   const { t } = useTranslation();
@@ -296,8 +299,9 @@ export default function GameDetailed(props) {
         <div className={styles.content}>
           {game.teams.map((team) => (
             <div className={styles.teamContent}>
-              <div>{team.name}</div>
-              <div>{team.score}</div>
+              <img className={styles.avatarTeam} src={team.photo_url} />
+              <Typography variant="h5">{team.name}</Typography>
+              <Typography variant="h5">{team.score}</Typography>
             </div>
           ))}
         </div>
@@ -308,6 +312,9 @@ export default function GameDetailed(props) {
           {possibleSubmissioners.length > 0 && game.score_submited && <div>{t('score.score_confirmed')}</div>}
         </div>
       </div>
+      <Divider variant="middle" />
+      <RosterDisplay teams={game.teams} />
+      <Divider variant="middle" />
       <SubmitScoreDialog
         open={submitScore}
         onClose={closeSubmitScore}

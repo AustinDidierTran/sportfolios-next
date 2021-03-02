@@ -1,0 +1,31 @@
+.position {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 52px 1fr auto auto;
+  grid-template-areas: 'position name chip icon';
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin: 4px 0;
+  text-align: left;
+}
+.rootPlayer {
+  min-height: 30px !important;
+}
+
+.roster {
+  justify-content: center;
+  text-align: left;
+  width: 50%;
+  margin-left: 60px;
+}
+
+.root {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  margin-bottom: 20px !important;
+  margin-top: 20px !important;
+}
