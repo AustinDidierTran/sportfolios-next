@@ -63,7 +63,6 @@ export const useFields = (type, options) => {
               namespace: 'teamAcceptation',
               label: t('manual_acceptation'),
               onChange: onTeamChange,
-
               tooltip: t('team.team_acceptation_step_message'),
             }
           : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
@@ -171,6 +170,24 @@ export const useFields = (type, options) => {
           type: 'time',
           initialValue: '23:59',
           shrink: true,
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+          style: { marginBottom: '24px', marginTop: '16px' },
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          primaryTypographyProps: { variant: 'h6' },
+          primary: t('additional_informations'),
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
+          namespace: 'informations',
+          label: t('required_informations_optional'),
+          variant: 'filled',
+          rows: 5,
+          rowsMax: 5,
+          style: { width: '100%' },
         },
       ];
     }

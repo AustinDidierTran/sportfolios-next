@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './AdditionalInformation.module.css';
 import { useRouter } from 'next/router';
-import { TextField } from '../../../components/Custom';
+import TextField from '../../../components/Custom/TextField';
 import Typography from '@material-ui/core/Typography';
 
 export default function AdditionalInformation(props) {

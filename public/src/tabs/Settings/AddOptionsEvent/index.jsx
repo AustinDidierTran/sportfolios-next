@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import loadable from '@loadable/component';
 import EventPaymentOptionList from './EventPaymentOptionList';
+import { SignalCellularNullRounded } from '@material-ui/icons';
 
 const CustomPaper = loadable(() => import('../../../components/Custom/Paper'));
 const CustomButton = loadable(() => import('../../../components/Custom/Button'));
@@ -56,12 +57,18 @@ export default function AddOptionsEvent() {
       teamAcceptation,
       teamActivity,
       teamPrice,
+      informations,
     } = values;
 
     const formattedTeamPrice = Math.floor(Number(teamPrice) * 100);
     const formattedPlayerPrice = Math.floor(Number(playerPrice) * 100);
     const start = new Date(`${openDate} ${openTime}`).getTime();
     const end = new Date(`${closeDate} ${closeTime}`).getTime();
+
+    let infos = informations;
+    if (!informations.length) {
+      infos = null;
+    }
 
     setIsLoading(true);
     const res = await api(`/api/entity/option`, {
@@ -78,6 +85,7 @@ export default function AddOptionsEvent() {
         teamAcceptation,
         teamActivity,
         teamPrice: formattedTeamPrice,
+        informations: infos,
       }),
     });
     if (res.status === STATUS_ENUM.ERROR) {

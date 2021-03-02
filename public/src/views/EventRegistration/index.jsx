@@ -40,7 +40,7 @@ export default function EventRegistration() {
     dispatch,
   } = useContext(Store);
 
-  const [additionalInfos, setAdditionalInfos] = useState(false);
+  const [requiredInfos, setRequiredInfos] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -79,6 +79,7 @@ export default function EventRegistration() {
             paymentOption,
             roster,
             status: INVOICE_STATUS_ENUM.OPEN,
+            informations,
           }),
         });
 
@@ -95,6 +96,7 @@ export default function EventRegistration() {
         }
         return;
       }
+      //TODO informations ici
       const { status, data } = await api('/api/entity/registerIndividual', {
         method: 'POST',
         body: JSON.stringify({
@@ -102,6 +104,7 @@ export default function EventRegistration() {
           paymentOption,
           persons,
           status: INVOICE_STATUS_ENUM.OPEN,
+          informations,
         }),
       });
       if (status === STATUS_ENUM.SUCCESS) {
@@ -161,9 +164,7 @@ export default function EventRegistration() {
   useEffect(() => {
     const paymentOption = formik.values.paymentOptions.find((p) => p.value === formik.values.paymentOption);
     formik.setFieldValue('teamActivity', paymentOption?.teamActivity);
-    if (true) {
-      setAdditionalInfos(true);
-    }
+    setRequiredInfos(paymentOption?.informations);
   }, [formik.values.paymentOption]);
 
   const getData = async () => {
@@ -183,7 +184,7 @@ export default function EventRegistration() {
       <AdditionalInformation
         stepHook={stepHook}
         formik={formik}
-        informations={'Message contenant les informations qui sont demandées au joueur (va être changé)'}
+        informations={requiredInfos}
         index={formik.values.teamActivity ? 3 : 2}
       />
     ),
@@ -228,10 +229,10 @@ export default function EventRegistration() {
         <StepperWithHooks
           steps={
             formik.values.teamActivity
-              ? additionalInfos
+              ? requiredInfos
                 ? [...steps, additionalInformation]
                 : steps
-              : additionalInfos
+              : requiredInfos
               ? [...individualSteps, additionalInformation]
               : individualSteps
           }

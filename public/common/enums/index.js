@@ -54,7 +54,7 @@ const COMPONENT_TYPE_ENUM = {
   PERSON_ITEM: 'person item',
   PERSON_SEARCH_LIST: 'person search list',
   SELECT: 'select',
-  TEXTFIELD: 'textfield',
+  TEXT_FIELD_BOX: 'text field box',
 };
 
 const ROSTER_ROLE_ENUM = {
