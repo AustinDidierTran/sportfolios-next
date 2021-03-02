@@ -67,16 +67,54 @@
   margin-right: 16px !important;
 }
 
-.buttonContainer {
+.buttons {
   display: flex;
   justify-content: center;
-  width: 100%;
   margin-bottom: 20px;
 }
 
 .iconButton {
   margin-right: 20px;
   justify-self: end;
+  align-self: center;
+}
+
+.phaseButton {
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  height: 32px;
+  align-self: center;
+}
+
+.dragIcon {
+  margin-top: 8px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 6fr 2fr 1fr;
+  grid-template-areas: '. . buttonContainer . menuContainer';
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.buttonContainer {
+  grid-area: buttonContainer;
+  display: flex;
+  justify-content: center;
+}
+
+.menuContainer {
+  grid-area: menuContainer;
+}
+
+.menu {
+  align-self: center;
+  justify-self: end;
+}
+
+.phaseButton {
+  height: 32px;
   align-self: center;
 }
 

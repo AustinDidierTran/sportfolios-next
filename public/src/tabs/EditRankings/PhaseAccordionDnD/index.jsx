@@ -21,6 +21,7 @@ import api from '../../../actions/api';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useRouter } from 'next/router';
 import AddTeamPhase from './AddTeamPhase';
+import Menu from '../Menu';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -98,6 +99,7 @@ export default function PhaseAccordionDnD(props) {
   const openEdit = () => {
     setEdit(true);
   };
+
   const closeAdd = () => {
     setAdd(false);
     if (update) {
@@ -137,12 +139,6 @@ export default function PhaseAccordionDnD(props) {
 
   const buttons = [
     {
-      onClick: openEdit,
-      name: t('edit.edit_team_number'),
-      color: 'primary',
-      endIcon: 'Edit',
-    },
-    {
       onClick: onSave,
       name: t('save'),
       color: 'primary',
@@ -162,25 +158,35 @@ export default function PhaseAccordionDnD(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
           <div className={styles.orderContainer}>
             <ListItemIcon>
-              {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
+              {expanded || isOneExpanded ? (
+                <></>
+              ) : (
+                <Icon icon="Reorder" color="textSecondary" className={styles.dragIcon} />
+              )}
             </ListItemIcon>
           </div>
           <ListItemText primary={content + ' - ' + t('phase_not_started')} />
         </AccordionSummary>
+        <div className={styles.container}>
+          <div className={styles.buttonContainer}>
+            <Button
+              onClick={(event) => {
+                startPhase(phase, event);
+              }}
+              color={'primary'}
+              endIcon="Play"
+              className={styles.phaseButton}
+            >
+              {t('start_phase')}
+            </Button>
+          </div>
+          <div className={styles.menuContainer}>
+            <Menu className={styles.menu} phase={phase} openEdit={openEdit}></Menu>
+          </div>
+        </div>
         <AccordionDetails>
           <div className={styles.div}>
-            <div className={styles.buttonContainer}>
-              <Button
-                onClick={(event) => {
-                  startPhase(phase, event);
-                }}
-                color={'primary'}
-                endIcon="Play"
-              >
-                {t('start_phase')}
-              </Button>
-            </div>
-            <div className={styles.buttonContainer}>
+            <div className={styles.buttons}>
               {buttons.map((button, index) => (
                 <Button
                   onClick={() => {

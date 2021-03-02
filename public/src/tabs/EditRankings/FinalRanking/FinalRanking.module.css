@@ -40,9 +40,34 @@
   grid-area: delta;
 }
 
-.buttonContainer {
-  display: flex;
-  justify-content: center;
+.dragIcon {
+  margin-top: 8px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 6fr 2fr 1fr;
+  grid-template-areas: '. . buttonContainer . menuContainer';
   width: 100%;
   margin-bottom: 20px;
+}
+
+.buttonContainer {
+  grid-area: buttonContainer;
+  display: flex;
+  justify-content: center;
+}
+
+.menuContainer {
+  grid-area: menuContainer;
+}
+
+.menu {
+  align-self: center;
+  justify-self: end;
+}
+
+.button {
+  height: 32px;
+  align-self: center;
 }
