@@ -829,6 +829,10 @@ export default {
     empty_roster_add_players:
       "Votre alignement est vide. Utilisez l'outil de recherche pour ajouter des joueurs à votre alignement.",
     empty_roster: "Cet alignement est vide. Le capitaine de cette équipe n'a pas entré son alignement.",
+    end_phase: 'Terminer la phase',
+    end_phase_warning:
+      'Êtes-vous certain de vouloir terminer cette phase? Il peut avoir des parties en attente du pointage.',
+    end_phase_warning_title: 'Confirmer la fin de la phase',
     enter_person_name: 'Entrez le nom du joueur',
     enter_player_name: 'Entrez le nom du joueur',
     enter_score: 'Entrez le pointage',
@@ -991,6 +995,7 @@ export default {
     phase_in_progress: 'phase en cours',
     phase_not_started: 'phase non démarrée',
     phase_order: 'Ordre de la phase',
+    phase_started: 'Phase démarée!',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
     places_left: 'places restantes',

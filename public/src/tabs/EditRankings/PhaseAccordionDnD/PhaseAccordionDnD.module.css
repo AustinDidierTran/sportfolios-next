@@ -1,20 +1,21 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 1fr 6fr 2fr 1fr;
-  grid-template-areas: 'position . name . edit';
+  grid-template-columns: 1fr 6fr 2fr 1fr;
+  grid-template-areas: 'position name . edit';
   padding: 0px;
 }
 
 .spots {
   display: grid;
-  grid-template-columns: 1fr 1fr 6fr 2fr 1fr;
-  grid-template-areas: 'positionHolder . title . add';
+  grid-template-columns: 1fr 6fr 2fr 1fr;
+  grid-template-areas: 'positionHolder title . add';
   padding: 0px;
 }
 
 .title {
   grid-area: title;
   align-self: center;
+  padding-left: 8px;
 }
 
 .add {
@@ -43,6 +44,7 @@
 .name {
   grid-area: name;
   align-self: center;
+  padding-left: 8px;
 }
 
 .edit {

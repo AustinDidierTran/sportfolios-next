@@ -1,0 +1,48 @@
+.div {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 'position team win lose pointFor pointAgainst delta';
+  width: 100%;
+}
+
+.position {
+  grid-area: position;
+}
+
+.team {
+  padding-right: 12px;
+  grid-area: team;
+}
+
+.win {
+  grid-area: win;
+}
+
+.lose {
+  grid-area: lose;
+}
+
+.pointFor {
+  grid-area: pointFor;
+}
+
+.pointAgainst {
+  grid-area: pointAgainst;
+}
+
+.delta {
+  grid-area: delta;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}

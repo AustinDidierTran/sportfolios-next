@@ -6,13 +6,15 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import PhaseAccordionDnD from './PhaseAccordionDnD';
 import PrerankAccordionDnD from './PrerankAccordionDnd';
+import FinalRanking from './FinalRanking';
 import Button from '../../components/Custom/Button';
+import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
 import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { ACTION_ENUM, Store } from '../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -41,9 +43,12 @@ export default function EditRankings() {
   const [preRanking, setPreRanking] = useState([]);
   const [expandedPhases, setExpandedPhases] = useState([]);
 
+  const [phaseToEnd, setPhaseToEnd] = useState({});
+
   const [openPhase, setOpenPhase] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
   const [isOneExpanded, setIsOneExpanded] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
   useEffect(() => {
     if (eventId) {
@@ -71,7 +76,6 @@ export default function EditRankings() {
       content: d.name,
       id: d.teamId,
     }));
-
     setPreRanking(ranking);
   };
 
@@ -164,17 +168,30 @@ export default function EditRankings() {
     update();
   };
 
-  const startPhase = async (phase) => {
+  const startPhase = (phase, event) => {
+    event.stopPropagation();
+    handleStartPhase(phase);
+  };
+
+  const handleStartPhase = async (phase) => {
     const rankings = phase.ranking.map((r) => r.roster_id);
-    if (!rankings.includes(null)) {
+    if (!rankings.includes(null) && phase.spots) {
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
           phaseId: phase.phaseId,
-          status: 'started',
+          status: PHASE_STATUS_ENUM.STARTED,
         }),
       });
+      if (res.status === STATUS_ENUM.SUCCESS) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('phase_started'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 2000,
+        });
+      }
       update();
     } else {
       dispatch({
@@ -184,6 +201,37 @@ export default function EditRankings() {
         duration: 2000,
       });
     }
+  };
+
+  const endPhase = async () => {
+    await api('/api/entity/updatePhase', {
+      method: 'PUT',
+      body: JSON.stringify({
+        eventId,
+        phaseId: phaseToEnd.phaseId,
+        status: PHASE_STATUS_ENUM.DONE,
+      }),
+    });
+    update();
+    setOpenAlertDialog(false);
+  };
+
+  const onCloseAlertDialog = () => {
+    setOpenAlertDialog(false);
+  };
+
+  const onOpenAlertDialog = (phase, event) => {
+    event.preventDefault();
+    setPhaseToEnd(phase);
+    setOpenAlertDialog(true);
+  };
+
+  const onShrink = (phaseId) => {
+    setExpandedPhases((e) => e.filter((p) => p !== phaseId));
+  };
+
+  const onExpand = (phaseId) => {
+    setExpandedPhases((e) => [...e, phaseId]);
   };
 
   return (
@@ -225,15 +273,25 @@ export default function EditRankings() {
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <div className={styles.div} key={phase.id}>
-                          <PhaseAccordionDnD
-                            phase={phase}
-                            update={getPhases}
-                            handleDeleteTeam={handleDeleteTeam}
-                            expandedPhases={expandedPhases}
-                            setExpandedPhases={setExpandedPhases}
-                            isOneExpanded={isOneExpanded}
-                            startPhase={startPhase}
-                          ></PhaseAccordionDnD>
+                          {phase.status === PHASE_STATUS_ENUM.DONE || phase.status === PHASE_STATUS_ENUM.STARTED ? (
+                            <FinalRanking
+                              phase={phase}
+                              expandedPhases={expandedPhases}
+                              onShrink={() => onShrink(phase.id)}
+                              onExpand={() => onExpand(phase.id)}
+                              onOpenAlertDialog={onOpenAlertDialog}
+                            ></FinalRanking>
+                          ) : (
+                            <PhaseAccordionDnD
+                              phase={phase}
+                              update={getPhases}
+                              handleDeleteTeam={handleDeleteTeam}
+                              expandedPhases={expandedPhases}
+                              onShrink={() => onShrink(phase.id)}
+                              onExpand={() => onExpand(phase.id)}
+                              startPhase={startPhase}
+                            ></PhaseAccordionDnD>
+                          )}
                         </div>
                       </div>
                     )}
@@ -246,6 +304,13 @@ export default function EditRankings() {
         </Droppable>
       </DragDropContext>
       <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
+      <AlertDialog
+        open={openAlertDialog}
+        onCancel={onCloseAlertDialog}
+        onSubmit={endPhase}
+        description={t('end_phase_warning')}
+        title={t('end_phase_warning_title')}
+      ></AlertDialog>
     </div>
   );
 }
