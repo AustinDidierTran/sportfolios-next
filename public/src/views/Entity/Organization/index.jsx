@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TabsGenerator from '../../../tabs';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 
@@ -43,8 +43,6 @@ export default function Organization(props) {
     document.title = formatPageTitle(basicInfos.name);
   }, [basicInfos]);
 
-  const [eventState, setEventState] = useState(query.tab || TABS_ENUM.EVENTS);
-
   const [isAdmin, setIsAdmin] = useState(false);
 
   const userTabs = TabsGenerator({
@@ -57,22 +55,13 @@ export default function Organization(props) {
     role: basicInfos.role,
   });
 
-  // const [states, setStates] = useState(userState);
-
-  const getStates = (isAdmin) => {
-    isAdmin ? setStates(adminState) : setStates(userState);
-  };
-
   const onSwitch = () => {
     const newState = !isAdmin;
     setIsAdmin(newState);
-    getStates(newState);
     if (newState) {
       goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.EDIT_EVENTS });
-      setEventState(TABS_ENUM.EDIT_EVENTS);
     } else {
       goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.EVENTS });
-      setEventState(TABS_ENUM.EVENTS);
     }
   };
 
@@ -86,7 +75,7 @@ export default function Organization(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} />
+      <HeaderHome basicInfos={basicInfos} navTabs={isAdmin ? adminTabs : userTabs} type={GLOBAL_ENUM.ORGANIZATION} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={title}>
@@ -99,9 +88,8 @@ export default function Organization(props) {
             </Fab>
           </Tooltip>
         ) : (
-            <></>
-          )}
-        <div></div>
+          <></>
+        )}
       </IgContainer>
     </>
   );

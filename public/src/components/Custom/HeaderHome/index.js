@@ -10,14 +10,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { FORM_DIALOG_TYPE_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import FormDialog from '../FormDialog';
 import styles from './HeaderHome.module.css';
 import CustomIcon from '../Icon';
 import Button from '@material-ui/core/Button';
 
 export default function HeaderHome(props) {
-  const { type, navigationComponent, basicInfos, navTabs, ...otherProps } = props;
+  const { type, basicInfos, navTabs } = props;
   const { t } = useTranslation();
   const router = useRouter();
   const { query, route } = router;
@@ -71,9 +71,12 @@ export default function HeaderHome(props) {
             </Grid>
             <Grid container className={styles.gridButton}>
               {/* Rediriger vers l'onglet affiliation */}
-              <CustomButton onClick={onOpen} className={styles.eventButton}>
-                {t('become_member')}
-              </CustomButton>
+              {type === GLOBAL_ENUM.ORGANIZATION && (
+                <CustomButton onClick={onOpen} className={styles.eventButton}>
+                  {t('become_member')}
+                </CustomButton>
+              )}
+
               {/* Afficher le menu mobile en gros à partir d'en bas *voir fb* */}
               {window.innerWidth < 600 && (
                 <Button variant="contained" className={styles.optionsButton} onClick={handleClick}>

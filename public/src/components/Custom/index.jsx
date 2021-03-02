@@ -36,6 +36,7 @@ export const MailToButton = loadable(() => import('./MailToButton'));
 export const MessageAndButtons = loadable(() => import('./MessageAndButtons'));
 export const MultiSelect = loadable(() => import('./MultiSelect'));
 export const MyGames = loadable(() => import('./MyGames'));
+export const MyGamesTeam = loadable(() => import('./MyGamesTeam'));
 export const Paper = loadable(() => import('./Paper'));
 export const PersonSearchList = loadable(() => import('./SearchList/PersonSearchList'));
 export const ProfileChip = loadable(() => import('./ProfileChip'));

@@ -38,7 +38,7 @@ export default function EntitySettings(props) {
       if (isAdmin) {
         return (
           <div className={styles.div}>
-            <BankAccount />
+            <BasicInfos basicInfos={basicInfos} />
             <ManageRoles role={role} />
             <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
@@ -49,6 +49,7 @@ export default function EntitySettings(props) {
       if (isEditor) {
         return (
           <div className={styles.div}>
+            <BasicInfos basicInfos={basicInfos} />
             <BottomPageLogo />
           </div>
         );
