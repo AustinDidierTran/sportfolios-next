@@ -204,7 +204,7 @@ export default function EditRankings() {
   };
 
   const endPhase = async () => {
-    const res = await api('/api/entity/updatePhase', {
+    await api('/api/entity/updatePhase', {
       method: 'PUT',
       body: JSON.stringify({
         eventId,

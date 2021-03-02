@@ -89,10 +89,6 @@ export default function FinalRanking(props) {
     setItems(rankingStats);
   };
 
-  const update = () => {
-    getRankings();
-  };
-
   return (
     <>
       <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand} {...otherProps}>
