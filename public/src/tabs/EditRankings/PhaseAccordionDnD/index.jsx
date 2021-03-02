@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -51,10 +51,10 @@ export default function PhaseAccordionDnD(props) {
   const {
     phase,
     handleDeleteTeam,
-    isOneExpanded,
     update,
     expandedPhases,
-    setExpandedPhases,
+    onShrink,
+    onExpand,
     startPhase,
     onOpenAlertDialog,
     ...otherProps
@@ -67,7 +67,6 @@ export default function PhaseAccordionDnD(props) {
   const router = useRouter();
   const { id: eventId } = router.query;
 
-  const [expanded, setExpanded] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
   const [teams, setTeams] = useState(ranking);
   const [edit, setEdit] = useState(false);
@@ -79,20 +78,8 @@ export default function PhaseAccordionDnD(props) {
     setTeams(ranking);
   }, [ranking]);
 
-  const onExpand = () => {
-    setExpanded(true);
-    if (!expandedPhases.includes(phaseId)) {
-      setExpandedPhases(expandedPhases.concat([phaseId]));
-    }
-  };
-
-  const onShrink = () => {
-    setExpanded(false);
-    if (expandedPhases.includes(phaseId)) {
-      const newExpandedPhases = expandedPhases.filter((p) => p !== phaseId);
-      setExpandedPhases(newExpandedPhases);
-    }
-  };
+  const isOneExpanded = useMemo(() => expandedPhases.length > 0, [expandedPhases.length]);
+  const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
 
   const onDragEnd = (result) => {
     if (result.destination.index === result.source.index) {
@@ -184,8 +171,8 @@ export default function PhaseAccordionDnD(props) {
           <div className={styles.div}>
             <div className={styles.buttonContainer}>
               <Button
-                onClick={() => {
-                  startPhase(phase);
+                onClick={(event) => {
+                  startPhase(phase, event);
                 }}
                 color={'primary'}
                 endIcon="Play"

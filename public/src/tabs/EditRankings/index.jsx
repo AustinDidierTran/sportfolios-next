@@ -76,7 +76,6 @@ export default function EditRankings() {
       content: d.name,
       id: d.teamId,
     }));
-
     setPreRanking(ranking);
   };
 
@@ -169,27 +168,31 @@ export default function EditRankings() {
     update();
   };
 
-  const startPhase = async (phase) => {
-    if (phase.spots) {
-      const rankings = phase.ranking.map((r) => r.roster_id);
-      if (!rankings.includes(null)) {
-        const res = await api('/api/entity/updatePhase', {
-          method: 'PUT',
-          body: JSON.stringify({
-            eventId,
-            phaseId: phase.phaseId,
-            status: PHASE_STATUS_ENUM.STARTED,
-          }),
-        });
-        update();
-      } else {
+  const startPhase = (phase, event) => {
+    event.stopPropagation();
+    handleStartPhase(phase);
+  };
+
+  const handleStartPhase = async (phase) => {
+    const rankings = phase.ranking.map((r) => r.roster_id);
+    if (!rankings.includes(null) && phase.spots) {
+      const res = await api('/api/entity/updatePhase', {
+        method: 'PUT',
+        body: JSON.stringify({
+          eventId,
+          phaseId: phase.phaseId,
+          status: PHASE_STATUS_ENUM.STARTED,
+        }),
+      });
+      if (res.status === STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('empty_phase_spots_warning'),
-          severity: SEVERITY_ENUM.ERROR,
+          message: t('phase_started'),
+          severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
       }
+      update();
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -217,9 +220,18 @@ export default function EditRankings() {
     setOpenAlertDialog(false);
   };
 
-  const onOpenAlertDialog = (phase) => {
+  const onOpenAlertDialog = (phase, event) => {
+    event.preventDefault();
     setPhaseToEnd(phase);
     setOpenAlertDialog(true);
+  };
+
+  const onShrink = (phaseId) => {
+    setExpandedPhases((e) => e.filter((p) => p !== phaseId));
+  };
+
+  const onExpand = (phaseId) => {
+    setExpandedPhases((e) => [...e, phaseId]);
   };
 
   return (
@@ -265,8 +277,8 @@ export default function EditRankings() {
                             <FinalRanking
                               phase={phase}
                               expandedPhases={expandedPhases}
-                              setExpandedPhases={setExpandedPhases}
-                              isOneExpanded={isOneExpanded}
+                              onShrink={() => onShrink(phase.id)}
+                              onExpand={() => onExpand(phase.id)}
                               onOpenAlertDialog={onOpenAlertDialog}
                             ></FinalRanking>
                           ) : (
@@ -275,8 +287,8 @@ export default function EditRankings() {
                               update={getPhases}
                               handleDeleteTeam={handleDeleteTeam}
                               expandedPhases={expandedPhases}
-                              setExpandedPhases={setExpandedPhases}
-                              isOneExpanded={isOneExpanded}
+                              onShrink={() => onShrink(phase.id)}
+                              onExpand={() => onExpand(phase.id)}
                               startPhase={startPhase}
                             ></PhaseAccordionDnD>
                           )}

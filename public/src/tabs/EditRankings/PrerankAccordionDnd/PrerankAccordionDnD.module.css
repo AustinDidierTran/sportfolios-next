@@ -8,6 +8,7 @@
 .position {
   grid-area: position;
   padding-left: 4px;
+  align-self: center;
 }
 
 .name {

@@ -995,6 +995,7 @@ export default {
     phase_in_progress: 'phase en cours',
     phase_not_started: 'phase non démarrée',
     phase_order: 'Ordre de la phase',
+    phase_started: 'Phase démarée!',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
     places_left: 'places restantes',

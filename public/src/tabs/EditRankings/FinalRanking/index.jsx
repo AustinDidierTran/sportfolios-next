@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
@@ -17,14 +17,12 @@ import Icon from '../../../components/Custom/Icon';
 import Button from '../../../components/Custom/Button';
 
 export default function FinalRanking(props) {
-  const { phase, isOneExpanded, expandedPhases, setExpandedPhases, onOpenAlertDialog, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
-
-  const [expanded, setExpanded] = useState(false);
 
   const [items, setItems] = useState([]);
 
@@ -32,21 +30,8 @@ export default function FinalRanking(props) {
     getRankings();
   }, []);
 
-  const onExpand = () => {
-    setExpanded(true);
-    if (!expandedPhases.includes(phaseId)) {
-      setExpandedPhases(expandedPhases.concat([phaseId]));
-    }
-    update();
-  };
-
-  const onShrink = () => {
-    setExpanded(false);
-    if (expandedPhases.includes(phaseId)) {
-      const newExpandedPhases = expandedPhases.filter((p) => p !== phaseId);
-      setExpandedPhases(newExpandedPhases);
-    }
-  };
+  const isOneExpanded = useMemo(() => expandedPhases.length > 0, [expandedPhases.length]);
+  const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
 
   const getRankings = async () => {
     const {
@@ -130,8 +115,8 @@ export default function FinalRanking(props) {
             ) : (
               <div className={styles.buttonContainer}>
                 <Button
-                  onClick={() => {
-                    onOpenAlertDialog(phase);
+                  onClick={(event) => {
+                    onOpenAlertDialog(phase, event);
                   }}
                   color={'primary'}
                   endIcon="Check"
