@@ -21,6 +21,7 @@ import api from '../../../actions/api';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useRouter } from 'next/router';
 import AddTeamPhase from './AddTeamPhase';
+import Menu from '../Menu';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -57,6 +58,7 @@ export default function PhaseAccordionDnD(props) {
     onExpand,
     startPhase,
     onOpenAlertDialog,
+    onOpenDeleteDialog,
     ...otherProps
   } = props;
   const { content, ranking, status, spots, phaseId } = phase;
@@ -98,6 +100,7 @@ export default function PhaseAccordionDnD(props) {
   const openEdit = () => {
     setEdit(true);
   };
+
   const closeAdd = () => {
     setAdd(false);
     if (update) {
@@ -137,22 +140,25 @@ export default function PhaseAccordionDnD(props) {
 
   const buttons = [
     {
-      onClick: openEdit,
-      name: t('edit.edit_team_number'),
+      onClick: startPhase,
+      name: t('start_phase'),
       color: 'primary',
-      endIcon: 'Edit',
+      endIcon: 'Play',
+      className: styles.button,
     },
     {
       onClick: onSave,
       name: t('save'),
       color: 'primary',
       endIcon: 'SaveIcon',
+      className: styles.save,
     },
     {
       onClick: update,
       name: t('cancel'),
       color: 'secondary',
       endIcon: 'Close',
+      className: styles.cancel,
     },
   ];
 
@@ -162,42 +168,45 @@ export default function PhaseAccordionDnD(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
           <div className={styles.orderContainer}>
             <ListItemIcon>
-              {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
+              {!(expanded || isOneExpanded) && (
+                <Icon icon="Reorder" color="textSecondary" className={styles.dragIcon} />
+              )}
             </ListItemIcon>
           </div>
           <ListItemText primary={content + ' - ' + t('phase_not_started')} />
         </AccordionSummary>
-        <AccordionDetails>
-          <div className={styles.div}>
-            <div className={styles.buttonContainer}>
+        <div className={styles.container}>
+          <div className={styles.buttonContainer}>
+            {buttons.map((button, index) => (
               <Button
                 onClick={(event) => {
-                  startPhase(phase, event);
-                }}
-                color={'primary'}
-                endIcon="Play"
-              >
-                {t('start_phase')}
-              </Button>
-            </div>
-            <div className={styles.buttonContainer}>
-              {buttons.map((button, index) => (
-                <Button
-                  onClick={() => {
-                    button.onClick();
+                  button.onClick(phase, event, madeChanges);
+                  if (button.name !== t('start_phase')) {
                     setMadeChanges(false);
-                  }}
-                  color={button.color}
-                  type={button.type}
-                  disabled={button.name === t('edit.edit_team_number') ? false : !madeChanges}
-                  endIcon={window.innerWidth < 600 ? '' : button.endIcon}
-                  className={styles.button}
-                  key={index}
-                >
-                  {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
-                </Button>
-              ))}
-            </div>
+                  }
+                }}
+                color={button.color}
+                type={button.type}
+                disabled={button.name === t('start_phase') ? false : !madeChanges}
+                endIcon={window.innerWidth < 600 ? '' : button.endIcon}
+                className={button.className}
+                key={index}
+              >
+                {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
+              </Button>
+            ))}
+          </div>
+          <div className={styles.menuContainer}>
+            <Menu
+              className={styles.menu}
+              phase={phase}
+              openEdit={openEdit}
+              onOpenDeleteDialog={onOpenDeleteDialog}
+            ></Menu>
+          </div>
+        </div>
+        <AccordionDetails>
+          <div className={styles.div}>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (

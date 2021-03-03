@@ -478,6 +478,9 @@ export default {
         'Êtes-vous certain de vouloir supprimer cette affilitation? Cette personne ne sera pas remboursée.',
       delete_membership_confirmation: 'Êtes-vous certain de vouloir supprimer cette affilitation?',
       delete_membership: "Supprimer l'affiliation",
+      delete_phase: 'Supprimer la phase',
+      delete_phase_warning:
+        'Êtes-vous certain de vouloir supprimer la phase? Toutes les parties, classements et autres informations reliées à la phase seront supprimés et irrécupérables.',
       delete_player_from_roster_confirmation_admin:
         "Êtes-vous certain de vouloir retirer ce joueur de l'équipe? Le paiement individuel du joueur lui sera remboursé s'il y en a un et qu'il a été payé.",
       delete_player_from_roster_confirmation: "Êtes-vous certain de vouloir retirer ce joueur de l'équipe?",
@@ -503,7 +506,7 @@ export default {
       edit_membership: 'Modifier une affiliation',
       edit_mode: 'Mode édition',
       edit_player: 'Modifier le joueur',
-      edit_team_number: "Modifier nombre d'équipes",
+      edit_team_number: "Modifier le nombre d'équipes",
       edit_your_primary_person: 'Changer de personne primaire',
       edit: 'Modifier',
       editor: 'Éditeur',
@@ -1077,6 +1080,7 @@ export default {
     save_basic_info: 'Sauvegarder informations',
     save: 'Sauvegarder',
     save_phase_order: "Sauvegarder l'ordre",
+    save_changes_before_starting_phase: 'Veuillez sauvegarder les changements avant de démarrer la phase',
     schedule: 'Horaire',
     search_results: 'Résultats de recherche pour {{query}}',
     search_sportfolios: 'Rechercher Sportfolios',

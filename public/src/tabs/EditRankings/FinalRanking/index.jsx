@@ -15,9 +15,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '../../../components/Custom/Icon';
 import Button from '../../../components/Custom/Button';
+import Menu from '../Menu';
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, onOpenDeleteDialog, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
@@ -92,10 +93,12 @@ export default function FinalRanking(props) {
   return (
     <>
       <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand} {...otherProps}>
-        <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={styles.dragIcon} />}>
+        <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
           <div>
             <ListItemIcon>
-              {expanded || isOneExpanded ? <></> : <Icon icon="Reorder" color="textSecondary" />}
+              {!(expanded || isOneExpanded) && (
+                <Icon icon="Reorder" color="textSecondary" className={styles.dragIcon} />
+              )}
             </ListItemIcon>
           </div>
           {phase.status === PHASE_STATUS_ENUM.DONE ? (
@@ -104,23 +107,27 @@ export default function FinalRanking(props) {
             <ListItemText primary={phase.content + ' - ' + t('phase_in_progress')}></ListItemText>
           )}
         </AccordionSummary>
+        <div className={styles.container}>
+          {phase.status !== PHASE_STATUS_ENUM.DONE && (
+            <div className={styles.buttonContainer}>
+              <Button
+                onClick={(event) => {
+                  onOpenAlertDialog(phase, event);
+                }}
+                color={'primary'}
+                className={styles.button}
+                endIcon="Check"
+              >
+                {t('end_phase')}
+              </Button>
+            </div>
+          )}
+          <div className={styles.menuContainer}>
+            <Menu className={styles.menu} phase={phase} onOpenDeleteDialog={onOpenDeleteDialog}></Menu>
+          </div>
+        </div>
         <AccordionDetails>
           <div className={styles.div}>
-            {phase.status === PHASE_STATUS_ENUM.DONE ? (
-              <></>
-            ) : (
-              <div className={styles.buttonContainer}>
-                <Button
-                  onClick={(event) => {
-                    onOpenAlertDialog(phase, event);
-                  }}
-                  color={'primary'}
-                  endIcon="Check"
-                >
-                  {t('end_phase')}
-                </Button>
-              </div>
-            )}
             {items.map((item, index) => (
               <div key={index}>
                 <ListItem>

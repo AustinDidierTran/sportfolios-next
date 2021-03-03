@@ -59,18 +59,9 @@
   width: 100%;
 }
 
-.button {
-  width: max-content !important;
-  height: 32px;
-  margin-bottom: 8px !important;
-  margin-left: 16px !important;
-  margin-right: 16px !important;
-}
-
-.buttonContainer {
+.buttons {
   display: flex;
   justify-content: center;
-  width: 100%;
   margin-bottom: 20px;
 }
 
@@ -78,6 +69,58 @@
   margin-right: 20px;
   justify-self: end;
   align-self: center;
+}
+
+.button {
+  width: 120px !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  height: 36px;
+  align-self: center;
+}
+
+.save {
+  width: 140px !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  height: 36px;
+  align-self: center;
+}
+
+.cancel {
+  width: 120px !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  height: 36px;
+  align-self: center;
+}
+
+.dragIcon {
+  margin-top: 8px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 11fr 1fr 1fr;
+  grid-template-areas: '. . buttonContainer . menuContainer';
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.buttonContainer {
+  grid-area: buttonContainer;
+  display: flex;
+  justify-content: center;
+}
+
+.menuContainer {
+  grid-area: menuContainer;
+  margin-right: 2px;
+}
+
+.menu {
+  align-self: center;
+  justify-self: end;
 }
 
 @media (min-width: 600px) {

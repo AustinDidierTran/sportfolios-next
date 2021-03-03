@@ -44,11 +44,13 @@ export default function EditRankings() {
   const [expandedPhases, setExpandedPhases] = useState([]);
 
   const [phaseToEnd, setPhaseToEnd] = useState({});
+  const [phaseToDelete, setPhaseToDelete] = useState({});
 
   const [openPhase, setOpenPhase] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
   const [isOneExpanded, setIsOneExpanded] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   useEffect(() => {
     if (eventId) {
@@ -105,18 +107,6 @@ export default function EditRankings() {
     setPhases(allPhases);
   };
 
-  const update = () => {
-    getPhases();
-  };
-
-  const openPhaseDialog = () => {
-    setOpenPhase(true);
-  };
-
-  const closePhaseDialog = () => {
-    setOpenPhase(false);
-  };
-
   const onDragEnd = (result) => {
     if (!result.destination) {
       return;
@@ -168,9 +158,18 @@ export default function EditRankings() {
     update();
   };
 
-  const startPhase = (phase, event) => {
+  const startPhase = (phase, event, madeChanges) => {
     event.stopPropagation();
-    handleStartPhase(phase);
+    if (!madeChanges) {
+      handleStartPhase(phase);
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('save_changes_before_starting_phase'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 2000,
+      });
+    }
   };
 
   const handleStartPhase = async (phase) => {
@@ -216,6 +215,23 @@ export default function EditRankings() {
     setOpenAlertDialog(false);
   };
 
+  const handleDeletePhase = async () => {
+    //nothing for now
+    setOpenDeleteDialog(false);
+  };
+
+  const update = () => {
+    getPhases();
+  };
+
+  const closePhaseDialog = () => {
+    setOpenPhase(false);
+  };
+
+  const openPhaseDialog = () => {
+    setOpenPhase(true);
+  };
+
   const onCloseAlertDialog = () => {
     setOpenAlertDialog(false);
   };
@@ -224,6 +240,15 @@ export default function EditRankings() {
     event.preventDefault();
     setPhaseToEnd(phase);
     setOpenAlertDialog(true);
+  };
+
+  const onCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
+  };
+
+  const onOpenDeleteDialog = (phase) => {
+    setPhaseToDelete(phase);
+    setOpenDeleteDialog(true);
   };
 
   const onShrink = (phaseId) => {
@@ -280,6 +305,7 @@ export default function EditRankings() {
                               onShrink={() => onShrink(phase.id)}
                               onExpand={() => onExpand(phase.id)}
                               onOpenAlertDialog={onOpenAlertDialog}
+                              onOpenDeleteDialog={onOpenDeleteDialog}
                             ></FinalRanking>
                           ) : (
                             <PhaseAccordionDnD
@@ -290,6 +316,7 @@ export default function EditRankings() {
                               onShrink={() => onShrink(phase.id)}
                               onExpand={() => onExpand(phase.id)}
                               startPhase={startPhase}
+                              onOpenDeleteDialog={onOpenDeleteDialog}
                             ></PhaseAccordionDnD>
                           )}
                         </div>
@@ -310,6 +337,13 @@ export default function EditRankings() {
         onSubmit={endPhase}
         description={t('end_phase_warning')}
         title={t('end_phase_warning_title')}
+      ></AlertDialog>
+      <AlertDialog
+        open={openDeleteDialog}
+        onCancel={onCloseDeleteDialog}
+        onSubmit={handleDeletePhase}
+        description={t('delete.delete_phase_warning')}
+        title={t('delete.delete') + ' ' + phaseToDelete.content}
       ></AlertDialog>
     </div>
   );

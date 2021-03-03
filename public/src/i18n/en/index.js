@@ -476,6 +476,9 @@ export default {
       delete_member_confirmation: 'Are you sure you want to delete this membership? This person will not be refunded.',
       delete_membership_confirmation: 'Are you sure you want to delete this membership?',
       delete_membership: 'Delete membership',
+      delete_phase: 'Delete phase',
+      delete_phase_warning:
+        'Are you sure you want to delete this phase? Every game, ranking and other information associated with this phase will be deleted and unrecoverable.',
       delete_player_from_roster_confirmation_admin:
         "Are you sure you want to remove this player from the roster? The player will have his individual payment refunded if there's one.",
       delete_player_from_roster_confirmation: 'Are you sure you want to remove this player from the roster?',
@@ -1070,6 +1073,7 @@ export default {
     save_basic_info: 'Save new basic infos',
     save: 'Save',
     save_phase_order: 'Save phase order',
+    save_changes_before_starting_phase: 'Save changes before starting the phase',
     schedule: 'Schedule',
     search_results: 'Search results for {{query}}',
     search_sportfolios: 'Search Sportfolios',

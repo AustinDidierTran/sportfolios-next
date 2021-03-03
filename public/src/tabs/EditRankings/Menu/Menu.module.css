@@ -1,0 +1,11 @@
+.menu {
+  display: flex;
+}
+
+.item {
+  padding-left: 2px !important;
+}
+
+.text  {
+  padding: 4px !important;
+}
