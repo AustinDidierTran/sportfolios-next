@@ -164,7 +164,7 @@ export default function Posts(props) {
       return;
     }
 
-    Promise.all(
+    await Promise.all(
       images.map(async (image) => {
         const { file } = image;
         const url = await uploadPicture(newPost.id, file);
@@ -181,7 +181,6 @@ export default function Posts(props) {
       setPosts((posts) => [newPost, ...posts]);
     });
   };
-  console.log(posts);
 
   return (
     <div>
