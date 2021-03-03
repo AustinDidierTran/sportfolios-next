@@ -33,9 +33,9 @@
 
 .prerankButton {
   width: max-content !important;
-  height: 32px;
-  margin-left: 16px !important;
-  margin-right: 16px !important;
+  height: 34px;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
 }
 
 .prerankButtonContainer {
