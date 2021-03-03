@@ -59,14 +59,6 @@
   width: 100%;
 }
 
-.button {
-  width: max-content !important;
-  height: 32px;
-  margin-bottom: 8px !important;
-  margin-left: 16px !important;
-  margin-right: 16px !important;
-}
-
 .buttons {
   display: flex;
   justify-content: center;
@@ -79,10 +71,27 @@
   align-self: center;
 }
 
-.phaseButton {
+.button {
+  width: 120px !important;
   margin-left: 8px !important;
   margin-right: 8px !important;
-  height: 32px;
+  height: 36px;
+  align-self: center;
+}
+
+.save {
+  width: 140px !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  height: 36px;
+  align-self: center;
+}
+
+.cancel {
+  width: 120px !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  height: 36px;
   align-self: center;
 }
 
@@ -92,7 +101,7 @@
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 2fr 6fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 11fr 1fr 1fr;
   grid-template-areas: '. . buttonContainer . menuContainer';
   width: 100%;
   margin-bottom: 12px;
@@ -106,16 +115,12 @@
 
 .menuContainer {
   grid-area: menuContainer;
+  margin-right: 2px;
 }
 
 .menu {
   align-self: center;
   justify-self: end;
-}
-
-.phaseButton {
-  height: 32px;
-  align-self: center;
 }
 
 @media (min-width: 600px) {

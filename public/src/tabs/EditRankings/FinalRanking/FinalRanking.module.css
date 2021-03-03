@@ -46,7 +46,7 @@
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 2fr 6fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 11fr 1fr 1fr;
   grid-template-areas: '. . buttonContainer . menuContainer';
   width: 100%;
   margin-bottom: 20px;
@@ -60,6 +60,7 @@
 
 .menuContainer {
   grid-area: menuContainer;
+  margin-right: 2px;
 }
 
 .menu {

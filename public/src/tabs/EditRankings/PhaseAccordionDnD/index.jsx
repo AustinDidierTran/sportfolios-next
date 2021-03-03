@@ -58,6 +58,7 @@ export default function PhaseAccordionDnD(props) {
     onExpand,
     startPhase,
     onOpenAlertDialog,
+    onOpenDeleteDialog,
     ...otherProps
   } = props;
   const { content, ranking, status, spots, phaseId } = phase;
@@ -139,16 +140,25 @@ export default function PhaseAccordionDnD(props) {
 
   const buttons = [
     {
+      onClick: startPhase,
+      name: t('start_phase'),
+      color: 'primary',
+      endIcon: 'Play',
+      className: styles.button,
+    },
+    {
       onClick: onSave,
       name: t('save'),
       color: 'primary',
       endIcon: 'SaveIcon',
+      className: styles.save,
     },
     {
       onClick: update,
       name: t('cancel'),
       color: 'secondary',
       endIcon: 'Close',
+      className: styles.cancel,
     },
   ];
 
@@ -158,9 +168,7 @@ export default function PhaseAccordionDnD(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" className={classes.primary} />}>
           <div className={styles.orderContainer}>
             <ListItemIcon>
-              {expanded || isOneExpanded ? (
-                <></>
-              ) : (
+              {!(expanded || isOneExpanded) && (
                 <Icon icon="Reorder" color="textSecondary" className={styles.dragIcon} />
               )}
             </ListItemIcon>
@@ -169,41 +177,36 @@ export default function PhaseAccordionDnD(props) {
         </AccordionSummary>
         <div className={styles.container}>
           <div className={styles.buttonContainer}>
-            <Button
-              onClick={(event) => {
-                startPhase(phase, event);
-              }}
-              color={'primary'}
-              endIcon="Play"
-              className={styles.phaseButton}
-            >
-              {t('start_phase')}
-            </Button>
+            {buttons.map((button, index) => (
+              <Button
+                onClick={(event) => {
+                  button.onClick(phase, event, madeChanges);
+                  if (button.name !== t('start_phase')) {
+                    setMadeChanges(false);
+                  }
+                }}
+                color={button.color}
+                type={button.type}
+                disabled={button.name === t('start_phase') ? false : !madeChanges}
+                endIcon={window.innerWidth < 600 ? '' : button.endIcon}
+                className={button.className}
+                key={index}
+              >
+                {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
+              </Button>
+            ))}
           </div>
           <div className={styles.menuContainer}>
-            <Menu className={styles.menu} phase={phase} openEdit={openEdit}></Menu>
+            <Menu
+              className={styles.menu}
+              phase={phase}
+              openEdit={openEdit}
+              onOpenDeleteDialog={onOpenDeleteDialog}
+            ></Menu>
           </div>
         </div>
         <AccordionDetails>
           <div className={styles.div}>
-            <div className={styles.buttons}>
-              {buttons.map((button, index) => (
-                <Button
-                  onClick={() => {
-                    button.onClick();
-                    setMadeChanges(false);
-                  }}
-                  color={button.color}
-                  type={button.type}
-                  disabled={button.name === t('edit.edit_team_number') ? false : !madeChanges}
-                  endIcon={window.innerWidth < 600 ? '' : button.endIcon}
-                  className={styles.button}
-                  key={index}
-                >
-                  {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
-                </Button>
-              ))}
-            </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (

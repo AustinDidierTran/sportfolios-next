@@ -18,7 +18,7 @@ import Button from '../../../components/Custom/Button';
 import Menu from '../Menu';
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, onOpenDeleteDialog, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
@@ -96,9 +96,7 @@ export default function FinalRanking(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
           <div>
             <ListItemIcon>
-              {expanded || isOneExpanded ? (
-                <></>
-              ) : (
+              {!(expanded || isOneExpanded) && (
                 <Icon icon="Reorder" color="textSecondary" className={styles.dragIcon} />
               )}
             </ListItemIcon>
@@ -110,9 +108,7 @@ export default function FinalRanking(props) {
           )}
         </AccordionSummary>
         <div className={styles.container}>
-          {phase.status === PHASE_STATUS_ENUM.DONE ? (
-            <></>
-          ) : (
+          {phase.status !== PHASE_STATUS_ENUM.DONE && (
             <div className={styles.buttonContainer}>
               <Button
                 onClick={(event) => {
@@ -127,7 +123,7 @@ export default function FinalRanking(props) {
             </div>
           )}
           <div className={styles.menuContainer}>
-            <Menu className={styles.menu} phase={phase}></Menu>
+            <Menu className={styles.menu} phase={phase} onOpenDeleteDialog={onOpenDeleteDialog}></Menu>
           </div>
         </div>
         <AccordionDetails>

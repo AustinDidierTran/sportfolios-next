@@ -43,7 +43,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function CustomizedMenus(props) {
-  const { phase, handleDeletePhase, openEdit, ...otherProps } = props;
+  const { phase, onOpenDeleteDialog, openEdit, ...otherProps } = props;
   const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,25 +61,36 @@ export default function CustomizedMenus(props) {
     handleClose();
   };
 
+  const handleDeletePhase = () => {
+    onOpenDeleteDialog(phase);
+    handleClose();
+  };
+
   if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED) {
     return (
       <div>
         <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleClick}>
           <MoreVertIcon />
         </IconButton>
-
-        <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <StyledMenu
+          id="customized-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          className={styles.menu}
+        >
           <StyledMenuItem onClick={handleEdit}>
-            <ListItemText primary={t('edit.edit_team_number')} className={styles.text} />
-            <ListItemIcon>
+            <ListItemIcon className={styles.item}>
               <Icon icon="Edit" />
             </ListItemIcon>
+            <ListItemText primary={t('edit.edit_team_number')} className={styles.text} />
           </StyledMenuItem>
-          <StyledMenuItem>
-            <ListItemText primary={t('delete.delete_phase')} className={styles.text} />
-            <ListItemIcon>
+          <StyledMenuItem onClick={handleDeletePhase}>
+            <ListItemIcon className={styles.item}>
               <Icon icon="Delete" />
             </ListItemIcon>
+            <ListItemText primary={t('delete.delete_phase')} className={styles.text} />
           </StyledMenuItem>
         </StyledMenu>
       </div>
@@ -91,13 +102,19 @@ export default function CustomizedMenus(props) {
       <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
-
-      <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <StyledMenuItem>
-          <ListItemText primary={t('delete.delete_phase')} className={styles.text} />
-          <ListItemIcon>
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        className={styles.menu}
+      >
+        <StyledMenuItem onClick={handleDeletePhase}>
+          <ListItemIcon className={styles.item}>
             <Icon icon="Delete" />
           </ListItemIcon>
+          <ListItemText primary={t('delete.delete_phase')} className={styles.text} />
         </StyledMenuItem>
       </StyledMenu>
     </div>
