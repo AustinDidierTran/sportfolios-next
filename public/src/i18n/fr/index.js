@@ -300,6 +300,7 @@ export default {
       not_paid: 'Non payé',
       paid_with: 'Payé avec',
       paid: 'Payé',
+      paid_on: 'Payé le',
       pay: 'Payer',
       payment: 'Paiement',
       payment_date: 'Date de paiement',
@@ -331,6 +332,7 @@ export default {
         "Aucune équipe ne peut être désinscrite de l'événement puisqu'elles sont déjà toutes dans des parties.",
       register: "S'inscrire",
       registered_singular: 'Inscrit',
+      registered_on: 'Inscrit le',
       registered: 'Inscrits',
       registration_accepted_free: "Félicitation! Vous avez été accepté à l'événement",
       registration_accepted:
@@ -1011,6 +1013,7 @@ export default {
       "Voulez-vous accepter ou refuser manuellement chaque joueur qui s'inscrit à votre tournoi avant qu'ils effectuent le paiement?",
     player_added: 'Joueur ajouté',
     player_name: 'Nom du joueur',
+    player_unregister_success: 'Joueur désinscrit avec succès',
     players_unregister_success: 'Joueurs désinscrits avec succès',
     player_view: 'Vue du joueur',
     player: 'Joueur',

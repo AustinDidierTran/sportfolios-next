@@ -1,0 +1,13 @@
+.textArea {
+  flex: 1 1 auto;
+  margin-top: 8px;
+  resize: none;
+  outline: none;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  border-style: hidden;
+  background-color: white;
+  text-align: justify;
+}
+.text {
+  overflow: auto;
+}

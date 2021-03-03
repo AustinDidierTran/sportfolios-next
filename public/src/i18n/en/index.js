@@ -305,6 +305,7 @@ export default {
       not_paid: 'Not paid',
       paid_with: 'Paid with',
       paid: 'Paid',
+      paid_on: 'Paid on',
       pay: 'Pay',
       payment: 'Payment',
       payment_date: 'Payment date',
@@ -335,6 +336,7 @@ export default {
       cant_unregister_any_teams: 'No teams can be unregistered since they are all already in a game.',
       register: 'Register',
       registered_singular: 'Registered',
+      registered_on: 'Registered on',
       registered: 'Registered',
       registration_accepted_free: 'Congratulation! You have been accepted to the event',
       registration_accepted:
@@ -1000,6 +1002,7 @@ export default {
     team_refused: 'Team refused',
     player_added: 'Player added',
     player_name: 'Player name',
+    player_unregister_success: 'Player unregistered successfully',
     players_unregister_success: 'Players unregistered successfully',
     player_view: 'Player view',
     player: 'Player',

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import { Paper, MailToButton, AlertDialog, IconButton, LoadingSpinner } from '../../../components/Custom';
-import PaymentChip from './PaymentChip';
+import { Paper, AlertDialog, IconButton, LoadingSpinner } from '../../../components/Custom';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -15,12 +14,13 @@ import styles from './PlayersRegistered.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { unregisterPeople } from '../../../actions/api/helpers';
-import { formatPrice } from '../../../utils/stringFormats';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import PlayersRow from './PlayersRow';
+import PlayersRowMobile from './PlayersRowMobile';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
@@ -79,7 +79,7 @@ export default function PlayersRegistered() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('team.team_unregister_success'),
+        message: t('player_unregister_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
@@ -168,6 +168,89 @@ export default function PlayersRegistered() {
   if (players.length < 1) {
     return <></>;
   }
+
+  if (window.innerWidth < 600) {
+    return (
+      <Paper className={styles.paper}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {maximumSpots ? (
+                  <StyledTableCell colSpan={2}>
+                    {t('register.registration_status')}:&nbsp;
+                    {acceptedSpots}/{maximumSpots}&nbsp;
+                    {t('accepted')}
+                  </StyledTableCell>
+                ) : (
+                  <StyledTableCell colSpan={2}>
+                    {t('register.registration_status')}:&nbsp;
+                    {acceptedSpots}&nbsp;
+                    {t('accepted')}
+                  </StyledTableCell>
+                )}
+                <StyledTableCell align="center">
+                  {players.length > 0 ? (
+                    <IconButton
+                      variant="contained"
+                      icon="MoneyOff"
+                      tooltip={t('register.unregister_all')}
+                      onClick={() => handleUnregisterAllClick()}
+                      style={{ color: '#f44336' }}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>{t('player')}</StyledTableCell>
+                <StyledTableCell align="center">{t('status')}</StyledTableCell>
+                <StyledTableCell />
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {isLoading ? (
+                <StyledTableRow align="center">
+                  <StyledTableCell colSpan={2}>{t('register.unregister_pending')}</StyledTableCell>
+                  <StyledTableCell>
+                    <LoadingSpinner isComponent />
+                  </StyledTableCell>
+                </StyledTableRow>
+              ) : players?.length > 0 ? (
+                <>
+                  {players.map((player, index) => (
+                    <PlayersRowMobile player={player} key={index} handleUnregisterClick={handleUnregisterClick} />
+                  ))}
+                </>
+              ) : (
+                <StyledTableRow align="center">
+                  <StyledTableCell colSpan={3}>{t('no.no_players_registered')}</StyledTableCell>
+                </StyledTableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <AlertDialog
+          open={openUnregister}
+          onCancel={onCloseUnregister}
+          onSubmit={onUnregisterPerson}
+          title={t('register.are_you_sure_you_want_to_unregister_this_player')}
+          description={players.find((x) => x.personId === personId)?.completeName}
+        />
+        <AlertDialog
+          open={openUnregisterAll}
+          onCancel={onCloseUnregisterAll}
+          onSubmit={onUnregisterAll}
+          title={t('register.are_you_sure_you_want_to_unregister_all_players')}
+          description={players.map((p) => p.completeName).join(', ')}
+        />
+      </Paper>
+    );
+  }
+
   return (
     <Paper className={styles.paper}>
       <TableContainer component={Paper}>
@@ -207,51 +290,21 @@ export default function PlayersRegistered() {
               <StyledTableCell>{t('player')}</StyledTableCell>
               <StyledTableCell>{t('option')}</StyledTableCell>
               <StyledTableCell align="center">{t('status')}</StyledTableCell>
-              <StyledTableCell align="center">{t('actions')}</StyledTableCell>
+              <StyledTableCell />
             </TableRow>
           </TableHead>
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={3}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
               </StyledTableRow>
             ) : players?.length > 0 ? (
               <>
-                {players.map((person, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell component="th" scope="row">
-                      {person.completeName}
-                    </StyledTableCell>
-                    {person.option ? (
-                      <StyledTableCell component="th" scope="row">
-                        {person.option.name}&nbsp;
-                        {`(${
-                          person.option.individual_price === 0 ? t('free') : formatPrice(person.option.individual_price)
-                        })`}
-                      </StyledTableCell>
-                    ) : (
-                      <StyledTableCell component="th" scope="row">
-                        {t('no.no_option')}
-                      </StyledTableCell>
-                    )}
-
-                    <StyledTableCell align="center">
-                      <PaymentChip status={person.status} />
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      <MailToButton emails={[{ email: person.email }]} color="grey" />
-                      <IconButton
-                        variant="contained"
-                        icon="MoneyOff"
-                        tooltip={t('register.unregister')}
-                        onClick={() => handleUnregisterClick(person.personId)}
-                        style={{ color: 'primary' }}
-                      />
-                    </StyledTableCell>
-                  </StyledTableRow>
+                {players.map((player, index) => (
+                  <PlayersRow player={player} key={index} handleUnregisterClick={handleUnregisterClick} />
                 ))}
               </>
             ) : (

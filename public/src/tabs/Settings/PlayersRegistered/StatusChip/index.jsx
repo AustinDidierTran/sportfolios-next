@@ -21,17 +21,31 @@ export default function StatusChip(props) {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { status, registrationStatus, eventId, teamId } = props;
+  const { status, registrationStatus, eventId, personId } = props;
 
   if (registrationStatus === STATUS_ENUM.PENDING) {
     return (
       <div className={classes.root}>
         <Chip
           onClick={() => {
-            goTo(ROUTES.teamsAcceptation, { id: eventId }, { teamId });
+            goTo(ROUTES.playersAcceptation, { id: eventId }, { personId });
           }}
           label={t(registrationStatus)}
           style={{ border: '1px solid #CCCC00', color: '#CCCC00 ' }}
+          variant="outlined"
+        />
+      </div>
+    );
+  }
+  if (registrationStatus === STATUS_ENUM.REFUSED) {
+    return (
+      <div className={classes.root}>
+        <Chip
+          onClick={() => {
+            goTo(ROUTES.playersAcceptation, { id: eventId }, { personId });
+          }}
+          label={t(registrationStatus)}
+          color="secondary"
           variant="outlined"
         />
       </div>
