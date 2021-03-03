@@ -1,6 +1,7 @@
 const getRankingInfos = (teams, games) => {
   const ranking = teams.map((team) => ({
     id: team.id,
+    rosterId: team.roster_id,
     name: team.name,
     wins: 0,
     loses: 0,

@@ -79,7 +79,6 @@ export default function FinalRanking(props) {
     });
 
     const res = updateRanking(teams, games);
-
     const rankingStats = res.map((r, index) => ({
       ...r,
       type: LIST_ITEM_ENUM.RANKING_WITH_STATS,
@@ -87,7 +86,17 @@ export default function FinalRanking(props) {
       key: index,
     }));
 
-    setItems(rankingStats);
+    if (phase.status === PHASE_STATUS_ENUM.DONE) {
+      const rankingStatsAndFinalPosition = rankingStats
+        .map((r) => ({
+          finalPosition: phase.ranking.find((rank) => rank.roster_id === r.rosterId).final_position,
+          ...r,
+        }))
+        .sort((a, b) => a.finalPosition - b.finalPosition);
+      setItems(rankingStatsAndFinalPosition);
+    } else {
+      setItems(rankingStats);
+    }
   };
 
   return (
@@ -112,7 +121,7 @@ export default function FinalRanking(props) {
             <div className={styles.buttonContainer}>
               <Button
                 onClick={(event) => {
-                  onOpenAlertDialog(phase, event);
+                  onOpenAlertDialog(phase, event, items);
                 }}
                 color={'primary'}
                 className={styles.button}
@@ -132,7 +141,10 @@ export default function FinalRanking(props) {
               <div key={index}>
                 <ListItem>
                   <div className={styles.stats}>
-                    <ListItemText className={styles.position} secondary={item.index}></ListItemText>
+                    <ListItemText
+                      className={styles.position}
+                      secondary={item.finalPosition ? item.finalPosition : item.index}
+                    ></ListItemText>
                     <ListItemText className={styles.team} primary={item.name}></ListItemText>
                     <ListItemText className={styles.win} primary={item.wins} secondary={'W'}></ListItemText>
                     <ListItemText className={styles.lose} primary={item.loses} secondary={'L'}></ListItemText>
