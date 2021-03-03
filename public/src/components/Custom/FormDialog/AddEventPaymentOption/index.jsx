@@ -114,6 +114,7 @@ export default function AddEventPaymentOption(props) {
       openTime: '00:00',
       closeDate: moment().add(1, 'month').format('YYYY-MM-DD'),
       closeTime: '23:59',
+      informations: '',
     },
     validationSchema: validationSchema,
     validate,

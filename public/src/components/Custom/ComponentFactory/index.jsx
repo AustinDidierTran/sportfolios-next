@@ -1,12 +1,12 @@
 import React from 'react';
 
 import ListItemText from '@material-ui/core/ListItemText';
-import CustomTextField from '../TextField';
-import CustomButton from '../Button';
-import CustomSelect from '../Select';
-import CustomMultiSelect from '../MultiSelect';
-import CustomCheckBox from '../CheckBox';
-import CustomList from '../List';
+import TextField from '../TextField';
+import Button from '../Button';
+import Select from '../Select';
+import MultiSelect from '../MultiSelect';
+import CheckBox from '../CheckBox';
+import List from '../List';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -18,7 +18,7 @@ export default function ComponentFactory(props) {
   const { component } = props;
   if (component.componentType === COMPONENT_TYPE_ENUM.SELECT) {
     return (
-      <CustomSelect
+      <Select
         options={component.options}
         formik={component.formik}
         namespace={component.namespace}
@@ -33,7 +33,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.MULTISELECT) {
     return (
-      <CustomMultiSelect
+      <MultiSelect
         formik={component.formik}
         label={component.label}
         options={component.options}
@@ -45,7 +45,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.BUTTON) {
     return (
-      <CustomButton
+      <Button
         children={component.children}
         namespace={component.namespace}
         endIcon={component.endIcon}
@@ -58,7 +58,7 @@ export default function ComponentFactory(props) {
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.CHECKBOX) {
     return (
-      <CustomCheckBox
+      <CheckBox
         checked={component.checked}
         onChange={component.onChange}
         label={component.label}
@@ -83,7 +83,7 @@ export default function ComponentFactory(props) {
     return <Divider style={component.style} />;
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST) {
-    return <CustomList items={component.items} />;
+    return <List items={component.items} />;
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.PERSON_SEARCH_LIST) {
     return (
@@ -113,11 +113,25 @@ export default function ComponentFactory(props) {
       />
     );
   }
+  if (component.componentType === COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX) {
+    return (
+      <TextField
+        namespace={component.namespace}
+        formik={component.formik}
+        variant={component.variant}
+        multiline
+        rows={component.rows}
+        rowsMax={component.rowsMax}
+        label={component.label}
+        style={component.style}
+      />
+    );
+  }
   if (component.componentType === COMPONENT_TYPE_ENUM.EMPTY) {
     return <> </>;
   }
   return (
-    <CustomTextField
+    <TextField
       formik={component.formik}
       namespace={component.namespace}
       InputLabelProps={{ shrink: component.shrink }}

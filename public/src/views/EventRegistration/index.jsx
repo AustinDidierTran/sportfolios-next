@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Paper, StepperWithHooks, IgContainer, LoadingSpinner } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import StepperWithHooks from '../../components/Custom/StepperWithHooks';
+import IgContainer from '../../components/Custom/IgContainer';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Roster from './Roster';
 import { useStepper } from '../../hooks/forms';
 import api from '../../actions/api';
@@ -7,7 +10,6 @@ import { ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import styles from './EventRegistration.module.css';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
@@ -15,6 +17,7 @@ import { useFormik } from 'formik';
 import PersonSelect from './PersonSelect';
 import PaymentOptionSelect from './PaymentOptionSelect/index';
 import TeamSelect from './TeamSelect/index';
+import AdditionalInformation from './AdditionalInformation';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
@@ -37,11 +40,7 @@ export default function EventRegistration() {
     dispatch,
   } = useContext(Store);
 
-  useEffect(() => {
-    if (!eventId) {
-      goTo(ROUTES.home);
-    }
-  }, [eventId]);
+  const [requiredInfos, setRequiredInfos] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -54,9 +53,10 @@ export default function EventRegistration() {
       paymentOptions: [],
       teamSearchQuery: '',
       teamActivity: '',
+      informations: '',
     },
     onSubmit: async (values) => {
-      const { event, team, roster, paymentOption, persons, teamActivity } = values;
+      const { event, team, roster, paymentOption, persons, teamActivity, informations } = values;
       let newTeamId = null;
       setIsLoading(true);
       if (teamActivity) {
@@ -79,6 +79,7 @@ export default function EventRegistration() {
             paymentOption,
             roster,
             status: INVOICE_STATUS_ENUM.OPEN,
+            informations,
           }),
         });
 
@@ -95,6 +96,7 @@ export default function EventRegistration() {
         }
         return;
       }
+      //TODO informations ici
       const { status, data } = await api('/api/entity/registerIndividual', {
         method: 'POST',
         body: JSON.stringify({
@@ -102,6 +104,7 @@ export default function EventRegistration() {
           paymentOption,
           persons,
           status: INVOICE_STATUS_ENUM.OPEN,
+          informations,
         }),
       });
       if (status === STATUS_ENUM.SUCCESS) {
@@ -140,19 +143,51 @@ export default function EventRegistration() {
     },
   });
 
-  const stepHook = useStepper();
+  useEffect(() => {
+    formik.setFieldValue('teamActivity', true);
+    if (isAuthenticated) {
+      if (eventId) {
+        getData();
+      }
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('you.you_need_to_create_an_account'),
+        severity: SEVERITY_ENUM.INFO,
+      });
+      goToAndReplace(ROUTES.login, null, {
+        redirectUrl: `/page/eventRegistration/${eventId}`,
+      });
+    }
+  }, [eventId]);
 
   useEffect(() => {
     const paymentOption = formik.values.paymentOptions.find((p) => p.value === formik.values.paymentOption);
     formik.setFieldValue('teamActivity', paymentOption?.teamActivity);
+    setRequiredInfos(paymentOption?.informations);
   }, [formik.values.paymentOption]);
 
-  useEffect(() => {
-    formik.setFieldValue('teamActivity', true);
-  }, []);
+  const getData = async () => {
+    const event = await getEvent(eventId);
+    formik.setFieldValue('event', event);
+  };
+
+  const stepHook = useStepper();
 
   const handleBack = (activeStep) => {
     stepHook.handleNotCompleted(activeStep);
+  };
+
+  const additionalInformation = {
+    label: t('informations'),
+    content: (
+      <AdditionalInformation
+        stepHook={stepHook}
+        formik={formik}
+        informations={requiredInfos}
+        index={formik.values.teamActivity ? 3 : 2}
+      />
+    ),
   };
 
   const steps = [
@@ -169,6 +204,7 @@ export default function EventRegistration() {
       content: <Roster stepHook={stepHook} formik={formik} />,
     },
   ];
+
   const individualSteps = [
     {
       label: t('payment.payment_options'),
@@ -180,26 +216,6 @@ export default function EventRegistration() {
     },
   ];
 
-  const getData = async () => {
-    const event = await getEvent(eventId);
-    formik.setFieldValue('event', event);
-  };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      getData();
-    } else {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('you.you_need_to_create_an_account'),
-        severity: SEVERITY_ENUM.INFO,
-      });
-      goToAndReplace(ROUTES.login, null, {
-        redirectUrl: `/page/eventRegistration/${eventId}`,
-      });
-    }
-  }, []);
-
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -210,15 +226,21 @@ export default function EventRegistration() {
         <div className={styles.typo}>
           <Typography variant="h3">{formik?.values?.event?.name || ''}</Typography>
         </div>
-        <Container>
-          <StepperWithHooks
-            steps={formik.values.teamActivity ? steps : individualSteps}
-            finish={formik.handleSubmit}
-            Next={() => {}}
-            Back={handleBack}
-            {...stepHook.stepperProps}
-          />
-        </Container>
+        <StepperWithHooks
+          steps={
+            formik.values.teamActivity
+              ? requiredInfos
+                ? [...steps, additionalInformation]
+                : steps
+              : requiredInfos
+              ? [...individualSteps, additionalInformation]
+              : individualSteps
+          }
+          finish={formik.handleSubmit}
+          Next={() => {}}
+          Back={handleBack}
+          {...stepHook.stepperProps}
+        />
       </Paper>
     </IgContainer>
   );

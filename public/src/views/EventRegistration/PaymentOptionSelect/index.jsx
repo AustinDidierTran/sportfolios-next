@@ -38,6 +38,7 @@ export default function PaymentOptionSelect(props) {
             value: d.id,
             secondary: d.team_activity ? t('team.team_activity') : t('individual_activity'),
             teamActivity: d.team_activity,
+            informations: d.informations,
           },
         ],
         []

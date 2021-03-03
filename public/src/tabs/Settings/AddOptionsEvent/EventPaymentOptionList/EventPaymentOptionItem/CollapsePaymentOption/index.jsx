@@ -24,6 +24,7 @@ export default function CollapsePaymentOption(props) {
     setAlertDialog,
     teamAcceptation,
     playerAcceptation,
+    informations,
   } = props;
 
   return (
@@ -48,6 +49,9 @@ export default function CollapsePaymentOption(props) {
             />
           )}
         </ListItem>
+        <ListItem>
+          {informations && <ListItemText primary={t('required_informations')} secondary={informations} />}
+        </ListItem>
         <ListItem className={styles.money}>
           <ListItemText />
           <ListItemText primary={t('team.team')} />
@@ -63,14 +67,14 @@ export default function CollapsePaymentOption(props) {
         <>
           <ListItem className={styles.money}>
             <ListItemText primary={`${t('subtotal')}:`} />
-            <ListItemText primary={`${formatPrice(individualPrice)}`} secondary={t('price_individual')}></ListItemText>
             <ListItemText primary={`${formatPrice(teamPrice)}`} secondary={t('price_team')}></ListItemText>
+            <ListItemText primary={`${formatPrice(individualPrice)}`} secondary={t('price_individual')}></ListItemText>
           </ListItem>
           {taxRates.map((t, index) => (
             <ListItem className={styles.money} key={index}>
               <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description} />
-              <ListItemText primary={`${formatPrice((individualPrice * t.percentage) / 100)}`}></ListItemText>
               <ListItemText primary={`${formatPrice((teamPrice * t.percentage) / 100)}`}></ListItemText>
+              <ListItemText primary={`${formatPrice((individualPrice * t.percentage) / 100)}`}></ListItemText>
             </ListItem>
           ))}
           <Divider />
@@ -79,15 +83,15 @@ export default function CollapsePaymentOption(props) {
             <ListItemText
               primary={`${formatPrice(
                 taxRates.reduce((prev, curr) => {
-                  return prev + (individualPrice * curr.percentage) / 100;
-                }, 0) + individualPrice
+                  return prev + (teamPrice * curr.percentage) / 100;
+                }, 0) + teamPrice
               )}`}
             ></ListItemText>
             <ListItemText
               primary={`${formatPrice(
                 taxRates.reduce((prev, curr) => {
-                  return prev + (teamPrice * curr.percentage) / 100;
-                }, 0) + teamPrice
+                  return prev + (individualPrice * curr.percentage) / 100;
+                }, 0) + individualPrice
               )}`}
             ></ListItemText>
           </ListItem>

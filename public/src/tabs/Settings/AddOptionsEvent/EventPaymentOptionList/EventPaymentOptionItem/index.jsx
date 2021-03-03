@@ -30,6 +30,7 @@ export default function EventPaymentOptionItem(props) {
     team_activity,
     team_acceptation,
     player_acceptation,
+    informations,
   } = option;
 
   const { dispatch } = useContext(Store);
@@ -110,6 +111,7 @@ export default function EventPaymentOptionItem(props) {
         setAlertDialog={setAlertDialog}
         teamAcceptation={team_acceptation}
         playerAcceptation={player_acceptation}
+        informations={informations}
       />
       <Divider />
       <CustomFormDialog

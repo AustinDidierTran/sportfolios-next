@@ -1,10 +1,4 @@
-.paper {
-  grid-area: stripe;
-  width: 100%;
-  padding-bottom: 16px;
-}
-
-.all {
+.main {
   display: flex;
   flex-direction: column;
 }
@@ -15,15 +9,17 @@
   justify-content: space-evenly;
 }
 
+.step {
+  padding: 0px;
+}
+
 .display {
   padding-bottom: 16px;
   flex: 1 1 auto;
 }
 
 .content {
-  padding-bottom: 16px;
-
-  /* background-color: rgba(0, 0, 255, 0.2); */
+  padding: 16px;
   flex: 1 1 auto;
 }
 
