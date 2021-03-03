@@ -70,19 +70,31 @@ export default function TabEventInfo() {
   };
 
   const isEarly = useMemo(() => {
+    if (!Array.isArray(options)) {
+      return true;
+    }
     return options.every((option) => moment(option.startTime) > moment());
   }, [options]);
 
   const isLate = useMemo(() => {
+    if (!Array.isArray(options)) {
+      return true;
+    }
     return options.every((option) => moment(option.endTime).add(24, 'hours') < moment());
   }, [options]);
 
   const RegistrationStart = useMemo(() => {
+    if (!Array.isArray(options)) {
+      return true;
+    }
     const startsDate = options.map((option) => moment(option.startTime));
     return formatDate(moment.min(startsDate));
   }, [options]);
 
   const registrationEnd = useMemo(() => {
+    if (!Array.isArray(options)) {
+      return true;
+    }
     const endsDate = options.map((option) => moment(option.endTime));
     return formatDate(moment.max(endsDate));
   }, [options]);
@@ -99,7 +111,7 @@ export default function TabEventInfo() {
   }, [remainingSpots]);
 
   const canRegister = useMemo(() => {
-    if (options.length < 1 || isFull || isLate || isEarly) {
+    if (!Array.isArray(options) || options.length < 1 || isFull || isLate || isEarly) {
       return false;
     }
     return true;
@@ -110,7 +122,7 @@ export default function TabEventInfo() {
   };
 
   const Problems = () => {
-    if (options.length < 1) {
+    if (!Array.isArray(options) || options.length < 1) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
           {t('register.registrations_closed_for_now')}
