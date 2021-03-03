@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, MyGames } from '../../components/Custom';
+import { Paper, MyGames, MyGamesTeam } from '../../components/Custom';
 import styles from './About.module.css';
 import { GLOBAL_ENUM } from '../../../common/enums';
 import loadable from '@loadable/component';
@@ -15,9 +15,12 @@ export default function TabAbout(props) {
   switch (type) {
     case GLOBAL_ENUM.TEAM:
       return (
-        <Paper className={styles.card}>
-          <BasicInfos basicInfos={basicInfos} />
-        </Paper>
+        <>
+          <Paper className={styles.card}>
+            <BasicInfos basicInfos={basicInfos} />
+          </Paper>
+          <MyGamesTeam gamesInfos={gamesInfos} />
+        </>
       );
 
     case GLOBAL_ENUM.EVENT:

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { Paper, IgContainer, Icon } from '../../../components/Custom';
 
@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import TabsGenerator from '../../../tabs';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { TABS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
 
 export default function Team(props) {
@@ -22,10 +22,21 @@ export default function Team(props) {
 
   const [eventState, setEventState] = useState(TABS_ENUM.ABOUT);
 
-  const states = TabsGenerator({
+  const userStates = TabsGenerator({
     list: [TABS_ENUM.ABOUT],
     role: basicInfos.role,
   });
+  const adminStates = TabsGenerator({
+    list: [TABS_ENUM.ABOUT, TABS_ENUM.SETTINGS],
+    role: basicInfos.role,
+  });
+
+  const states = useMemo(() => {
+    if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
+      return adminStates;
+    }
+    return userStates;
+  }, [basicInfos]);
 
   const OpenTab = states.find((s) => s.value == eventState).component;
 
@@ -37,7 +48,7 @@ export default function Team(props) {
   return (
     <IgContainer>
       <Paper>
-        {window.innerWidth < 768 ? (
+        {window.innerWidth < 600 ? (
           <Tabs value={states.findIndex((s) => s.value === eventState)} indicatorColor="primary" textColor="primary">
             {states.map((s, index) => (
               <Tab
@@ -65,7 +76,7 @@ export default function Team(props) {
         )}
       </Paper>
       <div>
-        <OpenTab basicInfos={basicInfos} />
+        <OpenTab basicInfos={basicInfos} {...props} />
       </div>
     </IgContainer>
   );
