@@ -50,7 +50,7 @@ export default function CollapsePaymentOption(props) {
           )}
         </ListItem>
         <ListItem>
-          {informations ? <ListItemText primary={t('required_informations')} secondary={informations} /> : <></>}
+          {informations && <ListItemText primary={t('required_informations')} secondary={informations} />}
         </ListItem>
         <ListItem className={styles.money}>
           <ListItemText />

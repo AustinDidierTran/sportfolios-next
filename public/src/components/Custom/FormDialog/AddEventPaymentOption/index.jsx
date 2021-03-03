@@ -120,7 +120,6 @@ export default function AddEventPaymentOption(props) {
     validate,
     validateOnChange: false,
     onSubmit: (values) => {
-      console.log({ values });
       let teamAcc = teamAcceptation;
       const taxRatesId = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id);
       if (!teamActivity) {
