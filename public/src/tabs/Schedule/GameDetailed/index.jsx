@@ -19,7 +19,7 @@ import EnterScore from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestio
 import EditGameDialog from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EditGameDialog';
 import RosterDisplay from '../../../components/Custom/RosterDisplay';
 import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
+import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;
@@ -315,6 +315,15 @@ export default function GameDetailed(props) {
       <Divider variant="middle" />
       <RosterDisplay teams={game.teams} />
       <Divider variant="middle" />
+      <Posts
+        userInfo={userInfo}
+        allowPostImage={false}
+        allowNewPost={true}
+        entityIdCreatePost={userInfo.primaryPerson.entity_id}
+        allowComment={false}
+        allowLike={true}
+        locationId={game.entity_id}
+      />
       <SubmitScoreDialog
         open={submitScore}
         onClose={closeSubmitScore}
