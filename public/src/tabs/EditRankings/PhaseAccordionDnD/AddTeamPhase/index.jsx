@@ -21,6 +21,7 @@ export default function AddTeamPhase(props) {
   const [open, setOpen] = useState(isOpen);
   const [allTeams, setAllTeams] = useState([]);
   const [onlyNonSelectedTeams, setOnlyNotSelectedTeams] = useState([]);
+  const [poolOptions, setPoolOptions] = useState([]);
   const [phases, setPhases] = useState([]);
 
   useEffect(() => {
