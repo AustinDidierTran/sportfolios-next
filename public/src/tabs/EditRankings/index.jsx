@@ -100,6 +100,9 @@ export default function EditRankings() {
           if (r && r.roster_id) {
             return { ...r, id: r.roster_id, content: r.name };
           }
+          if (r && r.origin_phase && r.origin_position) {
+            return { ...r, id: uuidv4(), content: r.origin_position + ' - ' + r.phaseName };
+          }
           return { ...r, isEmpty: true, id: uuidv4() };
         }),
       }))

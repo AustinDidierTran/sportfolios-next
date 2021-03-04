@@ -54,6 +54,8 @@ export default function AddTeamPhase(props) {
       })
     );
 
+    let unavailablePositions = [];
+
     const allPhases = data
       .map((d) => ({
         content: d.name,
@@ -65,18 +67,24 @@ export default function AddTeamPhase(props) {
           if (r && r.roster_id) {
             return { id: r.roster_id };
           }
-          return { id: null };
+          if (r && r.origin_phase && r.origin_position && !r.roster_id) {
+            const unavailablePosition = { id: r.origin_phase, index: r.origin_position };
+            unavailablePositions.push(unavailablePosition);
+            return unavailablePosition;
+          } else {
+            return { id: null };
+          }
         }),
       }))
       .sort((a, b) => a.order - b.order);
-    const phaseOptions = getPhasesOptions(allPhases).filter((o) => o.phaseId !== phaseId);
+    const phaseOptions = getPhasesOptions(allPhases, unavailablePositions).filter((o) => o.phaseId !== phaseId);
     const teamOptions = getTeamsOptions(allPhases);
     const allOptions = teamOptions.concat(phaseOptions);
     setAllOptions(allOptions);
   };
 
-  const getPhasesOptions = (allPhases) => {
-    const options = allPhases.reduce((prev, curr) => {
+  const getPhasesOptions = (allPhases, unavailablePositions) => {
+    const allPhasesOptions = allPhases.reduce((prev, curr) => {
       let phaseOption = [];
       for (let i = 1; i <= curr.spots; ++i) {
         //the key is needed to differentiate children
@@ -91,8 +99,17 @@ export default function AddTeamPhase(props) {
       const option = prev.concat(phaseOption);
       return option;
     }, []);
-    setPhaseOptions(options);
-    return options;
+
+    if (unavailablePositions.length) {
+      const filteredOptions = allPhasesOptions.filter(
+        (o) => unavailablePositions.findIndex((up) => o.phaseId === up.id && o.index === up.index) === -1
+      );
+      setPhaseOptions(filteredOptions);
+      return filteredOptions;
+    } else {
+      setPhaseOptions(allPhasesOptions);
+      return allPhasesOptions;
+    }
   };
 
   const getTeamsOptions = (allPhases) => {
@@ -106,9 +123,9 @@ export default function AddTeamPhase(props) {
     const rankingsIds = rankings.map((r) => {
       return r.id;
     });
-    const teamOptions = allTeams.filter((t) => !rankingsIds.includes(t.value));
-    setOnlyNotSelectedTeams(teamOptions);
-    return teamOptions;
+    const teamsFilteredOptions = allTeams.filter((t) => !rankingsIds.includes(t.value));
+    setOnlyNotSelectedTeams(teamsFilteredOptions);
+    return teamsFilteredOptions;
   };
 
   const onFinish = () => {
@@ -133,6 +150,8 @@ export default function AddTeamPhase(props) {
           id: select.value,
           initialPosition,
           phaseId,
+          originPhase: select.phaseId,
+          originPosition: select.index,
         }),
       });
 
