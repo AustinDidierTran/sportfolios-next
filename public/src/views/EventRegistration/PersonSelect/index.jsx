@@ -76,7 +76,16 @@ export default function PersonSelect(props) {
           onClick={() => {
             removePerson(p);
           }}
-          secondaryActions={[<IconButton icon="Remove" toolTip={t('remove')} style={{ color: 'secondary' }} />]}
+          secondaryActions={[
+            <IconButton
+              icon="Remove"
+              onClick={() => {
+                removePerson(p);
+              }}
+              tooltip={t('remove')}
+              style={{ color: 'secondary' }}
+            />,
+          ]}
         />
       ))}
       {formik.values.allPersons.length ? (
@@ -93,7 +102,16 @@ export default function PersonSelect(props) {
               }}
               disabled={p.registered}
               secondary={p.registered ? t('register.registered_singular') : null}
-              secondaryActions={[<IconButton icon="Add" toolTip={t('add.add')} style={{ color: 'primary' }} />]}
+              secondaryActions={[
+                <IconButton
+                  icon="Add"
+                  onClick={() => {
+                    addPerson(p);
+                  }}
+                  tooltip={t('add.add')}
+                  style={{ color: 'primary' }}
+                />,
+              ]}
             />
           ))}
         </>

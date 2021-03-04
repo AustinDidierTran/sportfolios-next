@@ -10,22 +10,44 @@ import { useTranslation } from 'react-i18next';
 
 const PlayersAcceptationRoute = () => {
   const router = useRouter();
+  const { id: eventId, personId } = router.query;
+  const [cards, setCards] = useState([]);
   const { t } = useTranslation();
 
-  const { id: eventId } = router.query;
-  const [cards, setCards] = useState([]);
+  const update = async (personId, registrationStatus) => {
+    await api('/api/entity/playerAcceptation', {
+      method: 'PUT',
+      body: JSON.stringify({
+        eventId,
+        personId,
+        registrationStatus,
+      }),
+    });
+  };
 
   const getCardsInfos = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/playersPending', null, {
-        eventId,
-      })
-    );
+    if (eventId) {
+      const { data } = await api(
+        formatRoute('/api/entity/playersPendingAndRefused', null, {
+          eventId,
+        })
+      );
 
-    const players = data?.map((p) => {
-      return { items: p, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
-    });
-    setCards(players);
+      const pending = data.pending?.map((p) => {
+        return { items: p, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
+      });
+      const refused = data.refused?.map((t) => {
+        return { items: t, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
+      });
+      const players = pending.concat(refused);
+
+      if (personId) {
+        players?.sort((a, b) => {
+          return a.items.id == personId ? -1 : b.items.id == personId ? 1 : 0;
+        });
+      }
+      setCards(players);
+    }
   };
 
   useEffect(() => {
@@ -44,7 +66,7 @@ const PlayersAcceptationRoute = () => {
           content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
         />
       </Head>
-      <PlayersAcceptation card={cards} />
+      <PlayersAcceptation cards={cards} update={update} getCards={getCardsInfos} />
     </>
   );
 };

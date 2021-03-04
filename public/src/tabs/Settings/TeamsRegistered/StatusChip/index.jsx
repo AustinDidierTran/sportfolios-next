@@ -25,11 +25,13 @@ export default function StatusChip(props) {
 
   if (registrationStatus === STATUS_ENUM.PENDING) {
     return (
-      <div className={classes.root}>
+      <div
+        className={classes.root}
+        onClick={() => {
+          goTo(ROUTES.teamsAcceptation, { id: eventId }, { rosterId });
+        }}
+      >
         <Chip
-          onClick={() => {
-            goTo(ROUTES.teamsAcceptation, { id: eventId }, { rosterId });
-          }}
           label={t(registrationStatus)}
           style={{ border: '1px solid #CCCC00', color: '#CCCC00 ' }}
           variant="outlined"

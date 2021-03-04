@@ -349,8 +349,8 @@ export default {
       registration_open_date: 'Date registrations open',
       registration_open_time: 'Time registrations open',
       registration_pending:
-        'Your registration is currently pending, you will receive an email when the event will adress your registration',
-      registration_refused: 'Sorry, your team is not elligible for this event your registration has been refused',
+        'Your registration is currently pending, you will receive an email when the event will adress your registration.',
+      registration_refused: 'Sorry, your team is not elligible for this event your registration has been refused.',
       registration_status: 'Registration Status',
       registration: 'Registration',
       registrations_closed_for_now: 'Registrations are closed for now',
@@ -912,6 +912,7 @@ export default {
     login: 'Login',
     logout: 'Logout',
     male: 'Male',
+    Male: 'Male',
     manual_acceptation: 'Manual acceptation',
     max_length: 'Maximum length',
     maximum_spots: 'Maximum spots',

@@ -87,11 +87,13 @@ export default function EventRegistration() {
         if (status < 300) {
           goTo(ROUTES.registrationStatus, null, {
             status: data.status,
+            eventId,
           });
         } else if (status === errors[ERROR_ENUM.REGISTRATION_ERROR].code) {
           goTo(ROUTES.registrationStatus, null, {
             status: data.status,
             reason: data.reason,
+            eventId,
           });
         }
         return;
@@ -111,6 +113,7 @@ export default function EventRegistration() {
         goTo(ROUTES.registrationStatus, null, {
           status: data.status,
           rosterId: data.rosterId,
+          eventId,
         });
         return;
       }
@@ -137,6 +140,7 @@ export default function EventRegistration() {
       goTo(ROUTES.registrationStatus, null, {
         status: data.status,
         reason: data.reason,
+        eventId,
       });
 
       setIsLoading(false);
