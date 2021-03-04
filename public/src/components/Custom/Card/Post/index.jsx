@@ -22,7 +22,17 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export default function Post(props) {
-  const { postInfo, handleLike, entityId, handleComment, handleDeletePost, isAdmin, allowComment, allowLike } = props;
+  const {
+    postInfo,
+    handleLike,
+    entityId,
+    handleComment,
+    handleDeletePost,
+    isAdmin,
+    allowComment,
+    allowLike,
+    elevation,
+  } = props;
   const { t } = useTranslation();
   const [displayComment, setDisplayComment] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,7 +85,7 @@ export default function Post(props) {
   );
 
   return (
-    <Card className={styles.card}>
+    <Card elevation={elevation} className={styles.card}>
       <CardHeader
         className={styles.header}
         classes={{
@@ -169,6 +179,7 @@ export default function Post(props) {
                   title: styles.headerTitle,
                   avatar: styles.avatarComment,
                   subheader: styles.subheaderComment,
+                  action: styles.headerAction,
                 }}
                 avatar={<CustomAvatar className={styles.avatarComment} photoUrl={comment.photo_url}></CustomAvatar>}
                 action={
@@ -182,6 +193,7 @@ export default function Post(props) {
               <CardContent className={styles.dateComment}>{getTimeToShow(comment.created_at)}</CardContent>
             </Card>
           ))}
+          {elevation === 0 && <Divider className={styles.dividerComment} />}
         </div>
       )}
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

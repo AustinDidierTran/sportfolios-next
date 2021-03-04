@@ -76,6 +76,8 @@ export default function OrganizationHome(props) {
           allowComment={true}
           allowLike={true}
           locationId={basicInfos.id}
+          elevation={1}
+          placeholder={t('start_a_post')}
         />
       </IgContainer>
     </>

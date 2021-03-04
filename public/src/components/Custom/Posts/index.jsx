@@ -41,7 +41,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Posts(props) {
   const { t } = useTranslation();
 
-  const { userInfo, allowNewPost, allowPostImage, entityIdCreatePost, allowComment, allowLike, locationId } = props;
+  const {
+    userInfo,
+    allowNewPost,
+    allowPostImage,
+    entityIdCreatePost,
+    allowComment,
+    allowLike,
+    locationId,
+    elevation,
+    placeholder,
+  } = props;
   const { dispatch } = React.useContext(Store);
   const classes = useStyles();
 
@@ -186,12 +196,12 @@ export default function Posts(props) {
     <div>
       <div>
         {allowNewPost && (
-          <CustomPaper className={classes.createPost}>
+          <CustomPaper elevation={elevation} className={classes.createPost}>
             <PostInput
               entityId={entityIdCreatePost}
               handlePost={handlePost}
               canAddImage={allowPostImage}
-              placeholder={t('start_a_post')}
+              placeholder={placeholder}
             />
           </CustomPaper>
         )}
@@ -204,6 +214,7 @@ export default function Posts(props) {
               handleDeletePost,
               allowComment,
               allowLike,
+              elevation,
               entityId: userInfo.primaryPerson.entity_id,
               isAdmin: entityIdCreatePost === post.entity_id && allowNewPost,
             }}

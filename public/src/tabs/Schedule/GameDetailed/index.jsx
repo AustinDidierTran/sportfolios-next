@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Store, ACTION_ENUM } from '../../../Store';
+import { Store, ACTION_ENUM, SCREENSIZE_ENUM } from '../../../Store';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
@@ -21,12 +21,22 @@ import RosterDisplay from '../../../components/Custom/RosterDisplay';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
+const useStyles = makeStyles((theme) => ({
+  IgContainer: {
+    backgroundColor: '#f5f5f5 !important',
+    minHeight: 'calc(100vh - 60px)',
+    paddingTop: 10,
+  },
+}));
+
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo },
+    state: { userInfo, screenSize },
   } = useContext(Store);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +48,8 @@ export default function GameDetailed(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [edit, setEdit] = useState(false);
   const [gameDialog, setGameDialog] = useState(false);
+
+  const classes = useStyles();
 
   const getGame = async () => {
     const { status, data } = await api(
@@ -276,80 +288,101 @@ export default function GameDetailed(props) {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
   return (
-    <div className={styles.root}>
-      <div className={styles.baseContent}>
-        <div className={styles.header}>
-          <div>
-            <CustomIconButton icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
-          </div>
-
-          <div className={styles.iconOptions}>
-            {isAdmin && (
-              <CustomIconButton
-                icon="MoreVertIcon"
-                className={styles.iconOptions}
-                style={{ color: 'primary' }}
-                onClick={handleClick}
-              />
-            )}
-          </div>
-        </div>
-        <div className={styles.content}>
-          {game.teams.map((team) => (
-            <div className={styles.teamContent}>
-              <img className={styles.avatarTeam} src={team.photo_url} />
-              <Typography variant="h5">{team.name}</Typography>
-              <Typography variant="h5">{team.score}</Typography>
+    <div className={styles.container}>
+      <div className={styles.root}>
+        <div className={styles.baseContent}>
+          <div className={styles.header}>
+            <div>
+              <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
-          ))}
-        </div>
-        <div>
-          {possibleSubmissioners.length > 0 && !game.score_submited && (
-            <CustomButton onClick={openSubmitScore}>{t('submit_score')}</CustomButton>
+            <div className={styles.gameInfo}>
+              <div>{game.phase_name}</div>
+              {screenSize != SCREENSIZE_ENUM.xs && (
+                <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
+              )}
+            </div>
+
+            <div className={styles.iconOptions}>
+              {isAdmin && (
+                <CustomIconButton
+                  icon="MoreVertIcon"
+                  className={styles.iconOptions}
+                  style={{ color: 'primary' }}
+                  onClick={handleClick}
+                  size="medium"
+                />
+              )}
+            </div>
+          </div>
+          <div className={styles.content}>
+            {game.teams.map((team) => (
+              <div className={styles.teamContent}>
+                <img
+                  className={styles.avatarTeam}
+                  src={
+                    team.photo_url
+                      ? team.photo_url
+                      : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
+                  }
+                />
+                <Typography variant="h5">{team.name}</Typography>
+                <Typography variant="h5">{team.score}</Typography>
+              </div>
+            ))}
+          </div>
+          {screenSize == SCREENSIZE_ENUM.xs && (
+            <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
           )}
-          {possibleSubmissioners.length > 0 && game.score_submited && <div>{t('score.score_confirmed')}</div>}
+
+          <div className={styles.scoreButton}>
+            {possibleSubmissioners.length > 0 && !game.score_submited && (
+              <CustomButton onClick={openSubmitScore}>{t('submit_score')}</CustomButton>
+            )}
+            {possibleSubmissioners.length > 0 && game.score_submited && <div>{t('score.score_confirmed')}</div>}
+          </div>
         </div>
+        <Divider variant="middle" />
+        <RosterDisplay teams={game.teams} />
+        <Divider variant="middle" />
+        <Posts
+          userInfo={userInfo}
+          allowPostImage={true}
+          allowNewPost={true}
+          entityIdCreatePost={userInfo.primaryPerson.entity_id}
+          allowComment={true}
+          allowLike={true}
+          locationId={game.entity_id}
+          elevation={0}
+          placeholder={t('write_a_comment')}
+        />
+        <SubmitScoreDialog
+          open={submitScore}
+          onClose={closeSubmitScore}
+          gameId={game.id}
+          submissionerInfos={selectedSubmissionerInfos}
+        />
+        <FormDialog
+          open={chooseSubmitter}
+          onClose={handleChooseSubmitterClose}
+          title={t('choose.choose_submitter')}
+          fields={fields}
+          formik={formik}
+          buttons={buttons}
+        />
+        <EditGameDialog open={edit} onClose={closeEdit} game={game} update={closeEdit} />
+        <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} />
+        {isAdmin && (
+          <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+            <MenuItem onClick={gameClick} update={getGame}>
+              {t('edit.edit_score')}
+            </MenuItem>
+            <MenuItem onClick={editClick} update={getGame}>
+              {t('edit.edit_game')}
+            </MenuItem>
+          </Menu>
+        )}
       </div>
-      <Divider variant="middle" />
-      <RosterDisplay teams={game.teams} />
-      <Divider variant="middle" />
-      <Posts
-        userInfo={userInfo}
-        allowPostImage={false}
-        allowNewPost={true}
-        entityIdCreatePost={userInfo.primaryPerson.entity_id}
-        allowComment={false}
-        allowLike={true}
-        locationId={game.entity_id}
-      />
-      <SubmitScoreDialog
-        open={submitScore}
-        onClose={closeSubmitScore}
-        gameId={game.id}
-        submissionerInfos={selectedSubmissionerInfos}
-      />
-      <FormDialog
-        open={chooseSubmitter}
-        onClose={handleChooseSubmitterClose}
-        title={t('choose.choose_submitter')}
-        fields={fields}
-        formik={formik}
-        buttons={buttons}
-      />
-      <EditGameDialog open={edit} onClose={closeEdit} game={game} update={closeEdit} />
-      <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} />
-      {isAdmin && (
-        <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-          <MenuItem onClick={gameClick} update={getGame}>
-            {t('edit.edit_score')}
-          </MenuItem>
-          <MenuItem onClick={editClick} update={getGame}>
-            {t('edit.edit_game')}
-          </MenuItem>
-        </Menu>
-      )}
     </div>
   );
 }
