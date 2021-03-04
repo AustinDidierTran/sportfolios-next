@@ -21,17 +21,17 @@ export default function AddTeamPhase(props) {
   const [open, setOpen] = useState(isOpen);
   const [allTeams, setAllTeams] = useState([]);
   const [onlyNonSelectedTeams, setOnlyNotSelectedTeams] = useState([]);
-  const [poolOptions, setPoolOptions] = useState([]);
-  const [phases, setPhases] = useState([]);
+  const [phaseOptions, setPhaseOptions] = useState([]);
+  const [allOptions, setAllOptions] = useState([]);
 
   useEffect(() => {
     setOpen(isOpen);
     getAllTeams();
-    getPhases();
+    getAllOptions();
   }, [isOpen]);
 
   const validationSchema = yup.object().shape({
-    team: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const getAllTeams = async () => {
@@ -47,7 +47,7 @@ export default function AddTeamPhase(props) {
     setAllTeams(allTeams);
   };
 
-  const getPhases = async () => {
+  const getAllOptions = async () => {
     const { data } = await api(
       formatRoute('/api/entity/phases', null, {
         eventId,
@@ -69,11 +69,33 @@ export default function AddTeamPhase(props) {
         }),
       }))
       .sort((a, b) => a.order - b.order);
-    setPhases(allPhases);
-    getNonSelectedTeams(allPhases);
+    const phaseOptions = getPhasesOptions(allPhases);
+    const teamOptions = getTeamsOptions(allPhases);
+    const allOptions = teamOptions.concat(phaseOptions);
+    setAllOptions(allOptions);
   };
 
-  const getNonSelectedTeams = (allPhases) => {
+  const getPhasesOptions = (allPhases) => {
+    const options = allPhases.reduce((prev, curr) => {
+      let phaseOption = [];
+      for (let i = 1; i <= curr.spots; ++i) {
+        //the key is needed to differentiate children
+        const key = curr.phaseId + '/' + curr.content + '/' + i.toString();
+        phaseOption.push({
+          display: i.toString() + ' - ' + curr.content,
+          value: key,
+          index: i,
+          phaseId: curr.phaseId,
+        });
+      }
+      const option = prev.concat(phaseOption);
+      return option;
+    }, []);
+    setPhaseOptions(options);
+    return options;
+  };
+
+  const getTeamsOptions = (allPhases) => {
     const rankings = allPhases
       .reduce((prev, curr) => {
         let ranking = prev.concat(curr.ranking);
@@ -86,6 +108,7 @@ export default function AddTeamPhase(props) {
     });
     const teamOptions = allTeams.filter((t) => !rankingsIds.includes(t.value));
     setOnlyNotSelectedTeams(teamOptions);
+    return teamOptions;
   };
 
   const onFinish = () => {
@@ -95,19 +118,20 @@ export default function AddTeamPhase(props) {
 
   const formik = useFormik({
     initialValues: {
-      team: '',
+      position: '',
     },
     validationSchema: validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { team } = values;
-
+      const { position } = values;
+      const select = allOptions.find((o) => o.value === position);
+      console.log(select);
       const { status, data } = await api('/api/entity/updateTeamPhase', {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
-          team,
+          id: select.value,
           initialPosition,
           phaseId,
         }),
@@ -144,16 +168,16 @@ export default function AddTeamPhase(props) {
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: onlyNonSelectedTeams,
-      namespace: 'team',
-      label: t('team.team'),
+      options: allOptions,
+      namespace: 'position',
+      label: t('position'),
     },
   ];
 
   return (
     <FormDialog
       open={open}
-      title={t('add.add_team')}
+      title={t('add.add_position')}
       buttons={buttons}
       fields={fields}
       formik={formik}
