@@ -211,6 +211,21 @@ export default function EditRankings() {
         status: PHASE_STATUS_ENUM.DONE,
       }),
     });
+    if (res.status === STATUS_ENUM.SUCCESS) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('phase_done'),
+        severity: SEVERITY_ENUM.SUCCESS,
+        duration: 2000,
+      });
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('something_went_wrong'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 2000,
+      });
+    }
     update();
     setOpenAlertDialog(false);
   };
