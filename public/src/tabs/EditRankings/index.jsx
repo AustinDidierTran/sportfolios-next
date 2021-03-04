@@ -104,6 +104,7 @@ export default function EditRankings() {
         }),
       }))
       .sort((a, b) => a.order - b.order);
+
     setPhases(allPhases);
   };
 
@@ -203,12 +204,13 @@ export default function EditRankings() {
   };
 
   const endPhase = async () => {
-    await api('/api/entity/updatePhase', {
+    const res = await api('/api/entity/updatePhase', {
       method: 'PUT',
       body: JSON.stringify({
         eventId,
         phaseId: phaseToEnd.phaseId,
         status: PHASE_STATUS_ENUM.DONE,
+        finalRanking: phaseToEnd.finalRanking,
       }),
     });
     if (res.status === STATUS_ENUM.SUCCESS) {
@@ -251,9 +253,9 @@ export default function EditRankings() {
     setOpenAlertDialog(false);
   };
 
-  const onOpenAlertDialog = (phase, event) => {
+  const onOpenAlertDialog = (phase, event, items) => {
     event.preventDefault();
-    setPhaseToEnd(phase);
+    setPhaseToEnd({ ...phase, finalRanking: items });
     setOpenAlertDialog(true);
   };
 
@@ -313,7 +315,7 @@ export default function EditRankings() {
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <div className={styles.div} key={phase.id}>
-                          {phase.status === PHASE_STATUS_ENUM.DONE || phase.status === PHASE_STATUS_ENUM.STARTED ? (
+                          {phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
                             <FinalRanking
                               phase={phase}
                               expandedPhases={expandedPhases}

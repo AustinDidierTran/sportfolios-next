@@ -145,11 +145,7 @@ export default function EventRegistration() {
 
   useEffect(() => {
     formik.setFieldValue('teamActivity', true);
-    if (isAuthenticated) {
-      if (eventId) {
-        getData();
-      }
-    } else {
+    if (!isAuthenticated) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('you.you_need_to_create_an_account'),
@@ -158,7 +154,14 @@ export default function EventRegistration() {
       goToAndReplace(ROUTES.login, null, {
         redirectUrl: `/page/eventRegistration/${eventId}`,
       });
+      return;
     }
+
+    if (!eventId) {
+      return;
+    }
+
+    getData();
   }, [eventId]);
 
   useEffect(() => {

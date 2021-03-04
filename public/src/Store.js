@@ -106,6 +106,7 @@ function reducer(state, action) {
       action.payload
         ? goTo(action.payload.route, action.payload.params, action.payload.queryParams)
         : goTo(ROUTES.login);
+
       return {
         ...state,
         authToken: null,
@@ -228,18 +229,6 @@ export function StoreProvider(props) {
         if (data.language) {
           i18n.changeLanguage(data.language);
         }
-      }
-    } else {
-      if (router.pathname === ROUTES.home || router.pathname === ROUTES.landingPage) {
-        dispatch({
-          type: ACTION_ENUM.LOGOUT,
-          payload: { route: ROUTES.landingPage },
-        });
-      } else {
-        dispatch({
-          type: ACTION_ENUM.LOGOUT,
-          payload: { route: ROUTES.login },
-        });
       }
     }
 

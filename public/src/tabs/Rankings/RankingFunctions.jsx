@@ -1,6 +1,7 @@
 const getRankingInfos = (teams, games) => {
-  const ranking = teams.map((team) => ({
+  const rankings = teams.map((team) => ({
     id: team.id,
+    rosterId: team.roster_id,
     name: team.name,
     wins: 0,
     loses: 0,
@@ -8,6 +9,7 @@ const getRankingInfos = (teams, games) => {
     pointAgainst: 0,
     points: 0,
     random: Math.random(),
+    number: 1,
   }));
 
   games.reduce((ranking, game) => {
@@ -66,9 +68,9 @@ const getRankingInfos = (teams, games) => {
     };
 
     return ranking;
-  }, ranking);
+  }, rankings);
 
-  return [ranking];
+  return [rankings];
 };
 
 const applyVictoryRule = (ranking) => {

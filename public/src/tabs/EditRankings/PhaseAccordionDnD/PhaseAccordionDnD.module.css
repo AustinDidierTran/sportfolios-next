@@ -128,3 +128,15 @@
     width: 25%;
   }
 }
+
+@media (max-width: 600px) {
+  .cancel {
+    width: 48px !important;
+  }
+  .save {
+    width: 48px !important;
+  }
+  .button {
+    width: 48px !important;
+  }
+}
