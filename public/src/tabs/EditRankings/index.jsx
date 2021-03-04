@@ -223,7 +223,7 @@ export default function EditRankings() {
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('warning'),
+        message: t('something_went_wrong'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 2000,
       });
