@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { StoreProvider } from '../public/src/Store';
 import '../styles/globals.css';
@@ -16,6 +16,7 @@ import conf from '../conf';
 import loadable from '@loadable/component';
 import { useRouter } from 'next/router';
 import { ROUTES_ENUM } from '../public/common/enums';
+import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics';
 
 const BottomNavigation = loadable(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = loadable(() => import('../public/src/components/Custom/SnackBar'));
@@ -25,7 +26,7 @@ const stripePromise = loadStripe(conf.STRIPE.publicKey);
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       if (!('serviceWorker' in navigator)) {
         console.warn('Pwa support is disabled');
@@ -36,6 +37,11 @@ function MyApp({ Component, pageProps }) {
       wb.register();
     }
   }, []);
+
+  useEffect(() => {
+    InitGa();
+    AddGaPageView();
+  });
 
   return (
     <StoreProvider>
