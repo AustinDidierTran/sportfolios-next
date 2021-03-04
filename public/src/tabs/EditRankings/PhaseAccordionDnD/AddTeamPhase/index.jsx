@@ -69,7 +69,7 @@ export default function AddTeamPhase(props) {
         }),
       }))
       .sort((a, b) => a.order - b.order);
-    const phaseOptions = getPhasesOptions(allPhases);
+    const phaseOptions = getPhasesOptions(allPhases).filter((o) => o.phaseId !== phaseId);
     const teamOptions = getTeamsOptions(allPhases);
     const allOptions = teamOptions.concat(phaseOptions);
     setAllOptions(allOptions);
