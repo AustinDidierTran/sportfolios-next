@@ -3,7 +3,6 @@
 }
 
 .iconOptions {
-  margin-left: auto;
 }
 
 .container {
@@ -19,8 +18,6 @@
 .content {
   display: flex;
   justify-content: center;
-  padding-bottom: 20px;
-  padding-top: 20px;
 }
 
 .teamContent {
@@ -39,9 +36,8 @@
 }
 
 .gameInfo {
-  display: flex;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: auto;
+  margin: auto;
 }
 
 .gameInfoDate {
@@ -50,10 +46,11 @@
 }
 
 @media (max-width: 600px) {
-  .gameInfoDate {
-    margin-bottom: 20px;
-  }
   .content {
-    padding-bottom: 8px;
+    padding-bottom: 0px;
   }
+}
+
+.field {
+  margin-top: 40px;
 }

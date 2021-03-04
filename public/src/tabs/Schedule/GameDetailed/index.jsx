@@ -297,10 +297,9 @@ export default function GameDetailed(props) {
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
             <div className={styles.gameInfo}>
+              <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
+
               <div>{game.phase_name}</div>
-              {screenSize != SCREENSIZE_ENUM.xs && (
-                <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
-              )}
             </div>
 
             <div className={styles.iconOptions}>
@@ -316,24 +315,24 @@ export default function GameDetailed(props) {
             </div>
           </div>
           <div className={styles.content}>
-            {game.teams.map((team) => (
-              <div className={styles.teamContent}>
-                <img
-                  className={styles.avatarTeam}
-                  src={
-                    team.photo_url
-                      ? team.photo_url
-                      : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
-                  }
-                />
-                <Typography variant="h5">{team.name}</Typography>
-                <Typography variant="h5">{team.score}</Typography>
-              </div>
+            {game.teams.map((team, i) => (
+              <>
+                <div className={styles.teamContent}>
+                  <img
+                    className={styles.avatarTeam}
+                    src={
+                      team.photo_url
+                        ? team.photo_url
+                        : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
+                    }
+                  />
+                  <Typography variant="h5">{team.name}</Typography>
+                  <Typography variant="h5">{team.score}</Typography>
+                </div>
+                {i === 0 && <div className={styles.field}>{game.field}</div>}
+              </>
             ))}
           </div>
-          {screenSize == SCREENSIZE_ENUM.xs && (
-            <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
-          )}
 
           <div className={styles.scoreButton}>
             {possibleSubmissioners.length > 0 && !game.score_submited && (

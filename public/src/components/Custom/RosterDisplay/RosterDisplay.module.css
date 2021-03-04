@@ -5,11 +5,10 @@
   grid-template-areas: 'position name chip icon';
   -webkit-justify-content: center;
   justify-content: center;
-  margin: 4px 0;
   text-align: left;
 }
 .rootPlayer {
-  min-height: 30px !important;
+  min-height: 24px !important;
 }
 
 .roster {
@@ -28,6 +27,11 @@
 .title {
   margin-bottom: 20px !important;
   margin-top: 20px !important;
+}
+
+.playerName {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 @media (max-width: 600px) {

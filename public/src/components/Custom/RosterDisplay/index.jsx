@@ -45,7 +45,7 @@ export default function RosterDisplay(props) {
                       </div>
                     </Tooltip>
                   )}
-                  <div>
+                  <div className={styles.playerName}>
                     <Typography variant="h6">{player.name}</Typography>
                   </div>
                 </div>
