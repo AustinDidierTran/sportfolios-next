@@ -1,28 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 import PlayersAcceptation from '../../../public/src/views/PlayersAcceptation';
 import { formatRoute } from '../../../public/common/utils/stringFormat';
-import { CARD_TYPE_ENUM } from '../../../public/common/enums';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import { ACTION_ENUM, Store } from '../../../public/src/Store';
 
 const PlayersAcceptationRoute = () => {
   const router = useRouter();
   const { id: eventId, personId } = router.query;
   const [cards, setCards] = useState([]);
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
 
   const update = async (personId, registrationStatus) => {
-    await api('/api/entity/playerAcceptation', {
-      method: 'PUT',
-      body: JSON.stringify({
-        eventId,
-        personId,
-        registrationStatus,
-      }),
-    });
+    if (registrationStatus === STATUS_ENUM.UNCHANGED) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('player_skipped'),
+        severity: SEVERITY_ENUM.INFO,
+        vertical: 'top',
+      });
+    } else {
+      await api('/api/entity/playerAcceptation', {
+        method: 'PUT',
+        body: JSON.stringify({
+          eventId,
+          personId,
+          registrationStatus,
+        }),
+      });
+      if (registrationStatus === STATUS_ENUM.ACCEPTED) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('player_accepted'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          vertical: 'top',
+        });
+      } else if (registrationStatus === STATUS_ENUM.REFUSED) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('player_refused'),
+          severity: SEVERITY_ENUM.ERROR,
+          vertical: 'top',
+        });
+      }
+    }
   };
 
   const getCardsInfos = async () => {

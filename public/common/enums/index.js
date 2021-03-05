@@ -264,6 +264,7 @@ const STATUS_ENUM = {
   ACCEPTED_FREE: 'accepted free',
   PENDING: 'pending',
   REFUSED: 'refused',
+  UNCHANGED: 'unchanged',
   SUCCESS: 201,
   FORBIDDEN: 403,
   ERROR: 404,
