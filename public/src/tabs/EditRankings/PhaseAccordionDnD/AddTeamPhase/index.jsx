@@ -85,6 +85,8 @@ export default function AddTeamPhase(props) {
         return a.index - b.index;
       }
     });
+
+    // console.log(allOptions);
     setAllOptions(allOptions);
   };
 
@@ -112,9 +114,16 @@ export default function AddTeamPhase(props) {
     const unavailablePositions = allRankings
       .filter((r) => r.originPhase && r.originPosition)
       .map((r) => {
-        const unavailablePosition = allRankings.find(
-          (rank) => rank.currentPhase === r.originPhase && rank.initialPosition === r.originPosition
-        );
+        const unavailablePosition = allRankings.find((rank) => {
+          if (rank.currentPhase === r.originPhase) {
+            if (rank.finalPosition === r.originPosition) {
+              return rank;
+            }
+            if (rank.initialPosition === r.originPosition && !rank.finalPosition) {
+              return rank;
+            }
+          }
+        });
         return unavailablePosition.rankingId;
       })
       .filter((r) => r !== undefined);
