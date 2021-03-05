@@ -43,11 +43,6 @@ export default function Post(props) {
     setAnchorEl(null);
   };
 
-  const handleVisitProfile = (e) => {
-    e.preventDefault();
-    Router.push(postInfo.entity_id);
-  };
-
   const {
     state: { userInfo },
   } = useContext(Store);
