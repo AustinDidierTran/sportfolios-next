@@ -157,7 +157,7 @@ export default function Posts(props) {
     }
     let oldPosts = posts;
     setPosts((oldPosts) => oldPosts.filter((o) => o.id !== post_id));
-    await getOrganizationPostFeed();
+    await getPostFeed();
   };
   const handlePost = async (entityId, postContent, images, post_id) => {
     const { data: newPost } = await api('/api/posts/create', {
