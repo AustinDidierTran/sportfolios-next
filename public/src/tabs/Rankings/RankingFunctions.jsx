@@ -1,5 +1,5 @@
 const getRankingInfos = (teams, games) => {
-  const rankings = teams.map((team) => ({
+  const allRankings = teams.map((team) => ({
     id: team.id,
     rosterId: team.roster_id,
     name: team.name,
@@ -17,6 +17,7 @@ const getRankingInfos = (teams, games) => {
     const index1 = ranking.findIndex((r) => r.id === game.teams[1].team_id);
     const {
       id: id0,
+      rosterId: rosterId0,
       name: name0,
       wins: wins0,
       loses: loses0,
@@ -27,6 +28,7 @@ const getRankingInfos = (teams, games) => {
 
     const {
       id: id1,
+      rosterId: rosterId1,
       name: name1,
       wins: wins1,
       loses: loses1,
@@ -50,6 +52,7 @@ const getRankingInfos = (teams, games) => {
     }
     ranking[index0] = {
       id: id0,
+      rosterId: rosterId0,
       name: name0,
       wins: w0,
       loses: l0,
@@ -59,6 +62,7 @@ const getRankingInfos = (teams, games) => {
     };
     ranking[index1] = {
       id: id1,
+      rosterId: rosterId1,
       name: name1,
       wins: w1,
       loses: l1,
@@ -68,9 +72,9 @@ const getRankingInfos = (teams, games) => {
     };
 
     return ranking;
-  }, rankings);
+  }, allRankings);
 
-  return [rankings];
+  return [allRankings];
 };
 
 const applyVictoryRule = (ranking) => {
