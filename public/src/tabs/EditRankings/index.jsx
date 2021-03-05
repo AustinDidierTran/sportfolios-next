@@ -4,18 +4,20 @@ import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import PhaseAccordionDnD from './PhaseAccordionDnD';
-import PrerankAccordionDnD from './PrerankAccordionDnd';
-import FinalRanking from './FinalRanking';
 import Button from '../../components/Custom/Button';
-import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
-import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { ACTION_ENUM, Store } from '../../Store';
 import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
+import loadable from '@loadable/component';
+
+const PhaseAccordionDnD = loadable(() => import('./PhaseAccordionDnD'));
+const PrerankAccordionDnD = loadable(() => import('./PrerankAccordionDnd'));
+const FinalRanking = loadable(() => import('./FinalRanking'));
+const AlertDialog = loadable(() => import('../../components/Custom/Dialog/AlertDialog'));
+const AddPhase = loadable(() => import('../EditSchedule/CreateSchedule/AddPhase'));
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
@@ -99,6 +101,9 @@ export default function EditRankings() {
         ranking: d.ranking.map((r) => {
           if (r && r.roster_id) {
             return { ...r, id: r.roster_id, content: r.name };
+          }
+          if (r && r.origin_phase && r.origin_position) {
+            return { ...r, id: uuidv4(), content: r.origin_position + ' - ' + r.phaseName };
           }
           return { ...r, isEmpty: true, id: uuidv4() };
         }),
@@ -194,11 +199,12 @@ export default function EditRankings() {
       }
       update();
     } else {
+      const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('empty_phase_spots_warning'),
+        message: rankingsFromPhase.length ? t('start_phase_warning') : t('empty_phase_spots_warning'),
         severity: SEVERITY_ENUM.ERROR,
-        duration: 2000,
+        duration: 4000,
       });
     }
   };

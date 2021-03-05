@@ -65,6 +65,9 @@ export default function PrerankAccordionDnD(props) {
   };
 
   const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
     if (result.destination.index === result.source.index) {
       return;
     }
