@@ -49,16 +49,16 @@ export default function PlayersRow(props) {
   return (
     <>
       <StyledTableRow>
-        <StyledTableCell component="th" scope="row">
+        <StyledTableCell component="th" scope="row" onClick={handleExpand}>
           {player.completeName}
         </StyledTableCell>
         {player.option ? (
-          <StyledTableCell component="th" scope="row">
+          <StyledTableCell component="th" scope="row" onClick={handleExpand}>
             {player.option.name}&nbsp;
             {`(${player.option.individual_price === 0 ? t('free') : formatPrice(player.option.individual_price)})`}
           </StyledTableCell>
         ) : (
-          <StyledTableCell component="th" scope="row">
+          <StyledTableCell component="th" scope="row" onClick={handleExpand}>
             {t('no.no_option')}
           </StyledTableCell>
         )}
@@ -70,8 +70,8 @@ export default function PlayersRow(props) {
             personId={player.personId}
           />
         </StyledTableCell>
-        <StyledTableCell align="center">
-          <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <StyledTableCell align="center" onClick={handleExpand}>
+          <IconButton aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
         </StyledTableCell>
       </StyledTableRow>
       <StyledTableRow style={{ margin: '0px', padding: '0px' }}>

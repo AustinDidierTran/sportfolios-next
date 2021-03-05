@@ -4,7 +4,9 @@ import { ROSTER_ROLE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../../../commo
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useTranslation } from 'react-i18next';
-import { FormDialog, Icon, IconButton } from '../../../../../components/Custom';
+import IconButton from '../../../../../components/Custom/IconButton';
+import FormDialog from '../../../../../components/Custom/FormDialog';
+import Icon from '../../../../../components/Custom/Icon';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
 import PaymentChip from '../../../../Settings/TeamsRegistered/StatusChip';

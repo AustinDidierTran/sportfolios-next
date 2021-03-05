@@ -42,12 +42,6 @@ export default function TeamsRegistered() {
   const [isLoading, setIsLoading] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
-
-  const handleExpand = () => {
-    setExpanded(!expanded);
-  };
-
   const onCloseUnregister = () => {
     setOpenUnregister(false);
   };
@@ -246,7 +240,7 @@ export default function TeamsRegistered() {
                   </StyledTableCell>
                 )}
                 <StyledTableCell align="center">
-                  {teams.length > 0 ? (
+                  {teams.length > 0 && (
                     <IconButton
                       variant="contained"
                       icon="MoneyOff"
@@ -254,8 +248,6 @@ export default function TeamsRegistered() {
                       onClick={() => handleUnregisterAllClick()}
                       style={{ color: '#f44336' }}
                     />
-                  ) : (
-                    <></>
                   )}
                 </StyledTableCell>
               </TableRow>
@@ -268,7 +260,7 @@ export default function TeamsRegistered() {
               </TableRow>
             </TableHead>
             <StyledTableRow align="center">
-              {hasPending ? (
+              {hasPending && (
                 <StyledTableCell colSpan={3}>
                   <Button
                     onClick={() => {
@@ -278,8 +270,6 @@ export default function TeamsRegistered() {
                     {t('accept_teams')}
                   </Button>
                 </StyledTableCell>
-              ) : (
-                <></>
               )}
             </StyledTableRow>
             <TableBody>

@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import { Paper, AlertDialog, IconButton, LoadingSpinner } from '../../../components/Custom';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import IconButton from '../../../components/Custom/IconButton';
+import Paper from '../../../components/Custom/Paper';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -190,16 +193,14 @@ export default function PlayersRegistered() {
                   </StyledTableCell>
                 )}
                 <StyledTableCell align="center">
-                  {players.length > 0 ? (
+                  {players.length > 0 && (
                     <IconButton
                       variant="contained"
                       icon="MoneyOff"
                       tooltip={t('register.unregister_all')}
-                      onClick={() => handleUnregisterAllClick()}
+                      onClick={handleUnregisterAllClick}
                       style={{ color: '#f44336' }}
                     />
-                  ) : (
-                    <></>
                   )}
                 </StyledTableCell>
               </TableRow>
@@ -276,7 +277,7 @@ export default function PlayersRegistered() {
                     variant="contained"
                     icon="MoneyOff"
                     tooltip={t('register.unregister_all')}
-                    onClick={() => handleUnregisterAllClick()}
+                    onClick={handleUnregisterAllClick}
                     style={{ color: '#f44336' }}
                   />
                 ) : (

@@ -25,6 +25,7 @@ export default function TeamRow(props) {
   const handleExpand = () => {
     setExpanded(!expanded);
   };
+
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.primary.main,
@@ -50,21 +51,20 @@ export default function TeamRow(props) {
 
   return (
     <>
-      <StyledTableRow onClick={handleExpand}>
-        <StyledTableCell component="th" scope="row">
+      <StyledTableRow>
+        <StyledTableCell component="th" scope="row" onClick={handleExpand}>
           {team.name}
         </StyledTableCell>
         {team.option ? (
-          <StyledTableCell component="th" scope="row">
+          <StyledTableCell component="th" scope="row" onClick={handleExpand}>
             {team.option.name}&nbsp;
             {`(${team.option.team_price === 0 ? t('free') : formatPrice(team.option.team_price)})`}
           </StyledTableCell>
         ) : (
-          <StyledTableCell component="th" scope="row">
+          <StyledTableCell component="th" scope="row" onClick={handleExpand}>
             {t('no.no_option')}
           </StyledTableCell>
         )}
-
         <StyledTableCell>
           <StatusChip
             status={team.status}
@@ -73,8 +73,8 @@ export default function TeamRow(props) {
             rosterId={team.rosterId}
           />
         </StyledTableCell>
-        <StyledTableCell align="center">
-          <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <StyledTableCell align="center" onClick={handleExpand}>
+          <IconButton aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
         </StyledTableCell>
       </StyledTableRow>
       <StyledTableRow style={{ margin: '0px', padding: '0px' }}>
