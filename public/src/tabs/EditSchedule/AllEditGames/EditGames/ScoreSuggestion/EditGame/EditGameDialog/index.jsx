@@ -36,6 +36,7 @@ export default function EditGameDialog(props) {
   }, [open]);
 
   useEffect(() => {
+    formik.setFieldValue('description', game.description);
     formik.setFieldValue('phase', game.phase_id);
     formik.setFieldValue('field', game.field_id);
     formik.setFieldValue('time', game.timeslot_id);
@@ -49,6 +50,7 @@ export default function EditGameDialog(props) {
 
   const formik = useFormik({
     initialValues: {
+      description: '',
       phase: '',
       field: '',
       time: '',
@@ -58,7 +60,7 @@ export default function EditGameDialog(props) {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { phase, field, time, team1, team2 } = values;
+      const { phase, field, time, team1, team2, description } = values;
       let rosterId1 = null;
       let rosterId2 = null;
       let name1 = null;
@@ -84,6 +86,7 @@ export default function EditGameDialog(props) {
           rosterId2,
           name1,
           name2,
+          description,
           teamId1: game.teams[0].id,
           teamId2: game.teams[1].id,
         }),
@@ -116,6 +119,11 @@ export default function EditGameDialog(props) {
   ];
 
   const fields = [
+    {
+      componentType: COMPONENT_TYPE_ENUM.TEXTFIELD,
+      namespace: 'description',
+      label: t('description.description'),
+    },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       options: gameOptions.phases,

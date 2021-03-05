@@ -121,6 +121,7 @@
 .menu {
   align-self: center;
   justify-self: end;
+  align-self: center;
 }
 
 @media (min-width: 600px) {

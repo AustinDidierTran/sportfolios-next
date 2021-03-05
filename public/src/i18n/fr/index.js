@@ -300,6 +300,7 @@ export default {
       not_paid: 'Non payé',
       paid_with: 'Payé avec',
       paid: 'Payé',
+      paid_on: 'Payé le',
       pay: 'Payer',
       payment: 'Paiement',
       payment_date: 'Date de paiement',
@@ -331,6 +332,7 @@ export default {
         "Aucune équipe ne peut être désinscrite de l'événement puisqu'elles sont déjà toutes dans des parties.",
       register: "S'inscrire",
       registered_singular: 'Inscrit',
+      registered_on: 'Inscrit le',
       registered: 'Inscrits',
       registration_accepted_free: "Félicitation! Vous avez été accepté à l'événement",
       registration_accepted:
@@ -343,8 +345,8 @@ export default {
       registration_open_date: 'Date ouverture inscriptions',
       registration_open_time: 'Heure ouverture inscriptions',
       registration_pending:
-        "Votre inscription est en attente d'acceptation, vous allez reçevoir un courriel pour vous avertir lorsque votre demande sera traitée",
-      registration_refused: "Désolé, votre équipe n'est pas éligible pour cet événement vous avez été refusé",
+        "Votre inscription est en attente d'acceptation, vous recevrez un courriel lorsque votre demande sera traitée.",
+      registration_refused: "Désolé, votre équipe n'est pas éligible pour cet événement vous avez été refusé.",
       registration_status: 'État des inscriptions',
       registration: 'Inscription',
       registrations_closed_for_now: 'Inscriptions fermées',
@@ -508,6 +510,7 @@ export default {
       edit_mode: 'Mode édition',
       edit_player: 'Modifier le joueur',
       edit_team_number: "Modifier le nombre d'équipes",
+      edit_score: 'Modifier le pointage',
       edit_your_primary_person: 'Changer de personne primaire',
       edit: 'Modifier',
       editor: 'Éditeur',
@@ -603,6 +606,7 @@ export default {
       selected_team: 'Équipe sélectionnée',
     },
     score: {
+      score_confirmed: 'Résultat confirmé',
       score_submission_conflict_description:
         "Notification reçue si vous êtes admin d'un événement et qu'il y a un conflit de score",
       score_submission_conflict_notif_description: "Une partie de l'événement {{eventName}} a des conflits de score.",
@@ -924,6 +928,7 @@ export default {
     login: 'Connexion',
     logout: 'Se déconnecter',
     male: 'Homme',
+    Male: 'Homme',
     manual_acceptation: 'Acceptation manuelle',
     max_length: 'Longueur maximum',
     maximum_spots: 'Nombre de places',
@@ -1011,7 +1016,11 @@ export default {
     player_acceptation_step_message:
       "Voulez-vous accepter ou refuser manuellement chaque joueur qui s'inscrit à votre tournoi avant qu'ils effectuent le paiement?",
     player_added: 'Joueur ajouté',
+    player_accepted: 'Joueur accepté',
+    player_refused: 'Joueur refusé',
+    player_skipped: 'Joueur passé',
     player_name: 'Nom du joueur',
+    player_unregister_success: 'Joueur désinscrit avec succès',
     players_unregister_success: 'Joueurs désinscrits avec succès',
     player_view: 'Vue du joueur',
     player: 'Joueur',

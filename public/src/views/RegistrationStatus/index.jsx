@@ -12,7 +12,7 @@ import { ACTION_ENUM, Store } from '../../Store';
 export default function RegistrationStatus() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { reason, status, rosterId } = router.query;
+  const { reason, status, rosterId, eventId } = router.query;
   const { dispatch } = useContext(Store);
 
   const updateCart = async () => {
@@ -35,6 +35,10 @@ export default function RegistrationStatus() {
     goTo(ROUTES.home);
   };
 
+  const goToEvent = () => {
+    goTo(ROUTES.entity, { id: eventId });
+  };
+
   let values = {};
 
   switch (status) {
@@ -44,9 +48,9 @@ export default function RegistrationStatus() {
         children: (
           <RosterInviteLink message={t('to_invite_people_to_your_roster_share_the_invite_link')} rosterId={rosterId} />
         ),
-        onClick: returnHome,
-        button: t('home'),
-        endIcon: 'Home',
+        onClick: goToEvent,
+        button: t('event.event'),
+        endIcon: 'Event',
       };
       break;
     case STATUS_ENUM.ACCEPTED:
@@ -63,9 +67,9 @@ export default function RegistrationStatus() {
     case STATUS_ENUM.PENDING:
       values = {
         message: t('register.registration_pending'),
-        onClick: returnHome,
-        button: t('home'),
-        endIcon: 'Home',
+        onClick: goToEvent,
+        button: t('event.event'),
+        endIcon: 'Event',
       };
       break;
     case STATUS_ENUM.REFUSED:

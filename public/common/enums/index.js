@@ -264,6 +264,7 @@ const STATUS_ENUM = {
   ACCEPTED_FREE: 'accepted free',
   PENDING: 'pending',
   REFUSED: 'refused',
+  UNCHANGED: 'unchanged',
   SUCCESS: 201,
   FORBIDDEN: 403,
   ERROR: 404,
@@ -360,6 +361,7 @@ const GLOBAL_ENUM = {
   ORGANIZATION: 2,
   TEAM: 3,
   EVENT: 4,
+  GAME: 5,
   MEMBERSHIP: 'membership',
   SHOP_ITEM: 'shop_item',
 };

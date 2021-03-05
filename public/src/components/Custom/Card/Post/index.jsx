@@ -22,7 +22,17 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export default function Post(props) {
-  const { postInfo, handleLike, entityId, handleComment, handleDeletePost, isAdmin } = props;
+  const {
+    postInfo,
+    handleLike,
+    entityId,
+    handleComment,
+    handleDeletePost,
+    isAdmin,
+    allowComment,
+    allowLike,
+    elevation,
+  } = props;
   const { t } = useTranslation();
   const [displayComment, setDisplayComment] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,11 +41,6 @@ export default function Post(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleVisitProfile = (e) => {
-    e.preventDefault();
-    Router.push(postInfo.entity_id);
   };
 
   const {
@@ -66,16 +71,16 @@ export default function Post(props) {
   };
 
   const onClickComment = () => {
-    setDisplayComment((displayComment) => !displayComment);
+    setDisplayComment((displayComment) => !displayComment && allowComment);
   };
 
-  const showStats = useMemo(() => postInfo.likes.length > 0 || postInfo.comments.length > 0, [
-    postInfo.likes.length,
-    postInfo.comments.length,
-  ]);
+  const showStats = useMemo(
+    () => (postInfo.likes.length > 0 || postInfo.comments.length > 0) && (allowComment || allowLike),
+    [postInfo.likes.length, postInfo.comments.length, allowComment, allowLike]
+  );
 
   return (
-    <Card className={styles.card}>
+    <Card elevation={elevation} className={styles.card}>
       <CardHeader
         className={styles.header}
         classes={{
@@ -106,7 +111,7 @@ export default function Post(props) {
       {showStats && (
         <CardContent className={styles.postStats}>
           <div className={styles.likes}>
-            {postInfo.likes.length > 0 && (
+            {postInfo.likes.length > 0 && allowLike && (
               <div>
                 <CustomIcon icon="FavoriteIcon" color="rgb(24, 179, 147)" fontSize={'small'} />
                 <Typography className={styles.likesText}>{postInfo.likes.length}</Typography>
@@ -114,7 +119,7 @@ export default function Post(props) {
             )}
           </div>
           <div className={styles.comments}>
-            {postInfo.comments.length > 0 && (
+            {postInfo.comments.length > 0 && allowComment && (
               <div onClick={onClickComment}>
                 {postInfo.comments.length > 1
                   ? t('comment_plural', { count: postInfo.comments.length })
@@ -127,23 +132,27 @@ export default function Post(props) {
       )}
       {(postInfo.images.length < 1 || showStats) && <Divider variant="middle" />}
       <CardActions className={styles.actions}>
-        <Button
-          onClick={onClickLike}
-          startIcon={<CustomIcon icon="FavoriteBorderIcon" color={postInfo.liked ? 'rgb(24, 179, 147)' : ''} />}
-          size="small"
-          className={styles.actionsButton}
-          color={postInfo.liked ? 'primary' : 'default'}
-        >
-          {t('like')}
-        </Button>
-        <Button
-          onClick={onClickComment}
-          startIcon={<CustomIcon icon="ChatBubbleOutlineOutlinedIcon" />}
-          size="small"
-          className={styles.actionsButton}
-        >
-          {t('comment')}
-        </Button>
+        {allowLike && (
+          <Button
+            onClick={onClickLike}
+            startIcon={<CustomIcon icon="FavoriteBorderIcon" color={postInfo.liked ? 'rgb(24, 179, 147)' : ''} />}
+            size="small"
+            className={styles.actionsButton}
+            color={postInfo.liked ? 'primary' : 'default'}
+          >
+            {t('like')}
+          </Button>
+        )}
+        {allowComment && (
+          <Button
+            onClick={onClickComment}
+            startIcon={<CustomIcon icon="ChatBubbleOutlineOutlinedIcon" />}
+            size="small"
+            className={styles.actionsButton}
+          >
+            {t('comment')}
+          </Button>
+        )}
       </CardActions>
       <Divider variant="middle" />
       {displayComment && (
@@ -165,6 +174,7 @@ export default function Post(props) {
                   title: styles.headerTitle,
                   avatar: styles.avatarComment,
                   subheader: styles.subheaderComment,
+                  action: styles.headerAction,
                 }}
                 avatar={<CustomAvatar className={styles.avatarComment} photoUrl={comment.photo_url}></CustomAvatar>}
                 action={
@@ -178,6 +188,7 @@ export default function Post(props) {
               <CardContent className={styles.dateComment}>{getTimeToShow(comment.created_at)}</CardContent>
             </Card>
           ))}
+          {elevation === 0 && <Divider className={styles.dividerComment} />}
         </div>
       )}
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

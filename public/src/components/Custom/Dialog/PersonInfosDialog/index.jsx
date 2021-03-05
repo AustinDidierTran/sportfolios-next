@@ -6,8 +6,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import { getMembershipName } from '../../../../utils/stringFormats';
-import { MEMBERSHIP_TYPE_ENUM } from '../../../../Store';
 
 export default function PersonInfosDialog(props) {
   const { personInfos, open, onDecline, onSubmit, onClose, withoutButton } = props;
@@ -29,10 +27,6 @@ export default function PersonInfosDialog(props) {
           </Typography>
           <Typography color={personInfos?.address?.zip ? 'textPrimary' : 'error'}>
             {t('postal_code')}: {personInfos?.address?.zip || t('missing_info')}
-          </Typography>
-          {/* TODO get real infos its only a mock for now */}
-          <Typography color={'textPrimary'}>
-            {t('member.member')}: {t(getMembershipName(MEMBERSHIP_TYPE_ENUM.RECREATIONAL))}
           </Typography>
         </DialogContent>
         {withoutButton ? (

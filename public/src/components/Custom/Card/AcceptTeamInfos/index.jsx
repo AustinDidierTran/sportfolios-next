@@ -10,9 +10,10 @@ import Avatar from '../../Avatar';
 import Players from './Players';
 import { formatPrice } from '../../../../../common/utils/stringFormat';
 import StatusChip from './StatusChip';
+import TextField from '@material-ui/core/TextField';
 
 export default function AcceptTeamInfos(props) {
-  const { name, photoUrl, roster, paymentOption, registrationStatus } = props;
+  const { name, photoUrl, roster, paymentOption, registrationStatus, team } = props;
 
   const { t } = useTranslation();
   return (
@@ -30,6 +31,24 @@ export default function AcceptTeamInfos(props) {
         }
       />
       <CardContent>
+        {paymentOption?.informations && (
+          <div className={styles.div}>
+            <TextField
+              InputProps={{ disableUnderline: true }}
+              multiline
+              className={styles.textArea}
+              disabled
+              value={`${paymentOption.informations}:`}
+            />
+            <TextField
+              InputProps={{ disableUnderline: true, style: { color: 'black' } }}
+              multiline
+              className={styles.textArea}
+              disabled
+              value={team.informations}
+            />
+          </div>
+        )}
         <div className={styles.div}>
           <Typography color="textSecondary">{`${t('payment.payment_option')}:`}</Typography>
           <Typography>{paymentOption?.name || t('missing_info')}</Typography>

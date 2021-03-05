@@ -1,14 +1,12 @@
 import React, { useMemo, useEffect, useState, useContext } from 'react';
 
 import Paper from '../../../components/Custom/Paper';
-import MailToButton from '../../../components/Custom/MailToButton';
 import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import IconButton from '../../../components/Custom/IconButton';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Button from '../../../components/Custom/Button';
-import StatusChip from './StatusChip';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,13 +18,13 @@ import styles from './TeamsRegistered.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { unregisterTeams } from '../../../actions/api/helpers';
-import { formatPrice } from '../../../utils/stringFormats';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
-import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import TeamRow from './TeamRow';
+import TeamRowMobile from './TeamRowMobile';
 
 export default function TeamsRegistered() {
   const { t } = useTranslation();
@@ -42,6 +40,7 @@ export default function TeamsRegistered() {
   const [openUnregisterAll, setOpenUnregisterAll] = useState(false);
   const [rosterId, setRosterId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const onCloseUnregister = () => {
     setOpenUnregister(false);
@@ -220,6 +219,110 @@ export default function TeamsRegistered() {
     return <></>;
   }
 
+  if (window.innerWidth < 600) {
+    return (
+      <Paper className={styles.paper}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {maximumSpots ? (
+                  <StyledTableCell colSpan={2}>
+                    {t('register.registration_status')}:&nbsp;
+                    {acceptedSpots}/{maximumSpots}&nbsp;
+                    {t('accepted')}
+                  </StyledTableCell>
+                ) : (
+                  <StyledTableCell colSpan={2}>
+                    {t('register.registration_status')}:&nbsp;
+                    {acceptedSpots}&nbsp;
+                    {t('accepted')}
+                  </StyledTableCell>
+                )}
+                <StyledTableCell align="center">
+                  {teams.length > 0 && (
+                    <IconButton
+                      variant="contained"
+                      icon="MoneyOff"
+                      tooltip={t('register.unregister_all')}
+                      onClick={() => handleUnregisterAllClick()}
+                      style={{ color: '#f44336' }}
+                    />
+                  )}
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>{t('team.team')}</StyledTableCell>
+                <StyledTableCell align="center">{t('status')}</StyledTableCell>
+                <StyledTableCell />
+              </TableRow>
+            </TableHead>
+            <StyledTableRow align="center">
+              {hasPending && (
+                <StyledTableCell colSpan={3}>
+                  <Button
+                    onClick={() => {
+                      goTo(ROUTES.teamsAcceptation, { id: eventId });
+                    }}
+                  >
+                    {t('accept_teams')}
+                  </Button>
+                </StyledTableCell>
+              )}
+            </StyledTableRow>
+            <TableBody>
+              {isLoading ? (
+                <StyledTableRow align="center">
+                  <StyledTableCell colSpan={2}>{t('register.unregister_pending')}</StyledTableCell>
+                  <StyledTableCell>
+                    <LoadingSpinner isComponent />
+                  </StyledTableCell>
+                </StyledTableRow>
+              ) : teams?.length > 0 ? (
+                <>
+                  {teams.map((team, index) => (
+                    <TeamRowMobile team={team} index={index} handleUnregisterClick={handleUnregisterClick} />
+                  ))}
+                </>
+              ) : (
+                <StyledTableRow align="center">
+                  <StyledTableCell colSpan={5}>{t('no.no_teams_registered')}</StyledTableCell>
+                </StyledTableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <AlertDialog
+          open={openUnregister}
+          onCancel={onCloseUnregister}
+          onSubmit={onUnregisterTeam}
+          title={t('register.are_you_sure_you_want_to_unregister_this_team')}
+          description={teams.find((x) => x.rosterId === rosterId)?.name}
+        />
+        <AlertDialog
+          open={openUnregisterAll}
+          onCancel={onCloseUnregisterAll}
+          onSubmit={onUnregisterAll}
+          title={
+            teamsThatCanBeUnregistered.length < teams.length
+              ? t('register.cant_unregister_all_teams', {
+                  howManyCanUnregister: teamsThatCanBeUnregistered.length,
+                  totalOfTeams: teams.length,
+                })
+              : t('register.are_you_sure_you_want_to_unregister_all_teams')
+          }
+          description={teamsThatCanBeUnregistered
+            .map(function (rosterId) {
+              return teams.find((x) => x.rosterId === rosterId)?.name;
+            })
+            .join(', ')}
+        />
+      </Paper>
+    );
+  }
+
   return (
     <Paper className={styles.paper}>
       <TableContainer component={Paper}>
@@ -227,13 +330,13 @@ export default function TeamsRegistered() {
           <TableHead>
             <TableRow>
               {maximumSpots ? (
-                <StyledTableCell colSpan={4}>
+                <StyledTableCell colSpan={3}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
               ) : (
-                <StyledTableCell colSpan={4}>
+                <StyledTableCell colSpan={3}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
                   {t('accepted')}
@@ -242,7 +345,6 @@ export default function TeamsRegistered() {
               <StyledTableCell align="center">
                 {teams.length > 0 ? (
                   <IconButton
-                    //color="primary"
                     variant="contained"
                     icon="MoneyOff"
                     tooltip={t('register.unregister_all')}
@@ -258,15 +360,14 @@ export default function TeamsRegistered() {
           <TableHead>
             <TableRow>
               <StyledTableCell>{t('team.team')}</StyledTableCell>
-              <StyledTableCell>{t('captain')}</StyledTableCell>
               <StyledTableCell>{t('option')}</StyledTableCell>
               <StyledTableCell align="center">{t('status')}</StyledTableCell>
-              <StyledTableCell align="center">{t('actions')}</StyledTableCell>
+              <StyledTableCell />
             </TableRow>
           </TableHead>
           <StyledTableRow align="center">
             {hasPending ? (
-              <StyledTableCell colSpan={5}>
+              <StyledTableCell colSpan={4}>
                 <Button
                   onClick={() => {
                     goTo(ROUTES.teamsAcceptation, { id: eventId });
@@ -282,7 +383,7 @@ export default function TeamsRegistered() {
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={3}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -290,49 +391,12 @@ export default function TeamsRegistered() {
             ) : teams?.length > 0 ? (
               <>
                 {teams.map((team, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell component="th" scope="row">
-                      {team.name}
-                    </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {team.captains[0].name}&nbsp;
-                      {team.captains[0].surname}
-                    </StyledTableCell>
-                    {team.option ? (
-                      <StyledTableCell component="th" scope="row">
-                        {team.option.name}&nbsp;
-                        {`(${team.option.team_price === 0 ? t('free') : formatPrice(team.option.team_price)})`}
-                      </StyledTableCell>
-                    ) : (
-                      <StyledTableCell component="th" scope="row">
-                        {t('no.no_option')}
-                      </StyledTableCell>
-                    )}
-
-                    <StyledTableCell align="center">
-                      <StatusChip
-                        status={team.status}
-                        registrationStatus={team.registrationStatus}
-                        eventId={eventId}
-                        rosterId={team.rosterId}
-                      />
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      <MailToButton emails={team.emails} color="grey" />
-                      <IconButton
-                        variant="contained"
-                        icon="MoneyOff"
-                        tooltip={t('register.unregister')}
-                        onClick={() => handleUnregisterClick(team.rosterId)}
-                        style={{ color: 'primary' }}
-                      />
-                    </StyledTableCell>
-                  </StyledTableRow>
+                  <TeamRow team={team} key={index} handleUnregisterClick={handleUnregisterClick} />
                 ))}
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={5}>{t('no.no_teams_registered')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('no.no_teams_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>

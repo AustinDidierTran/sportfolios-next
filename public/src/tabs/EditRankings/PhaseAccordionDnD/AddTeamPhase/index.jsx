@@ -85,8 +85,6 @@ export default function AddTeamPhase(props) {
         return a.index - b.index;
       }
     });
-
-    // console.log(allOptions);
     setAllOptions(allOptions);
   };
 
