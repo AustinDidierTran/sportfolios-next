@@ -184,7 +184,6 @@ export default function AddTeamPhase(props) {
     },
   ];
 
-  console.log(allOptions);
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
