@@ -20,11 +20,23 @@ export default function PlayersAndTeamsAcceptation(props) {
   const [cards, setCards] = useState([]);
   const [alreadyRemoved, setAlreadyRemoved] = useState([]);
 
+  // const checkKey = (e) => {
+  //   e = e || window.event;
+
+  //   if (e.keyCode == '38') {
+  //     swipe(DIRECTION_ENUM.UP);
+  //   } else if (e.keyCode == '37') {
+  //     swipe(DIRECTION_ENUM.LEFT);
+  //   } else if (e.keyCode == '39') {
+  //     swipe(DIRECTION_ENUM.RIGHT);
+  //   }
+  // };
+
   useEffect(() => {
     getCards();
-    if (document) {
-      document.onkeydown = checkKey;
-    }
+    // if (document) {
+    //   document.onkeydown = checkKey;
+    // }
     if (window) {
       window.onbeforeunload = onExit;
     }
@@ -39,7 +51,9 @@ export default function PlayersAndTeamsAcceptation(props) {
   }, [cards]);
 
   useEffect(() => {
-    setCards(cardsProps.map((card) => ({ items: { ...card.items, swipe }, type: card.type })));
+    if (cardsProps && cardsProps.length) {
+      setCards(cardsProps.map((card) => ({ items: { ...card.items, swipe }, type: card.type })));
+    }
   }, [cardsProps]);
 
   const childRefs = useMemo(() => {
@@ -50,18 +64,6 @@ export default function PlayersAndTeamsAcceptation(props) {
     }
     return [];
   }, [cards]);
-
-  const checkKey = (e) => {
-    e = e || window.event;
-
-    if (e.keyCode == '38') {
-      swipe(DIRECTION_ENUM.UP);
-    } else if (e.keyCode == '37') {
-      swipe(DIRECTION_ENUM.LEFT);
-    } else if (e.keyCode == '39') {
-      swipe(DIRECTION_ENUM.RIGHT);
-    }
-  };
 
   const onExit = () => {
     setCards([]);
