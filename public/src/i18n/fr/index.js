@@ -1016,6 +1016,9 @@ export default {
     player_acceptation_step_message:
       "Voulez-vous accepter ou refuser manuellement chaque joueur qui s'inscrit à votre tournoi avant qu'ils effectuent le paiement?",
     player_added: 'Joueur ajouté',
+    player_accepted: 'Joueur accepté',
+    player_refused: 'Joueur refusé',
+    player_skipped: 'Joueur passé',
     player_name: 'Nom du joueur',
     player_unregister_success: 'Joueur désinscrit avec succès',
     players_unregister_success: 'Joueurs désinscrits avec succès',

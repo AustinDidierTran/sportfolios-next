@@ -5,15 +5,14 @@ import Card from '../../components/Custom/Card';
 import IconButton from '../../components/Custom/IconButton';
 import Button from '../../components/Custom/Button';
 import styles from './PlayersAndTeamsAcceptation.module.css';
-import { DIRECTION_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { DIRECTION_ENUM, STATUS_ENUM } from '../../../common/enums';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { ACTION_ENUM, Store } from '../../Store';
+import { Store } from '../../Store';
 import IgContainer from '../../components/Custom/IgContainer';
 
 export default function PlayersAndTeamsAcceptation(props) {
   const { cards: cardsProps, update, getCards } = props;
-  const { dispatch } = useContext(Store);
   const { t } = useTranslation();
 
   const [noCards, setNoCards] = useState(false);
@@ -76,29 +75,12 @@ export default function PlayersAndTeamsAcceptation(props) {
     });
     if (direction === DIRECTION_ENUM.RIGHT) {
       update(card.items.id, STATUS_ENUM.ACCEPTED);
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('team.team_accepted'),
-        severity: SEVERITY_ENUM.SUCCESS,
-        vertical: 'top',
-      });
     }
     if (direction === DIRECTION_ENUM.LEFT) {
       update(card.items.id, STATUS_ENUM.REFUSED);
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('team.team_refused'),
-        severity: SEVERITY_ENUM.ERROR,
-        vertical: 'top',
-      });
     }
     if (direction === DIRECTION_ENUM.UP) {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('team.team_skipped'),
-        severity: SEVERITY_ENUM.INFO,
-        vertical: 'top',
-      });
+      update(card.items.id, STATUS_ENUM.UNCHANGED);
     }
     alreadyRemoved.push(id);
     if (alreadyRemoved.length === cards.length) {
