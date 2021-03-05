@@ -1130,6 +1130,7 @@ export default {
     spirit_chart_ligue_mardi: '0: Mauvais  1: Moyen  2: Bon ou rien à signaler  3: Très bon  4: Mémorable',
     spirit: 'Esprit de jeu',
     sports_table_title: 'Liste des sports',
+    start_phase_warning: 'Cette phase dépend de phases non-terminées. Veuillez les terminer avant de la démarrer.',
     state: 'Province',
     statistics: 'Statistiques',
     status: 'Statut',

@@ -199,11 +199,12 @@ export default function EditRankings() {
       }
       update();
     } else {
+      const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('empty_phase_spots_warning'),
+        message: rankingsFromPhase.length ? t('start_phase_warning') : t('empty_phase_spots_warning'),
         severity: SEVERITY_ENUM.ERROR,
-        duration: 2000,
+        duration: 4000,
       });
     }
   };
