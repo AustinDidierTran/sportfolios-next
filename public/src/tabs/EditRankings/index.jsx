@@ -109,21 +109,7 @@ export default function EditRankings() {
         }),
       }))
       .sort((a, b) => a.order - b.order);
-
     setPhases(allPhases);
-  };
-
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-    if (result.destination.index === result.source.index) {
-      return;
-    } else {
-      const newPhase = reorder(phases, result.source.index, result.destination.index);
-      setMadeChanges(true);
-      setPhases(newPhase);
-    }
   };
 
   const handleUpdateOrder = async () => {
@@ -150,6 +136,19 @@ export default function EditRankings() {
     }
     setMadeChanges(false);
     update();
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    if (result.destination.index === result.source.index) {
+      return;
+    } else {
+      const newPhase = reorder(phases, result.source.index, result.destination.index);
+      setMadeChanges(true);
+      setPhases(newPhase);
+    }
   };
 
   const handleDeleteTeam = async (phaseId, position) => {

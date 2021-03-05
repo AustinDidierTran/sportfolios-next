@@ -507,6 +507,7 @@ export default {
       edit_membership: 'Edit membership',
       edit_mode: 'Edit mode',
       edit_player: 'Edit player',
+      edit_score: 'Edit score',
       edit_team_number: 'Edit number of teams',
       edit_your_primary_person: 'Edit your primary person',
       edit: 'Edit',
@@ -604,6 +605,7 @@ export default {
       selected_team: 'Selected team',
     },
     score: {
+      score_confirmed: 'Score confirmed',
       score_submission_conflict_description:
         'Notification received if you are the admin of an event and there is a score conflict',
       score_submission_conflict_notif_description: 'A game from the event {{eventName}} has score conflicts.',

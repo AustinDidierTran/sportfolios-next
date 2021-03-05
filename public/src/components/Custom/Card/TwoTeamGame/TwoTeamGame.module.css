@@ -12,6 +12,11 @@
   margin-bottom: 16px;
 }
 
+.game:hover,
+.pastGame:hover {
+  cursor: pointer;
+}
+
 .teams {
   display: grid !important;
   grid-template-columns: 5fr 1fr 1fr 1fr 5fr;
