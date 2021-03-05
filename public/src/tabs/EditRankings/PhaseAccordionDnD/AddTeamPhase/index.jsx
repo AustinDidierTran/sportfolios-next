@@ -13,15 +13,13 @@ import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function AddTeamPhase(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, phaseId, update, initialPosition, teams } = props;
+  const { isOpen, onClose, phaseId, update, initialPosition } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
 
   const [open, setOpen] = useState(isOpen);
   const [allTeams, setAllTeams] = useState([]);
-  const [onlyNonSelectedTeams, setOnlyNotSelectedTeams] = useState([]);
-  const [phaseOptions, setPhaseOptions] = useState([]);
   const [allOptions, setAllOptions] = useState([]);
 
   useEffect(() => {
@@ -54,8 +52,7 @@ export default function AddTeamPhase(props) {
       })
     );
 
-    let unavailablePositions = [];
-
+    let allRankings = [];
     const allPhases = data
       .map((d) => ({
         content: d.name,
@@ -64,68 +61,62 @@ export default function AddTeamPhase(props) {
         status: d.status,
         order: d.phase_order,
         ranking: d.ranking.map((r) => {
-          if (r && r.roster_id) {
-            return { id: r.roster_id };
-          }
-          if (r && r.origin_phase && r.origin_position && !r.roster_id) {
-            const unavailablePosition = { id: r.origin_phase, index: r.origin_position };
-            unavailablePositions.push(unavailablePosition);
-            return unavailablePosition;
-          } else {
-            return { id: null };
-          }
+          allRankings.push({
+            rosterId: r.roster_id,
+            originPhase: r.origin_phase,
+            originPosition: r.origin_position,
+            currentPhase: r.current_phase,
+            currentPhaseName: d.name,
+            initialPosition: r.initial_position,
+            finalPosition: r.final_position,
+            rankingId: r.ranking_id,
+            teamName: r.name,
+            originPhaseName: r.phaseName,
+          });
         }),
       }))
       .sort((a, b) => a.order - b.order);
-    const phaseOptions = getPhasesOptions(allPhases, unavailablePositions).filter((o) => o.phaseId !== phaseId);
-    const teamOptions = getTeamsOptions(allPhases);
-    const allOptions = teamOptions.concat(phaseOptions);
+    const rankingOptions = getRankingOptions(allRankings);
+    const teamOptions = getTeamOptions(allRankings);
+    const allOptions = teamOptions.concat(rankingOptions);
     setAllOptions(allOptions);
   };
 
-  const getPhasesOptions = (allPhases, unavailablePositions) => {
-    const allPhasesOptions = allPhases.reduce((prev, curr) => {
-      let phaseOption = [];
-      for (let i = 1; i <= curr.spots; ++i) {
-        //the key is needed to differentiate children
-        const key = curr.phaseId + '/' + curr.content + '/' + i.toString();
-        phaseOption.push({
-          display: i.toString() + ' - ' + curr.content,
-          value: key,
-          index: i,
-          phaseId: curr.phaseId,
-        });
-      }
-      const option = prev.concat(phaseOption);
-      return option;
-    }, []);
+  const getRankingOptions = (allRankings) => {
+    const allPositions = allRankings
+      .map((r) => {
+        if (r.currentPhase !== phaseId) {
+          return {
+            display: r.teamName
+              ? r.initialPosition.toString() + ' - ' + r.currentPhaseName + ' (' + r.teamName + ') '
+              : r.initialPosition.toString() + ' - ' + r.currentPhaseName,
+            value: r.rankingId,
+            index: r.initialPosition,
+            phaseId: r.currentPhase,
+          };
+        }
+      })
+      .filter((o) => o !== undefined);
 
-    if (unavailablePositions.length) {
-      const filteredOptions = allPhasesOptions.filter(
-        (o) => unavailablePositions.findIndex((up) => o.phaseId === up.id && o.index === up.index) === -1
-      );
-      setPhaseOptions(filteredOptions);
-      return filteredOptions;
-    } else {
-      setPhaseOptions(allPhasesOptions);
-      return allPhasesOptions;
-    }
+    const unavailablePositions = allRankings
+      .map((r) => {
+        if (r.originPhase && r.originPosition) {
+          const unavailablePosition = allRankings.find(
+            (rank) => rank.currentPhase === r.originPhase && rank.initialPosition === r.originPosition
+          );
+          return unavailablePosition.rankingId;
+        }
+      })
+      .filter((r) => r !== undefined);
+
+    const filteredPositions = allPositions.filter((p) => !unavailablePositions.includes(p.value));
+    return filteredPositions;
   };
 
-  const getTeamsOptions = (allPhases) => {
-    const rankings = allPhases
-      .reduce((prev, curr) => {
-        let ranking = prev.concat(curr.ranking);
-        return ranking;
-      }, [])
-      .filter((r) => r.id !== null);
-
-    const rankingsIds = rankings.map((r) => {
-      return r.id;
-    });
-    const teamsFilteredOptions = allTeams.filter((t) => !rankingsIds.includes(t.value));
-    setOnlyNotSelectedTeams(teamsFilteredOptions);
-    return teamsFilteredOptions;
+  const getTeamOptions = (allRankings) => {
+    const unavailableTeams = allRankings.map((r) => r.rosterId).filter((r) => r !== undefined);
+    const filteredTeams = allTeams.filter((t) => !unavailableTeams.includes(t.value));
+    return filteredTeams;
   };
 
   const onFinish = () => {
@@ -147,7 +138,7 @@ export default function AddTeamPhase(props) {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
-          id: select.value,
+          id: position,
           initialPosition,
           phaseId,
           originPhase: select.phaseId,

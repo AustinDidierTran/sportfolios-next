@@ -4,18 +4,20 @@ import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import PhaseAccordionDnD from './PhaseAccordionDnD';
-import PrerankAccordionDnD from './PrerankAccordionDnd';
-import FinalRanking from './FinalRanking';
 import Button from '../../components/Custom/Button';
-import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
-import AddPhase from '../EditSchedule/CreateSchedule/AddPhase';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { ACTION_ENUM, Store } from '../../Store';
 import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
+import loadable from '@loadable/component';
+
+const PhaseAccordionDnD = loadable(() => import('./PhaseAccordionDnD'));
+const PrerankAccordionDnD = loadable(() => import('./PrerankAccordionDnd'));
+const FinalRanking = loadable(() => import('./FinalRanking'));
+const AlertDialog = loadable(() => import('../../components/Custom/Dialog/AlertDialog'));
+const AddPhase = loadable(() => import('../EditSchedule/CreateSchedule/AddPhase'));
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
