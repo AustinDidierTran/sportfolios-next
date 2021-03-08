@@ -373,7 +373,7 @@ export default function GameDetailed(props) {
           userInfo={userInfo}
           allowPostImage={true}
           allowNewPost={true}
-          entityIdCreatePost={userInfo?.primaryPerson?.entity_id || 0}
+          entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
           allowComment={true}
           allowLike={true}
           locationId={game.entity_id}

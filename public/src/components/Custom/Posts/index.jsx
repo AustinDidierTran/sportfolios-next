@@ -195,7 +195,7 @@ export default function Posts(props) {
   return (
     <div>
       <div>
-        {allowNewPost && entityIdCreatePost != 0 && (
+        {allowNewPost && entityIdCreatePost != -1 && (
           <CustomPaper elevation={elevation} className={classes.createPost}>
             <PostInput
               entityId={entityIdCreatePost}
