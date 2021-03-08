@@ -56,6 +56,7 @@
       "sizes": "512x512"
     }
   ],
+  "orientation": "portrait-primary",
   "start_url": "/offline.html",
   "background_color": "#3367D6",
   "display": "standalone",
