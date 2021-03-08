@@ -45,8 +45,8 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <StoreProvider>
+      <link rel="manifest" href="/manifest.webmanifest" />
       <Helmet>
-        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#ffffff" />
         <link rel="apple-touch-icon" href="src/images/icon-180x180.png" />
       </Helmet>
