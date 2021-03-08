@@ -298,15 +298,14 @@ export default function GameDetailed(props) {
             </div>
             <div className={styles.gameInfo}>
               <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
-
               <div>{game.phase_name}</div>
+              <div>{game.field}</div>
             </div>
 
             <div className={styles.iconOptions}>
               {isAdmin && (
                 <CustomIconButton
                   icon="MoreVertIcon"
-                  className={styles.iconOptions}
                   style={{ color: 'primary' }}
                   onClick={handleClick}
                   size="medium"
@@ -317,19 +316,45 @@ export default function GameDetailed(props) {
           <div className={styles.content}>
             {game.teams.map((team, i) => (
               <>
-                <div className={styles.teamContent}>
-                  <img
-                    className={styles.avatarTeam}
-                    src={
-                      team.photo_url
-                        ? team.photo_url
-                        : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
-                    }
-                  />
-                  <Typography variant="h5">{team.name}</Typography>
-                  <Typography variant="h5">{team.score}</Typography>
-                </div>
-                {i === 0 && <div className={styles.field}>{game.field}</div>}
+                {i % 2 === 0 ? (
+                  <div className={styles.teamContent}>
+                    <div>
+                      <img
+                        className={styles.avatarTeam}
+                        src={
+                          team.photo_url
+                            ? team.photo_url
+                            : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
+                        }
+                      />
+                      <Typography className={styles.teamName} variant="h5">
+                        {team.name}
+                      </Typography>
+                    </div>
+                    <div className={styles.score}>
+                      <Typography variant="h5">{team.score}</Typography>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.teamContent}>
+                    <div className={styles.score}>
+                      <Typography variant="h5">{team.score}</Typography>
+                    </div>
+                    <div>
+                      <img
+                        className={styles.avatarTeam}
+                        src={
+                          team.photo_url
+                            ? team.photo_url
+                            : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
+                        }
+                      />
+                      <Typography className={styles.teamName} variant="h5">
+                        {team.name}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
               </>
             ))}
           </div>
@@ -348,7 +373,7 @@ export default function GameDetailed(props) {
           userInfo={userInfo}
           allowPostImage={true}
           allowNewPost={true}
-          entityIdCreatePost={userInfo.primaryPerson.entity_id}
+          entityIdCreatePost={userInfo?.primaryPerson?.entity_id || 0}
           allowComment={true}
           allowLike={true}
           locationId={game.entity_id}

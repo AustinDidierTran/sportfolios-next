@@ -18,8 +18,7 @@
 }
 
 .teamContent {
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
 }
 
 .avatarTeam {
@@ -42,10 +41,39 @@
   margin-left: 4px;
 }
 
+.teamName {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.score {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
 @media (max-width: 600px) {
   .content {
     padding-bottom: 0px;
   }
+
+  .teamName {
+    min-width: 140px;
+    max-width: 140px;
+  }
+
+  .score {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+}
+
+.iconOptions {
+  height: 48px;
+  width: 48px;
 }
 
 .field {
