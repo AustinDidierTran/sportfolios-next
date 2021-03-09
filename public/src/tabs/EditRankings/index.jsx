@@ -76,12 +76,13 @@ export default function EditRankings() {
       })
     );
     if (data) {
-      const ranking = data.map((d) => ({
+      const preranking = data.map((d) => ({
         position: d.position,
         content: d.name,
         id: d.teamId,
+        rankingId: d.rankingId,
       }));
-      setPreRanking(ranking);
+      setPreRanking(preranking);
     }
   };
 
