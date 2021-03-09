@@ -8,6 +8,7 @@ const EventPost = loadable(() => import('./EventPost'));
 const EventSettings = loadable(() => import('./EventSettings'));
 const Game = loadable(() => import('./Game'));
 const Invoice = loadable(() => import('./InvoiceItem'));
+const MultipleTeamGame = loadable(() => import('./MultipleTeamGame'));
 const Post = loadable(() => import('./Post'));
 const Report = loadable(() => import('./Report'));
 const ScoreSuggestion = loadable(() => import('./ScoreSuggestion'));
@@ -33,6 +34,7 @@ const CardMap = {
   [CARD_TYPE_ENUM.SHOP]: Shop,
   [CARD_TYPE_ENUM.TWO_TEAM_GAME_EDITABLE]: TwoTeamGameEditable,
   [CARD_TYPE_ENUM.TWO_TEAM_GAME]: TwoTeamGame,
+  [CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME]: MultipleTeamGame,
   [CARD_TYPE_ENUM.TWO_TEAM_GAME_PROFILE]: TwoTeamGameProfile,
   [CARD_TYPE_ENUM.CART_SUMMARY]: CartSummary,
   [CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS]: AcceptPlayerInfos,
