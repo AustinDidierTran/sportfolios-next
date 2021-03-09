@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { unregisterTeams } from '../../../actions/api/helpers';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
@@ -80,7 +81,6 @@ export default function TeamsRegistered() {
         rosterIds: JSON.stringify(rosterIds),
       })
     );
-
     return data;
   };
 

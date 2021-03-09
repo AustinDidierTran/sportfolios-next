@@ -94,6 +94,7 @@ export default function PrerankAccordionDnD(props) {
         message: t('preranking_saved'),
         severity: SEVERITY_ENUM.SUCCESS,
       });
+      update();
     } else {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -147,7 +148,7 @@ export default function PrerankAccordionDnD(props) {
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {teams ? (
+                  {teams.length ? (
                     <div>
                       {teams.map((team, index) => (
                         <Draggable key={team.id} draggableId={team.id} index={index}>
@@ -174,8 +175,7 @@ export default function PrerankAccordionDnD(props) {
                       ))}
                     </div>
                   ) : (
-                    //FIXME: changer no teams number pour add team to event
-                    <ListItemText className={styles.name} primary={t('no_teams_number')} />
+                    <ListItemText className={styles.name} primary={t('no.no_teams_registered')} />
                   )}
                   {provided.placeholder}
                 </div>
