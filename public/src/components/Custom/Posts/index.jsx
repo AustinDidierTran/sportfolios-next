@@ -66,7 +66,7 @@ export default function Posts(props) {
   const getPostFeed = async () => {
     const { status, data } = await api(
       formatRoute('/api/posts', null, {
-        userId: userInfo.primaryPerson.entity_id,
+        userId: userInfo?.primaryPerson?.entity_id,
         locationId,
         currentPage: currentPage.current,
         perPage: 5,
@@ -195,7 +195,7 @@ export default function Posts(props) {
   return (
     <div>
       <div>
-        {allowNewPost && (
+        {allowNewPost && entityIdCreatePost != -1 && (
           <CustomPaper elevation={elevation} className={classes.createPost}>
             <PostInput
               entityId={entityIdCreatePost}
@@ -215,7 +215,7 @@ export default function Posts(props) {
               allowComment,
               allowLike,
               elevation,
-              entityId: userInfo.primaryPerson.entity_id,
+              entityId: userInfo?.primaryPerson?.entity_id,
               isAdmin: entityIdCreatePost === post.entity_id && allowNewPost,
             }}
             type={CARD_TYPE_ENUM.POST}
