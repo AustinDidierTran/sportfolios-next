@@ -75,12 +75,14 @@ export default function EditRankings() {
         eventId,
       })
     );
-    const ranking = data.map((d) => ({
-      position: d.position,
-      content: d.name,
-      id: d.teamId,
-    }));
-    setPreRanking(ranking);
+    if (data) {
+      const ranking = data.map((d) => ({
+        position: d.position,
+        content: d.name,
+        id: d.teamId,
+      }));
+      setPreRanking(ranking);
+    }
   };
 
   const getPhases = async () => {

@@ -573,7 +573,7 @@ export default {
         'Sorry, your registration has been refused. Event is now full and there are no available spots left.',
       no_roster: 'No roster',
       no_taxes: 'No taxes',
-      no_teams_registered: 'No teams registered',
+      no_teams_registered: 'No teams registered.',
       no_teams: 'No teams',
       no_team_number: 'Edit the number of teams. ',
       no_users_found: 'No users found',
