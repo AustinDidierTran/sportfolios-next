@@ -1176,7 +1176,7 @@ export default {
     this_organization_has_no_events: "Cette organisation n'a pas d'événement",
     this_organization_has_no_memberships_available: "Cette organisation n'a pas d'affilitations disponibles",
     this_team_cannot_be_deleted:
-      "Cette équipe ne peut pas être désinscrite de l'événement puisqu'elle est déjà dans une partie.",
+      "Cette équipe ne peut pas être désinscrite de l'événement puisqu'elle est déjà dans une partie ou une phase démarrée.",
     time_slot_added: 'Plage horaire ajoutée',
     time_slot: 'Plage horaire',
     time: 'Temps',
