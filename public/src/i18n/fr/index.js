@@ -366,7 +366,7 @@ export default {
       team_refused: 'Équipe refusée',
       team_activity: "Activité d'équipe",
       team_activity_or_individual_activity:
-        "Les participants doivent inscrire une équipe? C'est une activité d'équipe. Vous pouvez quand même demander des paiements individuelles!",
+        "Les participants doivent inscrire une équipe? C'est une activité d'équipe. Vous pouvez quand même demander des paiements individuels!",
       team_added: 'Équipe ajoutée',
       team_already_registered: 'Équipe déjà inscrite',
       team_history: "Historique de l'équipe",
