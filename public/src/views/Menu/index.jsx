@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
 import styles from './More.module.css';
-import history from '../../stores/history';
 import { ROUTES } from '../../actions/goTo/index';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../Store';
 
-import { Paper } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import Icon from '../../components/Custom/Icon';
 import Typography from '@material-ui/core/Typography';
-import { GLOBAL_ENUM } from '../../../common/enums';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import { useRouter } from 'next/router';
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 export default function Menu() {
+  const router = useRouter();
   const { dispatch } = useContext(Store);
 
   const { t } = useTranslation();
@@ -19,29 +21,40 @@ export default function Menu() {
 
   const data = [
     {
-      name: t('settings'),
-      route: ROUTES.userSettings,
-    },
-    {
       name: t('create.create_person'),
-      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.PERSON }),
+      route: formatRoute(ROUTES.createPerson),
+      icon: 'Person',
     },
     {
       name: t('create.create_event'),
-      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.EVENT }),
+      route: formatRoute(ROUTES.createEvent),
+      icon: 'Event',
     },
     {
       name: t('create.create_team'),
-      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.TEAM }),
+      route: formatRoute(ROUTES.createTeam),
+      icon: 'Group',
     },
     {
       name: t('create.create_organization'),
-      route: formatRoute(ROUTES.create, {}, { type: GLOBAL_ENUM.ORGANIZATION }),
+      route: formatRoute(ROUTES.createOrganization),
+      icon: 'Business',
+    },
+
+    {
+      name: t('cart'),
+      route: formatRoute(ROUTES.cart),
+      icon: 'ShoppingCart',
+    },
+    {
+      name: t('settings'),
+      route: ROUTES.userSettings,
+      icon: 'Settings',
     },
     {
       name: t('logout'),
       function: logout,
-      style: { color: 'red' },
+      style: { color: 'red', textAlign: 'center' },
     },
   ];
   return (
@@ -52,12 +65,23 @@ export default function Menu() {
           onClick={
             d.function ||
             (() => {
-              history.push(d.route);
+              router.push(d.route);
             })
           }
           key={index}
         >
-          <Typography style={d.style}>{d.name}</Typography>
+          <ListItem className={styles.listItem}>
+            {d.icon ? (
+              <ListItemIcon>
+                <Icon icon={d.icon} className={styles.icon} color="textSecondary" />
+              </ListItemIcon>
+            ) : (
+              <div />
+            )}
+            <ListItemText className={styles.text} primary={d.name} style={d.style}>
+              {d.name}
+            </ListItemText>
+          </ListItem>
         </Paper>
       ))}
     </div>
