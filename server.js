@@ -20,6 +20,7 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   }).listen(3000, (err) => {
     if (err) throw err;
+    // eslint-disable-next-line no-console
     console.log(`> Ready on ${conf.CLIENT_BASE_URL}`);
   });
 });

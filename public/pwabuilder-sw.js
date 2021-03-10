@@ -2,6 +2,7 @@
 
 const CACHE = 'pwabuilder-offline-page';
 
+// eslint-disable-next-line no-undef
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
 // TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
@@ -17,12 +18,16 @@ self.addEventListener('install', async (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.add(offlineFallbackPage)));
 });
 
+// eslint-disable-next-line no-undef
 if (workbox.navigationPreload.isSupported()) {
+  // eslint-disable-next-line no-undef
   workbox.navigationPreload.enable();
 }
 
+// eslint-disable-next-line no-undef
 workbox.routing.registerRoute(
   new RegExp('/*'),
+  // eslint-disable-next-line no-undef
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: CACHE,
   })

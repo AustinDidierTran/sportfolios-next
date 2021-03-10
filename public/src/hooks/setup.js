@@ -8,7 +8,7 @@ export const useFacebookSDK = () => {
   } = useContext(Store);
   const loadFbLoginApi = (language) => {
     window.fbAsyncInit = function () {
-      FB.init({
+      window.FB.init({
         appId: FACEBOOK_APP_ID,
         cookie: true, // enable cookies to allow the server to access
         // the session
