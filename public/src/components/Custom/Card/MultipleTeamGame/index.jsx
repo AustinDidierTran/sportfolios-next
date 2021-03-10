@@ -16,7 +16,7 @@ export default function MultipleTeamGame(props) {
     <Card className={styles.game} onClick={onClick}>
       <div className={styles.teams}>
         {teams.map((team, i) => (
-          <div className={styles.teamContent}>
+          <div className={styles.teamContent} key={i}>
             <img className={styles.logo} src={team.photo_url} />
             <Typography className={styles.name}>{team.name}</Typography>
             <Typography className={styles.score}>{team.score}</Typography>
