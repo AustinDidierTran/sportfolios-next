@@ -8,7 +8,7 @@ import styles from './ConfirmationEmailSent.module.css';
 import { goTo, ROUTES } from '../../actions/goTo';
 
 interface IProps {
-  email: String;
+  email: string;
 }
 
 const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {

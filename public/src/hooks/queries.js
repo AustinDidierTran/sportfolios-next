@@ -1,16 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ERROR_ENUM } from '../../common/errors';
 import api from '../actions/api';
-
-const paramsToObject = (entries) => {
-  let result = {};
-  for (let entry of entries) {
-    // each 'entry' is a [key, value] tupple
-    const [key, value] = entry;
-    result[key] = value;
-  }
-  return result;
-};
 
 export const useApiRoute = (route, options = {}) => {
   const { defaultValue } = options;

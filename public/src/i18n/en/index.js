@@ -230,11 +230,6 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
-      teamsAcceptation: {
-        title: 'Sportfolios',
-        description:
-          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
-      },
       transferPerson: {
         title: 'Sportfolios',
         description:
@@ -384,7 +379,6 @@ export default {
       team_skipped: 'Team skipped',
     },
     member: {
-      member_added: 'Member added',
       member_added: 'Members added',
       member_coupon: 'Member coupon',
       member_expiration_date: 'Member expiration date',
@@ -667,8 +661,6 @@ export default {
       feb: 'Feb',
       mar: 'Mar',
       apr: 'Apr',
-      may: 'May',
-      june: 'June',
       july: 'July',
       aug: 'Aug',
       sept: 'Sept',
@@ -781,12 +773,9 @@ export default {
     confirm_new_password: 'Confirm New Password',
     confirm_or_decline_score_notif_description:
       'The team {{teamName}} submitted the score: {{score}} for your match of the event {{eventName}}. Do you want to confirm this result?',
-    confirm_or_decline_score_notif_description:
-      'The team {{teamName}} submitted the score: {{score}} for your match of the event {{eventName}}. Do you want to confirm this result?',
     confirm: 'Confirm',
     confirmation_email_sent: 'Recovery email has been sent successfully. Go look at your email to reset your password.',
     confirmed_on: 'Confirmed on {{confirmedOn}}',
-    confirmed: 'Confirmed',
     confirmed: 'Confirmed',
     connect_with_facebook: 'Connect with Facebook',
     connect: 'Connect',
@@ -873,7 +862,6 @@ export default {
     generate_report: 'Generate report',
     get_a_new_link: 'Get a new link',
     go_back_to_login: 'Go back to login',
-    go_to_event: 'Go to event',
     go_to_event: 'Go to event',
     go_to_login: 'Go to login',
     go_to_page: 'Go to page',
@@ -964,7 +952,6 @@ export default {
     option: 'Option',
     options: 'Options',
     or: 'or',
-    or: 'OR',
     order_processed_title: 'Order processed',
     order_processed: 'Your order has been successfully processed',
     ordered: 'Ordered',

@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       if (!('serviceWorker' in navigator)) {
+        // eslint-disable-next-line no-console
         console.warn('Pwa support is disabled');
         return;
       }

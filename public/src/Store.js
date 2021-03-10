@@ -7,7 +7,6 @@ import api from './actions/api';
 import { errors, ERROR_ENUM } from '../common/errors';
 import { io } from 'socket.io-client';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
-import { useRouter } from 'next/router';
 
 export const Store = React.createContext();
 
@@ -188,7 +187,6 @@ function reducer(state, action) {
 }
 
 export function StoreProvider(props) {
-  const router = useRouter();
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
 

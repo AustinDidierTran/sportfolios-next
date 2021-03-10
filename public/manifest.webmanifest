@@ -58,7 +58,7 @@
   ],
   "orientation": "portrait-primary",
   "start_url": "https://sportfolios.app/page/login",
-  "background_color": "#3367D6",
+  "background_color": "#fffff",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#18B393"
