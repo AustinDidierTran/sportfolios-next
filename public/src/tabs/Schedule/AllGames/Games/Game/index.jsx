@@ -26,7 +26,7 @@ export default function Game(props) {
           isPastGame,
           onClick: openGameDetailed,
         }}
-        type={CARD_TYPE_ENUM.TWO_TEAM_GAME}
+        type={CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME}
       />
     </>
   );
