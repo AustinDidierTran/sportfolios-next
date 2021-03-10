@@ -20,7 +20,7 @@ export default function Rankings() {
 
   const getRankings = async () => {
     const { data } = await api(
-      formatRoute('/api/entity/rankings', null, {
+      formatRoute('/api/entity/preranking', null, {
         eventId,
       })
     );
@@ -28,6 +28,7 @@ export default function Rankings() {
       position: d.initial_position,
       name: d.name,
       id: d.teamId,
+      rankingId: d.rankingId,
     }));
 
     setPreRanking(ranking);

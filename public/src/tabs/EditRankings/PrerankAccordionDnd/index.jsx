@@ -151,7 +151,7 @@ export default function PrerankAccordionDnD(props) {
                   {teams.length ? (
                     <div>
                       {teams.map((team, index) => (
-                        <Draggable key={team.id} draggableId={team.id} index={index}>
+                        <Draggable key={team.rosterId} draggableId={team.rosterId} index={index}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}

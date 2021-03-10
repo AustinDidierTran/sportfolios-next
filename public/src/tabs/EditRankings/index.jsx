@@ -71,7 +71,7 @@ export default function EditRankings() {
 
   const getPreranking = async () => {
     const { data } = await api(
-      formatRoute('/api/entity/rankings', null, {
+      formatRoute('/api/entity/preranking', null, {
         eventId,
       })
     );
@@ -79,7 +79,7 @@ export default function EditRankings() {
       const preranking = data.map((d) => ({
         position: d.position,
         content: d.name,
-        id: d.teamId,
+        rosterId: d.teamId,
         rankingId: d.rankingId,
       }));
       setPreRanking(preranking);
