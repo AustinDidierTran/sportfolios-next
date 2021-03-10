@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -11,9 +11,33 @@ import UsersTable from './UsersTable';
 import GaEventsTable from './GoogleAnalyticsEventsTable';
 import GaPageviewsTable from './GoogleAnalyticsPageviewsTable';
 import TaxRatesTable from './TaxRatesTable';
+import GraphNumberOfMembers from '../Analytics/GraphNumberOfMembers';
+import Paper from '@material-ui/core/Paper';
+import api from '../../actions/api';
+import { formatRoute } from '../../../common/utils/stringFormat';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 
 export default function AdminPanel() {
   const { t } = useTranslation();
+  const [graphData, setGraphData] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getDataGraph = async () => {
+    const { status, data } = await api(formatRoute('/api/entity/graphUserCount', null, null));
+    if (!data) {
+      return;
+    }
+    setGraphData(data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getDataGraph();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Container className={styles.container}>
@@ -25,6 +49,14 @@ export default function AdminPanel() {
       <GaEventsTable />
       <GaPageviewsTable />
       <TaxRatesTable />
+      <Paper>
+        <GraphNumberOfMembers
+          graphData={graphData}
+          title={t('member.members_in', { time: new Date().getFullYear() })}
+          totalTitle={'total_members'}
+          newTitle={'new_members'}
+        />
+      </Paper>
     </Container>
   );
 }
