@@ -4,41 +4,62 @@ import { Table, Paper } from '../../../components/Custom';
 import CardContent from '@material-ui/core/CardContent';
 import styles from './UsersTable.module.css';
 import api from '../../../actions/api';
-import history from '../../../stores/history';
-
+import Router from 'next/router';
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
+  const [initialUsers, setInitialUsers] = useState([]);
 
   const updateUsers = async () => {
     const res = await api('/api/admin/users');
 
-    setUsers(
-      res.data.map((user) => ({
-        ...user,
-        emails: user.emails.join(', '),
-      }))
-    );
+    const tempUser = res.data.map((user) => ({
+      ...user,
+      emails: user.emails.join(', '),
+    }));
+    setUsers(tempUser);
+    setInitialUsers(tempUser);
+  };
+
+  const headers = [
+    { display: '', value: 'collapse', width: '5%' },
+    { display: '', value: 'photoUrl', type: 'avatar', width: '10%' },
+    { display: t('name'), value: 'name', width: '20%' },
+    { display: t('surname'), value: 'surname', width: '20%' },
+    { display: t('email.emails'), value: 'emails', width: '35%' },
+    { display: t('app_role'), value: 'role', width: '10%' },
+  ];
+
+  const filterArray = ['name', 'emails', 'surname'];
+
+  const handleFilter = (event) => {
+    if (!event.target.value) {
+      setUsers(initialUsers);
+    } else {
+      setUsers(
+        initialUsers.filter((o) =>
+          JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
+            .toLowerCase()
+            .includes(event.target.value.toLowerCase())
+        )
+      );
+    }
   };
 
   useEffect(() => {
     updateUsers();
   }, []);
 
-  const headers = [
-    { display: t('name'), value: 'name' },
-    { display: t('surname'), value: 'surname' },
-    { display: t('email.emails'), value: 'emails' },
-    { display: t('app_role'), value: 'app_role' },
-  ];
-
   return (
     <Paper className={styles.card}>
       <CardContent className={styles.inputs}>
         <Table
+          filter={true}
+          filterhandler={handleFilter}
           data={users}
           headers={headers}
-          onRowClick={(d) => () => history.push(`/profile/${d.id}`)}
+          mode={'collapse'}
+          onRowClick={(d) => () => Router.push(`/${d.entityId}`)}
           title={t('users_table_title')}
         />
       </CardContent>

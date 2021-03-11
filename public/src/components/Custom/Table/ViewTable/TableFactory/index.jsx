@@ -5,9 +5,10 @@ import CustomButton from '../../../Button';
 import CustomIconButton from '../../../IconButton';
 import { goTo } from '../../../../../actions/goTo';
 import Switch from '@material-ui/core/Switch';
+import Avatar from '@material-ui/core/Avatar';
 
 export default function TableFactory(props) {
-  const { d, h } = props;
+  const { d, h, width = false, onClick } = props;
 
   if (h.type === 'button') {
     return (
@@ -44,5 +45,17 @@ export default function TableFactory(props) {
       </TableCell>
     );
   }
-  return <TableCell>{d[h.value]}</TableCell>;
+
+  if (h.type === 'avatar') {
+    return (
+      <TableCell width={width ? h.width : false} onClick={onClick && onClick(d)}>
+        <Avatar src={d[h.value]} />
+      </TableCell>
+    );
+  }
+  return (
+    <TableCell width={width ? h.width : false} onClick={onClick && onClick(d)}>
+      {d[h.value]}
+    </TableCell>
+  );
 }
