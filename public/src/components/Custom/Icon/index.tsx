@@ -16,6 +16,7 @@ import Business from '@material-ui/icons/Business';
 import Cancel from '@material-ui/icons/Cancel';
 import CancelSend from '@material-ui/icons/CancelScheduleSend';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
+import Chat from '@material-ui/icons/Chat';
 import Check from '@material-ui/icons/Check';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
@@ -31,6 +32,7 @@ import Edit from '@material-ui/icons/Edit';
 import EditIcon from '@material-ui/icons/Edit';
 import EmojiEvents from '@material-ui/icons/EmojiEvents';
 import EmojiObjects from '@material-ui/icons/EmojiObjects';
+import Equalizer from '@material-ui/icons/Equalizer';
 import Event from '@material-ui/icons/Event';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -60,6 +62,7 @@ import OpenWith from '@material-ui/icons/OpenWith';
 import PeopleIcon from '@material-ui/icons/People';
 import Person from '@material-ui/icons/Person';
 import PersonAdd from '@material-ui/icons/PersonAdd';
+import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import Play from '@material-ui/icons/PlayArrow';
 import Power from '@material-ui/icons/PowerSettingsNew';
 import PrintIcon from '@material-ui/icons/Print';
@@ -86,7 +89,6 @@ import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import TextFormat from '@material-ui/icons/TextFormat';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Undo from '@material-ui/icons/Undo';
-import Chat from '@material-ui/icons/Chat';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
@@ -127,6 +129,7 @@ const icons: any = {
   EditIcon,
   EmojiEvents,
   EmojiObjects,
+  Equalizer,
   Event,
   ExitToApp,
   ExpandLess,
@@ -157,6 +160,7 @@ const icons: any = {
   PeopleIcon,
   Person,
   PersonAdd,
+  PermContactCalendar,
   Play,
   Power,
   PrintIcon,
