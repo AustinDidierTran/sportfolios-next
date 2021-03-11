@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../../actions/api';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import Button from '../../components/Custom/Button';
-import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { ACTION_ENUM, Store } from '../../Store';
@@ -42,7 +41,6 @@ export default function EditRankings() {
   const { id: eventId } = router.query;
 
   const [phases, setPhases] = useState([]);
-  // const [phaseRankings, setPhaseRankings] = useState([]);
   const [preranking, setPreranking] = useState([]);
   const [expandedPhases, setExpandedPhases] = useState([]);
 
@@ -128,11 +126,6 @@ export default function EditRankings() {
       }))
       .sort((a, b) => a.order - b.order);
 
-    // const phaseRankings = allPhases.reduce((prev, curr) => {
-    //   return prev.concat(curr.ranking);
-    // }, []);
-
-    // setPhaseRankings(phaseRankings);
     setPrerankPhase(prerankPhase);
     setPreranking(preranking);
     setPhases(allPhases);
@@ -208,6 +201,8 @@ export default function EditRankings() {
     const rankingsWithRosterId = phaseRanking.map((r) => r.roster_id);
     const positionsFromPrerank = phaseRanking.filter((r) => r.origin_phase === prerankPhase.phaseId);
 
+    //if all rankings are from the prerank, rosterId will be updated when the phase starts
+    //a boolean could be return to block from changing the preranking once a phase is started
     if (positionsFromPrerank.length === phase.spots) {
       const rankingsToUpdate = positionsFromPrerank.map((r) => {
         const rosterId = preranking.find((p) => p.position === r.origin_position).rosterId;
@@ -231,8 +226,7 @@ export default function EditRankings() {
         });
       }
       update();
-    }
-    if (!rankingsWithRosterId.includes(null) && phase.spots) {
+    } else if (!rankingsWithRosterId.includes(null) && phase.spots) {
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
@@ -254,7 +248,11 @@ export default function EditRankings() {
       const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: rankingsFromPhase.length ? t('start_phase_warning') : t('empty_phase_spots_warning'),
+        message: rankingsFromPhase.length
+          ? t('start_phase_warning')
+          : phase.spots
+          ? ''
+          : t('empty_phase_spots_warning'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
