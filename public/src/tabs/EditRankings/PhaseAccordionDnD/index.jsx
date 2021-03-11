@@ -219,8 +219,8 @@ export default function PhaseAccordionDnD(props) {
                       <div>
                         {teams.map((team, index) => (
                           <Draggable
-                            key={team.id}
-                            draggableId={team.id}
+                            key={team.rankingId}
+                            draggableId={team.rankingId}
                             index={index}
                             isDragDisabled={status !== PHASE_STATUS_ENUM.NOT_STARTED}
                           >
@@ -238,7 +238,10 @@ export default function PhaseAccordionDnD(props) {
                                     </ListItemIcon>
                                     <div className={styles.spots} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
-                                      <ListItemText className={styles.title} secondary={t('add.add_team') + '...'} />
+                                      <ListItemText
+                                        className={styles.title}
+                                        secondary={t('add.add_position') + '...'}
+                                      />
                                       <ListItemIcon className={styles.add}>
                                         <IconButton
                                           className={styles.iconButton}

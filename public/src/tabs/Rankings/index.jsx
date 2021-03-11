@@ -24,14 +24,14 @@ export default function Rankings() {
         eventId,
       })
     );
-    const ranking = data.map((d) => ({
-      position: d.initial_position,
-      name: d.name,
-      id: d.teamId,
-      rankingId: d.rankingId,
-    }));
-
-    setPreRanking(ranking);
+    if (data) {
+      const ranking = data.map((d) => ({
+        position: d.initial_position,
+        name: d.name,
+        id: d.teamId,
+      }));
+      setPreRanking(ranking);
+    }
 
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
 
