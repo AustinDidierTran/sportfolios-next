@@ -1,6 +1,7 @@
 import React from 'react';
 import EditTable from './EditTable';
 import ViewTable from './ViewTable';
+import CollapseTable from './CollapseTable';
 import styles from './Table.module.css';
 
 export default function Table(props) {
@@ -11,6 +12,14 @@ export default function Table(props) {
       <EditTable className={styles.table} {...props}>
         {props.children}
       </EditTable>
+    );
+  }
+
+  if (mode === 'collapse') {
+    return (
+      <CollapseTable className={styles.table} {...props}>
+        {props.children}
+      </CollapseTable>
     );
   }
 

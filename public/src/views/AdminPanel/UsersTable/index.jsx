@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import styles from './UsersTable.module.css';
 import api from '../../../actions/api';
 import history from '../../../stores/history';
+import Router from 'next/router';
 
 export default function UsersTable() {
   const { t } = useTranslation();
@@ -26,10 +27,12 @@ export default function UsersTable() {
   }, []);
 
   const headers = [
-    { display: t('name'), value: 'name' },
-    { display: t('surname'), value: 'surname' },
-    { display: t('email.emails'), value: 'emails' },
-    { display: t('app_role'), value: 'app_role' },
+    { display: '', value: 'collapse', width: '5%' },
+    { display: '', value: 'photoUrl', type: 'avatar', width: '10%' },
+    { display: t('name'), value: 'name', width: '20%' },
+    { display: t('surname'), value: 'surname', width: '20%' },
+    { display: t('email.emails'), value: 'emails', width: '35%' },
+    { display: t('app_role'), value: 'role', width: '10%' },
   ];
 
   return (
@@ -38,7 +41,8 @@ export default function UsersTable() {
         <Table
           data={users}
           headers={headers}
-          onRowClick={(d) => () => history.push(`/profile/${d.id}`)}
+          mode={'collapse'}
+          onRowClick={(d) => () => Router.push(`/${d.entityId}`)}
           title={t('users_table_title')}
         />
       </CardContent>
