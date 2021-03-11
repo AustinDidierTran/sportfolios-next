@@ -6,16 +6,25 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import styles from './ViewTable.module.css';
+import TextField from '@material-ui/core/TextField';
+import styles from './CollapseTable.module.css';
+import { useTranslation } from 'react-i18next';
+
 import Row from './row';
 
 export default function CollapseTable(props) {
-  const { data, description, headers, onRowClick, title } = props;
+  const { t } = useTranslation();
+  const { data, description, headers, onRowClick, title, filter, filterhandler } = props;
   return (
     <>
       <Typography gutterBottom variant="h5" component="h2">
         {title}
       </Typography>
+      {filter && (
+        <div>
+          <TextField onChange={filterhandler} label={t('search')} />
+        </div>
+      )}
       <Table className={styles.table}>
         <TableHead>
           {description && (
