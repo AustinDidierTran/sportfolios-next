@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import api from '../../actions/api';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
@@ -42,9 +42,11 @@ export default function EditRankings() {
   const { id: eventId } = router.query;
 
   const [phases, setPhases] = useState([]);
-  const [preRanking, setPreRanking] = useState([]);
+  // const [phaseRankings, setPhaseRankings] = useState([]);
+  const [preranking, setPreranking] = useState([]);
   const [expandedPhases, setExpandedPhases] = useState([]);
 
+  const [prerankPhase, setPrerankPhase] = useState({});
   const [phaseToEnd, setPhaseToEnd] = useState({});
   const [phaseToDelete, setPhaseToDelete] = useState({});
 
@@ -56,8 +58,7 @@ export default function EditRankings() {
 
   useEffect(() => {
     if (eventId) {
-      getPreranking();
-      getPhases();
+      getData();
     }
   }, [eventId]);
 
@@ -69,31 +70,37 @@ export default function EditRankings() {
     }
   }, [expandedPhases.length]);
 
-  const getPreranking = async () => {
+  const getData = async () => {
+    const { data: prerankPhase } = await api(
+      formatRoute('/api/entity/prerankPhase', null, {
+        eventId,
+      })
+    );
+
     const { data } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
       })
     );
-    if (data) {
-      const preranking = data.map((d) => ({
-        position: d.position,
-        content: d.name,
-        rosterId: d.teamId,
-        rankingId: d.rankingId,
-      }));
-      setPreRanking(preranking);
-    }
-  };
 
-  const getPhases = async () => {
-    const { data } = await api(
+    const { data: phases } = await api(
       formatRoute('/api/entity/phases', null, {
         eventId,
       })
     );
 
-    const allPhases = data
+    let preranking = [];
+
+    if (data) {
+      preranking = data.map((d) => ({
+        position: d.position,
+        content: d.name,
+        rosterId: d.teamId,
+        rankingId: d.rankingId,
+      }));
+    }
+
+    const allPhases = phases
       .map((d) => ({
         content: d.name,
         phaseId: d.id,
@@ -103,15 +110,31 @@ export default function EditRankings() {
         order: d.phase_order,
         ranking: d.ranking.map((r) => {
           if (r && r.roster_id) {
-            return { ...r, id: r.roster_id, content: r.name };
+            return { ...r, rankingId: r.ranking_id, content: r.name };
           }
           if (r && r.origin_phase && r.origin_position) {
-            return { ...r, id: uuidv4(), content: r.origin_position + ' - ' + r.phaseName };
+            if (r.origin_phase === prerankPhase.phaseId) {
+              const rankingWithName = preranking.find((p) => p.position === r.origin_position);
+              return {
+                ...r,
+                rankingId: r.ranking_id,
+                content: r.origin_position + ' - ' + t('preranking') + ' (' + rankingWithName.content + ') ',
+              };
+            }
+            return { ...r, rankingId: r.ranking_id, content: r.origin_position + ' - ' + r.phaseName };
           }
-          return { ...r, isEmpty: true, id: uuidv4() };
+          return { ...r, isEmpty: true, rankingId: r.ranking_id };
         }),
       }))
       .sort((a, b) => a.order - b.order);
+
+    // const phaseRankings = allPhases.reduce((prev, curr) => {
+    //   return prev.concat(curr.ranking);
+    // }, []);
+
+    // setPhaseRankings(phaseRankings);
+    setPrerankPhase(prerankPhase);
+    setPreranking(preranking);
     setPhases(allPhases);
   };
 
@@ -181,8 +204,35 @@ export default function EditRankings() {
   };
 
   const handleStartPhase = async (phase) => {
-    const rankings = phase.ranking.map((r) => r.roster_id);
-    if (!rankings.includes(null) && phase.spots) {
+    const phaseRanking = phase.ranking;
+    const rankingsWithRosterId = phaseRanking.map((r) => r.roster_id);
+    const positionsFromPrerank = phaseRanking.filter((r) => r.origin_phase === prerankPhase.phaseId);
+
+    if (positionsFromPrerank.length === phase.spots) {
+      const rankingsToUpdate = positionsFromPrerank.map((r) => {
+        const rosterId = preranking.find((p) => p.position === r.origin_position).rosterId;
+        return { rosterId, rankingId: r.rankingId };
+      });
+      const res = await api('/api/entity/updatePhase', {
+        method: 'PUT',
+        body: JSON.stringify({
+          eventId,
+          phaseId: phase.phaseId,
+          status: PHASE_STATUS_ENUM.STARTED,
+          rankingsToUpdate,
+        }),
+      });
+      if (res.status === STATUS_ENUM.SUCCESS) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('phase_started'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 2000,
+        });
+      }
+      update();
+    }
+    if (!rankingsWithRosterId.includes(null) && phase.spots) {
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
@@ -246,7 +296,7 @@ export default function EditRankings() {
   };
 
   const update = () => {
-    getPhases();
+    getData();
   };
 
   const closePhaseDialog = () => {
@@ -297,8 +347,8 @@ export default function EditRankings() {
       <div className={styles.div}>
         <PrerankAccordionDnD
           title={t('preranking')}
-          teams={preRanking}
-          update={getPreranking}
+          teams={preranking}
+          update={getData}
           id={'preranking'}
         ></PrerankAccordionDnD>
       </div>
@@ -335,7 +385,7 @@ export default function EditRankings() {
                           ) : (
                             <PhaseAccordionDnD
                               phase={phase}
-                              update={getPhases}
+                              update={getData}
                               handleDeleteTeam={handleDeleteTeam}
                               expandedPhases={expandedPhases}
                               onShrink={() => onShrink(phase.id)}

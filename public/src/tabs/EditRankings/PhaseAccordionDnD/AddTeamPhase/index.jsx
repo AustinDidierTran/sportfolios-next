@@ -19,13 +19,10 @@ export default function AddTeamPhase(props) {
   const { id: eventId } = router.query;
 
   const [open, setOpen] = useState(isOpen);
-  const [allTeams, setAllTeams] = useState([]);
   const [allOptions, setAllOptions] = useState([]);
-  const [allPhases, setAllPhases] = useState([]);
 
   useEffect(() => {
     setOpen(isOpen);
-    getAllTeams();
     getAllOptions();
   }, [isOpen]);
 
@@ -33,25 +30,25 @@ export default function AddTeamPhase(props) {
     position: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
-  const getAllTeams = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/allTeamsAcceptedInfos', null, {
-        eventId,
-      })
-    );
-    const allTeams = data.map((t) => ({
-      value: t.rosterId,
-      display: t.name,
-    }));
-    setAllTeams(allTeams);
-  };
-
   const getAllOptions = async () => {
     const { data } = await api(
       formatRoute('/api/entity/phases', null, {
         eventId,
       })
     );
+
+    const { data: preranking } = await api(
+      formatRoute('/api/entity/preranking', null, {
+        eventId,
+      })
+    );
+
+    const { data: prerankPhase } = await api(
+      formatRoute('/api/entity/prerankPhase', null, {
+        eventId,
+      })
+    );
+
     const allPhases = data
       .map((d) => ({
         content: d.name,
@@ -78,9 +75,9 @@ export default function AddTeamPhase(props) {
       return prev.concat(curr.ranking);
     }, []);
 
-    const rankingOptions = getRankingOptions(allRankings, allPhases);
-    const teamOptions = getTeamOptions(allRankings);
-    const allOptions = teamOptions.concat(rankingOptions).sort((a, b) => {
+    const prerankingOptions = getPrerankingOptions(preranking, allRankings);
+    const rankingOptions = getRankingOptions(allRankings, allPhases, prerankPhase.phaseId);
+    const allOptions = prerankingOptions.concat(rankingOptions).sort((a, b) => {
       if (a.index && b.index && a.phaseId === b.phaseId) {
         return a.index - b.index;
       }
@@ -88,7 +85,35 @@ export default function AddTeamPhase(props) {
     setAllOptions(allOptions);
   };
 
-  const getRankingOptions = (allRankings, allPhases) => {
+  const getPrerankingOptions = (preranking, allRankings) => {
+    const prerankingPositions = preranking.map((d) => ({
+      value: d.rankingId,
+      display: d.position.toString() + ' - ' + t('preranking') + ' (' + d.name + ') ',
+      phaseId: d.phaseId,
+      index: d.position,
+    }));
+
+    const unavailablePrerankPositions = allRankings
+      .filter((r) => r.originPhase && r.originPosition)
+      .map((r) => {
+        const unavailablePrerankPosition = prerankingPositions.find((p) => {
+          if (p.phaseId === r.originPhase) {
+            if (p.index === r.originPosition) {
+              return p;
+            }
+          }
+        });
+        if (unavailablePrerankPosition) {
+          return unavailablePrerankPosition.value;
+        }
+      })
+      .filter((p) => p !== undefined);
+
+    const filteredPositions = prerankingPositions.filter((p) => !unavailablePrerankPositions.includes(p.value));
+    return filteredPositions;
+  };
+
+  const getRankingOptions = (allRankings, allPhases, prerankId) => {
     const allPositions = allRankings
       .filter((r) => r.currentPhase !== phaseId)
       .map((r) => {
@@ -110,7 +135,7 @@ export default function AddTeamPhase(props) {
       .filter((o) => o !== undefined);
 
     const unavailablePositions = allRankings
-      .filter((r) => r.originPhase && r.originPosition)
+      .filter((r) => r.originPhase && r.originPosition && r.originPhase !== prerankId)
       .map((r) => {
         const unavailablePosition = allRankings.find((rank) => {
           if (rank.currentPhase === r.originPhase) {
@@ -128,12 +153,6 @@ export default function AddTeamPhase(props) {
 
     const filteredPositions = allPositions.filter((p) => !unavailablePositions.includes(p.value));
     return filteredPositions;
-  };
-
-  const getTeamOptions = (allRankings) => {
-    const unavailableTeams = allRankings.map((r) => r.rosterId).filter((r) => r !== undefined);
-    const filteredTeams = allTeams.filter((t) => !unavailableTeams.includes(t.value));
-    return filteredTeams;
   };
 
   const onFinish = () => {

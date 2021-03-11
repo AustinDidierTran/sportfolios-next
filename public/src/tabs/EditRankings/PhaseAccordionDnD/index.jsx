@@ -219,8 +219,8 @@ export default function PhaseAccordionDnD(props) {
                       <div>
                         {teams.map((team, index) => (
                           <Draggable
-                            key={team.id}
-                            draggableId={team.id}
+                            key={team.rankingId}
+                            draggableId={team.rankingId}
                             index={index}
                             isDragDisabled={status !== PHASE_STATUS_ENUM.NOT_STARTED}
                           >
