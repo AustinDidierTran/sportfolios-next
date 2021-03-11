@@ -116,10 +116,10 @@ export default function EditRankings() {
               return {
                 ...r,
                 rankingId: r.ranking_id,
-                content: r.origin_position + ' - ' + t('preranking') + ' (' + rankingWithName.content + ') ',
+                content: `${r.origin_position} - ${t('preranking')} (${rankingWithName.content})`,
               };
             }
-            return { ...r, rankingId: r.ranking_id, content: r.origin_position + ' - ' + r.phaseName };
+            return { ...r, rankingId: r.ranking_id, content: `${r.origin_position} - ${r.phaseName}` };
           }
           return { ...r, isEmpty: true, rankingId: r.ranking_id };
         }),
