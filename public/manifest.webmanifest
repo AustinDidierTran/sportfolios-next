@@ -54,19 +54,19 @@
       "sizes": "512x512"
     },
     {
-      "src": "src/images/maskable_icon_x8.png",
+      "src": "src/images/maskable_icon_x48.png",
       "type": "image/png",
-      "sizes": "120x120",
+      "sizes": "48x48",
       "purpose":"maskable"
     },
     {
-      "src": "src/images/maskable_icon_x2.png",
+      "src": "src/images/maskable_icon_x72.png",
       "type": "image/png",
       "sizes": "72x72",
       "purpose":"maskable"
     },
     {
-      "src": "src/images/maskable_icon_x6.png",
+      "src": "src/images/maskable_icon_x96.png",
       "type": "image/png",
       "sizes": "96x96",
       "purpose":"maskable"
@@ -98,7 +98,7 @@
   ],
   "orientation": "portrait-primary",
   "start_url": "https://sportfolios.app/page/login",
-  "background_color": "#fffff",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#18B393"
