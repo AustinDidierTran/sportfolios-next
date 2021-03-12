@@ -37,10 +37,14 @@ export default function UsersTable() {
       setUsers(initialUsers);
     } else {
       setUsers(
-        initialUsers.filter((o) =>
-          JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
+        initialUsers.filter((o) => {
+
+          return JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
             .toLowerCase()
-            .includes(event.target.value.toLowerCase())
+            .includes(event.target.value.toLowerCase()) || JSON.stringify(Object.values(JSON.parse(JSON.stringify(o.secondAccount, filterArray))))
+              .toLowerCase()
+              .includes(event.target.value.toLowerCase())
+        }
         )
       );
     }
