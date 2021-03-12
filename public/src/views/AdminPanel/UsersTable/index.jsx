@@ -36,16 +36,27 @@ export default function UsersTable() {
     if (!event.target.value) {
       setUsers(initialUsers);
     } else {
-      setUsers(
-        initialUsers.filter((o) => {
-
+      const userTemp = initialUsers.map((obj) => {
+        const objUser = { ...obj };
+        objUser.secondAccount = objUser.secondAccount.filter((o) => {
           return JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
             .toLowerCase()
-            .includes(event.target.value.toLowerCase()) || JSON.stringify(Object.values(JSON.parse(JSON.stringify(o.secondAccount, filterArray))))
+            .includes(event.target.value.toLowerCase());
+        });
+        return objUser;
+      });
+
+      setUsers(
+        userTemp.filter((o) => {
+          return (
+            JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
+              .toLowerCase()
+              .includes(event.target.value.toLowerCase()) ||
+            JSON.stringify(Object.values(JSON.parse(JSON.stringify(o.secondAccount, filterArray))))
               .toLowerCase()
               .includes(event.target.value.toLowerCase())
-        }
-        )
+          );
+        })
       );
     }
   };
