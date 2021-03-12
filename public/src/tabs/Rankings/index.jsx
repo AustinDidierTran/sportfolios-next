@@ -24,8 +24,9 @@ export default function Rankings() {
         eventId,
       })
     );
+    let ranking = [];
     if (data) {
-      const ranking = data.map((d) => ({
+      ranking = data.map((d) => ({
         position: d.initial_position,
         name: d.name,
         id: d.teamId,
@@ -42,7 +43,6 @@ export default function Rankings() {
       const res2 = ranking.find((r) => game.teams[1].teamId === r.teamId);
       game.teams[1].position = res2.position;
     });
-
     const rankingInfos = updateRanking(ranking, games);
     setRanking(rankingInfos);
     setIsLoading(false);
