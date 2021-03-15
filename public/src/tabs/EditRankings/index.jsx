@@ -93,7 +93,7 @@ export default function EditRankings() {
       preranking = data.map((d) => ({
         position: d.position,
         content: d.name,
-        rosterId: d.teamId,
+        rosterId: d.rosterId,
         rankingId: d.rankingId,
       }));
     }
@@ -199,34 +199,9 @@ export default function EditRankings() {
   const handleStartPhase = async (phase) => {
     const phaseRanking = phase.ranking;
     const rankingsWithRosterId = phaseRanking.map((r) => r.roster_id);
-    const positionsFromPrerank = phaseRanking.filter((r) => r.origin_phase === prerankPhase.phaseId);
+    const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
 
-    //if all rankings are from the prerank, rosterId will be updated when the phase starts
-    //a boolean could be return to block from changing the preranking once a phase is started
-    if (positionsFromPrerank.length === phase.spots) {
-      const rankingsToUpdate = positionsFromPrerank.map((r) => {
-        const rosterId = preranking.find((p) => p.position === r.origin_position).rosterId;
-        return { rosterId, rankingId: r.rankingId };
-      });
-      const res = await api('/api/entity/updatePhase', {
-        method: 'PUT',
-        body: JSON.stringify({
-          eventId,
-          phaseId: phase.phaseId,
-          status: PHASE_STATUS_ENUM.STARTED,
-          rankingsToUpdate,
-        }),
-      });
-      if (res.status === STATUS_ENUM.SUCCESS) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('phase_started'),
-          severity: SEVERITY_ENUM.SUCCESS,
-          duration: 2000,
-        });
-      }
-      update();
-    } else if (!rankingsWithRosterId.includes(null) && phase.spots) {
+    if (!rankingsWithRosterId.includes(null) && phase.spots !== 0) {
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({
@@ -244,15 +219,17 @@ export default function EditRankings() {
         });
       }
       update();
-    } else {
-      const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
+    } else if (rankingsWithRosterId.includes(null) || phase.spots === 0) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: rankingsFromPhase.length
-          ? t('start_phase_warning')
-          : phase.spots
-          ? ''
-          : t('empty_phase_spots_warning'),
+        message: t('empty_phase_spots_warning'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else if (rankingsFromPhase.length) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('start_phase_warning'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });

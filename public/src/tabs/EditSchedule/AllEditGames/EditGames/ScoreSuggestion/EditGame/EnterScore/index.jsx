@@ -21,8 +21,8 @@ export default function EnterScore(props) {
   }, [openProps]);
 
   useEffect(() => {
-    formik.setFieldValue('score1', game.teams[0].score);
-    formik.setFieldValue('score2', game.teams[1].score);
+    formik.setFieldValue('score1', game.positions[0].score);
+    formik.setFieldValue('score2', game.positions[1].score);
   }, [game]);
 
   const validate = (values) => {
@@ -53,8 +53,8 @@ export default function EnterScore(props) {
           eventId: game.event_id,
           gameId: game.id,
           score: {
-            [game.teams[0].roster_id]: score1,
-            [game.teams[1].roster_id]: score2,
+            [game.positions[0].ranking_id]: score1,
+            [game.positions[1].ranking_id]: score2,
           },
           isManualAdd: true,
         }),
@@ -87,13 +87,13 @@ export default function EnterScore(props) {
     },
   ];
 
-  const fields = game.teams.reduce(
+  const fields = game.positions.reduce(
     (prev, curr, index) => [
       ...prev,
       {
         type: 'number',
         namespace: `score${index + 1}`,
-        label: `${t('score.score')} ${curr.name}`,
+        label: `${t('score.score')} :  ${curr.name}`,
         autoFocus: index === 0,
       },
     ],

@@ -9,7 +9,7 @@ import { ERROR_ENUM } from '../../../../../../../../common/errors';
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../../../../../Store';
 import { getGameOptions } from '../../../../../../Schedule/ScheduleFunctions';
-import validator from 'validator';
+import * as yup from 'yup';
 import { useRouter } from 'next/router';
 
 export default function EditGameDialog(props) {
@@ -21,10 +21,19 @@ export default function EditGameDialog(props) {
 
   const [edit, setEdit] = useState(open);
   const [gameOptions, setGameOptions] = useState({});
+  const [firstPositionOptions, setFirstPositionOptions] = useState([]);
+  const [secondPositionOptions, setSecondPositionOptions] = useState([]);
+  const [originalOptions, setOriginalOptions] = useState([]);
+
+  const oldRanking1 = game.positions[0];
+  const oldRanking2 = game.positions[1];
 
   const getOptions = async () => {
     const res = await getGameOptions(eventId, t);
     setGameOptions(res);
+    setFirstPositionOptions(res.positions.filter((p) => p.current_phase === game.phase_id));
+    setSecondPositionOptions(res.positions.filter((p) => p.current_phase === game.phase_id));
+    setOriginalOptions(res.positions.filter((p) => p.current_phase === game.phase_id));
   };
 
   useEffect(() => {
@@ -35,46 +44,32 @@ export default function EditGameDialog(props) {
     setEdit(open);
   }, [open]);
 
-  useEffect(() => {
-    formik.setFieldValue('description', game.description);
-    formik.setFieldValue('phase', game.phase_id);
-    formik.setFieldValue('field', game.field_id);
-    formik.setFieldValue('time', game.timeslot_id);
-    formik.setFieldValue('team1', game.teams[0].roster_id);
-    formik.setFieldValue('team2', game.teams[1].roster_id);
-  }, [game]);
-
   const closeEdit = () => {
     onClose();
   };
 
+  const validationSchema = yup.object().shape({
+    field: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    time: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position1: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
+
   const formik = useFormik({
     initialValues: {
-      description: '',
-      phase: '',
-      field: '',
-      time: '',
-      team1: '',
-      team2: '',
+      description: game.description ? game.description : '',
+      phase: game.phase_id,
+      field: game.field_id,
+      time: game.timeslot_id,
+      position1: game.positions[0].ranking_id,
+      position2: game.positions[1].ranking_id,
     },
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { phase, field, time, team1, team2, description } = values;
-      let rosterId1 = null;
-      let rosterId2 = null;
-      let name1 = null;
-      let name2 = null;
-      if (validator.isUUID(team1)) {
-        rosterId1 = team1;
-      } else {
-        name1 = team1;
-      }
-      if (validator.isUUID(team2)) {
-        rosterId2 = team2;
-      } else {
-        name2 = team2;
-      }
+      const { phase, field, time, position1, position2, description } = values;
       const res = await api('/api/entity/game', {
         method: 'PUT',
         body: JSON.stringify({
@@ -82,13 +77,11 @@ export default function EditGameDialog(props) {
           phaseId: phase,
           fieldId: field,
           timeslotId: time,
-          rosterId1,
-          rosterId2,
-          name1,
-          name2,
+          rankingId1: position1,
+          rankingId2: position2,
+          oldRanking1,
+          oldRanking2,
           description,
-          teamId1: game.teams[0].id,
-          teamId2: game.teams[1].id,
         }),
       });
       if (res.status === STATUS_ENUM.ERROR) {
@@ -104,6 +97,52 @@ export default function EditGameDialog(props) {
       }
     },
   });
+
+  useEffect(() => {
+    if (formik.values.phase !== game.phase_id) {
+      formik.setFieldValue('position1', '');
+      formik.setFieldValue('position2', '');
+      const positions = gameOptions.positions.filter((p) => p.current_phase === formik.values.phase);
+      setFirstPositionOptions(positions);
+      setSecondPositionOptions(positions);
+    } else {
+      if (
+        formik.values.position1 !== game.positions[0].ranking_id &&
+        formik.values.position2 !== game.positions[1].ranking_id
+      ) {
+        formik.setFieldValue('position1', '');
+        formik.setFieldValue('position2', '');
+      }
+      setFirstPositionOptions(originalOptions);
+      setSecondPositionOptions(originalOptions);
+    }
+  }, [formik.values.phase]);
+
+  useEffect(() => {
+    if (formik.values.position1 !== '' && formik.values.position2 === '') {
+      const positions = secondPositionOptions.filter((p) => p.value !== formik.values.position1);
+      setSecondPositionOptions(positions);
+    }
+    if (formik.values.position2 !== '' && formik.values.position1 === '') {
+      const positions = firstPositionOptions.filter((p) => p.value !== formik.values.position1);
+      setFirstPositionOptions(positions);
+    }
+    if (
+      formik.values.position2 !== '' &&
+      formik.values.position1 !== '' &&
+      formik.values.position1 !== game.positions[0].ranking_id &&
+      formik.values.position2 !== game.positions[1].ranking_id
+    ) {
+      const firstPosition = gameOptions.positions.filter(
+        (p) => p.value !== formik.values.position2 && p.current_phase === formik.values.phase
+      );
+      const secondPosition = gameOptions.positions.filter(
+        (p) => p.value !== formik.values.position1 && p.current_phase === formik.values.phase
+      );
+      setFirstPositionOptions(firstPosition);
+      setSecondPositionOptions(secondPosition);
+    }
+  }, [formik.values.position1, formik.values.position2]);
 
   const buttons = [
     {
@@ -126,12 +165,6 @@ export default function EditGameDialog(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: gameOptions.phases,
-      namespace: 'phase',
-      label: t('phase'),
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'field',
       label: t('field'),
       options: gameOptions.fields,
@@ -144,15 +177,21 @@ export default function EditGameDialog(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: gameOptions.teams,
-      namespace: 'team1',
-      label: t('team.team_1'),
+      namespace: 'phase',
+      label: t('phase'),
+      options: gameOptions.phases,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: gameOptions.teams,
-      namespace: 'team2',
-      label: t('team.team_2'),
+      namespace: 'position1',
+      label: 'Position 1',
+      options: firstPositionOptions,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      namespace: 'position2',
+      label: 'Position 2',
+      options: secondPositionOptions,
     },
   ];
 

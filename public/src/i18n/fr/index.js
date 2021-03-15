@@ -758,6 +758,8 @@ export default {
       "Vous ne pouvez pas ajouter de produit car l'administrateur n'a pas de compte banquaire",
     cant_delete_paid_player:
       "Vous ne pouvez pas retirer ce joueur de l'alignement puisqu'il a déjà payé. Contactez un organisateur de l'événement pour obtenir de l'aide.",
+    cant_edit_game_score:
+      "Les équipes sont encore indéfinies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
     cant_transfer_person_to_your_own_email:
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
     captain: 'Capitaine',

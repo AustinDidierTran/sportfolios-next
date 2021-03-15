@@ -13,10 +13,10 @@ import { useTranslation } from 'react-i18next';
 
 export default function TwoTeamGameEditable(props) {
   const { t } = useTranslation();
-  const { teams, field, start_time, phaseName, onClick, onEdit, onDelete } = props;
+  const { positions, field, start_time, phaseName, onClick, onEdit, onDelete } = props;
 
-  const team1 = teams[0];
-  const team2 = teams[1];
+  const position1 = positions[0];
+  const position2 = positions[1];
 
   return (
     <Card className={styles.gameEdit}>
@@ -35,11 +35,11 @@ export default function TwoTeamGameEditable(props) {
           </Typography>
         </div>
         <div className={styles.teams}>
-          <Typography className={styles.name1}>{team1.name}</Typography>
-          <Typography className={styles.score1}>{team1.score}</Typography>
+          <Typography className={styles.name1}>{position1.name}</Typography>
+          <Typography className={styles.score1}>{position1.score}</Typography>
           <Typography className={styles.union}>-</Typography>
-          <Typography className={styles.name2}>{team2.name}</Typography>
-          <Typography className={styles.score2}>{team2.score}</Typography>
+          <Typography className={styles.name2}>{position2.name}</Typography>
+          <Typography className={styles.score2}>{position2.score}</Typography>
         </div>
       </div>
       {onEdit ? (

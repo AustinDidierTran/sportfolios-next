@@ -14,7 +14,7 @@ export default function Rankings() {
   const { id: eventId } = router.query;
   const { t } = useTranslation();
 
-  const [preRanking, setPreRanking] = useState([]);
+  const [preranking, setPreranking] = useState([]);
   const [ranking, setRanking] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,24 +24,19 @@ export default function Rankings() {
         eventId,
       })
     );
+    let ranking;
     if (data) {
-      const ranking = data.map((d) => ({
-        position: d.initial_position,
+      ranking = data.map((d) => ({
+        position: d.position,
         name: d.name,
         id: d.teamId,
+        rosterId: d.rosterId,
       }));
-      setPreRanking(ranking);
+      setPreranking(ranking);
+      setRanking(ranking);
     }
 
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
-
-    games.map((game) => {
-      const res1 = ranking.find((r) => game.teams[0].teamId === r.teamId);
-      game.teams[0].position = res1.position;
-
-      const res2 = ranking.find((r) => game.teams[1].teamId === r.teamId);
-      game.teams[1].position = res2.position;
-    });
 
     const rankingInfos = updateRanking(ranking, games);
     setRanking(rankingInfos);
@@ -55,7 +50,7 @@ export default function Rankings() {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  if (!preRanking.length && !ranking.length) {
+  if (!preranking.length && !ranking.length) {
     return (
       <Typography color="textSecondary" style={{ margin: '16px' }}>
         {t('no.no_teams_registered')}
@@ -64,7 +59,7 @@ export default function Rankings() {
   }
   return (
     <>
-      <Ranking ranking={preRanking} title={t('preranking')}></Ranking>
+      <Ranking ranking={preranking} title={t('preranking')}></Ranking>
       <PhaseRankings />
       <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition></Ranking>
     </>

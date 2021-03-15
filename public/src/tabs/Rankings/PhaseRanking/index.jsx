@@ -76,13 +76,13 @@ export default function PhaseRankings() {
   return (
     <>
       {phases.map((phase, index) => (
-        <>
+        <div key={index}>
           {phase.ranking.length < 1 ? (
             <></>
           ) : (
-            <Ranking key={index} ranking={phase.ranking} title={phase.title} withStats></Ranking>
+            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title} withStats></Ranking>
           )}
-        </>
+        </div>
       ))}
     </>
   );

@@ -49,24 +49,25 @@ export default function AllGames() {
     return data;
   };
 
-  const filter = async (teamId, phaseId, fieldId, timeSlot) => {
-    let games = await getGames();
-    if (teamId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
-    }
-    if (phaseId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.phase_id === phaseId);
-    }
-    if (fieldId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.field_id === fieldId);
-    }
-    if (timeSlot != SELECT_ENUM.ALL) {
-      games = games.filter(
-        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
-      );
-    }
-    sortGames(games);
-  };
+  //FIXME: teams aren't used for games anymore, only phase positions
+  // const filter = async (teamId, phaseId, fieldId, timeSlot) => {
+  //   let games = await getGames();
+  //   if (teamId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
+  //   }
+  //   if (phaseId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.phase_id === phaseId);
+  //   }
+  //   if (fieldId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.field_id === fieldId);
+  //   }
+  //   if (timeSlot != SELECT_ENUM.ALL) {
+  //     games = games.filter(
+  //       (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+  //     );
+  //   }
+  //   sortGames(games);
+  // };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -75,7 +76,7 @@ export default function AllGames() {
   return (
     <>
       <ProTip />
-      <GameFilters update={filter} />
+      {/* <GameFilters update={filter} /> */}
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <Games games={pastGames} style={{ marginBottom: '16px' }} title={t('past_games')} isOpen={false} />
         <Games games={games} style={{ marginBottom: '16px' }} title={t('upcoming_games')} isOpen />
