@@ -8,6 +8,7 @@ import styles from './CollapsePaymentOption.module.css';
 import CustomButton from '../../../../../../components/Custom/Button';
 import CustomCollapse from '../../../../../../components/Custom/Collapse';
 import { formatDate, formatPrice } from '../../../../../../utils/stringFormats';
+import TextField from '@material-ui/core/TextField';
 
 export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();
@@ -50,7 +51,21 @@ export default function CollapsePaymentOption(props) {
           )}
         </ListItem>
         <ListItem>
-          {informations && <ListItemText primary={t('required_informations')} secondary={informations} />}
+          {informations && (
+            <ListItemText
+              className={styles.text}
+              primary={t('required_informations')}
+              secondary={
+                <TextField
+                  InputProps={{ disableUnderline: true }}
+                  multiline
+                  className={styles.textArea}
+                  disabled
+                  value={informations}
+                />
+              }
+            />
+          )}
         </ListItem>
         <ListItem className={styles.money}>
           <ListItemText />
