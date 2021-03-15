@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import styles from './AdditionalInformation.module.css';
-import { useRouter } from 'next/router';
-import TextField from '../../../components/Custom/TextField';
-import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import CustomTextField from '../../../components/Custom/TextField';
 
 export default function AdditionalInformation(props) {
-  const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
   const { stepHook, formik, informations, index } = props;
 
   useEffect(() => {
@@ -16,11 +11,15 @@ export default function AdditionalInformation(props) {
   }, []);
 
   return (
-    <div>
-      <Typography variant="body2" color="textSecondary" component="p" className={styles.infos}>
-        {informations}
-      </Typography>
+    <>
       <TextField
+        InputProps={{ disableUnderline: true }}
+        multiline
+        className={styles.textArea}
+        disabled
+        value={informations}
+      />
+      <CustomTextField
         namespace="informations"
         formik={formik}
         variant="filled"
@@ -29,6 +28,6 @@ export default function AdditionalInformation(props) {
         rows={8}
         rowsMax={8}
       />
-    </div>
+    </>
   );
 }
