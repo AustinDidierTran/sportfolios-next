@@ -570,6 +570,7 @@ export default {
       no_existing_account_with_this_email: "Il n'existe pas de compte relié à ce courriel. Enregistrez-vous!",
       no_games: 'Aucune partie',
       no_members_message: "Vous n'avez pas de membres",
+      no_membership_available: 'Aucune affiliation disponible',
       no_notifications_message: 'Revenez plus tard.',
       no_notifications: 'Pas de notifications',
       no_option: 'Aucune option',

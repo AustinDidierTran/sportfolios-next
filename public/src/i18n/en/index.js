@@ -563,6 +563,7 @@ export default {
       no_following: 'You are following no one',
       no_games: 'No games',
       no_members_message: 'You have no members',
+      no_membership_available: 'No membership available',
       no_notifications_message: 'Come back later.',
       no_notifications: 'No Notifications',
       no_option: 'No option',
