@@ -11,6 +11,7 @@ const EventCreatorItem = loadable(() => import('./EventCreatorItem'));
 const EventItem = loadable(() => import('./EventItem'));
 const MembershipDetailItem = loadable(() => import('./MembershipDetailItem'));
 const MembershipItem = loadable(() => import('./MembershipItem'));
+const MembershipInfoItem = loadable(() => import('./MembershipInfoItem'));
 const MembershipOrganizationItem = loadable(() => import('./MembershipOrganizationItem'));
 const OrganizationItem = loadable(() => import('./OrganizationItem'));
 const PaymentOptionItem = loadable(() => import('./PaymentOptionItem'));
@@ -50,6 +51,7 @@ const ItemMap = {
   [LIST_ITEM_ENUM.MEMBERSHIP_DETAIL]: MembershipDetailItem,
   [LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION]: MembershipOrganizationItem,
   [LIST_ITEM_ENUM.MEMBERSHIP]: MembershipItem,
+  [LIST_ITEM_ENUM.MEMBERSHIP_INFO]: MembershipInfoItem,
   [LIST_ITEM_ENUM.NOTIFICATION_SETTING]: NotificationSettingItem,
   [LIST_ITEM_ENUM.PAYMENT_OPTION]: PaymentOptionItem,
   [LIST_ITEM_ENUM.PURCHASES]: PurchasesItem,

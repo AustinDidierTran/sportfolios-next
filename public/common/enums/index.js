@@ -396,6 +396,7 @@ const LIST_ITEM_ENUM = {
   MEMBER_IMPORT: 'member_import',
   MEMBERSHIP_ORGANIZATION: 'membership organization',
   MEMBERSHIP: 'membership',
+  MEMBERSHIP_INFO: 'membership_info',
   MORE: 'more',
   PAYMENT_OPTION: 'payment option',
   PURCHASES: 'pruchases',

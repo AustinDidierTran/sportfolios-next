@@ -10,7 +10,18 @@ import ComponentFactory from '../../ComponentFactory';
 
 export default function BasicFormDialog(props) {
   const { t } = useTranslation();
-  const { open, title, description, buttons = defaultButtons, fields, formik, onClose, dialogContentStyle } = props;
+  const {
+    open,
+    title,
+    description,
+    buttons = defaultButtons,
+    fields,
+    formik,
+    onClose,
+    dialogContentStyle,
+    subtitle,
+    subtitleOnClick,
+  } = props;
 
   const defaultButtons = [
     {
@@ -27,6 +38,22 @@ export default function BasicFormDialog(props) {
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={'xs'} fullWidth>
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+      {subtitle && (
+        <DialogContent
+          onClick={subtitleOnClick}
+          style={{
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: 'auto',
+            paddingRight: 'auto',
+            fontSize: '0.9rem',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+          }}
+        >
+          {subtitle}
+        </DialogContent>
+      )}
       <form onSubmit={formik?.handleSubmit}>
         <div>
           <DialogContent style={dialogContentStyle}>
