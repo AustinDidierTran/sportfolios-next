@@ -31,11 +31,16 @@ export default function BecomeMember(props) {
   useEffect(() => {
     setOpen(openProps);
     getPeople();
-    getMemberships();
+    if (people) {
+      getMemberships();
+    }
   }, [openProps]);
 
   const getPeople = async () => {
     const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null));
+    if (!data) {
+      return;
+    }
     formik.setFieldValue('person', data.id);
     const res = userInfo.persons.map((p) => ({
       value: p.entity_id,
@@ -142,6 +147,11 @@ export default function BecomeMember(props) {
     },
   });
 
+  const onClickMoreInfo = () => {
+    router.push(`/${id}/memberships`);
+    handleClose();
+  };
+
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
@@ -178,6 +188,8 @@ export default function BecomeMember(props) {
       fields={fields}
       formik={formik}
       onClose={handleClose}
+      subtitle={t('learn_more')}
+      subtitleOnClick={onClickMoreInfo}
     />
   );
 }
