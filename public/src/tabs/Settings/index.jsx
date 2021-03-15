@@ -9,17 +9,11 @@ import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import { useRouter } from 'next/router';
 
 const AddMembership = loadable(() => import('./AddMembership'));
-const AddOptionsEvent = loadable(() => import('./AddOptionsEvent'));
 const BankAccount = loadable(() => import('./BankAccount'));
 const BasicInfos = loadable(() => import('./BasicInfos'));
-const ChangeAlias = loadable(() => import('./ChangeAlias'));
-const Description = loadable(() => import('./Description'));
-const EventSettings = loadable(() => import('./EventSettings'));
 const ManageRoles = loadable(() => import('./ManageRoles'));
-const QuickDescription = loadable(() => import('./QuickDescription'));
 const Analytics = loadable(() => import('./Analytics'));
-const TeamsRegistered = loadable(() => import('./TeamsRegistered'));
-const PlayersRegistered = loadable(() => import('./PlayersRegistered'));
+const AllEventSettings = loadable(() => import('./AllEventSettings'));
 
 export default function EntitySettings(props) {
   const router = useRouter();
@@ -57,39 +51,7 @@ export default function EntitySettings(props) {
       return <></>;
 
     case GLOBAL_ENUM.EVENT:
-      if (isAdmin) {
-        return (
-          <div className={styles.div}>
-            <BasicInfos basicInfos={basicInfos} />
-            <ChangeAlias />
-            <QuickDescription />
-            <Description />
-            <EventSettings />
-            <AddOptionsEvent />
-            <TeamsRegistered />
-            <PlayersRegistered />
-            <ManageRoles role={role} />
-            <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
-            <BottomPageLogo />
-          </div>
-        );
-      }
-      if (isEditor) {
-        return (
-          <div className={styles.div}>
-            <BasicInfos basicInfos={basicInfos} />
-            <ChangeAlias />
-            <QuickDescription />
-            <Description />
-            <EventSettings />
-            <AddOptionsEvent />
-            <TeamsRegistered />
-            <PlayersRegistered />
-            <BottomPageLogo />
-          </div>
-        );
-      }
-      return <></>;
+      return <AllEventSettings basicInfos={basicInfos} role={role} />;
     case GLOBAL_ENUM.ORGANIZATION:
       if (isAdmin) {
         return (

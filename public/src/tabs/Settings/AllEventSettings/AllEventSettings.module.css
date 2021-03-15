@@ -1,0 +1,18 @@
+.collapseHeader {
+  display: flex;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.expand {
+  margin-left: auto;
+  display: flex;
+}
+
+.arrowButton {
+  padding: 1px !important;
+}
+
+.accordion {
+  background-color: lightgray;
+}
