@@ -34,6 +34,11 @@ export default {
           description:
             "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
+        memberships: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
         '[id]': {
           title: 'Sportfolios',
           description:
@@ -395,6 +400,7 @@ export default {
       membership_exist: 'Membership Exist',
       membership: 'Membership',
       memberships: 'Memberships',
+      memberships_list: 'List of memberships',
     },
     add: {
       add_admin: 'Add Admin',
