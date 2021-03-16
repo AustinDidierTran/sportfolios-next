@@ -553,6 +553,7 @@ export default {
       no_alias: 'No alias',
       no_bank_account_linked: 'You have no bank account linked, payment option needs to be free',
       no_description: 'No Description',
+      no_details_available: 'Teams are not yet resolved, details will be available when phase starts.',
       no_existing_account_with_this_email: 'There is no account linked with this email. Sign up!',
       no_following: 'You are following no one',
       no_games: 'No games',

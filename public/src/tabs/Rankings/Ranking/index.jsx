@@ -8,6 +8,7 @@ export default function Ranking(props) {
 
   const [items, setItems] = useState([]);
 
+  // console.log({rankiiings : ranking, title: title});
   const getItems = () => {
     if (withStats) {
       const items = ranking.map((r, index) => ({
@@ -29,6 +30,8 @@ export default function Ranking(props) {
       setItems(items);
     }
   };
+
+  // console.log({item: items});
   useEffect(() => {
     getItems();
   }, [ranking]);
