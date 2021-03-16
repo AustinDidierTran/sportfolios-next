@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
 import HeaderHome from '../../../components/Custom/HeaderHome';
-import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,7 +41,7 @@ export default function OrganizationEvents(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={t('player_view')}>

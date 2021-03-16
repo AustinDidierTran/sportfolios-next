@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useContext, componentDidMount } fro
 import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
 import HeaderHome from '../../../components/Custom/HeaderHome';
-import { ENTITIES_ROLE_ENUM, STATUS_ENUM, CARD_TYPE_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, STATUS_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
@@ -52,7 +52,7 @@ export default function OrganizationHome(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
       <IgContainer className={classes.IgContainer}>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={t('player_view')}>
