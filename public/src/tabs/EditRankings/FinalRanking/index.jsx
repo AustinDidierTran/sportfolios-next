@@ -15,7 +15,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '../../../components/Custom/Icon';
 import Button from '../../../components/Custom/Button';
-import Menu from '../Menu';
 
 export default function FinalRanking(props) {
   const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, onOpenDeleteDialog, ...otherProps } = props;
@@ -156,9 +155,6 @@ export default function FinalRanking(props) {
               </Button>
             </div>
           )}
-          <div className={styles.menuContainer}>
-            <Menu className={styles.menu} phase={phase} onOpenDeleteDialog={onOpenDeleteDialog}></Menu>
-          </div>
         </div>
         <AccordionDetails>
           <div className={styles.div}>
