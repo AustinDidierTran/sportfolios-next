@@ -13,6 +13,8 @@ import AttachMoney from '@material-ui/icons/AttachMoney';
 import Autorenew from '@material-ui/icons/Autorenew';
 import Build from '@material-ui/icons/Build';
 import Business from '@material-ui/icons/Business';
+import Brush from '@material-ui/icons/Brush';
+import CameraAlt from '@material-ui/icons/CameraAlt';
 import Cancel from '@material-ui/icons/Cancel';
 import CancelSend from '@material-ui/icons/CancelScheduleSend';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
@@ -51,6 +53,7 @@ import Help from '@material-ui/icons/Help';
 import Info from '@material-ui/icons/Info';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import Language from '@material-ui/icons/Language';
 import Link from '@material-ui/icons/Link';
 import Lock from '@material-ui/icons/Lock';
 import Mail from '@material-ui/icons/Mail';
@@ -86,9 +89,12 @@ import SportsWhistle from '@material-ui/icons/Sports';
 import Stars from '@material-ui/icons/Stars';
 import Store from '@material-ui/icons/Store';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
+import TrendingUp from '@material-ui/icons/Trendingup';
 import TextFormat from '@material-ui/icons/TextFormat';
+import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Undo from '@material-ui/icons/Undo';
+import Videocam from '@material-ui/icons/Videocam';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
@@ -110,6 +116,8 @@ const icons: any = {
   Autorenew,
   Build,
   Business,
+  Brush,
+  CameraAlt,
   Cancel,
   CancelSend,
   Chat,
@@ -149,6 +157,7 @@ const icons: any = {
   Info,
   KeyboardArrowDown,
   KeyboardArrowUp,
+  Language,
   Link,
   Lock,
   Mail,
@@ -185,8 +194,11 @@ const icons: any = {
   Store,
   SupervisedUserCircle,
   TextFormat,
+  TrendingUp,
+  ThumbUp,
   ThumbUpAltOutlinedIcon,
   Undo,
+  Videocam,
   MoreVertIcon,
   ShareOutlinedIcon,
   Image,
