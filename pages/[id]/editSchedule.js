@@ -29,7 +29,6 @@ export default function EntityRoute() {
   const { response, isLoading } = useApiRoute(formatRoute('/api/entity/editSchedule', null, { id }), {
     defaultValue: {},
   });
-  console.log('BoNjOuR');
 
   if (isLoading) {
     return (
