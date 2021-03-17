@@ -6,10 +6,12 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export const getPhases = async (eventId, withoutAll) => {
   const { data } = await api(formatRoute('/api/entity/phases', null, { eventId }));
-  const res = data.map((d) => ({
-    value: d.id,
-    display: d.name,
-  }));
+  const res = data
+    .sort((a, b) => a.phase_order - b.phase_order)
+    .map((d) => ({
+      value: d.id,
+      display: d.name,
+    }));
   if (withoutAll) {
     return res;
   }
