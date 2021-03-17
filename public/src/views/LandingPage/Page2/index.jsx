@@ -8,10 +8,31 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export default function Page2() {
   const { t } = useTranslation();
+
+  const plateform = [
+    { text: t('landingPage.plateform.2'), icon: 'Business' },
+    { text: t('landingPage.plateform.3'), icon: 'Event' },
+    { text: t('landingPage.plateform.4'), icon: 'Person' },
+    { text: t('landingPage.plateform.5'), icon: 'Create' },
+    { text: t('landingPage.plateform.6'), icon: 'Assignment' },
+    { text: t('landingPage.plateform.7'), icon: 'PermContactCalendar' },
+    { text: t('landingPage.plateform.8'), icon: 'EmojiEvents' },
+    { text: t('landingPage.plateform.9'), icon: 'Chat' },
+    { text: t('landingPage.plateform.10'), icon: 'Equalizer', withoutDivider: true },
+  ];
+  const branding = [
+    { text: t('landingPage.branding.2'), icon: 'CameraAlt' },
+    { text: t('landingPage.branding.3'), icon: 'Videocam' },
+    { text: t('landingPage.branding.4'), icon: 'TrendingUp' },
+    { text: t('landingPage.branding.5'), icon: 'Language' },
+    { text: t('landingPage.branding.6'), icon: 'AttachMoney' },
+    { text: t('landingPage.branding.7'), icon: 'EmojiObjects' },
+    { text: t('landingPage.branding.8'), icon: 'Brush' },
+    { text: t('landingPage.branding.9'), icon: 'ThumbUp', withoutDivider: true },
+  ];
 
   return (
     <div className={styles.greenContainer}>
@@ -20,179 +41,33 @@ export default function Page2() {
           <Typography className={styles.text} style={{ margin: '16px' }} variant="h2">
             {t('landingPage.plateform.1')}
           </Typography>
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Business"></Icon>
+          {plateform.map((p, index) => (
+            <div key={index}>
+              <ListItem button>
+                <div className={styles.icon}>
+                  <Icon icon={p.icon}></Icon>
+                </div>
+                <ListItemText primaryTypographyProps={{ variant: 'h5', className: styles.text }} primary={p.text} />
+              </ListItem>
+              {p.withoutDivider ? <></> : <Divider />}
             </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.2')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Event"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.3')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Person"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.4')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Create"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.5')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Assignment"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.6')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="PermContactCalendar"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.7')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="EmojiEvents"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.8')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Chat"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.9')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Equalizer"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.plateform.10')}
-            />
-          </ListItem>
+          ))}
         </div>
         <div className={page2styles.part}>
           <Typography className={styles.text} style={{ margin: '16px' }} variant="h2">
             {t('landingPage.branding.1')}
           </Typography>
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="CameraAlt"></Icon>
+          {branding.map((b, index) => (
+            <div key={index}>
+              <ListItem button>
+                <div className={styles.icon}>
+                  <Icon icon={b.icon}></Icon>
+                </div>
+                <ListItemText primaryTypographyProps={{ variant: 'h5', className: styles.text }} primary={b.text} />
+              </ListItem>
+              {b.withoutDivider ? <></> : <Divider />}
             </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.2')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Videocam"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.3')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="TrendingUp"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.4')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Language"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.5')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="AttachMoney"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.6')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="EmojiObjects"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.7')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="Brush"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.8')}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <div className={styles.icon}>
-              <Icon icon="ThumbUp"></Icon>
-            </div>
-            <ListItemText
-              primaryTypographyProps={{ variant: 'h5', className: styles.text }}
-              primary={t('landingPage.branding.9')}
-            />
-          </ListItem>
+          ))}
         </div>
       </div>
     </div>
