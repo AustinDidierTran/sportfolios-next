@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Avatar from '../Avatar';
-import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import { useRouter } from 'next/router';
@@ -14,10 +11,12 @@ import { FORM_DIALOG_TYPE_ENUM, ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../..
 import FormDialog from '../FormDialog';
 import styles from './HeaderHome.module.css';
 import CustomIcon from '../Icon';
-import Button from '@material-ui/core/Button';
+
+import BannerOrganization from '../BannerOrganization';
+import BannerEvent from '../BannerEvent';
 
 export default function HeaderHome(props) {
-  const { type, basicInfos, navTabs } = props;
+  const { type, basicInfos, navTabs, eventInfo } = props;
   const { t } = useTranslation();
   const router = useRouter();
   const { query, route } = router;
@@ -54,39 +53,17 @@ export default function HeaderHome(props) {
 
   return (
     <Paper elevation={1} className={styles.paper}>
-      <div className={styles.root}>
-        <Grid container>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
-            <Avatar photoUrl={basicInfos.photoUrl} size="lg" className={styles.avatar}></Avatar>
-          </Grid>
-          <Grid item lg={8} md={8} sm={12} xs={12} container>
-            <Grid container className={styles.gridText}>
-              <Grid container item className={styles.title}>
-                {basicInfos.name}
-              </Grid>
-
-              <Grid container item className={styles.subtitle}>
-                {basicInfos.city}
-              </Grid>
-            </Grid>
-            <Grid container className={styles.gridButton}>
-              {/* Rediriger vers l'onglet affiliation */}
-              {type === GLOBAL_ENUM.ORGANIZATION && (
-                <CustomButton onClick={onOpen} className={styles.eventButton}>
-                  {t('become_member')}
-                </CustomButton>
-              )}
-
-              {/* Afficher le menu mobile en gros à partir d'en bas *voir fb* */}
-              {window.innerWidth < 600 && (
-                <Button variant="contained" className={styles.optionsButton} onClick={handleClick}>
-                  <CustomIcon icon="MoreVertIcon" />
-                </Button>
-              )}
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
+      {type === GLOBAL_ENUM.ORGANIZATION && (
+        <BannerOrganization basicInfos={basicInfos} onClickMainButton={onOpen} onClickSecondButton={handleClick} />
+      )}
+      {type === GLOBAL_ENUM.EVENT && (
+        <BannerEvent
+          basicInfos={basicInfos}
+          onClickMainButton={onOpen}
+          onClickSecondButton={handleClick}
+          eventInfo={eventInfo}
+        />
+      )}
       <div className={styles.navigation}>
         <Paper>
           <Tabs
@@ -145,8 +122,50 @@ export default function HeaderHome(props) {
           }}
         />
         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+          {seeEdit && type === GLOBAL_ENUM.EVENT && (
+            <>
+              <MenuItem
+                onClick={() => {
+                  router.push({
+                    pathname: '/[pid]/[slug]',
+                    query: {
+                      pid: id,
+                      slug: 'editRankings',
+                    },
+                  });
+                }}
+              >
+                {t('edit.edit_ranking')}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  router.push({
+                    pathname: '/[pid]/[slug]',
+                    query: {
+                      pid: id,
+                      slug: 'editRosters',
+                    },
+                  });
+                }}
+              >
+                {t('edit.edit_teams')}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  router.push({
+                    pathname: '/[pid]/[slug]',
+                    query: {
+                      pid: id,
+                      slug: 'editSchedule',
+                    },
+                  });
+                }}
+              >
+                {t('edit.edit_schedule')}
+              </MenuItem>
+            </>
+          )}
           {seeEdit && <MenuItem onClick={handleSettingsClick}>{t('settings')}</MenuItem>}
-          <MenuItem onClick={handleClose}>{t('share')}</MenuItem>
         </Menu>
       </div>
     </Paper>

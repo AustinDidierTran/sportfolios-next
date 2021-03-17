@@ -1,4 +1,4 @@
-const About = loadable(() => import('../../../tabs/About'));
+const Roster = loadable(() => import('../../../tabs/Rosters'));
 
 import React, { useEffect } from 'react';
 
@@ -8,7 +8,7 @@ import { formatPageTitle } from '../../../utils/stringFormats';
 
 import loadable from '@loadable/component';
 
-export default function OrganizationAbout(props) {
+export default function EventTeams(props) {
   const { basicInfos, navBar } = props;
 
   useEffect(() => {
@@ -17,10 +17,10 @@ export default function OrganizationAbout(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer>
         <div>
-          <About {...{ basicInfos }} />
+          <Roster {...{ basicInfos }} />
         </div>
       </IgContainer>
     </>

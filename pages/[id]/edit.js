@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import loadable from '@loadable/component';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-const Event = loadable(() => import('../../public/src/views/Entity/Event'));
+const Event = loadable(() => import('../../public/src/views/Entity/Event/edit.jsx'));
 const Organization = loadable(() => import('../../public/src/views/Entity/Organization/edit.jsx'));
 const Person = loadable(() => import('../../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../../public/src/views/Entity/Team'));

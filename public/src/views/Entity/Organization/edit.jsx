@@ -30,7 +30,7 @@ export default function EntitySettings(props) {
   if (isAdmin) {
     return (
       <>
-        <HeaderHome basicInfos={basicInfos} navTabs={navBar} />
+        <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
         <IgContainer>
           <div className={styles.divEdit}>
             <BasicInfos basicInfos={basicInfos} />
@@ -48,7 +48,7 @@ export default function EntitySettings(props) {
   if (isEditor) {
     return (
       <>
-        <HeaderHome basicInfos={basicInfos} navTabs={navBar} />
+        <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
         <IgContainer>
           <div className={styles.divEdit}>
             <BasicInfos basicInfos={basicInfos} />
