@@ -1,16 +1,12 @@
 import React from 'react';
 
-import loadable from '@loadable/component';
 import BottomPageLogo from '../../../components/Custom/BottomPageLogo';
 import General from './General';
+import Admin from './Admin';
 import Registration from './Registration';
-import { CARD_TYPE_ENUM } from '../../../../common/enums';
-import Card from '../../../components/Custom/Card';
 import { useRouter } from 'next/router';
 import { useAdmin, useEditor } from '../../../hooks/roles';
 import { goTo, ROUTES } from '../../../actions/goTo';
-
-const ManageRoles = loadable(() => import('../ManageRoles'));
 
 export default function AllEventSettings(props) {
   const { basicInfos, role } = props;
@@ -30,13 +26,8 @@ export default function AllEventSettings(props) {
     <div>
       <General basicInfos={basicInfos} role={role} />
       <Registration />
-      {isAdmin && (
-        <>
-          <ManageRoles role={role} />
-          <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
-          <BottomPageLogo />
-        </>
-      )}
+      {isAdmin && <Admin role={role} basicInfos={basicInfos} id={id} />}
+      <BottomPageLogo />
     </div>
   );
 }

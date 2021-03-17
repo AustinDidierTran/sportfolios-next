@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
 import loadable from '@loadable/component';
 import Icon from '../../../../components/Custom/Icon';
+import Card from '../../../../components/Custom/Card';
 import Collapse from '../../../../components/Custom/Collapse';
 import { useTranslation } from 'react-i18next';
 
@@ -9,10 +10,9 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { CARD_TYPE_ENUM } from '../../../../../common/enums';
 
-const AddOptionsEvent = loadable(() => import('../../AddOptionsEvent'));
-const TeamsRegistered = loadable(() => import('../../TeamsRegistered'));
-const PlayersRegistered = loadable(() => import('../../PlayersRegistered'));
+const ManageRoles = loadable(() => import('../../ManageRoles'));
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -23,8 +23,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Registration() {
+export default function Admin(props) {
   const { t } = useTranslation();
+
+  const { role, basicInfos, id } = props;
 
   const classes = useStyles();
 
@@ -40,13 +42,12 @@ export default function Registration() {
         className={classes.primary}
       >
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
-          <ListItemText primary={t('register.registrations')} />
+          <ListItemText primary={t('admin')} />
         </AccordionSummary>
       </Accordion>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <TeamsRegistered />
-        <PlayersRegistered />
-        <AddOptionsEvent />
+        <ManageRoles role={role} />
+        <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
       </Collapse>
     </>
   );
