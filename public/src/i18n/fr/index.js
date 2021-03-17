@@ -562,7 +562,7 @@ export default {
       no_bank_account_linked: "Vous n'avez pas de compte en banque relié, l'option de paiement doit etre gratuite.",
       no_description: 'Aucune description',
       no_details_available:
-        'les équipes ne sont pas encore résolues, les détails seront disponibles lorsque la phase démarre.',
+        'Les équipes ne sont pas encore résolues, les détails seront disponibles lorsque la phase démarre.',
       no_existing_account_with_this_email: "Il n'existe pas de compte relié à ce courriel. Enregistrez-vous!",
       no_games: 'Aucune partie',
       no_members_message: "Vous n'avez pas de membres",
@@ -761,7 +761,7 @@ export default {
     cant_delete_paid_player:
       "Vous ne pouvez pas retirer ce joueur de l'alignement puisqu'il a déjà payé. Contactez un organisateur de l'événement pour obtenir de l'aide.",
     cant_edit_game_score:
-      "Les équipes sont encore indéfinies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
+      "Les équipes ne sont pas encore définies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
     cant_transfer_person_to_your_own_email:
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
     captain: 'Capitaine',
