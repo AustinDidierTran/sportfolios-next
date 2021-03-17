@@ -6,10 +6,11 @@ import { Store, ACTION_ENUM } from '../../Store';
 
 import Paper from '../../components/Custom/Paper';
 import Icon from '../../components/Custom/Icon';
-import Typography from '@material-ui/core/Typography';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import { useRouter } from 'next/router';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 export default function Menu() {
   const router = useRouter();

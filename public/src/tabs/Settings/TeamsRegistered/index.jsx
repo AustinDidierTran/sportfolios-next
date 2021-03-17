@@ -283,7 +283,7 @@ export default function TeamsRegistered() {
               ) : teams?.length > 0 ? (
                 <>
                   {teams.map((team, index) => (
-                    <TeamRowMobile team={team} index={index} handleUnregisterClick={handleUnregisterClick} />
+                    <TeamRowMobile team={team} key={index} handleUnregisterClick={handleUnregisterClick} />
                   ))}
                 </>
               ) : (

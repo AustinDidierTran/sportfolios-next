@@ -3,7 +3,7 @@ const About = loadable(() => import('../../../tabs/About'));
 import React, { useEffect } from 'react';
 
 import { IgContainer, Icon, HeaderHome } from '../../../components/Custom';
-import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,7 +40,7 @@ export default function OrganizationAbout(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
       <IgContainer>
         {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
           <Tooltip title={t('player_view')}>
@@ -53,8 +53,8 @@ export default function OrganizationAbout(props) {
             </Fab>
           </Tooltip>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
         <div>
           <About {...{ basicInfos }} />
         </div>

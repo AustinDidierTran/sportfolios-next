@@ -24,7 +24,7 @@ export default function Rankings() {
         eventId,
       })
     );
-    let ranking;
+    let ranking = [];
     if (data) {
       ranking = data.map((d) => ({
         position: d.position,
@@ -37,7 +37,6 @@ export default function Rankings() {
     }
 
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
-
     const rankingInfos = updateRanking(ranking, games);
     setRanking(rankingInfos);
     setIsLoading(false);

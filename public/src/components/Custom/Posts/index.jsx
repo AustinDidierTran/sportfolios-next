@@ -66,7 +66,7 @@ export default function Posts(props) {
   const getPostFeed = async () => {
     const { status, data } = await api(
       formatRoute('/api/posts', null, {
-        userId: userInfo?.primaryPerson?.entity_id,
+        userId: Object.is(userInfo?.primaryPerson?.entity_id, undefined) ? -1 : userInfo.primaryPerson.entity_id,
         locationId,
         currentPage: currentPage.current,
         perPage: 5,

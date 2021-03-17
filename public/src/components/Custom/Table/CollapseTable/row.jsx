@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 export default function Row(props) {
-  const { data, secondData, headers: header, onRowClick } = props;
+  const { data, secondData, headers: header, onRowClick, secondHeaders } = props;
   const [open, setOpen] = React.useState(false);
   let headers;
   if (secondData.length > 0) {
@@ -44,7 +44,7 @@ export default function Row(props) {
                 <Table>
                   {secondData.map((data, index) => (
                     <TableRow key={index}>
-                      {header.map((h, index) => (
+                      {secondHeaders.map((h, index) => (
                         <TableFactory width={true} d={data} h={h} key={index} />
                       ))}
                     </TableRow>

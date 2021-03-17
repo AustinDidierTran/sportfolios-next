@@ -34,6 +34,11 @@ export default {
           description:
             "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
+        memberships: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
         '[id]': {
           title: 'Sportfolios',
           description:
@@ -348,6 +353,7 @@ export default {
       registration_refused: 'Sorry, your team is not elligible for this event. Your registration has been refused.',
       registration_status: 'Registration Status',
       registration: 'Registration',
+      registrations: 'Registrations',
       registrations_closed_for_now: 'Registrations are closed for now',
       registrations_ended: 'Registrations ended',
       registrations_ends_on: 'Registrations ends on',
@@ -395,6 +401,7 @@ export default {
       membership_exist: 'Membership Exist',
       membership: 'Membership',
       memberships: 'Memberships',
+      memberships_list: 'List of memberships',
     },
     add: {
       add_admin: 'Add Admin',
@@ -558,6 +565,7 @@ export default {
       no_following: 'You are following no one',
       no_games: 'No games',
       no_members_message: 'You have no members',
+      no_membership_available: 'No membership available',
       no_notifications_message: 'Come back later.',
       no_notifications: 'No Notifications',
       no_option: 'No option',

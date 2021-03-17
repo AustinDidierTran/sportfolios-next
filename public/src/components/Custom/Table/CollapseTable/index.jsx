@@ -14,7 +14,7 @@ import Row from './row';
 
 export default function CollapseTable(props) {
   const { t } = useTranslation();
-  const { data, description, headers, onRowClick, title, filter, filterhandler } = props;
+  const { data, description, headers, secondHeaders, onRowClick, title, filter, filterhandler } = props;
   return (
     <>
       <Typography gutterBottom variant="h5" component="h2">
@@ -42,7 +42,13 @@ export default function CollapseTable(props) {
         </TableHead>
         <TableBody>
           {data.map((d) => (
-            <Row data={d} secondData={d.secondAccount} headers={headers} onRowClick={onRowClick} />
+            <Row
+              data={d}
+              secondData={d.secondAccount}
+              headers={headers}
+              secondHeaders={secondHeaders}
+              onRowClick={onRowClick}
+            />
           ))}
         </TableBody>
       </Table>
