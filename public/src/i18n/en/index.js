@@ -353,6 +353,7 @@ export default {
       registration_refused: 'Sorry, your team is not elligible for this event. Your registration has been refused.',
       registration_status: 'Registration Status',
       registration: 'Registration',
+      registrations: 'Registrations',
       registrations_closed_for_now: 'Registrations are closed for now',
       registrations_ended: 'Registrations ended',
       registrations_ends_on: 'Registrations ends on',

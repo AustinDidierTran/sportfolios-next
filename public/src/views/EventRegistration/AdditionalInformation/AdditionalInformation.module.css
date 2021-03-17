@@ -6,6 +6,15 @@
   overflow: hidden;
 }
 
+.textArea {
+  flex: 1 1 auto;
+  margin-top: 8px;
+  resize: none;
+  outline: none;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  border-style: hidden;
+}
+
 @media (min-width: 600px) {
   .textField {
     width: 75%;

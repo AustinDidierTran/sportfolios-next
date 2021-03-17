@@ -354,6 +354,7 @@ export default {
       registration_refused: "Désolé, votre équipe n'est pas éligible pour cet événement vous avez été refusé.",
       registration_status: 'État des inscriptions',
       registration: 'Inscription',
+      registrations: 'Inscriptions',
       registrations_closed_for_now: 'Inscriptions fermées',
       registrations_ended: 'Inscriptions terminées le',
       registrations_ends_on: 'Les inscriptions terminent le',

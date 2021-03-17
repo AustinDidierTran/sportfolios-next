@@ -2,3 +2,15 @@
   display: grid !important;
   grid-template-columns: 1fr 1fr 1fr;
 }
+.textArea {
+  flex: 1 1 auto;
+  margin-top: 8px;
+  resize: none;
+  outline: none;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  border-style: hidden;
+  text-align: justify;
+}
+.text {
+  overflow: auto;
+}
