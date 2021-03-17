@@ -2,7 +2,8 @@ const Rankings = loadable(() => import('../../../tabs/Rankings'));
 
 import React, { useEffect } from 'react';
 
-import { IgContainer, HeaderHome } from '../../../components/Custom';
+import HeaderHome from '../../../components/Custom/HeaderHome';
+import IgContainer from '../../../components/Custom/IgContainer';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 

@@ -6,7 +6,7 @@ import { useApiRoute } from '../../public/src/hooks/queries';
 import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../public/common/utils/stringFormat';
-import Head from 'next/head';
+const Head = loadable(() => import('next/head'));
 import { useTranslation } from 'react-i18next';
 
 const Event = loadable(() => import('../../public/src/views/Entity/Event/rankings.jsx'));

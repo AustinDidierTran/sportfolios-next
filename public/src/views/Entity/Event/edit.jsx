@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { IgContainer, HeaderHome } from '../../../components/Custom';
+import HeaderHome from '../../../components/Custom/HeaderHome';
+import IgContainer from '../../../components/Custom/IgContainer';
 import loadable from '@loadable/component';
 import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { useAdmin, useEditor } from '../../../hooks/roles';
