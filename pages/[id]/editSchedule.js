@@ -6,10 +6,11 @@ import { useApiRoute } from '../../public/src/hooks/queries';
 import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../public/common/utils/stringFormat';
-import { useTranslation } from 'react-i18next';
 const Head = loadable(() => import('next/head'));
-const Event = loadable(() => import('../../public/src/views/Entity/Event'));
-const Organization = loadable(() => import('../../public/src/views/Entity/Organization/events.jsx'));
+import { useTranslation } from 'react-i18next';
+
+const Event = loadable(() => import('../../public/src/views/Entity/Event/editSchedule'));
+const Organization = loadable(() => import('../../public/src/views/Entity/Organization/home.jsx'));
 const Person = loadable(() => import('../../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../../public/src/views/Entity/Team'));
 
@@ -25,7 +26,7 @@ export default function EntityRoute() {
   const { id } = router.query;
   const { t } = useTranslation();
 
-  const { response, isLoading } = useApiRoute(formatRoute('/api/entity/events', null, { id }), {
+  const { response, isLoading } = useApiRoute(formatRoute('/api/entity/editSchedule', null, { id }), {
     defaultValue: {},
   });
 
@@ -33,8 +34,8 @@ export default function EntityRoute() {
     return (
       <>
         <Head>
-          <meta property="og:title" content={t('metadata.[id].events.title')} />
-          <meta property="og:description" content={t('metadata.[id].events.description')} />
+          <meta property="og:title" content={t('metadata.[id].editSchedule.title')} />
+          <meta property="og:description" content={t('metadata.[id].editSchedule.description')} />
           <meta
             property="og:image"
             content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
@@ -48,8 +49,8 @@ export default function EntityRoute() {
     return (
       <>
         <Head>
-          <meta property="og:title" content={t('metadata.[id].events.title')} />
-          <meta property="og:description" content={t('metadata.[id].events.description')} />
+          <meta property="og:title" content={t('metadata.[id].editSchedule.title')} />
+          <meta property="og:description" content={t('metadata.[id].editSchedule.description')} />
           <meta
             property="og:image"
             content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
@@ -66,8 +67,8 @@ export default function EntityRoute() {
     return (
       <>
         <Head>
-          <meta property="og:title" content={t('metadata.[id].events.title')} />
-          <meta property="og:description" content={t('metadata.[id].events.description')} />
+          <meta property="og:title" content={t('metadata.[id].editSchedule.title')} />
+          <meta property="og:description" content={t('metadata.[id].editSchedule.description')} />
           <meta
             property="og:image"
             content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
@@ -80,8 +81,8 @@ export default function EntityRoute() {
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.[id].events.title')} />
-        <meta property="og:description" content={t('metadata.[id].events.description')} />
+        <meta property="og:title" content={t('metadata.[id].editSchedule.title')} />
+        <meta property="og:description" content={t('metadata.[id].editSchedule.description')} />
         <meta
           property="og:image"
           content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"

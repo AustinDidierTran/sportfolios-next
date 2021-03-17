@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext, componentDidMount } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import HeaderHome from '../../../components/Custom/HeaderHome';
@@ -29,16 +29,16 @@ export default function OrganizationHome(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer className={classes.IgContainer}>
         <Posts
           userInfo={userInfo}
-          allowPostImage
+          allowPostImage={true}
           allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
           entityIdCreatePost={basicInfos.id}
           entityRole={basicInfos.role}
-          allowComment
-          allowLike
+          allowComment={true}
+          allowLike={true}
           locationId={basicInfos.id}
           elevation={1}
           placeholder={t('start_a_post')}

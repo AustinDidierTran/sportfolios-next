@@ -1,11 +1,15 @@
+const Rankings = loadable(() => import('../../../tabs/Rankings'));
+
 import React, { useEffect } from 'react';
 
-import IgContainer from '../../../components/Custom/IgContainer';
 import HeaderHome from '../../../components/Custom/HeaderHome';
+import IgContainer from '../../../components/Custom/IgContainer';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 
-export default function OrganizationLeague(props) {
+import loadable from '@loadable/component';
+
+export default function EventTeams(props) {
   const { basicInfos, navBar } = props;
 
   useEffect(() => {
@@ -14,9 +18,11 @@ export default function OrganizationLeague(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
+      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer>
-        <div></div>
+        <div>
+          <Rankings {...{ basicInfos }} />
+        </div>
       </IgContainer>
     </>
   );
