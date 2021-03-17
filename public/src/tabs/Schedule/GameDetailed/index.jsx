@@ -6,7 +6,6 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
-import SubmitScoreDialog from '../../../components/Custom/FormDialog/SubmitScoreSpiritForm';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { useFormik } from 'formik';
 import styles from './GameDetailed.module.css';
@@ -15,14 +14,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CustomIconButton from '../../../components/Custom/IconButton';
 import { useRouter } from 'next/router';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
-import EnterScore from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore';
-import EditGameDialog from '../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EditGameDialog';
-import RosterDisplay from '../../../components/Custom/RosterDisplay';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+
+import loadable from '@loadable/component';
+
+const EnterScore = loadable(() =>
+  import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
+);
+const EditGameDialog = loadable(() =>
+  import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EditGameDialog')
+);
+const SubmitScoreDialog = loadable(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
+const RosterDisplay = loadable(() => import('../../../components/Custom/RosterDisplay'));
+
 const useStyles = makeStyles((theme) => ({
   IgContainer: {
     backgroundColor: '#f5f5f5 !important',
@@ -76,7 +84,7 @@ export default function GameDetailed(props) {
       formatRoute('/api/entity/getPossibleSubmissionerInfos', null, {
         gameId: game.id,
         teamsIds: JSON.stringify(
-          game.teams.map((t) => ({
+          game.positions.map((t) => ({
             rosterId: t.roster_id,
             name: t.name,
           }))
@@ -106,7 +114,7 @@ export default function GameDetailed(props) {
   }, [gameId]);
 
   useEffect(() => {
-    if (!game || !game.teams) {
+    if (!game || !game.positions) {
       return;
     }
     getSubmissioner();
@@ -252,6 +260,10 @@ export default function GameDetailed(props) {
     },
   ];
 
+  const update = () => {
+    getGame();
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -314,8 +326,8 @@ export default function GameDetailed(props) {
             </div>
           </div>
           <div className={styles.content}>
-            {game.teams.map((team, i) => (
-              <>
+            {game.positions.map((team, i) => (
+              <div key={i}>
                 {i % 2 === 0 ? (
                   <div className={styles.teamContent}>
                     <div>
@@ -355,7 +367,7 @@ export default function GameDetailed(props) {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             ))}
           </div>
 
@@ -367,7 +379,7 @@ export default function GameDetailed(props) {
           </div>
         </div>
         <Divider variant="middle" />
-        <RosterDisplay teams={game.teams} />
+        <RosterDisplay teams={game.positions} />
         <Divider variant="middle" />
         <Posts
           userInfo={userInfo}
@@ -395,13 +407,13 @@ export default function GameDetailed(props) {
           buttons={buttons}
         />
         <EditGameDialog open={edit} onClose={closeEdit} game={game} update={closeEdit} />
-        <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} />
+        <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} update={update} />
         {isAdmin && (
           <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={gameClick} update={getGame}>
+            <MenuItem onClick={gameClick} update={update}>
               {t('edit.edit_score')}
             </MenuItem>
-            <MenuItem onClick={editClick} update={getGame}>
+            <MenuItem onClick={editClick} update={update}>
               {t('edit.edit_game')}
             </MenuItem>
           </Menu>

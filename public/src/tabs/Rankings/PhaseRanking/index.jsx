@@ -1,12 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { PHASE_STATUS_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
 import Ranking from '../Ranking';
 import { updateRanking } from '../RankingFunctions';
+import { useTranslation } from 'react-i18next';
+
 export default function PhaseRankings() {
   const router = useRouter();
   const { id: eventId } = router.query;
+  const { t } = useTranslation();
 
   const [phases, setPhases] = useState([]);
 
@@ -19,6 +23,12 @@ export default function PhaseRankings() {
     phases.sort((a, b) => a.phase_order - b.phase_order);
     const res = await Promise.all(
       phases.map(async (phase) => {
+        if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED) {
+          const ranking = phase.ranking
+            .map((r) => ({ ...r, name: `${r.initial_position} - ${phase.name}` }))
+            .sort((a, b) => a.initial_position - b.initial_position);
+          return { ranking, title: `${phase.name} - ${t('phase_not_started')}` };
+        }
         const {
           data: { games, teams: allTeams },
         } = await api(
@@ -61,9 +71,14 @@ export default function PhaseRankings() {
             teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
           }
         });
-
         const ranking = updateRanking(teams, games);
-        return { ranking, title: phase.name };
+        return {
+          ranking,
+          title:
+            phase.status === PHASE_STATUS_ENUM.STARTED
+              ? `${phase.name} - ${t('phase_in_progress')}`
+              : `${phase.name} - ${t('phase_done')}`,
+        };
       })
     );
     setPhases(res);
@@ -76,13 +91,15 @@ export default function PhaseRankings() {
   return (
     <>
       {phases.map((phase, index) => (
-        <>
+        <div key={index}>
           {phase.ranking.length < 1 ? (
             <></>
+          ) : phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title} withStats></Ranking>
           ) : (
-            <Ranking key={index} ranking={phase.ranking} title={phase.title} withStats></Ranking>
+            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title}></Ranking>
           )}
-        </>
+        </div>
       ))}
     </>
   );

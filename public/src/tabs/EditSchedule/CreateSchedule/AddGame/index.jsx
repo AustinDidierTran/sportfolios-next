@@ -8,8 +8,8 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import { getFutureGameOptions } from '../../../Schedule/ScheduleFunctions';
-import validator from 'validator';
 import { useRouter } from 'next/router';
+import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
@@ -20,13 +20,16 @@ export default function AddGame(props) {
 
   const [open, setOpen] = useState(isOpen);
   const [gameOptions, setGameOptions] = useState({});
+  const [firstPositionOptions, setFirstPositionOptions] = useState([]);
+  const [secondPositionOptions, setSecondPositionOptions] = useState([]);
 
   const getOptions = async () => {
     const res = await getFutureGameOptions(eventId, {
       withoutAll: true,
     });
-
     setGameOptions(res);
+    setFirstPositionOptions(res.positions);
+    setSecondPositionOptions(res.positions);
   };
 
   useEffect(() => {
@@ -34,6 +37,7 @@ export default function AddGame(props) {
   }, [open]);
 
   useEffect(() => {
+    formik.resetForm();
     setOpen(isOpen);
   }, [isOpen]);
 
@@ -42,54 +46,27 @@ export default function AddGame(props) {
     onClose();
   };
 
-  const validate = (values) => {
-    const { phase, field, time, team1, team2 } = values;
-    const errors = {};
-    if (!time.length) {
-      errors.time = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!phase.length) {
-      errors.phase = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!field.length) {
-      errors.field = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!team1.length) {
-      errors.team1 = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    if (!team2.length) {
-      errors.team2 = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    field: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    time: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position1: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
 
   const formik = useFormik({
     initialValues: {
       phase: '',
       field: '',
       time: '',
-      team1: '',
-      team2: '',
+      position1: '',
+      position2: '',
     },
-    validate,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { phase, field, time, team1, team2 } = values;
-      let rosterId1 = null;
-      let rosterId2 = null;
-      let name1 = null;
-      let name2 = null;
-      if (validator.isUUID(team1)) {
-        rosterId1 = team1;
-      } else {
-        name1 = team1;
-      }
-      if (validator.isUUID(team2)) {
-        rosterId2 = team2;
-      } else {
-        name2 = team2;
-      }
+      const { phase, field, time, position1, position2 } = values;
       const res = await api('/api/entity/game', {
         method: 'POST',
         body: JSON.stringify({
@@ -97,13 +74,10 @@ export default function AddGame(props) {
           phaseId: phase,
           fieldId: field,
           timeslotId: time,
-          rosterId1,
-          rosterId2,
-          name1,
-          name2,
+          rankingId1: position1,
+          rankingId2: position2,
         }),
       });
-
       if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -113,7 +87,6 @@ export default function AddGame(props) {
         });
         return;
       }
-
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('game_added'),
@@ -124,6 +97,37 @@ export default function AddGame(props) {
       update();
     },
   });
+
+  useEffect(() => {
+    if (formik.values.phase !== '') {
+      formik.setFieldValue('position1', '');
+      formik.setFieldValue('position2', '');
+      const positions = gameOptions.positions.filter((p) => p.current_phase === formik.values.phase);
+      setFirstPositionOptions(positions);
+      setSecondPositionOptions(positions);
+    }
+  }, [formik.values.phase]);
+
+  useEffect(() => {
+    if (formik.values.position1 !== '' && formik.values.position2 === '') {
+      const positions = secondPositionOptions.filter((p) => p.value !== formik.values.position1);
+      setSecondPositionOptions(positions);
+    }
+    if (formik.values.position2 !== '' && formik.values.position1 === '') {
+      const positions = firstPositionOptions.filter((p) => p.value !== formik.values.position1);
+      setFirstPositionOptions(positions);
+    }
+    if (formik.values.position2 !== '' && formik.values.position1 !== '') {
+      const firstPosition = gameOptions.positions.filter(
+        (p) => p.value !== formik.values.position2 && p.current_phase === formik.values.phase
+      );
+      const secondPosition = gameOptions.positions.filter(
+        (p) => p.value !== formik.values.position1 && p.current_phase === formik.values.phase
+      );
+      setFirstPositionOptions(firstPosition);
+      setSecondPositionOptions(secondPosition);
+    }
+  }, [formik.values.position1, formik.values.position2]);
 
   const buttons = [
     {
@@ -141,12 +145,6 @@ export default function AddGame(props) {
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: gameOptions.phases,
-      namespace: 'phase',
-      label: t('phase'),
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'field',
       label: t('field'),
       options: gameOptions.fields,
@@ -159,15 +157,21 @@ export default function AddGame(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: gameOptions.teams,
-      namespace: 'team1',
-      label: t('team.team_1'),
+      namespace: 'phase',
+      label: t('phase'),
+      options: gameOptions.phases,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: gameOptions.teams,
-      namespace: 'team2',
-      label: t('team.team_2'),
+      namespace: 'position1',
+      label: 'Position 1',
+      options: firstPositionOptions,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      namespace: 'position2',
+      label: 'Position 2',
+      options: secondPositionOptions,
     },
   ];
 

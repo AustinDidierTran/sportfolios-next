@@ -42,24 +42,25 @@ export default function AllEditGames(props) {
     return data;
   };
 
-  const filter = async (teamId, phaseId, fieldId, timeSlot) => {
-    let games = await getGames();
-    if (teamId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
-    }
-    if (phaseId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.phase_id === phaseId);
-    }
-    if (fieldId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.field_id === fieldId);
-    }
-    if (timeSlot != SELECT_ENUM.ALL) {
-      games = games.filter(
-        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
-      );
-    }
-    sortGames(games);
-  };
+  // //FIXME: no teams filter because games are created with positions from phases
+  // const filter = async (teamId, phaseId, fieldId, timeSlot) => {
+  //   let games = await getGames();
+  //   // if (teamId != SELECT_ENUM.ALL) {
+  //   //   games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
+  //   // }
+  //   if (phaseId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.phase_id === phaseId);
+  //   }
+  //   if (fieldId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.field_id === fieldId);
+  //   }
+  //   if (timeSlot != SELECT_ENUM.ALL) {
+  //     games = games.filter(
+  //       (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+  //     );
+  //   }
+  //   sortGames(games);
+  // };
 
   const update = () => {
     getGames();
@@ -72,7 +73,7 @@ export default function AllEditGames(props) {
   return (
     <>
       <ProTip />
-      <GameFilters update={filter} />
+      {/* <GameFilters update={filter} /> */}
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <EditGames title={t('past_games')} games={pastGames} isOpen={false} update={update} />
         <EditGames title={t('upcoming_games')} games={games} isOpen update={update} />

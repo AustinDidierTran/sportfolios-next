@@ -6,10 +6,12 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export const getPhases = async (eventId, withoutAll) => {
   const { data } = await api(formatRoute('/api/entity/phases', null, { eventId }));
-  const res = data.map((d) => ({
-    value: d.id,
-    display: d.name,
-  }));
+  const res = data
+    .sort((a, b) => a.phase_order - b.phase_order)
+    .map((d) => ({
+      value: d.id,
+      display: d.name,
+    }));
   if (withoutAll) {
     return res;
   }
@@ -62,18 +64,36 @@ export const getFields = async (eventId, withoutAll) => {
   return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
 };
 
+export const getPositionOptions = async (eventId) => {
+  const { data } = await api(formatRoute('/api/entity/phases', null, { eventId }));
+  const rankingOptions = data.reduce((prev, curr) => {
+    return prev.concat(curr.ranking);
+  }, []);
+
+  const formattedRankingOptions = rankingOptions.map((r) => ({
+    value: r.ranking_id,
+    display: r.name
+      ? `${r.initial_position.toString()} - ${data.find((d) => d.id === r.current_phase).name} (${r.name})`
+      : `${r.initial_position.toString()} - ${data.find((d) => d.id === r.current_phase).name}`,
+    ...r,
+  }));
+  return formattedRankingOptions;
+};
+
 export const getFutureGameOptions = async (eventId, withoutAll) => {
   const res = await Promise.all([
     getFutureSlots(eventId),
     getTeams(eventId, withoutAll),
     getPhases(eventId, withoutAll),
     getFields(eventId, withoutAll),
+    getPositionOptions(eventId),
   ]);
   return {
     timeSlots: res[0],
     teams: res[1],
     phases: res[2],
     fields: res[3],
+    positions: res[4],
   };
 };
 
@@ -83,11 +103,13 @@ export const getGameOptions = async (eventId, withoutAll) => {
     getTeams(eventId, withoutAll),
     getPhases(eventId, withoutAll),
     getFields(eventId, withoutAll),
+    getPositionOptions(eventId),
   ]);
   return {
     timeSlots: res[0],
     teams: res[1],
     phases: res[2],
     fields: res[3],
+    positions: res[4],
   };
 };

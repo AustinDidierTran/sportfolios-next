@@ -29,10 +29,10 @@ export default function RosterDisplay(props) {
         {t('rosters')}
       </Typography>
       <div className={styles.root}>
-        {teams.map((team) => (
-          <div className={styles.roster}>
+        {teams.map((team, index) => (
+          <div className={styles.roster} key={index}>
             {team.roster.map((player, index) => (
-              <div className={styles.rootPlayer}>
+              <div className={styles.rootPlayer} key={index}>
                 <div className={styles.position}>
                   {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
                     <div></div>

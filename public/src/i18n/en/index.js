@@ -560,6 +560,7 @@ export default {
       no_alias: 'No alias',
       no_bank_account_linked: 'You have no bank account linked, payment option needs to be free',
       no_description: 'No Description',
+      no_details_available: 'Teams are not yet resolved, details will be available when phase starts.',
       no_existing_account_with_this_email: 'There is no account linked with this email. Sign up!',
       no_following: 'You are following no one',
       no_games: 'No games',
@@ -746,6 +747,8 @@ export default {
     cant_add_product_no_bank_account: "Can't add product admin has no bank account",
     cant_delete_paid_player:
       "You can't remove this player from the roster since he already paid. Contact an event organizer for help.",
+    cant_edit_game_score: 'Teams are still undefined. Start the phase or end the preceding phase before editing score.',
+
     cant_transfer_person_to_your_own_email: "You can't transfer someone to your own email",
     captain: 'Captain',
     captains: 'Captains',

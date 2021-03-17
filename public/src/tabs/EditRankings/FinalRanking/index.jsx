@@ -95,7 +95,32 @@ export default function FinalRanking(props) {
         .sort((a, b) => a.finalPosition - b.finalPosition);
       setItems(rankingStatsAndFinalPosition);
     } else {
-      setItems(rankingStats);
+      const playedGames = games.reduce((prev, curr) => {
+        const score1 = curr.teams[0].score;
+        const score2 = curr.teams[1].score;
+        return prev.concat([score1, score2]);
+      }, []);
+      if (playedGames.some((g) => g > 0)) {
+        setItems(rankingStats);
+      } else {
+        const rankingFromInitialPosition = phase.ranking
+          .map((r, index) => ({
+            id: r.ranking_id,
+            key: index,
+            wins: 0,
+            loses: 0,
+            name: r.name,
+            number: 1,
+            pointFor: 0,
+            pointAgainst: 0,
+            points: 0,
+            random: 0,
+            rosterId: r.roster_id,
+            initialPosition: r.initial_position,
+          }))
+          .sort((a, b) => a.initialPosition - b.initialPosition);
+        setItems(rankingFromInitialPosition);
+      }
     }
   };
 

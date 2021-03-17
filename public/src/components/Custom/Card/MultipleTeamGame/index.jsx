@@ -10,16 +10,19 @@ import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 
 export default function MultipleTeamGame(props) {
-  const { teams, field, start_time, phaseName, onClick, isPastGame } = props;
+  const { positions, field, start_time, phaseName, onClick, isPastGame } = props;
 
   return (
     <Card className={styles.game} onClick={onClick}>
       <div className={styles.teams}>
-        {teams.map((team, i) => (
+        {positions.map((position, i) => (
           <div className={styles.teamContent} key={i}>
-            <img className={styles.logo} src={team.photo_url} />
-            <Typography className={styles.name}>{team.name}</Typography>
-            <Typography className={styles.score}>{team.score}</Typography>
+            {
+              //TODO: if roster_id, put a the team picture
+            }
+            <img className={styles.logo} />
+            <Typography className={styles.name}>{position.name}</Typography>
+            <Typography className={styles.score}>{position.score}</Typography>
           </div>
         ))}
       </div>

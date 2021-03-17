@@ -32,24 +32,25 @@ export default function EditResults() {
     return res;
   };
 
-  const filter = async (teamId, phaseId, field, timeSlot) => {
-    let games = await getGames();
-    if (teamId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
-    }
-    if (phaseId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.phase_id === phaseId);
-    }
-    if (field != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.field === field);
-    }
-    if (timeSlot != SELECT_ENUM.ALL) {
-      games = games.filter(
-        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
-      );
-    }
-    setGames(games);
-  };
+  //FIXME: teams aren't used anymore, only phase position
+  // const filter = async (teamId, phaseId, field, timeSlot) => {
+  //   let games = await getGames();
+  //   if (teamId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
+  //   }
+  //   if (phaseId != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.phase_id === phaseId);
+  //   }
+  //   if (field != SELECT_ENUM.ALL) {
+  //     games = games.filter((game) => game.field === field);
+  //   }
+  //   if (timeSlot != SELECT_ENUM.ALL) {
+  //     games = games.filter(
+  //       (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+  //     );
+  //   }
+  //   setGames(games);
+  // };
 
   const update = () => {
     getGames();
@@ -57,7 +58,7 @@ export default function EditResults() {
 
   return (
     <>
-      <GameFilters update={filter} onlyPast={onlyPast} />
+      {/* <GameFilters update={filter} onlyPast={onlyPast} /> */}
       <div className={styles.main} style={{ marginTop: '16px' }}>
         {games.map((game, index) => (
           <ScoreSuggestion game={game} update={update} key={index} withoutEdit />

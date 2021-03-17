@@ -29,6 +29,7 @@ export default function Ranking(props) {
       setItems(items);
     }
   };
+
   useEffect(() => {
     getItems();
   }, [ranking]);

@@ -26,10 +26,6 @@ export default function AddTeamPhase(props) {
     getAllOptions();
   }, [isOpen]);
 
-  const validationSchema = yup.object().shape({
-    position: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-  });
-
   const getAllOptions = async () => {
     const { data } = await api(
       formatRoute('/api/entity/phases', null, {
@@ -160,11 +156,15 @@ export default function AddTeamPhase(props) {
     onClose();
   };
 
+  const validationSchema = yup.object().shape({
+    position: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
+
   const formik = useFormik({
     initialValues: {
       position: '',
     },
-    validationSchema: validationSchema,
+    validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {

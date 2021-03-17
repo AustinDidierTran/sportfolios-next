@@ -28,7 +28,16 @@ export default function EditGame(props) {
   };
 
   const gameClick = () => {
-    setGameDialog(true);
+    if (game.positions[0].roster_id && game.positions[1].roster_id) {
+      setGameDialog(true);
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('cant_edit_game_score'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    }
   };
 
   const onEdit = () => {
