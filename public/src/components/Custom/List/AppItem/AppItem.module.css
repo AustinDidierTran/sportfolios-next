@@ -1,6 +1,4 @@
 .button {
-  max-height: 30px;
-  padding-right: 96px;
   width: 100%;
 }
 
@@ -10,4 +8,5 @@
 
 .text {
   max-width: 60%;
+  padding-right: 8px;
 }

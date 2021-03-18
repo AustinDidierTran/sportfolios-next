@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Card from '@material-ui/core/Card';
-import { List, AlertDialog } from '../../../components/Custom';
+import List from '../../../components/Custom/List';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { useFacebookSDK } from '../../../hooks/setup';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
