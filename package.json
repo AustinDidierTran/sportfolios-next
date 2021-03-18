@@ -8,7 +8,7 @@
     "start": "next start",
     "prepare": "husky install",
     "lint": "eslint . --ext .js --ext .jsx",
-    "test": "./node_modules/.bin/eslint"
+    "test": "./node_modules/.bin/eslint .gitignore . --fix"
   },
   "husky": {
     "hooks": {
