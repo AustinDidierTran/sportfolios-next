@@ -83,7 +83,7 @@ export default function EditItem(props) {
       res = false;
     }
     if (!photoUrl) {
-      setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
+      photoUrl.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
     return res;
