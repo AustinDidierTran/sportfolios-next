@@ -1,0 +1,16 @@
+.block {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .block {
+    flex-direction: row;
+  }
+}
+
+.part {
+  text-align: center;
+  margin: 8px;
+}
