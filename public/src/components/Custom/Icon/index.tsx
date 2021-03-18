@@ -8,7 +8,7 @@ import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import Assignment from '@material-ui/icons/Assignment';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import Autorenew from '@material-ui/icons/Autorenew';
@@ -112,7 +112,7 @@ const icons: any = {
   ArrowBack,
   ArrowDropDown,
   ArrowUpward,
-  AssignmentIcon,
+  Assignment,
   AssignmentTurnedInIcon,
   AttachMoney,
   Autorenew,

@@ -100,7 +100,7 @@ export default function Tabs(props) {
           value: TABS_ENUM.SCHEDULE,
           component: Schedule,
           label: t('schedule'),
-          icon: 'AssignmentIcon',
+          icon: 'Assignment',
         },
       ];
     }
@@ -183,7 +183,7 @@ export default function Tabs(props) {
           {
             component: EditSchedule,
             label: t('schedule'),
-            icon: 'AssignmentIcon',
+            icon: 'Assignment',
             value: TABS_ENUM.EDIT_SCHEDULE,
           },
         ];

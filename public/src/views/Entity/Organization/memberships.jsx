@@ -91,7 +91,7 @@ export default function OrganizationMemberships(props) {
         ...formatMembership(d),
         type: LIST_ITEM_ENUM.MEMBERSHIP_INFO,
         onClick: onOpen,
-        icon: !alreadyMember ? 'AssignmentIcon' : 'AssignmentTurnedInIcon',
+        icon: !alreadyMember ? 'Assignment' : 'AssignmentTurnedInIcon',
         tooltip: !alreadyMember ? t('become_member') : expirationDate,
       };
     });
