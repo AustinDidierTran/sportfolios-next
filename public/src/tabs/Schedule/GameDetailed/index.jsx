@@ -31,13 +31,13 @@ const EditGameDialog = loadable(() =>
 const SubmitScoreDialog = loadable(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
 const RosterDisplay = loadable(() => import('../../../components/Custom/RosterDisplay'));
 
-const useStyles = makeStyles(() => ({
-  IgContainer: {
-    backgroundColor: '#f5f5f5 !important',
-    minHeight: 'calc(100vh - 60px)',
-    paddingTop: 10,
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   IgContainer: {
+//     backgroundColor: '#f5f5f5 !important',
+//     minHeight: 'calc(100vh - 60px)',
+//     paddingTop: 10,
+//   },
+// }));
 
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;

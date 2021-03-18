@@ -109,7 +109,7 @@ export default function CreateItem(props) {
       res = false;
     }
     if (!photoUrl) {
-      setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
+      photoUrl.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
     return res;

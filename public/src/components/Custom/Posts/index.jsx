@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { uploadPicture } from '../../../actions/aws';
 import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -151,11 +152,10 @@ export default function Posts(props) {
       });
       return;
     }
-    let oldPosts = posts;
     setPosts((oldPosts) => oldPosts.filter((o) => o.id !== post_id));
     await getPostFeed();
   };
-  const handlePost = async (entityId, postContent, images, post_id) => {
+  const handlePost = async (entityId, postContent, images) => {
     const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
       body: JSON.stringify({

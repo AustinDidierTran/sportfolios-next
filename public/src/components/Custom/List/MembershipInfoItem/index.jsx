@@ -5,7 +5,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '../../IconButton';
 
-import { useTranslation } from 'react-i18next';
 import styles from './MebershipInfoItem.module.css';
 
 export default function MembershipDetailItem(props) {
