@@ -17,7 +17,7 @@ import Icon from '../../../components/Custom/Icon';
 import Button from '../../../components/Custom/Button';
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, onOpenDeleteDialog, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
