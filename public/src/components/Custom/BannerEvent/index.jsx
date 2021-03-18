@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 import Paper from '@material-ui/core/Paper';
 import CustomIconButton from '../IconButton';
-
+import Divider from '@material-ui/core/Divider';
 export default function BannerEvent(props) {
   const { basicInfos, onClickMainButton, onClickSecondButton, eventInfo, isAdmin } = props;
   const { t } = useTranslation();
@@ -52,14 +52,14 @@ export default function BannerEvent(props) {
       <div>
         <Typography display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant}>
           {t('register.registrations_ends_on')}&nbsp;
-          {formatDate(moment(eventInfo.registrationEnd))}
+          {formatDate(moment(eventInfo.rdegistrationEnd))}&nbsp;
         </Typography>
         <Typography
           display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'}
           variant={fontVariant}
           color="error"
         >
-          &nbsp;({eventInfo.remainingSpots}&nbsp;
+          ({eventInfo.remainingSpots}&nbsp;
           {t('remaining_spots')})
         </Typography>
       </div>
@@ -69,17 +69,6 @@ export default function BannerEvent(props) {
   return (
     <div className={styles.root}>
       <div className={styles.divBannerHeader}>
-        {screenSize !== SCREENSIZE_ENUM.xs && (
-          <div className={styles.divBannerDate}>
-            <div className={styles.date}>
-              <Paper>
-                <Typography className={styles.dateBorder} noWrap="true" variant="h3">
-                  {moment(eventInfo.startDate || '0').format('DD')}
-                </Typography>
-              </Paper>
-            </div>
-          </div>
-        )}
         <div className={styles.divBannerImage}>
           <img
             src={
@@ -91,39 +80,60 @@ export default function BannerEvent(props) {
         </div>
       </div>
 
-      <div className={styles.divInfo}>
-        <div className={styles.displayFlex}>
-          <div className={styles.divDate}>
-            <Typography variant={fontVariant} color="error">
-              {eventInfo.startDate
-                ? formatIntervalDate(moment(eventInfo.startDate), moment(eventInfo.endDate))
-                : t('date_comming_soon')}
-            </Typography>
-            <Typography variant={fontVariant} color="error">
-              &nbsp; - &nbsp;{eventInfo.location || 'Sherbrooke'}
-            </Typography>
-          </div>
-          {isAdmin && (
-            <div className={styles.divMoreVertButton}>
-              <CustomIconButton className={styles.moreVertButton} icon="MoreVertIcon" onClick={onClickSecondButton} />
+      <div className={styles.rootInfo}>
+        <div>
+          {screenSize !== SCREENSIZE_ENUM.xs && (
+            <div className={styles.divBannerDate}>
+              <div className={styles.date}>
+                <Paper>
+                  <Typography className={styles.dateBorder} noWrap="true" variant="h3">
+                    {moment(eventInfo.startDate || '0').format('DD')}
+                  </Typography>
+                </Paper>
+              </div>
             </div>
           )}
         </div>
-        <div className={styles.displayFlex}>
-          <Typography variant="h3">{eventInfo.name}</Typography>
-          {screenSize !== SCREENSIZE_ENUM.xs && !eventInfo.isLate && !eventInfo.isEarly && (
-            <div className={styles.buttonSignup}>
-              <CustomButton onClick={onClickMainButton}>{t('register.register_event')}</CustomButton>
+        <div className={styles.divInfo}>
+          <div className={styles.displayFlex}>
+            <div className={styles.divDate}>
+              <Typography variant={fontVariant} color="error">
+                {eventInfo.startDate
+                  ? formatIntervalDate(moment(eventInfo.startDate), moment(eventInfo.endDate))
+                  : t('date_comming_soon')}
+              </Typography>
+              {eventInfo.location && (
+                <Typography variant={fontVariant} color="error">
+                  &nbsp; - &nbsp;{eventInfo.location}
+                </Typography>
+              )}
             </div>
-          )}
-        </div>
-        <Registration />
-
-        {screenSize === SCREENSIZE_ENUM.xs && !eventInfo.isLate && !eventInfo.isEarly && (
-          <div className={styles.buttonSignup}>
-            <CustomButton onClick={onClickMainButton}>{t('register.register_event')}</CustomButton>
+            {isAdmin && (
+              <div className={styles.divMoreVertButton}>
+                <CustomIconButton className={styles.moreVertButton} icon="MoreVertIcon" onClick={onClickSecondButton} />
+              </div>
+            )}
           </div>
-        )}
+          <div className={styles.displayFlex}>
+            <Typography variant="h3">{eventInfo.name}</Typography>
+          </div>
+          <Registration />
+        </div>
+      </div>
+      <Divider variant="middle" />
+      <div className={styles.divIconButton}>
+        <div className={styles.divIconSignup}>
+          <CustomButton
+            size="small"
+            variant="contained"
+            startIcon="Assignment"
+            className={styles.iconSign}
+            onClick={onClickMainButton}
+            disableElevation
+          >
+            M'inscrire
+          </CustomButton>
+        </div>
       </div>
     </div>
   );
