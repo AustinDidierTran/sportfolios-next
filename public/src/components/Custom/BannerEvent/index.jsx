@@ -131,7 +131,7 @@ export default function BannerEvent(props) {
             onClick={onClickMainButton}
             disableElevation
           >
-            M'inscrire
+            {t('register.register')}
           </CustomButton>
         </div>
       </div>
