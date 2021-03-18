@@ -158,6 +158,7 @@ export default function MyPersons() {
 
   const transferedPersonActions = (person) => [
     <IconButton
+      key={0}
       tooltip={t('cancel_person_transfer')}
       edge="end"
       onClick={() => {
@@ -172,6 +173,7 @@ export default function MyPersons() {
 
   const primaryPersonActions = () => [
     <IconButton
+      key={0}
       tooltip={t('edit.edit_your_primary_person')}
       edge="end"
       onClick={() => {
@@ -185,6 +187,7 @@ export default function MyPersons() {
 
   const secondaryPersonActions = (person) => [
     <IconButton
+      key={0}
       tooltip={t('transfer_this_person')}
       edge="end"
       onClick={() => {
@@ -201,6 +204,7 @@ export default function MyPersons() {
     window.innerWidth >= 768
       ? [
           <Button
+            key={0}
             endIcon="Delete"
             size="small"
             onClick={() => {
@@ -213,6 +217,7 @@ export default function MyPersons() {
             {t('decline')}
           </Button>,
           <Button
+            key={1}
             endIcon="Check"
             size="small"
             onClick={() => {
@@ -225,6 +230,7 @@ export default function MyPersons() {
         ]
       : [
           <IconButton
+            key={0}
             tooltip={t('cancel')}
             size="medium"
             onClick={() => {
@@ -235,6 +241,7 @@ export default function MyPersons() {
             icon="Delete"
           />,
           <IconButton
+            key={1}
             tooltip={t('confirm')}
             size="medium"
             onClick={() => {

@@ -17,7 +17,6 @@ import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
 import loadable from '@loadable/component';

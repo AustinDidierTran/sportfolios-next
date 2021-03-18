@@ -45,6 +45,7 @@ export default function TransferedPeople() {
     window.innerWidth >= 768
       ? [
           <Button
+            key={0}
             endIcon="Delete"
             size="small"
             onClick={() => {
@@ -56,6 +57,7 @@ export default function TransferedPeople() {
             {t('decline')}
           </Button>,
           <Button
+            key={1}
             endIcon="Check"
             size="small"
             onClick={() => {
@@ -68,6 +70,7 @@ export default function TransferedPeople() {
         ]
       : [
           <IconButton
+            key={0}
             size="medium"
             onClick={() => {
               setDeclineDialog(true);
@@ -76,6 +79,7 @@ export default function TransferedPeople() {
             icon="Delete"
           />,
           <IconButton
+            key={1}
             size="medium"
             onClick={() => {
               setApproveDialog(true);

@@ -69,7 +69,7 @@ export default function PersonSelect(props) {
       ) : (
         <></>
       )}
-      {formik.values.persons.map((p) => (
+      {formik.values.persons.map((p, index) => (
         <PersonItem
           key={p.id}
           completeName={p.complete_name}
@@ -78,6 +78,7 @@ export default function PersonSelect(props) {
           }}
           secondaryActions={[
             <IconButton
+              key={index}
               icon="Remove"
               onClick={() => {
                 removePerson(p);
@@ -93,7 +94,7 @@ export default function PersonSelect(props) {
           <Typography variant="body2" component="p" style={{ marginBottom: '8px' }}>
             {t('my_persons')}
           </Typography>
-          {formik.values.allPersons.map((p) => (
+          {formik.values.allPersons.map((p, index) => (
             <PersonItem
               key={p.id}
               completeName={p.complete_name}
@@ -104,6 +105,7 @@ export default function PersonSelect(props) {
               secondary={p.registered ? t('register.registered_singular') : null}
               secondaryActions={[
                 <IconButton
+                  key={index}
                   icon="Add"
                   onClick={() => {
                     addPerson(p);

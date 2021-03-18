@@ -29,6 +29,7 @@ export default function FacebookLoginButton(props) {
   return (
     <div>
       <div
+        // eslint-disable-next-line no-unknown-property
         class="fb-login-button"
         data-size="large"
         data-button-type="continue_with"
