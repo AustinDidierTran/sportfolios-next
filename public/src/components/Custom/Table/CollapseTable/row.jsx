@@ -33,7 +33,7 @@ export default function Row(props) {
           </TableCell>
         )}
         {headers.map((h, index) => (
-          <TableFactory width={true} d={data} h={h} key={index} onClick={onRowClick} />
+          <TableFactory width d={data} h={h} key={index} onClick={onRowClick} />
         ))}
       </TableRow>
       {secondData.length > 0 && (
@@ -45,7 +45,7 @@ export default function Row(props) {
                   {secondData.map((data, index) => (
                     <TableRow key={index}>
                       {secondHeaders.map((h, index) => (
-                        <TableFactory width={true} d={data} h={h} key={index} />
+                        <TableFactory width d={data} h={h} key={index} />
                       ))}
                     </TableRow>
                   ))}

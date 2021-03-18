@@ -68,12 +68,12 @@ export default function OrganizationHome(props) {
         )}
         <Posts
           userInfo={userInfo}
-          allowPostImage={true}
+          allowPostImage
           allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
           entityIdCreatePost={basicInfos.id}
           entityRole={basicInfos.role}
-          allowComment={true}
-          allowLike={true}
+          allowComment
+          allowLike
           locationId={basicInfos.id}
           elevation={1}
           placeholder={t('start_a_post')}

@@ -380,11 +380,11 @@ export default function GameDetailed(props) {
         <Divider variant="middle" />
         <Posts
           userInfo={userInfo}
-          allowPostImage={true}
-          allowNewPost={true}
+          allowPostImage
+          allowNewPost
           entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
-          allowComment={true}
-          allowLike={true}
+          allowComment
+          allowLike
           locationId={game.entity_id}
           elevation={0}
           placeholder={t('write_a_comment')}
