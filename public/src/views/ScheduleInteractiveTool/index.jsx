@@ -4,7 +4,7 @@ import moment from 'moment';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { formatDate } from '../../utils/stringFormats';
-import { LoadingSpinner, Icon, Button } from '../../components/Custom';
+import { LoadingSpinner, Icon, Button, List } from '../../components/Custom';
 import { Store, ACTION_ENUM } from '../../Store';
 import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../common/enums';
 import Typography from '@material-ui/core/Typography';
