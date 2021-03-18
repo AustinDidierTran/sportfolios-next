@@ -506,6 +506,7 @@ export default {
       delete_phase: 'Delete phase',
       delete_phase_warning:
         'Are you sure you want to delete this phase? Every game, ranking and other information associated with this phase will be deleted and unrecoverable.',
+      delete_phase_success: 'Phase deleted successfully!',
       delete_player_from_roster_confirmation_admin:
         "Are you sure you want to remove this player from the roster? The player will have his individual payment refunded if there's one.",
       delete_player_from_roster_confirmation: 'Are you sure you want to remove this player from the roster?',

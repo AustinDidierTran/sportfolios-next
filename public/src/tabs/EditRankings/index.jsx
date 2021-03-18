@@ -44,7 +44,6 @@ export default function EditRankings() {
   const [preranking, setPreranking] = useState([]);
   const [expandedPhases, setExpandedPhases] = useState([]);
 
-  const [prerankPhase, setPrerankPhase] = useState({});
   const [phaseToEnd, setPhaseToEnd] = useState({});
   const [phaseToDelete, setPhaseToDelete] = useState({});
 
@@ -126,7 +125,6 @@ export default function EditRankings() {
       }))
       .sort((a, b) => a.order - b.order);
 
-    setPrerankPhase(prerankPhase);
     setPreranking(preranking);
     setPhases(allPhases);
   };
@@ -266,7 +264,31 @@ export default function EditRankings() {
   };
 
   const handleDeletePhase = async () => {
-    //nothing for now
+    const res = await api(
+      formatRoute('/api/entity/phase', null, {
+        eventId: eventId,
+        phaseId: phaseToDelete.id,
+      }),
+      {
+        method: 'DELETE',
+      }
+    );
+    if (res.status === STATUS_ENUM.SUCCESS) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('delete_phase_success'),
+        severity: SEVERITY_ENUM.SUCCESS,
+        duration: 4000,
+      });
+      update();
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    }
     setOpenDeleteDialog(false);
   };
 

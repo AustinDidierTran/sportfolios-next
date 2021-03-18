@@ -514,6 +514,7 @@ export default {
       delete_phase: 'Supprimer la phase',
       delete_phase_warning:
         'Êtes-vous certain de vouloir supprimer la phase? Toutes les parties, classements et autres informations reliées à la phase seront supprimés et irrécupérables.',
+      delete_phase_success: 'Phase supprimée avec succès!',
       delete_player_from_roster_confirmation_admin:
         "Êtes-vous certain de vouloir retirer ce joueur de l'équipe? Le paiement individuel du joueur lui sera remboursé s'il y en a un et qu'il a été payé.",
       delete_player_from_roster_confirmation: "Êtes-vous certain de vouloir retirer ce joueur de l'équipe?",
