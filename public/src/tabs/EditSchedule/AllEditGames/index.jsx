@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AllEditGames.module.css';
-import { SELECT_ENUM } from '../../../../common/enums';
+// import { SELECT_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
 import moment from 'moment';
-import GameFilters from '../../Schedule/AllGames/GameFilters';
+// import GameFilters from '../../Schedule/AllGames/GameFilters';
 import ProTip from './ProTip';
 import EditGames from './EditGames';
 import { useTranslation } from 'react-i18next';

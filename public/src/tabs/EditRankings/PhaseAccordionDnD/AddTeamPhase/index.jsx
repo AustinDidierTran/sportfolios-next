@@ -170,7 +170,7 @@ export default function AddTeamPhase(props) {
     onSubmit: async (values, { resetForm }) => {
       const { position } = values;
       const select = allOptions.find((o) => o.value === position);
-      const { status, data } = await api('/api/entity/updateTeamPhase', {
+      const { status } = await api('/api/entity/updateTeamPhase', {
         method: 'PUT',
         body: JSON.stringify({
           eventId,

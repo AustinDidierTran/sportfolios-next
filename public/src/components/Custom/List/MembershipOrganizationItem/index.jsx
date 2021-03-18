@@ -37,8 +37,8 @@ export default function MembershipOrganizationItem(props) {
             <ListItemText primary={`${t('subtotal')}:`}></ListItemText>
             <ListItemText primary={`${formatPrice(price)}`}></ListItemText>
           </ListItem>
-          {taxRates.map((t) => (
-            <ListItem className={styles.money}>
+          {taxRates.map((t, index) => (
+            <ListItem className={styles.money} key={index}>
               <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description}></ListItemText>
               <ListItemText primary={`${formatPrice((price * t.percentage) / 100)}`}></ListItemText>
             </ListItem>

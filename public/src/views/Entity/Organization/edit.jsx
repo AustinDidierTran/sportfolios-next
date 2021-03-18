@@ -21,7 +21,7 @@ export default function EntitySettings(props) {
 
   const { basicInfos, navBar } = props;
 
-  const { role = ENTITIES_ROLE_ENUM.VIEWER, type } = basicInfos;
+  const { role = ENTITIES_ROLE_ENUM.VIEWER } = basicInfos;
 
   const isEditor = useEditor(role);
 

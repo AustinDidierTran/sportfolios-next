@@ -23,7 +23,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver) => ({
+const getListStyle = () => ({
   width: '100%',
 });
 
@@ -44,7 +44,6 @@ export default function EditRankings() {
   const [preranking, setPreranking] = useState([]);
   const [expandedPhases, setExpandedPhases] = useState([]);
 
-  const [prerankPhase, setPrerankPhase] = useState({});
   const [phaseToEnd, setPhaseToEnd] = useState({});
   const [phaseToDelete, setPhaseToDelete] = useState({});
 
@@ -126,7 +125,6 @@ export default function EditRankings() {
       }))
       .sort((a, b) => a.order - b.order);
 
-    setPrerankPhase(prerankPhase);
     setPreranking(preranking);
     setPhases(allPhases);
   };
@@ -171,7 +169,7 @@ export default function EditRankings() {
   };
 
   const handleDeleteTeam = async (phaseId, position) => {
-    const res = await api('/api/entity/teamPhase', {
+    await api('/api/entity/teamPhase', {
       method: 'PUT',
       body: JSON.stringify({
         eventId,

@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
-  const { eventId, isOpen, onClose, createCard, field, timeslot, teams, phases } = props;
+  const { isOpen, onClose, createCard, field, timeslot, teams, phases } = props;
 
   const onFinish = () => {
     formik.resetForm();

@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef, useContext, componentDidMount } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import HeaderHome from '../../../components/Custom/HeaderHome';
 import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, StylesProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Store } from '../../../Store';
 import { useRouter } from 'next/router';

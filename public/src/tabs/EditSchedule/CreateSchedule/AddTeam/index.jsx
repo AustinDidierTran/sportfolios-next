@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { useRouter } from 'next/router';
 
 export default function AddTeam(props) {

@@ -3,7 +3,7 @@ import { useFormInput } from '../../../hooks/forms';
 import { useContext } from 'react';
 
 import styles from './EditItem.module.css';
-import { Store } from '../../../Store';
+import { ACTION_ENUM, Store } from '../../../Store';
 
 import Typography from '@material-ui/core/Typography';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
 import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
+import { SEVERITY_ENUM } from '../../../../common/enums';
 
 export default function EditItem(props) {
   const router = useRouter();
@@ -28,7 +29,6 @@ export default function EditItem(props) {
 
   const [img, setImg] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(item.photoUrl);
-  const [error, setError] = useState(null);
   const [sizes, setSizes] = useState([]);
 
   const name = useFormInput(item.name);
@@ -129,14 +129,14 @@ export default function EditItem(props) {
       ) : (
         <div className={styles.media}>
           <Upload {...uploadImageProps}>
-            <Button
+            <CustomButton
               variant="outlined"
               endIcon="CloudUploadIcon"
               style={{ marginTop: '8px', marginBottom: '16px' }}
               component="label"
             >
               {t('change_picture')}
-            </Button>
+            </CustomButton>
           </Upload>
           <CustomButton onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
             {t('upload')}

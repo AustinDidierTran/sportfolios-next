@@ -43,7 +43,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function CustomizedMenus(props) {
-  const { phase, onOpenDeleteDialog, openEdit, ...otherProps } = props;
+  const { phase, onOpenDeleteDialog, openEdit } = props;
   const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = React.useState(null);

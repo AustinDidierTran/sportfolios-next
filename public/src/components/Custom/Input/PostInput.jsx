@@ -22,7 +22,6 @@ export default function CustomDateInput(props) {
   };
 
   const removeImage = (id) => {
-    let oldImages = images;
     setImages((oldImages) => oldImages.filter((o) => o.file.uid !== id));
   };
 
@@ -84,8 +83,8 @@ export default function CustomDateInput(props) {
         </div>
       </div>
       <div>
-        {images.map((image) => (
-          <div className={styles.divImage}>
+        {images.map((image, index) => (
+          <div className={styles.divImage} key={index}>
             <CustomIconButton
               style={{
                 position: 'absolute',

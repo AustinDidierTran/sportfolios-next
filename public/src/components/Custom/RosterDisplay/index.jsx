@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { ROSTER_ROLE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { ROSTER_ROLE_ENUM } from '../../../../common/enums';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '../Icon';
 import styles from './RosterDisplay.module.css';

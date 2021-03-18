@@ -41,14 +41,13 @@ export default function TransferedPeople() {
     return <LoadingSpinner isComponent />;
   }
 
-  const actions = (person) =>
+  const actions = () =>
     window.innerWidth >= 768
       ? [
           <Button
             endIcon="Delete"
             size="small"
             onClick={() => {
-              setSelectedPerson(person);
               setDeclineDialog(true);
             }}
             color="secondary"
@@ -60,7 +59,6 @@ export default function TransferedPeople() {
             endIcon="Check"
             size="small"
             onClick={() => {
-              setSelectedPerson(person);
               setApproveDialog(true);
             }}
             color="primary"
@@ -72,7 +70,6 @@ export default function TransferedPeople() {
           <IconButton
             size="medium"
             onClick={() => {
-              setSelectedPerson(person);
               setDeclineDialog(true);
             }}
             style={{ color: 'secondary' }}
@@ -81,7 +78,6 @@ export default function TransferedPeople() {
           <IconButton
             size="medium"
             onClick={() => {
-              setSelectedPerson(person);
               setApproveDialog(true);
             }}
             style={{ color: 'secondary' }}

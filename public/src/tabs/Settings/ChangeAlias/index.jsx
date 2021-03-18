@@ -7,7 +7,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import styles from './ChangeAlias.module.css';
 import { useFormik } from 'formik';
-import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM, ROUTES_ENUM } from '../../../../common/enums';
+import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';

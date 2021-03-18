@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import loadable from '@loadable/component';
 

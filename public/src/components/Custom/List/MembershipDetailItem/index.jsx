@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './MembershipDetailItem.module.css';
 import { addMembership, getExpirationDate } from '../../../../utils/memberships';
 import { updateMembership } from '../../../../utils/memberships';
-import { formatPrice } from '../../../../utils/stringFormats';
+import { formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import CustomButton from '../../Button';
 
 export default function MembershipDetailItem(props) {
@@ -15,10 +15,10 @@ export default function MembershipDetailItem(props) {
 
   const { entityId, fixedDate, isMember, length, membershipType, personId, price, stripePriceId } = props;
 
-  const name = getMembershipName(membership_type);
+  const name = getMembershipName(membershipType);
 
   const expirationDate = () => {
-    return getExpirationDate(length, fixed_date);
+    return getExpirationDate(length, fixedDate);
   };
 
   const clickBecomeMember = useCallback(async () => {

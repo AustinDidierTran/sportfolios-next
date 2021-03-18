@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import Card from '../../../../../components/Custom/Card';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../../../Store';
-import { ERROR_ENUM } from '../../../../../../common/errors';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 
 export default function Game(props) {
