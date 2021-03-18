@@ -8,12 +8,7 @@
     "start": "next start",
     "prepare": "husky install",
     "lint": "eslint . --ext .js --ext .jsx",
-    "test": "./node_modules/.bin/eslint .gitignore . --fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "next test && next lint"
-    }
+    "test": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
