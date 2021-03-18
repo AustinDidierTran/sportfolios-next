@@ -133,7 +133,7 @@ export default function ScheduleInteractiveTool() {
   };
 
   class addFieldCommand {
-    // eslint-disable-next-line unexpected-token
+    // prettier-ignore
     newState = [];
     previousState = [];
     field;
