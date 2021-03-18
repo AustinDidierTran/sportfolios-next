@@ -83,24 +83,24 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = '';
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "/evo");
+/******/ 	return __webpack_require__(__webpack_require__.s = '/evo');
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "/evo":
+/***/ '/evo':
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
+'use strict';
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/workbox-precaching/_version.js
-var _version = __webpack_require__("xwD5");
+var _version = __webpack_require__('xwD5');
 
 // CONCATENATED MODULE: ./node_modules/workbox-precaching/utils/precachePlugins.js
 /*
@@ -152,7 +152,7 @@ function addPlugins(newPlugins) {
 
 
 // EXTERNAL MODULE: ./node_modules/workbox-core/_version.js
-var workbox_core_version = __webpack_require__("Bxln");
+var workbox_core_version = __webpack_require__('Bxln');
 
 // CONCATENATED MODULE: ./node_modules/workbox-core/_private/cacheNames.js
 /*
@@ -659,10 +659,10 @@ const pluginUtils = {
  * @memberof module:workbox-core
  */
 const _getEffectiveRequest = async ({ request, mode, plugins = [], }) => {
-    const cacheKeyWillBeUsedPlugins = pluginUtils.filter(plugins, "cacheKeyWillBeUsed" /* CACHE_KEY_WILL_BE_USED */);
+    const cacheKeyWillBeUsedPlugins = pluginUtils.filter(plugins, 'cacheKeyWillBeUsed' /* CACHE_KEY_WILL_BE_USED */);
     let effectiveRequest = request;
     for (const plugin of cacheKeyWillBeUsedPlugins) {
-        effectiveRequest = await plugin["cacheKeyWillBeUsed" /* CACHE_KEY_WILL_BE_USED */].call(plugin, { mode, request: effectiveRequest });
+        effectiveRequest = await plugin['cacheKeyWillBeUsed' /* CACHE_KEY_WILL_BE_USED */].call(plugin, { mode, request: effectiveRequest });
         if (typeof effectiveRequest === 'string') {
             effectiveRequest = new Request(effectiveRequest);
         }
@@ -688,9 +688,9 @@ const _isResponseSafeToCache = async ({ request, response, event, plugins = [], 
     let responseToCache = response;
     let pluginsUsed = false;
     for (const plugin of plugins) {
-        if ("cacheWillUpdate" /* CACHE_WILL_UPDATE */ in plugin) {
+        if ('cacheWillUpdate' /* CACHE_WILL_UPDATE */ in plugin) {
             pluginsUsed = true;
-            const pluginMethod = plugin["cacheWillUpdate" /* CACHE_WILL_UPDATE */];
+            const pluginMethod = plugin['cacheWillUpdate' /* CACHE_WILL_UPDATE */];
             responseToCache = await pluginMethod.call(plugin, {
                 request,
                 response: responseToCache,
@@ -732,8 +732,8 @@ const matchWrapper = async ({ cacheName, request, event, matchOptions, plugins =
     let cachedResponse = await cache.match(effectiveRequest, matchOptions);
     if (false) {}
     for (const plugin of plugins) {
-        if ("cachedResponseWillBeUsed" /* CACHED_RESPONSE_WILL_BE_USED */ in plugin) {
-            const pluginMethod = plugin["cachedResponseWillBeUsed" /* CACHED_RESPONSE_WILL_BE_USED */];
+        if ('cachedResponseWillBeUsed' /* CACHED_RESPONSE_WILL_BE_USED */ in plugin) {
+            const pluginMethod = plugin['cachedResponseWillBeUsed' /* CACHED_RESPONSE_WILL_BE_USED */];
             cachedResponse = await pluginMethod.call(plugin, {
                 cacheName,
                 event,
@@ -785,7 +785,7 @@ const putWrapper = async ({ cacheName, request, response, event, plugins = [], m
         return;
     }
     const cache = await self.caches.open(cacheName);
-    const updatePlugins = pluginUtils.filter(plugins, "cacheDidUpdate" /* CACHE_DID_UPDATE */);
+    const updatePlugins = pluginUtils.filter(plugins, 'cacheDidUpdate' /* CACHE_DID_UPDATE */);
     const oldResponse = updatePlugins.length > 0 ?
         await matchWrapper({ cacheName, matchOptions, request: effectiveRequest }) :
         null;
@@ -801,7 +801,7 @@ const putWrapper = async ({ cacheName, request, response, event, plugins = [], m
         throw error;
     }
     for (const plugin of updatePlugins) {
-        await plugin["cacheDidUpdate" /* CACHE_DID_UPDATE */].call(plugin, {
+        await plugin['cacheDidUpdate' /* CACHE_DID_UPDATE */].call(plugin, {
             cacheName,
             event,
             oldResponse,
@@ -859,7 +859,7 @@ const wrappedFetch = async ({ request, fetchOptions, event, plugins = [], }) => 
         }
     }
     if (false) {}
-    const failedFetchPlugins = pluginUtils.filter(plugins, "fetchDidFail" /* FETCH_DID_FAIL */);
+    const failedFetchPlugins = pluginUtils.filter(plugins, 'fetchDidFail' /* FETCH_DID_FAIL */);
     // If there is a fetchDidFail plugin, we need to save a clone of the
     // original request before it's either modified by a requestWillFetch
     // plugin or before the original request's body is consumed via fetch().
@@ -867,8 +867,8 @@ const wrappedFetch = async ({ request, fetchOptions, event, plugins = [], }) => 
         request.clone() : null;
     try {
         for (const plugin of plugins) {
-            if ("requestWillFetch" /* REQUEST_WILL_FETCH */ in plugin) {
-                const pluginMethod = plugin["requestWillFetch" /* REQUEST_WILL_FETCH */];
+            if ('requestWillFetch' /* REQUEST_WILL_FETCH */ in plugin) {
+                const pluginMethod = plugin['requestWillFetch' /* REQUEST_WILL_FETCH */];
                 const requestClone = request.clone();
                 request = await pluginMethod.call(plugin, {
                     request: requestClone,
@@ -898,8 +898,8 @@ const wrappedFetch = async ({ request, fetchOptions, event, plugins = [], }) => 
         }
         if (false) {}
         for (const plugin of plugins) {
-            if ("fetchDidSucceed" /* FETCH_DID_SUCCEED */ in plugin) {
-                fetchResponse = await plugin["fetchDidSucceed" /* FETCH_DID_SUCCEED */]
+            if ('fetchDidSucceed' /* FETCH_DID_SUCCEED */ in plugin) {
+                fetchResponse = await plugin['fetchDidSucceed' /* FETCH_DID_SUCCEED */]
                     .call(plugin, {
                     event,
                     request: pluginFilteredRequest,
@@ -913,7 +913,7 @@ const wrappedFetch = async ({ request, fetchOptions, event, plugins = [], }) => 
     catch (error) {
         if (false) {}
         for (const plugin of failedFetchPlugins) {
-            await plugin["fetchDidFail" /* FETCH_DID_FAIL */].call(plugin, {
+            await plugin['fetchDidFail' /* FETCH_DID_FAIL */].call(plugin, {
                 error,
                 event,
                 originalRequest: originalRequest.clone(),
@@ -2079,10 +2079,10 @@ precacheAndRoute([{'revision':null,'url':'/_next/static/beeAqach3-Y3y3HAMlbEQ/_b
 
 /***/ }),
 
-/***/ "Bxln":
+/***/ 'Bxln':
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 
 // @ts-ignore
 try {
@@ -2093,10 +2093,10 @@ catch (e) { }
 
 /***/ }),
 
-/***/ "xwD5":
+/***/ 'xwD5':
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 
 // @ts-ignore
 try {
