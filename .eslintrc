@@ -22,7 +22,6 @@
     "no-console": "warn",
     "no-underscore-dangle": 0,
     "no-use-before-define": 0,
-    "no-extra-boolean-cast":"off",
     "eol-last": 0,
     "react/prop-types": "off",
     "no-unused-vars": [
