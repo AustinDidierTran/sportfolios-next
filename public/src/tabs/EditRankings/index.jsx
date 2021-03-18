@@ -23,7 +23,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver) => ({
+const getListStyle = () => ({
   width: '100%',
 });
 
@@ -169,7 +169,7 @@ export default function EditRankings() {
   };
 
   const handleDeleteTeam = async (phaseId, position) => {
-    const res = await api('/api/entity/teamPhase', {
+    await api('/api/entity/teamPhase', {
       method: 'PUT',
       body: JSON.stringify({
         eventId,

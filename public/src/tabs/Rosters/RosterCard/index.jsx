@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState } from 'react';
 import styles from './RosterCard.module.css';
-import { Paper, Icon, Avatar } from '../../../components/Custom';
+import Icon from '../../../components/Custom/Icon';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';

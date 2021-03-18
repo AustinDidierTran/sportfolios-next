@@ -836,7 +836,7 @@ export default {
     confirmed_on: 'Confirmé le {{confirmedOn}}',
     confirmed: 'Confirmé',
     connect_with_facebook: 'Se connecter avec Facebook',
-    connect: 'Se connecter',
+    connect: 'Connecter',
     connection_failed: 'La connexion au compte a échoué, veuillez réessayer',
     contact_us: 'Contactez-nous',
     contact: 'Contact',

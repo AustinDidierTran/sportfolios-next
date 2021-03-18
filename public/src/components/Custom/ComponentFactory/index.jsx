@@ -46,14 +46,15 @@ export default function ComponentFactory(props) {
   if (component.componentType === COMPONENT_TYPE_ENUM.BUTTON) {
     return (
       <Button
-        children={component.children}
         namespace={component.namespace}
         endIcon={component.endIcon}
         onClick={component.onClick}
         style={component.style}
         variant={component.variant}
         color={component.color}
-      />
+      >
+        {component.children}
+      </Button>
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.CHECKBOX) {

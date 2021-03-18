@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import TinderCard from 'react-tinder-card';
 import Card from '../../components/Custom/Card';
@@ -8,7 +8,6 @@ import styles from './PlayersAndTeamsAcceptation.module.css';
 import { DIRECTION_ENUM, STATUS_ENUM } from '../../../common/enums';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { Store } from '../../Store';
 import IgContainer from '../../components/Custom/IgContainer';
 
 export default function PlayersAndTeamsAcceptation(props) {
@@ -59,7 +58,7 @@ export default function PlayersAndTeamsAcceptation(props) {
     if (cards) {
       return Array(cards.length)
         .fill(0)
-        .map((i) => React.createRef());
+        .map(() => React.createRef());
     }
     return [];
   }, [cards]);

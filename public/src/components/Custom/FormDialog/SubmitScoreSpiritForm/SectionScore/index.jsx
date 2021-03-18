@@ -209,7 +209,7 @@ export default function SectionScore(props) {
             </div>
           ) : (
             <div className={styles.divSubmitScoreButton}>
-              {Boolean(myScoreSuggestion) ? (
+              {myScoreSuggestion ? (
                 <Chip
                   className={styles.submitButton}
                   label={t(myScoreSuggestion.status)}

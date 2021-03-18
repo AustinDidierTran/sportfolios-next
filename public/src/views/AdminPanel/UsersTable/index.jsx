@@ -98,7 +98,7 @@ export default function UsersTable() {
     <Paper className={styles.card}>
       <CardContent className={styles.inputs}>
         <Table
-          filter={true}
+          filter
           filterhandler={handleFilter}
           data={users}
           headers={headers}

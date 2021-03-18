@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Store, ACTION_ENUM, SCREENSIZE_ENUM } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../../Store';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
@@ -17,7 +17,6 @@ import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
 import loadable from '@loadable/component';
@@ -31,20 +30,20 @@ const EditGameDialog = loadable(() =>
 const SubmitScoreDialog = loadable(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
 const RosterDisplay = loadable(() => import('../../../components/Custom/RosterDisplay'));
 
-const useStyles = makeStyles((theme) => ({
-  IgContainer: {
-    backgroundColor: '#f5f5f5 !important',
-    minHeight: 'calc(100vh - 60px)',
-    paddingTop: 10,
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   IgContainer: {
+//     backgroundColor: '#f5f5f5 !important',
+//     minHeight: 'calc(100vh - 60px)',
+//     paddingTop: 10,
+//   },
+// }));
 
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo, screenSize },
+    state: { userInfo },
   } = useContext(Store);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -57,10 +56,8 @@ export default function GameDetailed(props) {
   const [edit, setEdit] = useState(false);
   const [gameDialog, setGameDialog] = useState(false);
 
-  const classes = useStyles();
-
   const getGame = async () => {
-    const { status, data } = await api(
+    const { data } = await api(
       formatRoute('/api/entity/gameInfo', null, {
         gameId: gameId,
       }),
@@ -383,11 +380,11 @@ export default function GameDetailed(props) {
         <Divider variant="middle" />
         <Posts
           userInfo={userInfo}
-          allowPostImage={true}
-          allowNewPost={true}
+          allowPostImage
+          allowNewPost
           entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
-          allowComment={true}
-          allowLike={true}
+          allowComment
+          allowLike
           locationId={game.entity_id}
           elevation={0}
           placeholder={t('write_a_comment')}

@@ -23,7 +23,7 @@ export default function AdminPanel() {
   const [isLoading, setIsLoading] = useState(true);
 
   const getDataGraph = async () => {
-    const { status, data } = await api(formatRoute('/api/entity/graphUserCount', null, null));
+    const { data } = await api(formatRoute('/api/entity/graphUserCount', null, null));
     if (!data) {
       return;
     }

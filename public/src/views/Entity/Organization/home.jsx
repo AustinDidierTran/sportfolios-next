@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef, useContext, componentDidMount } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import Icon from '../../../components/Custom/Icon';
 import HeaderHome from '../../../components/Custom/HeaderHome';
-import { ENTITIES_ROLE_ENUM, STATUS_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
-import { ERROR_ENUM } from '../../../../common/errors';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -69,12 +68,12 @@ export default function OrganizationHome(props) {
         )}
         <Posts
           userInfo={userInfo}
-          allowPostImage={true}
+          allowPostImage
           allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
           entityIdCreatePost={basicInfos.id}
           entityRole={basicInfos.role}
-          allowComment={true}
-          allowLike={true}
+          allowComment
+          allowLike
           locationId={basicInfos.id}
           elevation={1}
           placeholder={t('start_a_post')}

@@ -70,7 +70,6 @@ export default function SpeedDialTooltipOpen() {
             },
           },
         ];
-        break;
 
       case VIEW_ENUM.HOME:
         setHidden(true);
@@ -117,7 +116,6 @@ export default function SpeedDialTooltipOpen() {
       <Backdrop open={open} className={classes.backdrop} />
       <SpeedDial
         ariaLabel="SpeedDial"
-        className={classes.speedDial}
         className={screenSize == SCREENSIZE_ENUM.xs ? classes.speedDial : classes.speedDial2}
         hidden={hidden}
         icon={<SpeedDialIcon style={{ color: '#fff' }} />}

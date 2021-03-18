@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import TableRow from '@material-ui/core/TableRow';
 import Table from '@material-ui/core/Table';
@@ -24,7 +24,7 @@ export default function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow hover={true}>
+      <TableRow hover>
         {secondData.length > 0 && (
           <TableCell>
             <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -33,7 +33,7 @@ export default function Row(props) {
           </TableCell>
         )}
         {headers.map((h, index) => (
-          <TableFactory width={true} d={data} h={h} key={index} onClick={onRowClick} />
+          <TableFactory width d={data} h={h} key={index} onClick={onRowClick} />
         ))}
       </TableRow>
       {secondData.length > 0 && (
@@ -45,7 +45,7 @@ export default function Row(props) {
                   {secondData.map((data, index) => (
                     <TableRow key={index}>
                       {secondHeaders.map((h, index) => (
-                        <TableFactory width={true} d={data} h={h} key={index} />
+                        <TableFactory width d={data} h={h} key={index} />
                       ))}
                     </TableRow>
                   ))}

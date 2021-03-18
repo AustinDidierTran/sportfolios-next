@@ -41,8 +41,9 @@ export default function CollapseTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((d) => (
+          {data.map((d, index) => (
             <Row
+              key={index}
               data={d}
               secondData={d.secondAccount}
               headers={headers}

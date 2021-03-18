@@ -8,16 +8,17 @@ import { Store, ACTION_ENUM } from '../../../Store';
 
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Button, Paper, Input, TextField } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import Paper from '../../../components/Custom/Paper';
+import TextField from '../../../components/Custom/TextField';
 import { createItem, onImgUpload } from '../../../utils/shop';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import api from '../../../actions/api';
-import { GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
-
 import Upload from 'rc-upload';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 
@@ -31,7 +32,6 @@ export default function CreateItem(props) {
   const [isCreating, setIsCreating] = useState(false);
   const [img, setImg] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
-  const [error, setError] = useState(null);
   const [sizes, setSizes] = useState([]);
 
   const name = useFormInput('');
@@ -109,7 +109,7 @@ export default function CreateItem(props) {
       res = false;
     }
     if (!photoUrl) {
-      setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
+      photoUrl.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
     return res;

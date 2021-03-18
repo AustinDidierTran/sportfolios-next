@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Card from '@material-ui/core/Card';
-import { List, AlertDialog } from '../../../components/Custom';
+import List from '../../../components/Custom/List';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { useFacebookSDK } from '../../../hooks/setup';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
@@ -46,7 +47,7 @@ export default function AppLinking() {
   }, []);
 
   const onSuccessfulFBConnection = () => {
-    FB.api('/me', 'GET', { fields: 'id,email,picture,first_name,last_name' }, async function (response) {
+    window.FB.api('/me', 'GET', { fields: 'id,email,picture,first_name,last_name' }, async function (response) {
       const { id: facebook_id, first_name: name, last_name: surname, email, picture } = response;
       const res = await api('/api/user/facebookConnection', {
         method: 'POST',
@@ -104,9 +105,9 @@ export default function AppLinking() {
     if (fbUserId == conf.FACEBOOK_ADMIN_ID) {
       setIsLinkedFB(false);
     } else if (res.status === STATUS_ENUM.SUCCESS) {
-      await FB.api('/me/permissions', 'DELETE', {}, function (response) {
+      await window.FB.api('/me/permissions', 'DELETE', {}, function (response) {
         if (response.success || response.error.subcode == 466 /*Permissions already revoked*/) {
-          FB.logout();
+          window.FB.logout();
           setIsLinkedFB(false);
         } else {
           showErrorToast();
@@ -166,7 +167,7 @@ export default function AppLinking() {
   const items = [
     {
       onConnect: () => {
-        FB.login((response) => loginCallback(response), {
+        window.FB.login((response) => loginCallback(response), {
           scope: 'public_profile, email',
         });
       },

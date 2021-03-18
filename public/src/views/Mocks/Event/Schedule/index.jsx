@@ -130,7 +130,7 @@ export default function TeamSchedule() {
         </Select>
       </FormControl>
       {phases.map((phase, index) => (
-        <Paper className={styles.phase}>
+        <Paper className={styles.phase} key={index}>
           <Typography variant="h6" color="textSecondary" className={styles.name} key={index}>
             {phase.name}
           </Typography>

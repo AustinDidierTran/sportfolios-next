@@ -4,7 +4,9 @@ import moment from 'moment';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { formatDate } from '../../utils/stringFormats';
-import { LoadingSpinner, Icon, Button } from '../../components/Custom';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import Icon from '../../components/Custom/Icon';
+import Button from '../../components/Custom/Button';
 import { Store, ACTION_ENUM } from '../../Store';
 import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../common/enums';
 import Typography from '@material-ui/core/Typography';
@@ -122,7 +124,7 @@ export default function ScheduleInteractiveTool() {
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
 
-  const onKeyDown = (keyName, e, handle) => {
+  const onKeyDown = (keyName, e) => {
     e.preventDefault();
     if ((keyName === 'ctrl+z' || keyName === 'command+z') && undoLog.length !== 0) {
       undoCommand();

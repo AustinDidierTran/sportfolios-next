@@ -57,7 +57,6 @@ export default function PhaseAccordionDnD(props) {
     onShrink,
     onExpand,
     startPhase,
-    onOpenAlertDialog,
     onOpenDeleteDialog,
     ...otherProps
   } = props;

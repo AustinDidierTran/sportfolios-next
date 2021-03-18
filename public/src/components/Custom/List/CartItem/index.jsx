@@ -48,7 +48,7 @@ export default function CartItem(props) {
 
   const handleChange = async () => {
     setDisabled(true);
-    const { data } = await api('/api/shop/updateCartItems', {
+    await api('/api/shop/updateCartItems', {
       method: 'POST',
       body: JSON.stringify({
         selected: !checked,

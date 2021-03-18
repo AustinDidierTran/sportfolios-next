@@ -10,7 +10,7 @@ import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 
 export default function MultipleTeamGame(props) {
-  const { positions, field, start_time, phaseName, onClick, isPastGame } = props;
+  const { positions, field, start_time, phaseName, onClick } = props;
 
   return (
     <Card className={styles.game} onClick={onClick}>

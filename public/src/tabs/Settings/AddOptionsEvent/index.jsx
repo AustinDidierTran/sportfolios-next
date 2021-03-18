@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import loadable from '@loadable/component';
 import EventPaymentOptionList from './EventPaymentOptionList';
-import { SignalCellularNullRounded } from '@material-ui/icons';
 
 const CustomPaper = loadable(() => import('../../../components/Custom/Paper'));
 const CustomButton = loadable(() => import('../../../components/Custom/Button'));

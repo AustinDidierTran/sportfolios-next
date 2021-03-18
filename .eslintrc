@@ -15,6 +15,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "unused-imports"],
+  "ignorePatterns": [ "sw.js"],
   "rules": {
     "new-cap": 0,
     "strict": 0,
@@ -22,7 +23,7 @@
     "no-underscore-dangle": 0,
     "no-use-before-define": 0,
     "eol-last": 0,
-      "react/prop-types": "off",
+    "react/prop-types": "off",
     "no-unused-vars": [
       "error",
       {
@@ -38,3 +39,4 @@
     "react/jsx-uses-vars": 1
   }
 }
+
