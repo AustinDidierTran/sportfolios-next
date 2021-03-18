@@ -122,7 +122,7 @@ export default function ScheduleInteractiveTool() {
   const [addFieldDialog, setAddFieldDialog] = useState(false);
   const [addTimeslotDialog, setAddTimeslotDialog] = useState(false);
 
-  const onKeyDown = (keyName, e, handle) => {
+  const onKeyDown = (keyName, e) => {
     e.preventDefault();
     if ((keyName === 'ctrl+z' || keyName === 'command+z') && undoLog.length !== 0) {
       undoCommand();
