@@ -70,7 +70,6 @@ export default function SpeedDialTooltipOpen() {
             },
           },
         ];
-        break;
 
       case VIEW_ENUM.HOME:
         setHidden(true);

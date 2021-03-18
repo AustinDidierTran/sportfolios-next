@@ -20,8 +20,9 @@
     "no-console": "warn",
     "no-underscore-dangle": 0,
     "no-use-before-define": 0,
+    "no-extra-boolean-cast":"off",
     "eol-last": 0,
-      "react/prop-types": "off",
+    "react/prop-types": "off",
     "no-unused-vars": [
       "error",
       {
@@ -31,7 +32,8 @@
       }
     ],
     "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
-    "react/jsx-boolean-value": 1,
+    "react/jsx-boolean-value": "off",
+    "react/no-children-prop":"off",
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1
