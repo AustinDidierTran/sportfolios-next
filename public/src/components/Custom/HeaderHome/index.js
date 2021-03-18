@@ -67,6 +67,7 @@ export default function HeaderHome(props) {
           onClickMainButton={goToRegistration}
           onClickSecondButton={handleClick}
           eventInfo={eventInfo}
+          isAdmin={seeEdit}
         />
       )}
       <div className={styles.navigation}>

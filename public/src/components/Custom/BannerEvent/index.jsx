@@ -7,9 +7,10 @@ import styles from './BannerEvent.module.css';
 import Typography from '@material-ui/core/Typography';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 import Paper from '@material-ui/core/Paper';
+import CustomIconButton from '../IconButton';
 
 export default function BannerEvent(props) {
-  const { basicInfos, onClickMainButton, onClickSecondButton, eventInfo } = props;
+  const { basicInfos, onClickMainButton, onClickSecondButton, eventInfo, isAdmin } = props;
   const { t } = useTranslation();
   const {
     state: { screenSize },
@@ -92,18 +93,33 @@ export default function BannerEvent(props) {
 
       <div className={styles.divInfo}>
         <div className={styles.displayFlex}>
-          <Typography variant={fontVariant} color="error">
-            {eventInfo.startDate
-              ? formatIntervalDate(moment(eventInfo.startDate), moment(eventInfo.endDate))
-              : t('date_comming_soon')}
-          </Typography>
-          <Typography variant={fontVariant} color="error">
-            &nbsp; - &nbsp;{eventInfo.location || 'Sherbrooke'}
-          </Typography>
+          <div className={styles.divDate}>
+            <Typography variant={fontVariant} color="error">
+              {eventInfo.startDate
+                ? formatIntervalDate(moment(eventInfo.startDate), moment(eventInfo.endDate))
+                : t('date_comming_soon')}
+            </Typography>
+            <Typography variant={fontVariant} color="error">
+              &nbsp; - &nbsp;{eventInfo.location || 'Sherbrooke'}
+            </Typography>
+          </div>
+          {isAdmin && (
+            <div className={styles.divMoreVertButton}>
+              <CustomIconButton className={styles.moreVertButton} icon="MoreVertIcon" onClick={onClickSecondButton} />
+            </div>
+          )}
         </div>
-        <Typography variant="h3">{eventInfo.name}</Typography>
+        <div className={styles.displayFlex}>
+          <Typography variant="h3">{eventInfo.name}</Typography>
+          {screenSize !== SCREENSIZE_ENUM.xs && !eventInfo.isLate && !eventInfo.isEarly && (
+            <div className={styles.buttonSignup}>
+              <CustomButton onClick={onClickMainButton}>{t('register.register_event')}</CustomButton>
+            </div>
+          )}
+        </div>
         <Registration />
-        {!eventInfo.isLate && !eventInfo.isEarly && (
+
+        {screenSize === SCREENSIZE_ENUM.xs && !eventInfo.isLate && !eventInfo.isEarly && (
           <div className={styles.buttonSignup}>
             <CustomButton onClick={onClickMainButton}>{t('register.register_event')}</CustomButton>
           </div>
