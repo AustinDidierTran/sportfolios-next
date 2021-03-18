@@ -90,7 +90,7 @@ import SportsWhistle from '@material-ui/icons/Sports';
 import Stars from '@material-ui/icons/Stars';
 import Store from '@material-ui/icons/Store';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
-import TrendingUp from '@material-ui/icons/Trendingup';
+import TrendingUp from '@material-ui/icons/TrendingUp';
 import TextFormat from '@material-ui/icons/TextFormat';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
