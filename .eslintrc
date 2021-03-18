@@ -34,8 +34,7 @@
       }
     ],
     "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
-    "react/jsx-boolean-value": "off",
-    "react/no-children-prop":"off",
+    "react/jsx-boolean-value": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1
