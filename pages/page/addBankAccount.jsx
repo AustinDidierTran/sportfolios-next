@@ -1,4 +1,3 @@
-import { AssignmentReturnOutlined } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { formatRoute } from '../../public/common/utils/stringFormat';

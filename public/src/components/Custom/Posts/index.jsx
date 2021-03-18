@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Store } from '../../../Store';
+import { ACTION_ENUM, Store } from '../../../Store';
 import CustomCard from '../Card';
 import api from '../../../actions/api';
 import PostInput from '../Input/PostInput';
@@ -9,9 +9,7 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 import Button from '@material-ui/core/Button';
 import { uploadPicture } from '../../../actions/aws';
 import { useTranslation } from 'react-i18next';
-import { STATUS_ENUM, CARD_TYPE_ENUM } from '../../../../common/enums';
-
-import styles from './Posts.module.css';
+import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 
 const useStyles = makeStyles((theme) => ({
   fabMobile: {
@@ -101,7 +99,7 @@ export default function Posts(props) {
   const handleLike = async (postId, entityId, like) => {
     const apiRoute = like ? '/api/posts/like' : '/api/posts/unlike';
 
-    const { data, status } = await api(apiRoute, {
+    const { data } = await api(apiRoute, {
       method: 'POST',
       body: JSON.stringify({
         entityId,
@@ -112,12 +110,11 @@ export default function Posts(props) {
     if (!data) {
       return;
     }
-    let oldPosts = posts;
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
   const handleComment = async (entityId, postContent, images, post_id) => {
-    const { status, data } = await api('/api/posts/comment', {
+    const { data } = await api('/api/posts/comment', {
       method: 'POST',
       body: JSON.stringify({
         entityId,
@@ -134,7 +131,6 @@ export default function Posts(props) {
       return;
     }
 
-    let oldPosts = posts;
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === post_id ? data : o)));
   };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Store, ACTION_ENUM, SCREENSIZE_ENUM } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../../Store';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
@@ -31,7 +31,7 @@ const EditGameDialog = loadable(() =>
 const SubmitScoreDialog = loadable(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
 const RosterDisplay = loadable(() => import('../../../components/Custom/RosterDisplay'));
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   IgContainer: {
     backgroundColor: '#f5f5f5 !important',
     minHeight: 'calc(100vh - 60px)',
@@ -44,7 +44,7 @@ export default function GameDetailed(props) {
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo, screenSize },
+    state: { userInfo },
   } = useContext(Store);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -57,10 +57,8 @@ export default function GameDetailed(props) {
   const [edit, setEdit] = useState(false);
   const [gameDialog, setGameDialog] = useState(false);
 
-  const classes = useStyles();
-
   const getGame = async () => {
-    const { status, data } = await api(
+    const { data } = await api(
       formatRoute('/api/entity/gameInfo', null, {
         gameId: gameId,
       }),

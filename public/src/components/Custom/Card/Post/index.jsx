@@ -165,8 +165,8 @@ export default function Post(props) {
             placeholder={t('write_a_comment')}
           />
 
-          {postInfo.comments.map((comment) => (
-            <Card elevation={0}>
+          {postInfo.comments.map((comment, index) => (
+            <Card elevation={0} key={index}>
               <CardHeader
                 className={styles.headerComment}
                 classes={{

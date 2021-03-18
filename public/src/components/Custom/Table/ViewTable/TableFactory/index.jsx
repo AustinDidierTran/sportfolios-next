@@ -14,7 +14,6 @@ export default function TableFactory(props) {
     return (
       <TableCell>
         <CustomButton
-          className={styles.button}
           onClick={() => {
             goTo(d.buttonRoute, d.id);
           }}

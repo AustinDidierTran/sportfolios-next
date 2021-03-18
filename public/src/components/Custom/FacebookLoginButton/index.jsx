@@ -17,13 +17,13 @@ export default function FacebookLoginButton(props) {
   };
 
   const checkLoginState = () => {
-    FB.getLoginStatus(function (response) {
+    window.FB.getLoginStatus(function (response) {
       statusChangeCallback(response);
     });
   };
 
   const handleFBLogin = () => {
-    FB.login(checkLoginState());
+    window.FB.login(checkLoginState());
   };
 
   return (

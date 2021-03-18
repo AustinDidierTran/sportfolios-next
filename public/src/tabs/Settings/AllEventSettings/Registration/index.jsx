@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
 import loadable from '@loadable/component';
 import Icon from '../../../../components/Custom/Icon';

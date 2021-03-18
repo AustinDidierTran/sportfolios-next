@@ -37,7 +37,7 @@ export default function Organization(props) {
   const { basicInfos } = props;
   const router = useRouter();
   const { query } = router;
-  const { id, tab } = query;
+  const { id } = query;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);

@@ -41,7 +41,6 @@ export default function TeamsRegistered() {
   const [openUnregisterAll, setOpenUnregisterAll] = useState(false);
   const [rosterId, setRosterId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [expanded, setExpanded] = useState(false);
 
   const onCloseUnregister = () => {
     setOpenUnregister(false);

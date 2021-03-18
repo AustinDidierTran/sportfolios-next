@@ -99,13 +99,18 @@ export default function AddMember(props) {
   };
   const personComponent = useMemo(
     () =>
-      people.map((person) => ({
+      people.map((person, index) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
         secondary: t('player'),
         notClickable: true,
         secondaryActions: [
-          <CustomIconButton icon="Remove" style={{ color: 'secondary' }} onClick={() => removePerson(person)} />,
+          <CustomIconButton
+            key={index}
+            icon="Remove"
+            style={{ color: 'secondary' }}
+            onClick={() => removePerson(person)}
+          />,
         ],
       })),
     [people]

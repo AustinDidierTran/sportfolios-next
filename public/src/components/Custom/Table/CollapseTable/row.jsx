@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import TableRow from '@material-ui/core/TableRow';
 import Table from '@material-ui/core/Table';

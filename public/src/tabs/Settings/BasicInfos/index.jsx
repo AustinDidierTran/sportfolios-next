@@ -10,7 +10,11 @@ import { useEditor } from '../../../hooks/roles';
 import { changeEntityName } from '../../../actions/api';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { Avatar, Input, Button, Paper, LoadingSpinner, TextField } from '../../../components/Custom';
+import Avatar from '../../../components/Custom/Avatar';
+import Button from '../../../components/Custom/Button';
+import Paper from '../../../components/Custom/Paper';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import TextField from '../../../components/Custom/TextField';
 
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM } from '../../../../../public/common/enums';
