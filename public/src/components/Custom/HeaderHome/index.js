@@ -11,6 +11,7 @@ import { FORM_DIALOG_TYPE_ENUM, ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../..
 import FormDialog from '../FormDialog';
 import styles from './HeaderHome.module.css';
 import CustomIcon from '../Icon';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
 import BannerOrganization from '../BannerOrganization';
 import BannerEvent from '../BannerEvent';
@@ -49,6 +50,10 @@ export default function HeaderHome(props) {
     });
   };
 
+  const goToRegistration = () => {
+    goTo(ROUTES.eventRegistration, { id });
+  };
+
   const seeEdit = basicInfos.role == ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role == ENTITIES_ROLE_ENUM.EDITOR;
 
   return (
@@ -59,7 +64,7 @@ export default function HeaderHome(props) {
       {type === GLOBAL_ENUM.EVENT && (
         <BannerEvent
           basicInfos={basicInfos}
-          onClickMainButton={onOpen}
+          onClickMainButton={goToRegistration}
           onClickSecondButton={handleClick}
           eventInfo={eventInfo}
         />

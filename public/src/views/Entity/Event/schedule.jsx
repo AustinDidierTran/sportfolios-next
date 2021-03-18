@@ -10,7 +10,7 @@ import { formatPageTitle } from '../../../utils/stringFormats';
 import loadable from '@loadable/component';
 
 export default function EventTeams(props) {
-  const { basicInfos, navBar } = props;
+  const { basicInfos, navBar, eventInfo } = props;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -18,7 +18,7 @@ export default function EventTeams(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
+      <HeaderHome basicInfos={basicInfos} eventInfo={eventInfo} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer>
         <div>
           <Schedule {...{ basicInfos }} />

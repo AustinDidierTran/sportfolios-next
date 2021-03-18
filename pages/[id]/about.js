@@ -8,7 +8,7 @@ import loadable from '@loadable/component';
 const Head = loadable(() => import('next/head'));
 import { useTranslation } from 'react-i18next';
 
-const Event = loadable(() => import('../../public/src/views/Entity/Event'));
+const Event = loadable(() => import('../../public/src/views/Entity/Event/about.jsx'));
 const Organization = loadable(() => import('../../public/src/views/Entity/Organization/about.jsx'));
 const Person = loadable(() => import('../../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../../public/src/views/Entity/Team'));
