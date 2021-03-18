@@ -24,7 +24,7 @@ export default function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow hover={true}>
+      <TableRow hover>
         {secondData.length > 0 && (
           <TableCell>
             <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
