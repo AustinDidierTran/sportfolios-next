@@ -133,7 +133,6 @@ export default function ScheduleInteractiveTool() {
   };
 
   class addFieldCommand {
-    // prettier-ignore
     newState = [];
     previousState = [];
     field;
