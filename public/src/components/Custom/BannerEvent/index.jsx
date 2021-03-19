@@ -120,21 +120,25 @@ export default function BannerEvent(props) {
           <Registration />
         </div>
       </div>
-      <Divider variant="middle" />
-      <div className={styles.divIconButton}>
-        <div className={styles.divIconSignup}>
-          <CustomButton
-            size="small"
-            variant="contained"
-            startIcon="Assignment"
-            className={styles.iconSign}
-            onClick={onClickMainButton}
-            disableElevation
-          >
-            {t('register.register')}
-          </CustomButton>
-        </div>
-      </div>
+      {!eventInfo.isLate && !eventInfo.isEarly && (
+        <>
+          <Divider variant="middle" />
+          <div className={styles.divIconButton}>
+            <div className={styles.divIconSignup}>
+              <CustomButton
+                size="small"
+                variant="contained"
+                startIcon="Assignment"
+                className={styles.iconSign}
+                onClick={onClickMainButton}
+                disableElevation
+              >
+                {t('register.register')}
+              </CustomButton>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
