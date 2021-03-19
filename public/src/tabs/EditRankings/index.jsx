@@ -377,7 +377,6 @@ export default function EditRankings() {
                               onShrink={() => onShrink(phase.id)}
                               onExpand={() => onExpand(phase.id)}
                               onOpenAlertDialog={onOpenAlertDialog}
-                              onOpenDeleteDialog={onOpenDeleteDialog}
                             ></FinalRanking>
                           ) : (
                             <PhaseAccordionDnD

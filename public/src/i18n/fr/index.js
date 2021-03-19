@@ -571,6 +571,7 @@ export default {
       edit_infos: 'Modifier les infos',
       edit_membership: 'Modifier une affiliation',
       edit_mode: 'Mode édition',
+      edit_phase: 'Modifier la phase',
       edit_player: 'Modifier le joueur',
       edit_team_number: "Modifier le nombre d'équipes",
       edit_score: 'Modifier le pointage',
