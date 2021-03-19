@@ -276,7 +276,7 @@ export default function EditRankings() {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('delete_phase_success'),
+        message: t('delete.delete_phase_success'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 4000,
       });
