@@ -952,6 +952,7 @@ export default {
     ga_pageviews_table_title: 'Liste des chemins Google Analytics',
     game_added: 'Partie ajoutée',
     game_deleted: 'Partie supprimée',
+    game_updated: 'Partie modifiée',
     games: 'Parties',
     gender: 'Genre',
     general_informations: 'Informations générales',

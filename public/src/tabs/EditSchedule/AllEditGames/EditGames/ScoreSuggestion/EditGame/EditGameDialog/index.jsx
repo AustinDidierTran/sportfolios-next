@@ -92,6 +92,12 @@ export default function EditGameDialog(props) {
           duration: 4000,
         });
       } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('game_updated'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 4000,
+        });
         update();
         onClose();
       }
@@ -142,6 +148,10 @@ export default function EditGameDialog(props) {
       setFirstPositionOptions(firstPosition);
       setSecondPositionOptions(secondPosition);
     }
+    if(formik.values.position2 ===
+      formik.values.position1 ){
+        formik.setFieldValue('position2', '');
+      }
   }, [formik.values.position1, formik.values.position2]);
 
   const buttons = [
