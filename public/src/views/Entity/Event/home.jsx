@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext, componentDidMount } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import HeaderHome from '../../../components/Custom/HeaderHome';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function OrganizationHome(props) {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { basicInfos, navBar } = props;
+  const { basicInfos, navBar, eventInfo } = props;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -29,16 +29,15 @@ export default function OrganizationHome(props) {
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
+      <HeaderHome basicInfos={basicInfos} eventInfo={eventInfo} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer className={classes.IgContainer}>
         <Posts
           userInfo={userInfo}
-          allowPostImage
-          allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
-          entityIdCreatePost={basicInfos.id}
-          entityRole={basicInfos.role}
-          allowComment
-          allowLike
+          allowPostImage={true}
+          allowNewPost={true}
+          entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
+          allowComment={true}
+          allowLike={true}
           locationId={basicInfos.id}
           elevation={1}
           placeholder={t('start_a_post')}

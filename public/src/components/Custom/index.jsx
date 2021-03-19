@@ -7,6 +7,8 @@ export const Autocomplete = loadable(() => import('./Autocomplete'));
 export const AddressSearchInput = loadable(() => import('./AddressSearchInput'));
 export const Avatar = loadable(() => import('./Avatar'));
 export const BottomNavigation = loadable(() => import('./BottomNavigation'));
+export const BannerEvent = loadable(() => import('./BannerEvent'));
+export const BannerOrganization = loadable(() => import('./BannerOrganization'));
 export const Button = loadable(() => import('./Button'));
 export const HeaderHome = loadable(() => import('./HeaderHome'));
 export const Card = loadable(() => import('./Card'));

@@ -19,6 +19,21 @@ export default {
           description:
             "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
+        editSchedule: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
+        editRosters: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
+        editRankings: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
         events: {
           title: 'Sportfolios',
           description:
@@ -35,6 +50,21 @@ export default {
             "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
         },
         memberships: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
+        rankings: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
+        schedule: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
+        teams: {
           title: 'Sportfolios',
           description:
             "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
@@ -358,6 +388,7 @@ export default {
         'Only {{howManyCanUnregister}}/{{totalOfTeams}} teams can be unregistered since some teams are in a game. Do you want to unregister the available ones?',
       cant_unregister_any_teams: 'No teams can be unregistered since they are all already in a game.',
       register: 'Register',
+      register_event: 'Register to the event',
       registered_singular: 'Registered',
       registered_on: 'Registered on',
       registered: 'Registered',
@@ -381,6 +412,7 @@ export default {
       registrations_ended: 'Registrations ended',
       registrations_ends_on: 'Registrations ends on',
       registrations_open_on: 'Registrations open on',
+      registrations_open_and_end_on: 'Registrations open on {{openDate}} and ends on {{endDate}}',
       unregister_all: 'Unregister all',
       unregister_pending: 'Unregistrations and refunds in progress, please wait...',
       unregister: 'Unregister',
@@ -537,6 +569,9 @@ export default {
       edit_your_primary_person: 'Edit your primary person',
       edit: 'Edit',
       editor: 'Editor',
+      edit_schedule: 'Edit schedule',
+      edit_ranking: 'Edit ranking',
+      edit_teams: 'Edit teams',
     },
     email: {
       email_already_exist: 'There is already an existing account with this email',
@@ -829,6 +864,7 @@ export default {
     currency: 'Currency',
     date_in_future: 'Date is in the future',
     date: 'Date',
+    date_coming_soon: 'Date coming soon',
     day_ago_plural: '{{count}} days ago',
     day_ago: '{{count}} day ago',
     day: 'Day',
@@ -1080,6 +1116,7 @@ export default {
     refuse: 'Refuse',
     refused: 'Refused',
     refresh: 'Refresh',
+    remaining_spots: 'remaning spots',
     remove_bank_account_confirmation:
       'Are you sure you want to remove bank account ending with {{last4}} from your organization?',
     remove_from_roster: 'Remove from roster',
