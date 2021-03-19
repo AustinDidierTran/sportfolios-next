@@ -96,7 +96,7 @@ export default function EditPhase(props) {
   return (
     <FormDialog
       open={isOpen}
-      title={t('create.create_a_phase')}
+      title={t('edit.edit_phase')}
       buttons={buttons}
       fields={fields}
       formik={formik}

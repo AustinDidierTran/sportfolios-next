@@ -563,6 +563,7 @@ export default {
       edit_infos: 'Edit infos',
       edit_membership: 'Edit membership',
       edit_mode: 'Edit mode',
+      edit_phase: 'Edit phase',
       edit_player: 'Edit player',
       edit_score: 'Edit score',
       edit_team_number: 'Edit number of teams',
