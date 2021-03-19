@@ -43,7 +43,7 @@ export default function Page2() {
           </Typography>
           {plateform.map((p, index) => (
             <div key={index}>
-              <ListItem button>
+              <ListItem>
                 <div className={styles.icon}>
                   <Icon icon={p.icon}></Icon>
                 </div>
@@ -59,7 +59,7 @@ export default function Page2() {
           </Typography>
           {branding.map((b, index) => (
             <div key={index}>
-              <ListItem button>
+              <ListItem>
                 <div className={styles.icon}>
                   <Icon icon={b.icon}></Icon>
                 </div>
