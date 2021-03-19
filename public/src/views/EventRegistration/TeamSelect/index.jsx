@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Button, TeamSearchList } from '../../../components/Custom';
+import TeamSearchList from '../../../components/Custom/SearchList/TeamSearchList';
+import Button from '../../../components/Custom/Button';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
@@ -42,7 +43,6 @@ export default function TeamSelect(props) {
           {t('you.you_can_always_change_your_team_name_in_your_team_profile')}
         </Typography>
         <TeamItem {...team} secondary="Selected Team" className={styles.main} notClickable />
-
         <Button
           className={styles.item}
           size="small"
