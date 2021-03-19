@@ -926,6 +926,7 @@ export default {
     ga_pageviews_table_title: 'Google Analytics Pageviews List',
     game_added: 'Game added',
     game_deleted: 'Game deleted',
+    game_updated: 'Game updated',
     games: 'Games',
     gender: 'Gender',
     general_informations: 'General information',
