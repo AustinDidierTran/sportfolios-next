@@ -26,7 +26,7 @@ export default function EntityRoute() {
   const { id } = router.query;
   const { t } = useTranslation();
 
-  const { response, isLoading } = useApiRoute(formatRoute('/api/entity/schedule', null, { id }), {
+  const { response, isLoading } = useApiRoute(formatRoute('/api/entity/rankings', null, { id }), {
     defaultValue: {},
   });
 

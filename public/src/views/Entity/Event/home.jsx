@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef, useContext, componentDidMount } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import HeaderHome from '../../../components/Custom/HeaderHome';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../../Store';
 import Posts from '../../../components/Custom/Posts';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   IgContainer: {
     backgroundColor: '#f5f5f5 !important',
   },

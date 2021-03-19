@@ -38,7 +38,7 @@ export default function HeaderHome(props) {
   const onClose = () => {
     setOpen(false);
   };
-  const update = () => {};
+  const update = () => { };
 
   const handleSettingsClick = () => {
     router.push({
@@ -59,7 +59,11 @@ export default function HeaderHome(props) {
   return (
     <Paper elevation={1} className={styles.paper}>
       {type === GLOBAL_ENUM.ORGANIZATION && (
-        <BannerOrganization basicInfos={basicInfos} onClickMainButton={onOpen} onClickSecondButton={handleClick} />
+        <BannerOrganization
+          basicInfos={basicInfos}
+          onClickMainButton={onOpen}
+          onClickSecondButton={handleClick}
+          isAdmin={seeEdit} />
       )}
       {type === GLOBAL_ENUM.EVENT && (
         <BannerEvent
@@ -106,7 +110,7 @@ export default function HeaderHome(props) {
                 }}
               />
             ))}
-            {window.innerWidth > 600 && (
+            {window.innerWidth > 600 && seeEdit && (
               <Tab
                 icon={<CustomIcon icon="MoreVertIcon" />}
                 style={{

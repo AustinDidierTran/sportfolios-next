@@ -56,7 +56,7 @@ export default function OrganizationMemberships(props) {
   const onClose = () => {
     setOpen(false);
   };
-  const update = () => {};
+  const update = () => { };
 
   const getMemberships = async () => {
     let members = undefined;
@@ -76,6 +76,10 @@ export default function OrganizationMemberships(props) {
         id,
       })
     );
+
+    if (!data) {
+      return;
+    }
     const memberships = data.map((d) => {
       let alreadyMember = false;
       let expirationDate;
