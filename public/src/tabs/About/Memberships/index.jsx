@@ -39,6 +39,9 @@ export default function Memberships() {
   };
 
   const getMembers = async () => {
+    if (!userInfo.persons) {
+      return;
+    }
     const members = await Promise.all(
       userInfo.persons.map(async (p) => {
         const { data } = await api(

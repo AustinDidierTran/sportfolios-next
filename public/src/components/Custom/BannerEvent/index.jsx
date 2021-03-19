@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useMemo, useContext } from 'react';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';

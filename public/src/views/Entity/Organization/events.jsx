@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
-import Icon from '../../../components/Custom/Icon';
 import HeaderHome from '../../../components/Custom/HeaderHome';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import loadable from '@loadable/component';
 

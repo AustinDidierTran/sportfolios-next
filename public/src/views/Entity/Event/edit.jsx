@@ -6,16 +6,13 @@ import loadable from '@loadable/component';
 import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import { useAdmin, useEditor } from '../../../hooks/roles';
 import styles from './Event.module.css';
-import { useRouter } from 'next/router';
 const Settings = loadable(() => import('../../../tabs/Settings'));
 
 export default function EntitySettings(props) {
-  const router = useRouter();
-  const { id } = router.query;
 
   const { basicInfos, navBar, eventInfo } = props;
 
-  const { role = ENTITIES_ROLE_ENUM.VIEWER, type } = basicInfos;
+  const { role = ENTITIES_ROLE_ENUM.VIEWER } = basicInfos;
 
   const isEditor = useEditor(role);
 

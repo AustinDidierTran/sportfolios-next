@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../../Store';
 import Posts from '../../../components/Custom/Posts';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   IgContainer: {
     backgroundColor: '#f5f5f5 !important',
   },
