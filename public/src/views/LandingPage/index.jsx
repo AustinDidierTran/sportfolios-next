@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 
 import { AddGaEvent } from '../../components/Custom/Analytics';
 import { formatPageTitle } from '../../utils/stringFormats';
-import Page1 from './Page1';
-import Page2 from './Page2';
-import Page4 from './Page4';
-import Page5 from './Page5';
+import loadable from '@loadable/component';
+
+const Page1 = loadable(() => import('./Page1'));
+const Page2 = loadable(() => import('./Page2'));
+const Page4 = loadable(() => import('./Page4'));
+const Page5 = loadable(() => import('./Page5'));
 
 export default function LandingPage() {
   useEffect(() => {
@@ -18,11 +20,11 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <>
+    <div>
       <Page1 />
       <Page2 />
       <Page4 />
       <Page5 />
-    </>
+    </div>
   );
 }
