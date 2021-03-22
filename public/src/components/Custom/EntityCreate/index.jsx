@@ -58,6 +58,7 @@ export default function EntityCreate(props) {
     const { status, data } = await api(
       formatRoute('/api/entity/allOwned', null, {
         type: creatorEntityType,
+        onlyAdmin: true,
       }),
       { method: 'GET' }
     );
