@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function MailtoButton(props) {
   const { t } = useTranslation();
-  const { emails, subject, message, color = 'primary' } = props;
+  const { emails, subject, message, color = 'primary', tooltip = t('send_email') } = props;
 
   const [emailsFormatted, setEmailsFormatted] = useState([]);
 
@@ -23,7 +23,7 @@ export default function MailtoButton(props) {
       variant="contained"
       onClick={onClick}
       icon="Mail"
-      tooltip={t('send_email')}
+      tooltip={tooltip}
       style={{ color: color }}
     ></IconButton>
   );
