@@ -32,6 +32,7 @@ export default function OrganizationHome(props) {
       <HeaderHome basicInfos={basicInfos} eventInfo={eventInfo} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer className={classes.IgContainer}>
         <Description description={eventInfo.description} />
+
         <Posts
           userInfo={userInfo}
           allowPostImage={true}
