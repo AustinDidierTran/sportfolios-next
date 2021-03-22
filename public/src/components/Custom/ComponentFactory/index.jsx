@@ -152,6 +152,7 @@ export default function ComponentFactory(props) {
       variant={component.variant}
       fullWidth
       style={component.style}
+      helperText={component.helperText}
       autoFocus={component.autoFocus}
       hidden={component.hidden}
     />

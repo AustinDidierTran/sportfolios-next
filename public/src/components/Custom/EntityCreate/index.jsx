@@ -7,7 +7,7 @@ import { ROUTES, goTo } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Create.module.css';
-
+import moment from 'moment';
 import CustomPaper from '../Paper';
 import CustomButton from '../Button';
 import IgContainer from '../IgContainer';
@@ -114,6 +114,23 @@ export default function EntityCreate(props) {
         type: 'text',
       },
       {
+        namespace: 'maximumSpots',
+        label: t('maximum_spots'),
+        type: 'number'
+      },
+      {
+        namespace: 'startDate',
+        label: t('event.event_start'),
+        type: 'datetime-local',
+        shrink: true,
+      },
+      {
+        namespace: 'endDate',
+        label: t('event.event_end'),
+        type: 'datetime-local',
+        shrink: true,
+      },
+      {
         namespace: 'creator',
         label: t('create.create_as'),
         componentType: COMPONENT_TYPE_ENUM.SELECT,
@@ -125,7 +142,8 @@ export default function EntityCreate(props) {
 
   const validate = (values) => {
     const errors = {};
-    const { name, surname, creator } = values;
+    const { name, surname, creator, maximumSpots, startDate } = values;
+
     if (!name) {
       errors.name = t('value_is_required');
     } else {
@@ -141,6 +159,15 @@ export default function EntityCreate(props) {
     if (creatingEntity !== GLOBAL_ENUM.PERSON && !creator.length) {
       errors.creator = t('value_is_required');
     }
+
+    if (creatingEntity === GLOBAL_ENUM.EVENT) {
+      if (!maximumSpots) {
+        errors.maximumSpots = t('value_is_required');
+      }
+      if (!startDate) {
+        errors.startDate = t('value_is_required');
+      }
+    }
     return errors;
   };
 
@@ -149,13 +176,24 @@ export default function EntityCreate(props) {
       name: '',
       surname: '',
       creator: '',
+      maximumSpots: '',
+      startDate: '',
+      endDate: '',
     },
     validate,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname, creator } = values;
+      const { name, surname, creator, maximumSpots, startDate: startDateProps, endDate: endDateProps } = values;
       setIsSubmitting(true);
+      let startDate = startDateProps;
+      if (!moment(startDateProps).isValid()) {
+        startDate = null;
+      }
+      let endDate = endDateProps;
+      if (!moment(endDateProps).isValid()) {
+        endDate = null;
+      }
       try {
         const res = await api('/api/entity', {
           method: 'POST',
@@ -164,6 +202,9 @@ export default function EntityCreate(props) {
             surname,
             type,
             creator,
+            maximumSpots,
+            startDate,
+            endDate,
           }),
         });
         if (type === GLOBAL_ENUM.EVENT) {
