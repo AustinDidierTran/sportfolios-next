@@ -33,11 +33,11 @@ export default function OrganizationHome(props) {
       <IgContainer className={classes.IgContainer}>
         <Posts
           userInfo={userInfo}
-          allowPostImage={true}
-          allowNewPost={true}
+          allowPostImage
+          allowNewPost
           entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
-          allowComment={true}
-          allowLike={true}
+          allowComment
+          allowLike
           locationId={basicInfos.id}
           elevation={1}
           placeholder={t('start_a_post')}
