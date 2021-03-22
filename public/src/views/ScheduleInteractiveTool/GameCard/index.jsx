@@ -7,11 +7,11 @@ import styles from './GameCard.module.css';
 import { formatDate, getInitialsFromName } from '../../../utils/stringFormats';
 import moment from 'moment';
 
-export default function GamCard(props) {
-  const { team1, team2, timeSlots, fields, x, y } = props;
+export default function GameCard(props) {
+  const { ranking1, ranking2, timeSlots, fields, x, y } = props;
 
   const tooltip = useMemo(
-    () => `${team1} vs ${team2}, ${fields[x]?.field}, ${formatDate(moment(timeSlots[y]?.date), 'DD MMM HH:mm')}`,
+    () => `${ranking1} vs ${ranking2}, ${fields[x]?.field}, ${formatDate(moment(timeSlots[y]?.date), 'DD MMM HH:mm')}`,
     [x, y]
   );
 
@@ -29,13 +29,13 @@ export default function GamCard(props) {
         <div className={styles.gameDiv}>
           <div className={styles.team1}>
             <Avatar
-              initials={getInitialsFromName(team1)} // or team pic?
+              initials={getInitialsFromName(ranking1, false)} // or team pic?
             ></Avatar>
           </div>
           <Typography className={styles.vs}>vs</Typography>
           <div className={styles.team2}>
             <Avatar
-              initials={getInitialsFromName(team2)} // or team pic?
+              initials={getInitialsFromName(ranking2, false)} // or team pic?
             ></Avatar>
           </div>
         </div>

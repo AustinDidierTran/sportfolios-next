@@ -808,7 +808,8 @@ export default {
     cant_delete_paid_player:
       "You can't remove this player from the roster since he already paid. Contact an event organizer for help.",
     cant_edit_game_score: 'Teams are still undefined. Start the phase or end the preceding phase before editing score.',
-
+    cant_have_different_phase: 'Positions are issued from different phases',
+    cant_have_same_positions: "Can't have a position playing against itself",
     cant_transfer_person_to_your_own_email: "You can't transfer someone to your own email",
     captain: 'Captain',
     captains: 'Captains',

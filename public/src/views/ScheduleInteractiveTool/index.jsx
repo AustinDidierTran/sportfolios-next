@@ -94,6 +94,7 @@ export default function ScheduleInteractiveTool() {
 
   const [phases, setPhases] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [rankings, setRankings] = useState([]);
   const [games, setGames] = useState([]);
   const [timeslots, setTimeslots] = useState([]);
   const [fields, setFields] = useState([]);
@@ -377,9 +378,22 @@ export default function ScheduleInteractiveTool() {
       data.phases.map((p) => ({
         value: p.id,
         display: p.name,
+        ranking: p.rankings,
       }))
     );
 
+
+    const allRankings = data.phases.reduce((prev,curr) => {
+      const withName = curr.ranking.map(r => ({
+        ...r,
+        value: r.ranking_id,
+        display: r.roster_id ? `${r.initial_position} - ${curr.name} (${r.name})` : `${r.initial_position} - ${curr.name}`,
+      }));
+      return prev.concat(withName);
+    }, []);
+
+
+    setRankings(allRankings);
     setTeams(
       data.teams.map((t) => ({
         value: t.roster_id,
@@ -655,14 +669,11 @@ export default function ScheduleInteractiveTool() {
   const createCard = (game) => {
     const gridX = fields.findIndex((f) => f.id === game.field_id);
     const gridY = timeslots.findIndex((ts) => ts.id === game.timeslot_id);
-    const { teamsId } = game;
-
-    const teamsNames = teams.filter((t) => t.value === teamsId[0] || t.value === teamsId[1]);
-    teamsNames.length === 1 ? teamsNames.push(teamsNames[0]) : '';
+    const { rankings } = game;
 
     const newGame = {
       ...game,
-      teams: teamsNames,
+      rankings,
       id: uuidv4(),
       x: gridX,
       y: gridY,
@@ -761,7 +772,7 @@ export default function ScheduleInteractiveTool() {
 
   const Games = games.map((g) => (
     <div className={styles.itemDiv} key={g.id}>
-      <GameCard team1={g.teams[0].name} team2={g.teams[1].name} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
+      <GameCard ranking1={g.rankings[0].display} ranking2={g.rankings[1].display} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
     </div>
   ));
 
@@ -941,7 +952,7 @@ export default function ScheduleInteractiveTool() {
         field={addGameField}
         timeslot={addGameTimeslot}
         phases={phases}
-        teams={teams}
+        rankings={rankings}
       />
       <AddFieldInteractiveTool
         isOpen={addFieldDialog}

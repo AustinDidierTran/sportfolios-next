@@ -830,6 +830,8 @@ export default {
       "Vous ne pouvez pas retirer ce joueur de l'alignement puisqu'il a déjà payé. Contactez un organisateur de l'événement pour obtenir de l'aide.",
     cant_edit_game_score:
       "Les équipes ne sont pas encore définies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
+    cant_have_different_phase: 'Les positions sont issues de phases différentes',
+    cant_have_same_positions: 'Une position ne peut jouer contre elle-même',
     cant_transfer_person_to_your_own_email:
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
     captain: 'Capitaine',
