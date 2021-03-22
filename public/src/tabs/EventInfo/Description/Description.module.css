@@ -2,7 +2,6 @@
   flex: 1 1 auto;
   width: calc(100% - 32px);
   margin-top: 8px;
-  margin-bottom: 64px !important;
   resize: none;
   outline: none;
   font-family: 'Helvetica';

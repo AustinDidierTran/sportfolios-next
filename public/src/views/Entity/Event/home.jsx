@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../../Store';
 import Posts from '../../../components/Custom/Posts';
-
+import Description from '../../../tabs/EventInfo/Description';
 const useStyles = makeStyles(() => ({
   IgContainer: {
     backgroundColor: '#f5f5f5 !important',
@@ -31,6 +31,8 @@ export default function OrganizationHome(props) {
     <>
       <HeaderHome basicInfos={basicInfos} eventInfo={eventInfo} navTabs={navBar} type={GLOBAL_ENUM.EVENT} />
       <IgContainer className={classes.IgContainer}>
+        <Description description={eventInfo.description} />
+
         <Posts
           userInfo={userInfo}
           allowPostImage={true}
