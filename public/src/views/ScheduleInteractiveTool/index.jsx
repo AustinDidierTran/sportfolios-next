@@ -388,10 +388,11 @@ export default function ScheduleInteractiveTool() {
         ...r,
         value: r.ranking_id,
         display: r.roster_id ? `${r.initial_position} - ${curr.name} (${r.name})` : `${r.initial_position} - ${curr.name}`,
+        name: r.roster_id ? `${r.initial_position} - ${curr.name} (${r.name})` : `${r.initial_position} - ${curr.name}`,
+        teamName: r.name ? r.name : '',
       }));
       return prev.concat(withName);
     }, []);
-
 
     setRankings(allRankings);
     setTeams(
@@ -491,72 +492,74 @@ export default function ScheduleInteractiveTool() {
     const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((c) => c.date);
     const gamesMoved = undoLog.filter((command) => command.type === 'moveCommand').map((c) => c.game);
 
-    const { status } = await api(`/api/entity/addAllInteractiveTool`, {
-      method: 'POST',
-      body: JSON.stringify({
-        eventId,
-        gamesArray: gamesToAdd,
-        fieldsArray: fieldsToAdd,
-        timeslotsArray: timeSlotToAdd,
-      }),
-    });
 
-    const gamesToUpdate = gamesMoved.reduce((prev, game) => {
-      const index = prev.findIndex((p) => p.id === game.id);
+    console.log(gamesToAdd);
+    // const { status } = await api(`/api/entity/addAllInteractiveTool`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     eventId,
+    //     gamesArray: gamesToAdd,
+    //     fieldsArray: fieldsToAdd,
+    //     timeslotsArray: timeSlotToAdd,
+    //   }),
+    // });
 
-      if (index !== -1) {
-        prev[index] = {
-          id: game.id,
-          timeslot_id: timeslots[game.y].id,
-          field_id: fields[game.x].id,
-          x: game.x,
-          y: game.y,
-        };
-        return prev;
-      }
+    // const gamesToUpdate = gamesMoved.reduce((prev, game) => {
+    //   const index = prev.findIndex((p) => p.id === game.id);
 
-      return [
-        ...prev,
-        {
-          id: game.id,
-          timeslot_id: timeslots[game.y].id,
-          field_id: fields[game.x].id,
-          x: game.x,
-          y: game.y,
-        },
-      ];
-    }, []);
+    //   if (index !== -1) {
+    //     prev[index] = {
+    //       id: game.id,
+    //       timeslot_id: timeslots[game.y].id,
+    //       field_id: fields[game.x].id,
+    //       x: game.x,
+    //       y: game.y,
+    //     };
+    //     return prev;
+    //   }
 
-    const res = await api(`/api/entity/updateGamesInteractiveTool`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        eventId,
-        games: gamesToUpdate,
-      }),
-    });
+    //   return [
+    //     ...prev,
+    //     {
+    //       id: game.id,
+    //       timeslot_id: timeslots[game.y].id,
+    //       field_id: fields[game.x].id,
+    //       x: game.x,
+    //       y: game.y,
+    //     },
+    //   ];
+    // }, []);
 
-    if (
-      status === STATUS_ENUM.ERROR ||
-      status === STATUS_ENUM.UNAUTHORIZED ||
-      res.status === STATUS_ENUM.ERROR ||
-      res.status === STATUS_ENUM.UNAUTHORIZED
-    ) {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('an_error_has_occured'),
-        severity: SEVERITY_ENUM.ERROR,
-        duration: 3000,
-      });
-      return;
-    }
+    // const res = await api(`/api/entity/updateGamesInteractiveTool`, {
+    //   method: 'PUT',
+    //   body: JSON.stringify({
+    //     eventId,
+    //     games: gamesToUpdate,
+    //   }),
+    // });
 
-    await getData();
+    // if (
+    //   status === STATUS_ENUM.ERROR ||
+    //   status === STATUS_ENUM.UNAUTHORIZED ||
+    //   res.status === STATUS_ENUM.ERROR ||
+    //   res.status === STATUS_ENUM.UNAUTHORIZED
+    // ) {
+    //   dispatch({
+    //     type: ACTION_ENUM.SNACK_BAR,
+    //     message: t('an_error_has_occured'),
+    //     severity: SEVERITY_ENUM.ERROR,
+    //     duration: 3000,
+    //   });
+    //   return;
+    // }
 
-    dispatch({
-      type: ACTION_ENUM.SNACK_BAR,
-      message: t('changes_saved'),
-      severity: SEVERITY_ENUM.SUCCESS,
-    });
+    // await getData();
+
+    // dispatch({
+    //   type: ACTION_ENUM.SNACK_BAR,
+    //   message: t('changes_saved'),
+    //   severity: SEVERITY_ENUM.SUCCESS,
+    // });
 
     setIsAddingGames(false);
     setMadeChanges(false);
