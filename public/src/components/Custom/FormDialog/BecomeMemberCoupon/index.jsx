@@ -43,7 +43,7 @@ export default function BecomeMemberCoupon(props) {
 
   const getPeople = async () => {
     const { data } = await api(
-      formatRoute('/api/user/ownedPeople', null, {
+      formatRoute('/api/user/ownedPersons', null, {
         type: GLOBAL_ENUM.PERSON,
       })
     );
@@ -97,7 +97,7 @@ export default function BecomeMemberCoupon(props) {
           }),
         });
         onClose();
-        goTo(ROUTES.entity, { id: organizationId }, { tab: TABS_ENUM.ABOUT });
+        goTo(ROUTES.entity_param, { id: organizationId, param: TABS_ENUM.MEMBERSHIPS });
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,

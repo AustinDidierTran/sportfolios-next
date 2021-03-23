@@ -881,7 +881,7 @@ export default {
     copy_to_clipboard: 'Copier vers le presse-papier',
     country: 'Pays',
     coupon_already_used: 'Coupon déjà utilisé',
-    coupon_code: 'Code de coupon',
+    coupon_code: 'Code coupon',
     credit_card_added: 'Carte de crédit ajoutée',
     credit_card: 'Carte de crédit',
     credit_cards: 'Cartes de crédits',
@@ -972,7 +972,8 @@ export default {
     import_members_confirmation:
       'Un courriel va être envoyé à {{membersAmount}} membres. Ils vont recevoir un code coupon à usage unique pour devenir {{membershipName}} de votre organisation. Voulez vous compléter le transfert?',
     import_members: 'Importer des membres',
-    import_your_excel_sheet_with_all_your_members: 'Importez le fichier excel avec tous vos membres',
+    import_your_excel_sheet_with_all_your_members:
+      'Importez le fichier excel (seulement les fichiers .CSV sont acceptés)',
     import: 'Importer',
     in_cart: 'Dans le panier',
     inclusive: 'Inclus',
