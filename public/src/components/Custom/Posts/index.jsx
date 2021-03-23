@@ -155,11 +155,12 @@ export default function Posts(props) {
     setPosts((oldPosts) => oldPosts.filter((o) => o.id !== post_id));
     await getPostFeed();
   };
+
   const handlePost = async (entityId, postContent, images) => {
     const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
       body: JSON.stringify({
-        content: postContent,
+        content: encodeURIComponent(postContent),
         locationId,
         entity_id: entityId,
       }),
@@ -188,6 +189,39 @@ export default function Posts(props) {
     });
   };
 
+  const handleEditPost = async (postId, postContent, images) => {
+    await api('/api/posts', {
+      method: 'PUT',
+      body: JSON.stringify({
+        postId,
+        postContent
+      }),
+    });
+
+    if (!images.length) {
+      return;
+    }
+
+    await Promise.all(
+      images.map(async (image) => {
+        let url;
+        if (image.image_url) {
+          url = image.image_url;
+        } else {
+          const { file } = image;
+          url = await uploadPicture(postId, file);
+        }
+        await api('/api/posts/image', {
+          method: 'POST',
+          body: JSON.stringify({
+            postId,
+            imageUrl: url,
+          }),
+        });
+      })
+    )
+  }
+
   return (
     <div>
       <div>
@@ -208,6 +242,7 @@ export default function Posts(props) {
               handleLike,
               handleComment,
               handleDeletePost,
+              handleEditPost,
               allowComment,
               allowLike,
               elevation,

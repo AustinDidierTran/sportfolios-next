@@ -21,6 +21,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import Upload from 'rc-upload';
+import CustomIconButton from '../../IconButton';
+import TextField from '@material-ui/core/TextField';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import CustomButton from '../../Button'
+
 export default function Post(props) {
   const {
     postInfo,
@@ -28,14 +34,23 @@ export default function Post(props) {
     entityId,
     handleComment,
     handleDeletePost,
+    handleEditPost,
     isAdmin,
     allowComment,
     allowLike,
     elevation,
   } = props;
+
   const { t } = useTranslation();
   const [displayComment, setDisplayComment] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [edit, setEdit] = useState(false);
+
+  const [editPostContent, setEditPostContent] = useState(decodeURIComponent(postInfo.content));
+  const [editImages, setEditImages] = useState(postInfo.images);
+  const [postContent, setPostContent] = useState(decodeURIComponent(postInfo.content));
+  const [images, setImages] = useState(postInfo.images);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -61,6 +76,34 @@ export default function Post(props) {
     }
   };
 
+  const clearImage = () => {
+    setEditImages([]);
+  };
+
+  const uploadImageProps = {
+    multiple: false,
+    accept: '.jpg, .png, .jpeg, .gif, .webp',
+    onStart(file) {
+      if (file.type.split('/')[0] === 'image') {
+        setEditImages(() => [
+          {
+            file,
+          },
+        ]);
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid_file_image'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+      }
+    },
+  };
+
+  const handleChange = (event) => {
+    setEditPostContent(event.target.value);
+  };
+
   const onClickLike = async (e) => {
     e.preventDefault();
     handleLike(postInfo.id, userInfo.primaryPerson.entity_id, !postInfo.liked);
@@ -74,10 +117,105 @@ export default function Post(props) {
     setDisplayComment((displayComment) => !displayComment && allowComment);
   };
 
+  const onClickEdit = () => {
+    setEdit(true);
+    handleClose();
+  }
+
+  const modifyPost = () => {
+    handleEditPost(postInfo.id, encodeURIComponent(editPostContent), editImages);
+    setPostContent(decodeURIComponent(editPostContent));
+    setImages(editImages);
+    setEdit(false);
+
+  }
+
+  const cancelEdit = () => {
+    setEditPostContent(decodeURIComponent(postContent));
+    setEditImages(images);
+    setEdit(false);
+  }
+
   const showStats = useMemo(
     () => (postInfo.likes.length > 0 || postInfo.comments.length > 0) && (allowComment || allowLike),
     [postInfo.likes.length, postInfo.comments.length, allowComment, allowLike]
   );
+
+  if (edit) {
+    return (
+      <Card elevation={elevation} className={styles.card}>
+        <CardHeader
+          className={styles.header}
+          classes={{
+            content: styles.headerContent,
+            title: styles.headerTitle,
+          }}
+          avatar={
+            <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photo_url}></CustomAvatar>
+          }
+
+          title={postInfo.name + ' ' + postInfo.surname}
+          subheader={getTimeToShow(postInfo.created_at)}
+        />
+        <div>
+          <div className={styles.divRoot}>
+            <TextField
+              placeholder={"ASD"}
+              className={styles.textField}
+              multiline
+              rowsMax={Infinity}
+              value={editPostContent}
+              InputProps={{
+                disableUnderline: true,
+                endAdornment: (
+                  <div style={{ display: 'flex' }}>
+
+                    <Upload {...uploadImageProps}>
+                      <CustomIconButton icon="ImageOutlinedIcon" className={styles.uploadIcon} />
+                    </Upload>
+                  </div>
+                ),
+              }}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div>
+          {editImages.map((image, index) => (
+            <div className={styles.divImage} key={index}>
+              <CustomIconButton
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  borderRaduis: 25,
+                  padding: 2,
+                  margin: 5,
+                }}
+                icon="Clear"
+                onClick={clearImage}
+              />
+              <img className={styles.imagePreview} src={image.image_url ? image.image_url : URL.createObjectURL(image.file)} />
+            </div>
+          ))}
+        </div>
+        <div className={styles.editButtons}>
+          <CustomButton
+            color="secondary"
+            className={styles.cancelButton}
+            onClick={cancelEdit}>
+            {t('cancel')}
+          </CustomButton>
+          <CustomButton
+            onClick={modifyPost}>
+            {t('edit.edit')}
+          </CustomButton>
+        </div>
+      </Card>
+    )
+  }
 
   return (
     <Card elevation={elevation} className={styles.card}>
@@ -102,10 +240,12 @@ export default function Post(props) {
         title={postInfo.name + ' ' + postInfo.surname}
         subheader={getTimeToShow(postInfo.created_at)}
       />
-      <CardContent className={styles.content}>{postInfo.content}</CardContent>
-      {postInfo.images.length > 0 && (
+      <CardContent className={styles.content}>
+        <TextareaAutosize className={styles.textarea} value={postContent} disabled />
+      </CardContent>
+      {images.length > 0 && (
         <div>
-          <CardMedia component="img" image={postInfo.images[0].image_url} />
+          <CardMedia component="img" image={images[0].image_url} />
         </div>
       )}
       {showStats && (
@@ -193,6 +333,7 @@ export default function Post(props) {
       )}
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={onClickDelete}>{t('delete.delete')}</MenuItem>
+        <MenuItem onClick={onClickEdit}>{t('edit.edit')}</MenuItem>
       </Menu>
     </Card>
   );
