@@ -349,7 +349,7 @@ export default function ScheduleInteractiveTool() {
       field_id: g.field_id,
       timeslot_id: g.timeslot_id,
       phase_id: g.phase_id,
-      teams: g.teams,
+      rankings: g.positions,
       id: g.id,
       x: data.fields.findIndex((f) => f.id === g.field_id),
       y: data.timeSlots.findIndex((ts) => ts.id === g.timeslot_id),
@@ -772,7 +772,7 @@ export default function ScheduleInteractiveTool() {
 
   const Games = games.map((g) => (
     <div className={styles.itemDiv} key={g.id}>
-      <GameCard ranking1={g.rankings[0].display} ranking2={g.rankings[1].display} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
+      <GameCard ranking1={g.rankings[0].name} ranking2={g.rankings[1].name} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
     </div>
   ));
 
