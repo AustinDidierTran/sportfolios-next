@@ -6,7 +6,8 @@ import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
-import GraphNumberOfMembers from './GraphNumberOfMembers';
+// import GraphNumberOfMembers from './GraphNumberOfMembers';
+// import MockData from './GraphNumberOfMembers/MockData.json';
 
 export default function Analytics() {
   const { t } = useTranslation();
@@ -33,9 +34,15 @@ export default function Analytics() {
         <MembersReport />
         <SalesReport />
       </Paper>
-      <Paper className={styles.paper} title={t('graphs')}>
-        <GraphNumberOfMembers />
-      </Paper>
+      {/* NOT REAL DATA ONLY BACK END IS MISSING FOR GRAPH */}
+      {/* <Paper className={styles.paper} title={t('graphs')}>
+        <GraphNumberOfMembers
+          graphData={MockData}
+          title={t('member.members')}
+          totalTitle={t('member.members')}
+          newTitle={t('new_members')}
+        />
+      </Paper> */}
     </IgContainer>
   );
 }
