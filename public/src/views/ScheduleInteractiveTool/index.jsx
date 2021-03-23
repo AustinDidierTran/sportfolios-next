@@ -349,10 +349,7 @@ export default function ScheduleInteractiveTool() {
       field_id: g.field_id,
       timeslot_id: g.timeslot_id,
       phase_id: g.phase_id,
-<<<<<<< HEAD
       phaseName: g.phaseName,
-=======
->>>>>>> 2aa7612... typo #2
       rankings: g.positions,
       id: g.id,
       x: data.fields.findIndex((f) => f.id === g.field_id),
