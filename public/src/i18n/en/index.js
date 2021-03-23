@@ -950,7 +950,7 @@ export default {
     import_members_confirmation:
       'An email will be sent to all {{membersAmount}} members.  They will receive a unique usage coupon code to become a {{membershipName}} of your organization. Do you want to complete the transfer?',
     import_members: 'Import members',
-    import_your_excel_sheet_with_all_your_members: 'Import your excel sheet with all your members',
+    import_your_excel_sheet_with_all_your_members: 'Import your excel sheet (only .CSV files are accepted)',
     import: 'Import',
     in_cart: 'In cart',
     inclusive: 'Inclusive',

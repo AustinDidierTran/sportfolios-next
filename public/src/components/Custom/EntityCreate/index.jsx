@@ -166,8 +166,8 @@ export default function EntityCreate(props) {
             creator,
           }),
         });
-        if (type === GLOBAL_ENUM.EVENT) {
-          goTo(ROUTES.entity_param, { id: res.data.id, param: 'edit' });
+        if (type === GLOBAL_ENUM.EVENT || type === GLOBAL_ENUM.ORGANIZATION) {
+          goTo(ROUTES.entity_param, { id: res.data.id, param: TABS_ENUM.EDIT });
         } else {
           goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
         }
