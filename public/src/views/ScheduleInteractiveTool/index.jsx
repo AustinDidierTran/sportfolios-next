@@ -394,6 +394,7 @@ export default function ScheduleInteractiveTool() {
       return prev.concat(withName);
     }, []);
 
+    
     setRankings(allRankings);
     setTeams(
       data.teams.map((t) => ({
