@@ -1,16 +1,26 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { FormDialog } from '../../../components/Custom';
 import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
 import * as yup from 'yup';
+import { Store, ACTION_ENUM } from '../../../Store';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, createCard, field, timeslot, teams, phases } = props;
+  const { dispatch } = useContext(Store);
+
+  const { isOpen, onClose, createCard, field, timeslot, rankings, phases } = props;
+  const [firstPositionOptions, setFirstPositionOptions] = useState([]);
+  const [secondPositionOptions, setSecondPositionOptions] = useState([]);
+
+  useEffect(() => {
+    setFirstPositionOptions(rankings);
+    setSecondPositionOptions(rankings);
+  }, [isOpen]);
 
   const onFinish = () => {
     formik.resetForm();
@@ -23,17 +33,40 @@ export default function AddGame(props) {
 
   const validationSchema = yup.object().shape({
     phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-    team1: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-    team2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position1: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    position2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const sendToInteractiveTool = (values) => {
-    const { phase, team1, team2 } = values;
-
+    const { phase, position1, position2 } = values;
+    const [ranking1] = rankings.filter(r => r.ranking_id === position1);
+    const [ranking2] = rankings.filter(r => r.ranking_id === position2);
+    if(position1 === position2){
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('cant_have_same_positions'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+      return;
+    }
+    if((ranking1.current_phase !== ranking2.current_phase) || (phase !== ranking1.current_phase) || (phase !== ranking2.current_phase)){
+      formik.setFieldValue('position1', '');
+      formik.setFieldValue('position2', '');
+      setFirstPositionOptions(rankings.filter(r => r.current_phase === phase));
+      setSecondPositionOptions(rankings.filter(r => r.current_phase === phase));
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('cant_have_different_phase'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+      return;
+    }
     const game = {
       field_id: field.id,
       timeslot_id: timeslot.id,
-      teamsId: [team1, team2],
+      rankings: [ranking1, ranking2],
       phase_id: phase,
     };
 
@@ -44,10 +77,10 @@ export default function AddGame(props) {
   const formik = useFormik({
     initialValues: {
       phase: '',
-      team1: '',
-      team2: '',
+      position1: '',
+      position2: '',
     },
-    validationSchema: validationSchema,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: sendToInteractiveTool,
@@ -66,6 +99,49 @@ export default function AddGame(props) {
     },
   ];
 
+  useEffect(() => {
+    if (formik.values.phase !== '' && formik.values.position1 === '' && formik.values.position2 === '') {
+      formik.setFieldValue('position1', '');
+      formik.setFieldValue('position2', '');
+      const positions = rankings.filter((p) => p.current_phase === formik.values.phase);
+      setFirstPositionOptions(positions);
+      setSecondPositionOptions(positions);
+    }
+    if(formik.values.phase !== '' && formik.values.position1 !== '' || formik.values.position2 !== ''){
+
+    }
+  }, [formik.values.phase]);
+
+  useEffect(() => {
+    //TODO: refine the filter. Some flows can make it bug i.e. no position options available
+    if (formik.values.position1 !== '' && formik.values.position2 === '') {
+      const [{current_phase: phase}] = rankings.filter(r => r.value === formik.values.position1);
+      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position1 && r.current_phase === phase);
+      setSecondPositionOptions(samePhaseRankings);
+    }
+    if (formik.values.position2 !== '' && formik.values.position1 === '') {
+      const [{current_phase: phase}] = rankings.filter(r => r.value === formik.values.position2);
+      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position2 && r.current_phase === phase);
+      setFirstPositionOptions(samePhaseRankings);
+    }
+    if (formik.values.position2 !== '' && formik.values.position1 !== '') {
+      if(formik.values.phase === ''){
+        const [{current_phase: phase}] = rankings.filter(r => r.value === formik.values.position1);
+        formik.setFieldValue('phase', phase);
+        return;
+      }
+      const firstPosition = rankings.filter(
+        (p) => p.value !== formik.values.position2 && p.current_phase === formik.values.phase
+      );
+      const secondPosition = rankings.filter(
+        (p) => p.value !== formik.values.position1 && p.current_phase === formik.values.phase
+      );
+      setFirstPositionOptions(firstPosition);
+      setSecondPositionOptions(secondPosition);
+    }
+  }, [formik.values.position1, formik.values.position2]);
+
+
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
@@ -75,15 +151,15 @@ export default function AddGame(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: teams,
-      namespace: 'team1',
-      label: t('team.team_1'),
+      options: firstPositionOptions,
+      namespace: 'position1',
+      label: 'Position 1',
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: teams,
-      namespace: 'team2',
-      label: t('team.team_2'),
+      options: secondPositionOptions,
+      namespace: 'position2',
+      label: 'Position 2',
     },
   ];
 
