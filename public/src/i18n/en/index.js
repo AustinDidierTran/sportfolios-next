@@ -420,6 +420,8 @@ export default {
     team: {
       team_1: 'Team 1',
       team_2: 'Team 2',
+      team_accepted: 'Team accepted!',
+      team_refused: 'Team refused',
       team_acceptation_step_message:
         'Do you want to manually accept or decline every team that registered to your event before they make a payment?',
       team_activity: 'Team activity',
@@ -1063,8 +1065,6 @@ export default {
     plateform_fees: 'Plateform fees',
     player_acceptation_step_message:
       'Do you want to manually accept or decline every player that register to your event before they make a payment?',
-    team_accepted: 'Team accepted!',
-    team_refused: 'Team refused',
     player_added: 'Player added',
     player_accepted: 'Player accepted',
     player_refused: 'Player refused',
@@ -1164,6 +1164,7 @@ export default {
     see_sales: 'See sales',
     send: 'Send',
     send_email: 'Send email',
+    send_email_to_all_teams_registered: 'Send email to all teams registered',
     send_new_confirmation_email: 'Send new confirmation email',
     send_password_recovery_email: 'Send password recovery email',
     settings: 'Settings',

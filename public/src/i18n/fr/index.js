@@ -1183,6 +1183,7 @@ export default {
     see_receipt: 'Voir le reçu',
     see_sales: 'Voir les ventes',
     send_email: 'Envoyer un courriel',
+    send_email_to_all_teams_registered: 'Envoyer un courriel à toutes les équipes inscrites',
     send_new_confirmation_email: 'Envoyer un nouveau courriel de confirmation',
     send_password_recovery_email: 'Envoyer le courriel de réinitialisation de mot de passe',
     send: 'Envoyer',

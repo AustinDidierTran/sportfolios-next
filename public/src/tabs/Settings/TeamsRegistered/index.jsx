@@ -26,6 +26,7 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import TeamRow from './TeamRow';
 import TeamRowMobile from './TeamRowMobile';
+import MailtoButton from '../../../components/Custom/MailToButton';
 
 export default function TeamsRegistered() {
   const { t } = useTranslation();
@@ -65,6 +66,15 @@ export default function TeamsRegistered() {
   useEffect(() => {
     getTeams();
   }, [eventId]);
+
+  const emails = useMemo(() => {
+    if (teams) {
+      const res = teams
+        .filter((t) => !(t.registrationStatus === STATUS_ENUM.PENDING || t.registrationStatus === STATUS_ENUM.REFUSED))
+        .map((t) => ({ email: t.email }));
+      return res;
+    }
+  }, [teams]);
 
   const hasPending = useMemo(() => {
     if (teams) {
@@ -255,7 +265,9 @@ export default function TeamsRegistered() {
               <TableRow>
                 <StyledTableCell>{t('team.team')}</StyledTableCell>
                 <StyledTableCell align="center">{t('status')}</StyledTableCell>
-                <StyledTableCell />
+                <StyledTableCell>
+                  <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <StyledTableRow align="center">
@@ -361,7 +373,9 @@ export default function TeamsRegistered() {
               <StyledTableCell>{t('team.team')}</StyledTableCell>
               <StyledTableCell>{t('option')}</StyledTableCell>
               <StyledTableCell align="center">{t('status')}</StyledTableCell>
-              <StyledTableCell />
+              <StyledTableCell>
+                <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <StyledTableRow align="center">

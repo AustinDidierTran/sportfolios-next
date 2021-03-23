@@ -36,8 +36,8 @@ export default function TeamSearchList(props) {
     defaultValue: { entities: [] },
   });
 
-  const handleClick = (...args) => {
-    formik.setFieldValue('team', args[1]);
+  const handleClick = (e) => {
+    formik.setFieldValue('team', e);
     formik.setFieldValue('teamSearchQuery', '');
   };
 
@@ -48,21 +48,23 @@ export default function TeamSearchList(props) {
           name: formik.values.teamSearchQuery,
           type: GLOBAL_ENUM.TEAM,
           secondary: t('click_to_create_new_team'),
-          onClick: (...args) => {
-            handleClick(...args);
+          onClick: () => {
+            handleClick({ name: formik.values.teamSearchQuery });
           },
           icon: 'Add',
           inverseColor: true,
         },
         ...response.entities
           .filter((entity) => !rejectedTypes.includes(entity.type))
-          .map((e) => ({
-            ...e,
-            secondary: e.isRegistered ? t('team.team_already_registered') : secondary,
-            onClick: (...args) => {
-              handleClick(...args);
-            },
-          })),
+          .map((e) => {
+            return {
+              ...e,
+              secondary: e.isRegistered ? t('team.team_already_registered') : secondary,
+              onClick: () => {
+                handleClick(e);
+              },
+            };
+          }),
       ];
     }
     return response.entities
@@ -70,8 +72,8 @@ export default function TeamSearchList(props) {
       .map((e) => ({
         ...e,
         secondary: e.isRegistered ? t('register.already_registered') : secondary,
-        onClick: (...args) => {
-          handleClick(...args);
+        onClick: () => {
+          handleClick(e);
         },
       }));
   }, [response]);
@@ -89,6 +91,7 @@ export default function TeamSearchList(props) {
       if (e.target.value) {
         const entity = {};
         entity.id = options[0].id;
+        entity.name = options[0].photoUrl;
         if (entity.id) {
           entity.name = options[0].completeName;
         } else {
