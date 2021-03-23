@@ -38,7 +38,7 @@ export default function HeaderHome(props) {
   const onClose = () => {
     setOpen(false);
   };
-  const update = () => { };
+  const update = () => {};
 
   const handleSettingsClick = () => {
     router.push({
@@ -55,7 +55,6 @@ export default function HeaderHome(props) {
   };
 
   const seeEdit = basicInfos.role == ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role == ENTITIES_ROLE_ENUM.EDITOR;
-
   return (
     <Paper elevation={1} className={styles.paper}>
       {type === GLOBAL_ENUM.ORGANIZATION && (
@@ -63,7 +62,8 @@ export default function HeaderHome(props) {
           basicInfos={basicInfos}
           onClickMainButton={onOpen}
           onClickSecondButton={handleClick}
-          isAdmin={seeEdit} />
+          isAdmin={seeEdit}
+        />
       )}
       {type === GLOBAL_ENUM.EVENT && (
         <BannerEvent
@@ -91,13 +91,17 @@ export default function HeaderHome(props) {
               <Tab
                 key={index}
                 onClick={() => {
-                  router.push({
-                    pathname: '/[pid]/[slug]',
-                    query: {
-                      pid: id,
-                      slug: s.value,
+                  router.push(
+                    {
+                      pathname: '/[pid]/[slug]',
+                      query: {
+                        pid: id,
+                        slug: s.value,
+                      },
                     },
-                  });
+                    undefined,
+                    { shallow: true }
+                  );
                 }}
                 label={t(s.label)}
                 fontSize={0.6}
