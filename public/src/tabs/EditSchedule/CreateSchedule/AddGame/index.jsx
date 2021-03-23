@@ -67,8 +67,8 @@ export default function AddGame(props) {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { phase, field, time, position1, position2 } = values;
-      const [ranking1] = res.positions.filter(p => p.value === position1);
-      const [ranking2] = res.positions.filter(p => p.value === position2);
+      const [ranking1] = gameOptions.positions.filter(p => p.value === position1);
+      const [ranking2] = gameOptions.positions.filter(p => p.value === position2);
       if(position1 === position2){
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
