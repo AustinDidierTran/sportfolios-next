@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { FormDialog } from '../../../components/Custom';
 import { formatDate } from '../../../utils/stringFormats';
@@ -41,6 +41,7 @@ export default function AddGame(props) {
     const { phase, position1, position2 } = values;
     const [ranking1] = rankings.filter(r => r.ranking_id === position1);
     const [ranking2] = rankings.filter(r => r.ranking_id === position2);
+    const [selectedPhase] = phases.filter( p => p.value === phase);
     if(position1 === position2){
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -62,6 +63,11 @@ export default function AddGame(props) {
         duration: 4000,
       });
       return;
+    }
+    //if phase is started, the name is overwritten to the team in that ranking
+    if(selectedPhase.status !== PHASE_STATUS_ENUM.NOT_STARTED){
+      ranking1.name = ranking1.teamName;
+      ranking2.name = ranking2.teamName;
     }
     const game = {
       field_id: field.id,

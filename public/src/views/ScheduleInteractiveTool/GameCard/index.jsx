@@ -11,7 +11,7 @@ export default function GameCard(props) {
   const { ranking1, ranking2, timeSlots, fields, x, y } = props;
 
   const tooltip = useMemo(
-    () => `${ranking1} vs ${ranking2}, ${fields[x]?.field}, ${formatDate(moment(timeSlots[y]?.date), 'DD MMM HH:mm')}`,
+    () => `${ranking1.name} vs ${ranking2.name}, ${fields[x]?.field}, ${formatDate(moment(timeSlots[y]?.date), 'DD MMM HH:mm')}`,
     [x, y]
   );
 
@@ -29,13 +29,13 @@ export default function GameCard(props) {
         <div className={styles.gameDiv}>
           <div className={styles.team1}>
             <Avatar
-              initials={getInitialsFromName(ranking1, false)} // or team pic?
+              initials={getInitialsFromName(ranking1.name, ranking1.roster_id ? true : false)} // or team pic?
             ></Avatar>
           </div>
           <Typography className={styles.vs}>vs</Typography>
           <div className={styles.team2}>
             <Avatar
-              initials={getInitialsFromName(ranking2, false)} // or team pic?
+              initials={getInitialsFromName(ranking2.name, ranking2.roster_id ? true : false)} // or team pic?
             ></Avatar>
           </div>
         </div>

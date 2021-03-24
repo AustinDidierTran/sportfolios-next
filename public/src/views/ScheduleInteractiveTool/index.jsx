@@ -349,6 +349,7 @@ export default function ScheduleInteractiveTool() {
       field_id: g.field_id,
       timeslot_id: g.timeslot_id,
       phase_id: g.phase_id,
+      phaseName: g.phaseName,
       rankings: g.positions,
       id: g.id,
       x: data.fields.findIndex((f) => f.id === g.field_id),
@@ -379,6 +380,8 @@ export default function ScheduleInteractiveTool() {
         value: p.id,
         display: p.name,
         ranking: p.rankings,
+        order: p.phase_order,
+        status: p.status,
       }))
     );
 
@@ -493,73 +496,72 @@ export default function ScheduleInteractiveTool() {
     const gamesMoved = undoLog.filter((command) => command.type === 'moveCommand').map((c) => c.game);
 
 
-    console.log(gamesToAdd);
-    // const { status } = await api(`/api/entity/addAllInteractiveTool`, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     eventId,
-    //     gamesArray: gamesToAdd,
-    //     fieldsArray: fieldsToAdd,
-    //     timeslotsArray: timeSlotToAdd,
-    //   }),
-    // });
+    const { status } = await api(`/api/entity/addAllInteractiveTool`, {
+      method: 'POST',
+      body: JSON.stringify({
+        eventId,
+        gamesArray: gamesToAdd,
+        fieldsArray: fieldsToAdd,
+        timeslotsArray: timeSlotToAdd,
+      }),
+    });
 
-    // const gamesToUpdate = gamesMoved.reduce((prev, game) => {
-    //   const index = prev.findIndex((p) => p.id === game.id);
+    const gamesToUpdate = gamesMoved.reduce((prev, game) => {
+      const index = prev.findIndex((p) => p.id === game.id);
 
-    //   if (index !== -1) {
-    //     prev[index] = {
-    //       id: game.id,
-    //       timeslot_id: timeslots[game.y].id,
-    //       field_id: fields[game.x].id,
-    //       x: game.x,
-    //       y: game.y,
-    //     };
-    //     return prev;
-    //   }
+      if (index !== -1) {
+        prev[index] = {
+          id: game.id,
+          timeslot_id: timeslots[game.y].id,
+          field_id: fields[game.x].id,
+          x: game.x,
+          y: game.y,
+        };
+        return prev;
+      }
 
-    //   return [
-    //     ...prev,
-    //     {
-    //       id: game.id,
-    //       timeslot_id: timeslots[game.y].id,
-    //       field_id: fields[game.x].id,
-    //       x: game.x,
-    //       y: game.y,
-    //     },
-    //   ];
-    // }, []);
+      return [
+        ...prev,
+        {
+          id: game.id,
+          timeslot_id: timeslots[game.y].id,
+          field_id: fields[game.x].id,
+          x: game.x,
+          y: game.y,
+        },
+      ];
+    }, []);
 
-    // const res = await api(`/api/entity/updateGamesInteractiveTool`, {
-    //   method: 'PUT',
-    //   body: JSON.stringify({
-    //     eventId,
-    //     games: gamesToUpdate,
-    //   }),
-    // });
+    const res = await api(`/api/entity/updateGamesInteractiveTool`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        eventId,
+        games: gamesToUpdate,
+      }),
+    });
 
-    // if (
-    //   status === STATUS_ENUM.ERROR ||
-    //   status === STATUS_ENUM.UNAUTHORIZED ||
-    //   res.status === STATUS_ENUM.ERROR ||
-    //   res.status === STATUS_ENUM.UNAUTHORIZED
-    // ) {
-    //   dispatch({
-    //     type: ACTION_ENUM.SNACK_BAR,
-    //     message: t('an_error_has_occured'),
-    //     severity: SEVERITY_ENUM.ERROR,
-    //     duration: 3000,
-    //   });
-    //   return;
-    // }
+    if (
+      status === STATUS_ENUM.ERROR ||
+      status === STATUS_ENUM.UNAUTHORIZED ||
+      res.status === STATUS_ENUM.ERROR ||
+      res.status === STATUS_ENUM.UNAUTHORIZED
+    ) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('an_error_has_occured'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 3000,
+      });
+      return;
+    }
 
-    // await getData();
+    await getData();
 
-    // dispatch({
-    //   type: ACTION_ENUM.SNACK_BAR,
-    //   message: t('changes_saved'),
-    //   severity: SEVERITY_ENUM.SUCCESS,
-    // });
+    dispatch({
+      type: ACTION_ENUM.SNACK_BAR,
+      message: t('changes_saved'),
+      severity: SEVERITY_ENUM.SUCCESS,
+    });
 
     setIsAddingGames(false);
     setMadeChanges(false);
@@ -775,7 +777,7 @@ export default function ScheduleInteractiveTool() {
 
   const Games = games.map((g) => (
     <div className={styles.itemDiv} key={g.id}>
-      <GameCard ranking1={g.rankings[0].name} ranking2={g.rankings[1].name} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
+      <GameCard ranking1={g.rankings[0]} ranking2={g.rankings[1]} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
     </div>
   ));
 
@@ -954,7 +956,7 @@ export default function ScheduleInteractiveTool() {
         createCard={createCard}
         field={addGameField}
         timeslot={addGameTimeslot}
-        phases={phases}
+        phases={phases.sort((a,b) => a.order - b.order)}
         rankings={rankings}
       />
       <AddFieldInteractiveTool
