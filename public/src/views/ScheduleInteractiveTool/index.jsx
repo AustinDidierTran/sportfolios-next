@@ -495,7 +495,6 @@ export default function ScheduleInteractiveTool() {
     const timeSlotToAdd = undoLog.filter((command) => command.type === 'timeSlotCommand').map((c) => c.date);
     const gamesMoved = undoLog.filter((command) => command.type === 'moveCommand').map((c) => c.game);
 
-
     const { status } = await api(`/api/entity/addAllInteractiveTool`, {
       method: 'POST',
       body: JSON.stringify({
@@ -539,29 +538,29 @@ export default function ScheduleInteractiveTool() {
         games: gamesToUpdate,
       }),
     });
+    
+     if (
+       status === STATUS_ENUM.ERROR ||
+       status === STATUS_ENUM.UNAUTHORIZED ||
+       res.status === STATUS_ENUM.ERROR ||
+       res.status === STATUS_ENUM.UNAUTHORIZED
+     ) {
+       dispatch({
+         type: ACTION_ENUM.SNACK_BAR,
+         message: t('an_error_has_occured'),
+         severity: SEVERITY_ENUM.ERROR,
+         duration: 3000,
+       });
+       return;
+     }
 
-    if (
-      status === STATUS_ENUM.ERROR ||
-      status === STATUS_ENUM.UNAUTHORIZED ||
-      res.status === STATUS_ENUM.ERROR ||
-      res.status === STATUS_ENUM.UNAUTHORIZED
-    ) {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('an_error_has_occured'),
-        severity: SEVERITY_ENUM.ERROR,
-        duration: 3000,
-      });
-      return;
-    }
+     await getData();
 
-    await getData();
-
-    dispatch({
-      type: ACTION_ENUM.SNACK_BAR,
-      message: t('changes_saved'),
-      severity: SEVERITY_ENUM.SUCCESS,
-    });
+     dispatch({
+       type: ACTION_ENUM.SNACK_BAR,
+       message: t('changes_saved'),
+       severity: SEVERITY_ENUM.SUCCESS,
+     });
 
     setIsAddingGames(false);
     setMadeChanges(false);
