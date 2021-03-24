@@ -604,6 +604,7 @@ export default {
       events: 'Events',
     },
     invalid: {
+      invalid_64_length: 'Must be 64 or less characters long.',
       invalid_alias: 'The alias can only contain alphanumeric characters and dots',
       invalid_coupon: 'Invalid coupon',
       invalid_date_it_should_follow: 'Invalid date. It should follow: yyyy-mm-dd',

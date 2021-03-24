@@ -610,6 +610,7 @@ export default {
       events: 'Événements',
     },
     invalid: {
+      invalid_64_length: 'Doit être 64 caractères ou moins.',
       invalid_alias: "L'alias peut seulement contenir des caractères alphanumérique et des points",
       invalid_coupon: 'Coupon invalide',
       invalid_date_it_should_follow: 'Date invalide. Elle devrait suivre: yyyy-mm-dd',

@@ -27,7 +27,7 @@ export default function BannerEvent(props) {
     if (eventInfo.isLate) {
       return (
         <Typography variant={fontVariant} component="p">
-          {t('register.registrations_ended')}&nbsp;{formatDate(moment(eventInfo.registrationEnd))}
+          {t('register.registrations_ended')}&nbsp;{formatDate(moment.parseZone(eventInfo.registrationEnd))}
         </Typography>
       );
     }
@@ -35,8 +35,8 @@ export default function BannerEvent(props) {
       return (
         <Typography variant={fontVariant} component="p">
           {t('register.registrations_open_and_end_on', {
-            openDate: formatDate(moment(eventInfo.registrationStart)),
-            endDate: formatDate(moment(eventInfo.registrationEnd)),
+            openDate: formatDate(moment.parseZone(eventInfo.registrationStart)),
+            endDate: formatDate(moment.parseZone(eventInfo.registrationEnd)),
           })}
         </Typography>
       );
@@ -52,7 +52,7 @@ export default function BannerEvent(props) {
       <div>
         <Typography display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant}>
           {t('register.registrations_ends_on')}&nbsp;
-          {formatDate(moment(eventInfo.registrationEnd))}&nbsp;
+          {formatDate(moment.parseZone(eventInfo.rdegistrationEnd))}&nbsp;
         </Typography>
         <Typography
           display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'}
@@ -87,7 +87,7 @@ export default function BannerEvent(props) {
               <div className={styles.date}>
                 <Paper>
                   <Typography className={styles.dateBorder} noWrap="true" variant="h3">
-                    {moment(eventInfo.startDate || '0').format('DD')}
+                    {moment.parseZone(eventInfo.startDate || '0').format('DD')}
                   </Typography>
                 </Paper>
               </div>
@@ -99,7 +99,7 @@ export default function BannerEvent(props) {
             <div className={styles.divDate}>
               <Typography variant={fontVariant} color="error">
                 {eventInfo.startDate
-                  ? formatIntervalDate(moment(eventInfo.startDate), moment(eventInfo.endDate))
+                  ? formatIntervalDate(moment.parseZone(eventInfo.startDate), moment.parseZone(eventInfo.endDate))
                   : t('date_comming_soon')}
               </Typography>
               {eventInfo.location && (

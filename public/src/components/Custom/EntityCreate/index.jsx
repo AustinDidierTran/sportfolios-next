@@ -7,7 +7,7 @@ import { ROUTES, goTo } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Create.module.css';
-
+import moment from 'moment';
 import CustomPaper from '../Paper';
 import CustomButton from '../Button';
 import IgContainer from '../IgContainer';
@@ -15,9 +15,13 @@ import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+
+import * as yup from 'yup';
+
 
 export default function EntityCreate(props) {
   const { t } = useTranslation();
@@ -58,6 +62,7 @@ export default function EntityCreate(props) {
     const { status, data } = await api(
       formatRoute('/api/entity/allOwned', null, {
         type: creatorEntityType,
+        onlyAdmin: true,
       }),
       { method: 'GET' }
     );
@@ -107,6 +112,40 @@ export default function EntityCreate(props) {
         },
       ];
     }
+    if (creatingEntity === GLOBAL_ENUM.EVENT) {
+
+      return [
+        {
+          namespace: 'name',
+          label: t('name'),
+          type: 'text',
+        },
+        {
+          namespace: 'maximumSpots',
+          label: t('maximum_spots'),
+          type: 'number'
+        },
+        {
+          namespace: 'startDate',
+          label: t('event.event_start'),
+          type: 'datetime-local',
+          shrink: true,
+        },
+        {
+          namespace: 'endDate',
+          label: t('event.event_end'),
+          type: 'datetime-local',
+          shrink: true,
+        },
+        {
+          namespace: 'creator',
+          label: t('create.create_as'),
+          componentType: COMPONENT_TYPE_ENUM.SELECT,
+          showTextIfOnlyOneOption: creatorOptions.length === 1,
+          options: creatorOptions,
+        },
+      ];
+    }
     return [
       {
         namespace: 'name',
@@ -123,39 +162,50 @@ export default function EntityCreate(props) {
     ];
   }, [type, creatorOptions]);
 
-  const validate = (values) => {
-    const errors = {};
-    const { name, surname, creator } = values;
-    if (!name) {
-      errors.name = t('value_is_required');
-    } else {
-      if (name.length > 64) {
-        formik.setFieldValue('name', name.slice(0, 64));
-      }
-    }
-    if (creatingEntity === GLOBAL_ENUM.PERSON && !surname.length) {
-      errors.surname = t('value_is_required');
-    } else if (surname.length > 64) {
-      formik.setFieldValue('surname', surname.slice(0, 64));
-    }
-    if (creatingEntity !== GLOBAL_ENUM.PERSON && !creator.length) {
-      errors.creator = t('value_is_required');
-    }
-    return errors;
-  };
+  let validationSchema;
+  if (creatingEntity === GLOBAL_ENUM.PERSON) {
+    validationSchema = yup.object().shape({
+      name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      surname: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    });
+  }
+  else if (creatingEntity === GLOBAL_ENUM.EVENT) {
+    validationSchema = yup.object().shape({
+      name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    });
+  } else {
+    validationSchema = yup.object().shape({
+      name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    });
+  }
 
   const formik = useFormik({
     initialValues: {
       name: '',
       surname: '',
       creator: '',
+      maximumSpots: '',
+      startDate: '',
+      endDate: '',
     },
-    validate,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname, creator } = values;
+      const { name, surname, creator, maximumSpots, startDate: startDateProps, endDate: endDateProps } = values;
       setIsSubmitting(true);
+      let startDate = startDateProps;
+      if (!moment(startDateProps).isValid()) {
+        startDate = null;
+      }
+      let endDate = endDateProps;
+      if (!moment(endDateProps).isValid()) {
+        endDate = null;
+      }
       try {
         const res = await api('/api/entity', {
           method: 'POST',
@@ -164,6 +214,9 @@ export default function EntityCreate(props) {
             surname,
             type,
             creator,
+            maximumSpots,
+            startDate,
+            endDate,
           }),
         });
         if (type === GLOBAL_ENUM.EVENT || type === GLOBAL_ENUM.ORGANIZATION) {
