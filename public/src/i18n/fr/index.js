@@ -462,6 +462,7 @@ export default {
       membership: 'Affiliation',
       memberships: 'Affiliations',
       memberships_list: 'Liste des affiliations',
+      memberships_available: 'Affiliations disponibles',
     },
     add: {
       add_admin: 'Ajouter admin',

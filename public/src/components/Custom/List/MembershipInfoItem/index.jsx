@@ -3,18 +3,21 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '../../IconButton';
 
 import styles from './MebershipInfoItem.module.css';
+import CustomButton from '../../Button';
+import { useTranslation } from 'react-i18next';
 
 export default function MembershipDetailItem(props) {
-  const { name, priceInfo, description, timeInfo, onClick, icon, tooltip } = props;
+  const { t } = useTranslation();
+
+  const { display, onClick, expirationDate, alreadyMember } = props;
 
   return (
     <ListItem style={{ width: '100%' }} className={styles.main}>
-      <ListItemText primary={`${name} ${priceInfo} ${timeInfo}`} secondary={description ? description : ''} />
+      <ListItemText primary={display} secondary={expirationDate} />
       <ListItemSecondaryAction>
-        <IconButton onClick={onClick} style={{ color: '#18B393' }} icon={icon} color="primary" tooltip={tooltip} />
+        <CustomButton onClick={onClick}>{alreadyMember ? t('renew_membership') : t('become_member')}</CustomButton>
       </ListItemSecondaryAction>
     </ListItem>
   );

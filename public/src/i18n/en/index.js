@@ -459,6 +459,7 @@ export default {
       membership: 'Membership',
       memberships: 'Memberships',
       memberships_list: 'List of memberships',
+      memberships_available: 'Available memberships',
     },
     add: {
       add_admin: 'Add Admin',

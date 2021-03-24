@@ -5,7 +5,6 @@ import { GLOBAL_ENUM } from '../../../common/enums';
 import loadable from '@loadable/component';
 
 const BasicInfos = loadable(() => import('./BasicInfos'));
-const Memberships = loadable(() => import('./Memberships'));
 
 export default function TabAbout(props) {
   const { basicInfos, gamesInfos } = props;
@@ -34,7 +33,6 @@ export default function TabAbout(props) {
       return (
         <Paper className={styles.card}>
           <BasicInfos basicInfos={basicInfos} />
-          <Memberships />
         </Paper>
       );
 

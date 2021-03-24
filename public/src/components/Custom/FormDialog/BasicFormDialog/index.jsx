@@ -19,6 +19,7 @@ export default function BasicFormDialog(props) {
     formik,
     onClose,
     dialogContentStyle,
+    showSubtitle,
     subtitle,
     subtitleOnClick,
   } = props;
@@ -38,7 +39,7 @@ export default function BasicFormDialog(props) {
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={'xs'} fullWidth>
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-      {subtitle && (
+      {subtitle && showSubtitle && (
         <DialogContent
           onClick={subtitleOnClick}
           style={{
