@@ -1,12 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
-import IgContainer from '../../../components/Custom/IgContainer';
-import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
-import { formatPageTitle } from '../../../utils/stringFormats';
+import IgContainer from '../../components/Custom/IgContainer';
+import { ENTITIES_ROLE_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { Store } from '../../../Store';
-import Posts from '../../../components/Custom/Posts';
+import Posts from '../../components/Custom/Posts';
+import { Store } from '../../Store';
 
 const useStyles = makeStyles(() => ({
   IgContainer: {
@@ -14,14 +13,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function OrganizationHome(props) {
+export default function Home(props) {
   const { t } = useTranslation();
   const classes = useStyles();
   const { basicInfos } = props;
-
-  useEffect(() => {
-    document.title = formatPageTitle(basicInfos.name);
-  }, []);
   const {
     state: { userInfo },
   } = useContext(Store);

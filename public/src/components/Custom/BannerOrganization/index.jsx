@@ -28,13 +28,6 @@ export default function BannerOrganization(props) {
             <CustomButton onClick={onClickMainButton} className={styles.eventButton}>
               {t('become_member')}
             </CustomButton>
-
-            {/* Afficher le menu mobile en gros à partir d'en bas *voir fb* */}
-            {/* {window.innerWidth < 600 && isAdmin && (
-              <Button variant="contained" className={styles.optionsButton} onClick={onClickSecondButton}>
-                <CustomIcon icon="MoreVertIcon" />
-              </Button>
-            )} */}
           </Grid>
         </Grid>
       </Grid>

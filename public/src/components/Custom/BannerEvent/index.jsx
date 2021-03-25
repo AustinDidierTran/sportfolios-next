@@ -1,4 +1,5 @@
 import React, { useMemo, useContext } from 'react';
+
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
@@ -7,10 +8,10 @@ import styles from './BannerEvent.module.css';
 import Typography from '@material-ui/core/Typography';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 import Paper from '@material-ui/core/Paper';
-import CustomIconButton from '../IconButton';
 import Divider from '@material-ui/core/Divider';
+
 export default function BannerEvent(props) {
-  const { basicInfos, onClickMainButton, onClickSecondButton, eventInfo, isAdmin } = props;
+  const { basicInfos, onClickMainButton, eventInfo, onSwitch, adminView, isAdmin } = props;
   const { t } = useTranslation();
   const {
     state: { screenSize },
@@ -108,11 +109,6 @@ export default function BannerEvent(props) {
                 </Typography>
               )}
             </div>
-            {isAdmin && (
-              <div className={styles.divMoreVertButton}>
-                <CustomIconButton className={styles.moreVertButton} icon="MoreVertIcon" onClick={onClickSecondButton} />
-              </div>
-            )}
           </div>
           <div className={styles.displayFlex}>
             <Typography variant="h3">{eventInfo.name}</Typography>
@@ -124,6 +120,31 @@ export default function BannerEvent(props) {
         <>
           <Divider variant="middle" />
           <div className={styles.divIconButton}>
+            {isAdmin && (
+              <>
+                {adminView ? (
+                  <CustomButton
+                    className={styles.view}
+                    startIcon="Autorenew"
+                    color="secondary"
+                    variant="outlined"
+                    onClick={onSwitch}
+                  >
+                    {t('admin_view')}
+                  </CustomButton>
+                ) : (
+                  <CustomButton
+                    className={styles.view}
+                    startIcon="Autorenew"
+                    color="primary"
+                    variant="outlined"
+                    onClick={onSwitch}
+                  >
+                    {t('player_view')}
+                  </CustomButton>
+                )}
+              </>
+            )}
             <div className={styles.divIconSignup}>
               <CustomButton
                 size="small"

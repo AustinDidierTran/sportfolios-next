@@ -10,11 +10,11 @@ import loadable from '@loadable/component';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
 
-const Home = loadable(() => import('./home'));
-const Events = loadable(() => import('./events'));
-const Memberships = loadable(() => import('./memberships'));
-const About = loadable(() => import('./about'));
-const Edit = loadable(() => import('./edit'));
+const Home = loadable(() => import('../../../tabs/Home'));
+const Events = loadable(() => import('../../../tabs/Events'));
+const Memberships = loadable(() => import('../../../tabs/Memberships'));
+const About = loadable(() => import('../../../tabs/About'));
+const Settings = loadable(() => import('../../../tabs/Settings'));
 
 export default function Organization(props) {
   const { t } = useTranslation();
@@ -25,7 +25,13 @@ export default function Organization(props) {
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
-  }, [basicInfos]);
+  }, [basicInfos.name]);
+
+  useEffect(() => {
+    getRole();
+  }, []);
+
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const tabs = useMemo(() => {
     let res = [
@@ -34,11 +40,19 @@ export default function Organization(props) {
       { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
       { component: About, value: TABS_ENUM.ABOUT, label: t('about'), icon: 'Info' },
     ];
-    if (basicInfos.role <= ENTITIES_ROLE_ENUM.EDITOR) {
-      res.push({ component: Edit, value: TABS_ENUM.EDIT, label: t('settings'), icon: 'Settings' });
+    if (isAdmin) {
+      return [...res, { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' }];
     }
     return res;
-  }, []);
+  }, [isAdmin]);
+
+  const index = useMemo(() => {
+    const res = tabs.findIndex((s) => s.value === tab);
+    if (res === -1) {
+      return 0;
+    }
+    return res;
+  }, [tab, tabs]);
 
   const getRole = async () => {
     const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
@@ -46,21 +60,32 @@ export default function Organization(props) {
       let newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
+      setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
     }
   };
 
-  useEffect(() => {
-    getRole();
-  }, [basicInfosProps]);
-
   const OpenTab = useMemo(() => {
-    return tabs.find((t) => t.value === tab).component;
-  }, [tab]);
+    const res = tabs[index];
+    if (res) {
+      return res.component;
+    }
+    return Home;
+  }, [index, tabs]);
 
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={tabs} type={GLOBAL_ENUM.ORGANIZATION} />
-      <IgContainer>{OpenTab ? <OpenTab basicInfos={basicInfos} /> : <Home basicInfos={basicInfos} />}</IgContainer>
+      <HeaderHome
+        basicInfos={basicInfos}
+        isAdmin={isAdmin}
+        index={index}
+        navTabs={tabs}
+        type={GLOBAL_ENUM.ORGANIZATION}
+      />
+      <IgContainer>
+        <div>
+          <OpenTab basicInfos={basicInfos} />
+        </div>
+      </IgContainer>
     </>
   );
 }

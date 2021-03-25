@@ -39,10 +39,10 @@ export default function AddGame(props) {
 
   const sendToInteractiveTool = (values) => {
     const { phase, position1, position2 } = values;
-    const [ranking1] = rankings.filter(r => r.ranking_id === position1);
-    const [ranking2] = rankings.filter(r => r.ranking_id === position2);
-    const [selectedPhase] = phases.filter( p => p.value === phase);
-    if(position1 === position2){
+    const [ranking1] = rankings.filter((r) => r.ranking_id === position1);
+    const [ranking2] = rankings.filter((r) => r.ranking_id === position2);
+    const [selectedPhase] = phases.filter((p) => p.value === phase);
+    if (position1 === position2) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_have_same_positions'),
@@ -51,11 +51,15 @@ export default function AddGame(props) {
       });
       return;
     }
-    if((ranking1.current_phase !== ranking2.current_phase) || (phase !== ranking1.current_phase) || (phase !== ranking2.current_phase)){
+    if (
+      ranking1.current_phase !== ranking2.current_phase ||
+      phase !== ranking1.current_phase ||
+      phase !== ranking2.current_phase
+    ) {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      setFirstPositionOptions(rankings.filter(r => r.current_phase === phase));
-      setSecondPositionOptions(rankings.filter(r => r.current_phase === phase));
+      setFirstPositionOptions(rankings.filter((r) => r.current_phase === phase));
+      setSecondPositionOptions(rankings.filter((r) => r.current_phase === phase));
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_have_different_phase'),
@@ -65,7 +69,7 @@ export default function AddGame(props) {
       return;
     }
     //if phase is started, the name is overwritten to the team in that ranking
-    if(selectedPhase.status !== PHASE_STATUS_ENUM.NOT_STARTED){
+    if (selectedPhase.status !== PHASE_STATUS_ENUM.NOT_STARTED) {
       ranking1.name = ranking1.teamName;
       ranking2.name = ranking2.teamName;
     }
@@ -118,18 +122,22 @@ export default function AddGame(props) {
   useEffect(() => {
     //TODO: refine the filter. Some flows can make it bug i.e. no position options available
     if (formik.values.position1 !== '' && formik.values.position2 === '') {
-      const [{current_phase: phase}] = rankings.filter(r => r.value === formik.values.position1);
-      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position1 && r.current_phase === phase);
+      const [{ current_phase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
+      const samePhaseRankings = rankings.filter(
+        (r) => r.value !== formik.values.position1 && r.current_phase === phase
+      );
       setSecondPositionOptions(samePhaseRankings);
     }
     if (formik.values.position2 !== '' && formik.values.position1 === '') {
-      const [{current_phase: phase}] = rankings.filter(r => r.value === formik.values.position2);
-      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position2 && r.current_phase === phase);
+      const [{ current_phase: phase }] = rankings.filter((r) => r.value === formik.values.position2);
+      const samePhaseRankings = rankings.filter(
+        (r) => r.value !== formik.values.position2 && r.current_phase === phase
+      );
       setFirstPositionOptions(samePhaseRankings);
     }
     if (formik.values.position2 !== '' && formik.values.position1 !== '') {
-      if(formik.values.phase === ''){
-        const [{current_phase: phase}] = rankings.filter(r => r.value === formik.values.position1);
+      if (formik.values.phase === '') {
+        const [{ current_phase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
         formik.setFieldValue('phase', phase);
         return;
       }
@@ -143,7 +151,6 @@ export default function AddGame(props) {
       setSecondPositionOptions(secondPosition);
     }
   }, [formik.values.position1, formik.values.position2]);
-
 
   const fields = [
     {

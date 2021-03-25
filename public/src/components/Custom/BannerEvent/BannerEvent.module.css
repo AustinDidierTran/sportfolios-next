@@ -35,6 +35,10 @@
   display: flex;
 }
 
+.view {
+  margin-left: 16px !important;
+}
+
 .divInfo {
   display: flex;
   flex-direction: column;

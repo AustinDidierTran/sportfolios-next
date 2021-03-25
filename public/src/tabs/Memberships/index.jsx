@@ -2,24 +2,25 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
+import IgContainer from '../../components/Custom/IgContainer';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
-import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
-import { formatDate, formatPrice, getMembershipName } from '../../../utils/stringFormats';
+import api from '../../actions/api';
+import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatDate, formatPrice, getMembershipName } from '../../utils/stringFormats';
 import moment from 'moment';
 import styles from './Organization.module.css';
-import CustomList from '../../../components/Custom/List';
-import FormDialog from '../../../components/Custom/FormDialog';
+import CustomList from '../../components/Custom/List';
+import FormDialog from '../../components/Custom/FormDialog';
 import loadable from '@loadable/component';
 
 const Memberships = loadable(() => import('../../../tabs/About/Memberships'));
 const IgContainer = loadable(() => import('../../../components/Custom/IgContainer'));
 const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 
-export default function OrganizationMemberships(props) {
+export default function Memberships(props) {
   const { t } = useTranslation();
   const { basicInfos } = props;
   const router = useRouter();
