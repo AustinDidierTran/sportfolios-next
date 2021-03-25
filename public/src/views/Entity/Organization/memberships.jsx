@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import IgContainer from '../../../components/Custom/IgContainer';
-import HeaderHome from '../../../components/Custom/HeaderHome';
+const IgContainer = loadable(() => import('../../../components/Custom/IgContainer'));
+const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Store } from '../../../Store';
 import { useRouter } from 'next/router';
@@ -19,34 +18,10 @@ import FormDialog from '../../../components/Custom/FormDialog';
 import loadable from '@loadable/component';
 
 const Memberships = loadable(() => import('../../../tabs/About/Memberships'));
-const useStyles = makeStyles((theme) => ({
-  fabMobile: {
-    position: 'absolute',
-    bottom: theme.spacing(2) + 58,
-    right: theme.spacing(2),
-    zIndex: 100,
-    color: 'white',
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2) + (window.innerWidth - 700) / 2,
-    zIndex: 100,
-    color: 'white',
-  },
-  IgContainer: {
-    backgroundColor: '#f5f5f5 !important',
-  },
-  createPost: {
-    padding: 12,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-}));
+
 
 export default function OrganizationMemberships(props) {
   const { t } = useTranslation();
-  const classes = useStyles();
   const { basicInfos, navBar } = props;
   const router = useRouter();
   const { id } = router.query;
@@ -107,7 +82,6 @@ export default function OrganizationMemberships(props) {
         tooltip: !alreadyMember ? t('become_member') : expirationDate,
       };
     });
-    console.log(memberships);
     setMemberships(memberships);
   };
 
@@ -148,7 +122,7 @@ export default function OrganizationMemberships(props) {
   return (
     <>
       <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
-      <IgContainer className={classes.IgContainer}>
+      <IgContainer className={styles.IgContainer}>
         <Paper className={styles.rootMargin}>
           <h3>{t('member.memberships_available')}</h3>
           <CustomList items={memberships} />
@@ -157,8 +131,8 @@ export default function OrganizationMemberships(props) {
         </Paper>
 
         <Memberships
-          disableButton
-          refreshMemberships={refreshMemberships} />
+        disableButton
+        refreshMemberships={refreshMemberships} />
       </IgContainer>
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
