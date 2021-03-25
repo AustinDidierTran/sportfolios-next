@@ -46,6 +46,7 @@ export default function EditRankings() {
 
   const [phaseToEnd, setPhaseToEnd] = useState({});
   const [phaseToDelete, setPhaseToDelete] = useState({});
+  const [prerankPhase, setPrerankPhase] = useState({});
 
   const [openPhase, setOpenPhase] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
@@ -74,6 +75,8 @@ export default function EditRankings() {
       })
     );
 
+    setPrerankPhase(prerankPhase);
+
     const { data } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
@@ -91,8 +94,8 @@ export default function EditRankings() {
     if (data) {
       preranking = data.map((d) => ({
         position: d.position,
-        content: d.name,
-        rosterId: d.rosterId,
+        content: d.noTeam ? t('register.register_team') : d.name,
+        rosterId: d.rosterId ? d.rosterId : null,
         rankingId: d.rankingId,
       }));
     }
@@ -112,11 +115,20 @@ export default function EditRankings() {
           if (r && r.origin_phase && r.origin_position) {
             if (r.origin_phase === prerankPhase.phaseId) {
               const rankingWithName = preranking.find((p) => p.position === r.origin_position);
-              return {
-                ...r,
-                rankingId: r.ranking_id,
-                content: `${r.origin_position} - ${t('preranking')} (${rankingWithName.content})`,
-              };
+              if(rankingWithName.rosterId){
+                  return {
+                  ...r,
+                  rankingId: r.ranking_id,
+                  content: `${r.origin_position} - ${t('preranking')} (${rankingWithName.content})`,
+                };
+              }else{
+                return {
+                  ...r,
+                  rankingId: r.ranking_id,
+                  content: `${r.origin_position} - ${t('preranking')}`,
+                };
+              }
+            
             }
             return { ...r, rankingId: r.ranking_id, content: `${r.origin_position} - ${r.phaseName}` };
           }
@@ -195,9 +207,10 @@ export default function EditRankings() {
   };
 
   const handleStartPhase = async (phase) => {
-    const phaseRanking = phase.ranking;
-    const rankingsWithRosterId = phaseRanking.map((r) => r.roster_id);
     const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
+    const rankingsFromPrerank = phase.ranking.filter(r => r.origin_phase === prerankPhase.phaseId && !r.roster_id);
+    const emptyRankings = phase.ranking.filter(r => !r.origin_phase && !r.origin_position);
+    const rankingsWithRosterId = phase.ranking.map((r) => r.roster_id);
 
     if (!rankingsWithRosterId.includes(null) && phase.spots !== 0) {
       const res = await api('/api/entity/updatePhase', {
@@ -217,10 +230,17 @@ export default function EditRankings() {
         });
       }
       update();
-    } else if (rankingsWithRosterId.includes(null) || phase.spots === 0) {
+    } else if (phase.spots === 0 || emptyRankings.length) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('empty_phase_spots_warning'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else if (rankingsFromPrerank.length) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('no.no_team_in_prerank_position'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
@@ -344,7 +364,7 @@ export default function EditRankings() {
       <div className={styles.div}>
         <PrerankAccordionDnD
           title={t('preranking')}
-          teams={preranking}
+          ranking={preranking}
           update={getData}
           id={'preranking'}
         ></PrerankAccordionDnD>

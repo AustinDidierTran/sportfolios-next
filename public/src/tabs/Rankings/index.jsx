@@ -26,14 +26,17 @@ export default function Rankings() {
     );
     let ranking = [];
     if (data) {
-      ranking = data.map((d) => ({
-        position: d.position,
-        name: d.name,
-        id: d.teamId,
-        rosterId: d.rosterId,
-      }));
+      ranking = data.map((d) => {
+        if(d.rosterId){
+          return {
+            position: d.position,
+            name: d.name,
+            rosterId: d.rosterId ? d.rosterId : null,
+            rankingId: d.rankingId,
+          }
+        }
+      }).filter(d => d!==undefined);
       setPreranking(ranking);
-      setRanking(ranking);
     }
 
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));

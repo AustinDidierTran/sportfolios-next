@@ -321,6 +321,7 @@ const GAME_INFOS_CHATBOT_STATES = {
 const REJECTION_ENUM = {
   NO_REMAINING_SPOTS: 'no_remaining_spots',
   ALREADY_REGISTERED: 'already_registered',
+  TOO_MANY_TEAMS: 'too_many_teams',
 };
 
 const VIEW_ENUM = {

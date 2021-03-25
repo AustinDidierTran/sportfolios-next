@@ -125,7 +125,7 @@ export default function ScheduleTab(props) {
       )}
       <AddTimeSlot isOpen={time} onClose={closeTime} />
       <AddField isOpen={field} onClose={closeField} />
-      <AddTeam isOpen={team} onClose={closeTeam} />
+      <AddTeam isOpen={team} onClose={closeTeam} update={update}/>
       <AddPhase isOpen={phase} onClose={closePhase} />
       <AddGame isOpen={game} onClose={closeGame} update={update} />
     </>

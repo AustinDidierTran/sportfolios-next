@@ -27,7 +27,7 @@ export default function PhaseRankings() {
           const ranking = phase.ranking
             .map((r) => ({ ...r, name: `${r.initial_position} - ${phase.name}` }))
             .sort((a, b) => a.initial_position - b.initial_position);
-          return { ranking, title: `${phase.name} - ${t('phase_not_started')}` };
+          return { ranking, title: `${phase.name} - ${t('phase_not_started')}`, status: phase.status };
         }
         const {
           data: { games, teams: allTeams },
@@ -78,9 +78,11 @@ export default function PhaseRankings() {
             phase.status === PHASE_STATUS_ENUM.STARTED
               ? `${phase.name} - ${t('phase_in_progress')}`
               : `${phase.name} - ${t('phase_done')}`,
+          status: phase.status
         };
       })
     );
+
     setPhases(res);
   };
 
@@ -97,7 +99,7 @@ export default function PhaseRankings() {
           ) : phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
             <Ranking key={phase.id} ranking={phase.ranking} title={phase.title} withStats></Ranking>
           ) : (
-            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title}></Ranking>
+            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title} withStats={false}></Ranking>
           )}
         </div>
       ))}

@@ -4,7 +4,7 @@ import { Paper, Card } from '../../../components/Custom';
 
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { CARD_TYPE_ENUM, REJECTION_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import moment from 'moment';
 import styles from './EventSettings.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
@@ -70,20 +70,28 @@ export default function EventSettings() {
           endDate,
         }),
       });
-      if (res.status === STATUS_ENUM.ERROR) {
+      if(res.data.reason){
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t(REJECTION_ENUM.TOO_MANY_TEAMS),
+          severity: SEVERITY_ENUM.ERROR,
+        })
+      }
+      else if (res.status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t(ERROR_ENUM.ERROR_OCCURED),
           severity: SEVERITY_ENUM.ERROR,
         });
         return;
+      }else{
+        getInfos();
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('informations_saved'),
+          severity: SEVERITY_ENUM.SUCCESS,
+        });
       }
-      getInfos();
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('informations_saved'),
-        severity: SEVERITY_ENUM.SUCCESS,
-      });
     },
   });
 

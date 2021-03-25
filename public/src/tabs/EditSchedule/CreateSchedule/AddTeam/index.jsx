@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 export default function AddTeam(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, update } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -82,6 +82,7 @@ export default function AddTeam(props) {
           duration: 2000,
         });
       }
+      update();
     },
   });
 
