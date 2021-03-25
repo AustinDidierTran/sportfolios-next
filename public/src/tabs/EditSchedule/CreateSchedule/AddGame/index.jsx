@@ -67,6 +67,25 @@ export default function AddGame(props) {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { phase, field, time, position1, position2 } = values;
+      const [ranking1] = gameOptions.positions.filter(p => p.value === position1);
+      const [ranking2] = gameOptions.positions.filter(p => p.value === position2);
+      if(position1 === position2){
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('cant_have_same_positions'),
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      }
+      if(ranking1.current_phase !== ranking2.current_phase){
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('cant_have_different_phase'),
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+        return;
+      }
       const res = await api('/api/entity/game', {
         method: 'POST',
         body: JSON.stringify({
