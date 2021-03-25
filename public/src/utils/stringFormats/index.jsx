@@ -6,12 +6,12 @@ import 'moment/locale/fr';
 import i18n from '../../i18n';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
-export const getInitialsFromName = (completeName, isNotName) => {
+export const getInitialsFromName = (completeName, isName) => {
   if (!completeName) {
     return '';
   }
 
-  if(!isNotName && typeof completeName === 'string'){
+  if(isName !== undefined && isName !==true && typeof completeName === 'string'){
     const str = completeName.trim().split(" ");
     let res = `${str[0]}${str[3] ? str[3].charAt(0) : str[2].charAt(0)}`.toUpperCase();
     return res;
