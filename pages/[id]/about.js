@@ -9,7 +9,7 @@ const Head = loadable(() => import('next/head'));
 import { useTranslation } from 'react-i18next';
 
 const Event = loadable(() => import('../../public/src/views/Entity/Event/home.jsx'));
-const Organization = loadable(() => import('../../public/src/views/Entity/Organization/about.jsx'));
+const Organization = loadable(() => import('../../public/src/views/Entity/Organization/home.jsx'));
 const Person = loadable(() => import('../../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../../public/src/views/Entity/Team'));
 import { formatRoute } from '../../public/common/utils/stringFormat';

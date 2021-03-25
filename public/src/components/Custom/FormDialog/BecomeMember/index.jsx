@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function BecomeMember(props) {
-  const { open: openProps, onClose, update } = props;
+  const { open: openProps, onClose, update, moreInfo = true, defaultTypeValue } = props;
   const { t } = useTranslation();
   const {
     dispatch,
@@ -60,7 +60,10 @@ export default function BecomeMember(props) {
       value: d.id,
       display: formatMembership(d),
     }));
-    if (memberships[0]) {
+    if (defaultTypeValue) {
+      formik.setFieldValue('type', defaultTypeValue);
+    }
+    else if (memberships[0]) {
       formik.setFieldValue('type', memberships[0].value);
     }
     setMemberships(memberships);
@@ -188,6 +191,7 @@ export default function BecomeMember(props) {
       fields={fields}
       formik={formik}
       onClose={handleClose}
+      showSubtitle={moreInfo}
       subtitle={t('learn_more')}
       subtitleOnClick={onClickMoreInfo}
     />

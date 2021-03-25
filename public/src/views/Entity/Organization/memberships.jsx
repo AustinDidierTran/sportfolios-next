@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import IgContainer from '../../../components/Custom/IgContainer';
-import HeaderHome from '../../../components/Custom/HeaderHome';
+const IgContainer = loadable(() => import('../../../components/Custom/IgContainer'));
+const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Store } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
@@ -16,44 +15,28 @@ import moment from 'moment';
 import styles from './Organization.module.css';
 import CustomList from '../../../components/Custom/List';
 import FormDialog from '../../../components/Custom/FormDialog';
+import loadable from '@loadable/component';
 
-const useStyles = makeStyles((theme) => ({
-  fabMobile: {
-    position: 'absolute',
-    bottom: theme.spacing(2) + 58,
-    right: theme.spacing(2),
-    zIndex: 100,
-    color: 'white',
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2) + (window.innerWidth - 700) / 2,
-    zIndex: 100,
-    color: 'white',
-  },
-  IgContainer: {
-    backgroundColor: '#f5f5f5 !important',
-  },
-  createPost: {
-    padding: 12,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-}));
+const Memberships = loadable(() => import('../../../tabs/About/Memberships'));
+
 
 export default function OrganizationMemberships(props) {
   const { t } = useTranslation();
-  const classes = useStyles();
   const { basicInfos, navBar } = props;
   const router = useRouter();
   const { id } = router.query;
   const [memberships, setMemberships] = useState([]);
+  const [refreshMemberships, setRefreshMemberships] = useState(false);
   const [open, setOpen] = useState(false);
-  const onOpen = () => {
+  const [defaultTypeValue, setDefaultTypeValue] = useState(-1);
+  const onOpen = (id) => {
+    setDefaultTypeValue(id);
     setOpen(true);
   };
   const onClose = () => {
+    setRefreshMemberships(!refreshMemberships);
+    getMemberships();
+    updateCart();
     setOpen(false);
   };
   const update = () => { };
@@ -92,44 +75,49 @@ export default function OrganizationMemberships(props) {
       }
       return {
         value: d.id,
-        ...formatMembership(d),
+        display: formatMembership(d),
         type: LIST_ITEM_ENUM.MEMBERSHIP_INFO,
-        onClick: onOpen,
-        icon: !alreadyMember ? 'Assignment' : 'AssignmentTurnedInIcon',
+        onClick: () => { onOpen(d.id) },
+        expirationDate,
+        alreadyMember,
         tooltip: !alreadyMember ? t('become_member') : expirationDate,
       };
     });
     setMemberships(memberships);
   };
 
+  const updateCart = async () => {
+    const { data: cartItems } = await api('/api/shop/getCartItems');
+    dispatch({
+      type: ACTION_ENUM.UPDATE_CART,
+      payload: cartItems,
+    });
+  };
+
   const formatMembership = (membership) => {
     const { length, fixed_date, membership_type, price } = membership;
-    const name = t(getMembershipName(membership_type));
-    const priceInfo = formatPrice(price);
-    let timeInfo;
+    const name = getMembershipName(membership_type);
     if (length) {
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_YEAR) {
-        timeInfo = t('one_year');
+        return `${t(name)} | ${formatPrice(price)} (${t('one_year')})`;
       }
       if (length === MEMBERSHIP_LENGTH_ENUM.SIX_MONTH) {
-        timeInfo = t('six_month');
+        return `${t(name)} | ${formatPrice(price)} (${t('six_month')})`;
       }
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
-        timeInfo = t('one_month');
+        return `${t(name)} | ${formatPrice(price)} (${t('one_month')})`;
       }
     }
     if (fixed_date) {
+      let finalDate;
       if (moment(new Date(fixed_date)).set('year', moment().get('year')) < moment()) {
-        timeInfo = formatDate(moment(new Date(fixed_date)).set('year', moment().get('year')).add(1, 'year'));
+        finalDate = moment(new Date(fixed_date)).set('year', moment().get('year')).add(1, 'year');
       } else {
-        timeInfo = formatDate(moment(new Date(fixed_date)).set('year', moment().get('year')));
+        finalDate = moment(new Date(fixed_date)).set('year', moment().get('year'));
       }
+      return `${t(name)} | ${formatPrice(price)} (${formatDate(finalDate)})`;
     }
-    return {
-      name,
-      priceInfo,
-      timeInfo,
-    };
+    return null;
   };
 
   useEffect(() => {
@@ -138,18 +126,23 @@ export default function OrganizationMemberships(props) {
   }, []);
   const {
     state: { userInfo },
+    dispatch,
   } = useContext(Store);
 
   return (
     <>
       <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
-      <IgContainer className={classes.IgContainer}>
+      <IgContainer className={styles.IgContainer}>
         <Paper className={styles.rootMargin}>
-          <h3>{t('member.memberships_list')}</h3>
+          <h3>{t('member.memberships_available')}</h3>
           <CustomList items={memberships} />
 
           {memberships.length == 0 && <div>{t('no.no_membership_available')}</div>}
         </Paper>
+
+        <Memberships
+        disableButton
+        refreshMemberships={refreshMemberships} />
       </IgContainer>
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
@@ -157,6 +150,8 @@ export default function OrganizationMemberships(props) {
           open,
           onClose,
           update,
+          moreInfo: false,
+          defaultTypeValue,
         }}
       />
     </>

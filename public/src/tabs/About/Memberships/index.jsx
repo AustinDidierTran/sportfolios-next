@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 
-export default function Memberships() {
+export default function Memberships(props) {
+  const { disableButton = false, refreshMemberships } = props;
   const { t } = useTranslation();
   const router = useRouter();
   const { id } = router.query;
@@ -27,7 +28,7 @@ export default function Memberships() {
   useEffect(() => {
     getMembers();
     getHasMemberships();
-  }, []);
+  }, [refreshMemberships]);
 
   const getHasMemberships = async () => {
     const { data } = await api(
@@ -102,14 +103,15 @@ export default function Memberships() {
   };
   return (
     <>
-      {hasMemberships ? (
+      {hasMemberships && !disableButton && (
         <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
           {t('become_member')}
         </Button>
-      ) : (
+      )}
+      { !hasMemberships && (
         <Typography style={{ margin: '16px' }}>{t('this_organization_has_no_memberships_available')}</Typography>
       )}
-      <Paper title={t('member.memberships')}>
+      <Paper title={t('member.my_memberships')}>
         <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
           items={{
