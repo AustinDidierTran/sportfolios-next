@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Error from 'next/error';
-import { GLOBAL_ENUM, STATUS_ENUM } from '../public/common/enums';
+import { GLOBAL_ENUM } from '../public/common/enums';
 import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
-import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
+import Head from 'next/head';
 
-const Event = loadable(() => import('../public/src/views/Entity/Event/home.jsx'));
-const Organization = loadable(() => import('../public/src/views/Entity/Organization/home.jsx'));
+const Event = loadable(() => import('../public/src/views/Entity/Event'));
+const Organization = loadable(() => import('../public/src/views/Entity/Organization'));
 const Person = loadable(() => import('../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../public/src/views/Entity/Team'));
 
@@ -19,23 +19,8 @@ const EntityMap = {
   [GLOBAL_ENUM.EVENT]: Event,
 };
 
-export default function EntityRoute({ response: responseProps }) {
+export default function EntityRoute({ response }) {
   const { t } = useTranslation();
-
-  const [response, setResponse] = useState(responseProps);
-
-  useEffect(() => {
-    if (!response.basicInfos.role || response.basicInfos.role === -1) getRole();
-  });
-
-  const getRole = async () => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: response.basicInfos.id }));
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
-      let newResponse = response;
-      newResponse.basicInfos.role = res.data;
-      setResponse(newResponse);
-    }
-  };
 
   const EntityObject = EntityMap[response.basicInfos.type];
 
@@ -58,11 +43,21 @@ export default function EntityRoute({ response: responseProps }) {
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.[id].home.title')} />
-        <meta property="og:description" content={t('metadata.[id].home.description')} />
+        <meta property="og:title" content={response.basicInfos.name} />
+        <meta
+          property="og:description"
+          content={
+            response.basicInfos.quickDescription ||
+            response.basicInfos.description ||
+            t('metadata.[id].home.description')
+          }
+        />
         <meta
           property="og:image"
-          content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
+          content={
+            response.basicInfos.photoUrl ||
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73'
+          }
         />
       </Head>
       <EntityObject {...response} />

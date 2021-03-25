@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-const IgContainer = loadable(() => import('../../../components/Custom/IgContainer'));
-const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
@@ -18,11 +16,12 @@ import FormDialog from '../../../components/Custom/FormDialog';
 import loadable from '@loadable/component';
 
 const Memberships = loadable(() => import('../../../tabs/About/Memberships'));
-
+const IgContainer = loadable(() => import('../../../components/Custom/IgContainer'));
+const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 
 export default function OrganizationMemberships(props) {
   const { t } = useTranslation();
-  const { basicInfos, navBar } = props;
+  const { basicInfos } = props;
   const router = useRouter();
   const { id } = router.query;
   const [memberships, setMemberships] = useState([]);
@@ -39,7 +38,7 @@ export default function OrganizationMemberships(props) {
     updateCart();
     setOpen(false);
   };
-  const update = () => { };
+  const update = () => {};
 
   const getMemberships = async () => {
     let members = undefined;
@@ -77,7 +76,9 @@ export default function OrganizationMemberships(props) {
         value: d.id,
         display: formatMembership(d),
         type: LIST_ITEM_ENUM.MEMBERSHIP_INFO,
-        onClick: () => { onOpen(d.id) },
+        onClick: () => {
+          onOpen(d.id);
+        },
         expirationDate,
         alreadyMember,
         tooltip: !alreadyMember ? t('become_member') : expirationDate,
@@ -136,13 +137,9 @@ export default function OrganizationMemberships(props) {
         <Paper className={styles.rootMargin}>
           <h3>{t('member.memberships_available')}</h3>
           <CustomList items={memberships} />
-
           {memberships.length == 0 && <div>{t('no.no_membership_available')}</div>}
         </Paper>
-
-        <Memberships
-        disableButton
-        refreshMemberships={refreshMemberships} />
+        <Memberships disableButton refreshMemberships={refreshMemberships} />
       </IgContainer>
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}

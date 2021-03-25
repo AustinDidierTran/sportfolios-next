@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 
 import { useRouter } from 'next/router';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { FORM_DIALOG_TYPE_ENUM, ENTITIES_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
 import FormDialog from '../FormDialog';
 import styles from './HeaderHome.module.css';
@@ -15,22 +12,30 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 
 import BannerOrganization from '../BannerOrganization';
 import BannerEvent from '../BannerEvent';
+import { Typography } from '@material-ui/core';
 
 export default function HeaderHome(props) {
   const { type, basicInfos, navTabs, eventInfo } = props;
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const router = useRouter();
-  const { query, route } = router;
-  const onglet = route.split('/')[2] ? route.split('/')[2] : 'home';
-  const { id } = query;
+  const { id, tab } = router.query;
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const handleClick = (event) => {
+  // setAnchorEl(event.currentTarget);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+  // const handleSettingsClick = () => {
+  //   router.push({
+  //     pathname: '/[pid]/[slug]',
+  //     query: {
+  //       pid: id,
+  //       slug: 'edit',
+  //     },
+  //   });
+  // };
   const [open, setOpen] = useState(false);
   const onOpen = () => {
     setOpen(true);
@@ -40,16 +45,6 @@ export default function HeaderHome(props) {
   };
   const update = () => {};
 
-  const handleSettingsClick = () => {
-    router.push({
-      pathname: '/[pid]/[slug]',
-      query: {
-        pid: id,
-        slug: 'edit',
-      },
-    });
-  };
-
   const goToRegistration = () => {
     goTo(ROUTES.eventRegistration, { id });
   };
@@ -58,63 +53,58 @@ export default function HeaderHome(props) {
   return (
     <Paper elevation={1} className={styles.paper}>
       {type === GLOBAL_ENUM.ORGANIZATION && (
-        <BannerOrganization
-          basicInfos={basicInfos}
-          onClickMainButton={onOpen}
-          onClickSecondButton={handleClick}
-          isAdmin={seeEdit}
-        />
+        <BannerOrganization basicInfos={basicInfos} onClickMainButton={onOpen} isAdmin={seeEdit} />
       )}
       {type === GLOBAL_ENUM.EVENT && (
         <BannerEvent
           basicInfos={basicInfos}
           onClickMainButton={goToRegistration}
-          onClickSecondButton={handleClick}
+          // onClickSecondButton={handleClick}
           eventInfo={eventInfo}
           isAdmin={seeEdit}
         />
       )}
       <div className={styles.navigation}>
-        <Paper>
-          <Tabs
-            value={navTabs.findIndex((s) => s.value === onglet)}
-            TabIndicatorProps={{ style: { display: 'none' } }}
-            style={{
-              color: 'white',
-              backgroundColor: '#18B393',
-              minHeight: 0,
-            }}
-            variant="scrollable"
-            scrollButtons="off"
-          >
-            {navTabs.map((s, index) => (
-              <Tab
-                key={index}
-                onClick={() => {
-                  router.push(
-                    {
-                      pathname: '/[pid]/[slug]',
-                      query: {
-                        pid: id,
-                        slug: s.value,
-                      },
-                    },
-                    undefined,
-                    { shallow: true }
-                  );
-                }}
-                label={t(s.label)}
-                fontSize={0.6}
-                style={{
-                  borderRightColor: 'white',
-                  borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
-                  borderRightWidth: 1,
-                  minHeight: 0,
-                  minWidth: 0,
-                }}
-              />
-            ))}
-            {window.innerWidth > 600 && seeEdit && (
+        <Tabs
+          value={navTabs.findIndex((s) => s.value === tab)}
+          TabIndicatorProps={{ style: { display: 'none' } }}
+          style={{
+            color: 'white',
+            backgroundColor: '#18B393',
+            minHeight: 0,
+            borderRadius: window.innerWidth > 600 ? '7px' : '0px',
+          }}
+          variant="fullWidth"
+          scrollButtons="off"
+        >
+          {navTabs.map((s, index) => (
+            <Tab
+              key={index}
+              onClick={() => {
+                goTo(ROUTES.entity, { id }, { tab: s.value });
+              }}
+              label={
+                <div className={styles.div}>
+                  <CustomIcon icon={s.icon} />
+                  {window.innerWidth > 600 && (
+                    <Typography variant="body2" className={styles.typo}>
+                      {s.label}
+                    </Typography>
+                  )}
+                </div>
+              }
+              fontSize={0.6}
+              style={{
+                borderRightColor: 'white',
+                borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
+                borderRightWidth: 1,
+                minHeight: 0,
+                minWidth: 0,
+                overflow: 'auto',
+              }}
+            />
+          ))}
+          {/* {window.innerWidth > 600 && seeEdit && (
               <Tab
                 icon={<CustomIcon icon="MoreVertIcon" />}
                 style={{
@@ -124,9 +114,8 @@ export default function HeaderHome(props) {
                 }}
                 onClick={handleClick}
               />
-            )}
-          </Tabs>
-        </Paper>
+            )} */}
+        </Tabs>
         <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
           items={{
@@ -135,7 +124,8 @@ export default function HeaderHome(props) {
             update,
           }}
         />
-        <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        {/* Menu sous forme de 3 petits au bout de la navBar va certainement être utilisé dans le future */}
+        {/* <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
           {seeEdit && type === GLOBAL_ENUM.EVENT && (
             <>
               <MenuItem
@@ -180,7 +170,7 @@ export default function HeaderHome(props) {
             </>
           )}
           {seeEdit && <MenuItem onClick={handleSettingsClick}>{t('settings')}</MenuItem>}
-        </Menu>
+        </Menu> */}
       </div>
     </Paper>
   );

@@ -130,6 +130,7 @@ const DIRECTION_ENUM = {
 
 const TABS_ENUM = {
   ABOUT: 'about',
+  HOME: 'home',
   CART: 'cart',
   EDIT: 'edit',
   EDIT_EVENTS: 'editEvents',

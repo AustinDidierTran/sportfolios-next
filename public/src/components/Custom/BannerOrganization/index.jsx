@@ -3,13 +3,10 @@ import Avatar from '../Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
-
 import styles from './BannerOrganization.module.css';
-import CustomIcon from '../Icon';
-import Button from '@material-ui/core/Button';
 
 export default function BannerOrganization(props) {
-  const { basicInfos, onClickMainButton, onClickSecondButton, isAdmin } = props;
+  const { basicInfos, onClickMainButton } = props;
   const { t } = useTranslation();
   return (
     <div className={styles.root}>
@@ -33,11 +30,11 @@ export default function BannerOrganization(props) {
             </CustomButton>
 
             {/* Afficher le menu mobile en gros à partir d'en bas *voir fb* */}
-            {window.innerWidth < 600 && isAdmin && (
+            {/* {window.innerWidth < 600 && isAdmin && (
               <Button variant="contained" className={styles.optionsButton} onClick={onClickSecondButton}>
                 <CustomIcon icon="MoreVertIcon" />
               </Button>
-            )}
+            )} */}
           </Grid>
         </Grid>
       </Grid>

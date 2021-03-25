@@ -2,6 +2,14 @@
   display: flex;
   justify-content: center;
 }
+.div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.typo {
+  margin-left: 8px !important;
+}
 .title {
   font-size: 2em;
   font-weight: bold;
