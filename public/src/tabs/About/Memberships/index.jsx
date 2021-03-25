@@ -111,7 +111,7 @@ export default function Memberships(props) {
       { !hasMemberships && (
         <Typography style={{ margin: '16px' }}>{t('this_organization_has_no_memberships_available')}</Typography>
       )}
-      <Paper title={t('member.memberships')}>
+      <Paper title={t('member.my_memberships')}>
         <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
           items={{

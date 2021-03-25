@@ -6,7 +6,7 @@ import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_E
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
-import { Store } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
@@ -36,6 +36,7 @@ export default function OrganizationMemberships(props) {
   const onClose = () => {
     setRefreshMemberships(!refreshMemberships);
     getMemberships();
+    updateCart();
     setOpen(false);
   };
   const update = () => { };
@@ -85,6 +86,14 @@ export default function OrganizationMemberships(props) {
     setMemberships(memberships);
   };
 
+  const updateCart = async () => {
+    const { data: cartItems } = await api('/api/shop/getCartItems');
+    dispatch({
+      type: ACTION_ENUM.UPDATE_CART,
+      payload: cartItems,
+    });
+  };
+
   const formatMembership = (membership) => {
     const { length, fixed_date, membership_type, price } = membership;
     const name = getMembershipName(membership_type);
@@ -117,6 +126,7 @@ export default function OrganizationMemberships(props) {
   }, []);
   const {
     state: { userInfo },
+    dispatch,
   } = useContext(Store);
 
   return (

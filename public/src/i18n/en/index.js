@@ -460,6 +460,7 @@ export default {
       memberships: 'Memberships',
       memberships_list: 'List of memberships',
       memberships_available: 'Available memberships',
+      'my_memberships': 'My memberships',
     },
     add: {
       add_admin: 'Add Admin',
