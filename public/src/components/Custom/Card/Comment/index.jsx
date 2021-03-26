@@ -12,7 +12,8 @@ import CustomAvatar from '../../Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import AlertDialog from '../../Dialog/AlertDialog';
+
 export default function Comment(props) {
   const {
     index,
@@ -27,24 +28,31 @@ export default function Comment(props) {
   } = props;
 
   const modifyComment = () => {
+    if (editCommentContent === "") {
+      setOpenAlert(true);
+      return;
+    }
     handleEditComment(commentId, editCommentContent);
     setCommentContent(decodeURIComponent(editCommentContent));
     setEdit(false);
   }
 
   const cancelEdit = () => {
-    setEditCommentContent(decodeURIComponent(editCommentContent));
+    setEditCommentContent(decodeURIComponent(commentContent));
     setEdit(false);
   }
 
   const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [editCommentContent, setEditCommentContent] = useState(decodeURIComponent(content));
   const [commentContent, setCommentContent] = useState(decodeURIComponent(content));
 
   useEffect(() => {
     setCommentContent(decodeURIComponent(content));
+    setEditCommentContent(decodeURIComponent(content));
   }, [content])
 
   const handleClick = (event) => {
@@ -99,6 +107,16 @@ export default function Comment(props) {
           )}
         />
         <CardContent className={styles.dateComment}><div className={styles.displayFlex}><div className={styles.commentSave} onClick={modifyComment}>{t('save')}</div><div className={styles.commentCancel} onClick={cancelEdit}>{t('cancel')}</div></div></CardContent>
+        <AlertDialog
+          open={openAlert}
+          onCancel={() => { setOpenAlert(false) }}
+          title={t('delete.delete_comment_confirmation')}
+          onSubmit={() => {
+            setEdit(false);
+            onClickDelete();
+            setOpenAlert(false)
+          }}
+        />
       </Card>
     )
   }
