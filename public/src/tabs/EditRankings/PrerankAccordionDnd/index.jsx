@@ -45,7 +45,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PrerankAccordionDnD(props) {
-  const { title, teams: teamsProps, update, id, ...otherProps } = props;
+  const { title, ranking, update, id, ...otherProps } = props;
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -54,11 +54,11 @@ export default function PrerankAccordionDnD(props) {
 
   const [expanded, setExpanded] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
-  const [teams, setTeams] = useState(teamsProps);
+  const [preranking, setPreranking] = useState(ranking);
 
   useEffect(() => {
-    setTeams(teamsProps);
-  }, [teamsProps]);
+    setPreranking(ranking);
+  }, [ranking]);
 
   const onExpand = () => {
     setExpanded((exp) => !exp);
@@ -71,9 +71,9 @@ export default function PrerankAccordionDnD(props) {
     if (result.destination.index === result.source.index) {
       return;
     }
-    const newteams = reorder(teams, result.source.index, result.destination.index);
+    const newPreranking = reorder(preranking, result.source.index, result.destination.index);
     setMadeChanges(true);
-    setTeams(newteams);
+    setPreranking(newPreranking);
   };
 
   const onCancel = () => {
@@ -85,7 +85,7 @@ export default function PrerankAccordionDnD(props) {
       method: 'PUT',
       body: JSON.stringify({
         eventId,
-        ranking: teams,
+        ranking: preranking,
       }),
     });
     if (res.status === STATUS_ENUM.SUCCESS) {
@@ -130,7 +130,7 @@ export default function PrerankAccordionDnD(props) {
             {buttons.map((button, index) => (
               <Button
                 onClick={() => {
-                  button.onClick(teams, id);
+                  button.onClick(preranking, id);
                   setMadeChanges(false);
                 }}
                 color={button.color}
@@ -148,10 +148,10 @@ export default function PrerankAccordionDnD(props) {
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {teams.length ? (
+                  {preranking.length ? (
                     <div>
-                      {teams.map((team, index) => (
-                        <Draggable key={team.rosterId} draggableId={team.rosterId} index={index}>
+                      {preranking.map((rank, index) => (
+                        <Draggable key={rank.rankingId} draggableId={rank.rankingId} index={index}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
@@ -165,7 +165,15 @@ export default function PrerankAccordionDnD(props) {
                                 </ListItemIcon>
                                 <div className={styles.main} style={{ width: '100%' }}>
                                   <ListItemText className={styles.position} secondary={index + 1} />
-                                  <ListItemText className={styles.name} primary={team.content} />
+                                  {rank.rosterId ? 
+                                    (                     
+                                    <ListItemText className={styles.name} primary={rank.content} />
+                                    )
+                                    : 
+                                    (
+                                    <ListItemText className={styles.name} secondary={rank.content} />
+                                    )
+                                  }
                                 </div>
                               </ListItem>
                               <Divider />

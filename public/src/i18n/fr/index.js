@@ -389,6 +389,7 @@ export default {
       cant_unregister_any_teams:
         "Aucune équipe ne peut être désinscrite de l'événement puisqu'elles sont déjà toutes dans des parties.",
       register: "S'inscrire",
+      register_team: 'Inscrivez une équipe pour remplir la position...',
       register_event: "S'inscrire à l'évènement",
       registered_singular: 'Inscrit',
       registered_on: 'Inscrit le',
@@ -463,7 +464,7 @@ export default {
       memberships: 'Affiliations',
       memberships_list: 'Liste des affiliations',
       memberships_available: 'Affiliations disponibles',
-      'my_memberships': 'Mes affiliations',
+      my_memberships: 'Mes affiliations',
     },
     add: {
       add_admin: 'Ajouter admin',
@@ -648,6 +649,8 @@ export default {
       no_roster: 'Aucun alignement',
       no_taxes: 'Aucune taxes',
       no_teams_registered: 'Aucune équipe inscrite.',
+      no_team_in_prerank_position:
+        "Il n'y a pas d'équipe à certaines positions de préclassement. Vous devez avoir plus d'équipe dans votre tournoi ou supprimer les positions vides de votre phase.",
       no_teams: 'Aucune équipe',
       no_team_number: "Veuillez sélectionner un nombre d'équipe.",
       no_users_found: 'Aucun utilisateur trouvé',
@@ -1264,6 +1267,8 @@ export default {
       'Une copie de votre reçu vous à été envoyé par courriel. Vous pouvez le consulter maintenant sur Stripe, notre plateforme de paiement sécuritaire.',
     to_transfer: 'Transférer',
     token_expired: "Le token n'est plus valide, svp en demander un autre.",
+    too_many_teams:
+      "Le nombre d'équipes enregistrées est supérieur au nombre de place. Veuillez désinscrire des équipes en premier.",
     total_members: 'Membres totaux',
     total_net: 'Total net',
     total: 'Total',

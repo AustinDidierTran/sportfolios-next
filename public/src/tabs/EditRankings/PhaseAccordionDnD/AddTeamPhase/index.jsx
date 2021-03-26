@@ -84,7 +84,7 @@ export default function AddTeamPhase(props) {
   const getPrerankingOptions = (preranking, allRankings) => {
     const prerankingPositions = preranking.map((d) => ({
       value: d.rankingId,
-      display: d.position.toString() + ' - ' + t('preranking') + ' (' + d.name + ') ',
+      display: d.noTeam ? `${d.position.toString()} - ${t('preranking')}` : `${d.position.toString()} - ${t('preranking')} (${d.name})`,
       phaseId: d.phaseId,
       index: d.position,
     }));
