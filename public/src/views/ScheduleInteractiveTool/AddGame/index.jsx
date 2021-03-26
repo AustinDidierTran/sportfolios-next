@@ -113,9 +113,6 @@ export default function AddGame(props) {
       setFirstPositionOptions(positions);
       setSecondPositionOptions(positions);
     }
-    if(formik.values.phase !== '' && formik.values.position1 !== '' || formik.values.position2 !== ''){
-
-    }
   }, [formik.values.phase]);
 
   useEffect(() => {

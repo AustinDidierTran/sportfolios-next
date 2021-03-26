@@ -464,7 +464,7 @@ export default {
       memberships: 'Affiliations',
       memberships_list: 'Liste des affiliations',
       memberships_available: 'Affiliations disponibles',
-      'my_memberships': 'Mes affiliations',
+      my_memberships: 'Mes affiliations',
     },
     add: {
       add_admin: 'Ajouter admin',
@@ -649,7 +649,8 @@ export default {
       no_roster: 'Aucun alignement',
       no_taxes: 'Aucune taxes',
       no_teams_registered: 'Aucune équipe inscrite.',
-      no_team_in_prerank_position: "Il n'y a pas d'équipe à cette position au préclassement. Veuillez en ajouter une.",
+      no_team_in_prerank_position:
+        "Il n'y a pas d'équipe à certaines positions de préclassement. Vous devez avoir plus d'équipe dans votre tournoi ou supprimer les positions vides de votre phase.",
       no_teams: 'Aucune équipe',
       no_team_number: "Veuillez sélectionner un nombre d'équipe.",
       no_users_found: 'Aucun utilisateur trouvé',

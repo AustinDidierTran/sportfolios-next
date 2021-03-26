@@ -461,7 +461,7 @@ export default {
       memberships: 'Memberships',
       memberships_list: 'List of memberships',
       memberships_available: 'Available memberships',
-      'my_memberships': 'My memberships',
+      my_memberships: 'My memberships',
     },
     add: {
       add_admin: 'Add Admin',
@@ -643,7 +643,8 @@ export default {
       no_roster: 'No roster',
       no_taxes: 'No taxes',
       no_teams_registered: 'No teams registered.',
-      no_team_in_prerank_position: 'There is no team on this position in prerank. Please add one.',
+      no_team_in_prerank_position:
+        'There is no team on some of the positions in prerank. You need more teams in your event or remove the empty positions from your phase.',
       no_teams: 'No teams',
       no_team_number: 'Edit the number of teams. ',
       no_users_found: 'No users found',
