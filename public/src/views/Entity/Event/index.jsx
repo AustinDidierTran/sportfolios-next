@@ -6,12 +6,12 @@ import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import IgContainer from '../../../components/Custom/IgContainer';
-import HeaderHome from '../../../components/Custom/HeaderHome';
 import loadable from '@loadable/component';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { goTo } from '../../../actions/goTo';
 
+const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 const Schedule = loadable(() => import('../../../tabs/Schedule'));
 const Rankings = loadable(() => import('../../../tabs/Rankings'));
 const Rosters = loadable(() => import('../../../tabs/Rosters'));

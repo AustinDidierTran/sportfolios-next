@@ -1,12 +1,13 @@
 import React from 'react';
-import Error from 'next/error';
+
 import { GLOBAL_ENUM } from '../public/common/enums';
 import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
 import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
-import Head from 'next/head';
 
+const Error = loadable(() => import('next/error'));
+const Head = loadable(() => import('next/head'));
 const Event = loadable(() => import('../public/src/views/Entity/Event'));
 const Organization = loadable(() => import('../public/src/views/Entity/Organization'));
 const Person = loadable(() => import('../public/src/views/Entity/Person'));

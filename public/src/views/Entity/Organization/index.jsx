@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
-import HeaderHome from '../../../components/Custom/HeaderHome';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
@@ -10,10 +9,10 @@ import loadable from '@loadable/component';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
 
+const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
 const Home = loadable(() => import('../../../tabs/Home'));
 const Events = loadable(() => import('../../../tabs/Events'));
 const Memberships = loadable(() => import('../../../tabs/Memberships'));
-const About = loadable(() => import('../../../tabs/About'));
 const Settings = loadable(() => import('../../../tabs/Settings'));
 
 export default function Organization(props) {
@@ -38,7 +37,6 @@ export default function Organization(props) {
       { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
       { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
       { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
-      { component: About, value: TABS_ENUM.ABOUT, label: t('about'), icon: 'Info' },
     ];
     if (isAdmin) {
       return [...res, { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' }];

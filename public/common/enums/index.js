@@ -229,7 +229,6 @@ const ROUTES_ENUM = {
   createPerson: '/page/createPerson',
   createTeam: '/page/createTeam',
   entity: '/:id',
-  entity_param: '/:id/:param',
   entityNotFound: '/page/entityNotFound',
   eventRegistration: '/page/eventRegistration/:id',
   forgotPassword: '/page/forgotPassword',

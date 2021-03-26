@@ -1,6 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 
-import { Paper, IgContainer, Tab, Tabs } from '../../../components/Custom';
+import Tab from '../../../components/Custom/Tab';
+import Tabs from '../../../components/Custom/Tabs';
+import IgContainer from '../../../components/Custom/IgContainer';
+import Paper from '../../../components/Custom/Paper';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import TabsGenerator from '../../../tabs';
 import { goTo, ROUTES } from '../../../actions/goTo';

@@ -1,43 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import moment from 'moment';
-import { Paper, Button, FormDialog, List } from '../../../components/Custom';
+import List from '../../../components/Custom/List';
+import Paper from '../../../components/Custom/Paper';
 import { formatDate, getMembershipName } from '../../../utils/stringFormats';
-import { FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { Store } from '../../../Store';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import { Store } from '../../../Store';
 
-export default function Memberships(props) {
-  const { disableButton = false, refreshMemberships } = props;
+export default function MyMemberships(props) {
+  const { refreshMemberships } = props;
   const { t } = useTranslation();
   const router = useRouter();
   const { id } = router.query;
-  const [open, setOpen] = useState(false);
   const {
     state: { userInfo },
   } = useContext(Store);
 
   const [members, setMembers] = useState([]);
-  const [hasMemberships, setHasMemberships] = useState(false);
 
   useEffect(() => {
     getMembers();
-    getHasMemberships();
   }, [refreshMemberships]);
-
-  const getHasMemberships = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/hasMemberships', null, {
-        id,
-      })
-    );
-    setHasMemberships(data);
-  };
 
   const getMembers = async () => {
     if (!userInfo.persons) {
@@ -94,46 +83,21 @@ export default function Memberships(props) {
     return `${t('expire_on')} ${expirationDate}`;
   };
 
-  const onOpen = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
   return (
-    <>
-      {hasMemberships && !disableButton && (
-        <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
-          {t('become_member')}
-        </Button>
+    <Paper title={t('member.my_memberships')}>
+      {members.length ? (
+        <>
+          {members.map((m, index) => (
+            <div key={index}>
+              <List items={m.person} />
+              <List key={index} items={m.items} />
+              <Divider />
+            </div>
+          ))}
+        </>
+      ) : (
+        <Typography style={{ padding: '16px' }}>{t('you.you_are_not_a_member_of_this_organization')}</Typography>
       )}
-      { !hasMemberships && (
-        <Typography style={{ margin: '16px' }}>{t('this_organization_has_no_memberships_available')}</Typography>
-      )}
-      <Paper title={t('member.my_memberships')}>
-        <FormDialog
-          type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
-          items={{
-            open,
-            onClose,
-            update: getMembers,
-          }}
-        />
-        {members.length ? (
-          <>
-            {members.map((m, index) => (
-              <div key={index}>
-                <List items={m.person} />
-                <List key={index} items={m.items} />
-                <Divider />
-              </div>
-            ))}
-          </>
-        ) : (
-          <Typography style={{ margin: '16px' }}>{t('you.you_are_not_a_member_of_this_organization')}</Typography>
-        )}
-      </Paper>
-    </>
+    </Paper>
   );
 }

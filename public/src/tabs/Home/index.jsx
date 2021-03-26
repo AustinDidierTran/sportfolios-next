@@ -4,8 +4,10 @@ import IgContainer from '../../components/Custom/IgContainer';
 import { ENTITIES_ROLE_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import Posts from '../../components/Custom/Posts';
 import { Store } from '../../Store';
+import loadable from '@loadable/component';
+
+const Posts = loadable(() => import('../../components/Custom/Posts'));
 
 const useStyles = makeStyles(() => ({
   IgContainer: {

@@ -1,45 +1,55 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import { GLOBAL_ENUM, MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
-import { formatPageTitle } from '../../../utils/stringFormats';
-import IgContainer from '../../components/Custom/IgContainer';
+import { MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
-import Paper from '@material-ui/core/Paper';
-import { Store, ACTION_ENUM } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../Store';
 import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import { formatDate, formatPrice, getMembershipName } from '../../utils/stringFormats';
 import moment from 'moment';
-import styles from './Organization.module.css';
+import styles from './Memberships.module.css';
 import CustomList from '../../components/Custom/List';
 import FormDialog from '../../components/Custom/FormDialog';
+import Paper from '../../components/Custom/Paper';
 import loadable from '@loadable/component';
+import Typography from '@material-ui/core/Typography';
 
-const Memberships = loadable(() => import('../../../tabs/About/Memberships'));
-const IgContainer = loadable(() => import('../../../components/Custom/IgContainer'));
-const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
+const MyMemberships = loadable(() => import('./MyMemberships'));
 
-export default function Memberships(props) {
+export default function Memberships() {
   const { t } = useTranslation();
-  const { basicInfos } = props;
   const router = useRouter();
   const { id } = router.query;
+
+  const {
+    state: { userInfo },
+    dispatch,
+  } = useContext(Store);
+
+  useEffect(() => {
+    getMemberships();
+  }, []);
+
   const [memberships, setMemberships] = useState([]);
   const [refreshMemberships, setRefreshMemberships] = useState(false);
   const [open, setOpen] = useState(false);
   const [defaultTypeValue, setDefaultTypeValue] = useState(-1);
+
   const onOpen = (id) => {
     setDefaultTypeValue(id);
     setOpen(true);
   };
+
   const onClose = () => {
+    setOpen(false);
+  };
+
+  const update = () => {
     setRefreshMemberships(!refreshMemberships);
     getMemberships();
     updateCart();
-    setOpen(false);
   };
-  const update = () => {};
 
   const getMemberships = async () => {
     let members = undefined;
@@ -122,26 +132,16 @@ export default function Memberships(props) {
     return null;
   };
 
-  useEffect(() => {
-    document.title = formatPageTitle(basicInfos.name);
-    getMemberships();
-  }, []);
-  const {
-    state: { userInfo },
-    dispatch,
-  } = useContext(Store);
-
   return (
     <>
-      <HeaderHome basicInfos={basicInfos} navTabs={navBar} type={GLOBAL_ENUM.ORGANIZATION} />
-      <IgContainer className={styles.IgContainer}>
-        <Paper className={styles.rootMargin}>
-          <h3>{t('member.memberships_available')}</h3>
+      <Paper className={styles.rootMargin} title={t('member.memberships_available')}>
+        {memberships.length == 0 ? (
+          <Typography style={{ padding: '16px' }}>{t('no.no_membership_available')}</Typography>
+        ) : (
           <CustomList items={memberships} />
-          {memberships.length == 0 && <div>{t('no.no_membership_available')}</div>}
-        </Paper>
-        <Memberships disableButton refreshMemberships={refreshMemberships} />
-      </IgContainer>
+        )}
+      </Paper>
+      <MyMemberships refreshMemberships={refreshMemberships} />
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
         items={{

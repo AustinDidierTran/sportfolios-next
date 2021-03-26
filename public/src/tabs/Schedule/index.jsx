@@ -1,7 +1,10 @@
 import React from 'react';
-import AllGames from './AllGames';
-import GameDetailed from './GameDetailed';
+
 import { useRouter } from 'next/router';
+import loadable from '@loadable/component';
+
+const AllGames = loadable(() => import('./AllGames'));
+const GameDetailed = loadable(() => import('./GameDetailed'));
 
 export default function ScheduleTab(props) {
   const router = useRouter();
