@@ -28,19 +28,19 @@ export default function Comment(props) {
   } = props;
 
   const modifyComment = () => {
-    if (editCommentContent === "") {
+    if (editCommentContent === '') {
       setOpenAlert(true);
       return;
     }
     handleEditComment(commentId, editCommentContent);
     setCommentContent(decodeURIComponent(editCommentContent));
     setEdit(false);
-  }
+  };
 
   const cancelEdit = () => {
     setEditCommentContent(decodeURIComponent(commentContent));
     setEdit(false);
-  }
+  };
 
   const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
@@ -53,7 +53,7 @@ export default function Comment(props) {
   useEffect(() => {
     setCommentContent(decodeURIComponent(content));
     setEditCommentContent(decodeURIComponent(content));
-  }, [content])
+  }, [content]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,17 +65,16 @@ export default function Comment(props) {
   const onClickDelete = () => {
     handleDeleteComment(commentId);
     handleClose();
-  }
+  };
 
   const onClickEdit = () => {
     setEdit(true);
     handleClose();
-  }
+  };
 
   const handleChange = (event) => {
     setEditCommentContent(event.target.value);
-  }
-
+  };
 
   if (edit) {
     return (
@@ -90,8 +89,7 @@ export default function Comment(props) {
             action: styles.headerAction,
           }}
           avatar={<CustomAvatar className={styles.avatarComment} photoUrl={commentPhotoUrl}></CustomAvatar>}
-
-          subheader={(
+          subheader={
             <TextField
               placeholder=""
               className={styles.textField}
@@ -103,22 +101,32 @@ export default function Comment(props) {
               }}
               onChange={handleChange}
             />
-
-          )}
+          }
         />
-        <CardContent className={styles.dateComment}><div className={styles.displayFlex}><div className={styles.commentSave} onClick={modifyComment}>{t('save')}</div><div className={styles.commentCancel} onClick={cancelEdit}>{t('cancel')}</div></div></CardContent>
+        <CardContent className={styles.dateComment}>
+          <div className={styles.displayFlex}>
+            <div className={styles.commentSave} onClick={modifyComment}>
+              {t('save')}
+            </div>
+            <div className={styles.commentCancel} onClick={cancelEdit}>
+              {t('cancel')}
+            </div>
+          </div>
+        </CardContent>
         <AlertDialog
           open={openAlert}
-          onCancel={() => { setOpenAlert(false) }}
+          onCancel={() => {
+            setOpenAlert(false);
+          }}
           title={t('delete.delete_comment_confirmation')}
           onSubmit={() => {
             setEdit(false);
             onClickDelete();
-            setOpenAlert(false)
+            setOpenAlert(false);
           }}
         />
       </Card>
-    )
+    );
   }
 
   return (
@@ -138,7 +146,8 @@ export default function Comment(props) {
             {isAdmin && (
               <IconButton aria-label="settings" onClick={handleClick}>
                 <MoreHorizIcon />
-              </IconButton>)}
+              </IconButton>
+            )}
           </>
         }
         title={commentFullName}
@@ -150,6 +159,5 @@ export default function Comment(props) {
         <MenuItem onClick={onClickDelete}>{t('delete.delete')}</MenuItem>
       </Menu>
     </Card>
-
   );
 }

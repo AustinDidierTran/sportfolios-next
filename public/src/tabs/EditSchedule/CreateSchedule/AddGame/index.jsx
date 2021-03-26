@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../../common/enums';
 import { getFutureGameOptions } from '../../../Schedule/ScheduleFunctions';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
@@ -67,10 +67,10 @@ export default function AddGame(props) {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { phase, field, time, position1, position2 } = values;
-      const [ranking1] = gameOptions.positions.filter(p => p.value === position1);
-      const [ranking2] = gameOptions.positions.filter(p => p.value === position2);
-      const [selectedPhase] = gameOptions.phases.filter( p => p.value === phase);
-      if(position1 === position2){
+      const [ranking1] = gameOptions.positions.filter((p) => p.value === position1);
+      const [ranking2] = gameOptions.positions.filter((p) => p.value === position2);
+      const [selectedPhase] = gameOptions.phases.filter((p) => p.value === phase);
+      if (position1 === position2) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('cant_have_same_positions'),
@@ -78,11 +78,15 @@ export default function AddGame(props) {
           duration: 4000,
         });
       }
-      if((ranking1.current_phase !== ranking2.current_phase) || (phase !== ranking1.current_phase) || (phase !== ranking2.current_phase)){
+      if (
+        ranking1.current_phase !== ranking2.current_phase ||
+        phase !== ranking1.current_phase ||
+        phase !== ranking2.current_phase
+      ) {
         formik.setFieldValue('position1', '');
         formik.setFieldValue('position2', '');
-        setFirstPositionOptions(gameOptions.positions.filter(r => r.current_phase === phase));
-        setSecondPositionOptions(gameOptions.positions.filter(r => r.current_phase === phase));
+        setFirstPositionOptions(gameOptions.positions.filter((r) => r.current_phase === phase));
+        setSecondPositionOptions(gameOptions.positions.filter((r) => r.current_phase === phase));
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('cant_have_different_phase'),
@@ -92,7 +96,7 @@ export default function AddGame(props) {
         return;
       }
       //if phase is started, the name is overwritten to the team in that ranking
-      if(selectedPhase.status !== PHASE_STATUS_ENUM.NOT_STARTED){
+      if (selectedPhase.status !== PHASE_STATUS_ENUM.NOT_STARTED) {
         ranking1.name = ranking1.teamName;
         ranking2.name = ranking2.teamName;
       }
@@ -138,32 +142,36 @@ export default function AddGame(props) {
   }, [formik.values.phase]);
 
   useEffect(() => {
-   //TODO: refine the filter. Some flows can make it bug i.e. no position options available
-   if (formik.values.position1 !== '' && formik.values.position2 === '') {
-    const [{current_phase: phase}] = gameOptions.positions.filter(r => r.value === formik.values.position1);
-    const samePhaseRankings = gameOptions.positions.filter((r) => r.value !== formik.values.position1 && r.current_phase === phase);
-    setSecondPositionOptions(samePhaseRankings);
-  }
-  if (formik.values.position2 !== '' && formik.values.position1 === '') {
-    const [{current_phase: phase}] = gameOptions.positions.filter(r => r.value === formik.values.position2);
-    const samePhaseRankings = gameOptions.positions.filter((r) => r.value !== formik.values.position2 && r.current_phase === phase);
-    setFirstPositionOptions(samePhaseRankings);
-  }
-  if (formik.values.position2 !== '' && formik.values.position1 !== '') {
-    if(formik.values.phase === ''){
-      const [{current_phase: phase}] = gameOptions.positions.filter(r => r.value === formik.values.position1);
-      formik.setFieldValue('phase', phase);
-      return;
+    //TODO: refine the filter. Some flows can make it bug i.e. no position options available
+    if (formik.values.position1 !== '' && formik.values.position2 === '') {
+      const [{ current_phase: phase }] = gameOptions.positions.filter((r) => r.value === formik.values.position1);
+      const samePhaseRankings = gameOptions.positions.filter(
+        (r) => r.value !== formik.values.position1 && r.current_phase === phase
+      );
+      setSecondPositionOptions(samePhaseRankings);
     }
-    const firstPosition = gameOptions.positions.filter(
-      (p) => p.value !== formik.values.position2 && p.current_phase === formik.values.phase
-    );
-    const secondPosition = gameOptions.positions.filter(
-      (p) => p.value !== formik.values.position1 && p.current_phase === formik.values.phase
-    );
-    setFirstPositionOptions(firstPosition);
-    setSecondPositionOptions(secondPosition);
-  }
+    if (formik.values.position2 !== '' && formik.values.position1 === '') {
+      const [{ current_phase: phase }] = gameOptions.positions.filter((r) => r.value === formik.values.position2);
+      const samePhaseRankings = gameOptions.positions.filter(
+        (r) => r.value !== formik.values.position2 && r.current_phase === phase
+      );
+      setFirstPositionOptions(samePhaseRankings);
+    }
+    if (formik.values.position2 !== '' && formik.values.position1 !== '') {
+      if (formik.values.phase === '') {
+        const [{ current_phase: phase }] = gameOptions.positions.filter((r) => r.value === formik.values.position1);
+        formik.setFieldValue('phase', phase);
+        return;
+      }
+      const firstPosition = gameOptions.positions.filter(
+        (p) => p.value !== formik.values.position2 && p.current_phase === formik.values.phase
+      );
+      const secondPosition = gameOptions.positions.filter(
+        (p) => p.value !== formik.values.position1 && p.current_phase === formik.values.phase
+      );
+      setFirstPositionOptions(firstPosition);
+      setSecondPositionOptions(secondPosition);
+    }
   }, [formik.values.position1, formik.values.position2]);
 
   const buttons = [

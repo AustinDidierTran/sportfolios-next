@@ -93,7 +93,7 @@ export default function ScheduleInteractiveTool() {
   const { dispatch } = useContext(Store);
 
   const [phases, setPhases] = useState([]);
-  const [teams, setTeams] = useState([]);
+  // const [teams, setTeams] = useState([]);
   const [rankings, setRankings] = useState([]);
   const [games, setGames] = useState([]);
   const [timeslots, setTimeslots] = useState([]);
@@ -385,12 +385,13 @@ export default function ScheduleInteractiveTool() {
       }))
     );
 
-
-    const allRankings = data.phases.reduce((prev,curr) => {
-      const withName = curr.ranking.map(r => ({
+    const allRankings = data.phases.reduce((prev, curr) => {
+      const withName = curr.ranking.map((r) => ({
         ...r,
         value: r.ranking_id,
-        display: r.roster_id ? `${r.initial_position} - ${curr.name} (${r.name})` : `${r.initial_position} - ${curr.name}`,
+        display: r.roster_id
+          ? `${r.initial_position} - ${curr.name} (${r.name})`
+          : `${r.initial_position} - ${curr.name}`,
         name: r.roster_id ? `${r.initial_position} - ${curr.name} (${r.name})` : `${r.initial_position} - ${curr.name}`,
         teamName: r.name ? r.name : '',
       }));
@@ -398,13 +399,13 @@ export default function ScheduleInteractiveTool() {
     }, []);
 
     setRankings(allRankings);
-    setTeams(
-      data.teams.map((t) => ({
-        value: t.roster_id,
-        display: t.name,
-        name: t.name,
-      }))
-    );
+    // setTeams(
+    //   data.teams.map((t) => ({
+    //     value: t.roster_id,
+    //     display: t.name,
+    //     name: t.name,
+    //   }))
+    // );
 
     setIsLoading(false);
   };
@@ -538,29 +539,29 @@ export default function ScheduleInteractiveTool() {
         games: gamesToUpdate,
       }),
     });
-    
-     if (
-       status === STATUS_ENUM.ERROR ||
-       status === STATUS_ENUM.UNAUTHORIZED ||
-       res.status === STATUS_ENUM.ERROR ||
-       res.status === STATUS_ENUM.UNAUTHORIZED
-     ) {
-       dispatch({
-         type: ACTION_ENUM.SNACK_BAR,
-         message: t('an_error_has_occured'),
-         severity: SEVERITY_ENUM.ERROR,
-         duration: 3000,
-       });
-       return;
-     }
 
-     await getData();
+    if (
+      status === STATUS_ENUM.ERROR ||
+      status === STATUS_ENUM.UNAUTHORIZED ||
+      res.status === STATUS_ENUM.ERROR ||
+      res.status === STATUS_ENUM.UNAUTHORIZED
+    ) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('an_error_has_occured'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 3000,
+      });
+      return;
+    }
 
-     dispatch({
-       type: ACTION_ENUM.SNACK_BAR,
-       message: t('changes_saved'),
-       severity: SEVERITY_ENUM.SUCCESS,
-     });
+    await getData();
+
+    dispatch({
+      type: ACTION_ENUM.SNACK_BAR,
+      message: t('changes_saved'),
+      severity: SEVERITY_ENUM.SUCCESS,
+    });
 
     setIsAddingGames(false);
     setMadeChanges(false);
@@ -776,7 +777,14 @@ export default function ScheduleInteractiveTool() {
 
   const Games = games.map((g) => (
     <div className={styles.itemDiv} key={g.id}>
-      <GameCard ranking1={g.rankings[0]} ranking2={g.rankings[1]} fields={fields} timeSlots={timeslots} x={g.x} y={g.y} />
+      <GameCard
+        ranking1={g.rankings[0]}
+        ranking2={g.rankings[1]}
+        fields={fields}
+        timeSlots={timeslots}
+        x={g.x}
+        y={g.y}
+      />
     </div>
   ));
 
@@ -955,7 +963,7 @@ export default function ScheduleInteractiveTool() {
         createCard={createCard}
         field={addGameField}
         timeslot={addGameTimeslot}
-        phases={phases.sort((a,b) => a.order - b.order)}
+        phases={phases.sort((a, b) => a.order - b.order)}
         rankings={rankings}
       />
       <AddFieldInteractiveTool
