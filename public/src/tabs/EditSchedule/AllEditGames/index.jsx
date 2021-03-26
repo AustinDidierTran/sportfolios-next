@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AllEditGames.module.css';
-// import { SELECT_ENUM } from '../../../../common/enums';
+import { SELECT_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
 import moment from 'moment';
-// import GameFilters from '../../Schedule/AllGames/GameFilters';
+import GameFilters from '../../Schedule/AllGames/GameFilters';
 import ProTip from './ProTip';
 import EditGames from './EditGames';
 import { useTranslation } from 'react-i18next';
@@ -42,25 +42,31 @@ export default function AllEditGames(props) {
     return data;
   };
 
-  // //FIXME: no teams filter because games are created with positions from phases
-  // const filter = async (teamId, phaseId, fieldId, timeSlot) => {
-  //   let games = await getGames();
-  //   // if (teamId != SELECT_ENUM.ALL) {
-  //   //   games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
-  //   // }
-  //   if (phaseId != SELECT_ENUM.ALL) {
-  //     games = games.filter((game) => game.phase_id === phaseId);
-  //   }
-  //   if (fieldId != SELECT_ENUM.ALL) {
-  //     games = games.filter((game) => game.field_id === fieldId);
-  //   }
-  //   if (timeSlot != SELECT_ENUM.ALL) {
-  //     games = games.filter(
-  //       (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
-  //     );
-  //   }
-  //   sortGames(games);
-  // };
+  const filter = async (teamId, teamName, phaseId, fieldId, timeSlot) => {
+    let games = await getGames();
+    if (teamId != SELECT_ENUM.ALL) {
+      games = games.filter((game) =>
+        game.positions.some((team) => {
+          if (team.roster_id) {
+            return team.roster_id === teamId;
+          }
+          return team.name.includes(teamName);
+        })
+      );
+    }
+    if (phaseId != SELECT_ENUM.ALL) {
+      games = games.filter((game) => game.phase_id === phaseId);
+    }
+    if (fieldId != SELECT_ENUM.ALL) {
+      games = games.filter((game) => game.field_id === fieldId);
+    }
+    if (timeSlot != SELECT_ENUM.ALL) {
+      games = games.filter(
+        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+      );
+    }
+    sortGames(games);
+  };
 
   const update = () => {
     getGames();
@@ -73,7 +79,7 @@ export default function AllEditGames(props) {
   return (
     <>
       <ProTip />
-      {/* <GameFilters update={filter} /> */}
+      <GameFilters update={filter} />
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <EditGames title={t('past_games')} games={pastGames} isOpen={false} update={update} />
         <EditGames title={t('upcoming_games')} games={games} isOpen update={update} />

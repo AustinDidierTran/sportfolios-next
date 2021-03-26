@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Games.module.css';
-// import { SELECT_ENUM } from '../../../../common/enums';
+import { SELECT_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
 import moment from 'moment';
-// import GameFilters from './GameFilters';
+import GameFilters from './GameFilters';
 import Games from './Games';
 import { useTranslation } from 'react-i18next';
 import ProTip from './ProTip';
@@ -49,25 +49,31 @@ export default function AllGames() {
     return data;
   };
 
-  //FIXME: teams aren't used for games anymore, only phase positions
-  // const filter = async (teamId, phaseId, fieldId, timeSlot) => {
-  //   let games = await getGames();
-  //   if (teamId != SELECT_ENUM.ALL) {
-  //     games = games.filter((game) => game.teams.some((team) => team.roster_id === teamId));
-  //   }
-  //   if (phaseId != SELECT_ENUM.ALL) {
-  //     games = games.filter((game) => game.phase_id === phaseId);
-  //   }
-  //   if (fieldId != SELECT_ENUM.ALL) {
-  //     games = games.filter((game) => game.field_id === fieldId);
-  //   }
-  //   if (timeSlot != SELECT_ENUM.ALL) {
-  //     games = games.filter(
-  //       (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
-  //     );
-  //   }
-  //   sortGames(games);
-  // };
+  const filter = async (teamId, teamName, phaseId, fieldId, timeSlot) => {
+    let games = await getGames();
+    if (teamId != SELECT_ENUM.ALL) {
+      games = games.filter((game) =>
+        game.positions.some((team) => {
+          if (team.roster_id) {
+            return team.roster_id === teamId;
+          }
+          return team.name.includes(teamName);
+        })
+      );
+    }
+    if (phaseId != SELECT_ENUM.ALL) {
+      games = games.filter((game) => game.phase_id === phaseId);
+    }
+    if (fieldId != SELECT_ENUM.ALL) {
+      games = games.filter((game) => game.field_id === fieldId);
+    }
+    if (timeSlot != SELECT_ENUM.ALL) {
+      games = games.filter(
+        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+      );
+    }
+    sortGames(games);
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -76,7 +82,7 @@ export default function AllGames() {
   return (
     <>
       <ProTip />
-      {/* <GameFilters update={filter} /> */}
+      <GameFilters update={filter} />
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <Games games={pastGames} style={{ marginBottom: '16px' }} title={t('past_games')} isOpen={false} />
         <Games games={games} style={{ marginBottom: '16px' }} title={t('upcoming_games')} isOpen />

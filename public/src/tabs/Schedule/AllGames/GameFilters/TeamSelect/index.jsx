@@ -22,13 +22,10 @@ export default function TeamSelect(props) {
 
   const getTeams = async () => {
     const { data } = await api(formatRoute('/api/entity/teamsSchedule', null, { eventId }));
-    const res = data
-      //TO BE REMOVED ONLY FOR MEMPHRE
-      .filter((d) => d.name.length > 2)
-      .map((d) => ({
-        value: d.roster_id,
-        display: d.name,
-      }));
+    const res = data.map((d) => ({
+      value: d.roster_id,
+      display: d.name,
+    }));
 
     setTeams([{ value: SELECT_ENUM.ALL, display: t('all_teams') }, ...res]);
   };
