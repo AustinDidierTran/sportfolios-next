@@ -116,35 +116,35 @@ export default function BannerEvent(props) {
           <Registration />
         </div>
       </div>
-      {!eventInfo.isLate && !eventInfo.isEarly && (
-        <>
-          <Divider variant="middle" />
-          <div className={styles.divIconButton}>
-            {isAdmin && (
-              <>
-                {adminView ? (
-                  <CustomButton
-                    className={styles.view}
-                    startIcon="Autorenew"
-                    color="secondary"
-                    variant="outlined"
-                    onClick={onSwitch}
-                  >
-                    {t('admin_view')}
-                  </CustomButton>
-                ) : (
-                  <CustomButton
-                    className={styles.view}
-                    startIcon="Autorenew"
-                    color="primary"
-                    variant="outlined"
-                    onClick={onSwitch}
-                  >
-                    {t('player_view')}
-                  </CustomButton>
-                )}
-              </>
-            )}
+      <>
+        <Divider variant="middle" />
+        <div className={styles.divIconButton}>
+          {isAdmin && (
+            <>
+              {adminView ? (
+                <CustomButton
+                  className={styles.view}
+                  startIcon="Autorenew"
+                  color="secondary"
+                  variant="outlined"
+                  onClick={onSwitch}
+                >
+                  {t('admin_view')}
+                </CustomButton>
+              ) : (
+                <CustomButton
+                  className={styles.view}
+                  startIcon="Autorenew"
+                  color="primary"
+                  variant="outlined"
+                  onClick={onSwitch}
+                >
+                  {t('player_view')}
+                </CustomButton>
+              )}
+            </>
+          )}
+          {!eventInfo.isLate && !eventInfo.isEarly && (
             <div className={styles.divIconSignup}>
               <CustomButton
                 size="small"
@@ -157,9 +157,9 @@ export default function BannerEvent(props) {
                 {t('register.register')}
               </CustomButton>
             </div>
-          </div>
-        </>
-      )}
+          )}
+        </div>
+      </>
     </div>
   );
 }
