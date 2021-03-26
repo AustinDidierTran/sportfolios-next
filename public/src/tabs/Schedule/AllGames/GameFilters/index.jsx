@@ -32,7 +32,7 @@ export default function GameFilters(props) {
   const [description, setDescription] = useState(false);
 
   useEffect(() => {
-    update(teamId, phaseId, fieldId, timeSlot);
+    update(teamId, teamName, phaseId, fieldId, timeSlot);
     getDescription();
   }, [teamId, phaseId, fieldId, timeSlot]);
 

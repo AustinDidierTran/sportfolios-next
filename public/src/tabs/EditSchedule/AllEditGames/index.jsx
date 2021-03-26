@@ -42,10 +42,17 @@ export default function AllEditGames(props) {
     return data;
   };
 
-  const filter = async (teamId, phaseId, fieldId, timeSlot) => {
+  const filter = async (teamId, teamName, phaseId, fieldId, timeSlot) => {
     let games = await getGames();
     if (teamId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.positions.some((team) => team.roster_id === teamId));
+      games = games.filter((game) =>
+        game.positions.some((team) => {
+          if (team.roster_id) {
+            return team.roster_id === teamId;
+          }
+          return team.name.includes(teamName);
+        })
+      );
     }
     if (phaseId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.phase_id === phaseId);
