@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import api from '../../actions/api';
-import Rosters from './Rosters';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const Rosters = loadable(() => import('./Rosters'));
 
 export default function TabRosters(props) {
   const { isEventAdmin } = props;

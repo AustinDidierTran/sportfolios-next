@@ -1,45 +1,32 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Tooltip from '@material-ui/core/Tooltip';
-import Fab from '@material-ui/core/Fab';
-import { makeStyles } from '@material-ui/core/styles';
-import { goTo, ROUTES } from '../../../actions/goTo';
-import TabsGenerator from '../../../tabs';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { Helmet } from 'react-helmet';
-import { ENTITIES_ROLE_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { TABS_ENUM, GLOBAL_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
-import Paper from '../../../components/Custom/Paper';
 import IgContainer from '../../../components/Custom/IgContainer';
-import Icon from '../../../components/Custom/Icon';
+import loadable from '@loadable/component';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../../common/utils/stringFormat';
+import { goTo } from '../../../actions/goTo';
 
-const useStyles = makeStyles((theme) => ({
-  fabMobile: {
-    position: 'absolute',
-    bottom: theme.spacing(2) + 58,
-    right: theme.spacing(2),
-    zIndex: 100,
-    color: 'white',
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2) + (window.innerWidth - 700) / 2,
-    zIndex: 100,
-    color: 'white',
-  },
-}));
+const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
+const Schedule = loadable(() => import('../../../tabs/Schedule'));
+const Rankings = loadable(() => import('../../../tabs/Rankings'));
+const Rosters = loadable(() => import('../../../tabs/Rosters'));
+const EventInfo = loadable(() => import('../../../tabs/EventInfo'));
+const EditSchedule = loadable(() => import('../../../tabs/EditSchedule'));
+const EditRankings = loadable(() => import('../../../tabs/EditRankings'));
+const EditRosters = loadable(() => import('../../../tabs/EditRosters'));
+const Settings = loadable(() => import('../../../tabs/Settings'));
 
 export default function Event(props) {
   const { t } = useTranslation();
-  const classes = useStyles();
-  const { basicInfos } = props;
+  const { basicInfos: basicInfosProps, eventInfo } = props;
   const router = useRouter();
   const { id, tab } = router.query;
+  const [basicInfos, setBasicInfos] = useState(basicInfosProps);
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -50,137 +37,90 @@ export default function Event(props) {
     });
   }, [basicInfos.name]);
 
-  const userState = TabsGenerator({
-    list: [TABS_ENUM.SCHEDULE, TABS_ENUM.RANKINGS, TABS_ENUM.ROSTERS, TABS_ENUM.EVENT_INFO],
-    role: basicInfos.role,
-  });
+  useEffect(() => {
+    getRole();
+  }, []);
 
-  const adminState = TabsGenerator({
-    list: [TABS_ENUM.EDIT_SCHEDULE, TABS_ENUM.EDIT_RANKINGS, TABS_ENUM.EDIT_ROSTERS, TABS_ENUM.SETTINGS],
-    role: basicInfos.role,
-  });
+  const userState = [
+    { component: Schedule, value: TABS_ENUM.SCHEDULE, label: t('schedule'), icon: 'Assignment' },
+    { component: Rankings, value: TABS_ENUM.RANKINGS, label: t('rankings'), icon: 'FormatListNumbered' },
+    { component: Rosters, value: TABS_ENUM.ROSTERS, label: t('team.teams'), icon: 'Group' },
+    { component: EventInfo, value: TABS_ENUM.EVENT_INFO, label: t('info'), icon: 'Info' },
+  ];
 
+  const adminState = [
+    { component: EditSchedule, value: TABS_ENUM.EDIT_SCHEDULE, label: t('schedule'), icon: 'Assignment' },
+    { component: EditRankings, value: TABS_ENUM.EDIT_RANKINGS, label: t('rankings'), icon: 'FormatListNumbered' },
+    { component: EditRosters, value: TABS_ENUM.EDIT_ROSTERS, label: t('team.teams'), icon: 'Group' },
+    { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },
+  ];
+
+  const [adminView, setAdminView] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [states, setStates] = useState(userState);
-  const [OpenTab, setOpenTab] = useState(userState[0].component);
 
-  const getStates = (isAdmin) => {
-    if (isAdmin) {
-      setStates(adminState);
-    } else {
-      setStates(userState);
-    }
-  };
-
-  useEffect(() => {
-    if (!tab) {
-      setOpenTab(userState[0].component);
-    } else if (states.map((s) => s.value).includes(tab)) {
-      setOpenTab(states.find((s) => s.value == tab).component);
-    } else {
-      if (adminState.map((a) => a.value).includes(tab)) {
-        if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-          setIsAdmin(true);
-          setStates(adminState);
-          return;
-        }
+  const index = useMemo(() => {
+    if (adminState.find((s) => s.value === tab)) {
+      if (isAdmin) {
+        setStates(adminState);
+        setAdminView(true);
+        return adminState.findIndex((s) => s.value === tab);
       }
-      setIsAdmin(false);
-      setStates(userState);
-      return;
     }
-  }, [tab, states]);
-
-  const onClick = (s) => {
-    goTo(ROUTES.entity, { id }, { tab: s.value });
-  };
-
-  const onSwitch = () => {
-    const newState = !isAdmin;
-    setIsAdmin(newState);
-    getStates(newState);
-    if (newState) {
-      goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.EDIT_SCHEDULE });
-    } else {
-      goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SCHEDULE });
-    }
-  };
-
-  const value = useMemo(() => {
-    if (states.findIndex((s) => s.value === tab) === -1) {
+    const res = states.findIndex((s) => s.value === tab);
+    if (res === -1) {
       return 0;
     }
-    return states.findIndex((s) => s.value === tab);
-  }, [tab, states]);
+    return res;
+  }, [tab, isAdmin]);
 
-  if (!states || states.length == 1) {
-    return (
-      <IgContainer>
-        <OpenTab basicInfos={basicInfos} />
-      </IgContainer>
-    );
-  }
-
-  const ogDescription = useMemo(() => {
-    if (basicInfos.quickDescription) {
-      return decodeURIComponent(basicInfos.quickDescription);
+  const OpenTab = useMemo(() => {
+    const res = states[index];
+    if (res) {
+      return res.component;
     }
-    if (basicInfos.description) {
-      return decodeURIComponent(basicInfos.description);
+    return Schedule;
+  }, [index, states]);
+
+  const onSwitch = () => {
+    const newState = !adminView;
+    setAdminView(newState);
+    if (newState) {
+      setStates(adminState);
+      goTo(ROUTES_ENUM.entity, { id }, { tab: adminState[index].value });
+    } else {
+      setStates(userState);
+      goTo(ROUTES_ENUM.entity, { id }, { tab: userState[index].value });
     }
-    return '';
-  }, [basicInfos]);
+  };
 
-  const title = useMemo(() => {
-    return isAdmin ? t('player_view') : t('admin_view');
-  }, [isAdmin]);
-
-  if (!states || !OpenTab) {
-    return <></>;
-  }
+  const getRole = async () => {
+    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
+    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+      let newInfos = basicInfos;
+      newInfos.role = res.data;
+      setBasicInfos(newInfos);
+      setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
+    }
+  };
 
   return (
-    <IgContainer>
-      <Helmet>
-        <meta property="og:title" content={basicInfos.name} />
-        <meta property="og:description" content={ogDescription} />
-        <meta property="og:image" content={basicInfos.photoUrl} />
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content="fr_CA" />
-      </Helmet>
-      <Paper>
-        <Tabs value={value} indicatorColor="primary" textColor="primary">
-          {states.map((s, index) => (
-            <Tab
-              key={index}
-              onClick={() => onClick(s)}
-              label={window.innerWidth < 768 ? null : s.label}
-              icon={<Icon icon={s.icon} />}
-              style={{
-                minWidth: window.innerWidth < 768 ? window.innerWidth / states.length : 700 / states.length,
-              }}
-            />
-          ))}
-        </Tabs>
-      </Paper>
-      {basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR ? (
-        <>
-          <Tooltip title={title}>
-            <Fab
-              color="primary"
-              onClick={onSwitch}
-              className={window.innerWidth < 768 ? classes.fabMobile : classes.fab}
-            >
-              <Icon icon="Autorenew" />
-            </Fab>
-          </Tooltip>
-        </>
-      ) : (
-        <></>
-      )}
-      <div>
-        <OpenTab basicInfos={basicInfos} />
-      </div>
-    </IgContainer>
+    <>
+      <HeaderHome
+        basicInfos={basicInfos}
+        eventInfo={eventInfo}
+        navTabs={states}
+        type={GLOBAL_ENUM.EVENT}
+        onSwitch={onSwitch}
+        adminView={adminView}
+        index={index}
+        isAdmin={isAdmin}
+      />
+      <IgContainer>
+        <div>
+          <OpenTab basicInfos={basicInfos} eventInfo={eventInfo} />
+        </div>
+      </IgContainer>
+    </>
   );
 }

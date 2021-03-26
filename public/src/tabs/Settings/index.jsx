@@ -2,7 +2,7 @@ import React from 'react';
 
 import loadable from '@loadable/component';
 import { ENTITIES_ROLE_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
-import { Card } from '../../components/Custom';
+import Card from '../../components/Custom/Card';
 import { useAdmin, useEditor } from '../../hooks/roles';
 import styles from './Settings.module.css';
 import BottomPageLogo from '../../components/Custom/BottomPageLogo';

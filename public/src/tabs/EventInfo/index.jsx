@@ -1,10 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
-import { Paper, Button, ContainerBottomFixed, ImageCard, LoadingSpinner } from '../../components/Custom';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import Paper from '../../components/Custom/Paper';
+import Button from '../../components/Custom/Button';
+import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
+import ImageCard from '../../components/Custom/ImageCard';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import Description from './Description';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { formatIntervalDate, formatDate } from '../../utils/stringFormats';
 import api from '../../actions/api';
@@ -12,6 +15,9 @@ import moment from 'moment';
 import styles from './EventInfo.module.css';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const Description = loadable(() => import('./Description'));
 
 const getEvent = async (eventId) => {
   const { data } = await api(

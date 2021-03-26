@@ -22,7 +22,6 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 
 import * as yup from 'yup';
 
-
 export default function EntityCreate(props) {
   const { t } = useTranslation();
   const { type } = props;
@@ -113,7 +112,6 @@ export default function EntityCreate(props) {
       ];
     }
     if (creatingEntity === GLOBAL_ENUM.EVENT) {
-
       return [
         {
           namespace: 'name',
@@ -123,7 +121,7 @@ export default function EntityCreate(props) {
         {
           namespace: 'maximumSpots',
           label: t('maximum_spots'),
-          type: 'number'
+          type: 'number',
         },
         {
           namespace: 'startDate',
@@ -168,8 +166,7 @@ export default function EntityCreate(props) {
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       surname: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     });
-  }
-  else if (creatingEntity === GLOBAL_ENUM.EVENT) {
+  } else if (creatingEntity === GLOBAL_ENUM.EVENT) {
     validationSchema = yup.object().shape({
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -219,11 +216,7 @@ export default function EntityCreate(props) {
             endDate,
           }),
         });
-        if (type === GLOBAL_ENUM.EVENT || type === GLOBAL_ENUM.ORGANIZATION) {
-          goTo(ROUTES.entity_param, { id: res.data.id, param: TABS_ENUM.EDIT });
-        } else {
-          goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
-        }
+        goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
         setIsSubmitting(false);
       } catch (err) {
         setIsSubmitting(false);

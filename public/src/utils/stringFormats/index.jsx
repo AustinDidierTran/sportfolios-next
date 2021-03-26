@@ -11,8 +11,8 @@ export const getInitialsFromName = (completeName, isName) => {
     return '';
   }
 
-  if(isName !== undefined && isName !==true && typeof completeName === 'string'){
-    const str = completeName.trim().split(" ");
+  if (isName !== undefined && isName !== true && typeof completeName === 'string') {
+    const str = completeName.trim().split(' ');
     let res = `${str[0]}${str[3] ? str[3].charAt(0) : str[2].charAt(0)}`.toUpperCase();
     return res;
   }

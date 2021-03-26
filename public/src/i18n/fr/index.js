@@ -780,7 +780,7 @@ export default {
     admin_has_no_bank_account:
       "Vous ne pouvez pas ajouter une option de paiement car l'administrateur n'a pas de compte banquaire relié à son compte",
     admin_panel: 'Panneaux des administrateurs',
-    admin_view: "Vue de l'admin",
+    admin_view: 'Vue Admin',
     admin: 'Admin',
     admins: 'Administrateurs',
     adress: 'Addresse',
@@ -1103,7 +1103,7 @@ export default {
     player_name: 'Nom du joueur',
     player_unregister_success: 'Joueur désinscrit avec succès',
     players_unregister_success: 'Joueurs désinscrits avec succès',
-    player_view: 'Vue du joueur',
+    player_view: 'Vue Joueur',
     player: 'Joueur',
     players: 'Joueurs',
     position: 'Position',

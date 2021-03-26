@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
-import { Paper, IgContainer, IconButton } from '../../components/Custom';
+import IconButton from '../../components/Custom/IconButton';
+import IgContainer from '../../components/Custom/IgContainer';
+import Paper from '../../components/Custom/Paper';
 import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';

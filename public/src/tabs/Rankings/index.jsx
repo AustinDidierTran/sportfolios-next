@@ -1,13 +1,16 @@
 import { useRouter } from 'next/router';
+
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../actions/api';
 import { LoadingSpinner } from '../../components/Custom';
 import Typography from '@material-ui/core/Typography';
-import PhaseRankings from './PhaseRanking';
-import Ranking from './Ranking';
 import { updateRanking } from './RankingFunctions';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const PhaseRanking = loadable(() => import('./PhaseRanking'));
+const Ranking = loadable(() => import('./Ranking'));
 
 export default function Rankings() {
   const router = useRouter();
@@ -62,7 +65,7 @@ export default function Rankings() {
   return (
     <>
       <Ranking ranking={preranking} title={t('preranking')}></Ranking>
-      <PhaseRankings />
+      <PhaseRanking />
       <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition></Ranking>
     </>
   );

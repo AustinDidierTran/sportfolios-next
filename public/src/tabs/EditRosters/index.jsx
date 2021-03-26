@@ -1,7 +1,9 @@
 import React from 'react';
 
-import TabRosters from '../Rosters';
+import loadable from '@loadable/component';
+
+const Rosters = loadable(() => import('../Rosters'));
 
 export default function EditRosters() {
-  return <TabRosters isEventAdmin />;
+  return <Rosters isEventAdmin />;
 }

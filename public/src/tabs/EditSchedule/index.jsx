@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import AllEditGames from './AllEditGames';
-import CreateSchedule from './CreateSchedule';
+
+import loadable from '@loadable/component';
+
+const AllEditGames = loadable(() => import('./AllEditGames'));
+const CreateSchedule = loadable(() => import('./CreateSchedule'));
 
 export default function EditScheduleTab() {
   const [updated, setUpdated] = useState(true);

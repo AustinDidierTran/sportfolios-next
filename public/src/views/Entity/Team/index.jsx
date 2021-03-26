@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { Paper, IgContainer, Icon } from '../../../components/Custom';
-
+import Icon from '../../../components/Custom/Icon';
+import Paper from '../../../components/Custom/Paper';
+import IgContainer from '../../../components/Custom/IgContainer';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
 import { goTo, ROUTES } from '../../../actions/goTo';
 import TabsGenerator from '../../../tabs';
 import { formatPageTitle } from '../../../utils/stringFormats';

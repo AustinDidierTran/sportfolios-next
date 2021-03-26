@@ -1,16 +1,15 @@
 import React from 'react';
-import Error from 'next/error';
+
 import { GLOBAL_ENUM } from '../public/common/enums';
-import { useApiRoute } from '../public/src/hooks/queries';
-import { LoadingSpinner } from '../public/src/components/Custom';
-import { useRouter } from 'next/router';
 import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
-import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import api from '../public/src/actions/api';
 
-const Event = loadable(() => import('../public/src/views/Entity/Event/home.jsx'));
-const Organization = loadable(() => import('../public/src/views/Entity/Organization/home.jsx'));
+const Error = loadable(() => import('next/error'));
+const Head = loadable(() => import('next/head'));
+const Event = loadable(() => import('../public/src/views/Entity/Event'));
+const Organization = loadable(() => import('../public/src/views/Entity/Organization'));
 const Person = loadable(() => import('../public/src/views/Entity/Person'));
 const Team = loadable(() => import('../public/src/views/Entity/Team'));
 
@@ -21,54 +20,17 @@ const EntityMap = {
   [GLOBAL_ENUM.EVENT]: Event,
 };
 
-export default function EntityRoute() {
-  const router = useRouter();
-  const { id } = router.query;
+export default function EntityRoute({ response }) {
   const { t } = useTranslation();
-
-  const { response, isLoading } = useApiRoute(formatRoute('/api/entity', null, { id }), {
-    defaultValue: {},
-  });
-
-  if (isLoading) {
-    return (
-      <>
-        <Head>
-          <meta property="og:title" content={t('metadata.[id].[id].title')} />
-          <meta property="og:description" content={t('metadata.[id].[id].description')} />
-          <meta
-            property="og:image"
-            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-          />
-        </Head>
-        <LoadingSpinner />
-      </>
-    );
-  }
-  if (!response) {
-    return (
-      <>
-        <Head>
-          <meta property="og:title" content={t('metadata.[id].[id].title')} />
-          <meta property="og:description" content={t('metadata.[id].[id].description')} />
-          <meta
-            property="og:image"
-            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-          />
-        </Head>
-        <Error />
-      </>
-    );
-  }
 
   const EntityObject = EntityMap[response.basicInfos.type];
 
-  if (!EntityObject) {
+  if (!response || !EntityObject) {
     return (
       <>
         <Head>
-          <meta property="og:title" content={t('metadata.[id].[id].title')} />
-          <meta property="og:description" content={t('metadata.[id].[id].description')} />
+          <meta property="og:title" content={t('metadata.[id].home.title')} />
+          <meta property="og:description" content={t('metadata.[id].home.description')} />
           <meta
             property="og:image"
             content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
@@ -78,17 +40,50 @@ export default function EntityRoute() {
       </>
     );
   }
+
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.[id].[id].title')} />
-        <meta property="og:description" content={t('metadata.[id].[id].description')} />
+        <meta property="og:title" content={response.basicInfos.name} />
+        <meta
+          property="og:description"
+          content={
+            response.basicInfos.quickDescription ||
+            response.basicInfos.description ||
+            t('metadata.[id].home.description')
+          }
+        />
         <meta
           property="og:image"
-          content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
+          content={
+            response.basicInfos.photoUrl ||
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73'
+          }
         />
       </Head>
       <EntityObject {...response} />
     </>
   );
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: 'blocking', //indicates the type of fallback
+  };
+}
+
+export async function getStaticProps(context) {
+  const res = await api(formatRoute('/api/entity', null, { id: context.params.id }), {
+    defaultValue: {},
+  });
+
+  if (!res) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { response: res.data }, // will be passed to the page component as props
+  };
 }

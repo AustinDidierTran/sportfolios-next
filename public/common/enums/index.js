@@ -130,6 +130,7 @@ const DIRECTION_ENUM = {
 
 const TABS_ENUM = {
   ABOUT: 'about',
+  HOME: 'home',
   CART: 'cart',
   EDIT: 'edit',
   EDIT_EVENTS: 'editEvents',
@@ -228,7 +229,6 @@ const ROUTES_ENUM = {
   createPerson: '/page/createPerson',
   createTeam: '/page/createTeam',
   entity: '/:id',
-  entity_param: '/:id/:param',
   entityNotFound: '/page/entityNotFound',
   eventRegistration: '/page/eventRegistration/:id',
   forgotPassword: '/page/forgotPassword',

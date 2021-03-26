@@ -4,7 +4,7 @@ import CustomIcon from '../../Icon';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import CustomCard from '../index'
+import CustomCard from '../index';
 import { CARD_TYPE_ENUM } from '../../../../../common/enums';
 import styles from './Post.module.css';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,7 +15,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CustomAvatar from '../../Avatar';
-import { Store } from '../../../../Store';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { SEVERITY_ENUM } from '../../../../../common/enums';
 import Typography from '@material-ui/core/Typography';
 import PostInput from '../../Input/PostInput';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -26,7 +27,7 @@ import Upload from 'rc-upload';
 import CustomIconButton from '../../IconButton';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import CustomButton from '../../Button'
+import CustomButton from '../../Button';
 
 export default function Post(props) {
   const {
@@ -45,6 +46,8 @@ export default function Post(props) {
   } = props;
 
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
+
   const [displayComment, setDisplayComment] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [edit, setEdit] = useState(false);
@@ -56,7 +59,7 @@ export default function Post(props) {
 
   const [comments, setComments] = useState(postInfo.comments);
   useEffect(() => {
-    setComments(postInfo.comments)
+    setComments(postInfo.comments);
   }, [postInfo.comments]);
 
   const handleClick = (event) => {
@@ -128,31 +131,32 @@ export default function Post(props) {
   const onClickEdit = () => {
     setEdit(true);
     handleClose();
-  }
+  };
 
   const modifyPost = () => {
     handleEditPost(postInfo.id, encodeURIComponent(editPostContent), editImages);
     setPostContent(decodeURIComponent(editPostContent));
     setImages(editImages);
     setEdit(false);
-
-  }
+  };
 
   const onClickDeleteComment = (commentId) => {
     handleDeleteComment(commentId);
     setComments(comments.filter((comment) => comment.id !== commentId));
-  }
+  };
 
   const cancelEdit = () => {
     setEditPostContent(decodeURIComponent(postContent));
     setEditImages(images);
     setEdit(false);
-  }
+  };
 
-  const showStats = useMemo(
-    () => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike),
-    [postInfo.likes.length, comments.length, allowComment, allowLike]
-  );
+  const showStats = useMemo(() => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike), [
+    postInfo.likes.length,
+    comments.length,
+    allowComment,
+    allowLike,
+  ]);
 
   if (edit) {
     return (
@@ -166,7 +170,6 @@ export default function Post(props) {
           avatar={
             <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photo_url}></CustomAvatar>
           }
-
           title={postInfo.name + ' ' + postInfo.surname}
           subheader={getTimeToShow(postInfo.created_at)}
         />
@@ -182,7 +185,6 @@ export default function Post(props) {
                 disableUnderline: true,
                 endAdornment: (
                   <div style={{ display: 'flex' }}>
-
                     <Upload {...uploadImageProps}>
                       <CustomIconButton icon="ImageOutlinedIcon" className={styles.uploadIcon} />
                     </Upload>
@@ -210,24 +212,21 @@ export default function Post(props) {
                 icon="Clear"
                 onClick={clearImage}
               />
-              <img className={styles.imagePreview} src={image.image_url ? image.image_url : URL.createObjectURL(image.file)} />
+              <img
+                className={styles.imagePreview}
+                src={image.image_url ? image.image_url : URL.createObjectURL(image.file)}
+              />
             </div>
           ))}
         </div>
         <div className={styles.editButtons}>
-          <CustomButton
-            color="secondary"
-            className={styles.cancelButton}
-            onClick={cancelEdit}>
+          <CustomButton color="secondary" className={styles.cancelButton} onClick={cancelEdit}>
             {t('cancel')}
           </CustomButton>
-          <CustomButton
-            onClick={modifyPost}>
-            {t('edit.edit')}
-          </CustomButton>
+          <CustomButton onClick={modifyPost}>{t('edit.edit')}</CustomButton>
         </div>
       </Card>
-    )
+    );
   }
 
   return (
@@ -333,7 +332,6 @@ export default function Post(props) {
               type={CARD_TYPE_ENUM.COMMENT}
               key={index}
             />
-
           ))}
           {elevation === 0 && <Divider className={styles.dividerComment} />}
         </div>

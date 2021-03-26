@@ -97,7 +97,7 @@ export default function BecomeMemberCoupon(props) {
           }),
         });
         onClose();
-        goTo(ROUTES.entity_param, { id: organizationId, param: TABS_ENUM.MEMBERSHIPS });
+        goTo(ROUTES.entity, { id: organizationId }, { tab: TABS_ENUM.MEMBERSHIPS });
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
