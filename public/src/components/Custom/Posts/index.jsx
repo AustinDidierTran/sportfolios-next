@@ -120,7 +120,7 @@ export default function Posts(props) {
       body: JSON.stringify({
         entityId,
         postId: post_id,
-        content: postContent,
+        content: encodeURIComponent(postContent),
       }),
     });
     if (!data) {
@@ -155,6 +155,36 @@ export default function Posts(props) {
     setPosts((oldPosts) => oldPosts.filter((o) => o.id !== post_id));
     await getPostFeed();
   };
+
+  const handleDeleteComment = async (commentId) => {
+    const { status } = await api(
+      formatRoute('/api/posts/comment', null, {
+        commentId,
+      }),
+      {
+        method: 'DELETE',
+      }
+    );
+    if (!status) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t(ERROR_ENUM.ERROR_OCCURED),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      return;
+    }
+    await getPostFeed();
+  };
+
+  const handleEditComment = async (commentId, commentContent) => {
+    await api('/api/posts/comment', {
+      method: 'PUT',
+      body: JSON.stringify({
+        commentId: encodeURIComponent(commentId),
+        commentContent,
+      }),
+    });
+  }
 
   const handlePost = async (entityId, postContent, images) => {
     const { data: newPost } = await api('/api/posts/create', {
@@ -243,6 +273,8 @@ export default function Posts(props) {
               handleComment,
               handleDeletePost,
               handleEditPost,
+              handleEditComment,
+              handleDeleteComment,
               allowComment,
               allowLike,
               elevation,

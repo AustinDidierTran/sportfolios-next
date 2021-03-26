@@ -534,6 +534,7 @@ export default {
     delete: {
       delete_bank_account_confirmation: 'Are you sure you want to delete your bank account ending with {{last4}}?',
       delete_cart_item_confirmation: 'Are you sure you want to delete this item from your cart?',
+      delete_comment_confirmation: 'Are you sure you want to delete this comment?',
       delete_confirmation_text: 'To delete, type {{name}}',
       delete_credit_card_confirmation: 'Are you sure you want to delete your credit card ending with {{last4}}?',
       delete_game_confirmation: 'Are you sure you want to delete this game?',

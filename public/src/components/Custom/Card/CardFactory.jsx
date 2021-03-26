@@ -10,6 +10,7 @@ const Game = loadable(() => import('./Game'));
 const Invoice = loadable(() => import('./InvoiceItem'));
 const MultipleTeamGame = loadable(() => import('./MultipleTeamGame'));
 const Post = loadable(() => import('./Post'));
+const Comment = loadable(() => import('./Comment'));
 const Report = loadable(() => import('./Report'));
 const ScoreSuggestion = loadable(() => import('./ScoreSuggestion'));
 const Shop = loadable(() => import('./ShopItem'));
@@ -29,6 +30,7 @@ const CardMap = {
   [CARD_TYPE_ENUM.GAME]: Game,
   [CARD_TYPE_ENUM.INVOICE]: Invoice,
   [CARD_TYPE_ENUM.POST]: Post,
+  [CARD_TYPE_ENUM.COMMENT]: Comment,
   [CARD_TYPE_ENUM.REPORT]: Report,
   [CARD_TYPE_ENUM.SCORE_SUGGESTION]: ScoreSuggestion,
   [CARD_TYPE_ENUM.SHOP]: Shop,
