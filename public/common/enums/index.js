@@ -109,6 +109,7 @@ const CARD_TYPE_ENUM = {
   GAME: 'game',
   INVOICE: 'invoice',
   POST: 'post',
+  COMMENT: 'comment',
   REPORT: 'report',
   SCORE_SUGGESTION: 'score suggestion',
   SHOP: 'shop',

@@ -1,0 +1,92 @@
+
+.avatarComment {
+  margin-bottom: auto;
+}
+
+.headerComment {
+  padding: 4px 0px 4px 0px !important;
+}
+
+.headerComment:hover .headerAction {
+  display: block;
+}
+
+.subheaderComment {
+  color: rgba(0, 0, 0, 0.9) !important;
+  white-space: pre-line;
+}
+
+.headerCommentContentEdit {
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  padding: 8px 12px;
+  flex: initial !important;
+  width: -webkit-fill-available;
+}
+
+.headerCommentContent {
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  padding: 8px 12px;
+  flex: initial !important;
+}
+
+.dateComment {
+  padding: 0px !important;
+  font-size: 0.75rem;
+  text-align: left;
+  padding-left: 72px !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.contentComment {
+  padding: 4px 12px;
+}
+
+.dividerComment {
+  margin-top: 20px !important;
+}
+
+.commentSave {
+  margin-right: 8px;
+}
+
+.commentSave:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.commentCancel:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.displayFlex {
+  display: flex;
+}
+
+.textField {
+  width: 97%;
+  float: left;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+}
+
+.headerTitle {
+  font-weight: bold !important;
+}
+
+.textarea {
+  width: 100%;
+  resize: none;
+  outline: none;
+  font-family: 'Helvetica';
+  font-size: 16px;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  color: black;
+}

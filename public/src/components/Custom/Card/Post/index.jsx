@@ -1,10 +1,11 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext, useMemo, useEffect } from 'react';
 
 import CustomIcon from '../../Icon';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-
+import CustomCard from '../index'
+import { CARD_TYPE_ENUM } from '../../../../../common/enums';
 import styles from './Post.module.css';
 import IconButton from '@material-ui/core/IconButton';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -39,6 +40,8 @@ export default function Post(props) {
     allowComment,
     allowLike,
     elevation,
+    handleEditComment,
+    handleDeleteComment,
   } = props;
 
   const { t } = useTranslation();
@@ -50,6 +53,11 @@ export default function Post(props) {
   const [editImages, setEditImages] = useState(postInfo.images);
   const [postContent, setPostContent] = useState(decodeURIComponent(postInfo.content));
   const [images, setImages] = useState(postInfo.images);
+
+  const [comments, setComments] = useState(postInfo.comments);
+  useEffect(() => {
+    setComments(postInfo.comments)
+  }, [postInfo.comments]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -130,6 +138,11 @@ export default function Post(props) {
 
   }
 
+  const onClickDeleteComment = (commentId) => {
+    handleDeleteComment(commentId);
+    setComments(comments.filter((comment) => comment.id !== commentId));
+  }
+
   const cancelEdit = () => {
     setEditPostContent(decodeURIComponent(postContent));
     setEditImages(images);
@@ -137,8 +150,8 @@ export default function Post(props) {
   }
 
   const showStats = useMemo(
-    () => (postInfo.likes.length > 0 || postInfo.comments.length > 0) && (allowComment || allowLike),
-    [postInfo.likes.length, postInfo.comments.length, allowComment, allowLike]
+    () => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike),
+    [postInfo.likes.length, comments.length, allowComment, allowLike]
   );
 
   if (edit) {
@@ -160,7 +173,7 @@ export default function Post(props) {
         <div>
           <div className={styles.divRoot}>
             <TextField
-              placeholder={"ASD"}
+              placeholder=""
               className={styles.textField}
               multiline
               rowsMax={Infinity}
@@ -259,11 +272,11 @@ export default function Post(props) {
             )}
           </div>
           <div className={styles.comments}>
-            {postInfo.comments.length > 0 && allowComment && (
+            {comments.length > 0 && allowComment && (
               <div onClick={onClickComment}>
-                {postInfo.comments.length > 1
-                  ? t('comment_plural', { count: postInfo.comments.length })
-                  : t('comment_singular', { count: postInfo.comments.length })}
+                {comments.length > 1
+                  ? t('comment_plural', { count: comments.length })
+                  : t('comment_singular', { count: comments.length })}
               </div>
             )}
           </div>
@@ -305,28 +318,22 @@ export default function Post(props) {
             placeholder={t('write_a_comment')}
           />
 
-          {postInfo.comments.map((comment, index) => (
-            <Card elevation={0} key={index}>
-              <CardHeader
-                className={styles.headerComment}
-                classes={{
-                  content: styles.headerCommentContent,
-                  title: styles.headerTitle,
-                  avatar: styles.avatarComment,
-                  subheader: styles.subheaderComment,
-                  action: styles.headerAction,
-                }}
-                avatar={<CustomAvatar className={styles.avatarComment} photoUrl={comment.photo_url}></CustomAvatar>}
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreHorizIcon />
-                  </IconButton>
-                }
-                title={comment.name + ' ' + comment.surname}
-                subheader={comment.content}
-              />
-              <CardContent className={styles.dateComment}>{getTimeToShow(comment.created_at)}</CardContent>
-            </Card>
+          {comments.map((comment, index) => (
+            <CustomCard
+              items={{
+                commentId: comment.id,
+                commentContent: comment.content,
+                commentDate: getTimeToShow(comment.created_at),
+                commentPhotoUrl: comment.photo_url,
+                commentFullName: comment.name + ' ' + comment.surname,
+                handleEditComment,
+                handleDeleteComment: onClickDeleteComment,
+                isAdmin: entityId === comment.entity_id,
+              }}
+              type={CARD_TYPE_ENUM.COMMENT}
+              key={index}
+            />
+
           ))}
           {elevation === 0 && <Divider className={styles.dividerComment} />}
         </div>
