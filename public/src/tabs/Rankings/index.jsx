@@ -29,16 +29,19 @@ export default function Rankings() {
     );
     let ranking = [];
     if (data) {
-      ranking = data.map((d) => {
-        if(d.rosterId){
-          return {
-            position: d.position,
-            name: d.name,
-            rosterId: d.rosterId ? d.rosterId : null,
-            rankingId: d.rankingId,
+      ranking = data
+        .map((d) => {
+          if (d.rosterId) {
+            return {
+              position: d.position,
+              name: d.name,
+              rosterId: d.rosterId ? d.rosterId : null,
+              rankingId: d.rankingId,
+              id: d.teamId ? d.teamId : null,
+            };
           }
-        }
-      }).filter(d => d!==undefined);
+        })
+        .filter((d) => d !== undefined);
       setPreranking(ranking);
     }
 
