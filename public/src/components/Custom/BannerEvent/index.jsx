@@ -23,7 +23,11 @@ export default function BannerEvent(props) {
 
   const Registration = () => {
     if (!Array.isArray(eventInfo.options) || eventInfo.options.length < 1) {
-      return <Typography variant="subtitle1" component="p"></Typography>;
+      return (
+        <Typography variant={fontVariant} component="p">
+          {t('register.registrations_closed_for_now')}
+        </Typography>
+      );
     }
     if (eventInfo.isLate) {
       return (
@@ -80,14 +84,13 @@ export default function BannerEvent(props) {
           />
         </div>
       </div>
-
       <div className={styles.rootInfo}>
         <div>
           {screenSize !== SCREENSIZE_ENUM.xs && (
             <div className={styles.divBannerDate}>
               <div className={styles.date}>
                 <Paper>
-                  <Typography className={styles.dateBorder} noWrap="true" variant="h3">
+                  <Typography className={styles.dateBorder} noWrap variant="h3">
                     {moment.parseZone(eventInfo.startDate || '0').format('DD')}
                   </Typography>
                 </Paper>
@@ -105,7 +108,7 @@ export default function BannerEvent(props) {
               </Typography>
               {eventInfo.location && (
                 <Typography variant={fontVariant} color="error">
-                  &nbsp; - &nbsp;{eventInfo.location}
+                  {` - ${eventInfo.location}`}
                 </Typography>
               )}
             </div>
