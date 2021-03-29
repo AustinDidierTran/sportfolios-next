@@ -5,6 +5,7 @@ import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
 import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
+import { CLIENT_BASE_URL } from '../conf';
 
 const Error = loadable(() => import('next/error'));
 const Head = loadable(() => import('next/head'));
@@ -31,6 +32,7 @@ export default function EntityRoute({ response }) {
         <Head>
           <meta property="og:title" content={t('metadata.[id].home.title')} />
           <meta property="og:description" content={t('metadata.[id].home.description')} />
+          <meta property="og:url" content={`${CLIENT_BASE_URL}/${response.basicInfos.id}`} />
           <meta
             property="og:image"
             content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
@@ -41,25 +43,20 @@ export default function EntityRoute({ response }) {
     );
   }
 
+  const img =
+    response.basicInfos.photoUrl ||
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73';
+  const description =
+    response.basicInfos.quickDescription || response.basicInfos.description || t('metadata.[id].home.description');
+  console.log({ description, img });
   return (
     <>
       <Head>
         <meta property="og:title" content={response.basicInfos.name} />
-        <meta
-          property="og:description"
-          content={
-            response.basicInfos.quickDescription ||
-            response.basicInfos.description ||
-            t('metadata.[id].home.description')
-          }
-        />
-        <meta
-          property="og:image"
-          content={
-            response.basicInfos.photoUrl ||
-            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73'
-          }
-        />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={`${CLIENT_BASE_URL}/${response.basicInfos.id}`} />
+        <meta property="og:image" content={img} />
+        <title>{response.basicInfos.name} </title>
       </Head>
       <EntityObject {...response} />
     </>
