@@ -107,7 +107,8 @@ export default function PhaseAccordionDnD(props) {
     }
   };
 
-  const openAdd = (rank) => {
+  const openAdd = (rank, e) => {
+    e.stopPropagation();
     setInitialPosition(rank);
     setAdd(true);
   };
@@ -232,7 +233,7 @@ export default function PhaseAccordionDnD(props) {
                               >
                                 {team.isEmpty ? (
                                   <ListItem button onClick={() => {
-                                    openAdd(index + 1);
+                                    openAdd(index + 1, e);
                                   }}>
                                     <ListItemIcon>
                                       <Icon icon="Reorder" color="textSecondary" />
