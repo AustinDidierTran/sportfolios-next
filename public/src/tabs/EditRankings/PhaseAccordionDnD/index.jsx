@@ -232,7 +232,7 @@ export default function PhaseAccordionDnD(props) {
                                 style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                               >
                                 {team.isEmpty ? (
-                                  <ListItem button onClick={() => {
+                                  <ListItem button onClick={(e) => {
                                     openAdd(index + 1, e);
                                   }}>
                                     <ListItemIcon>
