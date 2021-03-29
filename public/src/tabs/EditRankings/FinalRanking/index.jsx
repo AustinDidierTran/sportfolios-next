@@ -42,39 +42,42 @@ export default function FinalRanking(props) {
         phaseId: phase.id,
       })
     );
-    let teams = [];
-    let position = 1;
-    games.forEach((g) => {
-      if (!teams.filter((team) => team.id === g.teams[0].team_id).length) {
-        teams.push({
-          name: g.teams[0].name,
-          roster_id: g.teams[0].roster_id,
-          id: g.teams[0].team_id,
-          position,
-        });
-        position = position + 1;
-      }
-      if (!teams.filter((team) => team.id === g.teams[1].team_id).length) {
-        teams.push({
-          name: g.teams[1].name,
-          roster_id: g.teams[1].roster_id,
-          id: g.teams[1].team_id,
-          position,
-        });
-        position = position + 1;
-      }
-    });
-    games.map((game) => {
-      const res1 = teams.find((t) => game.teams[0].team_id === t.id);
-      game.teams[0].position = res1.position;
+    // let teams = [];
+    // let position = 1;
+    // games.forEach((g) => {
+    //   if (!teams.filter((team) => team.id === g.teams[0].team_id).length) {
+    //     teams.push({
+    //       name: g.teams[0].name,
+    //       roster_id: g.teams[0].roster_id,
+    //       id: g.teams[0].team_id,
+    //       position,
+    //     });
+    //     position = position + 1;
+    //   }
+    //   if (!teams.filter((team) => team.id === g.teams[1].team_id).length) {
+    //     teams.push({
+    //       name: g.teams[1].name,
+    //       roster_id: g.teams[1].roster_id,
+    //       id: g.teams[1].team_id,
+    //       position,
+    //     });
+    //     position = position + 1;
+    //   }
+    // });
+    // games.map((game) => {
+    //   const res1 = teams.find((t) => game.teams[0].team_id === t.id);
+    //   game.teams[0].position = res1.position;
 
-      const res2 = teams.find((t) => game.teams[1].team_id === t.id);
-      game.teams[1].position = res2.position;
-    });
-    allTeams.forEach((t) => {
-      if (!teams.map((t) => t.id).includes(t.teamId)) {
-        teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
-      }
+    //   const res2 = teams.find((t) => game.teams[1].team_id === t.id);
+    //   game.teams[1].position = res2.position;
+    // });
+    // allTeams.forEach((t) => {
+    //   if (!teams.map((t) => t.id).includes(t.teamId)) {
+    //     teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
+    //   }
+    // });
+    const teams = allTeams.map((t) => {
+      return { ...t, position: t.initial_position, id: t.teamId, rosterId: t.roster_id };
     });
 
     const res = updateRanking(teams, games);
@@ -86,13 +89,14 @@ export default function FinalRanking(props) {
     }));
 
     if (phase.status === PHASE_STATUS_ENUM.DONE) {
-      const rankingStatsAndFinalPosition = rankingStats
-        .map((r) => ({
-          finalPosition: phase.ranking.find((rank) => rank.roster_id === r.rosterId).final_position,
-          ...r,
-        }))
-        .sort((a, b) => a.finalPosition - b.finalPosition);
-      setItems(rankingStatsAndFinalPosition);
+      setItems(res);
+      // const rankingStatsAndFinalPosition = rankingStats
+      //   .map((r) => ({
+      //     finalPosition: phase.ranking.find((rank) => rank.roster_id === r.rosterId).final_position,
+      //     ...r,
+      //   }))
+      //   .sort((a, b) => a.finalPosition - b.finalPosition);
+      // setItems(rankingStatsAndFinalPosition);
     } else {
       const playedGames = games.reduce((prev, curr) => {
         const score1 = curr.teams[0].score;
