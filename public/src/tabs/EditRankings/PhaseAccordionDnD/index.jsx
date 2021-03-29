@@ -231,7 +231,9 @@ export default function PhaseAccordionDnD(props) {
                                 style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                               >
                                 {team.isEmpty ? (
-                                  <ListItem>
+                                  <ListItem button onClick={() => {
+                                    openAdd(index + 1);
+                                  }}>
                                     <ListItemIcon>
                                       <Icon icon="Reorder" color="textSecondary" />
                                     </ListItemIcon>
@@ -244,9 +246,6 @@ export default function PhaseAccordionDnD(props) {
                                       <ListItemIcon className={styles.add}>
                                         <IconButton
                                           className={styles.iconButton}
-                                          onClick={() => {
-                                            openAdd(index + 1);
-                                          }}
                                           icon="Add"
                                           style={{ color: 'grey' }}
                                           tooltip={t('add.add_team')}
