@@ -107,7 +107,8 @@ export default function PhaseAccordionDnD(props) {
     }
   };
 
-  const openAdd = (rank) => {
+  const openAdd = (rank, e) => {
+    e.stopPropagation();
     setInitialPosition(rank);
     setAdd(true);
   };
@@ -231,7 +232,9 @@ export default function PhaseAccordionDnD(props) {
                                 style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                               >
                                 {team.isEmpty ? (
-                                  <ListItem>
+                                  <ListItem button onClick={(e) => {
+                                    openAdd(index + 1, e);
+                                  }}>
                                     <ListItemIcon>
                                       <Icon icon="Reorder" color="textSecondary" />
                                     </ListItemIcon>
@@ -244,9 +247,6 @@ export default function PhaseAccordionDnD(props) {
                                       <ListItemIcon className={styles.add}>
                                         <IconButton
                                           className={styles.iconButton}
-                                          onClick={() => {
-                                            openAdd(index + 1);
-                                          }}
                                           icon="Add"
                                           style={{ color: 'grey' }}
                                           tooltip={t('add.add_team')}
