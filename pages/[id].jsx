@@ -5,9 +5,10 @@ import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
 import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
+import { CLIENT_BASE_URL } from '../conf';
+import { NextSeo } from 'next-seo';
 
 const Error = loadable(() => import('next/error'));
-const Head = loadable(() => import('next/head'));
 const Event = loadable(() => import('../public/src/views/Entity/Event'));
 const Organization = loadable(() => import('../public/src/views/Entity/Organization'));
 const Person = loadable(() => import('../public/src/views/Entity/Person'));
@@ -28,39 +29,53 @@ export default function EntityRoute({ response }) {
   if (!response || !EntityObject) {
     return (
       <>
-        <Head>
-          <meta property="og:title" content={t('metadata.[id].home.title')} />
-          <meta property="og:description" content={t('metadata.[id].home.description')} />
-          <meta
-            property="og:image"
-            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-          />
-        </Head>
+        <NextSeo
+          title={t('metadata.[id].home.title')}
+          description={t('metadata.[id].home.description')}
+          canonical={CLIENT_BASE_URL}
+          openGraph={{
+            url: CLIENT_BASE_URL,
+            title: t('metadata.[id].home.title'),
+            description: t('metadata.[id].home.description'),
+            images: [
+              {
+                url:
+                  'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+              },
+            ],
+            site_name: 'Sportfolios',
+          }}
+        />
         <Error />
       </>
     );
   }
 
+  const img =
+    response.basicInfos.photoUrl ||
+    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73';
+  const description =
+    response.basicInfos.quickDescription || response.basicInfos.description || t('metadata.[id].home.description');
+  const name = response.basicInfos.name;
+  console.log({ img, description, name });
   return (
     <>
-      <Head>
-        <meta property="og:title" content={response.basicInfos.name} />
-        <meta
-          property="og:description"
-          content={
-            response.basicInfos.quickDescription ||
-            response.basicInfos.description ||
-            t('metadata.[id].home.description')
-          }
-        />
-        <meta
-          property="og:image"
-          content={
-            response.basicInfos.photoUrl ||
-            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73'
-          }
-        />
-      </Head>
+      <NextSeo
+        title={name}
+        description={description}
+        canonical={CLIENT_BASE_URL}
+        openGraph={{
+          url: `${CLIENT_BASE_URL}/${response.basicInfos.id}`,
+          title: name,
+          description: description,
+          images: [
+            {
+              url: img,
+            },
+          ],
+          site_name: 'Sportfolios',
+        }}
+      />
       <EntityObject {...response} />
     </>
   );

@@ -25,6 +25,7 @@
     "moment": "^2.29.1",
     "next": "10.0.4",
     "next-compose-plugins": "^2.2.1",
+    "next-seo": "^4.23.0",
     "next-with-workbox": "^2.0.1",
     "node-gyp": "^7.1.2",
     "pm2": "^4.5.4",
