@@ -17,6 +17,6 @@
     "noImplicitThis": true,
     "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "public/src/views/Cart/index.jsx"],
   "exclude": ["node_modules"]
 }
