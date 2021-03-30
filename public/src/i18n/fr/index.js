@@ -1311,6 +1311,7 @@ export default {
     with_taxes_the_total_for_a_team_is: 'Avec les taxes, le total pour une équipe est {{total}}$',
     wrong_password: 'Mauvais mot de passe. Veuillez réessayer.',
     write_a_comment: 'Écrivez un commentaire...',
+    will_see_graph_member: 'Vous verrez un graphique lorsque vous aurez votre tout premier membre!',
     year_ago_plural: 'Il y a {{count}} années',
     year_ago: 'Il y a {{count}} an',
     year: 'Année',

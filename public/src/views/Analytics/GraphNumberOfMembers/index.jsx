@@ -26,8 +26,8 @@ export default function GraphNumberOfMembers(props) {
   };
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
-  const totalStatsInfo = useMemo(() => totalStats[value.x - 1].y, [value]);
-  const newStatsInfo = useMemo(() => newStats[value.x - 1].y, [value]);
+  const totalStatsInfo = useMemo(() => totalStats.length == 0 ? 0 : totalStats[value.x - 1].y, [value]);
+  const newStatsInfo = useMemo(() => newStats.length == 0 ? 0 : newStats[value.x - 1].y, [value]);
   const longLabelInfo = useMemo(() => longLabel[value.x - 1], [value]);
 
   return (

@@ -14,8 +14,19 @@ import api from '../../../src/actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import { useRouter } from 'next/router';
 import moment from 'moment';
+import CustomButton from '../../components/Custom/Button';
+import loadable from '@loadable/component';
+import FormDialog from '../../components/Custom/FormDialog';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../common/enums';
 export default function Analytics() {
 
+  const [open, setOpen] = useState(false);
+  const onOpen = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   const { t } = useTranslation();
   const router = useRouter();
   const { id: organizationId } = router.query;
@@ -74,14 +85,34 @@ export default function Analytics() {
         <SalesReport />
       </Paper>
       <Paper title={t('graphs')}>
-        <GraphNumberOfMembers
-          dateGraph={dateGraph}
-          onChangeDate={dateChanged}
-          graphData={graphData}
-          title={t('member.organization_member')}
-          totalTitle={t('member.members')}
-          newTitle={t('new_members')}
-        />
+        {graphData.total.length === 0 && (
+          <div>
+            {t('will_see_graph_member')}
+            <CustomButton
+              onClick={onOpen}>
+              {t('add.add_membership')}
+            </CustomButton>
+            <FormDialog
+              type={FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP}
+              items={{
+                open,
+                onClose,
+                update: () => { },
+              }}
+            />
+          </div>
+        )}
+
+        {graphData.total.length > 0 && (
+          <GraphNumberOfMembers
+            dateGraph={dateGraph}
+            onChangeDate={dateChanged}
+            graphData={graphData}
+            title={t('member.organization_member')}
+            totalTitle={t('member.members')}
+            newTitle={t('new_members')}
+          />
+        )}
       </Paper>
     </IgContainer>
   );
