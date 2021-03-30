@@ -86,9 +86,10 @@ export default function Analytics() {
       </Paper>
       <Paper title={t('graphs')}>
         {graphData.total.length === 0 && (
-          <div>
+          <div className={styles.divNoGraph}>
             {t('will_see_graph_member')}
             <CustomButton
+              className={styles.buttonDivGraph}
               onClick={onOpen}>
               {t('add.add_membership')}
             </CustomButton>
