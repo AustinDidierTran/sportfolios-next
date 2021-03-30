@@ -80,6 +80,7 @@ export default function EntityRoute({ response }) {
         facebook={{ appId: '346677216672687' }}
         twitter={{
           site: '@sportfoliosapp',
+          handle: '@sportfoliosapp',
           cardType: 'summary_large_image',
         }}
       />
