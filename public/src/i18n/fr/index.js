@@ -1077,7 +1077,7 @@ export default {
     password_must_match: 'Vos mots de passes doivent être identique',
     password_reset_message: 'Votre mot de passe a été réinitialisé avec succès!',
     password: 'Mot de passe',
-    past_games: 'Parties antérieurs',
+    past_games: 'Parties antérieures',
     pathname: 'Chemin',
     pending: 'En attente',
     people: 'Personnes',
