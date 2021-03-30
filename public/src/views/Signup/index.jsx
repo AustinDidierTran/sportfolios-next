@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Signup.module.css';
@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Container from '../../components/Custom/Container';
 import Paper from '../../components/Custom/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '../../components/Custom/TextField';
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
 import { LOGO_ENUM } from '../../../common/enums';
@@ -24,6 +25,8 @@ export default function Signup() {
   const { t } = useTranslation();
   const router = useRouter();
   const { redirectUrl } = router.query;
+
+  const [isSubscribed, setIsSubcribed] = useState(false);
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required(t('value_is_required')),
@@ -44,7 +47,7 @@ export default function Signup() {
       password: '',
     },
     validateOnChange: false,
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
       const { firstName, lastName, email, password } = values;
       const res = await api('/api/auth/signup', {
@@ -55,6 +58,7 @@ export default function Signup() {
           email,
           password,
           redirectUrl,
+          isSubscribed,
         }),
       });
       if (res.status === 403) {
@@ -78,13 +82,15 @@ export default function Signup() {
             <TextField namespace="firstName" formik={formik} type="text" label={t('first_name')} fullWidth />
             <TextField namespace="lastName" formik={formik} type="text" label={t('last_name')} fullWidth />
             <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
-            <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
-            <Typography variant="caption" color="textSecondary">
-              {t('privacy_signup') + ' '}
-              <Link target="_blank" rel="noopener noreferrer" href={ROUTES.privacyPolicy}>
-                {t('here')}
-              </Link>
-            </Typography>
+            <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth/>
+            <div className={styles.subscribe}>
+              <Checkbox className={styles.checkbox} checked={isSubscribed} color='default' onChange={() => {setIsSubcribed(!isSubscribed)}}></Checkbox>
+              <label>
+                <Typography color="textSecondary">
+                  {t('newsletter_subscribe')}
+                </Typography>
+              </label>
+            </div>
           </CardContent>
           <CardActions>
             <Button
@@ -114,6 +120,17 @@ export default function Signup() {
               </Typography>
             </div>
           </CardActions>
+          <Divider />
+          <CardContent>
+            <Typography variant="caption" color="textSecondary">
+              {t('privacy_signup') + ' '}
+            </Typography>
+            <Typography variant="caption" style={{color: 'blue', textDecoration: 'underline'}}>
+              <Link target="_blank" rel="noopener noreferrer" href={ROUTES.privacyPolicy}>
+                {t('here')}
+              </Link>
+            </Typography>
+          </CardContent>
         </form>
       </Paper>
     </Container>

@@ -1033,6 +1033,8 @@ export default {
     my_persons: 'Mes personnes',
     name_is_required: 'Nom obligatoire',
     name: 'Nom',
+    newsletter_subscribe:
+      "Je veux m'inscrire à l'infolettre afin de recevoir des offres promotionnelles et des nouvelles de Sportfolios.",
     new_email: 'Nouveau courriel',
     new_members: 'Nouveau membres',
     new_organization: 'Nouvelle Organisation',
@@ -1121,7 +1123,7 @@ export default {
     privacy_policy_and_legal_documents: 'Politique de confidentialité et documents légaux',
     privacy_policy: 'Politique de confidentialité',
     privacy_signup:
-      "En appuyant sur s'enregistrer, vous acceptez nos termes et conditions ainsi que notre politique de confidentialité qui peuvent être trouvés",
+      "En appuyant sur s'enregistrer, vous acceptez nos termes et conditions ainsi que notre politique de confidentialité que vous pouvez consulter",
     private: 'Privée',
     product_added_to_cart: 'Produit ajouté au panier',
     product_detail: 'Détail du produit',
