@@ -4,7 +4,6 @@ import Login from '../../public/src/views/Login';
 import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../../conf';
-import { formatRoute } from '../../public/common/utils/stringFormat';
 import { ROUTES_ENUM } from '../../public/common/enums';
 
 const LoginRoute = () => {
@@ -18,7 +17,7 @@ const LoginRoute = () => {
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: formatRoute(ROUTES_ENUM.login),
+          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.login}`,
           title: t('metadata.login.title'),
           description: t('metadata.login.description'),
           images: [

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GLOBAL_ENUM, ROUTES_ENUM } from '../public/common/enums';
+import { GLOBAL_ENUM } from '../public/common/enums';
 import loadable from '@loadable/component';
 import { formatRoute } from '../public/common/utils/stringFormat';
 import { useTranslation } from 'react-i18next';
@@ -46,7 +46,7 @@ export default function EntityRoute({ response }) {
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: formatRoute(ROUTES_ENUM.entity, { id: response.basicInfos.id }),
+          url: `${CLIENT_BASE_URL}/${response.basicInfos.id}`,
           title: name,
           description: description,
           images: [

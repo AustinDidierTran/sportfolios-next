@@ -3,7 +3,6 @@ import React from 'react';
 import Signup from '../../public/src/views/Signup';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_ENUM } from '../../public/common/enums';
-import { formatRoute } from '../../public/common/utils/stringFormat';
 import { CLIENT_BASE_URL } from '../../conf';
 import { NextSeo } from 'next-seo';
 
@@ -18,7 +17,7 @@ const SignupRoute = () => {
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: formatRoute(ROUTES_ENUM.signup),
+          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.signup}`,
           title: t('metadata.signup.title'),
           description: t('metadata.signup.description'),
           images: [

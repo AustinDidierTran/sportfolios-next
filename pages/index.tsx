@@ -6,7 +6,6 @@ import { useApiRoute } from '../public/src/hooks/queries';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../conf';
 import { ROUTES_ENUM } from '../public/common/enums';
-import { formatRoute } from '../public/common/utils/stringFormat';
 
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
@@ -40,7 +39,7 @@ export default function HomeRoute() {
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: formatRoute(ROUTES_ENUM.home),
+          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.home}`,
           title: t('metadata.forYouPage.title'),
           description: t('metadata.forYouPage.description'),
           images: [

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../../conf';
 import { ROUTES_ENUM } from '../../public/common/enums';
-import { formatRoute } from '../../public/common/utils/stringFormat';
 
 const LandingPageRoute = () => {
   const { t } = useTranslation();
@@ -17,7 +16,7 @@ const LandingPageRoute = () => {
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: formatRoute(ROUTES_ENUM.landingPage),
+          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.landingPage}`,
           title: t('metadata.landingPage.title'),
           description: t('metadata.landingPage.description'),
           images: [
