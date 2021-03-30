@@ -8,7 +8,7 @@ import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
-import GraphNumberOfMembers from './GraphNumberOfMembers';
+const GraphNumberOfMembers = loadable(() => import('./GraphNumberOfMembers'));
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import api from '../../../src/actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
