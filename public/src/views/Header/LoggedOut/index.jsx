@@ -11,7 +11,7 @@ import Button from '../../../components/Custom/Button';
 
 export default function LoggedOut(props) {
   const { t } = useTranslation();
-  const {isLogin} = props;
+  const {isNotLogin} = props;
 
   return (
     <div>
@@ -20,10 +20,7 @@ export default function LoggedOut(props) {
           <Typography className={styles.title} style={{ fontSize: '1.5rem', color: 'white'}} noWrap>
             <Link href={ROUTES.home} className={styles.link}>Sportfolios</Link>
           </Typography>
-            {isLogin ? 
-              (
-                <></>
-              ) : 
+            {isNotLogin && 
               (
                 <div className={styles.login}>
                   <Button className={styles.button} disableElevation onClick={() => {
