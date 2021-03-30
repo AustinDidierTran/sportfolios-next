@@ -57,7 +57,7 @@ export default function EntityRoute({ response }) {
   const description =
     response.basicInfos.quickDescription || response.basicInfos.description || t('metadata.[id].home.description');
   const name = response.basicInfos.name;
-  console.log({ img, description, name });
+  console.log({ img, description, name, allo: response.basicInfos });
   return (
     <>
       <NextSeo
@@ -65,6 +65,7 @@ export default function EntityRoute({ response }) {
         description={description}
         canonical={CLIENT_BASE_URL}
         openGraph={{
+          type: 'website',
           url: `${CLIENT_BASE_URL}/${response.basicInfos.id}`,
           title: name,
           description: description,
@@ -74,6 +75,11 @@ export default function EntityRoute({ response }) {
             },
           ],
           site_name: 'Sportfolios',
+        }}
+        facebook={{ appId: '346677216672687' }}
+        twitter={{
+          site: '@sportfoliosapp',
+          cardType: 'summary_large_image',
         }}
       />
       <EntityObject {...response} />
