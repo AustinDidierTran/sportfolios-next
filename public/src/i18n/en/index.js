@@ -860,6 +860,7 @@ export default {
     confirmed: 'Confirmed',
     connect_with_facebook: 'Connect with Facebook',
     connect: 'Connect',
+    connection: 'Login',
     connection_failed: 'Connection failed. Please try again.',
     contact_us: 'Contact us',
     contact: 'Contact',

@@ -882,6 +882,7 @@ export default {
     confirmed: 'Confirmé',
     connect_with_facebook: 'Se connecter avec Facebook',
     connect: 'Connecter',
+    connection: 'Connexion',
     connection_failed: 'La connexion au compte a échoué, veuillez réessayer',
     contact_us: 'Contactez-nous',
     contact: 'Contact',
