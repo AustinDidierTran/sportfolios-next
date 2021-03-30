@@ -23,9 +23,11 @@ export default function Header() {
   const router = useRouter();
   const [path, setPath] = React.useState('');
   const [entity, setEntity] = React.useState({});
+  const [isLoginPage, setIsLoginPage] = React.useState(false);
 
   const fetchData = async () => {
     const pth = router.pathname.split('/')[1] || '';
+    setIsLoginPage((router.pathname.includes('login') || router.pathname.includes('signup')));
 
     if (
       [
@@ -105,5 +107,5 @@ export default function Header() {
         return <LoggedIn />;
     }
   }
-  return <LoggedOut />;
+  return <LoggedOut isLogin={isLoginPage}/>;
 }
