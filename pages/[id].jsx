@@ -54,8 +54,9 @@ export default function EntityRoute({ response }) {
   const img =
     response.basicInfos.photoUrl ||
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73';
-  const description =
-    response.basicInfos.quickDescription || response.basicInfos.description || t('metadata.[id].home.description');
+  const description = response.basicInfos.quickDescription
+    ? decodeURIComponent(response.basicInfos.quickDescription)
+    : t('metadata.[id].home.description');
   const name = response.basicInfos.name;
   console.log({ img, description, name, allo: response.basicInfos });
   return (
