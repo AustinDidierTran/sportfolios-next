@@ -12,8 +12,10 @@ import {
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './GraphNumberOfMembers.module.css';
+import moment from 'moment';
+import TextField from '@material-ui/core/TextField';
 export default function GraphNumberOfMembers(props) {
-  const { graphData, title, totalTitle, newTitle } = props;
+  const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate } = props;
   const { shortLabel, longLabel, total: totalStats, new: newStats } = graphData;
 
   const { t } = useTranslation();
@@ -30,9 +32,18 @@ export default function GraphNumberOfMembers(props) {
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.title} variant="h5">
-        {title}
-      </Typography>
+      <div className={styles.displayFlex}>
+        <Typography className={styles.title} variant="h5">
+          {title}
+        </Typography>
+        <TextField
+          className={styles.textDate}
+          type="date"
+          defaultValue={dateGraph}
+          onChange={onChangeDate}
+          InputProps={{ inputProps: { max: moment(new Date()).format('yyyy-MM-DD') } }}
+        />
+      </div>
       <div className={styles.legend}>
         <Typography className={styles.subTitle} color="textSecondary" variant="h6">
           {longLabelInfo}

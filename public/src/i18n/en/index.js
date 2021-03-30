@@ -454,6 +454,7 @@ export default {
       members_list: "Members' list | {{organization}}",
       members_report_description: "This report allows you to access your members' list at a certain date in the past",
       members: 'Members',
+      organization_member: 'Organization members',
       membership_added: 'Membership added',
       membership_edited: 'Membership edited',
       membership_exist: 'Membership Exist',

@@ -457,6 +457,7 @@ export default {
       members_list: 'Liste des membres | {{organization}}',
       members_report_description: "Ce rapport vous permet d'accéder à la liste de vos membres à une date précise",
       members: 'Membres',
+      organization_member: "Membres de l'organization",
       membership_added: 'Affiliation ajouté',
       membership_edited: 'Affiliation modifiée',
       membership_exist: 'Affiliation Existant',
