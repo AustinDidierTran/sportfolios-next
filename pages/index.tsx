@@ -25,9 +25,41 @@ export default function HomeRoute() {
 
   if (isLoading) {
     return (
-      <IgContainer>
-        <LoadingSpinner />
-      </IgContainer>
+      <>
+        <NextSeo
+          title={t('metadata.forYouPage.title')}
+          description={t('metadata.forYouPage.description')}
+          canonical={CLIENT_BASE_URL}
+          openGraph={{
+            type: 'website',
+            url: `${CLIENT_BASE_URL}${ROUTES_ENUM.home}`,
+            title: t('metadata.forYouPage.title'),
+            description: t('metadata.forYouPage.description'),
+            images: [
+              {
+                url:
+                  'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+              },
+            ],
+            site_name: 'Sportfolios',
+          }}
+          additionalMetaTags={[
+            {
+              name: 'keywords',
+              content:
+                'Sportfolios.app, Sport, Organization, Athlete, Coach, Schedule, Registration, Results, Statistics, Coaching, Information, Gestion',
+            },
+          ]}
+          facebook={{ appId: '346677216672687' }}
+          twitter={{
+            site: '@sportfoliosapp',
+            cardType: 'summary_large_image',
+          }}
+        />
+        <IgContainer>
+          <LoadingSpinner />
+        </IgContainer>
+      </>
     );
   }
 
