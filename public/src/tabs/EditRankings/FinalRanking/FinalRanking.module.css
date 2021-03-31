@@ -40,8 +40,8 @@
   grid-area: delta;
 }
 
-.dragIcon {
-  margin-top: 8px;
+.reorder {
+  align-self: center;
 }
 
 .container {
