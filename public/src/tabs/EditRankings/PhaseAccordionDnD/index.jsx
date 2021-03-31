@@ -22,6 +22,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import { useRouter } from 'next/router';
 import AddTeamPhase from './AddTeamPhase';
 import Menu from '../Menu';
+import { getAllOptions } from './getAllOptions';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -83,13 +84,17 @@ export default function PhaseAccordionDnD(props) {
   const [madeChanges, setMadeChanges] = useState(false);
   const [teams, setTeams] = useState(ranking);
   const [edit, setEdit] = useState(false);
-  const [add, setAdd] = useState(false);
-
-  const [initialPosition, setInitialPosition] = useState();
+  const [allOptions, setAllOptions] = useState([]);
 
   useEffect(() => {
     setTeams(ranking);
+    getOptions();
   }, [ranking]);
+
+  const getOptions = async () => {
+    const res = await getAllOptions(eventId, phaseId, t);
+    setAllOptions(res);
+  };
 
   const isOneExpanded = useMemo(() => expandedPhases.length > 0, [expandedPhases.length]);
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
@@ -110,19 +115,6 @@ export default function PhaseAccordionDnD(props) {
 
   const openEdit = () => {
     setEdit(true);
-  };
-
-  const closeAdd = () => {
-    setAdd(false);
-    if (update) {
-      update();
-    }
-  };
-
-  const openAdd = (rank, e) => {
-    e.stopPropagation();
-    setInitialPosition(rank);
-    setAdd(true);
   };
 
   const onSave = async () => {
@@ -240,26 +232,20 @@ export default function PhaseAccordionDnD(props) {
                                 style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                               >
                                 {team.isEmpty ? (
-                                  <ListItem button onClick={(e) => {
-                                    openAdd(index + 1, e);
-                                  }}>
+                                  <ListItem>
                                     <ListItemIcon>
                                       <Icon icon="Reorder" color="textSecondary" />
                                     </ListItemIcon>
-                                    <div className={styles.spots} style={{ width: '100%' }}>
+                                    <div className={styles.empty} style={{ width: '100%' }}>
                                       <ListItemText className={styles.positionHolder} secondary={index + 1} />
-                                      <ListItemText
-                                        className={styles.title}
-                                        secondary={t('add.add_position') + '...'}
-                                      />
-                                      <ListItemIcon className={styles.add}>
-                                        <IconButton
-                                          className={styles.iconButton}
-                                          icon="Add"
-                                          style={{ color: 'grey' }}
-                                          tooltip={t('add.add_team')}
-                                        ></IconButton>
-                                      </ListItemIcon>
+                                      <ListItemText className={styles.name}>
+                                        <AddTeamPhase
+                                          phaseId={phaseId}
+                                          update={update}
+                                          initialPosition={index + 1}
+                                          allOptions={allOptions}
+                                        />
+                                      </ListItemText>
                                     </div>
                                   </ListItem>
                                 ) : (
@@ -302,14 +288,6 @@ export default function PhaseAccordionDnD(props) {
         </AccordionDetails>
       </Accordion>
       <EditPhase isOpen={edit} onClose={closeEdit} phaseId={phaseId} currentSpots={spots} update={update} />
-      <AddTeamPhase
-        isOpen={add}
-        onClose={closeAdd}
-        phaseId={phaseId}
-        update={update}
-        initialPosition={initialPosition}
-        teams={teams}
-      />
     </>
   );
 }
