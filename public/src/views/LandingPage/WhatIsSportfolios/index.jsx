@@ -14,9 +14,10 @@ export default function WhatisSportfolios() {
         <MobileContainer>
           <div className={styles.block}>
             <img
+              style={{ marginTop: '8vh' }}
               src="https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-0fje3-2850fc27-60b3-4508-93d1-56b454c9edf0"
-              height={window.innerWidth < 600 ? '100px' : '200px'}
-              width={window.innerWidth < 600 ? '100px' : '200px'}
+              height={window.innerWidth < 600 ? '100px' : '150px'}
+              width={window.innerWidth < 600 ? '100px' : '150px'}
             />
             <Typography variant="h2" className={styles.text}>
               {t('landingPage.whatIs.1')}
@@ -37,7 +38,7 @@ export default function WhatisSportfolios() {
               {t('landingPage.whatIs.4')}
             </Typography>
             <img
-              style={{ marginBottom: '64px' }}
+              style={{ marginBottom: '8vh' }}
               src="https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-vgpzt-2850fc27-60b3-4508-93d1-56b454c9edf0"
               height={window.innerWidth < 600 ? '138px' : '172px'}
               width={window.innerWidth < 600 ? '400px' : '500px'}
