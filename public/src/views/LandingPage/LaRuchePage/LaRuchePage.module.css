@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.countdown {
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.countdownContainer {
+  margin-top: 60px;
+}
+
+.layer {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.logo {
+  padding-bottom: 60px;
+}
+
+.pageContent {
+  display: flex;
+  justify-self: start;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 200px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url('https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-p4spo-60fb055c-a90c-48f6-aad4-e9bbdc115074');
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.parteners {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row !important;
+}
+
+.partenerLogo {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.text {
+  color: white;
+  font-weight: bold !important;
+  margin-right: 24px !important;
+  margin-left: 24px !important;
+  text-transform: uppercase;
+  text-align: center !important;
+}
+
+.titleContainer {
+  width: 100vw;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  font-weight: 400 !important;
+  text-transform: uppercase;
+  font-family: 'Bebas Neue' !important;
+  margin-top: 16px !important;
+  font-size: 10vw !important;
+}
+
+@media (min-width: 600px) {
+  .layer {
+    min-height: 216vh;
+    min-width: 99vw;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  }
+  .page {
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 216vh;
+    min-width: 99vw;
+  }
+}
