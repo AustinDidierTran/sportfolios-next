@@ -5,6 +5,8 @@
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
+  border-top: 16px solid #18b393;
+  border-bottom: 16px solid #18b393;
 }
 
 .layer {
