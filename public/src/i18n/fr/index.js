@@ -296,7 +296,7 @@ export default {
         6: 'Les entraineurs entrainent;',
         7: 'Les organisateurs organisent;',
         8: "C'est tout.",
-        9: 'Accéder à la plateforme',
+        9: 'Vers la plateforme',
       },
       plateform: {
         1: 'Plateforme',
@@ -336,6 +336,12 @@ export default {
         12: 'Messagerie interne & système de notifications aux membres',
         13: "Utilisez votre temps pour ce qui compte réellement. On s'occupe du reste.",
         14: 'Commencer gratuitement',
+      },
+      whatIs: {
+        1: 'Sportfolios, what does it do?',
+        2: "It's simple",
+        3: 'We support sports organizations in 3 steps:',
+        4: 'Our tools',
       },
       roles: {
         founder: 'Fondateur & Directeur Général',

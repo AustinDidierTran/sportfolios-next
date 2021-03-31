@@ -5,6 +5,9 @@ import styles from './LaRuchePage.module.css';
 import { LOGO_ENUM, PARTENERS_LOGO_ENUM } from '../../../../common/enums';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Button from '../../../components/Custom/Button';
+import { AddGaEvent } from '../../../components/Custom/Analytics';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
 export default function LaRuchePage() {
   const { t } = useTranslation();
@@ -12,6 +15,20 @@ export default function LaRuchePage() {
   return (
     <div className={styles.page}>
       <div className={styles.layer}>
+        <div className={styles.login}>
+          <Button
+            onClick={() => {
+              AddGaEvent({
+                category: 'Landing page',
+                action: 'User clicked to be redirected to login',
+                label: 'landing_page_login',
+              });
+              goTo(ROUTES.login);
+            }}
+          >
+            {t('landingPage.presentation.9')}
+          </Button>
+        </div>
         <div className={styles.titleContainer}>
           <Typography variant="h2" font className={styles.title}>
             {t('campaign')}
@@ -21,8 +38,8 @@ export default function LaRuchePage() {
           <div className={styles.logo}>
             <img
               src={LOGO_ENUM.WHITE_LOGO_1024X1024}
-              height={window.innerWidth < 600 ? '200px' : '400px'}
-              width={window.innerWidth < 600 ? '200px' : '400px'}
+              height={window.innerWidth < 600 ? '200px' : '300px'}
+              width={window.innerWidth < 600 ? '200px' : '300px'}
             />
           </div>
           <div className={styles.countdownContainer}>

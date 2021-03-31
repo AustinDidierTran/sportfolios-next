@@ -11,7 +11,7 @@
 }
 
 .countdownContainer {
-  margin-top: 12vh;
+  margin-top: 8vh;
 }
 
 .layer {
@@ -21,7 +21,7 @@
 }
 
 .partnersContainer {
-  margin-top: 6vh;
+  margin-top: 4vh;
 }
 
 .pageContent {
@@ -30,7 +30,7 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 14vh;
+  padding-bottom: 10vh;
 }
 
 .page {
@@ -89,7 +89,7 @@
   }
 
   .countdownContainer {
-    margin-top: 18vh;
+    margin-top: 12vh;
   }
 
   .layer {
@@ -112,7 +112,13 @@
   .partnersContainer {
     display: flex;
     flex-direction: column;
-    padding-top: 8vh;
+    padding-top: 6vh;
     padding-bottom: 4vh;
   }
+}
+
+.login {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
 }

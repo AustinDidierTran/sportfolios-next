@@ -4,10 +4,10 @@ import { AddGaEvent } from '../../components/Custom/Analytics';
 import { formatPageTitle } from '../../utils/stringFormats';
 import loadable from '@loadable/component';
 
-const Page1 = loadable(() => import('./Page1'));
 const Page4 = loadable(() => import('./Page4'));
 const Page5 = loadable(() => import('./Page5'));
 const LaRuchePage = loadable(() => import('./LaRuchePage'));
+const WhatisSportfolios = loadable(() => import('./WhatisSportfolios'));
 
 export default function LandingPage() {
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function LandingPage() {
   return (
     <div>
       <LaRuchePage />
-      <Page1 />
+      <WhatisSportfolios />
       <Page4 />
       <Page5 />
     </div>

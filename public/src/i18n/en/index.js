@@ -296,7 +296,7 @@ export default {
         6: 'Coaches train;',
         7: 'Organizers organize;',
         8: "That's it.",
-        9: 'Go to the platform',
+        9: 'Go to platform',
       },
       plateform: {
         1: 'Plateform',
@@ -336,6 +336,12 @@ export default {
         12: "Internal messaging & member's notifications system",
         13: 'Take time for what really matters, we take care of the rest.',
         14: 'Get started for free',
+      },
+      whatIs: {
+        1: 'Sportfolios, ça fait quoi?',
+        2: "C'est simple",
+        3: 'Nous soutenons les organisations sportives en 3 étapes:',
+        4: 'Nos outils',
       },
       roles: {
         founder: 'Founder & CEO',
@@ -963,7 +969,7 @@ export default {
     import_your_excel_sheet_with_all_your_members: 'Import your excel sheet (only .CSV files are accepted)',
     import: 'Import',
     in_cart: 'In cart',
-    in_partnership: 'In partenship with',
+    in_partnership: 'In partnership with',
     inclusive: 'Inclusive',
     individual_activity: 'Individual activity',
     info: 'Info',
