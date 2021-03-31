@@ -338,10 +338,10 @@ export default {
         14: 'Commencer gratuitement',
       },
       whatIs: {
-        1: 'Sportfolios, what does it do?',
-        2: "It's simple",
-        3: 'We support sports organizations in 3 steps:',
-        4: 'Our tools',
+        1: 'Sportfolios, ça fait quoi?',
+        2: "C'est simple",
+        3: 'Nous soutenons les organisations sportives en 3 étapes:',
+        4: 'Nos outils',
       },
       roles: {
         founder: 'Fondateur & Directeur Général',
