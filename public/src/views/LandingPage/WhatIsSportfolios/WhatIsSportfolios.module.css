@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.container {
+  background-image: url('https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-c78d4-2850fc27-60b3-4508-93d1-56b454c9edf0');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.layer {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.block {
+  min-height: 100vh;
+  max-height: 150vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text {
+  color: white;
+  font-weight: 700 !important;
+  margin: 16px !important;
+}
+
+.text2 {
+  color: white;
+  font-weight: 600 !important;
+  margin: 16px !important;
+}
+
+.text3 {
+  color: white;
+  font-weight: 700 !important;
+  margin: 40px !important;
+}

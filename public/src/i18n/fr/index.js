@@ -296,7 +296,7 @@ export default {
         6: 'Les entraineurs entrainent;',
         7: 'Les organisateurs organisent;',
         8: "C'est tout.",
-        9: 'Accéder à la plateforme',
+        9: 'Vers la plateforme',
       },
       plateform: {
         1: 'Plateforme',
@@ -336,6 +336,12 @@ export default {
         12: 'Messagerie interne & système de notifications aux membres',
         13: "Utilisez votre temps pour ce qui compte réellement. On s'occupe du reste.",
         14: 'Commencer gratuitement',
+      },
+      whatIs: {
+        1: 'Sportfolios, what does it do?',
+        2: "It's simple",
+        3: 'We support sports organizations in 3 steps:',
+        4: 'Our tools',
       },
       roles: {
         founder: 'Fondateur & Directeur Général',
@@ -825,6 +831,7 @@ export default {
     buyers_name: "Nom de l'acheteur",
     by_getting_a_new_link_the_old_one_will_expires: "En générant un nouveau lien, l'ancien deviendra invalide.",
     by: 'Par',
+    campaign: 'Campagne de financement',
     canadian_dollar: 'Dollar Canadien',
     cancel_changes: 'Des changements ont été apportés. Voulez-vous annuler sans les sauvergarder?',
     cancel_person_transfer_confirmation: 'Êtes-vous certain de vouloir annuler le transfert de {{name}}?',
@@ -986,6 +993,7 @@ export default {
       'Importez le fichier excel (seulement les fichiers .CSV sont acceptés)',
     import: 'Importer',
     in_cart: 'Dans le panier',
+    in_partnership: 'En partenariat avec',
     inclusive: 'Inclus',
     individual_activity: 'Activité individuelle',
     info: 'Info',
@@ -1227,6 +1235,7 @@ export default {
     statistics: 'Statistiques',
     status: 'Statut',
     start_a_post: 'Commencer un post',
+    start_in: 'Début dans',
     start_phase: 'Démarrer',
     step_1: 'Étape 1',
     step_2: 'Étape 2',
@@ -1263,6 +1272,10 @@ export default {
     time_slot_added: 'Plage horaire ajoutée',
     time_slot: 'Plage horaire',
     time: 'Temps',
+    time_day: 'J: ',
+    time_hour: 'H: ',
+    time_minute: 'M: ',
+    time_second: 'S',
     to_invite_people_to_your_roster_share_the_invite_link:
       "Pour inviter des amis à rejoindre votre équipe, partagez le lien d'invitation",
     to_see_your_receipt:

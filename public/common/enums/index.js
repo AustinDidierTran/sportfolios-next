@@ -493,6 +493,13 @@ const LOGO_ENUM = {
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-k12j1-8317ff33-3b04-49a1-afd3-420202cddf73',
 };
 
+const PARTENERS_LOGO_ENUM = {
+  LA_RUCHE:
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-7ny96-60fb055c-a90c-48f6-aad4-e9bbdc115074',
+  ESPACE_INC:
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-rhr3l-60fb055c-a90c-48f6-aad4-e9bbdc115074',
+};
+
 const PHOTO_ENUM = {
   JULIEN:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-vl29g-8317ff33-3b04-49a1-afd3-420202cddf73',
@@ -506,6 +513,8 @@ const PHOTO_ENUM = {
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-16nt5-8317ff33-3b04-49a1-afd3-420202cddf73',
   ACHILLE:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210215-mpeqg-8317ff33-3b04-49a1-afd3-420202cddf73',
+  RANDOM_PLAYER:
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-p4spo-60fb055c-a90c-48f6-aad4-e9bbdc115074',
 };
 
 const MESSENGER_MESSAGES_EN = {
@@ -567,6 +576,7 @@ module.exports = {
   REJECTION_ENUM,
   REPORT_TYPE_ENUM,
   ROSTER_ROLE_ENUM,
+  PARTENERS_LOGO_ENUM,
   PHASE_STATUS_ENUM,
   PHOTO_ENUM,
   ROUTES_ENUM,
