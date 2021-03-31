@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import MobileContainer from '../../../components/Custom/MobileContainer';
 
-export default function WhatisSportfolios() {
+export default function WhatIsSportfolios() {
   const { t } = useTranslation();
 
   return (

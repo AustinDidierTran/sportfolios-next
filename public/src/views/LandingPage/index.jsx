@@ -7,7 +7,7 @@ import loadable from '@loadable/component';
 const Page4 = loadable(() => import('./Page4'));
 const Page5 = loadable(() => import('./Page5'));
 const LaRuchePage = loadable(() => import('./LaRuchePage'));
-const WhatisSportfolios = loadable(() => import('./WhatisSportfolios'));
+const WhatIsSportfolios = loadable(() => import('./WhatIsSportfolios'));
 
 export default function LandingPage() {
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function LandingPage() {
   return (
     <div>
       <LaRuchePage />
-      <WhatisSportfolios />
+      <WhatIsSportfolios />
       <Page4 />
       <Page5 />
     </div>
