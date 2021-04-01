@@ -1017,6 +1017,8 @@ export default {
     my_persons: 'My persons',
     name_is_required: 'Name is required',
     name: 'Name',
+    newsletter_subscribe:
+      'I want to subscribe to the newsletter in order to receive promotional offers and news from Sportfolios.',
     new_email: 'New email',
     new_members: 'New members',
     new_organization: 'New organization',
@@ -1103,7 +1105,7 @@ export default {
     primary_person: 'Primary person',
     privacy_policy_and_legal_documents: 'Privacy policy and legal documents',
     privacy_policy: 'Privacy policy',
-    privacy_signup: 'By signing up on Sportfolios, you agree to our Terms and Privacy policy which can be find',
+    privacy_signup: 'By signing up on Sportfolios, you agree to our Terms and Privacy policy which can be consulted',
     private: 'Private',
     product_added_to_cart: 'Product added to cart',
     product_detail: 'Product detail',
