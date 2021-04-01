@@ -338,10 +338,10 @@ export default {
         14: 'Commencer gratuitement',
       },
       whatIs: {
-        1: 'Sportfolios, what does it do?',
-        2: "It's simple",
-        3: 'We support sports organizations in 3 steps:',
-        4: 'Our tools',
+        1: 'Sportfolios, ça fait quoi?',
+        2: "C'est simple",
+        3: 'Nous soutenons les organisations sportives en 3 étapes:',
+        4: 'Nos outils',
       },
       roles: {
         founder: 'Fondateur & Directeur Général',
@@ -1274,10 +1274,10 @@ export default {
     time_slot_added: 'Plage horaire ajoutée',
     time_slot: 'Plage horaire',
     time: 'Temps',
-    time_day: 'J: ',
-    time_hour: 'H: ',
-    time_minute: 'M: ',
-    time_second: 'S',
+    time_day: 'Jours',
+    time_hour: 'Heures',
+    time_minute: 'Minutes',
+    time_second: 'Secondes',
     to_invite_people_to_your_roster_share_the_invite_link:
       "Pour inviter des amis à rejoindre votre équipe, partagez le lien d'invitation",
     to_see_your_receipt:

@@ -8,9 +8,11 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Custom/Button';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function LaRuchePage() {
   const { t } = useTranslation();
+  const [width] = useWindowSize();
 
   return (
     <div className={styles.page}>
@@ -33,15 +35,15 @@ export default function LaRuchePage() {
           <Typography variant="h2" font className={styles.title}>
             {t('campaign')}
           </Typography>
-        </div>
-        <div className={styles.pageContent}>
           <div className={styles.logo}>
             <img
               src={LOGO_ENUM.WHITE_LOGO_1024X1024}
-              height={window.innerWidth < 600 ? '200px' : '300px'}
-              width={window.innerWidth < 600 ? '200px' : '300px'}
+              height={width < 600 ? '200px' : '300px'}
+              width={width < 600 ? '200px' : '300px'}
             />
           </div>
+        </div>
+        <div className={styles.pageContent}>
           <div className={styles.countdownContainer}>
             <Typography variant="h4" className={styles.text}>
               {t('start_in')}
@@ -51,14 +53,19 @@ export default function LaRuchePage() {
               date={new Date(2021, 3, 26)}
               renderer={(props) => (
                 <span className={styles.countdown}>
-                  {props.formatted.days}
-                  {t('time_day')}
-                  {props.formatted.hours}
-                  {t('time_hour')}
-                  {props.formatted.minutes}
-                  {t('time_minute')}
-                  {props.formatted.seconds}
-                  {t('time_second')}
+                  {[
+                    { time: props.formatted.days, key: 'time_day' },
+                    { time: props.formatted.hours, key: 'time_hour' },
+                    { time: props.formatted.minutes, key: 'time_minute' },
+                    { time: props.formatted.seconds, key: 'time_second' },
+                  ].map((count) => (
+                    <React.Fragment key={count.key}>
+                      <div className={styles.countdownContainer}>
+                        <div className={styles.countdownBubble}>{count.time}</div>
+                        <span className={styles.countdownLabel}>{t(count.key)}</span>
+                      </div>
+                    </React.Fragment>
+                  ))}
                 </span>
               )}
               zeroPadTime={2}
@@ -72,8 +79,8 @@ export default function LaRuchePage() {
           <div className={styles.partners}>
             <img
               src={PARTENERS_LOGO_ENUM.LA_RUCHE}
-              height={window.innerWidth < 600 ? '48px' : '112px'}
-              width={window.innerWidth < 600 ? '140px' : '320px'}
+              height={width < 600 ? '48px' : '112px'}
+              width={width < 600 ? '140px' : '320px'}
               className={styles.partnerLogo}
             />
             <Typography variant="h5" className={styles.text}>
@@ -81,8 +88,8 @@ export default function LaRuchePage() {
             </Typography>
             <img
               src={PARTENERS_LOGO_ENUM.ESPACE_INC}
-              height={window.innerWidth < 600 ? '48px' : '112px'}
-              width={window.innerWidth < 600 ? '140px' : '320px'}
+              height={width < 600 ? '48px' : '112px'}
+              width={width < 600 ? '140px' : '320px'}
               className={styles.partnerLogo}
             />
           </div>
