@@ -1017,6 +1017,11 @@ export default {
     my_persons: 'My persons',
     name_is_required: 'Name is required',
     name: 'Name',
+    newsletter: 'NewsLetter',
+    newsletter_email_subscribed:
+      'This email, {{email}}, is registred to the newsletter. Uncheck the box to unsubscribe.',
+    newsletter_email_unsubscribed:
+      'This email, {{email}}, is not registred to the newsletter. Check the box to subscribe.',
     newsletter_subscribe:
       'I want to subscribe to the newsletter in order to receive promotional offers and news from Sportfolios.',
     new_email: 'New email',
@@ -1278,6 +1283,7 @@ export default {
     unconfirmed_email: 'Unconfirmed email',
     undo: 'Undo',
     unlink_facebook_account: 'Disconnect my Facebook account',
+    unsubscribed: 'Unsubscribed',
     unsupported_language: 'Unsupported language',
     upcoming_games: 'Upcoming games',
     upload: 'Upload',

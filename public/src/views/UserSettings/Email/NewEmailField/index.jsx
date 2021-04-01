@@ -10,6 +10,7 @@ import { TextField } from '../../../../components/Custom';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { Store } from '../../../../Store';
+import * as Yup from 'yup';
 
 export default function EmailField(props) {
   const {
@@ -19,21 +20,15 @@ export default function EmailField(props) {
   const { onSubmit } = props;
   const { t } = useTranslation();
 
-  const validate = (values) => {
-    const errors = {};
-
-    if (!values.email) {
-      errors.email = t('value_is_required');
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = t('invalid.invalid_email');
-    }
-  };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email(t('invalid.invalid_email')).required(t('value_is_required')),
+  });
 
   const formik = useFormik({
     initialValues: {
       email: '',
     },
-    validate,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
