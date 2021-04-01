@@ -47,7 +47,7 @@ export default function CustomSelect(props) {
 
   return (
     <FormControl className={className} style={{ width: '100%' }}>
-      <InputLabel>{label}</InputLabel>
+      {label && <InputLabel>{label}</InputLabel>}
       <Select
         id={namespace}
         name={namespace}
@@ -56,13 +56,17 @@ export default function CustomSelect(props) {
         value={!options?.length && value === SELECT_ENUM.ALL ? '' : value}
         onChange={handleChange}
         defaultValue=""
+        inputProps={{ 'aria-label': namespace }}
       >
-        <MenuItem disabled value="">
-          {label}
-        </MenuItem>
+        {label && (
+          <MenuItem disabled value="">
+            {label}
+          </MenuItem>
+        )}
+
         {options && options.length ? (
           options.map((option) => (
-            <MenuItem value={option.value} key={option.value}>
+            <MenuItem disabled={option.disabled} value={option.value} key={option.value}>
               {option.display || t(option.displayKey)}
             </MenuItem>
           ))

@@ -116,20 +116,19 @@ export default function EditRankings() {
           if (r && r.origin_phase && r.origin_position) {
             if (r.origin_phase === prerankPhase.phaseId) {
               const rankingWithName = preranking.find((p) => p.position === r.origin_position);
-              if(rankingWithName.rosterId){
-                  return {
+              if (rankingWithName.rosterId) {
+                return {
                   ...r,
                   rankingId: r.ranking_id,
                   content: `${r.origin_position} - ${t('preranking')} (${rankingWithName.content})`,
                 };
-              }else{
+              } else {
                 return {
                   ...r,
                   rankingId: r.ranking_id,
                   content: `${r.origin_position} - ${t('preranking')}`,
                 };
               }
-            
             }
             return { ...r, rankingId: r.ranking_id, content: `${r.origin_position} - ${r.phaseName}` };
           }
@@ -209,8 +208,8 @@ export default function EditRankings() {
 
   const handleStartPhase = async (phase) => {
     const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
-    const rankingsFromPrerank = phase.ranking.filter(r => r.origin_phase === prerankPhase.phaseId && !r.roster_id);
-    const emptyRankings = phase.ranking.filter(r => !r.origin_phase && !r.origin_position);
+    const rankingsFromPrerank = phase.ranking.filter((r) => r.origin_phase === prerankPhase.phaseId && !r.roster_id);
+    const emptyRankings = phase.ranking.filter((r) => !r.origin_phase && !r.origin_position);
     const rankingsWithRosterId = phase.ranking.map((r) => r.roster_id);
 
     if (!rankingsWithRosterId.includes(null) && phase.spots !== 0) {
