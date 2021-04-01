@@ -4,9 +4,11 @@ import styles from './WhatIsSportfolios.module.css';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import MobileContainer from '../../../components/Custom/MobileContainer';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function WhatIsSportfolios() {
   const { t } = useTranslation();
+  const [width] = useWindowSize();
 
   return (
     <div className={styles.container}>
@@ -16,8 +18,8 @@ export default function WhatIsSportfolios() {
             <img
               style={{ marginTop: '8vh' }}
               src="https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-0fje3-2850fc27-60b3-4508-93d1-56b454c9edf0"
-              height={window.innerWidth < 600 ? '100px' : '150px'}
-              width={window.innerWidth < 600 ? '100px' : '150px'}
+              height={width < 600 ? '100px' : '150px'}
+              width={width < 600 ? '100px' : '150px'}
             />
             <Typography variant="h2" className={styles.text}>
               {t('landingPage.whatIs.1')}
@@ -30,8 +32,8 @@ export default function WhatIsSportfolios() {
             </Typography>
             <img
               src="https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-3w2qd-2850fc27-60b3-4508-93d1-56b454c9edf0"
-              height={window.innerWidth < 600 ? '282px' : '350px'}
-              width={window.innerWidth < 600 ? '400px' : '500px'}
+              height={width < 600 ? '282px' : '350px'}
+              width={width < 600 ? '400px' : '500px'}
               style={{ marginBottom: '32px' }}
             />
             <Typography variant="h2" className={styles.text3}>
@@ -40,8 +42,8 @@ export default function WhatIsSportfolios() {
             <img
               style={{ marginBottom: '8vh' }}
               src="https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-vgpzt-2850fc27-60b3-4508-93d1-56b454c9edf0"
-              height={window.innerWidth < 600 ? '138px' : '172px'}
-              width={window.innerWidth < 600 ? '400px' : '500px'}
+              height={width < 600 ? '138px' : '172px'}
+              width={width < 600 ? '400px' : '500px'}
             />
           </div>
         </MobileContainer>

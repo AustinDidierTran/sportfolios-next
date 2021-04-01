@@ -59,7 +59,7 @@ export default function LaRuchePage() {
                     { time: props.formatted.minutes, key: 'time_minute' },
                     { time: props.formatted.seconds, key: 'time_second' },
                   ].map((count) => (
-                    <React.Fragment>
+                    <React.Fragment key={count.key}>
                       <div className={styles.countdownContainer}>
                         <div className={styles.countdownBubble}>{count.time}</div>
                         <span className={styles.countdownLabel}>{t(count.key)}</span>
