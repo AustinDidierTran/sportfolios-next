@@ -58,7 +58,7 @@ export default function Signup() {
           email,
           password,
           redirectUrl,
-          isSubscribed,
+          newsLetterSubscription: isSubscribed,
         }),
       });
       if (res.status === 403) {
@@ -82,13 +82,18 @@ export default function Signup() {
             <TextField namespace="firstName" formik={formik} type="text" label={t('first_name')} fullWidth />
             <TextField namespace="lastName" formik={formik} type="text" label={t('last_name')} fullWidth />
             <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
-            <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth/>
+            <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
             <div className={styles.subscribe}>
-              <Checkbox className={styles.checkbox} checked={isSubscribed} color='default' onChange={() => {setIsSubcribed(!isSubscribed)}}></Checkbox>
+              <Checkbox
+                className={styles.checkbox}
+                checked={isSubscribed}
+                color="default"
+                onChange={() => {
+                  setIsSubcribed(!isSubscribed);
+                }}
+              ></Checkbox>
               <label>
-                <Typography color="textSecondary">
-                  {t('newsletter_subscribe')}
-                </Typography>
+                <Typography color="textSecondary">{t('newsletter_subscribe')}</Typography>
               </label>
             </div>
           </CardContent>
@@ -125,7 +130,7 @@ export default function Signup() {
             <Typography variant="caption" color="textSecondary">
               {t('privacy_signup') + ' '}
             </Typography>
-            <Typography variant="caption" style={{color: 'blue', textDecoration: 'underline'}}>
+            <Typography variant="caption" style={{ color: 'blue', textDecoration: 'underline' }}>
               <Link target="_blank" rel="noopener noreferrer" href={ROUTES.privacyPolicy}>
                 {t('here')}
               </Link>
