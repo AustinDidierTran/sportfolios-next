@@ -8,9 +8,11 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Custom/Button';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function LaRuchePage() {
   const { t } = useTranslation();
+  const [width] = useWindowSize();
 
   return (
     <div className={styles.page}>
@@ -36,8 +38,8 @@ export default function LaRuchePage() {
           <div className={styles.logo}>
             <img
               src={LOGO_ENUM.WHITE_LOGO_1024X1024}
-              height={window.innerWidth < 600 ? '200px' : '300px'}
-              width={window.innerWidth < 600 ? '200px' : '300px'}
+              height={width < 600 ? '200px' : '300px'}
+              width={width < 600 ? '200px' : '300px'}
             />
           </div>
         </div>
@@ -77,8 +79,8 @@ export default function LaRuchePage() {
           <div className={styles.partners}>
             <img
               src={PARTENERS_LOGO_ENUM.LA_RUCHE}
-              height={window.innerWidth < 600 ? '48px' : '112px'}
-              width={window.innerWidth < 600 ? '140px' : '320px'}
+              height={width < 600 ? '48px' : '112px'}
+              width={width < 600 ? '140px' : '320px'}
               className={styles.partnerLogo}
             />
             <Typography variant="h5" className={styles.text}>
@@ -86,8 +88,8 @@ export default function LaRuchePage() {
             </Typography>
             <img
               src={PARTENERS_LOGO_ENUM.ESPACE_INC}
-              height={window.innerWidth < 600 ? '48px' : '112px'}
-              width={window.innerWidth < 600 ? '140px' : '320px'}
+              height={width < 600 ? '48px' : '112px'}
+              width={width < 600 ? '140px' : '320px'}
               className={styles.partnerLogo}
             />
           </div>
