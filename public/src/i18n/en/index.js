@@ -872,6 +872,8 @@ export default {
     contact_us: 'Contact us',
     contact: 'Contact',
     copied: 'Copied',
+    copied_emails: 'Emails copied!',
+    copy_emails: 'Copy emails',
     copy_invite_link: 'Copy invite link',
     copy_to_clipboard: 'Copy to clipboard',
     country: 'Country',
@@ -1017,6 +1019,12 @@ export default {
     my_persons: 'My persons',
     name_is_required: 'Name is required',
     name: 'Name',
+    newsletter: 'NewsLetter',
+    newsletter_email_subscribed:
+      'This email, {{email}}, is registred to the newsletter. Uncheck the box to unsubscribe.',
+    newsletter_email_unsubscribed:
+      'This email, {{email}}, is not registred to the newsletter. Check the box to subscribe.',
+    newsletter_inscription: 'Newsletter registrations list',
     newsletter_subscribe:
       'I want to subscribe to the newsletter in order to receive promotional offers and news from Sportfolios.',
     new_email: 'New email',
