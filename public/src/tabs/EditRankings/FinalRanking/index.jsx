@@ -27,7 +27,7 @@ const AccordionSummary = withStyles({
 })(MuiAccordionSummary);
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, prerankPhaseId, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
@@ -52,6 +52,7 @@ export default function FinalRanking(props) {
         phaseId: phase.id,
       })
     );
+
     // let teams = [];
     // let position = 1;
     // games.forEach((g) => {
@@ -86,20 +87,30 @@ export default function FinalRanking(props) {
     //     teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
     //   }
     // });
-    const teams = allTeams.map((t) => {
-      return { ...t, position: t.initial_position, id: t.teamId, rosterId: t.roster_id };
+    const teams = allTeams.map((team) => {
+      let positionName = `${team.origin_position}. ${team.phaseName}`;
+      if (team.origin_phase === prerankPhaseId) {
+        positionName = `${team.origin_position}. ${t('preranking')}`;
+      }
+      return { ...team, position: team.initial_position, id: team.teamId, rosterId: team.roster_id, positionName };
     });
 
     const res = updateRanking(teams, games);
-    const rankingStats = res.map((r, index) => ({
-      ...r,
-      type: LIST_ITEM_ENUM.RANKING_WITH_STATS,
-      index: index + 1,
-      key: index,
-    }));
+
+    const rankingStats = res.map((r, index) => {
+      const t = teams.find((t) => t.id === r.id);
+
+      return {
+        ...r,
+        type: LIST_ITEM_ENUM.RANKING_WITH_STATS,
+        index: index + 1,
+        key: index,
+        positionName: t.positionName,
+      };
+    });
 
     if (phase.status === PHASE_STATUS_ENUM.DONE) {
-      setItems(res);
+      setItems(rankingStats);
       // const rankingStatsAndFinalPosition = rankingStats
       //   .map((r) => ({
       //     finalPosition: phase.ranking.find((rank) => rank.roster_id === r.rosterId).final_position,
@@ -123,6 +134,7 @@ export default function FinalRanking(props) {
             wins: 0,
             loses: 0,
             name: r.name,
+            position: r.position,
             number: 1,
             pointFor: 0,
             pointAgainst: 0,
@@ -176,7 +188,11 @@ export default function FinalRanking(props) {
                       className={styles.position}
                       secondary={item.finalPosition ? item.finalPosition : item.index}
                     ></ListItemText>
-                    <ListItemText className={styles.team} primary={item.name}></ListItemText>
+                    <ListItemText
+                      className={styles.team}
+                      primary={item.name}
+                      secondary={item.positionName}
+                    ></ListItemText>
                     <ListItemText className={styles.win} primary={item.wins} secondary={'W'}></ListItemText>
                     <ListItemText className={styles.lose} primary={item.loses} secondary={'L'}></ListItemText>
                     <ListItemText className={styles.pointFor} primary={item.pointFor} secondary={'+'}></ListItemText>

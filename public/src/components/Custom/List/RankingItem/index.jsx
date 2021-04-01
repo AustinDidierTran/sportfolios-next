@@ -7,7 +7,7 @@ import styles from './RankingItem.module.css';
 import Divider from '@material-ui/core/Divider';
 
 export default function RankingItem(props) {
-  const { index, name } = props;
+  const { index, name, positionName } = props;
 
   if (index % 2 === 0) {
     return (
@@ -15,13 +15,12 @@ export default function RankingItem(props) {
         <ListItem
           style={{
             width: '100%',
-            padding: '0px',
             backGroundColor: 'grey',
           }}
         >
           <div className={styles.main} style={{ width: '100%' }}>
             <ListItemText className={styles.position} secondary={index + 1} />
-            <ListItemText className={styles.name} primary={name} />
+            <ListItemText className={styles.name} primary={positionName} secondary={name} />
           </div>
         </ListItem>
         <Divider />
@@ -33,13 +32,12 @@ export default function RankingItem(props) {
       <ListItem
         style={{
           width: '100%',
-          padding: '0px',
           backGroundColor: 'primary',
         }}
       >
         <div className={styles.main} style={{ width: '100%' }}>
           <ListItemText className={styles.position} secondary={index + 1} />
-          <ListItemText className={styles.name} primary={name} />
+          <ListItemText className={styles.name} primary={positionName} secondary={name} />
         </div>
       </ListItem>
       <Divider />

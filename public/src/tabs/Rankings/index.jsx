@@ -18,23 +18,27 @@ export default function Rankings() {
   const { t } = useTranslation();
 
   const [preranking, setPreranking] = useState([]);
+  const [prerankPhaseId, setPrerankPhaseId] = useState();
   const [ranking, setRanking] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getRankings = async () => {
-    const { data } = await api(
+    const {
+      data: { preranking, prerankPhaseId },
+    } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
       })
     );
+    setPrerankPhaseId(prerankPhaseId);
     let ranking = [];
-    if (data) {
-      ranking = data
+    if (preranking) {
+      ranking = preranking
         .map((d) => {
           if (d.rosterId) {
             return {
               position: d.position,
-              name: d.name,
+              positionName: d.name,
               rosterId: d.rosterId ? d.rosterId : null,
               rankingId: d.rankingId,
               id: d.teamId ? d.teamId : null,
@@ -65,10 +69,11 @@ export default function Rankings() {
       </Typography>
     );
   }
+
   return (
     <>
       <Ranking ranking={preranking} title={t('preranking')}></Ranking>
-      <PhaseRanking />
+      <PhaseRanking prerankPhaseId={prerankPhaseId} />
       <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition></Ranking>
     </>
   );

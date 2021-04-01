@@ -7,7 +7,7 @@ import styles from './RankingWithStatsItem.module.css';
 import Divider from '@material-ui/core/Divider';
 
 export default function RankingWithStatsItem(props) {
-  const { index, name, wins = 0, loses = 0, pointFor = 0, pointAgainst = 0, withoutPosition } = props;
+  const { index, name, positionName, wins = 0, loses = 0, pointFor = 0, pointAgainst = 0, withoutPosition } = props;
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function RankingWithStatsItem(props) {
             <ListItemText className={styles.position} secondary={index + 1} />
           )}
 
-          <ListItemText className={styles.name} primary={name} />
+          <ListItemText className={styles.name} primary={name} secondary={positionName} />
           <ListItemText className={styles.wins} primary={wins} secondary="W" />
           <ListItemText className={styles.loses} primary={loses} secondary="L" />
           <ListItemText className={styles.pointFor} primary={pointFor} secondary="+" />

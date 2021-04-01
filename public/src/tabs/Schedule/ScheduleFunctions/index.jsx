@@ -73,8 +73,8 @@ export const getPositionOptions = async (eventId) => {
   const formattedRankingOptions = rankingOptions.map((r) => ({
     value: r.ranking_id,
     display: r.name
-      ? `${r.initial_position.toString()} - ${data.find((d) => d.id === r.current_phase).name} (${r.name})`
-      : `${r.initial_position.toString()} - ${data.find((d) => d.id === r.current_phase).name}`,
+      ? `${r.initial_position.toString()}. ${data.find((d) => d.id === r.current_phase).name} (${r.name})`
+      : `${r.initial_position.toString()}. ${data.find((d) => d.id === r.current_phase).name}`,
     ...r,
   }));
   return formattedRankingOptions;

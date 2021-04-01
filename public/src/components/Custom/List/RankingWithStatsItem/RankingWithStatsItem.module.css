@@ -6,6 +6,7 @@
 
 .position {
   grid-area: position;
+  align-self: center;
 }
 .name {
   grid-area: name;

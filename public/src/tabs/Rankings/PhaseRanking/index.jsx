@@ -7,7 +7,8 @@ import Ranking from '../Ranking';
 import { updateRanking } from '../RankingFunctions';
 import { useTranslation } from 'react-i18next';
 
-export default function PhaseRankings() {
+export default function PhaseRankings(props) {
+  const { prerankPhaseId } = props;
   const router = useRouter();
   const { id: eventId } = router.query;
   const { t } = useTranslation();
@@ -24,11 +25,37 @@ export default function PhaseRankings() {
     const res = await Promise.all(
       phases.map(async (phase) => {
         if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED) {
-          const ranking = phase.ranking
-            .map((r) => ({ ...r, name: `${r.initial_position} - ${phase.name}` }))
-            .sort((a, b) => a.initial_position - b.initial_position);
-          return { ranking, title: `${phase.name} - ${t('phase_not_started')}`, status: phase.status };
+          const ranking = phase.ranking.map((r) => {
+            if (r && r.roster_id) {
+              if (r.origin_phase === prerankPhaseId) {
+                return {
+                  ...r,
+                  rankingId: r.ranking_id,
+                  positionName: `${r.origin_position}. ${t('preranking')}`,
+                  name: r.name,
+                };
+              }
+              return {
+                ...r,
+                rankingId: r.ranking_id,
+                positionName: `${r.origin_position}. ${r.phaseName}`,
+                name: r.name,
+              };
+            }
+            if (r && r.origin_phase && r.origin_position) {
+              return { ...r, rankingId: r.ranking_id, positionName: `${r.origin_position}. ${r.phaseName}` };
+            }
+            return { ...r, rankingId: r.ranking_id, name: t('no.no_team_yet') };
+          });
+          return { ranking, title: phase.name, subtitle: t('phase_not_started'), status: phase.status };
         }
+
+        //   phase.ranking
+        //     .map((r) => ({ ...r, name: `${r.initial_position}. ${phase.name}` }))
+        //     .sort((a, b) => a.initial_position - b.initial_position);
+        //   return { ranking, title: phase.name, subtitle: t('phase_not_started'), status: phase.status };
+        // }
+
         const {
           data: { games, teams: allTeams },
         } = await api(
@@ -71,16 +98,24 @@ export default function PhaseRankings() {
         //     teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
         //   }
         // });
-        const teams = allTeams.map((t) => {
-          return { ...t, position: t.initial_position, id: t.teamId, rosterId: t.roster_id };
+        const teams = allTeams.map((team) => {
+          let positionName = `${team.origin_position}. ${team.phaseName}`;
+          if (team.origin_phase === prerankPhaseId) {
+            positionName = `${team.origin_position}. ${t('preranking')}`;
+          }
+          return { ...team, position: team.initial_position, id: team.teamId, rosterId: team.roster_id, positionName };
         });
         const ranking = updateRanking(teams, games);
+
+        const rankingStats = ranking.map((r) => {
+          const t = teams.find((t) => t.id === r.id);
+          return { ...r, positionName: t.positionName };
+        });
+
         return {
-          ranking,
-          title:
-            phase.status === PHASE_STATUS_ENUM.STARTED
-              ? `${phase.name} - ${t('phase_in_progress')}`
-              : `${phase.name} - ${t('phase_done')}`,
+          ranking: rankingStats,
+          title: phase.name,
+          subtitle: phase.status === PHASE_STATUS_ENUM.STARTED ? t('phase_in_progress') : t('phase_done'),
           status: phase.status,
         };
       })
@@ -100,9 +135,21 @@ export default function PhaseRankings() {
           {phase.ranking.length < 1 ? (
             <></>
           ) : phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
-            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title} withStats></Ranking>
+            <Ranking
+              key={phase.id}
+              ranking={phase.ranking}
+              title={phase.title}
+              subtitle={phase.subtitle}
+              withStats
+            ></Ranking>
           ) : (
-            <Ranking key={phase.id} ranking={phase.ranking} title={phase.title} withStats={false}></Ranking>
+            <Ranking
+              key={phase.id}
+              ranking={phase.ranking}
+              title={phase.title}
+              subtitle={phase.subtitle}
+              withStats={false}
+            ></Ranking>
           )}
         </div>
       ))}

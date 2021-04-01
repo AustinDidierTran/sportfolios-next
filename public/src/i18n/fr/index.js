@@ -655,6 +655,7 @@ export default {
         "Désolé, votre inscription a été refusée. L'événement est maintenant plein et il n'y a plus de place.",
       no_roster: 'Aucun alignement',
       no_taxes: 'Aucune taxes',
+      no_team_yet: 'Aucune équipe',
       no_teams_registered: 'Aucune équipe inscrite.',
       no_team_in_prerank_position:
         "Il n'y a pas d'équipe à certaines positions de préclassement. Vous devez avoir plus d'équipe dans votre tournoi ou supprimer les positions vides de votre phase.",

@@ -9,7 +9,9 @@ export const getAllOptions = async (eventId, phaseId, t) => {
     })
   );
 
-  const { data: preranking } = await api(
+  const {
+    data: { preranking },
+  } = await api(
     formatRoute('/api/entity/preranking', null, {
       eventId,
     })
@@ -64,8 +66,8 @@ const getPrerankingOptions = (preranking, allRankings, t) => {
   const prerankingPositions = preranking.map((d) => ({
     value: d.rankingId,
     display: d.noTeam
-      ? `${d.position.toString()} - ${t('preranking')}`
-      : `${d.position.toString()} - ${t('preranking')} (${d.name})`,
+      ? `${d.position.toString()}. ${t('preranking')}`
+      : `${d.position.toString()}. ${t('preranking')} (${d.name})`,
     phaseId: d.phaseId,
     index: d.position,
   }));
@@ -96,14 +98,14 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
     .map((r) => {
       let name;
       if (allPhases.find((p) => p.phaseId === r.currentPhase).status === PHASE_STATUS_ENUM.DONE) {
-        name = `${r.finalPosition.toString()} - ${r.currentPhaseName} (${r.teamName})`;
+        name = `${r.finalPosition.toString()}. ${r.currentPhaseName} (${r.teamName})`;
       }
       return {
         display: name
           ? name
           : r.teamName
-          ? `${r.initialPosition.toString()} - ${r.currentPhaseName} (${r.teamName})`
-          : `${r.initialPosition.toString()} - ${r.currentPhaseName}`,
+          ? `${r.initialPosition.toString()}. ${r.currentPhaseName} (${r.teamName})`
+          : `${r.initialPosition.toString()}. ${r.currentPhaseName}`,
         value: r.rankingId,
         index: r.finalPosition ? r.finalPosition : r.initialPosition,
         phaseId: r.currentPhase,
