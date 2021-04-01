@@ -1272,10 +1272,10 @@ export default {
     time_slot_added: 'Plage horaire ajoutée',
     time_slot: 'Plage horaire',
     time: 'Temps',
-    time_day: 'J: ',
-    time_hour: 'H: ',
-    time_minute: 'M: ',
-    time_second: 'S',
+    time_day: 'Jours',
+    time_hour: 'Heures',
+    time_minute: 'Minutes',
+    time_second: 'Secondes',
     to_invite_people_to_your_roster_share_the_invite_link:
       "Pour inviter des amis à rejoindre votre équipe, partagez le lien d'invitation",
     to_see_your_receipt:

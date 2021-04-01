@@ -33,8 +33,6 @@ export default function LaRuchePage() {
           <Typography variant="h2" font className={styles.title}>
             {t('campaign')}
           </Typography>
-        </div>
-        <div className={styles.pageContent}>
           <div className={styles.logo}>
             <img
               src={LOGO_ENUM.WHITE_LOGO_1024X1024}
@@ -42,6 +40,8 @@ export default function LaRuchePage() {
               width={window.innerWidth < 600 ? '200px' : '300px'}
             />
           </div>
+        </div>
+        <div className={styles.pageContent}>
           <div className={styles.countdownContainer}>
             <Typography variant="h4" className={styles.text}>
               {t('start_in')}
@@ -51,14 +51,19 @@ export default function LaRuchePage() {
               date={new Date(2021, 3, 26)}
               renderer={(props) => (
                 <span className={styles.countdown}>
-                  {props.formatted.days}
-                  {t('time_day')}
-                  {props.formatted.hours}
-                  {t('time_hour')}
-                  {props.formatted.minutes}
-                  {t('time_minute')}
-                  {props.formatted.seconds}
-                  {t('time_second')}
+                  {[
+                    { time: props.formatted.days, key: 'time_day' },
+                    { time: props.formatted.hours, key: 'time_hour' },
+                    { time: props.formatted.minutes, key: 'time_minute' },
+                    { time: props.formatted.seconds, key: 'time_second' },
+                  ].map((count) => (
+                    <React.Fragment>
+                      <div className={styles.countdownContainer}>
+                        <div className={styles.countdownBubble}>{count.time}</div>
+                        <span className={styles.countdownLabel}>{t(count.key)}</span>
+                      </div>
+                    </React.Fragment>
+                  ))}
                 </span>
               )}
               zeroPadTime={2}
