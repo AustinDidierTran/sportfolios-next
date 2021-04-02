@@ -38,7 +38,7 @@ export default function Rankings() {
           if (d.rosterId) {
             return {
               position: d.position,
-              positionName: d.name,
+              name: d.name,
               rosterId: d.rosterId ? d.rosterId : null,
               rankingId: d.rankingId,
               id: d.teamId ? d.teamId : null,
@@ -46,7 +46,15 @@ export default function Rankings() {
           }
         })
         .filter((d) => d !== undefined);
-      setPreranking(ranking);
+      setPreranking(
+        ranking.map((r) => ({
+          position: r.position,
+          positionName: r.name,
+          rosterId: r.rosterId,
+          rankingId: r.rankingId,
+          id: r.teamId,
+        }))
+      );
     }
 
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));

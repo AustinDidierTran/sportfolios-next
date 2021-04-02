@@ -103,19 +103,36 @@ export default function PhaseRankings(props) {
           if (team.origin_phase === prerankPhaseId) {
             positionName = `${team.origin_position}. ${t('preranking')}`;
           }
-          return { ...team, position: team.initial_position, id: team.teamId, rosterId: team.roster_id, positionName };
+          return {
+            ...team,
+            position: team.initial_position,
+            finalPosition: team.final_position,
+            id: team.teamId,
+            rosterId: team.roster_id,
+            positionName,
+          };
         });
         const ranking = updateRanking(teams, games);
 
         const rankingStats = ranking.map((r) => {
           const t = teams.find((t) => t.id === r.id);
-          return { ...r, positionName: t.positionName };
+          return { ...r, positionName: t.positionName, finalPosition: t.finalPosition };
         });
+
+        if (phase.status === PHASE_STATUS_ENUM.DONE) {
+          const rankingFromFinalPosition = rankingStats.sort((a, b) => a.finalPosition - b.finalPosition);
+          return {
+            ranking: rankingFromFinalPosition,
+            title: phase.name,
+            subtitle: t('phase_done'),
+            status: phase.status,
+          };
+        }
 
         return {
           ranking: rankingStats,
           title: phase.name,
-          subtitle: phase.status === PHASE_STATUS_ENUM.STARTED ? t('phase_in_progress') : t('phase_done'),
+          subtitle: t('phase_in_progress'),
           status: phase.status,
         };
       })

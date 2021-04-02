@@ -13,11 +13,13 @@
 
 .position {
   grid-area: position;
+  align-self: center;
 }
 
 .team {
   padding-right: 12px;
   grid-area: team;
+  align-self: center;
 }
 
 .win {
