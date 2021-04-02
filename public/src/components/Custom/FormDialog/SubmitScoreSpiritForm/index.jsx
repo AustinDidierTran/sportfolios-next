@@ -1,20 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react';
+
 import Button from '../../Button';
 import Icon from '../../Icon';
-import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-
 import styles from './SubmitScoreSpiritForm.module.css';
-import SectionScore from './SectionScore';
-import SectionSpirit from './SectionSpirit';
-import SectionPresences from './SectionPresences';
 import api from '../../../../actions/api';
+import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const SectionScore = loadable(() => import('./SectionScore'));
+// const SectionSpirit = loadable(() => import('./SectionSpirit'));
+// const SectionPresences = loadable(() => import('./SectionPresences'));
 
 export default function SubmitScoreDialog(props) {
   const { open, onClose, gameId, submissionerInfos } = props;
@@ -66,18 +68,18 @@ export default function SubmitScoreDialog(props) {
             suggestions={submissionInfos?.scoreSuggestions}
             submissionerInfos={submissionerInfos}
           />
-          <SectionSpirit
+          {/* <SectionSpirit
             gameId={gameId}
             IsSubmittedCheck={SubmittedCheck}
             submittedSpirit={submissionInfos?.spiritSubmission}
             submissionerInfos={submissionerInfos}
-          />
-          <SectionPresences
+          /> */}
+          {/* <SectionPresences
             gameId={gameId}
             IsSubmittedCheck={SubmittedCheck}
             submittedAttendances={submissionInfos?.presences}
             submissionerInfos={submissionerInfos}
-          />
+          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

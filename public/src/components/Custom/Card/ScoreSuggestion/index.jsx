@@ -41,14 +41,16 @@ export default function ScoreSuggestion(props) {
     className = classes.even;
   }
 
-  const chipColor = useMemo(() => {
+  const chipStyle = useMemo(() => {
     switch (suggestion.status) {
       case STATUS_ENUM.ACCEPTED:
-        return 'primary';
+        return { border: '1px solid #18B393', color: '#18B393 ' };
       case STATUS_ENUM.REFUSED:
-        return 'secondary';
+        return { border: '1px solid #f44336', color: '#f44336 ' };
+      case STATUS_ENUM.PENDING:
+        return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:
-        return 'default';
+        return { border: '1px solid #18B393', color: '#18B393 ' };
     }
   }, [suggestion]);
 
@@ -82,12 +84,12 @@ export default function ScoreSuggestion(props) {
             primary={suggestion.name}
             secondary={formatDate(moment(suggestion.created_at), 'D MMM H:mm')}
           ></ListItemText>
-          <Typography className={styles.score1}>{suggestion.score[game.teams[0].roster_id]}</Typography>
+          <Typography className={styles.score1}>{suggestion.score[game.positions[0].roster_id]}</Typography>
           <Typography className={styles.union}>-</Typography>
-          <Typography className={styles.score2}>{suggestion.score[game.teams[1].roster_id]}</Typography>
+          <Typography className={styles.score2}>{suggestion.score[game.positions[1].roster_id]}</Typography>
           <Chip
             label={t(suggestion.status)}
-            color={chipColor}
+            style={chipStyle}
             variant="outlined"
             className={styles.status}
             size="small"

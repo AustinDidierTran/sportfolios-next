@@ -12,6 +12,7 @@ import Button from '../../../Button';
 import IconButton from '../../../IconButton';
 import MultiSelect from '../../../MultiSelect';
 import Typography from '@material-ui/core/Typography';
+import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 
 export default function SectionSpirit(props) {
@@ -153,7 +154,7 @@ export default function SectionSpirit(props) {
         </div>
       </div>
       <Divider />
-      <Typography in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <div className={styles.attendances}>
           <MultiSelect
             label={t('attendances')}
@@ -182,7 +183,7 @@ export default function SectionSpirit(props) {
             {t('submit')}
           </Button>
         </div>
-      </Typography>
+      </Collapse>
     </div>
   );
 }

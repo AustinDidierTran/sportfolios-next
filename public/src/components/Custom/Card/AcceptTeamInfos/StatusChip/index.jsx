@@ -26,7 +26,7 @@ export default function StatusChip(props) {
       <div className={classes.root}>
         <Chip
           label={t(registrationStatus)}
-          style={{ border: '1px solid #CCCC00', color: '#CCCC00 ' }}
+          style={{ border: '1px solid #dddd00', color: '#dddd00 ' }}
           variant="outlined"
         />
       </div>

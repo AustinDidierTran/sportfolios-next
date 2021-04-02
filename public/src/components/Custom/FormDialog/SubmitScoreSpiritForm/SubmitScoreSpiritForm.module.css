@@ -33,12 +33,11 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  margin-top: 16px !important;
 }
 
 .divSubmitScoreButton {
   display: flex;
-  margin: 8px 0px 8px 0px;
 }
 
 .spiritChart {
@@ -65,11 +64,18 @@
 
 .divSubmitButton {
   display: flex;
-  margin: 8px 0px 8px 0px;
+}
+
+.acceptButton {
+  margin-right: 8px !important;
+}
+
+.refuseButton {
+  margin-left: 8px !important;
 }
 
 .submitButton {
-  margin-left: auto !important;
+  margin-top: 16px !important;
 }
 
 .submitText {
