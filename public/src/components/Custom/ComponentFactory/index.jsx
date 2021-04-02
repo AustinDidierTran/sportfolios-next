@@ -7,12 +7,15 @@ import Select from '../Select';
 import MultiSelect from '../MultiSelect';
 import CheckBox from '../CheckBox';
 import List from '../List';
+import RadioGroup from '../RadioGroup';
+import CustomIconButton from '../IconButton';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonSearchList from '../SearchList/PersonSearchList';
 import PersonItem from '../List/PersonItem';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 export default function ComponentFactory(props) {
   const { component } = props;
@@ -52,6 +55,7 @@ export default function ComponentFactory(props) {
         style={component.style}
         variant={component.variant}
         color={component.color}
+        disabled={component.disabled}
       >
         {component.children}
       </Button>
@@ -128,8 +132,47 @@ export default function ComponentFactory(props) {
       />
     );
   }
+  if (component.componentType === COMPONENT_TYPE_ENUM.RADIO_GROUP) {
+    return (
+      <RadioGroup
+        namespace={component.namespace}
+        options={component.options}
+        title={component.title}
+        onChange={component.onChange}
+        value={component.value}
+        type={component.type}
+        row={component.row}
+      />
+    )
+  }
   if (component.componentType === COMPONENT_TYPE_ENUM.EMPTY) {
     return <> </>;
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Typography
+          component="p"
+          style={{ alignItems: 'center' }}>
+          {component.value}
+        </Typography>
+        <div
+          style={{ marginLeft: 'auto' }}>
+          <CustomIconButton
+            icon={component.firstIcon}
+            style={{ color: 'primary', marginLeft: 'auto' }}
+            onClick={component.firstOnClick}
+            tooltip={component.firstTooltip}
+          />
+        </div>
+        <CustomIconButton
+          icon={component.secondIcon}
+          style={{ color: 'secondary' }}
+          onClick={component.secondOnClick}
+          tooltip={component.secondTooltip}
+        />
+      </div>
+    )
   }
   return (
     <TextField
@@ -142,6 +185,7 @@ export default function ComponentFactory(props) {
         ) : (
           <></>
         ),
+        ...component.inputProps,
       }}
       id={component.id}
       label={component.label}

@@ -1,25 +1,28 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, FIELD_GROUP_ENUM } from '../../common/enums';
+import { EVENT_TYPE, COMPONENT_TYPE_ENUM, FIELD_GROUP_ENUM } from '../../common/enums';
 import moment from 'moment';
+import { formatPrice } from '../utils/stringFormats';
 
 export const useFields = (type, options) => {
   const { t } = useTranslation();
   const field = useMemo(() => {
     if (type === FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION) {
       const {
-        allTaxes,
-        handleChange,
-        onChange,
-        onPlayerChange,
-        onTeamChange,
         ownersId,
-        playerAcceptation,
-        playerPriceTotal,
-        taxes,
-        teamAcceptation,
-        teamActivity,
         teamPriceTotal,
+        teamOnClick,
+        onClickDeleteTeamsFee,
+        onClickEditTeamsFee,
+        onChangeEventType,
+        eventType,
+        onClickEditPlayerFee,
+        onClickDeletePlayerFee,
+        playerOnClick,
+        playerPriceTotal,
+        onManualAcceptationChange,
+        manualAcceptation,
+
       } = options;
       return [
         {
@@ -28,80 +31,95 @@ export const useFields = (type, options) => {
           type: 'text',
         },
         {
-          componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
-          checked: teamActivity,
-          namespace: 'teamActivity',
-          label: t('team.team_activity'),
-          onChange: onChange,
-          tooltip: t('team.team_activity_or_individual_activity'),
-        },
-        teamActivity
-          ? {
-              componentType: COMPONENT_TYPE_ENUM.DIVIDER,
-              style: { marginBottom: '24px', marginTop: '8px' },
-            }
-          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
-        teamActivity
-          ? {
-              componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-              primaryTypographyProps: { variant: 'h6' },
-              primary: t('team.team'),
-            }
-          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
-        teamActivity
-          ? {
-              namespace: 'teamPrice',
-              label: t('price_team'),
-              type: 'number',
-              endAdorment: '$',
-            }
-          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
-        teamActivity
-          ? {
-              componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
-              checked: teamAcceptation,
-              namespace: 'teamAcceptation',
-              label: t('manual_acceptation'),
-              onChange: onTeamChange,
-              tooltip: t('team.team_acceptation_step_message'),
-            }
-          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
-        teamActivity
-          ? {
-              componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-              secondary: t('with_taxes_the_total_for_a_team_is', {
-                total: teamPriceTotal,
-              }),
-            }
-          : { componentType: COMPONENT_TYPE_ENUM.EMPTY },
-        {
           componentType: COMPONENT_TYPE_ENUM.DIVIDER,
           style: { marginBottom: '24px', marginTop: '16px' },
         },
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: t('player'),
+          primary: "Type d'inscription",
         },
         {
-          namespace: 'playerPrice',
-          label: t('price_individual'),
-          type: 'number',
-          endAdorment: '$',
+          namespace: 'eventType',
+          componentType: COMPONENT_TYPE_ENUM.RADIO_GROUP,
+          options: [{ display: 'Par joueur', value: EVENT_TYPE.PLAYER }, { display: 'Par équipe', value: EVENT_TYPE.TEAM }],
+          value: eventType,
+          onChange: (e) => { onChangeEventType(e) },
+          row: true,
         },
+        eventType === EVENT_TYPE.TEAM ?
+          teamPriceTotal ? {
+            namespace: 'showTeamPrice',
+            componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
+            value: `Frais d'inscriptions par équipe: ${formatPrice(teamPriceTotal * 100)}`,
+            firstIcon: "Edit",
+            firstOnClick: onClickEditTeamsFee,
+            firstTooltip: t('edit.edit'),
+            secondIcon: "Delete",
+            secondOnClick: onClickDeleteTeamsFee,
+            secondTooltip: t('delete.delete'),
+          } : {
+            componentType: COMPONENT_TYPE_ENUM.BUTTON,
+            children: t('add.add_team_fees'),
+            onClick: teamOnClick,
+            disabled: !ownersId.length,
+          }
+          : {
+            componentType: COMPONENT_TYPE_ENUM.EMPTY
+          },
+        eventType === EVENT_TYPE.TEAM ?
+          playerPriceTotal
+            ? {
+              componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
+              value: `Frais d'inscriptions par joueur: ${formatPrice(playerPriceTotal * 100)}`,
+              firstIcon: "Edit",
+              firstOnClick: onClickEditPlayerFee,
+              firstTooltip: t('edit.edit'),
+              secondIcon: "Delete",
+              secondOnClick: onClickDeletePlayerFee,
+              secondTooltip: t('delete.delete'),
+            } : {
+              componentType: COMPONENT_TYPE_ENUM.BUTTON,
+              children: "Ajouter des frais par joueur",
+              onClick: playerOnClick,
+              disabled: !ownersId.length,
+            }
+          : {
+            componentType: COMPONENT_TYPE_ENUM.EMPTY
+          },
+        eventType === EVENT_TYPE.PLAYER ?
+          playerPriceTotal
+            ? {
+              componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
+              value: `Frais d'inscriptions par joueur: ${formatPrice(playerPriceTotal * 100)}`,
+              firstIcon: "Edit",
+              firstOnClick: onClickEditPlayerFee,
+              firstTooltip: t('edit.edit'),
+              secondIcon: "Delete",
+              secondOnClick: onClickDeletePlayerFee,
+              secondTooltip: t('delete.delete'),
+            } : {
+              componentType: COMPONENT_TYPE_ENUM.BUTTON,
+              children: "Ajouter des frais par joueur",
+              onClick: playerOnClick,
+              disabled: !ownersId.length,
+            }
+          : {
+            componentType: COMPONENT_TYPE_ENUM.EMPTY
+          },
+         !ownersId.length ?{
+           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+           secondary: "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
+         } : {
+            componentType: COMPONENT_TYPE_ENUM.EMPTY
+          }, 
         {
           componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
-          checked: playerAcceptation,
-          namespace: 'playerAcceptation',
+          checked: manualAcceptation,
+          namespace: 'manualAcceptation',
           label: t('manual_acceptation'),
-          onChange: onPlayerChange,
-          tooltip: t('player_acceptation_step_message'),
-        },
-        {
-          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-          secondary: t('with_taxes_the_total_for_a_player_is', {
-            total: playerPriceTotal,
-          }),
+          onChange: onManualAcceptationChange,
+          tooltip: eventType === 'team' ? t('team.team_acceptation_step_message') : t('player_acceptation_step_message'),
         },
         {
           componentType: COMPONENT_TYPE_ENUM.DIVIDER,
@@ -110,30 +128,22 @@ export const useFields = (type, options) => {
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: t('payment.payment'),
+          primary: "Gestion paiement",
         },
         ownersId.length
           ? {
-              namespace: 'ownerId',
-              label: t('payment.payment_option_owner'),
-              componentType: COMPONENT_TYPE_ENUM.SELECT,
-              options: ownersId,
-            }
+            namespace: 'ownerId',
+            label: t('payment.payment_option_owner'),
+            componentType: COMPONENT_TYPE_ENUM.SELECT,
+            options: ownersId,
+          }
           : {
-              componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-              primary: t('no.no_admins_with_bank_account'),
-            },
+            componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+            primary: t('no.no_admins_with_bank_account'),
+          },
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           secondary: t('all_the_admins_of_the_event_that_have_a_bank_account_linked_to_their_account_will_appear_here'),
-        },
-        {
-          componentType: COMPONENT_TYPE_ENUM.MULTISELECT,
-          namespace: 'taxes',
-          label: t('taxes'),
-          options: allTaxes.map((a) => a.display),
-          values: taxes,
-          onChange: handleChange,
         },
         {
           componentType: COMPONENT_TYPE_ENUM.DIVIDER,

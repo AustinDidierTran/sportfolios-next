@@ -7,6 +7,8 @@ const AddEventPaymentOption = loadable(() => import('./AddEventPaymentOption'));
 const EditEventPaymentOption = loadable(() => import('./EditEventPaymentOption'));
 const AddMember = loadable(() => import('./AddMember'));
 const AddMembership = loadable(() => import('./AddMembership'));
+const AddTeamFee = loadable(() => import('./AddTeamFee'));
+const AddPlayerFee = loadable(() => import('./AddPlayerFee'));
 const BecomeMember = loadable(() => import('./BecomeMember'));
 const BecomeMemberCoupon = loadable(() => import('./BecomeMemberCoupon'));
 const MembersReport = loadable(() => import('./MembersReport'));
@@ -23,6 +25,8 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.EDIT_EVENT_PAYMENT_OPTION]: EditEventPaymentOption,
   [FORM_DIALOG_TYPE_ENUM.ADD_MEMBER]: AddMember,
   [FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP]: AddMembership,
+  [FORM_DIALOG_TYPE_ENUM.ADD_TEAM_FEE]: AddTeamFee,
+  [FORM_DIALOG_TYPE_ENUM.ADD_PLAYER_FEE]: AddPlayerFee,
   [FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER]: BecomeMember,
   [FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER_COUPON]: BecomeMemberCoupon,
   [FORM_DIALOG_TYPE_ENUM.MEMBERS_REPORT]: MembersReport,
