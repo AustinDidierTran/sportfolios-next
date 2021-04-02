@@ -894,6 +894,8 @@ export default {
     contact_us: 'Contactez-nous',
     contact: 'Contact',
     copied: 'Copié',
+    copied_emails: 'Adresses courriels copiées!',
+    copy_emails: 'Copier les courriels',
     copy_invite_link: "Copier le lien d'invitation",
     copy_to_clipboard: 'Copier vers le presse-papier',
     country: 'Pays',
@@ -1046,6 +1048,7 @@ export default {
       "Ce courriel, {{email}}, est inscrit à l'infolettre. Décochez la case afin de vous désabonner.",
     newsletter_email_unsubscribed:
       "Ce courriel, {{email}}, n'est pas inscrit à l'infolettre. Cochez la case afin de vous abonner.",
+    newsletter_inscription: "Liste des inscriptions à l'infolettre",
     newsletter_subscribe:
       "Je veux m'inscrire à l'infolettre afin de recevoir des offres promotionnelles et des nouvelles de Sportfolios.",
     new_email: 'Nouveau courriel',

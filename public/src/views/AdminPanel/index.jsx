@@ -6,16 +6,20 @@ import styles from './AdminPanel.module.css';
 
 import Typography from '@material-ui/core/Typography';
 import { Container } from '../../components/Custom';
-import SportsTable from './SportsTable';
-import UsersTable from './UsersTable';
-import GaEventsTable from './GoogleAnalyticsEventsTable';
-import GaPageviewsTable from './GoogleAnalyticsPageviewsTable';
-import TaxRatesTable from './TaxRatesTable';
-import GraphNumberOfMembers from '../Analytics/GraphNumberOfMembers';
 import Paper from '@material-ui/core/Paper';
 import api from '../../actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+
+import loadable from '@loadable/component';
+
+const SportsTable = loadable(() => import('./SportsTable'));
+const UsersTable = loadable(() => import('./UsersTable'));
+const GaEventsTable = loadable(() => import('./GoogleAnalyticsEventsTable'));
+const GaPageviewsTable = loadable(() => import('./GoogleAnalyticsPageviewsTable'));
+const TaxRatesTable = loadable(() => import('./TaxRatesTable'));
+const GraphNumberOfMembers = loadable(() => import('../Analytics/GraphNumberOfMembers'));
+const NewsLetterSubscriptions = loadable(() => import('./NewsLetterSubscriptions'));
 
 export default function AdminPanel() {
   const { t } = useTranslation();
@@ -45,6 +49,7 @@ export default function AdminPanel() {
         {t('admin_panel')}
       </Typography>
       <UsersTable />
+      <NewsLetterSubscriptions />
       <SportsTable />
       <GaEventsTable />
       <GaPageviewsTable />
