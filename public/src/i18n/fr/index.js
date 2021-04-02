@@ -1041,6 +1041,11 @@ export default {
     my_persons: 'Mes personnes',
     name_is_required: 'Nom obligatoire',
     name: 'Nom',
+    newsletter: 'Infolettre',
+    newsletter_email_subscribed:
+      "Ce courriel, {{email}}, est inscrit à l'infolettre. Décochez la case afin de vous désabonner.",
+    newsletter_email_unsubscribed:
+      "Ce courriel, {{email}}, n'est pas inscrit à l'infolettre. Cochez la case afin de vous abonner.",
     newsletter_subscribe:
       "Je veux m'inscrire à l'infolettre afin de recevoir des offres promotionnelles et des nouvelles de Sportfolios.",
     new_email: 'Nouveau courriel',
@@ -1303,6 +1308,7 @@ export default {
     unconfirmed_email: 'courriel non confirmé',
     undo: 'Annuler',
     unlink_facebook_account: 'Déconnecter mon compte Facebook',
+    unsubscribed: 'Désabonné',
     unsupported_language: 'Langue non supportée',
     upcoming_games: 'Prochaines parties',
     upload: 'Téléverser',
