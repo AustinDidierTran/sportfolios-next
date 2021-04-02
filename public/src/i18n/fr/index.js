@@ -1311,6 +1311,7 @@ export default {
     unconfirmed_email: 'courriel non confirmé',
     undo: 'Annuler',
     unlink_facebook_account: 'Déconnecter mon compte Facebook',
+    unsubscribed: 'Désabonné',
     unsupported_language: 'Langue non supportée',
     upcoming_games: 'Prochaines parties',
     upload: 'Téléverser',

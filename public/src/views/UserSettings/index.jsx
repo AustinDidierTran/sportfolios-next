@@ -6,18 +6,19 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import { Store } from '../../Store';
 import { useTranslation } from 'react-i18next';
 import AppLinking from './AppLinking';
-import BasicInfo from './BasicInfo';
-import ChangePassword from './ChangePassword';
-import Email from './Email';
-import MyPersons from './MyPersons';
-import Coupons from './Coupons';
 
 import loadable from '@loadable/component';
 
+const BasicInfo = loadable(() => import('./BasicInfo'));
+const BottomPageLogo = loadable(() => import('../../components/Custom/BottomPageLogo'));
+const ChangePassword = loadable(() => import('./ChangePassword'));
+const Coupons = loadable(() => import('./Coupons'));
 const CreditCards = loadable(() => import('./CreditCards'));
 const Disconnect = loadable(() => import('./Disconnect'));
+const Email = loadable(() => import('./Email'));
+const MyPersons = loadable(() => import('./MyPersons'));
+const NewsLetterEmail = loadable(() => import('./Email/NewsLetterEmail'));
 const Notifications = loadable(() => import('./Notifications'));
-const BottomPageLogo = loadable(() => import('../../components/Custom/BottomPageLogo'));
 
 export default function UserSettings() {
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ export default function UserSettings() {
       <Coupons />
       <BasicInfo />
       <Email />
+      <NewsLetterEmail />
       <MyPersons />
       <ChangePassword />
       <AppLinking />

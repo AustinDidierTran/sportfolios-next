@@ -1286,6 +1286,7 @@ export default {
     unconfirmed_email: 'Unconfirmed email',
     undo: 'Undo',
     unlink_facebook_account: 'Disconnect my Facebook account',
+    unsubscribed: 'Unsubscribed',
     unsupported_language: 'Unsupported language',
     upcoming_games: 'Upcoming games',
     upload: 'Upload',
