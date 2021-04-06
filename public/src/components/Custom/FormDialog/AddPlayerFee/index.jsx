@@ -62,16 +62,13 @@ export default function AddPlayerFee(props) {
 
   const totalPlayer = useMemo(() => {
     const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
-    return Math.ceil(
-      formatted.reduce((prev, curr) => {
-        return prev + prev * (curr / 100);
-      }, formik.values.playerPrice));
+    return formik.values.playerPrice + (formik.values.playerPrice * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100))
 
   }, [formik.values.playerPrice, taxes]);
 
   const transactionFee = useMemo(() => (
-    formik.values.playerPrice * PLATEFORM_FEES
-  ), [formik.values.playerPrice]);
+    totalPlayer * PLATEFORM_FEES
+  ), [totalPlayer]);
 
 
   const receiveAmout = useMemo(() => (
