@@ -230,6 +230,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      paymentOptionStats: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       privacy: {
         title: 'Sportfolios',
         description:
@@ -1217,6 +1222,7 @@ export default {
     second_ago: '{{count}} second ago',
     secondary_person: 'Secondary person',
     see_more: 'See more',
+    see_revenue: 'See revenue',
     see_my_analytics: 'See my analytics',
     see_receipt: 'See Receipt',
     see_sales: 'See sales',

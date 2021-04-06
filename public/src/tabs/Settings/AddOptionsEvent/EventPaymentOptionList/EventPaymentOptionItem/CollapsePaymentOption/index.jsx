@@ -9,6 +9,7 @@ import CustomButton from '../../../../../../components/Custom/Button';
 import CustomCollapse from '../../../../../../components/Custom/Collapse';
 import { formatDate, formatPrice } from '../../../../../../utils/stringFormats';
 import TextField from '@material-ui/core/TextField';
+import { goTo, ROUTES } from '../../../../../../actions/goTo';
 
 export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();
@@ -101,6 +102,15 @@ export default function CollapsePaymentOption(props) {
             />
           )}
         </ListItem>
+        <CustomButton
+          endIcon="AttachMoney"
+          onClick={() => {
+            goTo(ROUTES.paymentOptionStats);
+          }}
+          style={{ margin: '8px' }}
+        >
+          {t('see_revenue')}
+        </CustomButton>
         <ListItem className={styles.money}>
           <ListItemText />
           <ListItemText primary={t('team.team')} />
