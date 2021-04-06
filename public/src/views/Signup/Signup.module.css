@@ -16,6 +16,21 @@
   width: 200px;
   height: 200px;
 }
+
+.subscribe {
+  display: flex;
+  width: 100%;
+  margin-top: 24px;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.checkbox {
+  padding: 0px !important;
+  align-self: flex-start;
+  margin-right: 12px !important;
+}
+
 .container {
   margin-top: 32px;
   display: grid !important;

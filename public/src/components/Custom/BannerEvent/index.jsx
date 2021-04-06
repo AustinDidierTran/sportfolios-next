@@ -21,6 +21,18 @@ export default function BannerEvent(props) {
     return screenSize !== SCREENSIZE_ENUM.xs ? 'subtitle1' : 'caption';
   }, [screenSize]);
 
+  const canRegister = useMemo(
+    () =>
+      !(
+        !Array.isArray(eventInfo.options) ||
+        eventInfo.options.length < 1 ||
+        eventInfo.remainingSpots < 1 ||
+        eventInfo.isLate ||
+        eventInfo.isEarly
+      ),
+    [eventInfo]
+  );
+
   const Registration = () => {
     if (!Array.isArray(eventInfo.options) || eventInfo.options.length < 1) {
       return (
@@ -147,7 +159,7 @@ export default function BannerEvent(props) {
               )}
             </>
           )}
-          {!eventInfo.isLate && !eventInfo.isEarly && (
+          {canRegister && (
             <div className={styles.divIconSignup}>
               <CustomButton
                 size="small"

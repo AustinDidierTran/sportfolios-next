@@ -23,7 +23,7 @@ export default function AllGames() {
     getGames();
   }, [eventId]);
 
-  const scoreIsSubmitted = (game) => game.teams[0].score != 0 || game.teams[1].score != 0;
+  const scoreIsSubmitted = (game) => game.positions[0].score != 0 || game.positions[1].score != 0;
 
   const sortGames = (games) => {
     const pastGames = games

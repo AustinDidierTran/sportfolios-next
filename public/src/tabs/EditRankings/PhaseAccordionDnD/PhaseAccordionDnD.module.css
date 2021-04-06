@@ -5,28 +5,15 @@
   padding: 0px;
 }
 
-.spots {
+.empty {
   display: grid;
-  grid-template-columns: 1fr 6fr 2fr 1fr;
-  grid-template-areas: 'positionHolder title . add';
+  grid-template-columns: 1fr 7fr 2fr;
+  grid-template-areas: 'positionHolder name .';
   padding: 0px;
 }
 
-.title {
-  grid-area: title;
+.reorder {
   align-self: center;
-  padding-left: 8px;
-}
-
-.add {
-  grid-area: add;
-  justify-self: end;
-  align-self: center;
-}
-
-.orderContainer {
-  display: flex;
-  padding-top: 4px;
 }
 
 .position {
@@ -93,10 +80,6 @@
   margin-right: 8px !important;
   height: 36px;
   align-self: center;
-}
-
-.dragIcon {
-  margin-top: 8px;
 }
 
 .container {
