@@ -237,7 +237,8 @@ export default function OptionPayment() {
       }
 
       addOptionToEvent({ ...values });
-      onClose();
+
+      goBack();
     },
   });
 

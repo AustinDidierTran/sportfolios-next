@@ -20,7 +20,6 @@ export default function AddOptionsEvent() {
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
-  console.log(eventId);
 
   const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
@@ -112,7 +111,7 @@ export default function AddOptionsEvent() {
 
   return (
     <CustomPaper title={t('payment.payment_options')}>
-      <CustomButton className={styles.addButton} color="primary" onClick={() => goTo(ROUTES.optionPayment, {id:eventId})}>
+      <CustomButton className={styles.addButton} color="primary" onClick={() => goTo(ROUTES.optionPayment, { id: eventId })}>
         {t('payment.add_payment_option')}
       </CustomButton>
       <EventPaymentOptionList items={options} />
