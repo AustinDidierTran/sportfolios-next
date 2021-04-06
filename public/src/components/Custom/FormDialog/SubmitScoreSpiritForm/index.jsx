@@ -19,7 +19,7 @@ const SectionScore = loadable(() => import('./SectionScore'));
 // const SectionPresences = loadable(() => import('./SectionPresences'));
 
 export default function SubmitScoreDialog(props) {
-  const { open, onClose, gameId, submissionerInfos } = props;
+  const { open, onClose, gameId, submissionerInfos, update } = props;
   const { t } = useTranslation();
 
   const getData = async () => {
@@ -61,12 +61,12 @@ export default function SubmitScoreDialog(props) {
               team: teamName,
             })}
           </DialogContentText>
-
           <SectionScore
             gameId={gameId}
             IsSubmittedCheck={SubmittedCheck}
             suggestions={submissionInfos?.scoreSuggestions}
             submissionerInfos={submissionerInfos}
+            update={update}
           />
           {/* <SectionSpirit
             gameId={gameId}

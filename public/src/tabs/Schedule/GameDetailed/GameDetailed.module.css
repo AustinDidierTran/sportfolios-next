@@ -12,6 +12,10 @@
   display: flex;
 }
 
+.phaseName {
+  margin: 4px;
+}
+
 .content {
   display: flex;
   justify-content: center;
@@ -38,7 +42,7 @@
 
 .gameInfoDate {
   color: rgba(0, 0, 0, 0.5);
-  margin-left: 4px;
+  margin: 8px;
 }
 
 .teamName {

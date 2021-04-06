@@ -17,7 +17,7 @@ import IconButton from '../../../IconButton';
 import Button from '../../../Button';
 
 export default function SectionScore(props) {
-  const { suggestions, gameId, IsSubmittedCheck, submissionerInfos } = props;
+  const { suggestions, gameId, IsSubmittedCheck, submissionerInfos, update } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
@@ -86,6 +86,7 @@ export default function SectionScore(props) {
     });
 
     if (status === STATUS_ENUM.SUCCESS) {
+      update();
       setAcceptedOrRefused(true);
       submittedState(true);
     } else {

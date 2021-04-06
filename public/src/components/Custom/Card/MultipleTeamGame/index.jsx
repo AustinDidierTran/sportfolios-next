@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
+import Avatar from '../../Avatar';
 
 export default function MultipleTeamGame(props) {
   const { positions, field, start_time, phaseName, onClick } = props;
@@ -17,10 +18,7 @@ export default function MultipleTeamGame(props) {
       <div className={styles.teams}>
         {positions.map((position, i) => (
           <div className={styles.teamContent} key={i}>
-            {
-              //TODO: if roster_id, put a the team picture
-            }
-            <img className={styles.logo} />
+            <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
             <Typography className={styles.name}>{position.name}</Typography>
             <Typography className={styles.score}>{position.score}</Typography>
           </div>
