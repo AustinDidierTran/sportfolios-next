@@ -55,7 +55,7 @@ export default function AddTeamFee(props) {
   };
 
   const handleSave = () => {
-    formik.setFieldValue('teamTaxes', taxes);
+    formik.setFieldValue('teamTaxes', allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id));
     onSave(teamTotal);
   }
 

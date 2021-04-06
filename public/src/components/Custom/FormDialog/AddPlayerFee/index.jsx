@@ -50,7 +50,7 @@ export default function AddPlayerFee(props) {
   };
 
   const handleSave = () => {
-    formik.setFieldValue('playerTaxes', taxes);
+    formik.setFieldValue('playerTaxes', allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id));
     onSave(totalPlayer);
   }
 
