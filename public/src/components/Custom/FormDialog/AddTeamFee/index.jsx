@@ -62,17 +62,14 @@ export default function AddTeamFee(props) {
 
   const teamTotal = useMemo(() => {
     const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
-    return Math.ceil(
-      formatted.reduce((prev, curr) => {
-        return prev + prev * (curr / 100);
-      }, formik.values.teamPrice));
+    return formik.values.teamPrice + (formik.values.teamPrice * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100))
 
   }, [formik.values.teamPrice, taxes]);
 
 
   const transactionFee = useMemo(() => (
-    formik.values.teamPrice * PLATEFORM_FEES
-  ), [formik.values.teamPrice]);
+    teamTotal * PLATEFORM_FEES
+  ), [teamTotal]);
 
 
   const receiveAmout = useMemo(() => (
