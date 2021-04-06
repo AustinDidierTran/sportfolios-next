@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { formatRoute, formatPrice, formatPageTitle } from '../../utils/stringFormats';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
 import { Paper, Button, IgContainer } from '../../components/Custom';
@@ -10,9 +9,8 @@ import styles from './OptionPayment.module.css';
 
 import Typography from '@material-ui/core/Typography';
 import { FIELD_GROUP_ENUM, SEVERITY_ENUM, EVENT_TYPE } from '../../../common/enums';
-import {  goBack } from '../../actions/goTo';
+import { goBack } from '../../actions/goTo';
 import { useRouter } from 'next/router';
-import BasicFormDialog from '../../components/Custom/FormDialog/BasicFormDialog';
 import AddTeamFeeDialog from '../../components/Custom/FormDialog/AddTeamFee';
 import AddPlayerFeeDialog from '../../components/Custom/FormDialog/AddPlayerFee';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -22,7 +20,6 @@ import moment from 'moment';
 import * as yup from 'yup';
 import { ERROR_ENUM } from '../../../common/errors';
 import { DialogContent } from '@material-ui/core';
-import DialogActions from '@material-ui/core/DialogActions';
 import ComponentFactory from '../../components/Custom/ComponentFactory';
 
 
@@ -39,6 +36,7 @@ export default function OptionPayment() {
   const [teamPriceTotal, setTeamPriceTotal] = useState(undefined);
   const [openPlayer, setOpenPlayer] = useState(false);
   const [openTeam, setOpenTeam] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     getAccounts();
@@ -114,10 +112,14 @@ export default function OptionPayment() {
   }
 
   const handleCancelTeam = () => {
-    clearTeamsFee();
+    if (!edit) {
+      clearTeamsFee();
+    }
+    setEdit(false);
     setOpenTeam(false);
   }
   const handleCloseTeam = () => {
+    setEdit(false);
     setOpenTeam(false);
   }
 
@@ -125,15 +127,29 @@ export default function OptionPayment() {
     setOpenTeam(true);
   }
 
+  const handleEditTeam = () => {
+    setEdit(true);
+    setOpenTeam(true);
+  }
+
+  const handleEditPlayer = () => {
+    setEdit(true);
+    setOpenPlayer(true);
+  }
+
   const handleOpenPlayer = () => {
     setOpenPlayer(true);
   }
 
   const handleCancelPlayer = () => {
-    clearPlayerFee();
+    if (!edit) {
+      clearPlayerFee();
+    }
+    setEdit(false);
     setOpenPlayer(false);
   }
   const handleClosePlayer = () => {
+    setEdit(false);
     setOpenPlayer(false);
   }
 
@@ -216,8 +232,6 @@ export default function OptionPayment() {
     validate,
     validateOnChange: false,
     onSubmit: (values) => {
-      console.log(values);
-
       if (values.eventType === EVENT_TYPE.PLAYER) {
         values.teamPrice = undefined;
       }
@@ -237,12 +251,12 @@ export default function OptionPayment() {
     ownersId,
     playerPriceTotal,
     teamPriceTotal,
-    onClickEditTeamsFee: handleOpenTeam,
+    onClickEditTeamsFee: handleEditTeam,
     onClickDeleteTeamsFee: clearTeamsFee,
     onChangeEventType,
     eventType: formik.values.eventType,
     playerOnClick: handleOpenPlayer,
-    onClickEditPlayerFee: handleOpenPlayer,
+    onClickEditPlayerFee: handleEditPlayer,
     onClickDeletePlayerFee: clearPlayerFee,
     onManualAcceptationChange,
     manualAcceptation: formik.values.manualAcceptation,
@@ -258,6 +272,7 @@ export default function OptionPayment() {
           open={openTeam}
           formik={formik}
           update={() => { }}
+          edit={edit}
           onCancel={handleCancelTeam}
           onClose={handleCloseTeam}
           title={t('delete.delete_comment_confirmation')}
@@ -268,6 +283,7 @@ export default function OptionPayment() {
           open={openPlayer}
           formik={formik}
           update={() => { }}
+          edit={edit}
           onCancel={handleCancelPlayer}
           onClose={handleClosePlayer}
           title={t('delete.delete_comment_confirmation')}
@@ -285,7 +301,7 @@ export default function OptionPayment() {
             }
           </DialogContent>
           <div className={styles.divButton}>
-            <Button style={{ marginRight: 8 }} color="secondary" onClick={() => {goBack()}}>
+            <Button style={{ marginRight: 8 }} color="secondary" onClick={() => { goBack() }}>
               {t('cancel')}
             </Button>
             <Button style={{ marginLeft: 8 }} type="submit">

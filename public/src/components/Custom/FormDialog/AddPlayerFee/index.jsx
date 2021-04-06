@@ -8,14 +8,16 @@ import { formatPrice } from '../../../../utils/stringFormats';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function AddPlayerFee(props) {
-  const { onCancel, formik, open: openProps, onClose, onSave, update, } = props;
+  const { onCancel, formik, open: openProps, onClose, onSave, update, edit } = props;
   const { t } = useTranslation();
 
-
   const [allTaxes, setAllTaxes] = useState([]);
+  const [taxes, setTaxes] = useState([]);
 
   useEffect(() => {
-    getTaxes();
+    if (openProps) {
+      getTaxes();
+    }
   }, [openProps]);
 
   const getTaxes = async () => {
@@ -32,11 +34,15 @@ export default function AddPlayerFee(props) {
       value: d.id,
     }));
     setAllTaxes(res);
-    if (!formik.values.playerTaxes) {
-      formik.setFieldValue('playerTaxes', res[0].value);
+
+    if (!edit) {
+      setTaxes([]);
     }
   };
 
+  const handleChange = (value) => {
+    setTaxes(value);
+  };
 
   const handleClose = () => {
     update();
@@ -44,34 +50,24 @@ export default function AddPlayerFee(props) {
   };
 
   const handleSave = () => {
+    formik.setFieldValue('playerTaxes', taxes);
     onSave(totalPlayer);
   }
 
   useEffect(() => {
-    if(formik.values.playerPrice !== ''){
-    formik.setFieldValue('playerPrice', Math.abs(formik.values.playerPrice));
+    if (formik.values.playerPrice !== '') {
+      formik.setFieldValue('playerPrice', Math.abs(formik.values.playerPrice));
     }
   }, [formik.values.playerPrice]);
 
-  const taxePercentage = useMemo(() => (
-    allTaxes.find(x => x.id === formik.values.playerTaxes)?.percentage / 100
-  ), [formik.values.playerTaxes]);
-
-  const taxeAmount = useMemo(() => {
-    if (formik.values.playerTaxes && formik.values.playerPrice > 0) {
-      return formik.values.playerPrice * taxePercentage;
-    }
-    return '';
-
-  }, [formik.values.playerPrice, formik.values.playerTaxes]);
-
   const totalPlayer = useMemo(() => {
-    if (formik.values.playerTaxes && formik.values.playerPrice > 0) {
-      return (formik.values.playerPrice + taxeAmount);
-    }
-    return '';
+    const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
+    return Math.ceil(
+      formatted.reduce((prev, curr) => {
+        return prev + prev * (curr / 100);
+      }, formik.values.playerPrice));
 
-  }, [formik.values.playerPrice, formik.values.playerTaxes]);
+  }, [formik.values.playerPrice, taxes]);
 
   const transactionFee = useMemo(() => (
     formik.values.playerPrice * PLATEFORM_FEES
@@ -88,25 +84,26 @@ export default function AddPlayerFee(props) {
       label: t('price_player'),
       type: 'number',
       endAdorment: '$',
-
     },
     {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      componentType: COMPONENT_TYPE_ENUM.MULTISELECT,
       namespace: 'playerTaxes',
       label: t('taxes'),
-      options: allTaxes,
+      options: allTaxes.map(a => a.display),
+      values: taxes,
+      onChange: handleChange,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: `Coût total avec taxes ${formatPrice(totalPlayer * 100)}`,
+      primary: t('payment.total_cost_with_taxes', { price: formatPrice(totalPlayer * 100) }),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: `Frais de transactions ${formatPrice(transactionFee * 100)}`,
+      primary: t('payment.transaction_fees', { fee: formatPrice(transactionFee * 100) }),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: `Montant reçu ${formatPrice(receiveAmout * 100)}`,
+      primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
 
   ];
@@ -119,7 +116,7 @@ export default function AddPlayerFee(props) {
     },
     {
       onClick: handleSave,
-      name: t('add.add'),
+      name: edit ? t('edit.edit') : t('add.add'),
       color: 'primary',
     },
   ];
@@ -127,7 +124,7 @@ export default function AddPlayerFee(props) {
   return (
     <BasicFormDialog
       open={openProps}
-      title={t('add.add_player_fees')}
+      title={edit ? t('edit.edit_player_fees') : t('add.add_player_fees')}
       buttons={buttons}
       fields={fields}
       formik={formik}

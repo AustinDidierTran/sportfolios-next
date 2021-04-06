@@ -37,12 +37,12 @@ export const useFields = (type, options) => {
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: "Type d'inscription",
+          primary: t('register.registration_type'),
         },
         {
           namespace: 'eventType',
           componentType: COMPONENT_TYPE_ENUM.RADIO_GROUP,
-          options: [{ display: 'Par joueur', value: EVENT_TYPE.PLAYER }, { display: 'Par équipe', value: EVENT_TYPE.TEAM }],
+          options: [{ display: t('by_player'), value: EVENT_TYPE.PLAYER }, { display: t('by_team'), value: EVENT_TYPE.TEAM }],
           value: eventType,
           onChange: (e) => { onChangeEventType(e) },
           row: true,
@@ -51,7 +51,7 @@ export const useFields = (type, options) => {
           teamPriceTotal ? {
             namespace: 'showTeamPrice',
             componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
-            value: `Frais d'inscriptions par équipe: ${formatPrice(teamPriceTotal * 100)}`,
+            value: t('register.registration_fee_team', { fee: formatPrice(teamPriceTotal * 100) }),
             firstIcon: "Edit",
             firstOnClick: onClickEditTeamsFee,
             firstTooltip: t('edit.edit'),
@@ -71,7 +71,7 @@ export const useFields = (type, options) => {
           playerPriceTotal
             ? {
               componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
-              value: `Frais d'inscriptions par joueur: ${formatPrice(playerPriceTotal * 100)}`,
+              value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
               firstIcon: "Edit",
               firstOnClick: onClickEditPlayerFee,
               firstTooltip: t('edit.edit'),
@@ -80,7 +80,7 @@ export const useFields = (type, options) => {
               secondTooltip: t('delete.delete'),
             } : {
               componentType: COMPONENT_TYPE_ENUM.BUTTON,
-              children: "Ajouter des frais par joueur",
+              children: t('add.add_player_fees'),
               onClick: playerOnClick,
               disabled: !ownersId.length,
             }
@@ -91,7 +91,7 @@ export const useFields = (type, options) => {
           playerPriceTotal
             ? {
               componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
-              value: `Frais d'inscriptions par joueur: ${formatPrice(playerPriceTotal * 100)}`,
+              value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
               firstIcon: "Edit",
               firstOnClick: onClickEditPlayerFee,
               firstTooltip: t('edit.edit'),
@@ -100,19 +100,19 @@ export const useFields = (type, options) => {
               secondTooltip: t('delete.delete'),
             } : {
               componentType: COMPONENT_TYPE_ENUM.BUTTON,
-              children: "Ajouter des frais par joueur",
+              children: t('add.add_player_fees'),
               onClick: playerOnClick,
               disabled: !ownersId.length,
             }
           : {
             componentType: COMPONENT_TYPE_ENUM.EMPTY
           },
-         !ownersId.length ?{
-           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-           secondary: "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
-         } : {
-            componentType: COMPONENT_TYPE_ENUM.EMPTY
-          }, 
+        !ownersId.length ? {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          secondary: t('one_admin_need_bank_account'),
+        } : {
+          componentType: COMPONENT_TYPE_ENUM.EMPTY
+        },
         {
           componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
           checked: manualAcceptation,
@@ -128,7 +128,7 @@ export const useFields = (type, options) => {
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: "Gestion paiement",
+          primary: t('payment.payment_management'),
         },
         ownersId.length
           ? {

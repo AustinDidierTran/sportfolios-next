@@ -225,6 +225,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      optionPayment: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       privacy: {
         title: 'Sportfolios',
         description:
@@ -371,7 +376,11 @@ export default {
       payment_options: 'Options de paiements',
       payment_team: "Paiement d'équipe",
       payments: 'Paiements',
+      payment_management: 'Gestions des paiements',
       free: 'Gratuit',
+      received_amount: 'Montant reçu: {{amount}}',
+      total_cost_with_taxes: 'Coût total avec taxes: {{price}}',
+      transaction_fees: 'Frais de transactions: {{fee}}',
     },
     register: {
       already_registered_singular: "{{names}} est déjà inscrit à l'événement",
@@ -415,6 +424,9 @@ export default {
       registrations_ends_on: 'Les inscriptions terminent le',
       registrations_open_on: 'Les inscriptions ouvrent le',
       registrations_open_and_end_on: 'Les inscriptions ouvrent le {{openDate}} et terminent le {{endDate}}',
+      registration_type: "Type d'inscription",
+      registration_fee_team: "Frais d'inscriptions par équipe: {{fee}}",
+      registration_fee_player: "Frais d'inscriptions par joueur: {{fee}}",
       unregister_all: 'Tout désinscrire',
       unregister_pending: 'Désinscriptions et remboursements en cours, veuillez patienter...',
       unregister: 'Désinscrire',
@@ -493,7 +505,7 @@ export default {
       add_tax: 'Ajouter une taxe',
       add_team: 'Ajouter une équipe',
       add_team_fees: "Ajouter des frais d'équipes",
-      add_player_fees: "Ajouter des frais individuelles",
+      add_player_fees: "Ajouter des frais par joueur",
       add_the_teams_you_want_in_your_tournament: 'Ajouter les équipes à votre tournoi',
       add_time_slot: 'Ajouter une plage horaire',
       add_to_cart: 'Ajouter au panier',
@@ -587,6 +599,8 @@ export default {
       edit_schedule: "Modifier l'horaire",
       edit_ranking: 'Modifier le classement',
       edit_teams: 'Modifier les équipes',
+      edit_team_fees: "Modifier les frais d'équipes",
+      edit_player_fees: "Modifier les frais par joueur",
     },
     email: {
       email_already_exist: 'Il y a déjà un compte associé à ce courriel',
@@ -827,6 +841,8 @@ export default {
     buyers_name: "Nom de l'acheteur",
     by_getting_a_new_link_the_old_one_will_expires: "En générant un nouveau lien, l'ancien deviendra invalide.",
     by: 'Par',
+    by_team: 'Par équipe',
+    by_player: 'Par joueur',
     canadian_dollar: 'Dollar Canadien',
     cancel_changes: 'Des changements ont été apportés. Voulez-vous annuler sans les sauvergarder?',
     cancel_person_transfer_confirmation: 'Êtes-vous certain de vouloir annuler le transfert de {{name}}?',
@@ -1052,6 +1068,7 @@ export default {
     on: 'sur le',
     one_month: 'Un mois',
     one_year: 'Un an',
+    one_admin_need_bank_account: "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
     only_available_on_desktop: 'Seulement disponible sur ordinateur',
     open_from_to: 'Ouvert du {{startDate}} au {{endDate}}',
     opening_of_registration: 'Ouverture des inscriptions',

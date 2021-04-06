@@ -8,19 +8,26 @@ import { formatPrice } from '../../../../utils/stringFormats';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function AddTeamFee(props) {
-  const { onCancel, formik, open: openProps, onSave, onClose, update } = props;
+  const { onCancel, formik, open: openProps, onSave, onClose, update, edit } = props;
   const { t } = useTranslation();
   const [allTaxes, setAllTaxes] = useState([]);
+  const [taxes, setTaxes] = useState([]);
 
   useEffect(() => {
-    getTaxes();
+    if (openProps) {
+      getTaxes();
+    }
   }, [openProps]);
 
-    useEffect(() => {
-    if(formik.values.teamPrice !== ''){
-    formik.setFieldValue('teamPrice', Math.abs(formik.values.teamPrice));
+  useEffect(() => {
+    if (formik.values.teamPrice !== '') {
+      formik.setFieldValue('teamPrice', Math.abs(formik.values.teamPrice));
     }
   }, [formik.values.teamPrice]);
+
+  const handleChange = (value) => {
+    setTaxes(value);
+  };
 
   const getTaxes = async () => {
     const { data } = await api(formatRoute('/api/stripe/getTaxes'));
@@ -36,8 +43,9 @@ export default function AddTeamFee(props) {
       value: d.id,
     }));
     setAllTaxes(res);
-    if (!formik.values.teamTaxes) {
-      formik.setFieldValue('teamTaxes', res[0].value);
+
+    if (!edit) {
+      setTaxes([]);
     }
   };
 
@@ -47,29 +55,20 @@ export default function AddTeamFee(props) {
   };
 
   const handleSave = () => {
+    formik.setFieldValue('teamTaxes', taxes);
     onSave(teamTotal);
   }
 
 
-  const taxePercentage = useMemo(() => (
-    allTaxes.find(x => x.id === formik.values.teamTaxes)?.percentage / 100
-  ), [formik.values.teamTaxes]);
-
-  const taxeAmount = useMemo(() => {
-    if (formik.values.teamTaxes && formik.values.teamPrice > 0) {
-      return formik.values.teamPrice * taxePercentage;
-    }
-    return '';
-
-  }, [formik.values.teamPrice, formik.values.teamTaxes]);
-
   const teamTotal = useMemo(() => {
-    if (formik.values.teamTaxes && formik.values.teamPrice > 0) {
-      return (formik.values.teamPrice + taxeAmount);
-    }
-    return '';
+    const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
+    return Math.ceil(
+      formatted.reduce((prev, curr) => {
+        return prev + prev * (curr / 100);
+      }, formik.values.teamPrice));
 
-  }, [formik.values.teamPrice, formik.values.teamTaxes]);
+  }, [formik.values.teamPrice, taxes]);
+
 
   const transactionFee = useMemo(() => (
     formik.values.teamPrice * PLATEFORM_FEES
@@ -88,22 +87,24 @@ export default function AddTeamFee(props) {
       endAdorment: '$',
     },
     {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      componentType: COMPONENT_TYPE_ENUM.MULTISELECT,
       namespace: 'teamTaxes',
       label: t('taxes'),
-      options: allTaxes,
+      options: allTaxes.map(a => a.display),
+      values: taxes,
+      onChange: handleChange,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: `Coût total avec taxes: ${formatPrice(teamTotal * 100)}`,
+      primary: t('payment.total_cost_with_taxes', { price: formatPrice(teamTotal * 100) }),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: `Frais de transactions: ${formatPrice(transactionFee * 100)}`,
+      primary: t('payment.transaction_fees', { fee: formatPrice(transactionFee * 100) }),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: `Montant reçu: ${formatPrice(receiveAmout * 100)}`,
+      primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
 
   ];
@@ -116,7 +117,7 @@ export default function AddTeamFee(props) {
     },
     {
       onClick: handleSave,
-      name: t('add.add'),
+      name: edit ? t('edit.edit') : t('add.add'),
       color: 'primary',
     },
   ];
@@ -124,7 +125,7 @@ export default function AddTeamFee(props) {
   return (
     <BasicFormDialog
       open={openProps}
-      title={t('add.add_team_fees')}
+      title={edit ? t('edit.edit_team_fees') : t('add.add_team_fees')}
       buttons={buttons}
       fields={fields}
       formik={formik}

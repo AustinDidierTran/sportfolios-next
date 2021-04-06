@@ -48,7 +48,7 @@ export const goToAndReplace = (route, params, queryParams) => {
 };
 
 export const goBack = () => {
-  Router.goBack();
+  Router.back();
   // Router.push(ROUTES.home);
 };
 
