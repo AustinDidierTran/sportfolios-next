@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
@@ -8,8 +8,8 @@ import { useFormik } from 'formik';
 import styles from './OptionPayment.module.css';
 
 import Typography from '@material-ui/core/Typography';
-import { FIELD_GROUP_ENUM, SEVERITY_ENUM, EVENT_TYPE } from '../../../common/enums';
-import { goBack } from '../../actions/goTo';
+import { FIELD_GROUP_ENUM, SEVERITY_ENUM, EVENT_TYPE, STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
+import { goBack, goTo, ROUTES } from '../../actions/goTo';
 import { useRouter } from 'next/router';
 import AddTeamFeeDialog from '../../components/Custom/FormDialog/AddTeamFee';
 import AddPlayerFeeDialog from '../../components/Custom/FormDialog/AddPlayerFee';
@@ -86,6 +86,24 @@ export default function OptionPayment() {
         manualAcceptation,
       }),
     });
+
+    if (res.status === STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('an_error_has_occured'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      return;
+    } else {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('option_created_succes'),
+        severity: SEVERITY_ENUM.SUCCESS,
+      });
+      goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SETTINGS });
+
+    }
+
   }
 
   const getAccounts = async () => {
@@ -237,8 +255,6 @@ export default function OptionPayment() {
       }
 
       addOptionToEvent({ ...values });
-
-      goBack();
     },
   });
 

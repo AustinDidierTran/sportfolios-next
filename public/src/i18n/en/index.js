@@ -1058,6 +1058,7 @@ export default {
     order_processed: 'Your order has been successfully processed',
     ordered: 'Ordered',
     order_saved: 'Order saved!',
+    option_created_succes: 'Option created successfully',
     organization: 'Organization',
     organizations: 'Organizations',
     other_team_submitted_a_score_description:
