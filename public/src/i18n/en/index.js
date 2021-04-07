@@ -225,6 +225,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      optionPayment: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       privacy: {
         title: 'Sportfolios',
         description:
@@ -377,7 +382,11 @@ export default {
       payment_options: 'Payment options',
       payment_team: 'Team payment',
       payments: 'Payments',
+      payment_management: 'Payment management',
       free: 'Free',
+      received_amount: 'Received amount: {{amount}}',
+      total_cost_with_taxes: 'Total cost with taxes: {{price}}',
+      transaction_fees: 'Transaction fees: {{fee}}',
     },
     register: {
       already_registered_singular: '{{names}} is already registered to the event',
@@ -420,6 +429,9 @@ export default {
       registrations_ends_on: 'Registrations ends on',
       registrations_open_on: 'Registrations open on',
       registrations_open_and_end_on: 'Registrations open on {{openDate}} and ends on {{endDate}}',
+      registration_type: "Registration type",
+      registration_fee_team: "Registration fees per team: {{fee}}",
+      registration_fee_player: "Registration fees per player: {{fee}}",
       unregister_all: 'Unregister all',
       unregister_pending: 'Unregistrations and refunds in progress, please wait...',
       unregister: 'Unregister',
@@ -495,6 +507,8 @@ export default {
       add_sub: 'Add sub',
       add_tax: 'Add tax',
       add_team: 'Add team',
+      add_team_fees: "Add team fees",
+      add_player_fees: "Ajouter des par joueur",
       add_the_teams_you_want_in_your_tournament: 'Add the teams you want in your tournament',
       add_time_slot: 'Add time slot',
       add_to_cart: 'Add to cart',
@@ -585,6 +599,8 @@ export default {
       edit_schedule: 'Edit schedule',
       edit_ranking: 'Edit ranking',
       edit_teams: 'Edit teams',
+      edit_team_fees: "Edit team fees",
+      edit_player_fees: "Edit player fees",
     },
     email: {
       email_already_exist: 'There is already an existing account with this email',
@@ -813,6 +829,8 @@ export default {
     buyers_name: "Buyer's name",
     by_getting_a_new_link_the_old_one_will_expires: 'By getting a new link, the old one will expire',
     by: 'By',
+    by_team: 'By team',
+    by_player: 'By player',
     campaign: 'Fundraiser',
     canadian_dollar: 'Canadian Dollar',
     cancel_changes: 'Changes have been made. Are you sure you want to cancel without saving them?',
@@ -1045,6 +1063,7 @@ export default {
     on: 'on',
     one_month: 'One Month',
     one_year: 'One Year',
+    one_admin_need_bank_account: "One of the event administrators must have a bank account to add fees",
     only_available_on_desktop: 'Only available on desktop',
     open_from_to: 'Open from {{startDate}} to {{endDate}}',
     opening_of_registration: 'Opening of registration',
@@ -1058,6 +1077,7 @@ export default {
     order_processed: 'Your order has been successfully processed',
     ordered: 'Ordered',
     order_saved: 'Order saved!',
+    option_created_succes: 'Option created successfully',
     organization: 'Organization',
     organizations: 'Organizations',
     other_team_submitted_a_score_description:
@@ -1108,6 +1128,7 @@ export default {
     preranking: 'Preranking',
     price_individual: 'Individual price',
     price_team: 'Team price',
+    price_player: 'Player price',
     price: 'Price',
     primary_person_changed: 'Primary person changed',
     primary_person: 'Primary person',

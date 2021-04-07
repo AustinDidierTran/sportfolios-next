@@ -53,8 +53,10 @@ const COMPONENT_TYPE_ENUM = {
   MULTISELECT: 'multiselect',
   PERSON_ITEM: 'person item',
   PERSON_SEARCH_LIST: 'person search list',
+  RADIO_GROUP: 'radio group',
   SELECT: 'select',
   TEXT_FIELD_BOX: 'text field box',
+  TEXT_DOUBLE_BUTTON: 'text double button',
 };
 
 const ROSTER_ROLE_ENUM = {
@@ -168,6 +170,7 @@ const FORM_DIALOG_TYPE_ENUM = {
   CREATE_TAX_RATE: 'create tax rate',
   ROSTER_PLAYER_OPTIONS: 'roster player options',
   EDIT_MEMBER_IMPORT: 'edit member import',
+  ADD_FEE: 'add fee',
 };
 
 const HEADER_FLYOUT_TYPE_ENUM = {
@@ -239,6 +242,7 @@ const ROUTES_ENUM = {
   membersList: '/page/membersList',
   menu: '/page/menu',
   mockEvent: '/page/mock/Event/:openTab',
+  optionPayment: '/page/optionPayment/:id',
   notifications: '/page/notifications',
   orderProcessed: '/page/orderProcessed',
   organizationList: '/page/organizationList',
@@ -538,6 +542,11 @@ const MESSENGER_MESSAGES_EN = {
   },
 };
 
+const EVENT_TYPE = {
+  PLAYER: 'player',
+  TEAM: 'team',
+};
+
 module.exports = {
   APP_ENUM,
   BASIC_CHATBOT_STATES,
@@ -592,4 +601,5 @@ module.exports = {
   TABS_ENUM,
   TAG_TYPE_ENUM,
   VIEW_ENUM,
+  EVENT_TYPE,
 };
