@@ -255,7 +255,11 @@ export default function PhaseAccordionDnD(props) {
                                     </ListItemIcon>
                                     <div className={styles.main} style={{ width: '100%' }}>
                                       <ListItemText className={styles.position} secondary={index + 1} />
-                                      <ListItemText className={styles.name} primary={team.content} />
+                                      <ListItemText
+                                        className={styles.name}
+                                        primary={team.positionName}
+                                        secondary={team.name}
+                                      />
                                       <ListItemIcon className={styles.edit}>
                                         <IconButton
                                           className={styles.iconButton}

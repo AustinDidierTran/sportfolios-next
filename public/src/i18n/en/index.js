@@ -665,6 +665,7 @@ export default {
         'Sorry, your registration has been refused. Event is now full and there are no available spots left.',
       no_roster: 'No roster',
       no_taxes: 'No taxes',
+      no_team_yet: 'No team yet',
       no_teams_registered: 'No teams registered.',
       no_team_in_prerank_position:
         'There is no team on some of the positions in prerank. You need more teams in your event or remove the empty positions from your phase.',

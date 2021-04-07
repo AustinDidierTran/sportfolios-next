@@ -390,9 +390,9 @@ export default function ScheduleInteractiveTool() {
         ...r,
         value: r.ranking_id,
         display: r.roster_id
-          ? `${r.initial_position} - ${curr.name} (${r.name})`
-          : `${r.initial_position} - ${curr.name}`,
-        name: r.roster_id ? `${r.initial_position} - ${curr.name} (${r.name})` : `${r.initial_position} - ${curr.name}`,
+          ? `${r.initial_position}. ${curr.name} (${r.name})`
+          : `${r.initial_position}. ${curr.name}`,
+        name: r.roster_id ? `${r.initial_position}. ${curr.name} (${r.name})` : `${r.initial_position}. ${curr.name}`,
         teamName: r.name ? r.name : '',
       }));
       return prev.concat(withName);

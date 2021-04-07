@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CustomIcon from '../Icon';
 
 const useStyles = makeStyles(() => ({
@@ -14,8 +14,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const AccordionSummary = withStyles({
+  content: {
+    '&$expanded': {
+      margin: '8px 0',
+    },
+    margin: '4px 0',
+  },
+})(MuiAccordionSummary);
+
 export default function CustomAccordion(props) {
-  const { title, content, ...otherProps } = props;
+  const { title, subtitle, content, ...otherProps } = props;
   const classes = useStyles();
 
   const [expanded, setExpanded] = useState(false);
@@ -27,9 +36,16 @@ export default function CustomAccordion(props) {
 
   return (
     <Accordion expanded={expanded} onChange={onExpand} {...otherProps}>
-      <AccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
-        <ListItemText primary={title} />
-      </AccordionSummary>
+      {subtitle ? (
+        <AccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
+          <ListItemText primary={title} secondary={subtitle} />
+        </AccordionSummary>
+      ) : (
+        <MuiAccordionSummary expandIcon={<CustomIcon icon="ExpandMore" className={classes.primary} />}>
+          <ListItemText primary={title} />
+        </MuiAccordionSummary>
+      )}
+
       <AccordionDetails>{content}</AccordionDetails>
     </Accordion>
   );

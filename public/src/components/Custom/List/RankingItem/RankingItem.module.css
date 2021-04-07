@@ -2,11 +2,11 @@
   display: grid;
   grid-template-columns: 1fr 7fr;
   grid-template-areas: 'position name';
-  padding: 0px;
 }
 
 .position {
   grid-area: position;
+  align-self: center;
 }
 .name {
   grid-area: name;

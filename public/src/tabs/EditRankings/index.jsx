@@ -78,7 +78,9 @@ export default function EditRankings() {
 
     setPrerankPhase(prerankPhase);
 
-    const { data } = await api(
+    const {
+      data: { preranking: ranking },
+    } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
       })
@@ -92,8 +94,8 @@ export default function EditRankings() {
 
     let preranking = [];
 
-    if (data) {
-      preranking = data.map((d) => ({
+    if (ranking) {
+      preranking = ranking.map((d) => ({
         position: d.position,
         content: d.noTeam ? t('register.register_team') : d.name,
         rosterId: d.rosterId ? d.rosterId : null,
@@ -111,7 +113,20 @@ export default function EditRankings() {
         order: d.phase_order,
         ranking: d.ranking.map((r) => {
           if (r && r.roster_id) {
-            return { ...r, rankingId: r.ranking_id, content: r.name };
+            if (r.origin_phase === prerankPhase.phaseId) {
+              return {
+                ...r,
+                rankingId: r.ranking_id,
+                positionName: `${r.origin_position}. ${t('preranking')}`,
+                name: r.name,
+              };
+            }
+            return {
+              ...r,
+              rankingId: r.ranking_id,
+              positionName: `${r.origin_position}. ${r.phaseName}`,
+              name: r.name,
+            };
           }
           if (r && r.origin_phase && r.origin_position) {
             if (r.origin_phase === prerankPhase.phaseId) {
@@ -120,17 +135,18 @@ export default function EditRankings() {
                 return {
                   ...r,
                   rankingId: r.ranking_id,
-                  content: `${r.origin_position} - ${t('preranking')} (${rankingWithName.content})`,
+                  name: rankingWithName.content,
+                  positionName: `${r.origin_position}. ${t('preranking')}`,
                 };
               } else {
                 return {
                   ...r,
                   rankingId: r.ranking_id,
-                  content: `${r.origin_position} - ${t('preranking')}`,
+                  positionName: `${r.origin_position}. ${t('preranking')}`,
                 };
               }
             }
-            return { ...r, rankingId: r.ranking_id, content: `${r.origin_position} - ${r.phaseName}` };
+            return { ...r, rankingId: r.ranking_id, positionName: `${r.origin_position}. ${r.phaseName}` };
           }
           return { ...r, isEmpty: true, rankingId: r.ranking_id };
         }),
@@ -397,6 +413,7 @@ export default function EditRankings() {
                               onShrink={() => onShrink(phase.id)}
                               onExpand={() => onExpand(phase.id)}
                               onOpenAlertDialog={onOpenAlertDialog}
+                              prerankPhaseId={prerankPhase.phaseId}
                             ></FinalRanking>
                           ) : (
                             <PhaseAccordionDnD

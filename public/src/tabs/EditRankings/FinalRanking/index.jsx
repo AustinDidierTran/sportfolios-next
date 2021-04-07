@@ -27,7 +27,7 @@ const AccordionSummary = withStyles({
 })(MuiAccordionSummary);
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, prerankPhaseId, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
@@ -52,6 +52,7 @@ export default function FinalRanking(props) {
         phaseId: phase.id,
       })
     );
+
     // let teams = [];
     // let position = 1;
     // games.forEach((g) => {
@@ -86,27 +87,33 @@ export default function FinalRanking(props) {
     //     teams.push({ name: t.name, position: t.initial_position, roster_id: t.roster_id, id: t.teamId });
     //   }
     // });
-    const teams = allTeams.map((t) => {
-      return { ...t, position: t.initial_position, id: t.teamId, rosterId: t.roster_id };
+    const teams = allTeams.map((team) => {
+      let positionName = `${team.origin_position}. ${team.phaseName}`;
+      if (team.origin_phase === prerankPhaseId) {
+        positionName = `${team.origin_position}. ${t('preranking')}`;
+      }
+      return { ...team, position: team.initial_position, id: team.teamId, rosterId: team.roster_id, positionName };
     });
 
     const res = updateRanking(teams, games);
-    const rankingStats = res.map((r, index) => ({
-      ...r,
-      type: LIST_ITEM_ENUM.RANKING_WITH_STATS,
-      index: index + 1,
-      key: index,
-    }));
+
+    const rankingStats = res.map((r, index) => {
+      const t = teams.find((t) => t.id === r.id);
+
+      return {
+        ...r,
+        type: LIST_ITEM_ENUM.RANKING_WITH_STATS,
+        index: index + 1,
+        key: index,
+        positionName: t.positionName,
+        initialPosition: t.initial_position,
+        finalPosition: t.final_position,
+      };
+    });
 
     if (phase.status === PHASE_STATUS_ENUM.DONE) {
-      setItems(res);
-      // const rankingStatsAndFinalPosition = rankingStats
-      //   .map((r) => ({
-      //     finalPosition: phase.ranking.find((rank) => rank.roster_id === r.rosterId).final_position,
-      //     ...r,
-      //   }))
-      //   .sort((a, b) => a.finalPosition - b.finalPosition);
-      // setItems(rankingStatsAndFinalPosition);
+      const rankingStatsAndFinalPosition = rankingStats.sort((a, b) => a.finalPosition - b.finalPosition);
+      setItems(rankingStatsAndFinalPosition);
     } else {
       const playedGames = games.reduce((prev, curr) => {
         const score1 = curr.teams[0].score;
@@ -116,22 +123,7 @@ export default function FinalRanking(props) {
       if (playedGames.some((g) => g > 0)) {
         setItems(rankingStats);
       } else {
-        const rankingFromInitialPosition = phase.ranking
-          .map((r, index) => ({
-            id: r.ranking_id,
-            key: index,
-            wins: 0,
-            loses: 0,
-            name: r.name,
-            number: 1,
-            pointFor: 0,
-            pointAgainst: 0,
-            points: 0,
-            random: 0,
-            rosterId: r.roster_id,
-            initialPosition: r.initial_position,
-          }))
-          .sort((a, b) => a.initialPosition - b.initialPosition);
+        const rankingFromInitialPosition = rankingStats.sort((a, b) => a.initialPosition - b.initialPosition);
         setItems(rankingFromInitialPosition);
       }
     }
@@ -174,9 +166,13 @@ export default function FinalRanking(props) {
                   <div className={styles.stats}>
                     <ListItemText
                       className={styles.position}
-                      secondary={item.finalPosition ? item.finalPosition : item.index}
+                      secondary={item.finalPosition ? item.finalPosition : index + 1}
                     ></ListItemText>
-                    <ListItemText className={styles.team} primary={item.name}></ListItemText>
+                    <ListItemText
+                      className={styles.team}
+                      primary={item.name}
+                      secondary={item.positionName}
+                    ></ListItemText>
                     <ListItemText className={styles.win} primary={item.wins} secondary={'W'}></ListItemText>
                     <ListItemText className={styles.lose} primary={item.loses} secondary={'L'}></ListItemText>
                     <ListItemText className={styles.pointFor} primary={item.pointFor} secondary={'+'}></ListItemText>

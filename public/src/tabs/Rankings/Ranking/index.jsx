@@ -4,7 +4,7 @@ import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { Accordion, List } from '../../../components/Custom';
 
 export default function Ranking(props) {
-  const { ranking, title, withStats, withoutPosition } = props;
+  const { ranking, title, subtitle, withStats, withoutPosition } = props;
 
   const [items, setItems] = useState([]);
 
@@ -36,7 +36,7 @@ export default function Ranking(props) {
 
   return (
     <div className={styles.div}>
-      <Accordion title={title} content={<List items={items} />} />
+      <Accordion title={title} subtitle={subtitle} content={<List items={items} />} />
     </div>
   );
 }
