@@ -52,10 +52,10 @@ export const useFields = (type, options) => {
             namespace: 'showTeamPrice',
             componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
             value: t('register.registration_fee_team', { fee: formatPrice(teamPriceTotal * 100) }),
-            firstIcon: "Edit",
+            firstIcon: 'Edit',
             firstOnClick: onClickEditTeamsFee,
             firstTooltip: t('edit.edit'),
-            secondIcon: "Delete",
+            secondIcon: 'Delete',
             secondOnClick: onClickDeleteTeamsFee,
             secondTooltip: t('delete.delete'),
           } : {
@@ -72,10 +72,10 @@ export const useFields = (type, options) => {
             ? {
               componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
               value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
-              firstIcon: "Edit",
+              firstIcon: 'Edit',
               firstOnClick: onClickEditPlayerFee,
               firstTooltip: t('edit.edit'),
-              secondIcon: "Delete",
+              secondIcon: 'Delete',
               secondOnClick: onClickDeletePlayerFee,
               secondTooltip: t('delete.delete'),
             } : {
@@ -92,10 +92,10 @@ export const useFields = (type, options) => {
             ? {
               componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
               value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
-              firstIcon: "Edit",
+              firstIcon: 'Edit',
               firstOnClick: onClickEditPlayerFee,
               firstTooltip: t('edit.edit'),
-              secondIcon: "Delete",
+              secondIcon: 'Delete',
               secondOnClick: onClickDeletePlayerFee,
               secondTooltip: t('delete.delete'),
             } : {

@@ -409,9 +409,9 @@ export default {
       registered_singular: 'Inscrit',
       registered_on: 'Inscrit le',
       registered: 'Inscrits',
-      registration_accepted_free: "Félicitation! Vous avez été accepté à l'événement",
+      registration_accepted_free: "Félicitations! Vous avez été accepté à l'événement",
       registration_accepted:
-        "Félicitation! Vous avez été accepté à l'événement, vous pouvez aller à votre panier pour payer votre inscription!",
+        "Félicitations! Vous avez été accepté à l'événement, vous pouvez aller à votre panier pour payer votre inscription!",
       registration_can_be_payed_later:
         "Vous n'avez pas à payer tant que vous n'avez pas été officiellement accepté à l'événement. Lorsque vous serez accepté, vous recevrez un courriel afin de compléter le paiement.",
       registration_close_date: 'Date fermeture inscriptions',
@@ -512,7 +512,7 @@ export default {
       add_tax: 'Ajouter une taxe',
       add_team: 'Ajouter une équipe',
       add_team_fees: "Ajouter des frais d'équipe",
-      add_player_fees: "Ajouter des frais par joueur",
+      add_player_fees: 'Ajouter des frais par joueur',
       add_the_teams_you_want_in_your_tournament: 'Ajouter les équipes à votre tournoi',
       add_time_slot: 'Ajouter une plage horaire',
       add_to_cart: 'Ajouter au panier',
@@ -607,7 +607,7 @@ export default {
       edit_ranking: 'Modifier le classement',
       edit_teams: 'Modifier les équipes',
       edit_team_fees: "Modifier les frais d'équipe",
-      edit_player_fees: "Modifier les frais par joueur",
+      edit_player_fees: 'Modifier les frais par joueur',
     },
     email: {
       email_already_exist: 'Il y a déjà un compte associé à ce courriel',
@@ -1089,7 +1089,8 @@ export default {
     on: 'sur le',
     one_month: 'Un mois',
     one_year: 'Un an',
-    one_admin_need_bank_account: "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
+    one_admin_need_bank_account:
+      "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
     only_available_on_desktop: 'Seulement disponible sur ordinateur',
     open_from_to: 'Ouvert du {{startDate}} au {{endDate}}',
     opening_of_registration: 'Ouverture des inscriptions',
@@ -1155,7 +1156,7 @@ export default {
     presences: 'Présences',
     price_individual: 'Prix individuel',
     price_team: "Prix d'équipe",
-    price_player: "Prix par joueur",
+    price_player: 'Prix par joueur',
     price: 'Prix',
     primary_person_changed: 'Personne principale changée',
     primary_person: 'Personne principale',

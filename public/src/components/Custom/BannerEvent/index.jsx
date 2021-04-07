@@ -69,7 +69,7 @@ export default function BannerEvent(props) {
       <div>
         <Typography display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant}>
           {t('register.registrations_ends_on')}&nbsp;
-          {formatDate(moment.parseZone(eventInfo.rdegistrationEnd))}&nbsp;
+          {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
         </Typography>
         <Typography
           display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'}

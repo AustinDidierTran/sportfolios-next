@@ -14,7 +14,7 @@ export default function ScoreSubmissionRequestNotificationItem(props) {
     if (onClick) {
       onClick();
     }
-    goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, game: gameId });
+    goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, gameId });
   }
 
   const description = t('score.score_submission_request_notif_description', {
