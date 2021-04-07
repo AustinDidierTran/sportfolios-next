@@ -216,7 +216,7 @@ export default function EntityCreate(props) {
             endDate,
           }),
         });
-        goTo(ROUTES.entity, { id: res.data }, { tab: TABS_ENUM.SETTINGS });
+        goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
         setIsSubmitting(false);
       } catch (err) {
         setIsSubmitting(false);

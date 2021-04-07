@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { GLOBAL_ENUM } from '../../../common/enums';
-import { EntityCreate } from '../../components/Custom';
+import EntityCreate from '../../components/Custom/EntityCreate';
 import { formatPageTitle } from '../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 
