@@ -439,6 +439,9 @@ export default function ScheduleInteractiveTool() {
       phaseName: g.phaseName,
       rankings: g.positions,
       id: g.id,
+      i: `+${data.fields.findIndex((f) => f.id === g.field_id)}:${data.timeSlots.findIndex(
+        (ts) => ts.id === g.timeslot_id
+      )}`,
       x: data.fields.findIndex((f) => f.id === g.field_id),
       y: data.timeSlots.findIndex((ts) => ts.id === g.timeslot_id),
     }));
@@ -575,6 +578,9 @@ export default function ScheduleInteractiveTool() {
   const handleCancel = () => {
     setCancelDialog(true);
   };
+
+  // console.log(games);
+  // console.log(buttonsAdd);
 
   const handleSave = async () => {
     const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((c) => c.game);
@@ -834,6 +840,7 @@ export default function ScheduleInteractiveTool() {
       ...game,
       rankings: game.rankings,
       id: uuidv4(),
+      i: `+${gridX}:${gridY}`,
       x: gridX,
       y: gridY,
     };
@@ -845,6 +852,8 @@ export default function ScheduleInteractiveTool() {
         games.concat([newGame])
       )
     );
+
+    console.log({ old: layout });
 
     // remove old "+" button
     setButtonsAdd(buttonsAdd.filter((btn) => btn.i !== `+${gridX}:${gridY}`));
@@ -984,6 +993,8 @@ export default function ScheduleInteractiveTool() {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
+  // console.log({ Games, AddGames });
 
   return (
     <div>
