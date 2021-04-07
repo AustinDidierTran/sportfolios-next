@@ -202,9 +202,73 @@ export default function ScheduleInteractiveTool() {
     }
 
     undo() {
+      setButtonsAdd(
+        buttonsAdd
+          .filter((btn) => btn.i !== `+${this.game.x}:${this.game.y}`)
+          .concat([
+            {
+              i: `+${this.game.x}:${this.game.y}`,
+              x: this.game.x,
+              y: this.game.y,
+              w: 1,
+              h: 1,
+              static: true,
+            },
+          ])
+      );
+
+      setLayout((layout) => {
+        const newLayout = layout
+          .filter((item) => item.x !== this.game.x && item.y !== this.game.y)
+          .concat([
+            {
+              i: `+${this.game.x}:${this.game.y}`,
+              x: this.game.x,
+              y: this.game.y,
+              w: 1,
+              h: 1,
+              static: true,
+            },
+          ]);
+        return newLayout;
+      });
+
+      setSuggestedGames(
+        suggestGames(
+          rankings,
+          phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+          this.previousState
+        )
+      );
       setGames(this.previousState);
     }
     redo() {
+      // remove old "+" button
+      setButtonsAdd(buttonsAdd.filter((btn) => btn.i !== `+${this.game.x}:${this.game.y}`));
+
+      setLayout((layout) => {
+        const newLayout = layout
+          .filter((item) => item.i !== `+${this.game.x}:${this.game.y}`)
+          .concat([
+            {
+              i: this.game.id,
+              x: this.game.x,
+              y: this.game.y,
+              w: 1,
+              h: 1,
+              isBounded: true,
+            },
+          ]);
+        return newLayout;
+      });
+
+      setSuggestedGames(
+        suggestGames(
+          rankings,
+          phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+          this.newState
+        )
+      );
       this.execute();
     }
   }
@@ -375,9 +439,6 @@ export default function ScheduleInteractiveTool() {
       phaseName: g.phaseName,
       rankings: g.positions,
       id: g.id,
-      i: `+${data.fields.findIndex((f) => f.id === g.field_id)}:${data.timeSlots.findIndex(
-        (ts) => ts.id === g.timeslot_id
-      )}`,
       x: data.fields.findIndex((f) => f.id === g.field_id),
       y: data.timeSlots.findIndex((ts) => ts.id === g.timeslot_id),
     }));
@@ -404,6 +465,7 @@ export default function ScheduleInteractiveTool() {
     setPhases(
       data.phases.map((p) => ({
         value: p.id,
+        id: p.id,
         display: p.name,
         ranking: p.ranking,
         order: p.phase_order,
@@ -514,9 +576,6 @@ export default function ScheduleInteractiveTool() {
     setCancelDialog(true);
   };
 
-  // console.log(games);
-  // console.log(buttonsAdd);
-
   const handleSave = async () => {
     const gamesToAdd = undoLog.filter((command) => command.type === 'gameCommand').map((c) => c.game);
     const fieldsToAdd = undoLog
@@ -593,6 +652,7 @@ export default function ScheduleInteractiveTool() {
     });
 
     setIsAddingGames(false);
+    setIsSuggestedGames(false);
     setMadeChanges(false);
 
     setButtonsAdd([]);
@@ -637,6 +697,7 @@ export default function ScheduleInteractiveTool() {
     }
 
     setIsAddingGames(false);
+    setIsSuggestedGames(false);
     setMadeChanges(false);
 
     setButtonsAdd([]);
@@ -748,9 +809,6 @@ export default function ScheduleInteractiveTool() {
     const field_id = fields[x].id;
     const timeslot_id = timeslots[y].id;
 
-    // const arr1 = suggestedGames.slice(0, index);
-    // const arr2 = suggestedGames.slice(index, suggestedGames.length - 1);
-
     createCard({
       field_id,
       timeslot_id,
@@ -762,68 +820,44 @@ export default function ScheduleInteractiveTool() {
   const createCard = (game) => {
     const gridX = fields.findIndex((f) => f.id === game.field_id);
     const gridY = timeslots.findIndex((ts) => ts.id === game.timeslot_id);
-    console.log({ x: gridX, y: gridY });
-    const { rankings } = game;
 
     const newGame = {
       ...game,
-      rankings,
+      rankings: game.rankings,
       id: uuidv4(),
-      i: `+${gridX}:${gridY}`,
       x: gridX,
       y: gridY,
     };
 
-    const command = new addGameCommand(games, newGame);
-    executeCommand(command);
-
-    console.log({ old: layout });
+    setSuggestedGames(
+      suggestGames(
+        rankings,
+        phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+        games.concat([newGame])
+      )
+    );
 
     // remove old "+" button
     setButtonsAdd(buttonsAdd.filter((btn) => btn.i !== `+${gridX}:${gridY}`));
 
-    const index = layout.findIndex((item) => item.static === true);
-    // layout[index] = {
-    //   i: newGame.id,
-    //   x: gridX,
-    //   y: gridY,
-    //   w: 1,
-    //   h: 1,
-    //   isBounded: true,
-    // };
+    setLayout((layout) => {
+      const newLayout = layout
+        .filter((item) => item.i !== `+${gridX}:${gridY}`)
+        .concat([
+          {
+            i: newGame.id,
+            x: gridX,
+            y: gridY,
+            w: 1,
+            h: 1,
+            isBounded: true,
+          },
+        ]);
+      return newLayout;
+    });
 
-    let newLayout = layout;
-    newLayout[index] = {
-      i: newGame.id,
-      x: gridX,
-      y: gridY,
-      w: 1,
-      h: 1,
-      isBounded: true,
-    };
-    // set new layout
-    console.log({ new: newLayout });
-
-    setLayout(newLayout);
-    // const bla = layout.filter((item) => item.x !== gridX && item.y !== gridY);
-    // .concat([
-    //   {
-    //     i: newGame.id,
-    //     x: gridX,
-    //     y: gridY,
-    //     w: 1,
-    //     h: 1,
-    //     isBounded: true,
-    //   },
-    // ]);
-    // return bla;
-
-    // if (isAddingGames) {
-    //   handleAddMode();
-    // }
-    // if (isSuggestedGames) {
-    //   handleAddSuggestedGame();
-    // }
+    const command = new addGameCommand(games, newGame);
+    executeCommand(command);
   };
 
   const handleAddField = () => {
@@ -855,12 +889,6 @@ export default function ScheduleInteractiveTool() {
     command.undo();
     undoLog.pop();
     setRedoLog(redoLog.concat(command));
-
-    //'+' button fix
-    if (isAddingGames) {
-      setButtonsAdd([]);
-      setIsAddingGames(false);
-    }
   }
 
   function redoCommand() {
@@ -868,18 +896,20 @@ export default function ScheduleInteractiveTool() {
     command.redo();
     redoLog.pop();
     setUndoLog(undoLog.concat(command));
-
-    //'+' button fix
-    if (isAddingGames) {
-      setButtonsAdd([]);
-      setIsAddingGames(false);
-    }
   }
 
   const AddGames = buttonsAdd.map((b) => (
     <div
       className={styles.divAddGame}
       key={b.i}
+      data-grid={{
+        i: b.i,
+        x: b.x,
+        y: b.y,
+        w: 1,
+        h: 1,
+        static: true,
+      }}
       onClick={() => (isSuggestedGames ? handleAddSuggestedGame(b.x, b.y) : handleAddGameAt(b.x, b.y))}
     >
       <Icon icon="Add" color="#18b393" />
@@ -899,7 +929,18 @@ export default function ScheduleInteractiveTool() {
   ));
 
   const Games = games.map((g) => (
-    <div className={styles.itemDiv} key={g.id}>
+    <div
+      className={styles.itemDiv}
+      key={g.id}
+      data-grid={{
+        i: g.id,
+        x: g.x,
+        y: g.y,
+        w: 1,
+        h: 1,
+        isBounded: true,
+      }}
+    >
       <GameCard
         ranking1={g.rankings[0]}
         ranking2={g.rankings[1]}
@@ -934,8 +975,6 @@ export default function ScheduleInteractiveTool() {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
-  // console.log({ Games, AddGames });
 
   return (
     <div>

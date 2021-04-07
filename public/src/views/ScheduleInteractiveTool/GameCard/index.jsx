@@ -34,19 +34,13 @@ export default function GameCard(props) {
         <div className={styles.gameDiv}>
           <div className={styles.team1}>
             <Avatar
-              initials={getInitialsFromName(
-                ranking1.name,
-                phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? true : false
-              )} // or team pic?
+              initials={getInitialsFromName(ranking1.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
             ></Avatar>
           </div>
           <Typography className={styles.vs}>vs</Typography>
           <div className={styles.team2}>
             <Avatar
-              initials={getInitialsFromName(
-                ranking2.name,
-                phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? true : false
-              )} // or team pic?
+              initials={getInitialsFromName(ranking2.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
             ></Avatar>
           </div>
         </div>

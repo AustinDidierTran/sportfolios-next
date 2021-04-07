@@ -3,15 +3,17 @@ import styles from './SuggestedGames.module.css';
 import SuggestedGameCard from './SuggestedGameCard';
 import Typography from '@material-ui/core/Typography';
 import Button from '../../../components/Custom/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function SuggestedGames(props) {
   const { suggestions, setNewIndex } = props;
+  const { t } = useTranslation();
 
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIndex(0);
-  }, [suggestions.length]);
+  }, [suggestions.length, suggestions]);
 
   const handleSkip = () => {
     if (index === suggestions.length - 1) {
@@ -27,7 +29,7 @@ export default function SuggestedGames(props) {
     return (
       <div className={styles.div}>
         <Typography color="textSecondary" className={styles.text}>
-          Il n y a aucune partie a suggéré. Ajoutez des phases.
+          {t('no.no_game_suggestions')}
         </Typography>
       </div>
     );
@@ -43,10 +45,10 @@ export default function SuggestedGames(props) {
         />
       </div>
       <Typography color="textSecondary" className={styles.text}>
-        Cliquez sur un boutton + afin d ajouter cette partie à l événement
+        {t('click_to_add_game')}
       </Typography>
       <Button endIcon="ArrowForward" className={styles.button} onClick={handleSkip}>
-        Passer
+        {t('skip')}
       </Button>
     </div>
   );
