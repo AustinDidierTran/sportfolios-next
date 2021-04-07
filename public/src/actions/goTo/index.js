@@ -49,7 +49,6 @@ export const goToAndReplace = (route, params, queryParams) => {
 
 export const goBack = () => {
   Router.back();
-  // Router.push(ROUTES.home);
 };
 
 export const mailTo = (emailsFormatted, subject, message) => {
