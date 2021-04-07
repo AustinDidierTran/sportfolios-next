@@ -1241,6 +1241,7 @@ export default {
     subscribe: 'Subscribe',
     subscribed: 'Subscribed',
     subtotal: 'Subtotal',
+    suggest_game_mode: 'Suggested game mode',
     suggested_by_the_other_team: 'Suggested by the other team',
     surname: 'Surname',
     switch_view: 'Switch view',

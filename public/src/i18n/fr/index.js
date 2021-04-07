@@ -1264,6 +1264,7 @@ export default {
     subscribe: "S'abonner",
     subscribed: 'Abonné',
     subtotal: 'Sous-total',
+    suggest_game_mode: 'Mode suggestion',
     suggested_by_the_other_team: "Suggéré par l'autre équipe",
     surname: 'Nom de famille',
     switch_view: 'Changer de vue',

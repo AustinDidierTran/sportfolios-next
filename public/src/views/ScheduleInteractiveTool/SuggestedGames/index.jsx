@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styles from './SuggestedGames.module.css';
 import SuggestedGameCard from './SuggestedGameCard';
 import Typography from '@material-ui/core/Typography';
@@ -12,8 +12,15 @@ export default function SuggestedGames(props) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    if (index === suggestions.length) {
+      setIndex(0);
+      setNewIndex(0);
+    }
     setIndex(0);
+    setNewIndex(0);
   }, [suggestions.length, suggestions]);
+
+  const overrideIndex = useMemo(() => index === suggestions.length, [suggestions.length]);
 
   const handleSkip = () => {
     if (index === suggestions.length - 1) {
@@ -38,9 +45,9 @@ export default function SuggestedGames(props) {
     <div className={styles.card}>
       <div className={styles.div}>
         <SuggestedGameCard
-          ranking1={suggestions[index].rankings[0]}
-          ranking2={suggestions[index].rankings[1]}
-          phaseStatus={suggestions[index].status}
+          ranking1={overrideIndex ? suggestions[0].rankings[0] : suggestions[index].rankings[0]}
+          ranking2={overrideIndex ? suggestions[0].rankings[1] : suggestions[index].rankings[1]}
+          phaseStatus={overrideIndex ? suggestions[0].status : suggestions[index].status}
           className={styles.game}
         />
       </div>

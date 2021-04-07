@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Avatar } from '../../../../components/Custom';
+import Avatar from '../../../../components/Custom/Avatar';
 import styles from './SuggestedGameCard.module.css';
 import { getInitialsFromName } from '../../../../utils/stringFormats';
 import { PHASE_STATUS_ENUM } from '../../../../../common/enums';

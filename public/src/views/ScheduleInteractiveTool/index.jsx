@@ -809,6 +809,15 @@ export default function ScheduleInteractiveTool() {
     const field_id = fields[x].id;
     const timeslot_id = timeslots[y].id;
 
+    if (!suggestion) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('no.no_game_suggestions'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 3000,
+      });
+      return;
+    }
     createCard({
       field_id,
       timeslot_id,
@@ -1082,9 +1091,9 @@ export default function ScheduleInteractiveTool() {
         </Tooltip>
       )}
 
-      <Tooltip title={'suggested games mode'}>
+      <Tooltip title={t('suggest_game_mode')}>
         <Fab onClick={handleSuggestedGamesMode} className={classes.fabSuggested}>
-          <Icon icon="Play" />
+          <Icon icon="FlashOn" />
         </Fab>
       </Tooltip>
 

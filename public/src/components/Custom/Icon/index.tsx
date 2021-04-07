@@ -45,6 +45,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import FileCopy from '@material-ui/icons/FileCopy';
 import Flag from '@material-ui/icons/Flag';
+import FlashOn from '@material-ui/icons/FlashOn';
 import Folder from '@material-ui/icons/Folder';
 import FormatListNumbered from '@material-ui/icons/FormatListNumbered';
 import GetApp from '@material-ui/icons/GetApp';
@@ -151,6 +152,7 @@ const icons: any = {
   FiberManualRecord,
   FileCopy,
   Flag,
+  FlashOn,
   Folder,
   FormatListNumbered,
   GetApp,
