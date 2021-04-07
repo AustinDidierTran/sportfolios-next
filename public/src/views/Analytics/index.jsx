@@ -85,7 +85,7 @@ export default function Analytics() {
         <SalesReport />
       </Paper>
       <Paper title={t('graphs')}>
-        {graphData.total.length === 0 && (
+        {graphData.total.length === 0 && !graphData.minDate && (
           <div className={styles.divNoGraph}>
             {t('will_see_graph_member')}
             <CustomButton
@@ -104,7 +104,7 @@ export default function Analytics() {
           </div>
         )}
 
-        {graphData.total.length > 0 && (
+        {(graphData.total.length > 0 || graphData.minDate) && (
           <GraphNumberOfMembers
             dateGraph={dateGraph}
             onChangeDate={dateChanged}

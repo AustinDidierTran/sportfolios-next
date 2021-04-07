@@ -16,7 +16,7 @@ import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 export default function GraphNumberOfMembers(props) {
   const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate } = props;
-  const { shortLabel, longLabel, total: totalStats, new: newStats } = graphData;
+  const { shortLabel, longLabel, total: totalStats, new: newStats, minDate } = graphData;
 
   const { t } = useTranslation();
   const [value, setValue] = useState({ x: totalStats.length, y: 1 });
@@ -41,7 +41,7 @@ export default function GraphNumberOfMembers(props) {
           type="date"
           defaultValue={dateGraph}
           onChange={onChangeDate}
-          InputProps={{ inputProps: { max: moment(new Date()).format('yyyy-MM-DD') } }}
+          InputProps={{ inputProps: { max: moment(new Date()).format('yyyy-MM-DD'), min: moment(minDate).format('yyyy-MM-DD') } }}
         />
       </div>
       <div className={styles.legend}>
