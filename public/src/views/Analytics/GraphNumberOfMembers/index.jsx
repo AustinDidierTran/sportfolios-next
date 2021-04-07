@@ -12,9 +12,11 @@ import {
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './GraphNumberOfMembers.module.css';
+import moment from 'moment';
+import TextField from '@material-ui/core/TextField';
 export default function GraphNumberOfMembers(props) {
-  const { graphData, title, totalTitle, newTitle } = props;
-  const { shortLabel, longLabel, total: totalStats, new: newStats } = graphData;
+  const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate } = props;
+  const { shortLabel, longLabel, total: totalStats, new: newStats, minDate } = graphData;
 
   const { t } = useTranslation();
   const [value, setValue] = useState({ x: totalStats.length, y: 1 });
@@ -24,15 +26,24 @@ export default function GraphNumberOfMembers(props) {
   };
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
-  const totalStatsInfo = useMemo(() => totalStats[value.x - 1].y, [value]);
-  const newStatsInfo = useMemo(() => newStats[value.x - 1].y, [value]);
+  const totalStatsInfo = useMemo(() => totalStats.length == 0 ? 0 : totalStats[value.x - 1].y, [value]);
+  const newStatsInfo = useMemo(() => newStats.length == 0 ? 0 : newStats[value.x - 1].y, [value]);
   const longLabelInfo = useMemo(() => longLabel[value.x - 1], [value]);
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.title} variant="h5">
-        {title}
-      </Typography>
+      <div className={styles.displayFlex}>
+        <Typography className={styles.title} variant="h5">
+          {title}
+        </Typography>
+        <TextField
+          className={styles.textDate}
+          type="date"
+          defaultValue={dateGraph}
+          onChange={onChangeDate}
+          InputProps={{ inputProps: { max: moment(new Date()).format('yyyy-MM-DD'), min: moment(minDate).format('yyyy-MM-DD') } }}
+        />
+      </div>
       <div className={styles.legend}>
         <Typography className={styles.subTitle} color="textSecondary" variant="h6">
           {longLabelInfo}

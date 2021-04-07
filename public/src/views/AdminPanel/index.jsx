@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import api from '../../actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import moment from 'moment';
 
 import loadable from '@loadable/component';
 
@@ -25,9 +26,12 @@ export default function AdminPanel() {
   const { t } = useTranslation();
   const [graphData, setGraphData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
+  const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
 
   const getDataGraph = async () => {
-    const { data } = await api(formatRoute('/api/entity/graphUserCount', null, null));
+    const { data } = await api(formatRoute('/api/entity/graphUserCount', null, {
+      date: dateFilter
+    }));
     if (!data) {
       return;
     }
@@ -37,7 +41,11 @@ export default function AdminPanel() {
 
   useEffect(() => {
     getDataGraph();
-  }, []);
+  }, [dateFilter]);
+
+  const dateChanged = (e) => {
+    setDateFilter(moment(e.target.value).format('yyyy-MM-DD'))
+  }
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -56,6 +64,8 @@ export default function AdminPanel() {
       <TaxRatesTable />
       <Paper>
         <GraphNumberOfMembers
+          dateGraph={dateFilter}
+          onChangeDate={dateChanged}
           graphData={graphData}
           title={t('member.members_in', { time: new Date().getFullYear() })}
           totalTitle={'total_members'}

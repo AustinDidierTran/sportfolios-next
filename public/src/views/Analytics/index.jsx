@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IconButton from '../../components/Custom/IconButton';
@@ -8,15 +8,56 @@ import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
-// import GraphNumberOfMembers from './GraphNumberOfMembers';
-// import MockData from './GraphNumberOfMembers/MockData.json';
-
+const GraphNumberOfMembers = loadable(() => import('./GraphNumberOfMembers'));
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import api from '../../../src/actions/api';
+import { formatRoute } from '../../../common/utils/stringFormat';
+import { useRouter } from 'next/router';
+import moment from 'moment';
+import CustomButton from '../../components/Custom/Button';
+import loadable from '@loadable/component';
+import { goTo, ROUTES } from '../../actions/goTo';
+import { TABS_ENUM } from '../../../common/enums'
 export default function Analytics() {
+
   const { t } = useTranslation();
+  const router = useRouter();
+  const { id: organizationId } = router.query;
+
+  const [graphData, setGraphData] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [dateGraph, setDateGraph] = useState(moment(new Date()).format('yyyy-MM-DD'));
+
+  const getDataGraph = async () => {
+    if (!organizationId) {
+      return;
+    }
+
+    const { data } = await api(
+      formatRoute('/api/entity/graphMemberCount', null, {
+        organizationId,
+        date: dateGraph,
+      })
+    );
+    if (!data) {
+      return;
+    }
+    setGraphData(data);
+    setIsLoading(false);
+  };
+
+  const dateChanged = (e) => {
+    setDateGraph(moment(e.target.value).format('yyyy-MM-DD'))
+  }
 
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
-  }, []);
+    getDataGraph();
+  }, [organizationId, dateGraph]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <IgContainer>
@@ -36,15 +77,29 @@ export default function Analytics() {
         <MembersReport />
         <SalesReport />
       </Paper>
-      {/* NOT REAL DATA ONLY BACK END IS MISSING FOR GRAPH */}
-      {/* <Paper className={styles.paper} title={t('graphs')}>
-        <GraphNumberOfMembers
-          graphData={MockData}
-          title={t('member.members')}
-          totalTitle={t('member.members')}
-          newTitle={t('new_members')}
-        />
-      </Paper> */}
+      <Paper title={t('graphs')}>
+        {graphData.total.length === 0 && !graphData.minDate && (
+          <div className={styles.divNoGraph}>
+            {t('will_see_graph_member')}
+            <CustomButton
+              className={styles.buttonDivGraph}
+              onClick={() => { goTo(ROUTES.entity, { id: organizationId }, { tab: TABS_ENUM.SETTINGS }) }}>
+              {t('add.add_membership')}
+            </CustomButton>
+          </div>
+        )}
+
+        {(graphData.total.length > 0 || graphData.minDate) && (
+          <GraphNumberOfMembers
+            dateGraph={dateGraph}
+            onChangeDate={dateChanged}
+            graphData={graphData}
+            title={t('member.organization_member')}
+            totalTitle={t('member.members')}
+            newTitle={t('new_members')}
+          />
+        )}
+      </Paper>
     </IgContainer>
   );
 }

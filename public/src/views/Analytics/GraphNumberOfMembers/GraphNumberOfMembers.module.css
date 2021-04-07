@@ -10,9 +10,19 @@
   margin: 4px;
 }
 
+.displayFlex {
+  display: flex;
+}
+
 .title {
   margin-bottom: 8px !important;
   margin-top: 16px !important;
+}
+
+.textDate {
+  margin-bottom: 8px !important;
+  margin-top: 16px !important;
+  margin-left: auto !important;
 }
 
 .subTitle {
