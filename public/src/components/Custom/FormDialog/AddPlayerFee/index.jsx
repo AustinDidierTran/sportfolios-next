@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import api from '../../../../actions/api';
@@ -50,9 +50,12 @@ export default function AddPlayerFee(props) {
   };
 
   const handleSave = () => {
-    formik.setFieldValue('playerTaxes', allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id));
+    formik.setFieldValue(
+      'playerTaxes',
+      allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id)
+    );
     onSave(totalPlayer);
-  }
+  };
 
   useEffect(() => {
     if (formik.values.playerPrice !== '') {
@@ -62,18 +65,15 @@ export default function AddPlayerFee(props) {
 
   const totalPlayer = useMemo(() => {
     const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
-    return formik.values.playerPrice + (formik.values.playerPrice * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100))
-
+    return (
+      formik.values.playerPrice +
+      formik.values.playerPrice * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100)
+    );
   }, [formik.values.playerPrice, taxes]);
 
-  const transactionFee = useMemo(() => (
-    totalPlayer * PLATEFORM_FEES
-  ), [totalPlayer]);
+  const transactionFee = useMemo(() => totalPlayer * PLATEFORM_FEES, [totalPlayer]);
 
-
-  const receiveAmout = useMemo(() => (
-    totalPlayer - transactionFee
-  ), [totalPlayer, transactionFee]);
+  const receiveAmout = useMemo(() => totalPlayer - transactionFee, [totalPlayer, transactionFee]);
 
   const fields = [
     {
@@ -86,7 +86,7 @@ export default function AddPlayerFee(props) {
       componentType: COMPONENT_TYPE_ENUM.MULTISELECT,
       namespace: 'playerTaxes',
       label: t('taxes'),
-      options: allTaxes.map(a => a.display),
+      options: allTaxes.map((a) => a.display),
       values: taxes,
       onChange: handleChange,
     },
@@ -102,7 +102,6 @@ export default function AddPlayerFee(props) {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
       primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
-
   ];
 
   const buttons = [

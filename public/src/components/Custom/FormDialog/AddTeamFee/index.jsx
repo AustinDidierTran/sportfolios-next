@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import api from '../../../../actions/api';
@@ -55,26 +55,24 @@ export default function AddTeamFee(props) {
   };
 
   const handleSave = () => {
-    formik.setFieldValue('teamTaxes', allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id));
+    formik.setFieldValue(
+      'teamTaxes',
+      allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id)
+    );
     onSave(teamTotal);
-  }
-
+  };
 
   const teamTotal = useMemo(() => {
     const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
-    return formik.values.teamPrice + (formik.values.teamPrice * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100))
-
+    return (
+      formik.values.teamPrice +
+      formik.values.teamPrice * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100)
+    );
   }, [formik.values.teamPrice, taxes]);
 
+  const transactionFee = useMemo(() => teamTotal * PLATEFORM_FEES, [teamTotal]);
 
-  const transactionFee = useMemo(() => (
-    teamTotal * PLATEFORM_FEES
-  ), [teamTotal]);
-
-
-  const receiveAmout = useMemo(() => (
-    teamTotal - transactionFee
-  ), [teamTotal, transactionFee]);
+  const receiveAmout = useMemo(() => teamTotal - transactionFee, [teamTotal, transactionFee]);
 
   const fields = [
     {
@@ -87,7 +85,7 @@ export default function AddTeamFee(props) {
       componentType: COMPONENT_TYPE_ENUM.MULTISELECT,
       namespace: 'teamTaxes',
       label: t('taxes'),
-      options: allTaxes.map(a => a.display),
+      options: allTaxes.map((a) => a.display),
       values: taxes,
       onChange: handleChange,
     },
@@ -103,7 +101,6 @@ export default function AddTeamFee(props) {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
       primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
-
   ];
 
   const buttons = [

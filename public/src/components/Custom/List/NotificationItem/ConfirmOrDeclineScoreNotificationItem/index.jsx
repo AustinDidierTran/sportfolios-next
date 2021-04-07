@@ -33,7 +33,7 @@ export default function ConfirmOrDeclineScoreNotificationItem(props) {
     if (onClick) {
       onClick();
     }
-    goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, game: gameId });
+    goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, gameId });
   }
 
   async function acceptScore(e) {
