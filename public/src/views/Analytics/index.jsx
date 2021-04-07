@@ -16,17 +16,10 @@ import { useRouter } from 'next/router';
 import moment from 'moment';
 import CustomButton from '../../components/Custom/Button';
 import loadable from '@loadable/component';
-import FormDialog from '../../components/Custom/FormDialog';
-import { FORM_DIALOG_TYPE_ENUM } from '../../../common/enums';
+import { goTo, ROUTES } from '../../actions/goTo';
+import { TABS_ENUM } from '../../../common/enums'
 export default function Analytics() {
 
-  const [open, setOpen] = useState(false);
-  const onOpen = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
   const { t } = useTranslation();
   const router = useRouter();
   const { id: organizationId } = router.query;
@@ -90,17 +83,9 @@ export default function Analytics() {
             {t('will_see_graph_member')}
             <CustomButton
               className={styles.buttonDivGraph}
-              onClick={onOpen}>
+              onClick={() => { goTo(ROUTES.entity, { id: organizationId }, { tab: TABS_ENUM.SETTINGS }) }}>
               {t('add.add_membership')}
             </CustomButton>
-            <FormDialog
-              type={FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP}
-              items={{
-                open,
-                onClose,
-                update: () => { },
-              }}
-            />
           </div>
         )}
 
