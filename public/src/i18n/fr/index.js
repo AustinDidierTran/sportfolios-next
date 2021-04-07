@@ -409,9 +409,9 @@ export default {
       registered_singular: 'Inscrit',
       registered_on: 'Inscrit le',
       registered: 'Inscrits',
-      registration_accepted_free: "Félicitation! Vous avez été accepté à l'événement",
+      registration_accepted_free: "Félicitations! Vous avez été accepté à l'événement",
       registration_accepted:
-        "Félicitation! Vous avez été accepté à l'événement, vous pouvez aller à votre panier pour payer votre inscription!",
+        "Félicitations! Vous avez été accepté à l'événement, vous pouvez aller à votre panier pour payer votre inscription!",
       registration_can_be_payed_later:
         "Vous n'avez pas à payer tant que vous n'avez pas été officiellement accepté à l'événement. Lorsque vous serez accepté, vous recevrez un courriel afin de compléter le paiement.",
       registration_close_date: 'Date fermeture inscriptions',
@@ -1089,7 +1089,8 @@ export default {
     on: 'sur le',
     one_month: 'Un mois',
     one_year: 'Un an',
-    one_admin_need_bank_account: "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
+    one_admin_need_bank_account:
+      "Un des administrateurs de l'événement doit avoir un compte bancaire pour ajouter des frais",
     only_available_on_desktop: 'Seulement disponible sur ordinateur',
     open_from_to: 'Ouvert du {{startDate}} au {{endDate}}',
     opening_of_registration: 'Ouverture des inscriptions',
