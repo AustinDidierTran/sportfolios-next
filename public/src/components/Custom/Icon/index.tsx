@@ -6,6 +6,7 @@ import Add from '@material-ui/icons/Add';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import ArrowForward from '@material-ui/icons/ArrowForward';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Assignment from '@material-ui/icons/Assignment';
@@ -110,6 +111,7 @@ const icons: any = {
   AddAPhoto,
   AddShoppingCart,
   ArrowBack,
+  ArrowForward,
   ArrowDropDown,
   ArrowUpward,
   Assignment,

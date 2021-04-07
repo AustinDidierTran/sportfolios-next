@@ -94,3 +94,10 @@
   cursor: pointer;
   background-color: #e8e8e8;
 }
+
+.suggestedGameBox {
+  position: absolute !important;
+  bottom: 12px !important;
+  right: 12px !important;
+  z-index: 100 !important;
+}
