@@ -53,8 +53,8 @@ export default function EnterScore(props) {
           eventId: game.event_id,
           gameId: game.id,
           score: {
-            [game.positions[0].ranking_id]: score1,
-            [game.positions[1].ranking_id]: score2,
+            [game.positions[0].roster_id]: score1,
+            [game.positions[1].roster_id]: score2,
           },
           isManualAdd: true,
         }),

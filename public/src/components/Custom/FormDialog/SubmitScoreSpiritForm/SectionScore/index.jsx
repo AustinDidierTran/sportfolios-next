@@ -17,7 +17,7 @@ import IconButton from '../../../IconButton';
 import Button from '../../../Button';
 
 export default function SectionScore(props) {
-  const { suggestions, gameId, IsSubmittedCheck, submissionerInfos } = props;
+  const { suggestions, gameId, IsSubmittedCheck, submissionerInfos, update } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
@@ -86,6 +86,7 @@ export default function SectionScore(props) {
     });
 
     if (status === STATUS_ENUM.SUCCESS) {
+      update();
       setAcceptedOrRefused(true);
       submittedState(true);
     } else {
@@ -102,7 +103,6 @@ export default function SectionScore(props) {
   };
 
   const submittedState = (submitted) => {
-    setExpanded(!submitted);
     setIsSubmitted(submitted);
   };
 
@@ -131,15 +131,16 @@ export default function SectionScore(props) {
     }
   }, [suggestions]);
 
-  const getChipColor = (status) => {
+  const getChipStyle = (status) => {
     switch (status) {
       case STATUS_ENUM.ACCEPTED:
-        return 'primary';
+        return { border: '1px solid #18B393', color: '#18B393 ' };
       case STATUS_ENUM.REFUSED:
-        return 'secondary';
-
+        return { border: '1px solid #f44336', color: '#f44336 ' };
+      case STATUS_ENUM.PENDING:
+        return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:
-        return 'default';
+        return { border: '1px solid #18B393', color: '#18B393 ' };
     }
   };
 
@@ -185,51 +186,50 @@ export default function SectionScore(props) {
               formikDisabled={isSubmitted || showSuggestion}
             />
           </div>
-
-          {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
-            <div className={styles.divSubmitScoreButton}>
-              <div className={styles.acceptRefuseScore}>
-                <IconButton
-                  color="primary"
-                  icon="CheckCircle"
-                  fontSize="large"
-                  style={{ color: '#18B393' }}
-                  onClick={handleAcceptSuggestion}
-                  tooltip={t('accept')}
-                />
-                <IconButton
-                  color="secondary"
-                  icon="Cancel"
-                  fontSize="large"
-                  style={{ color: '#f44336' }}
-                  onClick={handleRefuseSuggestion}
-                  tooltip={t('refuse')}
-                />
-              </div>
-            </div>
-          ) : (
-            <div className={styles.divSubmitScoreButton}>
-              {myScoreSuggestion ? (
-                <Chip
-                  className={styles.submitButton}
-                  label={t(myScoreSuggestion.status)}
-                  color={getChipColor(myScoreSuggestion.status)}
-                  variant="outlined"
-                />
-              ) : (
-                <Button
-                  className={styles.submitButton}
-                  onClick={() => formik.handleSubmit()}
-                  color={'primary'}
-                  variant="text"
-                  disabled={isSubmitted || showSuggestion}
-                >
-                  {t('submit')}
-                </Button>
-              )}
-            </div>
-          )}
         </div>
+        {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
+          <div className={styles.divSubmitScoreButton}>
+            <div className={styles.acceptRefuseScore}>
+              <Button
+                color={'primary'}
+                onClick={handleAcceptSuggestion}
+                className={styles.acceptButton}
+                variant="outlined"
+              >
+                {t('accept')}
+              </Button>
+              <Button
+                color={'secondary'}
+                onClick={handleRefuseSuggestion}
+                className={styles.refuseButton}
+                variant="outlined"
+              >
+                {t('refuse')}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.divSubmitScoreButton}>
+            {myScoreSuggestion ? (
+              <Chip
+                className={styles.submitButton}
+                label={t(myScoreSuggestion.status)}
+                style={getChipStyle(myScoreSuggestion.status)}
+                variant="outlined"
+              />
+            ) : (
+              <Button
+                className={styles.submitButton}
+                onClick={() => formik.handleSubmit()}
+                color={'primary'}
+                variant="outlined"
+                disabled={isSubmitted || showSuggestion}
+              >
+                {t('submit')}
+              </Button>
+            )}
+          </div>
+        )}
       </Collapse>
     </div>
   );

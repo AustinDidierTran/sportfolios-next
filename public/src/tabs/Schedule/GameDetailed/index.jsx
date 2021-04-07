@@ -6,6 +6,7 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
+import Avatar from '../../../components/Custom/Avatar';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { useFormik } from 'formik';
 import styles from './GameDetailed.module.css';
@@ -18,8 +19,8 @@ import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-
 import loadable from '@loadable/component';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
 const EnterScore = loadable(() =>
   import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
@@ -29,14 +30,6 @@ const EditGameDialog = loadable(() =>
 );
 const SubmitScoreDialog = loadable(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
 const RosterDisplay = loadable(() => import('../../../components/Custom/RosterDisplay'));
-
-// const useStyles = makeStyles(() => ({
-//   IgContainer: {
-//     backgroundColor: '#f5f5f5 !important',
-//     minHeight: 'calc(100vh - 60px)',
-//     paddingTop: 10,
-//   },
-// }));
 
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;
@@ -297,6 +290,7 @@ export default function GameDetailed(props) {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.root}>
@@ -307,7 +301,7 @@ export default function GameDetailed(props) {
             </div>
             <div className={styles.gameInfo}>
               <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
-              <div>{game.phase_name}</div>
+              <div className={styles.phaseName}>{game.phase_name}</div>
               <div>{game.field}</div>
             </div>
 
@@ -327,19 +321,18 @@ export default function GameDetailed(props) {
               <div key={i}>
                 {i % 2 === 0 ? (
                   <div className={styles.teamContent}>
-                    <div>
-                      <img
-                        className={styles.avatarTeam}
-                        src={
-                          team.photo_url
-                            ? team.photo_url
-                            : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
-                        }
-                      />
-                      <Typography className={styles.teamName} variant="h5">
-                        {team.name}
-                      </Typography>
-                    </div>
+                    <a href="#">
+                      <div
+                        onClick={() => {
+                          goTo(ROUTES.entity, { id: team.id });
+                        }}
+                      >
+                        <Avatar photoUrl={team.photo_url} size="lg"></Avatar>
+                        <Typography className={styles.teamName} variant="h5">
+                          {team.name}
+                        </Typography>
+                      </div>
+                    </a>
                     <div className={styles.score}>
                       <Typography variant="h5">{team.score}</Typography>
                     </div>
@@ -349,19 +342,19 @@ export default function GameDetailed(props) {
                     <div className={styles.score}>
                       <Typography variant="h5">{team.score}</Typography>
                     </div>
-                    <div>
-                      <img
-                        className={styles.avatarTeam}
-                        src={
-                          team.photo_url
-                            ? team.photo_url
-                            : 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210304-njsum-34ba196d-0fd3-4c0c-bdac-1461c29142ab'
-                        }
-                      />
-                      <Typography className={styles.teamName} variant="h5">
-                        {team.name}
-                      </Typography>
-                    </div>
+                    <a href="#">
+                      <div
+                        clickable
+                        onClick={() => {
+                          goTo(ROUTES.entity, { id: team.id });
+                        }}
+                      >
+                        <Avatar photoUrl={team.photo_url} size="lg"></Avatar>
+                        <Typography className={styles.teamName} variant="h5">
+                          {team.name}
+                        </Typography>
+                      </div>
+                    </a>
                   </div>
                 )}
               </div>
@@ -394,6 +387,7 @@ export default function GameDetailed(props) {
           onClose={closeSubmitScore}
           gameId={game.id}
           submissionerInfos={selectedSubmissionerInfos}
+          update={update}
         />
         <FormDialog
           open={chooseSubmitter}
@@ -403,7 +397,7 @@ export default function GameDetailed(props) {
           formik={formik}
           buttons={buttons}
         />
-        <EditGameDialog open={edit} onClose={closeEdit} game={game} update={closeEdit} />
+        <EditGameDialog open={edit} onClose={closeEdit} game={game} update={update} />
         <EnterScore open={gameDialog} onClose={closeGameDialog} game={game} update={update} />
         {isAdmin && (
           <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
