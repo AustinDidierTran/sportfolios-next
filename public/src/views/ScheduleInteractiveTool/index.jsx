@@ -1014,7 +1014,7 @@ export default function ScheduleInteractiveTool() {
           </Button>
         </div>
         <div className={styles.displayFields} ref={refFields}>
-          <div style={{ width: `${fields?.length * 192 + 20}px` }}>
+          <div style={{ width: `${fields?.length * 192 + 200}px`, paddingRight: '200px' }}>
             <ReactGridLayout
               className={styles.gridLayoutFields}
               width={fields?.length * 192}
@@ -1029,7 +1029,7 @@ export default function ScheduleInteractiveTool() {
           </div>
         </div>
         <div className={styles.displayTimeslots} ref={refTimeslots}>
-          <div style={{ height: `${timeslots?.length * 84}px` }}>
+          <div style={{ height: `${timeslots?.length * 84 + 200}px`, paddingBottom: '100px' }}>
             <ReactGridLayout
               className={styles.gridLayoutTimes}
               width={500}
@@ -1047,8 +1047,10 @@ export default function ScheduleInteractiveTool() {
         <div className={styles.displayGrid} onScroll={gridScroll} ref={ref}>
           <div
             style={{
-              width: `${fields?.length * 192}px`,
-              height: `${timeslots?.length * 84}px`,
+              width: `${fields?.length * 192 + 200}px`,
+              height: `${timeslots?.length * 84 + 200}px`,
+              paddingBottom: '100px',
+              paddingRight: '200px',
             }}
           >
             <ReactGridLayout
