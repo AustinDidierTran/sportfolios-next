@@ -36,6 +36,7 @@ const getSuggestedGamesForPhase = (ranking, phase, gamesWithRanking) => {
           suggestions.push({
             phaseId: phase.id,
             status: phase.status,
+            phaseName: phase.name,
             rankings: [active, r],
           });
           return;

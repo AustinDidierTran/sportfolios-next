@@ -93,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
   },
   suggestedGameBox: {
     position: 'absolute',
-    bottom: theme.spacing(3),
-    right: theme.spacing(90),
+    top: theme.spacing(22),
+    right: theme.spacing(0),
     zIndex: 100,
   },
 }));
@@ -467,6 +467,7 @@ export default function ScheduleInteractiveTool() {
         value: p.id,
         id: p.id,
         display: p.name,
+        name: p.name,
         ranking: p.ranking,
         order: p.phase_order,
         status: p.status,

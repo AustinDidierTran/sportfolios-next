@@ -1,5 +1,5 @@
 .gameCard {
-  height: 52px;
+  height: 72px;
   width: 160px;
 }
 
@@ -11,6 +11,12 @@
   align-items: center;
   text-align: center;
   height: 100%;
+}
+
+.pool {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .team1 {

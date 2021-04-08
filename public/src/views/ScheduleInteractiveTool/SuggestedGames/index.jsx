@@ -34,13 +34,14 @@ export default function SuggestedGames(props) {
 
   if (suggestions.length === 0) {
     return (
-      <div className={styles.div}>
+      <div className={styles.warning}>
         <Typography color="textSecondary" className={styles.text}>
           {t('no.no_game_suggestions')}
         </Typography>
       </div>
     );
   }
+
   return (
     <div className={styles.card}>
       <div className={styles.div}>
@@ -48,15 +49,19 @@ export default function SuggestedGames(props) {
           ranking1={overrideIndex ? suggestions[0].rankings[0] : suggestions[index].rankings[0]}
           ranking2={overrideIndex ? suggestions[0].rankings[1] : suggestions[index].rankings[1]}
           phaseStatus={overrideIndex ? suggestions[0].status : suggestions[index].status}
-          className={styles.game}
+          phaseName={overrideIndex ? suggestions[0].phaseName : suggestions[index].phaseName}
         />
       </div>
-      <Typography color="textSecondary" className={styles.text}>
-        {t('click_to_add_game')}
-      </Typography>
-      <Button endIcon="ArrowForward" className={styles.button} onClick={handleSkip}>
-        {t('skip')}
-      </Button>
+      <div className={styles.textBox}>
+        <Typography color="textSecondary" className={styles.text}>
+          {t('click_to_add_game')}
+        </Typography>
+      </div>
+      <div>
+        <Button endIcon="ArrowForward" onClick={handleSkip}>
+          {t('skip')}
+        </Button>
+      </div>
     </div>
   );
 }
