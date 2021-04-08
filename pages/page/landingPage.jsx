@@ -33,6 +33,7 @@ const LandingPageRoute = () => {
             content:
               'Sportfolios.app, Sport, Organization, Athlete, Coach, Schedule, Registration, Results, Statistics, Coaching, Information, Gestion',
           },
+          { name: 'apple-mobile-web-app-capable', content: 'yes' },
         ]}
         facebook={{ appId: '346677216672687' }}
         twitter={{
