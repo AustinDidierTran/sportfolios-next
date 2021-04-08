@@ -5,7 +5,13 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_LENGTH_ENUM } from '../../../../../common/enums';
+import {
+  SEVERITY_ENUM,
+  STATUS_ENUM,
+  COMPONENT_TYPE_ENUM,
+  MEMBERSHIP_LENGTH_ENUM,
+  TABS_ENUM,
+} from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
@@ -62,8 +68,7 @@ export default function BecomeMember(props) {
     }));
     if (defaultTypeValue) {
       formik.setFieldValue('type', defaultTypeValue);
-    }
-    else if (memberships[0]) {
+    } else if (memberships[0]) {
       formik.setFieldValue('type', memberships[0].value);
     }
     setMemberships(memberships);
@@ -151,7 +156,7 @@ export default function BecomeMember(props) {
   });
 
   const onClickMoreInfo = () => {
-    router.push(`/${id}/memberships`);
+    router.push(`/${id}?tab=${TABS_ENUM.MEMBERSHIPS}`);
     handleClose();
   };
 
