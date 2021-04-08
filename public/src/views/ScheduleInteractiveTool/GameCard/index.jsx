@@ -6,12 +6,17 @@ import { Avatar } from '../../../components/Custom';
 import styles from './GameCard.module.css';
 import { formatDate, getInitialsFromName } from '../../../utils/stringFormats';
 import moment from 'moment';
+import { PHASE_STATUS_ENUM } from '../../../../common/enums';
 
 export default function GameCard(props) {
-  const { ranking1, ranking2, timeSlots, fields, x, y } = props;
+  const { ranking1, ranking2, timeSlots, fields, x, y, phase } = props;
 
   const tooltip = useMemo(
-    () => `${ranking1.name} vs ${ranking2.name}, ${fields[x]?.field}, ${formatDate(moment(timeSlots[y]?.date), 'DD MMM HH:mm')}`,
+    () =>
+      `${ranking1.name} vs ${ranking2.name}, ${fields[x]?.field}, ${formatDate(
+        moment(timeSlots[y]?.date),
+        'DD MMM HH:mm'
+      )}`,
     [x, y]
   );
 
@@ -29,13 +34,13 @@ export default function GameCard(props) {
         <div className={styles.gameDiv}>
           <div className={styles.team1}>
             <Avatar
-              initials={getInitialsFromName(ranking1.name, ranking1.roster_id ? true : false)} // or team pic?
+              initials={getInitialsFromName(ranking1.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
             ></Avatar>
           </div>
           <Typography className={styles.vs}>vs</Typography>
           <div className={styles.team2}>
             <Avatar
-              initials={getInitialsFromName(ranking2.name, ranking2.roster_id ? true : false)} // or team pic?
+              initials={getInitialsFromName(ranking2.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
             ></Avatar>
           </div>
         </div>

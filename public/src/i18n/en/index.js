@@ -665,6 +665,7 @@ export default {
       no_remaining_spots:
         'Sorry, your registration has been refused. Event is now full and there are no available spots left.',
       no_roster: 'No roster',
+      no_game_suggestions: 'There is no more game to suggest. Try adding more phases.',
       no_taxes: 'No taxes',
       no_team_yet: 'No team yet',
       no_teams_registered: 'No teams registered.',
@@ -864,6 +865,7 @@ export default {
     clear_cart: 'Clear cart',
     clear_cart_confirmation: 'Are you sur you want to clear your cart',
     click_to_create_new_team: 'Click to create your new team',
+    click_to_add_game: "Click on a '+' button to add this game to the event",
     close: 'Close',
     closing_of_registration: 'Closing of registration',
     coach: 'Coach',
@@ -1262,6 +1264,7 @@ export default {
     subscribe: 'Subscribe',
     subscribed: 'Subscribed',
     subtotal: 'Subtotal',
+    suggest_game_mode: 'Suggested game mode',
     suggested_by_the_other_team: 'Suggested by the other team',
     surname: 'Surname',
     switch_view: 'Switch view',

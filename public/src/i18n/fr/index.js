@@ -671,6 +671,7 @@ export default {
       no_remaining_spots:
         "Désolé, votre inscription a été refusée. L'événement est maintenant plein et il n'y a plus de place.",
       no_roster: 'Aucun alignement',
+      no_game_suggestions: "Il n'y a plus de parties à suggérer. Ajoutez une phase pour en avoir d'autres.",
       no_taxes: 'Aucune taxes',
       no_team_yet: 'Aucune équipe',
       no_teams_registered: 'Aucune équipe inscrite.',
@@ -885,6 +886,7 @@ export default {
     clear_cart: 'Vider le panier',
     clear_cart_confirmation: 'Êtes-vous certain de vouloir vider le panier',
     click_to_create_new_team: 'Cliquer pour créer votre nouvelle équipe',
+    click_to_add_game: "Cliquez sur un bouton '+' afin d'ajouter cette partie à l'événement",
     close: 'Fermer',
     closing_of_registration: 'Fermeture des inscriptions',
     coach: 'Entraîneur',
@@ -1286,6 +1288,7 @@ export default {
     subscribe: "S'abonner",
     subscribed: 'Abonné',
     subtotal: 'Sous-total',
+    suggest_game_mode: 'Mode suggestion',
     suggested_by_the_other_team: "Suggéré par l'autre équipe",
     surname: 'Nom de famille',
     switch_view: 'Changer de vue',
