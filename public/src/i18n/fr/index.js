@@ -1031,6 +1031,7 @@ export default {
     junior_member: 'Membre junior',
     junior: 'Junior',
     last_name: 'Nom de famille',
+    last_team_higher_than_spots: 'Le nombre de places ne peut pas être inférieur à la position de la dernière équipe.',
     learn_more: 'En apprendre plus',
     length: 'Durée',
     league: 'Ligue',

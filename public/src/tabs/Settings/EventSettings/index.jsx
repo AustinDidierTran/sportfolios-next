@@ -71,13 +71,20 @@ export default function EventSettings() {
         }),
       });
       if (res.data.reason) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t(REJECTION_ENUM.TOO_MANY_TEAMS),
-          severity: SEVERITY_ENUM.ERROR,
-        })
-      }
-      else if (res.status === STATUS_ENUM.ERROR) {
+        if (res.data.reason === REJECTION_ENUM.TOO_MANY_TEAMS) {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t(REJECTION_ENUM.TOO_MANY_TEAMS),
+            severity: SEVERITY_ENUM.ERROR,
+          });
+        } else {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t(REJECTION_ENUM.LAST_TEAM_HIGHER_THAN_SPOTS),
+            severity: SEVERITY_ENUM.ERROR,
+          });
+        }
+      } else if (res.status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t(ERROR_ENUM.ERROR_OCCURED),
