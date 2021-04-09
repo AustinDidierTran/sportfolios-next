@@ -16,7 +16,7 @@ import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 export default function GraphNumberOfMembers(props) {
   const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate } = props;
-  const { shortLabel, longLabel, total: totalStats, new: newStats, minDate } = graphData;
+  const { shortLabel, longLabel, total: totalStats, new: newStats, minDate = '2000-01-01' } = graphData;
 
   const { t } = useTranslation();
   const [value, setValue] = useState({ x: totalStats.length, y: 1 });
