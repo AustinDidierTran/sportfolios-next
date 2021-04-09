@@ -37,6 +37,7 @@ export default function OptionPayment() {
   const [openPlayer, setOpenPlayer] = useState(false);
   const [openTeam, setOpenTeam] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     getAccounts();
@@ -253,6 +254,7 @@ export default function OptionPayment() {
       if (values.eventType === EVENT_TYPE.PLAYER) {
         values.teamPrice = undefined;
       }
+      setIsSubmitting(true);
 
       addOptionToEvent({ ...values });
     },
@@ -321,7 +323,7 @@ export default function OptionPayment() {
             <Button style={{ marginRight: 8 }} color="secondary" onClick={() => { goBack() }}>
               {t('cancel')}
             </Button>
-            <Button style={{ marginLeft: 8 }} type="submit">
+            <Button style={{ marginLeft: 8 }} disabled={isSubmitting} type="submit">
               {t('confirm')}
             </Button>
           </div>
