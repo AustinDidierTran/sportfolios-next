@@ -4,7 +4,6 @@ import isArray from 'lodash/isArray';
 import moment from 'moment';
 import 'moment/locale/fr';
 import i18n from '../../i18n';
-import { formatRoute } from '../../../common/utils/stringFormat';
 
 export const getInitialsFromName = (completeName, isName) => {
   if (!completeName) {
@@ -28,6 +27,30 @@ export const getInitialsFromName = (completeName, isName) => {
     );
   }
   return `${completeName?.name ? completeName?.name[0] : ''}${completeName?.surname ? completeName?.surname[0] : ''}`;
+};
+
+export const formatRoute = (route, params, queryParams) => {
+  if (!route) {
+    /* eslint-disable-next-line */
+    console.error('Route is undefined');
+  }
+
+  if (!params && !queryParams) {
+    return route;
+  }
+
+  const withParams = params
+    ? Object.keys(params).reduce((prev, curr) => prev.replace(`:${curr}`, params[curr]), route)
+    : route;
+
+  if (!queryParams) {
+    return withParams;
+  }
+
+  return Object.keys(queryParams).reduce(
+    (prev, key, index) => (index === 0 ? `${prev}?${key}=${queryParams[key]}` : `${prev}&${key}=${queryParams[key]}`),
+    withParams
+  );
 };
 
 export const formatDate = (moment, format = 'LL') => {

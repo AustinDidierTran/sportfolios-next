@@ -9,7 +9,7 @@ import moment from 'moment';
 import styles from './EventSettings.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute, formatDate } from '../../../../src/utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -28,8 +28,8 @@ export default function EventSettings() {
         })
       );
       formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
-      formik.setFieldValue('startDate', moment(data.start_date).format('YYYY-MM-DD'));
-      formik.setFieldValue('endDate', moment(data.end_date).format('YYYY-MM-DD'));
+      formik.setFieldValue('startDate', formatDate(moment.parseZone(data.start_date), 'YYYY-MM-DD'));
+      formik.setFieldValue('endDate', formatDate(moment.parseZone(data.end_date), 'YYYY-MM-DD'));
     }
   };
 
@@ -70,7 +70,7 @@ export default function EventSettings() {
           endDate,
         }),
       });
-      if(res.data.reason){
+      if (res.data.reason) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t(REJECTION_ENUM.TOO_MANY_TEAMS),
@@ -84,7 +84,7 @@ export default function EventSettings() {
           severity: SEVERITY_ENUM.ERROR,
         });
         return;
-      }else{
+      } else {
         getInfos();
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
