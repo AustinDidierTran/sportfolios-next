@@ -236,7 +236,7 @@ export default function ScheduleInteractiveTool() {
       setSuggestedGames(
         suggestGames(
           rankings,
-          phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+          phases.sort((a, b) => a.order - b.order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
           this.previousState
         )
       );
@@ -265,7 +265,7 @@ export default function ScheduleInteractiveTool() {
       setSuggestedGames(
         suggestGames(
           rankings,
-          phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+          phases.sort((a, b) => a.order - b.order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
           this.newState
         )
       );
@@ -842,7 +842,7 @@ export default function ScheduleInteractiveTool() {
     setSuggestedGames(
       suggestGames(
         rankings,
-        phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+        phases.sort((a, b) => a.order - b.order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
         games.concat([newGame])
       )
     );

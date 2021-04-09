@@ -37,6 +37,7 @@ const getSuggestedGamesForPhase = (ranking, phase, gamesWithRanking) => {
             phaseId: phase.id,
             status: phase.status,
             phaseName: phase.name,
+            phaseOrder: phase.order ? phase.order : phase.phase_order,
             rankings: [active, r],
           });
           return;

@@ -8,12 +8,16 @@ import { getInitialsFromName } from '../../../../utils/stringFormats';
 import { PHASE_STATUS_ENUM } from '../../../../../common/enums';
 
 export default function SuggestedGameCard(props) {
-  const { ranking1, ranking2, phaseStatus, phaseName } = props;
+  const { ranking1, ranking2, phaseStatus, phaseName, phaseOrder } = props;
 
   if (phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED) {
     ranking1.name = ranking1.teamName;
     ranking2.name = ranking2.teamName;
   }
+
+  const alphabet = '0ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let letter;
+  letter = alphabet[phaseOrder];
 
   const tooltip = `${ranking1.name} vs ${ranking2.name}, ${phaseName}`;
 
@@ -27,13 +31,21 @@ export default function SuggestedGameCard(props) {
           <div className={styles.gameDiv}>
             <div className={styles.team1}>
               <Avatar
-                initials={getInitialsFromName(ranking1.name, phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
+                initials={
+                  phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED
+                    ? getInitialsFromName(ranking1.name, true)
+                    : `${ranking1.initial_position}.${letter}`
+                } // or team pic?
               ></Avatar>
             </div>
             <Typography className={styles.vs}>vs</Typography>
             <div className={styles.team2}>
               <Avatar
-                initials={getInitialsFromName(ranking2.name, phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
+                initials={
+                  phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED
+                    ? getInitialsFromName(ranking2.name, true)
+                    : `${ranking2.initial_position}.${letter}`
+                } // or team pic?
               ></Avatar>
             </div>
           </div>

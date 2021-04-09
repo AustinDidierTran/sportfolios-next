@@ -50,6 +50,7 @@ export default function SuggestedGames(props) {
           ranking2={overrideIndex ? suggestions[0].rankings[1] : suggestions[index].rankings[1]}
           phaseStatus={overrideIndex ? suggestions[0].status : suggestions[index].status}
           phaseName={overrideIndex ? suggestions[0].phaseName : suggestions[index].phaseName}
+          phaseOrder={overrideIndex ? suggestions[0].phaseOrder : suggestions[index].phaseOrder}
         />
       </div>
       <div className={styles.textBox}>
