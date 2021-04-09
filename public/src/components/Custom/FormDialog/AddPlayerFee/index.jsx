@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import api from '../../../../actions/api';
-import { PLATEFORM_FEES, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { PLATEFORM_FEES_PERCENTAGE, PLATEFORM_FEES_FIX, MIN_AMOUNT_FEES, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { formatPrice } from '../../../../utils/stringFormats';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
@@ -71,7 +71,7 @@ export default function AddPlayerFee(props) {
     );
   }, [formik.values.playerPrice, taxes]);
 
-  const transactionFee = useMemo(() => totalPlayer * PLATEFORM_FEES, [totalPlayer]);
+  const transactionFee = useMemo(() => totalPlayer >= MIN_AMOUNT_FEES ? (totalPlayer * PLATEFORM_FEES_PERCENTAGE) + PLATEFORM_FEES_FIX : 0, [totalPlayer]);
 
   const receiveAmout = useMemo(() => totalPlayer - transactionFee, [totalPlayer, transactionFee]);
 
