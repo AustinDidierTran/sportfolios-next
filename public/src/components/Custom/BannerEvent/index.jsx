@@ -144,7 +144,7 @@ export default function BannerEvent(props) {
                   variant="outlined"
                   onClick={onSwitch}
                 >
-                  {t('admin_view')}
+                  {t('player_view')}
                 </CustomButton>
               ) : (
                 <CustomButton
@@ -154,7 +154,7 @@ export default function BannerEvent(props) {
                   variant="outlined"
                   onClick={onSwitch}
                 >
-                  {t('player_view')}
+                  {t('admin_view')}
                 </CustomButton>
               )}
             </>
