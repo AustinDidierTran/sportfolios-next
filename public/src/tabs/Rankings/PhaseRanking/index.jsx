@@ -98,9 +98,7 @@ export default function PhaseRankings(props) {
             const score2 = curr.teams[1].score;
             return prev.concat([score1, score2]);
           }, []);
-          if (!playedGames.some((g) => g > 0)) {
-            setIsTeamScoreEqual(true);
-          }
+          setIsTeamScoreEqual(!playedGames.some((g) => g > 0));
         }
 
         return {
