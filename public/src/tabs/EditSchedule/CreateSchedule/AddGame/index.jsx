@@ -13,7 +13,7 @@ import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, update } = props;
+  const { games, isOpen, onClose, update } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -22,12 +22,16 @@ export default function AddGame(props) {
   const [gameOptions, setGameOptions] = useState({});
   const [firstPositionOptions, setFirstPositionOptions] = useState([]);
   const [secondPositionOptions, setSecondPositionOptions] = useState([]);
+  const [fieldOptions, setFieldOptions] = useState([]);
+  const [timeslotOptions, setTimeslotOptions] = useState([]);
 
   const getOptions = async () => {
     const res = await getFutureGameOptions(eventId, {
       withoutAll: true,
     });
     setGameOptions(res);
+    setFieldOptions(res.fields);
+    setTimeslotOptions(res.timeSlots);
     setFirstPositionOptions(res.positions);
     setSecondPositionOptions(res.positions);
   };
@@ -142,7 +146,6 @@ export default function AddGame(props) {
   }, [formik.values.phase]);
 
   useEffect(() => {
-    //TODO: refine the filter. Some flows can make it bug i.e. no position options available
     if (formik.values.position1 !== '' && formik.values.position2 === '') {
       const [{ current_phase: phase }] = gameOptions.positions.filter((r) => r.value === formik.values.position1);
       const samePhaseRankings = gameOptions.positions.filter(
@@ -174,6 +177,17 @@ export default function AddGame(props) {
     }
   }, [formik.values.position1, formik.values.position2]);
 
+  useEffect(() => {
+    if (formik.values.field !== '' && formik.values.time === '') {
+      const unavailableTimeSlot = games.filter((g) => g.field_id === formik.values.field).map((g) => g.timeslot_id);
+      setTimeslotOptions(gameOptions.timeSlots.filter((t) => !unavailableTimeSlot.includes(t.value)));
+    }
+    if (formik.values.field === '' && formik.values.time !== '') {
+      const unavailableField = games.filter((g) => g.timeslot_id === formik.values.time).map((g) => g.field_id);
+      setFieldOptions(gameOptions.fields.filter((f) => !unavailableField.includes(f.value)));
+    }
+  }, [formik.values.field, formik.values.time]);
+
   const buttons = [
     {
       onClick: onFinish,
@@ -192,13 +206,13 @@ export default function AddGame(props) {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'field',
       label: t('field'),
-      options: gameOptions.fields,
+      options: fieldOptions,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'time',
       label: t('time_slot'),
-      options: gameOptions.timeSlots,
+      options: timeslotOptions,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,

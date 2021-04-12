@@ -950,6 +950,7 @@ export default {
     female: 'Female',
     field_added: 'Field added',
     field: 'Field',
+    field_and_time_combination_already_used: 'There is already a game with this combination of field and timeslot',
     filters: 'Filters',
     finish: 'Finish',
     first_name: 'First Name',

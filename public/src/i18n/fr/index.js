@@ -975,6 +975,8 @@ export default {
     female: 'Femme',
     field_added: 'Terrain ajouté',
     field: 'Terrain',
+    field_and_time_combination_already_used:
+      'Il y a déjà une partie avec cette combinaison de terrain et plage horaire',
     filters: 'Filtres',
     finish: 'Finir',
     first_name: 'Prénom',
