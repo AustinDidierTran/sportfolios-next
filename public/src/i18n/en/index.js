@@ -977,6 +977,8 @@ export default {
     generate_report: 'Generate report',
     get_a_new_link: 'Get a new link',
     go_back_to_login: 'Go back to login',
+    go_to_cart_to_pay_membership: 'Go to your cart to pay your membership now!',
+    go_to_cart: 'Go to cart',
     go_to_event: 'Go to event',
     go_to_login: 'Go to login',
     go_to_page: 'Go to page',

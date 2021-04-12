@@ -18,6 +18,7 @@ import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 
 export default function BecomeMember(props) {
   const { open: openProps, onClose, update, moreInfo = true, defaultTypeValue } = props;
@@ -30,6 +31,7 @@ export default function BecomeMember(props) {
   const { id } = router.query;
 
   const [open, setOpen] = useState(false);
+  const [goToCart, setGoToCart] = useState(false);
   const [people, setPeople] = useState(userInfo.people);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
@@ -106,6 +108,10 @@ export default function BecomeMember(props) {
     onClose();
   };
 
+  const handleCloseGoToCart = () => {
+    setGoToCart(false);
+  };
+
   const validate = (values) => {
     const { type } = values;
     const errors = {};
@@ -144,6 +150,9 @@ export default function BecomeMember(props) {
           duration: 4000,
         });
       } else {
+        if (membership.price > 0) {
+          setGoToCart(true);
+        }
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('member.membership_added'),
@@ -188,17 +197,44 @@ export default function BecomeMember(props) {
     },
   ];
 
+  const goToCartbutton = [
+    {
+      onClick: () => {
+        setGoToCart(false);
+      },
+      name: t('cancel'),
+      color: 'secondary',
+    },
+    {
+      onClick: () => {
+        setGoToCart(false);
+        goTo(ROUTES.cart);
+      },
+      name: t('go_to_cart'),
+      color: 'primary',
+    },
+  ];
+
   return (
-    <BasicFormDialog
-      open={open}
-      title={t('become_member')}
-      buttons={buttons}
-      fields={fields}
-      formik={formik}
-      onClose={handleClose}
-      showSubtitle={moreInfo}
-      subtitle={t('learn_more')}
-      subtitleOnClick={onClickMoreInfo}
-    />
+    <>
+      <BasicFormDialog
+        open={open}
+        title={t('become_member')}
+        buttons={buttons}
+        fields={fields}
+        formik={formik}
+        onClose={handleClose}
+        showSubtitle={moreInfo}
+        subtitle={t('learn_more')}
+        subtitleOnClick={onClickMoreInfo}
+      />
+      <BasicFormDialog
+        open={goToCart}
+        title={t('go_to_cart_to_pay_membership')}
+        fields={[]}
+        buttons={goToCartbutton}
+        onClose={handleCloseGoToCart}
+      />
+    </>
   );
 }
