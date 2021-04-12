@@ -22,13 +22,16 @@ export default function AddGame(props) {
   const [gameOptions, setGameOptions] = useState({});
   const [firstPositionOptions, setFirstPositionOptions] = useState([]);
   const [secondPositionOptions, setSecondPositionOptions] = useState([]);
-  const [isFieldAndTimeUnavailable, setIsFieldAndTimeUnavailable] = useState(false);
+  const [fieldOptions, setFieldOptions] = useState([]);
+  const [timeslotOptions, setTimeslotOptions] = useState([]);
 
   const getOptions = async () => {
     const res = await getFutureGameOptions(eventId, {
       withoutAll: true,
     });
     setGameOptions(res);
+    setFieldOptions(res.fields);
+    setTimeslotOptions(res.timeSlots);
     setFirstPositionOptions(res.positions);
     setSecondPositionOptions(res.positions);
   };
@@ -100,17 +103,6 @@ export default function AddGame(props) {
       if (selectedPhase.status !== PHASE_STATUS_ENUM.NOT_STARTED) {
         ranking1.name = ranking1.teamName;
         ranking2.name = ranking2.teamName;
-      }
-      if (isFieldAndTimeUnavailable) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('field_and_time_combination_already_used'),
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-        formik.setFieldValue('field', '');
-        formik.setFieldValue('time', '');
-        return;
       }
       const res = await api('/api/entity/game', {
         method: 'POST',
@@ -186,22 +178,13 @@ export default function AddGame(props) {
   }, [formik.values.position1, formik.values.position2]);
 
   useEffect(() => {
-    if (formik.values.field === '' || formik.values.time === '') {
-      return;
-    } else {
-      const unavailableFieldAndTime = games.filter(
-        (g) => g.field_id === formik.values.field && g.timeslot_id === formik.values.time
-      );
-      if (unavailableFieldAndTime.length) {
-        setIsFieldAndTimeUnavailable(true);
-        formik.setErrors({
-          field: t('field_and_time_combination_already_used'),
-          time: t('field_and_time_combination_already_used'),
-        });
-      } else {
-        setIsFieldAndTimeUnavailable(false);
-        formik.setErrors({});
-      }
+    if (formik.values.field !== '' && formik.values.time === '') {
+      const unavailableTimeSlot = games.filter((g) => g.field_id === formik.values.field).map((g) => g.timeslot_id);
+      setTimeslotOptions(gameOptions.timeSlots.filter((t) => !unavailableTimeSlot.includes(t.value)));
+    }
+    if (formik.values.field === '' && formik.values.time !== '') {
+      const unavailableField = games.filter((g) => g.timeslot_id === formik.values.time).map((g) => g.field_id);
+      setFieldOptions(gameOptions.fields.filter((f) => !unavailableField.includes(f.value)));
     }
   }, [formik.values.field, formik.values.time]);
 
@@ -223,13 +206,13 @@ export default function AddGame(props) {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'field',
       label: t('field'),
-      options: gameOptions.fields,
+      options: fieldOptions,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'time',
       label: t('time_slot'),
-      options: gameOptions.timeSlots,
+      options: timeslotOptions,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
