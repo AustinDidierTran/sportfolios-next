@@ -58,8 +58,17 @@ export default function Rankings() {
     }
 
     const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
-    const rankingInfos = updateRanking(ranking, games);
-    setRanking(rankingInfos);
+    const playedGames = games.reduce((prev, curr) => {
+      const score1 = curr.teams[0].score;
+      const score2 = curr.teams[1].score;
+      return prev.concat([score1, score2]);
+    }, []);
+    if (!playedGames.some((g) => g > 0)) {
+      setRanking(ranking.sort((a, b) => a.position - b.position));
+    } else {
+      const rankingInfos = updateRanking(ranking, games);
+      setRanking(rankingInfos);
+    }
     setIsLoading(false);
   };
 

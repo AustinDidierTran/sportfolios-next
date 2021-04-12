@@ -4,7 +4,7 @@ import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { Accordion, List } from '../../../components/Custom';
 
 export default function Ranking(props) {
-  const { ranking, title, subtitle, withStats, withoutPosition } = props;
+  const { ranking, title, subtitle, withStats, withoutPosition, allTeamsEqual } = props;
 
   const [items, setItems] = useState([]);
 
@@ -17,6 +17,9 @@ export default function Ranking(props) {
         key: index,
         withoutPosition,
       }));
+      if (allTeamsEqual) {
+        setItems(items.sort((a, b) => a.initialPosition - b.initialPosition));
+      }
       setItems(items);
     } else {
       const items = ranking.map((r, index) => ({
