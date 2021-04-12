@@ -13,7 +13,7 @@ import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose, update } = props;
+  const { games, isOpen, onClose, update } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -22,6 +22,7 @@ export default function AddGame(props) {
   const [gameOptions, setGameOptions] = useState({});
   const [firstPositionOptions, setFirstPositionOptions] = useState([]);
   const [secondPositionOptions, setSecondPositionOptions] = useState([]);
+  const [isFieldAndTimeUnavailable, setIsFieldAndTimeUnavailable] = useState(false);
 
   const getOptions = async () => {
     const res = await getFutureGameOptions(eventId, {
@@ -100,6 +101,17 @@ export default function AddGame(props) {
         ranking1.name = ranking1.teamName;
         ranking2.name = ranking2.teamName;
       }
+      if (isFieldAndTimeUnavailable) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('field_and_time_combination_already_used'),
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+        formik.setFieldValue('field', '');
+        formik.setFieldValue('time', '');
+        return;
+      }
       const res = await api('/api/entity/game', {
         method: 'POST',
         body: JSON.stringify({
@@ -142,7 +154,6 @@ export default function AddGame(props) {
   }, [formik.values.phase]);
 
   useEffect(() => {
-    //TODO: refine the filter. Some flows can make it bug i.e. no position options available
     if (formik.values.position1 !== '' && formik.values.position2 === '') {
       const [{ current_phase: phase }] = gameOptions.positions.filter((r) => r.value === formik.values.position1);
       const samePhaseRankings = gameOptions.positions.filter(
@@ -173,6 +184,26 @@ export default function AddGame(props) {
       setSecondPositionOptions(secondPosition);
     }
   }, [formik.values.position1, formik.values.position2]);
+
+  useEffect(() => {
+    if (formik.values.field === '' || formik.values.time === '') {
+      return;
+    } else {
+      const unavailableFieldAndTime = games.filter(
+        (g) => g.field_id === formik.values.field && g.timeslot_id === formik.values.time
+      );
+      if (unavailableFieldAndTime.length) {
+        setIsFieldAndTimeUnavailable(true);
+        formik.setErrors({
+          field: t('field_and_time_combination_already_used'),
+          time: t('field_and_time_combination_already_used'),
+        });
+      } else {
+        setIsFieldAndTimeUnavailable(false);
+        formik.setErrors({});
+      }
+    }
+  }, [formik.values.field, formik.values.time]);
 
   const buttons = [
     {

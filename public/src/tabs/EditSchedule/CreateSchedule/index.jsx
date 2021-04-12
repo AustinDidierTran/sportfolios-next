@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '../../../components/Custom';
 import styles from '../EditSchedule.module.css';
 import { useTranslation } from 'react-i18next';
@@ -10,21 +10,33 @@ import AddField from './AddField';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
+import api from '../../../actions/api';
+import { formatRoute } from '../../../../common/utils/stringFormat';
 
 export default function ScheduleTab(props) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { id } = router.query;
+  const { id: eventId, id } = router.query;
   const {
     state: { screenSize },
   } = useContext(Store);
   const { update } = props;
 
   const [game, setGame] = useState(false);
+  const [games, setGames] = useState([]);
   const [phase, setPhase] = useState(false);
   const [time, setTime] = useState(false);
   const [team, setTeam] = useState(false);
   const [field, setField] = useState(false);
+
+  useEffect(() => {
+    getGames();
+  }, [game]);
+
+  const getGames = async () => {
+    const { data } = await api(formatRoute('/api/entity/games', null, { eventId }));
+    setGames(data);
+  };
 
   const openGame = () => {
     setGame(true);
@@ -125,9 +137,9 @@ export default function ScheduleTab(props) {
       )}
       <AddTimeSlot isOpen={time} onClose={closeTime} />
       <AddField isOpen={field} onClose={closeField} />
-      <AddTeam isOpen={team} onClose={closeTeam} update={update}/>
+      <AddTeam isOpen={team} onClose={closeTeam} update={update} />
       <AddPhase isOpen={phase} onClose={closePhase} />
-      <AddGame isOpen={game} onClose={closeGame} update={update} />
+      <AddGame isOpen={game} onClose={closeGame} update={update} games={games} />
     </>
   );
 }
