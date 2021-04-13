@@ -66,7 +66,7 @@ export default function AddMember(props) {
           duration: 4000,
         });
       } else {
-        const message = people.length ? 'members_added' : 'member_added';
+        const message = people.length > 1 ? 'member.members_added' : 'member.member_added';
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t(message),
