@@ -132,7 +132,7 @@ export default function FinalRanking(props) {
     if (res.status === STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: 'classement mis à jour!',
+        message: t('manual_ranking_updated'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
@@ -176,7 +176,7 @@ export default function FinalRanking(props) {
         </AccordionSummary>
         {phase.status !== PHASE_STATUS_ENUM.DONE && (
           <FormControlLabel
-            label="Classement manuel"
+            label={t('manual_ranking')}
             labelPlacement="end"
             control={<Switch checked={isOverride} onClick={toggleManualRanking} color="primary" />}
           />
