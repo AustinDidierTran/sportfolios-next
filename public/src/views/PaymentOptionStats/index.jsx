@@ -30,7 +30,6 @@ export default function PaymentOptionStats() {
       eventPaymentId,
       date: dateFilter
     }));
-    console.log(data);
     if (!data) {
       return;
     }
