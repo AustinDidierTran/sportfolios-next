@@ -86,6 +86,7 @@ export default function EventPost(props) {
         subheader={(creator && creator.name) || ''}
       />
       <ImageCard
+        style={{ cursor: 'pointer' }}
         onClick={() => goTo(ROUTES.entity, { id: eventId })}
         className={screenSize == SCREENSIZE_ENUM.xs ? classes.media : classes.media2}
         photoUrl={photoUrl || ''}
