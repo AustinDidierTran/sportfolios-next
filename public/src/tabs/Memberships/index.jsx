@@ -44,6 +44,9 @@ export default function Memberships() {
   const onClose = () => {
     setOpen(false);
   };
+  const openDialog = () => {
+    setOpen(true);
+  };
 
   const update = () => {
     setRefreshMemberships(!refreshMemberships);
@@ -147,6 +150,7 @@ export default function Memberships() {
         items={{
           open,
           onClose,
+          onOpen: openDialog,
           update,
           moreInfo: false,
           defaultTypeValue,
