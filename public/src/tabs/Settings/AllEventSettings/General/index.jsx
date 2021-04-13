@@ -45,14 +45,14 @@ export default function General(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
           <ListItemText primary={t('general')} />
         </AccordionSummary>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <BasicInfos basicInfos={basicInfos} />
+          <ChangeAlias />
+          <QuickDescription />
+          <Description />
+          <EventSettings />
+        </Collapse>
       </Accordion>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <BasicInfos basicInfos={basicInfos} />
-        <ChangeAlias />
-        <QuickDescription />
-        <Description />
-        <EventSettings />
-      </Collapse>
     </div>
   );
 }
