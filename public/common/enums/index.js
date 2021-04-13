@@ -252,7 +252,7 @@ const ROUTES_ENUM = {
   playersAcceptation: '/page/playersAcceptation/:id',
   privacyPolicy: '/page/privacy',
   productAddedToCart: '/page/productAddedToCart',
-  paymentOptionStats: '/page/paymentOptionStats',
+  paymentOptionStats: '/page/paymentOptionStats/:id',
   redirectWithToken: '/page/redirect',
   registrationStatus: '/page/registrationStatus',
   rosterInviteLink: '/page/inviteRoster/:token',

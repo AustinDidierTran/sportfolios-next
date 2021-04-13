@@ -102,15 +102,16 @@ export default function CollapsePaymentOption(props) {
             />
           )}
         </ListItem>
-        <CustomButton
-          endIcon="AttachMoney"
-          onClick={() => {
-            goTo(ROUTES.paymentOptionStats);
-          }}
-          style={{ margin: '8px' }}
-        >
-          {t('see_revenue')}
-        </CustomButton>
+        {(teamPrice > 0 || individualPrice > 0) && (
+          <CustomButton
+            endIcon="AttachMoney"
+            onClick={() => {
+              goTo(ROUTES.paymentOptionStats, { id });
+            }}
+            style={{ margin: '8px' }}
+          >
+            {t('see_revenue')}
+          </CustomButton>)}
         <ListItem className={styles.money}>
           <ListItemText />
           <ListItemText primary={t('team.team')} />

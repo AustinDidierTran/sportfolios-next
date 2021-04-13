@@ -1376,6 +1376,7 @@ export default {
     wrong_password: 'Mauvais mot de passe. Veuillez réessayer.',
     write_a_comment: 'Écrivez un commentaire...',
     will_see_graph_member: 'Vous verrez un graphique lorsque vous aurez votre tout premier membre!',
+    will_see_graph_payment: 'Vous verrez un graphique lorsque vous aurez votre tout premier paiement!',
     year_ago_plural: 'Il y a {{count}} années',
     year_ago: 'Il y a {{count}} an',
     year: 'Année',
