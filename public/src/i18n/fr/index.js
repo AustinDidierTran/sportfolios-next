@@ -1369,6 +1369,7 @@ export default {
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
     with_taxes_the_total_for_a_team_is: 'Avec les taxes, le total pour une équipe est {{total}}$',
+    would_you_like_to_update_infos_in_your_profile: 'Aimeriez-vous mettre à jour ces informations dans votre profil?',
     wrong_password: 'Mauvais mot de passe. Veuillez réessayer.',
     write_a_comment: 'Écrivez un commentaire...',
     will_see_graph_member: 'Vous verrez un graphique lorsque vous aurez votre tout premier membre!',
