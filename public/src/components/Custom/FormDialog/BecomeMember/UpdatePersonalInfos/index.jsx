@@ -61,7 +61,7 @@ export default function UpdatePersonalInfos(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('would_you_like_to_update_infos_in_your_profile')}
+      title={t('would_you_like_to_update_info_in_your_profile')}
       fields={[]}
       buttons={buttons}
       onClose={onClose}

@@ -126,22 +126,14 @@ export default function BecomeMember(props) {
   };
 
   const validationSchema = yup.object().shape({
+    address: yup.object().shape({
+      street_address: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    }),
     type: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     birthDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     formattedAddress: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
-
-  const validate = (values) => {
-    const { address } = values;
-    const { street_address } = address;
-    const errors = {};
-
-    if (!street_address) {
-      errors.address = t(ERROR_ENUM.VALUE_IS_INVALID);
-    }
-    return errors;
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -153,7 +145,6 @@ export default function BecomeMember(props) {
       formattedAddress: '',
     },
     validationSchema,
-    validate,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, resetForm) => {

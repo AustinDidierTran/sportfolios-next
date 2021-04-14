@@ -1341,7 +1341,7 @@ export default {
     waiting_for_payment: 'Your payment is being processed. Thank you for your patience',
     with_taxes_the_total_for_a_player_is: 'With taxes, the total for a player is {{total}}$',
     with_taxes_the_total_for_a_team_is: 'With taxes, the total for a team is {{total}}$',
-    would_you_like_to_update_infos_in_your_profile: 'Would you like to update those infos in your profile?',
+    would_you_like_to_update_info_in_your_profile: 'Would you like to update those info in your profile?',
     wrong_password: 'Wrong password. Please try again',
     write_a_comment: 'Write a comment...',
     will_see_graph_member: 'You will see a graph when you have your first member!',
