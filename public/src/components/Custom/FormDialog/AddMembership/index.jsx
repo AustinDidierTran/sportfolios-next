@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -12,9 +12,12 @@ import {
   MEMBERSHIP_TYPE_ENUM,
   MEMBERSHIP_LENGTH_TYPE_ENUM,
   MEMBERSHIP_LENGTH_ENUM,
+  MIN_AMOUNT_FEES,
+  PLATEFORM_FEES_PERCENTAGE,
+  PLATEFORM_FEES_FIX,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { validateDate } from '../../../../utils/stringFormats';
+import { validateDate, formatPrice } from '../../../../utils/stringFormats';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
@@ -150,6 +153,27 @@ export default function AddMembership(props) {
     }
   }, [formik.values.type]);
 
+  const total = useMemo(() => {
+    const formatted = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.percentage);
+    if (!formik.values.price) {
+      return 0;
+    }
+    return (
+      formik.values.price +
+      formik.values.price * (formatted.reduce((prev, curr) => Number(prev) + Number(curr), 0) / 100)
+    );
+  }, [formik.values.price, taxes]);
+  const transactionFee = useMemo(
+    () => (total >= MIN_AMOUNT_FEES ? total * PLATEFORM_FEES_PERCENTAGE + PLATEFORM_FEES_FIX : 0),
+    [total]
+  );
+  const receiveAmout = useMemo(() => {
+    if (!total) {
+      return 0;
+    }
+    return total - transactionFee;
+  }, [total, transactionFee]);
+
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
@@ -226,6 +250,18 @@ export default function AddMembership(props) {
       options: allTaxes.map((a) => a.display),
       values: taxes,
       onChange: handleChange,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+      primary: t('payment.total_cost_with_taxes', { price: formatPrice(total * 100) }),
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+      primary: t('payment.transaction_fees', { fee: formatPrice(transactionFee * 100) }),
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+      primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
   ];
 

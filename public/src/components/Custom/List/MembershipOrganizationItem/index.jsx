@@ -13,7 +13,7 @@ import CustomButton from '../../Button';
 export default function MembershipOrganizationItem(props) {
   const { t } = useTranslation();
 
-  const { membership, price, membershipType, expirationDate, onDelete, id, taxRates } = props;
+  const { membership, price, membershipType, expirationDate, onDelete, id, taxRates, transactionFees } = props;
   const [expanded, setExpanded] = useState(false);
 
   const handleExpand = () => {
@@ -21,6 +21,14 @@ export default function MembershipOrganizationItem(props) {
   };
 
   const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
+
+  const total = useMemo(
+    () =>
+      taxRates.reduce((prev, curr) => {
+        return prev + (price * curr.percentage) / 100;
+      }, 0) + price,
+    [price, taxRates]
+  );
 
   return (
     <>
@@ -46,15 +54,22 @@ export default function MembershipOrganizationItem(props) {
           <Divider />
           <ListItem className={styles.money}>
             <ListItemText primary={`${t('total')}:`} />
-            <ListItemText
-              primary={`${formatPrice(
-                taxRates.reduce((prev, curr) => {
-                  return prev + (price * curr.percentage) / 100;
-                }, 0) + price
-              )}`}
-            />
+            <ListItemText primary={`${formatPrice(total)}`} />
           </ListItem>
           <Divider />
+          {total != 0 && (
+            <>
+              <ListItem className={styles.money}>
+                <ListItemText primary={t('payment.transaction_fees')} />
+                <ListItemText primary={formatPrice(transactionFees)} />
+              </ListItem>
+              <ListItem className={styles.money}>
+                <ListItemText primary={t('payment.received_amount')} />
+                <ListItemText primary={formatPrice(total - transactionFees)} />
+              </ListItem>
+              <Divider />
+            </>
+          )}
           <CustomButton
             onClick={() => {
               onDelete(id);
