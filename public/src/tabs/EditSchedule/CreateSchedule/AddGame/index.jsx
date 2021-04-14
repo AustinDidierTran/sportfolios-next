@@ -13,7 +13,7 @@ import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
-  const { games, isOpen, onClose, update } = props;
+  const { games, isOpen, onClose, update, updateGames } = props;
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -130,7 +130,11 @@ export default function AddGame(props) {
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
-
+      formik.setFieldValue('time', '');
+      formik.setFieldValue('field', '');
+      setFieldOptions(gameOptions.fields);
+      setTimeslotOptions(gameOptions.timeSlots);
+      updateGames();
       update();
     },
   });
