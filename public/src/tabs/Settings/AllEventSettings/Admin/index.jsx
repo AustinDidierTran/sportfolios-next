@@ -44,11 +44,12 @@ export default function Admin(props) {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
           <ListItemText primary={t('admin')} />
         </AccordionSummary>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <ManageRoles role={role} />
+          <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
+        </Collapse>
       </Accordion>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <ManageRoles role={role} />
-        <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
-      </Collapse>
+
     </>
   );
 }

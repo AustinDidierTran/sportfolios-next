@@ -42,12 +42,12 @@ export default function Registration() {
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
           <ListItemText primary={t('register.registrations')} />
         </AccordionSummary>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <TeamsRegistered />
+          <PlayersRegistered />
+          <AddOptionsEvent />
+        </Collapse>
       </Accordion>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <TeamsRegistered />
-        <PlayersRegistered />
-        <AddOptionsEvent />
-      </Collapse>
     </>
   );
 }
