@@ -104,7 +104,9 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
         display: name
           ? name
           : r.teamName
-          ? `${r.initialPosition.toString()}. ${r.currentPhaseName} (${r.teamName})`
+          ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${r.currentPhaseName} (${
+              r.teamName
+            })`
           : `${r.initialPosition.toString()}. ${r.currentPhaseName}`,
         value: r.rankingId,
         index: r.finalPosition ? r.finalPosition : r.initialPosition,
