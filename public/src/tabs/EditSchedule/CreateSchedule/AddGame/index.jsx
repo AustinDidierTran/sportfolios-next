@@ -130,9 +130,13 @@ export default function AddGame(props) {
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
-      formik.setFieldValue('time', '');
-      formik.setFieldValue('field', '');
-      setFieldOptions(gameOptions.fields);
+      const unavailableFields = games.filter((g) => g.timeslot_id === time).map((g) => g.field_id);
+      const filteredFieldOptions = gameOptions.fields.filter(
+        (f) => f.value !== field && !unavailableFields.includes(f.value)
+      );
+
+      formik.setFieldValue('field', filteredFieldOptions.length ? filteredFieldOptions[0].value : '');
+      setFieldOptions(filteredFieldOptions);
       setTimeslotOptions(gameOptions.timeSlots);
       updateGames();
       update();
