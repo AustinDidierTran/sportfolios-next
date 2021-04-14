@@ -68,6 +68,9 @@ export default function ScheduleTab(props) {
   const closeField = () => {
     setField(false);
   };
+  const updateGames = async () => {
+    await getGames();
+  };
 
   return (
     <>
@@ -139,7 +142,7 @@ export default function ScheduleTab(props) {
       <AddField isOpen={field} onClose={closeField} />
       <AddTeam isOpen={team} onClose={closeTeam} update={update} />
       <AddPhase isOpen={phase} onClose={closePhase} />
-      <AddGame isOpen={game} onClose={closeGame} update={update} games={games} />
+      <AddGame isOpen={game} onClose={closeGame} update={update} updateGames={updateGames} games={games} />
     </>
   );
 }
