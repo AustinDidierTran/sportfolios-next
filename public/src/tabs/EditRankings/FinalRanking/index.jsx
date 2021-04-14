@@ -46,7 +46,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, prerankPhaseId, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, prerankPhaseId, update, ...otherProps } = props;
   const { phaseId } = phase;
 
   const { t } = useTranslation();
@@ -146,6 +146,7 @@ export default function FinalRanking(props) {
     }
     setMadeChanges(false);
     getRankings();
+    update();
   };
 
   const toggleManualRanking = () => {

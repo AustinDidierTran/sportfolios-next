@@ -414,6 +414,7 @@ export default function EditRankings() {
                               onExpand={() => onExpand(phase.id)}
                               onOpenAlertDialog={onOpenAlertDialog}
                               prerankPhaseId={prerankPhase.phaseId}
+                              update={update}
                             ></FinalRanking>
                           ) : (
                             <PhaseAccordionDnD
