@@ -1050,6 +1050,8 @@ export default {
     male: 'Homme',
     Male: 'Homme',
     manual_acceptation: 'Acceptation manuelle',
+    manual_ranking: 'Classement manuel',
+    manual_ranking_updated: 'Classement mis à jour!',
     max_length: 'Longueur maximum',
     maximum_spots: 'Nombre de places',
     menu: 'Menu',

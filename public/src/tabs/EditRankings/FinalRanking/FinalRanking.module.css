@@ -58,6 +58,7 @@
   grid-area: buttonContainer;
   display: flex;
   justify-content: center;
+  padding-top: 12px;
 }
 
 .menuContainer {
@@ -72,5 +73,6 @@
 
 .button {
   height: 32px;
-  align-self: center;
+  margin-right: 8px !important;
+  margin-left: 8px !important;
 }

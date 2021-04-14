@@ -1026,6 +1026,8 @@ export default {
     male: 'Male',
     Male: 'Male',
     manual_acceptation: 'Manual acceptation',
+    manual_ranking: 'Manual ranking',
+    manual_ranking_updated: 'Ranking updated!',
     max_length: 'Maximum length',
     maximum_spots: 'Maximum spots',
     menu: 'Menu',

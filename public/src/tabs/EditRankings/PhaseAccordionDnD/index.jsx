@@ -36,9 +36,6 @@ const useStyles = makeStyles(() => ({
 
 const AccordionSummary = withStyles({
   content: {
-    '&$expanded': {
-      margin: '8px 0',
-    },
     margin: '4px 0',
   },
 })(MuiAccordionSummary);
@@ -100,7 +97,7 @@ export default function PhaseAccordionDnD(props) {
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
 
   const onDragEnd = (result) => {
-    if (result.destination.index === result.source.index) {
+    if (!result.destination || result.destination.index === result.source.index) {
       return;
     } else {
       const newTeams = reorder(teams, result.source.index, result.destination.index);

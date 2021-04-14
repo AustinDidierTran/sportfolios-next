@@ -73,11 +73,17 @@ export const getPositionOptions = async (eventId) => {
   const formattedRankingOptions = rankingOptions.map((r) => ({
     value: r.ranking_id,
     display: r.name
-      ? `${r.initial_position.toString()}. ${data.find((d) => d.id === r.current_phase).name} (${r.name})`
+      ? `${r.final_position ? r.final_position.toString() : r.initial_position.toString()}. ${
+          data.find((d) => d.id === r.current_phase).name
+        } (${r.name})`
       : `${r.initial_position.toString()}. ${data.find((d) => d.id === r.current_phase).name}`,
     ...r,
   }));
-  return formattedRankingOptions;
+  return formattedRankingOptions.sort(
+    (a, b) =>
+      (a.final_position ? a.final_position : a.initial_position) -
+      (b.final_position ? b.final_position : b.initial_position)
+  );
 };
 
 export const getFutureGameOptions = async (eventId, withoutAll) => {
