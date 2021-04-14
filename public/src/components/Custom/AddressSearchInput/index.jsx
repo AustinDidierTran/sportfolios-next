@@ -113,6 +113,7 @@ function AddressSearchInput(props) {
         value={(formik && formik.values[namespace]) || ''}
         onChange={onChange}
         placeholder={t('address')}
+        required
       />
     </div>
   );

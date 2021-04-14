@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
 import BasicFormDialog from '../../BasicFormDialog';
 
 export default function GoToCart(props) {
-  const { open: openProps, onClose } = props;
+  const { open, onClose } = props;
   const { t } = useTranslation();
-
-  useEffect(() => {
-    setOpen(openProps);
-  }, [openProps]);
-
-  const [open, setOpen] = useState(false);
 
   const buttons = [
     {
