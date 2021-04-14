@@ -185,10 +185,8 @@ export default function AddGame(props) {
   }, [formik.values.position1, formik.values.position2]);
 
   useEffect(() => {
-    if (formik.values.field !== '' && formik.values.time === '') {
-      const unavailableTimeSlot = games.filter((g) => g.field_id === formik.values.field).map((g) => g.timeslot_id);
-      setTimeslotOptions(gameOptions.timeSlots.filter((t) => !unavailableTimeSlot.includes(t.value)));
-    }
+    const unavailableTimeSlot = games.filter((g) => g.field_id === formik.values.field).map((g) => g.timeslot_id);
+    setTimeslotOptions(gameOptions.timeSlots.filter((t) => !unavailableTimeSlot.includes(t.value)));
   }, [formik.values.field, formik.values.time]);
 
   const buttons = [
