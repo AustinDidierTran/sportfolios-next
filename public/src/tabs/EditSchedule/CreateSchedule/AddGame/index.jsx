@@ -130,14 +130,13 @@ export default function AddGame(props) {
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
-      const unavailableFields = games.filter((g) => g.timeslot_id === time).map((g) => g.field_id);
-      const filteredFieldOptions = gameOptions.fields.filter(
-        (f) => f.value !== field && !unavailableFields.includes(f.value)
+      const unavailableTime = games.filter((g) => g.field_id === field).map((g) => g.timeslot_id);
+      const filteredTimeOptions = gameOptions.timeSlots.filter(
+        (t) => t.value !== time && !unavailableTime.includes(t.value)
       );
 
-      formik.setFieldValue('field', filteredFieldOptions.length ? filteredFieldOptions[0].value : '');
-      setFieldOptions(filteredFieldOptions);
-      setTimeslotOptions(gameOptions.timeSlots);
+      formik.setFieldValue('time', filteredTimeOptions.length ? filteredTimeOptions[0].value : '');
+      setTimeslotOptions(filteredTimeOptions);
       updateGames();
       update();
     },
@@ -189,10 +188,6 @@ export default function AddGame(props) {
     if (formik.values.field !== '' && formik.values.time === '') {
       const unavailableTimeSlot = games.filter((g) => g.field_id === formik.values.field).map((g) => g.timeslot_id);
       setTimeslotOptions(gameOptions.timeSlots.filter((t) => !unavailableTimeSlot.includes(t.value)));
-    }
-    if (formik.values.field === '' && formik.values.time !== '') {
-      const unavailableField = games.filter((g) => g.timeslot_id === formik.values.time).map((g) => g.field_id);
-      setFieldOptions(gameOptions.fields.filter((f) => !unavailableField.includes(f.value)));
     }
   }, [formik.values.field, formik.values.time]);
 
