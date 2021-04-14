@@ -17,9 +17,9 @@ import moment from 'moment';
 import CustomButton from '../../components/Custom/Button';
 import loadable from '@loadable/component';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { TABS_ENUM } from '../../../common/enums'
-export default function Analytics() {
+import { TABS_ENUM } from '../../../common/enums';
 
+export default function Analytics() {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: organizationId } = router.query;
@@ -47,8 +47,8 @@ export default function Analytics() {
   };
 
   const dateChanged = (e) => {
-    setDateGraph(moment(e.target.value).format('yyyy-MM-DD'))
-  }
+    setDateGraph(moment(e.target.value).format('yyyy-MM-DD'));
+  };
 
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
@@ -83,7 +83,10 @@ export default function Analytics() {
             {t('will_see_graph_member')}
             <CustomButton
               className={styles.buttonDivGraph}
-              onClick={() => { goTo(ROUTES.entity, { id: organizationId }, { tab: TABS_ENUM.SETTINGS }) }}>
+              onClick={() => {
+                goTo(ROUTES.entity, { id: organizationId }, { tab: TABS_ENUM.SETTINGS });
+              }}
+            >
               {t('add.add_membership')}
             </CustomButton>
           </div>
