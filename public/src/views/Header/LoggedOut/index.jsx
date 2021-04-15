@@ -13,7 +13,6 @@ import Button from '../../../components/Custom/Button';
 export default function LoggedOut(props) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { id } = router.query;
 
   const { isNotLogin } = props;
 
@@ -32,7 +31,7 @@ export default function LoggedOut(props) {
                 className={styles.button}
                 disableElevation
                 onClick={() => {
-                  const redirectUrl = `/${id}`;
+                  const redirectUrl = router.asPath;
                   goTo(ROUTES.login, null, { redirectUrl });
                 }}
               >
