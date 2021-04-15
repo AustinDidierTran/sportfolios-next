@@ -12,6 +12,7 @@ import {
   MEMBERSHIP_LENGTH_ENUM,
   TABS_ENUM,
   GENDER_ENUM,
+  GLOBAL_ENUM,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
@@ -45,24 +46,26 @@ export default function BecomeMember(props) {
   const [fullMemberships, setFullMemberships] = useState([]);
 
   useEffect(() => {
-    setOpen(openProps);
     if (openProps) {
       getPeople();
       getMemberships();
     }
+    setOpen(openProps);
   }, [openProps]);
 
   const getPersonInfos = async (person) => {
-    const { data } = await api(
-      formatRoute('/api/entity/personInfos', null, {
-        entityId: person,
-      })
-    );
-    formik.setFieldValue('birthDate', data?.birthDate || '');
-    formik.setFieldValue('gender', data?.gender || '');
-    formik.setFieldValue('address', data?.address || '');
-    formik.setFieldValue('formattedAddress', data?.formattedAddress || '');
-    setPersonInfos(data);
+    if (person) {
+      const { data } = await api(
+        formatRoute('/api/entity/personInfos', null, {
+          entityId: person,
+        })
+      );
+      formik.setFieldValue('birthDate', data?.birthDate || '');
+      formik.setFieldValue('gender', data?.gender || '');
+      formik.setFieldValue('address', data?.address || '');
+      formik.setFieldValue('formattedAddress', data?.formattedAddress || '');
+      setPersonInfos(data);
+    }
   };
 
   const getPeople = async () => {
@@ -70,14 +73,20 @@ export default function BecomeMember(props) {
     if (!data) {
       return;
     }
-    if (!formik.values.person) {
-      formik.setFieldValue('person', data.id);
-    }
-    const res = userInfo.persons.map((p) => ({
-      value: p.entity_id,
+    const { data: people } = await api(
+      formatRoute('/api/user/ownedPersons', null, {
+        type: GLOBAL_ENUM.PERSON,
+      })
+    );
+    const res = people.map((p) => ({
+      value: p.id,
       display: `${p.name} ${p?.surname}`,
     }));
     setPeople(res);
+
+    if (!formik.values.person) {
+      formik.setFieldValue('person', data.id);
+    }
   };
 
   const getMemberships = async () => {
@@ -91,12 +100,12 @@ export default function BecomeMember(props) {
       value: d.id,
       display: formatMembership(d),
     }));
+    setMemberships(memberships);
     if (defaultTypeValue) {
       formik.setFieldValue('type', defaultTypeValue);
     } else if (memberships[0]) {
       formik.setFieldValue('type', memberships[0].value);
     }
-    setMemberships(memberships);
   };
 
   const formatMembership = (membership) => {
@@ -147,7 +156,7 @@ export default function BecomeMember(props) {
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, resetForm) => {
+    onSubmit: async (values, { resetForm }) => {
       const { person, type, birthDate, gender, address } = values;
       const res = await api(`/api/entity/member`, {
         method: 'POST',
