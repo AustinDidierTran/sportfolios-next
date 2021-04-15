@@ -478,6 +478,7 @@ export default {
       organization_member: "Membres de l'organization",
       membership_added: 'Affiliation ajouté',
       membership_edited: 'Affiliation modifiée',
+      membership_deleted: 'Affiliation supprimée',
       membership_exist: 'Affiliation Existant',
       membership: 'Affiliation',
       memberships: 'Affiliations',

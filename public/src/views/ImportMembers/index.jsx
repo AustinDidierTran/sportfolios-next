@@ -8,10 +8,11 @@ import List from './MembersImportList';
 import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
 import Select from '../../components/Custom/Select';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import FormDialog from '../../components/Custom/FormDialog';
 import { useTranslation } from 'react-i18next';
 import { ExcelRenderer } from 'react-excel-renderer';
 import { ACTION_ENUM, Store } from '../../Store';
-import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../common/enums';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useFormik } from 'formik';
@@ -36,6 +37,16 @@ export default function ImportMembers() {
     }
   }, [id]);
 
+  const [open, setOpen] = useState(false);
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const update = () => {
+    getMemberships();
+  };
+
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
     if (!res.data) {
@@ -52,7 +63,9 @@ export default function ImportMembers() {
       return prev;
     }, []);
     formik.setFieldValue('memberships', data);
-    formik.setFieldValue('membership', data[0].value);
+    if (data[0]) {
+      formik.setFieldValue('membership', data[0].value);
+    }
   };
 
   const formik = useFormik({
@@ -199,7 +212,7 @@ export default function ImportMembers() {
   return (
     <IgContainer>
       <Paper title={t('import_members')}>
-        <ListItem>
+        <ListItem className={styles.listItem}>
           <ListItemText primary={t('step_1')} secondary={t('download_excel_template')} />
           <CSVLink
             data={dataTemplate}
@@ -212,14 +225,20 @@ export default function ImportMembers() {
             </Button>
           </CSVLink>
         </ListItem>
-        <ListItem>
+        <ListItem className={styles.listItem}>
           <ListItemText primary={t('step_2')} secondary={t('import_your_excel_sheet_with_all_your_members')} />
-          <Button variant="outlined" endIcon="CloudUploadIcon" component="label" style={{ margin: '8px' }}>
+          <Button
+            variant="outlined"
+            endIcon="CloudUploadIcon"
+            component="label"
+            className={styles.button2}
+            style={{ margin: '8px' }}
+          >
             {t('import')}
             <input type="file" onChange={fileHandler} hidden />
           </Button>
         </ListItem>
-        <ListItem>
+        <ListItem className={styles.listItem}>
           <ListItemText primary={t('step_3')} secondary={t('choose.choose_membership')} />
           <div className={styles.div}>
             {memberships.length ? (
@@ -232,11 +251,18 @@ export default function ImportMembers() {
                 formik={formik}
               />
             ) : (
-              <ListItemText
-                primary={t('you.you_need_to_have_a_membership_available')}
-                secondary={t('you.you_can_go_to_your_organization_settings_to_add_one')}
-                primaryTypographyProps={{ color: 'secondary' }}
-              />
+              <Button
+                className={styles.button3}
+                variant="outlined"
+                endIcon="Add"
+                component="label"
+                onClick={() => {
+                  setOpen(true);
+                }}
+                style={{ margin: '8px' }}
+              >
+                {t('add.add_membership')}
+              </Button>
             )}
           </div>
         </ListItem>
@@ -276,6 +302,14 @@ export default function ImportMembers() {
           {t('complete_transfer')}
         </Button>
       </ContainerBottomFixed>
+      <FormDialog
+        type={FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP}
+        items={{
+          open,
+          onClose,
+          update,
+        }}
+      />
     </IgContainer>
   );
 }
