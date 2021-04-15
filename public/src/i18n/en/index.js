@@ -734,6 +734,7 @@ export default {
       you_can_now_change_your_password: 'You can now change your password for the account having the email {{email}}',
       you_can_start_to_swipe: 'Swipe a card or press a button to get started!',
       you_have_no_account_with_this_email_create_one: 'You have no account with this email! Create one!',
+      you_need_to_be_connected_to_become_member: 'You need to be connected to become member of {{organization}}',
       you_need_to_connect_your_messenger_account:
         'You need to connect your messenger account in the applications settings to enable this kind of notification',
       you_need_to_create_an_account: 'You need to create your account first!',
@@ -868,6 +869,7 @@ export default {
     clear_cart_confirmation: 'Are you sur you want to clear your cart',
     click_to_create_new_team: 'Click to create your new team',
     click_to_add_game: "Click on a '+' button to add this game to the event",
+    click_to_go_to_login: 'Click on confirm to be redirected to login page.',
     close: 'Close',
     closing_of_registration: 'Closing of registration',
     coach: 'Coach',

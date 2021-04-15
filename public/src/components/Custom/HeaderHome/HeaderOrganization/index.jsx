@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
 import { useRouter } from 'next/router';
@@ -11,26 +12,66 @@ import CustomIcon from '../../Icon';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
 import loadable from '@loadable/component';
+import { formatRoute } from '../../../../utils/stringFormats';
+import api from '../../../../actions/api';
+import AlertDialog from '../../Dialog/AlertDialog';
 
 const BannerOrganization = loadable(() => import('../../BannerOrganization'));
 
 export default function HeaderOrganization(props) {
   const { basicInfos, navTabs, index, isAdmin } = props;
   const router = useRouter();
+  const { t } = useTranslation();
   const { id } = router.query;
 
-  const [open, setOpen] = useState(false);
-  const onOpen = () => {
-    setOpen(true);
+  const [openBecomeMember, setOpenBecomeMember] = useState(false);
+  const [openToLogin, setOpenToLogin] = useState(false);
+
+  const [hasMemberships, setHasMemberships] = useState(false);
+
+  useEffect(() => {
+    getHasMemberships();
+  }, []);
+
+  const getHasMemberships = async () => {
+    const { data } = await api(
+      formatRoute('/api/entity/hasMemberships', null, {
+        id,
+      })
+    );
+    setHasMemberships(data);
   };
-  const onClose = () => {
-    setOpen(false);
+
+  const goToLogin = () => {
+    const redirectUrl = router.asPath;
+    goTo(ROUTES.login, null, { redirectUrl });
+  };
+
+  const onOpenBecomeMember = () => {
+    setOpenBecomeMember(true);
+  };
+  const onCloseBecomeMember = () => {
+    setOpenBecomeMember(false);
+  };
+
+  const onOpenToLoggin = () => {
+    setOpenToLogin(true);
+  };
+
+  const onCloseToLoggin = () => {
+    setOpenToLogin(false);
   };
   const update = () => {};
 
   return (
     <Paper elevation={1} className={styles.paper}>
-      <BannerOrganization basicInfos={basicInfos} onClickMainButton={onOpen} isAdmin={isAdmin} />
+      <BannerOrganization
+        basicInfos={basicInfos}
+        onBecomeMemberButton={onOpenBecomeMember}
+        onOpenToLoggin={onOpenToLoggin}
+        isAdmin={isAdmin}
+        hasMemberships={hasMemberships}
+      />
       <div className={styles.navigation}>
         <Tabs
           value={index}
@@ -77,10 +118,17 @@ export default function HeaderOrganization(props) {
         <FormDialog
           type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
           items={{
-            open,
-            onClose,
+            open: openBecomeMember,
+            onClose: onCloseBecomeMember,
             update,
           }}
+        />
+        <AlertDialog
+          open={openToLogin}
+          title={t('you.you_need_to_be_connected_to_become_member', { organization: basicInfos.name })}
+          description={t('click_to_go_to_login')}
+          onCancel={onCloseToLoggin}
+          onSubmit={goToLogin}
         />
       </div>
     </Paper>
