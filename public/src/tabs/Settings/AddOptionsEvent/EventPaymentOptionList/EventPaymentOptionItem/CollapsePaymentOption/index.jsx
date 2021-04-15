@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -12,21 +12,55 @@ import TextField from '@material-ui/core/TextField';
 
 export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();
+  const { option, expanded, setEdit, setAlertDialog } = props;
   const {
-    teamPrice,
-    individualPrice,
+    team_price: teamPrice,
+    individual_price: individualPrice,
     startTime,
     endTime,
     owner,
-    taxRates,
+    individualTaxRates,
+    teamTaxRates,
     teamActivity,
-    expanded,
-    setEdit,
-    setAlertDialog,
     teamAcceptation,
     playerAcceptation,
     informations,
-  } = props;
+    teamTransactionFees,
+    individualTransactionFees,
+  } = option;
+
+  const teamTotal = useMemo(() => {
+    if (!teamPrice) {
+      return 0;
+    }
+    return (
+      teamTaxRates.reduce((prev, curr) => {
+        return prev + (teamPrice * curr.percentage) / 100;
+      }, 0) + teamPrice
+    );
+  }, [teamPrice, teamTaxRates]);
+
+  const individualTotal = useMemo(() => {
+    if (!individualPrice) {
+      return 0;
+    }
+    return (
+      individualTaxRates.reduce((prev, curr) => {
+        return prev + (individualPrice * curr.percentage) / 100;
+      }, 0) + individualPrice
+    );
+  }, [(individualPrice, individualTaxRates)]);
+
+  const allTaxes = useMemo(() => {
+    const all = individualTaxRates.concat(teamTaxRates);
+    const res = all.reduce((prev, curr) => {
+      if (prev.some((p) => p.id === curr.id)) {
+        return prev;
+      }
+      return [...prev, curr];
+    }, []);
+    return res;
+  }, [individualTaxRates, teamTaxRates]);
 
   return (
     <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
@@ -85,32 +119,43 @@ export default function CollapsePaymentOption(props) {
             <ListItemText primary={`${formatPrice(teamPrice)}`} secondary={t('price_team')}></ListItemText>
             <ListItemText primary={`${formatPrice(individualPrice)}`} secondary={t('price_individual')}></ListItemText>
           </ListItem>
-          {taxRates.map((t, index) => (
+          {allTaxes.map((t, index) => (
             <ListItem className={styles.money} key={index}>
               <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description} />
-              <ListItemText primary={`${formatPrice((teamPrice * t.percentage) / 100)}`}></ListItemText>
-              <ListItemText primary={`${formatPrice((individualPrice * t.percentage) / 100)}`}></ListItemText>
+              {teamTaxRates.some((team) => team.id === t.id) ? (
+                <ListItemText primary={`${formatPrice((teamPrice * t.percentage) / 100)}`}></ListItemText>
+              ) : (
+                <ListItemText primary={`${formatPrice(0)}`}></ListItemText>
+              )}
+              {individualTaxRates.some((player) => player.id === t.id) ? (
+                <ListItemText primary={`${formatPrice((individualPrice * t.percentage) / 100)}`}></ListItemText>
+              ) : (
+                <ListItemText primary={`${formatPrice(0)}`}></ListItemText>
+              )}
             </ListItem>
           ))}
           <Divider />
           <ListItem className={styles.money}>
             <ListItemText primary={`${t('total')}:`} />
-            <ListItemText
-              primary={`${formatPrice(
-                taxRates.reduce((prev, curr) => {
-                  return prev + (teamPrice * curr.percentage) / 100;
-                }, 0) + teamPrice
-              )}`}
-            ></ListItemText>
-            <ListItemText
-              primary={`${formatPrice(
-                taxRates.reduce((prev, curr) => {
-                  return prev + (individualPrice * curr.percentage) / 100;
-                }, 0) + individualPrice
-              )}`}
-            ></ListItemText>
+            <ListItemText primary={formatPrice(teamTotal)}></ListItemText>
+            <ListItemText primary={formatPrice(individualTotal)}></ListItemText>
           </ListItem>
           <Divider />
+          {(teamTotal != 0 || individualTotal != 0) && (
+            <>
+              <ListItem className={styles.money}>
+                <ListItemText primary={t('payment.transaction_fees')} />
+                <ListItemText primary={formatPrice(teamTransactionFees)}></ListItemText>
+                <ListItemText primary={formatPrice(individualTransactionFees)}></ListItemText>
+              </ListItem>
+              <ListItem className={styles.money}>
+                <ListItemText primary={t('payment.received_amount')} />
+                <ListItemText primary={formatPrice(teamTotal - teamTransactionFees)}></ListItemText>
+                <ListItemText primary={formatPrice(individualTotal - individualTransactionFees)}></ListItemText>
+              </ListItem>
+              <Divider />
+            </>
+          )}
         </>
         <CustomButton
           endIcon="Edit"

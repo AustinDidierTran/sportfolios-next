@@ -18,20 +18,7 @@ import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
   const { option, update } = props;
-  const {
-    id,
-    name,
-    team_price,
-    individual_price,
-    startTime,
-    endTime,
-    owner,
-    taxRates,
-    team_activity,
-    team_acceptation,
-    player_acceptation,
-    informations,
-  } = option;
+  const { id, name, team_price, individual_price, startTime, endTime } = option;
 
   const { dispatch } = useContext(Store);
   const [alertDialog, setAlertDialog] = useState(false);
@@ -98,21 +85,7 @@ export default function EventPaymentOptionItem(props) {
         />
         <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
-      <CollapsePaymentOption
-        teamPrice={team_price}
-        individualPrice={individual_price}
-        startTime={startTime}
-        endTime={endTime}
-        owner={owner}
-        taxRates={taxRates}
-        teamActivity={team_activity}
-        expanded={expanded}
-        setEdit={setEdit}
-        setAlertDialog={setAlertDialog}
-        teamAcceptation={team_acceptation}
-        playerAcceptation={player_acceptation}
-        informations={informations}
-      />
+      <CollapsePaymentOption option={option} expanded={expanded} setEdit={setEdit} setAlertDialog={setAlertDialog} />
       <Divider />
       <CustomFormDialog
         type={FORM_DIALOG_TYPE_ENUM.EDIT_EVENT_PAYMENT_OPTION}

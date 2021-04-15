@@ -26,11 +26,13 @@ export default function AddMembership() {
 
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
+
     const data = res.data.map((d) => ({
       membership: t(getMembershipName(d.membership_type)),
       membershipType: t(getMembershipType(d.length, d.fixed_date)),
       expirationDate: getExpirationDate(d.length, d.fixed_date),
       price: d.price,
+      transactionFees: d.transactionFees,
       taxRates: d.taxRates,
       type: LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION,
       id: d.id,
