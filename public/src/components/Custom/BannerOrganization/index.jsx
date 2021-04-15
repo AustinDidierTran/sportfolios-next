@@ -26,15 +26,12 @@ export default function BannerOrganization(props) {
             </Grid>
           </Grid>
           <Grid container className={styles.gridButton}>
-            {hasMemberships ? (
-              <CustomButton onClick={onBecomeMemberButton} className={styles.eventButton}>
-                {t('become_member')}
-              </CustomButton>
-            ) : (
-              <CustomButton onClick={onOpenToLoggin} className={styles.eventButton}>
-                {t('become_member')}
-              </CustomButton>
-            )}
+            <CustomButton
+              onClick={hasMemberships ? onBecomeMemberButton : onOpenToLoggin}
+              className={styles.eventButton}
+            >
+              {t('become_member')}
+            </CustomButton>
           </Grid>
         </Grid>
       </Grid>
