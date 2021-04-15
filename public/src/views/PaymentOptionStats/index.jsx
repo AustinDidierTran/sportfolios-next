@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
@@ -9,14 +9,19 @@ import loadable from '@loadable/component';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import moment from 'moment';
-
+import { ACTION_ENUM, Store } from '../../Store';
 import api from '../../actions/api';
-const GraphNumberOfMembers = loadable(() => import('../Analytics/GraphNumberOfMembers'));
+import { SEVERITY_ENUM } from '../../../common/enums';
+import { ERROR_ENUM } from '../../../common/errors';
+import { goBack } from '../../actions/goTo';
+const Graph = loadable(() => import('../Analytics/Graph'));
 
 export default function PaymentOptionStats() {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventPaymentId } = router.query;
+  const { dispatch } = useContext(Store);
+
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +36,13 @@ export default function PaymentOptionStats() {
       date: dateFilter
     }));
     if (!data) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+      goBack();
       return;
     }
     setGraphData(data);
@@ -60,13 +72,13 @@ export default function PaymentOptionStats() {
           </div>
         )}
         {(graphData.total.length > 0 || graphData.minDate) && (
-          <GraphNumberOfMembers
+          <Graph
             dateGraph={dateFilter}
             onChangeDate={dateChanged}
             graphData={graphData}
-            title={t('member.members')}
-            totalTitle={t('member.members')}
-            newTitle={t('new_members')}
+            title={`${t('income_for')} ${graphData.name}`}
+            totalTitle={t('total_income')}
+            newTitle={t('new_income')}
           />
         )}
       </Paper>

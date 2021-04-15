@@ -1312,6 +1312,9 @@ export default {
     total_net: 'Net total',
     total: 'Total',
     totals: 'Totals',
+    total_income: 'Total income',
+    new_income: 'New income',
+    income_for: 'Income for',
     tournament_fee: 'Tournament Fee',
     transfer_completed: 'Transfer completed',
     transfer_person_description:

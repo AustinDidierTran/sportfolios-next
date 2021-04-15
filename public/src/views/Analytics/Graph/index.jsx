@@ -11,10 +11,10 @@ import {
 } from 'react-vis';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './GraphNumberOfMembers.module.css';
+import styles from './Graph.module.css';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
-export default function GraphNumberOfMembers(props) {
+export default function Graph(props) {
   const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate } = props;
   const { shortLabel, longLabel, total: totalStats, new: newStats, minDate = '2000-01-01' } = graphData;
 
