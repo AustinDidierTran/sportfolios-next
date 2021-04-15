@@ -53,7 +53,7 @@ export default function Login() {
       password: '',
     },
     validateOnChange: false,
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
       const { email, password } = values;
       const res = await api('/api/auth/login', {
