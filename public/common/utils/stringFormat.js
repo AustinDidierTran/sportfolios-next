@@ -20,7 +20,6 @@ const formatRoute = (route, params, queryParams) => {
     /* eslint-disable-next-line */
     console.error('Route is undefined');
   }
-
   if (!params && !queryParams) {
     return route;
   }
@@ -28,7 +27,6 @@ const formatRoute = (route, params, queryParams) => {
   const withParams = params
     ? Object.keys(params).reduce((prev, curr) => prev.replace(`:${curr}`, params[curr]), route)
     : route;
-
   if (!queryParams) {
     return withParams;
   }
