@@ -7,13 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import styles from './AddBankAccount.module.css';
 import CountrySelect from './CountrySelect';
 import CurrencySelect from './CurrencySelect';
-import { goTo } from '../../actions/goTo';
+import { goTo, ROUTES } from '../../actions/goTo';
 import { hasXDigits } from '../../utils/validators';
 import { Button, IgContainer, Paper, TextField } from '../../components/Custom';
 import api from '../../actions/api';
 import { ERROR_ENUM } from '../../../common/errors';
 import { ACTION_ENUM, Store } from '../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { SEVERITY_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
 
 interface IProps {
   entityId: string;
@@ -122,7 +122,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
           setIsSubmitting(false);
         } else {
           setIsSubmitting(false);
-          goTo(`/${entityId}?tab=settings`);
+          goTo(ROUTES.entity, { id: entityId }, { tab: TABS_ENUM.SETTINGS });
         }
       } catch (err) {
         setIsSubmitting(false);
@@ -175,7 +175,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
               color="secondary"
               style={{ margin: '16px', width: '25%' }}
               onClick={() => {
-                goTo(entityId);
+                goTo(ROUTES.entity, { id: entityId }, { tab: TABS_ENUM.SETTINGS });
               }}
             >
               {t('cancel')}
