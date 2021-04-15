@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -11,6 +11,8 @@ import {
   COMPONENT_TYPE_ENUM,
   MEMBERSHIP_LENGTH_ENUM,
   TABS_ENUM,
+  GENDER_ENUM,
+  GLOBAL_ENUM,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
@@ -18,10 +20,14 @@ import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
+import * as yup from 'yup';
+import UpdatePersonalInfos from './UpdatePersonalInfos';
+import GoToCart from './GoToCart';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 
 export default function BecomeMember(props) {
-  const { open: openProps, onClose, update, moreInfo = true, defaultTypeValue } = props;
+  const { open: openProps, update, onClose, onOpen, moreInfo = true, defaultTypeValue } = props;
+
   const { t } = useTranslation();
   const {
     dispatch,
@@ -31,30 +37,56 @@ export default function BecomeMember(props) {
   const { id } = router.query;
 
   const [open, setOpen] = useState(false);
+  const [updateInfos, setUpdateInfos] = useState(false);
   const [goToCart, setGoToCart] = useState(false);
+  const [personalInfos, setPersonalInfos] = useState(false);
+  const [personInfos, setPersonInfos] = useState({});
   const [people, setPeople] = useState(userInfo.people);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
 
   useEffect(() => {
-    setOpen(openProps);
-    getPeople();
-    if (people) {
+    if (openProps) {
+      getPeople();
       getMemberships();
     }
+    setOpen(openProps);
   }, [openProps]);
+
+  const getPersonInfos = async (person) => {
+    if (person) {
+      const { data } = await api(
+        formatRoute('/api/entity/personInfos', null, {
+          entityId: person,
+        })
+      );
+      formik.setFieldValue('birthDate', data?.birthDate || '');
+      formik.setFieldValue('gender', data?.gender || '');
+      formik.setFieldValue('address', data?.address || '');
+      formik.setFieldValue('formattedAddress', data?.formattedAddress || '');
+      setPersonInfos(data);
+    }
+  };
 
   const getPeople = async () => {
     const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null));
     if (!data) {
       return;
     }
-    formik.setFieldValue('person', data.id);
-    const res = userInfo.persons.map((p) => ({
-      value: p.entity_id,
+    const { data: people } = await api(
+      formatRoute('/api/user/ownedPersons', null, {
+        type: GLOBAL_ENUM.PERSON,
+      })
+    );
+    const res = people.map((p) => ({
+      value: p.id,
       display: `${p.name} ${p?.surname}`,
     }));
     setPeople(res);
+
+    if (!formik.values.person) {
+      formik.setFieldValue('person', data.id);
+    }
   };
 
   const getMemberships = async () => {
@@ -68,12 +100,12 @@ export default function BecomeMember(props) {
       value: d.id,
       display: formatMembership(d),
     }));
+    setMemberships(memberships);
     if (defaultTypeValue) {
       formik.setFieldValue('type', defaultTypeValue);
     } else if (memberships[0]) {
       formik.setFieldValue('type', memberships[0].value);
     }
-    setMemberships(memberships);
   };
 
   const formatMembership = (membership) => {
@@ -102,36 +134,30 @@ export default function BecomeMember(props) {
     return null;
   };
 
-  const handleClose = () => {
-    formik.resetForm();
-    update();
-    onClose();
-  };
-
-  const handleCloseGoToCart = () => {
-    setGoToCart(false);
-  };
-
-  const validate = (values) => {
-    const { type } = values;
-    const errors = {};
-    if (!type) {
-      errors.type = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    address: yup.object().shape({
+      street_address: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    }),
+    type: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    birthDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    formattedAddress: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
 
   const formik = useFormik({
     initialValues: {
       person: '',
       type: '',
+      birthDate: '',
+      gender: '',
+      address: '',
+      formattedAddress: '',
     },
-    validate,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values) => {
-      const { person, type } = values;
-      const membership = fullMemberships.find((m) => m.id === type);
+    onSubmit: async (values, { resetForm }) => {
+      const { person, type, birthDate, gender, address } = values;
       const res = await api(`/api/entity/member`, {
         method: 'POST',
         body: JSON.stringify({
@@ -139,6 +165,9 @@ export default function BecomeMember(props) {
           membershipType: membership.membership_type,
           organizationId: membership.entity_id,
           personId: person,
+          birthDate,
+          gender,
+          address,
           expirationDate: getExpirationDate(membership.length, membership.fixed_date),
         }),
       });
@@ -150,8 +179,13 @@ export default function BecomeMember(props) {
           duration: 4000,
         });
       } else {
-        if (membership.price > 0) {
+        setPersonalInfos(false);
+        if (hasChanged()) {
+          setUpdateInfos(true);
+        } else if (membership.price > 0) {
           setGoToCart(true);
+        } else {
+          resetForm();
         }
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -159,14 +193,46 @@ export default function BecomeMember(props) {
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 4000,
         });
-        handleClose();
+        update();
       }
     },
   });
 
+  const membership = useMemo(() => fullMemberships.find((m) => m.id === formik.values.type), [formik.values.type]);
+
+  const hasChanged = () => {
+    return (
+      personInfos.birthDate != formik.values.birthDate ||
+      personInfos.gender != formik.values.gender ||
+      personInfos.formattedAddress != formik.values.formattedAddress
+    );
+  };
+
+  useEffect(() => {
+    getPersonInfos(formik.values.person);
+  }, [formik.values.person]);
+
   const onClickMoreInfo = () => {
-    router.push(`/${id}?tab=${TABS_ENUM.MEMBERSHIPS}`);
-    handleClose();
+    goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.membership });
+    onClose();
+  };
+
+  const addressChanged = (newAddress) => {
+    formik.setFieldValue('address', newAddress);
+  };
+
+  const onGoToCartClose = () => {
+    setGoToCart(false);
+    formik.resetForm();
+  };
+
+  const onUpdateInfosClose = () => {
+    setUpdateInfos(false);
+    if (membership.price > 0) {
+      setGoToCart(true);
+    } else {
+      formik.resetForm();
+    }
   };
 
   const fields = [
@@ -184,33 +250,63 @@ export default function BecomeMember(props) {
     },
   ];
 
+  const infosFields = [
+    {
+      namespace: 'birthDate',
+      InputProps: {
+        inputProps: {
+          max: moment(new Date()).format('YYYY-MM-DD'),
+        },
+      },
+      helperText: t('birth_date'),
+      type: 'date',
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      namespace: 'gender',
+      label: t('gender'),
+      options: [
+        { value: GENDER_ENUM.MALE, display: t('male') },
+        { value: GENDER_ENUM.FEMALE, display: t('female') },
+        { value: GENDER_ENUM.NOT_SPECIFIED, display: t('do_not_specify') },
+      ],
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.ADDRESS,
+      namespace: 'formattedAddress',
+      language: userInfo.language,
+      country: 'ca',
+      addressChanged,
+    },
+  ];
+
   const buttons = [
     {
-      onClick: handleClose,
+      onClick: onClose,
       name: t('cancel'),
+      color: 'secondary',
+    },
+    {
+      onClick: () => {
+        onClose();
+        setPersonalInfos(true);
+      },
+      name: t('next'),
+      color: 'primary',
+    },
+  ];
+  const infosButtons = [
+    {
+      onClick: () => {
+        setPersonalInfos(false);
+        onOpen();
+      },
+      name: t('back'),
       color: 'secondary',
     },
     {
       type: 'submit',
       name: t('add.add'),
-      color: 'primary',
-    },
-  ];
-
-  const goToCartbutton = [
-    {
-      onClick: () => {
-        setGoToCart(false);
-      },
-      name: t('cancel'),
-      color: 'secondary',
-    },
-    {
-      onClick: () => {
-        setGoToCart(false);
-        goTo(ROUTES.cart);
-      },
-      name: t('go_to_cart'),
       color: 'primary',
     },
   ];
@@ -223,18 +319,23 @@ export default function BecomeMember(props) {
         buttons={buttons}
         fields={fields}
         formik={formik}
-        onClose={handleClose}
+        onClose={onClose}
         showSubtitle={moreInfo}
         subtitle={t('learn_more')}
         subtitleOnClick={onClickMoreInfo}
       />
       <BasicFormDialog
-        open={goToCart}
-        title={t('go_to_cart_to_pay_membership')}
-        fields={[]}
-        buttons={goToCartbutton}
-        onClose={handleCloseGoToCart}
+        open={personalInfos}
+        title={t('person.personal_information')}
+        buttons={infosButtons}
+        fields={infosFields}
+        formik={formik}
+        onClose={() => {
+          setPersonalInfos(false);
+        }}
       />
+      <UpdatePersonalInfos open={updateInfos} onClose={onUpdateInfosClose} formik={formik} />
+      <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>
   );
 }

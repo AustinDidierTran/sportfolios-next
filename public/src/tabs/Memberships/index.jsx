@@ -44,6 +44,9 @@ export default function Memberships() {
   const onClose = () => {
     setOpen(false);
   };
+  const openDialog = () => {
+    setOpen(true);
+  };
 
   const update = () => {
     setRefreshMemberships(!refreshMemberships);
@@ -77,10 +80,10 @@ export default function Memberships() {
       let alreadyMember = false;
       let expirationDate;
 
-      if (members && members.findIndex((o) => o.membershipId === d.id) >= 0) {
+      if (members && members.findIndex((o) => o.memberType === d.membership_type) >= 0) {
         alreadyMember = true;
         expirationDate = `${t('expiration_date')} : ${formatDate(
-          moment(new Date(members[members.findIndex((o) => o.membershipId === d.id)].expirationDate))
+          moment(new Date(members[members.findIndex((o) => o.memberType === d.membership_type)].expirationDate))
         )}`;
       }
       return {
@@ -147,6 +150,7 @@ export default function Memberships() {
         items={{
           open,
           onClose,
+          onOpen: openDialog,
           update,
           moreInfo: false,
           defaultTypeValue,

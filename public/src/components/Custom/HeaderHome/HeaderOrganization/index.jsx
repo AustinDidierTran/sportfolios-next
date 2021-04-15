@@ -120,6 +120,7 @@ export default function HeaderOrganization(props) {
           items={{
             open: openBecomeMember,
             onClose: onCloseBecomeMember,
+            onOpen: () => {},
             update,
           }}
         />
