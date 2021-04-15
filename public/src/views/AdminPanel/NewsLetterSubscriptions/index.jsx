@@ -27,7 +27,7 @@ export default function NewsLetterSubscriptions() {
   };
 
   const copyToClipBoard = () => {
-    const allEmails = users.map((u) => u.emails.toString()).join(' ');
+    const allEmails = users.map((u) => u.emails.toString()).join(', ');
     //this could not be supported in every browser
     navigator.clipboard.writeText(allEmails);
     dispatch({
