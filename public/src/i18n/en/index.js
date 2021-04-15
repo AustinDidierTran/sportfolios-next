@@ -477,6 +477,7 @@ export default {
       membership_added: 'Membership added',
       membership_edited: 'Membership edited',
       membership_exist: 'Membership Exist',
+      membership_deleted: 'Membership deleted',
       membership: 'Membership',
       memberships: 'Memberships',
       memberships_list: 'List of memberships',
