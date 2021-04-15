@@ -15,7 +15,7 @@ import styles from './Graph.module.css';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 export default function Graph(props) {
-  const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate } = props;
+  const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate, formatData = (x) => (x) } = props;
   const { shortLabel, longLabel, total: totalStats, new: newStats, minDate = '2000-01-01' } = graphData;
 
   const { t } = useTranslation();
@@ -26,8 +26,8 @@ export default function Graph(props) {
   };
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
-  const totalStatsInfo = useMemo(() => totalStats.length == 0 ? 0 : totalStats[value.x - 1].y, [value]);
-  const newStatsInfo = useMemo(() => newStats.length == 0 ? 0 : newStats[value.x - 1].y, [value]);
+  const totalStatsInfo = useMemo(() => totalStats.length == 0 ? 0 : formatData(totalStats[value.x - 1].y), [value]);
+  const newStatsInfo = useMemo(() => newStats.length == 0 ? 0 : formatData(newStats[value.x - 1].y), [value]);
   const longLabelInfo = useMemo(() => longLabel[value.x - 1], [value]);
 
   return (

@@ -7,7 +7,7 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
 import loadable from '@loadable/component';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute, formatPrice } from '../../../common/utils/stringFormat';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../Store';
 import api from '../../actions/api';
@@ -79,6 +79,7 @@ export default function PaymentOptionStats() {
             title={`${t('income_for')} ${graphData.name}`}
             totalTitle={t('total_income')}
             newTitle={t('new_income')}
+            formatData={(x) => (`${formatPrice(x * 100)} $`)}
           />
         )}
       </Paper>
