@@ -43,7 +43,7 @@ export default function HeaderOrganization(props) {
   };
 
   const goToLogin = () => {
-    const redirectUrl = `/${id}`;
+    const redirectUrl = router.asPath;
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
