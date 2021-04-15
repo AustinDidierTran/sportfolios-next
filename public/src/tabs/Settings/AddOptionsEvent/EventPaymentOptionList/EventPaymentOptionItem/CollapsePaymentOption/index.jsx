@@ -15,6 +15,7 @@ export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();
   const { option, expanded, setEdit, setAlertDialog } = props;
   const {
+    id,
     team_price: teamPrice,
     individual_price: individualPrice,
     startTime,
