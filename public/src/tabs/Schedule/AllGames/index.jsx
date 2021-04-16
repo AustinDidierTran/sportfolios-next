@@ -82,7 +82,7 @@ export default function AllGames() {
   return (
     <>
       <ProTip />
-      <GameFilters update={filter} />
+      <GameFilters update={filter} eventId={eventId} />
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <Games games={pastGames} style={{ marginBottom: '16px' }} title={t('past_games')} isOpen={false} />
         <Games games={games} style={{ marginBottom: '16px' }} title={t('upcoming_games')} isOpen />

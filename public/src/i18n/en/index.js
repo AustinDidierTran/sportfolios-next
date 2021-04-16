@@ -742,6 +742,8 @@ export default {
       you_can_now_change_your_password: 'You can now change your password for the account having the email {{email}}',
       you_can_start_to_swipe: 'Swipe a card or press a button to get started!',
       you_have_no_account_with_this_email_create_one: 'You have no account with this email! Create one!',
+      you_have_more_than_one_team_in_event:
+        'You are part of more than one team in the event. You are seeing {{team}} games.',
       you_need_to_be_connected_to_become_member: 'You need to be connected to become member of {{organization}}',
       you_need_to_be_connected_to_continue: 'You need to be connected to continue',
       you_need_to_connect_your_messenger_account:
@@ -755,6 +757,7 @@ export default {
       your_score: 'Your score',
       your_spirit: 'Your spirit',
       you_swiped_everyone: 'You swiped everyone',
+      your_games: 'Your games',
       your_team: 'Your team',
       your_total_is: 'Your total is',
       your_upcoming_events: 'Your Upcoming Events',
@@ -811,6 +814,7 @@ export default {
     alias_is_already_used: 'Alias is already used',
     alias: 'Alias',
     all_fields: 'All Fields',
+    all_games: 'All games',
     all_phases: 'All Phases',
     all_steps_completed: 'All Steps Completed',
     all_teams: 'All Teams',
@@ -1034,6 +1038,7 @@ export default {
     link_has_been_copied_and_will_expire: 'Link has been copied and will expire on {{expireDate}}',
     location_unspecified: 'Location unspecified',
     login: 'Login',
+    login_to_see_your_games: 'You need to be logged in to see your games',
     login_to_continue: 'Login to continue',
     logout: 'Logout',
     male: 'Male',

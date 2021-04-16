@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from '../../../../components/Custom';
 import MUIButton from '@material-ui/core/Button';
 import styles from './GameFilters.module.css';
-import { SELECT_ENUM } from '../../../../../common/enums';
+import { SELECT_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import moment from 'moment';
 import TeamSelect from './TeamSelect';
 import PhaseSelect from './PhaseSelect';
@@ -17,10 +17,18 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { formatDate } from '../../../../utils/stringFormats';
 import Typography from '@material-ui/core/Typography';
+import { formatRoute } from '../../../../../common/utils/stringFormat';
+import api from '../../../../actions/api';
+import { ACTION_ENUM, Store } from '../../../../Store';
 
 export default function GameFilters(props) {
-  const { update } = props;
+  const { eventId, update } = props;
   const { t } = useTranslation();
+  const {
+    dispatch,
+    state: { isAuthenticated },
+  } = useContext(Store);
+
   const [teamId, setTeamId] = useState(SELECT_ENUM.ALL);
   const [teamName, setTeamName] = useState('');
   const [phaseId, setPhaseId] = useState(SELECT_ENUM.ALL);
@@ -31,15 +39,48 @@ export default function GameFilters(props) {
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState(false);
 
+  const [onlyYourGames, setOnlyYourGames] = useState(false);
+
   useEffect(() => {
     update(teamId, teamName, phaseId, fieldId, timeSlot);
     getDescription();
   }, [teamId, phaseId, fieldId, timeSlot]);
 
+  const getYourGames = async () => {
+    const { data } = await api(formatRoute('/api/entity/myRosters', null, { eventId }));
+
+    if (!data) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('login_to_see_your_games'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else if (isAuthenticated && !data.length) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('no.no_games'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else {
+      if (data.length > 1) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('you.you_have_more_than_one_team_in_event', { team: data[0].name }),
+          severity: SEVERITY_ENUM.INFO,
+          duration: 4000,
+        });
+      }
+      changeTeam({ value: data[0].roster_id, display: data[0].name });
+      setOnlyYourGames(true);
+    }
+  };
+
   const changeTeam = (team) => {
     const { value, display } = team;
-    setTeamId(value);
     setTeamName(display);
+    setTeamId(value);
   };
 
   const changePhaseId = (phase) => {
@@ -101,6 +142,12 @@ export default function GameFilters(props) {
     setTimeSlot(SELECT_ENUM.ALL);
   };
 
+  const clearMyTeam = () => {
+    setTeamName('');
+    setTeamId(SELECT_ENUM.ALL);
+    setOnlyYourGames(false);
+  };
+
   return (
     <>
       <Dialog
@@ -135,8 +182,16 @@ export default function GameFilters(props) {
       <Button
         size="small"
         variant="contained"
+        style={{ marginLeft: '12px ', marginRight: '12px' }}
+        onClick={onlyYourGames ? clearMyTeam : getYourGames}
+      >
+        {onlyYourGames ? t('all_games') : t('you.your_games')}
+      </Button>
+      <Button
+        size="small"
+        variant="contained"
         endIcon="Add"
-        style={{ marginLeft: 'auto', marginRight: 'auto' }}
+        style={{ marginLeft: '12px', marginRight: '12px' }}
         onClick={openDialog}
       >
         {t('filters')}
