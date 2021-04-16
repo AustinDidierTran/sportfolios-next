@@ -100,6 +100,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      paymentOptionStats: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       sales: {
         title: 'Sportfolios',
         description:
@@ -1242,6 +1247,7 @@ export default {
     second_ago_plural: 'Il y a {{count}} secondes',
     second_ago: 'Il y a {{count}} seconde',
     secondary_person: 'Personne secondaire',
+    see_revenue: 'Voir mes revenues',
     see_my_analytics: 'Voir mes analyses',
     see_more: 'Voir plus',
     see_receipt: 'Voir le reçu',
@@ -1335,6 +1341,9 @@ export default {
     total_net: 'Total net',
     total: 'Total',
     totals: 'Totaux',
+    total_income: 'Revenu total',
+    new_income: 'Nouveau revenu',
+    income_for: 'Revenu pour',
     tournament_fee: 'Frais de tournoi',
     transfer_completed: 'Transfert completé',
     transfer_person_description:
@@ -1374,6 +1383,7 @@ export default {
     wrong_password: 'Mauvais mot de passe. Veuillez réessayer.',
     write_a_comment: 'Écrivez un commentaire...',
     will_see_graph_member: 'Vous verrez un graphique lorsque vous aurez votre tout premier membre!',
+    will_see_graph_payment: 'Vous verrez un graphique lorsque vous aurez votre tout premier paiement!',
     year_ago_plural: 'Il y a {{count}} années',
     year_ago: 'Il y a {{count}} an',
     year: 'Année',

@@ -8,7 +8,7 @@ import MembersReport from './MembersReport';
 import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
-const GraphNumberOfMembers = loadable(() => import('./GraphNumberOfMembers'));
+const Graph = loadable(() => import('./Graph'));
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import api from '../../../src/actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
@@ -93,7 +93,7 @@ export default function Analytics() {
         )}
 
         {(graphData.total.length > 0 || graphData.minDate) && (
-          <GraphNumberOfMembers
+          <Graph
             dateGraph={dateGraph}
             onChangeDate={dateChanged}
             graphData={graphData}
