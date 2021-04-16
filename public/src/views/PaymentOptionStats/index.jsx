@@ -24,18 +24,27 @@ export default function PaymentOptionStats() {
 
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
+  const [dateFilterFees, setDateFilterFees] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [isLoading, setIsLoading] = useState(true);
   const [graphData, setGraphData] = useState({});
+  const [graphDataFees, setGraphDataFees] = useState({});
 
   const getDataGraph = async () => {
     if (!eventPaymentId) {
       return;
     }
+
+    const { data: dataFees } = await api(formatRoute('/api/entity/graphFeesByEvent', null, {
+      eventPaymentId,
+      date: dateFilterFees
+    }));
+
+
     const { data } = await api(formatRoute('/api/entity/graphAmountGeneratedByEvent', null, {
       eventPaymentId,
       date: dateFilter
     }));
-    if (!data) {
+    if (!data || !dataFees) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
@@ -46,6 +55,7 @@ export default function PaymentOptionStats() {
       return;
     }
     setGraphData(data);
+    setGraphDataFees(dataFees);
     setIsLoading(false);
   };
 
@@ -54,10 +64,14 @@ export default function PaymentOptionStats() {
   }
 
 
+  const dateChangedFees = (e) => {
+    setDateFilterFees(moment(e.target.value).format('yyyy-MM-DD'))
+  }
+
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
     getDataGraph();
-  }, [eventPaymentId, dateFilter]);
+  }, [eventPaymentId, dateFilter, dateFilterFees]);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -79,6 +93,17 @@ export default function PaymentOptionStats() {
             title={`${t('income_for')} ${graphData.name}`}
             totalTitle={t('total_income')}
             newTitle={t('new_income')}
+            formatData={(x) => (`${formatPrice(x * 100)} $`)}
+          />
+        )}
+        {(graphDataFees.total.length > 0 || graphDataFees.minDate) && (
+          <Graph
+            dateGraph={dateFilterFees}
+            onChangeDate={dateChangedFees}
+            graphData={graphDataFees}
+            title={`${t('payment.transaction_fee_for')} ${graphDataFees.name}`}
+            totalTitle={t('payment.total_transaction_fee')}
+            newTitle={t('payment.new_transaction_fee')}
             formatData={(x) => (`${formatPrice(x * 100)} $`)}
           />
         )}
