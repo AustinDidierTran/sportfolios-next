@@ -22,6 +22,9 @@ import PostInput from '../../Input/PostInput';
 import CardMedia from '@material-ui/core/CardMedia';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AlertDialog from '../../Dialog/AlertDialog';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import { useRouter } from 'next/router';
 
 import Upload from 'rc-upload';
 import CustomIconButton from '../../IconButton';
@@ -47,7 +50,9 @@ export default function Post(props) {
 
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
+  const router = useRouter();
 
+  const [openToLogin, setOpenToLogin] = useState(false);
   const [displayComment, setDisplayComment] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [edit, setEdit] = useState(false);
@@ -67,6 +72,19 @@ export default function Post(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const goToLogin = () => {
+    const redirectUrl = router.asPath;
+    goTo(ROUTES.login, null, { redirectUrl });
+  };
+
+  const onOpenToLoggin = () => {
+    setOpenToLogin(true);
+  };
+
+  const onCloseToLoggin = () => {
+    setOpenToLogin(false);
   };
 
   const {
@@ -286,7 +304,7 @@ export default function Post(props) {
       <CardActions className={styles.actions}>
         {allowLike && (
           <Button
-            onClick={onClickLike}
+            onClick={entityId ? onClickLike : onOpenToLoggin}
             startIcon={<CustomIcon icon="FavoriteBorderIcon" color={postInfo.liked ? 'rgb(24, 179, 147)' : ''} />}
             size="small"
             className={styles.actionsButton}
@@ -297,7 +315,7 @@ export default function Post(props) {
         )}
         {allowComment && (
           <Button
-            onClick={onClickComment}
+            onClick={entityId ? onClickComment : onOpenToLoggin}
             startIcon={<CustomIcon icon="ChatBubbleOutlineOutlinedIcon" />}
             size="small"
             className={styles.actionsButton}
@@ -309,13 +327,15 @@ export default function Post(props) {
       <Divider variant="middle" />
       {displayComment && (
         <div className={styles.contentComment}>
-          <PostInput
-            entityId={entityId}
-            handlePost={handleComment}
-            canAddImage={false}
-            postId={postInfo.id}
-            placeholder={t('write_a_comment')}
-          />
+          {entityId && (
+            <PostInput
+              entityId={entityId}
+              handlePost={handleComment}
+              canAddImage={false}
+              postId={postInfo.id}
+              placeholder={t('write_a_comment')}
+            />
+          )}
 
           {comments.map((comment, index) => (
             <CustomCard
@@ -340,6 +360,13 @@ export default function Post(props) {
         <MenuItem onClick={onClickDelete}>{t('delete.delete')}</MenuItem>
         <MenuItem onClick={onClickEdit}>{t('edit.edit')}</MenuItem>
       </Menu>
+      <AlertDialog
+        open={openToLogin}
+        title={t('you.you_need_to_be_connected_to_continue')}
+        description={t('click_to_go_to_login')}
+        onCancel={onCloseToLoggin}
+        onSubmit={goToLogin}
+      />
     </Card>
   );
 }
