@@ -392,6 +392,9 @@ export default {
       received_amount: 'Received amount: {{amount}}',
       total_cost_with_taxes: 'Total cost with taxes: {{price}}',
       transaction_fees: 'Transaction fees: {{fee}}',
+      transaction_fee_for: 'Transaction fees for',
+      new_transaction_fee: 'New transaction fees',
+      total_transaction_fee: 'Transaction fees total',
     },
     register: {
       already_registered_singular: '{{names}} is already registered to the event',
