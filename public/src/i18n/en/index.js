@@ -743,6 +743,7 @@ export default {
       you_can_start_to_swipe: 'Swipe a card or press a button to get started!',
       you_have_no_account_with_this_email_create_one: 'You have no account with this email! Create one!',
       you_need_to_be_connected_to_become_member: 'You need to be connected to become member of {{organization}}',
+      you_need_to_be_connected_to_continue: 'You need to be connected to continue',
       you_need_to_connect_your_messenger_account:
         'You need to connect your messenger account in the applications settings to enable this kind of notification',
       you_need_to_create_an_account: 'You need to create your account first!',
@@ -1033,6 +1034,7 @@ export default {
     link_has_been_copied_and_will_expire: 'Link has been copied and will expire on {{expireDate}}',
     location_unspecified: 'Location unspecified',
     login: 'Login',
+    login_to_continue: 'Login to continue',
     logout: 'Logout',
     male: 'Male',
     Male: 'Male',

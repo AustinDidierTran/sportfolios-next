@@ -31,7 +31,7 @@ export default function LoggedOut(props) {
                 className={styles.button}
                 disableElevation
                 onClick={() => {
-                  const redirectUrl = router.asPath;
+                  const redirectUrl = encodeURIComponent(router.asPath);
                   goTo(ROUTES.login, null, { redirectUrl });
                 }}
               >

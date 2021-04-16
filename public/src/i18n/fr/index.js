@@ -758,6 +758,7 @@ export default {
       you_need_to_connect_your_messenger_account:
         'Vous devez d\'abord connecter votre compte avec messenger dans la section "Applications" afin de pouvoir activer les notifications du chatbot',
       you_need_to_be_connected_to_become_member: 'Vous devez vous connecter pour être membre de {{organization}}',
+      you_need_to_be_connected_to_continue: 'Vous devez vous connecter pour continuer',
       you_need_to_create_an_account: 'Avant de procéder, veuillez vous créer un compte.',
       you_need_to_have_a_membership_available: 'Une affiliation doit être disponible',
       you_paid_with: 'Vous avez payé avec',
@@ -1057,6 +1058,7 @@ export default {
     link_has_been_copied_and_will_expire: 'Le lien a été copié et expirera le {{expireDate}}',
     location_unspecified: 'Lieu non spécifié',
     login: 'Connexion',
+    login_to_continue: 'Connectez-vous pour continuer',
     logout: 'Se déconnecter',
     male: 'Homme',
     Male: 'Homme',
