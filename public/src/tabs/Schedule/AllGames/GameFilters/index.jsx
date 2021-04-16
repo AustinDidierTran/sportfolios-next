@@ -24,7 +24,10 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 export default function GameFilters(props) {
   const { eventId, update } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { isAuthenticated },
+  } = useContext(Store);
 
   const [teamId, setTeamId] = useState(SELECT_ENUM.ALL);
   const [teamName, setTeamName] = useState('');
@@ -46,16 +49,32 @@ export default function GameFilters(props) {
   const getYourGames = async () => {
     const { data } = await api(formatRoute('/api/entity/myRosters', null, { eventId }));
 
-    if (data.length > 1) {
+    if (!data) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('you.you_have_more_than_one_team_in_event', { team: data[0].teamName }),
-        severity: SEVERITY_ENUM.INFO,
+        message: t('login_to_see_your_games'),
+        severity: SEVERITY_ENUM.ERROR,
         duration: 4000,
       });
+    } else if (isAuthenticated && !data.length) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('no.no_games'),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else {
+      if (data.length > 1) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('you.you_have_more_than_one_team_in_event', { team: data[0].name }),
+          severity: SEVERITY_ENUM.INFO,
+          duration: 4000,
+        });
+      }
+      changeTeam({ value: data[0].roster_id, display: data[0].name });
+      setOnlyYourGames(true);
     }
-    changeTeam({ value: data[0].roster_id, display: data[0].teamName });
-    setOnlyYourGames(true);
   };
 
   const changeTeam = (team) => {
@@ -121,6 +140,11 @@ export default function GameFilters(props) {
     setFieldId(SELECT_ENUM.ALL);
     setFieldName('');
     setTimeSlot(SELECT_ENUM.ALL);
+  };
+
+  const clearMyTeam = () => {
+    setTeamName('');
+    setTeamId(SELECT_ENUM.ALL);
     setOnlyYourGames(false);
   };
 
@@ -159,7 +183,7 @@ export default function GameFilters(props) {
         size="small"
         variant="contained"
         style={{ marginLeft: '12px ', marginRight: '12px' }}
-        onClick={onlyYourGames ? clearAll : getYourGames}
+        onClick={onlyYourGames ? clearMyTeam : getYourGames}
       >
         {onlyYourGames ? t('all_games') : t('you.your_games')}
       </Button>

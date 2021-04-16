@@ -1028,6 +1028,7 @@ export default {
     link_has_been_copied_and_will_expire: 'Link has been copied and will expire on {{expireDate}}',
     location_unspecified: 'Location unspecified',
     login: 'Login',
+    login_to_see_your_games: 'You need to be logged in to see your games',
     logout: 'Logout',
     male: 'Male',
     Male: 'Male',
