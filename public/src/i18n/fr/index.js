@@ -746,6 +746,8 @@ export default {
       you_can_start_to_swipe: 'Swiper ou appuyer sur un bouton pour commencer!',
       you_have_no_account_with_this_email_create_one:
         "Vous n'avez de compte associé avec ce courriel! Créez votre compte!",
+      you_have_more_than_one_team_in_event:
+        "Vous faites parties de plus d'une équipe dans l'événement. Vous voyez les parties de {{team}} actuellement.",
       you_need_to_connect_your_messenger_account:
         'Vous devez d\'abord connecter votre compte avec messenger dans la section "Applications" afin de pouvoir activer les notifications du chatbot',
       you_need_to_be_connected_to_become_member: 'Vous devez vous connecter pour être membre de {{organization}}',
@@ -759,6 +761,7 @@ export default {
       your_score: 'Votre pointage',
       your_spirit: 'Votre esprit de jeu',
       you_swiped_everyone: 'Vous avez passé tout le monde',
+      your_games: 'Vos parties',
       your_team: 'Votre équipe',
       your_total_is: 'Votre total est de',
       your_upcoming_events: 'Vos prochains événements',
@@ -816,6 +819,7 @@ export default {
     alias_is_already_used: "L'alias est déjà utilisé",
     alias: 'Alias',
     all_fields: 'Tous les terrains',
+    all_games: 'Toutes les parties',
     all_phases: 'Toutes les phases',
     all_steps_completed: 'Toutes les étapes sont complétées',
     all_teams: 'Toutes les équipes',
