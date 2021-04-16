@@ -362,10 +362,10 @@ export default function Post(props) {
       </Menu>
       <AlertDialog
         open={openToLogin}
-        title={t('you.you_need_to_be_connected_to_continue')}
-        description={t('click_to_go_to_login')}
+        title={t('login_to_continue')}
         onCancel={onCloseToLoggin}
         onSubmit={goToLogin}
+        onSubmitText={t('login')}
       />
     </Card>
   );

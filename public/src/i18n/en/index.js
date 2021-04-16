@@ -1034,6 +1034,7 @@ export default {
     link_has_been_copied_and_will_expire: 'Link has been copied and will expire on {{expireDate}}',
     location_unspecified: 'Location unspecified',
     login: 'Login',
+    login_to_continue: 'Login to continue',
     logout: 'Logout',
     male: 'Male',
     Male: 'Male',

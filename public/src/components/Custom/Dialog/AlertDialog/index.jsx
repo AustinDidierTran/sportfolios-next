@@ -4,18 +4,18 @@ import { useTranslation } from 'react-i18next';
 
 export default function AlertDialog(props) {
   const { t } = useTranslation();
-  const { open, title = t('action_confirmation'), description = '', onSubmit, onCancel } = props;
+  const { open, title = t('action_confirmation'), description = '', onSubmit, onCancel, onSubmitText = t('confirm'), onCancelText = t('cancel') } = props;
 
   const buttons = [
     {
       onClick: onCancel,
-      name: t('cancel'),
+      name: onCancelText,
       color: 'secondary',
     },
     {
       onClick: onSubmit,
       type: 'submit',
-      name: t('confirm'),
+      name: onSubmitText,
       color: 'primary',
     },
   ];
