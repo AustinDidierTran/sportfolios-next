@@ -5,6 +5,7 @@ import TextField from '../TextField';
 import Button from '../Button';
 import Select from '../Select';
 import MultiSelect from '../MultiSelect';
+import AddressSearchInput from '../AddressSearchInput';
 import CheckBox from '../CheckBox';
 import List from '../List';
 import RadioGroup from '../RadioGroup';
@@ -44,6 +45,19 @@ export default function ComponentFactory(props) {
         onChange={component.onChange}
         style={component.style}
       />
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.ADDRESS) {
+    return (
+      <AddressSearchInput
+        formik={component.formik}
+        namespace={component.namespace}
+        language={component.language}
+        country={component.country}
+        addressChanged={component.addressChanged}
+      >
+        {component.children}
+      </AddressSearchInput>
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.BUTTON) {
@@ -143,7 +157,7 @@ export default function ComponentFactory(props) {
         type={component.type}
         row={component.row}
       />
-    )
+    );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.EMPTY) {
     return <> </>;
@@ -151,13 +165,10 @@ export default function ComponentFactory(props) {
   if (component.componentType === COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON) {
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Typography
-          component="p"
-          style={{ alignItems: 'center' }}>
+        <Typography component="p" style={{ alignItems: 'center' }}>
           {component.value}
         </Typography>
-        <div
-          style={{ marginLeft: 'auto' }}>
+        <div style={{ marginLeft: 'auto' }}>
           <CustomIconButton
             icon={component.firstIcon}
             style={{ color: 'primary', marginLeft: 'auto' }}
@@ -172,7 +183,7 @@ export default function ComponentFactory(props) {
           tooltip={component.secondTooltip}
         />
       </div>
-    )
+    );
   }
   return (
     <TextField

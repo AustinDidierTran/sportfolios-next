@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AlertDialog, Button, FormDialog, Paper } from '../../../components/Custom';
 import { getMembershipName, getMembershipType, getExpirationDate } from '../../../utils/stringFormats';
-import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { List } from '../../../components/Custom';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import { ACTION_ENUM, Store } from '../../../Store';
 
 export default function AddMembership() {
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
   const [alertDialog, setAlertDialog] = useState(false);
   const [deletedId, setDeletedId] = useState(null);
@@ -58,6 +60,11 @@ export default function AddMembership() {
       }
     );
     getMemberships();
+    dispatch({
+      type: ACTION_ENUM.SNACK_BAR,
+      message: t('member.membership_deleted'),
+      severity: SEVERITY_ENUM.SUCCESS,
+    });
   };
 
   const onOpen = () => {

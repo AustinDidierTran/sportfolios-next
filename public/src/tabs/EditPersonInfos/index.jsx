@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styles from './EditPersonInfos.module.css';
-import { Paper, Button, Avatar, AddressSearchInput, LoadingSpinner, TextField } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import Button from '../../components/Custom/Button';
+import Avatar from '../../components/Custom/Avatar';
+import AddressSearchInput from '../../components/Custom/AddressSearchInput';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import TextField from '../../components/Custom/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 

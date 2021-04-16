@@ -44,6 +44,7 @@ const SIZES_ENUM = {
 };
 
 const COMPONENT_TYPE_ENUM = {
+  ADDRESS: 'address',
   BUTTON: 'button',
   CHECKBOX: 'checkbox',
   DIVIDER: 'divider',
@@ -101,7 +102,7 @@ const PHASE_STATUS_ENUM = {
 };
 
 const PLATEFORM_FEES_PERCENTAGE = 0.059;
-const PLATEFORM_FEES_FIX = 0.30;
+const PLATEFORM_FEES_FIX = 0.3;
 const MIN_AMOUNT_FEES = 5;
 const CARD_TYPE_ENUM = {
   CART: 'cart',
@@ -252,6 +253,7 @@ const ROUTES_ENUM = {
   playersAcceptation: '/page/playersAcceptation/:id',
   privacyPolicy: '/page/privacy',
   productAddedToCart: '/page/productAddedToCart',
+  paymentOptionStats: '/page/paymentOptionStats/:id',
   redirectWithToken: '/page/redirect',
   registrationStatus: '/page/registrationStatus',
   rosterInviteLink: '/page/inviteRoster/:token',

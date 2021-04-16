@@ -96,7 +96,7 @@ export default function Login() {
             payload: userInfo,
           });
           if (redirectUrl) {
-            goTo(decodeURI(redirectUrl));
+            goTo(redirectUrl);
           } else {
             goTo(ROUTES.home);
           }
@@ -107,7 +107,7 @@ export default function Login() {
 
   const goToSignUp = () => {
     if (redirectUrl) {
-      goTo(ROUTES.signup, null, { redirectUrl });
+      goTo(ROUTES.signup, null, { redirectUrl: encodeURIComponent(redirectUrl) });
     } else {
       goTo(ROUTES.signup);
     }

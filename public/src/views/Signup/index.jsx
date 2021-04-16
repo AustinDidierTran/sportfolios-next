@@ -57,7 +57,7 @@ export default function Signup() {
           lastName,
           email,
           password,
-          redirectUrl,
+          redirectUrl: encodeURIComponent(redirectUrl),
           newsLetterSubscription: isSubscribed,
         }),
       });

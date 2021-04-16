@@ -43,7 +43,7 @@ export default function HeaderOrganization(props) {
   };
 
   const goToLogin = () => {
-    const redirectUrl = router.asPath;
+    const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
@@ -120,6 +120,7 @@ export default function HeaderOrganization(props) {
           items={{
             open: openBecomeMember,
             onClose: onCloseBecomeMember,
+            onOpen: () => {},
             update,
           }}
         />
