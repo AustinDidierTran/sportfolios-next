@@ -11,10 +11,12 @@ import { LoadingSpinner } from '../../../components/Custom';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 
-export default function AllGames() {
+export default function AllGames(props) {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
+
+  const { setFilter, oldFilter } = props;
   const [games, setGames] = useState([]);
   const [pastGames, setPastGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,8 +51,18 @@ export default function AllGames() {
     return data;
   };
 
-  const filter = async (teamId, teamName, phaseId, fieldId, timeSlot) => {
+  const filter = async (teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot) => {
     let games = await getGames();
+    let filter = {
+      teamId: SELECT_ENUM.ALL,
+      teamName: '',
+      phaseId: SELECT_ENUM.ALL,
+      phaseName: '',
+      fieldId: SELECT_ENUM.ALL,
+      fieldName: '',
+      timeSlot: SELECT_ENUM.ALL,
+    };
+
     if (teamId != SELECT_ENUM.ALL) {
       games = games.filter((game) =>
         game.positions.some((team) => {
@@ -60,18 +72,26 @@ export default function AllGames() {
           return team.name.includes(teamName);
         })
       );
+      filter.teamName = teamName;
+      filter.teamId = teamId;
     }
     if (phaseId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.phase_id === phaseId);
+      filter.phaseName = phaseName;
+      filter.phaseId = phaseId;
     }
     if (fieldId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.field_id === fieldId);
+      filter.fieldName = fieldName;
+      filter.fieldId = fieldId;
     }
     if (timeSlot != SELECT_ENUM.ALL) {
       games = games.filter(
         (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
       );
+      filter.timeSlot = timeSlot;
     }
+    setFilter(filter);
     sortGames(games);
   };
 
@@ -82,7 +102,7 @@ export default function AllGames() {
   return (
     <>
       <ProTip />
-      <GameFilters update={filter} eventId={eventId} />
+      <GameFilters update={filter} eventId={eventId} oldFilter={oldFilter} />
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <Games games={pastGames} style={{ marginBottom: '16px' }} title={t('past_games')} isOpen={false} />
         <Games games={games} style={{ marginBottom: '16px' }} title={t('upcoming_games')} isOpen />

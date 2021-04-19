@@ -344,7 +344,7 @@ export default function GameDetailed(props) {
                     </div>
                     <a href="#">
                       <div
-                        clickable
+                        clickable="true"
                         onClick={() => {
                           goTo(ROUTES.entity, { id: team.id });
                         }}
