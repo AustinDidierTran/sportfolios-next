@@ -42,7 +42,9 @@ export default function ScoreSuggestion(props) {
       })
     );
 
-    setSuggestions(data);
+    if (data.length) {
+      setSuggestions(data);
+    }
 
     const expanded = data.some((s) => s.status === STATUS_ENUM.PENDING);
     if (!expanded) {

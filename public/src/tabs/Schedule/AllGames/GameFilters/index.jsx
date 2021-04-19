@@ -22,7 +22,7 @@ import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 
 export default function GameFilters(props) {
-  const { eventId, update } = props;
+  const { eventId, oldFilter, update } = props;
   const { t } = useTranslation();
   const {
     dispatch,
@@ -42,9 +42,34 @@ export default function GameFilters(props) {
   const [onlyYourGames, setOnlyYourGames] = useState(false);
 
   useEffect(() => {
-    update(teamId, teamName, phaseId, fieldId, timeSlot);
+    update(teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot, onlyYourGames);
     getDescription();
-  }, [teamId, phaseId, fieldId, timeSlot]);
+  }, [teamId, phaseId, fieldId, timeSlot, onlyYourGames]);
+
+  useEffect(() => {
+    if (!oldFilter) {
+      return;
+    } else {
+      if (oldFilter.onlyYourGames) {
+        getYourGames();
+      }
+      if (oldFilter.teamId !== SELECT_ENUM.ALL) {
+        setTeamName(oldFilter.teamName);
+        setTeamId(oldFilter.teamId);
+      }
+      if (oldFilter.phaseId !== SELECT_ENUM.ALL) {
+        setPhaseName(oldFilter.phaseName);
+        setPhaseId(oldFilter.phaseId);
+      }
+      if (oldFilter.fieldId !== SELECT_ENUM.ALL) {
+        setFieldName(oldFilter.fieldName);
+        setFieldId(oldFilter.fieldId);
+      }
+      if (oldFilter.timeSlot !== SELECT_ENUM.ALL) {
+        setTimeSlot(oldFilter.timeSlot);
+      }
+    }
+  }, []);
 
   const getYourGames = async () => {
     const { data } = await api(formatRoute('/api/entity/myRosters', null, { eventId }));
@@ -78,6 +103,9 @@ export default function GameFilters(props) {
   };
 
   const changeTeam = (team) => {
+    if (onlyYourGames) {
+      setOnlyYourGames(false);
+    }
     const { value, display } = team;
     setTeamName(display);
     setTeamId(value);
@@ -182,7 +210,7 @@ export default function GameFilters(props) {
       <Button
         size="small"
         variant="contained"
-        endIcon="Person"
+        endIcon={onlyYourGames ? 'PeopleIcon' : 'Person'}
         style={{ marginLeft: '12px ', marginRight: '12px' }}
         onClick={onlyYourGames ? clearMyTeam : getYourGames}
       >

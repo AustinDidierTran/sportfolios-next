@@ -15,7 +15,7 @@ const EditGames = loadable(() => import('./EditGames'));
 
 export default function AllEditGames(props) {
   const { t } = useTranslation();
-  const { updated } = props;
+  const { oldFilter, setFilter, updated } = props;
   const router = useRouter();
   const { id: eventId } = router.query;
   const [games, setGames] = useState([]);
@@ -44,8 +44,18 @@ export default function AllEditGames(props) {
     return data;
   };
 
-  const filter = async (teamId, teamName, phaseId, fieldId, timeSlot) => {
+  const filter = async (teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot, onlyYourGames) => {
     let games = await getGames();
+    let filter = {
+      teamId: SELECT_ENUM.ALL,
+      teamName: '',
+      phaseId: SELECT_ENUM.ALL,
+      phaseName: '',
+      fieldId: SELECT_ENUM.ALL,
+      fieldName: '',
+      timeSlot: SELECT_ENUM.ALL,
+      onlyYourGames,
+    };
     if (teamId != SELECT_ENUM.ALL) {
       games = games.filter((game) =>
         game.positions.some((team) => {
@@ -55,18 +65,26 @@ export default function AllEditGames(props) {
           return team.name.includes(teamName);
         })
       );
+      filter.teamName = teamName;
+      filter.teamId = teamId;
     }
     if (phaseId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.phase_id === phaseId);
+      filter.phaseName = phaseName;
+      filter.phaseId = phaseId;
     }
     if (fieldId != SELECT_ENUM.ALL) {
       games = games.filter((game) => game.field_id === fieldId);
+      filter.fieldName = fieldName;
+      filter.fieldId = fieldId;
     }
     if (timeSlot != SELECT_ENUM.ALL) {
       games = games.filter(
         (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
       );
+      filter.timeSlot = timeSlot;
     }
+    setFilter(filter);
     sortGames(games);
   };
 
@@ -81,7 +99,7 @@ export default function AllEditGames(props) {
   return (
     <>
       <ProTip />
-      <GameFilters update={filter} />
+      <GameFilters update={filter} eventId={eventId} oldFilter={oldFilter} />
       <div className={styles.main} style={{ marginTop: '16px' }}>
         <EditGames title={t('past_games')} games={pastGames} isOpen={false} update={update} />
         <EditGames title={t('upcoming_games')} games={games} isOpen update={update} />
