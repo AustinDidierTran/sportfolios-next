@@ -182,6 +182,7 @@ export default function GameFilters(props) {
       <Button
         size="small"
         variant="contained"
+        endIcon="Person"
         style={{ marginLeft: '12px ', marginRight: '12px' }}
         onClick={onlyYourGames ? clearMyTeam : getYourGames}
       >
