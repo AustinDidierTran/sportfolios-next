@@ -71,6 +71,28 @@ export default function GameFilters(props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (!oldFilter) {
+      return;
+    } else {
+      if (oldFilter.teamId !== SELECT_ENUM.ALL) {
+        setTeamName(oldFilter.teamName);
+        setTeamId(oldFilter.teamId);
+      }
+      if (oldFilter.phaseId !== SELECT_ENUM.ALL) {
+        setPhaseName(oldFilter.phaseName);
+        setPhaseId(oldFilter.phaseId);
+      }
+      if (oldFilter.fieldId !== SELECT_ENUM.ALL) {
+        setFieldName(oldFilter.fieldName);
+        setFieldId(oldFilter.fieldId);
+      }
+      if (oldFilter.timeSlot !== SELECT_ENUM.ALL) {
+        setTimeSlot(oldFilter.timeSlot);
+      }
+    }
+  }, []);
+
   const getYourGames = async () => {
     const { data } = await api(formatRoute('/api/entity/myRosters', null, { eventId }));
 
