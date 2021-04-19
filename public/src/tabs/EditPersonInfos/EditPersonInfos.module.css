@@ -15,12 +15,14 @@
 
 .zone1 {
   grid-area: zone1;
-  margin-right: 8px;
+  margin-right: 8px !important;
+  margin-left: 8px !important;
 }
 
 .zone2 {
   grid-area: zone2;
-  margin-left: 8px;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
 }
 
 .divSearch {

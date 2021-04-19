@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+
 import styles from './EditPersonInfos.module.css';
 import Paper from '../../components/Custom/Paper';
 import Button from '../../components/Custom/Button';
 import Avatar from '../../components/Custom/Avatar';
 import AddressSearchInput from '../../components/Custom/AddressSearchInput';
+import NumberFormat from '../../components/Custom/NumberFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import TextField from '../../components/Custom/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -45,7 +47,6 @@ export default function EditPersonInfos(props) {
         entityId: personId,
       })
     );
-
     setPersonInfos(data);
   };
 
@@ -77,6 +78,7 @@ export default function EditPersonInfos(props) {
     formik.setFieldValue('surname', personInfos.surname || '');
     formik.setFieldValue('birthDate', personInfos.birthDate || '');
     formik.setFieldValue('gender', personInfos.gender || '');
+    formik.setFieldValue('phoneNumber', personInfos.phoneNumber || '');
     formik.setFieldValue('address', personInfos.address || '');
     formik.setFieldValue('addressFormatted', personInfos.formattedAddress || '');
     setPhotoUrl(personInfos.photoUrl);
@@ -97,13 +99,14 @@ export default function EditPersonInfos(props) {
       surname: '',
       birthDate: '',
       gender: '',
+      phoneNumber: '',
       formattedAddress: '',
       address: '',
     },
     validate,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const { name, surname, birthDate, gender, address } = values;
+      const { name, surname, birthDate, gender, address, phoneNumber } = values;
 
       setIsLoading(true);
 
@@ -124,7 +127,7 @@ export default function EditPersonInfos(props) {
         method: 'PUT',
         body: JSON.stringify({
           entityId: personId,
-          personInfos: { name, surname, birthDate, gender, address },
+          personInfos: { name, surname, birthDate, gender, address, phoneNumber },
         }),
       });
       if (res.status === STATUS_ENUM.SUCCESS) {
@@ -179,7 +182,6 @@ export default function EditPersonInfos(props) {
             {t('change_picture')}
           </Button>
         </Upload>
-
         <div className={styles.div2equal}>
           <TextField
             namespace="name"
@@ -226,7 +228,17 @@ export default function EditPersonInfos(props) {
             <MenuItem value={GENDER_ENUM.NOT_SPECIFIED}>{t('do_not_specify')}</MenuItem>
           </TextField>
         </div>
-
+        <div className={styles.div2equal}>
+          <TextField
+            InputProps={{
+              inputComponent: NumberFormat,
+            }}
+            namespace="phoneNumber"
+            formik={formik}
+            helperText={t('phone_number')}
+            onChange={valueChanged}
+          ></TextField>
+        </div>
         <div className={styles.divSearch}>
           <AddressSearchInput
             namespace="addressFormatted"
@@ -245,7 +257,6 @@ export default function EditPersonInfos(props) {
         ) : (
           <></>
         )}
-
         {changesMade ? (
           <div className={styles.buttons}>
             <Button endIcon="SaveIcon" style={{ marginRight: '8px' }} type="submit">
