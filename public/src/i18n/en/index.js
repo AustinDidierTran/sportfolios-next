@@ -230,6 +230,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      paymentOptionStats: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       privacy: {
         title: 'Sportfolios',
         description:
@@ -387,6 +392,9 @@ export default {
       received_amount: 'Received amount: {{amount}}',
       total_cost_with_taxes: 'Total cost with taxes: {{price}}',
       transaction_fees: 'Transaction fees: {{fee}}',
+      transaction_fee_for: 'Transaction fees for',
+      new_transaction_fee: 'New transaction fees',
+      total_transaction_fee: 'Transaction fees total',
     },
     register: {
       already_registered_singular: '{{names}} is already registered to the event',
@@ -477,6 +485,7 @@ export default {
       membership_added: 'Membership added',
       membership_edited: 'Membership edited',
       membership_exist: 'Membership Exist',
+      membership_deleted: 'Membership deleted',
       membership: 'Membership',
       memberships: 'Memberships',
       memberships_list: 'List of memberships',
@@ -736,6 +745,7 @@ export default {
       you_have_more_than_one_team_in_event:
         'You are part of more than one team in the event. You are seeing {{team}} games.',
       you_need_to_be_connected_to_become_member: 'You need to be connected to become member of {{organization}}',
+      you_need_to_be_connected_to_continue: 'You need to be connected to continue',
       you_need_to_connect_your_messenger_account:
         'You need to connect your messenger account in the applications settings to enable this kind of notification',
       you_need_to_create_an_account: 'You need to create your account first!',
@@ -1029,6 +1039,7 @@ export default {
     location_unspecified: 'Location unspecified',
     login: 'Login',
     login_to_see_your_games: 'You need to be logged in to see your games',
+    login_to_continue: 'Login to continue',
     logout: 'Logout',
     male: 'Male',
     Male: 'Male',
@@ -1224,6 +1235,7 @@ export default {
     second_ago: '{{count}} second ago',
     secondary_person: 'Secondary person',
     see_more: 'See more',
+    see_revenue: 'See revenue',
     see_my_analytics: 'See my analytics',
     see_receipt: 'See Receipt',
     see_sales: 'See sales',
@@ -1313,6 +1325,9 @@ export default {
     total_net: 'Net total',
     total: 'Total',
     totals: 'Totals',
+    total_income: 'Total income',
+    new_income: 'New income',
+    income_for: 'Income for',
     tournament_fee: 'Tournament Fee',
     transfer_completed: 'Transfer completed',
     transfer_person_description:
@@ -1348,9 +1363,11 @@ export default {
     waiting_for_payment: 'Your payment is being processed. Thank you for your patience',
     with_taxes_the_total_for_a_player_is: 'With taxes, the total for a player is {{total}}$',
     with_taxes_the_total_for_a_team_is: 'With taxes, the total for a team is {{total}}$',
+    would_you_like_to_update_info_in_your_profile: 'Would you like to update those info in your profile?',
     wrong_password: 'Wrong password. Please try again',
     write_a_comment: 'Write a comment...',
     will_see_graph_member: 'You will see a graph when you have your first member!',
+    will_see_graph_payment: 'You will see a graph when you have your first payment!',
     year_ago_plural: '{{count}} years ago',
     year_ago: '{{count}} year ago',
     year: 'Year',

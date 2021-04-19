@@ -30,16 +30,14 @@ export const goToAlias = async (entityId, params, queryParams) => {
       entityId,
     })
   );
-
   if (!data) {
     Router.push(ROUTES.entityNotFound);
   }
 
-  const entity = data.alias || data.entityId;
+  const entity = data?.alias || data?.entityId;
 
-  const allParams = { id: entity, ...params };
+  const allParams = { ...params, id: entity };
   const route = formatRoute(ROUTES.entity, allParams, queryParams);
-
   Router.push(route);
 };
 

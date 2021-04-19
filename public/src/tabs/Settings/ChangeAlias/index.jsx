@@ -96,7 +96,8 @@ export default function ChangeAlias() {
         });
       } else {
         setEdit(false);
-        goTo(ROUTES.entity, { id: entityId }, { tab: TABS_ENUM.SETTINGS });
+        setTheAlias(alias);
+        goTo(ROUTES.entity, { id: alias }, { tab: TABS_ENUM.SETTINGS });
       }
     },
   });
