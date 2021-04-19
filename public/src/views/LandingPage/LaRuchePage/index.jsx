@@ -50,7 +50,7 @@ export default function LaRuchePage() {
             </Typography>
             <Countdown
               className={styles.count}
-              date={new Date(2021, 3, 26)}
+              date={new Date(2021, 4, 17)}
               renderer={(props) => (
                 <span className={styles.countdown}>
                   {[
