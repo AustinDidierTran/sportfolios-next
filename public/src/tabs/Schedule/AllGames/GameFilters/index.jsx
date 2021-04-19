@@ -42,14 +42,17 @@ export default function GameFilters(props) {
   const [onlyYourGames, setOnlyYourGames] = useState(false);
 
   useEffect(() => {
-    update(teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot);
+    update(teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot, onlyYourGames);
     getDescription();
-  }, [teamId, phaseId, fieldId, timeSlot]);
+  }, [teamId, phaseId, fieldId, timeSlot, onlyYourGames]);
 
   useEffect(() => {
     if (!oldFilter) {
       return;
     } else {
+      if (oldFilter.onlyYourGames) {
+        getYourGames();
+      }
       if (oldFilter.teamId !== SELECT_ENUM.ALL) {
         setTeamName(oldFilter.teamName);
         setTeamId(oldFilter.teamId);

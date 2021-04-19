@@ -51,7 +51,7 @@ export default function AllGames(props) {
     return data;
   };
 
-  const filter = async (teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot) => {
+  const filter = async (teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot, onlyYourGames) => {
     let games = await getGames();
     let filter = {
       teamId: SELECT_ENUM.ALL,
@@ -61,6 +61,7 @@ export default function AllGames(props) {
       fieldId: SELECT_ENUM.ALL,
       fieldName: '',
       timeSlot: SELECT_ENUM.ALL,
+      onlyYourGames,
     };
 
     if (teamId != SELECT_ENUM.ALL) {
