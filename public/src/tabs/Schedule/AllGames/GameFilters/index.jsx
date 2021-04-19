@@ -168,6 +168,7 @@ export default function GameFilters(props) {
     setFieldId(SELECT_ENUM.ALL);
     setFieldName('');
     setTimeSlot(SELECT_ENUM.ALL);
+    setOnlyYourGames(false);
   };
 
   const clearMyTeam = () => {
