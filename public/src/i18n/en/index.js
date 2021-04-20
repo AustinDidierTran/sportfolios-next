@@ -843,6 +843,7 @@ export default {
     become_member_of: 'Become a member of {{organizationName}}. Expiration date: {{expirationDate}}',
     become_member: 'Become Member',
     biannual: 'Biannual',
+    billing_address: 'Billing address',
     birth_date_format: '{{date, LL}} ({{age}} years old)',
     birth_date: 'Birth date',
     buyers_name: "Buyer's name",

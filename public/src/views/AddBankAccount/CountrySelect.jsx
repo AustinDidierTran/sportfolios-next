@@ -4,24 +4,27 @@ import { Select } from '../../components/Custom';
 
 // ISO 3166-1 alpha-2
 // ⚠️ No support for IE 11
-function countryToFlag(isoCode) {
-  return typeof String.fromCodePoint !== 'undefined'
-    ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-    : isoCode;
-}
+
+//Not used right now
+// function countryToFlag(isoCode) {
+//   return typeof String.fromCodePoint !== 'undefined'
+//     ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+//     : isoCode;
+// }
 
 export default function CountrySelect(props) {
   const { formik } = props;
   const { t } = useTranslation();
 
-  const content = (option) => {
-    return (
-      <React.Fragment>
-        <span>{countryToFlag(option.value)}</span>
-        {option.display} ({option.value})
-      </React.Fragment>
-    );
-  };
+  //Not used right now and triggers warning
+  // const content = (option) => {
+  //   return (
+  //     <React.Fragment>
+  //       <span>{countryToFlag(option.value)}</span>
+  //       {option.display} ({option.value})
+  //     </React.Fragment>
+  //   );
+  // };
 
   const options = useMemo(
     () =>
@@ -40,7 +43,7 @@ export default function CountrySelect(props) {
       type="country"
       label={t('country')}
       namespace="country"
-      renderOption={content}
+      // renderOption={content}
     />
   );
 }
