@@ -17,6 +17,7 @@ import AlertDialog from '../../Dialog/AlertDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function CartItem(props) {
   const { t } = useTranslation();
@@ -113,7 +114,17 @@ export default function CartItem(props) {
                 }
                 secondary={label}
               />
-              <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+              <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
+                <div>
+                  <CustomCheckBox
+                    disabled={disabled}
+                    checked={checked}
+                    onChange={handleChange}
+                    style={{ margin: '0px' }}
+                  />
+                </div>
+              </Tooltip>
+
               <CustomIconButton
                 variant="contained"
                 onClick={onClick}
@@ -162,7 +173,16 @@ export default function CartItem(props) {
                 }
                 secondary={label}
               />
-              <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+              <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
+                <div>
+                  <CustomCheckBox
+                    disabled={disabled}
+                    checked={checked}
+                    onChange={handleChange}
+                    style={{ margin: '0px' }}
+                  />
+                </div>
+              </Tooltip>
               <CustomIconButton
                 variant="contained"
                 onClick={onClick}
@@ -204,7 +224,16 @@ export default function CartItem(props) {
               primary={taxRates.length ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
               secondary={`${person?.name} ${person?.surname}`}
             ></ListItemText>
-            <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
+            <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
+              <div>
+                <CustomCheckBox
+                  disabled={disabled}
+                  checked={checked}
+                  onChange={handleChange}
+                  style={{ margin: '0px' }}
+                />
+              </div>
+            </Tooltip>
             <CustomIconButton
               variant="contained"
               onClick={onClick}
@@ -241,7 +270,16 @@ export default function CartItem(props) {
               primary={taxRates.length ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
               secondary={`Qt: ${quantity}`}
             ></ListItemText>
-            <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} />
+            <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
+              <div>
+                <CustomCheckBox
+                  disabled={disabled}
+                  checked={checked}
+                  onChange={handleChange}
+                  style={{ margin: '0px' }}
+                />
+              </div>
+            </Tooltip>
             <CustomSelect
               className={styles.select}
               onChange={(value) => {
