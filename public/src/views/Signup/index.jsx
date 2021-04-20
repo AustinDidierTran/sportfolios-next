@@ -12,6 +12,9 @@ import Container from '../../components/Custom/Container';
 import Paper from '../../components/Custom/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '../../components/Custom/TextField';
+import { IconButton, InputAdornment, Tooltip } from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
 import { LOGO_ENUM } from '../../../common/enums';
 import Link from 'next/link';
@@ -27,6 +30,10 @@ export default function Signup() {
   const { redirectUrl } = router.query;
 
   const [isSubscribed, setIsSubcribed] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required(t('value_is_required')),
@@ -82,7 +89,24 @@ export default function Signup() {
             <TextField namespace="firstName" formik={formik} type="text" label={t('first_name')} fullWidth />
             <TextField namespace="lastName" formik={formik} type="text" label={t('last_name')} fullWidth />
             <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
-            <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
+            <TextField
+              namespace="password"
+              formik={formik}
+              label={t('password')}
+              type="password"
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Tooltip title={showPassword ? t('hide_password') : t('show_password')}>
+                      <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
+            />
             <div className={styles.subscribe}>
               <Checkbox
                 className={styles.checkbox}

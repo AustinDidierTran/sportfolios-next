@@ -1028,6 +1028,7 @@ export default {
     graphs: 'Graphiques',
     have_an_account_signin: 'Vous avez déjà un compte? Connectez-vous!',
     here: 'ici',
+    hide_password: 'Masquer le mot de passe',
     home: 'Accueil',
     hour_ago_plural: 'Il y a {{count}} heures',
     import_members_confirmation:
@@ -1272,6 +1273,7 @@ export default {
     share_the_invite_link: "Partager le lien d'invitation",
     shop: 'Boutique',
     show_more: 'Afficher plus',
+    show_password: 'Afficher le mot de passe',
     signup: "S'enregistrer",
     six_month: 'Six mois',
     size: 'Grandeur',

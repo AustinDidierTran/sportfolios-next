@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Login.module.css';
 
@@ -20,11 +20,19 @@ import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../Store';
 import { goTo, ROUTES } from '../../actions/goTo';
 import api from '../../actions/api';
+import { IconButton, InputAdornment, Tooltip } from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 export default function Login() {
   const { t } = useTranslation();
   const router = useRouter();
   const { redirectUrl } = router.query;
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const {
     state: { isAuthenticated },
@@ -122,7 +130,24 @@ export default function Login() {
         <form onSubmit={formik.handleSubmit}>
           <CardContent>
             <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
-            <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
+            <TextField
+              namespace="password"
+              formik={formik}
+              label={t('password')}
+              type={showPassword ? 'text' : 'password'}
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Tooltip title={showPassword ? t('hide_password') : t('show_password')}>
+                      <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
+            />
           </CardContent>
           <CardActions>
             <Button
