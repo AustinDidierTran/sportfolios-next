@@ -60,10 +60,16 @@ export default function BecomeMember(props) {
           entityId: person,
         })
       );
+
       formik.setFieldValue('birthDate', data?.birthDate || '');
       formik.setFieldValue('gender', data?.gender || '');
       formik.setFieldValue('address', data?.address || '');
+      formik.setFieldValue('phoneNumber', data?.phoneNumber || '');
       formik.setFieldValue('formattedAddress', data?.formattedAddress || '');
+      formik.setFieldValue('emergencyName', data?.emergencyName || '');
+      formik.setFieldValue('emergencySurname', data?.emergencySurname || '');
+      formik.setFieldValue('emergencyPhoneNumber', data?.emergencyPhoneNumber || '');
+      formik.setFieldValue('medicalConditions', data?.medicalConditions || '');
       setPersonInfos(data);
     }
   };
@@ -141,7 +147,21 @@ export default function BecomeMember(props) {
     type: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     birthDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return false;
+      }
+      return val.length === 10;
+    }),
     formattedAddress: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    emergencyName: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    emergencySurname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    emergencyPhoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return false;
+      }
+      return val.length === 10;
+    }),
   });
 
   const formik = useFormik({
@@ -150,14 +170,29 @@ export default function BecomeMember(props) {
       type: '',
       birthDate: '',
       gender: '',
+      phoneNumber: '',
       address: '',
       formattedAddress: '',
+      emergencyName: '',
+      emergencySurname: '',
+      medicalConditions: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { person, type, birthDate, gender, address } = values;
+      const {
+        person,
+        type,
+        birthDate,
+        gender,
+        phoneNumber,
+        address,
+        emergencyName,
+        emergencySurname,
+        emergencyPhoneNumber,
+        medicalConditions,
+      } = values;
       const res = await api(`/api/entity/member`, {
         method: 'POST',
         body: JSON.stringify({
@@ -165,10 +200,15 @@ export default function BecomeMember(props) {
           membershipType: membership.membership_type,
           organizationId: membership.entity_id,
           personId: person,
+          expirationDate: getExpirationDate(membership.length, membership.fixed_date),
           birthDate,
           gender,
+          phoneNumber,
           address,
-          expirationDate: getExpirationDate(membership.length, membership.fixed_date),
+          emergencyName,
+          emergencySurname,
+          emergencyPhoneNumber,
+          medicalConditions,
         }),
       });
       if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
@@ -204,7 +244,12 @@ export default function BecomeMember(props) {
     return (
       personInfos.birthDate != formik.values.birthDate ||
       personInfos.gender != formik.values.gender ||
-      personInfos.formattedAddress != formik.values.formattedAddress
+      personInfos.formattedAddress != formik.values.formattedAddress ||
+      personInfos.phoneNumber != formik.values.phoneNumber ||
+      personInfos.emergencyName != formik.values.emergencyName ||
+      personInfos.emergencySurname != formik.values.emergencySurname ||
+      personInfos.emergencyPhoneNumber != formik.values.emergencyPhoneNumber ||
+      personInfos.medicalConditions != formik.values.medicalConditions
     );
   };
 
@@ -272,11 +317,49 @@ export default function BecomeMember(props) {
       ],
     },
     {
+      componentType: COMPONENT_TYPE_ENUM.PHONE_NUMBER,
+      namespace: 'phoneNumber',
+      label: t('phone_number'),
+      formik,
+    },
+    {
       componentType: COMPONENT_TYPE_ENUM.ADDRESS,
       namespace: 'formattedAddress',
       language: userInfo.language,
       country: 'ca',
       addressChanged,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+      primary: t('emergency_contact'),
+    },
+    {
+      namespace: 'emergencyName',
+      label: t('name'),
+      formik,
+    },
+    {
+      namespace: 'emergencySurname',
+      label: t('surname'),
+      formik,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.PHONE_NUMBER,
+      namespace: 'emergencyPhoneNumber',
+      label: t('phone_number'),
+      formik,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
+      namespace: 'medicalConditions',
+      label: t('medical_conditions'),
+      variant: 'filled',
+      rows: 5,
+      rowsMax: 5,
+      style: { width: '100%' },
     },
   ];
 
@@ -306,7 +389,7 @@ export default function BecomeMember(props) {
     },
     {
       type: 'submit',
-      name: t('add.add'),
+      name: t('finish'),
       color: 'primary',
     },
   ];

@@ -26,6 +26,11 @@ export default function UpdatePersonalInfos(props) {
           birthDate: formik.values.birthDate,
           gender: formik.values.gender,
           address: formik.values.address,
+          phoneNumber: formik.values.phoneNumber,
+          emergencyName: formik.values.emergencyName,
+          emergencySurname: formik.values.emergencySurname,
+          emergencyPhoneNumber: formik.values.emergencyPhoneNumber,
+          medicalConditions: formik.values.medicalConditions,
         },
       }),
     });

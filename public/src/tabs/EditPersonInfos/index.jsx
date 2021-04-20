@@ -101,6 +101,8 @@ export default function EditPersonInfos(props) {
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     surname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    birthDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
       if (!val) {
         return false;
