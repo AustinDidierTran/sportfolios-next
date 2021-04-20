@@ -73,31 +73,31 @@ function AddressSearchInput(props) {
       country: null,
       zip: null,
     };
-
-    fullAddress.forEach((e) => {
-      if (e.types.includes(PLACES_CATEGORIES.STREET_NUMBER)) {
-        street_number = e.long_name;
-      }
-      if (e.types.includes(PLACES_CATEGORIES.ROUTE)) {
-        route = e.long_name;
-      }
-      outputAddress.street_address = `${street_number} ${route}`;
-      if (e.types.includes(PLACES_CATEGORIES.LOCALITY)) {
-        outputAddress.city = e.long_name;
-      }
-      if (e.types.includes(PLACES_CATEGORIES.STATE)) {
-        outputAddress.state = e.short_name;
-      }
-      if (e.types.includes(PLACES_CATEGORIES.COUNTRY)) {
-        outputAddress.country = e.long_name;
-      }
-      if (e.types.includes(PLACES_CATEGORIES.ZIP)) {
-        outputAddress.zip = e.long_name;
-      }
-    });
-
-    formik.setFieldValue(namespace, addressObject.formatted_address);
-    addressChanged(outputAddress, addressObject.formatted_address);
+    if (fullAddress) {
+      fullAddress.forEach((e) => {
+        if (e.types.includes(PLACES_CATEGORIES.STREET_NUMBER)) {
+          street_number = e.long_name;
+        }
+        if (e.types.includes(PLACES_CATEGORIES.ROUTE)) {
+          route = e.long_name;
+        }
+        outputAddress.street_address = `${street_number} ${route}`;
+        if (e.types.includes(PLACES_CATEGORIES.LOCALITY)) {
+          outputAddress.city = e.long_name;
+        }
+        if (e.types.includes(PLACES_CATEGORIES.STATE)) {
+          outputAddress.state = e.short_name;
+        }
+        if (e.types.includes(PLACES_CATEGORIES.COUNTRY)) {
+          outputAddress.country = e.long_name;
+        }
+        if (e.types.includes(PLACES_CATEGORIES.ZIP)) {
+          outputAddress.zip = e.long_name;
+        }
+      });
+      formik.setFieldValue(namespace, addressObject.formatted_address);
+      addressChanged(outputAddress, addressObject.formatted_address);
+    }
   }
 
   const onChange = (event) => {

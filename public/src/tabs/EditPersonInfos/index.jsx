@@ -69,6 +69,12 @@ export default function EditPersonInfos(props) {
     setChangesMade(false);
   };
 
+  const onKeyDown = (keyEvent) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  };
+
   const uploadImageProps = {
     multiple: false,
     accept: '.jpg, .png, .jpeg, .gif, .webp',
@@ -97,7 +103,7 @@ export default function EditPersonInfos(props) {
     surname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
       if (!val) {
-        return true;
+        return false;
       }
       return val.length === 10;
     }),
@@ -136,20 +142,18 @@ export default function EditPersonInfos(props) {
       } = values;
 
       setIsLoading(true);
-
       if (img && img.type.split('/')[0] === 'image') {
         const photoUrl = await uploadEntityPicture(personId, img);
         if (photoUrl) {
           setPhotoUrl(photoUrl);
+        } else {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('invalid.invalid_file_image'),
+            severity: SEVERITY_ENUM.ERROR,
+          });
         }
-      } else {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid.invalid_file_image'),
-          severity: SEVERITY_ENUM.ERROR,
-        });
       }
-
       const res = await api(`/api/entity/updatePersonInfos`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -207,7 +211,7 @@ export default function EditPersonInfos(props) {
 
   return (
     <Paper className={styles.card} formik={formik}>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} onKeyDown={onKeyDown}>
         <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
         <Upload {...uploadImageProps}>
           <Button
