@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
+
 import styles from './EditPersonInfos.module.css';
 import Paper from '../../components/Custom/Paper';
 import Button from '../../components/Custom/Button';
 import Avatar from '../../components/Custom/Avatar';
+import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
 import AddressSearchInput from '../../components/Custom/AddressSearchInput';
+import NumberFormat from '../../components/Custom/NumberFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import TextField from '../../components/Custom/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import * as yup from 'yup';
 
 import api from '../../actions/api';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +25,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import { formatRoute } from '../../../common/utils/stringFormat';
 const moment = require('moment');
 import Upload from 'rc-upload';
+import EmergencyContact from './EmergencyContact';
 
 export default function EditPersonInfos(props) {
   const { basicInfos } = props;
@@ -46,7 +52,28 @@ export default function EditPersonInfos(props) {
       })
     );
 
+    formik.setFieldValue('name', data.name || '');
+    formik.setFieldValue('surname', data.surname || '');
+    formik.setFieldValue('birthDate', data.birthDate || '');
+    formik.setFieldValue('gender', data.gender || '');
+    formik.setFieldValue('phoneNumber', data.phoneNumber || '');
+    formik.setFieldValue('address', data.address || '');
+    formik.setFieldValue('addressFormatted', data.formattedAddress || '');
+    formik.setFieldValue('emergencyName', data.emergencyName || '');
+    formik.setFieldValue('emergencySurname', data.emergencySurname || '');
+    formik.setFieldValue('emergencyPhoneNumber', data.emergencyPhoneNumber || '');
+    formik.setFieldValue('medicalConditions', data.medicalConditions || '');
+    setPhotoUrl(data.photoUrl);
+
     setPersonInfos(data);
+
+    setChangesMade(false);
+  };
+
+  const onKeyDown = (keyEvent) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
   };
 
   const uploadImageProps = {
@@ -72,24 +99,24 @@ export default function EditPersonInfos(props) {
     getPersonInfos();
   }, []);
 
-  useEffect(() => {
-    formik.setFieldValue('name', personInfos.name || '');
-    formik.setFieldValue('surname', personInfos.surname || '');
-    formik.setFieldValue('birthDate', personInfos.birthDate || '');
-    formik.setFieldValue('gender', personInfos.gender || '');
-    formik.setFieldValue('address', personInfos.address || '');
-    formik.setFieldValue('addressFormatted', personInfos.formattedAddress || '');
-    setPhotoUrl(personInfos.photoUrl);
-  }, [personInfos]);
-
-  const validate = (values) => {
-    const { name } = values;
-    const errors = {};
-    if (!name.length) {
-      errors.name = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    surname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    birthDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return false;
+      }
+      return val.length === 10;
+    }),
+    emergencyPhoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return true;
+      }
+      return val.length === 10;
+    }),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -97,34 +124,55 @@ export default function EditPersonInfos(props) {
       surname: '',
       birthDate: '',
       gender: '',
+      phoneNumber: '',
       formattedAddress: '',
       address: '',
     },
-    validate,
+    validationSchema,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const { name, surname, birthDate, gender, address } = values;
+      const {
+        name,
+        surname,
+        birthDate,
+        gender,
+        address,
+        phoneNumber,
+        emergencyName,
+        emergencySurname,
+        emergencyPhoneNumber,
+        medicalConditions,
+      } = values;
 
       setIsLoading(true);
-
       if (img && img.type.split('/')[0] === 'image') {
         const photoUrl = await uploadEntityPicture(personId, img);
         if (photoUrl) {
           setPhotoUrl(photoUrl);
+        } else {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('invalid.invalid_file_image'),
+            severity: SEVERITY_ENUM.ERROR,
+          });
         }
-      } else {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid.invalid_file_image'),
-          severity: SEVERITY_ENUM.ERROR,
-        });
       }
-
       const res = await api(`/api/entity/updatePersonInfos`, {
         method: 'PUT',
         body: JSON.stringify({
           entityId: personId,
-          personInfos: { name, surname, birthDate, gender, address },
+          personInfos: {
+            name,
+            surname,
+            birthDate,
+            gender,
+            address,
+            phoneNumber,
+            emergencyName,
+            emergencySurname,
+            emergencyPhoneNumber,
+            medicalConditions,
+          },
         }),
       });
       if (res.status === STATUS_ENUM.SUCCESS) {
@@ -149,7 +197,6 @@ export default function EditPersonInfos(props) {
   const onCancel = async () => {
     formik.resetForm();
     getPersonInfos();
-    setChangesMade(false);
   };
 
   const addressChanged = (newAddress) => {
@@ -167,7 +214,7 @@ export default function EditPersonInfos(props) {
 
   return (
     <Paper className={styles.card} formik={formik}>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} onKeyDown={onKeyDown}>
         <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
         <Upload {...uploadImageProps}>
           <Button
@@ -179,7 +226,8 @@ export default function EditPersonInfos(props) {
             {t('change_picture')}
           </Button>
         </Upload>
-
+        <Typography className={styles.typo}>{t('general_informations')}</Typography>
+        <Divider className={styles.divider} />
         <div className={styles.div2equal}>
           <TextField
             namespace="name"
@@ -226,7 +274,18 @@ export default function EditPersonInfos(props) {
             <MenuItem value={GENDER_ENUM.NOT_SPECIFIED}>{t('do_not_specify')}</MenuItem>
           </TextField>
         </div>
-
+        <div className={styles.div2equal}>
+          <TextField
+            InputProps={{
+              inputComponent: NumberFormat,
+            }}
+            namespace="phoneNumber"
+            formik={formik}
+            helperText={t('phone_number')}
+            onChange={valueChanged}
+            className={styles.zone1}
+          ></TextField>
+        </div>
         <div className={styles.divSearch}>
           <AddressSearchInput
             namespace="addressFormatted"
@@ -245,19 +304,18 @@ export default function EditPersonInfos(props) {
         ) : (
           <></>
         )}
-
-        {changesMade ? (
-          <div className={styles.buttons}>
-            <Button endIcon="SaveIcon" style={{ marginRight: '8px' }} type="submit">
-              {t('save')}
-            </Button>
-
-            <Button endIcon="Cancel" onClick={onCancel} style={{ marginLeft: '8px' }} color="secondary">
-              {t('cancel')}
-            </Button>
-          </div>
-        ) : (
-          <></>
+        <EmergencyContact formik={formik} valueChanged={valueChanged} />
+        {changesMade && (
+          <ContainerBottomFixed>
+            <div className={styles.buttons}>
+              <Button endIcon="SaveIcon" style={{ marginRight: '8px' }} type="submit">
+                {t('save')}
+              </Button>
+              <Button endIcon="Cancel" onClick={onCancel} style={{ marginLeft: '8px' }} color="secondary">
+                {t('cancel')}
+              </Button>
+            </div>
+          </ContainerBottomFixed>
         )}
       </form>
     </Paper>

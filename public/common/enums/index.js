@@ -54,6 +54,7 @@ const COMPONENT_TYPE_ENUM = {
   MULTISELECT: 'multiselect',
   PERSON_ITEM: 'person item',
   PERSON_SEARCH_LIST: 'person search list',
+  PHONE_NUMBER: 'phone number',
   RADIO_GROUP: 'radio group',
   SELECT: 'select',
   TEXT_FIELD_BOX: 'text field box',

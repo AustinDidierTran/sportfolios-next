@@ -10,6 +10,7 @@ import CheckBox from '../CheckBox';
 import List from '../List';
 import RadioGroup from '../RadioGroup';
 import CustomIconButton from '../IconButton';
+import NumberFormat from '../NumberFormat';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -86,6 +87,21 @@ export default function ComponentFactory(props) {
         name={component.name}
         tooltip={component.tooltip}
       />
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.PHONE_NUMBER) {
+    return (
+      <TextField
+        InputProps={{
+          inputComponent: NumberFormat,
+        }}
+        namespace={component.namespace}
+        formik={component.formik}
+        helperText={component.helperText}
+        label={component.label}
+        onChange={component.onChange}
+        className={component.className}
+      ></TextField>
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST_ITEM) {
