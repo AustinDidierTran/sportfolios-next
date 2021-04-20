@@ -9,3 +9,7 @@
   flex: 1 1 auto;
   align-self: center;
 }
+
+.textField {
+  margin-bottom: 8px !important;
+}

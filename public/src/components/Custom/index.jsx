@@ -41,6 +41,7 @@ export const MyGames = loadable(() => import('./MyGames'));
 export const MyGamesTeam = loadable(() => import('./MyGamesTeam'));
 export const Paper = loadable(() => import('./Paper'));
 export const PersonSearchList = loadable(() => import('./SearchList/PersonSearchList'));
+export const PhoneNumberFormat = loadable(() => import('./PhoneNumberFormat'));
 export const ProfileChip = loadable(() => import('./ProfileChip'));
 export const RadioGroup = loadable(() => import('./RadioGroup'));
 export const SearchInput = loadable(() => import('./SearchInput'));

@@ -860,6 +860,7 @@ export default {
     become_member_of: "Devenir membre de {{organizationName}}. Date d'expiration: {{expirationDate}}",
     become_member: 'Devenir membre',
     biannual: 'Biannuel',
+    billing_address: 'Adresse de facturation',
     birth_date_format: '{{date, LL}} ({{age}} ans)',
     birth_date: 'Date de naissance',
     buyers_name: "Nom de l'acheteur",

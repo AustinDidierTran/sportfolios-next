@@ -1,9 +1,15 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
-import { Button, IgContainer, LoadingSpinner, Paper, TextField } from '../../components/Custom';
+import Button from '../../components/Custom/Button';
+import IgContainer from '../../components/Custom/IgContainer';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import Paper from '../../components/Custom/Paper';
+import TextField from '../../components/Custom/TextField';
+import PhoneNumberFormat from '../../components/Custom/PhoneNumberFormat';
 import CountrySelect from '../AddBankAccount/CountrySelect';
 import CardSection from '../../utils/stripe/Payment/CardSection';
+
 
 // @ts-ignore
 import styles from './AddPaymentMethod.module.css';
@@ -117,20 +123,22 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
             <Typography gutterBottom variant="h5" component="h2">
               {t('person.personal_information')}
             </Typography>
-            <TextField namespace="name" formik={formik} type="name" label={t('name')} fullWidth />
-            <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
-            <TextField namespace="phoneNumber" formik={formik} type="phoneNumber" label={t('phone_number')} fullWidth />
+            <TextField namespace="name" formik={formik} type="name" label={t('name')} fullWidth className={styles.textField} />
+            <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth className={styles.textField} />
+            <TextField InputProps={{
+              inputComponent: PhoneNumberFormat,
+            }} namespace="phoneNumber" formik={formik} type="phoneNumber" label={t('phone_number')} fullWidth className={styles.textField} placeholder="(###)-###-####" multiline />
             <br />
             <br />
             <Typography gutterBottom variant="h5" component="h2">
-              {t('address')}
+              {t('billing_address')}
             </Typography>
-            <TextField namespace="line1" formik={formik} type="line1" label={t('line1')} fullWidth />
-            <TextField namespace="line2" formik={formik} type="line2" label={t('line2')} fullWidth />
-            <TextField namespace="city" formik={formik} type="city" label={t('city')} fullWidth />
-            <CountrySelect formik={formik} />
-            <TextField namespace="state" formik={formik} type="state" label={t('state')} fullWidth />
-            <TextField namespace="postalCode" formik={formik} type="postalCode" label={t('postal_code')} fullWidth />
+            <TextField namespace="line1" formik={formik} type="line1" label={t('line1')} fullWidth className={styles.textField}/>
+            <TextField namespace="line2" formik={formik} type="line2" label={t('line2')} fullWidth className={styles.textField}/>
+            <TextField namespace="city" formik={formik} type="city" label={t('city')} fullWidth className={styles.textField}/>
+            <CountrySelect formik={formik} className={styles.textField}/>
+            <TextField namespace="state" formik={formik} type="state" label={t('state')} fullWidth className={styles.textField}/>
+            <TextField namespace="postalCode" formik={formik} type="postalCode" label={t('postal_code')} fullWidth className={styles.textField}/>
             <br />
             <br />
             <CardSection />
