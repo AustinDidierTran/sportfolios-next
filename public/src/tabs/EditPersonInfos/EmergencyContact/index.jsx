@@ -13,7 +13,7 @@ export default function EmergencyContact(props) {
 
   return (
     <>
-      <Typography>{t('emergency_contact')}</Typography>
+      <Typography className={styles.typo}>{t('emergency_contact')}</Typography>
       <Divider className={styles.divider} />
       <div className={styles.div2equal}>
         <TextField
@@ -43,7 +43,7 @@ export default function EmergencyContact(props) {
           className={styles.zone1}
         ></TextField>
       </div>
-      <Typography>{t('medical_conditions')}</Typography>
+      <Typography className={styles.typo}>{t('medical_conditions')}</Typography>
       <Divider />
       <TextField
         namespace="medicalConditions"

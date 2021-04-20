@@ -11,6 +11,7 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import TextField from '../../components/Custom/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import * as yup from 'yup';
 
 import api from '../../actions/api';
@@ -225,6 +226,8 @@ export default function EditPersonInfos(props) {
             {t('change_picture')}
           </Button>
         </Upload>
+        <Typography className={styles.typo}>{t('general_informations')}</Typography>
+        <Divider className={styles.divider} />
         <div className={styles.div2equal}>
           <TextField
             namespace="name"
