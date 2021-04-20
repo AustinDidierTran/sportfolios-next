@@ -1067,7 +1067,7 @@ export default {
     more_filters: 'More Filters',
     move_mode: 'Move mode',
     my_apps: 'My apps',
-    my_emails: 'My emails',
+    my_email: 'My email',
     my_persons: 'My persons',
     name_is_required: 'Name is required',
     name: 'Name',
