@@ -1,0 +1,31 @@
+// Array de data
+
+// const arrayData = [
+//   {
+//     name: Valeur affiché sur l'axe des x,
+//     dataKey: Valeur du dataKey,
+//     ... (peut mettre autant de dataKey différent qu'on veut de ligne)
+//   }
+// ];
+
+// Voir Doc de recharts (Peut ajouter des valeurs)
+
+// const arrayLine = [
+//   {
+//     stroke: couleur de la ligne,
+//     strokeWidth: largeur de la ligne,
+//     name: nom du data,
+//     dataKey: la key du data, doit être la même que celle en haut,
+//     dot: pointillé ?,
+//   },
+// ]
+
+// const arrayLine = [
+//   {
+//     stroke: "#008A6C",
+//     strokeWidth: 2,
+//     name: "member.members",
+//     dataKey: "totalMember",
+//     dot: false,
+//   },
+// ]
