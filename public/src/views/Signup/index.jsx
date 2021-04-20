@@ -93,7 +93,7 @@ export default function Signup() {
               namespace="password"
               formik={formik}
               label={t('password')}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               fullWidth
               InputProps={{
                 endAdornment: (
