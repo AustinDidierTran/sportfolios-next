@@ -4,12 +4,14 @@ import styles from './EditPersonInfos.module.css';
 import Paper from '../../components/Custom/Paper';
 import Button from '../../components/Custom/Button';
 import Avatar from '../../components/Custom/Avatar';
+import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
 import AddressSearchInput from '../../components/Custom/AddressSearchInput';
 import NumberFormat from '../../components/Custom/NumberFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import TextField from '../../components/Custom/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import * as yup from 'yup';
 
 import api from '../../actions/api';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +24,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import { formatRoute } from '../../../common/utils/stringFormat';
 const moment = require('moment');
 import Upload from 'rc-upload';
+import EmergencyContact from './EmergencyContact';
 
 export default function EditPersonInfos(props) {
   const { basicInfos } = props;
@@ -47,7 +50,23 @@ export default function EditPersonInfos(props) {
         entityId: personId,
       })
     );
+
+    formik.setFieldValue('name', data.name || '');
+    formik.setFieldValue('surname', data.surname || '');
+    formik.setFieldValue('birthDate', data.birthDate || '');
+    formik.setFieldValue('gender', data.gender || '');
+    formik.setFieldValue('phoneNumber', data.phoneNumber || '');
+    formik.setFieldValue('address', data.address || '');
+    formik.setFieldValue('addressFormatted', data.formattedAddress || '');
+    formik.setFieldValue('emergencyName', data.emergencyName || '');
+    formik.setFieldValue('emergencySurname', data.emergencySurname || '');
+    formik.setFieldValue('emergencyPhoneNumber', data.emergencyPhoneNumber || '');
+    formik.setFieldValue('medicalConditions', data.medicalConditions || '');
+    setPhotoUrl(data.photoUrl);
+
     setPersonInfos(data);
+
+    setChangesMade(false);
   };
 
   const uploadImageProps = {
@@ -73,25 +92,10 @@ export default function EditPersonInfos(props) {
     getPersonInfos();
   }, []);
 
-  useEffect(() => {
-    formik.setFieldValue('name', personInfos.name || '');
-    formik.setFieldValue('surname', personInfos.surname || '');
-    formik.setFieldValue('birthDate', personInfos.birthDate || '');
-    formik.setFieldValue('gender', personInfos.gender || '');
-    formik.setFieldValue('phoneNumber', personInfos.phoneNumber || '');
-    formik.setFieldValue('address', personInfos.address || '');
-    formik.setFieldValue('addressFormatted', personInfos.formattedAddress || '');
-    setPhotoUrl(personInfos.photoUrl);
-  }, [personInfos]);
-
-  const validate = (values) => {
-    const { name } = values;
-    const errors = {};
-    if (!name.length) {
-      errors.name = t(ERROR_ENUM.VALUE_IS_REQUIRED);
-    }
-    return errors;
-  };
+  const validationSchema = yup.object().shape({
+    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    surname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -103,10 +107,21 @@ export default function EditPersonInfos(props) {
       formattedAddress: '',
       address: '',
     },
-    validate,
+    validationSchema,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const { name, surname, birthDate, gender, address, phoneNumber } = values;
+      const {
+        name,
+        surname,
+        birthDate,
+        gender,
+        address,
+        phoneNumber,
+        emergencyName,
+        emergencySurname,
+        emergencyPhoneNumber,
+        medicalConditions,
+      } = values;
 
       setIsLoading(true);
 
@@ -127,7 +142,18 @@ export default function EditPersonInfos(props) {
         method: 'PUT',
         body: JSON.stringify({
           entityId: personId,
-          personInfos: { name, surname, birthDate, gender, address, phoneNumber },
+          personInfos: {
+            name,
+            surname,
+            birthDate,
+            gender,
+            address,
+            phoneNumber,
+            emergencyName,
+            emergencySurname,
+            emergencyPhoneNumber,
+            medicalConditions,
+          },
         }),
       });
       if (res.status === STATUS_ENUM.SUCCESS) {
@@ -152,7 +178,6 @@ export default function EditPersonInfos(props) {
   const onCancel = async () => {
     formik.resetForm();
     getPersonInfos();
-    setChangesMade(false);
   };
 
   const addressChanged = (newAddress) => {
@@ -237,6 +262,7 @@ export default function EditPersonInfos(props) {
             formik={formik}
             helperText={t('phone_number')}
             onChange={valueChanged}
+            className={styles.zone1}
           ></TextField>
         </div>
         <div className={styles.divSearch}>
@@ -257,18 +283,18 @@ export default function EditPersonInfos(props) {
         ) : (
           <></>
         )}
-        {changesMade ? (
-          <div className={styles.buttons}>
-            <Button endIcon="SaveIcon" style={{ marginRight: '8px' }} type="submit">
-              {t('save')}
-            </Button>
-
-            <Button endIcon="Cancel" onClick={onCancel} style={{ marginLeft: '8px' }} color="secondary">
-              {t('cancel')}
-            </Button>
-          </div>
-        ) : (
-          <></>
+        <EmergencyContact formik={formik} valueChanged={valueChanged} />
+        {changesMade && (
+          <ContainerBottomFixed>
+            <div className={styles.buttons}>
+              <Button endIcon="SaveIcon" style={{ marginRight: '8px' }} type="submit">
+                {t('save')}
+              </Button>
+              <Button endIcon="Cancel" onClick={onCancel} style={{ marginLeft: '8px' }} color="secondary">
+                {t('cancel')}
+              </Button>
+            </div>
+          </ContainerBottomFixed>
         )}
       </form>
     </Paper>

@@ -963,6 +963,7 @@ export default {
     elite_member: 'Membre élite',
     elite_membership: 'Affiliation Élite',
     elite: 'Élite',
+    emergency_contact: "Contact d'urgence",
     empty_phase_spots_warning: 'Veuillez supprimer ou remplir les places vides avant de démarrer la phase.',
     empty_roster_add_players:
       "Votre alignement est vide. Utilisez l'outil de recherche pour ajouter des joueurs à votre alignement.",
@@ -1072,6 +1073,7 @@ export default {
     manual_ranking_updated: 'Classement mis à jour!',
     max_length: 'Longueur maximum',
     maximum_spots: 'Nombre de places',
+    medical_conditions: 'Conditions Médicales',
     menu: 'Menu',
     message: 'Message',
     message_sent: 'Message envoyé',
@@ -1392,6 +1394,7 @@ export default {
     would_you_like_to_update_info_in_your_profile: 'Aimeriez-vous mettre à jour ces informations dans votre profil?',
     wrong_password: 'Mauvais mot de passe. Veuillez réessayer.',
     write_a_comment: 'Écrivez un commentaire...',
+    write_your_medical_conditions_here: 'Écrivez vos conditions médicales ici',
     will_see_graph_member: 'Vous verrez un graphique lorsque vous aurez votre tout premier membre!',
     will_see_graph_payment: 'Vous verrez un graphique lorsque vous aurez votre tout premier paiement!',
     year_ago_plural: 'Il y a {{count}} années',
