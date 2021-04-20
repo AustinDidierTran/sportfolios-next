@@ -6,7 +6,6 @@ import NumberFormat from '../../../components/Custom/NumberFormat';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
-import { Formik } from 'formik';
 
 export default function EmergencyContact(props) {
   const { formik, valueChanged } = props;

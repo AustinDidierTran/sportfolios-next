@@ -95,6 +95,18 @@ export default function EditPersonInfos(props) {
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     surname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return true;
+      }
+      return val.length === 10;
+    }),
+    emergencyPhoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return true;
+      }
+      return val.length === 10;
+    }),
   });
 
   const formik = useFormik({
