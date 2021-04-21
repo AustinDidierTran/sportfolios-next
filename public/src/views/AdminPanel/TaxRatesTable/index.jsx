@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
-import Button from '../../../components/Custom/Dialog/Button';
-import FormDialog from '../../../components/Custom/Dialog/FormDialog';
-import LoadingSpinner from '../../../components/Custom/Dialog/LoadingSpinner';
-import Table from '../../../components/Custom/Dialog/Table';
+import Button from '../../../components/Custom/Button';
+import FormDialog from '../../../components/Custom/FormDialog';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import Table from '../../../components/Custom/Table';
 import Paper from '../../../components/Custom/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import styles from './TaxRatesTable.module.css';
