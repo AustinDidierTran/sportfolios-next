@@ -4,10 +4,12 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../public/common/utils/stringFormat';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
-import TeamsAcceptation from '../../../public/src/views/TeamsAcceptation';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
+import loadable from '@loadable/component';
+
+const TeamsAcceptation = loadable(() => import('../../../public/src/views/TeamsAcceptation'));
 
 const TeamsAcceptationRoute = () => {
   const router = useRouter();

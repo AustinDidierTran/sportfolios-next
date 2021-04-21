@@ -1,7 +1,9 @@
 import React from 'react';
-import ScheduleManager from '../../public/src/views/ScheduleManager';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const ScheduleManager = loadable(() => import('../../public/src/views/ScheduleManager'));
 
 const ScheduleManagerRoute = () => {
   const { t } = useTranslation();

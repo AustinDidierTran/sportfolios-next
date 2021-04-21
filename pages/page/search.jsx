@@ -1,7 +1,9 @@
 import React from 'react';
-import Search from '../../public/src/views/Search';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const Search = loadable(() => import('../../public/src/views/Search'));
 
 const SearchRoute = () => {
   const { t } = useTranslation();

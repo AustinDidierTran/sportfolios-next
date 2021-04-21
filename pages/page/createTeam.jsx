@@ -1,7 +1,9 @@
 import React from 'react';
-import TeamCreation from '../../public/src/views/CreateTeam';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const TeamCreation = loadable(() => import('../../public/src/views/CreateTeam'));
 
 const CreateTeam = () => {
   const { t } = useTranslation();

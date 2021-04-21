@@ -1,7 +1,9 @@
 import React from 'react';
-import Menu from '../../public/src/views/Menu';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const Menu = loadable(() => import('../../public/src/views/Menu'));
 
 const MenuRoute = () => {
   const { t } = useTranslation();

@@ -1,7 +1,9 @@
 import React from 'react';
-import RegistrationStatus from '../../public/src/views/RegistrationStatus';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const RegistrationStatus = loadable(() => import('../../public/src/views/RegistrationStatus'));
 
 const RegistrationStatusRoute = () => {
   const { t } = useTranslation();

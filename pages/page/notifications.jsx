@@ -1,7 +1,9 @@
 import React from 'react';
-import NotificationsMobile from '../../public/src/views/Notifications';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const NotificationsMobile = loadable(() => import('../../public/src/views/Notifications'));
 
 const NotificationsRoute = () => {
   const { t } = useTranslation();

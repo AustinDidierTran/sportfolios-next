@@ -1,7 +1,9 @@
 import React from 'react';
-import ProductAddedToCart from '../../public/src/views/ProductAddedToCart';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const ProductAddedToCart = loadable(() => import('../../public/src/views/ProductAddedToCart'));
 
 const ProductAddedToCartRoute = () => {
   const { t } = useTranslation();

@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
-import ConfirmEmail from '../../../public/src/views/ConfirmEmail';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import api from '../../../public/src/actions/api';
 import { goTo, ROUTES } from '../../../public/src/actions/goTo';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const ConfirmEmail = loadable(() => import('../../../public/src/views/ConfirmEmail'));
 
 const ConfirmEmailRoute = () => {
   const router = useRouter();

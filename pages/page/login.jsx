@@ -1,10 +1,11 @@
 import React from 'react';
-
-import Login from '../../public/src/views/Login';
 import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../../conf';
 import { ROUTES_ENUM } from '../../public/common/enums';
+import loadable from '@loadable/component';
+
+const Login = loadable(() => import('../../public/src/views/Login'));
 
 const LoginRoute = () => {
   const { t } = useTranslation();

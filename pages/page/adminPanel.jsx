@@ -1,7 +1,9 @@
 import React from 'react';
-import AdminPanel from '../../public/src/views/AdminPanel';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const AdminPanel = loadable(() => import('../../public/src/views/AdminPanel'));
 
 const AdminPanelRoute = () => {
   const { t } = useTranslation();

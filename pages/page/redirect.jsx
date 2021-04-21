@@ -1,7 +1,9 @@
 import React from 'react';
-import RedirectWithToken from '../../public/src/views/RedirectWithToken';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const RedirectWithToken = loadable(() => import('../../public/src/views/RedirectWithToken'));
 
 const RedirectRoute = () => {
   const { t } = useTranslation();

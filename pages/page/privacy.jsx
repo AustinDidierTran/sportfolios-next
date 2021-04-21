@@ -1,7 +1,9 @@
 import React from 'react';
-import PrivacyPolicy from '../../public/src/views/PrivacyPolicy';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const PrivacyPolicy = loadable(() => import('../../public/src/views/PrivacyPolicy'));
 
 const PrivacyRoute = () => {
   const { t } = useTranslation();

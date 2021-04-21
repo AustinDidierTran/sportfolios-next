@@ -3,9 +3,11 @@ import React from 'react';
 import { formatRoute } from '../../public/common/utils/stringFormat';
 import api from '../../public/src/actions/api';
 import { goTo } from '../../public/src/actions/goTo';
-import AddBankAccount from '../../public/src/views/AddBankAccount';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const AddBankAccount = loadable(() => import('../../public/src/views/AddBankAccount'));
 
 const AddBankAccountRoute = () => {
   const router = useRouter();
