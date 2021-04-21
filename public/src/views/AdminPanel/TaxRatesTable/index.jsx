@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AlertDialog, Button, FormDialog, LoadingSpinner, Table } from '../../../components/Custom';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
+import Button from '../../../components/Custom/Dialog/Button';
+import FormDialog from '../../../components/Custom/Dialog/FormDialog';
+import LoadingSpinner from '../../../components/Custom/Dialog/LoadingSpinner';
+import Table from '../../../components/Custom/Dialog/Table';
+import Paper from '../../../components/Custom/Paper';
 import CardContent from '@material-ui/core/CardContent';
-import { Paper } from '../../../components/Custom';
 import styles from './TaxRatesTable.module.css';
 import api from '../../../actions/api';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';

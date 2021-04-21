@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Table } from '../../../components/Custom';
+import Table from '../../../components/Custom/Table';
+import Paper from '../../../components/Custom/Paper';
 import CardContent from '@material-ui/core/CardContent';
-import { Paper } from '../../../components/Custom';
 import styles from './SportsTable.module.css';
 import api from '../../../actions/api';
 

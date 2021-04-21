@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { IconButton } from '../../../components/Custom';
+import IconButton from '../../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import Badge from '@material-ui/core/Badge';

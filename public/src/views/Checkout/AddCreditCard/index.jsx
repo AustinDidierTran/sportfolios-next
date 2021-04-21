@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
-import { Button, TextField } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import TextField from '../../../components/Custom/TextField';
 import api from '../../../actions/api';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './AddCreditCard.module.css';

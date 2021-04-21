@@ -7,7 +7,8 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
-import { Button, TextField } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import TextField from '../../../components/Custom/TextField';
 import CountrySelect from '../../../views/AddBankAccount/CountrySelect';
 
 export async function getCustomer() {

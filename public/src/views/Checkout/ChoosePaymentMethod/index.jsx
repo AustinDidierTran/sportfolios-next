@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../actions/api';
-import { Button, RadioGroup, LoadingSpinner, ContainerBottomFixed } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import RadioGroup from '../../../components/Custom/RadioGroup';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import ContainerBottomFixed from '../../../components/Custom/ContainerBottomFixed';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { checkout } from '../../../utils/stripe';
