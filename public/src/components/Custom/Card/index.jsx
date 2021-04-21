@@ -1,5 +1,7 @@
 import React from 'react';
-import CardFactory from './CardFactory';
+import loadable from '@loadable/component';
+
+const CardFactory = loadable(() => import('./CardFactory'));
 
 export { default as CardFactory } from './CardFactory';
 
