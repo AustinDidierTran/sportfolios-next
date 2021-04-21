@@ -15,7 +15,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
-import PostInput from '../../Input/PostInput';
 import CardMedia from '@material-ui/core/CardMedia';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -33,6 +32,7 @@ import Upload from 'rc-upload';
 import loadable from '@loadable/component';
 
 const Comment = loadable(() => import('../Comment'));
+const PostInput = loadable(() => import('../../Input/PostInput'));
 
 export default function Post(props) {
   const {
