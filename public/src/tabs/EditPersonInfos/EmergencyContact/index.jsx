@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '../EditPersonInfos.module.css';
 import TextField from '../../../components/Custom/TextField';
-import NumberFormat from '../../../components/Custom/NumberFormat';
+import PhoneNumberFormat from '../../../components/Custom/PhoneNumberFormat';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ export default function EmergencyContact(props) {
       <div className={styles.div2equal}>
         <TextField
           InputProps={{
-            inputComponent: NumberFormat,
+            inputComponent: PhoneNumberFormat,
           }}
           namespace="emergencyPhoneNumber"
           formik={formik}

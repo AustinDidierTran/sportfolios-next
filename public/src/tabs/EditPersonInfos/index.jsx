@@ -6,7 +6,7 @@ import Button from '../../components/Custom/Button';
 import Avatar from '../../components/Custom/Avatar';
 import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
 import AddressSearchInput from '../../components/Custom/AddressSearchInput';
-import NumberFormat from '../../components/Custom/NumberFormat';
+import PhoneNumberFormat from '../../components/Custom/PhoneNumberFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import TextField from '../../components/Custom/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -277,7 +277,7 @@ export default function EditPersonInfos(props) {
         <div className={styles.div2equal}>
           <TextField
             InputProps={{
-              inputComponent: NumberFormat,
+              inputComponent: PhoneNumberFormat,
             }}
             namespace="phoneNumber"
             formik={formik}
