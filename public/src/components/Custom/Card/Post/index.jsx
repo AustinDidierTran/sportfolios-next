@@ -4,8 +4,7 @@ import CustomIcon from '../../Icon';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import CustomCard from '../index';
-import { CARD_TYPE_ENUM } from '../../../../../common/enums';
+import Comment from '../Comment';
 import styles from './Post.module.css';
 import IconButton from '@material-ui/core/IconButton';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -338,19 +337,16 @@ export default function Post(props) {
           )}
 
           {comments.map((comment, index) => (
-            <CustomCard
-              items={{
-                commentId: comment.id,
-                commentContent: comment.content,
-                commentDate: getTimeToShow(comment.created_at),
-                commentPhotoUrl: comment.photo_url,
-                commentFullName: comment.name + ' ' + comment.surname,
-                handleEditComment,
-                handleDeleteComment: onClickDeleteComment,
-                isAdmin: entityId === comment.entity_id,
-              }}
-              type={CARD_TYPE_ENUM.COMMENT}
+            <Comment
               key={index}
+              commentId={comment.id}
+              commentContent={comment.content}
+              commentDate={getTimeToShow(comment.created_at)}
+              commentPhotoUrl={comment.photo_url}
+              commentFullName={comment.name + ' ' + comment.surname}
+              handleEditComment={handleEditComment}
+              handleDeleteComment={onClickDeleteComment}
+              isAdmin={entityId === comment.entity_id}
             />
           ))}
           {elevation === 0 && <Divider className={styles.dividerComment} />}
