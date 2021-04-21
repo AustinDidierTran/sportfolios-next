@@ -59,6 +59,7 @@ export default function MembersReportItem(props) {
 
   const handleClick = async () => {
     const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }));
+
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       const formattedData = res.data.map((d) => ({
         name: d.name,
@@ -70,11 +71,16 @@ export default function MembersReportItem(props) {
         createdAt: formatDate(moment(d.created_at), 'YYYY-MM-DD HH:mm'),
         expirationDate: formatDate(moment(d.expiration_date), 'YYYY-MM-DD'),
         email: d.email,
+        phoneNumber: d.phone_number,
         birthDate: d.birthDate,
         gender: t(d.gender),
         city: d.city,
         state: d.state,
         zip: d.zip,
+        emergencyName: d.emergency_name,
+        emergencySurname: d.emergency_surname,
+        emergencyPhoneNumber: d.emergency_phone_number,
+        medicalConditions: d.medicalConditions,
       }));
       setData(formattedData);
       setOpen(true);
@@ -99,11 +105,17 @@ export default function MembersReportItem(props) {
     { label: t('create.creation_date'), key: 'createdAt' },
     { label: t('expiration_date'), key: 'expirationDate' },
     { label: t('email.email'), key: 'email' },
+    { label: t('phone_number'), key: 'phoneNumber' },
     { label: t('birth_date'), key: 'birthDate' },
     { label: t('gender'), key: 'gender' },
     { label: t('city'), key: 'city' },
     { label: t('state'), key: 'state' },
     { label: t('zip_code'), key: 'zip' },
+    { label: t('emergency_contact'), key: '' },
+    { label: t('name'), key: 'emergencyName' },
+    { label: t('surname'), key: 'emergencySurname' },
+    { label: t('phone_number'), key: 'emergencyPhoneNumber' },
+    { label: t('medical_conditions'), key: 'medicalConditions' },
   ];
 
   const fileName = `${metadata.organizationName} ${t('member.members')} ${formatDate(
