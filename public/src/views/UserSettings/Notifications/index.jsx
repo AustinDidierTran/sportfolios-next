@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
-import { List } from '../../../components/Custom';
+import List from '../../../components/Custom/List';
 import { useTranslation } from 'react-i18next';
 import styles from './Notifications.module.css';
 import api from '../../../actions/api';
 import { LIST_ITEM_ENUM, NOTIFICATION_MEDIA, NOTIFICATION_TYPE } from '../../../../common/enums';
+
 const iconMap = {
   [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: 'PeopleIcon',
   [NOTIFICATION_TYPE.SCORE_SUBMISSION_CONFLICT]: 'Notifications',

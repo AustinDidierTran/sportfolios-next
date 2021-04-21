@@ -3,12 +3,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ROUTES_ENUM, STATUS_ENUM } from '../../../common/enums/index.js';
 import api from '../../actions/api/index.js';
 import { goTo, goToAndReplace, ROUTES } from '../../actions/goTo';
-import { IgContainer, LoadingSpinner, Button } from '../../components/Custom';
+import IgContainer from '../../components/Custom/IgContainer';
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import Button from '../../components/Custom/Button';
 import { Store } from '../../Store.js';
-import RosterCard from '../../tabs/Rosters/RosterCard/index.jsx';
 import { useTranslation } from 'react-i18next';
 import styles from './RosterInvite.module.css';
 import { formatRoute } from '../../../common/utils/stringFormat.js';
+import loadable from '@loadable/component';
+
+const RosterCard = loadable(() => import('../../tabs/Rosters/RosterCard/index.jsx'));
 
 export default function RosterInvite(props) {
   const { t } = useTranslation();

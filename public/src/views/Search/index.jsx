@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { IgContainer, LoadingSpinner } from '../../components/Custom';
-
-import EntitySearch from './EntitySearch/index';
-
+import LoadingSpinner from '../../components/Custom/LoadingSpinner';
+import IgContainer from '../../components/Custom/IgContainer';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const EntitySearch = loadable(() => import('./EntitySearch/index'));
 
 export default function Search(props) {
   const router = useRouter();

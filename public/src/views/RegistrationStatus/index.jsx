@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MessageAndButtons } from '../../components/Custom';
+import MessageAndButtons from '../../components/Custom/MessageAndButtons';
 import { STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
 import { goTo, ROUTES } from '../../actions/goTo';
-import RosterInviteLink from '../../tabs/Rosters/RosterCard/RosterInviteLink';
 import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
+import loadable from '@loadable/component';
+
+const RosterInviteLink = loadable(() => import('../../tabs/Rosters/RosterCard/RosterInviteLink'));
 
 export default function RegistrationStatus() {
   const { t } = useTranslation();

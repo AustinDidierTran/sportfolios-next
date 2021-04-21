@@ -1,5 +1,7 @@
 import React from 'react';
-import PlayersAndTeamsAcceptation from '../PlayersAndTeamsAcceptation';
+import loadable from '@loadable/component';
+
+const PlayersAndTeamsAcceptation = loadable(() => import('../PlayersAndTeamsAcceptation'));
 
 export default function PlayersAcceptation(props) {
   const { cards, update, getCards } = props;

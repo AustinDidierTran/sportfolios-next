@@ -1,6 +1,7 @@
 import React from 'react';
-import { MessageAndButtons } from '../../components/Custom';
+import MessageAndButtons from '../../components/Custom/MessageAndButtons';
 import { useTranslation } from 'react-i18next';
+
 export default function PrivacyPolicy() {
   const { t } = useTranslation();
   const privacyPolicy = 'https://sportfolios-images.s3.amazonaws.com/production/privacy-policy/privacy-policy.html';

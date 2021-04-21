@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from '../../components/Custom';
+import Container from '../../components/Custom/Container';
 
 // @ts-ignore
 import styles from './ConfirmEmail.module.css';

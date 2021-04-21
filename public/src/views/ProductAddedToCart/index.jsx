@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 
-import { MessageAndButtons } from '../../components/Custom';
+import MessageAndButtons from '../../components/Custom/MessageAndButtons';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { TABS_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';

@@ -2,7 +2,7 @@ import React from 'react';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
 import styles from './ConfirmedEmailField.module.css';
-import { TextField } from '../../../../components/Custom';
+import TextField from '../../../../components/Custom/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useTranslation } from 'react-i18next';
 

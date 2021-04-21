@@ -1,6 +1,6 @@
 import React from 'react';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../../../common/enums';
-import { FormDialog } from '../../../../../components/Custom';
+import FormDialog from '../../../../../components/Custom/FormDialog';
 
 export default function BecomeMemberCoupon(props) {
   const { items, open, onClose } = props;

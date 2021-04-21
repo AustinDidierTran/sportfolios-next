@@ -1,14 +1,16 @@
 import React from 'react';
 import { Store } from '../../Store';
-import LoggedIn from './LoggedIn';
-import Default from './Default';
-import LoggedOut from './LoggedOut';
 import Typography from '@material-ui/core/Typography';
 import api from '../../actions/api';
 import { GLOBAL_ENUM } from '../../../common/enums';
 import CartIcon from '../Cart/CartICon';
 import validator from 'validator';
 import { useRouter } from 'next/router';
+import loadable from '@loadable/component';
+
+const LoggedOut = loadable(() => import('./LoggedOut'));
+const Default = loadable(() => import('./Default'));
+const LoggedIn = loadable(() => import('./LoggedIn'));
 
 const getEntity = async (entityId) => {
   const { data } = await api(`/api/entity?id=${entityId}`);
@@ -29,7 +31,7 @@ export default function Header() {
     const pth = router.pathname.split('/')[1] || '';
     const isLogin = router.pathname.includes('login');
     const isSignUp = router.pathname.includes('signup');
-    setIsNotLoginPage(isLogin || isSignUp ? false : true );
+    setIsNotLoginPage(isLogin || isSignUp ? false : true);
 
     if (
       [
@@ -109,5 +111,5 @@ export default function Header() {
         return <LoggedIn />;
     }
   }
-  return <LoggedOut isNotLogin={isNotLoginPage}/>;
+  return <LoggedOut isNotLogin={isNotLoginPage} />;
 }

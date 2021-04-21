@@ -1,5 +1,6 @@
 import React from 'react';
-import { IgContainer, List } from '../../components/Custom';
+import List from '../../components/Custom/List';
+import IgContainer from '../../components/Custom/IgContainer';
 import { useApiRoute } from '../../hooks/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { LIST_ITEM_ENUM } from '../../../common/enums';

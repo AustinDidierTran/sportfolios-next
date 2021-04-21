@@ -3,7 +3,8 @@ import React from 'react';
 // @ts-ignore
 import styles from './Home.module.css';
 
-import { Card, IgContainer } from '../../components/Custom';
+import IgContainer from '../../components/Custom/IgContainer';
+import Card from '../../components/Custom/Card';
 
 interface IPost {
   cardType: string;

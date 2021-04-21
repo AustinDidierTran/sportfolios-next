@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { List, LoadingSpinner, Button } from '../../../components/Custom';
+import List from '../../../components/Custom/List';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import Button from '../../../components/Custom/Button';
 import styles from './CreditCards.module.css';
 import Card from '@material-ui/core/Card';
 import { useTranslation } from 'react-i18next';

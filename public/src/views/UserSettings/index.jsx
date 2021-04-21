@@ -5,10 +5,10 @@ import IgContainer from '../../components/Custom/IgContainer';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import { Store } from '../../Store';
 import { useTranslation } from 'react-i18next';
-import AppLinking from './AppLinking';
 
 import loadable from '@loadable/component';
 
+const AppLinking = loadable(() => import('./AppLinking'));
 const BasicInfo = loadable(() => import('./BasicInfo'));
 const BottomPageLogo = loadable(() => import('../../components/Custom/BottomPageLogo'));
 const ChangePassword = loadable(() => import('./ChangePassword'));

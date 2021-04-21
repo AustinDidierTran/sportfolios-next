@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState, useEffect } from 'react';
 
 import styles from './ShopDetails.module.css';
 import { useTranslation } from 'react-i18next';
@@ -7,8 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import api from '../../actions/api';
 import { goTo, ROUTES, goToAndReplace } from '../../actions/goTo';
-import { Button, Paper, IgContainer, Select } from '../../components/Custom';
-import { useEffect } from 'react';
+import Button from '../../components/Custom/Button';
+import Paper from '../../components/Custom/Paper';
+import IgContainer from '../../components/Custom/IgContainer';
+import Select from '../../components/Custom/Select';
 import { formatPrice } from '../../utils/stringFormats';
 import { useFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';

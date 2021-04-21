@@ -1,11 +1,14 @@
 import React from 'react';
+
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import { Paper, Button } from '../../../components/Custom';
+import Paper from '../../../components/Custom/Paper';
+import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
 import styles from './RegisterCard.module.css';
+
 export default function RegisterCard(props) {
   const { t } = useTranslation();
   const { formik } = props;

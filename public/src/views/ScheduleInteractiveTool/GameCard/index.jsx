@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Avatar } from '../../../components/Custom';
+import Avatar from '../../../components/Custom/Avatar';
 import styles from './GameCard.module.css';
 import { formatDate, getInitialsFromName } from '../../../utils/stringFormats';
 import moment from 'moment';

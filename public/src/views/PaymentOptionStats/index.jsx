@@ -5,7 +5,6 @@ import IgContainer from '../../components/Custom/IgContainer';
 import Paper from '../../components/Custom/Paper';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
-import loadable from '@loadable/component';
 import { useRouter } from 'next/router';
 import { formatRoute, formatPrice } from '../../../common/utils/stringFormat';
 import moment from 'moment';
@@ -14,6 +13,8 @@ import api from '../../actions/api';
 import { SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import { goBack } from '../../actions/goTo';
+import loadable from '@loadable/component';
+
 const Graph = loadable(() => import('../Analytics/Graph'));
 
 export default function PaymentOptionStats() {
@@ -21,7 +22,6 @@ export default function PaymentOptionStats() {
   const router = useRouter();
   const { id: eventPaymentId } = router.query;
   const { dispatch } = useContext(Store);
-
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [dateFilterFees, setDateFilterFees] = useState(moment(new Date()).format('yyyy-MM-DD'));
@@ -34,16 +34,19 @@ export default function PaymentOptionStats() {
       return;
     }
 
-    const { data: dataFees } = await api(formatRoute('/api/entity/graphFeesByEvent', null, {
-      eventPaymentId,
-      date: dateFilterFees
-    }));
+    const { data: dataFees } = await api(
+      formatRoute('/api/entity/graphFeesByEvent', null, {
+        eventPaymentId,
+        date: dateFilterFees,
+      })
+    );
 
-
-    const { data } = await api(formatRoute('/api/entity/graphAmountGeneratedByEvent', null, {
-      eventPaymentId,
-      date: dateFilter
-    }));
+    const { data } = await api(
+      formatRoute('/api/entity/graphAmountGeneratedByEvent', null, {
+        eventPaymentId,
+        date: dateFilter,
+      })
+    );
     if (!data || !dataFees) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -60,13 +63,12 @@ export default function PaymentOptionStats() {
   };
 
   const dateChanged = (e) => {
-    setDateFilter(moment(e.target.value).format('yyyy-MM-DD'))
-  }
-
+    setDateFilter(moment(e.target.value).format('yyyy-MM-DD'));
+  };
 
   const dateChangedFees = (e) => {
-    setDateFilterFees(moment(e.target.value).format('yyyy-MM-DD'))
-  }
+    setDateFilterFees(moment(e.target.value).format('yyyy-MM-DD'));
+  };
 
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
@@ -81,9 +83,7 @@ export default function PaymentOptionStats() {
     <IgContainer>
       <Paper className={styles.paper} title={t('graphs')}>
         {graphData.total.length === 0 && !graphData.minDate && (
-          <div className={styles.divNoGraph}>
-            {t('will_see_graph_payment')}
-          </div>
+          <div className={styles.divNoGraph}>{t('will_see_graph_payment')}</div>
         )}
         {(graphData.total.length > 0 || graphData.minDate) && (
           <Graph
@@ -93,7 +93,7 @@ export default function PaymentOptionStats() {
             title={`${t('income_for')} ${graphData.name}`}
             totalTitle={t('total_income')}
             newTitle={t('new_income')}
-            formatData={(x) => (`${formatPrice(x * 100)} $`)}
+            formatData={(x) => `${formatPrice(x * 100)} $`}
           />
         )}
         {(graphDataFees.total.length > 0 || graphDataFees.minDate) && (
@@ -104,7 +104,7 @@ export default function PaymentOptionStats() {
             title={`${t('payment.transaction_fee_for')} ${graphDataFees.name}`}
             totalTitle={t('payment.total_transaction_fee')}
             newTitle={t('payment.new_transaction_fee')}
-            formatData={(x) => (`${formatPrice(x * 100)} $`)}
+            formatData={(x) => `${formatPrice(x * 100)} $`}
           />
         )}
       </Paper>
