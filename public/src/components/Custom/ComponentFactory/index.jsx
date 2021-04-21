@@ -10,7 +10,7 @@ import CheckBox from '../CheckBox';
 import List from '../List';
 import RadioGroup from '../RadioGroup';
 import CustomIconButton from '../IconButton';
-import NumberFormat from '../NumberFormat';
+import PhoneNumberFormat from '../PhoneNumberFormat';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -93,7 +93,7 @@ export default function ComponentFactory(props) {
     return (
       <TextField
         InputProps={{
-          inputComponent: NumberFormat,
+          inputComponent: PhoneNumberFormat,
         }}
         namespace={component.namespace}
         formik={component.formik}
