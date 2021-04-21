@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Table } from '../../../components/Custom';
+import Table from '../../../components/Custom/Table';
+import Paper from '../../../components/Custom/Paper';
+import Button from '../../../components/Custom/Button';
+import TextField from '../../../components/Custom/TextField';
 import CardContent from '@material-ui/core/CardContent';
-import { Button, Paper, TextField } from '../../../components/Custom';
 import styles from './GoogleAnalyticsPageviewsTable.module.css';
 import api from '../../../actions/api';
 import { useFormik } from 'formik';

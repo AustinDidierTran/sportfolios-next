@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Table, Paper } from '../../../components/Custom';
+import Table from '../../../components/Custom/Table';
+import Paper from '../../../components/Custom/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import styles from './UsersTable.module.css';
 import api from '../../../actions/api';

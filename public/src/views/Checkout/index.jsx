@@ -4,7 +4,8 @@ import styles from './Checkout.module.css';
 
 import ChoosePaymentMethod from './ChoosePaymentMethod';
 import { formatPageTitle } from '../../utils/stringFormats';
-import { Paper, IgContainer } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import IgContainer from '../../components/Custom/IgContainer';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../actions/goTo';
 

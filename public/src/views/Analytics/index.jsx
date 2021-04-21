@@ -4,20 +4,21 @@ import { formatPageTitle } from '../../utils/stringFormats';
 import IconButton from '../../components/Custom/IconButton';
 import IgContainer from '../../components/Custom/IgContainer';
 import Paper from '../../components/Custom/Paper';
-import MembersReport from './MembersReport';
-import SalesReport from './SalesReport';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
-const Graph = loadable(() => import('./Graph'));
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import api from '../../../src/actions/api';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import CustomButton from '../../components/Custom/Button';
-import loadable from '@loadable/component';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { TABS_ENUM } from '../../../common/enums';
+import loadable from '@loadable/component';
+
+const Graph = loadable(() => import('./Graph'));
+const MembersReport = loadable(() => import('./MembersReport'));
+const SalesReport = loadable(() => import('./SalesReport'));
 
 export default function Analytics() {
   const { t } = useTranslation();
