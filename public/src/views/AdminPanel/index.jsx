@@ -19,7 +19,7 @@ const UsersTable = loadable(() => import('./UsersTable'));
 const GaEventsTable = loadable(() => import('./GoogleAnalyticsEventsTable'));
 const GaPageviewsTable = loadable(() => import('./GoogleAnalyticsPageviewsTable'));
 const TaxRatesTable = loadable(() => import('./TaxRatesTable'));
-const Graph = loadable(() => import('../Analytics/Graph'));
+const GraphLinear = loadable(() => import('../Analytics/GraphLinear'));
 const NewsLetterSubscriptions = loadable(() => import('./NewsLetterSubscriptions'));
 
 export default function AdminPanel() {
@@ -63,13 +63,11 @@ export default function AdminPanel() {
       <GaPageviewsTable />
       <TaxRatesTable />
       <Paper>
-        <Graph
+        <GraphLinear
           dateGraph={dateFilter}
           onChangeDate={dateChanged}
           graphData={graphData}
           title={t('member.members_in', { time: new Date().getFullYear() })}
-          totalTitle={'total_members'}
-          newTitle={'new_members'}
         />
       </Paper>
     </Container>
