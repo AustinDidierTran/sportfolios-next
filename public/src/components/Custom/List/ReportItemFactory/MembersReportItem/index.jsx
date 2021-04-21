@@ -6,10 +6,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
-import { INVOICE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { INVOICE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM, ERROR_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
-import { ERROR_ENUM } from '../../../../../../common/errors';
 import { getMembershipName } from '../../../../../../common/functions';
 import { formatRoute } from '../../../../../../common/utils/stringFormat';
 import AlertDialog from '../../../Dialog/AlertDialog';
@@ -72,7 +71,7 @@ export default function MembersReportItem(props) {
         expirationDate: formatDate(moment(d.expiration_date), 'YYYY-MM-DD'),
         email: d.email,
         phoneNumber: d.phone_number,
-        birthDate: d.birthDate,
+        birthDate: d.birth_date,
         gender: t(d.gender),
         city: d.city,
         state: d.state,
