@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 
-const ShopDetails = loadable(() => import('../../../public/src/views/ShopDetails'));
+const ShopDetails = loadable(() => import('../../../../public/src/views/ShopDetails'));
 
 const ShopDetailsRoute = () => {
   const { t } = useTranslation();
