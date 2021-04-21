@@ -16,9 +16,6 @@ const useStyles = makeStyles(() => ({
 
 const AccordionSummary = withStyles({
   content: {
-    '&$expanded': {
-      margin: '8px 0',
-    },
     margin: '4px 0',
   },
 })(MuiAccordionSummary);
