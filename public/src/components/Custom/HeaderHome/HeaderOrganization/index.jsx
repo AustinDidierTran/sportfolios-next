@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +15,7 @@ import loadable from '@loadable/component';
 import { formatRoute } from '../../../../utils/stringFormats';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
+import { Store } from '../../../../Store';
 
 const BannerOrganization = loadable(() => import('../../BannerOrganization'));
 
@@ -23,6 +24,10 @@ export default function HeaderOrganization(props) {
   const router = useRouter();
   const { t } = useTranslation();
   const { id } = router.query;
+
+  const {
+    state: { isAuthenticated },
+  } = useContext(Store);
 
   const [openBecomeMember, setOpenBecomeMember] = useState(false);
   const [openToLogin, setOpenToLogin] = useState(false);
@@ -71,6 +76,7 @@ export default function HeaderOrganization(props) {
         onOpenToLoggin={onOpenToLoggin}
         isAdmin={isAdmin}
         hasMemberships={hasMemberships}
+        isAuthenticated={isAuthenticated}
       />
       <div className={styles.navigation}>
         <Tabs

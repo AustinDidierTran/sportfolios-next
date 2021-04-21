@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import styles from './BannerOrganization.module.css';
 
 export default function BannerOrganization(props) {
-  const { basicInfos, onBecomeMemberButton, onOpenToLoggin, hasMemberships } = props;
+  const { basicInfos, onBecomeMemberButton, onOpenToLoggin, hasMemberships, isAuthenticated } = props;
   const { t } = useTranslation();
 
   return (
@@ -27,8 +27,9 @@ export default function BannerOrganization(props) {
           </Grid>
           <Grid container className={styles.gridButton}>
             <CustomButton
-              onClick={hasMemberships ? onBecomeMemberButton : onOpenToLoggin}
+              onClick={isAuthenticated ? onBecomeMemberButton : onOpenToLoggin}
               className={styles.eventButton}
+              disabled={!hasMemberships && isAuthenticated}
             >
               {t('become_member')}
             </CustomButton>
