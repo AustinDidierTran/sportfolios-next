@@ -539,6 +539,7 @@ export default {
       choose_your_primary_person: 'Choose your primary person',
       choose_your_report: 'Choose your report',
       choose: 'Choose',
+      choose_later_date: 'Choose a later date',
     },
     create: {
       create_a_game: 'Create a game',
