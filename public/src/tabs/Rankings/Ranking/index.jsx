@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Ranking.module.css';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
-import { Accordion, List } from '../../../components/Custom';
+import Accordion from '../../../components/Custom/Accordion';
+import List from '../../../components/Custom/List';
 
 export default function Ranking(props) {
   const { ranking, title, subtitle, withStats, withoutPosition, allTeamsEqual } = props;
