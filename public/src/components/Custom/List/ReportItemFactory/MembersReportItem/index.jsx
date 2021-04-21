@@ -72,7 +72,7 @@ export default function MembersReportItem(props) {
         expirationDate: formatDate(moment(d.expiration_date), 'YYYY-MM-DD'),
         email: d.email,
         phoneNumber: d.phone_number,
-        birthDate: d.birthDate,
+        birthDate: d.birth_date,
         gender: t(d.gender),
         city: d.city,
         state: d.state,
