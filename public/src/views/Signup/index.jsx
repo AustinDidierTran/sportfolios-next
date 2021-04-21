@@ -9,12 +9,14 @@ import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Container from '../../components/Custom/Container';
+import Icon from '../../components/Custom/Icon';
 import Paper from '../../components/Custom/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '../../components/Custom/TextField';
-import { IconButton, InputAdornment, Tooltip } from '@material-ui/core';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
 import { LOGO_ENUM } from '../../../common/enums';
 import Link from 'next/link';
@@ -33,7 +35,6 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required(t('value_is_required')),
@@ -99,8 +100,8 @@ export default function Signup() {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Tooltip title={showPassword ? t('hide_password') : t('show_password')}>
-                      <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? <Icon icon="Visibility" /> : <Icon icon="VisibilityOff" />}
                       </IconButton>
                     </Tooltip>
                   </InputAdornment>

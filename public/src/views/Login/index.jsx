@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Container from '../../components/Custom/Container';
+import Icon from '../../components/Custom/Icon';
 import Paper from '../../components/Custom/Paper';
 import TextField from '../../components/Custom/TextField';
 import * as yup from 'yup';
@@ -20,9 +21,9 @@ import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../Store';
 import { goTo, ROUTES } from '../../actions/goTo';
 import api from '../../actions/api';
-import { IconButton, InputAdornment, Tooltip } from '@material-ui/core';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -32,7 +33,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const {
     state: { isAuthenticated },
@@ -140,8 +140,8 @@ export default function Login() {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Tooltip title={showPassword ? t('hide_password') : t('show_password')}>
-                      <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? <Icon icon="Visibility" /> : <Icon icon="VisibilityOff" />}
                       </IconButton>
                     </Tooltip>
                   </InputAdornment>

@@ -98,6 +98,8 @@ import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Undo from '@material-ui/icons/Undo';
 import Videocam from '@material-ui/icons/Videocam';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
@@ -205,6 +207,8 @@ const icons: any = {
   ThumbUpAltOutlinedIcon,
   Undo,
   Videocam,
+  Visibility,
+  VisibilityOff,
   MoreVertIcon,
   ShareOutlinedIcon,
   Image,
