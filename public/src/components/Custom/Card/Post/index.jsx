@@ -1,35 +1,38 @@
 import React, { useState, useContext, useMemo, useEffect } from 'react';
 
 import CustomIcon from '../../Icon';
+import CustomButton from '../../Button';
+import CustomAvatar from '../../Avatar';
+import CustomIconButton from '../../IconButton';
+import AlertDialog from '../../Dialog/AlertDialog';
+
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import Comment from '../Comment';
-import styles from './Post.module.css';
 import IconButton from '@material-ui/core/IconButton';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CustomAvatar from '../../Avatar';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { SEVERITY_ENUM } from '../../../../../common/enums';
 import Typography from '@material-ui/core/Typography';
 import PostInput from '../../Input/PostInput';
 import CardMedia from '@material-ui/core/CardMedia';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import AlertDialog from '../../Dialog/AlertDialog';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { useRouter } from 'next/router';
-
-import Upload from 'rc-upload';
-import CustomIconButton from '../../IconButton';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import CustomButton from '../../Button';
+
+import styles from './Post.module.css';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+import { SEVERITY_ENUM } from '../../../../../common/enums';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import { useRouter } from 'next/router';
+import Upload from 'rc-upload';
+import loadable from '@loadable/component';
+
+const Comment = loadable(() => import('../Comment'));
 
 export default function Post(props) {
   const {
