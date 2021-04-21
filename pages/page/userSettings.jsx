@@ -1,7 +1,9 @@
 import React from 'react';
-import UserSettings from '../../public/src/views/UserSettings';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const UserSettings = loadable(() => import('../../public/src/views/UserSettings'));
 
 const UserSettingsRoute = () => {
   const { t } = useTranslation();

@@ -1,8 +1,9 @@
 import React from 'react';
-
-import ConfirmEmailSuccess from '../../public/src/views/ConfirmEmail/ConfirmEmailSuccess';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const ConfirmEmailSuccess = loadable(() => import('../../public/src/views/ConfirmEmail/ConfirmEmailSuccess'));
 
 const ConfirmEmailSuccessRoute = () => {
   const { t } = useTranslation();

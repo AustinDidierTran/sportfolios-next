@@ -1,8 +1,10 @@
 import React from 'react';
-import RosterInvite from '../../../public/src/views/RosterInvite';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const RosterInvite = loadable(() => import('../../../public/src/views/RosterInvite'));
 
 const RosterInviteRoute = () => {
   const router = useRouter();

@@ -1,7 +1,9 @@
 import React from 'react';
-import Sales from '../../../public/src/views/Sales';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const Sales = loadable(() => import('../../../public/src/views/Sales'));
 
 const SalesRoute = () => {
   const { t } = useTranslation();

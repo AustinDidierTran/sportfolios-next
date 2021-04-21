@@ -1,7 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import OptionPayment from '../../../public/src/views/OptionPayment';
+import loadable from '@loadable/component';
+
+const OptionPayment = loadable(() => import('../../../public/src/views/OptionPayment'));
 
 const OptionPaymentRoute = () => {
   const { t } = useTranslation();

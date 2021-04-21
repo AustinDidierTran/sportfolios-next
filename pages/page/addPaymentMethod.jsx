@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { ROUTES } from '../../public/src/actions/goTo';
-import AddPaymentMethod from '../../public/src/views/AddPaymentMethod';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const AddPaymentMethod = loadable(() => import('../../public/src/views/AddPaymentMethod'));
 
 const AddPaymentMethodRoute = () => {
   const router = useRouter();

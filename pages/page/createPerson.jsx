@@ -1,7 +1,9 @@
 import React from 'react';
-import PersonCreation from '../../public/src/views/CreatePerson';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const PersonCreation = loadable(() => import('../../public/src/views/CreatePerson'));
 
 const CreatePerson = () => {
   const { t } = useTranslation();

@@ -1,8 +1,9 @@
 import React from 'react';
-
-import ForgotPassword from '../../public/src/views/ForgotPassword';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const ForgotPassword = loadable(() => import('../../public/src/views/ForgotPassword'));
 
 const ForgotPasswordRoute = () => {
   const { t } = useTranslation();

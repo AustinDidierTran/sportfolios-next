@@ -1,7 +1,9 @@
 import React from 'react';
-import OrganizationCreation from '../../public/src/views/CreateOrganization';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const OrganizationCreation = loadable(() => import('../../public/src/views/CreateOrganization'));
 
 const CreateOrganization = () => {
   const { t } = useTranslation();

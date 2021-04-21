@@ -1,7 +1,9 @@
 import React from 'react';
-import OrderProcessed from '../../public/src/views/OrderProcessed';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const OrderProcessed = loadable(() => import('../../public/src/views/OrderProcessed'));
 
 const OrderProcessedRoute = () => {
   const { t } = useTranslation();

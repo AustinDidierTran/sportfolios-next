@@ -1,7 +1,9 @@
 import React from 'react';
-import TransferPersonExpired from '../../public/src/views/TransferPerson/TransferPersonExpired';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const TransferPersonExpired = loadable(() => import('../../public/src/views/TransferPerson/TransferPersonExpired'));
 
 const TransferPersonExpiredRoute = () => {
   const { t } = useTranslation();

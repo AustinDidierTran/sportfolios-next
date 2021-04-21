@@ -1,7 +1,9 @@
 import React from 'react';
-import EventCreation from '../../public/src/views/CreateEvent';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const EventCreation = loadable(() => import('../../public/src/views/CreateEvent'));
 
 const CreateEvent = () => {
   const { t } = useTranslation();

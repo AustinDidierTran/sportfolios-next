@@ -1,7 +1,9 @@
 import React from 'react';
-import EventRegistration from '../../../public/src/views/EventRegistration';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+
+const EventRegistration = loadable(() => import('../../../public/src/views/EventRegistration'));
 
 const EventRegistrationRoute = () => {
   const { t } = useTranslation();
