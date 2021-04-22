@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../common/utils/stringFormat';
 
-import { Paper, Button, IgContainer } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import Button from '../../components/Custom/Button';
+import IgContainer from '../../components/Custom/IgContainer';
 import { useFormik } from 'formik';
 
 import styles from './OptionPayment.module.css';
@@ -22,10 +24,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import { DialogContent } from '@material-ui/core';
 import ComponentFactory from '../../components/Custom/ComponentFactory';
 
-
-
 export default function OptionPayment() {
-
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
@@ -102,10 +101,8 @@ export default function OptionPayment() {
         severity: SEVERITY_ENUM.SUCCESS,
       });
       goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SETTINGS });
-
     }
-
-  }
+  };
 
   const getAccounts = async () => {
     const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }));
@@ -128,7 +125,7 @@ export default function OptionPayment() {
 
   const onManualAcceptationChange = (value) => {
     formik.setFieldValue('manualAcceptation', value);
-  }
+  };
 
   const handleCancelTeam = () => {
     if (!edit) {
@@ -136,29 +133,29 @@ export default function OptionPayment() {
     }
     setEdit(false);
     setOpenTeam(false);
-  }
+  };
   const handleCloseTeam = () => {
     setEdit(false);
     setOpenTeam(false);
-  }
+  };
 
   const handleOpenTeam = () => {
     setOpenTeam(true);
-  }
+  };
 
   const handleEditTeam = () => {
     setEdit(true);
     setOpenTeam(true);
-  }
+  };
 
   const handleEditPlayer = () => {
     setEdit(true);
     setOpenPlayer(true);
-  }
+  };
 
   const handleOpenPlayer = () => {
     setOpenPlayer(true);
-  }
+  };
 
   const handleCancelPlayer = () => {
     if (!edit) {
@@ -166,21 +163,21 @@ export default function OptionPayment() {
     }
     setEdit(false);
     setOpenPlayer(false);
-  }
+  };
   const handleClosePlayer = () => {
     setEdit(false);
     setOpenPlayer(false);
-  }
+  };
 
   const handleSavePlayer = (playerPriceTotal) => {
     setPlayerPriceTotal(playerPriceTotal);
     setOpenPlayer(false);
-  }
+  };
 
   const handleSaveTeam = (teamPriceTotal) => {
     setTeamPriceTotal(teamPriceTotal);
     setOpenTeam(false);
-  }
+  };
 
   const validate = (values) => {
     const { teamPrice, playerPrice, ownerId, openDate, openTime, closeDate, closeTime } = values;
@@ -216,13 +213,13 @@ export default function OptionPayment() {
     setTeamPriceTotal(undefined);
     formik.setFieldValue('teamPrice', '');
     formik.setFieldValue('teamTaxes', '');
-  }
+  };
 
   const clearPlayerFee = () => {
-    setPlayerPriceTotal(undefined)
+    setPlayerPriceTotal(undefined);
     formik.setFieldValue('playerPrice', '');
     formik.setFieldValue('playerTaxes', '');
-  }
+  };
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -260,10 +257,9 @@ export default function OptionPayment() {
     },
   });
 
-
   const onChangeEventType = (e) => {
     formik.setFieldValue('eventType', e.target.value);
-  }
+  };
 
   const fields = useFields(FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION, {
     teamOnClick: handleOpenTeam,
@@ -281,16 +277,16 @@ export default function OptionPayment() {
     manualAcceptation: formik.values.manualAcceptation,
   });
 
-
-
   return (
     <IgContainer>
       <Paper style={{ textAlign: 'center' }}>
-        <Typography variant="h3" style={{ marginTop: 20 }}>Option de paiement</Typography>
+        <Typography variant="h3" style={{ marginTop: 20 }}>
+          Option de paiement
+        </Typography>
         <AddTeamFeeDialog
           open={openTeam}
           formik={formik}
-          update={() => { }}
+          update={() => {}}
           edit={edit}
           onCancel={handleCancelTeam}
           onClose={handleCloseTeam}
@@ -301,7 +297,7 @@ export default function OptionPayment() {
         <AddPlayerFeeDialog
           open={openPlayer}
           formik={formik}
-          update={() => { }}
+          update={() => {}}
           edit={edit}
           onCancel={handleCancelPlayer}
           onClose={handleClosePlayer}
@@ -311,16 +307,20 @@ export default function OptionPayment() {
         />
         <form onSubmit={formik.handleSubmit}>
           <DialogContent>
-            {
-              fields.map((field, index) => (
-                <div style={{ marginTop: '8px' }} key={index}>
-                  <ComponentFactory component={{ ...field, formik }} />
-                </div>
-              ))
-            }
+            {fields.map((field, index) => (
+              <div style={{ marginTop: '8px' }} key={index}>
+                <ComponentFactory component={{ ...field, formik }} />
+              </div>
+            ))}
           </DialogContent>
           <div className={styles.divButton}>
-            <Button style={{ marginRight: 8 }} color="secondary" onClick={() => { goBack() }}>
+            <Button
+              style={{ marginRight: 8 }}
+              color="secondary"
+              onClick={() => {
+                goBack();
+              }}
+            >
               {t('cancel')}
             </Button>
             <Button style={{ marginLeft: 8 }} disabled={isSubmitting} type="submit">
@@ -328,8 +328,7 @@ export default function OptionPayment() {
             </Button>
           </div>
         </form>
-
       </Paper>
-    </IgContainer >
+    </IgContainer>
   );
 }

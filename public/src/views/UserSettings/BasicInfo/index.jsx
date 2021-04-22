@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import i18n from '../../../i18n';
 import { useTranslation } from 'react-i18next';
 import CardContent from '@material-ui/core/CardContent';
-import { Paper, Select } from '../../../components/Custom';
+import Paper from '../../../components/Custom/Paper';
+import Select from '../../../components/Custom/Select';
 import styles from './BasicInfo.module.css';
 
 import api from '../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import { rest } from 'lodash';
 
 export default function BasicInfo() {
   const [basicInfos, setBasicInfos] = useState([]);
@@ -34,7 +34,7 @@ export default function BasicInfo() {
     if (res.status === 402) {
       // Token is expired, redirect
       goTo(ROUTES.login);
-    } else if (rest.status >= 400) {
+    } else if (res.status >= 400) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('something_went_wrong'),

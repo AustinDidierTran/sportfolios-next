@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import Card from '@material-ui/core/Card';
-import { Button, List, TextField } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import List from '../../../components/Custom/List';
+import TextField from '../../../components/Custom/TextField';
 import styles from './ChangePassword.module.css';
 
 import { Store, ACTION_ENUM } from '../../../Store';

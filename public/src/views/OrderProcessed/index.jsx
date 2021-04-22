@@ -2,7 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPrice, formatPageTitle } from '../../utils/stringFormats';
 
-import { Paper, Button, IgContainer } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import Button from '../../components/Custom/Button';
+import IgContainer from '../../components/Custom/IgContainer';
 import Typography from '@material-ui/core/Typography';
 import styles from './OrderProcessed.module.css';
 import { LOGO_ENUM } from '../../../common/enums';

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardContent from '@material-ui/core/CardContent';
-import { List, Paper } from '../../../components/Custom';
+import Paper from '../../../components/Custom/Paper';
+import List from '../../../components/Custom/List';
 import styles from './Email.module.css';
 import ConfirmedEmailField from './ConfirmedEmailField';
 import partition from 'lodash/partition';

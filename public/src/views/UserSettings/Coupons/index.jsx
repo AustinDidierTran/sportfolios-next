@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, List, Paper, TextField } from '../../../components/Custom';
+import Button from '../../../components/Custom/Button';
+import List from '../../../components/Custom/List';
+import Paper from '../../../components/Custom/Paper';
+import TextField from '../../../components/Custom/TextField';
 import ListItem from '@material-ui/core/ListItem';
 import styles from './Coupons.module.css';
 import api from '../../../actions/api';

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import api from '../../../actions/api';
-import { LoadingSpinner, List, Button, AlertDialog, IconButton } from '../../../components/Custom';
+import IconButton from '../../../components/Custom/IconButton';
+import List from '../../../components/Custom/List';
+import Button from '../../../components/Custom/Button';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { useTranslation } from 'react-i18next';
 
 export default function TransferedPeople() {

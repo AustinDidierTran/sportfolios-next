@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CardContent from '@material-ui/core/CardContent';
-import { List, Paper } from '../../../../components/Custom';
+import Paper from '../../../../components/Custom/Paper';
+import List from '../../../../components/Custom/List';
 import styles from './NewsLetterEmail.module.css';
 import api from '../../../../actions/api';
 import { useTranslation } from 'react-i18next';

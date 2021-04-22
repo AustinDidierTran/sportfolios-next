@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
-import { FormDialog } from '../../../components/Custom';
+import FormDialog from '../../../components/Custom/FormDialog';
 import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
 import * as yup from 'yup';

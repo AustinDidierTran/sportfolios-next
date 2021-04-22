@@ -3,12 +3,19 @@ import { GLOBAL_ENUM, STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '
 import Card from '@material-ui/core/Card';
 import styles from './MyPersons.module.css';
 import api from '../../../actions/api';
-import { LoadingSpinner, List, FormDialog, AlertDialog, IconButton, Button } from '../../../components/Custom';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import List from '../../../components/Custom/List';
+import FormDialog from '../../../components/Custom/FormDialog';
+import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
+import IconButton from '../../../components/Custom/IconButton';
+import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
-import EditPrimaryPerson from './EditPrimaryPerson';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM, errors } from '../../../../common/errors';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const EditPrimaryPerson = loadable(() => import('./EditPrimaryPerson'));
 
 export default function MyPersons() {
   const { t } = useTranslation();

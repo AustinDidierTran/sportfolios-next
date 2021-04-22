@@ -14,12 +14,14 @@ import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
-import PersonSelect from './PersonSelect';
-import PaymentOptionSelect from './PaymentOptionSelect/index';
-import TeamSelect from './TeamSelect/index';
-import AdditionalInformation from './AdditionalInformation';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import loadable from '@loadable/component';
+
+const PersonSelect = loadable(() => import('./PersonSelect'));
+const PaymentOptionSelect = loadable(() => import('./PaymentOptionSelect/index'));
+const TeamSelect = loadable(() => import('./TeamSelect/index'));
+const AdditionalInformation = loadable(() => import('./AdditionalInformation'));
 
 const getEvent = async (eventId) => {
   const { data } = await api(

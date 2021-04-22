@@ -9,9 +9,9 @@ import styles from './MembersList.module.css';
 import { useRouter } from 'next/router';
 import loadable from '@loadable/component';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import ListMembers from './MembersList';
 import Typography from '@material-ui/core/Typography';
 
+const ListMembers = loadable(() => import('./MembersList'));
 const CustomPaper = loadable(() => import('../../components/Custom/Paper'));
 const CustomButton = loadable(() => import('../../components/Custom/Button'));
 const CustomFormDialog = loadable(() => import('../../components/Custom/FormDialog'));

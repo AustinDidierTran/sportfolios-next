@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styles from './EditableGameItem.module.css';
 
 import Card from '@material-ui/core/Card';
 import CustomTextField from '../../TextField';
 import { useFormInput } from '../../../../hooks/forms';
-import { useEffect } from 'react';
 import Team from './Team';
 
 export default function EditableGameItem(props) {

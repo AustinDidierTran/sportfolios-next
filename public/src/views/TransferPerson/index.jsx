@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Container } from '../../components/Custom';
+import Container from '../../components/Custom/Container';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';

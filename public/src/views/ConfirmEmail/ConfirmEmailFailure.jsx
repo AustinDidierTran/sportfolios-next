@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Paper } from '../../components/Custom';
+import Paper from '../../components/Custom/Paper';
+import Button from '../../components/Custom/Button';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';

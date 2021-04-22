@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import styles from './Follow.module.css';
-import { Avatar, Paper } from '../../../components/Custom';
+import Paper from '../../../components/Custom/Paper';
+import Avatar from '../../../components/Custom/Avatar';
 import { useTranslation } from 'react-i18next';
 import { getInitialsFromName } from '../../../utils/stringFormats';
 import history from '../../../stores/history';

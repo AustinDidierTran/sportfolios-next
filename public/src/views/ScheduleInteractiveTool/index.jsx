@@ -14,8 +14,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import styles from './ScheduleInteractiveTool.module.css';
-import GameCard from './GameCard';
-import SuggestedGames from './SuggestedGames';
 import { suggestGames } from './suggestedGamesFunction';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -27,6 +25,8 @@ import Hotkeys from 'react-hot-keys';
 
 import loadable from '@loadable/component';
 
+const GameCard = loadable(() => import('./GameCard'));
+const SuggestedGames = loadable(() => import('./SuggestedGames'));
 const AddFieldInteractiveTool = loadable(() => import('./AddFieldInteractiveTool'));
 const AddTimeSlotInteractiveTool = loadable(() => import('./AddTimeSlotInteractiveTool'));
 const AddGame = loadable(() => import('./AddGame'));
