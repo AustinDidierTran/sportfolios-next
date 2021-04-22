@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import SpeedDial from '@material-ui/lab/SpeedDial';
@@ -10,8 +10,9 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 
 import CustomIcon from '../Icon';
 import { useMemo } from 'react';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { SCREENSIZE_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
+import { useWindowSize } from '../../../hooks/window';
 
 const useStyles = makeStyles((theme) => ({
   speedDial: {
@@ -35,9 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SpeedDialTooltipOpen() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const {
-    state: { screenSize },
-  } = useContext(Store);
+  const [width] = useWindowSize();
 
   const classes = useStyles();
   const router = useRouter();
@@ -116,7 +115,7 @@ export default function SpeedDialTooltipOpen() {
       <Backdrop open={open} className={classes.backdrop} />
       <SpeedDial
         ariaLabel="SpeedDial"
-        className={screenSize == SCREENSIZE_ENUM.xs ? classes.speedDial : classes.speedDial2}
+        className={width == SCREENSIZE_ENUM.xs ? classes.speedDial : classes.speedDial2}
         hidden={hidden}
         icon={<SpeedDialIcon style={{ color: '#fff' }} />}
         onClose={() => setOpen(false)}

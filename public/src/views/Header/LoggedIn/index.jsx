@@ -14,12 +14,12 @@ import { useTranslation } from 'react-i18next';
 import styles from './LoggedIn.module.css';
 import { ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function LoggedIn(props) {
   const {
     state: {
       userInfo = {},
-      screenSize,
       socket,
       cart: { items },
     },
@@ -28,6 +28,7 @@ export default function LoggedIn(props) {
   const { showBar = true } = props;
   const classes = useStyles();
   const { t } = useTranslation();
+  const [width] = useWindowSize();
 
   socket.emit(SOCKET_EVENT.CONNECTED_USER, userInfo.user_id);
 
@@ -75,7 +76,7 @@ export default function LoggedIn(props) {
   const refNotifications = useRef(null);
   const refAccount = useRef(null);
 
-  if (screenSize === SCREENSIZE_ENUM.xs) {
+  if (width === SCREENSIZE_ENUM.xs) {
     // mobile here
     return (
       <div className={classes.grow}>

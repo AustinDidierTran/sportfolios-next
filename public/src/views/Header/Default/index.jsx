@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import React from 'react';
+import { SCREENSIZE_ENUM } from '../../../Store';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import styles from './Default.module.css';
 import LoggedIn from '../LoggedIn';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function DefaultHeader(props) {
-  const {
-    state: { screenSize },
-  } = useContext(Store);
+  const [width] = useWindowSize();
   const { Item1 = () => <></>, Item2 = () => <></>, Item3 = () => <></>, Item4 = () => <></>, showBar = true } = props;
 
   const It1 = () => {
@@ -45,7 +44,7 @@ export default function DefaultHeader(props) {
     );
   };
 
-  if (screenSize !== SCREENSIZE_ENUM.xs) {
+  if (width !== SCREENSIZE_ENUM.xs) {
     return <LoggedIn showBar={showBar} />;
   }
   return (

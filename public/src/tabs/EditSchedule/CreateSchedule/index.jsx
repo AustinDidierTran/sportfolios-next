@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../../components/Custom';
 import styles from '../EditSchedule.module.css';
 import { useTranslation } from 'react-i18next';
@@ -8,19 +8,18 @@ import AddTimeSlot from './AddTimeSlot';
 import AddTeam from './AddTeam';
 import AddField from './AddField';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { SCREENSIZE_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function ScheduleTab(props) {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId, id } = router.query;
-  const {
-    state: { screenSize },
-  } = useContext(Store);
   const { update } = props;
+  const [width] = useWindowSize();
 
   const [game, setGame] = useState(false);
   const [games, setGames] = useState([]);
@@ -124,7 +123,7 @@ export default function ScheduleTab(props) {
       >
         {t('add.add_game')}
       </Button>
-      {screenSize === SCREENSIZE_ENUM.sm || screenSize === SCREENSIZE_ENUM.xs ? (
+      {width === SCREENSIZE_ENUM.sm || width === SCREENSIZE_ENUM.xs ? (
         <></>
       ) : (
         <Button
