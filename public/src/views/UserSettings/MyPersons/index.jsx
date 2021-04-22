@@ -13,9 +13,9 @@ import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM, errors } from '../../../../common/errors';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const EditPrimaryPerson = loadable(() => import('./EditPrimaryPerson'));
+const EditPrimaryPerson = dynamic(() => import('./EditPrimaryPerson'));
 
 export default function MyPersons() {
   const { t } = useTranslation();

@@ -5,9 +5,9 @@ import IgContainer from '../../components/Custom/IgContainer';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const EntitySearch = loadable(() => import('./EntitySearch/index'));
+const EntitySearch = dynamic(() => import('./EntitySearch/index'));
 
 export default function Search(props) {
   const router = useRouter();

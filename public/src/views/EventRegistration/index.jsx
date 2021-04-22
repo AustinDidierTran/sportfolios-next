@@ -16,12 +16,12 @@ import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const PersonSelect = loadable(() => import('./PersonSelect'));
-const PaymentOptionSelect = loadable(() => import('./PaymentOptionSelect/index'));
-const TeamSelect = loadable(() => import('./TeamSelect/index'));
-const AdditionalInformation = loadable(() => import('./AdditionalInformation'));
+const PersonSelect = dynamic(() => import('./PersonSelect'));
+const PaymentOptionSelect = dynamic(() => import('./PaymentOptionSelect/index'));
+const TeamSelect = dynamic(() => import('./TeamSelect/index'));
+const AdditionalInformation = dynamic(() => import('./AdditionalInformation'));
 
 const getEvent = async (eventId) => {
   const { data } = await api(

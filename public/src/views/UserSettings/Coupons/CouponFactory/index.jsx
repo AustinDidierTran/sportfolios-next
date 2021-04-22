@@ -1,9 +1,9 @@
 import React from 'react';
 import { COUPON_CODE_ENUM } from '../../../../../common/enums';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const BecomeMemberCoupon = loadable(() => import('./BecomeMemberCoupon'));
+const BecomeMemberCoupon = dynamic(() => import('./BecomeMemberCoupon'));
 
 const couponMap = {
   [COUPON_CODE_ENUM.BECOME_MEMBER]: BecomeMemberCoupon,

@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import api from '../../actions/api';
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Notifications.module.css';
+import dynamic from 'next/dynamic';
 
-import loadable from '@loadable/component';
-
-const Notifications = loadable(() => import('../Header/HeaderFlyout/Notifications'));
+const Notifications = dynamic(() => import('../Header/HeaderFlyout/Notifications'));
 
 export default function NotificationsMobile() {
   useEffect(() => {
