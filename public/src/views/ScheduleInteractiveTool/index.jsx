@@ -14,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import styles from './ScheduleInteractiveTool.module.css';
-import suggestGames from './suggestedGamesFunction';
+import { suggestGames } from './suggestedGamesFunction';
 
 import { v4 as uuidv4 } from 'uuid';
 import RGL from 'react-grid-layout';
