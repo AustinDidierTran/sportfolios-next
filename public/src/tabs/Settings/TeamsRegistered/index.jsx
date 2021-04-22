@@ -27,12 +27,14 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import TeamRow from './TeamRow';
 import TeamRowMobile from './TeamRowMobile';
 import MailtoButton from '../../../components/Custom/MailToButton';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function TeamsRegistered() {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
   const { dispatch } = useContext(Store);
+  const [width] = useWindowSize();
 
   const [teams, setTeams] = useState([]);
   const [teamsThatCanBeUnregistered, setTeamsThatCanBeUnregistered] = useState([]);
@@ -228,7 +230,7 @@ export default function TeamsRegistered() {
     return <></>;
   }
 
-  if (window.innerWidth < 600) {
+  if (width < 600) {
     return (
       <Paper className={styles.paper}>
         <TableContainer component={Paper}>
@@ -319,9 +321,9 @@ export default function TeamsRegistered() {
           title={
             teamsThatCanBeUnregistered.length < teams.length
               ? t('register.cant_unregister_all_teams', {
-                  howManyCanUnregister: teamsThatCanBeUnregistered.length,
-                  totalOfTeams: teams.length,
-                })
+                howManyCanUnregister: teamsThatCanBeUnregistered.length,
+                totalOfTeams: teams.length,
+              })
               : t('register.are_you_sure_you_want_to_unregister_all_teams')
           }
           description={teamsThatCanBeUnregistered
@@ -429,9 +431,9 @@ export default function TeamsRegistered() {
         title={
           teamsThatCanBeUnregistered.length < teams.length
             ? t('register.cant_unregister_all_teams', {
-                howManyCanUnregister: teamsThatCanBeUnregistered.length,
-                totalOfTeams: teams.length,
-              })
+              howManyCanUnregister: teamsThatCanBeUnregistered.length,
+              totalOfTeams: teams.length,
+            })
             : t('register.are_you_sure_you_want_to_unregister_all_teams')
         }
         description={teamsThatCanBeUnregistered

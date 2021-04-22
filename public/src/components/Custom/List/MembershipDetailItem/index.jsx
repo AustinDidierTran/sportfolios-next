@@ -9,8 +9,11 @@ import { addMembership, getExpirationDate } from '../../../../utils/memberships'
 import { updateMembership } from '../../../../utils/memberships';
 import { formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import CustomButton from '../../Button';
+import { useWindowSize } from '../../../../hooks/window';
 
 export default function MembershipDetailItem(props) {
+  const [width] = useWindowSize();
+
   const { t } = useTranslation();
 
   const { entityId, fixedDate, isMember, length, membershipType, personId, price, stripePriceId } = props;
@@ -32,7 +35,7 @@ export default function MembershipDetailItem(props) {
 
   return (
     <ListItem style={{ width: '100%' }} className={styles.main}>
-      {window.innerWidth < 600 ? (
+      {width < 600 ? (
         <ListItemText
           secondaryTypographyProps={{ color: 'primary' }}
           primary={t(name)}

@@ -16,6 +16,7 @@ import { formatRoute } from '../../../../utils/stringFormats';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
 import { Store } from '../../../../Store';
+import { useWindowSize } from '../../../../hooks/window';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
@@ -24,6 +25,8 @@ export default function HeaderOrganization(props) {
   const router = useRouter();
   const { t } = useTranslation();
   const { id } = router.query;
+  const [width] = useWindowSize();
+
 
   const {
     state: { isAuthenticated },
@@ -66,7 +69,7 @@ export default function HeaderOrganization(props) {
   const onCloseToLoggin = () => {
     setOpenToLogin(false);
   };
-  const update = () => {};
+  const update = () => { };
 
   return (
     <Paper elevation={1} className={styles.paper}>
@@ -88,7 +91,7 @@ export default function HeaderOrganization(props) {
             color: 'white',
             backgroundColor: '#18B393',
             minHeight: 0,
-            borderRadius: window.innerWidth > 600 ? '7px' : '0px',
+            borderRadius: width > 600 ? '7px' : '0px',
           }}
           variant="fullWidth"
           scrollButtons="off"
@@ -102,7 +105,7 @@ export default function HeaderOrganization(props) {
               label={
                 <div className={styles.div}>
                   <CustomIcon icon={s.icon} />
-                  {window.innerWidth > 600 && (
+                  {width > 600 && (
                     <Typography variant="body2" className={styles.typo}>
                       {s.label}
                     </Typography>
@@ -126,7 +129,7 @@ export default function HeaderOrganization(props) {
           items={{
             open: openBecomeMember,
             onClose: onCloseBecomeMember,
-            onOpen: () => {},
+            onOpen: () => { },
             update,
           }}
         />

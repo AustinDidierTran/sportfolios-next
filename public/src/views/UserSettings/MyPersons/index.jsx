@@ -14,6 +14,8 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM, errors } from '../../../../common/errors';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import dynamic from 'next/dynamic';
+import { useWindowSize } from '../../../hooks/window';
+
 
 const EditPrimaryPerson = dynamic(() => import('./EditPrimaryPerson'));
 
@@ -27,6 +29,8 @@ export default function MyPersons() {
   const [confirmCancelation, setConfirmCancelation] = useState(false);
   const [declineDialog, setDeclineDialog] = useState(false);
   const { dispatch } = useContext(Store);
+  const [width] = useWindowSize();
+
 
   // TODO: use the useApiRoute function, and ownedpersons should
   const fetchOwnedPersons = async () => {
@@ -201,56 +205,56 @@ export default function MyPersons() {
   ];
 
   const awaitingApprovalPersonAction = (person) =>
-    window.innerWidth >= 768
+    width >= 768
       ? [
-          <Button
-            key={0}
-            endIcon="Delete"
-            size="small"
-            onClick={() => {
-              setSelectedPerson(person);
-              setDeclineDialog(true);
-            }}
-            color="secondary"
-            style={{ marginRight: 5 }}
-          >
-            {t('decline')}
-          </Button>,
-          <Button
-            key={1}
-            endIcon="Check"
-            size="small"
-            onClick={() => {
-              approveTransfer(person);
-            }}
-            color="primary"
-          >
-            {t('accept')}
-          </Button>,
-        ]
+        <Button
+          key={0}
+          endIcon="Delete"
+          size="small"
+          onClick={() => {
+            setSelectedPerson(person);
+            setDeclineDialog(true);
+          }}
+          color="secondary"
+          style={{ marginRight: 5 }}
+        >
+          {t('decline')}
+        </Button>,
+        <Button
+          key={1}
+          endIcon="Check"
+          size="small"
+          onClick={() => {
+            approveTransfer(person);
+          }}
+          color="primary"
+        >
+          {t('accept')}
+        </Button>,
+      ]
       : [
-          <IconButton
-            key={0}
-            tooltip={t('cancel')}
-            size="medium"
-            onClick={() => {
-              setSelectedPerson(person);
-              setDeclineDialog(true);
-            }}
-            style={{ color: 'secondary' }}
-            icon="Delete"
-          />,
-          <IconButton
-            key={1}
-            tooltip={t('confirm')}
-            size="medium"
-            onClick={() => {
-              approveTransfer(person);
-            }}
-            style={{ color: 'secondary' }}
-            icon="Check"
-          />,
-        ];
+        <IconButton
+          key={0}
+          tooltip={t('cancel')}
+          size="medium"
+          onClick={() => {
+            setSelectedPerson(person);
+            setDeclineDialog(true);
+          }}
+          style={{ color: 'secondary' }}
+          icon="Delete"
+        />,
+        <IconButton
+          key={1}
+          tooltip={t('confirm')}
+          size="medium"
+          onClick={() => {
+            approveTransfer(person);
+          }}
+          style={{ color: 'secondary' }}
+          icon="Check"
+        />,
+      ];
 
   const items = persons.map((person) => {
     let subtitle;

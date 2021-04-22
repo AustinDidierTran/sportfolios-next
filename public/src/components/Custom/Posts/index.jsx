@@ -11,33 +11,36 @@ import { uploadPicture } from '../../../actions/aws';
 import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
+import { useWindowSize } from '../../../hooks/window';
 
-const useStyles = makeStyles((theme) => ({
-  fabMobile: {
-    position: 'absolute',
-    bottom: theme.spacing(2) + 58,
-    right: theme.spacing(2),
-    zIndex: 100,
-    color: 'white',
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2) + (window.innerWidth - 700) / 2,
-    zIndex: 100,
-    color: 'white',
-  },
-  IgContainer: {
-    backgroundColor: '#f5f5f5 !important',
-  },
-  createPost: {
-    padding: 12,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-}));
 
 export default function Posts(props) {
+  const [width] = useWindowSize();
+
+  const useStyles = makeStyles((theme) => ({
+    fabMobile: {
+      position: 'absolute',
+      bottom: theme.spacing(2) + 58,
+      right: theme.spacing(2),
+      zIndex: 100,
+      color: 'white',
+    },
+    fab: {
+      position: 'absolute',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2) + (width - 700) / 2,
+      zIndex: 100,
+      color: 'white',
+    },
+    IgContainer: {
+      backgroundColor: '#f5f5f5 !important',
+    },
+    createPost: {
+      padding: 12,
+      marginTop: 12,
+      marginBottom: 12,
+    },
+  }));
   const { t } = useTranslation();
 
   const {
