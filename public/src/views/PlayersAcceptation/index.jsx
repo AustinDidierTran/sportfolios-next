@@ -1,7 +1,7 @@
 import React from 'react';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const PlayersAndTeamsAcceptation = loadable(() => import('../PlayersAndTeamsAcceptation'));
+const PlayersAndTeamsAcceptation = dynamic(() => import('../PlayersAndTeamsAcceptation'));
 
 export default function PlayersAcceptation(props) {
   const { cards, update, getCards } = props;

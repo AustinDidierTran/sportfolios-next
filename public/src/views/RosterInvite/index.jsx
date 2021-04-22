@@ -10,9 +10,9 @@ import { Store } from '../../Store.js';
 import { useTranslation } from 'react-i18next';
 import styles from './RosterInvite.module.css';
 import { formatRoute } from '../../../common/utils/stringFormat.js';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const RosterCard = loadable(() => import('../../tabs/Rosters/RosterCard/index.jsx'));
+const RosterCard = dynamic(() => import('../../tabs/Rosters/RosterCard/index.jsx'));
 
 export default function RosterInvite(props) {
   const { t } = useTranslation();

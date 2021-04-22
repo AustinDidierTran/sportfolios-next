@@ -7,9 +7,9 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const RosterInviteLink = loadable(() => import('../../tabs/Rosters/RosterCard/RosterInviteLink'));
+const RosterInviteLink = dynamic(() => import('../../tabs/Rosters/RosterCard/RosterInviteLink'));
 
 export default function RegistrationStatus() {
   const { t } = useTranslation();

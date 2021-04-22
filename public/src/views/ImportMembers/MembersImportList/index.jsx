@@ -3,9 +3,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const MemberImportItem = loadable(() => import('./MemberImportItem'));
+const MemberImportItem = dynamic(() => import('./MemberImportItem'));
 
 const useStyles = makeStyles((theme) => ({
   root: {

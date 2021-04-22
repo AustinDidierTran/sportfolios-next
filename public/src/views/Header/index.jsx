@@ -6,11 +6,11 @@ import { GLOBAL_ENUM } from '../../../common/enums';
 import CartIcon from '../Cart/CartICon';
 import validator from 'validator';
 import { useRouter } from 'next/router';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const LoggedOut = loadable(() => import('./LoggedOut'));
-const Default = loadable(() => import('./Default'));
-const LoggedIn = loadable(() => import('./LoggedIn'));
+const LoggedOut = dynamic(() => import('./LoggedOut'));
+const Default = dynamic(() => import('./Default'));
+const LoggedIn = dynamic(() => import('./LoggedIn'));
 
 const getEntity = async (entityId) => {
   const { data } = await api(`/api/entity?id=${entityId}`);
