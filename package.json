@@ -23,7 +23,7 @@
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "moment": "^2.29.1",
-    "next": "10.0.4",
+    "next": "^10.1.3",
     "next-compose-plugins": "^2.2.1",
     "next-seo": "^4.23.0",
     "next-with-workbox": "^2.0.1",

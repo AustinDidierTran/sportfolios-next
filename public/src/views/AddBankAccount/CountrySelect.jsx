@@ -1,30 +1,30 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Select } from '../../components/Custom';
+import Select from '../../components/Custom/Select';
 
 // ISO 3166-1 alpha-2
 // ⚠️ No support for IE 11
 
 //Not used right now
-// function countryToFlag(isoCode) {
-//   return typeof String.fromCodePoint !== 'undefined'
-//     ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-//     : isoCode;
-// }
+function countryToFlag(isoCode) {
+  return typeof String.fromCodePoint !== 'undefined'
+    ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    : isoCode;
+}
 
 export default function CountrySelect(props) {
   const { formik } = props;
   const { t } = useTranslation();
 
   //Not used right now and triggers warning
-  // const content = (option) => {
-  //   return (
-  //     <React.Fragment>
-  //       <span>{countryToFlag(option.value)}</span>
-  //       {option.display} ({option.value})
-  //     </React.Fragment>
-  //   );
-  // };
+  const content = (option) => {
+    return (
+      <React.Fragment>
+        <span>{countryToFlag(option.value)}</span>
+        {option.display} ({option.value})
+      </React.Fragment>
+    );
+  };
 
   const options = useMemo(
     () =>
@@ -43,7 +43,7 @@ export default function CountrySelect(props) {
       type="country"
       label={t('country')}
       namespace="country"
-      // renderOption={content}
+      renderOption={content}
     />
   );
 }

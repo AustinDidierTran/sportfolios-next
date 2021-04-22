@@ -14,7 +14,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import styles from './ScheduleInteractiveTool.module.css';
-import { suggestGames } from './suggestedGamesFunction';
 
 import { v4 as uuidv4 } from 'uuid';
 import RGL from 'react-grid-layout';
@@ -25,6 +24,7 @@ import Hotkeys from 'react-hot-keys';
 
 import dynamic from 'next/dynamic';
 
+const { suggestGames } = dynamic(() => import('./suggestedGamesFunction'));
 const GameCard = dynamic(() => import('./GameCard'));
 const SuggestedGames = dynamic(() => import('./SuggestedGames'));
 const AddFieldInteractiveTool = dynamic(() => import('./AddFieldInteractiveTool'));

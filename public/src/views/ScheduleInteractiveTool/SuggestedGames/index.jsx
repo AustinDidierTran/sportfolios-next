@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './SuggestedGames.module.css';
-import SuggestedGameCard from './SuggestedGameCard';
 import Typography from '@material-ui/core/Typography';
 import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
+import dynamic from 'next/dynamic';
+
+const SuggestedGameCard = dynamic(() => import('./SuggestedGameCard'));
 
 export default function SuggestedGames(props) {
   const { suggestions, setNewIndex } = props;
