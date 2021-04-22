@@ -23,6 +23,7 @@ import { useRouter } from 'next/router';
 import AddTeamPhase from './AddTeamPhase';
 import Menu from '../Menu';
 import { getAllOptions } from './getAllOptions';
+import { useWindowSize } from '../../../hooks/window';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -59,6 +60,8 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function PhaseAccordionDnD(props) {
+  const [width] = useWindowSize();
+
   const {
     phase,
     handleDeleteTeam,
@@ -185,11 +188,11 @@ export default function PhaseAccordionDnD(props) {
                 color={button.color}
                 type={button.type}
                 disabled={button.name === t('start_phase') ? false : !madeChanges}
-                endIcon={window.innerWidth < 600 ? '' : button.endIcon}
+                endIcon={width < 600 ? '' : button.endIcon}
                 className={button.className}
                 key={index}
               >
-                {window.innerWidth < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
+                {width < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
               </Button>
             ))}
           </div>

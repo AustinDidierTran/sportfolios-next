@@ -7,6 +7,8 @@ import api from './actions/api';
 import { errors, ERROR_ENUM } from '../common/errors';
 import { io } from 'socket.io-client';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
+import { useWindowSize } from './hooks/window';
+
 
 export const Store = React.createContext();
 
@@ -189,11 +191,12 @@ function reducer(state, action) {
 export function StoreProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
+  const [width] = useWindowSize();
 
   const handleResize = () => {
     dispatch({
       type: ACTION_ENUM.WINDOW_RESIZE,
-      payload: window.innerWidth,
+      payload: width,
     });
   };
 

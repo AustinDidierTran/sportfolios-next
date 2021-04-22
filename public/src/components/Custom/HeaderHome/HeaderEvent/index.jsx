@@ -9,6 +9,7 @@ import CustomIcon from '../../Icon';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
 import dynamic from 'next/dynamic';
+import { useWindowSize } from '../../../../hooks/window';
 
 const BannerEvent = dynamic(() => import('../../BannerEvent'));
 
@@ -16,6 +17,8 @@ export default function HeaderHome(props) {
   const { basicInfos, navTabs, eventInfo, onSwitch, isAdmin, adminView, index } = props;
   const router = useRouter();
   const { id } = router.query;
+  const [width] = useWindowSize();
+
 
   // const [anchorEl, setAnchorEl] = React.useState(null);
   // const handleClick = (event) => {
@@ -51,7 +54,7 @@ export default function HeaderHome(props) {
             color: 'white',
             backgroundColor: '#18B393',
             minHeight: 0,
-            borderRadius: window.innerWidth > 600 ? '7px' : '0px',
+            borderRadius: width > 600 ? '7px' : '0px',
           }}
           variant="fullWidth"
           scrollButtons="off"
@@ -65,7 +68,7 @@ export default function HeaderHome(props) {
               label={
                 <div className={styles.div}>
                   <CustomIcon icon={s.icon} />
-                  {window.innerWidth > 600 && (
+                  {width > 600 && (
                     <Typography variant="body2" className={styles.typo}>
                       {s.label}
                     </Typography>

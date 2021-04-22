@@ -12,6 +12,7 @@ import { ACTION_ENUM, Store } from '../../Store';
 import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
+import { useWindowSize } from '../../hooks/window';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -36,6 +37,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function EditRankings() {
+  const [width] = useWindowSize();
   const { t } = useTranslation();
   const router = useRouter();
   const { dispatch } = useContext(Store);
@@ -371,10 +373,10 @@ export default function EditRankings() {
     <div className={styles.main}>
       <div className={styles.buttonContainer}>
         <Button className={styles.button} onClick={openPhaseDialog} endIcon="Add">
-          <div className={styles.buttonText}>{window.innerWidth < 600 ? t('add.add') : t('add.add_phase')}</div>
+          <div className={styles.buttonText}>{width < 600 ? t('add.add') : t('add.add_phase')}</div>
         </Button>
         <Button className={styles.button} onClick={handleUpdateOrder} endIcon="SaveIcon" disabled={!madeChanges}>
-          <div className={styles.buttonText}>{window.innerWidth < 600 ? t('save') : t('save_phase_order')}</div>
+          <div className={styles.buttonText}>{width < 600 ? t('save') : t('save_phase_order')}</div>
         </Button>
       </div>
       <div className={styles.div}>

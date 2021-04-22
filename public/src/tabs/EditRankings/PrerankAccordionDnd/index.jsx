@@ -18,6 +18,7 @@ import { ACTION_ENUM, Store } from '../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useRouter } from 'next/router';
+import { useWindowSize } from '../../../hooks/window';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -51,6 +52,8 @@ export default function PrerankAccordionDnD(props) {
   const { dispatch } = useContext(Store);
   const router = useRouter();
   const { id: eventId } = router.query;
+  const [width] = useWindowSize();
+
 
   const [expanded, setExpanded] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
@@ -136,11 +139,11 @@ export default function PrerankAccordionDnD(props) {
                 color={button.color}
                 type={button.type}
                 disabled={!madeChanges}
-                endIcon={window.innerWidth < 600 ? '' : button.endIcon}
+                endIcon={width < 600 ? '' : button.endIcon}
                 className={styles.prerankButton}
                 key={index}
               >
-                {window.innerWidth < 600 ? <Icon icon={button.endIcon} tooltip={''}></Icon> : button.name}
+                {width < 600 ? <Icon icon={button.endIcon} tooltip={''}></Icon> : button.name}
               </Button>
             ))}
           </div>
@@ -165,13 +168,13 @@ export default function PrerankAccordionDnD(props) {
                                 </ListItemIcon>
                                 <div className={styles.main} style={{ width: '100%' }}>
                                   <ListItemText className={styles.position} secondary={index + 1} />
-                                  {rank.rosterId ? 
-                                    (                     
-                                    <ListItemText className={styles.name} primary={rank.content} />
-                                    )
-                                    : 
+                                  {rank.rosterId ?
                                     (
-                                    <ListItemText className={styles.name} secondary={rank.content} />
+                                      <ListItemText className={styles.name} primary={rank.content} />
+                                    )
+                                    :
+                                    (
+                                      <ListItemText className={styles.name} secondary={rank.content} />
                                     )
                                   }
                                 </div>

@@ -24,12 +24,15 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
   const router = useRouter();
   const { id: eventId } = router.query;
   const { dispatch } = useContext(Store);
+  const [width] = useWindowSize();
+
 
   const [players, setPlayers] = useState([]);
   const [personId, setPersonId] = useState('');
@@ -172,7 +175,7 @@ export default function PlayersRegistered() {
     return <></>;
   }
 
-  if (window.innerWidth < 600) {
+  if (width < 600) {
     return (
       <Paper className={styles.paper}>
         <TableContainer component={Paper}>
