@@ -12,6 +12,7 @@ import { ROUTES, goTo } from '../../../actions/goTo';
 import { Store, SCREENSIZE_ENUM } from '../../../Store';
 import api from '../../../actions/api';
 import { STATUS_ENUM, SOCKET_EVENT } from '../../../../common/enums';
+import { useWindowSize } from '../../../hooks/window';
 
 const TABS_ENUM = {
   HOME: 'home',
@@ -23,8 +24,10 @@ const TABS_ENUM = {
 export default function CustomBottomNavigation() {
   const { t } = useTranslation();
   const {
-    state: { screenSize, userInfo, socket },
+    state: { userInfo, socket },
   } = useContext(Store);
+
+  const [width] = useWindowSize();
 
   const [value, setValue] = useState(null);
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
@@ -50,8 +53,8 @@ export default function CustomBottomNavigation() {
     goTo(...routeEnum[newValue]);
   };
 
-  const displayNav = useMemo(() => screenSize === SCREENSIZE_ENUM.xs && Boolean(userInfo && userInfo.user_id), [
-    screenSize,
+  const displayNav = useMemo(() => width === SCREENSIZE_ENUM.xs && Boolean(userInfo && userInfo.user_id), [
+    width,
     userInfo && userInfo.user_id,
   ]);
 
