@@ -5,15 +5,15 @@ import { formatPageTitle } from '../../../utils/stringFormats';
 import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
 
-const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
-const Home = loadable(() => import('../../../tabs/Home'));
-const Events = loadable(() => import('../../../tabs/Events'));
-const Memberships = loadable(() => import('../../../tabs/Memberships'));
-const Settings = loadable(() => import('../../../tabs/Settings'));
+const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
+const Home = dynamic(() => import('../../../tabs/Home'));
+const Events = dynamic(() => import('../../../tabs/Events'));
+const Memberships = dynamic(() => import('../../../tabs/Memberships'));
+const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 export default function Organization(props) {
   const { t } = useTranslation();

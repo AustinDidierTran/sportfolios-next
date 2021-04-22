@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const UserSettings = loadable(() => import('../../public/src/views/UserSettings'));
+const UserSettings = dynamic(() => import('../../public/src/views/UserSettings'));
 
 const UserSettingsRoute = () => {
   const { t } = useTranslation();

@@ -2,10 +2,10 @@ import React from 'react';
 
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import Error from 'next/error';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const HeaderOrganization = loadable(() => import('./HeaderOrganization'));
-const HeaderEvent = loadable(() => import('./HeaderEvent'));
+const HeaderOrganization = dynamic(() => import('./HeaderOrganization'));
+const HeaderEvent = dynamic(() => import('./HeaderEvent'));
 
 export default function HeaderHome(props) {
   const {

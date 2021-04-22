@@ -8,13 +8,13 @@ import { goTo } from '../../../actions/goTo';
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { ENTITIES_ROLE_ENUM, TABS_ENUM, ROUTES_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 
-const About = loadable(() => import('../../../tabs/About'));
-const Settings = loadable(() => import('../../../tabs/Settings'));
+const About = dynamic(() => import('../../../tabs/About'));
+const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 export default function Team(props) {
   const { t } = useTranslation();

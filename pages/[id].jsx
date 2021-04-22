@@ -1,18 +1,18 @@
 import React from 'react';
 
 import { GLOBAL_ENUM } from '../public/common/enums';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { formatRoute } from '../public/common/utils/stringFormat';
 import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
 import { CLIENT_BASE_URL } from '../conf';
 import { NextSeo } from 'next-seo';
 
-const Error = loadable(() => import('next/error'));
-const Event = loadable(() => import('../public/src/views/Entity/Event'));
-const Organization = loadable(() => import('../public/src/views/Entity/Organization'));
-const Person = loadable(() => import('../public/src/views/Entity/Person'));
-const Team = loadable(() => import('../public/src/views/Entity/Team'));
+const Error = dynamic(() => import('next/error'));
+const Event = dynamic(() => import('../public/src/views/Entity/Event'));
+const Organization = dynamic(() => import('../public/src/views/Entity/Organization'));
+const Person = dynamic(() => import('../public/src/views/Entity/Person'));
+const Team = dynamic(() => import('../public/src/views/Entity/Team'));
 
 const EntityMap = {
   [GLOBAL_ENUM.PERSON]: Person,

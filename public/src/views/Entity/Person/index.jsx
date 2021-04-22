@@ -9,12 +9,12 @@ import { ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../.
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import { goTo } from '../../../actions/goTo';
 
-const About = loadable(() => import('../../../tabs/About'));
-const EditPersonInfos = loadable(() => import('../../../tabs/EditPersonInfos'));
+const About = dynamic(() => import('../../../tabs/About'));
+const EditPersonInfos = dynamic(() => import('../../../tabs/EditPersonInfos'));
 
 export default function Person(props) {
   const { t } = useTranslation();

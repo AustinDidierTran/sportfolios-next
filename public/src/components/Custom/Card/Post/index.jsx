@@ -29,10 +29,10 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Comment = loadable(() => import('../Comment'));
-const PostInput = loadable(() => import('../../Input/PostInput'));
+const Comment = dynamic(() => import('../Comment'));
+const PostInput = dynamic(() => import('../../Input/PostInput'));
 
 export default function Post(props) {
   const {

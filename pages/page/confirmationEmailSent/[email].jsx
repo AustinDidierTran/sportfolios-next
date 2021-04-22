@@ -2,9 +2,9 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const ConfirmationEmailSent = loadable(() => import('../../../public/src/views/ConfirmationEmailSent'));
+const ConfirmationEmailSent = dynamic(() => import('../../../public/src/views/ConfirmationEmailSent'));
 
 const ConfirmationEmailSentRoute = () => {
   const router = useRouter();

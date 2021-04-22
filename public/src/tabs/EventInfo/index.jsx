@@ -15,9 +15,9 @@ import moment from 'moment';
 import styles from './EventInfo.module.css';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Description = loadable(() => import('./Description'));
+const Description = dynamic(() => import('./Description'));
 
 const getEvent = async (eventId) => {
   const { data } = await api(

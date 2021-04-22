@@ -12,10 +12,10 @@ import styles from './Memberships.module.css';
 import CustomList from '../../components/Custom/List';
 import FormDialog from '../../components/Custom/FormDialog';
 import Paper from '../../components/Custom/Paper';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import Typography from '@material-ui/core/Typography';
 
-const MyMemberships = loadable(() => import('./MyMemberships'));
+const MyMemberships = dynamic(() => import('./MyMemberships'));
 
 export default function Memberships() {
   const { t } = useTranslation();

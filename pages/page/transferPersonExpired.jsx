@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const TransferPersonExpired = loadable(() => import('../../public/src/views/TransferPerson/TransferPersonExpired'));
+const TransferPersonExpired = dynamic(() => import('../../public/src/views/TransferPerson/TransferPersonExpired'));
 
 const TransferPersonExpiredRoute = () => {
   const { t } = useTranslation();

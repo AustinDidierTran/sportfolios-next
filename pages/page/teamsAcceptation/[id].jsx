@@ -7,9 +7,9 @@ import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const TeamsAcceptation = loadable(() => import('../../../public/src/views/TeamsAcceptation'));
+const TeamsAcceptation = dynamic(() => import('../../../public/src/views/TeamsAcceptation'));
 
 const TeamsAcceptationRoute = () => {
   const router = useRouter();

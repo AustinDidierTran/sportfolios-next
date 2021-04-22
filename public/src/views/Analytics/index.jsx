@@ -14,11 +14,11 @@ import moment from 'moment';
 import CustomButton from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { TABS_ENUM } from '../../../common/enums';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Graph = loadable(() => import('./Graph'));
-const MembersReport = loadable(() => import('./MembersReport'));
-const SalesReport = loadable(() => import('./SalesReport'));
+const Graph = dynamic(() => import('./Graph'));
+const MembersReport = dynamic(() => import('./MembersReport'));
+const SalesReport = dynamic(() => import('./SalesReport'));
 
 export default function Analytics() {
   const { t } = useTranslation();

@@ -2,9 +2,9 @@ import React from 'react';
 import { Paper, MyGames, MyGamesTeam } from '../../components/Custom';
 import styles from './About.module.css';
 import { GLOBAL_ENUM } from '../../../common/enums';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const BasicInfos = loadable(() => import('./BasicInfos'));
+const BasicInfos = dynamic(() => import('./BasicInfos'));
 
 export default function TabAbout(props) {
   const { basicInfos, gamesInfos } = props;

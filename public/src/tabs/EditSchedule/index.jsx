@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const AllEditGames = loadable(() => import('./AllEditGames'));
-const CreateSchedule = loadable(() => import('./CreateSchedule'));
+const AllEditGames = dynamic(() => import('./AllEditGames'));
+const CreateSchedule = dynamic(() => import('./CreateSchedule'));
 
 export default function EditScheduleTab() {
   const [updated, setUpdated] = useState(true);

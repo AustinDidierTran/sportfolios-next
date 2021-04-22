@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const ImportMembers = loadable(() => import('../../public/src/views/ImportMembers'));
+const ImportMembers = dynamic(() => import('../../public/src/views/ImportMembers'));
 
 const ImportMembersRoute = () => {
   const { t } = useTranslation();

@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const TransferPerson = loadable(() => import('../../../public/src/views/TransferPerson'));
+const TransferPerson = dynamic(() => import('../../../public/src/views/TransferPerson'));
 
 const TransferPersonRoute = () => {
   const { t } = useTranslation();

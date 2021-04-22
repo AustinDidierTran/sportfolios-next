@@ -7,10 +7,10 @@ import { LoadingSpinner } from '../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import { updateRanking } from './RankingFunctions';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const PhaseRanking = loadable(() => import('./PhaseRanking'));
-const Ranking = loadable(() => import('./Ranking'));
+const PhaseRanking = dynamic(() => import('./PhaseRanking'));
+const Ranking = dynamic(() => import('./Ranking'));
 
 export default function Rankings() {
   const router = useRouter();

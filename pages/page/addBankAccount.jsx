@@ -5,9 +5,9 @@ import api from '../../public/src/actions/api';
 import { goTo } from '../../public/src/actions/goTo';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const AddBankAccount = loadable(() => import('../../public/src/views/AddBankAccount'));
+const AddBankAccount = dynamic(() => import('../../public/src/views/AddBankAccount'));
 
 const AddBankAccountRoute = () => {
   const router = useRouter();

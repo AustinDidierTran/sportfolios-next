@@ -12,15 +12,15 @@ import { formatRoute } from '../../../common/utils/stringFormat';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import moment from 'moment';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const SportsTable = loadable(() => import('./SportsTable'));
-const UsersTable = loadable(() => import('./UsersTable'));
-const GaEventsTable = loadable(() => import('./GoogleAnalyticsEventsTable'));
-const GaPageviewsTable = loadable(() => import('./GoogleAnalyticsPageviewsTable'));
-const TaxRatesTable = loadable(() => import('./TaxRatesTable'));
-const GraphLinear = loadable(() => import('../Analytics/GraphLinear'));
-const NewsLetterSubscriptions = loadable(() => import('./NewsLetterSubscriptions'));
+const SportsTable = dynamic(() => import('./SportsTable'));
+const UsersTable = dynamic(() => import('./UsersTable'));
+const GaEventsTable = dynamic(() => import('./GoogleAnalyticsEventsTable'));
+const GaPageviewsTable = dynamic(() => import('./GoogleAnalyticsPageviewsTable'));
+const TaxRatesTable = dynamic(() => import('./TaxRatesTable'));
+const GraphLinear = dynamic(() => import('../Analytics/GraphLinear'));
+const NewsLetterSubscriptions = dynamic(() => import('./NewsLetterSubscriptions'));
 
 export default function AdminPanel() {
   const { t } = useTranslation();
@@ -29,9 +29,11 @@ export default function AdminPanel() {
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
 
   const getDataGraph = async () => {
-    const { data } = await api(formatRoute('/api/entity/graphUserCount', null, {
-      date: dateFilter
-    }));
+    const { data } = await api(
+      formatRoute('/api/entity/graphUserCount', null, {
+        date: dateFilter,
+      })
+    );
     if (!data) {
       return;
     }
@@ -44,8 +46,8 @@ export default function AdminPanel() {
   }, [dateFilter]);
 
   const dateChanged = (e) => {
-    setDateFilter(moment(e.target.value).format('yyyy-MM-DD'))
-  }
+    setDateFilter(moment(e.target.value).format('yyyy-MM-DD'));
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;

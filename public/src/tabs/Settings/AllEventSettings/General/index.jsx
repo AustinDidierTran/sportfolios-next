@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import Icon from '../../../../components/Custom/Icon';
 import Collapse from '../../../../components/Custom/Collapse';
 import { useTranslation } from 'react-i18next';
@@ -10,11 +10,11 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-const BasicInfos = loadable(() => import('../../BasicInfos'));
-const ChangeAlias = loadable(() => import('../../ChangeAlias'));
-const Description = loadable(() => import('../../Description'));
-const EventSettings = loadable(() => import('../../EventSettings'));
-const QuickDescription = loadable(() => import('../../QuickDescription'));
+const BasicInfos = dynamic(() => import('../../BasicInfos'));
+const ChangeAlias = dynamic(() => import('../../ChangeAlias'));
+const Description = dynamic(() => import('../../Description'));
+const EventSettings = dynamic(() => import('../../EventSettings'));
+const QuickDescription = dynamic(() => import('../../QuickDescription'));
 
 const useStyles = makeStyles(() => ({
   primary: {

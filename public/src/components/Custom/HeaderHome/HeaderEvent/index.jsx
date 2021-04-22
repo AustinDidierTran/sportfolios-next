@@ -8,9 +8,9 @@ import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const BannerEvent = loadable(() => import('../../BannerEvent'));
+const BannerEvent = dynamic(() => import('../../BannerEvent'));
 
 export default function HeaderHome(props) {
   const { basicInfos, navTabs, eventInfo, onSwitch, isAdmin, adminView, index } = props;

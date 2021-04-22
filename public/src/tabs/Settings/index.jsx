@@ -1,6 +1,6 @@
 import React from 'react';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { ENTITIES_ROLE_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
 import Card from '../../components/Custom/Card';
 import { useAdmin, useEditor } from '../../hooks/roles';
@@ -8,12 +8,12 @@ import styles from './Settings.module.css';
 import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import { useRouter } from 'next/router';
 
-const AddMembership = loadable(() => import('./AddMembership'));
-const BankAccount = loadable(() => import('./BankAccount'));
-const BasicInfos = loadable(() => import('./BasicInfos'));
-const ManageRoles = loadable(() => import('./ManageRoles'));
-const Analytics = loadable(() => import('./Analytics'));
-const AllEventSettings = loadable(() => import('./AllEventSettings'));
+const AddMembership = dynamic(() => import('./AddMembership'));
+const BankAccount = dynamic(() => import('./BankAccount'));
+const BasicInfos = dynamic(() => import('./BasicInfos'));
+const ManageRoles = dynamic(() => import('./ManageRoles'));
+const Analytics = dynamic(() => import('./Analytics'));
+const AllEventSettings = dynamic(() => import('./AllEventSettings'));
 
 export default function EntitySettings(props) {
   const router = useRouter();

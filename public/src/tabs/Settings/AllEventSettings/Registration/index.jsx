@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import Icon from '../../../../components/Custom/Icon';
 import Collapse from '../../../../components/Custom/Collapse';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,9 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-const AddOptionsEvent = loadable(() => import('../../AddOptionsEvent'));
-const TeamsRegistered = loadable(() => import('../../TeamsRegistered'));
-const PlayersRegistered = loadable(() => import('../../PlayersRegistered'));
+const AddOptionsEvent = dynamic(() => import('../../AddOptionsEvent'));
+const TeamsRegistered = dynamic(() => import('../../TeamsRegistered'));
+const PlayersRegistered = dynamic(() => import('../../PlayersRegistered'));
 
 const useStyles = makeStyles(() => ({
   primary: {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import Icon from '../../../../components/Custom/Icon';
 import Card from '../../../../components/Custom/Card';
 import Collapse from '../../../../components/Custom/Collapse';
@@ -12,7 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { CARD_TYPE_ENUM } from '../../../../../common/enums';
 
-const ManageRoles = loadable(() => import('../../ManageRoles'));
+const ManageRoles = dynamic(() => import('../../ManageRoles'));
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -49,7 +49,6 @@ export default function Admin(props) {
           <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
         </Collapse>
       </Accordion>
-
     </>
   );
 }
