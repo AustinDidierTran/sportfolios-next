@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadingSpinner } from '../../public/src/components/Custom';
+import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import { useApiRoute } from '../../public/src/hooks/queries';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';

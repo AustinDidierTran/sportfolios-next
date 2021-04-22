@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useMemo } from 'react';
-import { Select } from '../../components/Custom';
+import Select from '../../components/Custom/Select';
 import { useTranslation } from 'react-i18next';
 // const currencies = require('currency-codes/data');
 
