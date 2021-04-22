@@ -57,20 +57,22 @@ export const formatDate = (moment, format = 'LL') => {
   if (!moment.isValid()) {
     return null;
   }
-
-  const language = (localStorage && localStorage.getItem('i18nextLng')) || 'fr';
-  moment.locale(language);
-  if (format === 'MMM D' && language === 'fr') {
-    return moment.format('D MMM');
+  if (typeof window != 'undefined') {
+    const language = (localStorage && localStorage.getItem('i18nextLng')) || 'fr';
+    moment.locale(language);
+    if (format === 'MMM D' && language === 'fr') {
+      return moment.format('D MMM');
+    }
   }
-
   return moment.format(format);
 };
 
 export const formatIntervalDate = (start, end) => {
   let word = 'to';
-  if (localStorage.getItem('i18nextLng') === 'fr') {
-    word = 'au';
+  if (typeof window != 'undefined') {
+    if (localStorage.getItem('i18nextLng') === 'fr') {
+      word = 'au';
+    }
   }
 
   if (!start.isValid() || !end.isValid() || !start || !end) {
