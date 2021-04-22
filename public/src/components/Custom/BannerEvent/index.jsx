@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo } from 'react';
 
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
@@ -6,20 +6,18 @@ import moment from 'moment';
 import { formatIntervalDate, formatDate } from '../../../utils/stringFormats';
 import styles from './BannerEvent.module.css';
 import Typography from '@material-ui/core/Typography';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { SCREENSIZE_ENUM } from '../../../Store';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function BannerEvent(props) {
   const { basicInfos, onClickMainButton, eventInfo, onSwitch, adminView, isAdmin } = props;
   const { t } = useTranslation();
-  const {
-    state: { screenSize },
-  } = useContext(Store);
-
+  const [width] = useWindowSize();
   const fontVariant = useMemo(() => {
-    return screenSize !== SCREENSIZE_ENUM.xs ? 'subtitle1' : 'caption';
-  }, [screenSize]);
+    return width !== SCREENSIZE_ENUM.xs ? 'subtitle1' : 'caption';
+  }, [width]);
 
   const canRegister = useMemo(
     () =>
@@ -67,15 +65,11 @@ export default function BannerEvent(props) {
     }
     return (
       <div>
-        <Typography display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant}>
+        <Typography display={width !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant}>
           {t('register.registrations_ends_on')}&nbsp;
           {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
         </Typography>
-        <Typography
-          display={screenSize !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'}
-          variant={fontVariant}
-          color="error"
-        >
+        <Typography display={width !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant} color="error">
           ({eventInfo.remainingSpots}&nbsp;
           {t('remaining_spots')})
         </Typography>
@@ -98,7 +92,7 @@ export default function BannerEvent(props) {
       </div>
       <div className={styles.rootInfo}>
         <div>
-          {screenSize !== SCREENSIZE_ENUM.xs && (
+          {width !== SCREENSIZE_ENUM.xs && (
             <div className={styles.divBannerDate}>
               <div className={styles.date}>
                 <Paper>

@@ -17,10 +17,10 @@ import { formatIntervalDate } from '../../../../utils/stringFormats';
 import CustomButton from '../../Button';
 import CustomAvatar from '../../Avatar';
 import ImageCard from '../../ImageCard';
-import { useContext } from 'react';
-import { Store, SCREENSIZE_ENUM } from '../../../../Store';
+import { SCREENSIZE_ENUM } from '../../../../Store';
 import styles from './EventPost.module.css';
 import { useTranslation } from 'react-i18next';
+import { useWindowSize } from '../../../../hooks/window';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +57,7 @@ export default function EventPost(props) {
   const { t } = useTranslation();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const {
-    state: { screenSize },
-  } = useContext(Store);
+  const [width] = useWindowSize();
   const { eventId, creator, description, quickDescription, startDate, endDate, location, name, photoUrl } = props;
 
   const handleExpandClick = () => {
@@ -88,7 +86,7 @@ export default function EventPost(props) {
       <ImageCard
         style={{ cursor: 'pointer' }}
         onClick={() => goTo(ROUTES.entity, { id: eventId })}
-        className={screenSize == SCREENSIZE_ENUM.xs ? classes.media : classes.media2}
+        className={width == SCREENSIZE_ENUM.xs ? classes.media : classes.media2}
         photoUrl={photoUrl || ''}
       />
       <CardContent>

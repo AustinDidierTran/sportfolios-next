@@ -1,24 +1,23 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { SCREENSIZE_ENUM } from '../../../Store';
 
 import styles from './Paper.module.css';
+import { useWindowSize } from '../../../hooks/window';
 
 export default function CustomPaper(props) {
   const { title, children, childrenProps, ...paperProps } = props;
-  const {
-    state: { screenSize },
-  } = React.useContext(Store);
+  const [width] = useWindowSize();
 
   const [elevation, setElevation] = React.useState(0);
 
   React.useEffect(() => {
-    if (screenSize === SCREENSIZE_ENUM.xs) {
+    if (width === SCREENSIZE_ENUM.xs) {
       setElevation(0);
     } else {
       setElevation(2);
     }
-  }, [screenSize]);
+  }, [width]);
 
   return (
     <Paper elevation={elevation} {...paperProps}>
