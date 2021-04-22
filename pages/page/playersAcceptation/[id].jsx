@@ -7,9 +7,9 @@ import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const PlayersAcceptation = loadable(() => import('../../../public/src/views/PlayersAcceptation'));
+const PlayersAcceptation = dynamic(() => import('../../../public/src/views/PlayersAcceptation'));
 
 const PlayersAcceptationRoute = () => {
   const router = useRouter();

@@ -3,9 +3,9 @@ import { LoadingSpinner } from '../../public/src/components/Custom';
 import { useApiRoute } from '../../public/src/hooks/queries';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Checkout = loadable(() => import('../../public/src/views/Checkout'));
+const Checkout = dynamic(() => import('../../public/src/views/Checkout'));
 
 const CheckoutRoute = () => {
   const { isLoading, response } = useApiRoute('/api/shop/cartTotal');

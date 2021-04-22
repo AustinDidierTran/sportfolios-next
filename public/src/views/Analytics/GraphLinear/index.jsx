@@ -5,11 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from './Graph.module.css';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
-import loadable from '@loadable/component';
-
-const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = loadable(() =>
-  import('recharts')
-);
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function GraphLinear(props) {
   const { graphData, title, dateGraph, onChangeDate, formatData = (x) => x, height = 500 } = props;

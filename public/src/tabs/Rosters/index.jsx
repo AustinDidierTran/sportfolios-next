@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Rosters = loadable(() => import('./Rosters'));
+const Rosters = dynamic(() => import('./Rosters'));
 
 export default function TabRosters(props) {
   const { isEventAdmin } = props;

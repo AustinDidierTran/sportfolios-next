@@ -11,13 +11,13 @@ import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { formatRoute } from '../../../../utils/stringFormats';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
 import { Store } from '../../../../Store';
 
-const BannerOrganization = loadable(() => import('../../BannerOrganization'));
+const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
 export default function HeaderOrganization(props) {
   const { basicInfos, navTabs, index, isAdmin } = props;

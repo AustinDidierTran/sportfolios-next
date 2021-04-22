@@ -3,9 +3,9 @@ import React, { useMemo } from 'react';
 import { TABS_ENUM } from '../../public/common/enums';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Cart = loadable(() => import('../../public/src/views/Cart'));
+const Cart = dynamic(() => import('../../public/src/views/Cart'));
 
 const CartRoute = () => {
   const router = useRouter();

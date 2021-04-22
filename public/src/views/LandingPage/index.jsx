@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 
 import { AddGaEvent } from '../../components/Custom/Analytics';
 import { formatPageTitle } from '../../utils/stringFormats';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Page4 = loadable(() => import('./Page4'));
-const Page5 = loadable(() => import('./Page5'));
-const LaRuchePage = loadable(() => import('./LaRuchePage'));
-const WhatIsSportfolios = loadable(() => import('./WhatIsSportfolios'));
+const Page4 = dynamic(() => import('./Page4'));
+const Page5 = dynamic(() => import('./Page5'));
+const LaRuchePage = dynamic(() => import('./LaRuchePage'));
+const WhatIsSportfolios = dynamic(() => import('./WhatIsSportfolios'));
 
 export default function LandingPage() {
   useEffect(() => {

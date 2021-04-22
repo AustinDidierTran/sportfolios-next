@@ -19,17 +19,17 @@ import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { goTo, ROUTES } from '../../../actions/goTo';
 
-const EnterScore = loadable(() =>
+const EnterScore = dynamic(() =>
   import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
 );
-const EditGameDialog = loadable(() =>
+const EditGameDialog = dynamic(() =>
   import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EditGameDialog')
 );
-const SubmitScoreDialog = loadable(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
-const RosterDisplay = loadable(() => import('../../../components/Custom/RosterDisplay'));
+const SubmitScoreDialog = dynamic(() => import('../../../components/Custom/FormDialog/SubmitScoreSpiritForm'));
+const RosterDisplay = dynamic(() => import('../../../components/Custom/RosterDisplay'));
 
 export default function GameDetailed(props) {
   const { gameId, basicInfos } = props;

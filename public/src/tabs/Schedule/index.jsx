@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { useRouter } from 'next/router';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const AllGames = loadable(() => import('./AllGames'));
-const GameDetailed = loadable(() => import('./GameDetailed'));
+const AllGames = dynamic(() => import('./AllGames'));
+const GameDetailed = dynamic(() => import('./GameDetailed'));
 
 export default function ScheduleTab(props) {
   const router = useRouter();

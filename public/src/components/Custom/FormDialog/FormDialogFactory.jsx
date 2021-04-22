@@ -1,24 +1,24 @@
 import React from 'react';
 
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const AddEventPaymentOption = loadable(() => import('./AddEventPaymentOption'));
-const EditEventPaymentOption = loadable(() => import('./EditEventPaymentOption'));
-const AddMember = loadable(() => import('./AddMember'));
-const AddMembership = loadable(() => import('./AddMembership'));
-const AddTeamFee = loadable(() => import('./AddTeamFee'));
-const AddPlayerFee = loadable(() => import('./AddPlayerFee'));
-const BecomeMember = loadable(() => import('./BecomeMember'));
-const BecomeMemberCoupon = loadable(() => import('./BecomeMemberCoupon'));
-const MembersReport = loadable(() => import('./MembersReport'));
-const SalesReport = loadable(() => import('./SalesReport'));
-const EditMembership = loadable(() => import('./EditMembership'));
-const EditMemberImport = loadable(() => import('./EditMemberImport'));
-const EnterEmail = loadable(() => import('./EnterEmail'));
-const CreateTaxRate = loadable(() => import('./CreateTaxRate'));
-const RosterPlayerOptions = loadable(() => import('./RosterPlayerOptions'));
-const SubmitScoreAndSpiritForm = loadable(() => import('./SubmitScoreSpiritForm'));
+const AddEventPaymentOption = dynamic(() => import('./AddEventPaymentOption'));
+const EditEventPaymentOption = dynamic(() => import('./EditEventPaymentOption'));
+const AddMember = dynamic(() => import('./AddMember'));
+const AddMembership = dynamic(() => import('./AddMembership'));
+const AddTeamFee = dynamic(() => import('./AddTeamFee'));
+const AddPlayerFee = dynamic(() => import('./AddPlayerFee'));
+const BecomeMember = dynamic(() => import('./BecomeMember'));
+const BecomeMemberCoupon = dynamic(() => import('./BecomeMemberCoupon'));
+const MembersReport = dynamic(() => import('./MembersReport'));
+const SalesReport = dynamic(() => import('./SalesReport'));
+const EditMembership = dynamic(() => import('./EditMembership'));
+const EditMemberImport = dynamic(() => import('./EditMemberImport'));
+const EnterEmail = dynamic(() => import('./EnterEmail'));
+const CreateTaxRate = dynamic(() => import('./CreateTaxRate'));
+const RosterPlayerOptions = dynamic(() => import('./RosterPlayerOptions'));
+const SubmitScoreAndSpiritForm = dynamic(() => import('./SubmitScoreSpiritForm'));
 
 const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.ADD_EVENT_PAYMENT_OPTION]: AddEventPaymentOption,

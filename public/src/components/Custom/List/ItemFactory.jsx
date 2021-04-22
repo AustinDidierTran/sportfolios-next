@@ -1,38 +1,38 @@
 import { GLOBAL_ENUM, LIST_ITEM_ENUM, NOTIFICATION_TYPE } from '../../../../common/enums';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const AppItem = loadable(() => import('./AppItem'));
-const BankAccountItem = loadable(() => import('./BankAccountItem'));
-const CartItem = loadable(() => import('./CartItem'));
-const CreateEntityItem = loadable(() => import('./CreateEntityItem'));
-const CreditCardItem = loadable(() => import('./CreditCardItem'));
-const DefaultItem = loadable(() => import('./DefaultItem'));
-const EventCreatorItem = loadable(() => import('./EventCreatorItem'));
-const EventItem = loadable(() => import('./EventItem'));
-const MembershipDetailItem = loadable(() => import('./MembershipDetailItem'));
-const MembershipItem = loadable(() => import('./MembershipItem'));
-const MembershipInfoItem = loadable(() => import('./MembershipInfoItem'));
-const MembershipOrganizationItem = loadable(() => import('./MembershipOrganizationItem'));
-const OrganizationItem = loadable(() => import('./OrganizationItem'));
-const PaymentOptionItem = loadable(() => import('./PaymentOptionItem'));
-const PersonItem = loadable(() => import('./PersonItem'));
-const PurchasesItem = loadable(() => import('./PurchasesItem'));
-const RankingItem = loadable(() => import('./RankingItem'));
-const RankingWithStatsItem = loadable(() => import('./RankingWithStatsItem'));
-const ReportItemFactory = loadable(() => import('./ReportItemFactory'));
-const RosterItem = loadable(() => import('./RosterItem'));
-const SalesItem = loadable(() => import('./SalesItem'));
-const TeamItem = loadable(() => import('./TeamItem'));
-const { AvatarAndTextSkeleton } = loadable(() => import('./SkeletonItems'));
-const NotificationSettingItem = loadable(() => import('./NotificationSettingItem'));
-const RosterNotificationItem = loadable(() => import('./NotificationItem/RosterNotificationItem'));
-const ScoreSubmissionConflictNotificationItem = loadable(() =>
+const AppItem = dynamic(() => import('./AppItem'));
+const BankAccountItem = dynamic(() => import('./BankAccountItem'));
+const CartItem = dynamic(() => import('./CartItem'));
+const CreateEntityItem = dynamic(() => import('./CreateEntityItem'));
+const CreditCardItem = dynamic(() => import('./CreditCardItem'));
+const DefaultItem = dynamic(() => import('./DefaultItem'));
+const EventCreatorItem = dynamic(() => import('./EventCreatorItem'));
+const EventItem = dynamic(() => import('./EventItem'));
+const MembershipDetailItem = dynamic(() => import('./MembershipDetailItem'));
+const MembershipItem = dynamic(() => import('./MembershipItem'));
+const MembershipInfoItem = dynamic(() => import('./MembershipInfoItem'));
+const MembershipOrganizationItem = dynamic(() => import('./MembershipOrganizationItem'));
+const OrganizationItem = dynamic(() => import('./OrganizationItem'));
+const PaymentOptionItem = dynamic(() => import('./PaymentOptionItem'));
+const PersonItem = dynamic(() => import('./PersonItem'));
+const PurchasesItem = dynamic(() => import('./PurchasesItem'));
+const RankingItem = dynamic(() => import('./RankingItem'));
+const RankingWithStatsItem = dynamic(() => import('./RankingWithStatsItem'));
+const ReportItemFactory = dynamic(() => import('./ReportItemFactory'));
+const RosterItem = dynamic(() => import('./RosterItem'));
+const SalesItem = dynamic(() => import('./SalesItem'));
+const TeamItem = dynamic(() => import('./TeamItem'));
+const { AvatarAndTextSkeleton } = dynamic(() => import('./SkeletonItems'));
+const NotificationSettingItem = dynamic(() => import('./NotificationSettingItem'));
+const RosterNotificationItem = dynamic(() => import('./NotificationItem/RosterNotificationItem'));
+const ScoreSubmissionConflictNotificationItem = dynamic(() =>
   import('./NotificationItem/ScoreSubmissionConflictNotificationItem')
 );
-const ScoreSubmissionRequestNotificationItem = loadable(() =>
+const ScoreSubmissionRequestNotificationItem = dynamic(() =>
   import('./NotificationItem/ScoreSubmissionRequestNotificationItem')
 );
-const ConfirmOrDeclineScoreNotificationItem = loadable(() =>
+const ConfirmOrDeclineScoreNotificationItem = dynamic(() =>
   import('./NotificationItem/ConfirmOrDeclineScoreNotificationItem')
 );
 

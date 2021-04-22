@@ -6,14 +6,14 @@ import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../c
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import EventPaymentOptionList from './EventPaymentOptionList';
 import { goTo, ROUTES } from '../../../actions/goTo';
 
-const CustomPaper = loadable(() => import('../../../components/Custom/Paper'));
-const CustomButton = loadable(() => import('../../../components/Custom/Button'));
-const CustomLoadingSpinner = loadable(() => import('../../../components/Custom/LoadingSpinner'));
-const CustomFormDialog = loadable(() => import('../../../components/Custom/FormDialog'));
+const CustomPaper = dynamic(() => import('../../../components/Custom/Paper'));
+const CustomButton = dynamic(() => import('../../../components/Custom/Button'));
+const CustomLoadingSpinner = dynamic(() => import('../../../components/Custom/LoadingSpinner'));
+const CustomFormDialog = dynamic(() => import('../../../components/Custom/FormDialog'));
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
@@ -111,7 +111,11 @@ export default function AddOptionsEvent() {
 
   return (
     <CustomPaper title={t('payment.payment_options')}>
-      <CustomButton className={styles.addButton} color="primary" onClick={() => goTo(ROUTES.optionPayment, { id: eventId })}>
+      <CustomButton
+        className={styles.addButton}
+        color="primary"
+        onClick={() => goTo(ROUTES.optionPayment, { id: eventId })}
+      >
         {t('payment.add_payment_option')}
       </CustomButton>
       <EventPaymentOptionList items={options} />

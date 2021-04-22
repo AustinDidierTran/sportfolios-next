@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,9 +15,9 @@ import api from '../../../../actions/api';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 
-const CustomIcon = loadable(() => import('../../../../components/Custom/Icon'));
-const CustomFormDialog = loadable(() => import('../../../../components/Custom/FormDialog'));
-const CustomIconButton = loadable(() => import('../../../../components/Custom/IconButton'));
+const CustomIcon = dynamic(() => import('../../../../components/Custom/Icon'));
+const CustomFormDialog = dynamic(() => import('../../../../components/Custom/FormDialog'));
+const CustomIconButton = dynamic(() => import('../../../../components/Custom/IconButton'));
 
 export default function MemberItem(props) {
   const { t } = useTranslation();

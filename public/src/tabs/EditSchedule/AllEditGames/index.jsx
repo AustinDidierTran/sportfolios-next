@@ -8,10 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../../components/Custom';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const GameFilters = loadable(() => import('../../Schedule/AllGames/GameFilters'));
-const EditGames = loadable(() => import('./EditGames'));
+const GameFilters = dynamic(() => import('../../Schedule/AllGames/GameFilters'));
+const EditGames = dynamic(() => import('./EditGames'));
 
 export default function AllEditGames(props) {
   const { t } = useTranslation();

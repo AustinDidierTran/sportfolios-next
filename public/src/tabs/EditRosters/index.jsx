@@ -1,8 +1,8 @@
 import React from 'react';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Rosters = loadable(() => import('../Rosters'));
+const Rosters = dynamic(() => import('../Rosters'));
 
 export default function EditRosters() {
   return <Rosters isEventAdmin />;

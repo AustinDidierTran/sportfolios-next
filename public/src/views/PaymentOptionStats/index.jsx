@@ -5,6 +5,7 @@ import IgContainer from '../../components/Custom/IgContainer';
 import Paper from '../../components/Custom/Paper';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { formatRoute, formatPrice } from '../../../common/utils/stringFormat';
 import moment from 'moment';
@@ -13,9 +14,8 @@ import api from '../../actions/api';
 import { SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import { goBack } from '../../actions/goTo';
-import loadable from '@loadable/component';
 
-const Graph = loadable(() => import('../Analytics/Graph'));
+const Graph = dynamic(() => import('../Analytics/Graph'));
 
 export default function PaymentOptionStats() {
   const { t } = useTranslation();

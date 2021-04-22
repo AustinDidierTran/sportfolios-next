@@ -6,20 +6,20 @@ import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import IgContainer from '../../../components/Custom/IgContainer';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { goTo } from '../../../actions/goTo';
 
-const HeaderHome = loadable(() => import('../../../components/Custom/HeaderHome'));
-const Schedule = loadable(() => import('../../../tabs/Schedule'));
-const Rankings = loadable(() => import('../../../tabs/Rankings'));
-const Rosters = loadable(() => import('../../../tabs/Rosters'));
-const EventInfo = loadable(() => import('../../../tabs/EventInfo'));
-const EditSchedule = loadable(() => import('../../../tabs/EditSchedule'));
-const EditRankings = loadable(() => import('../../../tabs/EditRankings'));
-const EditRosters = loadable(() => import('../../../tabs/EditRosters'));
-const Settings = loadable(() => import('../../../tabs/Settings'));
+const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
+const Schedule = dynamic(() => import('../../../tabs/Schedule'));
+const Rankings = dynamic(() => import('../../../tabs/Rankings'));
+const Rosters = dynamic(() => import('../../../tabs/Rosters'));
+const EventInfo = dynamic(() => import('../../../tabs/EventInfo'));
+const EditSchedule = dynamic(() => import('../../../tabs/EditSchedule'));
+const EditRankings = dynamic(() => import('../../../tabs/EditRankings'));
+const EditRosters = dynamic(() => import('../../../tabs/EditRosters'));
+const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 export default function Event(props) {
   const { t } = useTranslation();

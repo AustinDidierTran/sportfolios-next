@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const RegistrationStatus = loadable(() => import('../../public/src/views/RegistrationStatus'));
+const RegistrationStatus = dynamic(() => import('../../public/src/views/RegistrationStatus'));
 
 const RegistrationStatusRoute = () => {
   const { t } = useTranslation();

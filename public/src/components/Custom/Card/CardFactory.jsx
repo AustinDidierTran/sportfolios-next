@@ -1,26 +1,26 @@
 import { CARD_TYPE_ENUM } from '../../../../common/enums';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Default = loadable(() => import('./DefaultCard'));
-const DeleteEntity = loadable(() => import('./DeleteEntity'));
-const EditableGame = loadable(() => import('./EditableGame'));
-const EventPost = loadable(() => import('./EventPost'));
-const EventSettings = loadable(() => import('./EventSettings'));
-const Game = loadable(() => import('./Game'));
-const Invoice = loadable(() => import('./InvoiceItem'));
-const MultipleTeamGame = loadable(() => import('./MultipleTeamGame'));
-const Post = loadable(() => import('./Post'));
-const Comment = loadable(() => import('./Comment'));
-const Report = loadable(() => import('./Report'));
-const ScoreSuggestion = loadable(() => import('./ScoreSuggestion'));
-const Shop = loadable(() => import('./ShopItem'));
-const TwoTeamGame = loadable(() => import('./TwoTeamGame'));
-const TwoTeamGameEditable = loadable(() => import('./TwoTeamGameEditable'));
-const TwoTeamGameProfile = loadable(() => import('./TwoTeamGameProfile'));
-const CartSummary = loadable(() => import('./CartSummary'));
-const AcceptPlayerInfos = loadable(() => import('./AcceptPlayerInfos'));
-const AcceptTeamInfos = loadable(() => import('./AcceptTeamInfos'));
-const OurTeamMember = loadable(() => import('./OurTeamMember'));
+const Default = dynamic(() => import('./DefaultCard'));
+const DeleteEntity = dynamic(() => import('./DeleteEntity'));
+const EditableGame = dynamic(() => import('./EditableGame'));
+const EventPost = dynamic(() => import('./EventPost'));
+const EventSettings = dynamic(() => import('./EventSettings'));
+const Game = dynamic(() => import('./Game'));
+const Invoice = dynamic(() => import('./InvoiceItem'));
+const MultipleTeamGame = dynamic(() => import('./MultipleTeamGame'));
+const Post = dynamic(() => import('./Post'));
+const Comment = dynamic(() => import('./Comment'));
+const Report = dynamic(() => import('./Report'));
+const ScoreSuggestion = dynamic(() => import('./ScoreSuggestion'));
+const Shop = dynamic(() => import('./ShopItem'));
+const TwoTeamGame = dynamic(() => import('./TwoTeamGame'));
+const TwoTeamGameEditable = dynamic(() => import('./TwoTeamGameEditable'));
+const TwoTeamGameProfile = dynamic(() => import('./TwoTeamGameProfile'));
+const CartSummary = dynamic(() => import('./CartSummary'));
+const AcceptPlayerInfos = dynamic(() => import('./AcceptPlayerInfos'));
+const AcceptTeamInfos = dynamic(() => import('./AcceptTeamInfos'));
+const OurTeamMember = dynamic(() => import('./OurTeamMember'));
 
 const CardMap = {
   [CARD_TYPE_ENUM.DELETE_ENTITY]: DeleteEntity,

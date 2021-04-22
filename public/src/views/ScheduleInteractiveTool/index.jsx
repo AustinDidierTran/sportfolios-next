@@ -23,14 +23,14 @@ import { formatRoute } from '../../../common/utils/stringFormat';
 
 import Hotkeys from 'react-hot-keys';
 
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const GameCard = loadable(() => import('./GameCard'));
-const SuggestedGames = loadable(() => import('./SuggestedGames'));
-const AddFieldInteractiveTool = loadable(() => import('./AddFieldInteractiveTool'));
-const AddTimeSlotInteractiveTool = loadable(() => import('./AddTimeSlotInteractiveTool'));
-const AddGame = loadable(() => import('./AddGame'));
-const AlertDialog = loadable(() => import('../../components/Custom/Dialog/AlertDialog'));
+const GameCard = dynamic(() => import('./GameCard'));
+const SuggestedGames = dynamic(() => import('./SuggestedGames'));
+const AddFieldInteractiveTool = dynamic(() => import('./AddFieldInteractiveTool'));
+const AddTimeSlotInteractiveTool = dynamic(() => import('./AddTimeSlotInteractiveTool'));
+const AddGame = dynamic(() => import('./AddGame'));
+const AlertDialog = dynamic(() => import('../../components/Custom/Dialog/AlertDialog'));
 
 const ReactGridLayout = RGL;
 

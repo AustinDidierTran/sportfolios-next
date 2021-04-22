@@ -5,9 +5,9 @@ import { ENTITIES_ROLE_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../Store';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const Posts = loadable(() => import('../../components/Custom/Posts'));
+const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
 const useStyles = makeStyles(() => ({
   IgContainer: {

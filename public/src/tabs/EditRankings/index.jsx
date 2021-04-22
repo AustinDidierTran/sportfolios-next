@@ -11,13 +11,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { ACTION_ENUM, Store } from '../../Store';
 import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const PhaseAccordionDnD = loadable(() => import('./PhaseAccordionDnD'));
-const PrerankAccordionDnD = loadable(() => import('./PrerankAccordionDnd'));
-const FinalRanking = loadable(() => import('./FinalRanking'));
-const AlertDialog = loadable(() => import('../../components/Custom/Dialog/AlertDialog'));
-const AddPhase = loadable(() => import('../EditSchedule/CreateSchedule/AddPhase'));
+const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
+const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
+const FinalRanking = dynamic(() => import('./FinalRanking'));
+const AlertDialog = dynamic(() => import('../../components/Custom/Dialog/AlertDialog'));
+const AddPhase = dynamic(() => import('../EditSchedule/CreateSchedule/AddPhase'));
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',

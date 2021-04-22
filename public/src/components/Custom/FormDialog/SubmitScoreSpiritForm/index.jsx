@@ -12,11 +12,11 @@ import styles from './SubmitScoreSpiritForm.module.css';
 import api from '../../../../actions/api';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const SectionScore = loadable(() => import('./SectionScore'));
-// const SectionSpirit = loadable(() => import('./SectionSpirit'));
-// const SectionPresences = loadable(() => import('./SectionPresences'));
+const SectionScore = dynamic(() => import('./SectionScore'));
+// const SectionSpirit = dynamic(() => import('./SectionSpirit'));
+// const SectionPresences = dynamic(() => import('./SectionPresences'));
 
 export default function SubmitScoreDialog(props) {
   const { open, onClose, gameId, submissionerInfos, update } = props;

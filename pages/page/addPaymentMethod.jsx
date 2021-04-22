@@ -3,9 +3,9 @@ import React, { useMemo } from 'react';
 import { ROUTES } from '../../public/src/actions/goTo';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const AddPaymentMethod = loadable(() => import('../../public/src/views/AddPaymentMethod'));
+const AddPaymentMethod = dynamic(() => import('../../public/src/views/AddPaymentMethod'));
 
 const AddPaymentMethodRoute = () => {
   const router = useRouter();

@@ -13,14 +13,14 @@ import { Workbox } from 'workbox-window';
 import { Helmet } from 'react-helmet';
 import Header from '../public/src/views/Header';
 import conf from '../conf';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { ROUTES_ENUM } from '../public/common/enums';
 import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics';
 
-const BottomNavigation = loadable(() => import('../public/src/components/Custom/BottomNavigation'));
-const SnackBar = loadable(() => import('../public/src/components/Custom/SnackBar'));
-const SpeedDial = loadable(() => import('../public/src/components/Custom/SpeedDial'));
+const BottomNavigation = dynamic(() => import('../public/src/components/Custom/BottomNavigation'));
+const SnackBar = dynamic(() => import('../public/src/components/Custom/SnackBar'));
+const SpeedDial = dynamic(() => import('../public/src/components/Custom/SpeedDial'));
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {

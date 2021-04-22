@@ -5,9 +5,9 @@ import api from '../../../public/src/actions/api';
 import { goTo, ROUTES } from '../../../public/src/actions/goTo';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 
-const ConfirmEmail = loadable(() => import('../../../public/src/views/ConfirmEmail'));
+const ConfirmEmail = dynamic(() => import('../../../public/src/views/ConfirmEmail'));
 
 const ConfirmEmailRoute = () => {
   const router = useRouter();

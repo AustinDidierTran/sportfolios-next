@@ -6,12 +6,12 @@ import IgContainer from '../../components/Custom/IgContainer';
 import Paper from '../../components/Custom/Paper';
 import { ROUTES_ENUM, TABS_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
-import loadable from '@loadable/component';
+import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import { goTo } from '../../actions/goTo';
 
-const CartTab = loadable(() => import('../../tabs/Cart'));
-const Purchases = loadable(() => import('../../tabs/Purchases'));
+const CartTab = dynamic(() => import('../../tabs/Cart'));
+const Purchases = dynamic(() => import('../../tabs/Purchases'));
 
 export default function Cart() {
   const { t } = useTranslation();
