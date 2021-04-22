@@ -6,6 +6,7 @@ import { goTo } from '../../public/src/actions/goTo';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
+import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 
 const AddBankAccount = dynamic(() => import('../../public/src/views/AddBankAccount'));
 
@@ -28,6 +29,21 @@ const AddBankAccountRoute = () => {
     }
   };
 
+  if (entityId && id) {
+    return (
+      <>
+        <Head>
+          <meta property="og:title" content={t('metadata.addBankAccount.title')} />
+          <meta property="og:description" content={t('metadata.addBankAccount.description')} />
+          <meta
+            property="og:image"
+            content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
+          />
+        </Head>
+        <AddBankAccount entityId={entityId} id={id} />
+      </>
+    );
+  }
   return (
     <>
       <Head>
@@ -38,7 +54,7 @@ const AddBankAccountRoute = () => {
           content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
         />
       </Head>
-      <AddBankAccount entityId={entityId} id={id} />
+      <LoadingSpinner />
     </>
   );
 };
