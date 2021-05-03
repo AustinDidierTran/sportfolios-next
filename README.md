@@ -6,13 +6,9 @@ First, make sure you have your two projects at the same level:
 
 ![](projects.png)
 
-After, install yarn:
+## Certificates
 
-```bash
-brew install yarn
-```
-
-Then create your certificates:
+Create your certificates:
 
 ```bash
 openssl req -x509 -out localhost.crt -keyout localhost.key \
@@ -29,12 +25,27 @@ If you have a problem with your certificates you can consult this article:
 
 ```bash
 https://anmagpie.medium.com/secure-your-local-development-server-with-https-next-js-81ac6b8b3d68
+
 ```
 
-Then, run the development server:
+## NPM
+
+After, install npm:
 
 ```bash
-yarn dev
+npm install
+```
+
+## conf.js
+
+Then, create a file name conf.js at the root, copy the content from conf-template.js
+
+## Run it
+
+Finally, run the development server:
+
+```bash
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
