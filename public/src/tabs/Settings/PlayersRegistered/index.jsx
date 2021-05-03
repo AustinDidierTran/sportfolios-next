@@ -25,6 +25,7 @@ import { formatRoute } from '../../../../common/utils/stringFormat';
 import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
@@ -32,7 +33,6 @@ export default function PlayersRegistered() {
   const { id: eventId } = router.query;
   const { dispatch } = useContext(Store);
   const [width] = useWindowSize();
-
 
   const [players, setPlayers] = useState([]);
   const [personId, setPersonId] = useState('');
@@ -175,7 +175,7 @@ export default function PlayersRegistered() {
     return <></>;
   }
 
-  if (width < 600) {
+  if (width < MOBILE_WIDTH) {
     return (
       <Paper className={styles.paper}>
         <TableContainer component={Paper}>

@@ -10,6 +10,7 @@ import { updateMembership } from '../../../../utils/memberships';
 import { formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import CustomButton from '../../Button';
 import { useWindowSize } from '../../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../../common/constants';
 
 export default function MembershipDetailItem(props) {
   const [width] = useWindowSize();
@@ -35,7 +36,7 @@ export default function MembershipDetailItem(props) {
 
   return (
     <ListItem style={{ width: '100%' }} className={styles.main}>
-      {width < 600 ? (
+      {width < MOBILE_WIDTH ? (
         <ListItemText
           secondaryTypographyProps={{ color: 'primary' }}
           primary={t(name)}

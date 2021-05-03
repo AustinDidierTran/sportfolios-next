@@ -10,6 +10,7 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../../common/constants';
 
 const BannerEvent = dynamic(() => import('../../BannerEvent'));
 
@@ -18,7 +19,6 @@ export default function HeaderHome(props) {
   const router = useRouter();
   const { id } = router.query;
   const [width] = useWindowSize();
-
 
   // const [anchorEl, setAnchorEl] = React.useState(null);
   // const handleClick = (event) => {
@@ -54,7 +54,7 @@ export default function HeaderHome(props) {
             color: 'white',
             backgroundColor: '#18B393',
             minHeight: 0,
-            borderRadius: width > 600 ? '7px' : '0px',
+            borderRadius: width > MOBILE_WIDTH ? '7px' : '0px',
           }}
           variant="fullWidth"
           scrollButtons="off"
@@ -68,7 +68,7 @@ export default function HeaderHome(props) {
               label={
                 <div className={styles.div}>
                   <CustomIcon icon={s.icon} />
-                  {width > 600 && (
+                  {width > MOBILE_WIDTH && (
                     <Typography variant="body2" className={styles.typo}>
                       {s.label}
                     </Typography>

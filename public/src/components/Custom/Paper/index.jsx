@@ -1,9 +1,9 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { SCREENSIZE_ENUM } from '../../../Store';
 
 import styles from './Paper.module.css';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function CustomPaper(props) {
   const { title, children, childrenProps, ...paperProps } = props;
@@ -12,7 +12,7 @@ export default function CustomPaper(props) {
   const [elevation, setElevation] = React.useState(0);
 
   React.useEffect(() => {
-    if (width === SCREENSIZE_ENUM.xs) {
+    if (width < MOBILE_WIDTH) {
       setElevation(0);
     } else {
       setElevation(2);

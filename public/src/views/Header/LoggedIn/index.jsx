@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useRef } from 'react';
-import { Store, SCREENSIZE_ENUM, ACTION_ENUM } from '../../../Store';
+import { Store, ACTION_ENUM } from '../../../Store';
 import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM } from '../../../../common/enums';
 import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +15,7 @@ import styles from './LoggedIn.module.css';
 import { ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function LoggedIn(props) {
   const {
@@ -76,7 +77,7 @@ export default function LoggedIn(props) {
   const refNotifications = useRef(null);
   const refAccount = useRef(null);
 
-  if (width === SCREENSIZE_ENUM.xs) {
+  if (width < MOBILE_WIDTH) {
     // mobile here
     return (
       <div className={classes.grow}>

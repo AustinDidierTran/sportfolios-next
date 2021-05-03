@@ -24,6 +24,7 @@ import AddTeamPhase from './AddTeamPhase';
 import Menu from '../Menu';
 import { getAllOptions } from './getAllOptions';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -188,11 +189,11 @@ export default function PhaseAccordionDnD(props) {
                 color={button.color}
                 type={button.type}
                 disabled={button.name === t('start_phase') ? false : !madeChanges}
-                endIcon={width < 600 ? '' : button.endIcon}
+                endIcon={width < MOBILE_WIDTH ? '' : button.endIcon}
                 className={button.className}
                 key={index}
               >
-                {width < 600 ? <Icon icon={button.endIcon}></Icon> : button.name}
+                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon}></Icon> : button.name}
               </Button>
             ))}
           </div>

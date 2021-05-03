@@ -10,9 +10,9 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 
 import CustomIcon from '../Icon';
 import { useMemo } from 'react';
-import { SCREENSIZE_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 const useStyles = makeStyles((theme) => ({
   speedDial: {
@@ -115,7 +115,7 @@ export default function SpeedDialTooltipOpen() {
       <Backdrop open={open} className={classes.backdrop} />
       <SpeedDial
         ariaLabel="SpeedDial"
-        className={width == SCREENSIZE_ENUM.xs ? classes.speedDial : classes.speedDial2}
+        className={width < MOBILE_WIDTH ? classes.speedDial : classes.speedDial2}
         hidden={hidden}
         icon={<SpeedDialIcon style={{ color: '#fff' }} />}
         onClose={() => setOpen(false)}

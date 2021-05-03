@@ -6,17 +6,18 @@ import moment from 'moment';
 import { formatIntervalDate, formatDate } from '../../../utils/stringFormats';
 import styles from './BannerEvent.module.css';
 import Typography from '@material-ui/core/Typography';
-import { SCREENSIZE_ENUM } from '../../../Store';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function BannerEvent(props) {
   const { basicInfos, onClickMainButton, eventInfo, onSwitch, adminView, isAdmin } = props;
   const { t } = useTranslation();
   const [width] = useWindowSize();
+
   const fontVariant = useMemo(() => {
-    return width !== SCREENSIZE_ENUM.xs ? 'subtitle1' : 'caption';
+    return width > MOBILE_WIDTH ? 'subtitle1' : 'caption';
   }, [width]);
 
   const canRegister = useMemo(
@@ -65,11 +66,11 @@ export default function BannerEvent(props) {
     }
     return (
       <div>
-        <Typography display={width !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant}>
+        <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant}>
           {t('register.registrations_ends_on')}&nbsp;
           {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
         </Typography>
-        <Typography display={width !== SCREENSIZE_ENUM.xs ? 'inline' : 'block'} variant={fontVariant} color="error">
+        <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant} color="error">
           ({eventInfo.remainingSpots}&nbsp;
           {t('remaining_spots')})
         </Typography>
@@ -92,7 +93,7 @@ export default function BannerEvent(props) {
       </div>
       <div className={styles.rootInfo}>
         <div>
-          {width !== SCREENSIZE_ENUM.xs && (
+          {width > MOBILE_WIDTH && (
             <div className={styles.divBannerDate}>
               <div className={styles.date}>
                 <Paper>
