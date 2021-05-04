@@ -13,6 +13,7 @@ import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/e
 import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../hooks/window';
+import { MOBILE_WIDTH } from '../../../common/constants';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -373,10 +374,10 @@ export default function EditRankings() {
     <div className={styles.main}>
       <div className={styles.buttonContainer}>
         <Button className={styles.button} onClick={openPhaseDialog} endIcon="Add">
-          <div className={styles.buttonText}>{width < 600 ? t('add.add') : t('add.add_phase')}</div>
+          <div className={styles.buttonText}>{width < MOBILE_WIDTH ? t('add.add') : t('add.add_phase')}</div>
         </Button>
         <Button className={styles.button} onClick={handleUpdateOrder} endIcon="SaveIcon" disabled={!madeChanges}>
-          <div className={styles.buttonText}>{width < 600 ? t('save') : t('save_phase_order')}</div>
+          <div className={styles.buttonText}>{width < MOBILE_WIDTH ? t('save') : t('save_phase_order')}</div>
         </Button>
       </div>
       <div className={styles.div}>

@@ -8,11 +8,11 @@ import AddTimeSlot from './AddTimeSlot';
 import AddTeam from './AddTeam';
 import AddField from './AddField';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import { SCREENSIZE_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function ScheduleTab(props) {
   const { t } = useTranslation();
@@ -123,7 +123,7 @@ export default function ScheduleTab(props) {
       >
         {t('add.add_game')}
       </Button>
-      {width === SCREENSIZE_ENUM.sm || width === SCREENSIZE_ENUM.xs ? (
+      {width < MOBILE_WIDTH ? (
         <></>
       ) : (
         <Button

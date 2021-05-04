@@ -28,6 +28,7 @@ import TeamRow from './TeamRow';
 import TeamRowMobile from './TeamRowMobile';
 import MailtoButton from '../../../components/Custom/MailToButton';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function TeamsRegistered() {
   const { t } = useTranslation();
@@ -230,7 +231,7 @@ export default function TeamsRegistered() {
     return <></>;
   }
 
-  if (width < 600) {
+  if (width < MOBILE_WIDTH) {
     return (
       <Paper className={styles.paper}>
         <TableContainer component={Paper}>
@@ -321,9 +322,9 @@ export default function TeamsRegistered() {
           title={
             teamsThatCanBeUnregistered.length < teams.length
               ? t('register.cant_unregister_all_teams', {
-                howManyCanUnregister: teamsThatCanBeUnregistered.length,
-                totalOfTeams: teams.length,
-              })
+                  howManyCanUnregister: teamsThatCanBeUnregistered.length,
+                  totalOfTeams: teams.length,
+                })
               : t('register.are_you_sure_you_want_to_unregister_all_teams')
           }
           description={teamsThatCanBeUnregistered
@@ -431,9 +432,9 @@ export default function TeamsRegistered() {
         title={
           teamsThatCanBeUnregistered.length < teams.length
             ? t('register.cant_unregister_all_teams', {
-              howManyCanUnregister: teamsThatCanBeUnregistered.length,
-              totalOfTeams: teams.length,
-            })
+                howManyCanUnregister: teamsThatCanBeUnregistered.length,
+                totalOfTeams: teams.length,
+              })
             : t('register.are_you_sure_you_want_to_unregister_all_teams')
         }
         description={teamsThatCanBeUnregistered

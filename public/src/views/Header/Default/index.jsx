@@ -1,10 +1,10 @@
 import React from 'react';
-import { SCREENSIZE_ENUM } from '../../../Store';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import styles from './Default.module.css';
 import LoggedIn from '../LoggedIn';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function DefaultHeader(props) {
   const [width] = useWindowSize();
@@ -44,7 +44,7 @@ export default function DefaultHeader(props) {
     );
   };
 
-  if (width !== SCREENSIZE_ENUM.xs) {
+  if (width > MOBILE_WIDTH) {
     return <LoggedIn showBar={showBar} />;
   }
   return (

@@ -9,9 +9,10 @@ import Badge from '@material-ui/core/Badge';
 import { useTranslation } from 'react-i18next';
 
 import { ROUTES, goTo } from '../../../actions/goTo';
-import { Store, SCREENSIZE_ENUM } from '../../../Store';
+import { Store } from '../../../Store';
 import api from '../../../actions/api';
 import { STATUS_ENUM, SOCKET_EVENT } from '../../../../common/enums';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 import { useWindowSize } from '../../../hooks/window';
 
 const TABS_ENUM = {
@@ -53,7 +54,7 @@ export default function CustomBottomNavigation() {
     goTo(...routeEnum[newValue]);
   };
 
-  const displayNav = useMemo(() => width === SCREENSIZE_ENUM.xs && Boolean(userInfo && userInfo.user_id), [
+  const displayNav = useMemo(() => width < MOBILE_WIDTH && Boolean(userInfo && userInfo.user_id), [
     width,
     userInfo && userInfo.user_id,
   ]);

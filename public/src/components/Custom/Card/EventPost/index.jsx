@@ -17,10 +17,10 @@ import { formatIntervalDate } from '../../../../utils/stringFormats';
 import CustomButton from '../../Button';
 import CustomAvatar from '../../Avatar';
 import ImageCard from '../../ImageCard';
-import { SCREENSIZE_ENUM } from '../../../../Store';
 import styles from './EventPost.module.css';
 import { useTranslation } from 'react-i18next';
 import { useWindowSize } from '../../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../../common/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,7 +86,7 @@ export default function EventPost(props) {
       <ImageCard
         style={{ cursor: 'pointer' }}
         onClick={() => goTo(ROUTES.entity, { id: eventId })}
-        className={width == SCREENSIZE_ENUM.xs ? classes.media : classes.media2}
+        className={width < MOBILE_WIDTH ? classes.media : classes.media2}
         photoUrl={photoUrl || ''}
       />
       <CardContent>

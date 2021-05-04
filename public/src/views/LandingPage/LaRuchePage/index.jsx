@@ -9,6 +9,7 @@ import Button from '../../../components/Custom/Button';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { useWindowSize } from '../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function LaRuchePage() {
   const { t } = useTranslation();
@@ -38,8 +39,8 @@ export default function LaRuchePage() {
           <div className={styles.logo}>
             <img
               src={LOGO_ENUM.WHITE_LOGO_1024X1024}
-              height={width < 600 ? '200px' : '300px'}
-              width={width < 600 ? '200px' : '300px'}
+              height={width < MOBILE_WIDTH ? '200px' : '300px'}
+              width={width < MOBILE_WIDTH ? '200px' : '300px'}
             />
           </div>
         </div>
@@ -79,8 +80,8 @@ export default function LaRuchePage() {
           <div className={styles.partners}>
             <img
               src={PARTENERS_LOGO_ENUM.LA_RUCHE}
-              height={width < 600 ? '48px' : '112px'}
-              width={width < 600 ? '140px' : '320px'}
+              height={width < MOBILE_WIDTH ? '48px' : '112px'}
+              width={width < MOBILE_WIDTH ? '140px' : '320px'}
               className={styles.partnerLogo}
             />
             <Typography variant="h5" className={styles.text}>
@@ -88,8 +89,8 @@ export default function LaRuchePage() {
             </Typography>
             <img
               src={PARTENERS_LOGO_ENUM.ESPACE_INC}
-              height={width < 600 ? '48px' : '112px'}
-              width={width < 600 ? '140px' : '320px'}
+              height={width < MOBILE_WIDTH ? '48px' : '112px'}
+              width={width < MOBILE_WIDTH ? '140px' : '320px'}
               className={styles.partnerLogo}
             />
           </div>
