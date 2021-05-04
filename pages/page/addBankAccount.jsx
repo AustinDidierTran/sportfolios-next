@@ -29,7 +29,7 @@ const AddBankAccountRoute = () => {
     }
   };
 
-  if (entityId && id) {
+  if (entityId || id) {
     return (
       <>
         <Head>
