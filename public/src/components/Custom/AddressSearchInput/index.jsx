@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
 import { GOOGLE_PLACES_API_KEY } from '../../../../../conf';
-import { useTranslation } from 'react-i18next';
 import styles from './AddressSearchInput.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,7 +11,6 @@ let autoComplete;
 
 function AddressSearchInput(props) {
   const { language: languageProp, addressChanged, formik, namespace, country } = props;
-  const { t } = useTranslation();
   const autoCompleteRef = useRef(null);
 
   useEffect(() => {
@@ -105,14 +103,15 @@ function AddressSearchInput(props) {
   };
 
   return (
-    <div className={styles.searchLocationInput}>
+    <div className={styles.searchLocationInput} autoComplete="off">
       <input
+        autoComplete="false"
+        type="text"
         ref={autoCompleteRef}
         id={namespace}
         name={namespace}
         value={(formik && formik.values[namespace]) || ''}
         onChange={onChange}
-        placeholder={t('address')}
         required
       />
     </div>
