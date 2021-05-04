@@ -125,7 +125,7 @@ export default function EditPersonInfos(props) {
       birthDate: '',
       gender: '',
       phoneNumber: '',
-      formattedAddress: '',
+      addressFormatted: '',
       address: '',
     },
     validationSchema,
@@ -214,7 +214,7 @@ export default function EditPersonInfos(props) {
 
   return (
     <Paper className={styles.card} formik={formik}>
-      <form onSubmit={formik.handleSubmit} onKeyDown={onKeyDown}>
+      <form onSubmit={formik.handleSubmit} onKeyDown={onKeyDown} autoComplete="off">
         <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
         <Upload {...uploadImageProps}>
           <Button

@@ -521,7 +521,7 @@ export default {
       add_tax: 'Add tax',
       add_team: 'Add team',
       add_team_fees: 'Add team fees',
-      add_player_fees: 'Ajouter des par joueur',
+      add_player_fees: 'Add player fees',
       add_the_teams_you_want_in_your_tournament: 'Add the teams you want in your tournament',
       add_time_slot: 'Add time slot',
       add_to_cart: 'Add to cart',
