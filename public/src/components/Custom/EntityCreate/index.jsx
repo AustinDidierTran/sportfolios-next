@@ -72,7 +72,7 @@ export default function EntityCreate(props) {
 
     let filteredData = data;
     
-    if(id != null){
+    if(id){
       filteredData = data.filter(a => a.id == id);
     }
 
