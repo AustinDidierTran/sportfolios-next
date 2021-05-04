@@ -136,14 +136,26 @@ export default function EntityCreate(props) {
         },
         {
           namespace: 'startDate',
-          label: t('event.event_start'),
-          type: 'datetime-local',
+          label: t('event.event_start_date'),
+          type: 'date',
+          shrink: true,
+        },
+        {
+          namespace: 'startTime',
+          label: t('event.event_start_time'),
+          type: 'time',
           shrink: true,
         },
         {
           namespace: 'endDate',
-          label: t('event.event_end'),
-          type: 'datetime-local',
+          label: t('event.event_end_date'),
+          type: 'date',
+          shrink: true,
+        },
+        {
+          namespace: 'endTime',
+          label: t('event.event_end_time'),
+          type: 'time',
           shrink: true,
         },
         {
@@ -182,6 +194,7 @@ export default function EntityCreate(props) {
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     });
   } else {
@@ -199,20 +212,22 @@ export default function EntityCreate(props) {
       maximumSpots: '',
       startDate: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DDThh:mm'),
       endDate: '',
+      endTime: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname, creator, maximumSpots, startDate: startDateProps, endDate: endDateProps } = values;
+      const { name, surname, creator, maximumSpots, startDate, endDate, startTime, endTime } = values;
       setIsSubmitting(true);
-      let startDate = startDateProps;
-      if (!moment(startDateProps).isValid()) {
-        startDate = null;
+      let start = new Date(`${startDate} ${startTime}`).getTime();
+      let end = new Date(`${endDate} ${endTime}`).getTime();
+
+      if (!moment(start).isValid()) {
+        start = null;
       }
-      let endDate = endDateProps;
-      if (!moment(endDateProps).isValid()) {
-        endDate = null;
+      if (!moment(end).isValid()) {
+        end = null;
       }
       try {
         const res = await api('/api/entity', {
@@ -223,8 +238,8 @@ export default function EntityCreate(props) {
             type,
             creator,
             maximumSpots,
-            startDate,
-            endDate,
+            startDate: start,
+            endDate: end,
           }),
         });
         goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
