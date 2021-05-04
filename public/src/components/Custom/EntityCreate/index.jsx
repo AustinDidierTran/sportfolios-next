@@ -20,6 +20,7 @@ import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { useRouter } from 'next/router';
+import { formatDate } from '../../../../src/utils/stringFormats';
 
 import * as yup from 'yup';
 
@@ -71,9 +72,9 @@ export default function EntityCreate(props) {
     );
 
     let filteredData = data;
-    
-    if(id){
-      filteredData = data.filter(a => a.id == id);
+
+    if (id) {
+      filteredData = data.filter((a) => a.id == id);
     }
 
     if (status === STATUS_ENUM.SUCCESS) {
@@ -89,7 +90,7 @@ export default function EntityCreate(props) {
   useEffect(() => {
     formik.resetForm();
     getCreatorsOptions();
-  }, [type,id]);
+  }, [type, id]);
 
   useEffect(() => {
     if (!creatorOptions.length) {
@@ -196,7 +197,7 @@ export default function EntityCreate(props) {
       surname: '',
       creator: '',
       maximumSpots: '',
-      startDate: '',
+      startDate: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DDThh:mm'),
       endDate: '',
     },
     validationSchema,

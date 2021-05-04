@@ -28,8 +28,8 @@ export default function EventSettings() {
         })
       );
       formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
-      formik.setFieldValue('startDate', formatDate(moment.parseZone(data.start_date), 'YYYY-MM-DDThh:mm:ss'));
-      formik.setFieldValue('endDate', formatDate(moment.parseZone(data.end_date), 'YYYY-MM-DDThh:mm:ss'));
+      formik.setFieldValue('startDate', formatDate(moment.parseZone(data.start_date), 'YYYY-MM-DDThh:mm'));
+      formik.setFieldValue('endDate', formatDate(moment.parseZone(data.end_date), 'YYYY-MM-DDThh:mm'));
     }
   };
 
