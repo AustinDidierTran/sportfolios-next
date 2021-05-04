@@ -19,6 +19,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
 import { formatRoute } from '../../../../common/utils/stringFormat';
+import { useRouter } from 'next/router';
 
 import * as yup from 'yup';
 
@@ -28,6 +29,9 @@ export default function EntityCreate(props) {
   const {
     state: { userInfo },
   } = useContext(Store);
+
+  const router = useRouter();
+  const { id } = router.query;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [creatorOptions, setCreatorOptions] = useState([]);
@@ -66,9 +70,15 @@ export default function EntityCreate(props) {
       { method: 'GET' }
     );
 
+    let filteredData = data;
+    
+    if(id != null){
+      filteredData = data.filter(a => a.id == id);
+    }
+
     if (status === STATUS_ENUM.SUCCESS) {
       setCreatorOptions(
-        data.map((c) => ({
+        filteredData.map((c) => ({
           value: c.id,
           display: `${c.name}${c.surname ? ` ${c.surname}` : ''}`,
         }))
@@ -79,7 +89,7 @@ export default function EntityCreate(props) {
   useEffect(() => {
     formik.resetForm();
     getCreatorsOptions();
-  }, [type]);
+  }, [type,id]);
 
   useEffect(() => {
     if (!creatorOptions.length) {
