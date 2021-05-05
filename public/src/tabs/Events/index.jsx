@@ -32,7 +32,7 @@ export default function Events() {
   };
 
   const createEvent = () => {
-    goTo(ROUTES.createEvent, null, {id: id });
+    goTo(ROUTES.createEvent, null, { id: id });
   };
 
   useEffect(() => {
@@ -40,12 +40,12 @@ export default function Events() {
   }, []);
 
   return (
-    
     <div className={styles.div}>
       <div className={styles.buttons}>
         <CustomButton onClick={createEvent} endIcon="Add" color="primary" className={styles.button}>
-          {t('add.add')}
-        </CustomButton></div>
+          {t('create.create_event')}
+        </CustomButton>
+      </div>
       <div className={styles.general}>
         {events.length ? (
           <>
