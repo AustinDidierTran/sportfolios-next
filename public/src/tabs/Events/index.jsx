@@ -8,6 +8,8 @@ import api from '../../actions/api';
 import Typography from '@material-ui/core/Typography';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
+import { goTo, ROUTES } from '../../actions/goTo';
+import CustomButton from '../../components/Custom/Button';
 
 export default function Events() {
   const { t } = useTranslation();
@@ -29,12 +31,21 @@ export default function Events() {
     setEvents(events);
   };
 
+  const createEvent = () => {
+    goTo(ROUTES.createEvent, null, { id: id });
+  };
+
   useEffect(() => {
     getData();
   }, []);
 
   return (
     <div className={styles.div}>
+      <div className={styles.buttons}>
+        <CustomButton onClick={createEvent} endIcon="Add" color="primary" className={styles.button}>
+          {t('create.create_event')}
+        </CustomButton>
+      </div>
       <div className={styles.general}>
         {events.length ? (
           <>
