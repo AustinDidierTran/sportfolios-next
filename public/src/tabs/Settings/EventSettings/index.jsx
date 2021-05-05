@@ -27,16 +27,34 @@ export default function EventSettings() {
           eventId,
         })
       );
+      let start = data.start_date;
+      if (start) {
+        start = new Date(data.start_date);
+      }
+      let end = data.end_date;
+      if (end) {
+        end = new Date(data.end_date);
+      }
       formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
-      formik.setFieldValue('startDate', formatDate(moment.parseZone(data.start_date), 'YYYY-MM-DD'));
-      formik.setFieldValue('startTime', formatDate(moment.parseZone(data.start_date), 'HH:mm'));
-      formik.setFieldValue('endDate', formatDate(moment.parseZone(data.end_date), 'YYYY-MM-DD'));
-      formik.setFieldValue('endTime', formatDate(moment.parseZone(data.end_date), 'HH:mm'));
+      formik.setFieldValue('startDate', formatDate(moment.parseZone(start), 'YYYY-MM-DD'));
+      formik.setFieldValue('startTime', formatDate(moment.parseZone(start), 'HH:mm'));
+      formik.setFieldValue('endDate', formatDate(moment.parseZone(end), 'YYYY-MM-DD'));
+      formik.setFieldValue('endTime', formatDate(moment.parseZone(end), 'HH:mm'));
     }
   };
   useEffect(() => {
     getInfos();
   }, [eventId]);
+
+  const getDate = (date, time, defaultTime) => {
+    if (!date) {
+      return null;
+    }
+    if (!time) {
+      return `${date} ${defaultTime}`;
+    }
+    return `${date} ${time}`;
+  };
 
   const validationSchema = yup.object().shape({
     maximumSpots: yup.number(t(ERROR_ENUM.VALUE_IS_INVALID)).min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
@@ -56,15 +74,8 @@ export default function EventSettings() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { maximumSpots, startDate, startTime, endDate, endTime } = values;
-      let start = new Date(`${startDate} ${startTime}`).getTime();
-      let end = new Date(`${endDate} ${endTime}`).getTime();
-
-      if (!moment(start).isValid()) {
-        start = null;
-      }
-      if (!moment(end).isValid()) {
-        end = null;
-      }
+      let start = getDate(startDate, startTime, '09:00');
+      let end = getDate(endDate, endTime, '16:00');
 
       const res = await api(`/api/entity/updateEvent`, {
         method: 'PUT',

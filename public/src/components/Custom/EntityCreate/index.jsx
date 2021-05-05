@@ -210,7 +210,8 @@ export default function EntityCreate(props) {
       surname: '',
       creator: '',
       maximumSpots: '',
-      startDate: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DDThh:mm'),
+      startDate: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DD'),
+      startTime: '09:00',
       endDate: '',
       endTime: '',
     },
@@ -220,8 +221,8 @@ export default function EntityCreate(props) {
     onSubmit: async (values) => {
       const { name, surname, creator, maximumSpots, startDate, endDate, startTime, endTime } = values;
       setIsSubmitting(true);
-      let start = new Date(`${startDate} ${startTime}`).getTime();
-      let end = new Date(`${endDate} ${endTime}`).getTime();
+      let start = `${startDate} ${startTime}`;
+      let end = `${endDate} ${endTime}`;
 
       if (!moment(start).isValid()) {
         start = null;
