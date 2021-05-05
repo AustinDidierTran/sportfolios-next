@@ -28,46 +28,51 @@ export default function EventSettings() {
         })
       );
       formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
-      formik.setFieldValue('startDate', formatDate(moment.parseZone(data.start_date), 'YYYY-MM-DDThh:mm:ss'));
-      formik.setFieldValue('endDate', formatDate(moment.parseZone(data.end_date), 'YYYY-MM-DDThh:mm:ss'));
+      formik.setFieldValue('startDate', formatDate(moment.parseZone(data.start_date), 'YYYY-MM-DD'));
+      formik.setFieldValue('startTime', formatDate(moment.parseZone(data.start_date), 'HH:mm'));
+      formik.setFieldValue('endDate', formatDate(moment.parseZone(data.end_date), 'YYYY-MM-DD'));
+      formik.setFieldValue('endTime', formatDate(moment.parseZone(data.end_date), 'HH:mm'));
     }
   };
-
   useEffect(() => {
     getInfos();
   }, [eventId]);
 
   const validationSchema = yup.object().shape({
     maximumSpots: yup.number(t(ERROR_ENUM.VALUE_IS_INVALID)).min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
-    eventStart: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)),
-    eventEnd: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)),
+    startDate: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    startTime: yup.string(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
     initialValues: {
       maximumSpots: '',
       startDate: '',
+      startTime: '',
       endDate: '',
+      endTime: '',
     },
     validateOnChange: false,
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const { maximumSpots, startDate: startDateProps, endDate: endDateProps } = values;
-      let startDate = startDateProps;
-      if (!moment(startDateProps).isValid()) {
-        startDate = null;
+      const { maximumSpots, startDate, startTime, endDate, endTime } = values;
+      let start = new Date(`${startDate} ${startTime}`).getTime();
+      let end = new Date(`${endDate} ${endTime}`).getTime();
+
+      if (!moment(start).isValid()) {
+        start = null;
       }
-      let endDate = endDateProps;
-      if (!moment(endDateProps).isValid()) {
-        endDate = null;
+      if (!moment(end).isValid()) {
+        end = null;
       }
+
       const res = await api(`/api/entity/updateEvent`, {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
           maximumSpots,
-          startDate,
-          endDate,
+          startDate: start,
+          endDate: end,
         }),
       });
       if (res.data.reason) {
@@ -102,27 +107,9 @@ export default function EventSettings() {
     },
   });
 
-  const fields = [
-    {
-      namespace: 'maximumSpots',
-      label: t('maximum_spots'),
-      type: 'number',
-    },
-    {
-      namespace: 'startDate',
-      helperText: t('event.event_start'),
-      type: 'datetime-local',
-    },
-    {
-      namespace: 'endDate',
-      helperText: t('event.event_end'),
-      type: 'datetime-local',
-    },
-  ];
-
   return (
     <Paper title={t('event.event_settings')} className={styles.paper}>
-      <Card items={{ fields, formik }} type={CARD_TYPE_ENUM.EVENT_SETTINGS} />
+      <Card items={{ formik }} type={CARD_TYPE_ENUM.EVENT_SETTINGS} />
     </Paper>
   );
 }
