@@ -6,7 +6,7 @@ import IconButton from '../IconButton';
 import styles from './CheckBox.module.css';
 
 export default function CustomCheckBox(props) {
-  const { checked, onChange, label, color, name, disabled, tooltip } = props;
+  const { checked, onChange, label, color, name, disabled, tooltip, formik, ...otherProps } = props;
   const handleChange = (event) => {
     onChange(event.target.checked);
   };
@@ -19,6 +19,7 @@ export default function CustomCheckBox(props) {
             checked={checked}
             disabled={disabled}
             onChange={handleChange}
+            {...otherProps}
             color={color || 'primary'}
             name={name}
           />

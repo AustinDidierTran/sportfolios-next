@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '../../Button';
 import TextField from '../../TextField';
+import CheckBox from '../../CheckBox';
 import Paper from '../../Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,12 +13,28 @@ export default function EventSettings(props) {
   const { formik } = props;
   const { t } = useTranslation();
 
+  const [limit, setLimit] = useState(formik.values.limit);
+
+  const handleChecked = () => {
+    console.log(limit);
+    
+    setLimit(!limit);
+    formik.values.limit = limit;
+  };
+
   return (
-    <Paper className={styles.paper}>
+    <Paper childrenProps={{ className: styles.box }} className={styles.paper} >
       <form onSubmit={formik.handleSubmit}>
         <List>
           <ListItem>
-            <TextField namespace="maximumSpots" fullWidth formik={formik} label={t('maximum_spots')} type="number" />
+            <CheckBox style={{marginBottom: '6px'}} label={t('set_limit_of_spots')} checked={limit} formik={formik} onChange={handleChecked} />
+            <TextField
+              namespace="maximumSpots"
+              disabled={!limit}
+              formik={formik}
+              label={t('maximum_spots')}
+              type="number"
+            />
           </ListItem>
           <ListItem>
             <TextField
