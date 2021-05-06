@@ -13,7 +13,7 @@ export default function AdditionalInformation(props) {
   return (
     <>
       <TextField
-        InputProps={{ disableUnderline: true }}
+        InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
         multiline
         className={styles.textArea}
         disabled

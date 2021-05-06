@@ -36,7 +36,7 @@ export default function AcceptPlayerInfos(props) {
           <div className={styles.div}>
             <Typography color="textSecondary">{paymentOption.informations}:</Typography>
             <TextField
-              InputProps={{ disableUnderline: true, style: { color: 'black' } }}
+              InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap', style: { color: 'black' } }}
               multiline
               className={styles.textArea}
               disabled

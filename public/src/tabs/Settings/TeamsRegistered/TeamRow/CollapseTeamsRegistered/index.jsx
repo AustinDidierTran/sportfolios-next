@@ -33,7 +33,7 @@ export default function CollapseTeamsRegistered(props) {
             primary={team?.option?.informations}
             secondary={
               <TextField
-                InputProps={{ disableUnderline: true }}
+                InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
                 multiline
                 className={styles.textArea}
                 disabled
