@@ -290,7 +290,7 @@ export default function EntityCreate(props) {
             <CardContent>
               {fields.map((field, index) => {
                 return field.label == t('maximum_spots') ? (
-                  <div style={{ marginTop: '8px' }}>
+                  <div className={styles.row}>
                     <span style={{ marginLeft: '-12px', marginTop: '8px', float: 'left' }}>
                       <ComponentFactory
                         component={{

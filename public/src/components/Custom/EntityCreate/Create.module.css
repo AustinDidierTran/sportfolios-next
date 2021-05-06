@@ -5,3 +5,10 @@
 .main {
   margin-top: 24px;
 }
+
+.row {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
