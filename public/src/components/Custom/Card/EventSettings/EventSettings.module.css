@@ -5,3 +5,9 @@
 .item {
   flex: 1 1 auto;
 }
+.date {
+  margin: 4px !important;
+}
+.time {
+  margin: 4px !important;
+}

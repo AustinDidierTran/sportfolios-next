@@ -20,6 +20,7 @@ import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { useRouter } from 'next/router';
+import { formatDate } from '../../../../src/utils/stringFormats';
 
 import * as yup from 'yup';
 
@@ -71,9 +72,9 @@ export default function EntityCreate(props) {
     );
 
     let filteredData = data;
-    
-    if(id){
-      filteredData = data.filter(a => a.id == id);
+
+    if (id) {
+      filteredData = data.filter((a) => a.id == id);
     }
 
     if (status === STATUS_ENUM.SUCCESS) {
@@ -89,7 +90,7 @@ export default function EntityCreate(props) {
   useEffect(() => {
     formik.resetForm();
     getCreatorsOptions();
-  }, [type,id]);
+  }, [type, id]);
 
   useEffect(() => {
     if (!creatorOptions.length) {
@@ -135,14 +136,26 @@ export default function EntityCreate(props) {
         },
         {
           namespace: 'startDate',
-          label: t('event.event_start'),
-          type: 'datetime-local',
+          label: t('event.event_start_date'),
+          type: 'date',
+          shrink: true,
+        },
+        {
+          namespace: 'startTime',
+          label: t('event.event_start_time'),
+          type: 'time',
           shrink: true,
         },
         {
           namespace: 'endDate',
-          label: t('event.event_end'),
-          type: 'datetime-local',
+          label: t('event.event_end_date'),
+          type: 'date',
+          shrink: true,
+        },
+        {
+          namespace: 'endTime',
+          label: t('event.event_end_time'),
+          type: 'time',
           shrink: true,
         },
         {
@@ -181,6 +194,7 @@ export default function EntityCreate(props) {
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     });
   } else {
@@ -196,22 +210,25 @@ export default function EntityCreate(props) {
       surname: '',
       creator: '',
       maximumSpots: '',
-      startDate: '',
+      startDate: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DD'),
+      startTime: '09:00',
       endDate: '',
+      endTime: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname, creator, maximumSpots, startDate: startDateProps, endDate: endDateProps } = values;
+      const { name, surname, creator, maximumSpots, startDate, endDate, startTime, endTime } = values;
       setIsSubmitting(true);
-      let startDate = startDateProps;
-      if (!moment(startDateProps).isValid()) {
-        startDate = null;
+      let start = `${startDate} ${startTime}`;
+      let end = `${endDate} ${endTime}`;
+
+      if (!moment(start).isValid()) {
+        start = null;
       }
-      let endDate = endDateProps;
-      if (!moment(endDateProps).isValid()) {
-        endDate = null;
+      if (!moment(end).isValid()) {
+        end = null;
       }
       try {
         const res = await api('/api/entity', {
@@ -222,8 +239,8 @@ export default function EntityCreate(props) {
             type,
             creator,
             maximumSpots,
-            startDate,
-            endDate,
+            startDate: start,
+            endDate: end,
           }),
         });
         goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
