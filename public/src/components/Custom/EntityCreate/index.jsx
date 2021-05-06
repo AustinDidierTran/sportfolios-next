@@ -275,11 +275,7 @@ export default function EntityCreate(props) {
   };
 
   const handleChecked = () => {
-    if (limit == false) {
-      setLimit(true);
-    } else {
-      setLimit(false);
-    }
+      setLimit(!limit);
   };
 
   if (isSubmitting) {
