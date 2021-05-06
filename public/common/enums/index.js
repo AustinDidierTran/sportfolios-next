@@ -59,6 +59,7 @@ const COMPONENT_TYPE_ENUM = {
   SELECT: 'select',
   TEXT_FIELD_BOX: 'text field box',
   TEXT_DOUBLE_BUTTON: 'text double button',
+  FILE_UPLOAD: 'file upload',
 };
 
 const ROSTER_ROLE_ENUM = {
