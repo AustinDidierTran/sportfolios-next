@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '../../Button';
 import TextField from '../../TextField';
@@ -13,21 +13,28 @@ export default function EventSettings(props) {
   const { formik } = props;
   const { t } = useTranslation();
 
-  const [limit, setLimit] = useState(formik.values.limit);
+  useEffect(() => {
+    setLimit(formik.values.limit);
+  }, [formik.values.limit]);
+
+  const [limit, setLimit] = useState([]);
 
   const handleChecked = () => {
-    console.log(limit);
-    
     setLimit(!limit);
-    formik.values.limit = limit;
   };
 
   return (
-    <Paper childrenProps={{ className: styles.box }} className={styles.paper} >
+    <Paper childrenProps={{ className: styles.box }} className={styles.paper}>
       <form onSubmit={formik.handleSubmit}>
         <List>
           <ListItem>
-            <CheckBox style={{marginBottom: '6px'}} label={t('set_limit_of_spots')} checked={limit} formik={formik} onChange={handleChecked} />
+            <CheckBox
+              style={{ marginBottom: '6px' }}
+              label={t('set_limit_of_spots')}
+              checked={limit}
+              formik={formik}
+              onChange={handleChecked}
+            />
             <TextField
               namespace="maximumSpots"
               disabled={!limit}

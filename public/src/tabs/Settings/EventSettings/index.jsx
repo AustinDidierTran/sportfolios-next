@@ -35,12 +35,12 @@ export default function EventSettings() {
       if (end) {
         end = new Date(data.end_date);
       }
-      formik.setFieldValue('limit', !data.maximumSpots);
+      formik.setFieldValue('limit', data.maximum_spots != null);
       formik.setFieldValue('maximumSpots', data.maximum_spots || '');
       formik.setFieldValue('startDate', formatDate(moment.parseZone(start), 'YYYY-MM-DD'));
       formik.setFieldValue('startTime', formatDate(moment.parseZone(start), 'HH:mm'));
       formik.setFieldValue('endDate', formatDate(moment.parseZone(end), 'YYYY-MM-DD'));
-      formik.setFieldValue('endTime', formatDate(moment.parseZone(end), 'HH:mm'));      
+      formik.setFieldValue('endTime', formatDate(moment.parseZone(end), 'HH:mm'));
     }
   };
   useEffect(() => {
@@ -56,12 +56,12 @@ export default function EventSettings() {
     }
     return `${date} ${time}`;
   };
-  
+
   const validationSchema = yup.object().shape({
     maximumSpots: yup.number(t(ERROR_ENUM.VALUE_IS_INVALID)).min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
     startDate: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startTime: yup.string(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-  }); 
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -75,14 +75,13 @@ export default function EventSettings() {
     validateOnChange: false,
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const { limit, maximumSpots:maximumSpotsProps, startDate, startTime, endDate, endTime } = values;
+      const { limit, maximumSpots: maximumSpotsProps, startDate, startTime, endDate, endTime } = values;
       let start = getDate(startDate, startTime, '09:00');
       let end = getDate(endDate, endTime, '16:00');
 
       let maximumSpots = maximumSpotsProps;
-      console.log(limit);
-      
-      if(limit){
+
+      if (limit) {
         maximumSpots = null;
       }
 
