@@ -34,7 +34,7 @@ const changeEntityURL = async (id, url) => {
 
 export async function uploadFile(file) {
   if (file.size > MAX_FILE_SIZE) {
-    throw 'FIle is too big';
+    throw 'File is too big';
   }
 
   const { data } = await getSignature(file.type);
