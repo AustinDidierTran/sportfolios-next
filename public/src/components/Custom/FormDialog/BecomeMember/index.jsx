@@ -11,7 +11,6 @@ import {
   COMPONENT_TYPE_ENUM,
   MEMBERSHIP_LENGTH_ENUM,
   TABS_ENUM,
-  GENDER_ENUM,
   GLOBAL_ENUM,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
@@ -22,6 +21,8 @@ import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
 import * as yup from 'yup';
 import UpdatePersonalInfos from './UpdatePersonalInfos';
+import PersonalInfos from './PersonalInfos';
+import TermsAndConditions from './TermsAndConditions';
 import GoToCart from './GoToCart';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 
@@ -37,6 +38,7 @@ export default function BecomeMember(props) {
   const { id } = router.query;
 
   const [open, setOpen] = useState(false);
+  const [terms, setTerms] = useState(false);
   const [updateInfos, setUpdateInfos] = useState(false);
   const [goToCart, setGoToCart] = useState(false);
   const [personalInfos, setPersonalInfos] = useState(false);
@@ -240,6 +242,13 @@ export default function BecomeMember(props) {
 
   const membership = useMemo(() => fullMemberships.find((m) => m.id === formik.values.type), [formik.values.type]);
 
+  const hasTerms = useMemo(() => {
+    if (membership) {
+      return membership.description || membership.file_url;
+    }
+    return false;
+  }, [membership]);
+
   const hasChanged = () => {
     return (
       personInfos.birthDate != formik.values.birthDate ||
@@ -262,8 +271,32 @@ export default function BecomeMember(props) {
     onClose();
   };
 
-  const addressChanged = (newAddress) => {
-    formik.setFieldValue('address', newAddress);
+  const onNext = () => {
+    onClose();
+    if (hasTerms) {
+      setTerms(true);
+    } else {
+      setPersonalInfos(true);
+    }
+  };
+
+  const onTermsNext = () => {
+    setTerms(false);
+    setPersonalInfos(true);
+  };
+
+  const onTermsClose = () => {
+    setTerms(false);
+    onOpen();
+  };
+
+  const onPersonalInfosClose = () => {
+    setPersonalInfos(false);
+    if (hasTerms) {
+      setTerms(true);
+    } else {
+      onOpen();
+    }
   };
 
   const onGoToCartClose = () => {
@@ -295,74 +328,6 @@ export default function BecomeMember(props) {
     },
   ];
 
-  const infosFields = [
-    {
-      namespace: 'birthDate',
-      InputProps: {
-        inputProps: {
-          max: moment(new Date()).format('YYYY-MM-DD'),
-        },
-      },
-      helperText: t('birth_date'),
-      type: 'date',
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: 'gender',
-      label: t('gender'),
-      options: [
-        { value: GENDER_ENUM.MALE, display: t('male') },
-        { value: GENDER_ENUM.FEMALE, display: t('female') },
-        { value: GENDER_ENUM.NOT_SPECIFIED, display: t('do_not_specify') },
-      ],
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.PHONE_NUMBER,
-      namespace: 'phoneNumber',
-      label: t('phone_number'),
-      formik,
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.ADDRESS,
-      namespace: 'formattedAddress',
-      language: userInfo.language,
-      country: 'ca',
-      addressChanged,
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.DIVIDER,
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: t('emergency_contact'),
-    },
-    {
-      namespace: 'emergencyName',
-      label: t('name'),
-      formik,
-    },
-    {
-      namespace: 'emergencySurname',
-      label: t('surname'),
-      formik,
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.PHONE_NUMBER,
-      namespace: 'emergencyPhoneNumber',
-      label: t('phone_number'),
-      formik,
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
-      namespace: 'medicalConditions',
-      label: t('medical_conditions'),
-      variant: 'filled',
-      rows: 5,
-      rowsMax: 5,
-      style: { width: '100%' },
-    },
-  ];
-
   const buttons = [
     {
       onClick: onClose,
@@ -370,26 +335,8 @@ export default function BecomeMember(props) {
       color: 'secondary',
     },
     {
-      onClick: () => {
-        onClose();
-        setPersonalInfos(true);
-      },
+      onClick: onNext,
       name: t('next'),
-      color: 'primary',
-    },
-  ];
-  const infosButtons = [
-    {
-      onClick: () => {
-        setPersonalInfos(false);
-        onOpen();
-      },
-      name: t('back'),
-      color: 'secondary',
-    },
-    {
-      type: 'submit',
-      name: t('finish'),
       color: 'primary',
     },
   ];
@@ -407,16 +354,14 @@ export default function BecomeMember(props) {
         subtitle={t('learn_more')}
         subtitleOnClick={onClickMoreInfo}
       />
-      <BasicFormDialog
-        open={personalInfos}
-        title={t('person.personal_information')}
-        buttons={infosButtons}
-        fields={infosFields}
+      <TermsAndConditions
+        open={terms}
+        onClose={onTermsClose}
         formik={formik}
-        onClose={() => {
-          setPersonalInfos(false);
-        }}
+        onNext={onTermsNext}
+        membership={membership}
       />
+      <PersonalInfos open={personalInfos} formik={formik} onClose={onPersonalInfosClose} />
       <UpdatePersonalInfos open={updateInfos} onClose={onUpdateInfosClose} formik={formik} />
       <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>

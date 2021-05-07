@@ -27,7 +27,7 @@ export default function CollapsePlayersRegistered(props) {
             primary={player?.option?.informations}
             secondary={
               <TextField
-                InputProps={{ disableUnderline: true }}
+                InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
                 multiline
                 className={styles.textArea}
                 disabled

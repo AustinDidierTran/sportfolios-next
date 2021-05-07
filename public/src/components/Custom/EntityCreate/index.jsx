@@ -51,6 +51,8 @@ export default function EntityCreate(props) {
 
   const creatingEntity = useMemo(() => Number(type), [type]);
 
+  const [limit, setLimit] = useState(false);
+
   const getCreatorsOptions = async () => {
     if (creatingEntity === GLOBAL_ENUM.PERSON) {
       return;
@@ -133,6 +135,7 @@ export default function EntityCreate(props) {
           namespace: 'maximumSpots',
           label: t('maximum_spots'),
           type: 'number',
+          disabled: !limit,
         },
         {
           namespace: 'startDate',
@@ -181,7 +184,7 @@ export default function EntityCreate(props) {
         options: creatorOptions,
       },
     ];
-  }, [type, creatorOptions]);
+  }, [type, creatorOptions, limit]);
 
   let validationSchema;
   if (creatingEntity === GLOBAL_ENUM.PERSON) {
@@ -190,13 +193,23 @@ export default function EntityCreate(props) {
       surname: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     });
   } else if (creatingEntity === GLOBAL_ENUM.EVENT) {
-    validationSchema = yup.object().shape({
-      name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-      maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-      startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-      startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-      creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-    });
+      if (!limit) {
+        validationSchema = yup.object().shape({
+          name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+          startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+          startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+          creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        });
+      }
+      else{
+      validationSchema = yup.object().shape({
+        name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      });
+    }
   } else {
     validationSchema = yup.object().shape({
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -230,6 +243,10 @@ export default function EntityCreate(props) {
       if (!moment(end).isValid()) {
         end = null;
       }
+      let maximum = maximumSpots;
+      if (!limit) {
+        maximum = null;
+      }
       try {
         const res = await api('/api/entity', {
           method: 'POST',
@@ -238,7 +255,7 @@ export default function EntityCreate(props) {
             surname,
             type,
             creator,
-            maximumSpots,
+            maximumSpots: maximum,
             startDate: start,
             endDate: end,
           }),
@@ -257,6 +274,10 @@ export default function EntityCreate(props) {
     history.back();
   };
 
+  const handleChecked = () => {
+    setLimit(!limit);
+  };
+
   if (isSubmitting) {
     return <LoadingSpinner />;
   }
@@ -267,11 +288,28 @@ export default function EntityCreate(props) {
         <form onSubmit={formik.handleSubmit}>
           <CustomPaper className={styles.card} title={entityObject.title}>
             <CardContent>
-              {fields.map((field, index) => (
-                <div style={{ marginTop: '8px' }} key={index}>
-                  <ComponentFactory component={{ ...field, formik }} />
-                </div>
-              ))}
+              {fields.map((field, index) => {
+                return field.label == t('maximum_spots') ? (
+                  <div className={styles.row}>
+                    <span style={{ marginLeft: '-12px', marginTop: '8px', float: 'left' }}>
+                      <ComponentFactory
+                        component={{
+                          componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
+                          label: t('set_limit_of_spots'),
+                          onChange: handleChecked,
+                        }}
+                      />
+                    </span>
+                    <span style={{ float: 'left' }} key={index}>
+                      <ComponentFactory component={{ ...field, formik }} />
+                    </span>
+                  </div>
+                ) : (
+                  <div style={{ marginTop: '8px' }} key={index}>
+                    <ComponentFactory component={{ ...field, formik }} />
+                  </div>
+                );
+              })}
             </CardContent>
             <CardActions className={styles.buttons}>
               <>
