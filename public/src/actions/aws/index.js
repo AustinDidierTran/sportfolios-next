@@ -3,8 +3,9 @@ import axios from 'axios';
 
 // 100 mb
 const MAX_IMG_SIZE = 1024 * 1024 * 100;
+const MAX_FILE_SIZE = 1024 * 1024 * 100;
 
-const getSignature = async (id, imgType) => {
+const getSignature = async (imgType) => {
   return api(`/api/entity/s3Signature?fileType=${imgType}`);
 };
 
@@ -31,6 +32,18 @@ const changeEntityURL = async (id, url) => {
   });
 };
 
+export async function uploadFile(file) {
+  if (file.size > MAX_FILE_SIZE) {
+    throw 'File is too big';
+  }
+
+  const { data } = await getSignature(file.type);
+
+  await uploadToS3(file, data.signedRequest);
+
+  return data.url;
+}
+
 export async function uploadEntityPicture(id, img) {
   if (!img || img.type.split('/')[0] != 'image') {
     throw 'Please select an image';
@@ -40,7 +53,7 @@ export async function uploadEntityPicture(id, img) {
     throw 'Image is too big';
   }
 
-  const { data } = await getSignature(id, img.type);
+  const { data } = await getSignature(img.type);
 
   await uploadToS3(img, data.signedRequest);
 
@@ -58,7 +71,7 @@ export async function uploadPicture(id, img) {
     throw 'Image is too big';
   }
 
-  const { data } = await getSignature(id, img.type);
+  const { data } = await getSignature(img.type);
 
   await uploadToS3(img, data.signedRequest);
 

@@ -20,6 +20,7 @@ import BasicFormDialog from '../BasicFormDialog';
 import { validateDate, formatPrice } from '../../../../utils/stringFormats';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { uploadFile } from '../../../../actions/aws';
 
 export default function AddMembership(props) {
   const { open: openProps, onClose, update } = props;
@@ -32,6 +33,8 @@ export default function AddMembership(props) {
   const [fixedDate, setFixedDate] = useState(false);
   const [taxes, setTaxes] = useState([]);
   const [allTaxes, setAllTaxes] = useState([]);
+  const [file, setFile] = useState(null);
+  const [terms, setTerms] = useState(false);
 
   useEffect(() => {
     getTaxes();
@@ -43,6 +46,8 @@ export default function AddMembership(props) {
   }, [openProps]);
 
   const handleClose = () => {
+    setFile(null);
+    setTerms(false);
     formik.resetForm();
     update();
     onClose();
@@ -104,14 +109,34 @@ export default function AddMembership(props) {
       type: '',
       date: '',
       length: '',
+      description: '',
     },
     validate,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { membership, date, type, length, price } = values;
+      const { membership, date, type, length, price, description } = values;
+      let fileUrl = null;
+
+      if (file && file.type.split('/')[1] === 'pdf') {
+        fileUrl = await uploadFile(file);
+        if (!fileUrl) {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('invalid.invalid_file'),
+            severity: SEVERITY_ENUM.ERROR,
+          });
+          return;
+        }
+      }
+
       const correctPrice = Math.floor(price * 100);
       const taxRatesId = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id);
+
+      let desc = description;
+      if (!description) {
+        desc = null;
+      }
 
       const res = await api(`/api/entity/membership`, {
         method: 'POST',
@@ -121,6 +146,9 @@ export default function AddMembership(props) {
           length,
           date,
           type,
+          description: desc,
+          fileName: file.name,
+          fileUrl,
           price: correctPrice,
           taxRatesId,
         }),
@@ -173,6 +201,75 @@ export default function AddMembership(props) {
     }
     return total - transactionFee;
   }, [total, transactionFee]);
+
+  const uploadProps = {
+    multiple: false,
+    accept: '.pdf',
+    onStart(file) {
+      // Show preview
+      if (file.type.split('/')[1] === 'pdf') {
+        setFile(file);
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('invalid.invalid_file_format_pdf'),
+          severity: SEVERITY_ENUM.ERROR,
+        });
+      }
+    },
+  };
+
+  const termsField = terms
+    ? [
+        {
+          componentType: COMPONENT_TYPE_ENUM.BUTTON,
+          onClick: () => {
+            setTerms(false);
+            setFile(null);
+            formik.setFieldValue('description', '');
+          },
+          children: t('remove_terms_and_conditions'),
+          color: 'secondary',
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          primary: t('terms_and_conditions'),
+          secondary: t('terms_and_conditions_description'),
+        },
+        {
+          componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
+          namespace: 'description',
+          label: t('description.description_optional'),
+          variant: 'filled',
+          rows: 5,
+          rowsMax: 15,
+          style: { width: '100%' },
+        },
+        file
+          ? {
+              componentType: COMPONENT_TYPE_ENUM.LIST,
+              icon: 'Delete',
+              primary: file?.name,
+              onIconClick: () => {
+                setFile(null);
+              },
+              tooltip: t('delete.delete'),
+            }
+          : {
+              componentType: COMPONENT_TYPE_ENUM.FILE_UPLOAD,
+              props: uploadProps,
+              buttonName: t('upload_terms_and_conditions'),
+            },
+      ]
+    : [
+        {
+          componentType: COMPONENT_TYPE_ENUM.BUTTON,
+          onClick: () => {
+            setTerms(true);
+          },
+          children: t('add.add_terms_and_conditions'),
+        },
+      ];
 
   const fields = [
     {
@@ -257,12 +354,16 @@ export default function AddMembership(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: t('payment.transaction_fees', { fee: formatPrice(transactionFee * 100) }),
+      primary: t('payment.transaction_fees_with_fees', { fee: formatPrice(transactionFee * 100) }),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
+      primary: t('payment.received_amount_with_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
+    {
+      componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+    },
+    ...termsField,
   ];
 
   const buttons = [

@@ -124,7 +124,7 @@ export default function ImportMembers() {
     if (fileObj.type != 'text/csv') {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('invalid.invalid_file_format'),
+        message: t('invalid.invalid_file_format_csv'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 5000,
       });

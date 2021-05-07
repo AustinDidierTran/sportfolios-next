@@ -7,7 +7,6 @@ import Select from '../Select';
 import MultiSelect from '../MultiSelect';
 import AddressSearchInput from '../AddressSearchInput';
 import CheckBox from '../CheckBox';
-import List from '../List';
 import RadioGroup from '../RadioGroup';
 import CustomIconButton from '../IconButton';
 import PhoneNumberFormat from '../PhoneNumberFormat';
@@ -18,6 +17,10 @@ import PersonSearchList from '../SearchList/PersonSearchList';
 import PersonItem from '../List/PersonItem';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Upload from 'rc-upload';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
 import Link from 'next/link';
 
 export default function ComponentFactory(props) {
@@ -119,7 +122,25 @@ export default function ComponentFactory(props) {
     return <Divider style={component.style} />;
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST) {
-    return <List items={component.items} />;
+    return (
+      <List>
+        <ListItem>
+          <ListItemText
+            primary={component.primary}
+            secondary={component.secondary}
+            style={{ overflowWrap: 'anywhere' }}
+          />
+          <ListItemSecondaryAction>
+            <CustomIconButton
+              icon={component.icon}
+              style={{ color: 'primary', marginLeft: 'auto' }}
+              onClick={component.onIconClick}
+              tooltip={component.tooltip}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
+    );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.PERSON_SEARCH_LIST) {
     return (
@@ -186,6 +207,15 @@ export default function ComponentFactory(props) {
         type={component.type}
         row={component.row}
       />
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.FILE_UPLOAD) {
+    return (
+      <Upload {...component.props}>
+        <Button variant="outlined" endIcon="CloudUploadIcon" style={component.style} component="label">
+          {component.buttonName}
+        </Button>
+      </Upload>
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.EMPTY) {
