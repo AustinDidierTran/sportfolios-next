@@ -93,7 +93,7 @@ export default function CollapsePaymentOption(props) {
               primary={t('required_informations')}
               secondary={
                 <TextField
-                  InputProps={{ disableUnderline: true }}
+                  InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
                   multiline
                   className={styles.textArea}
                   disabled
@@ -112,7 +112,8 @@ export default function CollapsePaymentOption(props) {
             style={{ margin: '8px' }}
           >
             {t('see_revenue')}
-          </CustomButton>)}
+          </CustomButton>
+        )}
         <ListItem className={styles.money}>
           <ListItemText />
           <ListItemText primary={t('team.team')} />

@@ -34,14 +34,14 @@ export default function AcceptTeamInfos(props) {
         {paymentOption?.informations && (
           <div className={styles.div}>
             <TextField
-              InputProps={{ disableUnderline: true }}
+              InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
               multiline
               className={styles.textArea}
               disabled
               value={`${paymentOption.informations}:`}
             />
             <TextField
-              InputProps={{ disableUnderline: true, style: { color: 'black' } }}
+              InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap', style: { color: 'black' } }}
               multiline
               className={styles.textArea}
               disabled

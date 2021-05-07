@@ -18,6 +18,7 @@ import PersonSearchList from '../SearchList/PersonSearchList';
 import PersonItem from '../List/PersonItem';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import Link from 'next/link';
 
 export default function ComponentFactory(props) {
   const { component } = props;
@@ -159,7 +160,19 @@ export default function ComponentFactory(props) {
         rowsMax={component.rowsMax}
         label={component.label}
         style={component.style}
+        disabled={component.disabled}
+        InputProps={component.inputProps}
+        value={component.value}
       />
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.LINK) {
+    return (
+      <Typography style={{ color: 'blue', textDecoration: 'underline' }}>
+        <Link to="route" target="_blank" rel="noopener noreferrer" href={component.href}>
+          {component.name}
+        </Link>
+      </Typography>
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.RADIO_GROUP) {
