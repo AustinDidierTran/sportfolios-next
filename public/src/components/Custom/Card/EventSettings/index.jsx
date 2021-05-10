@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import Button from '../../Button';
 import TextField from '../../TextField';
@@ -13,14 +13,10 @@ export default function EventSettings(props) {
   const { formik } = props;
   const { t } = useTranslation();
 
-  useEffect(() => {
-    setLimit(formik.values.limit);
-  }, [formik.values.limit]);
-
-  const [limit, setLimit] = useState([]);
+  const limit = useMemo(() => formik.values.limit, [formik.values.limit]);
 
   const handleChecked = () => {
-    setLimit(!limit);
+    formik.setFieldValue('limit', !limit);
   };
 
   return (

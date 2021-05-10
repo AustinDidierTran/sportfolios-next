@@ -13,5 +13,11 @@
 }
 
 .box {
-  width: 65%;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .box {
+    width: 65%
+  }
 }

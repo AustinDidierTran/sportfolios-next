@@ -58,7 +58,13 @@ export default function EventSettings() {
   };
 
   const validationSchema = yup.object().shape({
-    maximumSpots: yup.number(t(ERROR_ENUM.VALUE_IS_INVALID)).min(0, t(ERROR_ENUM.VALUE_IS_INVALID)),
+    maximumSpots: yup
+      .number(t(ERROR_ENUM.VALUE_IS_INVALID))
+      .min(0, t(ERROR_ENUM.VALUE_IS_INVALID))
+      .when('limit', {
+        is: true,
+        then: yup.number().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      }),
     startDate: yup.date(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startTime: yup.string(t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
@@ -81,7 +87,7 @@ export default function EventSettings() {
 
       let maximumSpots = maximumSpotsProps;
 
-      if (limit) {
+      if (!limit) {
         maximumSpots = null;
       }
 
