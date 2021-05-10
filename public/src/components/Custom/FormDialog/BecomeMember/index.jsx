@@ -22,6 +22,7 @@ import { formatRoute } from '../../../../../common/utils/stringFormat';
 import * as yup from 'yup';
 import UpdatePersonalInfos from './UpdatePersonalInfos';
 import PersonalInfos from './PersonalInfos';
+import OptionalInformations from './OptionalInformations';
 import TermsAndConditions from './TermsAndConditions';
 import GoToCart from './GoToCart';
 import { goTo, ROUTES } from '../../../../actions/goTo';
@@ -42,10 +43,12 @@ export default function BecomeMember(props) {
   const [updateInfos, setUpdateInfos] = useState(false);
   const [goToCart, setGoToCart] = useState(false);
   const [personalInfos, setPersonalInfos] = useState(false);
+  const [optionalInformations, setOptionalInformations] = useState(false);
   const [personInfos, setPersonInfos] = useState({});
   const [people, setPeople] = useState(userInfo.people);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
+  const [membershipCreatedId, setMembershipCreatedId] = useState([]);
 
   useEffect(() => {
     if (openProps) {
@@ -222,13 +225,9 @@ export default function BecomeMember(props) {
         });
       } else {
         setPersonalInfos(false);
-        if (hasChanged()) {
-          setUpdateInfos(true);
-        } else if (membership.price > 0) {
-          setGoToCart(true);
-        } else {
-          resetForm();
-        }
+        setOptionalInformations(true);
+        setMembershipCreatedId(res.data.id);
+
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('member.membership_added'),
@@ -236,6 +235,56 @@ export default function BecomeMember(props) {
           duration: 4000,
         });
         update();
+      }
+    },
+  });
+
+  const formikOptional = useFormik({
+    initialValues: {
+      heardOrganization: '',
+      gettingInvolved: false,
+      frequentedSchool: '',
+      jobTitle: '',
+      employer: '',
+    },
+    onSubmit: async (values, { resetForm }) => {
+      const { heardOrganization, gettingInvolved, frequentedSchool, jobTitle, employer } = values;
+      const res = await api(`/api/entity/memberOptionalField`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          membershipId: membershipCreatedId,
+          heardOrganization,
+          gettingInvolved,
+          frequentedSchool,
+          jobTitle,
+          employer,
+        }),
+      });
+      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        setOptionalInformations(false);
+        resetForm();
+
+        if (hasChanged()) {
+          setUpdateInfos(true);
+        } else if (membership.price > 0) {
+          setGoToCart(true);
+        } else {
+          resetForm();
+        }
+
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('member.membership_optional_info_added'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 4000,
+        });
       }
     },
   });
@@ -297,6 +346,10 @@ export default function BecomeMember(props) {
     } else {
       onOpen();
     }
+  };
+
+  const onOptionalInformationsClose = () => {
+    setOptionalInformations(false);
   };
 
   const onGoToCartClose = () => {
@@ -363,6 +416,7 @@ export default function BecomeMember(props) {
       />
       <PersonalInfos open={personalInfos} formik={formik} onClose={onPersonalInfosClose} />
       <UpdatePersonalInfos open={updateInfos} onClose={onUpdateInfosClose} formik={formik} />
+      <OptionalInformations open={optionalInformations} formik={formikOptional} onClose={onOptionalInformationsClose} />
       <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>
   );

@@ -147,7 +147,7 @@ export default function AddMembership(props) {
           date,
           type,
           description: desc,
-          fileName: file.name,
+          fileName: file?.name,
           fileUrl,
           price: correctPrice,
           taxRatesId,
