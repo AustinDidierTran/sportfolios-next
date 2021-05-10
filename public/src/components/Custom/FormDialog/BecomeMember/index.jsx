@@ -268,16 +268,8 @@ export default function BecomeMember(props) {
           duration: 4000,
         });
       } else {
-        setOptionalInformations(false);
         resetForm();
-
-        if (hasChanged()) {
-          setUpdateInfos(true);
-        } else if (membership.price > 0) {
-          setGoToCart(true);
-        } else {
-          resetForm();
-        }
+        onOptionalInformationsClose();
 
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -350,6 +342,11 @@ export default function BecomeMember(props) {
 
   const onOptionalInformationsClose = () => {
     setOptionalInformations(false);
+    if (hasChanged()) {
+      setUpdateInfos(true);
+    } else if (membership.price > 0) {
+      setGoToCart(true);
+    }
   };
 
   const onGoToCartClose = () => {
