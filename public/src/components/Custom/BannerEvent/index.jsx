@@ -57,7 +57,15 @@ export default function BannerEvent(props) {
         </Typography>
       );
     }
-    if (eventInfo.remainingSpots < 1) {
+    if (!eventInfo.remainingSpots) {
+      return (
+        <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant}>
+          {t('event.event_is_open')}&nbsp;
+          {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
+        </Typography>
+      );
+    }
+    else if(eventInfo.remainingSpots < 1){
       return (
         <Typography variant={fontVariant} component="p">
           {t('event.event_is_full')}

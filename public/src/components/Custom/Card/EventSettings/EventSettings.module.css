@@ -11,3 +11,13 @@
 .time {
   margin: 4px !important;
 }
+
+.box {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .box {
+    width: 65%
+  }
+}

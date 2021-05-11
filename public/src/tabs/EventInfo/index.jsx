@@ -113,7 +113,11 @@ export default function TabEventInfo() {
   }, [remainingSpots]);
 
   const isFull = useMemo(() => {
-    return remainingSpots < 1;
+    return remainingSpots && remainingSpots < 1;
+  }, [remainingSpots]);
+
+  const hasNoLimit = useMemo(() => {
+    return !remainingSpots;
   }, [remainingSpots]);
 
   const canRegister = useMemo(() => {
@@ -121,7 +125,7 @@ export default function TabEventInfo() {
       return false;
     }
     return true;
-  }, [isFull, options, isLate, isEarly]);
+  }, [isFull, options, isLate, isEarly, hasNoLimit]);
 
   const getDate = () => {
     return formatIntervalDate(moment(event.startDate), moment(event.endDate));
@@ -155,7 +159,15 @@ export default function TabEventInfo() {
         </>
       );
     }
-    if (isFull) {
+    if (hasNoLimit){
+      return (
+        <Typography variant="body2" color="textSecondary" component="p">
+          {t('event.event_is_open')}&nbsp;
+          {registrationEnd}
+        </Typography>
+      );
+    }
+    else if (isFull) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
           {t('event.event_is_full')}
@@ -198,7 +210,7 @@ export default function TabEventInfo() {
             <Typography variant="body2" color="textSecondary" component="p">
               {event.location || 'Sherbrooke'}
             </Typography>
-            {isFull ? (
+            {isFull || hasNoLimit ? (
               <></>
             ) : (
               <Typography variant="body2" color={color} component="p">

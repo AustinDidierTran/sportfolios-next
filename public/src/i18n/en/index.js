@@ -640,6 +640,7 @@ export default {
       event_end_date: 'End date',
       event_end_time: 'End time',
       event_is_full: 'Event is full, no place available',
+      event_is_open: 'Event is open, register before',
       event_manager: 'Event Manager',
       event_registration: 'Event Registration',
       event_settings: 'Event settings',
