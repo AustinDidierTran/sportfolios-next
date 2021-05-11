@@ -99,7 +99,7 @@ export default function PersonalInfos(props) {
     },
     {
       type: 'submit',
-      name: t('finish'),
+      name: t('next'),
       color: 'primary',
     },
   ];

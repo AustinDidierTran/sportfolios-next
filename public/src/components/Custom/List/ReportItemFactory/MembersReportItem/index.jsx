@@ -80,7 +80,12 @@ export default function MembersReportItem(props) {
         emergencyName: d.emergency_name,
         emergencySurname: d.emergency_surname,
         emergencyPhoneNumber: d.emergency_phone_number,
-        medicalConditions: d.medicalConditions,
+        medicalConditions: d.medical_conditions,
+        heardOrganization: d.heard_organization,
+        gettingInvolved: d.getting_involved ? t('yes') : t('no.no'),
+        frequentedSchool: d.frequented_school,
+        jobTitle: d.job_title,
+        employer: d.employer,
       }));
       setData(formattedData);
       setOpen(true);
@@ -116,6 +121,11 @@ export default function MembersReportItem(props) {
     { label: t('surname'), key: 'emergencySurname' },
     { label: t('phone_number'), key: 'emergencyPhoneNumber' },
     { label: t('medical_conditions'), key: 'medicalConditions' },
+    { label: t('heard_organization'), key: 'heardOrganization' },
+    { label: t('getting_involved'), key: 'gettingInvolved' },
+    { label: t('frequented_school'), key: 'frequentedSchool' },
+    { label: t('job_title'), key: 'jobTitle' },
+    { label: t('employer'), key: 'employer' },
   ];
 
   const fileName = `${metadata.organizationName} ${t('member.members')} ${formatDate(
