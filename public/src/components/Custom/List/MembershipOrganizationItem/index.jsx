@@ -62,7 +62,7 @@ export default function MembershipOrganizationItem(props) {
           {description != null && (
             <ListItem className={styles.money}>
               <ListItemText primary={`${t('description.description')}:`}></ListItemText>
-              <ListItemText primary={`${description}`}></ListItemText>
+              <ListItemText style={{'white-space': 'pre-wrap'}} primary={`${description}`}></ListItemText>
             </ListItem>
           )}
           <ListItem className={styles.money}>
