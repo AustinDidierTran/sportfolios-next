@@ -514,19 +514,19 @@ const PARTENERS_LOGO_ENUM = {
 
 const PHOTO_ENUM = {
   JULIEN:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-dlgfp-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-89ehe-2850fc27-60b3-4508-93d1-56b454c9edf0',
   PIERRE_ETIENNE:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-ocb51-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-7t73z-2850fc27-60b3-4508-93d1-56b454c9edf0',
   WILLIAM:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-o96in-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-980rp-2850fc27-60b3-4508-93d1-56b454c9edf0',
   AUSTIN:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-pvcmp-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-ru0rh-2850fc27-60b3-4508-93d1-56b454c9edf0',
   EMILIE:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-qefc3-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-n4rs6-2850fc27-60b3-4508-93d1-56b454c9edf0',
   REMI:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-2s57d-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-dvoeb-2850fc27-60b3-4508-93d1-56b454c9edf0',
   MAXIME:
-    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210510-uhx6j-2850fc27-60b3-4508-93d1-56b454c9edf0',
+    'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210511-ihjx9-2850fc27-60b3-4508-93d1-56b454c9edf0',
   RANDOM_PLAYER:
     'https://sportfolios-images.s3.amazonaws.com/production/images/entity/20210331-p4spo-60fb055c-a90c-48f6-aad4-e9bbdc115074',
 };

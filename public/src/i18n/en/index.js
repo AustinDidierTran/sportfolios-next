@@ -1,4 +1,3 @@
-import { Manager } from 'socket.io-client';
 import { SIZES_ENUM } from '../../../common/enums';
 
 export default {

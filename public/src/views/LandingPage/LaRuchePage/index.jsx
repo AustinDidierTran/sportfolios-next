@@ -5,9 +5,6 @@ import styles from './LaRuchePage.module.css';
 import { LOGO_ENUM, PARTENERS_LOGO_ENUM } from '../../../../common/enums';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Button from '../../../components/Custom/Button';
-import { AddGaEvent } from '../../../components/Custom/Analytics';
-import { goTo, ROUTES } from '../../../actions/goTo';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 

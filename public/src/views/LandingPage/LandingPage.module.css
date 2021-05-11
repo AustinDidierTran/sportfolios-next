@@ -69,6 +69,16 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.divAustin {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas: '. austin .';
+}
+
+.austin {
+  grid-area: austin;
+}
+
 .login {
   position: absolute;
   right: 16px;

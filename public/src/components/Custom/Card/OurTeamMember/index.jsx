@@ -5,6 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { useWindowSize } from '../../../../hooks/window';
+import { MOBILE_WIDTH } from '../../../../../common/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,17 +25,21 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 250,
   },
   image: {
-    height: '200px',
+    height: '300px',
+  },
+  imageMobile: {
+    height: '190px',
   },
 }));
-
 export default function OurTeamMember(props) {
   const { name, role, src } = props;
   const classes = useStyles();
 
+  const [width] = useWindowSize();
+
   return (
     <Card className={classes.root} elevation={5}>
-      <CardMedia className={classes.image} component="img" src={src} />
+      <CardMedia className={width < MOBILE_WIDTH ? classes.imageMobile : classes.image} component="img" src={src} />
       <CardContent className={classes.firstCardContent}>
         <Typography style={{ whiteSpace: 'pre-line' }} variant="h5">
           {name}
