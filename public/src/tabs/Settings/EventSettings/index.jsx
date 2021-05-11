@@ -36,7 +36,7 @@ export default function EventSettings() {
         end = new Date(data.end_date);
       }
       formik.setFieldValue('limit', data.maximum_spots != null);
-      formik.setFieldValue('maximumSpots', data.maximum_spots || '');
+      formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
       formik.setFieldValue('startDate', formatDate(moment.parseZone(start), 'YYYY-MM-DD'));
       formik.setFieldValue('startTime', formatDate(moment.parseZone(start), 'HH:mm'));
       formik.setFieldValue('endDate', formatDate(moment.parseZone(end), 'YYYY-MM-DD'));
