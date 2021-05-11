@@ -1,3 +1,4 @@
+import { Manager } from 'socket.io-client';
 import { SIZES_ENUM } from '../../../common/enums';
 
 export default {
@@ -358,6 +359,8 @@ export default {
         vp_techno: 'VP of Technology',
         web_dev: 'Web Developer',
         comm: 'Communications Manager',
+        market_strat: 'Marketing Strategist',
+        market_manager: 'Marketing Manager',
       },
     },
     payment: {

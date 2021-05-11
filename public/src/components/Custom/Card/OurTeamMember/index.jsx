@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontWeight: 250,
   },
+  image: {
+    height: '200px',
+  },
 }));
 
 export default function OurTeamMember(props) {

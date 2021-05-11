@@ -13,10 +13,11 @@ export default function Page4() {
   const team = [
     { name: 'Austin-Didier \n Tran', role: t('landingPage.roles.founder'), src: PHOTO_ENUM.AUSTIN },
     { name: 'Julien \n Bernat', role: t('landingPage.roles.vp_techno'), src: PHOTO_ENUM.JULIEN },
-    { name: 'Achille \n Lanctôt Saumure', role: t('landingPage.roles.web_dev'), src: PHOTO_ENUM.ACHILLE },
-    { name: 'Médéric \n Rochon', role: t('landingPage.roles.web_dev'), src: PHOTO_ENUM.MEDERIC },
     { name: 'Émilie \n Oliver', role: t('landingPage.roles.comm'), src: PHOTO_ENUM.EMILIE },
-    { name: 'Andréanne \n  Breton', role: t('landingPage.roles.comm'), src: PHOTO_ENUM.ANDREANNE },
+    { name: 'Pierre-Etienne \n Morin', role: t('landingPage.roles.web_dev'), src: PHOTO_ENUM.PIERRE_ETIENNE },
+    { name: 'Maxime \n Pellerin', role: t('landingPage.roles.web_dev'), src: PHOTO_ENUM.MAXIME },
+    { name: 'William \n Tran', role: t('landingPage.roles.market_strat'), src: PHOTO_ENUM.WILLIAM },
+    { name: 'Rémi \n Carrier-Desmarais', role: t('landingPage.roles.market_manager'), src: PHOTO_ENUM.REMI },
   ];
 
   return (
