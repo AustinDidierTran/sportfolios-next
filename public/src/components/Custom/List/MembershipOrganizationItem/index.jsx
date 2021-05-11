@@ -19,6 +19,7 @@ export default function MembershipOrganizationItem(props) {
     membershipType,
     expirationDate,
     onDelete,
+    onEdit,
     id,
     taxRates,
     transactionFees,
@@ -103,6 +104,17 @@ export default function MembershipOrganizationItem(props) {
             style={{ margin: '8px' }}
           >
             {t('delete.delete')}
+          </CustomButton>
+
+          <CustomButton
+            onClick={() => {
+              onEdit(id, fileName, fileUrl, description);
+            }}
+            endIcon="Edit"
+            color="primary"
+            style={{ margin: '8px' }}
+          >
+            {t('edit.edit_terms_and_conditions')}
           </CustomButton>
         </div>
       </CustomCollapse>

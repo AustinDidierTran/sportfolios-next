@@ -9,13 +9,20 @@ import { List } from '../../../components/Custom';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import { ACTION_ENUM, Store } from '../../../Store';
+import dynamic from 'next/dynamic';
+
+const CustomFormDialog = dynamic(() => import('../../../components/Custom/FormDialog'));
 
 export default function AddMembership() {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
   const [alertDialog, setAlertDialog] = useState(false);
-  const [deletedId, setDeletedId] = useState(null);
+  const [selectedId, setSelectedId] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
+  const [description, setDescription] = useState('');
+  const [editTermsAndConditions, setEditTermsAndConditions] = useState(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -42,13 +49,22 @@ export default function AddMembership() {
       type: LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION,
       id: d.id,
       onDelete,
+      onEdit,
       key: d.id,
     }));
     setOptions(data);
   };
 
+  const onEdit = (id, fileName, fileUrl, description) => {
+    setSelectedId(id);
+    setFileName(fileName);
+    setFileUrl(fileUrl);
+    setDescription(description);
+    setEditTermsAndConditions(true);
+  };
+
   const onDelete = (id) => {
-    setDeletedId(id);
+    setSelectedId(id);
     setAlertDialog(true);
   };
 
@@ -56,7 +72,7 @@ export default function AddMembership() {
     closeAlertDialog();
     await api(
       formatRoute('/api/entity/membership', null, {
-        membershipId: deletedId,
+        membershipId: selectedId,
       }),
       {
         method: 'DELETE',
@@ -70,6 +86,9 @@ export default function AddMembership() {
     });
   };
 
+  const onCloseEditTermsAndConditions = () => {
+    setEditTermsAndConditions(false);
+  };
   const onOpen = () => {
     setOpen(true);
   };
@@ -123,6 +142,19 @@ export default function AddMembership() {
         title={t('delete.delete_membership')}
       />
       <List items={options} />
+
+      <CustomFormDialog
+        type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS}
+        items={{
+          open: editTermsAndConditions,
+          onClose: onCloseEditTermsAndConditions,
+          update,
+          selectedId,
+          fileName,
+          fileUrl,
+          description,
+        }}
+      />
     </Paper>
   );
 }

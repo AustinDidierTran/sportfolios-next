@@ -14,6 +14,7 @@ const BecomeMemberCoupon = dynamic(() => import('./BecomeMemberCoupon'));
 const MembersReport = dynamic(() => import('./MembersReport'));
 const SalesReport = dynamic(() => import('./SalesReport'));
 const EditMembership = dynamic(() => import('./EditMembership'));
+const EditMembershipTermsAndConditions = dynamic(() => import('./EditMembershipTermsAndConditions'));
 const EditMemberImport = dynamic(() => import('./EditMemberImport'));
 const EnterEmail = dynamic(() => import('./EnterEmail'));
 const CreateTaxRate = dynamic(() => import('./CreateTaxRate'));
@@ -32,8 +33,8 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.MEMBERS_REPORT]: MembersReport,
   [FORM_DIALOG_TYPE_ENUM.SALES_REPORT]: SalesReport,
   [FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP]: EditMembership,
+  [FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS]: EditMembershipTermsAndConditions,
   [FORM_DIALOG_TYPE_ENUM.EDIT_MEMBER_IMPORT]: EditMemberImport,
-  [FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP]: EditMembership,
   [FORM_DIALOG_TYPE_ENUM.ENTER_EMAIL]: EnterEmail,
   [FORM_DIALOG_TYPE_ENUM.ROSTER_PLAYER_OPTIONS]: RosterPlayerOptions,
   [FORM_DIALOG_TYPE_ENUM.SUBMIT_SCORE_AND_SPIRIT]: SubmitScoreAndSpiritForm,

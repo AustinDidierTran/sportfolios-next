@@ -183,7 +183,6 @@ export default function ComponentFactory(props) {
         style={component.style}
         disabled={component.disabled}
         InputProps={component.inputProps}
-        value={component.value}
       />
     );
   }

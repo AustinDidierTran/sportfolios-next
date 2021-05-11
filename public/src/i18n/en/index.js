@@ -618,6 +618,7 @@ export default {
       edit_ranking: 'Edit ranking',
       edit_teams: 'Edit teams',
       edit_team_fees: 'Edit team fees',
+      edit_terms_and_conditions: 'Edit terms and conditions',
       edit_player_fees: 'Edit player fees',
     },
     email: {
