@@ -358,6 +358,8 @@ export default {
         vp_techno: 'VP of Technology',
         web_dev: 'Web Developer',
         comm: 'Communications Manager',
+        market_strat: 'Marketing Strategist',
+        market_manager: 'Marketing Manager',
       },
     },
     payment: {

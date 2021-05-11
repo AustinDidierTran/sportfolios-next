@@ -5,9 +5,6 @@ import styles from './LaRuchePage.module.css';
 import { LOGO_ENUM, PARTENERS_LOGO_ENUM } from '../../../../common/enums';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Button from '../../../components/Custom/Button';
-import { AddGaEvent } from '../../../components/Custom/Analytics';
-import { goTo, ROUTES } from '../../../actions/goTo';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 
@@ -18,20 +15,6 @@ export default function LaRuchePage() {
   return (
     <div className={styles.page}>
       <div className={styles.layer}>
-        <div className={styles.login}>
-          <Button
-            onClick={() => {
-              AddGaEvent({
-                category: 'Landing page',
-                action: 'User clicked to be redirected to login',
-                label: 'landing_page_login',
-              });
-              goTo(ROUTES.login);
-            }}
-          >
-            {t('landingPage.presentation.9')}
-          </Button>
-        </div>
         <div className={styles.titleContainer}>
           <Typography variant="h2" font className={styles.title}>
             {t('campaign')}
