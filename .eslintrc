@@ -41,7 +41,8 @@
     "react/jsx-boolean-value": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1
+    "react/jsx-uses-vars": 1,
+    "react/jsx-no-target-blank": 0
   }
 }
 
