@@ -48,7 +48,7 @@ export default function BecomeMember(props) {
   const [people, setPeople] = useState(userInfo.people);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
-  const [membershipCreatedId, setMembershipCreatedId] = useState([]);
+  const [membershipCreatedId, setMembershipCreatedId] = useState('');
 
   useEffect(() => {
     if (openProps) {
