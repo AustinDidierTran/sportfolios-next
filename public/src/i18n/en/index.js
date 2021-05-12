@@ -1238,6 +1238,7 @@ export default {
     reserve: 'Reserve',
     results: 'Results',
     return_home: 'Return home',
+    return_event: 'Return to event',
     review: 'Review & Pay',
     role: 'Role',
     roster_doesnt_have_to_be_final_only_for_pre_ranking_purpose:

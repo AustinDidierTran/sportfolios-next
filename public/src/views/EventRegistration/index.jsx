@@ -237,7 +237,7 @@ export default function EventRegistration() {
           <CustomIconButton
             icon="ArrowBack"
             onClick={() => goTo(ROUTES.entity, { id: router.query.id })}
-            tooltip={t('back')}
+            tooltip={t('return_event')}
             className={styles.iconButton}
             style={{ color: 'primary' }}
           />
