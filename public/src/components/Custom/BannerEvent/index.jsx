@@ -64,8 +64,7 @@ export default function BannerEvent(props) {
           {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
         </Typography>
       );
-    }
-    else if(eventInfo.remainingSpots < 1){
+    } else if (eventInfo.remainingSpots < 1) {
       return (
         <Typography variant={fontVariant} component="p">
           {t('event.event_is_full')}
@@ -119,7 +118,7 @@ export default function BannerEvent(props) {
               <Typography variant={fontVariant} color="error">
                 {eventInfo.startDate
                   ? formatIntervalDate(moment.parseZone(eventInfo.startDate), moment.parseZone(eventInfo.endDate))
-                  : t('date_comming_soon')}
+                  : t('date_coming_soon')}
               </Typography>
               {eventInfo.location && (
                 <Typography variant={fontVariant} color="error">

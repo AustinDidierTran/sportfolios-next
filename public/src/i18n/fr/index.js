@@ -959,7 +959,7 @@ export default {
     currency: 'Devise',
     date_in_future: 'La date est dans le futur',
     date: 'Date',
-    date_comming_soon: 'Date à venir',
+    date_coming_soon: 'Date à venir',
     day_ago_plural: 'Il y a {{count}} jours',
     day_ago: 'Il y a {{count}} jour',
     day: 'Jour',
