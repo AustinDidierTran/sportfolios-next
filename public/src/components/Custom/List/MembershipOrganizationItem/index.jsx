@@ -13,7 +13,19 @@ import CustomButton from '../../Button';
 export default function MembershipOrganizationItem(props) {
   const { t } = useTranslation();
 
-  const { membership, price, membershipType, expirationDate, onDelete, id, taxRates, transactionFees } = props;
+  const {
+    membership,
+    price,
+    membershipType,
+    expirationDate,
+    onDelete,
+    id,
+    taxRates,
+    transactionFees,
+    description,
+    fileName,
+    fileUrl,
+  } = props;
   const [expanded, setExpanded] = useState(false);
 
   const handleExpand = () => {
@@ -41,6 +53,18 @@ export default function MembershipOrganizationItem(props) {
           <ListItem>
             <ListItemText primary={membershipType} secondary={`${t('expire_on')} ${expirationDate}`}></ListItemText>
           </ListItem>
+          {fileUrl != null && (
+            <ListItem className={styles.money}>
+              <ListItemText primary={`${t('terms_and_conditions')}:`}></ListItemText>
+              <a style={{ color: 'blue' }} href={`${fileUrl}`} target="_blank">{`${fileName}`}</a>
+            </ListItem>
+          )}
+          {description != null && (
+            <ListItem className={styles.money}>
+              <ListItemText primary={`${t('description.description')}:`}></ListItemText>
+              <ListItemText style={{'white-space': 'pre-wrap'}} primary={`${description}`}></ListItemText>
+            </ListItem>
+          )}
           <ListItem className={styles.money}>
             <ListItemText primary={`${t('subtotal')}:`}></ListItemText>
             <ListItemText primary={`${formatPrice(price)}`}></ListItemText>
