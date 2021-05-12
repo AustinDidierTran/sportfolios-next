@@ -18,9 +18,25 @@ export default function PersonalInfos(props) {
   }, [openProps]);
 
   const [open, setOpen] = useState(false);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
 
   const addressChanged = (newAddress) => {
-    formik.setFieldValue('address', newAddress);
+    if (newAddress) {
+      setWrongAddressFormat('');
+      formik.setFieldValue('address', newAddress);
+      formik.setFieldValue('addressValid', true);
+    } else {
+      setWrongAddressFormat(t('address_error'));
+      formik.setFieldValue('addressValid', false);
+      formik.setFieldValue('formattedAddress', newAddress);
+    }
+  };
+
+  const onAddressChanged = () => {
+    if (formik.values.formattedAddress) {
+      setWrongAddressFormat(t('address_error'));
+      formik.setFieldValue('addressValid', false);
+    }
   };
 
   const fields = [
@@ -56,6 +72,8 @@ export default function PersonalInfos(props) {
       language: userInfo.language,
       country: 'ca',
       addressChanged,
+      errorFormat: wrongAddressFormat,
+      onChange: onAddressChanged,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.DIVIDER,

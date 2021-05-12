@@ -59,6 +59,8 @@ export default function ComponentFactory(props) {
         language={component.language}
         country={component.country}
         addressChanged={component.addressChanged}
+        errorFormat={component.errorFormat}
+        onChange={component.onChange}
       >
         {component.children}
       </AddressSearchInput>

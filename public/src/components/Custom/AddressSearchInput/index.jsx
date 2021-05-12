@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 let autoComplete;
 
 function AddressSearchInput(props) {
-  const { language: languageProp, addressChanged, formik, namespace, country } = props;
+  const { language: languageProp, addressChanged, onChange, formik, namespace, country, errorFormat } = props;
   const autoCompleteRef = useRef(null);
 
   useEffect(() => {
@@ -93,27 +93,47 @@ function AddressSearchInput(props) {
           outputAddress.zip = e.long_name;
         }
       });
-      formik.setFieldValue(namespace, addressObject.formatted_address);
-      addressChanged(outputAddress, addressObject.formatted_address);
+
+      if (
+        outputAddress.street_address &&
+        outputAddress.city &&
+        outputAddress.state &&
+        outputAddress.country &&
+        outputAddress.zip
+      ) {
+        formik.setFieldValue(namespace, addressObject.formatted_address);
+        addressChanged(outputAddress, addressObject.formatted_address);
+      } else {
+        addressChanged('');
+      }
     }
   }
 
-  const onChange = (event) => {
-    formik.setFieldValue(namespace, event.target.value);
+  const handleChange = (event, ...args) => {
+    if (formik) {
+      formik.handleChange(event, ...args);
+    }
+
+    if (onChange) {
+      onChange(event.target.value);
+    }
   };
 
   return (
-    <div className={styles.searchLocationInput} autoComplete="off">
-      <input
-        autoComplete="false"
-        type="text"
-        ref={autoCompleteRef}
-        id={namespace}
-        name={namespace}
-        value={(formik && formik.values[namespace]) || ''}
-        onChange={onChange}
-        required
-      />
+    <div>
+      {errorFormat && <div style={{ color: 'red' }}>{errorFormat}</div>}
+      <div className={styles.searchLocationInput} autoComplete="off">
+        <input
+          autoComplete="false"
+          type="text"
+          ref={autoCompleteRef}
+          id={namespace}
+          name={namespace}
+          value={(formik && formik.values[namespace]) || ''}
+          onChange={handleChange}
+          required
+        />
+      </div>
     </div>
   );
 }
