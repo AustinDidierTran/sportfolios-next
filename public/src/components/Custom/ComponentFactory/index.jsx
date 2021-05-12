@@ -171,6 +171,23 @@ export default function ComponentFactory(props) {
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX) {
+    if (component.namespace) {
+      return (
+        <TextField
+          namespace={component.namespace}
+          formik={component.formik}
+          variant={component.variant}
+          multiline
+          rows={component.rows}
+          rowsMax={component.rowsMax}
+          label={component.label}
+          style={component.style}
+          disabled={component.disabled}
+          InputProps={component.inputProps}
+        />
+      );
+    }
+
     return (
       <TextField
         namespace={component.namespace}
