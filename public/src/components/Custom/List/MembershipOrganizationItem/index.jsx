@@ -39,7 +39,6 @@ export default function MembershipOrganizationItem(props) {
   const [expanded, setExpanded] = useState(false);
   const [editTermsAndConditions, setEditTermsAndConditions] = useState(false);
   const [alertDialog, setAlertDialog] = useState(false);
-  const [selectedId, setSelectedId] = useState('');
 
   const handleExpand = () => {
     setExpanded(!expanded);
