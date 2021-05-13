@@ -100,7 +100,7 @@ export default function BecomeMemberCoupon(props) {
     },
     {
       onClick: () => {
-        setOpen(false);
+        onClose();
         setOpenBecomeMember(true);
         router.query.coupon = 'coupon';
         router.query.id = organizationId;
@@ -119,6 +119,7 @@ export default function BecomeMemberCoupon(props) {
         description={t('this_coupon_is_only_good_once')}
         buttons={buttons}
         fields={fields}
+        formik={formik}
         onClose={onClose}
       />
       <FormDialog
