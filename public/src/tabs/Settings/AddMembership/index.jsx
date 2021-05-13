@@ -1,28 +1,16 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { AlertDialog, Button, FormDialog, Paper } from '../../../components/Custom';
+import React, { useEffect, useState } from 'react';
+import { Button, FormDialog, Paper } from '../../../components/Custom';
 import { getMembershipName, getMembershipType, getExpirationDate } from '../../../utils/stringFormats';
-import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { List } from '../../../components/Custom';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
-import { ACTION_ENUM, Store } from '../../../Store';
-import dynamic from 'next/dynamic';
-
-const CustomFormDialog = dynamic(() => import('../../../components/Custom/FormDialog'));
 
 export default function AddMembership() {
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
-  const [alertDialog, setAlertDialog] = useState(false);
-  const [selectedId, setSelectedId] = useState('');
-  const [fileName, setFileName] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [editTermsAndConditions, setEditTermsAndConditions] = useState(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -48,47 +36,12 @@ export default function AddMembership() {
       fileUrl: d.file_url,
       type: LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION,
       id: d.id,
-      onDelete,
-      onEdit,
+      update,
       key: d.id,
     }));
     setOptions(data);
   };
 
-  const onEdit = (id, fileName, fileUrl, description) => {
-    setSelectedId(id);
-    setFileName(fileName);
-    setFileUrl(fileUrl);
-    setDescription(description);
-    setEditTermsAndConditions(true);
-  };
-
-  const onDelete = (id) => {
-    setSelectedId(id);
-    setAlertDialog(true);
-  };
-
-  const deleteConfirmed = async () => {
-    closeAlertDialog();
-    await api(
-      formatRoute('/api/entity/membership', null, {
-        membershipId: selectedId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
-    getMemberships();
-    dispatch({
-      type: ACTION_ENUM.SNACK_BAR,
-      message: t('member.membership_deleted'),
-      severity: SEVERITY_ENUM.SUCCESS,
-    });
-  };
-
-  const onCloseEditTermsAndConditions = () => {
-    setEditTermsAndConditions(false);
-  };
   const onOpen = () => {
     setOpen(true);
   };
@@ -97,9 +50,6 @@ export default function AddMembership() {
   };
   const update = () => {
     getMemberships();
-  };
-  const closeAlertDialog = () => {
-    setAlertDialog(false);
   };
 
   return (
@@ -134,27 +84,7 @@ export default function AddMembership() {
           update,
         }}
       />
-      <AlertDialog
-        open={alertDialog}
-        onSubmit={deleteConfirmed}
-        onCancel={closeAlertDialog}
-        description={t('delete.delete_membership_confirmation')}
-        title={t('delete.delete_membership')}
-      />
       <List items={options} />
-
-      <CustomFormDialog
-        type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS}
-        items={{
-          open: editTermsAndConditions,
-          onClose: onCloseEditTermsAndConditions,
-          update,
-          selectedId,
-          fileName,
-          fileUrl,
-          description,
-        }}
-      />
     </Paper>
   );
 }

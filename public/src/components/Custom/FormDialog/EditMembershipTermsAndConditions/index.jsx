@@ -10,7 +10,7 @@ import LoadingSpinner from '../../LoadingSpinner';
 import { uploadFile } from '../../../../actions/aws';
 
 export default function EditMembershipTermsAndConditions(props) {
-  const { open: openProps, onClose, update, selectedId, fileName, fileUrl, description } = props;
+  const { open: openProps, onClose, update, id, fileName, fileUrl, description } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
@@ -52,26 +52,23 @@ export default function EditMembershipTermsAndConditions(props) {
         newFileUrl = null;
         newFileName = null;
       } else if (file.type.split('/')[1] === 'pdf') {
-        newFileUrl = null;
         newFileName = file.name;
-        if (file && file.type.split('/')[1] === 'pdf') {
-          newFileUrl = await uploadFile(file);
-          if (!newFileUrl) {
-            dispatch({
-              type: ACTION_ENUM.SNACK_BAR,
-              message: t('invalid.invalid_file'),
-              severity: SEVERITY_ENUM.ERROR,
-            });
-            return;
-          }
+        newFileUrl = await uploadFile(file);
+        if (!newFileUrl) {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('invalid.invalid_file'),
+            severity: SEVERITY_ENUM.ERROR,
+          });
+          return;
         }
       }
 
       const res = await api(`/api/entity/updateMembershipTermsAndConditions`, {
         method: 'PUT',
         body: JSON.stringify({
-          id: selectedId,
-          description: description,
+          id,
+          description,
           fileName: newFileName,
           fileUrl: newFileUrl,
         }),
@@ -84,18 +81,19 @@ export default function EditMembershipTermsAndConditions(props) {
           severity: SEVERITY_ENUM.ERROR,
           duration: 4000,
         });
-      } else {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('member.membership_edited'),
-          severity: SEVERITY_ENUM.SUCCESS,
-          duration: 2000,
-        });
-        update();
-        handleClose();
-        setIsLoading(false);
-        setFile(null);
+        return;
       }
+
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('member.membership_edited'),
+        severity: SEVERITY_ENUM.SUCCESS,
+        duration: 2000,
+      });
+      update();
+      handleClose();
+      setIsLoading(false);
+      setFile(null);
     },
   });
 
