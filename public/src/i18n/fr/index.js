@@ -626,6 +626,7 @@ export default {
       edit_ranking: 'Modifier le classement',
       edit_teams: 'Modifier les équipes',
       edit_team_fees: "Modifier les frais d'équipe",
+      edit_terms_and_conditions: 'Modifier les termes et conditions',
       edit_player_fees: 'Modifier les frais par joueur',
     },
     email: {
