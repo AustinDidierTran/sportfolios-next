@@ -63,8 +63,7 @@ export default function MembershipOrganizationItem(props) {
     setEditTermsAndConditions(true);
   };
 
-  const onDelete = (id) => {
-    setSelectedId(id);
+  const onDelete = () => {
     setAlertDialog(true);
   };
 
@@ -76,7 +75,7 @@ export default function MembershipOrganizationItem(props) {
     closeAlertDialog();
     await api(
       formatRoute('/api/entity/membership', null, {
-        membershipId: selectedId,
+        membershipId: id,
       }),
       {
         method: 'DELETE',
@@ -144,7 +143,7 @@ export default function MembershipOrganizationItem(props) {
           )}
           <CustomButton
             onClick={() => {
-              onDelete(id);
+              onDelete();
             }}
             endIcon="Delete"
             color="secondary"
