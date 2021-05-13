@@ -17,6 +17,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../common/utils/stringFormat';
 import dynamic from 'next/dynamic';
+import CustomIconButton from '../../components/Custom/IconButton';
 
 const PersonSelect = dynamic(() => import('./PersonSelect'));
 const PaymentOptionSelect = dynamic(() => import('./PaymentOptionSelect/index'));
@@ -232,6 +233,15 @@ export default function EventRegistration() {
   return (
     <IgContainer>
       <Paper className={styles.paper}>
+        <div className={styles.header}>
+          <CustomIconButton
+            icon="ArrowBack"
+            onClick={() => goTo(ROUTES.entity, { id: router.query.id })}
+            tooltip={t('return_event')}
+            className={styles.iconButton}
+            style={{ color: 'primary' }}
+          />
+        </div>
         <div className={styles.typo}>
           <Typography variant="h3">{formik?.values?.event?.name || ''}</Typography>
         </div>
