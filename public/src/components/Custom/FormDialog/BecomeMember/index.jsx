@@ -225,7 +225,11 @@ export default function BecomeMember(props) {
         });
       } else {
         setPersonalInfos(false);
-        setOptionalInformations(true);
+        if (hasChanged()) {
+          setUpdateInfos(true);
+        } else {
+          setOptionalInformations(true);
+        }
         setMembershipCreatedId(res.data.id);
 
         dispatch({
@@ -269,8 +273,6 @@ export default function BecomeMember(props) {
         });
       } else {
         resetForm();
-        onOptionalInformationsClose();
-
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('member.membership_optional_info_added'),
@@ -342,10 +344,10 @@ export default function BecomeMember(props) {
 
   const onOptionalInformationsClose = () => {
     setOptionalInformations(false);
-    if (hasChanged()) {
-      setUpdateInfos(true);
-    } else if (membership.price > 0) {
+    if (membership.price > 0) {
       setGoToCart(true);
+    } else {
+      formik.resetForm();
     }
   };
 
@@ -356,11 +358,7 @@ export default function BecomeMember(props) {
 
   const onUpdateInfosClose = () => {
     setUpdateInfos(false);
-    if (membership.price > 0) {
-      setGoToCart(true);
-    } else {
-      formik.resetForm();
-    }
+    setOptionalInformations(true);
   };
 
   const fields = [

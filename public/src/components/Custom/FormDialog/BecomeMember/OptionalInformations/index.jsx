@@ -53,12 +53,12 @@ export default function OptionalInformations(props) {
   const buttons = [
     {
       onClick: onClose,
-      name: t('back'),
+      name: t('skip'),
       color: 'secondary',
     },
     {
       type: 'submit',
-      name: t('finish'),
+      name: t('send'),
       color: 'primary',
     },
   ];
