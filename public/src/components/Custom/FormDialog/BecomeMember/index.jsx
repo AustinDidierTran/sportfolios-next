@@ -55,7 +55,11 @@ export default function BecomeMember(props) {
       getPeople();
       getMemberships();
     }
-    setOpen(openProps);
+    if (!router.query.coupon) {
+      setOpen(openProps);
+    } else {
+      onNext();
+    }
   }, [openProps]);
 
   const getPersonInfos = async (person) => {
@@ -205,7 +209,7 @@ export default function BecomeMember(props) {
           membershipType: membership.membership_type,
           organizationId: membership.entity_id,
           personId: person,
-          expirationDate: getExpirationDate(membership.length, membership.fixed_date),
+          expirationDate: router.query.expirationDate || getExpirationDate(membership.length, membership.fixed_date),
           birthDate,
           gender,
           phoneNumber,
