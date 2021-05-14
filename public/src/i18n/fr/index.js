@@ -1042,7 +1042,7 @@ export default {
     general: 'Général',
     generate_account_link: 'Générer le lien du compte',
     generate_report: 'Générer un rapport',
-    getting_involved: 'Êtes-vous intéressé à vous impliquer dans cette organisation?',
+    getting_involved: "Je suis intéressé à m'impliquer dans cette organisation",
     get_a_new_link: 'Obtenir un nouveau lien',
     go_back_to_login: 'Retourner à la connexion',
     go_to_cart_to_pay_membership: 'Aller à votre panier pour payer votre affiliation maintenant!',

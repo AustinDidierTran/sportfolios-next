@@ -1019,7 +1019,7 @@ export default {
     generate_account_link: 'Generate Account Link',
     generate_report: 'Generate report',
     get_a_new_link: 'Get a new link',
-    getting_involved: 'Are you interested in getting involved in this organization?',
+    getting_involved: 'I am interested in getting involved in this organization',
     go_back_to_login: 'Go back to login',
     go_to_cart_to_pay_membership: 'Go to your cart to pay your membership now!',
     go_to_cart: 'Go to cart',
