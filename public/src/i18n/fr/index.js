@@ -477,6 +477,7 @@ export default {
       team_skipped: 'Équipe passée',
     },
     member: {
+      active_members: 'Membres actifs',
       member_added: 'Membre ajouté',
       member_coupon: 'Coupon membre',
       member_expiration_date: "Date d'expiration du membre",
@@ -499,7 +500,10 @@ export default {
       memberships: 'Affiliations',
       memberships_list: 'Liste des affiliations',
       memberships_available: 'Affiliations disponibles',
+      members_variation: 'Variation de membres',
       my_memberships: 'Mes affiliations',
+      new_members: 'Nouveau membres',
+      total_active_members: 'Total des membres actifs',
     },
     add: {
       add_admin: 'Ajouter admin',
@@ -1125,7 +1129,6 @@ export default {
     newsletter_subscribe:
       "Je veux m'inscrire à l'infolettre afin de recevoir des offres promotionnelles et des nouvelles de Sportfolios.",
     new_email: 'Nouveau courriel',
-    new_members: 'Nouveau membres',
     new_organization: 'Nouvelle Organisation',
     new_password: 'Nouveau mot de passe',
     new_team: 'Nouvelle Équipe',
