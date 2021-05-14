@@ -189,7 +189,7 @@ export default function BecomeMember(props) {
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       const {
         person,
         type,

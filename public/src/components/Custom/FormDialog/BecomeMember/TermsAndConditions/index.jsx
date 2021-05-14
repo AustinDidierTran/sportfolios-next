@@ -15,6 +15,11 @@ export default function TermsAndConditions(props) {
   const [open, setOpen] = useState(false);
   const [accepted, setAccepted] = useState(false);
 
+  const handleClose = () => {
+    setAccepted(false);
+    onClose();
+  };
+
   const fields = [
     {
       componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
@@ -40,7 +45,7 @@ export default function TermsAndConditions(props) {
 
   const buttons = [
     {
-      onClick: onClose,
+      onClick: handleClose,
       name: t('back'),
       color: 'secondary',
     },
@@ -59,7 +64,7 @@ export default function TermsAndConditions(props) {
       buttons={buttons}
       fields={fields}
       formik={formik}
-      onClose={onClose}
+      onClose={handleClose}
     />
   );
 }
