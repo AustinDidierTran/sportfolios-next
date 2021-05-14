@@ -75,6 +75,7 @@ export default function BecomeMember(props) {
       formik.setFieldValue('address', data?.address || '');
       formik.setFieldValue('phoneNumber', data?.phoneNumber || '');
       formik.setFieldValue('formattedAddress', data?.formattedAddress || '');
+      formik.setFieldValue('addressValid', data?.formattedAddress ? true : false || false);
       formik.setFieldValue('emergencyName', data?.emergencyName || '');
       formik.setFieldValue('emergencySurname', data?.emergencySurname || '');
       formik.setFieldValue('emergencyPhoneNumber', data?.emergencyPhoneNumber || '');
@@ -150,9 +151,6 @@ export default function BecomeMember(props) {
   };
 
   const validationSchema = yup.object().shape({
-    address: yup.object().shape({
-      street_address: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-    }),
     type: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     birthDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -162,7 +160,9 @@ export default function BecomeMember(props) {
       }
       return val.length === 10;
     }),
-    formattedAddress: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    formattedAddress: yup.string().test('validate', () => {
+      return formik.values.addressValid;
+    }),
     emergencyName: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     emergencySurname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     emergencyPhoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
@@ -182,6 +182,7 @@ export default function BecomeMember(props) {
       phoneNumber: '',
       address: '',
       formattedAddress: '',
+      addressValid: '',
       emergencyName: '',
       emergencySurname: '',
       medicalConditions: '',

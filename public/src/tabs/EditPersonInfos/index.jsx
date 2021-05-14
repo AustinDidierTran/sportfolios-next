@@ -42,6 +42,7 @@ export default function EditPersonInfos(props) {
   const [photoUrl, setPhotoUrl] = useState(initialPhotoUrl);
   const [personInfos, setPersonInfos] = useState({});
   const [changesMade, setChangesMade] = useState(false);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
 
   const initials = getInitialsFromName(surnameProp ? `${nameProp} ${surnameProp}` : nameProp);
 
@@ -104,6 +105,9 @@ export default function EditPersonInfos(props) {
     surname: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     birthDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    addressFormatted: yup.string().test('validate', () => {
+      return wrongAddressFormat == '';
+    }),
     phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
       if (!val) {
         return false;
@@ -200,8 +204,19 @@ export default function EditPersonInfos(props) {
   };
 
   const addressChanged = (newAddress) => {
-    formik.setFieldValue('address', newAddress);
-    setChangesMade(true);
+    if (newAddress) {
+      setWrongAddressFormat('');
+      formik.setFieldValue('address', newAddress);
+      setChangesMade(true);
+    } else {
+      setWrongAddressFormat(t('address_error'));
+      formik.setFieldValue('addressFormatted', newAddress);
+      setChangesMade(false);
+    }
+  };
+
+  const onAddressChanged = () => {
+    setWrongAddressFormat(t('address_error'));
   };
 
   if (isLoading) {
@@ -293,6 +308,8 @@ export default function EditPersonInfos(props) {
             addressChanged={addressChanged}
             country="ca"
             language={userInfo.language}
+            errorFormat={wrongAddressFormat}
+            onChange={onAddressChanged}
           />
         </div>
         {personInfos.formattedAddress ? (
