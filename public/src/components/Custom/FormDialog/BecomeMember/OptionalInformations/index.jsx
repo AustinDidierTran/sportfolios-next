@@ -22,8 +22,13 @@ export default function OptionalInformations(props) {
 
   const fields = [
     {
+      componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
       namespace: 'heardOrganization',
       label: t('heard_organization'),
+      variant: 'filled',
+      rows: 2,
+      rowsMax: 5,
+      style: { width: '100%' },
       formik,
     },
     {

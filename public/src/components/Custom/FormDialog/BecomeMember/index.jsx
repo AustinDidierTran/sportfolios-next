@@ -277,6 +277,7 @@ export default function BecomeMember(props) {
           duration: 4000,
         });
       } else {
+        onOptionalInformationsClose();
         resetForm();
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
