@@ -98,9 +98,9 @@ export default function Analytics() {
             dateGraph={dateGraph}
             onChangeDate={dateChanged}
             graphData={graphData}
-            title={t('member.organization_member')}
-            totalTitle={t('member.members')}
-            newTitle={t('new_members')}
+            title={t('member.active_members')}
+            totalTitle={t('member.total_active_members')}
+            newTitle={t('member.members_variation')}
           />
         )}
       </Paper>
