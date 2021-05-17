@@ -34,6 +34,7 @@ export default function EventSettings() {
       if (end) {
         end = new Date(data.end_date);
       }
+      console.log({ data });
       formik.setFieldValue('limit', data.maximum_spots != null);
       formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
       formik.setFieldValue('startDate', data.start_varchar.split(' ')[0]);
@@ -89,6 +90,7 @@ export default function EventSettings() {
       if (!limit) {
         maximumSpots = null;
       }
+      console.log({ start, end });
 
       const res = await api(`/api/entity/updateEvent`, {
         method: 'PUT',
