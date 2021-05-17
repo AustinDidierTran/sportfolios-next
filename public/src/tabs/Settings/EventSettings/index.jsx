@@ -38,9 +38,9 @@ export default function EventSettings() {
       formik.setFieldValue('limit', data.maximum_spots != null);
       formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
       formik.setFieldValue('startDate', formatDate(moment.parseZone(start), 'YYYY-MM-DD'));
-      formik.setFieldValue('startTime', formatDate(moment.parseZone(start), 'HH:mm'));
+      formik.setFieldValue('startTime', data.start_time);
       formik.setFieldValue('endDate', formatDate(moment.parseZone(end), 'YYYY-MM-DD'));
-      formik.setFieldValue('endTime', formatDate(moment.parseZone(end), 'HH:mm'));
+      formik.setFieldValue('endTime', data.end_time);
     }
   };
   useEffect(() => {
@@ -97,7 +97,9 @@ export default function EventSettings() {
           eventId,
           maximumSpots,
           startDate: start,
+          startTime: startTime || '09:00',
           endDate: end,
+          endTime: endTime || '16:00',
         }),
       });
       if (res.data.reason) {
