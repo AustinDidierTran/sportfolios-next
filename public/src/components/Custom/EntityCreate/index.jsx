@@ -256,9 +256,7 @@ export default function EntityCreate(props) {
             creator,
             maximumSpots: maximum,
             startDate: start,
-            startTime,
             endDate: end,
-            endTime,
           }),
         });
         goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
