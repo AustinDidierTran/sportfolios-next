@@ -2,7 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import api from '../../../../actions/api';
-import { PLATEFORM_FEES_PERCENTAGE, PLATEFORM_FEES_FIX, MIN_AMOUNT_FEES, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import {
+  PLATEFORM_FEES_PERCENTAGE,
+  PLATEFORM_FEES_FIX,
+  MIN_AMOUNT_FEES,
+  COMPONENT_TYPE_ENUM,
+} from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { formatPrice } from '../../../../utils/stringFormats';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
@@ -70,7 +75,10 @@ export default function AddTeamFee(props) {
     );
   }, [formik.values.teamPrice, taxes]);
 
-  const transactionFee = useMemo(() => teamTotal >= MIN_AMOUNT_FEES ? (teamTotal * PLATEFORM_FEES_PERCENTAGE) + PLATEFORM_FEES_FIX : 0, [teamTotal]);
+  const transactionFee = useMemo(
+    () => (teamTotal >= MIN_AMOUNT_FEES ? teamTotal * PLATEFORM_FEES_PERCENTAGE + PLATEFORM_FEES_FIX : 0),
+    [teamTotal]
+  );
 
   const receiveAmout = useMemo(() => teamTotal - transactionFee, [teamTotal, transactionFee]);
 
@@ -95,11 +103,11 @@ export default function AddTeamFee(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: t('payment.transaction_fees', { fee: formatPrice(transactionFee * 100) }),
+      primary: t('payment.transaction_fees_with_fees', { fee: formatPrice(transactionFee * 100) }),
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
-      primary: t('payment.received_amount', { amount: formatPrice(receiveAmout * 100) }),
+      primary: t('payment.received_amount_with_amount', { amount: formatPrice(receiveAmout * 100) }),
     },
   ];
 
