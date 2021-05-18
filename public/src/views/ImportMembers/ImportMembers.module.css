@@ -14,3 +14,13 @@
 .button3 {
   min-width: 225px !important;
 }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconButton {
+  margin: 8px !important;
+}
