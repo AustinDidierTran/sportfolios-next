@@ -120,6 +120,7 @@ export interface entity {
   name: string;
   surname?: string;
   photoUrl?: string;
+  infosSuppId?: string;
   admins: entityRole[];
   posts?: post[];
 }
@@ -130,6 +131,7 @@ export interface entityRole {
 }
 
 export interface person extends entity {
+  personId: string;
   birthDate?: string;
   phoneNumber?: string;
   gender?: gender;
@@ -137,11 +139,11 @@ export interface person extends entity {
   emergencySurname?: string;
   emergencyPhoneNumber?: string;
   medicalConditions?: string;
-  address?: address;
-  memberships?: membership[];
+  addressId?: string;
 }
 
 export interface address {
+  id: string;
   streetAdress?: string;
   city?: string;
   state?: string;
@@ -159,14 +161,13 @@ export interface membership {
   invoiceItemId: string;
   paidOn: string;
   expirationDate: string;
-  birthDate?: string;
-  phoneNumber?: string;
-  gender?: gender;
-  address?: address;
-  emergencyName?: string;
-  emergencySurname?: string;
-  emergencyPhoneNumber?: string;
-  medicalConditions?: string;
+  heardOrganization?: string;
+  frequentedSchool?: string;
+  jobTitle?: string;
+  employer?: string;
+  gettingInvolved?: string;
+  infosSuppId: string;
+  addressId?: string;
 }
 
 export interface organization extends entity {
