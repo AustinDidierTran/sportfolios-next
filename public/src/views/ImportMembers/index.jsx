@@ -36,6 +36,7 @@ import { MOBILE_WIDTH } from '../../../common/constants';
 import { useWindowSize } from '../../hooks/window';
 import CustomIconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../../../public/src/actions/goTo';
+import { formatRoute } from '../../../../public/common/utils/stringFormat';
 
 export default function ImportMembers() {
   const { t } = useTranslation();
@@ -63,7 +64,7 @@ export default function ImportMembers() {
   };
 
   const getCoupons = async () => {
-    const { data } = await api(`/api/entity/organizationTokenPromoCode/?id=${id}`);
+    const { data } = await api(formatRoute('/api/entity/organizationTokenPromoCode', null, { id }));
 
     if (data) {
       setCoupons(data);
@@ -94,7 +95,7 @@ export default function ImportMembers() {
   }))(TableRow);
 
   const getMemberships = async () => {
-    const res = await api(`/api/entity/memberships/?id=${id}`);
+    const res = await api(formatRoute('/api/entity/memberships/', null, { id }));
     if (!res.data) {
       return;
     }
@@ -127,7 +128,7 @@ export default function ImportMembers() {
     onSubmit: async (values) => {
       const { members, membership } = values;
       const language = localStorage.getItem('i18nextLng');
-      const res = await api(`/api/entity/importMembers`, {
+      const res = await api(formatRoute(`/api/entity/importMembers`, null, null), {
         method: 'POST',
         body: JSON.stringify({
           membershipType: membership,
@@ -342,7 +343,7 @@ export default function ImportMembers() {
           <List items={members} formik={formik} />
         </div>
       )}
-      <Paper title={t('coupon_sent_list')} className={styles.paper}>
+      <Paper title={t('coupons_sent_list')} className={styles.paper}>
         <TableContainer component={Paper}>
           {width < MOBILE_WIDTH ? (
             <Table>
