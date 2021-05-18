@@ -193,15 +193,14 @@ export default function EntityCreate(props) {
       surname: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     });
   } else if (creatingEntity === GLOBAL_ENUM.EVENT) {
-      if (!limit) {
-        validationSchema = yup.object().shape({
-          name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-          startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-          startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-          creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-        });
-      }
-      else{
+    if (!limit) {
+      validationSchema = yup.object().shape({
+        name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      });
+    } else {
       validationSchema = yup.object().shape({
         name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
         maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
