@@ -1,6 +1,6 @@
 import { getFormattedMailTo } from '../../utils/stringFormats';
 import { ROUTES_ENUM } from '../../../common/enums';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import Router from 'next/router';
 import api from '../api';
 

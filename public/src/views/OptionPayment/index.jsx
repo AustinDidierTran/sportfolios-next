@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 import Paper from '../../components/Custom/Paper';
 import Button from '../../components/Custom/Button';

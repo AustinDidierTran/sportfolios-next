@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../../../actions/api';
 import { SELECT_ENUM } from '../../../../../../common/enums';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
 
 export default function FieldSelect(props) {
   const { onChange, fieldId } = props;

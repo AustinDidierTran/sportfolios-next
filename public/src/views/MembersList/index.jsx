@@ -8,7 +8,7 @@ import { FORM_DIALOG_TYPE_ENUM, STATUS_ENUM } from '../../../common/enums';
 import styles from './MembersList.module.css';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import Typography from '@material-ui/core/Typography';
 
 const ListMembers = dynamic(() => import('./MembersList'));

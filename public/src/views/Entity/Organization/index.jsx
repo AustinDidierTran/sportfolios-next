@@ -6,7 +6,7 @@ import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } 
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 

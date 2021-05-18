@@ -4,7 +4,7 @@ import api from '../../actions/api';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import Button from '../../components/Custom/Button';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 

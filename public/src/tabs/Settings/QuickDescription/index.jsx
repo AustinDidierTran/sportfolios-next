@@ -7,7 +7,7 @@ import api from '../../../actions/api';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import styles from './QuickDescription.module.css';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function QuickDescription() {
   const { t } = useTranslation();

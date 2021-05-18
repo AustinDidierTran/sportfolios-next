@@ -22,7 +22,7 @@ import { useFormik } from 'formik';
 import { ACTION_ENUM, Store } from '../../Store';
 import { GENDER_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 const moment = require('moment');
 import Upload from 'rc-upload';
 import EmergencyContact from './EmergencyContact';

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { formatRoute } from '../../public/common/utils/stringFormat';
+import { formatRoute } from '../../public/src/utils/stringFormats';
 import api from '../../public/src/actions/api';
 import { goTo } from '../../public/src/actions/goTo';
 import Head from 'next/head';

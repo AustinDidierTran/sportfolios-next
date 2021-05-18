@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import ProTip from './ProTip';
 import { LoadingSpinner } from '../../../components/Custom';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function AllGames(props) {
   const { t } = useTranslation();

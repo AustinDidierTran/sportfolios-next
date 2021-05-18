@@ -15,7 +15,7 @@ import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import CustomIconButton from '../../components/Custom/IconButton';
 

@@ -6,7 +6,7 @@ import moment from 'moment';
 import { formatPrice } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function PaymentOptionSelect(props) {
   const { t } = useTranslation();

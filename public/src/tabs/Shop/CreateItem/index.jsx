@@ -20,7 +20,7 @@ import api from '../../../actions/api';
 import { GLOBAL_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function CreateItem(props) {
   const router = useRouter();

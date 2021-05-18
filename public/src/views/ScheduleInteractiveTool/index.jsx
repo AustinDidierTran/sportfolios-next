@@ -19,7 +19,7 @@ import { suggestGames } from './suggestedGamesFunction';
 import { v4 as uuidv4 } from 'uuid';
 import RGL from 'react-grid-layout';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 import Hotkeys from 'react-hot-keys';
 

@@ -4,7 +4,7 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import IgContainer from '../../components/Custom/IgContainer';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 
 const EntitySearch = dynamic(() => import('./EntitySearch/index'));

@@ -10,7 +10,7 @@ import Icon from '../../../../../components/Custom/Icon';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
 import PaymentChip from '../../../../Settings/TeamsRegistered/StatusChip';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
 
 export default function PlayerCard(props) {
   const { isEditable, player, onDelete, onRoleUpdate, withInfos, index } = props;

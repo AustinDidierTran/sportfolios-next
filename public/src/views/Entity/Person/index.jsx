@@ -8,7 +8,7 @@ import { formatPageTitle } from '../../../utils/stringFormats';
 import { ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import { goTo } from '../../../actions/goTo';

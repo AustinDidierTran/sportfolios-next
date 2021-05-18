@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import styles from './FinalRanking.module.css';
 import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';

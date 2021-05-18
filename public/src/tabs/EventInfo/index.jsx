@@ -14,7 +14,7 @@ import api from '../../actions/api';
 import moment from 'moment';
 import styles from './EventInfo.module.css';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 
 const Description = dynamic(() => import('./Description'));
@@ -159,15 +159,14 @@ export default function TabEventInfo() {
         </>
       );
     }
-    if (hasNoLimit){
+    if (hasNoLimit) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
           {t('event.event_is_open')}&nbsp;
           {registrationEnd}
         </Typography>
       );
-    }
-    else if (isFull) {
+    } else if (isFull) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
           {t('event.event_is_full')}

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../Store';
 import { useRouter } from 'next/router';
 import api from '../../actions/api';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import { formatDate, formatPrice, getMembershipName } from '../../utils/stringFormats';
 import moment from 'moment';
 import styles from './Memberships.module.css';

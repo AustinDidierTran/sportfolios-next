@@ -6,7 +6,7 @@ import api from '../../actions/api';
 import { LoadingSpinner } from '../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import { updateRanking } from './RankingFunctions';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));

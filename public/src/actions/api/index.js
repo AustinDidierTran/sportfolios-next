@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../../../../conf';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 const api = async (route, { method, body } = {}) => {
   const headers = {

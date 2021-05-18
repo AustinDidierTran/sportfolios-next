@@ -13,7 +13,7 @@ import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../commo
 import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
 import api from '../../../../actions/api';
 import { goTo, ROUTES } from '../../../../actions/goTo';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 const CustomIcon = dynamic(() => import('../../../../components/Custom/Icon'));
 const CustomFormDialog = dynamic(() => import('../../../../components/Custom/FormDialog'));

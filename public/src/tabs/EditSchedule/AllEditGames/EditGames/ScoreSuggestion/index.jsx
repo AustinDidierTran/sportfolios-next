@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import styles from './ScoreSuggestion.module.css';
 import { makeStyles } from '@material-ui/core/styles';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
 
 const useStyles = makeStyles(() => ({
   primary: {

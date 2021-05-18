@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 
 const Rosters = dynamic(() => import('./Rosters'));

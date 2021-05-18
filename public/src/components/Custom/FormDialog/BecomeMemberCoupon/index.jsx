@@ -4,9 +4,8 @@ import { useFormik } from 'formik';
 import api from '../../../../actions/api';
 import { COMPONENT_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatDate } from '../../../../utils/stringFormats';
+import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import moment from 'moment';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import FormDialog from '../../FormDialog';
 import { useRouter } from 'next/router';
 

@@ -13,7 +13,7 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
 import validator from 'validator';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function ChangeAlias() {
   const { t } = useTranslation();

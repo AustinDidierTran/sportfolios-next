@@ -8,7 +8,7 @@ import { CARD_TYPE_ENUM, REJECTION_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../.
 import styles from './EventSettings.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../src/utils/stringFormats';
+import { formatRoute } from '../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../common/errors';

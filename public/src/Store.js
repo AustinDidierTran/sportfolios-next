@@ -9,7 +9,6 @@ import { io } from 'socket.io-client';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
 import { useWindowSize } from './hooks/window';
 
-
 export const Store = React.createContext();
 
 const handleLocalAuthToken = (token) => {
@@ -50,10 +49,12 @@ const initialState = {
   activeGaPageviews: [],
   activeGaEvents: [],
   socket: io(API_BASE_URL),
+  id: undefined,
 };
 
 export const ACTION_ENUM = {
   CLEAR_USER_INFO: 'clear_user_info',
+  GET_ID: 'get_id',
   HEADER_FLYOUT: 'header_flyout',
   LOGIN: 'login',
   LOGOUT: 'logout',
@@ -230,15 +231,15 @@ export function StoreProvider(props) {
         if (data.language) {
           i18n.changeLanguage(data.language);
         }
-      }
-    }
 
-    const res2 = await api('/api/shop/getCartItems');
-    if (res2 && res2.data) {
-      dispatch({
-        type: ACTION_ENUM.UPDATE_CART,
-        payload: res2.data,
-      });
+        const res2 = await api('/api/shop/getCartItems');
+        if (res2 && res2.data) {
+          dispatch({
+            type: ACTION_ENUM.UPDATE_CART,
+            payload: res2.data,
+          });
+        }
+      }
     }
 
     const res3 = await api('/api/ga/activePageviews');

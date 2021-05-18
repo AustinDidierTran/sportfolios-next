@@ -7,7 +7,7 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { formatRoute, formatPrice } from '../../../common/utils/stringFormat';
+import { formatRoute, formatPrice } from '../../utils/stringFormats';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../Store';
 import api from '../../actions/api';
@@ -93,7 +93,7 @@ export default function PaymentOptionStats() {
             title={`${t('income_for')} ${graphData.name}`}
             totalTitle={t('total_income')}
             newTitle={t('new_income')}
-            formatData={(x) => `${formatPrice(x * 100)} $`}
+            formatData={(x) => formatPrice(x * 100)}
           />
         )}
         {(graphDataFees.total.length > 0 || graphDataFees.minDate) && (
@@ -104,7 +104,7 @@ export default function PaymentOptionStats() {
             title={`${t('payment.transaction_fee_for')} ${graphDataFees.name}`}
             totalTitle={t('payment.total_transaction_fee')}
             newTitle={t('payment.new_transaction_fee')}
-            formatData={(x) => `${formatPrice(x * 100)} $`}
+            formatData={(x) => formatPrice(x * 100)}
           />
         )}
       </Paper>

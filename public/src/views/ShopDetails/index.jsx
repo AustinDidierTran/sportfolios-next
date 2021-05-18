@@ -19,7 +19,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Store, ACTION_ENUM } from '../../Store';
 import { SEVERITY_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 export default function ShopDetails() {
   const {

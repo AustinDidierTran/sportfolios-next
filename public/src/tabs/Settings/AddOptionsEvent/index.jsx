@@ -5,7 +5,7 @@ import styles from './AddOptionsEvent.module.css';
 import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import EventPaymentOptionList from './EventPaymentOptionList';
 import { goTo, ROUTES } from '../../../actions/goTo';

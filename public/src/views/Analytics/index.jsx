@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import api from '../../../src/actions/api';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import CustomButton from '../../components/Custom/Button';

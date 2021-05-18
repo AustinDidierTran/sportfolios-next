@@ -7,7 +7,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import { List } from '../../../components/Custom';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function Analytics() {
   const { t } = useTranslation();

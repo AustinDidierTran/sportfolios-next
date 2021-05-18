@@ -17,9 +17,8 @@ import {
   PLATEFORM_FEES_FIX,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { validateDate, formatPrice } from '../../../../utils/stringFormats';
+import { validateDate, formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import { uploadFile } from '../../../../actions/aws';
 
 export default function AddMembership(props) {

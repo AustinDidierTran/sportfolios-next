@@ -8,7 +8,7 @@ import { CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
 import Card from '../../components/Custom/Card';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 export default function EditEvents(props) {
   const { t } = useTranslation();

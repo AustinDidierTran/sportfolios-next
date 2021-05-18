@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import styles from './SubmitScoreSpiritForm.module.css';
 import api from '../../../../actions/api';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import dynamic from 'next/dynamic';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 const SectionScore = dynamic(() => import('./SectionScore'));
 // const SectionSpirit = dynamic(() => import('./SectionSpirit'));

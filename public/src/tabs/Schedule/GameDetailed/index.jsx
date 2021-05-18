@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../Store';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';

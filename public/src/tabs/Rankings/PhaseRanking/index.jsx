@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { PHASE_STATUS_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import Ranking from '../Ranking';
 import { updateRanking } from '../RankingFunctions';

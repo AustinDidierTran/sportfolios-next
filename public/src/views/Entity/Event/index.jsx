@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import IgContainer from '../../../components/Custom/IgContainer';
 import dynamic from 'next/dynamic';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { goTo } from '../../../actions/goTo';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));

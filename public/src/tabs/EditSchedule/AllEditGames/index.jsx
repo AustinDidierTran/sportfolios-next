@@ -7,8 +7,8 @@ import ProTip from './ProTip';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../../components/Custom';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
 import dynamic from 'next/dynamic';
+import { formatRoute } from '../../../utils/stringFormats';
 
 const GameFilters = dynamic(() => import('../../Schedule/AllGames/GameFilters'));
 const EditGames = dynamic(() => import('./EditGames'));
@@ -18,6 +18,7 @@ export default function AllEditGames(props) {
   const { oldFilter, setFilter, updated } = props;
   const router = useRouter();
   const { id: eventId } = router.query;
+
   const [games, setGames] = useState([]);
   const [pastGames, setPastGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

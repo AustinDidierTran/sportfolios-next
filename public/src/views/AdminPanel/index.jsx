@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { Container } from '../../components/Custom';
 import Paper from '@material-ui/core/Paper';
 import api from '../../actions/api';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import moment from 'moment';
 

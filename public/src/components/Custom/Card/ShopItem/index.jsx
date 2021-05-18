@@ -8,14 +8,13 @@ import CustomPaper from '../../Paper';
 
 import CardContent from '@material-ui/core/CardContent';
 import { goTo, ROUTES } from '../../../../actions/goTo';
-import { formatPrice } from '../../../../utils/stringFormats';
+import { formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../actions/api';
 import ImageCard from '../../ImageCard';
 
 import EditItem from '../../../../tabs/Shop/EditItem';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function ShopItem(props) {
   const router = useRouter();

@@ -10,7 +10,7 @@ import api from '../../../actions/api';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { Store } from '../../../Store';
 
 export default function MyMemberships(props) {

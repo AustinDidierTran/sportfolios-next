@@ -9,7 +9,7 @@ import Button from '../../components/Custom/Button';
 import { Store } from '../../Store.js';
 import { useTranslation } from 'react-i18next';
 import styles from './RosterInvite.module.css';
-import { formatRoute } from '../../../common/utils/stringFormat.js';
+import { formatRoute } from '../../utils/stringFormats.js';
 import dynamic from 'next/dynamic';
 
 const RosterCard = dynamic(() => import('../../tabs/Rosters/RosterCard/index.jsx'));

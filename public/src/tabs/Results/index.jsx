@@ -7,7 +7,7 @@ import Game from '../Schedule/AllGames/Games/Game';
 // import GameFilters from '../Schedule/AllGames/GameFilters';
 import SubmitScore from '../Schedule/AllGames/ProTip';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 export default function Results() {
   const router = useRouter();

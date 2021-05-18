@@ -10,7 +10,7 @@ import AddField from './AddField';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 

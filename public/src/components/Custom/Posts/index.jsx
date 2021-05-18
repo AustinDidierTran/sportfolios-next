@@ -5,7 +5,7 @@ import api from '../../../actions/api';
 import PostInput from '../Input/PostInput';
 import CustomPaper from '../Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import Button from '@material-ui/core/Button';
 import { uploadPicture } from '../../../actions/aws';
 import { useTranslation } from 'react-i18next';
@@ -253,6 +253,7 @@ export default function Posts(props) {
       })
     );
   };
+
   return (
     <div>
       <div>

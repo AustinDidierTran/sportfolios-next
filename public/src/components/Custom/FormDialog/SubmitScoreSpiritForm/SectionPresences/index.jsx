@@ -7,7 +7,7 @@ import { PLAYER_ATTENDANCE_STATUS, STATUS_ENUM, SEVERITY_ENUM } from '../../../.
 import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
 import Button from '../../../Button';
 import IconButton from '../../../IconButton';
 import MultiSelect from '../../../MultiSelect';

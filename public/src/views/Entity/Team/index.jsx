@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 const About = dynamic(() => import('../../../tabs/About'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));

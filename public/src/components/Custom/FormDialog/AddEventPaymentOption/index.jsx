@@ -9,7 +9,7 @@ import { Store, ACTION_ENUM } from '../../../../Store';
 import api from '../../../../actions/api';
 import { useFields } from '../../../../hooks/fields';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 
 export default function AddEventPaymentOption(props) {

@@ -8,7 +8,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function BankAccount() {
   const { t } = useTranslation();

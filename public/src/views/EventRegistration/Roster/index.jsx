@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import api from '../../../actions/api';
 import PersonSearchList from '../../../components/Custom/SearchList/PersonSearchList';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function Roster(props) {
   const { t } = useTranslation();

@@ -14,11 +14,10 @@ import {
   GLOBAL_ENUM,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
+import { formatDate, formatPrice, formatRoute, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import * as yup from 'yup';
 import UpdatePersonalInfos from './UpdatePersonalInfos';
 import PersonalInfos from './PersonalInfos';

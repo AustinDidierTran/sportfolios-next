@@ -12,7 +12,7 @@ import { ROSTER_ROLE_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 const isEven = (n) => {
   return n % 2 == 0;

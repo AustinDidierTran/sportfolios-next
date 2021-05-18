@@ -6,7 +6,7 @@ import moment from 'moment';
 // import GameFilters from '../Schedule/AllGames/GameFilters';
 import ScoreSuggestion from '../EditSchedule/AllEditGames/EditGames/ScoreSuggestion';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 export default function EditResults() {
   const router = useRouter();

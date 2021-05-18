@@ -17,11 +17,7 @@ export default function PaymentOptionItem(props) {
       {display ? (
         <>
           {display === t('price') ? (
-            <ListItemText
-              style={{ margin: '0px' }}
-              primary={`${formatPrice(value)}`}
-              secondary={display}
-            ></ListItemText>
+            <ListItemText style={{ margin: '0px' }} primary={formatPrice(value)} secondary={display}></ListItemText>
           ) : (
             <ListItemText style={{ margin: '0px' }} primary={value} secondary={display}></ListItemText>
           )}

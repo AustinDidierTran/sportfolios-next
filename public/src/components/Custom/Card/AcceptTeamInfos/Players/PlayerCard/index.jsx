@@ -6,7 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { useTranslation } from 'react-i18next';
 import PersonInfoDialog from '../../../../Dialog/PersonInfosDialog';
 import api from '../../../../../../actions/api';
-import { formatRoute } from '../../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../../utils/stringFormats';
 import Icon from '../../../../Icon';
 import IconButton from '../../../../IconButton';
 

@@ -7,7 +7,7 @@ import Card from '../../components/Custom/Card';
 import api from '../../actions/api';
 import Typography from '@material-ui/core/Typography';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import { goTo, ROUTES } from '../../actions/goTo';
 import CustomButton from '../../components/Custom/Button';
 

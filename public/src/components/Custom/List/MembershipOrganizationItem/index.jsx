@@ -4,7 +4,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { useTranslation } from 'react-i18next';
-import { formatPrice } from '../../../../utils/stringFormats';
+import { formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import styles from './MembershipOrganizationItem.module.css';
 import CustomCollapse from '../../Collapse';
 import CustomIconButton from '../../IconButton';
@@ -12,7 +12,6 @@ import CustomButton from '../../Button';
 import AlertDialog from '../../Dialog/AlertDialog';
 import dynamic from 'next/dynamic';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import api from '../../../../actions/api';
 
@@ -113,18 +112,18 @@ export default function MembershipOrganizationItem(props) {
           )}
           <ListItem className={styles.money}>
             <ListItemText primary={`${t('subtotal')}:`}></ListItemText>
-            <ListItemText primary={`${formatPrice(price)}`}></ListItemText>
+            <ListItemText primary={formatPrice(price)}></ListItemText>
           </ListItem>
           {taxRates.map((t, index) => (
             <ListItem className={styles.money} key={index}>
               <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description}></ListItemText>
-              <ListItemText primary={`${formatPrice((price * t.percentage) / 100)}`}></ListItemText>
+              <ListItemText primary={formatPrice((price * t.percentage) / 100)}></ListItemText>
             </ListItem>
           ))}
           <Divider />
           <ListItem className={styles.money}>
             <ListItemText primary={`${t('total')}:`} />
-            <ListItemText primary={`${formatPrice(total)}`} />
+            <ListItemText primary={formatPrice(total)} />
           </ListItem>
           <Divider />
           {total != 0 && (

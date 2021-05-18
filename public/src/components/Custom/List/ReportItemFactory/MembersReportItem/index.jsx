@@ -4,14 +4,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
+import { formatDate, formatPrice, formatRoute } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
 import { INVOICE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { getMembershipName } from '../../../../../../common/functions';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
 import AlertDialog from '../../../Dialog/AlertDialog';
 import CustomIconButton from '../../../IconButton';
 import DownloadReportDialog from '../../../Dialog/DownloadReportDialog';

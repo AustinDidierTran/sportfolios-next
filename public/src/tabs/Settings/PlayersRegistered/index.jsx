@@ -21,7 +21,7 @@ import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';

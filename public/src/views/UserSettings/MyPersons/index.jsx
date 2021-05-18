@@ -12,7 +12,7 @@ import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM, errors } from '../../../../common/errors';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';

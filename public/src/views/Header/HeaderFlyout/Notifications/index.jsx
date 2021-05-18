@@ -7,7 +7,7 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import Typography from '@material-ui/core/Typography';
 
 import styles from '../HeaderFlyout.module.css';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 export default function Notifications(props) {
   const { isMobileView } = props;

@@ -6,7 +6,7 @@ import { Store, ACTION_ENUM } from '../../Store';
 
 import Paper from '../../components/Custom/Paper';
 import Icon from '../../components/Custom/Icon';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import { useRouter } from 'next/router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';

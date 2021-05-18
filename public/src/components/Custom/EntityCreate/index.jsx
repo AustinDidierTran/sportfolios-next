@@ -18,9 +18,9 @@ import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { useRouter } from 'next/router';
-import { formatDate } from '../../../../src/utils/stringFormats';
+import { formatDate } from '../../../utils/stringFormats';
 
 import * as yup from 'yup';
 

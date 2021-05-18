@@ -4,7 +4,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
+import { formatDate, formatPrice, formatRoute } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
@@ -12,7 +12,6 @@ import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import AlertDialog from '../../../Dialog/AlertDialog';
 import { getProductDetail, getProductName } from '../../../../../utils/Cart';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
 import CustomIconButton from '../../../IconButton';
 import DownloadReportDialog from '../../../Dialog/DownloadReportDialog';
 
