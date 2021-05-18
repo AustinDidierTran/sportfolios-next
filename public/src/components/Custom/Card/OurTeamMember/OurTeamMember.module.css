@@ -3,7 +3,7 @@
 }
 
 .role {
-  color: white !important;
+  color: white;
   font-weight: 250 !important;
 }
 
@@ -13,12 +13,12 @@
 }
 
 .firstCardContent {
-  padding: 8px !important;
+  padding: 8px;
   background: #18b393;
 }
 
 .secondCardContent {
-  padding: 8px !important;
+  padding: 8px;
   background-color: black;
 }
 
