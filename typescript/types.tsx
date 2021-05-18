@@ -130,8 +130,8 @@ export interface entityRole {
   role: role;
 }
 
-export interface person {
-  id: string;
+export interface person extends entity {
+  personId: string;
   birthDate?: string;
   phoneNumber?: string;
   gender?: gender;
