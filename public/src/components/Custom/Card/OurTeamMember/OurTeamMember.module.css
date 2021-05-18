@@ -1,11 +1,29 @@
-.paper {
-  padding-top: 16px;
-  display: flex;
-  flex-direction: column;
+.image {
+  height: 190px;
+}
+
+.role {
+  color: white;
+  font-weight: 250 !important;
+}
+
+.root {
+  margin: 16px;
+  background-color: black;
+}
+
+.firstCardContent {
+  padding: 8px;
+  background: #18b393;
+}
+
+.secondCardContent {
+  padding: 8px;
+  background-color: black;
 }
 
 @media (min-width: 600px) {
-  .paper {
-    flex-direction: row;
+  .image {
+    height: 300px;
   }
 }
