@@ -158,6 +158,7 @@ const TABS_ENUM = {
   SCHEDULE: 'schedule',
   SETTINGS: 'settings',
   SHOP: 'shop',
+  COUPONS: 'coupons',
 };
 
 const FORM_DIALOG_TYPE_ENUM = {

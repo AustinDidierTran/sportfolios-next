@@ -12,7 +12,7 @@ import FormDialog from '../../components/Custom/FormDialog';
 import { useTranslation } from 'react-i18next';
 import { ExcelRenderer } from 'react-excel-renderer';
 import { ACTION_ENUM, Store } from '../../Store';
-import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../common/enums';
+import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM, TABS_ENUM } from '../../../common/enums';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useFormik } from 'formik';
@@ -23,6 +23,19 @@ import { getMembershipName } from '../../../common/functions';
 import moment from 'moment';
 import { ERROR_ENUM } from '../../../common/errors';
 import { useRouter } from 'next/router';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import CouponRow from './CouponRow';
+import CouponRowMobile from './CouponRowMobile';
+import { MOBILE_WIDTH } from '../../../common/constants';
+import { useWindowSize } from '../../hooks/window';
+import CustomIconButton from '../../components/Custom/IconButton';
+import { goTo, ROUTES } from '../../../../public/src/actions/goTo';
 
 export default function ImportMembers() {
   const { t } = useTranslation();
@@ -30,6 +43,8 @@ export default function ImportMembers() {
   const router = useRouter();
   const { id } = router.query;
   const [isLoading, setIsLoading] = useState();
+  const [coupons, setCoupons] = useState([]);
+  const [width] = useWindowSize();
 
   useEffect(() => {
     if (id) {
@@ -46,6 +61,37 @@ export default function ImportMembers() {
   const update = () => {
     getMemberships();
   };
+
+  const getCoupons = async () => {
+    const { data } = await api(`/api/entity/organizationTokenPromoCode/?id=${id}`);
+
+    if (data) {
+      setCoupons(data);
+    }
+  };
+
+  useEffect(() => {
+    getCoupons();
+  }, [id]);
+
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+      maxWidth: 55,
+    },
+  }))(TableCell);
+
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
 
   const getMemberships = async () => {
     const res = await api(`/api/entity/memberships/?id=${id}`);
@@ -98,7 +144,9 @@ export default function ImportMembers() {
       });
       if (res.status === STATUS_ENUM.SUCCESS) {
         formik.setFieldValue('dialogOpen', false);
-        history.back();
+        formik.setFieldValue('members', []);
+
+        getCoupons();
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('transfer_completed'),
@@ -212,6 +260,15 @@ export default function ImportMembers() {
   return (
     <IgContainer>
       <Paper title={t('import_members')}>
+        <div className={styles.header}>
+          <CustomIconButton
+            icon="ArrowBack"
+            onClick={() => goTo(ROUTES.entity, { id: router.query.id }, { tab: TABS_ENUM.SETTINGS })}
+            tooltip={t('return_event')}
+            className={styles.iconButton}
+            style={{ color: 'primary' }}
+          />
+        </div>
         <ListItem className={styles.listItem}>
           <ListItemText primary={t('step_1')} secondary={t('download_excel_template')} />
           <CSVLink
@@ -281,10 +338,66 @@ export default function ImportMembers() {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <div style={{ marginBottom: 64 }}>
+        <div style={{ marginBottom: 14 }}>
           <List items={members} formik={formik} />
         </div>
       )}
+      <Paper title={t('coupon_sent_list')} className={styles.paper}>
+        <TableContainer component={Paper}>
+          {width < MOBILE_WIDTH ? (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>{t('email.email')}</StyledTableCell>
+                  <StyledTableCell>{t('code')}</StyledTableCell>
+                  <StyledTableCell align="center">{t('status')}</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {coupons?.length > 0 ? (
+                  <>
+                    {coupons.map((coupon, index) => (
+                      <CouponRowMobile coupon={coupon} key={index} />
+                    ))}
+                  </>
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell align="center" colSpan={4}>
+                      {t('no.no_coupons_sent')}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+            </Table>
+          ) : (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>{t('email.email')}</StyledTableCell>
+                  <StyledTableCell>{t('code')}</StyledTableCell>
+                  <StyledTableCell align="center">{t('status')}</StyledTableCell>
+                  <StyledTableCell>{t('expiration_date')}</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {coupons?.length > 0 ? (
+                  <>
+                    {coupons.map((coupon, index) => (
+                      <CouponRow coupon={coupon} key={index} />
+                    ))}
+                  </>
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell align="center" colSpan={4}>
+                      {t('no.no_coupons_sent')}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+            </Table>
+          )}
+        </TableContainer>
+      </Paper>
       <AlertDialog
         open={dialogOpen}
         onCancel={() => {
