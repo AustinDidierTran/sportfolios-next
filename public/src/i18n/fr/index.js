@@ -962,7 +962,7 @@ export default {
     coupons: 'Coupons',
     coupon_already_used: 'Coupon déjà utilisé',
     coupon_code: 'Code coupon',
-    coupon_sent_list: 'Liste de coupons envoyés',
+    coupons_sent_list: 'Liste de coupons envoyés',
     credit_card_added: 'Carte de crédit ajoutée',
     credit_card: 'Carte de crédit',
     credit_cards: 'Cartes de crédits',
