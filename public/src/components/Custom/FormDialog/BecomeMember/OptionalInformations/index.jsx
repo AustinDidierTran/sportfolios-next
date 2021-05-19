@@ -5,19 +5,41 @@ import BasicFormDialog from '../../BasicFormDialog';
 import { COMPONENT_TYPE_ENUM } from '../../../../../../common/enums';
 
 export default function OptionalInformations(props) {
-  const { open: openProps, onClose, formik } = props;
+  const { open: openProps, onClose, formik, organizationName } = props;
   const { t } = useTranslation();
-
-  useEffect(() => {
-    setOpen(openProps);
-  }, [openProps]);
 
   const [open, setOpen] = useState(false);
   const [gettingInvolved, setGettingInvolved] = useState(false);
+  const [hideDonate, setHideDonate] = useState(true);
+  const [anonyme, setAnonyme] = useState(false);
+  const [customAmountCss, setCustomAmountCss] = useState({ display: 'None' });
+
+  useEffect(() => {
+    setHideDonate(true);
+    setOpen(openProps);
+  }, [openProps]);
 
   const handleChange = async () => {
     formik.values.gettingInvolved = !gettingInvolved;
     setGettingInvolved(!gettingInvolved);
+  };
+
+  const handleDonation = async () => {
+    setHideDonate(!hideDonate);
+    formik.setFieldValue('makeDonation', hideDonate);
+  };
+
+  const handleAnonyme = async () => {
+    formik.setFieldValue('isAnonyme', !anonyme);
+    setAnonyme(!anonyme);
+  };
+
+  const handleDonationPrice = async (val) => {
+    if (val == t('Other')) {
+      setCustomAmountCss({});
+    } else {
+      setCustomAmountCss({ display: 'None' });
+    }
   };
 
   const fields = [
@@ -53,6 +75,71 @@ export default function OptionalInformations(props) {
       label: t('employer'),
       formik,
     },
+    {
+      componentType: COMPONENT_TYPE_ENUM.DIVIDER,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+      primary: t('donate'),
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
+      namespace: 'makeDonation',
+      label: t('make_donation', {
+        organizationName,
+      }),
+      onChange: handleDonation,
+      formik,
+    },
+    !hideDonate
+      ? {
+          namespace: 'donationAmount',
+          label: t('donation_amount'),
+          componentType: COMPONENT_TYPE_ENUM.SELECT,
+          onChange: handleDonationPrice,
+          options: [
+            { value: '20', display: '20$' },
+            { value: '50', display: '50$' },
+            { value: '100', display: '100$' },
+            { value: t('Other'), display: t('Other') },
+          ],
+          formik,
+        }
+      : {
+          componentType: COMPONENT_TYPE_ENUM.EMPTY,
+        },
+    {
+      namespace: 'customDonationAmount',
+      label: t('custom_donation_amount'),
+      type: 'number',
+      min: '10',
+      style: customAmountCss,
+      endAdorment: '$',
+      hidden: hideDonate,
+      formik,
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
+      namespace: 'donationNote',
+      label: t('donation_note'),
+      variant: 'filled',
+      rows: 2,
+      rowsMax: 4,
+      style: { width: '100%' },
+      disabled: hideDonate,
+      formik,
+    },
+    !hideDonate
+      ? {
+          componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
+          namespace: 'isAnonyme',
+          label: t('i_want_to_be_anonyme'),
+          onChange: handleAnonyme,
+          formik,
+        }
+      : {
+          componentType: COMPONENT_TYPE_ENUM.EMPTY,
+        },
   ];
 
   const buttons = [

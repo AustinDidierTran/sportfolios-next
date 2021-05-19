@@ -29,6 +29,7 @@ export default function ComponentFactory(props) {
       <Select
         options={component.options}
         formik={component.formik}
+        onChange={component.onChange}
         namespace={component.namespace}
         label={component.label}
         value={component.defaultValue}
@@ -272,6 +273,7 @@ export default function ComponentFactory(props) {
         ) : (
           <></>
         ),
+        inputProps: { min: component.min, max: component.max },
         ...component.inputProps,
       }}
       id={component.id}

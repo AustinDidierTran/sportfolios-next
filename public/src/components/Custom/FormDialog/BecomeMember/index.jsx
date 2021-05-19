@@ -49,6 +49,8 @@ export default function BecomeMember(props) {
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
   const [membershipCreatedId, setMembershipCreatedId] = useState('');
+  const [personId, setPersonId] = useState('');
+  const [organizationName, setOrganizationName] = useState('');
 
   useEffect(() => {
     if (openProps) {
@@ -122,6 +124,15 @@ export default function BecomeMember(props) {
     } else if (memberships[0]) {
       formik.setFieldValue('type', memberships[0].value);
     }
+  };
+
+  const getOrganizationName = async (entityId) => {
+    const { data } = await api(formatRoute('/api/entity/generalInfos', null, { entityId }));
+    if (!data) {
+      return;
+    }
+
+    setOrganizationName(data.name);
   };
 
   const formatMembership = (membership) => {
@@ -230,13 +241,14 @@ export default function BecomeMember(props) {
         });
       } else {
         setPersonalInfos(false);
+        getOrganizationName(membership.entity_id);
         if (hasChanged()) {
           setUpdateInfos(true);
         } else {
           setOptionalInformations(true);
         }
         setMembershipCreatedId(res.data.id);
-
+        setPersonId(person);
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('member.membership_added'),
@@ -255,10 +267,26 @@ export default function BecomeMember(props) {
       frequentedSchool: '',
       jobTitle: '',
       employer: '',
+      makeDonation: '',
+      donationAmount: '',
+      customDonationAmount: '',
+      donationNote: '',
+      isAnonyme: '',
     },
     onSubmit: async (values, { resetForm }) => {
-      const { heardOrganization, gettingInvolved, frequentedSchool, jobTitle, employer } = values;
-      const res = await api(`/api/entity/memberOptionalField`, {
+      const {
+        heardOrganization,
+        gettingInvolved,
+        frequentedSchool,
+        jobTitle,
+        employer,
+        makeDonation,
+        donationAmount,
+        customDonationAmount,
+        donationNote,
+        isAnonyme,
+      } = values;
+      const resOptional = await api(`/api/entity/memberOptionalField`, {
         method: 'PUT',
         body: JSON.stringify({
           membershipId: membershipCreatedId,
@@ -269,7 +297,37 @@ export default function BecomeMember(props) {
           employer,
         }),
       });
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+
+      let amount, organizationId, anonyme, userId, note;
+      if (makeDonation) {
+        if (donationAmount == t('Other')) {
+          amount = customDonationAmount;
+        } else {
+          amount = donationAmount;
+        }
+        userId = personId;
+        anonyme = isAnonyme;
+        note = donationNote;
+        organizationId = membership.entity_id;
+      }
+
+      const resDonation = await api(`/api/entity/memberDonation`, {
+        method: 'POST',
+        body: JSON.stringify({
+          amount,
+          anonyme,
+          note,
+          organizationId,
+          userId,
+        }),
+      });
+
+      if (
+        resOptional.status === STATUS_ENUM.ERROR ||
+        resOptional.status >= 400 ||
+        resDonation.status === STATUS_ENUM.ERROR ||
+        resDonation.status >= 400
+      ) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -417,7 +475,12 @@ export default function BecomeMember(props) {
       />
       <PersonalInfos open={personalInfos} formik={formik} onClose={onPersonalInfosClose} />
       <UpdatePersonalInfos open={updateInfos} onClose={onUpdateInfosClose} formik={formik} />
-      <OptionalInformations open={optionalInformations} formik={formikOptional} onClose={onOptionalInformationsClose} />
+      <OptionalInformations
+        organizationName={organizationName}
+        open={optionalInformations}
+        formik={formikOptional}
+        onClose={onOptionalInformationsClose}
+      />
       <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>
   );
