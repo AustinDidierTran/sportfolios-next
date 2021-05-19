@@ -289,6 +289,7 @@ export default function ComponentFactory(props) {
       helperText={component.helperText}
       autoFocus={component.autoFocus}
       hidden={component.hidden}
+      required={component.required}
     />
   );
 }

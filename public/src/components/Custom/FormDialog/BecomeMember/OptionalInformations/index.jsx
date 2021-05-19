@@ -12,11 +12,12 @@ export default function OptionalInformations(props) {
   const [gettingInvolved, setGettingInvolved] = useState(false);
   const [hideDonate, setHideDonate] = useState(true);
   const [anonyme, setAnonyme] = useState(false);
-  const [customAmountCss, setCustomAmountCss] = useState({ display: 'None' });
+  const [customAmount, setCustomAmount] = useState(false);
 
   useEffect(() => {
     setHideDonate(true);
     setOpen(openProps);
+    setCustomAmount(false);
   }, [openProps]);
 
   const handleChange = async () => {
@@ -36,9 +37,9 @@ export default function OptionalInformations(props) {
 
   const handleDonationPrice = async (val) => {
     if (val == t('Other')) {
-      setCustomAmountCss({});
+      setCustomAmount(true);
     } else {
-      setCustomAmountCss({ display: 'None' });
+      setCustomAmount(false);
     }
   };
 
@@ -109,16 +110,19 @@ export default function OptionalInformations(props) {
       : {
           componentType: COMPONENT_TYPE_ENUM.EMPTY,
         },
-    {
-      namespace: 'customDonationAmount',
-      label: t('custom_donation_amount'),
-      type: 'number',
-      min: '10',
-      style: customAmountCss,
-      endAdorment: '$',
-      hidden: hideDonate,
-      formik,
-    },
+    customAmount
+      ? {
+          namespace: 'customDonationAmount',
+          label: t('custom_donation_amount'),
+          type: 'number',
+          required: customAmount,
+          min: '10',
+          endAdorment: '$',
+          formik,
+        }
+      : {
+          componentType: COMPONENT_TYPE_ENUM.EMPTY,
+        },
     {
       componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
       namespace: 'donationNote',
