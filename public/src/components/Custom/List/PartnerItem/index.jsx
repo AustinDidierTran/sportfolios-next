@@ -8,6 +8,10 @@ import IconButton from '../../IconButton';
 import Button from '../../Button';
 import Typography from '@material-ui/core/Typography';
 import styles from './PartnerItem.module.css';
+<<<<<<< HEAD
+=======
+import Divider from '@material-ui/core/Divider';
+>>>>>>> Display partners in organization settings
 
 import { useTranslation } from 'react-i18next';
 
@@ -20,10 +24,13 @@ export default function PartnerItem(props) {
     setExpanded(!expanded);
   };
 
+<<<<<<< HEAD
   const redirect = () => {
     window.open(website);
   };
 
+=======
+>>>>>>> Display partners in organization settings
   const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
 
   return (
@@ -36,6 +43,7 @@ export default function PartnerItem(props) {
         <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
       <Collapse in={expanded} timeaout="auto" unmountOnExit>
+<<<<<<< HEAD
         <div style={{ backgroundColor: '#F5F5F5' }}>
           <ListItem button onClick={redirect}>
             <ListItemText primary={name} secondary={website} />
@@ -50,6 +58,21 @@ export default function PartnerItem(props) {
             {t('edit.edit')}
           </Button>
         </div>
+=======
+        <ListItem>
+          <ListItemText primary={name} secondary={website} />
+        </ListItem>
+        <Typography display="block" align="left" className={styles.div}>
+          {description}
+        </Typography>
+        <Button onClick={() => {}} endIcon="Delete" color="secondary" style={{ margin: '8px' }}>
+          {t('delete.delete')}
+        </Button>
+        <Button onClick={() => {}} endIcon="Edit" color="primary" style={{ margin: '8px' }}>
+          {t('edit.edit')}
+        </Button>
+        <Divider variant="middle" />
+>>>>>>> Display partners in organization settings
       </Collapse>
     </>
   );
