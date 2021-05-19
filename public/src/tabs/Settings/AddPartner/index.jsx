@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
-// import FormDialog from '../../../components/Custom/FormDialog';
-// import { getMembershipName, getMembershipType, getExpirationDate } from '../../../utils/stringFormats';
-// import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
+import FormDialog from '../../../components/Custom/FormDialog';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 // import api from '../../../actions/api';
 // import { goTo, ROUTES } from '../../../actions/goTo';
@@ -12,7 +11,7 @@ import { useRouter } from 'next/router';
 
 export default function AddPartner() {
   const { t } = useTranslation();
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -44,28 +43,28 @@ export default function AddPartner() {
   };
 
   const onOpen = () => {
-    //   setOpen(true);
+    setOpen(true);
   };
-  // const onClose = () => {
-  //   setOpen(false);
-  // };
-  // const update = () => {
-  //   getPartners();
-  // };
+  const onClose = () => {
+    setOpen(false);
+  };
+  const update = () => {
+    getPartners();
+  };
 
   return (
     <Paper title={t('partners')}>
       <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
         {t('add.add_partner')}
       </Button>
-      {/* <FormDialog
+      <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.ADD_PARTNER}
         items={{
           open,
           onClose,
           update,
         }}
-      /> */}
+      />
       {/* <List items={options} /> */}
     </Paper>
   );

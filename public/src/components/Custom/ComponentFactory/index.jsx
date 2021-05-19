@@ -5,6 +5,7 @@ import TextField from '../TextField';
 import Button from '../Button';
 import Select from '../Select';
 import MultiSelect from '../MultiSelect';
+import Avatar from '../Avatar';
 import AddressSearchInput from '../AddressSearchInput';
 import CheckBox from '../CheckBox';
 import RadioGroup from '../RadioGroup';
@@ -233,6 +234,23 @@ export default function ComponentFactory(props) {
           {component.buttonName}
         </Button>
       </Upload>
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.IMAGE_UPLOAD) {
+    return (
+      <>
+      <Avatar photoUrl={component.photoUrl} variant="square" size="lg" />
+      <Upload {...component.uploadImageProps}>
+        <Button
+          variant="outlined"
+          endIcon="CloudUploadIcon"
+          style={{ marginTop: '8px', marginBottom: '16px' }}
+          component="label"
+        >
+          {component.buttonName}
+        </Button>
+      </Upload>
+      </>
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.EMPTY) {
