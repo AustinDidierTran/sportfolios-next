@@ -271,7 +271,7 @@ export default function BecomeMember(props) {
       donationAmount: '',
       customDonationAmount: '',
       donationNote: '',
-      isAnonyme: '',
+      isAnonyme: false,
     },
     onSubmit: async (values, { resetForm }) => {
       const {
@@ -309,25 +309,28 @@ export default function BecomeMember(props) {
         anonyme = isAnonyme;
         note = donationNote;
         organizationId = membership.entity_id;
+
+        const resDonation = await api(`/api/entity/memberDonation`, {
+          method: 'POST',
+          body: JSON.stringify({
+            amount,
+            anonyme,
+            note,
+            organizationId,
+            userId,
+          }),
+        });
+
+        if (resDonation.status === STATUS_ENUM.ERROR || resDonation.status >= 400) {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: ERROR_ENUM.ERROR_OCCURED,
+            severity: SEVERITY_ENUM.ERROR,
+            duration: 4000,
+          });
+        }
       }
-
-      const resDonation = await api(`/api/entity/memberDonation`, {
-        method: 'POST',
-        body: JSON.stringify({
-          amount,
-          anonyme,
-          note,
-          organizationId,
-          userId,
-        }),
-      });
-
-      if (
-        resOptional.status === STATUS_ENUM.ERROR ||
-        resOptional.status >= 400 ||
-        resDonation.status === STATUS_ENUM.ERROR ||
-        resDonation.status >= 400
-      ) {
+      if (resOptional.status === STATUS_ENUM.ERROR || resOptional.status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

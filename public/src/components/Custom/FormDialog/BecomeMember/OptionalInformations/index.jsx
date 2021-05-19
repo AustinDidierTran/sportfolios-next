@@ -103,6 +103,7 @@ export default function OptionalInformations(props) {
             { value: '100', display: '100$' },
             { value: t('Other'), display: t('Other') },
           ],
+          required: true,
           formik,
         }
       : {
