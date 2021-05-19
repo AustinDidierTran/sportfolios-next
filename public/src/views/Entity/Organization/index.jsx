@@ -2,18 +2,21 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { formatRoute } from '../../../../common/utils/stringFormat';
 import api from '../../../actions/api';
+import { goTo } from '../../../actions/goTo';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
 const Events = dynamic(() => import('../../../tabs/Events'));
 const Memberships = dynamic(() => import('../../../tabs/Memberships'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
+const Partners = dynamic(() => import('../../../tabs/Partners'));
+const EditMemberships = dynamic(() => import('../../../tabs/EditMemberships'));
 
 export default function Organization(props) {
   const { t } = useTranslation();
@@ -30,27 +33,58 @@ export default function Organization(props) {
     getRole();
   }, []);
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const userState = [
+    { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
+    { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
+    { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
+    { component: Partners, value: TABS_ENUM.PARTNERS, label: t('partners'), icon: 'EmojiPeople' },
+  ];
 
-  const tabs = useMemo(() => {
-    let res = [
-      { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
-      { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
-      { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
-    ];
-    if (isAdmin) {
-      return [...res, { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' }];
-    }
-    return res;
-  }, [isAdmin]);
+  const adminState = [
+    { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
+    { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
+    { component: EditMemberships, value: TABS_ENUM.EDIT_MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
+    { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },
+  ];
+
+  const [adminView, setAdminView] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [states, setStates] = useState(userState);
 
   const index = useMemo(() => {
-    const res = tabs.findIndex((s) => s.value === tab);
+    if (adminState.find((s) => s.value === tab) && tab != TABS_ENUM.HOME && tab != TABS_ENUM.EVENTS) {
+      if (isAdmin) {
+        setStates(adminState);
+        setAdminView(true);
+        return adminState.findIndex((s) => s.value === tab);
+      }
+    }
+    const res = states.findIndex((s) => s.value === tab);
     if (res === -1) {
       return 0;
     }
     return res;
-  }, [tab, tabs]);
+  }, [tab, isAdmin]);
+
+  const OpenTab = useMemo(() => {
+    const res = states[index];
+    if (res) {
+      return res.component;
+    }
+    return Home;
+  }, [index, states]);
+
+  const onSwitch = () => {
+    const newState = !adminView;
+    setAdminView(newState);
+    if (newState) {
+      setStates(adminState);
+      goTo(ROUTES_ENUM.entity, { id }, { tab: adminState[index].value });
+    } else {
+      setStates(userState);
+      goTo(ROUTES_ENUM.entity, { id }, { tab: userState[index].value });
+    }
+  };
 
   const getRole = async () => {
     const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
@@ -62,26 +96,20 @@ export default function Organization(props) {
     }
   };
 
-  const OpenTab = useMemo(() => {
-    const res = tabs[index];
-    if (res) {
-      return res.component;
-    }
-    return Home;
-  }, [index, tabs]);
-
   return (
     <>
       <HeaderHome
         basicInfos={basicInfos}
         isAdmin={isAdmin}
+        onSwitch={onSwitch}
         index={index}
-        navTabs={tabs}
+        adminView={adminView}
+        navTabs={states}
         type={GLOBAL_ENUM.ORGANIZATION}
       />
       <IgContainer>
         <div>
-          <OpenTab basicInfos={basicInfos} />
+          <OpenTab basicInfos={basicInfos} adminView={adminView} />
         </div>
       </IgContainer>
     </>

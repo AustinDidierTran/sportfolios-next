@@ -11,9 +11,10 @@ import { formatRoute } from '../../../common/utils/stringFormat';
 import { goTo, ROUTES } from '../../actions/goTo';
 import CustomButton from '../../components/Custom/Button';
 
-export default function Events() {
+export default function Events(props) {
   const { t } = useTranslation();
   const [events, setEvents] = useState([]);
+  const { adminView } = props;
   const router = useRouter();
   const { id } = router.query;
 
@@ -41,11 +42,13 @@ export default function Events() {
 
   return (
     <div className={styles.div}>
-      <div className={styles.buttons}>
-        <CustomButton onClick={createEvent} endIcon="Add" color="primary" className={styles.button}>
-          {t('create.create_event')}
-        </CustomButton>
-      </div>
+      {adminView && (
+        <div className={styles.buttons}>
+          <CustomButton onClick={createEvent} endIcon="Add" color="primary" className={styles.button}>
+            {t('create.create_event')}
+          </CustomButton>
+        </div>
+      )}
       <div className={styles.general}>
         {events.length ? (
           <>
