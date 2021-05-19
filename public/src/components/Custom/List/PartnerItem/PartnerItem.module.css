@@ -1,0 +1,9 @@
+.description {
+  width: 90%;
+}
+
+.div {
+  white-space: pre-wrap;
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+}

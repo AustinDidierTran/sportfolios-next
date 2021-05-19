@@ -75,7 +75,6 @@ export default function NotificationSettingsItem(props) {
               <CustomIcon icon="Chat" />
             </ListItemIcon>
             <ListItemText primary={t('chatbot')} />
-
             <Switch
               disabled={chatbotDisabled}
               checked={chatbot}
