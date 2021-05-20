@@ -361,6 +361,7 @@ export default {
         market_strat: 'Marketing Strategist',
         market_manager: 'Marketing Manager',
       },
+      emails: 'Landing page emails',
     },
     payment: {
       add_payment_method: 'Add payment method',
@@ -507,6 +508,7 @@ export default {
       add_admin: 'Add Admin',
       add_bank_account: 'Add bank account',
       add_credit_card: 'Add credit card',
+      add_email: 'Add email',
       add_editor: 'Add editor',
       add_existing_person: 'Add existing person',
       add_field: 'Add field',
@@ -630,6 +632,7 @@ export default {
       edit_player_fees: 'Edit player fees',
     },
     email: {
+      email_added: 'Email added',
       email_already_exist: 'There is already an existing account with this email',
       email_already_used: 'Email is already in used. Please choose another one',
       email_confirm_failure:

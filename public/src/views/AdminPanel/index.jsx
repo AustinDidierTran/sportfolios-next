@@ -21,6 +21,7 @@ const GaPageviewsTable = dynamic(() => import('./GoogleAnalyticsPageviewsTable')
 const TaxRatesTable = dynamic(() => import('./TaxRatesTable'));
 const GraphLinear = dynamic(() => import('../Analytics/GraphLinear'));
 const NewsLetterSubscriptions = dynamic(() => import('./NewsLetterSubscriptions'));
+const LandingPageEmail = dynamic(() => import('./LandingPageEmail'));
 
 export default function AdminPanel() {
   const { t } = useTranslation();
@@ -58,12 +59,6 @@ export default function AdminPanel() {
       <Typography variant="h3" className={styles.title} style={{ marginTop: 24 }}>
         {t('admin_panel')}
       </Typography>
-      <UsersTable />
-      <NewsLetterSubscriptions />
-      <SportsTable />
-      <GaEventsTable />
-      <GaPageviewsTable />
-      <TaxRatesTable />
       <Paper>
         <GraphLinear
           dateGraph={dateFilter}
@@ -72,6 +67,13 @@ export default function AdminPanel() {
           title={t('member.members_in', { time: new Date().getFullYear() })}
         />
       </Paper>
+      <GaEventsTable />
+      <GaPageviewsTable />
+      <TaxRatesTable />
+      <LandingPageEmail />
+      <NewsLetterSubscriptions />
+      <UsersTable />
+      <SportsTable />
     </Container>
   );
 }
