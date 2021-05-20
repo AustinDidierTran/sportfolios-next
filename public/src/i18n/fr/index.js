@@ -361,7 +361,7 @@ export default {
         market_strat: 'Stratège Marketing',
         market_manager: 'Responsable Marketing',
       },
-      emails: 'Courriels landing page',
+      emails: 'Courriels page de destination',
     },
     payment: {
       add_payment_method: 'Ajouter une option de paiement',
@@ -636,7 +636,7 @@ export default {
       edit_player_fees: 'Modifier les frais par joueur',
     },
     email: {
-      email_added: 'Email ajouté',
+      email_added: 'Courriel ajouté',
       email_already_exist: 'Il y a déjà un compte associé à ce courriel',
       email_already_used: 'Courriel déjà utilisé. Veuillez en choisir un autre.',
       email_confirm_failure:
