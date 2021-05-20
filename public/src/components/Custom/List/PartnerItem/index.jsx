@@ -8,7 +8,6 @@ import IconButton from '../../IconButton';
 import Button from '../../Button';
 import Typography from '@material-ui/core/Typography';
 import styles from './PartnerItem.module.css';
-import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
 
@@ -19,6 +18,10 @@ export default function PartnerItem(props) {
 
   const handleExpand = () => {
     setExpanded(!expanded);
+  };
+
+  const redirect = () => {
+    window.open(website);
   };
 
   const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
@@ -33,19 +36,20 @@ export default function PartnerItem(props) {
         <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
       <Collapse in={expanded} timeaout="auto" unmountOnExit>
-        <ListItem>
-          <ListItemText primary={name} secondary={website} />
-        </ListItem>
-        <Typography display="block" align="left" className={styles.div}>
-          {description}
-        </Typography>
-        <Button onClick={() => {}} endIcon="Delete" color="secondary" style={{ margin: '8px' }}>
-          {t('delete.delete')}
-        </Button>
-        <Button onClick={() => {}} endIcon="Edit" color="primary" style={{ margin: '8px' }}>
-          {t('edit.edit')}
-        </Button>
-        <Divider variant="middle" />
+        <div style={{ backgroundColor: '#F5F5F5' }}>
+          <ListItem button onClick={redirect}>
+            <ListItemText primary={name} secondary={website} />
+          </ListItem>
+          <Typography display="block" align="left" className={styles.div}>
+            {description}
+          </Typography>
+          <Button onClick={() => {}} endIcon="Delete" color="secondary" style={{ margin: '8px' }}>
+            {t('delete.delete')}
+          </Button>
+          <Button onClick={() => {}} endIcon="Edit" color="primary" style={{ margin: '8px' }}>
+            {t('edit.edit')}
+          </Button>
+        </div>
       </Collapse>
     </>
   );
