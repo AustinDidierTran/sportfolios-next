@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { List } from '../../../components/Custom';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function AddPartner() {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ export default function AddPartner() {
   }, [id]);
 
   const getPartners = async () => {
-    const res = await api(`/api/entity/partners/?id=${id}`);
+    const res = await api(formatRoute('/api/entity/partners', null, { id }));
     const data = res.data.map((d) => ({
       name: d.name,
       website: d.website,
