@@ -16,11 +16,9 @@ export default function OptionalInformations(props) {
   const { dispatch } = useContext(Store);
 
   const [open, setOpen] = useState(false);
-  const [hideDonate, setHideDonate] = useState(true);
   const [organizationName, setOrganizationName] = useState('');
 
   useEffect(() => {
-    setHideDonate(true);
     setOpen(openProps);
     getOrganizationName(organizationId);
   }, [openProps]);
@@ -39,7 +37,6 @@ export default function OptionalInformations(props) {
   };
 
   const handleDonation = async () => {
-    setHideDonate((hideDonate) => !hideDonate);
     formik.setFieldValue('makeDonation', !formik.values.makeDonation);
   };
 
@@ -154,6 +151,7 @@ export default function OptionalInformations(props) {
     },
   });
 
+  const hideDonate = useMemo(() => formik.values.makeDonation == false, [formik.values.makeDonation]);
   const customAmount = useMemo(() => formik.values.donationAmount === t('Other'), [formik.values.donationAmount]);
 
   const fields = [
