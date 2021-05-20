@@ -1,47 +1,160 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import api from '../../../../../actions/api';
 import BasicFormDialog from '../../BasicFormDialog';
-import { COMPONENT_TYPE_ENUM } from '../../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { ERROR_ENUM } from '../../../../../../common/errors';
+import { Store, ACTION_ENUM } from '../../../../../Store';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { formatRoute } from '../../../../../../common/utils/stringFormat';
 
 export default function OptionalInformations(props) {
-  const { open: openProps, onClose, formik, organizationName } = props;
+  const { open: openProps, onClose, organizationId, membershipCreatedId, personId } = props;
   const { t } = useTranslation();
+  const { dispatch } = useContext(Store);
 
   const [open, setOpen] = useState(false);
-  const [gettingInvolved, setGettingInvolved] = useState(false);
   const [hideDonate, setHideDonate] = useState(true);
-  const [anonyme, setAnonyme] = useState(false);
-  const [customAmount, setCustomAmount] = useState(false);
+  const [organizationName, setOrganizationName] = useState('');
 
   useEffect(() => {
     setHideDonate(true);
     setOpen(openProps);
-    setCustomAmount(false);
+    getOrganizationName(organizationId);
   }, [openProps]);
 
+  const getOrganizationName = async (entityId) => {
+    const { data } = await api(formatRoute('/api/entity/generalInfos', null, { entityId }));
+    if (!data) {
+      return;
+    }
+
+    setOrganizationName(data.name);
+  };
+
   const handleChange = async () => {
-    formik.values.gettingInvolved = !gettingInvolved;
-    setGettingInvolved(!gettingInvolved);
+    formik.setFieldValue('gettingInvolved', !formik.values.gettingInvolved);
   };
 
   const handleDonation = async () => {
-    setHideDonate(!hideDonate);
-    formik.setFieldValue('makeDonation', hideDonate);
+    setHideDonate((hideDonate) => !hideDonate);
+    formik.setFieldValue('makeDonation', !formik.values.makeDonation);
   };
 
   const handleAnonyme = async () => {
-    formik.setFieldValue('isAnonyme', !anonyme);
-    setAnonyme(!anonyme);
+    formik.setFieldValue('isAnonyme', !formik.values.isAnonyme);
   };
 
-  const handleDonationPrice = async (val) => {
-    if (val == t('Other')) {
-      setCustomAmount(true);
-    } else {
-      setCustomAmount(false);
-    }
-  };
+  const validationOptionalSchema = yup.object().shape({
+    heardOrganization: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return false;
+      }
+      return val.length <= 255;
+    }),
+    donationNote: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
+      if (!val) {
+        return false;
+      }
+      return val.length <= 255;
+    }),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      heardOrganization: '',
+      gettingInvolved: false,
+      frequentedSchool: '',
+      jobTitle: '',
+      employer: '',
+      makeDonation: false,
+      donationAmount: '',
+      customDonationAmount: '',
+      donationNote: '',
+      isAnonyme: false,
+    },
+    validationSchema: validationOptionalSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: async (values, { resetForm }) => {
+      const {
+        heardOrganization,
+        gettingInvolved,
+        frequentedSchool,
+        jobTitle,
+        employer,
+        makeDonation,
+        donationAmount,
+        customDonationAmount,
+        donationNote,
+        isAnonyme,
+      } = values;
+      const resOptional = await api(`/api/entity/memberOptionalField`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          membershipId: membershipCreatedId,
+          heardOrganization,
+          gettingInvolved,
+          frequentedSchool,
+          jobTitle,
+          employer,
+        }),
+      });
+
+      let amount, anonyme, userId, note;
+      if (makeDonation) {
+        if (donationAmount == t('Other')) {
+          amount = customDonationAmount;
+        } else {
+          amount = donationAmount;
+        }
+        userId = personId;
+        anonyme = isAnonyme;
+        note = donationNote;
+
+        const resDonation = await api(`/api/entity/memberDonation`, {
+          method: 'POST',
+          body: JSON.stringify({
+            amount,
+            anonyme,
+            note,
+            organizationId,
+            userId,
+          }),
+        });
+
+        if (resDonation.status === STATUS_ENUM.ERROR || resDonation.status >= 400) {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: ERROR_ENUM.ERROR_OCCURED,
+            severity: SEVERITY_ENUM.ERROR,
+            duration: 4000,
+          });
+        }
+      }
+      if (resOptional.status === STATUS_ENUM.ERROR || resOptional.status >= 400) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        onClose();
+        resetForm();
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('member.membership_optional_info_added'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 4000,
+        });
+      }
+    },
+  });
+
+  const customAmount = useMemo(() => formik.values.donationAmount === t('Other'), [formik.values.donationAmount]);
 
   const fields = [
     {
@@ -97,7 +210,7 @@ export default function OptionalInformations(props) {
           namespace: 'donationAmount',
           label: t('donation_amount'),
           componentType: COMPONENT_TYPE_ENUM.SELECT,
-          onChange: handleDonationPrice,
+          onChange: customAmount,
           options: [
             { value: '20', display: '20$' },
             { value: '50', display: '50$' },
@@ -110,7 +223,7 @@ export default function OptionalInformations(props) {
       : {
           componentType: COMPONENT_TYPE_ENUM.EMPTY,
         },
-    customAmount
+    customAmount && !hideDonate
       ? {
           namespace: 'customDonationAmount',
           label: t('custom_donation_amount'),
