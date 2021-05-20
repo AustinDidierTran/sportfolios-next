@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
 import FormDialog from '../../../components/Custom/FormDialog';
-import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
-// import api from '../../../actions/api';
-// import { goTo, ROUTES } from '../../../actions/goTo';
-// import { List } from '../../../components/Custom';
+import api from '../../../actions/api';
+import { List } from '../../../components/Custom';
 import { useRouter } from 'next/router';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function AddPartner() {
   const { t } = useTranslation();
@@ -16,30 +16,25 @@ export default function AddPartner() {
   const router = useRouter();
   const { id } = router.query;
 
-  // const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState([]);
 
   useEffect(() => {
     getPartners();
   }, [id]);
 
   const getPartners = async () => {
-    // const res = await api(`/api/entity/memberships/?id=${id}`);
-    // const data = res.data.map((d) => ({
-    //   membership: t(getMembershipName(d.membership_type)),
-    //   membershipType: t(getMembershipType(d.length, d.fixed_date)),
-    //   expirationDate: getExpirationDate(d.length, d.fixed_date),
-    //   price: d.price,
-    //   transactionFees: d.transactionFees,
-    //   taxRates: d.taxRates,
-    //   description: d.description,
-    //   fileName: d.file_name,
-    //   fileUrl: d.file_url,
-    //   type: LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION,
-    //   id: d.id,
-    //   update,
-    //   key: d.id,
-    // }));
-    // setOptions(data);
+    const res = await api(formatRoute('/api/entity/partners', null, { id }));
+    const data = res.data.map((d) => ({
+      name: d.name,
+      website: d.website,
+      description: d.description,
+      photoUrl: d.photo_url,
+      type: LIST_ITEM_ENUM.PARTNER,
+      id: d.id,
+      update,
+      key: d.id,
+    }));
+    setOptions(data);
   };
 
   const onOpen = () => {
@@ -65,7 +60,7 @@ export default function AddPartner() {
           update,
         }}
       />
-      {/* <List items={options} /> */}
+      <List items={options} />
     </Paper>
   );
 }

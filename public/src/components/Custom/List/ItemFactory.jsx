@@ -11,6 +11,7 @@ const EventCreatorItem = dynamic(() => import('./EventCreatorItem'));
 const EventItem = dynamic(() => import('./EventItem'));
 const MembershipDetailItem = dynamic(() => import('./MembershipDetailItem'));
 const MembershipItem = dynamic(() => import('./MembershipItem'));
+const PartnerItem = dynamic(() => import('./PartnerItem'));
 const MembershipInfoItem = dynamic(() => import('./MembershipInfoItem'));
 const MembershipOrganizationItem = dynamic(() => import('./MembershipOrganizationItem'));
 const OrganizationItem = dynamic(() => import('./OrganizationItem'));
@@ -53,6 +54,7 @@ const ItemMap = {
   [LIST_ITEM_ENUM.MEMBERSHIP]: MembershipItem,
   [LIST_ITEM_ENUM.MEMBERSHIP_INFO]: MembershipInfoItem,
   [LIST_ITEM_ENUM.NOTIFICATION_SETTING]: NotificationSettingItem,
+  [LIST_ITEM_ENUM.PARTNER]: PartnerItem,
   [LIST_ITEM_ENUM.PAYMENT_OPTION]: PaymentOptionItem,
   [LIST_ITEM_ENUM.PURCHASES]: PurchasesItem,
   [LIST_ITEM_ENUM.RANKING_WITH_STATS]: RankingWithStatsItem,
