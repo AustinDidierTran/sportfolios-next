@@ -9,7 +9,7 @@ import styles from './MembershipOrganizationItem.module.css';
 import CustomCollapse from '../../Collapse';
 import CustomIconButton from '../../IconButton';
 import CustomButton from '../../Button';
-import { AlertDialog } from '../../../Custom';
+import AlertDialog from '../../Dialog/AlertDialog';
 import dynamic from 'next/dynamic';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { formatRoute } from '../../../../../common/utils/stringFormat';
@@ -108,7 +108,7 @@ export default function MembershipOrganizationItem(props) {
           {description != null && (
             <ListItem className={styles.money}>
               <ListItemText primary={`${t('description.description')}:`}></ListItemText>
-              <ListItemText style={{'white-space': 'pre-wrap'}} primary={`${description}`}></ListItemText>
+              <ListItemText style={{ 'white-space': 'pre-wrap' }} primary={`${description}`}></ListItemText>
             </ListItem>
           )}
           <ListItem className={styles.money}>

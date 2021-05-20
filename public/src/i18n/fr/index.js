@@ -593,6 +593,8 @@ export default {
         'Êtes-vous certain de vouloir supprimer cette affilitation? Cette personne ne sera pas remboursée.',
       delete_membership_confirmation: 'Êtes-vous certain de vouloir supprimer cette affilitation?',
       delete_membership: "Supprimer l'affiliation",
+      delete_partner_confirmation: 'Êtes-vous certain de vouloir supprimer ce partenaire?',
+      delete_partner: 'Supprimer le partenaire',
       delete_phase: 'Supprimer la phase',
       delete_phase_warning:
         'Êtes-vous certain de vouloir supprimer la phase? Toutes les parties, classements et autres informations reliées à la phase seront supprimés et irrécupérables.',
@@ -717,6 +719,13 @@ export default {
       none_feminine: 'Aucune',
       none: 'Aucun',
       not_specified: 'Non spécifié',
+    },
+    partner: {
+      partner: 'Partenaire',
+      partners: 'Partenaires',
+      partner_added: 'Partenaire ajouté',
+      partner_deleted: 'Partenaire supprimé',
+      partner_edited: 'Partenaire modifié',
     },
     person: {
       person_awaiting_transfer: 'Personne en cours de transfert',
@@ -1178,10 +1187,6 @@ export default {
     Other: 'Autre',
     other: 'Autre',
     our_team: 'Notre Équipe',
-    partner: 'Partenaire',
-    partners: 'Partenaires',
-    partner_added: 'Partenaire ajouté',
-    partner_deleted: 'Partenaire supprimé',
     page_not_found: 'Page non trouvée',
     password_changed: 'Mot de passe changé avec succès',
     password_length: 'Votre mot de passe doit contenir entre 8 et 24 caractères',

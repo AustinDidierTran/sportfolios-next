@@ -48,7 +48,7 @@ export default function AddPartner() {
   };
 
   return (
-    <Paper title={t('partners')}>
+    <Paper title={t('partner.partners')}>
       <Button size="small" variant="contained" style={{ margin: '8px' }} onClick={onOpen}>
         {t('add.add_partner')}
       </Button>

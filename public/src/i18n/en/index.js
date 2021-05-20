@@ -588,6 +588,8 @@ export default {
       delete_member_confirmation: 'Are you sure you want to delete this membership? This person will not be refunded.',
       delete_membership_confirmation: 'Are you sure you want to delete this membership?',
       delete_membership: 'Delete membership',
+      delete_partner_confirmation: 'Are you sure you want to delete this partner',
+      delete_partner: 'Delete partner',
       delete_phase: 'Delete phase',
       delete_phase_warning:
         'Are you sure you want to delete this phase? Every game, ranking and other information associated with this phase will be deleted and unrecoverable.',
@@ -713,6 +715,13 @@ export default {
       none_feminine: 'None',
       none: 'None',
       not_specified: 'Not specified',
+    },
+    partner: {
+      partner: 'Partner',
+      partners: 'Partners',
+      partner_added: 'Partner added',
+      partner_deleted: 'Partner deleted',
+      partner_edited: 'Partner edited',
     },
     person: {
       person_awaiting_transfer: 'Person awaiting transfer',
@@ -1154,10 +1163,6 @@ export default {
     Other: 'Other',
     other: 'Other',
     our_team: 'Our Team',
-    partner: 'Partner',
-    partners: 'Partners',
-    partner_added: 'Partner added',
-    partner_deleted: 'Partner deleted',
     page_not_found: 'Page not found',
     password_changed: 'Password has been changed successfully',
     password_length: 'Password must be within 8 and 24 characters long.',
