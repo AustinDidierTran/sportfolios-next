@@ -210,7 +210,6 @@ export default function OptionalInformations(props) {
           namespace: 'donationAmount',
           label: t('donation_amount'),
           componentType: COMPONENT_TYPE_ENUM.SELECT,
-          onChange: customAmount,
           options: [
             { value: '20', display: '20$' },
             { value: '50', display: '50$' },
