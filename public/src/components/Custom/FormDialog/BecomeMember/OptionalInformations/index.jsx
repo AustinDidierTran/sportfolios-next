@@ -50,13 +50,13 @@ export default function OptionalInformations(props) {
   const validationSchema = yup.object().shape({
     heardOrganization: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
       if (!val) {
-        return false;
+        return true;
       }
       return val.length <= 255;
     }),
     donationNote: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
       if (!val) {
-        return false;
+        return true;
       }
       return val.length <= 255;
     }),
