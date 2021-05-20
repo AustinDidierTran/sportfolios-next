@@ -8,7 +8,7 @@ import styles from './Settings.module.css';
 import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import { useRouter } from 'next/router';
 
-const AddMembership = dynamic(() => import('./AddMembership'));
+const AddMembership = dynamic(() => import('./AddPartner'));
 const BankAccount = dynamic(() => import('./BankAccount'));
 const BasicInfos = dynamic(() => import('./BasicInfos'));
 const ManageRoles = dynamic(() => import('./ManageRoles'));

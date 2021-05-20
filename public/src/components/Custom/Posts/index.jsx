@@ -13,7 +13,6 @@ import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/e
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
 
-
 export default function Posts(props) {
   const [width] = useWindowSize();
 
@@ -187,7 +186,7 @@ export default function Posts(props) {
         commentContent,
       }),
     });
-  }
+  };
 
   const handlePost = async (entityId, postContent, images) => {
     const { data: newPost } = await api('/api/posts/create', {
@@ -227,7 +226,7 @@ export default function Posts(props) {
       method: 'PUT',
       body: JSON.stringify({
         postId,
-        postContent
+        postContent,
       }),
     });
 
@@ -252,9 +251,8 @@ export default function Posts(props) {
           }),
         });
       })
-    )
-  }
-
+    );
+  };
   return (
     <div>
       <div>

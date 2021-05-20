@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 const AddEventPaymentOption = dynamic(() => import('./AddEventPaymentOption'));
 const EditEventPaymentOption = dynamic(() => import('./EditEventPaymentOption'));
 const AddMember = dynamic(() => import('./AddMember'));
+const AddPartner = dynamic(() => import('./AddPartner'));
 const AddMembership = dynamic(() => import('./AddMembership'));
 const AddTeamFee = dynamic(() => import('./AddTeamFee'));
 const AddPlayerFee = dynamic(() => import('./AddPlayerFee'));
@@ -25,6 +26,7 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.ADD_EVENT_PAYMENT_OPTION]: AddEventPaymentOption,
   [FORM_DIALOG_TYPE_ENUM.EDIT_EVENT_PAYMENT_OPTION]: EditEventPaymentOption,
   [FORM_DIALOG_TYPE_ENUM.ADD_MEMBER]: AddMember,
+  [FORM_DIALOG_TYPE_ENUM.ADD_PARTNER]: AddPartner,
   [FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP]: AddMembership,
   [FORM_DIALOG_TYPE_ENUM.ADD_TEAM_FEE]: AddTeamFee,
   [FORM_DIALOG_TYPE_ENUM.ADD_PLAYER_FEE]: AddPlayerFee,

@@ -36,6 +36,7 @@ import Edit from '@material-ui/icons/Edit';
 import EditIcon from '@material-ui/icons/Edit';
 import EmojiEvents from '@material-ui/icons/EmojiEvents';
 import EmojiObjects from '@material-ui/icons/EmojiObjects';
+import EmojiPeople from '@material-ui/icons/EmojiPeople';
 import Equalizer from '@material-ui/icons/Equalizer';
 import Event from '@material-ui/icons/Event';
 import ExitToApp from '@material-ui/icons/ExitToApp';
@@ -144,6 +145,7 @@ const icons: any = {
   EditIcon,
   EmojiEvents,
   EmojiObjects,
+  EmojiPeople,
   Equalizer,
   Event,
   ExitToApp,

@@ -22,7 +22,7 @@ import { MOBILE_WIDTH } from '../../../../../common/constants';
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
 export default function HeaderOrganization(props) {
-  const { basicInfos, navTabs, index, isAdmin } = props;
+  const { basicInfos, navTabs, index, isAdmin, onSwitch, adminView } = props;
   const router = useRouter();
   const { t } = useTranslation();
   const { id } = router.query;
@@ -77,7 +77,9 @@ export default function HeaderOrganization(props) {
         basicInfos={basicInfos}
         onBecomeMemberButton={onOpenBecomeMember}
         onOpenToLoggin={onOpenToLoggin}
+        onSwitch={onSwitch}
         isAdmin={isAdmin}
+        adminView={adminView}
         hasMemberships={hasMemberships}
         isAuthenticated={isAuthenticated}
       />

@@ -3,10 +3,20 @@ import Avatar from '../Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import styles from './BannerOrganization.module.css';
 
 export default function BannerOrganization(props) {
-  const { basicInfos, onBecomeMemberButton, onOpenToLoggin, hasMemberships, isAuthenticated } = props;
+  const {
+    basicInfos,
+    onBecomeMemberButton,
+    onOpenToLoggin,
+    hasMemberships,
+    isAuthenticated,
+    isAdmin,
+    onSwitch,
+    adminView,
+  } = props;
   const { t } = useTranslation();
 
   return (
@@ -36,6 +46,34 @@ export default function BannerOrganization(props) {
           </Grid>
         </Grid>
       </Grid>
+      <Divider variant="middle" />
+      <div className={styles.divIconButton}>
+        {isAdmin && (
+          <>
+            {adminView ? (
+              <CustomButton
+                className={styles.view}
+                startIcon="Autorenew"
+                color="secondary"
+                variant="outlined"
+                onClick={onSwitch}
+              >
+                {t('player_view')}
+              </CustomButton>
+            ) : (
+              <CustomButton
+                className={styles.view}
+                startIcon="Autorenew"
+                color="primary"
+                variant="outlined"
+                onClick={onSwitch}
+              >
+                {t('admin_view')}
+              </CustomButton>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
