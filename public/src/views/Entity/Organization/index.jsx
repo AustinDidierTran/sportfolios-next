@@ -37,7 +37,7 @@ export default function Organization(props) {
     { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
     { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
     { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
-    { component: Partners, value: TABS_ENUM.PARTNERS, label: t('partners'), icon: 'EmojiPeople' },
+    { component: Partners, value: TABS_ENUM.PARTNERS, label: t('partner.partners'), icon: 'EmojiPeople' },
   ];
 
   const adminState = [

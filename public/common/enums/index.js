@@ -177,6 +177,7 @@ const FORM_DIALOG_TYPE_ENUM = {
   ADD_PARTNER: 'add partner',
   EDIT_MEMBERSHIP: 'edit membership',
   EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS: 'edit membership and conditions',
+  EDIT_PARTNER: 'edit partner',
   MEMBERS_REPORT: 'members report',
   SALES_REPORT: 'sales_report',
   CREATE_TAX_RATE: 'create tax rate',
