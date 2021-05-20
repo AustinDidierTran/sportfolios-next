@@ -311,8 +311,6 @@ export default function BecomeMember(props) {
   };
 
   const onOptionalInformationsClose = () => {
-    console.log('close called');
-
     setOptionalInformations(false);
     if (membership.price > 0) {
       setGoToCart(true);
