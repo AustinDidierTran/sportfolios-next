@@ -588,7 +588,7 @@ export default {
       delete_member_confirmation: 'Are you sure you want to delete this membership? This person will not be refunded.',
       delete_membership_confirmation: 'Are you sure you want to delete this membership?',
       delete_membership: 'Delete membership',
-      delete_partner_confirmation: 'Are you sure you want to delete this partner',
+      delete_partner_confirmation: 'Are you sure you want to delete this partner?',
       delete_partner: 'Delete partner',
       delete_phase: 'Delete phase',
       delete_phase_warning:

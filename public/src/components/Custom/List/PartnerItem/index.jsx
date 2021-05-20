@@ -11,7 +11,6 @@ import AlertDialog from '../../Dialog/AlertDialog';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import Typography from '@material-ui/core/Typography';
 import styles from './PartnerItem.module.css';
-import Divider from '@material-ui/core/Divider';
 import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
