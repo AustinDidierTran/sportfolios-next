@@ -47,7 +47,7 @@ export default function OptionalInformations(props) {
     formik.setFieldValue('isAnonyme', !formik.values.isAnonyme);
   };
 
-  const validationOptionalSchema = yup.object().shape({
+  const validationSchema = yup.object().shape({
     heardOrganization: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
       if (!val) {
         return false;
@@ -75,7 +75,7 @@ export default function OptionalInformations(props) {
       donationNote: '',
       isAnonyme: false,
     },
-    validationSchema: validationOptionalSchema,
+    validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
