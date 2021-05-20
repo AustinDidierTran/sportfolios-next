@@ -106,7 +106,7 @@ export default function OptionalInformations(props) {
       let amount, anonyme, userId, note;
       if (makeDonation) {
         if (donationAmount == t('Other')) {
-          amount = customDonationAmount;
+          amount = Math.floor(customDonationAmount * 100);
         } else {
           amount = donationAmount;
         }
