@@ -49,6 +49,8 @@ export default function BecomeMember(props) {
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
   const [membershipCreatedId, setMembershipCreatedId] = useState('');
+  const [personId, setPersonId] = useState('');
+  const [organizationId, setOrganizationId] = useState('');
 
   useEffect(() => {
     if (openProps) {
@@ -230,13 +232,14 @@ export default function BecomeMember(props) {
         });
       } else {
         setPersonalInfos(false);
+        setOrganizationId(membership.entity_id);
         if (hasChanged()) {
           setUpdateInfos(true);
         } else {
           setOptionalInformations(true);
         }
         setMembershipCreatedId(res.data.id);
-
+        setPersonId(person);
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('member.membership_added'),
@@ -244,47 +247,6 @@ export default function BecomeMember(props) {
           duration: 4000,
         });
         update();
-      }
-    },
-  });
-
-  const formikOptional = useFormik({
-    initialValues: {
-      heardOrganization: '',
-      gettingInvolved: false,
-      frequentedSchool: '',
-      jobTitle: '',
-      employer: '',
-    },
-    onSubmit: async (values, { resetForm }) => {
-      const { heardOrganization, gettingInvolved, frequentedSchool, jobTitle, employer } = values;
-      const res = await api(`/api/entity/memberOptionalField`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          membershipId: membershipCreatedId,
-          heardOrganization,
-          gettingInvolved,
-          frequentedSchool,
-          jobTitle,
-          employer,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: ERROR_ENUM.ERROR_OCCURED,
-          severity: SEVERITY_ENUM.ERROR,
-          duration: 4000,
-        });
-      } else {
-        onOptionalInformationsClose();
-        resetForm();
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('member.membership_optional_info_added'),
-          severity: SEVERITY_ENUM.SUCCESS,
-          duration: 4000,
-        });
       }
     },
   });
@@ -417,7 +379,13 @@ export default function BecomeMember(props) {
       />
       <PersonalInfos open={personalInfos} formik={formik} onClose={onPersonalInfosClose} />
       <UpdatePersonalInfos open={updateInfos} onClose={onUpdateInfosClose} formik={formik} />
-      <OptionalInformations open={optionalInformations} formik={formikOptional} onClose={onOptionalInformationsClose} />
+      <OptionalInformations
+        membershipCreatedId={membershipCreatedId}
+        organizationId={organizationId}
+        personId={personId}
+        open={optionalInformations}
+        onClose={onOptionalInformationsClose}
+      />
       <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>
   );

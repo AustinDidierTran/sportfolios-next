@@ -30,6 +30,7 @@ export default function ComponentFactory(props) {
       <Select
         options={component.options}
         formik={component.formik}
+        onChange={component.onChange}
         namespace={component.namespace}
         label={component.label}
         value={component.defaultValue}
@@ -37,6 +38,7 @@ export default function ComponentFactory(props) {
         showtextifonlyoneoption={component?.showTextIfOnlyOneOption?.toString() || 'false'}
         disabled={component.disabled}
         key={component.key}
+        required={component.required}
       />
     );
   }
@@ -290,6 +292,7 @@ export default function ComponentFactory(props) {
         ) : (
           <></>
         ),
+        inputProps: { min: component.min, max: component.max },
         ...component.inputProps,
       }}
       id={component.id}
@@ -304,6 +307,7 @@ export default function ComponentFactory(props) {
       helperText={component.helperText}
       autoFocus={component.autoFocus}
       hidden={component.hidden}
+      required={component.required}
     />
   );
 }
