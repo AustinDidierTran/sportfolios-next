@@ -1,0 +1,77 @@
+.partner {
+  display: grid !important;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas: 'image text' 'icon icon';
+  margin: 8px;
+  height: 230px;
+}
+
+.partnerExpanded {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas: 'image text' 'icon icon';
+  margin: 8px;
+}
+
+.divImage {
+  grid-area: image;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image {
+  flex-shrink: 0;
+  -webkit-flex-shrink: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.text {
+  grid-area: text;
+  display: flexbox;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+}
+
+.name {
+  margin: 8px !important;
+}
+
+.button {
+  height: fit-content;
+  margin: 8px !important;
+}
+
+.description {
+  margin-left: 16px !important;
+  margin-bottom: 4px !important;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  line-height: 1.5 !important;
+  height: 150px;
+}
+
+.descriptionExpanded {
+  margin-left: 16px !important;
+  margin-bottom: 4px !important;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  line-height: 1.5 !important;
+}
+
+.iconButton {
+  grid-area: icon;
+  height: 30px;
+}

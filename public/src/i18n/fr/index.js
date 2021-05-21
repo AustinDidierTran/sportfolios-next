@@ -1477,6 +1477,7 @@ export default {
     view_your_profile: 'Voir votre profil',
     viewer: 'Visiteur',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
+    website: 'Site web',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
     with_taxes_the_total_for_a_team_is: 'Avec les taxes, le total pour une équipe est {{total}}$',
     would_you_like_to_update_info_in_your_profile: 'Aimeriez-vous mettre à jour ces informations dans votre profil?',

@@ -1451,6 +1451,7 @@ export default {
     view_your_profile: 'View your profile',
     viewer: 'Viewer',
     waiting_for_payment: 'Your payment is being processed. Thank you for your patience',
+    website: 'Website',
     with_taxes_the_total_for_a_player_is: 'With taxes, the total for a player is {{total}}$',
     with_taxes_the_total_for_a_team_is: 'With taxes, the total for a team is {{total}}$',
     would_you_like_to_update_info_in_your_profile: 'Would you like to update those info in your profile?',
