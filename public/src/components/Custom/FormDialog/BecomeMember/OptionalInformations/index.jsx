@@ -9,9 +9,10 @@ import { Store, ACTION_ENUM } from '../../../../../Store';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { formatRoute } from '../../../../../utils/stringFormats';
+import styles from './OptionalInformations.module.css';
 
 export default function OptionalInformations(props) {
-  const { open: openProps, onClose, organizationId, membershipCreatedId, personId } = props;
+  const { open: openProps, onClose, organizationId, membershipCreatedId, personId, onAddDonation } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
@@ -100,14 +101,13 @@ export default function OptionalInformations(props) {
         }),
       });
 
-      let amount, anonyme, userId, note;
+      let amount, anonyme, note;
       if (makeDonation) {
         if (donationAmount == t('Other')) {
           amount = Math.floor(customDonationAmount * 100);
         } else {
-          amount = donationAmount;
+          amount = Math.floor(donationAmount * 100);
         }
-        userId = personId;
         anonyme = isAnonyme;
         note = donationNote;
 
@@ -118,7 +118,7 @@ export default function OptionalInformations(props) {
             anonyme,
             note,
             organizationId,
-            userId,
+            personId,
           }),
         });
 
@@ -129,6 +129,8 @@ export default function OptionalInformations(props) {
             severity: SEVERITY_ENUM.ERROR,
             duration: 4000,
           });
+        } else {
+          onAddDonation();
         }
       }
       if (resOptional.status === STATUS_ENUM.ERROR || resOptional.status >= 400) {
@@ -251,6 +253,16 @@ export default function OptionalInformations(props) {
           label: t('i_want_to_be_anonyme'),
           onChange: handleAnonyme,
           formik,
+        }
+      : {
+          componentType: COMPONENT_TYPE_ENUM.EMPTY,
+        },
+
+    !hideDonate
+      ? {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          secondaryTypographyProps: { variant: 'h1', className: styles.small },
+          secondary: '*' + t('donation_fees'),
         }
       : {
           componentType: COMPONENT_TYPE_ENUM.EMPTY,

@@ -294,5 +294,60 @@ export default function CartItem(props) {
       </>
     );
   }
+  if (type === GLOBAL_ENUM.DONATION) {
+    const { person, organization, note } = metadata;
+    return (
+      <>
+        <ListItem style={{ width: '100%' }}>
+          <div className={styles.div}>
+            <ListItemIcon>
+              <CustomAvatar
+                photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
+                variant="square"
+                className={styles.photo}
+              ></CustomAvatar>
+            </ListItemIcon>
+            <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
+            <ListItemText
+              className={styles.quantity}
+              primary={taxRates.length ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
+              secondary={`${person?.name} ${person?.surname || ''}`}
+            ></ListItemText>
+            <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
+              <div>
+                <CustomCheckBox
+                  disabled={disabled}
+                  checked={checked}
+                  onChange={handleChange}
+                  style={{ margin: '0px' }}
+                />
+              </div>
+            </Tooltip>
+            <CustomIconButton
+              variant="contained"
+              onClick={onClick}
+              icon="Delete"
+              tooltip={t('delete.delete')}
+              style={{ color: 'primary' }}
+            ></CustomIconButton>
+          </div>
+        </ListItem>
+        <Divider />
+        <ListItem style={{ width: '100%' }}>
+          <div style={{ textAlign: 'left' }}>
+            {t('donation_note')}:<ListItemText style={{ textAlign: 'left' }} secondary={note}></ListItemText>
+          </div>
+        </ListItem>
+        <AlertDialog
+          open={open}
+          onCancel={() => {
+            setOpen(false);
+          }}
+          title={t('delete.delete_cart_item_confirmation')}
+          onSubmit={onDelete}
+        />
+      </>
+    );
+  }
   return <></>;
 }

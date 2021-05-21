@@ -118,6 +118,7 @@ export default function ComponentFactory(props) {
         primary={component.primary}
         primaryTypographyProps={component.primaryTypographyProps}
         secondary={component.secondary}
+        secondaryTypographyProps={component.secondaryTypographyProps}
         style={{ overflowWrap: 'anywhere' }}
       />
     );
