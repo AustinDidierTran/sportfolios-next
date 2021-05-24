@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  position: fixed;
+  background-color: black;
+  padding: 16px 32px;
+  height: 64px;
+  text-align: center;
+}
+
+.button {
+  cursor: pointer;
+  background-color: white;
+  color: #18b393;
+  padding: 8px 24px;
+  border: 1px solid white;
+  border-radius: 16px;
+  font-weight: 700;
+}
+
+@media (min-width: 600px) {
+  .container {
+    text-align: right;
+  }
+}

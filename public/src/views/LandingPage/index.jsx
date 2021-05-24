@@ -7,6 +7,11 @@ import Button from '../../components/Custom/Button';
 import styles from './LandingPage.module.css';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../actions/goTo';
+import LoginBar from './LoginBar';
+import SportfoliosPresentation from './SportfoliosPresentation';
+import Modules from './Modules';
+import ValueProposition from './ValueProposition';
+import Pricing from './Pricing';
 
 const Page4 = dynamic(() => import('./Page4'));
 const Page5 = dynamic(() => import('./Page5'));
@@ -25,24 +30,15 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div>
-      <WhatIsSportfolios />
-      <Page4 />
+    <div className={styles.container}>
+      <LoginBar />
+      <SportfoliosPresentation />
+      <Modules />
+      <ValueProposition />
+      <Pricing />
+      {/* TODO: Add team */}
+      {/* <Page4 /> */}
       <Page5 />
-      <div className={styles.login}>
-        <Button
-          onClick={() => {
-            AddGaEvent({
-              category: 'Landing page',
-              action: 'User clicked to be redirected to login',
-              label: 'landing_page_login',
-            });
-            goTo(ROUTES.login);
-          }}
-        >
-          {t('landingPage.presentation.9')}
-        </Button>
-      </div>
     </div>
   );
 }

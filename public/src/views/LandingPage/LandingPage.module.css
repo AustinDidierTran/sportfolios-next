@@ -84,3 +84,10 @@
   right: 16px;
   bottom: 16px;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #18b393;
+}

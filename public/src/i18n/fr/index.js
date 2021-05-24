@@ -297,71 +297,64 @@ export default {
       },
     },
     landingPage: {
-      presentation: {
-        1: 'Modernisez votre gestion.',
-        2: 'Augmentez votre efficacité.',
-        3: 'Gagnez du temps.',
-        4: 'Avec nous:',
-        5: 'Les athlètes jouent;',
-        6: 'Les entraineurs entrainent;',
-        7: 'Les organisateurs organisent;',
-        8: "C'est tout.",
-        9: 'Vers la plateforme',
+      header: {
+        slogan: 'Bouger souvent.\nLongtemps.\nEnsemble.',
       },
-      plateform: {
-        1: 'Plateforme',
-        2: "Pages d'organisations",
-        3: "Pages d'événements",
-        4: 'Pages personnelles',
-        5: "Création d'horaires",
-        6: "Consultation d'horaires",
-        7: 'Gestion des inscriptions',
-        8: 'Entrée des résultats',
-        9: 'Messagerie interne',
-        10: 'Analyses des statistiques organisationnelles',
+      modules: {
+        title: 'Nos modules',
+        clubs: {
+          title: 'Gestion des clubs associatifs',
+          description:
+            'Notre système intuitif facilite les paiements, les affiliations et les inscriptions aux événements telles que les ligues et les tournois.',
+        },
+        teams: {
+          title: 'Gestion interne des équipes',
+          description:
+            'Avec nos intégration Google Calendar et Chatbot Messenger, en plus de nos notifications push, rejoindre vos athlètes sera plus simple que jamais.',
+        },
+        reporting: {
+          title: 'Suivi de développement',
+          description:
+            'En transitionnant du papier vers notre logiciel, votre suivi est enregistré dans une base de données. Cela permet un suivi efficace qui perdure dans le temps.',
+        },
       },
-      branding: {
-        1: 'Branding',
-        2: 'Photo',
-        3: 'Vidéo',
-        4: 'Conseil Marketing',
-        5: 'Présence Web',
-        6: 'Matériel promo',
-        7: 'Service graphisme',
-        8: 'Logo',
-        9: 'Accompagnement personnalisé & stable',
+      pricing: {
+        title: 'Nos tarifs',
+        payAsYouGo: {
+          title: "Payez à l'utilisation",
+          description:
+            "Essayez notre logiciel avec un minimum d'engagement en payant à l'utilisation. La majorité de nos fonctionnalités sont gratuites, et vous serez avisez à chaque fois que vous serez chargés.",
+        },
+        premium: {
+          title: 'Forfaits premiums',
+          description:
+            "Profitez de toute la puissance de notre logiciel grâce à nos forfaits premiums. Vous bénéficierez également d'un support personnalisé de notre équipe.",
+        },
+        volumeDiscount: {
+          title: 'Rabais au volume',
+          description:
+            'Lorsque votre implication atteint un volume intéressant, nous vous en sommes reconnaissant et nous vous ferons un tarifs préférentiels. À ce moment, nous vous recommandons de contacter notre équipe!',
+        },
       },
-      explanation: {
-        1: "C'est quoi,",
-        2: 'Sportfolios?',
-        3: ' Une plateforme ',
-        4: 'simple ',
-        5: 'et ',
-        6: 'intuitive ',
-        7: 'qui regroupe toutes les étapes nécessaires à votre planification sportive.',
-        8: 'Gestion des horaires',
-        9: 'Gestion des inscriptions',
-        10: 'Paiements sécurisés',
-        11: 'Entrée de résultats',
-        12: 'Messagerie interne & système de notifications aux membres',
-        13: "Utilisez votre temps pour ce qui compte réellement. On s'occupe du reste.",
-        14: 'Commencer gratuitement',
+      valueProposition: {
+        title: 'Notre proposition de valeur',
+        performance: {
+          title: 'Performance',
+          description:
+            'Notre écosystème technologique performent pour que vous vous concentrez sur votre performance à vous et celle de vos athlètes. Avec nous, vous gagnez en efficacité et vos efforts vous apportent un meilleur rendement.',
+        },
+        longevity: {
+          title: 'Longévité',
+          description:
+            "En transitionnant du papier vers l'informatique, le suivi de vos activités est maintenu dans une base de donnée. Le suivi long terme de vos athlètes est assurée et permet une meilleure communication d'entraîneur en entraîneur.",
+        },
+        community: {
+          title: 'Communauté',
+          description:
+            'Ensemble, on va loin. En amenant votre communauté dans notre écosystème, nous nous assurons de nous adapter à votre réalité et que cette synergie vous permette de mieux performer.',
+        },
       },
-      whatIs: {
-        1: 'Sportfolios, ça fait quoi?',
-        2: "C'est simple",
-        3: 'Nous soutenons les organisations sportives en 3 étapes:',
-        4: 'Nos outils',
-      },
-      roles: {
-        founder: 'Fondateur & Directeur Général',
-        vp_techno: 'Vice-Président Technologique',
-        web_dev: 'Développeur Web',
-        comm: 'Responsable des communications',
-        market_strat: 'Stratège Marketing',
-        market_manager: 'Responsable Marketing',
-      },
-      emails: 'Courriels page de destination',
+      goToPlatform: 'Accéder à la plateforme',
     },
     payment: {
       add_payment_method: 'Ajouter une option de paiement',

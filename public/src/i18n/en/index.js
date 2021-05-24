@@ -297,71 +297,64 @@ export default {
       },
     },
     landingPage: {
-      presentation: {
-        1: 'Modernize your management.',
-        2: 'Increase your efficiency.',
-        3: 'Save time.',
-        4: 'With us:',
-        5: 'Athletes perform;',
-        6: 'Coaches train;',
-        7: 'Organizers organize;',
-        8: "That's it.",
-        9: 'Go to platform',
+      header: {
+        slogan: 'Move often.\nLonger.\nTogether.',
       },
-      plateform: {
-        1: 'Plateform',
-        2: 'Organizations pages',
-        3: 'Events pages',
-        4: 'Personal pages',
-        5: 'Schedule Creation',
-        6: 'Schedule Consultation',
-        7: 'Registrations',
-        8: 'Submit results',
-        9: 'Internal messaging',
-        10: 'Organizations statistics and analytics',
+      modules: {
+        title: 'Our modules',
+        clubs: {
+          title: 'Associative club management',
+          description:
+            'Notre système intuitif facilite les paiements, les affiliations et les inscriptions aux événements telles que les ligues et les tournois.',
+        },
+        teams: {
+          title: 'Team management',
+          description:
+            'With our Google Calendar and Messenger Chatbot integration, along with our push notifications, reaching your athletes is a seemless experience',
+        },
+        reporting: {
+          title: 'Development reporting',
+          description:
+            'By transitioning from paper to our software, your reports are saved on the cloud. This allows efficient reporting that lasts over time.',
+        },
       },
-      branding: {
-        1: 'Branding',
-        2: 'Photo',
-        3: 'Video',
-        4: 'Marketing advice',
-        5: 'Web presence',
-        6: 'Promo material',
-        7: 'Graphics service',
-        8: 'Logo',
-        9: 'Personalized & stable support',
+      pricing: {
+        title: 'Our pricing',
+        payAsYouGo: {
+          title: 'Pay as you go',
+          description:
+            'Try our software with minimal commitment by paying as you go. Most of our features are free, and you will be advised every time you are going to be charged.',
+        },
+        premium: {
+          title: 'Premium bundles',
+          description:
+            'Enjoy all the power of our software with our premium bundles. You will also benefit from custom support from our engineering team.',
+        },
+        volumeDiscount: {
+          title: 'Volume discount',
+          description:
+            'When you reach an interesting volume, we want to congratulate you and thank you. Therefore, we will give you a volume discount. At this moment, we recommand you reach our team!',
+        },
       },
-      explanation: {
-        1: 'What is',
-        2: 'Sportfolios?',
-        3: 'A ',
-        4: 'simple ',
-        5: 'and ',
-        6: 'intuitive ',
-        7: 'platform that regroups all the required steps to your sports planning.',
-        8: 'Schedule management',
-        9: 'Registration management',
-        10: 'Secure payments',
-        11: 'Results entry',
-        12: "Internal messaging & member's notifications system",
-        13: 'Take time for what really matters, we take care of the rest.',
-        14: 'Get started for free',
+      valueProposition: {
+        title: 'Our value proposition',
+        performance: {
+          title: 'Performance',
+          description:
+            'Our technolocal ecosystem is performant so you can focus on your own performance and the one of your athletes. With us, you gain efficiency and your efforts creates more value',
+        },
+        longevity: {
+          title: 'Longevity',
+          description:
+            'By transitioning from paper to our software, all your reports are stored inside a database. Long term reporting of your athletes is easier than ever. It allows seemless commmunication from coach to coach.',
+        },
+        community: {
+          title: 'Community',
+          description:
+            'Together, we go farther. By bringing your community into our ecosystem, we make sure to adapt our software to your reality and that this synergy allows you to better perform',
+        },
       },
-      whatIs: {
-        1: 'Sportfolios, what does it do?',
-        2: "It's simple",
-        3: 'We support sports organizations in 3 steps:',
-        4: 'Our tools',
-      },
-      roles: {
-        founder: 'Founder & CEO',
-        vp_techno: 'VP of Technology',
-        web_dev: 'Web Developer',
-        comm: 'Communications Manager',
-        market_strat: 'Marketing Strategist',
-        market_manager: 'Marketing Manager',
-      },
-      emails: 'Landing page emails',
+      goToPlatform: 'Go to platform',
     },
     payment: {
       add_payment_method: 'Add payment method',
