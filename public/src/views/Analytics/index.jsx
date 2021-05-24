@@ -16,7 +16,7 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import { TABS_ENUM } from '../../../common/enums';
 import dynamic from 'next/dynamic';
 
-const Graph = dynamic(() => import('./Graph'));
+const GraphLinear = dynamic(() => import('./GraphLinear'));
 const MembersReport = dynamic(() => import('./MembersReport'));
 const SalesReport = dynamic(() => import('./SalesReport'));
 
@@ -79,7 +79,7 @@ export default function Analytics() {
         <SalesReport />
       </Paper>
       <Paper title={t('graphs')}>
-        {graphData.total.length === 0 && !graphData.minDate && (
+        {graphData.length === 0 && !graphData.minDate && (
           <div className={styles.divNoGraph}>
             {t('will_see_graph_member')}
             <CustomButton
@@ -93,14 +93,12 @@ export default function Analytics() {
           </div>
         )}
 
-        {(graphData.total.length > 0 || graphData.minDate) && (
-          <Graph
+        {(graphData.length > 0 || graphData.minDate) && (
+          <GraphLinear
             dateGraph={dateGraph}
             onChangeDate={dateChanged}
             graphData={graphData}
             title={t('member.active_members')}
-            totalTitle={t('member.total_active_members')}
-            newTitle={t('member.members_variation')}
           />
         )}
       </Paper>
