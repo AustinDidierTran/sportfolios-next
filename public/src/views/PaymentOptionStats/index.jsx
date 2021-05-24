@@ -20,8 +20,9 @@ export default function PaymentOptionStats() {
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo, id: eventPaymentId },
+    state: { id: eventPaymentId },
   } = useContext(Store);
+  const language = localStorage.getItem('i18nextLng');
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +35,7 @@ export default function PaymentOptionStats() {
     const { data } = await api(
       formatRoute('/api/entity/graphAmountGeneratedByEvent', null, {
         eventPaymentId,
-        language: userInfo.language,
+        language,
         date: dateFilter,
       })
     );
