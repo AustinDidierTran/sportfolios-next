@@ -4,7 +4,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 
 import styles from './LoginBar.module.css';
 
-const LoginBar = (props) => {
+const LoginBar = () => {
   const { t } = useTranslation();
   return (
     <div className={styles.container}>

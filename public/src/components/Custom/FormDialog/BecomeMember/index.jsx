@@ -316,6 +316,10 @@ export default function BecomeMember(props) {
     }
   };
 
+  const onAddDonation = () => {
+    setGoToCart(true);
+  };
+
   const onGoToCartClose = () => {
     setGoToCart(false);
     formik.resetForm();
@@ -382,6 +386,7 @@ export default function BecomeMember(props) {
         personId={personId}
         open={optionalInformations}
         onClose={onOptionalInformationsClose}
+        onAddDonation={onAddDonation}
       />
       <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>

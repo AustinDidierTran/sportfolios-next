@@ -43,7 +43,7 @@ export default function Review() {
   };
 
   const onReceiptUrl = async () => {
-    window.location.href = receiptUrl;
+    window.open(receiptUrl);
   };
 
   const onRefund = async () => {
