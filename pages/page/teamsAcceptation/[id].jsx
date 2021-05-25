@@ -13,10 +13,13 @@ const TeamsAcceptation = dynamic(() => import('../../../public/src/views/TeamsAc
 
 const TeamsAcceptationRoute = () => {
   const router = useRouter();
-  const { id: eventId, rosterId } = router.query;
+  const { rosterId } = router.query;
   const [cards, setCards] = useState([]);
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const update = async (rosterId, registrationStatus) => {
     if (registrationStatus === STATUS_ENUM.UNCHANGED) {

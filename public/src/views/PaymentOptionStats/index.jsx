@@ -6,7 +6,6 @@ import Paper from '../../components/Custom/Paper';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import { formatRoute, formatPrice } from '../../utils/stringFormats';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -19,9 +18,10 @@ const Graph = dynamic(() => import('../Analytics/Graph'));
 
 export default function PaymentOptionStats() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventPaymentId } = router.query;
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventPaymentId },
+  } = useContext(Store);
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [dateFilterFees, setDateFilterFees] = useState(moment(new Date()).format('yyyy-MM-DD'));
@@ -72,7 +72,9 @@ export default function PaymentOptionStats() {
 
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
-    getDataGraph();
+    if (eventPaymentId) {
+      getDataGraph();
+    }
   }, [eventPaymentId, dateFilter, dateFilterFees]);
 
   if (isLoading) {

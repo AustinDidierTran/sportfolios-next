@@ -8,14 +8,14 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import moment from 'moment';
-import { useRouter } from 'next/router';
 
 export default function AddTimeSlot(props) {
   const { t } = useTranslation();
   const { isOpen, onClose, addTimeslotToGrid } = props;
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(isOpen);
 

@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../actions/api';
 import { LoadingSpinner } from '../../components/Custom';
@@ -8,14 +6,16 @@ import Typography from '@material-ui/core/Typography';
 import { updateRanking } from './RankingFunctions';
 import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
+import { Store } from '../../Store';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));
 const Ranking = dynamic(() => import('./Ranking'));
 
 export default function Rankings() {
-  const router = useRouter();
-  const { id: eventId } = router.query;
   const { t } = useTranslation();
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [preranking, setPreranking] = useState([]);
   const [prerankPhaseId, setPrerankPhaseId] = useState();
@@ -73,8 +73,10 @@ export default function Rankings() {
   };
 
   useEffect(() => {
-    getRankings();
-  }, []);
+    if (eventId) {
+      getRankings();
+    }
+  }, [eventId]);
 
   if (isLoading) {
     return <LoadingSpinner />;

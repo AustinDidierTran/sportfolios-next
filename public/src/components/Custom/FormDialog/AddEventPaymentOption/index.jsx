@@ -8,7 +8,6 @@ import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import api from '../../../../actions/api';
 import { useFields } from '../../../../hooks/fields';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 
@@ -22,9 +21,9 @@ export default function AddEventPaymentOption(props) {
   const [teamActivity, setTeamActivity] = useState(true);
   const [teamAcceptation, setTeamAcceptation] = useState(false);
   const [playerAcceptation, setPlayerAcceptation] = useState(false);
-  const router = useRouter();
-
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const getAccounts = async () => {
     const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }));
@@ -54,9 +53,11 @@ export default function AddEventPaymentOption(props) {
   };
 
   useEffect(() => {
-    getAccounts();
-    getTaxes();
-  }, [open]);
+    if (eventId) {
+      getAccounts();
+      getTaxes();
+    }
+  }, [open, eventId]);
 
   const handleClose = () => {
     formik.resetForm();

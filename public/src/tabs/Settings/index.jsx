@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import dynamic from 'next/dynamic';
 import { ENTITIES_ROLE_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
@@ -6,7 +6,7 @@ import Card from '../../components/Custom/Card';
 import { useAdmin, useEditor } from '../../hooks/roles';
 import styles from './Settings.module.css';
 import BottomPageLogo from '../../components/Custom/BottomPageLogo';
-import { useRouter } from 'next/router';
+import { Store } from '../../Store';
 
 const AddMembership = dynamic(() => import('./AddPartner'));
 const BankAccount = dynamic(() => import('./BankAccount'));
@@ -16,9 +16,9 @@ const Analytics = dynamic(() => import('./Analytics'));
 const AllEventSettings = dynamic(() => import('./AllEventSettings'));
 
 export default function EntitySettings(props) {
-  const router = useRouter();
-  const { id } = router.query;
-
+  const {
+    state: { id },
+  } = useContext(Store);
   const { basicInfos } = props;
 
   const { role = ENTITIES_ROLE_ENUM.VIEWER, type } = basicInfos;

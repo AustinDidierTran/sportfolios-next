@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Paper, Button } from '../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
@@ -6,15 +6,14 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import styles from './QuickDescription.module.css';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function QuickDescription() {
   const { t } = useTranslation();
-
-  const router = useRouter();
-
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [edit, setEdit] = useState(false);
 
@@ -23,7 +22,9 @@ export default function QuickDescription() {
   const [temp, setTemp] = useState('');
 
   useEffect(() => {
-    getQuickDescription();
+    if (eventId) {
+      getQuickDescription();
+    }
   }, [eventId]);
 
   const getQuickDescription = async () => {

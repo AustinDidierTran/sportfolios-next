@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Paper, Button } from '../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import styles from './Description.module.css';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function Description() {
   const { t } = useTranslation();
-
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [edit, setEdit] = useState(false);
 
@@ -22,7 +22,9 @@ export default function Description() {
   const [temp, setTemp] = useState('');
 
   useEffect(() => {
-    getDescription();
+    if (eventId) {
+      getDescription();
+    }
   }, [eventId]);
 
   const getDescription = async () => {

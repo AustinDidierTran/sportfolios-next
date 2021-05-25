@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { Select } from '../../../../../components/Custom';
 import styles from './FieldSelect.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../actions/api';
 import { SELECT_ENUM } from '../../../../../../common/enums';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../../../utils/stringFormats';
+import { Store } from '../../../../../Store';
 
 export default function FieldSelect(props) {
   const { onChange, fieldId } = props;
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [fields, setFields] = useState([]);
 
   useEffect(() => {
-    getFields();
-  }, []);
+    if (eventId) {
+      getFields();
+    }
+  }, [eventId]);
 
   const getFields = async () => {
     const { data } = await api(formatRoute('/api/entity/fields', null, { eventId }));

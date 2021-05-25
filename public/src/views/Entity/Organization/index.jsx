@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import { formatPageTitle } from '../../../utils/stringFormats';
@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
+import { Store } from '../../../Store';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -22,7 +23,10 @@ export default function Organization(props) {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps } = props;
   const router = useRouter();
-  const { id, tab } = router.query;
+  const { tab } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
   const [basicInfos, setBasicInfos] = useState(basicInfosProps);
 
   useEffect(() => {
@@ -30,8 +34,10 @@ export default function Organization(props) {
   }, [basicInfos.name]);
 
   useEffect(() => {
-    getRole();
-  }, []);
+    if (id) {
+      getRole();
+    }
+  }, [id]);
 
   const userState = [
     { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },

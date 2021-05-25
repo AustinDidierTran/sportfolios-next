@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useFormInput } from '../../../hooks/forms';
-import { useContext } from 'react';
 
 import styles from './EditItem.module.css';
 import { ACTION_ENUM, Store } from '../../../Store';
@@ -16,16 +15,16 @@ import { editItem, onImgUpload } from '../../../utils/shop';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
-import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM } from '../../../../common/enums';
 
 export default function EditItem(props) {
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    dispatch,
+    state: { id },
+  } = useContext(Store);
   const { t } = useTranslation();
   const { fetchItems, isEditing, setIsEditing, item } = props;
-  const { dispatch } = useContext(Store);
 
   const [img, setImg] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(item.photoUrl);

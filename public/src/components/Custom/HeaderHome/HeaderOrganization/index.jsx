@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
-import { useRouter } from 'next/router';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
@@ -18,18 +17,18 @@ import AlertDialog from '../../Dialog/AlertDialog';
 import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
+import { useRouter } from 'next/router';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
 export default function HeaderOrganization(props) {
   const { basicInfos, navTabs, index, isAdmin, onSwitch, adminView } = props;
-  const router = useRouter();
   const { t } = useTranslation();
-  const { id } = router.query;
   const [width] = useWindowSize();
+  const router = useRouter();
 
   const {
-    state: { isAuthenticated },
+    state: { isAuthenticated, id },
   } = useContext(Store);
 
   const [openBecomeMember, setOpenBecomeMember] = useState(false);
@@ -38,8 +37,10 @@ export default function HeaderOrganization(props) {
   const [hasMemberships, setHasMemberships] = useState(false);
 
   useEffect(() => {
-    getHasMemberships();
-  }, []);
+    if (id) {
+      getHasMemberships();
+    }
+  }, [id]);
 
   const getHasMemberships = async () => {
     const { data } = await api(

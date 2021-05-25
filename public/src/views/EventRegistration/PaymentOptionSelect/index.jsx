@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { RadioGroup } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './PaymentOptionSelect.module.css';
 import moment from 'moment';
 import { formatPrice } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function PaymentOptionSelect(props) {
   const { t } = useTranslation();
   const { stepHook, formik } = props;
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   useEffect(() => {
     if (eventId) {
       getOptions();
     }
-  }, []);
+  }, [eventId]);
 
   const onChange = (e, value) => {
     formik.setFieldValue('paymentOption', value);

@@ -13,10 +13,13 @@ const PlayersAcceptation = dynamic(() => import('../../../public/src/views/Playe
 
 const PlayersAcceptationRoute = () => {
   const router = useRouter();
-  const { id: eventId, personId } = router.query;
+  const { personId } = router.query;
   const [cards, setCards] = useState([]);
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const update = async (personId, registrationStatus) => {
     if (registrationStatus === STATUS_ENUM.UNCHANGED) {

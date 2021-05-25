@@ -14,7 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import CustomIconButton from '../../components/Custom/IconButton';
@@ -35,11 +34,9 @@ const getEvent = async (eventId) => {
 
 export default function EventRegistration() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
   const [isLoading, setIsLoading] = useState(false);
   const {
-    state: { isAuthenticated },
+    state: { isAuthenticated, id: eventId },
     dispatch,
   } = useContext(Store);
 
@@ -236,7 +233,7 @@ export default function EventRegistration() {
         <div className={styles.header}>
           <CustomIconButton
             icon="ArrowBack"
-            onClick={() => goTo(ROUTES.entity, { id: router.query.id })}
+            onClick={() => goTo(ROUTES.entity, { id: eventId })}
             tooltip={t('return_event')}
             className={styles.iconButton}
             style={{ color: 'primary' }}

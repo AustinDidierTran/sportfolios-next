@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Paper from '../../components/Custom/Paper';
@@ -13,9 +13,9 @@ import { formatIntervalDate, formatDate } from '../../utils/stringFormats';
 import api from '../../actions/api';
 import moment from 'moment';
 import styles from './EventInfo.module.css';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
+import { Store } from '../../Store';
 
 const Description = dynamic(() => import('./Description'));
 
@@ -46,8 +46,10 @@ const getRemainingSpots = async (id) => {
 
 export default function TabEventInfo() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
+
   const [options, setOptions] = useState([]);
   const [event, setEvent] = useState({});
   const [remainingSpots, setRemainingSpots] = useState(null);
@@ -58,7 +60,9 @@ export default function TabEventInfo() {
   };
 
   useEffect(() => {
-    getData();
+    if (id) {
+      getData();
+    }
   }, [id]);
 
   const getData = async () => {

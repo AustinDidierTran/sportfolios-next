@@ -10,14 +10,14 @@ import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
 import { getMembershipName } from '../../../../utils/stringFormats';
 import LoadingSpinner from '../../LoadingSpinner';
-import { useRouter } from 'next/router';
 
 export default function EditMembership(props) {
   const { open: openProps, onClose, update, person, membership, expirationDate } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    dispatch,
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

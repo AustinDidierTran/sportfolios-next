@@ -3,7 +3,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MEMBERSHIP_LENGTH_ENUM, FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../Store';
-import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { formatRoute } from '../../utils/stringFormats';
 import { formatDate, formatPrice, getMembershipName } from '../../utils/stringFormats';
@@ -19,17 +18,16 @@ const MyMemberships = dynamic(() => import('./MyMemberships'));
 
 export default function Memberships() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id } = router.query;
-
   const {
-    state: { userInfo },
     dispatch,
+    state: { id, userInfo },
   } = useContext(Store);
 
   useEffect(() => {
-    getMemberships();
-  }, []);
+    if (id) {
+      getMemberships();
+    }
+  }, [id]);
 
   const [memberships, setMemberships] = useState([]);
   const [refreshMemberships, setRefreshMemberships] = useState(false);

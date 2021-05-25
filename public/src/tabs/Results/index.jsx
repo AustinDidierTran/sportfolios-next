@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './Results.module.css';
 // import { SELECT_ENUM } from '../../../common/enums';
 import api from '../../actions/api';
@@ -6,17 +6,20 @@ import moment from 'moment';
 import Game from '../Schedule/AllGames/Games/Game';
 // import GameFilters from '../Schedule/AllGames/GameFilters';
 import SubmitScore from '../Schedule/AllGames/ProTip';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../utils/stringFormats';
+import { Store } from '../../Store';
 
 export default function Results() {
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
   const [games, setGames] = useState([]);
   // const onlyPast = true;
 
   useEffect(() => {
-    getGames();
+    if (eventId) {
+      getGames();
+    }
   }, [eventId]);
   const sortGames = (games) => {
     const res = games

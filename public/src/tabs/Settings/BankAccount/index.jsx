@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button, Paper } from '../../../components/Custom';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
@@ -6,22 +6,23 @@ import api from '../../../actions/api';
 import { List } from '../../../components/Custom';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function BankAccount() {
   const { t } = useTranslation();
-
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [hasAccount, setHasAccount] = useState(false);
   const [bankAccounts, setBankAccounts] = useState([]);
 
   useEffect(() => {
-    getBankAccounts();
-  }, []);
+    if (entityId) {
+      getBankAccounts();
+    }
+  }, [entityId]);
 
   const getBankAccounts = async () => {
     const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }));

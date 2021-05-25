@@ -9,14 +9,14 @@ import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_TYPE_ENUM }
 import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
 import CustomIconButton from '../../IconButton';
-import { useRouter } from 'next/router';
 
 export default function AddMember(props) {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(false);
   const [people, setPeople] = useState([]);

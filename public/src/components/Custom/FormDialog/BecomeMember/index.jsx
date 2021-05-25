@@ -17,7 +17,6 @@ import BasicFormDialog from '../BasicFormDialog';
 import { formatDate, formatPrice, formatRoute, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
-import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import UpdatePersonalInfos from './UpdatePersonalInfos';
 import PersonalInfos from './PersonalInfos';
@@ -25,17 +24,16 @@ import OptionalInformations from './OptionalInformations';
 import TermsAndConditions from './TermsAndConditions';
 import GoToCart from './GoToCart';
 import { goTo, ROUTES } from '../../../../actions/goTo';
+import { useRouter } from 'next/router';
 
 export default function BecomeMember(props) {
   const { open: openProps, update, onClose, onOpen, moreInfo = true, defaultTypeValue } = props;
-
+  const router = useRouter();
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo },
+    state: { userInfo, id },
   } = useContext(Store);
-  const router = useRouter();
-  const { id } = router.query;
 
   const [open, setOpen] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -52,7 +50,7 @@ export default function BecomeMember(props) {
   const [organizationId, setOrganizationId] = useState('');
 
   useEffect(() => {
-    if (openProps) {
+    if (openProps && id) {
       getPeople();
       getMemberships();
     }
@@ -61,7 +59,7 @@ export default function BecomeMember(props) {
     } else {
       onNext();
     }
-  }, [openProps]);
+  }, [openProps, id]);
 
   const getPersonInfos = async (person) => {
     if (person) {

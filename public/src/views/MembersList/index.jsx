@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
@@ -6,10 +6,10 @@ import api from '../../actions/api';
 import { goToAndReplace, ROUTES } from '../../actions/goTo';
 import { FORM_DIALOG_TYPE_ENUM, STATUS_ENUM } from '../../../common/enums';
 import styles from './MembersList.module.css';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { formatRoute } from '../../utils/stringFormats';
 import Typography from '@material-ui/core/Typography';
+import { Store } from '../../Store';
 
 const ListMembers = dynamic(() => import('./MembersList'));
 const CustomPaper = dynamic(() => import('../../components/Custom/Paper'));
@@ -18,8 +18,9 @@ const CustomFormDialog = dynamic(() => import('../../components/Custom/FormDialo
 const CustomIconButton = dynamic(() => import('../../components/Custom/IconButton'));
 
 export default function MembersList() {
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
   const { t } = useTranslation();
 
   const [organization, setOrganization] = useState(null);

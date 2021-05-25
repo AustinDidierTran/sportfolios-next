@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 
-import { useRouter } from 'next/router';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styles from '../HeaderHome.module.css';
@@ -11,14 +10,16 @@ import Typography from '@material-ui/core/Typography';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
+import { Store } from '../../../../Store';
 
 const BannerEvent = dynamic(() => import('../../BannerEvent'));
 
 export default function HeaderHome(props) {
   const { basicInfos, navTabs, eventInfo, onSwitch, isAdmin, adminView, index } = props;
-  const router = useRouter();
-  const { id } = router.query;
   const [width] = useWindowSize();
+  const {
+    state: { id },
+  } = useContext(Store);
 
   // const [anchorEl, setAnchorEl] = React.useState(null);
   // const handleClick = (event) => {

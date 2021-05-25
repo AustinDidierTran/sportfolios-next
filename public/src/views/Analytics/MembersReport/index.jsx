@@ -1,16 +1,17 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CARD_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { goTo } from '../../../actions/goTo';
 import Card from '../../../components/Custom/Card';
 import FormDialog from '../../../components/Custom/FormDialog';
+import { Store } from '../../../Store';
 
 export default function MembersReport() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const onClose = () => {
     setOpen(false);

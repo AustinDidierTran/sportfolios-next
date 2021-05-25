@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../utils/stringFormats';
@@ -48,19 +47,21 @@ const reorder = (list, startIndex, endIndex) => {
 export default function FinalRanking(props) {
   const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, prerankPhaseId, update, ...otherProps } = props;
   const { phaseId } = phase;
-
   const { t } = useTranslation();
-  const router = useRouter();
-  const { dispatch } = useContext(Store);
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [items, setItems] = useState([]);
   const [isOverride, setIsOverride] = useState(false);
   const [madeChanges, setMadeChanges] = useState(false);
 
   useEffect(() => {
-    getRankings();
-  }, []);
+    if (eventId) {
+      getRankings();
+    }
+  }, [eventId]);
 
   const isOneExpanded = useMemo(() => expandedPhases.length > 0, [expandedPhases.length]);
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);

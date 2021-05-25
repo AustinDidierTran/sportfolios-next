@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import dynamic from 'next/dynamic';
 import Divider from '@material-ui/core/Divider';
@@ -7,13 +7,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import styles from './MemberItem.module.css';
 import moment from 'moment';
-import { useRouter } from 'next/router';
 import { formatDate, getMembershipName } from '../../../../utils/stringFormats';
 import { FORM_DIALOG_TYPE_ENUM, INVOICE_STATUS_ENUM } from '../../../../../common/enums';
 import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
 import api from '../../../../actions/api';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { formatRoute } from '../../../../utils/stringFormats';
+import { Store } from '../../../../Store';
 
 const CustomIcon = dynamic(() => import('../../../../components/Custom/Icon'));
 const CustomFormDialog = dynamic(() => import('../../../../components/Custom/FormDialog'));
@@ -21,10 +21,10 @@ const CustomIconButton = dynamic(() => import('../../../../components/Custom/Ico
 
 export default function MemberItem(props) {
   const { t } = useTranslation();
-
   const { person, memberType, expirationDate, update, status } = props;
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    state: { id: entityId },
+  } = useContext(Store);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 

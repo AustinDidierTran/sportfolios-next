@@ -8,6 +8,8 @@ import { errors, ERROR_ENUM } from '../common/errors';
 import { io } from 'socket.io-client';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
 import { useWindowSize } from './hooks/window';
+import { useRouter } from 'next/router';
+import { formatRoute } from './utils/stringFormats';
 
 export const Store = React.createContext();
 
@@ -83,6 +85,12 @@ export const MEMBERSHIP_TYPE_ENUM = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case ACTION_ENUM.GET_ID: {
+      return {
+        ...state,
+        id: action.payload,
+      };
+    }
     case ACTION_ENUM.LOGIN: {
       if (action.payload.authToken) {
         localStorage.setItem('authToken', action.payload.authToken);
@@ -193,11 +201,25 @@ export function StoreProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
   const [width] = useWindowSize();
+  const router = useRouter();
+  const { id } = router.query;
 
   const handleResize = () => {
     dispatch({
       type: ACTION_ENUM.WINDOW_RESIZE,
       payload: width,
+    });
+  };
+
+  const getRealId = async (id) => {
+    const res = await api(
+      formatRoute('/api/entity/realId', null, {
+        id,
+      })
+    );
+    dispatch({
+      type: ACTION_ENUM.GET_ID,
+      payload: res.data,
     });
   };
 
@@ -258,6 +280,12 @@ export function StoreProvider(props) {
       });
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      getRealId(id);
+    }
+  }, [id]);
 
   useEffect(() => {
     init();

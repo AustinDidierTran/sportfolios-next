@@ -19,7 +19,6 @@ import { PHASE_STATUS_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../commo
 import { ACTION_ENUM, Store } from '../../../Store';
 import api from '../../../actions/api';
 import { ERROR_ENUM } from '../../../../common/errors';
-import { useRouter } from 'next/router';
 import AddTeamPhase from './AddTeamPhase';
 import Menu from '../Menu';
 import { getAllOptions } from './getAllOptions';
@@ -78,9 +77,10 @@ export default function PhaseAccordionDnD(props) {
 
   const classes = useStyles();
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [madeChanges, setMadeChanges] = useState(false);
   const [teams, setTeams] = useState(ranking);
@@ -88,9 +88,11 @@ export default function PhaseAccordionDnD(props) {
   const [allOptions, setAllOptions] = useState([]);
 
   useEffect(() => {
-    setTeams(ranking);
-    getOptions();
-  }, [ranking]);
+    if (eventId) {
+      setTeams(ranking);
+      getOptions();
+    }
+  }, [ranking, eventId]);
 
   const getOptions = async () => {
     const res = await getAllOptions(eventId, phaseId, t);

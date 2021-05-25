@@ -17,7 +17,6 @@ import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
-import { useRouter } from 'next/router';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 
@@ -50,9 +49,10 @@ export default function PrerankAccordionDnD(props) {
   const { title, ranking, update, id, ...otherProps } = props;
   const classes = useStyles();
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
   const [width] = useWindowSize();
 
   const [expanded, setExpanded] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 
 import { Paper, Avatar, Select } from '../../../components/Custom';
 import List from '@material-ui/core/List';
@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import { getEntityTypeName } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM } from '../../../Store';
+import { ENTITIES_ROLE_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './ManageRoles.module.css';
@@ -15,13 +15,12 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import AddAdmins from './AddAdmins';
 import { getInitialsFromName } from '../../../utils/stringFormats';
 import { GLOBAL_ENUM } from '../../../../common/enums';
-import { useRouter } from 'next/router';
 
 export default function ManageRoles() {
   const { t } = useTranslation();
-
-  const router = useRouter();
-  const { id: entity_id } = router.query;
+  const {
+    state: { id: entity_id },
+  } = useContext(Store);
 
   const [entities, setEntities] = useState([]);
   const [entity, setEntity] = useState([]);
@@ -32,7 +31,10 @@ export default function ManageRoles() {
   };
 
   useEffect(() => {
-    getEntity();
+    if (entity_id) {
+      getEntity();
+      updateEntities();
+    }
   }, [entity_id]);
 
   const updateEntities = async () => {
@@ -44,10 +46,6 @@ export default function ManageRoles() {
     });
     setEntities(res.data);
   };
-
-  useEffect(() => {
-    updateEntities();
-  }, []);
 
   const blackList = useMemo(() => entities.map((entity) => entity.entity_id_admin), [entities]);
 

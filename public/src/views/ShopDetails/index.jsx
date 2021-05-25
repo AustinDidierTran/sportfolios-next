@@ -23,12 +23,12 @@ import { formatRoute } from '../../utils/stringFormats';
 
 export default function ShopDetails() {
   const {
-    state: { authToken },
+    state: { authToken, id },
     dispatch,
   } = useContext(Store);
   const { t } = useTranslation();
   const router = useRouter();
-  const { id, stripePriceId } = router.query;
+  const { stripePriceId } = router.query;
   const [item, setItem] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { label: name, amount: price, photoUrl, metadata, description } = item;
@@ -123,8 +123,10 @@ export default function ShopDetails() {
   }, [metadata]);
 
   useEffect(() => {
-    fetchItem();
-  }, [stripePriceId]);
+    if (stripePriceId && id) {
+      fetchItem();
+    }
+  }, [stripePriceId, id]);
 
   const quantityOptions = Array(100)
     .fill(0)

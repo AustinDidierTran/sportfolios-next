@@ -7,14 +7,14 @@ import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, REPORT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
-import { useRouter } from 'next/router';
 
 export default function MembersReport(props) {
   const { open: openProps, onClose, handleCreated } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    dispatch,
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

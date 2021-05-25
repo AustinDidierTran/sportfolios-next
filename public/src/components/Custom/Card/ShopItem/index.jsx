@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 
 import styles from './ShopItem.module.css';
 
@@ -12,16 +12,16 @@ import { formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../actions/api';
 import ImageCard from '../../ImageCard';
-
 import EditItem from '../../../../tabs/Shop/EditItem';
-import { useRouter } from 'next/router';
+import { Store } from '../../../../Store';
 
 export default function ShopItem(props) {
-  const router = useRouter();
-  const { id } = router.query;
   const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const { label: name, amount: price, photoUrl, description, stripePriceId, stripeProductId, isEditor, update } = props;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const text = useMemo(() => decodeURIComponent(description), [description]);
 

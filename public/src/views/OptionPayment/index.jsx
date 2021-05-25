@@ -12,7 +12,6 @@ import styles from './OptionPayment.module.css';
 import Typography from '@material-ui/core/Typography';
 import { FIELD_GROUP_ENUM, SEVERITY_ENUM, EVENT_TYPE, STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
 import { goBack, goTo, ROUTES } from '../../actions/goTo';
-import { useRouter } from 'next/router';
 import AddTeamFeeDialog from '../../components/Custom/FormDialog/AddTeamFee';
 import AddPlayerFeeDialog from '../../components/Custom/FormDialog/AddPlayerFee';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -26,9 +25,10 @@ import ComponentFactory from '../../components/Custom/ComponentFactory';
 
 export default function OptionPayment() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [ownersId, setOwnersId] = useState([]);
   const [playerPriceTotal, setPlayerPriceTotal] = useState(undefined);
@@ -39,7 +39,9 @@ export default function OptionPayment() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    getAccounts();
+    if (eventId) {
+      getAccounts();
+    }
   }, [eventId]);
 
   const addOptionToEvent = async (values) => {

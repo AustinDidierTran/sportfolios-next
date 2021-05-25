@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button } from '../../../components/Custom';
 import styles from '../EditSchedule.module.css';
 import { useTranslation } from 'react-i18next';
@@ -8,16 +8,18 @@ import AddTimeSlot from './AddTimeSlot';
 import AddTeam from './AddTeam';
 import AddField from './AddField';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../utils/stringFormats';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { Store } from '../../../Store';
 
 export default function ScheduleTab(props) {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId, id } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
+
   const { update } = props;
   const [width] = useWindowSize();
 
@@ -29,8 +31,10 @@ export default function ScheduleTab(props) {
   const [field, setField] = useState(false);
 
   useEffect(() => {
-    getGames();
-  }, [game]);
+    if (eventId) {
+      getGames();
+    }
+  }, [game, eventId]);
 
   const getGames = async () => {
     const { data } = await api(formatRoute('/api/entity/games', null, { eventId }));
@@ -131,7 +135,7 @@ export default function ScheduleTab(props) {
           variant="contained"
           endIcon="Build"
           style={{ margin: '8px' }}
-          onClick={() => goTo(ROUTES.scheduleInteractiveTool, { id })}
+          onClick={() => goTo(ROUTES.scheduleInteractiveTool, { id: eventId })}
           className={styles.button}
         >
           {t('interactive_tool')}

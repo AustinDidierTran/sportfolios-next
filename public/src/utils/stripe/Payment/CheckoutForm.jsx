@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
 import CardSection from './CardSection';
@@ -8,13 +8,14 @@ import api from '../../../actions/api';
 import { useFormInput } from '../../../hooks/forms';
 import { TextField } from '../../../components/Custom';
 import styles from './CheckoutForm.module.css';
-import { useRouter } from 'next/router';
+import { Store } from '../../../Store';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
   const name = useFormInput('');
   const amount = useFormInput();
 
