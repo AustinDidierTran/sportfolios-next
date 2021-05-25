@@ -9,6 +9,8 @@ import SportfoliosPresentation from './SportfoliosPresentation';
 import Modules from './Modules';
 import ValueProposition from './ValueProposition';
 import Pricing from './Pricing';
+import Team from './Team';
+import { Divider } from '@material-ui/core';
 
 const Page5 = dynamic(() => import('./Page5'));
 
@@ -29,8 +31,8 @@ export default function LandingPage() {
       <Modules />
       <ValueProposition />
       <Pricing />
-      {/* TODO: Add team */}
-      {/* <Page4 /> */}
+      <Team />
+      <Divider className={styles.divider} />
       <Page5 />
     </div>
   );
