@@ -8,7 +8,7 @@ import { ERROR_ENUM } from '../../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../../Store';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
 
 export default function OptionalInformations(props) {
   const { open: openProps, onClose, organizationId, membershipCreatedId, personId } = props;
