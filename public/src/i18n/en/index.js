@@ -298,14 +298,14 @@ export default {
     },
     landingPage: {
       header: {
-        slogan: 'Move often.\nLonger.\nTogether.',
+        slogan: 'Your history in real-time.',
       },
       modules: {
         title: 'Our modules',
         clubs: {
           title: 'Associative club management',
           description:
-            'Notre système intuitif facilite les paiements, les affiliations et les inscriptions aux événements telles que les ligues et les tournois.',
+            'Our ecosystem is user-friendly and optimizes payments, memberships and registrations to events such as leagues and tournaments',
         },
         teams: {
           title: 'Team management',
@@ -355,6 +355,7 @@ export default {
         },
       },
       goToPlatform: 'Go to platform',
+      emails: 'Landing page emails',
     },
     payment: {
       add_payment_method: 'Add payment method',

@@ -10,7 +10,7 @@ const ValueProposition = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
-        <h1 className={styles.title}>Notre proposition de valeur</h1>
+        <h1 className={styles.title}>{t('landingPage.valueProposition.title')}</h1>
         {valueProposition.map((m) => (
           <div className={styles.moduleContainer}>
             <div className={styles.moduleTitle}>{t(`landingPage.valueProposition.${m}.title`)}</div>

@@ -298,7 +298,7 @@ export default {
     },
     landingPage: {
       header: {
-        slogan: 'Bouger souvent.\nLongtemps.\nEnsemble.',
+        slogan: 'Votre histoire en temps réel.',
       },
       modules: {
         title: 'Nos modules',
@@ -355,6 +355,7 @@ export default {
         },
       },
       goToPlatform: 'Accéder à la plateforme',
+      emails: 'Courriels page de destination',
     },
     payment: {
       add_payment_method: 'Ajouter une option de paiement',
