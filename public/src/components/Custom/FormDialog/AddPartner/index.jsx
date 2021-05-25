@@ -7,7 +7,6 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { useRouter } from 'next/router';
 import { uploadPicture } from '../../../../actions/aws';
 import * as yup from 'yup';
 import LoadingSpinner from '../../LoadingSpinner';
@@ -15,9 +14,10 @@ import LoadingSpinner from '../../LoadingSpinner';
 export default function AddPartner(props) {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    dispatch,
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
