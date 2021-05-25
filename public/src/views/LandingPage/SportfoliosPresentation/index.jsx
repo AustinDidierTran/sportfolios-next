@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './SportfoliosPresentation.module.css';
 
-const SportfoliosPresentation = (props) => {
+const SportfoliosPresentation = () => {
   const { t } = useTranslation();
   return (
     <div className={styles.container}>

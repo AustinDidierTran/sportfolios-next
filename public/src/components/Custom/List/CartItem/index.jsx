@@ -5,7 +5,6 @@ import { GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/e
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import TeamItem from './TeamItem';
 import PersonItem from './PersonItem';
 import DonationItem from './DonationItem';
