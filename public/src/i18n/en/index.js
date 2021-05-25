@@ -301,21 +301,21 @@ export default {
         slogan: 'Your history in real-time.',
       },
       modules: {
-        title: 'Our modules',
+        title: 'People we help',
         clubs: {
-          title: 'Associative club management',
+          title: 'Organizations',
           description:
-            'Our ecosystem is user-friendly and optimizes payments, memberships and registrations to events such as leagues and tournaments',
+            'Our ecosystem supports management for events such as leagues and tournaments. We take care of event registration, membership, payments and schedule management in a seemless way. We also help you get more financing through clever methods.',
         },
         teams: {
-          title: 'Team management',
+          title: 'Teams',
           description:
-            'With our Google Calendar and Messenger Chatbot integration, along with our push notifications, reaching your athletes is a seemless experience',
+            'We take care of everything related to practice scheduling and internal communication. With our Google Calendar and Messenger Chatbot integration, along with our push notifications, reaching your athletes is a seemless experience.',
         },
         reporting: {
-          title: 'Development reporting',
+          title: 'Coaches',
           description:
-            'By transitioning from paper to our software, your reports are saved on the cloud. This allows efficient reporting that lasts over time.',
+            "With our player's development reporting module, we help trainers and coaches gain efficiency. By transitioning from paper to our software, your reports are saved on the cloud. This allows efficient reporting that lasts over time.",
         },
       },
       pricing: {
@@ -334,6 +334,39 @@ export default {
           title: 'Volume discount',
           description:
             'When you reach an interesting volume, we want to congratulate you and thank you. Therefore, we will give you a volume discount. At this moment, we recommand you reach our team!',
+        },
+      },
+      team: {
+        title: 'Our team',
+        austin: {
+          name: 'Austin-Didier Tran',
+          title: 'Chief Executive Officer',
+          description:
+            'Austin-Didier loves sports and loves starting new projects. In ultimate, he brings his high school to canadian championships and he co-develops a new indoor junior development program. He is also team lead in his end of studies project for his bachelor in computer engineering. With his sport and technological expertise, his next project is obvious: He starts Sportfolios.',
+        },
+        emilie: {
+          name: 'Émilie Oliver',
+          title: 'Communication Manager',
+          description:
+            'Émilie is passionate about humans. At college, she completes a DEC in social working and then goes into communication at Université de Sherbrooke. With her previous experiences in outdoors and event management, along with her sport background, she goes into the startup world with Sportfolios.',
+        },
+        julien: {
+          name: 'Julien Bernat',
+          title: 'Chief Technological Officer',
+          description:
+            'Following his collegial studies in natural sciences, Julien goes into computer science, imagery and digital media at the Université de Sherbrooke in coop. When he starts looking for an internship, he sees Sportfolios. As he is a sport enthusiast and plays competitive ultimate for a long time, Sportfolios and him is a perfect fit, and he still works there today.',
+        },
+        maxime: {
+          name: 'Maxime Pellerin',
+          title: 'Mobile developer',
+          description:
+            'After 4 years improvising at Cégep Édouard-Montpetit, Maxime is now looking for a diploma and his choice goes to computer science and management at Université de Sherbrooke. Passionnate about communications, teamwork and coffee, he joins the Sportfolios team to end his university. He hopes to bring his mobile experience in React Native and his touch of humor!',
+        },
+        'pierre-etienne': {
+          name: 'Pierre-Étienne Morin',
+          title: 'Full-stack developer',
+          description:
+            'Pierre-Étienne studies web, mobile and security development at Cégep Sainte-Foy. He continues his studies in computer science at Université de Sherbrooke. In order to complete everything, he decides to join a team that represents him well; a dynamic team that loves sports, the Sportfolios’ team!',
         },
       },
       valueProposition: {

@@ -301,21 +301,21 @@ export default {
         slogan: 'Votre histoire en temps réel.',
       },
       modules: {
-        title: 'Nos modules',
+        title: "Ceux que l'on aide",
         clubs: {
-          title: 'Gestion des clubs associatifs',
+          title: 'Les clubs associatifs',
           description:
-            'Notre système intuitif facilite les paiements, les affiliations et les inscriptions aux événements telles que les ligues et les tournois.',
+            "Notre écosystème supporte la gestion d'événements comme les ligues et les tournois. Nous gérons les paiements, les affiliations, les paiements et les horaires d'une simplicité inégalée. Nous vous aidons également à augmenter vos revenus avec des méthodes innovatrices.",
         },
         teams: {
           title: 'Gestion interne des équipes',
           description:
-            'Avec nos intégration Google Calendar et Chatbot Messenger, en plus de nos notifications push, rejoindre vos athlètes sera plus simple que jamais.',
+            "Nous gérons tout ce qui attrait la planification des pratiques et les communications à l'interne. Avec nos intégration Google Calendar et Chatbot Messenger, en plus de nos notifications push, rejoindre vos athlètes sera plus simple que jamais.",
         },
         reporting: {
           title: 'Suivi de développement',
           description:
-            'En transitionnant du papier vers notre logiciel, votre suivi est enregistré dans une base de données. Cela permet un suivi efficace qui perdure dans le temps.',
+            "Avec notre module de suivi du développement de l'athlète, nous aidons les entraîneurs au niveau de leur efficacité. En transitionnant du papier vers notre logiciel, votre suivi est enregistré dans une base de données. Cela permet un suivi efficace qui perdure dans le temps.",
         },
       },
       pricing: {
@@ -334,6 +334,40 @@ export default {
           title: 'Rabais au volume',
           description:
             'Lorsque votre implication atteint un volume intéressant, nous vous en sommes reconnaissant et nous vous ferons un tarifs préférentiels. À ce moment, nous vous recommandons de contacter notre équipe!',
+        },
+      },
+      team: {
+        title: 'Notre équipe',
+        austin: {
+          name: 'Austin-Didier Tran',
+          title: 'Directeur Général',
+          description:
+            "Passionné de sport qui adore entreprendre des projets. Au ultimate, il amène son école secondaire aux championnats canadiens et il codéveloppe un programme de développement junior intérieur. Il est également chef d'équipe pour son projet de fin de baccalauréat en génie informatique. Avec son parcours sportif et technologique, son nouveau projet est clair: Il démarre Sportfolios.",
+        },
+        emilie: {
+          name: 'Émilie Oliver',
+          title: 'Responsable des communications',
+
+          description:
+            'Émilie est passionnée par l’humain. Au cégep, elle complète une technique en travail social pour se réorienter vers les communications à l’Université de Sherbrooke. Avec des expériences précédentes en plein-air et en événementiel, en plus de son parcours sportif riche, elle se lance dans l’univers des startups avec Sportfolios, où elle espère exploiter son côté sportif, humain et rassembleur.',
+        },
+        julien: {
+          name: 'Julien Bernat',
+          title: 'Vice-Président technologique',
+          description:
+            'Suite à son DEC en sciences de la nature, Julien se lance dans l’informatique en s’inscrivant en science du multimédia et du jeu vidéo à l’Université de Sherbrooke en coop. Au moment de se trouver un stage, étant passionné de sport et pratiquant le ultimate de manière compétitive depuis longtemps, le fit entre Julien et Sportfolios est parfait, et il y travaille toujours aujourd’hui.',
+        },
+        maxime: {
+          name: 'Maxime Pellerin',
+          title: 'Développeur mobile',
+          description:
+            'Après 4 ans à improviser au Cégep Édouard-Montpetit, Maxime est dû pour un diplôme et son choix s’arrête sur le baccalauréat en informatique de gestion à l’Université de Sherbrooke. Passionné de communication, de travail d’équipe et de café, il se joint à l’équipe de Sportfolios pour terminer son parcours universitaire. Il espère y amener son expérience mobile en React Native et sa petite touche d’humour!',
+        },
+        'pierre-etienne': {
+          name: 'Pierre-Étienne Morin',
+          title: 'Développeur full-stack',
+          description:
+            'Pierre-Étienne étudie en programmation web, mobile et sécurité au Cégep Sainte-Foy. Il poursuit son développement en sciences informatique à l’Université de Sherbrooke. Pour compléter le tout, il décide de se joindre à une équipe qui lui ressemble, c’est-à-dire une équipe sportive et dynamique, celle de Sportfolios!',
         },
       },
       valueProposition: {
