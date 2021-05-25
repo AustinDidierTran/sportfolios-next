@@ -5,13 +5,13 @@ import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
-import { useRouter } from 'next/router';
 
 export default function AddTeamPhase(props) {
   const { phaseId, update, initialPosition, allOptions } = props;
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const changeTeam = async (position) => {
     const select = allOptions.find((o) => o.value === position);

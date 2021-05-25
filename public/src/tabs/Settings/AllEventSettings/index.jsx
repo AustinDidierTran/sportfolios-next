@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import BottomPageLogo from '../../../components/Custom/BottomPageLogo';
 import General from './General';
 import Admin from './Admin';
 import Registration from './Registration';
-import { useRouter } from 'next/router';
 import { useAdmin, useEditor } from '../../../hooks/roles';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import { Store } from '../../../Store';
 
 export default function AllEventSettings(props) {
   const { basicInfos, role } = props;
-
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const isAdmin = useAdmin(role);
 

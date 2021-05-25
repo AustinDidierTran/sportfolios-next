@@ -8,7 +8,7 @@ import EditGameDialog from './EditGameDialog';
 import EnterScore from './EnterScore';
 import { ACTION_ENUM, Store } from '../../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../../common/errors';
-import { formatRoute } from '../../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../../utils/stringFormats';
 
 export default function EditGame(props) {
   const { game, update, withoutEdit } = props;

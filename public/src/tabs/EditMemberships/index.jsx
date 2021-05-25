@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import Paper from '../../components/Custom/Paper';
+import FormDialog from '../../components/Custom/FormDialog';
+import Button from '../../components/Custom/Button';
 import { getMembershipName, getMembershipType, getExpirationDate } from '../../utils/stringFormats';
 import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
+import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import List from '../../components/Custom/List';
-import Button from '../../components/Custom/Button';
-import FormDialog from '../../components/Custom/FormDialog';
-import Paper from '../../components/Custom/Paper';
-import { useRouter } from 'next/router';
-import api from '../../actions/api';
+import { Store } from '../../Store';
 
 export default function EditMemberships() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    getMemberships();
+    if (id) {
+      getMemberships();
+    }
   }, [id]);
 
   const getMemberships = async () => {

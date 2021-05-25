@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './Games.module.css';
 import { SELECT_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
@@ -8,13 +8,14 @@ import Games from './Games';
 import { useTranslation } from 'react-i18next';
 import ProTip from './ProTip';
 import { LoadingSpinner } from '../../../components/Custom';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function AllGames(props) {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const { setFilter, oldFilter } = props;
   const [games, setGames] = useState([]);
@@ -22,7 +23,9 @@ export default function AllGames(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getGames();
+    if (eventId) {
+      getGames();
+    }
   }, [eventId]);
 
   const scoreIsSubmitted = (game) => game.positions[0].score != 0 || game.positions[1].score != 0;
@@ -45,10 +48,16 @@ export default function AllGames(props) {
   };
 
   const getGames = async () => {
-    const { data } = await api(formatRoute('/api/entity/games', null, { eventId }));
-    sortGames(data);
+    if (eventId) {
+      const { data } = await api(formatRoute('/api/entity/games', null, { eventId }));
+      if (!data) {
+        return [];
+      }
+      sortGames(data);
+      setIsLoading(false);
+      return data;
+    }
     setIsLoading(false);
-    return data;
   };
 
   const filter = async (teamId, teamName, phaseId, phaseName, fieldId, fieldName, timeSlot, onlyYourGames) => {

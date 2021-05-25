@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { IconButton } from '../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import styles from './PersonSelect.module.css';
 import api from '../../../actions/api';
 import PersonItem from '../../../components/Custom/List/PersonItem';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function PersonSelect(props) {
   const { t } = useTranslation();
   const { formik, stepHook } = props;
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   useEffect(() => {
-    getPersons();
-    stepHook.handleCompleted(1);
-  }, []);
+    if (eventId) {
+      getPersons();
+      stepHook.handleCompleted(1);
+    }
+  }, [eventId]);
 
   const getPersons = async () => {
     const { data } = await api(

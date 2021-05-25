@@ -4,8 +4,7 @@ import api from '../../../actions/api';
 import styles from './AddOptionsEvent.module.css';
 import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import EventPaymentOptionList from './EventPaymentOptionList';
 import { goTo, ROUTES } from '../../../actions/goTo';
@@ -17,16 +16,19 @@ const CustomFormDialog = dynamic(() => import('../../../components/Custom/FormDi
 
 export default function AddOptionsEvent() {
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getOptions();
+    if (eventId) {
+      getOptions();
+    }
   }, [eventId]);
 
   const getOptions = async () => {

@@ -20,8 +20,7 @@ import { unregisterPeople } from '../../../actions/api/helpers';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';
@@ -29,9 +28,10 @@ import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
   const [width] = useWindowSize();
 
   const [players, setPlayers] = useState([]);
@@ -60,7 +60,9 @@ export default function PlayersRegistered() {
   };
 
   useEffect(() => {
-    getPlayers();
+    if (eventId) {
+      getPlayers();
+    }
   }, [eventId]);
 
   const handleUnregisterClick = (personId) => {

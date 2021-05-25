@@ -10,14 +10,14 @@ import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../../../../../Store';
 import { getGameOptions } from '../../../../../../Schedule/ScheduleFunctions';
 import * as yup from 'yup';
-import { useRouter } from 'next/router';
 
 export default function EditGameDialog(props) {
   const { game, update, open, onClose } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [edit, setEdit] = useState(open);
   const [gameOptions, setGameOptions] = useState({});
@@ -37,8 +37,10 @@ export default function EditGameDialog(props) {
   };
 
   useEffect(() => {
-    getOptions();
-  }, [edit]);
+    if (eventId) {
+      getOptions();
+    }
+  }, [edit, eventId]);
 
   useEffect(() => {
     setEdit(open);
@@ -148,10 +150,9 @@ export default function EditGameDialog(props) {
       setFirstPositionOptions(firstPosition);
       setSecondPositionOptions(secondPosition);
     }
-    if(formik.values.position2 ===
-      formik.values.position1 ){
-        formik.setFieldValue('position2', '');
-      }
+    if (formik.values.position2 === formik.values.position1) {
+      formik.setFieldValue('position2', '');
+    }
   }, [formik.values.position1, formik.values.position2]);
 
   const buttons = [

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import styles from './Shop.module.css';
 import { goTo, ROUTES } from '../../actions/goTo';
@@ -13,14 +13,15 @@ import api from '../../actions/api';
 import { CARD_TYPE_ENUM } from '../../../common/enums';
 import { FEATURE_FLAGS } from '../../../common/flags';
 import { useTranslation } from 'react-i18next';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
+import { Store } from '../../Store';
 
 export default function Shop(props) {
   const { t } = useTranslation();
   const [items, setItems] = useState([]);
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
   const {
     basicInfos: { role },
   } = props;
@@ -32,7 +33,9 @@ export default function Shop(props) {
   };
 
   useEffect(() => {
-    fetchShopItems();
+    if (id) {
+      fetchShopItems();
+    }
   }, [id]);
 
   const update = () => {

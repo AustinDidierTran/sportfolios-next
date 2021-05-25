@@ -3,8 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import api from '../../actions/api';
 import styles from './EditRankings.module.css';
 import { useTranslation } from 'react-i18next';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import Button from '../../components/Custom/Button';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -40,9 +39,10 @@ const reorder = (list, startIndex, endIndex) => {
 export default function EditRankings() {
   const [width] = useWindowSize();
   const { t } = useTranslation();
-  const router = useRouter();
-  const { dispatch } = useContext(Store);
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [phases, setPhases] = useState([]);
   const [preranking, setPreranking] = useState([]);

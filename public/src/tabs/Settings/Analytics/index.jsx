@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button, Paper } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
@@ -6,20 +6,22 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 
 import { List } from '../../../components/Custom';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function Analytics() {
   const { t } = useTranslation();
-
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    getReports();
-  }, []);
+    if (id) {
+      getReports();
+    }
+  }, [id]);
 
   const getReports = async () => {
     const { data } = await api(formatRoute('/api/entity/reports', null, { id }));

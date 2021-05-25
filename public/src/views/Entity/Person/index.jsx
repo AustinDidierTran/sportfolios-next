@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useContext } from 'react';
 
 import Tab from '../../../components/Custom/Tab';
 import Tabs from '../../../components/Custom/Tabs';
@@ -8,10 +8,11 @@ import { formatPageTitle } from '../../../utils/stringFormats';
 import { ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import { goTo } from '../../../actions/goTo';
+import { Store } from '../../../Store';
 
 const About = dynamic(() => import('../../../tabs/About'));
 const EditPersonInfos = dynamic(() => import('../../../tabs/EditPersonInfos'));
@@ -20,7 +21,10 @@ export default function Person(props) {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps } = props;
   const router = useRouter();
-  const { id, tab } = router.query;
+  const { tab } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
   const [basicInfos, setBasicInfos] = useState(basicInfosProps);
 
   useEffect(() => {
@@ -28,8 +32,10 @@ export default function Person(props) {
   }, [basicInfos.name]);
 
   useEffect(() => {
-    getRole();
-  }, []);
+    if (id) {
+      getRole();
+    }
+  }, [id]);
 
   const [isAdmin, setIsAdmin] = useState(false);
 

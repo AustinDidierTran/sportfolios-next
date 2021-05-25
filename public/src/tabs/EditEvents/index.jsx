@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from '../../components/Custom';
 import { useTranslation } from 'react-i18next';
 
@@ -7,15 +7,16 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import { CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
 import Card from '../../components/Custom/Card';
 import api from '../../actions/api';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
+import { Store } from '../../Store';
 
 export default function EditEvents(props) {
   const { t } = useTranslation();
   const { basicInfos } = props;
   const [events, setEvents] = useState([]);
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const getEntityEvents = async () => {
     const { data } = await api(
@@ -39,8 +40,10 @@ export default function EditEvents(props) {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (id) {
+      getData();
+    }
+  }, [id]);
 
   return (
     <div className={styles.div}>

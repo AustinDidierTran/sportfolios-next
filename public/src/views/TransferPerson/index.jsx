@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { LOGO_ENUM, STATUS_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 export default function TransferPerson() {
   const router = useRouter();

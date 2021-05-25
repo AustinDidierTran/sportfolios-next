@@ -11,7 +11,7 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import { useFormik } from 'formik';
 import CouponFactory from './CouponFactory';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function Coupons() {
   const { dispatch } = useContext(Store);

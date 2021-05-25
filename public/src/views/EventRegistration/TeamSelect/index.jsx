@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import TeamSearchList from '../../../components/Custom/SearchList/TeamSearchList';
 import Button from '../../../components/Custom/Button';
 import Typography from '@material-ui/core/Typography';
@@ -6,12 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { useFormInput } from '../../../hooks/forms';
 import TeamItem from '../../../components/Custom/List/TeamItem';
 import styles from './TeamSelect.module.css';
-import { useRouter } from 'next/router';
+import { Store } from '../../../Store';
 
 export default function TeamSelect(props) {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
+
   const { stepHook, formik } = props;
   const query = useFormInput('');
 

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { useFormInput } from '../../../hooks/forms';
-import { useContext } from 'react';
-
 import styles from './CreateItem.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
 
@@ -18,16 +16,16 @@ import AddSizes from '../AddSizes';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import api from '../../../actions/api';
 import { GLOBAL_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
-import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function CreateItem(props) {
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    dispatch,
+    state: { id },
+  } = useContext(Store);
   const { t } = useTranslation();
   const { fetchItems } = props;
-  const { dispatch } = useContext(Store);
 
   const [isCreating, setIsCreating] = useState(false);
   const [img, setImg] = useState(null);

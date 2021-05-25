@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 
 import api from '../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { FormDialog } from '../../../components/Custom';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -13,9 +12,10 @@ import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 export default function EditPhase(props) {
   const { t } = useTranslation();
   const { isOpen, onClose, phaseId, currentSpots, update } = props;
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   useEffect(() => {
     if (currentSpots) {

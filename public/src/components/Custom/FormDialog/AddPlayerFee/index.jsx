@@ -9,8 +9,7 @@ import {
   COMPONENT_TYPE_ENUM,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatPrice } from '../../../../utils/stringFormats';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatPrice, formatRoute } from '../../../../utils/stringFormats';
 
 export default function AddPlayerFee(props) {
   const { onCancel, formik, open: openProps, onClose, onSave, update, edit } = props;

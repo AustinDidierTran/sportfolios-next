@@ -2,7 +2,7 @@ import React from 'react';
 
 import { GLOBAL_ENUM } from '../public/common/enums';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../public/common/utils/stringFormat';
+import { formatRoute } from '../public/src/utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
 import { CLIENT_BASE_URL } from '../conf';
@@ -83,7 +83,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const res = await api(formatRoute('/api/entity', null, { id: context.params.id }), {
+  const { data: id } = await api(formatRoute('/api/entity/realId', null, { id: context.params.id }));
+
+  const res = await api(formatRoute('/api/entity', null, { id }), {
     defaultValue: {},
   });
 

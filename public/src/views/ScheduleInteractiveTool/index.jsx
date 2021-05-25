@@ -18,8 +18,7 @@ import { suggestGames } from './suggestedGamesFunction';
 
 import { v4 as uuidv4 } from 'uuid';
 import RGL from 'react-grid-layout';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 import Hotkeys from 'react-hot-keys';
 
@@ -100,12 +99,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ScheduleInteractiveTool() {
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
+
   const classes = useStyles();
   const { t } = useTranslation();
-
-  const { dispatch } = useContext(Store);
 
   const [phases, setPhases] = useState([]);
   const [rankings, setRankings] = useState([]);
@@ -500,7 +500,9 @@ export default function ScheduleInteractiveTool() {
   };
 
   useEffect(() => {
-    getData();
+    if (eventId) {
+      getData();
+    }
   }, [eventId]);
 
   useEffect(() => {

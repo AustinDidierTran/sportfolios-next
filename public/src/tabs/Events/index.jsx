@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './Events.module.css';
@@ -6,17 +6,18 @@ import { CARD_TYPE_ENUM } from '../../../common/enums';
 import Card from '../../components/Custom/Card';
 import api from '../../actions/api';
 import Typography from '@material-ui/core/Typography';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import { goTo, ROUTES } from '../../actions/goTo';
 import CustomButton from '../../components/Custom/Button';
+import { Store } from '../../Store';
 
 export default function Events(props) {
   const { t } = useTranslation();
-  const [events, setEvents] = useState([]);
   const { adminView } = props;
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
+  const [events, setEvents] = useState([]);
 
   const getEntityEvents = async () => {
     const { data } = await api(
@@ -37,8 +38,10 @@ export default function Events(props) {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (id) {
+      getData();
+    }
+  }, [id]);
 
   return (
     <div className={styles.div}>

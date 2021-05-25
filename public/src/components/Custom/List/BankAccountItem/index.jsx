@@ -8,11 +8,10 @@ import Radio from '@material-ui/core/Radio';
 import CustomIcon from '../../Icon';
 import CustomIconButton from '../../IconButton';
 import { useTranslation } from 'react-i18next';
-import { formatDate } from '../../../../utils/stringFormats';
+import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 
 export default function BankAccountItem(props) {
   const { t } = useTranslation();

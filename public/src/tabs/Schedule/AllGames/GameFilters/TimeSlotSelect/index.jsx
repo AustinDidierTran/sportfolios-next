@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { Select } from '../../../../../components/Custom';
 import styles from './TimeSlotSelect.module.css';
@@ -7,19 +7,22 @@ import api from '../../../../../actions/api';
 import { SELECT_ENUM } from '../../../../../../common/enums';
 import { formatDate } from '../../../../../utils/stringFormats';
 import moment from 'moment';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
+import { Store } from '../../../../../Store';
 
 export default function TimeSlotSelect(props) {
   const { onChange, timeSlot } = props;
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
   const [timeSlots, setTimeSlots] = useState([]);
 
   useEffect(() => {
-    getTimeSlots();
-  }, []);
+    if (eventId) {
+      getTimeSlots();
+    }
+  }, [eventId]);
 
   const getTimeSlots = async () => {
     const { data } = await api(formatRoute('/api/entity/slots', null, { eventId }));

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 
 import Tab from '../../../components/Custom/Tab';
 import Tabs from '../../../components/Custom/Tabs';
@@ -11,7 +11,8 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 const About = dynamic(() => import('../../../tabs/About'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
@@ -20,7 +21,10 @@ export default function Team(props) {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps } = props;
   const router = useRouter();
-  const { id, tab } = router.query;
+  const { tab } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
   const [basicInfos, setBasicInfos] = useState(basicInfosProps);
 
   useEffect(() => {
@@ -28,8 +32,10 @@ export default function Team(props) {
   }, [basicInfos.name]);
 
   useEffect(() => {
-    getRole();
-  }, []);
+    if (id) {
+      getRole();
+    }
+  }, [id]);
 
   const [isAdmin, setIsAdmin] = useState(false);
 

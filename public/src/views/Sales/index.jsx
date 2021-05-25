@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import List from '../../components/Custom/List';
 import IgContainer from '../../components/Custom/IgContainer';
 import { useApiRoute } from '../../hooks/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { LIST_ITEM_ENUM } from '../../../common/enums';
 import moment from 'moment';
-import { useRouter } from 'next/router';
+import { Store } from '../../Store';
 
 export default function Sales() {
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
+
   const { isLoading, response } = useApiRoute(`/api/shop/sales?id=${id}`);
 
   const formatSales = () =>

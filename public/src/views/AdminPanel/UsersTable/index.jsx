@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import styles from './UsersTable.module.css';
 import api from '../../../actions/api';
 import Router from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);

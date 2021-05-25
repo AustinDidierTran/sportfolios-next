@@ -17,12 +17,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useFormik } from 'formik';
 import styles from './ImportMembers.module.css';
-import { validateDateWithYear, validateEmail } from '../../utils/stringFormats';
+import { formatRoute, validateDateWithYear, validateEmail } from '../../utils/stringFormats';
 import api from '../../actions/api';
 import { getMembershipName } from '../../../common/functions';
 import moment from 'moment';
 import { ERROR_ENUM } from '../../../common/errors';
-import { useRouter } from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -36,13 +35,13 @@ import { MOBILE_WIDTH } from '../../../common/constants';
 import { useWindowSize } from '../../hooks/window';
 import CustomIconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../../../public/src/actions/goTo';
-import { formatRoute } from '../../../../public/common/utils/stringFormat';
 
 export default function ImportMembers() {
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    dispatch,
+    state: { id },
+  } = useContext(Store);
   const [isLoading, setIsLoading] = useState();
   const [coupons, setCoupons] = useState([]);
   const [width] = useWindowSize();
@@ -50,6 +49,7 @@ export default function ImportMembers() {
   useEffect(() => {
     if (id) {
       getMemberships();
+      getCoupons();
     }
   }, [id]);
 
@@ -70,10 +70,6 @@ export default function ImportMembers() {
       setCoupons(data);
     }
   };
-
-  useEffect(() => {
-    getCoupons();
-  }, [id]);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -264,7 +260,7 @@ export default function ImportMembers() {
         <div className={styles.header}>
           <CustomIconButton
             icon="ArrowBack"
-            onClick={() => goTo(ROUTES.entity, { id: router.query.id }, { tab: TABS_ENUM.SETTINGS })}
+            onClick={() => goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS })}
             tooltip={t('return_event')}
             className={styles.iconButton}
             style={{ color: 'primary' }}

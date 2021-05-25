@@ -8,15 +8,15 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../../common/enums';
 import { getFutureGameOptions } from '../../../Schedule/ScheduleFunctions';
-import { useRouter } from 'next/router';
 import * as yup from 'yup';
 
 export default function AddGame(props) {
   const { t } = useTranslation();
   const { games, isOpen, onClose, update, updateGames } = props;
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(isOpen);
   const [gameOptions, setGameOptions] = useState({});
@@ -37,8 +37,10 @@ export default function AddGame(props) {
   };
 
   useEffect(() => {
-    getOptions();
-  }, [open]);
+    if (eventId) {
+      getOptions();
+    }
+  }, [open, eventId]);
 
   useEffect(() => {
     formik.resetForm();

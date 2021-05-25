@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
 import FormDialog from '../../../components/Custom/FormDialog';
@@ -6,20 +6,22 @@ import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums'
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { List } from '../../../components/Custom';
-import { useRouter } from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 export default function AddPartner() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-
-  const router = useRouter();
-  const { id } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
 
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    getPartners();
+    if (id) {
+      getPartners();
+    }
   }, [id]);
 
   const getPartners = async () => {

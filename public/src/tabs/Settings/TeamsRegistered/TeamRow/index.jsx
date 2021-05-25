@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 
 import IconButton from '../../../../components/Custom/IconButton';
 import StatusChip from '../StatusChip';
@@ -9,13 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../utils/stringFormats';
-import { useRouter } from 'next/router';
 import CollapseTeamsRegistered from './CollapseTeamsRegistered';
+import { Store } from '../../../../Store';
 
 export default function TeamRow(props) {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
   const { team, handleUnregisterClick } = props;
 
   const [expanded, setExpanded] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../public/common/utils/stringFormat';
+import { formatRoute } from '../../../public/src/utils/stringFormats';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
 import Head from 'next/head';
@@ -13,10 +13,13 @@ const PlayersAcceptation = dynamic(() => import('../../../public/src/views/Playe
 
 const PlayersAcceptationRoute = () => {
   const router = useRouter();
-  const { id: eventId, personId } = router.query;
+  const { personId } = router.query;
   const [cards, setCards] = useState([]);
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const update = async (personId, registrationStatus) => {
     if (registrationStatus === STATUS_ENUM.UNCHANGED) {

@@ -21,8 +21,7 @@ import { unregisterTeams } from '../../../actions/api/helpers';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import TeamRow from './TeamRow';
 import TeamRowMobile from './TeamRowMobile';
@@ -32,9 +31,10 @@ import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function TeamsRegistered() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventId } = router.query;
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
   const [width] = useWindowSize();
 
   const [teams, setTeams] = useState([]);
@@ -67,7 +67,9 @@ export default function TeamsRegistered() {
   };
 
   useEffect(() => {
-    getTeams();
+    if (eventId) {
+      getTeams();
+    }
   }, [eventId]);
 
   const emails = useMemo(() => {
@@ -204,8 +206,10 @@ export default function TeamsRegistered() {
   };
 
   useEffect(() => {
-    getMaximumSpots();
-    getAcceptedSpots();
+    if (eventId) {
+      getMaximumSpots();
+      getAcceptedSpots();
+    }
   }, [teams]);
 
   const StyledTableCell = withStyles((theme) => ({

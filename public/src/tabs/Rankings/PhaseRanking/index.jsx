@@ -1,16 +1,17 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { PHASE_STATUS_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import Ranking from '../Ranking';
 import { updateRanking } from '../RankingFunctions';
 import { useTranslation } from 'react-i18next';
+import { Store } from '../../../Store';
 
 export default function PhaseRankings(props) {
   const { prerankPhaseId } = props;
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
   const { t } = useTranslation();
 
   const [phases, setPhases] = useState([]);
@@ -114,8 +115,10 @@ export default function PhaseRankings(props) {
   };
 
   useEffect(() => {
-    getPhases();
-  }, []);
+    if (eventId) {
+      getPhases();
+    }
+  }, [eventId]);
 
   return (
     <>

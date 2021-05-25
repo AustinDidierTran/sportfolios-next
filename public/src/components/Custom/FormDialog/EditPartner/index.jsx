@@ -9,14 +9,14 @@ import BasicFormDialog from '../BasicFormDialog';
 import LoadingSpinner from '../../LoadingSpinner';
 import { uploadPicture } from '../../../../actions/aws';
 import * as yup from 'yup';
-import { useRouter } from 'next/router';
 
 export default function EditPartner(props) {
   const { open: openProps, onClose, id, name, website, photoUrl: photoUrlProps, description } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    dispatch,
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

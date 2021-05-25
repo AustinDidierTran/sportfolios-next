@@ -10,13 +10,12 @@ import CustomIconButton from '../../IconButton';
 import CustomSelect from '../../Select';
 import { useTranslation } from 'react-i18next';
 import styles from './CartItem.module.css';
-import { formatPrice } from '../../../../utils/stringFormats';
+import { formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import { GLOBAL_ENUM, IMAGE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import Tooltip from '@material-ui/core/Tooltip';
 
 export default function CartItem(props) {

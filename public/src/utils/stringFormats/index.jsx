@@ -29,6 +29,21 @@ export const getInitialsFromName = (completeName, isName) => {
   return `${completeName?.name ? completeName?.name[0] : ''}${completeName?.surname ? completeName?.surname[0] : ''}`;
 };
 
+export const fillWithZeros = (number, zeros = 0) => {
+  if (!zeros) {
+    return number;
+  }
+  const parsedNumber = Number(number);
+
+  const numberOfDigits = parsedNumber === 0 ? 1 : Math.floor(Math.log(parsedNumber) / Math.log(10)) + 1;
+
+  const zerosToAdd = zeros - numberOfDigits;
+
+  const zerosArray = Array(zerosToAdd).fill(0);
+
+  return zerosArray.reduce((prev) => `0${prev}`, `${parsedNumber}`);
+};
+
 export const formatRoute = (route, params, queryParams) => {
   if (!route) {
     /* eslint-disable-next-line */

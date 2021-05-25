@@ -5,10 +5,10 @@ import { useFormInput } from '../../../../hooks/forms';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../../common/enums';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
 import CustomTextField from '../../TextField';
 import CustomIcon from '../../Icon';
 import PersonList from './PersonList';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 export default function PersonSearchList(props) {
   const {

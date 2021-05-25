@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,13 +7,13 @@ import TableRow from '@material-ui/core/TableRow';
 import CollapsePlayersRegisteredMobile from './CollapsePlayersRegisteredMobile';
 import Status from '../StatusChip';
 import IconButton from '../../../../components/Custom/IconButton';
-import { useRouter } from 'next/router';
+import { Store } from '../../../../Store';
 
 export default function PlayersRowMobile(props) {
   const { player, handleUnregisterClick } = props;
-
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [expanded, setExpanded] = useState(false);
 

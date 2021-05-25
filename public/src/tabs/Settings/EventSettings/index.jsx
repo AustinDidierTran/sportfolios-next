@@ -7,17 +7,17 @@ import api from '../../../actions/api';
 import { CARD_TYPE_ENUM, REJECTION_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import styles from './EventSettings.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../src/utils/stringFormats';
+import { formatRoute } from '../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../common/errors';
 
 export default function EventSettings() {
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const getInfos = async () => {
     if (eventId) {
@@ -43,7 +43,9 @@ export default function EventSettings() {
     }
   };
   useEffect(() => {
-    getInfos();
+    if (eventId) {
+      getInfos();
+    }
   }, [eventId]);
 
   const getDate = (date, time, defaultTime) => {

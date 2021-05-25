@@ -17,17 +17,16 @@ import {
   PLATEFORM_FEES_FIX,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { validateDate, formatPrice } from '../../../../utils/stringFormats';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { validateDate, formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import { uploadFile } from '../../../../actions/aws';
 
 export default function AddMembership(props) {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    dispatch,
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(false);
   const [fixedDate, setFixedDate] = useState(false);
@@ -37,13 +36,15 @@ export default function AddMembership(props) {
   const [terms, setTerms] = useState(false);
 
   useEffect(() => {
-    getTaxes();
+    if (entityId) {
+      getTaxes();
+    }
     setOpen(openProps);
     formik.setFieldValue('membership', MEMBERSHIP_TYPE_ENUM.RECREATIONAL);
     formik.setFieldValue('type', MEMBERSHIP_LENGTH_TYPE_ENUM.LENGTH);
     formik.setFieldValue('date', '01/01');
     formik.setFieldValue('length', MEMBERSHIP_LENGTH_ENUM.ONE_YEAR);
-  }, [openProps]);
+  }, [openProps, entityId]);
 
   const handleClose = () => {
     setFile(null);

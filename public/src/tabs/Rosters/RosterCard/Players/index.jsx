@@ -11,7 +11,7 @@ import PersonsQuickAdd from './PersonsQuickAdd';
 import { Store } from '../../../../Store';
 import RosterInviteLink from '../RosterInviteLink';
 import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 export default function Players(props) {
   const { t } = useTranslation();

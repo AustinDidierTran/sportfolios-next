@@ -9,24 +9,23 @@ import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { Store } from '../../../Store';
 
 export default function MyMemberships(props) {
   const { refreshMemberships } = props;
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id } = router.query;
   const {
-    state: { userInfo },
+    state: { userInfo, id },
   } = useContext(Store);
 
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    getMembers();
-  }, [refreshMemberships]);
+    if (id) {
+      getMembers();
+    }
+  }, [refreshMemberships, id]);
 
   const getMembers = async () => {
     if (!userInfo.persons) {

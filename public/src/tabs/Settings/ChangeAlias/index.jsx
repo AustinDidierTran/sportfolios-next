@@ -12,23 +12,24 @@ import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
 import validator from 'validator';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function ChangeAlias() {
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
-
-  const router = useRouter();
-  const { id: entityId } = router.query;
+  const {
+    dispatch,
+    state: { id: entityId },
+  } = useContext(Store);
 
   const [edit, setEdit] = useState(false);
 
   const [theAlias, setTheAlias] = useState(null);
 
   useEffect(() => {
-    getAlias();
-  }, []);
+    if (entityId) {
+      getAlias();
+    }
+  }, [entityId]);
 
   useEffect(() => {
     formik.setFieldValue('alias', theAlias);

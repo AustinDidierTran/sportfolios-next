@@ -52,7 +52,7 @@ export default function AcceptPlayerInfos(props) {
         <Divider />
         <div className={styles.div}>
           <Typography color="textSecondary">{`${t('price')}:`}</Typography>
-          <Typography>{`${formatPrice(paymentOption?.individual_price)}` || t('missing_info')}</Typography>
+          <Typography>{formatPrice(paymentOption?.individual_price) || t('missing_info')}</Typography>
         </div>
         <Divider />
         <div className={styles.div}>

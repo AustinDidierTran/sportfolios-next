@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import api from '../../actions/api';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../components/Custom';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
+import { Store } from '../../Store';
 
 const Rosters = dynamic(() => import('./Rosters'));
 
 export default function TabRosters(props) {
   const { isEventAdmin } = props;
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
   const { t } = useTranslation();
   const [rosters, setRosters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,8 +39,10 @@ export default function TabRosters(props) {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (eventId) {
+      getData();
+    }
+  }, [eventId]);
 
   if (isLoading) {
     return <LoadingSpinner />;

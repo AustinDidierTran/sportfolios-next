@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 
 import { formatPageTitle } from '../../../utils/stringFormats';
 import { TABS_ENUM, GLOBAL_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
@@ -8,8 +8,9 @@ import { useRouter } from 'next/router';
 import IgContainer from '../../../components/Custom/IgContainer';
 import dynamic from 'next/dynamic';
 import api from '../../../actions/api';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 import { goTo } from '../../../actions/goTo';
+import { Store } from '../../../Store';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Schedule = dynamic(() => import('../../../tabs/Schedule'));
@@ -25,7 +26,11 @@ export default function Event(props) {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps, eventInfo } = props;
   const router = useRouter();
-  const { id, tab } = router.query;
+  const { tab } = router.query;
+  const {
+    state: { id },
+  } = useContext(Store);
+
   const [basicInfos, setBasicInfos] = useState(basicInfosProps);
 
   useEffect(() => {
@@ -38,8 +43,10 @@ export default function Event(props) {
   }, [basicInfos.name]);
 
   useEffect(() => {
-    getRole();
-  }, []);
+    if (id) {
+      getRole();
+    }
+  }, [id]);
 
   const userState = [
     { component: Schedule, value: TABS_ENUM.SCHEDULE, label: t('schedule'), icon: 'Assignment' },

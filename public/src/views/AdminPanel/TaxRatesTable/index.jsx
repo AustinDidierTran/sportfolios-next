@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import styles from './TaxRatesTable.module.css';
 import api from '../../../actions/api';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../utils/stringFormats';
 
 export default function TaxeRatesTable() {
   const { t } = useTranslation();

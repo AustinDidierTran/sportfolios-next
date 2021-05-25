@@ -8,7 +8,7 @@ import moment from 'moment';
 import CollapsePaymentOption from './CollapsePaymentOption';
 import AlertDialog from '../../../../../components/Custom/Dialog/AlertDialog';
 import CustomIconButton from '../../../../../components/Custom/IconButton';
-import { formatRoute } from '../../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';

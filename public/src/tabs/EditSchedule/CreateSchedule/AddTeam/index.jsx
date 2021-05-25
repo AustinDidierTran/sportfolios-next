@@ -7,14 +7,14 @@ import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
-import { useRouter } from 'next/router';
 
 export default function AddTeam(props) {
   const { t } = useTranslation();
   const { isOpen, onClose, update } = props;
-  const { dispatch } = useContext(Store);
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
 
   const [open, setOpen] = useState(isOpen);
 

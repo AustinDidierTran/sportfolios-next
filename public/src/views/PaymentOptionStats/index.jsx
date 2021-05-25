@@ -6,8 +6,7 @@ import Paper from '../../components/Custom/Paper';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { formatRoute, formatPrice } from '../../../common/utils/stringFormat';
+import { formatRoute, formatPrice } from '../../utils/stringFormats';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../Store';
 import api from '../../actions/api';
@@ -19,9 +18,10 @@ const Graph = dynamic(() => import('../Analytics/Graph'));
 
 export default function PaymentOptionStats() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: eventPaymentId } = router.query;
-  const { dispatch } = useContext(Store);
+  const {
+    dispatch,
+    state: { id: eventPaymentId },
+  } = useContext(Store);
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [dateFilterFees, setDateFilterFees] = useState(moment(new Date()).format('yyyy-MM-DD'));
@@ -72,7 +72,9 @@ export default function PaymentOptionStats() {
 
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
-    getDataGraph();
+    if (eventPaymentId) {
+      getDataGraph();
+    }
   }, [eventPaymentId, dateFilter, dateFilterFees]);
 
   if (isLoading) {
@@ -93,7 +95,7 @@ export default function PaymentOptionStats() {
             title={`${t('income_for')} ${graphData.name}`}
             totalTitle={t('total_income')}
             newTitle={t('new_income')}
-            formatData={(x) => `${formatPrice(x * 100)} $`}
+            formatData={(x) => formatPrice(x * 100)}
           />
         )}
         {(graphDataFees.total.length > 0 || graphDataFees.minDate) && (
@@ -104,7 +106,7 @@ export default function PaymentOptionStats() {
             title={`${t('payment.transaction_fee_for')} ${graphDataFees.name}`}
             totalTitle={t('payment.total_transaction_fee')}
             newTitle={t('payment.new_transaction_fee')}
-            formatData={(x) => `${formatPrice(x * 100)} $`}
+            formatData={(x) => formatPrice(x * 100)}
           />
         )}
       </Paper>

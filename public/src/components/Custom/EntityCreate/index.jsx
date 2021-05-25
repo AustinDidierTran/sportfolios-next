@@ -18,9 +18,8 @@ import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
-import { formatRoute } from '../../../../common/utils/stringFormat';
-import { useRouter } from 'next/router';
-import { formatDate } from '../../../../src/utils/stringFormats';
+import { formatRoute } from '../../../utils/stringFormats';
+import { formatDate } from '../../../utils/stringFormats';
 
 import * as yup from 'yup';
 
@@ -28,11 +27,8 @@ export default function EntityCreate(props) {
   const { t } = useTranslation();
   const { type } = props;
   const {
-    state: { userInfo },
+    state: { userInfo, id },
   } = useContext(Store);
-
-  const router = useRouter();
-  const { id } = router.query;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [creatorOptions, setCreatorOptions] = useState([]);

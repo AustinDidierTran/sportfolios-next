@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import moment from 'moment';
 import { formatDate } from '../../../../utils/stringFormats';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 export default function RosterInviteLink(props) {
   const { dispatch } = useContext(Store);

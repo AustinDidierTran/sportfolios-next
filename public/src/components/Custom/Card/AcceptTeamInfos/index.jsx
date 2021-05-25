@@ -8,9 +8,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '../../Avatar';
 import Players from './Players';
-import { formatPrice } from '../../../../../common/utils/stringFormat';
 import StatusChip from './StatusChip';
 import TextField from '@material-ui/core/TextField';
+import { formatPrice } from '../../../../utils/stringFormats';
 
 export default function AcceptTeamInfos(props) {
   const { name, photoUrl, roster, paymentOption, registrationStatus, team } = props;
@@ -55,7 +55,7 @@ export default function AcceptTeamInfos(props) {
         </div>
         <div className={styles.div}>
           <Typography color="textSecondary">{`${t('price')}:`}</Typography>
-          <Typography>{`${formatPrice(paymentOption?.team_price)}$` || t('missing_info')}</Typography>
+          <Typography>{formatPrice(paymentOption?.team_price) || t('missing_info')}</Typography>
         </div>
         <div style={{ marginTop: '16px' }}>
           <Players className={styles.players} players={roster} />

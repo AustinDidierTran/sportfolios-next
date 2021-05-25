@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './AllEditGames.module.css';
 import { SELECT_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
@@ -6,9 +6,9 @@ import moment from 'moment';
 import ProTip from './ProTip';
 import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../../components/Custom';
-import { useRouter } from 'next/router';
-import { formatRoute } from '../../../../common/utils/stringFormat';
 import dynamic from 'next/dynamic';
+import { formatRoute } from '../../../utils/stringFormats';
+import { Store } from '../../../Store';
 
 const GameFilters = dynamic(() => import('../../Schedule/AllGames/GameFilters'));
 const EditGames = dynamic(() => import('./EditGames'));
@@ -16,14 +16,18 @@ const EditGames = dynamic(() => import('./EditGames'));
 export default function AllEditGames(props) {
   const { t } = useTranslation();
   const { oldFilter, setFilter, updated } = props;
-  const router = useRouter();
-  const { id: eventId } = router.query;
+  const {
+    state: { id: eventId },
+  } = useContext(Store);
+
   const [games, setGames] = useState([]);
   const [pastGames, setPastGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getGames();
+    if (eventId) {
+      getGames();
+    }
   }, [eventId, updated]);
 
   const sortGames = (games) => {

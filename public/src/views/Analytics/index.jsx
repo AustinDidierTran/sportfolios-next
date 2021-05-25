@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IconButton from '../../components/Custom/IconButton';
@@ -8,13 +8,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styles from './Analytics.module.css';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import api from '../../../src/actions/api';
-import { formatRoute } from '../../../common/utils/stringFormat';
-import { useRouter } from 'next/router';
+import { formatRoute } from '../../utils/stringFormats';
 import moment from 'moment';
 import CustomButton from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { TABS_ENUM } from '../../../common/enums';
 import dynamic from 'next/dynamic';
+import { Store } from '../../Store';
 
 const Graph = dynamic(() => import('./Graph'));
 const MembersReport = dynamic(() => import('./MembersReport'));
@@ -22,8 +22,9 @@ const SalesReport = dynamic(() => import('./SalesReport'));
 
 export default function Analytics() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { id: organizationId } = router.query;
+  const {
+    state: { id: organizationId },
+  } = useContext(Store);
 
   const [graphData, setGraphData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +54,9 @@ export default function Analytics() {
 
   useEffect(() => {
     document.title = formatPageTitle(t('analytics'));
-    getDataGraph();
+    if (organizationId) {
+      getDataGraph();
+    }
   }, [organizationId, dateGraph]);
 
   if (isLoading) {

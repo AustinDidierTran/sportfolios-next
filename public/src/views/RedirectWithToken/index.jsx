@@ -5,7 +5,7 @@ import { goTo } from '../../actions/goTo';
 import Container from '@material-ui/core/Container';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../common/utils/stringFormat';
+import { formatRoute } from '../../utils/stringFormats';
 
 export default function RedirectWithToken() {
   const router = useRouter();

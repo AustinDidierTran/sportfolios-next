@@ -17,7 +17,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { formatDate } from '../../../../utils/stringFormats';
 import Typography from '@material-ui/core/Typography';
-import { formatRoute } from '../../../../../common/utils/stringFormat';
+import { formatRoute } from '../../../../utils/stringFormats';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 
