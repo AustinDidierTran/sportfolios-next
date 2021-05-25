@@ -495,10 +495,8 @@ export default {
       memberships: 'Affiliations',
       memberships_list: 'Liste des affiliations',
       memberships_available: 'Affiliations disponibles',
-      members_variation: 'Variation de membres',
       my_memberships: 'Mes affiliations',
       new_members: 'Nouveau membres',
-      total_active_members: 'Total des membres actifs',
     },
     add: {
       add_admin: 'Ajouter admin',

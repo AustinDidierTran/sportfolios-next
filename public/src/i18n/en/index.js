@@ -493,10 +493,8 @@ export default {
       memberships: 'Memberships',
       memberships_list: 'List of memberships',
       memberships_available: 'Available memberships',
-      members_variation: 'Members variation',
       my_memberships: 'My memberships',
       new_members: 'New members',
-      total_active_members: 'Total active members',
     },
     add: {
       add_admin: 'Add Admin',
