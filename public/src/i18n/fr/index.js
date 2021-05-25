@@ -342,7 +342,7 @@ export default {
           name: 'Austin-Didier Tran',
           title: 'Directeur Général',
           description:
-            "Passionné de sport qui adore entreprendre des projets. Au ultimate, il amène son école secondaire aux championnats canadiens et il codéveloppe un programme de développement junior intérieur. Il est également chef d'équipe pour son projet de fin de baccalauréat en génie informatique. Avec son parcours sportif et technologique, son nouveau projet est clair: Il démarre Sportfolios.",
+            "Passionné de sport qui adore entreprendre des projets. Au ultimate, il amène son ancienne école secondaire aux championnats canadiens et il codéveloppe un programme de développement junior intérieur. Il est également chef d'équipe pour son projet de fin de baccalauréat en génie informatique. Avec son parcours sportif et technologique, son nouveau projet est clair: Il démarre Sportfolios.",
         },
         emilie: {
           name: 'Émilie Oliver',

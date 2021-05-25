@@ -342,7 +342,7 @@ export default {
           name: 'Austin-Didier Tran',
           title: 'Chief Executive Officer',
           description:
-            'Austin-Didier loves sports and loves starting new projects. In ultimate, he brings his high school to canadian championships and he co-develops a new indoor junior development program. He is also team lead in his end of studies project for his bachelor in computer engineering. With his sport and technological expertise, his next project is obvious: He starts Sportfolios.',
+            'Austin-Didier loves sports and loves starting new projects. In ultimate, he brings his former high school to canadian championships and he co-develops a new indoor junior development program. He is also team lead in his end of studies project for his bachelor in computer engineering. With his sport and technological expertise, his next project is obvious: He starts Sportfolios.',
         },
         emilie: {
           name: 'Émilie Oliver',
