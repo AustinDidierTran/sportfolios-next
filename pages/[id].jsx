@@ -83,7 +83,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const res = await api(formatRoute('/api/entity', null, { id: context.params.id }), {
+  const { data: id } = await api(formatRoute('/api/entity/realId', null, { id: context.params.id }));
+
+  const res = await api(formatRoute('/api/entity', null, { id }), {
     defaultValue: {},
   });
 
