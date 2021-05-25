@@ -6,7 +6,7 @@ import Paper from '../../components/Custom/Paper';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import styles from './PaymentOptionStats.module.css';
 import dynamic from 'next/dynamic';
-import { formatRoute, formatPrice } from '../../utils/stringFormats';
+import { formatRoute } from '../../utils/stringFormats';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../Store';
 import api from '../../actions/api';
@@ -61,7 +61,7 @@ export default function PaymentOptionStats() {
     if (eventPaymentId) {
       getDataGraph();
     }
-  }, [eventPaymentId, dateFilter, dateFilterFees]);
+  }, [eventPaymentId, dateFilter]);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -75,7 +75,7 @@ export default function PaymentOptionStats() {
         )}
         {(graphData.data.length > 0 || graphData.minDate) && (
           <GraphLinearTwoLines
-            isMoney={true}
+            isMoney
             dateGraph={dateFilter}
             onChangeDate={dateChanged}
             graphData={graphData}
