@@ -28,11 +28,13 @@ export default function AdminPanel() {
   const [graphData, setGraphData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
+  const language = localStorage.getItem('i18nextLng');
 
   const getDataGraph = async () => {
     const { data } = await api(
       formatRoute('/api/entity/graphUserCount', null, {
         date: dateFilter,
+        language,
       })
     );
     if (!data) {
