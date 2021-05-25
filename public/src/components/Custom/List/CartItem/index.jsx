@@ -156,6 +156,7 @@ export default function CartItem(props) {
         handleChange={handleChange}
         disabled={disabled}
         checked={checked}
+        id={id}
       ></ShopItem>
     );
   }

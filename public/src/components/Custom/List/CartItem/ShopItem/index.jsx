@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomCheckBox from '../../../CheckBox';
 import CustomAvatar from '../../../Avatar';
+import CustomSelect from '../../../Select';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -23,6 +24,7 @@ export default function ShopItem(props) {
     handleChange,
     disabled,
     checked,
+    id,
   } = props;
 
   const { t } = useTranslation();

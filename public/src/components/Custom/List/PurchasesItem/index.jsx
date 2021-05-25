@@ -8,7 +8,6 @@ import MembershipItem from './MembershipItem';
 import DonationItem from './DonationItem';
 
 export default function PurchasesItem(props) {
-
   const {
     photoUrl,
     created_at: createdAt,
@@ -20,7 +19,7 @@ export default function PurchasesItem(props) {
     receipt_url: receiptUrl,
   } = props;
   const goToReceipt = () => {
-    window.location.href = receiptUrl;
+    window.open(receiptUrl);
   };
   const { type } = metadata;
   if (type === GLOBAL_ENUM.EVENT) {
@@ -74,14 +73,14 @@ export default function PurchasesItem(props) {
     const { size } = metadata;
     return (
       <ShopItem
-      photoUrl={photoUrl}
-      size={size}
-      quantity={quantity}
-      createdAt={createdAt}
-      amount={amount}
-      label={label}
-      goToReceipt={goToReceipt}
-    ></ShopItem>
+        photoUrl={photoUrl}
+        size={size}
+        quantity={quantity}
+        createdAt={createdAt}
+        amount={amount}
+        label={label}
+        goToReceipt={goToReceipt}
+      ></ShopItem>
     );
   }
 

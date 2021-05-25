@@ -33,7 +33,7 @@ export default function OrderProcessed() {
   }, []);
 
   const goToReceipt = () => {
-    window.location.href = receiptUrl;
+    window.open(receiptUrl);
   };
 
   const totalFormatted = formatPrice(paid);
