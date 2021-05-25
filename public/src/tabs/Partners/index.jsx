@@ -1,13 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { formatRoute } from '../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import PartnerItem from './PartnerItem';
+import Typography from '@material-ui/core/Typography';
+import { Store } from '../../Store';
 
 export default function Partners() {
   const { t } = useTranslation();
+
+  const {
+    state: { userInfo },
+  } = useContext(Store);
 
   const router = useRouter();
   const { id } = router.query;
@@ -28,8 +34,21 @@ export default function Partners() {
       id: d.id,
       key: d.id,
     }));
+    console.log({ id: userInfo?.primaryPerson?.entity_id, userInfo, prim: userInfo?.primaryPerson });
+    const member = await api(
+      formatRoute('/api/entity/recentMember', null, { personId: userInfo?.primaryPerson?.entity_id, id })
+    );
+    console.log({ member });
     setPartners(data);
   };
+
+  if (!partners.length) {
+    return (
+      <Typography color="textSecondary" style={{ margin: '16px' }}>
+        {t('no.no_partners')}
+      </Typography>
+    );
+  }
 
   return (
     <div>

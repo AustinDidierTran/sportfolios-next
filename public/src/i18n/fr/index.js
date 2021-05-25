@@ -725,6 +725,7 @@ export default {
       no_notifications_message: 'Revenez plus tard.',
       no_notifications: 'Pas de notifications',
       no_option: 'Aucune option',
+      no_partners: 'Aucun partenaires',
       no_person_selected: 'Aucune personne sélectionnée',
       no_players_registered: 'Aucun joueur inscrit',
       no_purchases_message: "Vous n'avez aucun achat",

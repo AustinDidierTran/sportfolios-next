@@ -720,6 +720,7 @@ export default {
       no_notifications_message: 'Come back later.',
       no_notifications: 'No Notifications',
       no_option: 'No option',
+      no_partners: 'No partners',
       no_person_selected: 'No person selected',
       no_players_registered: 'No players registered',
       no_purchases_message: 'You did not purchase anything yet',
