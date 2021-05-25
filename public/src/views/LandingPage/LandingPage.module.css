@@ -91,3 +91,9 @@
   align-items: center;
   background-color: #18b393;
 }
+
+.divider {
+  background-color: white !important;
+  padding: 4px;
+  width: 100%;
+}

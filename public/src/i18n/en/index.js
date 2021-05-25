@@ -360,7 +360,7 @@ export default {
           name: 'Maxime Pellerin',
           title: 'Mobile developer',
           description:
-            'After 4 years improvising at Cégep Édouard-Montpetit, Maxime is now looking for a diploma and his choice goes to computer science and management at Université de Sherbrooke. Passionnate about communications, teamwork and coffee, he joins the Sportfolios team to end his university. He hopes to bring his mobile experience in React Native and his touch of humor!',
+            "After 4 years improvising at Cégep Édouard-Montpetit, Maxime is now looking for a diploma and his choice goes to computer science and management at Université de Sherbrooke. Passionnate about communications, teamwork and coffee, he joins the Sportfolios' team to end his university. He hopes to bring his mobile experience in React Native and his touch of humor!",
         },
         'pierre-etienne': {
           name: 'Pierre-Étienne Morin',

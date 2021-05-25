@@ -4,7 +4,7 @@ import { PHOTO_ENUM } from '../../../../common/enums';
 
 import styles from './Team.module.css';
 
-const Team = (props) => {
+const Team = () => {
   const { t } = useTranslation();
   const team = [
     {
@@ -35,7 +35,7 @@ const Team = (props) => {
         <h1 className={styles.title}>{t('landingPage.team.title')}</h1>
         <div className={styles.businessTeamContainer}>
           {team.map((m, index) => (
-            <div className={styles.teamContainer}>
+            <div key={index} className={styles.teamContainer}>
               <img className={styles.picture} src={m.photoUrl}></img>
               <div className={styles.moduleDescription}>
                 <span className={styles.teamName}>{t(`landingPage.team.${m.labelKey}.name`)}</span>
