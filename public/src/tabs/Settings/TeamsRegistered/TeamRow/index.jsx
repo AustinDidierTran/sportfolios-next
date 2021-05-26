@@ -6,6 +6,7 @@ import StatusChip from '../StatusChip';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Chip from '@material-ui/core/Chip';
 
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../utils/stringFormats';
@@ -73,6 +74,13 @@ export default function TeamRow(props) {
             eventId={eventId}
             rosterId={team.rosterId}
           />
+        </StyledTableCell>
+        <StyledTableCell style={{ padding: '25px' }}>
+          {team.isMember ? (
+            <Chip label={t('yes')} color="primary" variant="outlined" />
+          ) : (
+            <Chip label={t('no')} color="secondary" variant="outlined" />
+          )}
         </StyledTableCell>
         <StyledTableCell align="center" onClick={handleExpand}>
           <IconButton aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />

@@ -348,13 +348,13 @@ export default function TeamsRegistered() {
           <TableHead>
             <TableRow>
               {maximumSpots ? (
-                <StyledTableCell colSpan={3}>
+                <StyledTableCell colSpan={4}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
               ) : (
-                <StyledTableCell colSpan={3}>
+                <StyledTableCell colSpan={4}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
                   {t('accepted')}
@@ -380,6 +380,7 @@ export default function TeamsRegistered() {
               <StyledTableCell>{t('team.team')}</StyledTableCell>
               <StyledTableCell>{t('option')}</StyledTableCell>
               <StyledTableCell align="center">{t('status')}</StyledTableCell>
+              <StyledTableCell align="center">{t('is_member')}</StyledTableCell>
               <StyledTableCell>
                 <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
               </StyledTableCell>
@@ -387,7 +388,7 @@ export default function TeamsRegistered() {
           </TableHead>
           <StyledTableRow align="center">
             {hasPending ? (
-              <StyledTableCell colSpan={4}>
+              <StyledTableCell colSpan={5}>
                 <Button
                   onClick={() => {
                     goTo(ROUTES.teamsAcceptation, { id: eventId });
@@ -403,7 +404,7 @@ export default function TeamsRegistered() {
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={3}>{t('register.unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -416,7 +417,7 @@ export default function TeamsRegistered() {
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('no.no_teams_registered')}</StyledTableCell>
+                <StyledTableCell colSpan={5}>{t('no.no_teams_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>

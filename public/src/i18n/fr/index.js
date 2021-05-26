@@ -1123,6 +1123,7 @@ export default {
     institution_number: "Numéro d'institution",
     interactive_tool: 'Outil interactif',
     invite_this_player_to_join_your_team: 'Inviter ce joueur à joindre votre équipe',
+    is_member: 'Est membre',
     is_sub: 'Est un remplaçant',
     job_title: "Titre d'emploi",
     junior_member: 'Membre junior',

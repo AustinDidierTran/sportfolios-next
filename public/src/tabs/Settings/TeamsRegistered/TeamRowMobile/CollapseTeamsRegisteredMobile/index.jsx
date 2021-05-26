@@ -7,6 +7,7 @@ import Button from '../../../../../components/Custom/Button';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import MailToButton from '../../../../../components/Custom/MailToButton';
 import moment from 'moment';
+import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import styles from './CollapseTeamsRegisteredMobile.module.css';
 
@@ -56,6 +57,14 @@ export default function CollapseTeamsRegisteredMobile(props) {
               />
             }
           />
+        )}
+      </ListItem>
+      <ListItem>
+        <ListItemText className={styles.text} primary={t('is_member')}></ListItemText>
+        {team.isMember ? (
+          <Chip label={t('yes')} color="primary" variant="outlined" />
+        ) : (
+          <Chip label={t('no')} color="secondary" variant="outlined" />
         )}
       </ListItem>
       <ListItem>
