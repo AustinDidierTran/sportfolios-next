@@ -262,13 +262,13 @@ export default function PlayersRegistered() {
           <TableHead>
             <TableRow>
               {maximumSpots ? (
-                <StyledTableCell colSpan={3}>
+                <StyledTableCell colSpan={4}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
               ) : (
-                <StyledTableCell colSpan={3}>
+                <StyledTableCell colSpan={4}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
                   {t('accepted')}
@@ -294,13 +294,14 @@ export default function PlayersRegistered() {
               <StyledTableCell>{t('player')}</StyledTableCell>
               <StyledTableCell>{t('option')}</StyledTableCell>
               <StyledTableCell align="center">{t('status')}</StyledTableCell>
+              <StyledTableCell align="center">{t('is_member')}</StyledTableCell>
               <StyledTableCell />
             </TableRow>
           </TableHead>
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={3}>{t('register.unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -313,7 +314,7 @@ export default function PlayersRegistered() {
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('no.no_players_registered')}</StyledTableCell>
+                <StyledTableCell colSpan={5}>{t('no.no_players_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>

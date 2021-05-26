@@ -1066,6 +1066,7 @@ export default {
     institution_number: 'Institution number',
     interactive_tool: 'Interactive tool',
     invite_this_player_to_join_your_team: 'Invite this player to join your team',
+    is_member: 'Is member',
     is_sub: 'Is Sub',
     job_title: 'Job title',
     junior_member: 'Junior member',
