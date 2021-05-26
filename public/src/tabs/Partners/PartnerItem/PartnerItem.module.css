@@ -39,15 +39,20 @@
 .title {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+  line-height: 1.5 !important;
 }
 
 .name {
   margin: 8px !important;
+  overflow: auto;
 }
 
 .button {
   height: fit-content;
   margin: 8px !important;
+  min-width: fit-content !important;
 }
 
 .description {

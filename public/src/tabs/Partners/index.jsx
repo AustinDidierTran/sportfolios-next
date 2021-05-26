@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { formatRoute } from '../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
@@ -12,20 +11,20 @@ export default function Partners() {
   const { t } = useTranslation();
 
   const {
-    state: { userInfo },
+    state: { userInfo, id },
   } = useContext(Store);
-
-  const router = useRouter();
-  const { id } = router.query;
 
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
-    getPartners();
-  }, [id]);
+    if (id && userInfo) {
+      getPartners();
+    }
+  }, [id, userInfo]);
 
   const getPartners = async () => {
     const res = await api(formatRoute('/api/entity/partners', null, { id }));
+
     const data = res.data.map((d) => ({
       name: d.name,
       website: d.website,
@@ -34,11 +33,6 @@ export default function Partners() {
       id: d.id,
       key: d.id,
     }));
-    console.log({ id: userInfo?.primaryPerson?.entity_id, userInfo, prim: userInfo?.primaryPerson });
-    const member = await api(
-      formatRoute('/api/entity/recentMember', null, { personId: userInfo?.primaryPerson?.entity_id, id })
-    );
-    console.log({ member });
     setPartners(data);
   };
 

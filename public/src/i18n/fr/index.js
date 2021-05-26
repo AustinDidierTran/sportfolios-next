@@ -1185,6 +1185,7 @@ export default {
     new_team: 'Nouvelle Équipe',
     next: 'Prochain',
     not_used: 'Pas Utilisé',
+    not_member: 'Non membre',
     notifications_disabled: 'Notifications désactivées',
     notifications: 'Notifications',
     of_everyone: 'de tout le monde',

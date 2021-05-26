@@ -1161,6 +1161,7 @@ export default {
     new_team: 'New team',
     next: 'Next',
     not_used: 'Not Used',
+    not_member: 'Not member',
     notifications_disabled: 'Notifications disabled',
     notifications: 'Notifications',
     of_everyone: 'of everyone',
