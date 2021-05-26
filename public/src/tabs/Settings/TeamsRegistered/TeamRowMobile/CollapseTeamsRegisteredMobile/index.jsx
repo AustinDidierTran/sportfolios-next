@@ -60,11 +60,11 @@ export default function CollapseTeamsRegisteredMobile(props) {
         )}
       </ListItem>
       <ListItem>
-        <ListItemText className={styles.text} primary={t('is_member')}></ListItemText>
+        <ListItemText className={styles.text} primary={t('is_member')} />
         {team.isMember ? (
           <Chip label={t('yes')} color="primary" variant="outlined" />
         ) : (
-          <Chip label={t('no')} color="secondary" variant="outlined" />
+          <Chip label={t('no.no')} color="secondary" variant="outlined" />
         )}
       </ListItem>
       <ListItem>
