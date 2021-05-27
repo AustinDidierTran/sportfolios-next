@@ -3,6 +3,7 @@ import React, { useMemo, useEffect, useState, useContext } from 'react';
 import Paper from '../../../components/Custom/Paper';
 import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import IconButton from '../../../components/Custom/IconButton';
+import Icon from '../../../components/Custom/Icon';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Button from '../../../components/Custom/Button';
 
@@ -45,6 +46,51 @@ export default function TeamsRegistered() {
   const [openUnregisterAll, setOpenUnregisterAll] = useState(false);
   const [rosterId, setRosterId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [teamAsc, setTeamAsc] = useState(null);
+  const [optionAsc, setOptionAsc] = useState(null);
+  const [statusAsc, setStatusAsc] = useState(null);
+  const [memberAsc, setMemberAsc] = useState(null);
+
+  const iconTeam = useMemo(() => {
+    if (teamAsc == null) {
+      return 'KeyboardArrowRight';
+    }
+    setOptionAsc(null);
+    setStatusAsc(null);
+    setMemberAsc(null);
+    return teamAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
+  }, [teamAsc]);
+
+  const iconOption = useMemo(() => {
+    if (optionAsc == null) {
+      return 'KeyboardArrowRight';
+    }
+    setTeamAsc(null);
+    setStatusAsc(null);
+    setMemberAsc(null);
+    return optionAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
+  }, [optionAsc]);
+
+  const iconStatus = useMemo(() => {
+    if (statusAsc == null) {
+      return 'KeyboardArrowRight';
+    }
+    setOptionAsc(null);
+    setTeamAsc(null);
+    setMemberAsc(null);
+    return statusAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
+  }, [statusAsc]);
+
+  const iconMember = useMemo(() => {
+    if (memberAsc == null) {
+      return 'KeyboardArrowRight';
+    }
+    setOptionAsc(null);
+    setStatusAsc(null);
+    setTeamAsc(null);
+    return memberAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
+  }, [memberAsc]);
 
   const onCloseUnregister = () => {
     setOpenUnregister(false);
@@ -212,6 +258,54 @@ export default function TeamsRegistered() {
     }
   }, [teams]);
 
+  const handleTeam = async () => {
+    if (teamAsc) {
+      setTeams([...teams].sort((a, b) => b.name.localeCompare(a.name)));
+    } else {
+      setTeams([...teams].sort((a, b) => a.name.localeCompare(b.name)));
+    }
+    setTeamAsc(!teamAsc);
+  };
+
+  const handleOption = async () => {
+    if (optionAsc) {
+      setTeams([...teams].sort((a, b) => b.option.name.localeCompare(a.option.name)));
+    } else {
+      setTeams([...teams].sort((a, b) => a.option.name.localeCompare(b.option.name)));
+    }
+    setOptionAsc(!optionAsc);
+  };
+
+  const handleStatus = async () => {
+    if (statusAsc) {
+      setTeams(
+        [...teams].sort((a, b) =>
+          b.status.localeCompare(a.status) == 0
+            ? b.registrationStatus.localeCompare(a.registrationStatus)
+            : b.status.localeCompare(a.status)
+        )
+      );
+    } else {
+      setTeams(
+        [...teams].sort((a, b) =>
+          a.status.localeCompare(b.status) == 0
+            ? a.registrationStatus.localeCompare(b.registrationStatus)
+            : a.status.localeCompare(b.status)
+        )
+      );
+    }
+    setStatusAsc(!statusAsc);
+  };
+
+  const handleIsMember = async () => {
+    if (memberAsc) {
+      setTeams([...teams].sort((a, b) => Number(a.isMember) - Number(b.isMember)));
+    } else {
+      setTeams([...teams].sort((a, b) => Number(b.isMember) - Number(a.isMember)));
+    }
+    setMemberAsc(!memberAsc);
+  };
+
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.primary.main,
@@ -270,8 +364,18 @@ export default function TeamsRegistered() {
             </TableHead>
             <TableHead>
               <TableRow>
-                <StyledTableCell>{t('team.team')}</StyledTableCell>
-                <StyledTableCell align="center">{t('status')}</StyledTableCell>
+                <StyledTableCell className={styles.header} onClick={handleTeam}>
+                  <div>
+                    {t('team.team')}
+                    <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconTeam} />
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell className={styles.header} onClick={handleStatus} align="center">
+                  <div>
+                    {t('status')}
+                    <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconStatus} />
+                  </div>
+                </StyledTableCell>
                 <StyledTableCell>
                   <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
                 </StyledTableCell>
@@ -348,13 +452,13 @@ export default function TeamsRegistered() {
           <TableHead>
             <TableRow>
               {maximumSpots ? (
-                <StyledTableCell colSpan={3}>
+                <StyledTableCell colSpan={4}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}/{maximumSpots}&nbsp;
                   {t('accepted')}
                 </StyledTableCell>
               ) : (
-                <StyledTableCell colSpan={3}>
+                <StyledTableCell colSpan={4}>
                   {t('register.registration_status')}:&nbsp;
                   {acceptedSpots}&nbsp;
                   {t('accepted')}
@@ -377,9 +481,30 @@ export default function TeamsRegistered() {
           </TableHead>
           <TableHead>
             <TableRow>
-              <StyledTableCell>{t('team.team')}</StyledTableCell>
-              <StyledTableCell>{t('option')}</StyledTableCell>
-              <StyledTableCell align="center">{t('status')}</StyledTableCell>
+              <StyledTableCell className={styles.header} onClick={handleTeam}>
+                <div>
+                  {t('team.team')}
+                  <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconTeam} />
+                </div>
+              </StyledTableCell>
+              <StyledTableCell className={styles.header} onClick={handleOption}>
+                <div>
+                  {t('option')}
+                  <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconOption} />
+                </div>
+              </StyledTableCell>
+              <StyledTableCell className={styles.header} onClick={handleStatus} align="center">
+                <div>
+                  {t('status')}
+                  <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconStatus} />
+                </div>
+              </StyledTableCell>
+              <StyledTableCell className={styles.header} onClick={handleIsMember} align="center">
+                <div>
+                  {t('is_member')}
+                  <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconMember} />
+                </div>
+              </StyledTableCell>
               <StyledTableCell>
                 <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
               </StyledTableCell>
@@ -387,7 +512,7 @@ export default function TeamsRegistered() {
           </TableHead>
           <StyledTableRow align="center">
             {hasPending ? (
-              <StyledTableCell colSpan={4}>
+              <StyledTableCell colSpan={5}>
                 <Button
                   onClick={() => {
                     goTo(ROUTES.teamsAcceptation, { id: eventId });
@@ -403,7 +528,7 @@ export default function TeamsRegistered() {
           <TableBody>
             {isLoading ? (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={3}>{t('register.unregister_pending')}</StyledTableCell>
+                <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
                 </StyledTableCell>
@@ -416,7 +541,7 @@ export default function TeamsRegistered() {
               </>
             ) : (
               <StyledTableRow align="center">
-                <StyledTableCell colSpan={4}>{t('no.no_teams_registered')}</StyledTableCell>
+                <StyledTableCell colSpan={5}>{t('no.no_teams_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>

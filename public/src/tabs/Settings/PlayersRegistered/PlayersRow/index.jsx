@@ -3,6 +3,7 @@ import React, { useMemo, useState, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Chip from '@material-ui/core/Chip';
 
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../utils/stringFormats';
@@ -70,6 +71,13 @@ export default function PlayersRow(props) {
             eventId={eventId}
             personId={player.personId}
           />
+        </StyledTableCell>
+        <StyledTableCell style={{ padding: '25px' }}>
+          {player.isMember ? (
+            <Chip label={t('yes')} color="primary" variant="outlined" />
+          ) : (
+            <Chip label={t('no.no')} color="secondary" variant="outlined" />
+          )}
         </StyledTableCell>
         <StyledTableCell align="center" onClick={handleExpand}>
           <IconButton aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
