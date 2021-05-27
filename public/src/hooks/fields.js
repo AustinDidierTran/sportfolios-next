@@ -54,47 +54,22 @@ export const useFields = (type, options) => {
           : {
               componentType: COMPONENT_TYPE_ENUM.EMPTY,
             },
-        eventType === EVENT_TYPE.TEAM
-          ? playerPriceTotal
-            ? {
-                componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
-                value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
-                firstIcon: 'Edit',
-                firstOnClick: onClickEditPlayerFee,
-                firstTooltip: t('edit.edit'),
-                secondIcon: 'Delete',
-                secondOnClick: onClickDeletePlayerFee,
-                secondTooltip: t('delete.delete'),
-              }
-            : {
-                componentType: COMPONENT_TYPE_ENUM.BUTTON,
-                children: t('add.add_player_fees'),
-                onClick: playerOnClick,
-                disabled: !ownersId.length,
-              }
+        playerPriceTotal
+          ? {
+              componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
+              value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
+              firstIcon: 'Edit',
+              firstOnClick: onClickEditPlayerFee,
+              firstTooltip: t('edit.edit'),
+              secondIcon: 'Delete',
+              secondOnClick: onClickDeletePlayerFee,
+              secondTooltip: t('delete.delete'),
+            }
           : {
-              componentType: COMPONENT_TYPE_ENUM.EMPTY,
-            },
-        eventType === EVENT_TYPE.PLAYER
-          ? playerPriceTotal
-            ? {
-                componentType: COMPONENT_TYPE_ENUM.TEXT_DOUBLE_BUTTON,
-                value: t('register.registration_fee_player', { fee: formatPrice(playerPriceTotal * 100) }),
-                firstIcon: 'Edit',
-                firstOnClick: onClickEditPlayerFee,
-                firstTooltip: t('edit.edit'),
-                secondIcon: 'Delete',
-                secondOnClick: onClickDeletePlayerFee,
-                secondTooltip: t('delete.delete'),
-              }
-            : {
-                componentType: COMPONENT_TYPE_ENUM.BUTTON,
-                children: t('add.add_player_fees'),
-                onClick: playerOnClick,
-                disabled: !ownersId.length,
-              }
-          : {
-              componentType: COMPONENT_TYPE_ENUM.EMPTY,
+              componentType: COMPONENT_TYPE_ENUM.BUTTON,
+              children: t('add.add_player_fees'),
+              onClick: playerOnClick,
+              disabled: !ownersId.length,
             },
         !ownersId.length
           ? {
