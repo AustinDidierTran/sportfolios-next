@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
@@ -18,10 +19,12 @@ const GraphLinearTwoLines = dynamic(() => import('../Analytics/GraphLinear/TwoLi
 
 export default function PaymentOptionStats() {
   const { t } = useTranslation();
+  const router = useRouter();
   const {
     dispatch,
-    state: { userInfo, id: eventPaymentId },
+    state: { userInfo },
   } = useContext(Store);
+  const { id: eventPaymentId } = router.query;
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [isLoading, setIsLoading] = useState(true);

@@ -211,9 +211,21 @@ export default function PlayersRegistered() {
 
   const handleOption = async () => {
     if (optionAsc) {
-      setPlayers([...players].sort((a, b) => b.option.name.localeCompare(a.option.name)));
+      setPlayers(
+        [...players].sort((a, b) =>
+          b.option
+            ? b.option.name.localeCompare(a.option ? a.option.name : t('no.no_option'))
+            : t('no.no_option').localeCompare(a.option ? a.option.name : t('no.no_option'))
+        )
+      );
     } else {
-      setPlayers([...players].sort((a, b) => a.option.name.localeCompare(b.option.name)));
+      setPlayers(
+        [...players].sort((a, b) =>
+          a.option
+            ? a.option.name.localeCompare(b.option ? b.option.name : t('no.no_option'))
+            : t('no.no_option').localeCompare(b.option ? b.option.name : t('no.no_option'))
+        )
+      );
     }
     setOptionAsc(!optionAsc);
   };
