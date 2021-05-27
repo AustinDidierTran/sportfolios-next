@@ -28,26 +28,31 @@ export default function HeaderOrganization(props) {
   const router = useRouter();
 
   const {
-    state: { isAuthenticated, id },
+    state: { userInfo, isAuthenticated, id },
   } = useContext(Store);
 
   const [openBecomeMember, setOpenBecomeMember] = useState(false);
   const [openToLogin, setOpenToLogin] = useState(false);
 
   const [hasMemberships, setHasMemberships] = useState(false);
+  const [member, setMember] = useState(null);
 
   useEffect(() => {
-    if (id) {
-      getHasMemberships();
+    if (id && userInfo) {
+      getMemberships();
     }
-  }, [id]);
+  }, [id, userInfo]);
 
-  const getHasMemberships = async () => {
+  const getMemberships = async () => {
     const { data } = await api(
       formatRoute('/api/entity/hasMemberships', null, {
         id,
       })
     );
+    const member = await api(
+      formatRoute('/api/entity/recentMember', null, { personId: userInfo?.primaryPerson?.entity_id, id })
+    );
+    setMember(member.data);
     setHasMemberships(data);
   };
 
@@ -82,6 +87,7 @@ export default function HeaderOrganization(props) {
         isAdmin={isAdmin}
         adminView={adminView}
         hasMemberships={hasMemberships}
+        member={member}
         isAuthenticated={isAuthenticated}
       />
       <div className={styles.navigation}>

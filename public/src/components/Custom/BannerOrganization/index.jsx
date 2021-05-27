@@ -4,7 +4,9 @@ import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import Chip from '@material-ui/core/Chip';
 import styles from './BannerOrganization.module.css';
+import { getMembershipName } from '../../../utils/stringFormats';
 
 export default function BannerOrganization(props) {
   const {
@@ -16,6 +18,7 @@ export default function BannerOrganization(props) {
     isAdmin,
     onSwitch,
     adminView,
+    member,
   } = props;
   const { t } = useTranslation();
 
@@ -48,31 +51,40 @@ export default function BannerOrganization(props) {
       </Grid>
       <Divider variant="middle" />
       <div className={styles.divIconButton}>
-        {isAdmin && (
-          <>
-            {adminView ? (
-              <CustomButton
-                className={styles.view}
-                startIcon="Autorenew"
-                color="secondary"
-                variant="outlined"
-                onClick={onSwitch}
-              >
-                {t('player_view')}
-              </CustomButton>
-            ) : (
-              <CustomButton
-                className={styles.view}
-                startIcon="Autorenew"
-                color="primary"
-                variant="outlined"
-                onClick={onSwitch}
-              >
-                {t('admin_view')}
-              </CustomButton>
-            )}
-          </>
-        )}
+        <div>
+          {isAdmin && (
+            <>
+              {adminView ? (
+                <CustomButton
+                  className={styles.view}
+                  startIcon="Autorenew"
+                  color="secondary"
+                  variant="outlined"
+                  onClick={onSwitch}
+                >
+                  {t('player_view')}
+                </CustomButton>
+              ) : (
+                <CustomButton
+                  className={styles.view}
+                  startIcon="Autorenew"
+                  color="primary"
+                  variant="outlined"
+                  onClick={onSwitch}
+                >
+                  {t('admin_view')}
+                </CustomButton>
+              )}
+            </>
+          )}
+        </div>
+        <div className={styles.chip}>
+          {member ? (
+            <Chip label={t(getMembershipName(member.type))} color="primary" variant="outlined" />
+          ) : (
+            <Chip label={t('not_member')} style={{ color: 'grey' }} variant="outlined" />
+          )}
+        </div>
       </div>
     </div>
   );
