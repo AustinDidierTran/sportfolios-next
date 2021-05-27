@@ -41,6 +41,7 @@ export default function OptionPayment() {
   useEffect(() => {
     if (eventId) {
       getAccounts();
+      getEventType();
     }
   }, [eventId]);
 
@@ -123,6 +124,15 @@ export default function OptionPayment() {
     if (res[0]) {
       formik.setFieldValue('ownerId', res[0].value);
     }
+  };
+
+  const getEventType = async () => {
+    const { data } = await api(formatRoute('/api/entity/event', null, { eventId }));
+    if (!data) {
+      return;
+    }
+
+    formik.setFieldValue('eventType', data.type);
   };
 
   const onManualAcceptationChange = (value) => {
@@ -259,10 +269,6 @@ export default function OptionPayment() {
     },
   });
 
-  const onChangeEventType = (e) => {
-    formik.setFieldValue('eventType', e.target.value);
-  };
-
   const fields = useFields(FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION, {
     teamOnClick: handleOpenTeam,
     ownersId,
@@ -270,7 +276,6 @@ export default function OptionPayment() {
     teamPriceTotal,
     onClickEditTeamsFee: handleEditTeam,
     onClickDeleteTeamsFee: clearTeamsFee,
-    onChangeEventType,
     eventType: formik.values.eventType,
     playerOnClick: handleOpenPlayer,
     onClickEditPlayerFee: handleEditPlayer,

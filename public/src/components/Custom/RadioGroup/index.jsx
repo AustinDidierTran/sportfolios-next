@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styles from './RadioGroup.module.css';
 
 export default function CustomRadioGroup(props) {
-  const { namespace, options, title, value, onChange, centered, row = false } = props;
+  const { namespace, options, title, value, defaultValue, onChange, centered, row = false } = props;
 
   let className = styles.radio;
   if (centered) {
@@ -19,7 +19,15 @@ export default function CustomRadioGroup(props) {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{title}</FormLabel>
-      <RadioGroup row={row} aria-label={namespace} name={namespace} value={value} onChange={onChange} className={className}>
+      <RadioGroup
+        row={row}
+        aria-label={namespace}
+        name={namespace}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        className={className}
+      >
         {options.map((option, index) => (
           <FormControlLabel
             value={option.value}

@@ -225,6 +225,7 @@ export default function ComponentFactory(props) {
         title={component.title}
         onChange={component.onChange}
         value={component.value}
+        defaultValue={component.defaultValue}
         type={component.type}
         row={component.row}
       />
