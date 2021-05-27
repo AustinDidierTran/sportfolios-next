@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
 import styles from './AdminPanel.module.css';
 
 import Typography from '@material-ui/core/Typography';
-import { Container } from '../../components/Custom';
+import Container from '../../components/Custom/Container';
 import Paper from '@material-ui/core/Paper';
 import api from '../../actions/api';
 import { formatRoute } from '../../utils/stringFormats';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import moment from 'moment';
-
 import dynamic from 'next/dynamic';
+import { Store } from '../../Store';
 
 const SportsTable = dynamic(() => import('./SportsTable'));
 const UsersTable = dynamic(() => import('./UsersTable'));
@@ -28,13 +28,15 @@ export default function AdminPanel() {
   const [graphData, setGraphData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
-  const language = localStorage.getItem('i18nextLng');
+  const {
+    state: { userInfo },
+  } = useContext(Store);
 
   const getDataGraph = async () => {
     const { data } = await api(
       formatRoute('/api/entity/graphUserCount', null, {
         date: dateFilter,
-        language,
+        language: userInfo.language,
       })
     );
     if (!data) {

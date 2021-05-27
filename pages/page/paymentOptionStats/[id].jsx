@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 
 const PaymentOptionStats = dynamic(() => import('../../../public/src/views/PaymentOptionStats'));
 
-const paymentOptionStats = () => {
+const PaymentOptionStatsRoute = () => {
   const { t } = useTranslation();
 
   return (
@@ -23,4 +23,4 @@ const paymentOptionStats = () => {
   );
 };
 
-export default paymentOptionStats;
+export default PaymentOptionStatsRoute;
