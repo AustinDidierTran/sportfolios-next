@@ -21,7 +21,9 @@ export default function OptionalInformations(props) {
 
   useEffect(() => {
     setOpen(openProps);
-    getOrganizationName(organizationId);
+    if (openProps) {
+      getOrganizationName(organizationId);
+    }
   }, [openProps]);
 
   const getOrganizationName = async (entityId) => {
