@@ -201,7 +201,7 @@ export default function TabEventInfo() {
           <CardContent className={styles.content}>
             <Typography className={styles.name}>{event.name}</Typography>
             {event.quickDescription ? (
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography className={styles.quickDescription} variant="body2" color="textSecondary" component="p">
                 {decodeURIComponent(event.quickDescription)}
               </Typography>
             ) : (
