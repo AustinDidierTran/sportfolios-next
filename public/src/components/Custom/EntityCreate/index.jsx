@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 
 import api from '../../../actions/api';
 import { ROUTES, goTo } from '../../../actions/goTo';
+import { useRouter } from 'next/router';
 
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +15,7 @@ import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
@@ -25,10 +26,12 @@ import * as yup from 'yup';
 
 export default function EntityCreate(props) {
   const { t } = useTranslation();
+  const router = useRouter();
   const { type } = props;
   const {
-    state: { userInfo, id },
+    state: { userInfo },
   } = useContext(Store);
+  const { id } = router.query;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [creatorOptions, setCreatorOptions] = useState([]);
@@ -85,6 +88,10 @@ export default function EntityCreate(props) {
     }
   };
 
+  const onChangeEventType = (e) => {
+    formik.setFieldValue('eventType', e.target.value);
+  };
+
   useEffect(() => {
     formik.resetForm();
     getCreatorsOptions();
@@ -122,6 +129,24 @@ export default function EntityCreate(props) {
     }
     if (creatingEntity === GLOBAL_ENUM.EVENT) {
       return [
+        {
+          componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
+          primaryTypographyProps: { variant: 'h6' },
+          primary: t('register.registration_type'),
+        },
+        {
+          namespace: 'eventType',
+          componentType: COMPONENT_TYPE_ENUM.RADIO_GROUP,
+          options: [
+            { display: t('by_team'), value: EVENT_TYPE.TEAM },
+            { display: t('by_player'), value: EVENT_TYPE.PLAYER },
+          ],
+          onChange: (e) => {
+            onChangeEventType(e);
+          },
+          defaultValue: EVENT_TYPE.TEAM,
+          row: true,
+        },
         {
           namespace: 'name',
           label: t('name'),
@@ -222,12 +247,13 @@ export default function EntityCreate(props) {
       startTime: '09:00',
       endDate: '',
       endTime: '',
+      eventType: EVENT_TYPE.TEAM,
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname, creator, maximumSpots, startDate, endDate, startTime, endTime } = values;
+      const { name, surname, creator, maximumSpots, startDate, endDate, startTime, endTime, eventType } = values;
       setIsSubmitting(true);
       let start = `${startDate} ${startTime}`;
       let end = `${endDate} ${endTime}`;
@@ -253,6 +279,7 @@ export default function EntityCreate(props) {
             maximumSpots: maximum,
             startDate: start,
             endDate: end,
+            eventType,
           }),
         });
         goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
