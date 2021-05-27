@@ -25,6 +25,7 @@ export default function TermsAndConditions(props) {
       componentType: COMPONENT_TYPE_ENUM.TEXT_FIELD_BOX,
       style: { width: '100%', whiteSpace: 'pre-wrap', overflow: 'auto' },
       disabled: true,
+      rows: 5,
       value: membership?.description,
     },
     {
