@@ -57,6 +57,7 @@ import Help from '@material-ui/icons/Help';
 import Info from '@material-ui/icons/Info';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Language from '@material-ui/icons/Language';
 import Link from '@material-ui/icons/Link';
 import Lock from '@material-ui/icons/Lock';
@@ -167,6 +168,7 @@ const icons: any = {
   Info,
   KeyboardArrowDown,
   KeyboardArrowUp,
+  KeyboardArrowRight,
   Language,
   Link,
   Lock,
@@ -224,17 +226,18 @@ interface IProps {
   color?: string;
   onClick?: Function;
   fontSize?: number;
+  style?: React.CSSProperties;
 }
 
 const CustomIcon: React.FunctionComponent<IProps> = (props) => {
-  const { icon, color = 'primary', onClick, fontSize = 'default' } = props;
+  const { icon, color = 'primary', onClick, fontSize = 'default', style } = props;
 
   if (!icon) {
     return <></>;
   }
   const Icon = icons[icon];
 
-  return <Icon style={{ fill: color }} fontSize={fontSize} component={'svg'} />;
+  return <Icon style={{ ...style, fill: color }} fontSize={fontSize} component={'svg'} />;
 };
 
 export default CustomIcon;
