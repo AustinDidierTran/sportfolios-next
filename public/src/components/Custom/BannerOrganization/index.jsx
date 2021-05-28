@@ -80,7 +80,7 @@ export default function BannerOrganization(props) {
         </div>
         <div className={styles.chip}>
           {member ? (
-            <Chip label={t(getMembershipName(member.type))} color="primary" variant="outlined" />
+            <Chip label={t(getMembershipName(member.member_type))} color="primary" variant="outlined" />
           ) : (
             <Chip label={t('not_member')} style={{ color: 'grey' }} variant="outlined" />
           )}

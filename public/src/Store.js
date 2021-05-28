@@ -57,6 +57,7 @@ const initialState = {
 export const ACTION_ENUM = {
   CLEAR_USER_INFO: 'clear_user_info',
   GET_ID: 'get_id',
+  RESET_ID: 'reset_id',
   HEADER_FLYOUT: 'header_flyout',
   LOGIN: 'login',
   LOGOUT: 'logout',
@@ -89,6 +90,12 @@ function reducer(state, action) {
       return {
         ...state,
         id: action.payload,
+      };
+    }
+    case ACTION_ENUM.RESET_ID: {
+      return {
+        ...state,
+        id: null,
       };
     }
     case ACTION_ENUM.LOGIN: {
@@ -284,6 +291,10 @@ export function StoreProvider(props) {
   useEffect(() => {
     if (id) {
       getRealId(id);
+    } else {
+      dispatch({
+        type: ACTION_ENUM.RESET_ID,
+      });
     }
   }, [id]);
 

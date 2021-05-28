@@ -192,11 +192,9 @@ export default function ComponentFactory(props) {
         />
       );
     }
-
     return (
       <TextField
         namespace={component.namespace}
-        formik={component.formik}
         variant={component.variant}
         multiline
         rows={component.rows}
@@ -205,6 +203,7 @@ export default function ComponentFactory(props) {
         style={component.style}
         disabled={component.disabled}
         InputProps={component.inputProps}
+        value={component.value}
       />
     );
   }
@@ -243,17 +242,17 @@ export default function ComponentFactory(props) {
   if (component.componentType === COMPONENT_TYPE_ENUM.IMAGE_UPLOAD) {
     return (
       <>
-      <Avatar photoUrl={component.photoUrl} variant="square" size="lg" />
-      <Upload {...component.uploadImageProps}>
-        <Button
-          variant="outlined"
-          endIcon="CloudUploadIcon"
-          style={{ marginTop: '8px', marginBottom: '16px' }}
-          component="label"
-        >
-          {component.buttonName}
-        </Button>
-      </Upload>
+        <Avatar photoUrl={component.photoUrl} variant="square" size="lg" />
+        <Upload {...component.uploadImageProps}>
+          <Button
+            variant="outlined"
+            endIcon="CloudUploadIcon"
+            style={{ marginTop: '8px', marginBottom: '16px' }}
+            component="label"
+          >
+            {component.buttonName}
+          </Button>
+        </Upload>
       </>
     );
   }

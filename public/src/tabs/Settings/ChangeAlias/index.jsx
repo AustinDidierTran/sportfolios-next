@@ -71,24 +71,13 @@ export default function ChangeAlias() {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { alias } = values;
-      let res = {};
-      if (!theAlias) {
-        res = await api('/api/entity/alias', {
-          method: 'POST',
-          body: JSON.stringify({
-            entityId,
-            alias,
-          }),
-        });
-      } else {
-        res = await api('/api/entity/alias', {
-          method: 'PUT',
-          body: JSON.stringify({
-            entityId,
-            alias,
-          }),
-        });
-      }
+      const res = await api('/api/entity/alias', {
+        method: 'PUT',
+        body: JSON.stringify({
+          entityId,
+          alias,
+        }),
+      });
       if (res.status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -98,7 +87,7 @@ export default function ChangeAlias() {
       } else {
         setEdit(false);
         setTheAlias(alias);
-        goTo(ROUTES.entity, { id: alias }, { tab: TABS_ENUM.SETTINGS });
+        goTo(ROUTES.entity, { id: entityId }, { tab: TABS_ENUM.SETTINGS });
       }
     },
   });
