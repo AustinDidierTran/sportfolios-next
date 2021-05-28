@@ -233,7 +233,7 @@ export default function EventRegistration() {
         <div className={styles.header}>
           <CustomIconButton
             icon="ArrowBack"
-            onClick={() => goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SETTINGS })}
+            onClick={() => goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.EVENT_INFO })}
             tooltip={t('return_event')}
             className={styles.iconButton}
             style={{ color: 'primary' }}
