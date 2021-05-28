@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
@@ -13,15 +14,18 @@ import api from '../../actions/api';
 import { SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import { goBack } from '../../actions/goTo';
+import CustomIconButton from '../../components/Custom/IconButton';
 
 const GraphLinearTwoLines = dynamic(() => import('../Analytics/GraphLinear/TwoLinesGraph'));
 
 export default function PaymentOptionStats() {
   const { t } = useTranslation();
+  const router = useRouter();
   const {
     dispatch,
-    state: { userInfo, id: eventPaymentId },
+    state: { userInfo },
   } = useContext(Store);
+  const { id: eventPaymentId } = router.query;
 
   const [dateFilter, setDateFilter] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [isLoading, setIsLoading] = useState(true);
@@ -70,6 +74,15 @@ export default function PaymentOptionStats() {
   return (
     <IgContainer>
       <Paper className={styles.paper} title={t('graphs')}>
+        <div className={styles.header}>
+          <CustomIconButton
+            icon="ArrowBack"
+            onClick={() => goBack()}
+            tooltip={t('return_event')}
+            className={styles.iconButton}
+            style={{ color: 'primary' }}
+          />
+        </div>
         {graphData.data.length === 0 && !graphData.minDate && (
           <div className={styles.divNoGraph}>{t('will_see_graph_payment')}</div>
         )}
