@@ -14,6 +14,7 @@ import api from '../../actions/api';
 import { SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import { goBack } from '../../actions/goTo';
+import CustomIconButton from '../../components/Custom/IconButton';
 
 const GraphLinearTwoLines = dynamic(() => import('../Analytics/GraphLinear/TwoLinesGraph'));
 
@@ -73,6 +74,15 @@ export default function PaymentOptionStats() {
   return (
     <IgContainer>
       <Paper className={styles.paper} title={t('graphs')}>
+        <div className={styles.header}>
+          <CustomIconButton
+            icon="ArrowBack"
+            onClick={() => goBack()}
+            tooltip={t('return_event')}
+            className={styles.iconButton}
+            style={{ color: 'primary' }}
+          />
+        </div>
         {graphData.data.length === 0 && !graphData.minDate && (
           <div className={styles.divNoGraph}>{t('will_see_graph_payment')}</div>
         )}

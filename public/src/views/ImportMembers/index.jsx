@@ -34,7 +34,7 @@ import CouponRowMobile from './CouponRowMobile';
 import { MOBILE_WIDTH } from '../../../common/constants';
 import { useWindowSize } from '../../hooks/window';
 import CustomIconButton from '../../components/Custom/IconButton';
-import { goTo, ROUTES } from '../../../../public/src/actions/goTo';
+import { goBack } from '../../../../public/src/actions/goTo';
 
 export default function ImportMembers() {
   const { t } = useTranslation();
@@ -260,7 +260,7 @@ export default function ImportMembers() {
         <div className={styles.header}>
           <CustomIconButton
             icon="ArrowBack"
-            onClick={() => goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS })}
+            onClick={() => goBack()}
             tooltip={t('return_event')}
             className={styles.iconButton}
             style={{ color: 'primary' }}

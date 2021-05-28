@@ -8,7 +8,7 @@ import { useStepper } from '../../hooks/forms';
 import api from '../../actions/api';
 import { ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
-import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM } from '../../../common/enums';
+import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM, TABS_ENUM } from '../../../common/enums';
 import styles from './EventRegistration.module.css';
 import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
@@ -233,7 +233,7 @@ export default function EventRegistration() {
         <div className={styles.header}>
           <CustomIconButton
             icon="ArrowBack"
-            onClick={() => goTo(ROUTES.entity, { id: eventId })}
+            onClick={() => goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SETTINGS })}
             tooltip={t('return_event')}
             className={styles.iconButton}
             style={{ color: 'primary' }}
