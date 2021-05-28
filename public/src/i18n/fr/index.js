@@ -303,17 +303,17 @@ export default {
       modules: {
         title: "Ceux que l'on aide",
         clubs: {
-          title: 'Les clubs associatifs',
+          title: 'Organisations',
           description:
             "Notre écosystème supporte la gestion d'événements comme les ligues et les tournois. Nous gérons les paiements, les affiliations, les paiements et les horaires d'une simplicité inégalée. Nous vous aidons également à augmenter vos revenus avec des méthodes innovatrices.",
         },
         teams: {
-          title: 'Gestion interne des équipes',
+          title: 'Équipes',
           description:
             "Nous gérons tout ce qui attrait la planification des pratiques et les communications à l'interne. Avec nos intégration Google Calendar et Chatbot Messenger, en plus de nos notifications push, rejoindre vos athlètes sera plus simple que jamais.",
         },
         reporting: {
-          title: 'Suivi de développement',
+          title: 'Entraîneurs',
           description:
             "Avec notre module de suivi du développement de l'athlète, nous aidons les entraîneurs au niveau de leur efficacité. En transitionnant du papier vers notre logiciel, votre suivi est enregistré dans une base de données. Cela permet un suivi efficace qui perdure dans le temps.",
         },
@@ -398,6 +398,7 @@ export default {
       add_to_current_invoice: 'Ajouter à la facture courante',
       amount_to_pay: 'Montant à payer {{amount}}',
       awaiting_payments: 'Paiements en attentes',
+      create_payment_option: 'Créer une option de paiement',
       delete_payment_option_confirmation: 'Êtes-vous certain de vouloir supprimer cette option de paiement?',
       delete_payment_option: "Supprimer l'option de paiement",
       edit_payment_option: "Modifier l'option de paiement",
@@ -1442,8 +1443,8 @@ export default {
     totals: 'Totaux',
     total_income: 'Revenu total',
     new_income: 'Nouveau revenu',
-    income: 'Revenu',
-    income_and_transaction_fee_for: 'Revenu et frais de transaction pour',
+    income: 'Revenus',
+    income_and_transaction_fee_for: 'Revenus et frais de transaction pour',
     tournament_fee: 'Frais de tournoi',
     transfer_completed: 'Transfert completé',
     transfer_person_description:

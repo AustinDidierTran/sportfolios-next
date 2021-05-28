@@ -389,7 +389,7 @@ export default function TeamsRegistered() {
                   </div>
                 </StyledTableCell>
                 <StyledTableCell>
-                  <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+                  <MailtoButton color={'white'}  tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
                 </StyledTableCell>
               </TableRow>
             </TableHead>
@@ -518,7 +518,7 @@ export default function TeamsRegistered() {
                 </div>
               </StyledTableCell>
               <StyledTableCell>
-                <MailtoButton tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+                <MailtoButton color={'white'} tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
               </StyledTableCell>
             </TableRow>
           </TableHead>
