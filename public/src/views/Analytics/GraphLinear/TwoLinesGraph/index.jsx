@@ -37,19 +37,19 @@ export default function TwoLinesGraph(props) {
       setSecondInitialValue(0);
       return;
     }
-    setInitialValue(data[0][lines[0]?.dataKey]);
-    setValue(data[data.length - 1][lines[0]?.dataKey]);
+    setInitialValue((data[0][lines[0]?.dataKey]).toFixed(2));
+    setValue((data[data.length - 1][lines[0]?.dataKey]).toFixed(2));
 
-    setSecondInitialValue(data[0][lines[1]?.dataKey]);
-    setSecondValue(data[data.length - 1][lines[1]?.dataKey]);
+    setSecondInitialValue((data[0][lines[1]?.dataKey]).toFixed(2));
+    setSecondValue((data[data.length - 1][lines[1]?.dataKey]).toFixed(2));
   }, [data]);
 
   const formatter = (value, name, props) => {
     if (props.dataKey === lines[0]?.dataKey) {
-      setValue(value);
+      setValue(value.toFixed(2));
     }
     if (props.dataKey === lines[1]?.dataKey) {
-      setSecondValue(value);
+      setSecondValue(value.toFixed(2));
     }
     if (isMoney) {
       return [formatData(value) + '$', name];
@@ -107,8 +107,8 @@ export default function TwoLinesGraph(props) {
                 if (!data.length) {
                   return;
                 }
-                setValue(data[data.length - 1][lines[0]?.dataKey]);
-                setSecondValue(data[data.length - 1][lines[1]?.dataKey]);
+                setValue((data[data.length - 1][lines[0]?.dataKey]).toFixed(2));
+                setSecondValue((data[data.length - 1][lines[1]?.dataKey]).toFixed(2));
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />

@@ -288,7 +288,7 @@ export default function OptionPayment() {
     <IgContainer>
       <Paper style={{ textAlign: 'center' }}>
         <Typography variant="h3" style={{ marginTop: 20 }}>
-          Option de paiement
+          {t('payment.create_payment_option')}
         </Typography>
         <AddTeamFeeDialog
           open={openTeam}

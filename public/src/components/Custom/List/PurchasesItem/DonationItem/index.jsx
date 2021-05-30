@@ -31,7 +31,7 @@ export default function DonationItem(props) {
           <ListItemText
             className={styles.quantity}
             primary={formatPrice(amount)}
-            secondary={`${person?.name} ${person?.surname}`}
+            secondary={`${person?.name} ${person?.surname? person.surname : ''}`}
           ></ListItemText>
           <CustomIconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
           <ListItemText

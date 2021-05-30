@@ -397,6 +397,7 @@ export default {
       add_to_current_invoice: 'Add to current invoice',
       amount_to_pay: 'Amount to pay {{amount}}',
       awaiting_payments: 'Awaiting payments',
+      create_payment_option: 'Create payment option',
       delete_payment_option_confirmation: 'Are you sure you want to delete this payment option?',
       delete_payment_option: 'Delete payment option',
       edit_payment_option: 'Edit payment option',
