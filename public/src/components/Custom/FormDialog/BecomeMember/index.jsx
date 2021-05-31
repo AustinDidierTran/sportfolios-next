@@ -22,6 +22,7 @@ import UpdatePersonalInfos from './UpdatePersonalInfos';
 import PersonalInfos from './PersonalInfos';
 import OptionalInformations from './OptionalInformations';
 import TermsAndConditions from './TermsAndConditions';
+import DonationInfos from './DonationInfos';
 import GoToCart from './GoToCart';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
@@ -41,6 +42,7 @@ export default function BecomeMember(props) {
   const [goToCart, setGoToCart] = useState(false);
   const [personalInfos, setPersonalInfos] = useState(false);
   const [optionalInformations, setOptionalInformations] = useState(false);
+  const [donationsInfos, setDonationInfos] = useState(false);
   const [personInfos, setPersonInfos] = useState({});
   const [people, setPeople] = useState(userInfo.people);
   const [memberships, setMemberships] = useState([]);
@@ -275,7 +277,7 @@ export default function BecomeMember(props) {
   }, [formik.values.person]);
 
   const onClickMoreInfo = () => {
-    goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.membership });
+    goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.MEMBERSHIPS });
     onClose();
   };
 
@@ -307,13 +309,18 @@ export default function BecomeMember(props) {
     }
   };
 
-  const onOptionalInformationsClose = () => {
-    setOptionalInformations(false);
+  const onDonationInfosClose = () => {
+    setDonationInfos(false);
     if (membership.price > 0) {
       setGoToCart(true);
     } else {
       formik.resetForm();
     }
+  };
+
+  const onOptionalInformationsClose = () => {
+    setOptionalInformations(false);
+    setDonationInfos(true);
   };
 
   const onAddDonation = () => {
@@ -382,11 +389,15 @@ export default function BecomeMember(props) {
       <UpdatePersonalInfos open={updateInfos} onClose={onUpdateInfosClose} formik={formik} />
       <OptionalInformations
         membershipCreatedId={membershipCreatedId}
-        organizationId={organizationId}
-        personId={personId}
         open={optionalInformations}
         onClose={onOptionalInformationsClose}
+      />
+      <DonationInfos
+        open={donationsInfos}
+        onClose={onDonationInfosClose}
         onAddDonation={onAddDonation}
+        personId={personId}
+        organizationId={organizationId}
       />
       <GoToCart open={goToCart} onClose={onGoToCartClose} />
     </>
