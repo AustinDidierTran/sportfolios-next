@@ -599,6 +599,7 @@ export default {
       create_new_account: 'Créer un nouveau compte',
       create_organization: 'Créer une organisation',
       create_person: 'Créer une personne',
+      create_practice: 'Créer une pratique',
       create_report: 'Créer un rapport',
       create_team: 'Créer une équipe',
       create: 'Créer',

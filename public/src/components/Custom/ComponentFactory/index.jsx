@@ -64,6 +64,7 @@ export default function ComponentFactory(props) {
         addressChanged={component.addressChanged}
         errorFormat={component.errorFormat}
         onChange={component.onChange}
+        noValidate={component.noValidate}
       >
         {component.children}
       </AddressSearchInput>
@@ -309,6 +310,7 @@ export default function ComponentFactory(props) {
       autoFocus={component.autoFocus}
       hidden={component.hidden}
       required={component.required}
+      onChange={component.onChange}
     />
   );
 }

@@ -10,7 +10,17 @@ import { v4 as uuidv4 } from 'uuid';
 let autoComplete;
 
 function AddressSearchInput(props) {
-  const { language: languageProp, addressChanged, onChange, formik, namespace, country, errorFormat } = props;
+  const {
+    language: languageProp,
+    addressChanged,
+    onChange,
+    formik,
+    namespace,
+    country,
+    errorFormat,
+    placeholder,
+    noValidate,
+  } = props;
   const autoCompleteRef = useRef(null);
 
   useEffect(() => {
@@ -93,15 +103,19 @@ function AddressSearchInput(props) {
           outputAddress.zip = e.long_name;
         }
       });
-
+      console.log('noValidate', noValidate);
+      
       if (
-        outputAddress.street_address &&
-        outputAddress.city &&
-        outputAddress.state &&
-        outputAddress.country &&
-        outputAddress.zip
+        noValidate ||
+        (outputAddress.street_address &&
+          outputAddress.city &&
+          outputAddress.state &&
+          outputAddress.country &&
+          outputAddress.zip)
       ) {
         formik.setFieldValue(namespace, addressObject.formatted_address);
+        console.log('wtf');
+        
         addressChanged(outputAddress, addressObject.formatted_address);
       } else {
         addressChanged('');
@@ -131,6 +145,7 @@ function AddressSearchInput(props) {
           name={namespace}
           value={(formik && formik.values[namespace]) || ''}
           onChange={handleChange}
+          placeholder={placeholder}
           required
         />
       </div>
