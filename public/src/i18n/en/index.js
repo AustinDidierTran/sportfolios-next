@@ -805,6 +805,7 @@ export default {
       you_have_more_than_one_team_in_event:
         'You are part of more than one team in the event. You are seeing {{team}} games.',
       you_need_to_be_connected_to_become_member: 'You need to be connected to become member of {{organization}}',
+      you_need_to_be_connected_to_join_team: 'You need to be connected to join {{team}}',
       you_need_to_be_connected_to_continue: 'You need to be connected to continue',
       you_need_to_connect_your_messenger_account:
         'You need to connect your messenger account in the applications settings to enable this kind of notification',
@@ -925,6 +926,7 @@ export default {
     cant_edit_game_score: 'Teams are still undefined. Start the phase or end the preceding phase before editing score.',
     cant_have_different_phase: 'Positions are issued from different phases',
     cant_have_same_positions: "Can't have a position playing against itself",
+    cant_join_team_yet: 'You cant join teams yet, you have to be invited to join this team',
     cant_transfer_person_to_your_own_email: "You can't transfer someone to your own email",
     captain: 'Captain',
     captains: 'Captains',
@@ -1002,7 +1004,8 @@ export default {
     donation: 'Donation',
     donation_added: 'Donation added',
     donation_amount: 'Donation amount',
-    donation_message: 'By making a donation, you help organizations into offering a nice service at a reasonable price. Thank you for your generosity.',
+    donation_message:
+      'By making a donation, you help organizations into offering a nice service at a reasonable price. Thank you for your generosity.',
     donate_description: 'Ici sera un petit texte pour la donation..',
     donation_fees: 'On your donation, a fee is absorbed by the organization for the processing of the transaction.',
     donation_note: 'Donation note',
@@ -1107,6 +1110,7 @@ export default {
     is_member: 'Is member',
     is_sub: 'Is Sub',
     job_title: 'Job title',
+    join_team: 'Join team',
     junior_member: 'Junior member',
     junior: 'Junior',
     last_name: 'Last Name',
