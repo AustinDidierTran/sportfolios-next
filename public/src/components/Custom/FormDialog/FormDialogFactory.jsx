@@ -11,6 +11,7 @@ const AddMembership = dynamic(() => import('./AddMembership'));
 const AddTeamFee = dynamic(() => import('./AddTeamFee'));
 const AddPlayerFee = dynamic(() => import('./AddPlayerFee'));
 const BecomeMember = dynamic(() => import('./BecomeMember'));
+const JoinTeam = dynamic(() => import('./JoinTeam'));
 const BecomeMemberCoupon = dynamic(() => import('./BecomeMemberCoupon'));
 const MembersReport = dynamic(() => import('./MembersReport'));
 const SalesReport = dynamic(() => import('./SalesReport'));
@@ -32,6 +33,7 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.ADD_TEAM_FEE]: AddTeamFee,
   [FORM_DIALOG_TYPE_ENUM.ADD_PLAYER_FEE]: AddPlayerFee,
   [FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER]: BecomeMember,
+  [FORM_DIALOG_TYPE_ENUM.JOIN_TEAM]: JoinTeam,
   [FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER_COUPON]: BecomeMemberCoupon,
   [FORM_DIALOG_TYPE_ENUM.MEMBERS_REPORT]: MembersReport,
   [FORM_DIALOG_TYPE_ENUM.SALES_REPORT]: SalesReport,

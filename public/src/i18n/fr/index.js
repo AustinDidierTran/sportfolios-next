@@ -820,6 +820,7 @@ export default {
       you_need_to_connect_your_messenger_account:
         'Vous devez d\'abord connecter votre compte avec messenger dans la section "Applications" afin de pouvoir activer les notifications du chatbot',
       you_need_to_be_connected_to_become_member: 'Vous devez vous connecter pour être membre de {{organization}}',
+      you_need_to_be_connected_to_join_team: 'Vous devez vous connecter pour rejoindre {{team}}',
       you_need_to_be_connected_to_continue: 'Vous devez vous connecter pour continuer',
       you_need_to_create_an_account: 'Avant de procéder, veuillez vous créer un compte.',
       you_need_to_have_a_membership_available: 'Une affiliation doit être disponible',
@@ -944,6 +945,7 @@ export default {
       "Les équipes ne sont pas encore définies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
     cant_have_different_phase: 'Les positions sont issues de phases différentes',
     cant_have_same_positions: 'Une position ne peut jouer contre elle-même',
+    cant_join_team_yet: 'Vous ne pouvez pas rejoindre cette équipe. Vous devez être invité à rejoindre cette équipe',
     cant_transfer_person_to_your_own_email:
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
     captain: 'Capitaine',
@@ -1024,7 +1026,8 @@ export default {
     donation: 'Don',
     donation_added: 'Donation ajoutée',
     donation_amount: 'Montant du don',
-    donation_message: 'En faisant un don, vous aidez les organisations à maintenir une offre de service de qualité en gardant ses prix abordables. Merci de votre générosité.',
+    donation_message:
+      'En faisant un don, vous aidez les organisations à maintenir une offre de service de qualité en gardant ses prix abordables. Merci de votre générosité.',
     donation_fees: "Sur votre don, un frais est absorbé par l'organisation pour le traitement de la transaction.",
     donation_note: 'Écrire une note',
     done: 'Terminé',
@@ -1130,6 +1133,7 @@ export default {
     is_member: 'Est membre',
     is_sub: 'Est un remplaçant',
     job_title: "Titre d'emploi",
+    join_team: "Rejoindre l'équipe",
     junior_member: 'Membre junior',
     junior: 'Junior',
     last_name: 'Nom de famille',

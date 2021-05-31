@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 
-import Tab from '../../../components/Custom/Tab';
-import Tabs from '../../../components/Custom/Tabs';
-import Paper from '../../../components/Custom/Paper';
 import IgContainer from '../../../components/Custom/IgContainer';
-import { goTo } from '../../../actions/goTo';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, TABS_ENUM, ROUTES_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { useTranslation } from 'react-i18next';
-import api from '../../../actions/api';
 import { formatRoute } from '../../../utils/stringFormats';
+import api from '../../../actions/api';
+import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 
-const About = dynamic(() => import('../../../tabs/About'));
+const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
+const Home = dynamic(() => import('../../../tabs/Home'));
+const TeamEvents = dynamic(() => import('../../../tabs/TeamEvents'));
+const TeamRosters = dynamic(() => import('../../../tabs/TeamRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 export default function Team(props) {
@@ -37,31 +37,56 @@ export default function Team(props) {
     }
   }, [id]);
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const userState = [
+    { component: Home, value: TABS_ENUM.HOME, label: t('info'), icon: 'Info' },
+    { component: TeamEvents, value: TABS_ENUM.TEAM_EVENTS, label: t('event.events'), icon: 'Event' },
+    { component: TeamRosters, value: TABS_ENUM.TEAM_ROSTERS, label: t('rosters'), icon: 'Group' },
+  ];
 
-  const tabs = useMemo(() => {
-    let res = [{ component: About, value: TABS_ENUM.ABOUT, label: t('about'), icon: 'Info' }];
-    if (isAdmin) {
-      return [
-        ...res,
-        {
-          component: Settings,
-          value: TABS_ENUM.SETTINGS,
-          label: t('settings'),
-          icon: 'Settings',
-        },
-      ];
-    }
-    return res;
-  }, [isAdmin]);
+  const adminState = [
+    { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },
+    { component: TeamEvents, value: TABS_ENUM.TEAM_EVENTS, label: t('event.events'), icon: 'Event' },
+    { component: TeamRosters, value: TABS_ENUM.TEAM_ROSTERS, label: t('rosters'), icon: 'Group' },
+  ];
+
+  const [adminView, setAdminView] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [states, setStates] = useState(userState);
 
   const index = useMemo(() => {
-    const res = tabs.findIndex((s) => s.value === tab);
+    if (adminState.find((s) => s.value === tab) && tab != TABS_ENUM.TEAM_EVENTS && tab != TABS_ENUM.TEAM_ROSTERS) {
+      if (isAdmin) {
+        setStates(adminState);
+        setAdminView(true);
+        return adminState.findIndex((s) => s.value === tab);
+      }
+    }
+    const res = states.findIndex((s) => s.value === tab);
     if (res === -1) {
       return 0;
     }
     return res;
-  }, [tab, tabs]);
+  }, [tab, isAdmin]);
+
+  const OpenTab = useMemo(() => {
+    const res = states[index];
+    if (res) {
+      return res.component;
+    }
+    return Home;
+  }, [index, states]);
+
+  const onSwitch = () => {
+    const newState = !adminView;
+    setAdminView(newState);
+    if (newState) {
+      setStates(adminState);
+      goTo(ROUTES_ENUM.entity, { id }, { tab: adminState[index].value });
+    } else {
+      setStates(userState);
+      goTo(ROUTES_ENUM.entity, { id }, { tab: userState[index].value });
+    }
+  };
 
   const getRole = async () => {
     const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
@@ -73,30 +98,22 @@ export default function Team(props) {
     }
   };
 
-  const onClick = (s) => {
-    goTo(ROUTES_ENUM.entity, { id }, { tab: s.value });
-  };
-
-  const OpenTab = useMemo(() => {
-    const res = tabs[index];
-    if (res) {
-      return res.component;
-    }
-    return About;
-  }, [index, tabs]);
-
   return (
-    <IgContainer>
-      <Paper>
-        <Tabs value={index} indicatorColor="primary" textColor="primary">
-          {tabs.map((t, index) => (
-            <Tab key={index} onClick={() => onClick(t)} icon={t.icon} label={t.label} />
-          ))}
-        </Tabs>
-      </Paper>
-      <div>
-        <OpenTab basicInfos={basicInfos} />
-      </div>
-    </IgContainer>
+    <>
+      <HeaderHome
+        basicInfos={basicInfos}
+        isAdmin={isAdmin}
+        onSwitch={onSwitch}
+        index={index}
+        adminView={adminView}
+        navTabs={states}
+        type={GLOBAL_ENUM.ORGANIZATION}
+      />
+      <IgContainer>
+        <div>
+          <OpenTab basicInfos={basicInfos} adminView={adminView} />
+        </div>
+      </IgContainer>
+    </>
   );
 }

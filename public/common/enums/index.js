@@ -139,9 +139,8 @@ const DIRECTION_ENUM = {
 
 const TABS_ENUM = {
   ABOUT: 'about',
-  HOME: 'home',
   CART: 'cart',
-  EDIT: 'edit',
+  COUPONS: 'coupons',
   EDIT_EVENTS: 'editEvents',
   EDIT_MEMBERSHIPS: 'editMemberships',
   EDIT_PERSON_INFOS: 'editPersonInfos',
@@ -149,9 +148,11 @@ const TABS_ENUM = {
   EDIT_RESULTS: 'editResults',
   EDIT_ROSTERS: 'editRosters',
   EDIT_SCHEDULE: 'editSchedule',
+  EDIT: 'edit',
   EVENT_INFO: 'eventInfo',
   EVENTS: 'events',
   GENERAL: 'general',
+  HOME: 'home',
   MEMBERSHIPS: 'memberships',
   PARTNERS: 'partners',
   PURCHASES: 'purchases',
@@ -161,7 +162,8 @@ const TABS_ENUM = {
   SCHEDULE: 'schedule',
   SETTINGS: 'settings',
   SHOP: 'shop',
-  COUPONS: 'coupons',
+  TEAM_EVENTS: 'teamEvents',
+  TEAM_ROSTERS: 'teamRosters',
 };
 
 const FORM_DIALOG_TYPE_ENUM = {
@@ -178,6 +180,7 @@ const FORM_DIALOG_TYPE_ENUM = {
   EDIT_MEMBERSHIP: 'edit membership',
   EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS: 'edit membership and conditions',
   EDIT_PARTNER: 'edit partner',
+  JOIN_TEAM: 'join team',
   MEMBERS_REPORT: 'members report',
   SALES_REPORT: 'sales_report',
   CREATE_TAX_RATE: 'create tax rate',

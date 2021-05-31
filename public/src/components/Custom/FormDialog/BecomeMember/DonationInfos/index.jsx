@@ -160,7 +160,7 @@ export default function DonationInfos(props) {
       open={open}
       title={t('donate')}
       subtitle={t('donation_message')}
-      showSubtitle={true}
+      showSubtitle
       buttons={buttons}
       fields={fields}
       formik={formik}
