@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 export default function Home(props) {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { basicInfos, adminView } = props;
+  const { basicInfos } = props;
   const {
     state: { userInfo },
   } = useContext(Store);
@@ -28,7 +28,7 @@ export default function Home(props) {
       <Posts
         userInfo={userInfo}
         allowPostImage
-        allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN && adminView}
+        allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
         entityIdCreatePost={basicInfos.id}
         entityRole={basicInfos.role}
         allowComment

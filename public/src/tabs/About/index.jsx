@@ -1,5 +1,7 @@
 import React from 'react';
-import { Paper, MyGames, MyGamesTeam } from '../../components/Custom';
+import MyGames from '../../components/Custom/MyGames';
+import MyGamesTeam from '../../components/Custom/MyGamesTeam';
+import Paper from '../../components/Custom/Paper';
 import styles from './About.module.css';
 import { GLOBAL_ENUM } from '../../../common/enums';
 import dynamic from 'next/dynamic';
