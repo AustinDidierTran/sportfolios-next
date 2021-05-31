@@ -48,7 +48,7 @@ export default function BasicFormDialog(props) {
             paddingLeft: 'auto',
             paddingRight: 'auto',
             fontSize: '0.9rem',
-            textDecoration: 'underline',
+            textDecoration: subtitleOnClick ? 'underline': '',
             cursor: 'pointer',
           }}
         >
