@@ -7,6 +7,7 @@ const EditableGame = dynamic(() => import('./EditableGame'));
 const EventPost = dynamic(() => import('./EventPost'));
 const EventSettings = dynamic(() => import('./EventSettings'));
 const Game = dynamic(() => import('./Game'));
+const Practice = dynamic(() => import('./Practice'));
 const Invoice = dynamic(() => import('./InvoiceItem'));
 const MultipleTeamGame = dynamic(() => import('./MultipleTeamGame'));
 const Post = dynamic(() => import('./Post'));
@@ -28,6 +29,7 @@ const CardMap = {
   [CARD_TYPE_ENUM.EVENT_SETTINGS]: EventSettings,
   [CARD_TYPE_ENUM.EVENT]: EventPost,
   [CARD_TYPE_ENUM.GAME]: Game,
+  [CARD_TYPE_ENUM.PRACTICE]: Practice,
   [CARD_TYPE_ENUM.INVOICE]: Invoice,
   [CARD_TYPE_ENUM.POST]: Post,
   [CARD_TYPE_ENUM.COMMENT]: Comment,

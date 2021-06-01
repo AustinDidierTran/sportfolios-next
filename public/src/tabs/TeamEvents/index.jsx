@@ -1,10 +1,10 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-const MyGamesTeam = dynamic(() => import('../../components/Custom/MyGamesTeam'));
+const MyEventsTeam = dynamic(() => import('../../components/Custom/MyEventsTeam'));
 
 export default function TabTeamEvents(props) {
-  const { gamesInfos, adminView } = props;
+  const { gamesInfos, practiceInfos, adminView } = props;
 
-  return <MyGamesTeam gamesInfos={gamesInfos} adminView={adminView} />;
+  return <MyEventsTeam gamesInfos={gamesInfos} practiceInfos={practiceInfos} adminView={adminView} />;
 }
