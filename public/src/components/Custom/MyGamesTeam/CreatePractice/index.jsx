@@ -16,10 +16,11 @@ export default function CreatePractice(props) {
   const { isOpen, onClose } = props;
   const {
     dispatch,
-    state: { id: eventId, userInfo },
+    state: { id: teamId, userInfo },
   } = useContext(Store);
 
   const [open, setOpen] = useState(isOpen);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
 
   useEffect(() => {
     setOpen(isOpen);
@@ -28,6 +29,20 @@ export default function CreatePractice(props) {
   const handleClose = () => {
     formik.resetForm();
     onClose();
+  };
+
+  const addressChanged = (newAddress) => {
+    setWrongAddressFormat('');
+    formik.setFieldValue('address', newAddress);
+  };
+
+  const onAddressChanged = (event) => {
+    if (event.length > 0) {
+      setWrongAddressFormat(t('address_error'));
+    } else {
+      setWrongAddressFormat('');
+      formik.setFieldValue('address', null);
+    }
   };
 
   const handleChange = (event) => {
@@ -41,6 +56,9 @@ export default function CreatePractice(props) {
     date: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     timeStart: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     timeEnd: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    addressFormatted: yup.string().test('validate', () => {
+      return wrongAddressFormat == '';
+    }),
   });
 
   const formik = useFormik({
@@ -57,17 +75,19 @@ export default function CreatePractice(props) {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-
-      const { name, date, timeStart, timeEnd, addressFormatted, address, location } = values;
+      const { name, date, timeStart, timeEnd, address, location } = values;
 
       let dateStart = `${date} ${timeStart}`;
       let dateEnd = `${date} ${timeEnd}`;
-      const res = await api('/api/entity/phase', {
+      const res = await api('/api/entity/practice', {
         method: 'POST',
         body: JSON.stringify({
-          phase,
-          spots,
-          eventId,
+          name,
+          dateStart,
+          dateEnd,
+          address,
+          location,
+          teamId,
         }),
       });
 
@@ -87,6 +107,7 @@ export default function CreatePractice(props) {
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
+      onClose();
     },
   });
 
@@ -133,9 +154,12 @@ export default function CreatePractice(props) {
       namespace: 'addressFormatted',
       language: userInfo.language,
       country: 'ca',
-      addressChanged: () => {},
-      placeholder: 'Enter an address',
+      addressChanged: addressChanged,
+      onChange: onAddressChanged,
+      errorFormat: wrongAddressFormat,
+      placeholder: t('type_address'),
       noValidate: true,
+      required: false,
     },
     {
       namespace: 'location',

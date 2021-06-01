@@ -65,6 +65,8 @@ export default function ComponentFactory(props) {
         errorFormat={component.errorFormat}
         onChange={component.onChange}
         noValidate={component.noValidate}
+        placeholder={component.placeholder}
+        required={component.required}
       >
         {component.children}
       </AddressSearchInput>

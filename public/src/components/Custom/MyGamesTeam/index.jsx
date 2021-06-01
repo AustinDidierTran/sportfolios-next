@@ -11,7 +11,7 @@ import CreatePractice from './CreatePractice';
 
 export default function MyGamesTeam(props) {
   const { t } = useTranslation();
-  const { gamesInfos, adminView = true } = props;
+  const { gamesInfos, adminView } = props;
 
   const [openPractice, setOpenPractice] = useState(false);
 

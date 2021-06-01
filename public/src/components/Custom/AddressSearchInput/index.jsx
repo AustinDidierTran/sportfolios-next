@@ -20,6 +20,7 @@ function AddressSearchInput(props) {
     errorFormat,
     placeholder,
     noValidate,
+    required = true,
   } = props;
   const autoCompleteRef = useRef(null);
 
@@ -103,8 +104,7 @@ function AddressSearchInput(props) {
           outputAddress.zip = e.long_name;
         }
       });
-      console.log('noValidate', noValidate);
-      
+
       if (
         noValidate ||
         (outputAddress.street_address &&
@@ -114,8 +114,7 @@ function AddressSearchInput(props) {
           outputAddress.zip)
       ) {
         formik.setFieldValue(namespace, addressObject.formatted_address);
-        console.log('wtf');
-        
+
         addressChanged(outputAddress, addressObject.formatted_address);
       } else {
         addressChanged('');
@@ -146,7 +145,7 @@ function AddressSearchInput(props) {
           value={(formik && formik.values[namespace]) || ''}
           onChange={handleChange}
           placeholder={placeholder}
-          required
+          required={required}
         />
       </div>
     </div>

@@ -1460,7 +1460,7 @@ export default {
     transfered_to_you: 'Transféré à vous',
     transit_number: 'Numéro de transit',
     true: 'Vrai',
-    type_address: 'Entrez une addresse',
+    type_address: 'Entrez une adresse',
     type: 'Type',
     unconfirmed_email: 'courriel non confirmé',
     undo: 'Annuler',
