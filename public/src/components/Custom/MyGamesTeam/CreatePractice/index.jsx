@@ -74,7 +74,7 @@ export default function CreatePractice(props) {
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       const { name, date, timeStart, timeEnd, address, location } = values;
 
       let dateStart = `${date} ${timeStart}`;
@@ -108,6 +108,7 @@ export default function CreatePractice(props) {
         duration: 2000,
       });
       onClose();
+      resetForm();
     },
   });
 
