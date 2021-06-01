@@ -30,7 +30,7 @@ export default function TermsAndConditions(props) {
     },
     {
       componentType: COMPONENT_TYPE_ENUM.LINK,
-      name: membership?.file_name,
+      name: t('see_terms_and_conditions'),
       href: membership?.file_url,
     },
     {
