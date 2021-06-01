@@ -127,7 +127,7 @@ export default function CreatePractice(props) {
   const fields = [
     {
       namespace: 'name',
-      label: 'name',
+      label: t('name'),
       type: 'input',
     },
     {
@@ -163,7 +163,7 @@ export default function CreatePractice(props) {
     },
     {
       namespace: 'location',
-      label: 'Location',
+      label: t('location'),
       type: 'text',
     },
   ];
