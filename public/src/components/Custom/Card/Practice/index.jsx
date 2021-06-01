@@ -10,26 +10,24 @@ import moment from 'moment';
 
 export default function GameItem(props) {
   const { t } = useTranslation();
-  const { location, name, start_time: startTime } = props;
+  const { location, name, start_date: startTime, end_date: endTime } = props;
 
   return (
     <Card className={styles.game}>
-      <Typography className={styles.phase} color="textPrimary">
+        <Typography className={styles.phase} color="textPrimary">
         {t('practice')}
-      </Typography>
-      <div className={styles.main}>
-        <Typography className={styles.phase} color="textSecondary">
-          {name}
         </Typography>
+      <Typography className={styles.main} color="textPrimary">
+        {name}
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(startTime), 'HH:mm')}
-          secondary={formatDate(moment(startTime), 'D MMM')}
+          primary={`${formatDate(moment(startTime), 'HH:mm')} - ${formatDate(moment(endTime), 'HH:mm')}`}
+          secondary={formatDate(moment(startTime), 'ddd D MMM')}
         ></ListItemText>
-        <Typography className={styles.field} color="textSecondary">
+        <Typography color="textSecondary">
           {location}
         </Typography>
-      </div>
+      </Typography>
     </Card>
   );
 }
