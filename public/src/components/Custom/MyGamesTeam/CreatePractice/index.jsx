@@ -103,7 +103,7 @@ export default function CreatePractice(props) {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('phase_added'),
+        message: t('practice_added'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
