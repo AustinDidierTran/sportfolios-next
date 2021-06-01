@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node --max_old_space_size=8192 server.js",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "eslint . --ext .js --ext .jsx",
     "test": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
