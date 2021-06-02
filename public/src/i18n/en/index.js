@@ -1235,6 +1235,7 @@ export default {
     player_acceptation_step_message:
       'Do you want to manually accept or decline every player that register to your event before they make a payment?',
     player_added: 'Player added',
+    players_added: 'Players added',
     player_accepted: 'Player accepted',
     player_refused: 'Player refused',
     player_skipped: 'Player skipped',

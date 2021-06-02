@@ -16,7 +16,7 @@ export default function Players(props) {
   return (
     <List>
       {players.map((player, index) => (
-        <div key={player.id} className={index % 2 === 0 ? styles.card : styles.greycard}>
+        <div key={player.id} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <div className={styles.player}>
             <div className={styles.position}>
               {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
