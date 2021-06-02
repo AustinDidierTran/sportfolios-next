@@ -1271,7 +1271,7 @@ export default {
     positive_attitude_and_self_control: 'Attitude positive et maîtrise de soi',
     postal_code: 'Code postal',
     practice: 'Pratique',
-    practice_added: 'Pratique ajouté',
+    practice_added: 'Pratique ajoutée',
     preranking_saved: 'Préclassement sauvegardé',
     preranking: 'Préclassement',
     presences: 'Présences',

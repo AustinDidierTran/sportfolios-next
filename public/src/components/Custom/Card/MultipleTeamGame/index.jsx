@@ -14,7 +14,7 @@ export default function MultipleTeamGame(props) {
   const { positions, field, start_time, phaseName, onClick } = props;
 
   return (
-    <Card className={styles.game} onClick={onClick}>
+    <Card className={styles.game} onClick={() => onClick(props)}>
       <div className={styles.teams}>
         {positions.map((position, i) => (
           <div className={styles.teamContent} key={i}>

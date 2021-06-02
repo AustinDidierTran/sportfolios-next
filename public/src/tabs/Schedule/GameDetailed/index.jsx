@@ -263,12 +263,7 @@ export default function GameDetailed(props) {
   };
 
   const goBack = () => {
-    router.push({
-      pathname: router.query.id,
-      query: {
-        tab: router.query.tab,
-      },
-    });
+    history.back();
   };
 
   const gameClick = () => {

@@ -3,8 +3,9 @@ import CustomCard from '../Card';
 import Typography from '@material-ui/core/Typography';
 import styles from './MyEvents.module.css';
 
-import { CARD_TYPE_ENUM, TABS_ENUM } from '../../../../common/enums';
-import { goTo, ROUTES } from '../../../actions/goTo';
+import { CARD_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
+import { goTo } from '../../../actions/goTo';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import CustomButton from '../Button';
 import CreatePractice from './CreatePractice';
@@ -18,12 +19,13 @@ export default function MyEventsTeam(props) {
   const {
     state: { id },
   } = useContext(Store);
+  const router = useRouter();
 
   const [practiceInfos, setPracticeInfos] = useState(practiceInfosProps);
   const [openPractice, setOpenPractice] = useState(false);
 
-  const onGameClick = (eventId) => {
-    goTo(ROUTES.entity, { id: eventId }, { tabs: TABS_ENUM.SCHEDULE });
+  const openGameDetailed = async (game) => {
+    goTo(ROUTES_ENUM.entity, { id: game.event_id }, { tab: router.query.tab, gameId: game.id });
   };
 
   const createPractice = () => {
@@ -43,21 +45,18 @@ export default function MyEventsTeam(props) {
 
   const events = useMemo(() => {
     let game = gamesInfos?.map((game) => {
-      const teams = [
+      const positions = [
         { name: game.team_names[0], score: game.team_scores[0] },
         { name: game.team_names[1], score: game.team_scores[1] },
       ];
-      return { ...game, teams, type: CARD_TYPE_ENUM.TWO_TEAM_GAME, start_time: game.timeslot };
+      return { ...game, positions, type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME, start_time: game.timeslot };
     });
 
     let practice = practiceInfos?.map((practice) => {
       return { ...practice, type: CARD_TYPE_ENUM.PRACTICE, start_time: practice.start_date };
     });
 
-    let eventInfos = practice.concat(game).sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
-    console.log('eventInfos', eventInfos);
-
-    return eventInfos;
+    return practice.concat(game).sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
   }, [gamesInfos, practiceInfos]);
 
   return (
@@ -75,7 +74,7 @@ export default function MyEventsTeam(props) {
             key={event.id}
             items={{
               ...event,
-              onClick: onGameClick,
+              onClick: openGameDetailed,
             }}
             type={event.type}
           />
