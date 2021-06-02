@@ -88,6 +88,10 @@ export default function AddPlayer(props) {
     players,
   ]);
 
+  const disabled = useMemo(() => {
+    return people.length < 1;
+  }, [people]);
+
   const fields = [
     ...personComponent,
     {
@@ -109,6 +113,7 @@ export default function AddPlayer(props) {
       onClick: onSubmit,
       name: t('add.add'),
       color: 'primary',
+      disabled,
     },
   ];
 
