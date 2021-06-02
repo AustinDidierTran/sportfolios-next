@@ -11,8 +11,8 @@ import CustomIconButton from '../../IconButton';
 export default function AddPlayer(props) {
   const { open: openProps, onClose, update, players } = props;
   const { t } = useTranslation();
-  const { dispatch } = useContext(Store);
   const {
+    dispatch,
     state: { id: teamId },
   } = useContext(Store);
 

@@ -13,7 +13,6 @@ import styles from './GameDetailed.module.css';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CustomIconButton from '../../../components/Custom/IconButton';
-import { useRouter } from 'next/router';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
@@ -38,7 +37,6 @@ export default function GameDetailed(props) {
     dispatch,
     state: { userInfo },
   } = useContext(Store);
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState({});
