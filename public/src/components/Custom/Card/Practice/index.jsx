@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './GameItem.module.css';
+import styles from './Practice.module.css';
 import { useTranslation } from 'react-i18next';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 
-export default function GameItem(props) {
+export default function Practice(props) {
   const { t } = useTranslation();
   const { location, name, start_date: startTime, end_date: endTime } = props;
 
