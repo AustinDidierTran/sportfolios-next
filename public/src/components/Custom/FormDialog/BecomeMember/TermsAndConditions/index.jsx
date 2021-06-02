@@ -29,17 +29,22 @@ export default function TermsAndConditions(props) {
       value: membership?.description,
     },
     {
-      componentType: COMPONENT_TYPE_ENUM.LINK,
-      name: t('see_terms_and_conditions'),
-      href: membership?.file_url,
-    },
-    {
       componentType: COMPONENT_TYPE_ENUM.CHECKBOX,
       label: t('accept_terms_and_conditions'),
       checked: accepted,
       onChange: () => {
         setAccepted(!accepted);
       },
+      color: 'primary',
+    },
+    {
+      componentType: COMPONENT_TYPE_ENUM.BUTTON,
+      variant: 'outlined',
+      onClick: () => {
+        window.open(membership?.file_url);
+      },
+      children: t('see_terms_and_conditions'),
+      disabled: membership?.file_url ? false : true,
       color: 'primary',
     },
   ];
