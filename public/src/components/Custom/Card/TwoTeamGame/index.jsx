@@ -20,7 +20,7 @@ export default function TwoTeamGame(props) {
     <Card className={cardClass}>
       <div className={styles.main} onClick={onClick}>
         <Typography className={styles.phase} color="textSecondary">
-          {phaseName}
+          {phaseName? phaseName: ''}
         </Typography>
         <ListItemText
           className={styles.time}

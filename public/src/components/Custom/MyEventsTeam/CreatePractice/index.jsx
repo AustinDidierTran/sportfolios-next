@@ -13,7 +13,7 @@ import moment from 'moment';
 
 export default function CreatePractice(props) {
   const { t } = useTranslation();
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onCreate } = props;
   const {
     dispatch,
     state: { id: teamId, userInfo },
@@ -107,7 +107,7 @@ export default function CreatePractice(props) {
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
-      onClose();
+      onCreate();
       resetForm();
     },
   });

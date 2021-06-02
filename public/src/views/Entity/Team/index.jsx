@@ -19,13 +19,15 @@ const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 export default function Team(props) {
   const { t } = useTranslation();
-  const { basicInfos: basicInfosProps } = props;
+  const { basicInfos: basicInfosProps, eventInfos: eventInfosProps } = props;
   const router = useRouter();
   const { tab } = router.query;
   const {
     state: { id },
   } = useContext(Store);
   const [basicInfos, setBasicInfos] = useState(basicInfosProps);
+  const gamesInfos = eventInfosProps?.gamesInfos;
+  const practiceInfos = eventInfosProps?.practiceInfos;
 
   useEffect(() => {
     document.title = formatPageTitle(basicInfos.name);
@@ -111,7 +113,12 @@ export default function Team(props) {
       />
       <IgContainer>
         <div>
-          <OpenTab basicInfos={basicInfos} adminView={adminView} />
+          <OpenTab
+            basicInfos={basicInfos}
+            gamesInfos={gamesInfos}
+            practiceInfos={practiceInfos}
+            adminView={adminView}
+          />
         </div>
       </IgContainer>
     </>

@@ -38,7 +38,7 @@ export const MailToButton = dynamic(() => import('./MailToButton'));
 export const MessageAndButtons = dynamic(() => import('./MessageAndButtons'));
 export const MultiSelect = dynamic(() => import('./MultiSelect'));
 export const MyGames = dynamic(() => import('./MyGames'));
-export const MyGamesTeam = dynamic(() => import('./MyGamesTeam'));
+export const MyEventsTeam = dynamic(() => import('./MyEventsTeam'));
 export const Paper = dynamic(() => import('./Paper'));
 export const PersonSearchList = dynamic(() => import('./SearchList/PersonSearchList'));
 export const PhoneNumberFormat = dynamic(() => import('./PhoneNumberFormat'));

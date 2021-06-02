@@ -1248,6 +1248,7 @@ export default {
     position: 'Position',
     positive_attitude_and_self_control: 'Positive Attitude and Self Control',
     postal_code: 'Zip Code',
+    practice: 'Practice',
     practice_added: 'Practice added',
     preranking_saved: 'Preranking saved',
     preranking: 'Preranking',

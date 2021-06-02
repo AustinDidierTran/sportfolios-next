@@ -1,0 +1,25 @@
+.game {
+  margin-bottom: 16px;
+}
+
+.main {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 'phase time field';
+}
+
+.game:hover {
+  cursor: pointer;
+}
+
+.phase {
+  grid-area: phase;
+  margin: 8px !important;
+  overflow: auto;
+}
+
+.time {
+  grid-area: time;
+  margin: 8px !important;
+  overflow: auto;
+}
