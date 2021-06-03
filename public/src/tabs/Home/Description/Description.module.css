@@ -1,0 +1,8 @@
+.textarea {
+  white-space: pre-wrap;
+  margin: 16px !important;
+}
+
+.paper {
+  text-align: start;
+}
