@@ -64,6 +64,11 @@ export default function GameDetailed(props) {
       goBack();
       return;
     }
+
+    if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
+      setIsAdmin(true);
+    }
+
     setGame(data);
   };
 
