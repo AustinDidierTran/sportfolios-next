@@ -28,6 +28,24 @@ export default function MyEventsTeam(props) {
     goTo(ROUTES_ENUM.entity, { id: game.event_id }, { tab: router.query.tab, gameId: game.id });
   };
 
+  const openPracticeDetailed = async (practice) => {
+    router.push({
+      pathname: router.query.id,
+      query: {
+        tab: router.query.tab,
+        practiceId: practice.id,
+      },
+    });
+  };
+
+  const openEventDetailed = async (event) => {
+    if (event.type == CARD_TYPE_ENUM.PRACTICE) {
+      openPracticeDetailed(event);
+    } else {
+      openGameDetailed(event);
+    }
+  };
+
   const createPractice = () => {
     setOpenPractice(true);
   };
@@ -74,7 +92,7 @@ export default function MyEventsTeam(props) {
             key={event.id}
             items={{
               ...event,
-              onClick: openGameDetailed,
+              onClick: openEventDetailed,
             }}
             type={event.type}
           />

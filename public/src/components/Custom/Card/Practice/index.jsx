@@ -10,10 +10,10 @@ import moment from 'moment';
 
 export default function Practice(props) {
   const { t } = useTranslation();
-  const { location, name, start_date: startTime, end_date: endTime } = props;
+  const { location, name, start_date: startTime, end_date: endTime, onClick } = props;
 
   return (
-    <Card className={styles.game}>
+    <Card className={styles.game} onClick={() => onClick(props)}>
         <Typography className={styles.phase} color="textPrimary">
         {t('practice')}
         </Typography>
