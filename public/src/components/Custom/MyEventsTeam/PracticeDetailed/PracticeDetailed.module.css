@@ -22,6 +22,10 @@
 }
 
 .practiceInfoDate {
+  font-size: 22px;
+}
+
+.practiceInfoSecondary {
   color: rgba(0, 0, 0, 0.5);
   margin: 8px;
 }

@@ -52,9 +52,9 @@ export default function PracticeDetailed(props) {
     setPractice(data);
 
     let street_address = data.street_address ? data.street_address + ', ' : '';
-    let city = data.city ? data.city + ', ': '';
+    let city = data.city ? data.city + ', ' : '';
     let state = data.state ? data.state : '';
-    let zip = data.zip ? data.zip + ', ': ', ';
+    let zip = data.zip ? data.zip + ', ' : ', ';
     let country = data.country ? data.country : '';
     setAddress(street_address + city + state + zip + country);
   };
@@ -93,16 +93,18 @@ export default function PracticeDetailed(props) {
             </div>
             <div className={styles.practiceInfo}>
               <TextField disabled value={practice.name} variant="h3" />
-              <div className={styles.practiceInfoDate} variant="h4">
-                {moment(practice.start_date).format('dddd Do MMM')}
-                {` ${formatDate(moment(practice.start_date), 'HH:mm')} - ${formatDate(
-                  moment(practice.end_date),
-                  'HH:mm'
-                )}`}
+              <div className={styles.practiceInfoSecondary}>
                 <div className={styles.practiceInfoDate}>
+                  {moment(practice.start_date).format('dddd Do MMM')}
+                  {` ${formatDate(moment(practice.start_date), 'HH:mm')} - ${formatDate(
+                    moment(practice.end_date),
+                    'HH:mm'
+                  )}`}
+                </div>
+                <div className={styles.practiceInfoSecondary}>
                   <TextField disabled value={practice.location} />
                 </div>
-                <div className={styles.practiceInfoDate}>{address}</div>
+                <div className={styles.practiceInfoSecondary}>{address}</div>
               </div>
             </div>
 
@@ -116,7 +118,6 @@ export default function PracticeDetailed(props) {
                 />
               )}
             </div>
-
           </div>
           <Divider variant="middle" />
           <Roster roster={practice.roster} />
