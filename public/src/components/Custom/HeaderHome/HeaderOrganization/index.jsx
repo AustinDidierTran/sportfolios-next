@@ -38,7 +38,7 @@ export default function HeaderOrganization(props) {
   const [member, setMember] = useState(null);
 
   useEffect(() => {
-    if (id && userInfo) {
+    if (id && userInfo?.primaryPerson?.entity_id) {
       getMemberships();
     }
   }, [id, userInfo]);
