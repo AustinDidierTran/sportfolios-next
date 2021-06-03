@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import dynamic from 'next/dynamic';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import { formatDate } from '../../../utils/stringFormats';
 
 const EnterScore = dynamic(() =>
   import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
@@ -64,6 +65,11 @@ export default function GameDetailed(props) {
       goBack();
       return;
     }
+
+    if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
+      setIsAdmin(true);
+    }
+
     setGame(data);
   };
 
@@ -293,7 +299,7 @@ export default function GameDetailed(props) {
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
             <div className={styles.gameInfo}>
-              <div className={styles.gameInfoDate}>{moment(game.start_time).format('ddd Do MMM hh:mm')}</div>
+              <div className={styles.gameInfoDate}>{formatDate(moment(game.start_time), 'dddd Do MMM').charAt(0).toUpperCase() + formatDate(moment(game.start_time), 'dddd Do MMM').slice(1)}</div>
               <div className={styles.phaseName}>{game.phase_name}</div>
               <div>{game.field}</div>
             </div>
