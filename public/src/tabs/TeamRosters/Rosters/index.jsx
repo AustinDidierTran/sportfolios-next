@@ -8,12 +8,12 @@ import FormDialog from '../../../components/Custom/FormDialog';
 import { Store } from '../../../Store';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../utils/stringFormats';
-import styles from './Players.module.css';
+import styles from './Rosters.module.css';
 import List from '@material-ui/core/List';
-import Player from './Player';
+import Roster from './Roster';
 
-export default function Players(props) {
-  const { adminView } = props;
+export default function Rosters(props) {
+  const { update, adminView } = props;
   const { t } = useTranslation();
   const {
     state: { id: teamId },
@@ -21,20 +21,21 @@ export default function Players(props) {
 
   useEffect(() => {
     if (teamId) {
-      getPlayers();
+      getRosters();
     }
   }, [teamId]);
 
   const [open, setOpen] = useState(false);
-  const [players, setPlayers] = useState([]);
+  const [rosters, setRosters] = useState([]);
 
-  const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/players', null, {
+  const getRosters = async () => {
+    const { rosters } = await api(
+      formatRoute('/api/entity/rosters', null, {
         teamId,
       })
     );
-    setPlayers(data);
+    console.log({ rosters });
+    setRosters(rosters);
   };
 
   const onClose = () => {
@@ -43,7 +44,7 @@ export default function Players(props) {
 
   return (
     <>
-      <Paper title={t('players')}>
+      <Paper title={t('rosters')}>
         {adminView ? (
           <Button
             className={styles.button}
@@ -51,26 +52,24 @@ export default function Players(props) {
               setOpen(true);
             }}
           >
-            {t('add.add_player')}
+            {t('add.add_roster')}
           </Button>
         ) : (
           <></>
         )}
-        <List>
-          {players.map((player, index) => (
-            <Player player={player} index={index} key={player.id} update={getPlayers} isAdmin={adminView} />
-          ))}
-        </List>
+        {rosters.map((roster) => (
+          <Roster roster={roster}></Roster>
+        ))}
       </Paper>
-      <FormDialog
-        type={FORM_DIALOG_TYPE_ENUM.ADD_PLAYER}
+      {/* <FormDialog
+        type={FORM_DIALOG_TYPE_ENUM.ADD_ROSTER}
         items={{
           open,
           onClose,
-          update: getPlayers,
-          players,
+          update: getRosters,
+          rosters,
         }}
-      />
+      /> */}
     </>
   );
 }
