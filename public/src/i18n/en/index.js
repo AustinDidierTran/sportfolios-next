@@ -1297,6 +1297,7 @@ export default {
       'Are you sure you want to remove bank account ending with {{last4}} from your organization?',
     remove_from_roster: 'Remove from roster',
     remove_terms_and_conditions: 'Remove terms and conditions',
+    remove_player_confirmation: 'Are you sure you want to remove this {{name}} from your team?',
     remove: 'Remove',
     renew_membership: 'Renew Membership',
     report_created: 'Report created',

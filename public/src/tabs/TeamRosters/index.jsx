@@ -54,7 +54,7 @@ export default function TabTeamRosters(props) {
         ) : (
           <></>
         )}
-        <Players players={players} />
+        <Players players={players} update={getPlayers} isAdmin={adminView} />
       </Paper>
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.ADD_PLAYER}

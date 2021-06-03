@@ -18,6 +18,7 @@ const EditMemberImport = dynamic(() => import('./EditMemberImport'));
 const EditMembership = dynamic(() => import('./EditMembership'));
 const EditMembershipTermsAndConditions = dynamic(() => import('./EditMembershipTermsAndConditions'));
 const EditPartner = dynamic(() => import('./EditPartner'));
+const EditPlayer = dynamic(() => import('./EditPlayer'));
 const EnterEmail = dynamic(() => import('./EnterEmail'));
 const JoinTeam = dynamic(() => import('./JoinTeam'));
 const MembersReport = dynamic(() => import('./MembersReport'));
@@ -41,6 +42,7 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS]: EditMembershipTermsAndConditions,
   [FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP]: EditMembership,
   [FORM_DIALOG_TYPE_ENUM.EDIT_PARTNER]: EditPartner,
+  [FORM_DIALOG_TYPE_ENUM.EDIT_PLAYER]: EditPlayer,
   [FORM_DIALOG_TYPE_ENUM.ENTER_EMAIL]: EnterEmail,
   [FORM_DIALOG_TYPE_ENUM.JOIN_TEAM]: JoinTeam,
   [FORM_DIALOG_TYPE_ENUM.MEMBERS_REPORT]: MembersReport,
