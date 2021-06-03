@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
-import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
 import CustomIconButton from '../../IconButton';
@@ -11,6 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import Posts from '../..//Posts';
 import moment from 'moment';
 import dynamic from 'next/dynamic';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '../../TextField';
 import { formatDate } from '../../../../utils/stringFormats';
 import LoadingSpinner from '../../LoadingSpinner';
@@ -86,6 +88,37 @@ export default function PracticeDetailed(props) {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onDelete = async () => {
+    const res = await api(
+      formatRoute('/api/entity/practice', null, {
+        eventId: practice.team_id,
+        practiceId: practiceId,
+      }),
+      {
+        method: 'DELETE',
+      }
+    );
+
+    if (res.status > STATUS_ENUM.SUCCESS) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else {
+      history.back();
+    }
+  };
+
+  const onEdit = () => {
+    //todo
+  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -141,6 +174,12 @@ export default function PracticeDetailed(props) {
             elevation={0}
             placeholder={t('write_a_comment')}
           />
+          {isAdmin && (
+            <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+              <MenuItem onClick={onDelete}>{t('delete.delete')}</MenuItem>
+              <MenuItem onClick={onEdit}>{t('edit.edit')}</MenuItem>
+            </Menu>
+          )}
         </div>
       </div>
     </div>
