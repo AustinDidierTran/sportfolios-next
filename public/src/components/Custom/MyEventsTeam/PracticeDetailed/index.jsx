@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
-import { SEVERITY_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
 import CustomIconButton from '../../IconButton';
@@ -27,6 +27,7 @@ export default function PracticeDetailed(props) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [practice, setPractice] = useState({});
+  const [isAdmin, setIsAdmin] = useState(false);
   const [address, setAddress] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -54,13 +55,19 @@ export default function PracticeDetailed(props) {
     let street_address = data.street_address ? data.street_address + ', ' : '';
     let city = data.city ? data.city + ', ' : '';
     let state = data.state ? data.state : '';
-    let zip = data.zip ? data.zip + ', ' : ', ';
-    let country = data.country ? data.country : '';
+    let zip = data.zip ? data.zip + ', ' : '';
+    let country = data.country ? ', ' + data.country : '';
     setAddress(street_address + city + state + zip + country);
+
+    if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
+      setIsAdmin(true);
+    }
   };
 
   useEffect(() => {
-    getPractice();
+    if (practiceId) {
+      getPractice();
+    }
   }, [practiceId]);
 
   useEffect(() => {
@@ -95,7 +102,8 @@ export default function PracticeDetailed(props) {
               <TextField disabled value={practice.name} variant="h3" />
               <div className={styles.practiceInfoSecondary}>
                 <div className={styles.practiceInfoDate}>
-                  {moment(practice.start_date).format('dddd Do MMM')}
+                  {formatDate(moment(practice.start_date), 'dddd Do MMM').charAt(0).toUpperCase() +
+                    formatDate(moment(practice.start_date), 'dddd Do MMM').slice(1)}
                   {` ${formatDate(moment(practice.start_date), 'HH:mm')} - ${formatDate(
                     moment(practice.end_date),
                     'HH:mm'
@@ -109,7 +117,7 @@ export default function PracticeDetailed(props) {
             </div>
 
             <div className={styles.iconOptions}>
-              {adminView && (
+              {isAdmin && (
                 <CustomIconButton
                   icon="MoreVertIcon"
                   style={{ color: 'primary' }}

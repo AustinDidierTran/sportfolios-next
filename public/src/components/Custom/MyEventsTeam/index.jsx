@@ -29,13 +29,7 @@ export default function MyEventsTeam(props) {
   };
 
   const openPracticeDetailed = async (practice) => {
-    router.push({
-      pathname: router.query.id,
-      query: {
-        tab: router.query.tab,
-        practiceId: practice.id,
-      },
-    });
+    goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
   };
 
   const openEventDetailed = async (event) => {
