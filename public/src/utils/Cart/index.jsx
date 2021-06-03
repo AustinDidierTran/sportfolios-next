@@ -64,9 +64,9 @@ const getProductDetail = (metadata) => {
       return '';
     case GLOBAL_ENUM.EVENT:
       if (metadata.isIndividualOption) {
-        return `${metadata.event.basicInfos.name} | registration for ${metadata.name} | ${metadata.team.name}`;
+        return `${metadata.event.basicInfos.name} | registration for ${metadata.name} | ${metadata.team?.name}`;
       }
-      return `${metadata.event.basicInfos.name} | registration for ${metadata.team.name}`;
+      return `${metadata.event.basicInfos.name} | registration for ${metadata.team?.name}`;
     default:
       return '';
   }
