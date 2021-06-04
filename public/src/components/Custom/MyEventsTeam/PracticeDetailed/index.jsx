@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
+import AlertDialog from '../../Dialog/AlertDialog';
 import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
 import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
@@ -32,6 +33,7 @@ export default function PracticeDetailed(props) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [address, setAddress] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openDelete, setOpenDelete] = useState(false);
 
   const getPractice = async () => {
     const { data } = await api(
@@ -95,7 +97,7 @@ export default function PracticeDetailed(props) {
   const onDelete = async () => {
     const res = await api(
       formatRoute('/api/entity/practice', null, {
-        eventId: practice.team_id,
+        teamId: practice.team_id,
         practiceId: practiceId,
       }),
       {
@@ -176,10 +178,24 @@ export default function PracticeDetailed(props) {
           />
           {isAdmin && (
             <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-              <MenuItem onClick={onDelete}>{t('delete.delete')}</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setOpenDelete(true);
+                }}
+              >
+                {t('delete.delete')}
+              </MenuItem>
               <MenuItem onClick={onEdit}>{t('edit.edit')}</MenuItem>
             </Menu>
           )}
+          <AlertDialog
+            open={openDelete}
+            onCancel={() => {
+              setOpenDelete(false);
+            }}
+            title={t('practice_delete')}
+            onSubmit={onDelete}
+          />
         </div>
       </div>
     </div>
