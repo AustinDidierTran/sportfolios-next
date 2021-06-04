@@ -147,7 +147,7 @@ export default function GameFilters(props) {
       description = description + ` ${t('on')} ${fieldName}`;
     }
     if (timeSlot != SELECT_ENUM.ALL) {
-      description = description + ` ${t('on_le_in_french')} ${formatDate(moment(timeSlot), 'DD MMM')}`;
+      description = description + ` ${t('on_le_in_french')} ${formatDate(moment.utc(timeSlot), 'DD MMM')}`;
     }
     setDescription(description);
   };

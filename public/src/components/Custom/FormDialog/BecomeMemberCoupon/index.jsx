@@ -75,7 +75,7 @@ export default function BecomeMemberCoupon(props) {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
       primary: t('become_member_of', {
         organizationName: organization?.basicInfos?.name || '',
-        expirationDate: formatDate(moment(expirationDate)),
+        expirationDate: formatDate(moment.utc(expirationDate)),
       }),
     },
     people.length === 1

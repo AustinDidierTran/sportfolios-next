@@ -78,7 +78,7 @@ export default function MyMemberships(props) {
   };
 
   const getSecondary = (member) => {
-    const expirationDate = formatDate(moment(member.expirationDate));
+    const expirationDate = formatDate(moment.utc(member.expirationDate));
     return `${t('expire_on')} ${expirationDate}`;
   };
 

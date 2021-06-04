@@ -1272,6 +1272,7 @@ export default {
     postal_code: 'Code postal',
     practice: 'Pratique',
     practice_added: 'Pratique ajoutée',
+    practice_changed: 'Pratique changée',
     preranking_saved: 'Préclassement sauvegardé',
     preranking: 'Préclassement',
     presences: 'Présences',

@@ -22,7 +22,7 @@ export default function RosterInviteLink(props) {
 
   function updateTokenInfos(data) {
     const { token, expires_at } = data;
-    setExpireDate(formatDate(moment(expires_at)));
+    setExpireDate(formatDate(moment.utc(expires_at)));
     const newLink =
       CLIENT_BASE_URL +
       formatRoute(ROUTES_ENUM.rosterInviteLink, {

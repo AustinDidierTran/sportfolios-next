@@ -57,12 +57,12 @@ export default function AcceptPlayerInfos(props) {
         <Divider />
         <div className={styles.div}>
           <Typography color="textSecondary">{t('register.registered_on')}:</Typography>
-          <Typography>{formatDate(moment(player.created_at)) || t('missing_info')}</Typography>
+          <Typography>{formatDate(moment.utc(player.created_at)) || t('missing_info')}</Typography>
         </div>
         <Divider />
         <div className={styles.div}>
           <Typography color="textSecondary">{t('birth_date')}:</Typography>
-          <Typography>{formatDate(moment(birthDate)) || t('missing_info')}</Typography>
+          <Typography>{formatDate(moment.utc(birthDate)) || t('missing_info')}</Typography>
         </div>
         <Divider />
         <div className={styles.div}>

@@ -299,7 +299,7 @@ export default function GameDetailed(props) {
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
             <div className={styles.gameInfo}>
-              <div className={styles.gameInfoDate}>{formatDate(moment(game.start_time), 'dddd Do MMM').charAt(0).toUpperCase() + formatDate(moment(game.start_time), 'dddd Do MMM').slice(1)}</div>
+              <div className={styles.gameInfoDate}>{formatDate(moment.utc(game.start_time), 'dddd Do MMM').charAt(0).toUpperCase() + formatDate(moment.utc(game.start_time), 'dddd Do MMM').slice(1)}</div>
               <div className={styles.phaseName}>{game.phase_name}</div>
               <div>{game.field}</div>
             </div>

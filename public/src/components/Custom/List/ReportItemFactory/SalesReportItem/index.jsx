@@ -67,7 +67,7 @@ export default function ReportItem(props) {
           name: d.person.name,
           surname: d.person.surname,
           email: d.email,
-          purchasedOn: formatDate(moment(d.created_at), 'YYYY-MM-DD HH:mm'),
+          purchasedOn: formatDate(moment.utc(d.created_at), 'YYYY-MM-DD HH:mm'),
           price: formatPrice(d.unit_amount),
           quantity: d.quantity,
           subtotal: formatPrice(d.subtotal),
@@ -97,7 +97,7 @@ export default function ReportItem(props) {
       });
     }
   };
-  const reportName = `${t('sales_on')} ${formatDate(moment(metadata.date))}`;
+  const reportName = `${t('sales_on')} ${formatDate(moment.utc(metadata.date))}`;
 
   const headers = [
     { label: t('type'), key: 'type' },
@@ -115,7 +115,7 @@ export default function ReportItem(props) {
     { label: t('total_net'), key: 'totalNet' },
   ];
 
-  const fileName = `${metadata.organizationName} ${t('sales')} ${formatDate(moment(metadata.date), 'YYYY-MM-DD')}.csv`;
+  const fileName = `${metadata.organizationName} ${t('sales')} ${formatDate(moment.utc(metadata.date), 'YYYY-MM-DD')}.csv`;
 
   return (
     <>

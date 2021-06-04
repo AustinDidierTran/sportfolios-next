@@ -41,8 +41,8 @@ export default function TwoTeamGameProfile(props) {
         </Typography>
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(timeslot), 'HH:mm')}
-          secondary={formatDate(moment(timeslot), 'D MMM')}
+          primary={formatDate(moment.utc(timeslot), 'HH:mm')}
+          secondary={formatDate(moment.utc(timeslot), 'D MMM')}
         ></ListItemText>
         <Typography className={styles.field} color="textSecondary">
           {field}

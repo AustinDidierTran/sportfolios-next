@@ -25,7 +25,7 @@ export default function PaymentOptionItem(props) {
       ) : (
         <ListItemText
           style={{ margin: '0px' }}
-          primary={formatDate(moment(value), format)}
+          primary={formatDate(moment.utc(value), format)}
           secondary={helperText}
         ></ListItemText>
       )}

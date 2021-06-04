@@ -1249,6 +1249,7 @@ export default {
     postal_code: 'Zip Code',
     practice: 'Practice',
     practice_added: 'Practice added',
+    practice_changed: 'Practice changed',
     preranking_saved: 'Preranking saved',
     preranking: 'Preranking',
     price_individual: 'Individual price',

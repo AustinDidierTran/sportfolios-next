@@ -40,13 +40,13 @@ export default function CollapsePlayersRegistered(props) {
       <ListItem>
         <ListItemText
           className={styles.text}
-          primary={formatDate(moment(player.registeredOn))}
+          primary={formatDate(moment.utc(player.registeredOn))}
           secondary={t('register.registration')}
         />
         {player?.invoice?.created_at && (
           <ListItemText
             className={styles.text}
-            primary={formatDate(moment(player?.invoice?.created_at))}
+            primary={formatDate(moment.utc(player?.invoice?.created_at))}
             secondary={t('payment.payment')}
           />
         )}

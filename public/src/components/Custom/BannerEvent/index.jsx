@@ -43,7 +43,7 @@ export default function BannerEvent(props) {
     if (eventInfo.isLate) {
       return (
         <Typography variant={fontVariant} component="p">
-          {t('register.registrations_ended')}&nbsp;{formatDate(moment.parseZone(eventInfo.registrationEnd))}
+          {t('register.registrations_ended')}&nbsp;{formatDate(moment.utc(eventInfo.registrationEnd))}
         </Typography>
       );
     }
@@ -51,8 +51,8 @@ export default function BannerEvent(props) {
       return (
         <Typography variant={fontVariant} component="p">
           {t('register.registrations_open_and_end_on', {
-            openDate: formatDate(moment.parseZone(eventInfo.registrationStart)),
-            endDate: formatDate(moment.parseZone(eventInfo.registrationEnd)),
+            openDate: formatDate(moment.utc(eventInfo.registrationStart)),
+            endDate: formatDate(moment.utc(eventInfo.registrationEnd)),
           })}
         </Typography>
       );
@@ -61,7 +61,7 @@ export default function BannerEvent(props) {
       return (
         <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant}>
           {t('event.event_is_open')}&nbsp;
-          {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
+          {formatDate(moment.utc(eventInfo.registrationEnd))}&nbsp;
         </Typography>
       );
     } else if (eventInfo.remainingSpots < 1) {
@@ -75,7 +75,7 @@ export default function BannerEvent(props) {
       <div>
         <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant}>
           {t('register.registrations_ends_on')}&nbsp;
-          {formatDate(moment.parseZone(eventInfo.registrationEnd))}&nbsp;
+          {formatDate(moment.utc(eventInfo.registrationEnd))}&nbsp;
         </Typography>
         <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant} color="error">
           ({eventInfo.remainingSpots}&nbsp;

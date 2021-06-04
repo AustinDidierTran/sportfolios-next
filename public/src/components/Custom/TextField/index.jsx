@@ -24,7 +24,7 @@ export default function CustomTextField(props) {
   if (disabled) {
     return (
       <Typography color={color} variant={variant} {...props}>
-        {props.value || props.defaultValue}
+        {props.value || props.defaultValue || formik && formik.values[namespace]}
       </Typography>
     );
   }
