@@ -183,6 +183,7 @@ const FORM_DIALOG_TYPE_ENUM = {
   EDIT_MEMBERSHIP_TERMS_AND_CONDITIONS: 'edit membership and conditions',
   EDIT_MEMBERSHIP: 'edit membership',
   EDIT_PARTNER: 'edit partner',
+  EDIT_PLAYER: 'edit player',
   ENTER_EMAIL: 'email',
   JOIN_TEAM: 'join team',
   MEMBERS_REPORT: 'members report',
