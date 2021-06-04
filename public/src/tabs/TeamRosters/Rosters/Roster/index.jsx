@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../../utils/stringFormats';
+import { formatRoute } from '../../../../utils/stringFormats';
 import styles from './Roster.module.css';
-import { FORM_DIALOG_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import Icon from '../../../../components/Custom/Icon';
-import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
-import FormDialog from '../../../../components/Custom/FormDialog';
-import IconButton from '../../../../components/Custom/IconButton';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import Avatar from '../../../../components/Custom/Avatar';
 import api from '../../../../actions/api';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { ERROR_ENUM } from '../../../../../common/errors';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Player from '../../Player';
 
 export default function Roster(props) {
   const { roster, index, update, isAdmin } = props;
@@ -28,6 +23,7 @@ export default function Roster(props) {
   }, [roster.id]);
 
   const [players, setPlayers] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -38,5 +34,31 @@ export default function Roster(props) {
     setPlayers(data);
   };
 
-  return <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}></ListItem>;
+  const onExpand = () => {
+    setExpanded(!expanded);
+  };
+  console.log({ players });
+
+  const style = useMemo(() => {
+    if (index % 2 === 0) {
+      return styles.even;
+    } else {
+      return styles.odd;
+    }
+  }, [index]);
+
+  return (
+    <Accordion expanded={expanded} onChange={onExpand}>
+      <AccordionSummary className={style} expandIcon={<Icon icon="ExpandMore" />}>
+        <Typography className={styles.name}>{roster.name}</Typography>
+      </AccordionSummary>
+      <AccordionDetails className={styles.accordionDetail}>
+        <List className={styles.list}>
+          {players.map((player, index) => (
+            <Player player={player} index={index} update={getPlayers} isAdmin={isAdmin}></Player>
+          ))}
+        </List>
+      </AccordionDetails>
+    </Accordion>
+  );
 }

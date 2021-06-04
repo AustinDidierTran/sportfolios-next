@@ -56,7 +56,7 @@ export default function Players(props) {
         ) : (
           <></>
         )}
-        <List>
+        <List className={styles.list}>
           {players.map((player, index) => (
             <Player player={player} index={index} key={player.id} update={getPlayers} isAdmin={adminView} />
           ))}

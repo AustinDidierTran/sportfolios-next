@@ -8,7 +8,7 @@ export default function TabTeamRosters(props) {
 
   return (
     <>
-      <Rosters></Rosters>
+      <Rosters adminView={adminView}></Rosters>
       <Players adminView={adminView}></Players>
     </>
   );

@@ -9,11 +9,10 @@ import { Store } from '../../../Store';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../utils/stringFormats';
 import styles from './Rosters.module.css';
-import List from '@material-ui/core/List';
 import Roster from './Roster';
 
 export default function Rosters(props) {
-  const { update, adminView } = props;
+  const { adminView } = props;
   const { t } = useTranslation();
   const {
     state: { id: teamId },
@@ -34,7 +33,6 @@ export default function Rosters(props) {
         teamId,
       })
     );
-    console.log({ rosters });
     setRosters(rosters);
   };
 
@@ -44,7 +42,7 @@ export default function Rosters(props) {
 
   return (
     <>
-      <Paper title={t('rosters')}>
+      <Paper title={t('rosters')} className={styles.rosters}>
         {adminView ? (
           <Button
             className={styles.button}
@@ -57,8 +55,8 @@ export default function Rosters(props) {
         ) : (
           <></>
         )}
-        {rosters.map((roster) => (
-          <Roster roster={roster}></Roster>
+        {rosters.map((roster, index) => (
+          <Roster key={roster.id} roster={roster} index={index} update={getRosters} isAdmin={adminView}></Roster>
         ))}
       </Paper>
       {/* <FormDialog
