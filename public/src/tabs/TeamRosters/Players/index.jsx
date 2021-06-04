@@ -58,7 +58,7 @@ export default function Players(props) {
         )}
         <List className={styles.list}>
           {players.map((player, index) => (
-            <Player player={player} index={index} key={player.id} update={getPlayers} isAdmin={adminView} />
+            <Player key={player.id} player={player} index={index} update={getPlayers} isAdmin={adminView} />
           ))}
         </List>
       </Paper>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ROSTER_ROLE_ENUM } from '../../../../common/enums';
-import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../utils/stringFormats';
+import { getIconFromRole, getInitialsFromName } from '../../../utils/stringFormats';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '../Icon';
@@ -24,26 +24,13 @@ export default function Roster(props) {
     }
   }, [props]);
 
-  const getIconFromRole = (role) => {
-    switch (role) {
-      case ROSTER_ROLE_ENUM.COACH:
-        return 'SportsWhistle';
-      case ROSTER_ROLE_ENUM.CAPTAIN:
-        return 'Stars';
-      case ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN:
-        return 'TextFormat';
-      default:
-        return 'Person';
-    }
-  };
-
   return (
     <>
       <Typography className={styles.title} variant="h4">
         {t('roster')}
       </Typography>
       {teamRoster.map((player, index) => (
-        <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}>
+        <ListItem key={player.id} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <ListItemIcon>
             <Avatar photoUrl={player.photo_url} initials={getInitialsFromName(player.name)} />
           </ListItemIcon>

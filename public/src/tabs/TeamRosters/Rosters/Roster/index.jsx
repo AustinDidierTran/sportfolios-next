@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import { formatRoute } from '../../../../utils/stringFormats';
 import styles from './Roster.module.css';
-import { useTranslation } from 'react-i18next';
 import Icon from '../../../../components/Custom/Icon';
 import api from '../../../../actions/api';
 import Accordion from '@material-ui/core/Accordion';
@@ -10,11 +9,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Player from '../../Player';
+import RosterPlayer from './RosterPlayer';
 
 export default function Roster(props) {
   const { roster, index, update, isAdmin } = props;
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (roster.id) {
@@ -37,7 +35,6 @@ export default function Roster(props) {
   const onExpand = () => {
     setExpanded(!expanded);
   };
-  console.log({ players });
 
   const style = useMemo(() => {
     if (index % 2 === 0) {
@@ -55,7 +52,13 @@ export default function Roster(props) {
       <AccordionDetails className={styles.accordionDetail}>
         <List className={styles.list}>
           {players.map((player, index) => (
-            <Player player={player} index={index} update={getPlayers} isAdmin={isAdmin}></Player>
+            <RosterPlayer
+              key={player.id}
+              player={player}
+              index={index}
+              update={getPlayers}
+              isAdmin={isAdmin}
+            ></RosterPlayer>
           ))}
         </List>
       </AccordionDetails>

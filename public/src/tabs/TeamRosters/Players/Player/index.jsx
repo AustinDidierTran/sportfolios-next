@@ -1,21 +1,21 @@
 import React, { useState, useContext } from 'react';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../utils/stringFormats';
+import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../../utils/stringFormats';
 import styles from './Player.module.css';
-import { FORM_DIALOG_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
-import Icon from '../../../components/Custom/Icon';
-import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
-import FormDialog from '../../../components/Custom/FormDialog';
-import IconButton from '../../../components/Custom/IconButton';
+import Icon from '../../../../components/Custom/Icon';
+import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
+import FormDialog from '../../../../components/Custom/FormDialog';
+import IconButton from '../../../../components/Custom/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import Avatar from '../../../components/Custom/Avatar';
-import api from '../../../actions/api';
-import { ACTION_ENUM, Store } from '../../../Store';
-import { ERROR_ENUM } from '../../../../common/errors';
+import Avatar from '../../../../components/Custom/Avatar';
+import api from '../../../../actions/api';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { ERROR_ENUM } from '../../../../../common/errors';
 
 export default function Player(props) {
   const { player, index, update, isAdmin } = props;

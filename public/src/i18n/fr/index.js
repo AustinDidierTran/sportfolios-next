@@ -1320,6 +1320,7 @@ export default {
       'Êtes-vous certain de vouloir retirer le compte bancaire finissant par {{last4}} de votre organisation?',
     remove_from_roster: "Retirer de l'alignement",
     remove_player_confirmation: 'Êtes-vous certain de vouloir retirer {{name}} de votre équipe?',
+    remove_roster_player_confirmation: 'Êtes-vous certain de vouloir retirer {{name}} de votre alignement?',
     remove_terms_and_conditions: 'Retirer les termes et conditions',
     remove: 'Retirer',
     renew_membership: 'Renouveler',
