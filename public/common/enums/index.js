@@ -175,6 +175,7 @@ const FORM_DIALOG_TYPE_ENUM = {
   ADD_MEMBERSHIP: 'add membership',
   ADD_PARTNER: 'add partner',
   ADD_PLAYER: ' add player',
+  ADD_ROSTER: ' add roster',
   BECOME_MEMBER_COUPON: 'become member coupon',
   BECOME_MEMBER: 'become member',
   CREATE_TAX_RATE: 'create tax rate',

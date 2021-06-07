@@ -8,6 +8,7 @@ const AddMember = dynamic(() => import('./AddMember'));
 const AddMembership = dynamic(() => import('./AddMembership'));
 const AddPartner = dynamic(() => import('./AddPartner'));
 const AddPlayer = dynamic(() => import('./AddPlayer'));
+const AddRoster = dynamic(() => import('./AddRoster'));
 const AddPlayerFee = dynamic(() => import('./AddPlayerFee'));
 const AddTeamFee = dynamic(() => import('./AddTeamFee'));
 const BecomeMember = dynamic(() => import('./BecomeMember'));
@@ -32,6 +33,7 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.ADD_MEMBER]: AddMember,
   [FORM_DIALOG_TYPE_ENUM.ADD_MEMBERSHIP]: AddMembership,
   [FORM_DIALOG_TYPE_ENUM.ADD_PARTNER]: AddPartner,
+  [FORM_DIALOG_TYPE_ENUM.ADD_ROSTER]: AddRoster,
   [FORM_DIALOG_TYPE_ENUM.ADD_PLAYER_FEE]: AddPlayerFee,
   [FORM_DIALOG_TYPE_ENUM.ADD_PLAYER]: AddPlayer,
   [FORM_DIALOG_TYPE_ENUM.ADD_TEAM_FEE]: AddTeamFee,

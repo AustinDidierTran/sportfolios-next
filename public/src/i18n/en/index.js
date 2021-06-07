@@ -565,6 +565,7 @@ export default {
       add_time_slot: 'Add time slot',
       add_to_cart: 'Add to cart',
       add: 'Add',
+      add_all_players: 'Add all players',
       added_to_cart: 'Added to cart',
       added_to_roster_description: 'Notifications sent when someone add one of your people to a roster',
       added_to_roster_notif_description: 'Somebody added you to the {{teamName}} team',
@@ -1320,6 +1321,8 @@ export default {
       "Entering your roster helps the event manager better rank teams for the schedule. Enter it the best you can, even if it's not final.",
     roster: 'Roster',
     rosters: 'Rosters',
+    roster_added: 'Roster added',
+    roster_name: 'Roster name',
     roster_selection_message:
       "Add your teammates that already have an account. When registered you'll be able to invite the rest of your team with a link.",
     rules_knowledge_and_use: 'Rules Knowledge and Use',

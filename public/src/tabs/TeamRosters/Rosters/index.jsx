@@ -59,15 +59,14 @@ export default function Rosters(props) {
           <Roster key={roster.id} roster={roster} index={index} update={getRosters} isAdmin={adminView}></Roster>
         ))}
       </Paper>
-      {/* <FormDialog
+      <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.ADD_ROSTER}
         items={{
           open,
           onClose,
           update: getRosters,
-          rosters,
         }}
-      /> */}
+      />
     </>
   );
 }

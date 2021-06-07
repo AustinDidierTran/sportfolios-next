@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import RosterPlayer from './RosterPlayer';
 
 export default function Roster(props) {
-  const { roster, index, update, isAdmin } = props;
+  const { roster, index, isAdmin } = props;
 
   useEffect(() => {
     if (roster.id) {

@@ -568,6 +568,7 @@ export default {
       add_time_slot: 'Ajouter une plage horaire',
       add_to_cart: 'Ajouter au panier',
       add: 'Ajouter',
+      add_all_players: 'Ajouter tous les joueurs',
       added_to_cart: 'Ajouté au panier',
       added_to_roster_description: "Notification envoyée lorsqu'une de vos personnes est ajoutée à un alignement",
       added_to_roster_notif_description: "Quelqu'un vous a ajouté à l'équipe {{teamName}}",
@@ -1341,6 +1342,8 @@ export default {
       "L'alignement aide le responsable du tournoi à classer ses équipes. Vous pouvez entrer votre alignement au meilleur de vos connaissances, mais il n'a pas de besoin d'être final.",
     roster: 'Alignement',
     rosters: 'Alignements',
+    roster_added: 'Alignement ajouté',
+    roster_name: "Nom de l'alignement",
     roster_selection_message:
       'Ajoutez vos cooéquipiers qui ont déjà un compte. Lorsque vous allez être inscrit, vous allez pouvoir inviter le reste de votre équipe avec un lien.',
     rules_knowledge_and_use: 'Connaissances et application des règlements',
