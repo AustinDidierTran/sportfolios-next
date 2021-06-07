@@ -68,7 +68,7 @@ export default function MemberItem(props) {
             goTo(ROUTES.entity, { id: person.id });
           }}
         ></ListItemText>
-        {moment(expirationDate) < moment() ? (
+        {moment.utc(expirationDate) < moment.utc() ? (
           <ListItemText
             secondaryTypographyProps={{ color: 'secondary' }}
             className={styles.item2}

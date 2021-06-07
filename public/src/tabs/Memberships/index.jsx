@@ -81,7 +81,7 @@ export default function Memberships() {
       if (members && members.findIndex((o) => o.memberType === d.membership_type) >= 0) {
         alreadyMember = true;
         expirationDate = `${t('expiration_date')} : ${formatDate(
-          moment(new Date(members[members.findIndex((o) => o.memberType === d.membership_type)].expirationDate))
+          moment.utc(new Date(members[members.findIndex((o) => o.memberType === d.membership_type)].expirationDate))
         )}`;
       }
       return {

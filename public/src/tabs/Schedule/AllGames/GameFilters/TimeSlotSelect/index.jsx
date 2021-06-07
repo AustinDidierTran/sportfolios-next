@@ -29,7 +29,7 @@ export default function TimeSlotSelect(props) {
 
     const res = data
       .map((d) => ({
-        value: moment(d.date).format('YYYY M D'),
+        value: moment.utc(d.date).format('YYYY M D'),
         display: formatDate(moment.utc(d.date), 'DD MMM'),
       }))
       .reduce((prev, curr) => {
