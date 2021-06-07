@@ -9,11 +9,12 @@ import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import { Store } from '../../Store';
 
 const AddMembership = dynamic(() => import('./AddPartner'));
+const AllEventSettings = dynamic(() => import('./AllEventSettings'));
+const Analytics = dynamic(() => import('./Analytics'));
 const BankAccount = dynamic(() => import('./BankAccount'));
 const BasicInfos = dynamic(() => import('./BasicInfos'));
+const Description = dynamic(() => import('./Description'));
 const ManageRoles = dynamic(() => import('./ManageRoles'));
-const Analytics = dynamic(() => import('./Analytics'));
-const AllEventSettings = dynamic(() => import('./AllEventSettings'));
 
 export default function EntitySettings(props) {
   const {
@@ -33,6 +34,7 @@ export default function EntitySettings(props) {
         return (
           <div className={styles.div}>
             <BasicInfos basicInfos={basicInfos} />
+            <Description />
             <ManageRoles role={role} />
             <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />

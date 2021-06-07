@@ -10,7 +10,7 @@ import Icon from '../../../../../components/Custom/Icon';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
 import PaymentChip from '../../../../Settings/TeamsRegistered/StatusChip';
-import { formatRoute } from '../../../../../utils/stringFormats';
+import { formatRoute, getIconFromRole } from '../../../../../utils/stringFormats';
 
 export default function PlayerCard(props) {
   const { isEditable, player, onDelete, onRoleUpdate, withInfos, index } = props;
@@ -57,19 +57,6 @@ export default function PlayerCard(props) {
 
   const handleRoleChange = async (newRole, playerId) => {
     onRoleUpdate(playerId, newRole);
-  };
-
-  const getIconFromRole = (role) => {
-    switch (role) {
-      case ROSTER_ROLE_ENUM.COACH:
-        return 'SportsWhistle';
-      case ROSTER_ROLE_ENUM.CAPTAIN:
-        return 'Stars';
-      case ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN:
-        return 'TextFormat';
-      default:
-        return 'Person';
-    }
   };
 
   const className = useMemo(() => {

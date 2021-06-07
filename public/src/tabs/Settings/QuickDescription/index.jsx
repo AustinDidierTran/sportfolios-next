@@ -1,134 +1,119 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 
-import { Paper, Button } from '../../../components/Custom';
-import Typography from '@material-ui/core/Typography';
+import Paper from '../../../components/Custom/Paper';
+import Button from '../../../components/Custom/Button';
+import TextField from '../../../components/Custom/TextField';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import styles from './QuickDescription.module.css';
 import { formatRoute } from '../../../utils/stringFormats';
-import { Store } from '../../../Store';
+import { ACTION_ENUM, Store } from '../../../Store';
+import { useFormik } from 'formik';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
 
-export default function QuickDescription() {
+export default function Description() {
   const { t } = useTranslation();
   const {
-    state: { id: eventId },
+    dispatch,
+    state: { id: entityId },
   } = useContext(Store);
 
-  const [edit, setEdit] = useState(false);
-
-  const [text, setText] = useState('');
-
-  const [temp, setTemp] = useState('');
-
   useEffect(() => {
-    if (eventId) {
-      getQuickDescription();
+    if (entityId) {
+      getDescription();
     }
-  }, [eventId]);
+  }, [entityId]);
 
-  const getQuickDescription = async () => {
+  const [initial, setInitial] = useState('');
+
+  const getDescription = async () => {
     const { data } = await api(
       formatRoute('/api/entity/generalInfos', null, {
-        entityId: eventId,
+        entityId,
       })
     );
-
-    if (data?.quickDescription) {
-      setText(decodeURIComponent(data.quickDescription));
-      setTemp(decodeURIComponent(data.quickDescription));
+    if (data.quickDescription) {
+      setInitial(decodeURIComponent(data.quickDescription));
+      formik.setFieldValue('description', decodeURIComponent(data.quickDescription));
     } else {
-      setText(null);
+      setInitial('');
+      formik.setFieldValue('description', '');
     }
   };
 
-  const updateQuickDescription = async (temp) => {
-    const encoded = encodeURIComponent(temp);
-    await api('/api/entity/updateGeneralInfos', {
-      method: 'PUT',
-      body: JSON.stringify({
-        quickDescription: encoded,
-        entityId: eventId,
-      }),
-    });
-    getQuickDescription();
-  };
+  const formik = useFormik({
+    initialValues: {
+      description: '',
+    },
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: async (values) => {
+      const { description } = values;
 
-  const onEdit = () => {
-    setEdit(true);
-  };
-  const onSave = () => {
-    updateQuickDescription(temp);
-    setEdit(false);
-  };
+      const encoded = encodeURIComponent(description);
+      const res = await api('/api/entity/updateGeneralInfos', {
+        method: 'PUT',
+        body: JSON.stringify({
+          quickDescription: encoded,
+          entityId,
+        }),
+      });
+      if (res.status === STATUS_ENUM.ERROR) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        setInitial(description);
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('saved'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 2000,
+        });
+      }
+    },
+  });
 
   const onCancel = () => {
-    setEdit(false);
+    formik.setFieldValue('description', initial);
   };
 
-  const onChange = () => {
-    setTemp(event.target.value);
-  };
+  const disabled = useMemo(() => {
+    return formik.values.description === initial;
+  }, [formik.values.description, initial]);
 
-  if (edit) {
-    return (
-      <Paper title={t('quick_description')}>
-        <TextareaAutosize
-          className={styles.textareaEdit}
-          placeholder={t('quick_description')}
-          defaultValue={text}
-          onChange={onChange}
+  return (
+    <Paper title="Description">
+      <form onSubmit={formik.handleSubmit}>
+        <TextField
+          className={styles.description}
+          namespace="description"
+          formik={formik}
+          multiline
+          rows={1}
+          rowsMax={5}
+          label={t('quick_description')}
         />
         <div className={styles.buttons}>
-          <Button
-            className={styles.save}
-            size="small"
-            variant="contained"
-            endIcon="Check"
-            style={{ margin: '8px' }}
-            onClick={onSave}
-          >
+          <Button type="submit" className={styles.save} size="small" endIcon="Check" disabled={disabled}>
             {t('save')}
           </Button>
           <Button
             className={styles.cancel}
             size="small"
-            variant="contained"
             color="secondary"
             endIcon="Close"
-            style={{ margin: '8px' }}
             onClick={onCancel}
+            disabled={disabled}
           >
             {t('cancel')}
           </Button>
         </div>
-      </Paper>
-    );
-  }
-  if (text) {
-    return (
-      <Paper title={t('quick_description')}>
-        <TextareaAutosize className={styles.textarea} placeholder={t('quick_description')} value={text} disabled />
-        <Button size="small" variant="contained" endIcon="Edit" style={{ margin: '8px' }} onClick={onEdit}>
-          {t('edit.edit')}
-        </Button>
-      </Paper>
-    );
-  }
-
-  return (
-    <Paper title={t('quick_description')}>
-      <Typography>{t('no.no_description')}</Typography>
-      <Button
-        size="small"
-        variant="contained"
-        endIcon="Edit"
-        style={{ margin: '8px' }}
-        onClick={onEdit}
-        className={styles.button}
-      >
-        {t('edit.edit')}
-      </Button>
+      </form>
     </Paper>
   );
 }

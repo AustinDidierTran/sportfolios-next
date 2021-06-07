@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../Store';
 import dynamic from 'next/dynamic';
+import Description from './Description';
 
 const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
@@ -25,6 +26,7 @@ export default function Home(props) {
 
   return (
     <IgContainer className={classes.IgContainer}>
+      <Description description={basicInfos.description}></Description>
       <Posts
         userInfo={userInfo}
         allowPostImage

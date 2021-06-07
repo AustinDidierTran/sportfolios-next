@@ -1,4 +1,4 @@
-import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
+import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import isArray from 'lodash/isArray';
 
 import moment from 'moment';
@@ -27,6 +27,19 @@ export const getInitialsFromName = (completeName, isName) => {
     );
   }
   return `${completeName?.name ? completeName?.name[0] : ''}${completeName?.surname ? completeName?.surname[0] : ''}`;
+};
+
+export const getIconFromRole = (role) => {
+  switch (role) {
+    case ROSTER_ROLE_ENUM.COACH:
+      return 'SportsWhistle';
+    case ROSTER_ROLE_ENUM.CAPTAIN:
+      return 'Stars';
+    case ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN:
+      return 'TextFormat';
+    default:
+      return 'Person';
+  }
 };
 
 export const fillWithZeros = (number, zeros = 0) => {
