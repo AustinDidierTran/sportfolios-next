@@ -21,10 +21,27 @@ import LoadingSpinner from '../../LoadingSpinner';
 import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
+import { IPractice } from '../../../../../../typescript/types';
 
 const Roster = dynamic(() => import('../../Roster'));
 
-export default function PracticeDetailed(props) {
+interface IProps {
+  practiceId: string;
+}
+
+interface IValues {
+  name?: string;
+  country?: string;
+  startDate?: string;
+  startTime?: string;
+  endDate?: string;
+  endTime?: string;
+  location?: string;
+  address?: string;
+  addressFormatted?: string;
+}
+
+const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const { practiceId } = props;
   const { t } = useTranslation();
   const {
@@ -33,7 +50,7 @@ export default function PracticeDetailed(props) {
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [practice, setPractice] = useState({});
+  const [practice, setPractice] = useState<IPractice>({});
   const [isAdmin, setIsAdmin] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [edit, setEdit] = useState(false);
@@ -45,7 +62,7 @@ export default function PracticeDetailed(props) {
       formatRoute('/api/entity/practiceInfo', null, {
         practiceId: practiceId,
       }),
-      { method: 'GET' }
+      { method: 'GET', body: null }
     );
 
     if (!data) {
@@ -125,11 +142,11 @@ export default function PracticeDetailed(props) {
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values) => {
+    onSubmit: async (values: IValues) => {
       const { name, startDate, startTime, endDate, endTime, location, address } = values;
 
-      let start = `${startDate} ${startTime}`;
-      let end = `${endDate} ${endTime}`;
+      let start: string | null = `${startDate} ${startTime}`;
+      let end: string | null = `${endDate} ${endTime}`;
 
       if (!moment(start).isValid()) {
         start = null;
@@ -182,12 +199,12 @@ export default function PracticeDetailed(props) {
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (newAddress) => {
+  const addressChanged = (newAddress: string) => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', newAddress);
   };
 
-  const onAddressChanged = (event) => {
+  const onAddressChanged = (event: string) => {
     if (event.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -196,7 +213,7 @@ export default function PracticeDetailed(props) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -212,6 +229,7 @@ export default function PracticeDetailed(props) {
       }),
       {
         method: 'DELETE',
+        body: null,
       }
     );
 
@@ -231,6 +249,10 @@ export default function PracticeDetailed(props) {
     setEdit(true);
     handleClose();
   };
+
+  const handleSubmit = () => {
+    formik?.handleSubmit();
+  }
 
   const cancelEdit = () => {
     setEdit(false);
@@ -326,7 +348,7 @@ export default function PracticeDetailed(props) {
               <CustomButton color="secondary" className={styles.cancelButton} onClick={cancelEdit}>
                 {t('cancel')}
               </CustomButton>
-              <CustomButton disabled={!hasChanged} onClick={formik?.handleSubmit}>
+              <CustomButton disabled={!hasChanged} onClick={handleSubmit}>
                 {t('edit.edit')}
               </CustomButton>
             </div>
@@ -369,4 +391,6 @@ export default function PracticeDetailed(props) {
       </div>
     </div>
   );
-}
+};
+
+export default PracticeDetailed;
