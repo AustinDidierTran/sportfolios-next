@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 
 import { formatRoute } from '../../../../utils/stringFormats';
 import styles from './Roster.module.css';
 import Icon from '../../../../components/Custom/Icon';
+import Button from '../../../../components/Custom/Button';
+import FormDialog from '../../../../components/Custom/FormDialog';
+import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
 import api from '../../../../actions/api';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -10,9 +13,16 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import RosterPlayer from './RosterPlayer';
+import { useTranslation } from 'react-i18next';
+import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { ERROR_ENUM } from '../../../../../common/errors';
 
 export default function Roster(props) {
-  const { roster, index, isAdmin } = props;
+  const { roster, index, isAdmin, update } = props;
+  const { t } = useTranslation();
+
+  const { dispatch } = useContext(Store);
 
   useEffect(() => {
     if (roster.id) {
@@ -22,6 +32,8 @@ export default function Roster(props) {
 
   const [players, setPlayers] = useState([]);
   const [expanded, setExpanded] = useState(false);
+  const [deleteRoster, setDeleteRoster] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -44,6 +56,27 @@ export default function Roster(props) {
     }
   }, [index]);
 
+  const onDelete = async () => {
+    const res = await api(
+      formatRoute('/api/entity/roster', null, {
+        id: roster.id,
+      }),
+      {
+        method: 'DELETE',
+      }
+    );
+    if (res.status === STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else {
+      setDeleteRoster(false);
+    }
+    update();
+  };
   return (
     <Accordion expanded={expanded} onChange={onExpand}>
       <AccordionSummary className={style} expandIcon={<Icon icon="ExpandMore" />}>
@@ -60,7 +93,51 @@ export default function Roster(props) {
               isAdmin={isAdmin}
             ></RosterPlayer>
           ))}
+          {isAdmin ? (
+            <div className={styles.divButton}>
+              <Button
+                className={styles.button}
+                onClick={() => {
+                  setEdit(true);
+                }}
+              >
+                {t('edit.edit_roster')}
+              </Button>
+              <Button
+                className={styles.button}
+                onClick={() => {
+                  setDeleteRoster(true);
+                }}
+                color="secondary"
+              >
+                {t('delete.delete')}
+              </Button>
+            </div>
+          ) : (
+            <></>
+          )}
         </List>
+        <AlertDialog
+          open={deleteRoster}
+          onCancel={() => {
+            setDeleteRoster(false);
+          }}
+          title={t('delete.delete_roster_confirmation', { name: roster.name })}
+          onSubmit={onDelete}
+        />
+        <FormDialog
+          type={FORM_DIALOG_TYPE_ENUM.EDIT_ROSTER}
+          items={{
+            open: edit,
+            onClose: () => setEdit(false),
+            roster,
+            players,
+            update: () => {
+              getPlayers();
+              update();
+            },
+          }}
+        />
       </AccordionDetails>
     </Accordion>
   );

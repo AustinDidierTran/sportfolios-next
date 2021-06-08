@@ -1,27 +1,24 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
-import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
-import BasicFormDialog from '../BasicFormDialog';
-import CustomIconButton from '../../IconButton';
-import { formatRoute } from '../../../../utils/stringFormats';
-import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import api from '../../../../actions/api';
+import BasicFormDialog from '../BasicFormDialog';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { ERROR_ENUM } from '../../../../../common/errors';
+import { formatRoute } from '../../../../utils/stringFormats';
+import IconButton from '../../IconButton';
 
-export default function AddRoster(props) {
-  const { open: openProps, onClose, update } = props;
+export default function EditRoster(props) {
   const { t } = useTranslation();
+  const { open: openProps, onClose, roster, update, players: rosterPlayers } = props;
+  const [open, setOpen] = useState(false);
+
   const {
     dispatch,
     state: { id: teamId },
   } = useContext(Store);
-
-  useEffect(() => {
-    setOpen(openProps);
-  }, [openProps]);
 
   useEffect(() => {
     if (teamId) {
@@ -29,7 +26,11 @@ export default function AddRoster(props) {
     }
   }, [teamId]);
 
-  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    setOpen(openProps);
+    formik.setFieldValue('name', roster.name);
+  }, [openProps]);
+
   const [people, setPeople] = useState([]);
   const [players, setPlayers] = useState([]);
 
@@ -42,24 +43,17 @@ export default function AddRoster(props) {
     setPlayers(data);
   };
 
-  const validationSchema = yup.object().shape({
-    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
-  });
-
   const formik = useFormik({
     initialValues: {
       name: '',
     },
-    validationSchema,
-    validateOnChange: false,
-    validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       const { name } = values;
-      const res = await api(`/api/entity/roster`, {
-        method: 'POST',
+      const res = await api('/api/entity/roster', {
+        method: 'PUT',
         body: JSON.stringify({
-          teamId,
           players: people,
+          id: roster.id,
           name,
         }),
       });
@@ -71,16 +65,9 @@ export default function AddRoster(props) {
           duration: 4000,
         });
       } else {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('roster_added'),
-          severity: SEVERITY_ENUM.SUCCESS,
-          duration: 2000,
-        });
-        update();
         handleClose();
-        resetForm();
       }
+      update();
     },
   });
 
@@ -106,18 +93,16 @@ export default function AddRoster(props) {
         secondary: t('player'),
         notClickable: true,
         secondaryActions: [
-          <CustomIconButton
-            key={index}
-            icon="Remove"
-            style={{ color: 'secondary' }}
-            onClick={() => removePerson(person)}
-          />,
+          <IconButton key={index} icon="Remove" style={{ color: 'secondary' }} onClick={() => removePerson(person)} />,
         ],
       })),
     [people]
   );
 
-  const blackList = useMemo(() => people.map((person) => person.id), [people]);
+  const blackList = useMemo(
+    () => people.map((person) => person.id).concat(rosterPlayers.map((player) => player.person_id)),
+    [people, rosterPlayers]
+  );
 
   const whiteList = useMemo(() => players.map((player) => player.person_id), [players]);
 
@@ -130,12 +115,14 @@ export default function AddRoster(props) {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       onClick: () => {
         setPeople(
-          players.map((player) => ({
-            id: player.person_id,
-            completeName: player.name,
-            photoUrl: player.photo_url,
-            type: 1,
-          }))
+          players
+            .map((player) => ({
+              id: player.person_id,
+              completeName: player.name,
+              photoUrl: player.photo_url,
+              type: 1,
+            }))
+            .filter((player) => !blackList.includes(player.id))
         );
       },
       children: t('add.add_all_players'),
@@ -159,18 +146,18 @@ export default function AddRoster(props) {
     },
     {
       type: 'submit',
-      name: t('add.add'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
 
   return (
     <BasicFormDialog
-      formik={formik}
       open={open}
-      title={t('add.add_roster')}
+      title={t('edit.edit_roster')}
       buttons={buttons}
       fields={fields}
+      formik={formik}
       onClose={handleClose}
     />
   );

@@ -18,3 +18,12 @@
 .accordionDetail {
   padding: 0px !important;
 }
+
+.divButton {
+  display: flexbox;
+  flex-direction: row;
+}
+
+.button {
+  margin: 8px !important;
+}

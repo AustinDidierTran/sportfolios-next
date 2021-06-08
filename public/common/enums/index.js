@@ -186,6 +186,7 @@ const FORM_DIALOG_TYPE_ENUM = {
   EDIT_PARTNER: 'edit partner',
   EDIT_PLAYER: 'edit player',
   EDIT_ROSTER_PLAYER: 'edit roster player',
+  EDIT_ROSTER: 'edit roster',
   ENTER_EMAIL: 'email',
   JOIN_TEAM: 'join team',
   MEMBERS_REPORT: 'members report',
