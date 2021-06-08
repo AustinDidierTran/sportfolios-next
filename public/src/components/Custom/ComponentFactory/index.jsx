@@ -155,6 +155,7 @@ export default function ComponentFactory(props) {
       <PersonSearchList
         clearOnSelect={false}
         blackList={component.blackList}
+        whiteList={component.whiteList}
         label={component.label}
         query={component.query}
         allowCreate={component.allowCreate}

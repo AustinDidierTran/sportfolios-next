@@ -1,0 +1,29 @@
+.odd {
+  background-color: #f1f1f1 !important;
+}
+
+.even {
+  background-color: #f9f9f9 !important;
+}
+
+.list {
+  width: 100%;
+  padding: 0px !important;
+}
+
+.name {
+  margin: 4px !important;
+}
+
+.accordionDetail {
+  padding: 0px !important;
+}
+
+.divButton {
+  display: flexbox;
+  flex-direction: row;
+}
+
+.button {
+  margin: 8px !important;
+}
