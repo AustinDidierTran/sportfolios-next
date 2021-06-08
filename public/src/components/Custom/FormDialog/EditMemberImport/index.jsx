@@ -46,7 +46,7 @@ export default function EditMemberImport(props) {
   useEffect(() => {
     setOpen(openProps);
     formik.setFieldValue('email', email);
-    formik.setFieldValue('expirationDate', moment(expirationDate).format('YYYY-MM-DD'));
+    formik.setFieldValue('expirationDate', moment.utc(expirationDate).format('YYYY-MM-DD'));
   }, [openProps]);
 
   const fields = [

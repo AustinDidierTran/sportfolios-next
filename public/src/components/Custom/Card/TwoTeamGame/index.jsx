@@ -24,8 +24,8 @@ export default function TwoTeamGame(props) {
         </Typography>
         <ListItemText
           className={styles.time}
-          primary={formatDate(moment(start_time), 'HH:mm')}
-          secondary={formatDate(moment(start_time), 'D MMM')}
+          primary={formatDate(moment.utc(start_time), 'HH:mm')}
+          secondary={formatDate(moment.utc(start_time), 'D MMM')}
         ></ListItemText>
         <Typography className={styles.field} color="textSecondary">
           {field}

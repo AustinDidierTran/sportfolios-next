@@ -29,8 +29,8 @@ export default function MultipleTeamGame(props) {
         <List>
           <ListItemText primary={phaseName} secondary={field} />
           <ListItemText
-            primary={formatDate(moment(start_time), 'ddd D MMM')}
-            secondary={formatDate(moment(start_time), 'HH:mm')}
+            primary={formatDate(moment.utc(start_time), 'ddd D MMM')}
+            secondary={formatDate(moment.utc(start_time), 'HH:mm')}
           />
         </List>
       </div>

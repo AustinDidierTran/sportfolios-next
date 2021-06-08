@@ -22,7 +22,7 @@ export const getSlots = async (eventId) => {
   const { data } = await api(formatRoute('/api/entity/slots', null, { eventId }));
   const res = data.map((d) => ({
     value: d.id,
-    display: formatDate(moment(d.date), 'ddd DD MMM HH:mm'),
+    display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
   }));
   return res;
 };
@@ -33,7 +33,7 @@ export const getFutureSlots = async (eventId) => {
     .filter((d) => moment(d.date) >= moment())
     .map((d) => ({
       value: d.id,
-      display: formatDate(moment(d.date), 'ddd DD MMM HH:mm'),
+      display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
     }));
   return res;
 };

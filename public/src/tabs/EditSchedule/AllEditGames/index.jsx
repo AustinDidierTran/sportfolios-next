@@ -84,7 +84,7 @@ export default function AllEditGames(props) {
     }
     if (timeSlot != SELECT_ENUM.ALL) {
       games = games.filter(
-        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+        (game) => moment.utc(game.start_time).format('YYYY M D') === moment.utc(timeSlot).format('YYYY M D')
       );
       filter.timeSlot = timeSlot;
     }

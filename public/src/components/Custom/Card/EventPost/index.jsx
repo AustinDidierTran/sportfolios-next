@@ -94,7 +94,7 @@ export default function EventPost(props) {
           {(quickDescription && decodeURIComponent(quickDescription)) || t('event.event')}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p" align="left">
-          {formatIntervalDate(moment(startDate), moment(endDate))}
+          {formatIntervalDate(moment.utc(startDate), moment.utc(endDate))}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p" align="left">
           {location || ''}

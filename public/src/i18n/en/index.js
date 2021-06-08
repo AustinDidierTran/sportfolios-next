@@ -1257,6 +1257,7 @@ export default {
     postal_code: 'Zip Code',
     practice: 'Practice',
     practice_added: 'Practice added',
+    practice_changed: 'Practice changed',
     practice_delete: 'Are you sure you want to delete this practice?',
     preranking_saved: 'Preranking saved',
     preranking: 'Preranking',

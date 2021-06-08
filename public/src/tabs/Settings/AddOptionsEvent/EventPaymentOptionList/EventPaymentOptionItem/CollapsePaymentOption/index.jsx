@@ -71,8 +71,8 @@ export default function CollapsePaymentOption(props) {
           <ListItemText
             primary={teamActivity ? t('team.team_activity') : t('individual_activity')}
             secondary={t('open_from_to', {
-              startDate: formatDate(moment(startTime), 'LLLL'),
-              endDate: formatDate(moment(endTime), 'LLLL'),
+              startDate: formatDate(moment.utc(startTime), 'LLLL'),
+              endDate: formatDate(moment.utc(endTime), 'LLLL'),
             })}
           />
         </ListItem>

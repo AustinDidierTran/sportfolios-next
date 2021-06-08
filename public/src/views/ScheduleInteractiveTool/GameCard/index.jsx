@@ -18,7 +18,7 @@ export default function GameCard(props) {
   const tooltip = useMemo(
     () =>
       `${ranking1.name} vs ${ranking2.name}, ${fields[x]?.field}, ${formatDate(
-        moment(timeSlots[y]?.date),
+        moment.utc(timeSlots[y]?.date),
         'DD MMM HH:mm'
       )}`,
     [x, y]

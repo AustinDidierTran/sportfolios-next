@@ -34,7 +34,7 @@ export default function SalesItem(props) {
         <MailtoButton emails={emails} className={styles.mail} />
         <ListItemText
           className={styles.date}
-          secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
+          secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
         ></ListItemText>
       </div>
     </ListItem>

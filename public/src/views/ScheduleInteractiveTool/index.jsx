@@ -936,7 +936,7 @@ export default function ScheduleInteractiveTool() {
 
   const Times = timeslots.map((t) => (
     <div className={styles.divTime} key={t.id}>
-      <Typography className={styles.label}>{formatDate(moment(t.date), 'DD MMM HH:mm')}</Typography>
+      <Typography className={styles.label}>{formatDate(moment.utc(t.date), 'DD MMM HH:mm')}</Typography>
     </div>
   ));
 

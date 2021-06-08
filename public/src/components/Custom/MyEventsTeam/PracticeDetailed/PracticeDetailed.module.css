@@ -34,3 +34,13 @@
   height: 48px;
   width: 48px;
 }
+
+.editButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 16px;
+}
+
+.cancelButton {
+  margin-right: 12px !important;
+}

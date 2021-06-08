@@ -97,13 +97,13 @@ export default function Post(props) {
     const newDate = new Date(date);
     const deltaTime = Math.floor(Math.abs(new Date() - newDate) / 1000 / 86400);
     if (deltaTime < 1) {
-      return moment(newDate).fromNow();
-    } else if (deltaTime > 1 && deltaTime < moment(newDate).daysInMonth()) {
-      return moment(newDate).format('DD MMMM, HH:mm');
+      return moment.utc(newDate).fromNow();
+    } else if (deltaTime > 1 && deltaTime < moment.utc(newDate).daysInMonth()) {
+      return moment.utc(newDate).format('DD MMMM, HH:mm');
     } else if (deltaTime == 1) {
-      return t('yesterday_at', { date_time: moment(newDate).format('HH:mm') });
+      return t('yesterday_at', { date_time: moment.utc(newDate).format('HH:mm') });
     } else {
-      return moment(newDate).format('DD MMMM YYYY');
+      return moment.utc(newDate).format('DD MMMM YYYY');
     }
   };
 

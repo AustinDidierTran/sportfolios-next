@@ -199,12 +199,12 @@ export const getMembershipUnit = (type) => {
 
 export const getExpirationDate = (length, date) => {
   if (length) {
-    return formatDate(moment().add(getMembershipLength(length), getMembershipUnit(length)));
+    return formatDate(moment.utc().add(getMembershipLength(length), getMembershipUnit(length)));
   } else if (date) {
     if (moment(new Date(date)).set('year', moment().get('year')) < moment()) {
-      return formatDate(moment(new Date(date)).set('year', moment().get('year') + 1));
+      return formatDate(moment.utc(new Date(date)).set('year', moment().get('year') + 1));
     } else {
-      return formatDate(moment(new Date(date)).set('year', moment().get('year')));
+      return formatDate(moment.utc(new Date(date)).set('year', moment().get('year')));
     }
   } else {
     return null;

@@ -70,13 +70,13 @@ export default function CollapseTeamsRegisteredMobile(props) {
       <ListItem>
         <ListItemText
           className={styles.text}
-          primary={formatDate(moment(team.registeredOn))}
+          primary={formatDate(moment.utc(team.registeredOn))}
           secondary={t('register.registration')}
         />
         {team?.invoice?.created_at && (
           <ListItemText
             className={styles.text}
-            primary={formatDate(moment(team?.invoice?.created_at))}
+            primary={formatDate(moment.utc(team?.invoice?.created_at))}
             secondary={t('payment.payment')}
           />
         )}

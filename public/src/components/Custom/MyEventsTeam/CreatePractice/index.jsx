@@ -64,7 +64,7 @@ export default function CreatePractice(props) {
   const formik = useFormik({
     initialValues: {
       name: '',
-      date: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DD'),
+      date: formatDate(moment.utc(new Date().toLocaleString()), 'YYYY-MM-DD'),
       timeStart: '18:00',
       timeEnd: '20:00',
       addressFormatted: '',

@@ -68,13 +68,13 @@ export default function MemberItem(props) {
             goTo(ROUTES.entity, { id: person.id });
           }}
         ></ListItemText>
-        {moment(expirationDate) < moment() ? (
+        {moment.utc(expirationDate) < moment.utc() ? (
           <ListItemText
             secondaryTypographyProps={{ color: 'secondary' }}
             className={styles.item2}
             primary={t(getMembershipName(memberType))}
             secondary={`${t('expired_on')}
-              ${formatDate(moment(expirationDate))}`}
+              ${formatDate(moment.utc(expirationDate))}`}
             onClick={() => {
               goTo(ROUTES.entity, { id: person.id });
             }}
@@ -84,7 +84,7 @@ export default function MemberItem(props) {
             className={styles.item2}
             primary={t(getMembershipName(memberType))}
             secondary={`${t('valid_until')}
-              ${formatDate(moment(expirationDate))}`}
+              ${formatDate(moment.utc(expirationDate))}`}
             onClick={() => {
               goTo(ROUTES.entity, { id: person.id });
             }}

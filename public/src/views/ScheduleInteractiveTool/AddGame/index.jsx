@@ -28,7 +28,7 @@ export default function AddGame(props) {
   };
 
   const description = useMemo(() => {
-    return `${field?.name}, ${formatDate(moment(timeslot.date))}`;
+    return `${field?.name}, ${formatDate(moment.utc(timeslot.date))}`;
   }, [field, timeslot]);
 
   const validationSchema = yup.object().shape({

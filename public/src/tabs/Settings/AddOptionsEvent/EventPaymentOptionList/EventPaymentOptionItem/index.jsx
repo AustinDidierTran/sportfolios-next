@@ -79,8 +79,8 @@ export default function EventPaymentOptionItem(props) {
             'price_individual'
           )} ${individual_price === 0 ? t('free') : formatPrice(individual_price)}`}
           secondary={t('open_from_to', {
-            startDate: formatDate(moment(startTime), 'MMM D'),
-            endDate: formatDate(moment(endTime), 'MMM D'),
+            startDate: formatDate(moment.utc(startTime), 'MMM D'),
+            endDate: formatDate(moment.utc(endTime), 'MMM D'),
           })}
         />
         <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />

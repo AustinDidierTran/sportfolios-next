@@ -36,7 +36,7 @@ export default function TeamItem(props) {
           <CustomIconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
           <ListItemText
             className={styles.date}
-            secondary={`${t('purchased_on')}: ${formatDate(moment(createdAt))}`}
+            secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
           ></ListItemText>
         </div>
       </ListItem>

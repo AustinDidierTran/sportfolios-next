@@ -77,7 +77,7 @@ export default function EditMembership(props) {
   }, [openProps]);
 
   useEffect(() => {
-    formik.setFieldValue('expirationDate', moment(expirationDate).format('YYYY-MM-DD'));
+    formik.setFieldValue('expirationDate', moment.utc(expirationDate).format('YYYY-MM-DD'));
   }, [expirationDate]);
 
   const handleClose = () => {

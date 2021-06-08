@@ -21,8 +21,8 @@ export default function Practice(props) {
         {name}
         <ListItemText
           className={styles.time}
-          primary={`${formatDate(moment(startTime), 'HH:mm')} - ${formatDate(moment(endTime), 'HH:mm')}`}
-          secondary={formatDate(moment(startTime), 'ddd D MMM')}
+          primary={`${formatDate(moment.utc(startTime), 'HH:mm')} - ${formatDate(moment.utc(endTime), 'HH:mm')}`}
+          secondary={formatDate(moment.utc(startTime), 'ddd D MMM')}
         ></ListItemText>
         <Typography color="textSecondary">
           {location}

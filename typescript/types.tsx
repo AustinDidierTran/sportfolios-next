@@ -309,6 +309,18 @@ export interface gameTeam {
   rankingId: string;
 }
 
+export interface IPractice {
+  entity_id?: string;
+  id?: string;
+  name?: string;
+  start_date?: string;
+  end_date?: string;
+  location?: string;
+  addressFormatted?: string;
+  team_id?: string;
+  roster?: roster[];
+}
+
 export interface post {
   id: string;
   entityId: string;

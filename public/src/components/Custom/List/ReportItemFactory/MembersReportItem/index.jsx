@@ -66,9 +66,9 @@ export default function MembersReportItem(props) {
         membership: t(getMembershipName(d.member_type)),
         price: formatPrice(d.price),
         status: getStatusName(d.status),
-        paidOn: formatDate(moment(d.paid_on), 'YYYY-MM-DD HH:mm'),
-        createdAt: formatDate(moment(d.created_at), 'YYYY-MM-DD HH:mm'),
-        expirationDate: formatDate(moment(d.expiration_date), 'YYYY-MM-DD'),
+        paidOn: formatDate(moment.utc(d.paid_on), 'YYYY-MM-DD HH:mm'),
+        createdAt: formatDate(moment.utc(d.created_at), 'YYYY-MM-DD HH:mm'),
+        expirationDate: formatDate(moment.utc(d.expiration_date), 'YYYY-MM-DD'),
         email: d.email,
         phoneNumber: d.phone_number,
         birthDate: d.birth_date,
@@ -95,7 +95,7 @@ export default function MembersReportItem(props) {
     }
   };
 
-  const reportName = `${t('member.members_list_on')} ${formatDate(moment(metadata.date))}`;
+  const reportName = `${t('member.members_list_on')} ${formatDate(moment.utc(metadata.date))}`;
 
   const headers = [
     { label: t('name'), key: 'name' },
