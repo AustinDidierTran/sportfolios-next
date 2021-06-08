@@ -716,6 +716,7 @@ export default {
       no_admins_with_bank_account: 'Aucun administrateurs avec un compte bancaire',
       no_alias: 'Aucun alias',
       no_bank_account_linked: "Vous n'avez pas de compte en banque relié, l'option de paiement doit etre gratuite.",
+      no_cart_items_selected: 'Aucun item du panier sélectionné',
       no_coupons_sent: 'Aucun coupon envoyé',
       no_description: 'Aucune description',
       no_details_available:
@@ -727,6 +728,7 @@ export default {
       no_notifications_message: 'Revenez plus tard.',
       no_notifications: 'Pas de notifications',
       no_option: 'Aucune option',
+      no_payment_method_selected: 'Aucune option de paiement sélectionnée',
       no_partners: 'Aucun partenaires',
       no_person_selected: 'Aucune personne sélectionnée',
       no_players_registered: 'Aucun joueur inscrit',
@@ -961,6 +963,7 @@ export default {
     changes_saved: 'Changements sauvegardés',
     chatbot: 'Chatbot',
     checkout: 'Procéder',
+    checkout_error: 'Erreur durant le checkout',
     city: 'Ville',
     clear_all: 'Réinitialiser',
     clear_cart: 'Vider le panier',
