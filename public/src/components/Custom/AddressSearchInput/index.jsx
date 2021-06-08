@@ -21,6 +21,7 @@ function AddressSearchInput(props) {
     placeholder,
     noValidate,
     required = true,
+    hidden,
   } = props;
   const autoCompleteRef = useRef(null);
 
@@ -133,7 +134,7 @@ function AddressSearchInput(props) {
   };
 
   return (
-    <div>
+    <div hidden={hidden}>
       {errorFormat && <div style={{ color: 'red' }}>{errorFormat}</div>}
       <div className={styles.searchLocationInput} autoComplete="off">
         <input

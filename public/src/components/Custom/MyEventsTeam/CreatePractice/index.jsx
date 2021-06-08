@@ -7,7 +7,7 @@ import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
-import { formatDate } from '../../../../utils/stringFormats';
+import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import moment from 'moment';
 
@@ -21,14 +21,36 @@ export default function CreatePractice(props) {
 
   const [open, setOpen] = useState(isOpen);
   const [wrongAddressFormat, setWrongAddressFormat] = useState('');
+  const [locationOptions, setLocationOptions] = useState([]);
+  const [locationHidden, setLocationHidden] = useState(true);
 
   useEffect(() => {
     setOpen(isOpen);
+    getLocations();
+    setLocationHidden(true);
   }, [isOpen]);
 
   const handleClose = () => {
     formik.resetForm();
     onClose();
+    setLocationHidden(true);
+  };
+
+  const getLocations = async () => {
+    const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+
+    const formattedData = data.filter((n) => n.id != null);
+    formattedData.push(
+      { id: t('no_location'), location: t('no_location') },
+      { id: t('create_new_location'), location: t('create_new_location') }
+    );
+
+    setLocationOptions(
+      formattedData.map((c) => ({
+        value: c.id,
+        display: `${c.street_address ? `${c.location} - ${c.street_address}` : c.location}`,
+      }))
+    );
   };
 
   const addressChanged = (newAddress) => {
@@ -51,6 +73,16 @@ export default function CreatePractice(props) {
     formik.setFieldValue('timeEnd', newTime);
   };
 
+  const handleLocationChange = (event) => {
+    if (event == t('create_new_location')) {
+      setLocationHidden(false);
+    } else {
+      setLocationHidden(true);
+      formik.setFieldValue('address', null);
+      formik.setFieldValue('newLocation', '');
+    }
+  };
+
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     date: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -59,6 +91,11 @@ export default function CreatePractice(props) {
     addressFormatted: yup.string().test('validate', () => {
       return wrongAddressFormat == '';
     }),
+    newLocation: yup.string().when('location', {
+      is: (location) => location == t('create_new_location'),
+      then: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    }),
+    location: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
@@ -70,13 +107,17 @@ export default function CreatePractice(props) {
       addressFormatted: '',
       address: '',
       location: '',
+      newLocation: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { name, date, timeStart, timeEnd, address, location } = values;
-
+      const { name, date, timeStart, timeEnd, address, location, newLocation } = values;
+      let locationId = null;
+      if (location != t('no_location') && location != t('create_new_location')) {
+        locationId = location;
+      }
       let dateStart = `${date} ${timeStart}`;
       let dateEnd = `${date} ${timeEnd}`;
       const res = await api('/api/entity/practice', {
@@ -86,7 +127,8 @@ export default function CreatePractice(props) {
           dateStart,
           dateEnd,
           address,
-          location,
+          locationId,
+          newLocation,
           teamId,
         }),
       });
@@ -151,21 +193,16 @@ export default function CreatePractice(props) {
       shrink: true,
     },
     {
-      componentType: COMPONENT_TYPE_ENUM.ADDRESS,
-      namespace: 'addressFormatted',
-      language: userInfo.language,
-      country: 'ca',
-      addressChanged: addressChanged,
-      onChange: onAddressChanged,
-      errorFormat: wrongAddressFormat,
-      placeholder: t('type_address'),
-      noValidate: true,
-      required: false,
-    },
-    {
-      namespace: 'location',
+      componentType: COMPONENT_TYPE_ENUM.LOCATION,
       label: t('location'),
-      type: 'text',
+      namespace: 'location',
+      onChange: handleLocationChange,
+      options: locationOptions,
+      addressChanged: addressChanged,
+      onAddressChanged: onAddressChanged,
+      language: userInfo.language,
+      errorFormat: wrongAddressFormat,
+      showCreate: !locationHidden,
     },
   ];
 

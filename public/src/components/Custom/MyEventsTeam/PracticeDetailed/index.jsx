@@ -18,9 +18,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '../../TextField';
 import { formatDate } from '../../../../utils/stringFormats';
 import LoadingSpinner from '../../LoadingSpinner';
-import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
+import CustomLocations from '../../Locations';
 
 const Roster = dynamic(() => import('../../Roster'));
 
@@ -29,7 +29,7 @@ export default function PracticeDetailed(props) {
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo },
+    state: { id: teamId, userInfo },
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +39,30 @@ export default function PracticeDetailed(props) {
   const [edit, setEdit] = useState(false);
   const [wrongAddressFormat, setWrongAddressFormat] = useState('');
   const [openDelete, setOpenDelete] = useState(false);
+  const [locationOptions, setLocationOptions] = useState([]);
+  const [locationHidden, setLocationHidden] = useState(true);
+  const [showCreateLocation, setShowCreateLocation] = useState(false);
+
+  const getLocations = async () => {
+    const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+
+    const formattedData = data.filter((n) => n.id != null);
+    formattedData.push(
+      { id: t('no_location'), location: t('no_location') },
+      { id: t('create_new_location'), location: t('create_new_location') }
+    );
+
+    if (!formattedData) {
+      setLocationHidden(true);
+    }
+
+    setLocationOptions(
+      formattedData.map((c) => ({
+        value: c.id,
+        display: `${c.street_address ? `${c.location} - ${c.street_address}` : c.location}`,
+      }))
+    );
+  };
 
   const getPractice = async () => {
     const { data } = await api(
@@ -67,6 +91,10 @@ export default function PracticeDetailed(props) {
     let addressFormatted = street_address + city + state + zip + country;
     data.addressFormatted = addressFormatted;
 
+    if (!data?.location_id) {
+      data.location_id = t('no_location');
+    }
+
     setPractice(data);
 
     formik.setFieldValue('name', data?.name || '');
@@ -74,9 +102,15 @@ export default function PracticeDetailed(props) {
     formik.setFieldValue('startTime', formatDate(moment.utc(data.start_date), 'HH:mm'));
     formik.setFieldValue('endDate', formatDate(moment.utc(data.end_date), 'YYYY-MM-DD'));
     formik.setFieldValue('endTime', formatDate(moment.utc(data.end_date), 'HH:mm'));
-    formik.setFieldValue('location', data?.location || '');
+    formik.setFieldValue('locationValue', data?.location_id || t('no_location'));
+    formik.setFieldValue('location', data?.location || null);
     formik.setFieldValue('addressFormatted', addressFormatted);
     formik.setFieldValue('address', '');
+    formik.setFieldValue('newLocation', '');
+
+    if (data?.location_id) {
+      setShowCreateLocation(false);
+    }
 
     if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
       setIsAdmin(true);
@@ -86,6 +120,7 @@ export default function PracticeDetailed(props) {
   useEffect(() => {
     if (practiceId) {
       getPractice();
+      getLocations();
     }
   }, [practiceId]);
 
@@ -110,6 +145,10 @@ export default function PracticeDetailed(props) {
     addressFormatted: yup.string().test('validate', () => {
       return wrongAddressFormat == '';
     }),
+    newLocation: yup.string().when('locationValue', {
+      is: (locationValue) => locationValue == t('create_new_location'),
+      then: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    }),
   });
 
   const formik = useFormik({
@@ -119,14 +158,20 @@ export default function PracticeDetailed(props) {
       startTime: '',
       endDate: '',
       endTime: '',
+      locationValue: '',
       location: '',
+      newLocation: '',
       address: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, startDate, startTime, endDate, endTime, location, address } = values;
+      const { name, startDate, startTime, endDate, endTime, locationValue, newLocation, address } = values;
+      let locationId = null;
+      if (locationValue != t('no_location') && locationValue != t('create_new_location')) {
+        locationId = locationValue;
+      }
 
       let start = `${startDate} ${startTime}`;
       let end = `${endDate} ${endTime}`;
@@ -145,7 +190,8 @@ export default function PracticeDetailed(props) {
           name,
           start_date: start,
           end_date: end,
-          location,
+          newLocation,
+          locationId,
           address,
         }),
       });
@@ -159,7 +205,8 @@ export default function PracticeDetailed(props) {
       } else {
         setEdit(false);
         getPractice();
-
+        getLocations();
+        setLocationHidden(true);
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('practice_changed'),
@@ -178,7 +225,8 @@ export default function PracticeDetailed(props) {
       formatDate(moment.utc(practice.end_date), 'YYYY-MM-DD') != formik.values.endDate ||
       formatDate(moment.utc(practice.end_date), 'HH:mm') != formik.values.endTime ||
       practice.location != formik.values.location ||
-      practice.addressFormatted != formik.values.addressFormatted
+      practice.addressFormatted != formik.values.addressFormatted ||
+      practice.location_id != formik.values.locationValue
     );
   }, [formik.values, practice]);
 
@@ -202,6 +250,7 @@ export default function PracticeDetailed(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setShowCreateLocation(false);
   };
 
   const onDelete = async () => {
@@ -229,12 +278,25 @@ export default function PracticeDetailed(props) {
 
   const onEdit = () => {
     setEdit(true);
+    setLocationHidden(false);
     handleClose();
   };
 
   const cancelEdit = () => {
     setEdit(false);
+    setLocationHidden(true);
     getPractice();
+  };
+
+  const handleLocationChange = (event) => {
+    if (event == t('create_new_location')) {
+      setShowCreateLocation(true);
+    } else {
+      setShowCreateLocation(false);
+      formik.setFieldValue('address', null);
+      formik.setFieldValue('addressFormated', null);
+      formik.setFieldValue('newLocation', '');
+    }
   };
 
   if (isLoading) {
@@ -288,25 +350,19 @@ export default function PracticeDetailed(props) {
                     formik.values.endTime
                   )}
                 </div>
-                <div className={styles.practiceInfoSecondary}>
-                  <TextField placeholder="location" namespace="location" formik={formik} disabled={!edit} />
-                </div>
-                <div className={styles.practiceInfoSecondary}>
-                  {edit ? (
-                    <AddressSearchInput
-                      namespace="addressFormatted"
-                      formik={formik}
-                      addressChanged={addressChanged}
-                      country="ca"
-                      language={userInfo.language}
-                      errorFormat={wrongAddressFormat}
-                      placeholder={t('type_address')}
-                      onChange={onAddressChanged}
-                    />
-                  ) : (
-                    <TextField namespace="addressFormatted" formik={formik} disabled />
-                  )}
-                </div>
+                <CustomLocations
+                  formik={formik}
+                  label={t('location')}
+                  namespace="locationValue"
+                  onChange={handleLocationChange}
+                  showView={locationHidden}
+                  options={locationOptions}
+                  addressChanged={addressChanged}
+                  onAddressChanged={onAddressChanged}
+                  language={userInfo.language}
+                  errorFormat={wrongAddressFormat}
+                  showCreate={showCreateLocation}
+                />
               </div>
             </div>
 
