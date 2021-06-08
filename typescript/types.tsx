@@ -130,6 +130,15 @@ export interface entityRole {
   role: role;
 }
 
+export interface player {
+  id: string;
+  personId: string;
+  teamId: string;
+  role: rosterRole;
+  name: string;
+  photoUrl: string;
+}
+
 export interface person extends entity {
   personId: string;
   birthDate?: string;

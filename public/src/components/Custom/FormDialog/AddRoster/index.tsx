@@ -10,8 +10,15 @@ import CustomIconButton from '../../IconButton';
 import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { player } from '../../../../../../typescript/types';
 
-export default function AddRoster(props) {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  update: () => void;
+}
+
+const AddRoster: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
   const {
@@ -30,8 +37,8 @@ export default function AddRoster(props) {
   }, [teamId]);
 
   const [open, setOpen] = useState(false);
-  const [people, setPeople] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [people, setPeople] = useState<player[]>([]);
+  const [players, setPlayers] = useState<player[]>([]);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -90,11 +97,11 @@ export default function AddRoster(props) {
     onClose();
   };
 
-  const onClick = (newPerson) => {
+  const onClick = (newPerson: player) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person) => {
+  const removePerson = (person: player) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
@@ -119,7 +126,7 @@ export default function AddRoster(props) {
 
   const blackList = useMemo(() => people.map((person) => person.id), [people]);
 
-  const whiteList = useMemo(() => players.map((player) => player.person_id), [players]);
+  const whiteList = useMemo(() => players.map((player) => player.personId), [players]);
 
   const fields = [
     {
@@ -129,14 +136,7 @@ export default function AddRoster(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       onClick: () => {
-        setPeople(
-          players.map((player) => ({
-            id: player.person_id,
-            completeName: player.name,
-            photoUrl: player.photo_url,
-            type: 1,
-          }))
-        );
+        setPeople(players);
       },
       children: t('add.add_all_players'),
     },
@@ -174,4 +174,6 @@ export default function AddRoster(props) {
       onClose={handleClose}
     />
   );
-}
+};
+
+export default AddRoster;

@@ -10,7 +10,6 @@ import CreatePractice from './CreatePractice';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { Store } from '../../../../../public/src/Store';
-import moment from 'moment';
 
 export default function MyEventsTeam(props) {
   const { t } = useTranslation();
@@ -73,9 +72,9 @@ export default function MyEventsTeam(props) {
   return (
     <div>
       {adminView && (
-          <CustomButton style={{ marginBottom: '6px' }} onClick={createPractice} endIcon="Add" color="primary">
-            {t('create.create_practice')}
-          </CustomButton>
+        <CustomButton style={{ marginBottom: '6px' }} onClick={createPractice} endIcon="Add" color="primary">
+          {t('create.create_practice')}
+        </CustomButton>
       )}
       {events?.length ? (
         events.map((event) => (
