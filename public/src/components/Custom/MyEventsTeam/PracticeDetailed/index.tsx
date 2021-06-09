@@ -29,6 +29,15 @@ interface IProps {
   practiceId: string;
 }
 
+interface IData {
+  data: IReponse;
+}
+
+interface IReponse {
+  practice: practice;
+  role: number;
+}
+
 interface IValues {
   name: string;
   country?: string;
@@ -58,7 +67,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const [openDelete, setOpenDelete] = useState(false);
 
   const getPractice = async () => {
-    const { data } = await api(
+    const {
+      data: { practice: data, role },
+    }: IData = await api(
       formatRoute('/api/entity/practiceInfo', null, {
         practiceId: practiceId,
       }),
@@ -93,8 +104,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('location', data?.location || '');
     formik.setFieldValue('addressFormatted', addressFormatted);
     formik.setFieldValue('address', '');
-
-    if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
+    if (role === ENTITIES_ROLE_ENUM.ADMIN || role === ENTITIES_ROLE_ENUM.EDITOR) {
       setIsAdmin(true);
     }
   };

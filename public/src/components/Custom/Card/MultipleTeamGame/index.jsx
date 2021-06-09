@@ -11,7 +11,7 @@ import moment from 'moment';
 import Avatar from '../../Avatar';
 
 export default function MultipleTeamGame(props) {
-  const { positions, field, start_time, phaseName, onClick } = props;
+  const { positions, field, startTime, phaseName, onClick } = props;
 
   return (
     <Card className={styles.game} onClick={() => onClick(props)}>
@@ -29,8 +29,8 @@ export default function MultipleTeamGame(props) {
         <List>
           <ListItemText primary={phaseName} secondary={field} />
           <ListItemText
-            primary={formatDate(moment.utc(start_time), 'ddd D MMM')}
-            secondary={formatDate(moment.utc(start_time), 'HH:mm')}
+            primary={formatDate(moment.utc(startTime), 'ddd D MMM')}
+            secondary={formatDate(moment.utc(startTime), 'HH:mm')}
           />
         </List>
       </div>

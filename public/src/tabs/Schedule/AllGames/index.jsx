@@ -34,16 +34,16 @@ export default function AllGames(props) {
     const pastGames = games
       .filter(
         (game) =>
-          moment(game.start_time).set('hour', 0).set('minute', 0).add(1, 'day') < moment() && scoreIsSubmitted(game)
+          moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment() && scoreIsSubmitted(game)
       )
-      .sort((a, b) => moment(a.start_time) - moment(b.start_time));
+      .sort((a, b) => moment(a.startTime) - moment(b.startTime));
     setPastGames(pastGames);
     const res = games
       .filter(
         (game) =>
-          moment(game.start_time).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !scoreIsSubmitted(game)
+          moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !scoreIsSubmitted(game)
       )
-      .sort((a, b) => moment(a.start_time) - moment(b.start_time));
+      .sort((a, b) => moment(a.startTime) - moment(b.startTime));
     setGames(res);
   };
 
@@ -97,7 +97,7 @@ export default function AllGames(props) {
     }
     if (timeSlot != SELECT_ENUM.ALL) {
       games = games.filter(
-        (game) => moment(game.start_time).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
+        (game) => moment(game.startTime).format('YYYY M D') === moment(timeSlot).format('YYYY M D')
       );
       filter.timeSlot = timeSlot;
     }

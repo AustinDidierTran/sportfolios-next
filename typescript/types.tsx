@@ -119,10 +119,13 @@ export interface entity {
   type: entityType;
   name: string;
   surname?: string;
+  description?: string;
+  quickDescription?: string;
   photoUrl?: string;
   infosSuppId?: string;
   admins: entityRole[];
   posts?: post[];
+  role?: number;
 }
 
 export interface entityRole {
@@ -208,8 +211,6 @@ export interface event extends entity {
   startDate: string;
   endDate?: string;
   maximumSpot?: number;
-  description?: string;
-  quickDescription?: string;
   alias?: string;
   fields?: field[];
   timeSlots?: timeSlot[];
