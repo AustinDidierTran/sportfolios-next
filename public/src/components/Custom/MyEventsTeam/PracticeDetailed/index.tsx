@@ -252,7 +252,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const handleSubmit = () => {
     formik?.handleSubmit();
-  }
+  };
 
   const cancelEdit = () => {
     setEdit(false);
