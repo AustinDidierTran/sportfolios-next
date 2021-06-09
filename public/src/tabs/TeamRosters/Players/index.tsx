@@ -11,8 +11,13 @@ import { formatRoute } from '../../../utils/stringFormats';
 import styles from './Players.module.css';
 import List from '@material-ui/core/List';
 import Player from './Player';
+import { player } from '../../../../../typescript/types';
 
-export default function Players(props) {
+interface IProps {
+  adminView: boolean;
+}
+
+const Players: React.FunctionComponent<IProps> = (props) => {
   const { adminView } = props;
   const { t } = useTranslation();
   const {
@@ -25,8 +30,8 @@ export default function Players(props) {
     }
   }, [teamId]);
 
-  const [open, setOpen] = useState(false);
-  const [players, setPlayers] = useState([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [players, setPlayers] = useState<player[]>([]);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -73,4 +78,6 @@ export default function Players(props) {
       />
     </>
   );
-}
+};
+
+export default Players;
