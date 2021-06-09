@@ -1,8 +1,17 @@
 import { API_BASE_URL } from '../../../../conf';
 import { formatRoute } from '../../utils/stringFormats';
 
-const api = async (route, { method, body } = {}) => {
-  const headers = {
+const api = async (
+  route: string,
+  {
+    method,
+    body,
+  }: {
+    method?: string;
+    body?: string;
+  } = {}
+) => {
+  const headers: any = {
     'Content-Type': 'application/json',
   };
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
@@ -48,10 +57,11 @@ const api = async (route, { method, body } = {}) => {
   }
 
   if (method === 'GET') {
+    const headers: any = {
+      Authorization: authToken,
+    };
     const res = await fetch(`${API_BASE_URL}${route}`, {
-      headers: {
-        Authorization: authToken,
-      },
+      headers,
     });
     const status = res.status;
     const { data } = await res.json();
@@ -61,17 +71,24 @@ const api = async (route, { method, body } = {}) => {
 
   // Then, it is a get
   const res = await fetch(`${API_BASE_URL}${route}`, {
-    headers: {
-      Authorization: authToken,
-    },
+    headers,
   }).then((res) => res.json());
   return res;
 };
 
 export default api;
 
-export const changeEntityName = async (id, { name, surname } = {}) => {
-  const bodyJSON = { id };
+export const changeEntityName = async (
+  id: string,
+  {
+    name,
+    surname,
+  }: {
+    name?: string;
+    surname?: string;
+  } = {}
+) => {
+  const bodyJSON: { id?: string; name?: string; surname?: string } = { id };
 
   if (name) {
     bodyJSON.name = name;
@@ -86,7 +103,7 @@ export const changeEntityName = async (id, { name, surname } = {}) => {
   });
 };
 
-export const deleteEntity = async (id) => {
+export const deleteEntity = async (id: string) => {
   return api(formatRoute('/api/entity', null, { id }), {
     method: 'DELETE',
   });

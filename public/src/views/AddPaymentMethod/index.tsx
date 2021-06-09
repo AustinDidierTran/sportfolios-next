@@ -86,22 +86,81 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
             <Typography gutterBottom variant="h5" component="h2">
               {t('person.personal_information')}
             </Typography>
-            <TextField namespace="name" formik={formik} type="name" label={t('name')} fullWidth className={styles.textField} />
-            <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth className={styles.textField} />
-            <TextField InputProps={{
-              inputComponent: PhoneNumberFormat,
-            }} namespace="phoneNumber" formik={formik} type="phoneNumber" label={t('phone_number')} fullWidth className={styles.textField} placeholder="(###)-###-####" multiline />
+            <TextField
+              namespace="name"
+              formik={formik}
+              type="name"
+              label={t('name')}
+              fullWidth
+              className={styles.textField}
+            />
+            <TextField
+              namespace="email"
+              formik={formik}
+              type="email"
+              label={t('email.email')}
+              fullWidth
+              className={styles.textField}
+            />
+            <TextField
+              InputProps={{
+                inputComponent: PhoneNumberFormat,
+              }}
+              namespace="phoneNumber"
+              formik={formik}
+              type="phoneNumber"
+              label={t('phone_number')}
+              fullWidth
+              className={styles.textField}
+              placeholder="(###)-###-####"
+              multiline
+            />
             <br />
             <br />
             <Typography gutterBottom variant="h5" component="h2">
               {t('billing_address')}
             </Typography>
-            <TextField namespace="line1" formik={formik} type="line1" label={t('line1')} fullWidth className={styles.textField}/>
-            <TextField namespace="line2" formik={formik} type="line2" label={t('line2')} fullWidth className={styles.textField}/>
-            <TextField namespace="city" formik={formik} type="city" label={t('city')} fullWidth className={styles.textField}/>
-            <CountrySelect formik={formik} className={styles.textField}/>
-            <TextField namespace="state" formik={formik} type="state" label={t('state')} fullWidth className={styles.textField}/>
-            <TextField namespace="postalCode" formik={formik} type="postalCode" label={t('postal_code')} fullWidth className={styles.textField}/>
+            <TextField
+              namespace="line1"
+              formik={formik}
+              type="line1"
+              label={t('line1')}
+              fullWidth
+              className={styles.textField}
+            />
+            <TextField
+              namespace="line2"
+              formik={formik}
+              type="line2"
+              label={t('line2')}
+              fullWidth
+              className={styles.textField}
+            />
+            <TextField
+              namespace="city"
+              formik={formik}
+              type="city"
+              label={t('city')}
+              fullWidth
+              className={styles.textField}
+            />
+            <CountrySelect formik={formik} className={styles.textField} />
+            <TextField
+              namespace="state"
+              formik={formik}
+              type="state"
+              label={t('state')}
+              fullWidth
+              className={styles.textField}
+            />
+            <TextField
+              namespace="postalCode"
+              formik={formik}
+              type="postalCode"
+              label={t('postal_code')}
+              fullWidth
+              className={styles.textField}
+            />
             <br />
             <br />
             <CardSection />

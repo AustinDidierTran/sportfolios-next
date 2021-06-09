@@ -62,7 +62,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       formatRoute('/api/entity/practiceInfo', null, {
         practiceId: practiceId,
       }),
-      { method: 'GET', body: null }
+      { method: 'GET' }
     );
     if (!data) {
       dispatch({
@@ -228,7 +228,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       }),
       {
         method: 'DELETE',
-        body: null,
       }
     );
 

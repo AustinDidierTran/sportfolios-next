@@ -7,8 +7,16 @@ import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
+import { player } from '../../../../../../typescript/types';
 
-export default function EditPlayer(props) {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  update: () => void;
+  player: player;
+}
+
+const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { open: openProps, onClose, player, update } = props;
   const [open, setOpen] = useState(false);
@@ -31,7 +39,7 @@ export default function EditPlayer(props) {
     },
     onSubmit: async (values) => {
       const { role } = values;
-      const res = await api('/api/entity/player', {
+      const res = await api('/api/entity/rosterPlayer', {
         method: 'PUT',
         body: JSON.stringify({
           id: player.id,
@@ -101,4 +109,5 @@ export default function EditPlayer(props) {
       onClose={handleClose}
     />
   );
-}
+};
+export default EditRosterPlayer;

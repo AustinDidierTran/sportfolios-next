@@ -275,6 +275,7 @@ export interface team extends entity {
 export interface roster {
   id: string;
   teamId: string;
+  name: string;
   players?: teamPlayer[];
 }
 

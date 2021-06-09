@@ -41,7 +41,6 @@ const Player: React.FunctionComponent<IProps> = (props) => {
       }),
       {
         method: 'DELETE',
-        body: null,
       }
     );
     if (res.status === STATUS_ENUM.ERROR) {
