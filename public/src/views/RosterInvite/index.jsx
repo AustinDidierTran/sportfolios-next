@@ -61,7 +61,7 @@ export default function RosterInvite(props) {
         roster={roster}
         update={fetchRoster}
         expanded
-        whiteList={userInfo.persons.map((p) => p.entity_id)}
+        whiteList={userInfo.persons.map((p) => p.personId)}
         editableRoster={false}
         withMyPersonsQuickAdd
       />

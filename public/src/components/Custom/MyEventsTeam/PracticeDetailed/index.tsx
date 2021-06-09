@@ -358,7 +358,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             userInfo={userInfo}
             allowPostImage
             allowNewPost
-            entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
+            entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
             locationId={practice?.entityId}

@@ -120,7 +120,7 @@ export default function AppLinking() {
   };
 
   const openMessenger = () => {
-    const win = window.open(`https://www.m.me/${conf.FACEBOOK_PAGE_ID}?ref=${userInfo.user_id}`, '_blank');
+    const win = window.open(`https://www.m.me/${conf.FACEBOOK_PAGE_ID}?ref=${userInfo.userId}`, '_blank');
     if (win != null) {
       win.focus();
     }

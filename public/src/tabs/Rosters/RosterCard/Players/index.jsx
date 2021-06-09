@@ -85,21 +85,21 @@ export default function Players(props) {
     }
     const mapFunction = (p) => ({
       ...p,
-      photoUrl: p.photo_url,
-      teamPlayerId: players.find((q) => p.entity_id === q.personId)?.id,
+      photoUrl: p.photoUrl,
+      teamPlayerId: players.find((q) => p.personId === q.personId)?.id,
     });
 
     if (!whiteList) {
       return userInfo.persons.map(mapFunction);
     }
-    return userInfo.persons.filter((p) => whiteList.includes(p.entity_id)).map(mapFunction);
+    return userInfo.persons.filter((p) => whiteList.includes(p.personId)).map(mapFunction);
   }, [players, withMyPersonsQuickAdd, whiteList]);
 
   const playersSortingFunction = (a, b) => {
-    if (a.entity_id === userInfo.primaryPerson.entity_id) {
+    if (a.entity_id === userInfo.primaryPerson.personId) {
       return -1;
     }
-    if (b.entity_id === userInfo.primaryPerson.entity_id) {
+    if (b.entity_id === userInfo.primaryPerson.personId) {
       return 1;
     }
     return a.name.localeCompare(b.name);

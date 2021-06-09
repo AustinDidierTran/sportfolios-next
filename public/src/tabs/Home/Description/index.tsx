@@ -4,10 +4,14 @@ import Paper from '../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import styles from './Description.module.css';
 
-export default function Description(props) {
+interface IProps {
+  description?: string;
+}
+
+const Description: React.FunctionComponent<IProps> = (props) => {
   const { description } = props;
 
-  const text = useMemo(() => (description ? decodeURIComponent(description) : ''), [description]);
+  const text: string = useMemo(() => (description ? decodeURIComponent(description) : ''), [description]);
 
   if (text && text != 'null') {
     return (
@@ -18,4 +22,5 @@ export default function Description(props) {
   }
 
   return <></>;
-}
+};
+export default Description;

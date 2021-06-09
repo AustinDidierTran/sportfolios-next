@@ -88,11 +88,11 @@ export enum phaseStatus {
 export interface user {
   email: string;
   language: language;
-  id: string;
+  userId: string;
   appRole?: userAppRole;
   facebookId?: string;
   messengerId?: string;
-  primaryPerson: string;
+  primaryPerson: person;
   entities: entityRole[];
   notifications: notificationSetting[];
   creditCards?: creditCard[];
@@ -118,7 +118,10 @@ export interface entity {
   id: string;
   type: entityType;
   name: string;
+  role: role;
   surname?: string;
+  description?: string;
+  quickDescription?: string;
   photoUrl?: string;
   infosSuppId?: string;
   admins: entityRole[];
@@ -208,8 +211,6 @@ export interface event extends entity {
   startDate: string;
   endDate?: string;
   maximumSpot?: number;
-  description?: string;
-  quickDescription?: string;
   alias?: string;
   fields?: field[];
   timeSlots?: timeSlot[];
@@ -338,12 +339,17 @@ export interface practice {
 
 export interface post {
   id: string;
+  name: string;
+  surname: string;
+  createdAt: string;
   entityId: string;
+  photoUrl: string;
   content: string;
   locationId: string;
-  likes?: like[];
-  comments?: comment[];
-  images?: postImage[];
+  liked?: boolean;
+  likes: like[];
+  comments: comment[];
+  images: postImage[];
 }
 
 export interface like {
@@ -356,6 +362,10 @@ export interface comment {
   postId: string;
   entityId: string;
   content: string;
+  name: string;
+  surname: string;
+  photoUrl: string;
+  createdAt: string;
   parentId?: string;
 }
 

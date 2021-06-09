@@ -37,7 +37,7 @@ export default function Roster(props) {
     // Default behaviour: add creator of team as captain
     if (!formik.values.roster.length) {
       addPerson({
-        id: userInfo.primaryPerson.entity_id,
+        id: userInfo.primaryPerson.personId,
         completeName: `${userInfo.primaryPerson.name} ${userInfo.primaryPerson.surname}`,
       });
     }

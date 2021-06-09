@@ -54,11 +54,11 @@ export default function Memberships() {
 
   const getMemberships = async () => {
     let members = undefined;
-    if (userInfo.primaryPerson && userInfo.primaryPerson.entity_id) {
+    if (userInfo.primaryPerson && userInfo.primaryPerson.personId) {
       const { data: dataMembers } = await api(
         formatRoute('/api/entity/members', null, {
           id,
-          personId: userInfo.primaryPerson.entity_id,
+          personId: userInfo.primaryPerson.personId,
         })
       );
 

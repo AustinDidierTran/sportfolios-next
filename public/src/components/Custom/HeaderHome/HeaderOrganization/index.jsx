@@ -50,7 +50,7 @@ export default function HeaderOrganization(props) {
       })
     );
     const member = await api(
-      formatRoute('/api/entity/recentMember', null, { personId: userInfo?.primaryPerson?.entity_id, id })
+      formatRoute('/api/entity/recentMember', null, { personId: userInfo?.primaryPerson?.personId, id })
     );
     setMember(member.data);
     setHasMemberships(data);
