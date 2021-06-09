@@ -17,8 +17,16 @@ import { useTranslation } from 'react-i18next';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
+import { roster, player } from '../../../../../../typescript/types';
 
-export default function Roster(props) {
+interface IProps {
+  roster: roster;
+  index: number;
+  isAdmin: boolean;
+  update: () => void;
+}
+
+const Roster: React.FunctionComponent<IProps> = (props) => {
   const { roster, index, isAdmin, update } = props;
   const { t } = useTranslation();
 
@@ -30,10 +38,10 @@ export default function Roster(props) {
     }
   }, [roster.id]);
 
-  const [players, setPlayers] = useState([]);
-  const [expanded, setExpanded] = useState(false);
-  const [deleteRoster, setDeleteRoster] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [players, setPlayers] = useState<player[]>([]);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [deleteRoster, setDeleteRoster] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -141,4 +149,6 @@ export default function Roster(props) {
       </AccordionDetails>
     </Accordion>
   );
-}
+};
+
+export default Roster;

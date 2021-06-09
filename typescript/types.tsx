@@ -131,9 +131,9 @@ export interface entityRole {
 }
 
 export interface player {
-  id: string;
-  personId: string;
-  teamId: string;
+  id?: string;
+  personId?: string;
+  teamId?: string;
   role: rosterRole;
   name: string;
   photoUrl: string;
@@ -275,6 +275,7 @@ export interface team extends entity {
 export interface roster {
   id: string;
   teamId: string;
+  name: string;
   players?: teamPlayer[];
 }
 

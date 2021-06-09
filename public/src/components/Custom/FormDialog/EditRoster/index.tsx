@@ -9,16 +9,28 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { formatRoute } from '../../../../utils/stringFormats';
 import IconButton from '../../IconButton';
+import { roster, player } from '../../../../../../typescript/types';
 
-export default function EditRoster(props) {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  update: () => void;
+  roster: roster;
+  players: player[];
+}
+
+const EditRoster: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { open: openProps, onClose, roster, update, players: rosterPlayers } = props;
-  const [open, setOpen] = useState(false);
 
   const {
     dispatch,
     state: { id: teamId },
   } = useContext(Store);
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [people, setPeople] = useState<player[]>([]);
+  const [players, setPlayers] = useState<player[]>([]);
 
   useEffect(() => {
     if (teamId) {
@@ -30,9 +42,6 @@ export default function EditRoster(props) {
     setOpen(openProps);
     formik.setFieldValue('name', roster.name);
   }, [openProps]);
-
-  const [people, setPeople] = useState([]);
-  const [players, setPlayers] = useState([]);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -77,11 +86,11 @@ export default function EditRoster(props) {
     onClose();
   };
 
-  const onClick = (newPerson) => {
+  const onClick = (newPerson: player) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person) => {
+  const removePerson = (person: player) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
@@ -100,11 +109,13 @@ export default function EditRoster(props) {
   );
 
   const blackList = useMemo(
-    () => people.map((person) => person.id).concat(rosterPlayers.map((player) => player.person_id)),
+    () => people.map((person) => person.personId).concat(rosterPlayers.map((player) => player.personId)),
     [people, rosterPlayers]
   );
 
-  const whiteList = useMemo(() => players.map((player) => player.person_id), [players]);
+  console.log({ people, rosterPlayers });
+
+  const whiteList = useMemo(() => players.map((player) => player.personId), [players]);
 
   const fields = [
     {
@@ -116,13 +127,11 @@ export default function EditRoster(props) {
       onClick: () => {
         setPeople(
           players
-            .map((player) => ({
-              id: player.person_id,
-              completeName: player.name,
-              photoUrl: player.photo_url,
-              type: 1,
-            }))
-            .filter((player) => !blackList.includes(player.id))
+            .map((player) => {
+              const res: player = { personId: player.personId, name: player.name, photoUrl: player.photoUrl };
+              return res;
+            })
+            .filter((player: player) => !blackList.includes(player.personId))
         );
       },
       children: t('add.add_all_players'),
@@ -161,4 +170,6 @@ export default function EditRoster(props) {
       onClose={handleClose}
     />
   );
-}
+};
+
+export default EditRoster;

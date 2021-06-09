@@ -10,8 +10,13 @@ import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../utils/stringFormats';
 import styles from './Rosters.module.css';
 import Roster from './Roster';
+import { roster } from '../../../../../typescript/types';
 
-export default function Rosters(props) {
+interface IProps {
+  adminView: boolean;
+}
+
+const Rosters: React.FunctionComponent<IProps> = (props) => {
   const { adminView } = props;
   const { t } = useTranslation();
   const {
@@ -24,8 +29,8 @@ export default function Rosters(props) {
     }
   }, [teamId]);
 
-  const [open, setOpen] = useState(false);
-  const [rosters, setRosters] = useState([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [rosters, setRosters] = useState<roster[]>([]);
 
   const getRosters = async () => {
     const { rosters } = await api(
@@ -69,4 +74,5 @@ export default function Rosters(props) {
       />
     </>
   );
-}
+};
+export default Rosters;
