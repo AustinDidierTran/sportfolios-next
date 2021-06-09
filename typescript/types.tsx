@@ -209,7 +209,7 @@ export interface event extends entity {
   endDate?: string;
   maximumSpot?: number;
   description?: string;
-  quick_description?: string;
+  quickDescription?: string;
   alias?: string;
   fields?: field[];
   timeSlots?: timeSlot[];
@@ -318,16 +318,21 @@ export interface gameTeam {
   rankingId: string;
 }
 
-export interface IPractice {
-  entity_id?: string;
-  id?: string;
-  name?: string;
-  start_date?: string;
-  end_date?: string;
+export interface practice {
+  entityId: string;
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
   location?: string;
   addressFormatted?: string;
-  team_id?: string;
-  roster?: roster[];
+  teamId: string;
+  roster: player[];
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
 }
 
 export interface post {

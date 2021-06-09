@@ -1,0 +1,1972 @@
+[33mcommit 435a12a4825bd4aa49e4f441a7692582a248a97e[m[33m ([m[1;36mHEAD -> [m[1;32mTypescript-team[m[33m, [m[1;31morigin/Typescript-team[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Jun 8 15:43:36 2021 -0400
+
+    AddRoster.tsx
+
+[33mcommit 95c5a08584cc7a80fa3020679bfe40f1208460fd[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdevelop[m[33m)[m
+Merge: d404e1f 8020fd8
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue Jun 8 15:29:13 2021 -0400
+
+    Merge pull request #340 from AustinDidierTran/WCS-1188-edit-practice
+    
+    Wcs 1188 edit practice
+
+[33mcommit d404e1f0fd7accd85521e96c59e1f23c3e746af2[m
+Merge: 124b813 d018c63
+Author: Julien Bernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Jun 8 15:29:01 2021 -0400
+
+    Merge pull request #339 from AustinDidierTran/WCS-1189/Add-rosters-to-team
+    
+    Wcs 1189/add rosters to team
+
+[33mcommit 8020fd8fc1e24abf4971d9741f11b8df1e7bc0de[m[33m ([m[1;31morigin/WCS-1188-edit-practice[m[33m, [m[1;32mWCS-1188-edit-practice[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 8 15:27:11 2021 -0400
+
+    started ts
+
+[33mcommit 124b813366f8a0248103a2f6bb1ce9606cb2127e[m
+Merge: 6c85ad1 1fa9666
+Author: Julien Bernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Jun 8 14:28:51 2021 -0400
+
+    Merge pull request #341 from AustinDidierTran/Handle-errors-in-checkout
+    
+    Handle errors checkout
+
+[33mcommit d018c633d48daac1ed6c47f80182d1548efa4a25[m[33m ([m[1;31morigin/WCS-1189/Add-rosters-to-team[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Jun 8 11:25:12 2021 -0400
+
+    Delete and edit roster
+
+[33mcommit ceb67db5931f342a201153d9128c0dde8e4713d6[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon Jun 7 17:17:21 2021 -0400
+
+    Add roster to team
+
+[33mcommit a7301e42c50336def5b2a886344a0d3add41d8b5[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri Jun 4 16:22:50 2021 -0400
+
+    You can now edit and delete player from roster
+
+[33mcommit 63dc93b803c70e11d872bdfda9cf90cf19492fbb[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri Jun 4 11:57:53 2021 -0400
+
+    You can now see your rosters
+
+[33mcommit d0e111e14aa0af2a461b49bd31755e41391c82e6[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Jun 3 16:04:33 2021 -0400
+
+    Add structure and files
+
+[33mcommit 1fa96663792009842ca768145a1dd0a3299bcb74[m[33m ([m[1;33mtag: 1.18.1.2[m[33m, [m[1;31morigin/Handle-errors-in-checkout[m[33m, [m[1;32mHandle-errors-in-checkout[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon Jun 7 13:10:31 2021 -0400
+
+    Handle errors checkout
+
+[33mcommit bcc66255e8c105e6d6ff740dd1fbba9edf1eef1c[m
+Merge: 9902468 6c85ad1
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon Jun 7 07:50:06 2021 -0700
+
+    merge conflict
+
+[33mcommit 99024681bd5487b16e01ae7e154efba1fdfaf1c9[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon Jun 7 06:53:12 2021 -0700
+
+    changed more date and css
+
+[33mcommit 6c85ad130b9cab96aaa2dd7e0ba701669a4636c3[m
+Merge: 51bf1c0 8834234
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Fri Jun 4 15:44:35 2021 -0400
+
+    Merge pull request #338 from AustinDidierTran/WCS-1177/delete-practice
+    
+    Wcs 1177/delete practice
+
+[33mcommit 8834234c4e2843a1423a6a23e717f8b9ee93beca[m[33m ([m[1;31morigin/WCS-1177/delete-practice[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri Jun 4 15:32:13 2021 -0400
+
+    pr fix
+
+[33mcommit 7697162f799019ee979e7556e2cc23760c7c378a[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri Jun 4 15:14:13 2021 -0400
+
+    can edit practice and refactored the date utc
+
+[33mcommit 51bf1c0ba77857b5c1293c75295cd83bfdbbf90e[m
+Merge: 5f7f9a4 604109d
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri Jun 4 09:13:34 2021 -0400
+
+    Merge pull request #334 from AustinDidierTran/WCS-1187/Edit-players
+    
+    Allow team admin to edit and delete players
+
+[33mcommit 5f7f9a405c2180b4a2ceed057637db5399bc6b65[m
+Merge: 9480669 d0d209e
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu Jun 3 16:22:12 2021 -0400
+
+    Merge pull request #337 from AustinDidierTran/WCS-1174/see-team-practices
+    
+    Wcs 1174/see team practices
+
+[33mcommit b1fd563aa6b3be6bf2cd9fc31db09c9cc515394c[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu Jun 3 15:47:49 2021 -0400
+
+    delete practice
+
+[33mcommit d0d209e8ac318955e0f4c311527066ec420360e2[m[33m ([m[1;31morigin/WCS-1174/see-team-practices[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu Jun 3 15:21:18 2021 -0400
+
+    pr fix
+
+[33mcommit 6c9c7f64aec97c362e4012f2ceb0ad067696fa91[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu Jun 3 13:07:04 2021 -0400
+
+    game isAdming click from teams
+
+[33mcommit 94806695a92c22d724b23046e6a4c1f42e1f2fd6[m
+Merge: eb16dd0 6c49caf
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Jun 3 13:02:44 2021 -0400
+
+    Merge pull request #336 from AustinDidierTran/Hot-Fix-Sales-Report
+    
+    Fix sales report
+
+[33mcommit eb16dd0d96d4acc1cb92e521426683fbcd405fe5[m
+Merge: 58e8c70 544227c
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Jun 3 13:02:32 2021 -0400
+
+    Merge pull request #333 from AustinDidierTran/WCS-1182/Add-description-to-team
+    
+    Refactor description and add it to team
+
+[33mcommit 388b0a89f102f9071a59155e4056938e07fdf0f7[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu Jun 3 11:26:08 2021 -0400
+
+    style change
+
+[33mcommit 610adb4f07bf5bed96c4e3a4f7b67c2b6783ec96[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu Jun 3 11:16:27 2021 -0400
+
+    practice view done
+
+[33mcommit 6c49caf8db0e36c3fb9935d1ba82cb919a358c90[m[33m ([m[1;33mtag: 1.18.1.1[m[33m, [m[1;31morigin/Hot-Fix-Sales-Report[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Jun 3 10:51:07 2021 -0400
+
+    Fix sales report
+
+[33mcommit 604109df463120c41cf68ab5dec86bddb567f639[m[33m ([m[1;31morigin/WCS-1187/Edit-players[m[33m, [m[1;32mWCS-1187/Edit-players[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Jun 3 08:24:32 2021 -0400
+
+    Allow team admin to edit and delete players
+
+[33mcommit 544227cdaaebb5adafda13a4fe088d117dcc6686[m[33m ([m[1;31morigin/WCS-1182/Add-description-to-team[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 13:51:44 2021 -0400
+
+    Refactor descrption and add it to team
+
+[33mcommit 58e8c7064a2df0e453099fccadd80721ab08f8ef[m[33m ([m[1;33mtag: 1.18.2[m[33m)[m
+Merge: 69d8aa0 dcc4c5e
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Wed Jun 2 11:35:12 2021 -0400
+
+    Merge pull request #331 from AustinDidierTran/WCS-1174/see-team-practices
+    
+    Wcs 1174/see team practices
+
+[33mcommit 69d8aa0679778392bf26f23124efcf168658e305[m
+Merge: 45d1e12 a659e69
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 11:23:09 2021 -0400
+
+    Merge pull request #332 from AustinDidierTran/WCS-1180/Add-players-to-team
+    
+    Wcs 1180/add players to team
+
+[33mcommit dcc4c5ee592abb7b79dfa43c53f04e2928c7937a[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed Jun 2 11:16:57 2021 -0400
+
+    removed unnecessary css
+
+[33mcommit 2f5f54f412fa3d4c84a0d3c6543ab7598033eae8[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed Jun 2 11:06:36 2021 -0400
+
+    changed wrong name
+
+[33mcommit a659e698bb8dad772cbaa053f41b17216994ce6a[m[33m ([m[1;31morigin/WCS-1180/Add-players-to-team[m[33m, [m[1;32mWCS-1180/Add-players-to-team[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 10:52:26 2021 -0400
+
+    Disabled add button when no one is selected
+
+[33mcommit dc3390ac0d6ad341d2c8fabcc289962272288b91[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 10:02:04 2021 -0400
+
+    Add component to add players
+
+[33mcommit 45d1e12268fa43776844c06c278503e8c84c2847[m
+Merge: 9423c23 037e758
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 10:20:01 2021 -0400
+
+    Merge pull request #330 from AustinDidierTran/WCS-43/Change-terms-and-conditions
+    
+    Make didiers requested changes for terms and conditions
+
+[33mcommit 037e7589e7c395779264bbe356c72f88f756888d[m[33m ([m[1;31morigin/WCS-43/Change-terms-and-conditions[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 10:19:04 2021 -0400
+
+    Add button
+
+[33mcommit 9423c23b2abbfc8efe0c0049297e9e9ed64ae128[m
+Merge: 87e20db 783d62a
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Jun 2 10:05:50 2021 -0400
+
+    Merge pull request #328 from AustinDidierTran/WCS-1179/Display-players-of-a-team
+    
+    Display players of a team
+
+[33mcommit c4bd8bf7f130378baab7f87f69e8d260adf90946[m
+Merge: 7ab75e1 87e20db
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed Jun 2 09:44:32 2021 -0400
+
+    game view
+
+[33mcommit 7ab75e1774092a7c62314e40ec82bc10a4a1c328[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 16:04:50 2021 -0400
+
+    changed format practice
+
+[33mcommit 87e20db8111319a73afd008b76b060530042ab87[m
+Merge: cc4c44c 97ce12b
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue Jun 1 15:42:33 2021 -0400
+
+    Merge pull request #327 from AustinDidierTran/WCS-1173-create-practice
+    
+    Wcs 1173 create practice
+
+[33mcommit 97ce12b3ca808192a673fb9d824b83508976b22a[m[33m ([m[1;31morigin/WCS-1173-create-practice[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 14:58:49 2021 -0400
+
+    pr fixes
+
+[33mcommit 95faaa083918a9eedd7140c0d46b2a60734e847d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 14:49:31 2021 -0400
+
+    can see practices and games
+
+[33mcommit e78e5488e5317f233722d2e271563f98ff5dc252[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Jun 1 14:41:23 2021 -0400
+
+    Make didiers requested changes for terms and conditions
+
+[33mcommit 783d62afb50bfd5e8863fad0f12beb82c1386182[m[33m ([m[1;31morigin/WCS-1179/Display-players-of-a-team[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Jun 1 13:36:40 2021 -0400
+
+    Display players of a team
+
+[33mcommit 3e752135b90c1ca190adc98390d8d9173d73c162[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 10:09:51 2021 -0400
+
+    added practice msg
+
+[33mcommit 5f7bd9784ea288e6f5f0924e1b98106a5bffe12c[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 09:51:26 2021 -0400
+
+    added translation
+
+[33mcommit ebdd056a22e530aa91671d1af068129ad1cfcaf2[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 09:45:29 2021 -0400
+
+    removed husky
+
+[33mcommit 4a305abf2d04f538bc94c90aacf951061453d853[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue Jun 1 09:41:40 2021 -0400
+
+    create practice
+
+[33mcommit cc4c44c4f39171911c78c825d3a7044f576edf35[m
+Merge: 8668d50 076265e
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 31 15:20:20 2021 -0400
+
+    Merge pull request #326 from AustinDidierTran/WCS-1172/New-header-and-tabs-team
+    
+    New header and tabs team
+
+[33mcommit 5a9af8116b58ed250b87a2b362ed6b3bd82ff3e3[m
+Merge: 0564dfe 076265e
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 31 15:04:33 2021 -0400
+
+    Merge branch 'WCS-1172/New-header-and-tabs-team' into WCS-1173-create-practice
+
+[33mcommit 0564dfe8e21245ba93ae4353e88842c7dd7be414[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 31 14:49:40 2021 -0400
+
+    added button and form
+
+[33mcommit 076265ed35c4a348fa24cd8597255c87de220734[m[33m ([m[1;31morigin/WCS-1172/New-header-and-tabs-team[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 31 13:55:12 2021 -0400
+
+    New header and tabs team
+
+[33mcommit 8668d50bf9804b939ad4cf1594b878498a8738c3[m
+Merge: 40e1889 a1cbd2c
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Mon May 31 12:17:18 2021 -0400
+
+    Merge pull request #325 from AustinDidierTran/WCS-1184/donation-component-own-dialog
+    
+    moved donation to new component
+
+[33mcommit a1cbd2c636bdba215c4859fd51649d88b0066d7b[m[33m ([m[1;31morigin/WCS-1184/donation-component-own-dialog[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 31 11:19:00 2021 -0400
+
+    moved donation to new component
+
+[33mcommit 40e1889682df9bdb8c7a464379acbfcb39691d3d[m[33m ([m[1;33mtag: 1.18.1[m[33m)[m
+Merge: e8f3a76 b01efd6
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Sun May 30 19:34:28 2021 -0400
+
+    Merge pull request #324 from AustinDidierTran/showCase-fix
+    
+    showcase fix
+
+[33mcommit b01efd6be526ac317f22f3339d018d7f27ead7cf[m[33m ([m[1;31morigin/showCase-fix[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 28 14:32:30 2021 -0400
+
+    showcase fix
+
+[33mcommit e8f3a765a7b457bad12cd841f9ca0e268f30505f[m
+Merge: 6a90ce1 2732a6c
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Fri May 28 11:51:05 2021 -0400
+
+    Merge pull request #323 from AustinDidierTran/fix-bug-staging
+    
+    fix bug
+
+[33mcommit 2732a6c5b44854b65479e2a2e3d9b67de2e244c5[m[33m ([m[1;31morigin/fix-bug-staging[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 28 11:48:38 2021 -0400
+
+    fix goback
+
+[33mcommit 6a90ce1bdbbba47db2d2c7b5be738fb79a5e5c71[m
+Merge: 108de0e 36b8201
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 28 10:17:51 2021 -0400
+
+    Merge pull request #322 from AustinDidierTran/Fix-member-name
+    
+    Fixes
+
+[33mcommit 36b8201144e1e24cc25dbac5e44ec5f01cfa2ec3[m[33m ([m[1;31morigin/Fix-member-name[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 28 10:14:26 2021 -0400
+
+    Fix aliases
+
+[33mcommit 934b8215b16b6251dca193e0789d4a0b071f4137[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 28 09:47:34 2021 -0400
+
+    added and changes gobacks
+
+[33mcommit 2db19674ab7f1894c382a2ffe52c36d37572a215[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 28 09:18:11 2021 -0400
+
+    fix members report
+
+[33mcommit 08140f8feadc2f78a89a1ce89ee03bf72496544d[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 16:15:01 2021 -0400
+
+    Remove no description
+
+[33mcommit b0d7e5846ac61747ce2d9567335e2ffe6d3dfa58[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 27 16:15:34 2021 -0400
+
+    fix bug
+
+[33mcommit ed585c34e7cea8cad348f62204021ed69f59dd2d[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 15:31:24 2021 -0400
+
+    Fix description terms and conditions
+
+[33mcommit aa850173e159c6ffb369f9612472df748cdc1434[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 15:15:32 2021 -0400
+
+    Fix member name
+
+[33mcommit 108de0e0364330403e2f702ed869ca3e4bc53f56[m[33m ([m[1;33mtag: 1.18[m[33m)[m
+Merge: 608a7f1 6ae8e7f
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 27 12:53:53 2021 -0400
+
+    Merge pull request #321 from AustinDidierTran/WCS-1085/change-event-team-individual
+    
+    change registration type
+
+[33mcommit 608a7f179d7de6ded94f101e993a2e135daaaa8a[m
+Merge: 014817b cfe0b0c
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 12:53:35 2021 -0400
+
+    Merge pull request #320 from AustinDidierTran/Fix-Build
+    
+    Fix Build
+
+[33mcommit 014817bbd64bc992fdf544e70e8e14cf23378ac9[m
+Merge: 7955c33 4cdbf4b
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 12:53:20 2021 -0400
+
+    Merge pull request #318 from AustinDidierTran/WCS-1096/Display-partners
+    
+    Wcs 1096/display partners
+
+[33mcommit 7955c335f33506fcf714296e0f63d38951ba5c1d[m
+Merge: cfc5542 33e21a9
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 27 12:51:01 2021 -0400
+
+    Merge pull request #317 from AustinDidierTran/WCS-1103/See-player-member-of-organization
+    
+    added is member column
+
+[33mcommit 33e21a9420b0726498223dc0e31a2d3cf1fb640e[m[33m ([m[1;31morigin/WCS-1103/See-player-member-of-organization[m[33m)[m
+Merge: e66ef4d cfc5542
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 27 12:50:11 2021 -0400
+
+    fix merge conflict
+
+[33mcommit 6ae8e7f4447c95e274286a4cef947dcb5e939846[m[33m ([m[1;31morigin/WCS-1085/change-event-team-individual[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 27 12:38:25 2021 -0400
+
+    pr fix
+
+[33mcommit cfc55426e23cde8116f21710995a05a2f8aff5e4[m
+Merge: 859b101 1d538b3
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 27 12:15:12 2021 -0400
+
+    Merge pull request #319 from AustinDidierTran/WCS-1061/filter-participant
+    
+    Wcs 1061/sort participant
+
+[33mcommit eff30a001eb5b29cfdf6cf3f8e8225bcf996f452[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 27 11:07:00 2021 -0400
+
+    change registration type
+
+[33mcommit e66ef4d1846cb903d9da5050c81a89efd6817260[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 10:53:28 2021 -0400
+
+    GeneralInfos call
+
+[33mcommit 0ca23459eeed688f370768f908a84c44b6604611[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 26 14:01:51 2021 -0400
+
+    fix pr
+
+[33mcommit 03c25b72653dac34d14fd4a3ef9a1b58ea589287[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 26 09:45:36 2021 -0400
+
+    added is member column
+
+[33mcommit cfe0b0c2efc42df1a7c4b1b94e427cd791c4dc84[m[33m ([m[1;31morigin/Fix-Build[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 27 10:47:11 2021 -0400
+
+    Fix Build
+
+[33mcommit 4cdbf4b62ff371da86b6912d08c67abbed4ed2a0[m[33m ([m[1;31morigin/WCS-1096/Display-partners[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 26 14:28:48 2021 -0400
+
+    Finish UI
+
+[33mcommit 1d538b3406c0be7ad660e99536c723dbe28f3c0b[m[33m ([m[1;31morigin/WCS-1061/filter-participant[m[33m)[m
+Merge: 81f66f5 17ac285
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 26 14:08:33 2021 -0400
+
+    Merge branch 'WCS-1103/See-player-member-of-organization' into WCS-1061/filter-participant
+
+[33mcommit 17ac2852f9bb7d153e355a0bf71e5b8dff54a971[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 26 14:01:51 2021 -0400
+
+    fix pr
+
+[33mcommit 81f66f5aa63e3e0faff10fd4e2beeb9815821f15[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 26 13:53:58 2021 -0400
+
+    added the sort on table
+
+[33mcommit a4674157c813ebbece92fe00e7309f219ebea1ca[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 08:56:46 2021 -0400
+
+    Add collapse
+
+[33mcommit e65efed0bb8b90cd547a9611d086484b91a0ae32[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 21 19:26:31 2021 -0400
+
+    Version desktop to display partners
+
+[33mcommit 6b08a771628f8ef73ba0c1684eeec02c12b9c27e[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 26 09:45:36 2021 -0400
+
+    added is member column
+
+[33mcommit 859b101c855f1c24d85788a1c3bddcf6a3690566[m
+Merge: 8c04f4f 5bd0510
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 17:09:07 2021 -0400
+
+    Merge pull request #316 from AustinDidierTran/WCS-43/new-landing-page
+    
+    [WCS-43] Added team + changed text of first section
+
+[33mcommit 5bd051098f639599652c306223b1cf104ce7e129[m[33m ([m[1;31morigin/WCS-43/new-landing-page[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 17:07:56 2021 -0400
+
+    Former highschool
+
+[33mcommit fddbc2b2071cfa13f021d5503075a22ba79e14eb[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 17:02:36 2021 -0400
+
+    Fixes
+
+[33mcommit 6d35b10895bc5751fc04f1548fc8910440093e65[m
+Author: Austin-Didier Tran <tran.austin.didier@gmail.com>
+Date:   Tue May 25 15:45:42 2021 -0400
+
+    Added team + changed text of first section
+
+[33mcommit 8c04f4faa18c72fc8fbcc07573e1093f414de91b[m
+Merge: 9ea4b7c 5b3c8c0
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 16:09:49 2021 -0400
+
+    Merge pull request #314 from AustinDidierTran/WCS-1097/revenues-are-line-charts
+    
+    added two line graph
+
+[33mcommit 5b3c8c024e8484893796d29c3fea4c947d2aebfe[m[33m ([m[1;31morigin/WCS-1097/revenues-are-line-charts[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 16:08:40 2021 -0400
+
+    Solve push problem
+
+[33mcommit 3f3e2ae72919c9d5cb1eb84e9989980ac9e7604b[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 24 12:56:27 2021 -0400
+
+    change lang
+
+[33mcommit b5fbef58016f03fa6a8c63f454111aa347f44814[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 24 12:38:56 2021 -0400
+
+    admin language
+
+[33mcommit 9827516ff28d4d47d895279103b547133e0ac93d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 24 12:23:26 2021 -0400
+
+    added two line graph
+
+[33mcommit 9ea4b7c664258dbee023fcb7b9c5c9a12163727c[m
+Merge: d482dc5 6c04c7a
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 16:02:52 2021 -0400
+
+    Merge pull request #312 from AustinDidierTran/WCS-1105/Create-new-donation-cart-type
+    
+    added cart item
+
+[33mcommit 6c04c7a03f1c83c5a9a606b0de8854806a36d09f[m[33m ([m[1;31morigin/WCS-1105/Create-new-donation-cart-type[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 16:01:57 2021 -0400
+
+    Solved errors when pushing
+
+[33mcommit 59a75dbf4c7d540ad2a511fcd165ceec28233716[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 15:24:12 2021 -0400
+
+    Open receipt in new tab
+
+[33mcommit 028640491045250b68bc250c461c0c2c42bdf8e2[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 25 12:08:52 2021 -0400
+
+    fixed bug and refactor code
+
+[33mcommit ed3cff8286fb47979525c2baa34599af91bae37c[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 21 13:28:49 2021 -0400
+
+    added cart item
+
+[33mcommit d482dc57d220f1ad1d8833e4d7da22ac8735a3f2[m
+Merge: f244f22 ed7d025
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 15:55:53 2021 -0400
+
+    Merge pull request #315 from AustinDidierTran/WCS-1110/member-graph-line-chart
+    
+    changed to linear
+
+[33mcommit f244f22b95834498e570ec6271de419698be5653[m
+Merge: 42f26c2 c8cf323
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 14:55:04 2021 -0400
+
+    Merge pull request #305 from AustinDidierTran/WCS-1062/Handle-id-in-store
+    
+    Wcs 1062/handle id in store
+
+[33mcommit c8cf3235f433cb5e33b85199be4c565faa51aa85[m[33m ([m[1;31morigin/WCS-1062/Handle-id-in-store[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 14:53:14 2021 -0400
+
+    Fix last bug
+
+[33mcommit 42f26c2cfe780a4816dcb2f867448c5357fc4301[m
+Merge: de90a90 58a59df
+Author: Austin-Didier Tran <tran.austin.didier@gmail.com>
+Date:   Tue May 25 13:06:14 2021 -0400
+
+    Merge pull request #313 from AustinDidierTran/WCS-43/new-landing-page
+    
+    New landing page
+
+[33mcommit 36ba4f4a96e2c8d0ba16968078f4328177ab42be[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 12:05:40 2021 -0400
+
+    Wrong formatRoute import
+
+[33mcommit 20a11dc385bd04eeac59949ae6065f706340f3ab[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 12:02:44 2021 -0400
+
+    Merge with develop
+
+[33mcommit 61e3c2c8eb70b639e32b97e1793a1dbb41831de4[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 25 11:46:54 2021 -0400
+
+    Add useContext everywhere
+
+[33mcommit 0b600a342e223861f158e580b4413200ce713a89[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 13:27:17 2021 -0400
+
+    Remove formatRoute duplicate
+
+[33mcommit 58a59df450224e69d8db390ef6e22b02d60a5cad[m
+Author: Austin-Didier Tran <tran.austin.didier@gmail.com>
+Date:   Tue May 25 09:10:15 2021 -0400
+
+    PR fixes
+
+[33mcommit ed7d025215f4b1f2a78495ed97ac7a3ae66cfe4a[m[33m ([m[1;31morigin/WCS-1110/member-graph-line-chart[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 24 13:23:25 2021 -0400
+
+    remove unecessary text
+
+[33mcommit bbfa6770947147d973683e1baf92c6ccbff04f3d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 24 13:19:47 2021 -0400
+
+    changed to linear
+
+[33mcommit 73b75ab86cd47126fd2b60f125a77205ca241e93[m
+Author: Austin-Didier Tran <tran.austin.didier@gmail.com>
+Date:   Mon May 24 09:38:15 2021 -0400
+
+    New landing page
+
+[33mcommit de90a9005865b2b803adadd5ceab15e8f8c2b891[m
+Merge: b0936ee ab19249
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Fri May 21 09:07:11 2021 -0400
+
+    Merge pull request #310 from AustinDidierTran/WCS-1090/add-donation
+    
+    Wcs 1090/add donation
+
+[33mcommit ab192495cb2a7f4b829d55052352941f63e12196[m[33m ([m[1;31morigin/WCS-1090/add-donation[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 16:11:50 2021 -0400
+
+    fix
+
+[33mcommit 46fb7a43232244e25cb68ba5d2443200c93239c1[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 15:57:22 2021 -0400
+
+    remove onchange
+
+[33mcommit 274b201da3fc4ec60ba631ec5dc759c1b08c8286[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 15:12:34 2021 -0400
+
+    price 2 digit
+
+[33mcommit b0936ee3e3e43f557c8a60894f5d1b90fd1cd843[m
+Merge: a90357b b5b7d7a
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 14:54:05 2021 -0400
+
+    Merge pull request #311 from AustinDidierTran/WCS-1109/Edit-and-delete-partners
+    
+    Wcs 1109/edit and delete partners
+
+[33mcommit b5b7d7ac0b9b967562ae0bac18052ff620990143[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 11:59:42 2021 -0400
+
+    Added ?
+
+[33mcommit c97fcfc04fe55cd3e11d129199bd04f36034a494[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 10:02:21 2021 -0400
+
+    Delete and edit partner
+
+[33mcommit 896be2a8d37ada95fe469878cb8c437b495541cb[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 19 16:04:30 2021 -0400
+
+    Display partners in organization settings
+
+[33mcommit a90357bbed28338e14606102969ecc6ca83311d7[m
+Merge: 3bdb70e 7724bcf
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 14:50:17 2021 -0400
+
+    Merge pull request #309 from AustinDidierTran/WCS-1108/Display-partners
+    
+    Wcs 1108/display partners
+
+[33mcommit 7724bcfe1dd171f806eee85fd82459806493ecd0[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 11:57:43 2021 -0400
+
+    Added formatRoute
+
+[33mcommit 17ef7855db72f142eb78c199a3e5d6642dc12940[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 07:13:44 2021 -0400
+
+    Add redirect to website
+
+[33mcommit 951b7af22ba654361c7b73000379ef1d7f1853cd[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 19 16:04:30 2021 -0400
+
+    Display partners in organization settings
+
+[33mcommit 3bdb70e575e2317356703b5df920926dd6c96a32[m
+Merge: 61db617 f149ac9
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 14:44:08 2021 -0400
+
+    Merge pull request #306 from AustinDidierTran/WCS-1089/Add-landing-page-emails
+    
+    Add landing page emails
+
+[33mcommit 5e710290146f8cf9d34421aa6d2ec0e4279e61be[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 13:53:52 2021 -0400
+
+    empty text work
+
+[33mcommit fdc2e0d05f906a952115d904c6f4d8cbd04d49e3[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 13:39:02 2021 -0400
+
+    nameChange
+
+[33mcommit 0f3c03fe71f51b1a9f21f279cef11808c000d5b0[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 13:35:21 2021 -0400
+
+    remove console
+
+[33mcommit 280d86ac46fe085035162beb06c02f2fc8eb57c6[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 20 13:30:43 2021 -0400
+
+    review changes
+
+[33mcommit 61db61732385b4a48f5e39e604ba9c4dad3986d7[m
+Merge: 0f7c025 2b0ffee
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 10:46:31 2021 -0400
+
+    Merge pull request #308 from AustinDidierTran/WCS-1106/Add-partner
+    
+    Add partner
+
+[33mcommit f149ac93016312739873dc36ae53a4675ae34017[m[33m ([m[1;31morigin/WCS-1089/Add-landing-page-emails[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 20 10:15:57 2021 -0400
+
+    Traduction
+
+[33mcommit 2b0ffee1355840d73e720a441253b8f1437cb4fc[m[33m ([m[1;31morigin/WCS-1106/Add-partner[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 19 14:19:28 2021 -0400
+
+    Feature to add partner
+
+[33mcommit d347645118348564368b7cb30cd5c9a6c27ccab0[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 19 16:08:55 2021 -0400
+
+    edge cases
+
+[33mcommit 36395d7f66d11f1d1adffb21d8f8d012d4ff361e[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 19 15:47:59 2021 -0400
+
+    fix empty error
+
+[33mcommit 1c3bed2deaaec6641c8d42278ab68b9fc730d5fa[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 19 15:26:08 2021 -0400
+
+    added donation
+
+[33mcommit b907f61797784fe1c2028993a7a7b8103d59a5f2[m[33m ([m[1;31morigin/WCS-1107/Change-tabs-organization[m[33m, [m[1;32mWCS-1107/Change-tabs-organization[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 19 11:06:08 2021 -0400
+
+    Change tabs structure organization
+
+[33mcommit d493a3820564dd4c31640d2c0a52c962be3d5c67[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 19:14:11 2021 -0400
+
+    Add landing page emails
+
+[33mcommit 0f7c02523524e29bc6d8050d1bec90a30ef26d0c[m[33m ([m[1;33mtag: 1.17.2[m[33m)[m
+Merge: 7009fa0 05d7619
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue May 18 14:20:53 2021 -0400
+
+    Merge pull request #304 from AustinDidierTran/WCS-1053/List-coupon-code
+    
+    Added coupon list
+
+[33mcommit 05d7619da63d19d22ca51c56340e99980d6d7efb[m[33m ([m[1;31morigin/WCS-1053/List-coupon-code[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 18 12:07:48 2021 -0400
+
+    forgot fr
+
+[33mcommit 7009fa085160dbfd72ae1f57ede93f12c9067ed9[m
+Merge: ac43525 7748bd9
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 11:39:30 2021 -0400
+
+    Merge pull request #300 from AustinDidierTran/WCS-1072/Fix-date-time
+    
+    Add varchar date
+
+[33mcommit f22ab638dc5bd0e9b8f84780e992eff29509d87d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 18 11:38:18 2021 -0400
+
+    pr changes
+
+[33mcommit 7748bd905f3f322ca02e5556246a96fdac05f002[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 11:10:02 2021 -0400
+
+    Requested changes
+
+[33mcommit ac43525e6527be319484343800c2f80617582506[m
+Merge: 1dd4c22 e4040ce
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 11:08:44 2021 -0400
+
+    Merge pull request #303 from AustinDidierTran/WCS-1138/Fix-landing-page
+    
+    Fix landing page
+
+[33mcommit e4040ced5c3ea6d3393617f598377f61150c6a94[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 11:07:47 2021 -0400
+
+    Remove important
+
+[33mcommit 1dd4c22115cf6a8920c513feccb9e491016d93e5[m
+Merge: a2f2712 da33cce
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 11:04:23 2021 -0400
+
+    Merge pull request #301 from AustinDidierTran/Quick-fix-traduction
+    
+    Quick fix trad
+
+[33mcommit a2f2712e3f8c88729ab000049ea9eb49e9370754[m
+Merge: c75b772 a74baab
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 11:04:05 2021 -0400
+
+    Merge pull request #302 from AustinDidierTran/Update-types
+    
+    Update types
+
+[33mcommit a74baabc4df6df480b491d854b58547e866c2f4a[m[33m ([m[1;31morigin/Update-types[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 18 10:50:21 2021 -0400
+
+    Person extends entity
+
+[33mcommit bdcab7142e1a9c5036f6b68680ebd643caec1f9f[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 18 09:40:46 2021 -0400
+
+    added coupon list
+
+[33mcommit 5085d5ae82a0926609e30c97d023d7813fc856d3[m[33m ([m[1;31morigin/WCS-1138/Fix-landing-page[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 15:38:05 2021 -0400
+
+    Fix landing page
+
+[33mcommit 83c8a598cb53ead451c5547d629094859c8485ed[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 15:15:42 2021 -0400
+
+    Update types
+
+[33mcommit da33cce1975256969e2dcb902c7d57eb4a177c59[m[33m ([m[1;31morigin/Quick-fix-traduction[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 14:59:10 2021 -0400
+
+    Quick fix trad
+
+[33mcommit 4108fcef2067fa6120d1d2bd4fa85e70f9623b3c[m[33m ([m[1;31morigin/WCS-1072/Fix-date-time[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 12:55:11 2021 -0400
+
+    Remove console
+
+[33mcommit f66c362e1ef4fd00b90a13ae873aba2973fd1dd2[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 12:50:33 2021 -0400
+
+    Console
+
+[33mcommit 0f5042d39dc5c3a4811efaf1317463cb3c780e72[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 12:23:22 2021 -0400
+
+    Add date but in varchar
+
+[33mcommit 197954589b7c53834b1af844d01efc36a7b1a81b[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 17 11:50:13 2021 -0400
+
+    Add startTime and endTime
+
+[33mcommit c75b772cf5a5f40f3bdf1d1fe1bfba7a000ee058[m[33m ([m[1;33mtag: 1.17.1[m[33m)[m
+Merge: 649f119 65a8b10
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 14 17:07:31 2021 -0400
+
+    Merge pull request #299 from AustinDidierTran/demo-fix
+    
+    fix demo bug
+
+[33mcommit 65a8b1056acea135a2abfa9a9eea28b27650521e[m[33m ([m[1;31morigin/demo-fix[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 14 15:52:06 2021 -0400
+
+    changed commit
+
+[33mcommit f8313b397c1cefb271ede2d0e9b2e772be45838c[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 14 15:39:25 2021 -0400
+
+    fix demo bug
+
+[33mcommit 649f119ff8cbcc03be913adea511bbb3e6c8d975[m[33m ([m[1;33mtag: 1.17[m[33m)[m
+Merge: 75dd2fc daf84b0
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Fri May 14 10:51:40 2021 -0400
+
+    Merge pull request #298 from AustinDidierTran/WCS-1087/fields-for-address-not-optional
+    
+    added restriction of address
+
+[33mcommit 75dd2fcc8257767202c958f38793da9c5e5e2d3c[m
+Merge: 40d3880 f743a92
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 14 10:14:01 2021 -0400
+
+    Merge pull request #297 from AustinDidierTran/Change-members-graph-name
+    
+    Change name
+
+[33mcommit f743a928b486214bbe9a70e47ffecc3609ef86a7[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 14 10:10:40 2021 -0400
+
+    Change name
+
+[33mcommit 40d3880e10dc4fc861b2468a132e2eb03de9e3a4[m
+Merge: 75df8ec e50872f
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 14 09:53:16 2021 -0400
+
+    Merge pull request #294 from AustinDidierTran/WCS-43/Found-small-bugs-while-refactoring-db
+    
+    Found small bugs while refactoring db
+
+[33mcommit 75df8ec8a8a107f1504d70c4d9c6f09032078e78[m
+Merge: 94306ac f7aba36
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Fri May 14 08:45:51 2021 -0400
+
+    Merge pull request #295 from AustinDidierTran/WCS-1100/Coupon-code-refactor
+    
+    refactored
+
+[33mcommit 94306acc930bd7fad2fba7b84b3778e908f9b0a1[m
+Merge: 002e448 115d7c4
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 13 16:50:49 2021 -0400
+
+    Merge pull request #292 from AustinDidierTran/WCS-1083-Edit-terms-and-conditions
+    
+    added edit option
+
+[33mcommit 115d7c449cca99c4f64988342899c64c640365de[m[33m ([m[1;31morigin/WCS-1083-Edit-terms-and-conditions[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 13 16:47:29 2021 -0400
+
+    fix
+
+[33mcommit c806edcb2d00eb233aed1a8bc3df94cece449581[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 13 16:45:21 2021 -0400
+
+    fix
+
+[33mcommit 002e448dafbf4a1c1c9df59ce097dc73b2e211c3[m
+Merge: 8013726 3856063
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 13 15:46:00 2021 -0400
+
+    Merge pull request #296 from AustinDidierTran/WCS-1050/Membership-new-prompted-optional-fields
+    
+    code review fix
+
+[33mcommit f7aba369260f4a9226f658e3f8a44fb8b0e2a1e9[m[33m ([m[1;31morigin/WCS-1100/Coupon-code-refactor[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 13 15:25:04 2021 -0400
+
+    fix bug
+
+[33mcommit 047bae36b5e12c313cf07a633b573f8d4140c01a[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 13 14:40:18 2021 -0400
+
+    code review fix
+
+[33mcommit 8013726d714449fb2371904893e9b067cf84706b[m
+Merge: dc14f03 4058353
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 13 13:05:05 2021 -0400
+
+    Merge pull request #293 from AustinDidierTran/WCS/1088-event-add-back-arrow
+    
+    Wcs/1088 event add back arrow
+
+[33mcommit 385606333a1869a3521b3ce83b6ba8d25fa5e038[m[33m ([m[1;31morigin/WCS-1050/Membership-new-prompted-optional-fields[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 13 12:36:19 2021 -0400
+
+    code review fix
+
+[33mcommit 52a2b90316d852667ec20d4fc597174656857e3d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 13 11:54:33 2021 -0400
+
+    refactored
+
+[33mcommit daf84b0143515f7a2e1c49b50ffe2ec41781fdb5[m[33m ([m[1;31morigin/WCS-1087/fields-for-address-not-optional[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 12 16:42:11 2021 -0400
+
+    added restriction of address
+
+[33mcommit e50872f42cbd85eb15c4945d4d5d1744fb9977ad[m[33m ([m[1;31morigin/WCS-43/Found-small-bugs-while-refactoring-db[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 12 16:02:29 2021 -0400
+
+    Typo
+
+[33mcommit 7676182eed3ddff0033670b92519a7b0e003c24e[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 12 14:42:41 2021 -0400
+
+    Found small bugs while refactoring db
+
+[33mcommit 4058353b3acdcd3681f4752d122a1a575e0997d6[m[33m ([m[1;31morigin/WCS/1088-event-add-back-arrow[m[33m, [m[1;32mWCS/1088-event-add-back-arrow[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 12 10:13:57 2021 -0400
+
+    changed the text
+
+[33mcommit b426203cb7dca72fe1fcfb8ccefe17bcaf5dd694[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 12 10:09:23 2021 -0400
+
+    added the back button
+
+[33mcommit dc14f03380d2e76751d9302a47dc9c315207e14e[m
+Merge: d7877fa de29fc9
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Wed May 12 09:01:51 2021 -0400
+
+    Merge pull request #290 from AustinDidierTran/WCS-1082/Add-term-and-conditions-to-membership-details
+    
+    added the desciption and terms&conditions
+
+[33mcommit d7877faee0e9a3ada18cd63bfc3dd12ec9500a26[m
+Merge: e883acd 15c7122
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 11 16:55:16 2021 -0400
+
+    Merge pull request #291 from AustinDidierTran/WCS-1073/Update-landing-page
+    
+    Wcs 1073/update landing page
+
+[33mcommit de29fc9e809bee964f19bc00efcd8d8af4a2be29[m[33m ([m[1;31morigin/WCS-1082/Add-term-and-conditions-to-membership-details[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 11 15:22:24 2021 -0400
+
+    code-review fix
+
+[33mcommit 77744c4934fadccf34b9e82dc53dfcb4deca30e6[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 11 15:05:13 2021 -0400
+
+    added edit option
+
+[33mcommit 2d4e489500108d01f8201b97110d8e990fa21ed0[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 11 13:29:41 2021 -0400
+
+    Link open in new tab
+
+[33mcommit 15c71228096b37e0977c96a5168c00131d85e582[m[33m ([m[1;31morigin/WCS-1073/Update-landing-page[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 11 11:54:56 2021 -0400
+
+    Add photos with the right format
+
+[33mcommit e883acd372654db6010d6f5fcacd45bbf2e65419[m
+Merge: 4990257 9f5dcdd
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue May 11 10:13:56 2021 -0400
+
+    Merge pull request #289 from AustinDidierTran/WCS-1050/Membership-new-prompted-optional-fields
+    
+    Wcs 1050/membership new prompted optional fields
+
+[33mcommit 4990257b88c748a830068bd21c8c148ba892610c[m
+Merge: 9b223dd 04fd0f9
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue May 11 10:13:29 2021 -0400
+
+    Merge pull request #288 from AustinDidierTran/WCS-1079/Apply-no-limits-of-people
+    
+    Wcs 1079/apply no limits of people
+
+[33mcommit 11623367d18062b7efdbe401e8f2b5c5debfe072[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 11 10:12:15 2021 -0400
+
+    added the desciption and terms&conditions
+
+[33mcommit 04fd0f9981e795c819533a029883e0918eea82c3[m[33m ([m[1;31morigin/WCS-1079/Apply-no-limits-of-people[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 11 09:31:10 2021 -0400
+
+    maximum spots 0
+
+[33mcommit 9f5dcddf3729276294c1a2ae8f4eccab844d4ef1[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 11 09:22:42 2021 -0400
+
+    useState fix
+
+[33mcommit eebc97e20a30caee75d72a5cfd11d7eb18bc3f44[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 11 08:35:39 2021 -0400
+
+    Remove first page and add new team members
+
+[33mcommit 6a8fd0514697e541d570b9d9fb74736596ca5b01[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 10 16:54:24 2021 -0400
+
+    code review
+
+[33mcommit b897b837123e24c291cc14bde50ac26f13ee6b78[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 10 16:05:26 2021 -0400
+
+    fixed bug when closing optional option
+
+[33mcommit add46a78be5d7f242f3ddbaf96ac78c175e97dc3[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 10 15:47:32 2021 -0400
+
+    added the option and to the .csv member list
+
+[33mcommit 9b223dd3014080268e4115d91e825cf70edf65cf[m
+Merge: 5241ef8 2080a65
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 10 09:19:47 2021 -0400
+
+    Merge pull request #287 from AustinDidierTran/Create-types-typescript
+    
+    Create types typescript
+
+[33mcommit 2080a6578b1e2467244e6585124ef0148bdadd51[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 7 13:07:40 2021 -0400
+
+    Create types typescript
+
+[33mcommit 610c82fb0b3f723e9d80c552f4c8c9a187d7a50d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Fri May 7 14:17:31 2021 -0400
+
+    fixed bug
+
+[33mcommit 5241ef8bcbe12e00cb5adc1f5e5cb5217d361dfb[m
+Merge: 00d9174 c88cc14
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 7 10:50:49 2021 -0400
+
+    Merge pull request #284 from AustinDidierTran/WCS-1066/Add-terms-and-conditions-to-memberships
+    
+    Add terms and conditions to memberships
+
+[33mcommit c88cc14b6a778d1bad81ce7bc2c911f78b16cdf6[m
+Merge: 75161db 00d9174
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 7 10:50:42 2021 -0400
+
+    Merge branch 'develop' into WCS-1066/Add-terms-and-conditions-to-memberships
+
+[33mcommit 00d917487c5120e3e81dbd46ad8e1c3cb3649d3a[m
+Merge: 920503d 4a6ca23
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 7 10:49:33 2021 -0400
+
+    Merge pull request #286 from AustinDidierTran/WCS-1069/Add-terms-and-conditions-when-becoming-member
+    
+    Add terms and conditions when becoming a member
+
+[33mcommit 75161db2fbedfcb92c183715bbb828f7b5db3316[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri May 7 10:49:15 2021 -0400
+
+    Requested changes
+
+[33mcommit 4a6ca23452666270d01a036331092d5456b0efb9[m[33m ([m[1;31morigin/WCS-1069/Add-terms-and-conditions-when-becoming-member[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 6 15:37:12 2021 -0400
+
+    Add terms and conditions when becoming a member
+
+[33mcommit 9d3f39c0a8c7c985ef4ec29aea1006e8351bbfec[m[33m ([m[1;31morigin/WCS-1066/Add-terms-and-conditions-to-memberships[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu May 6 11:17:02 2021 -0400
+
+    Add terms and conditionsto memberships
+
+[33mcommit 920503de0d442f36e66f37095df16b320ef723e0[m
+Merge: b6aedf1 8c17043
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 6 16:35:14 2021 -0400
+
+    Merge pull request #285 from AustinDidierTran/WCS-1057/Set-no-limits-of-people
+    
+    added the limit option
+
+[33mcommit 8c170431befbd6d827c09d1bc73bbac35c489f08[m[33m ([m[1;31morigin/WCS-1057/Set-no-limits-of-people[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 6 16:30:36 2021 -0400
+
+    added-row-css
+
+[33mcommit f1fcb9473a3646c23f5888a219eb2a5f09cc1b8d[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 6 16:24:30 2021 -0400
+
+    added-option-and-changed-text
+
+[33mcommit 5b156fbdc58115baeb256500b4a0e62d61fcf836[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 6 11:40:29 2021 -0400
+
+    ran prettier
+
+[33mcommit 14df8e2cea0f71451810f21ebe20567452cd15b9[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 6 11:39:38 2021 -0400
+
+    code-review
+
+[33mcommit 858546efbe57cbfd951fc31d2e5ebd4242da0384[m
+Merge: 78c252a b6aedf1
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 6 11:36:51 2021 -0400
+
+    fixed-merge-conflict
+
+[33mcommit 78c252a08a9a6f8518c1a85176e437ffc735795a[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Thu May 6 11:07:27 2021 -0400
+
+    added the limit option
+
+[33mcommit b6aedf106cdb8ddee0bce017ca0eaf46891616bc[m
+Merge: 089fefd 60fe182
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Thu May 6 10:56:12 2021 -0400
+
+    Merge pull request #283 from AustinDidierTran/WCS-1055/Add-today-date-as-default
+    
+    As an organization the default date should be today
+
+[33mcommit 60fe1829ee673a989f162f825df9f7b297aa9561[m[33m ([m[1;31morigin/WCS-1055/Add-today-date-as-default[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 5 16:49:30 2021 -0400
+
+    Last fix
+
+[33mcommit 4ad333e058835b78e49df0b08579b1c6831d10f9[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed May 5 10:59:21 2021 -0400
+
+    Added date and time input to event settings
+
+[33mcommit b8c2faa22b91158bda2bddb327f47121e8045cd4[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 4 16:10:59 2021 -0400
+
+    Remove date time input
+
+[33mcommit f700efb42082dfc983a1a22c5913be5e1efe6845[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 4 16:56:10 2021 -0400
+
+    As an organization the default date should be today
+
+[33mcommit 089fefd854f992f319cc7867f1ecde14b130b3d9[m
+Merge: 4ef16e8 9fb410c
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Wed May 5 10:39:14 2021 -0400
+
+    Merge pull request #281 from AustinDidierTran/WCS-1056/Add-event-in-event-tabs
+    
+    added the add button in the event tab
+
+[33mcommit 9fb410caf16be406280a61a0ed60909dab3d35cb[m[33m ([m[1;31morigin/WCS-1056/Add-event-in-event-tabs[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Wed May 5 09:44:51 2021 -0400
+
+    ran prettier + changed button value
+
+[33mcommit 4ef16e8dead262880123da497054e3a877d1da4d[m
+Merge: d6c6579 f7651bc
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 4 16:11:44 2021 -0400
+
+    Merge pull request #280 from AustinDidierTran/WCS-1071/Fix-address-input
+    
+    Fix address input
+
+[33mcommit dae0e5784cb87857780836fc03d53e0d181010ed[m
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue May 4 14:52:40 2021 -0400
+
+    Update index.jsx
+
+[33mcommit d6c6579ef4a2d98a454934da4f550031829d0f3d[m
+Merge: 74ae197 aed49fc
+Author: pierreEtienneM <33254917+pierreEtienneM@users.noreply.github.com>
+Date:   Tue May 4 14:09:46 2021 -0400
+
+    Merge pull request #279 from AustinDidierTran/WCS-1058/See-date-and-times
+    
+    See date and times in event params
+
+[33mcommit 92f404706c5881b378047224a39ac8b0348cf03a[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Tue May 4 14:06:40 2021 -0400
+
+    added the add button in the event tab
+
+[33mcommit f7651bc8081b5c6f8751ead1f92aad1f6e5b5c96[m[33m ([m[1;31morigin/WCS-1071/Fix-address-input[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 4 13:02:28 2021 -0400
+
+    Fix address input
+
+[33mcommit 74ae197d7b346b0b3d20312491fee7e20fbcc161[m
+Merge: 36b9969 660b766
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue May 4 11:39:54 2021 -0400
+
+    Merge pull request #278 from AustinDidierTran/WCS-1067/Fix-tabs-team-and-person-profile
+    
+    Fix tabs in team and person profile
+
+[33mcommit 660b7664635fa1519f03b5d65681c91e3c0b4539[m[33m ([m[1;31morigin/WCS-1067/Fix-tabs-team-and-person-profile[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 3 15:42:34 2021 -0400
+
+    Use constant MOBILE_WIDTH everywhere
+
+[33mcommit aed49fcbcb64b92b382925c84ebc9f44e1d21cdc[m[33m ([m[1;31morigin/WCS-1058/See-date-and-times[m[33m)[m
+Author: Pierre-Etienne <pethebuffon@gmail.com>
+Date:   Mon May 3 15:27:56 2021 -0400
+
+    See date and times in event params
+
+[33mcommit 44a5cdaf485cede2958453a1d3d3f3b825a9fb31[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 3 13:56:32 2021 -0400
+
+    New useWindowSize hooks handles everything
+
+[33mcommit 36b996941575a5514158cb8b6873eed64d347f31[m
+Merge: 2e72517 fa86a23
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 3 11:22:01 2021 -0400
+
+    Merge pull request #277 from AustinDidierTran/Update-ReadMe
+    
+    Update README
+
+[33mcommit fa86a23ca916d51e67d0fef3ece1fdfb2438d576[m[33m ([m[1;31morigin/Update-ReadMe[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 3 11:07:59 2021 -0400
+
+    Add conf template
+
+[33mcommit 98ef3c8a38d5f3f6e9ec8bb4963652a5e4e22ea8[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Mon May 3 11:04:08 2021 -0400
+
+    Update README
+
+[33mcommit 2e725170249485fdb67320b7bf32a4be9caf72fa[m[33m ([m[1;33mtag: 1.16.2[m[33m)[m
+Merge: 417622e 3da6499
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri Apr 23 11:31:04 2021 -0400
+
+    Merge pull request #276 from AustinDidierTran/Fix-become-member-coupon
+    
+    Fix become member coupon
+
+[33mcommit 3da6499fbba81459f93b0a604830e0c5cc82e508[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Fri Apr 23 11:23:41 2021 -0400
+
+    Fix become member coupon
+
+[33mcommit 417622e31cdb75891a6196164b43c0ae028e0ae1[m
+Merge: 93c4fe7 fa2eae2
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 14:14:49 2021 -0400
+
+    Merge pull request #275 from AustinDidierTran/fix
+    
+    Fix
+
+[33mcommit fa2eae25602e5c37312a0a75dde415cca539e2a1[m[33m ([m[1;31morigin/fix[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 13:36:56 2021 -0400
+
+    Fix
+
+[33mcommit 93c4fe714320121f0d47bb3f4f51c77fb50f5710[m[33m ([m[1;33mtag: 1.16.1[m[33m)[m
+Merge: 19a7cd0 ad724fb
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 13:34:24 2021 -0400
+
+    Merge pull request #274 from AustinDidierTran/fix
+    
+    Fix
+
+[33mcommit ad724fb95bd69fc40e8fe539cf088257a63f1f65[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 13:33:18 2021 -0400
+
+    Fix
+
+[33mcommit 19a7cd04dff8cfff8bc507f323d7ab7e4c7b62aa[m[33m ([m[1;33mtag: 1.16[m[33m)[m
+Merge: 697d9f0 9711c3c
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 13:27:16 2021 -0400
+
+    Merge pull request #273 from AustinDidierTran/UseWindowSize-everywhere
+    
+    UseWindowSize everywhere
+
+[33mcommit 9711c3c915a781ca1378e2e01cf54ad5eac4dffa[m[33m ([m[1;31morigin/UseWindowSize-everywhere[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 13:24:55 2021 -0400
+
+    UseWindowSize everywhere
+
+[33mcommit 697d9f0754d3f76f5f6b6a412d01e7270be106d0[m
+Merge: f743094 b8cb615
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 12:31:00 2021 -0400
+
+    Merge pull request #272 from AustinDidierTran/Fix-Bottom-Nav
+    
+    Fix Bottom Nav
+
+[33mcommit b8cb61522f4b8a6a664e904feff6a65bba58e3cd[m[33m ([m[1;31morigin/Fix-Bottom-Nav[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 12:29:14 2021 -0400
+
+    Fix Bottom Nav
+
+[33mcommit f7430948c893c280c68e9533d525b5dfeaa7f76b[m
+Author: MedRochon <77286197+MedRochon@users.noreply.github.com>
+Date:   Thu Apr 22 12:21:24 2021 -0400
+
+    Fix width (#271)
+
+[33mcommit 557f2af8f425a8e879198a3ad782303772f68ea5[m
+Merge: cf941ee 206f4f3
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 12:21:17 2021 -0400
+
+    Merge pull request #270 from AustinDidierTran/Final-fix
+    
+    This one is the one
+
+[33mcommit 206f4f390a5c6655f3c594e2b5e85a4d0f58aa62[m[33m ([m[1;31morigin/Final-fix[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 12:07:55 2021 -0400
+
+    This one is the one
+
+[33mcommit cf941ee7f46574a317caf51ee35d818ea42a8431[m
+Merge: 668cf0e 3dc842d
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 11:32:09 2021 -0400
+
+    Merge pull request #269 from AustinDidierTran/Finale-fix
+    
+    Final fix
+
+[33mcommit 3dc842d8a102288a38837f616f7e6032ab2114e6[m[33m ([m[1;31morigin/Finale-fix[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 11:30:59 2021 -0400
+
+    Final fix
+
+[33mcommit 668cf0ea3c40a1fdc2f656761c8f56c9b965a23e[m
+Merge: 7d30e2d ee8719d
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 10:18:48 2021 -0400
+
+    Merge pull request #268 from AustinDidierTran/Switch-from-loadable-to-dynamic
+    
+    Petit oublie
+
+[33mcommit ee8719d900e571b124975fe203fe1f54d357660d[m[33m ([m[1;31morigin/Switch-from-loadable-to-dynamic[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 10:10:01 2021 -0400
+
+    Petit oublie
+
+[33mcommit 7d30e2dbb78f82af8df87e8c8e8f3cafd2a71c67[m
+Merge: 090c9dc b48e892
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 10:05:28 2021 -0400
+
+    Merge pull request #267 from AustinDidierTran/Switch-from-loadable-to-dynamic
+    
+    Switch from loadable to dynamic
+
+[33mcommit b48e8926ad60c08518d7a74cab7c15b58492fbc0[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 09:59:47 2021 -0400
+
+    Switch from loadable to dynamic
+
+[33mcommit 090c9dc75c5633d311cc0967fcaf8b756e364804[m
+Merge: ebb9de6 333de4a
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 10:02:18 2021 -0400
+
+    Merge pull request #265 from AustinDidierTran/Fix-package
+    
+    Fix package
+
+[33mcommit ebb9de6ee446e889a378d4ad88d6c3c400b6ddb1[m
+Merge: 8870507 fff7198
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Thu Apr 22 10:02:08 2021 -0400
+
+    Merge pull request #266 from AustinDidierTran/Try-to-fix-build
+    
+    Improve imports
+
+[33mcommit 8870507d8f5f659602bfa5705695d400a2ed6f9f[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Thu Apr 22 09:25:12 2021 -0400
+
+    mauvaise key passe aux child (#264)
+
+[33mcommit fff71982cdbd0aa91ba2dd5a94bd089d6e7af00b[m[33m ([m[1;31morigin/Try-to-fix-build[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 18:42:20 2021 -0400
+
+    Imrpove imports
+
+[33mcommit 333de4afdaa05dde2181c8d99421d8802d92583c[m[33m ([m[1;31morigin/Fix-package[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:35:45 2021 -0400
+
+    Fix package
+
+[33mcommit a0b955a83ca5634ce92b9c8c86bee354ffcfbc9f[m
+Merge: 2bd5da4 f673020
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:22:49 2021 -0400
+
+    Merge pull request #261 from AustinDidierTran/WCS-fix-accordion-expanded-thing
+    
+    got rid of console warning
+
+[33mcommit 2bd5da4268f448d676997207fc7d8096e30a758c[m
+Merge: 15f3810 9c60a8b
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:22:42 2021 -0400
+
+    Merge pull request #263 from AustinDidierTran/Fix-import
+    
+    Fix 7
+
+[33mcommit 9c60a8b0bef412d1ab199dcb77f6ea63cde61b15[m[33m ([m[1;31morigin/Fix-import[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:20:43 2021 -0400
+
+    Fix 7
+
+[33mcommit 15f38105f7e8b236b48292b75e12f19bea0811ba[m
+Merge: 5f62821 846c0b2
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:10:47 2021 -0400
+
+    Merge pull request #262 from AustinDidierTran/Fix-import
+    
+    Fix 6
+
+[33mcommit 846c0b2086f71f7f790778c0090bd61e9e85dfac[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:09:35 2021 -0400
+
+    Fix 6
+
+[33mcommit f6730208e2b082c8c8a50e54db48b174802d0f66[m
+Author: achille lanctot saumure <achille.lanctots@gmail.com>
+Date:   Wed Apr 21 15:09:21 2021 -0400
+
+    got rid of console warning
+
+[33mcommit 5f62821e7bc11b144e46e4b1e1d5915e81811182[m
+Merge: 647d654 d691749
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:07:38 2021 -0400
+
+    Merge pull request #260 from AustinDidierTran/Fix-import
+    
+    Fix 5
+
+[33mcommit d6917495cce3664ec26b3470e92a6bfb0e6ccf98[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 15:04:41 2021 -0400
+
+    Fix 5
+
+[33mcommit 647d654e1f3c5bb7b3a105adac6f78ce4e9ef887[m
+Merge: c8f1d78 329c877
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:41:22 2021 -0400
+
+    Merge pull request #259 from AustinDidierTran/Fix-import
+    
+    Fix 4
+
+[33mcommit 329c877c8e01fc720e799e7e5b82271138a26cf2[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:39:29 2021 -0400
+
+    Fix 4
+
+[33mcommit c8f1d786a1efde6add1b7876b3bd5dacaf1bd5a5[m
+Merge: 3be7886 a93c737
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:36:53 2021 -0400
+
+    Merge pull request #258 from AustinDidierTran/Fix-import
+    
+    Fix 3
+
+[33mcommit a93c7370eb33ad14cd7fe37ec1e126260ce11c18[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:33:46 2021 -0400
+
+    Fix 3
+
+[33mcommit 3be78861bc2bc3a5b73900b269f036eec6fe71c3[m
+Merge: bf3b94d 97adfb4
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:16:03 2021 -0400
+
+    Merge pull request #257 from AustinDidierTran/Fix-import
+    
+    Fix #2
+
+[33mcommit 97adfb45ee2e1e283efb27fe41be311265166f7d[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:14:12 2021 -0400
+
+    Fix #2
+
+[33mcommit bf3b94d79f32a3a3815fc54d64855bfcc81e6049[m
+Merge: ce1145e 85d6344
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:08:55 2021 -0400
+
+    Merge pull request #256 from AustinDidierTran/Fix-import
+    
+    Fix import
+
+[33mcommit 85d6344eef368166f6c8e49606737e58d6e8cb3a[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 14:06:08 2021 -0400
+
+    Fix import
+
+[33mcommit ce1145e1e2109e9c63fdf932434ce021bde9a71a[m
+Merge: e912047 f8827fd
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 13:57:00 2021 -0400
+
+    Merge pull request #254 from AustinDidierTran/Remove-circular-dependency
+    
+    Remove circular dependency
+
+[33mcommit e91204798bf2a5a3d617e4f532d91d0afdc4c49b[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Wed Apr 21 13:50:20 2021 -0400
+
+    fix become member button (#255)
+
+[33mcommit 6ec0999d1f4be0cc63a00462ca762c2ae9cd5ee7[m
+Author: MedRochon <77286197+MedRochon@users.noreply.github.com>
+Date:   Wed Apr 21 13:33:23 2021 -0400
+
+    Graph linear (#249)
+    
+    * Graph linear
+    
+    * Dernier petit fix
+
+[33mcommit b20e8729f03c615e44680de0d2176f11b89b3151[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Wed Apr 21 13:30:12 2021 -0400
+
+    la initial position était undefined (#253)
+
+[33mcommit f8827fdc218f65590188463bc3b5a1e5ebf601e9[m[33m ([m[1;31morigin/Remove-circular-dependency[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 13:17:29 2021 -0400
+
+    Remove circular dependency
+
+[33mcommit a801d314a442c2cb8f1381300ef6a838c6e4d9ae[m
+Merge: c76bb51 8f22b73
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 12:39:08 2021 -0400
+
+    Merge pull request #252 from AustinDidierTran/Quick-Fix
+    
+    Quick fix
+
+[33mcommit 8f22b73002cfee681360ed7283b53cec0bfcce69[m[33m ([m[1;31morigin/Quick-Fix[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 12:14:59 2021 -0400
+
+    Test
+
+[33mcommit 987a5621a94610601084602d481e3c1adb9ba893[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 12:13:21 2021 -0400
+
+    Quick fix
+
+[33mcommit c76bb5113458c2b475c2d8e03f59c9ad3a9dd49f[m
+Merge: b3399b3 936c719
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Wed Apr 21 11:07:57 2021 -0400
+
+    Merge pull request #251 from AustinDidierTran/WCS-43/Add-additional-infos-to-graph
+    
+    Add additional infos to member report
+
+[33mcommit b3399b3cd9cb49c28a911cd159eb21bcdfb78385[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Wed Apr 21 10:40:14 2021 -0400
+
+    show password button (#248)
+    
+    * show password button
+    
+    * forgot in signing up
+    
+    * changer un peu les trucs
+
+[33mcommit 71a36de55c19259f69fe639abd61ebaa5aa9c7d7[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Wed Apr 21 09:39:28 2021 -0400
+
+    user cant have more than 1 email (#250)
+
+[33mcommit 936c719325b7e63080101df9a871701d0817f22a[m[33m ([m[1;31morigin/WCS-43/Add-additional-infos-to-graph[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Apr 20 17:35:33 2021 -0400
+
+    Add additional infos to graph
+
+[33mcommit b8855bc6fbf7240c5b0c1b62d1e73b1660b41264[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Tue Apr 20 14:21:19 2021 -0400
+
+    Wcs 1025 filters stay when consulting game (#245)
+    
+    * filters stay if you consult game and come back
+    
+    * forgot a state
+    
+    * oublier d'updater un state
+
+[33mcommit db4d6ea46a8b61b2ee7dca117b0ab78ee3d2c094[m
+Merge: 1acf028 f465662
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Apr 20 14:21:11 2021 -0400
+
+    Merge pull request #244 from AustinDidierTran/WCS-1033/Refactor-and-add-phone-number
+    
+    Refactor and add phone number
+
+[33mcommit f465662bac6ddb6fdad511ff927cf43df295d6b2[m[33m ([m[1;31morigin/WCS-1033/Refactor-and-add-phone-number[m[33m)[m
+Author: julienbernat <57548160+julienbernat@users.noreply.github.com>
+Date:   Tue Apr 20 14:20:11 2021 -0400
+
+    Requested changes
+
+[33mcommit 1acf028295dae38d3c8997b15409845e1b051f82[m
+Author: Achilles <62257608+Troy-Boy@users.noreply.github.com>
+Date:   Tue Apr 20 14:00:07 2021 -0400
+
+    Wcs 1045 improve cart UI (#246)
+    
+    * filters stay if you consult game and come back
+    
+    * forgot a state
+    
+    * ajout tooltip pour clarifier le checkbox

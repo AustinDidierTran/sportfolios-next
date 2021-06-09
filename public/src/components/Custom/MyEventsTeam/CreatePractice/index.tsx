@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FormDialog } from '../../../../components/Custom';
+import { FormDialog } from '../..';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -11,7 +11,13 @@ import { formatDate } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import moment from 'moment';
 
-export default function CreatePractice(props) {
+interface IProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onCreate: () => void;
+}
+
+const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { isOpen, onClose, onCreate } = props;
   const {
@@ -19,8 +25,8 @@ export default function CreatePractice(props) {
     state: { id: teamId, userInfo },
   } = useContext(Store);
 
-  const [open, setOpen] = useState(isOpen);
-  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
+  const [open, setOpen] = useState<boolean>(isOpen);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
 
   useEffect(() => {
     setOpen(isOpen);
@@ -31,12 +37,12 @@ export default function CreatePractice(props) {
     onClose();
   };
 
-  const addressChanged = (newAddress) => {
+  const addressChanged = (newAddress: string) => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', newAddress);
   };
 
-  const onAddressChanged = (event) => {
+  const onAddressChanged = (event: any) => {
     if (event.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -45,7 +51,7 @@ export default function CreatePractice(props) {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     let newTime = moment().hour(event.substring(0, 2)).minutes(event.substring(3, 5)).add(2, 'hours').format('HH:mm');
 
     formik.setFieldValue('timeEnd', newTime);
@@ -179,4 +185,6 @@ export default function CreatePractice(props) {
       onClose={onClose}
     />
   );
-}
+};
+
+export default CreatePractice;

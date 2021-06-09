@@ -12,15 +12,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '../Avatar';
+import { player } from '../../../../../typescript/types';
 
-export default function Roster(props) {
+interface IProps {
+  roster?: player[];
+}
+
+const Roster: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { roster } = props;
-  const [teamRoster, setTeamRoster] = useState([]);
+  const [teamRoster, setTeamRoster] = useState<player[]>([]);
 
   useEffect(() => {
     if (roster) {
-      setTeamRoster(roster[0]);
+      setTeamRoster(roster);
     }
   }, [props]);
 
@@ -29,17 +34,19 @@ export default function Roster(props) {
       <Typography className={styles.title} variant="h4">
         {t('roster')}
       </Typography>
-      {teamRoster.map((player, index) => (
+      {teamRoster.map((player: player, index: number) => (
         <ListItem key={player.id} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <ListItemIcon>
-            <Avatar photoUrl={player.photo_url} initials={getInitialsFromName(player.name)} />
+            <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
           </ListItemIcon>
           <div className={styles.position}>
             {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
               <></>
             ) : (
               <Tooltip
-                title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}
+                title={t<string>(
+                  player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role
+                )}
               >
                 <div>
                   <Icon icon={getIconFromRole(player.role)} />
@@ -47,9 +54,11 @@ export default function Roster(props) {
               </Tooltip>
             )}
           </div>
-          <ListItemText primary={player.name + ' ' + player.surname} />
+          <ListItemText primary={player.name} />
         </ListItem>
       ))}
     </>
   );
-}
+};
+
+export default Roster;
