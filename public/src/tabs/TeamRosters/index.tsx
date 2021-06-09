@@ -3,7 +3,11 @@ import React from 'react';
 import Players from './Players';
 import Rosters from './Rosters';
 
-export default function TabTeamRosters(props) {
+interface IProps {
+  adminView: boolean;
+}
+
+const TabTeamRosters: React.FunctionComponent<IProps> = (props) => {
   const { adminView } = props;
 
   return (
@@ -12,4 +16,6 @@ export default function TabTeamRosters(props) {
       <Players adminView={adminView}></Players>
     </>
   );
-}
+};
+
+export default TabTeamRosters;

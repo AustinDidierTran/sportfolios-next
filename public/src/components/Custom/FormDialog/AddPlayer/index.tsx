@@ -7,8 +7,16 @@ import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
+import { player } from '../../../../../../typescript/types';
 
-export default function AddPlayer(props) {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  update: () => void;
+  players: player[];
+}
+
+const AddPlayer: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update, players } = props;
   const { t } = useTranslation();
   const {
@@ -20,8 +28,8 @@ export default function AddPlayer(props) {
     setOpen(openProps);
   }, [openProps]);
 
-  const [open, setOpen] = useState(false);
-  const [people, setPeople] = useState([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [people, setPeople] = useState<player[]>([]);
 
   const onSubmit = async () => {
     const res = await api(`/api/entity/players`, {
@@ -56,11 +64,11 @@ export default function AddPlayer(props) {
     onClose();
   };
 
-  const onClick = (newPerson) => {
+  const onClick = (newPerson: player) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person) => {
+  const removePerson = (person: player) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
@@ -83,7 +91,7 @@ export default function AddPlayer(props) {
     [people]
   );
 
-  const blackList = useMemo(() => people.map((person) => person.id).concat(players.map((player) => player.person_id)), [
+  const blackList = useMemo(() => people.map((person) => person.id).concat(players.map((player) => player.personId)), [
     people,
     players,
   ]);
@@ -120,4 +128,6 @@ export default function AddPlayer(props) {
   return (
     <BasicFormDialog open={open} title={t('add.add_players')} buttons={buttons} fields={fields} onClose={handleClose} />
   );
-}
+};
+
+export default AddPlayer;
