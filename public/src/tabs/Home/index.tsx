@@ -37,7 +37,6 @@ const Home: React.FunctionComponent<IProps> = (props) => {
         allowPostImage
         allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
         entityIdCreatePost={basicInfos.id}
-        entityRole={basicInfos.role}
         allowComment
         allowLike
         locationId={basicInfos.id}

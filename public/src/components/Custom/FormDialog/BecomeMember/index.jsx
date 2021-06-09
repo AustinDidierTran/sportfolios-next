@@ -44,7 +44,7 @@ export default function BecomeMember(props) {
   const [optionalInformations, setOptionalInformations] = useState(false);
   const [donationsInfos, setDonationInfos] = useState(false);
   const [personInfos, setPersonInfos] = useState({});
-  const [people, setPeople] = useState(userInfo.people);
+  const [people, setPeople] = useState(userInfo.persons);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
   const [membershipCreatedId, setMembershipCreatedId] = useState('');

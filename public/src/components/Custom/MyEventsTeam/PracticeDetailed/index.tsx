@@ -59,7 +59,15 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [practice, setPractice] = useState<practice>();
+  const [practice, setPractice] = useState<practice>({
+    entityId: '',
+    id: '',
+    name: '',
+    startDate: '',
+    endDate: '',
+    teamId: '',
+    roster: [],
+  });
   const [isAdmin, setIsAdmin] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [edit, setEdit] = useState(false);
@@ -368,10 +376,10 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             userInfo={userInfo}
             allowPostImage
             allowNewPost
-            entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
+            entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
-            locationId={practice?.entityId}
+            locationId={practice.entityId}
             elevation={0}
             placeholder={t('write_a_comment')}
           />

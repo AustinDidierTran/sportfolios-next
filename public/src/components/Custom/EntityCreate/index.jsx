@@ -108,7 +108,7 @@ export default function EntityCreate(props) {
       if (!userInfo.primaryPerson) {
         return;
       }
-      formik.setFieldValue('creator', userInfo.primaryPerson.entity_id);
+      formik.setFieldValue('creator', userInfo.primaryPerson.personId);
     }
   }, [creatorOptions]);
 

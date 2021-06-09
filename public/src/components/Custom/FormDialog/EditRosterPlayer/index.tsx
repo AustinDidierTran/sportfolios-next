@@ -7,8 +7,16 @@ import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
+import { player } from '../../../../../../typescript/types';
 
-export default function EditRosterPlayer(props) {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  update: () => void;
+  player: player;
+}
+
+const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { open: openProps, onClose, player, update } = props;
   const [open, setOpen] = useState(false);
@@ -101,4 +109,5 @@ export default function EditRosterPlayer(props) {
       onClose={handleClose}
     />
   );
-}
+};
+export default EditRosterPlayer;

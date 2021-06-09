@@ -30,11 +30,27 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
 import dynamic from 'next/dynamic';
+import { post, comment, postImage } from '../../../../../../typescript/types';
 
 const Comment = dynamic(() => import('../Comment'));
 const PostInput = dynamic(() => import('../../Input/PostInput'));
 
-export default function Post(props) {
+interface IProps {
+  postInfo: post;
+  entityId: string;
+  isAdmin: boolean;
+  handleEditComment: () => void;
+  handleComment: () => void;
+  handleDeleteComment: (commentId: string) => void;
+  handleDeletePost: (id: string) => void;
+  handleEditPost: (id: string, content: string, images: any) => void;
+  handleLike: (id: string, personId: string, liked: boolean) => void;
+  allowComment: boolean;
+  allowLike: boolean;
+  elevation: number;
+}
+
+const Post: React.FunctionComponent<IProps> = (props) => {
   const {
     postInfo,
     handleLike,
@@ -54,22 +70,22 @@ export default function Post(props) {
   const { dispatch } = useContext(Store);
   const router = useRouter();
 
-  const [openToLogin, setOpenToLogin] = useState(false);
-  const [displayComment, setDisplayComment] = useState(false);
+  const [openToLogin, setOpenToLogin] = useState<boolean>(false);
+  const [displayComment, setDisplayComment] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
-  const [editPostContent, setEditPostContent] = useState(decodeURIComponent(postInfo.content));
-  const [editImages, setEditImages] = useState(postInfo.images);
-  const [postContent, setPostContent] = useState(decodeURIComponent(postInfo.content));
-  const [images, setImages] = useState(postInfo.images);
+  const [editPostContent, setEditPostContent] = useState<string>(decodeURIComponent(postInfo.content));
+  const [editImages, setEditImages] = useState<any>(postInfo.images);
+  const [postContent, setPostContent] = useState<string>(decodeURIComponent(postInfo.content));
+  const [images, setImages] = useState<postImage[]>(postInfo.images);
 
-  const [comments, setComments] = useState(postInfo.comments);
+  const [comments, setComments] = useState<comment[]>(postInfo.comments);
   useEffect(() => {
     setComments(postInfo.comments);
   }, [postInfo.comments]);
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -93,9 +109,10 @@ export default function Post(props) {
     state: { userInfo },
   } = useContext(Store);
 
-  const getTimeToShow = (date) => {
-    const newDate = new Date(date);
-    const deltaTime = Math.floor(Math.abs(new Date() - newDate) / 1000 / 86400);
+  const getTimeToShow = (date: string) => {
+    const newDate: any = new Date(date);
+    const today: any = new Date();
+    const deltaTime = Math.floor(Math.abs(today - newDate) / 1000 / 86400);
     if (deltaTime < 1) {
       return moment.utc(newDate).fromNow();
     } else if (deltaTime > 1 && deltaTime < moment.utc(newDate).daysInMonth()) {
@@ -114,7 +131,7 @@ export default function Post(props) {
   const uploadImageProps = {
     multiple: false,
     accept: '.jpg, .png, .jpeg, .gif, .webp',
-    onStart(file) {
+    onStart(file: any) {
       if (file.type.split('/')[0] === 'image') {
         setEditImages(() => [
           {
@@ -131,13 +148,13 @@ export default function Post(props) {
     },
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setEditPostContent(event.target.value);
   };
 
-  const onClickLike = async (e) => {
+  const onClickLike = async (e: any) => {
     e.preventDefault();
-    handleLike(postInfo.id, userInfo.primaryPerson.entity_id, !postInfo.liked);
+    handleLike(postInfo.id, userInfo.primaryPerson.personId, !postInfo.liked);
   };
 
   const onClickDelete = async () => {
@@ -160,7 +177,7 @@ export default function Post(props) {
     setEdit(false);
   };
 
-  const onClickDeleteComment = (commentId) => {
+  const onClickDeleteComment = (commentId: string) => {
     handleDeleteComment(commentId);
     setComments(comments.filter((comment) => comment.id !== commentId));
   };
@@ -188,10 +205,10 @@ export default function Post(props) {
             title: styles.headerTitle,
           }}
           avatar={
-            <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photo_url}></CustomAvatar>
+            <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl}></CustomAvatar>
           }
           title={postInfo.name + ' ' + postInfo.surname}
-          subheader={getTimeToShow(postInfo.created_at)}
+          subheader={getTimeToShow(postInfo.createdAt)}
         />
         <div>
           <div className={styles.divRoot}>
@@ -216,7 +233,7 @@ export default function Post(props) {
           </div>
         </div>
         <div>
-          {editImages.map((image, index) => (
+          {editImages.map((image: any, index: number) => (
             <div className={styles.divImage} key={index}>
               <CustomIconButton
                 style={{
@@ -234,7 +251,7 @@ export default function Post(props) {
               />
               <img
                 className={styles.imagePreview}
-                src={image.image_url ? image.image_url : URL.createObjectURL(image.file)}
+                src={image.imageUrl ? image.imageUrl : URL.createObjectURL(image.file)}
               />
             </div>
           ))}
@@ -258,7 +275,7 @@ export default function Post(props) {
           title: styles.headerTitle,
         }}
         avatar={
-          <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photo_url}></CustomAvatar>
+          <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl}></CustomAvatar>
         }
         action={
           <>
@@ -270,14 +287,14 @@ export default function Post(props) {
           </>
         }
         title={postInfo.name + ' ' + postInfo.surname}
-        subheader={getTimeToShow(postInfo.created_at)}
+        subheader={getTimeToShow(postInfo.createdAt)}
       />
       <CardContent className={styles.content}>
         <TextareaAutosize className={styles.textarea} value={postContent} disabled />
       </CardContent>
       {images.length > 0 && (
         <div>
-          <CardMedia component="img" image={images[0].image_url} />
+          <CardMedia component="img" image={images[0].imageUrl} />
         </div>
       )}
       {showStats && (
@@ -285,7 +302,7 @@ export default function Post(props) {
           <div className={styles.likes}>
             {postInfo.likes.length > 0 && allowLike && (
               <div>
-                <CustomIcon icon="FavoriteIcon" color="rgb(24, 179, 147)" fontSize={'small'} />
+                <CustomIcon icon="FavoriteIcon" color="rgb(24, 179, 147)" />
                 <Typography className={styles.likesText}>{postInfo.likes.length}</Typography>
               </div>
             )}
@@ -344,12 +361,12 @@ export default function Post(props) {
               key={index}
               commentId={comment.id}
               commentContent={comment.content}
-              commentDate={getTimeToShow(comment.created_at)}
-              commentPhotoUrl={comment.photo_url}
+              commentDate={getTimeToShow(comment.createdAt)}
+              commentPhotoUrl={comment.photoUrl}
               commentFullName={comment.name + ' ' + comment.surname}
               handleEditComment={handleEditComment}
               handleDeleteComment={onClickDeleteComment}
-              isAdmin={entityId === comment.entity_id}
+              isAdmin={entityId === comment.entityId}
             />
           ))}
           {elevation === 0 && <Divider className={styles.dividerComment} />}
@@ -368,4 +385,5 @@ export default function Post(props) {
       />
     </Card>
   );
-}
+};
+export default Post;

@@ -19,6 +19,12 @@ interface IProps {
   players: player[];
 }
 
+interface person {
+  id: string;
+  completeName: string;
+  photoUrl: string;
+}
+
 const EditRoster: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { open: openProps, onClose, roster, update, players: rosterPlayers } = props;
@@ -29,7 +35,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [people, setPeople] = useState<player[]>([]);
+  const [people, setPeople] = useState<person[]>([]);
   const [players, setPlayers] = useState<player[]>([]);
 
   useEffect(() => {
@@ -86,11 +92,11 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const onClick = (newPerson: player) => {
+  const onClick = (newPerson: person) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: player) => {
+  const removePerson = (person: person) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
@@ -109,11 +115,9 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
   );
 
   const blackList = useMemo(
-    () => people.map((person) => person.personId).concat(rosterPlayers.map((player) => player.personId)),
+    () => people.map((person) => person.id).concat(rosterPlayers.map((player) => player.personId)),
     [people, rosterPlayers]
   );
-
-  console.log({ people, rosterPlayers });
 
   const whiteList = useMemo(() => players.map((player) => player.personId), [players]);
 
@@ -127,11 +131,12 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
       onClick: () => {
         setPeople(
           players
-            .map((player) => {
-              const res: player = { personId: player.personId, name: player.name, photoUrl: player.photoUrl };
-              return res;
-            })
-            .filter((player: player) => !blackList.includes(player.personId))
+            .map((player) => ({
+              id: player.personId,
+              completeName: player.name,
+              photoUrl: player.photoUrl,
+            }))
+            .filter((player: person) => !blackList.includes(player.id))
         );
       },
       children: t('add.add_all_players'),
