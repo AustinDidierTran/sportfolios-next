@@ -88,11 +88,11 @@ export enum phaseStatus {
 export interface user {
   email: string;
   language: language;
-  id: string;
+  userId: string;
   appRole?: userAppRole;
   facebookId?: string;
   messengerId?: string;
-  primaryPerson: string;
+  primaryPerson: person;
   entities: entityRole[];
   notifications: notificationSetting[];
   creditCards?: creditCard[];
@@ -118,7 +118,10 @@ export interface entity {
   id: string;
   type: entityType;
   name: string;
+  role: role;
   surname?: string;
+  description?: string;
+  quickDescription?: string;
   photoUrl?: string;
   infosSuppId?: string;
   admins: entityRole[];
@@ -128,6 +131,15 @@ export interface entity {
 export interface entityRole {
   entityId: string;
   role: role;
+}
+
+export interface player {
+  id?: string;
+  personId?: string;
+  teamId?: string;
+  role: rosterRole;
+  name: string;
+  photoUrl: string;
 }
 
 export interface person extends entity {
@@ -144,7 +156,7 @@ export interface person extends entity {
 
 export interface address {
   id: string;
-  streetAdress?: string;
+  streetAddress?: string;
   city?: string;
   state?: string;
   zip?: string;
@@ -199,8 +211,6 @@ export interface event extends entity {
   startDate: string;
   endDate?: string;
   maximumSpot?: number;
-  description?: string;
-  quick_description?: string;
   alias?: string;
   fields?: field[];
   timeSlots?: timeSlot[];
@@ -266,6 +276,7 @@ export interface team extends entity {
 export interface roster {
   id: string;
   teamId: string;
+  name: string;
   players?: teamPlayer[];
 }
 
@@ -309,14 +320,49 @@ export interface gameTeam {
   rankingId: string;
 }
 
+export interface practice {
+  entityId: string;
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  location?: string;
+  locationId?: string;
+  addressFormatted?: string;
+  teamId: string;
+  roster: player[];
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+}
+
+export interface location {
+  value?:string;
+  display?:string;
+  id: string;
+  location: string;
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+}
+
 export interface post {
   id: string;
+  name: string;
+  surname: string;
+  createdAt: string;
   entityId: string;
+  photoUrl: string;
   content: string;
   locationId: string;
-  likes?: like[];
-  comments?: comment[];
-  images?: postImage[];
+  liked?: boolean;
+  likes: like[];
+  comments: comment[];
+  images: postImage[];
 }
 
 export interface like {
@@ -329,6 +375,10 @@ export interface comment {
   postId: string;
   entityId: string;
   content: string;
+  name: string;
+  surname: string;
+  photoUrl: string;
+  createdAt: string;
   parentId?: string;
 }
 

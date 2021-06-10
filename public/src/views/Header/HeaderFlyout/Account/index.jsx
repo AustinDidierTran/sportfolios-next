@@ -38,7 +38,7 @@ export default function Plus() {
   } = useContext(Store);
   const { t } = useTranslation();
 
-  const photoUrl = useMemo(() => userInfo.primaryPerson?.photo_url, [userInfo.primaryPerson]);
+  const photoUrl = useMemo(() => userInfo.primaryPerson?.photoUrl, [userInfo.primaryPerson]);
 
   const nameObj = useMemo(
     () => ({
@@ -58,7 +58,7 @@ export default function Plus() {
   };
 
   const handleViewProfileClick = () => {
-    goTo(ROUTES.entity, { id: userInfo.primaryPerson.entity_id });
+    goTo(ROUTES.entity, { id: userInfo.primaryPerson.personId });
     handleItemClick();
   };
   const handleViewCartClick = () => {

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, TABS_ENUM } from '../../../../../common/enums';
 import FormDialog from '../../FormDialog';
 import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
@@ -16,10 +16,27 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
+import { entity } from '../../../../../../typescript/types';
 
 const BannerTeam = dynamic(() => import('../../BannerTeam'));
 
-export default function HeaderTeam(props) {
+interface IProps {
+  basicInfos: entity;
+  navTabs: INavTabs[];
+  index: string;
+  isAdmin: boolean;
+  onSwitch: ()=> void;
+  adminView: boolean;
+}
+
+interface INavTabs {
+  component: React.ComponentType<any>;
+  value: typeof TABS_ENUM;
+  label: string;
+  icon: string;
+}
+
+const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
   const { basicInfos, navTabs, index, isAdmin, onSwitch, adminView } = props;
   const { t } = useTranslation();
   const [width] = useWindowSize();
@@ -74,7 +91,7 @@ export default function HeaderTeam(props) {
           variant="fullWidth"
           scrollButtons="off"
         >
-          {navTabs.map((s, index) => (
+          {navTabs.map((s:INavTabs, index:number) => (
             <Tab
               key={index}
               onClick={() => {
@@ -90,7 +107,6 @@ export default function HeaderTeam(props) {
                   )}
                 </div>
               }
-              fontSize={0.6}
               style={{
                 borderRightColor: 'white',
                 borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
@@ -98,6 +114,7 @@ export default function HeaderTeam(props) {
                 minHeight: 0,
                 minWidth: 0,
                 overflow: 'auto',
+                fontSize: 0.6,
               }}
             />
           ))}
@@ -126,3 +143,4 @@ export default function HeaderTeam(props) {
     </Paper>
   );
 }
+export default HeaderTeam;

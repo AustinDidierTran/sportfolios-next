@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../Store';
 import dynamic from 'next/dynamic';
 import Description from './Description';
+import { entity } from '../../../../typescript/types';
 
 const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
@@ -16,7 +17,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Home(props) {
+interface IProps {
+  basicInfos: entity;
+}
+
+const Home: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const { basicInfos } = props;
@@ -32,7 +37,6 @@ export default function Home(props) {
         allowPostImage
         allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
         entityIdCreatePost={basicInfos.id}
-        entityRole={basicInfos.role}
         allowComment
         allowLike
         locationId={basicInfos.id}
@@ -41,4 +45,5 @@ export default function Home(props) {
       />
     </IgContainer>
   );
-}
+};
+export default Home;

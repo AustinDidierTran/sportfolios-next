@@ -2,9 +2,27 @@ import React from 'react';
 import CustomDialog from '..';
 import { useTranslation } from 'react-i18next';
 
-export default function AlertDialog(props) {
+interface IProps {
+  open?: boolean;
+  title?: string;
+  description?: string;
+  onSubmit?: () => void;
+  onCancel?: () => void;
+  onSubmitText?: string;
+  onCancelText?: string;
+}
+
+const AlertDialog: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { open, title = t('action_confirmation'), description = '', onSubmit, onCancel, onSubmitText = t('confirm'), onCancelText = t('cancel') } = props;
+  const {
+    open,
+    title = t('action_confirmation'),
+    description = '',
+    onSubmit,
+    onCancel,
+    onSubmitText = t('confirm'),
+    onCancelText = t('cancel'),
+  } = props;
 
   const buttons = [
     {
@@ -21,4 +39,5 @@ export default function AlertDialog(props) {
   ];
 
   return <CustomDialog open={open} title={title} description={description} buttons={buttons} onClose={onCancel} />;
-}
+};
+export default AlertDialog;

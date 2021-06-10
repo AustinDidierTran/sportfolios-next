@@ -21,10 +21,33 @@ import LoadingSpinner from '../../LoadingSpinner';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
 import CustomLocations from '../../Locations';
+import { practice, location } from '../../../../../../typescript/types';
 
 const Roster = dynamic(() => import('../../Roster'));
 
-export default function PracticeDetailed(props) {
+interface IProps {
+  practiceId: string;
+}
+
+interface IData {
+  data: IReponse;
+}
+
+interface IReponse {
+  practice: practice;
+  role: number;
+}
+
+interface ILocationResponse {
+  data: location[];
+}
+
+interface ILocationOption {
+  value: string;
+  display: string;
+}
+
+const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const { practiceId } = props;
   const { t } = useTranslation();
   const {
@@ -33,20 +56,28 @@ export default function PracticeDetailed(props) {
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [practice, setPractice] = useState({});
+  const [practice, setPractice] = useState<practice>({
+    entityId: '',
+    id: '',
+    name: '',
+    startDate: '',
+    endDate: '',
+    teamId: '',
+    roster: [],
+  });
   const [isAdmin, setIsAdmin] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [edit, setEdit] = useState(false);
   const [wrongAddressFormat, setWrongAddressFormat] = useState('');
   const [openDelete, setOpenDelete] = useState(false);
-  const [locationOptions, setLocationOptions] = useState([]);
+  const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
   const [locationHidden, setLocationHidden] = useState(true);
   const [showCreateLocation, setShowCreateLocation] = useState(false);
 
   const getLocations = async () => {
-    const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+    const { data }: ILocationResponse = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
 
-    const formattedData = data.filter((n) => n.id != null);
+    const formattedData = data.filter((n: location) => n.id != null);
     formattedData.push(
       { id: t('no_location'), location: t('no_location') },
       { id: t('create_new_location'), location: t('create_new_location') }
@@ -56,22 +87,23 @@ export default function PracticeDetailed(props) {
       setLocationHidden(true);
     }
 
-    setLocationOptions(
-      formattedData.map((c) => ({
-        value: c.id,
-        display: `${c.street_address ? `${c.location} - ${c.street_address}` : c.location}`,
-      }))
-    );
+    const locationOption: ILocationOption[] = formattedData.map((c: location) => ({
+      value: c.id,
+      display: `${c.streetAddress ? `${c.location} - ${c.streetAddress}` : c.location}`,
+    }));
+
+    setLocationOptions(locationOption);
   };
 
   const getPractice = async () => {
-    const { data } = await api(
+    const {
+      data: { practice: data, role },
+    }: IData = await api(
       formatRoute('/api/entity/practiceInfo', null, {
         practiceId: practiceId,
       }),
       { method: 'GET' }
     );
-
     if (!data) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -83,36 +115,35 @@ export default function PracticeDetailed(props) {
       return;
     }
 
-    let street_address = data.street_address ? data.street_address + ', ' : '';
+    let streetAddress = data.streetAddress ? data.streetAddress + ', ' : '';
     let city = data.city ? data.city + ', ' : '';
     let state = data.state ? data.state : '';
     let zip = data.zip ? data.zip : '';
     let country = data.country ? ', ' + data.country : '';
-    let addressFormatted = street_address + city + state + zip + country;
+    let addressFormatted = streetAddress + city + state + zip + country;
     data.addressFormatted = addressFormatted;
 
-    if (!data?.location_id) {
-      data.location_id = t('no_location');
+    if (!data?.locationId) {
+      data.locationId = t('no_location');
     }
 
     setPractice(data);
 
     formik.setFieldValue('name', data?.name || '');
-    formik.setFieldValue('startDate', formatDate(moment.utc(data.start_date), 'YYYY-MM-DD'));
-    formik.setFieldValue('startTime', formatDate(moment.utc(data.start_date), 'HH:mm'));
-    formik.setFieldValue('endDate', formatDate(moment.utc(data.end_date), 'YYYY-MM-DD'));
-    formik.setFieldValue('endTime', formatDate(moment.utc(data.end_date), 'HH:mm'));
-    formik.setFieldValue('locationValue', data?.location_id || t('no_location'));
+    formik.setFieldValue('startDate', formatDate(moment.utc(data?.startDate), 'YYYY-MM-DD'));
+    formik.setFieldValue('startTime', formatDate(moment.utc(data?.startDate), 'HH:mm'));
+    formik.setFieldValue('endDate', formatDate(moment.utc(data?.endDate), 'YYYY-MM-DD'));
+    formik.setFieldValue('endTime', formatDate(moment.utc(data?.endDate), 'HH:mm'));
+    formik.setFieldValue('locationValue', data?.locationId || t('no_location'));
     formik.setFieldValue('location', data?.location || null);
     formik.setFieldValue('addressFormatted', addressFormatted);
     formik.setFieldValue('address', '');
     formik.setFieldValue('newLocation', '');
 
-    if (data?.location_id) {
+    if (data?.locationId) {
       setShowCreateLocation(false);
     }
-
-    if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
+    if (role === ENTITIES_ROLE_ENUM.ADMIN || role === ENTITIES_ROLE_ENUM.EDITOR) {
       setIsAdmin(true);
     }
   };
@@ -125,7 +156,7 @@ export default function PracticeDetailed(props) {
   }, [practiceId]);
 
   useEffect(() => {
-    if (!practice || !practice.entity_id) {
+    if (!practice || !practice.entityId) {
       return;
     }
 
@@ -146,7 +177,7 @@ export default function PracticeDetailed(props) {
       return wrongAddressFormat == '';
     }),
     newLocation: yup.string().when('locationValue', {
-      is: (locationValue) => locationValue == t('create_new_location'),
+      is: (locationValue: string) => locationValue == t('create_new_location'),
       then: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     }),
   });
@@ -162,6 +193,7 @@ export default function PracticeDetailed(props) {
       location: '',
       newLocation: '',
       address: '',
+      addressFormatted: '',
     },
     validationSchema,
     validateOnChange: false,
@@ -169,12 +201,13 @@ export default function PracticeDetailed(props) {
     onSubmit: async (values) => {
       const { name, startDate, startTime, endDate, endTime, locationValue, newLocation, address } = values;
       let locationId = null;
+
       if (locationValue != t('no_location') && locationValue != t('create_new_location')) {
         locationId = locationValue;
       }
 
-      let start = `${startDate} ${startTime}`;
-      let end = `${endDate} ${endTime}`;
+      let start: string | null = `${startDate} ${startTime}`;
+      let end: string | null = `${endDate} ${endTime}`;
 
       if (!moment(start).isValid()) {
         start = null;
@@ -186,10 +219,10 @@ export default function PracticeDetailed(props) {
       const res = await api(`/api/entity/practice`, {
         method: 'PUT',
         body: JSON.stringify({
-          id: practice.id,
+          id: practice?.id,
           name,
-          start_date: start,
-          end_date: end,
+          dateStart: start,
+          dateEnd: end,
           newLocation,
           locationId,
           address,
@@ -220,23 +253,23 @@ export default function PracticeDetailed(props) {
   const hasChanged = useMemo(() => {
     return (
       practice.name != formik.values.name ||
-      formatDate(moment.utc(practice.start_date), 'YYYY-MM-DD') != formik.values.startDate ||
-      formatDate(moment.utc(practice.start_date), 'HH:mm') != formik.values.startTime ||
-      formatDate(moment.utc(practice.end_date), 'YYYY-MM-DD') != formik.values.endDate ||
-      formatDate(moment.utc(practice.end_date), 'HH:mm') != formik.values.endTime ||
+      formatDate(moment.utc(practice?.startDate), 'YYYY-MM-DD') != formik.values.startDate ||
+      formatDate(moment.utc(practice?.startDate), 'HH:mm') != formik.values.startTime ||
+      formatDate(moment.utc(practice?.endDate), 'YYYY-MM-DD') != formik.values.endDate ||
+      formatDate(moment.utc(practice?.endDate), 'HH:mm') != formik.values.endTime ||
       practice.location != formik.values.location ||
       practice.addressFormatted != formik.values.addressFormatted ||
-      practice.location_id != formik.values.locationValue
+      practice.locationId != formik.values.locationValue
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (newAddress) => {
+  const addressChanged = (address: string) => {
     setWrongAddressFormat('');
-    formik.setFieldValue('address', newAddress);
+    formik.setFieldValue('address', address);
   };
 
-  const onAddressChanged = (event) => {
-    if (event.length > 0) {
+  const onAddressChanged = (address: string) => {
+    if (address.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
       setWrongAddressFormat('');
@@ -244,7 +277,7 @@ export default function PracticeDetailed(props) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -256,7 +289,7 @@ export default function PracticeDetailed(props) {
   const onDelete = async () => {
     const res = await api(
       formatRoute('/api/entity/practice', null, {
-        teamId: practice.team_id,
+        teamId: practice?.teamId,
         practiceId: practiceId,
       }),
       {
@@ -282,13 +315,17 @@ export default function PracticeDetailed(props) {
     handleClose();
   };
 
+  const handleSubmit = () => {
+    formik?.handleSubmit();
+  };
+
   const cancelEdit = () => {
     setEdit(false);
     setLocationHidden(true);
     getPractice();
   };
 
-  const handleLocationChange = (event) => {
+  const handleLocationChange = (event: any) => {
     if (event == t('create_new_location')) {
       setShowCreateLocation(true);
     } else {
@@ -382,22 +419,22 @@ export default function PracticeDetailed(props) {
               <CustomButton color="secondary" className={styles.cancelButton} onClick={cancelEdit}>
                 {t('cancel')}
               </CustomButton>
-              <CustomButton disabled={!hasChanged} onClick={formik?.handleSubmit}>
+              <CustomButton disabled={!hasChanged} onClick={handleSubmit}>
                 {t('edit.edit')}
               </CustomButton>
             </div>
           )}
           <Divider variant="middle" />
-          <Roster roster={practice.roster} />
+          <Roster roster={practice?.roster} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}
             allowPostImage
             allowNewPost
-            entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
+            entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
-            locationId={practice.entity_id}
+            locationId={practice.entityId}
             elevation={0}
             placeholder={t('write_a_comment')}
           />
@@ -425,4 +462,6 @@ export default function PracticeDetailed(props) {
       </div>
     </div>
   );
-}
+};
+
+export default PracticeDetailed;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FormDialog } from '../../../../components/Custom';
+import { FormDialog } from '../..';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -10,8 +10,20 @@ import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../
 import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import moment from 'moment';
+import { location } from '../../../../../../typescript/types';
 
-export default function CreatePractice(props) {
+interface IProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onCreate: () => void;
+}
+
+interface ILocationOption {
+  value: string;
+  display: string;
+}
+
+const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { isOpen, onClose, onCreate } = props;
   const {
@@ -19,9 +31,9 @@ export default function CreatePractice(props) {
     state: { id: teamId, userInfo },
   } = useContext(Store);
 
-  const [open, setOpen] = useState(isOpen);
-  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
-  const [locationOptions, setLocationOptions] = useState([]);
+  const [open, setOpen] = useState<boolean>(isOpen);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
+  const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
   const [locationHidden, setLocationHidden] = useState(true);
 
   useEffect(() => {
@@ -38,28 +50,27 @@ export default function CreatePractice(props) {
 
   const getLocations = async () => {
     const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
-
-    const formattedData = data.filter((n) => n.id != null);
+    const formattedData = data.filter((n: location) => n.id != null);
     formattedData.push(
       { id: t('no_location'), location: t('no_location') },
       { id: t('create_new_location'), location: t('create_new_location') }
     );
 
-    setLocationOptions(
-      formattedData.map((c) => ({
-        value: c.id,
-        display: `${c.street_address ? `${c.location} - ${c.street_address}` : c.location}`,
-      }))
-    );
+    const locationOption: ILocationOption[] = formattedData.map((c: location) => ({
+      value: c.id,
+      display: `${c.streetAddress ? `${c.location} - ${c.streetAddress}` : c.location}`,
+    }));
+
+    setLocationOptions(locationOption);
   };
 
-  const addressChanged = (newAddress) => {
+  const addressChanged = (address: string) => {
     setWrongAddressFormat('');
-    formik.setFieldValue('address', newAddress);
+    formik.setFieldValue('address', address);
   };
 
-  const onAddressChanged = (event) => {
-    if (event.length > 0) {
+  const onAddressChanged = (address: any) => {
+    if (address.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
       setWrongAddressFormat('');
@@ -67,13 +78,13 @@ export default function CreatePractice(props) {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     let newTime = moment().hour(event.substring(0, 2)).minutes(event.substring(3, 5)).add(2, 'hours').format('HH:mm');
 
     formik.setFieldValue('timeEnd', newTime);
   };
 
-  const handleLocationChange = (event) => {
+  const handleLocationChange = (event: any) => {
     if (event == t('create_new_location')) {
       setLocationHidden(false);
     } else {
@@ -92,7 +103,7 @@ export default function CreatePractice(props) {
       return wrongAddressFormat == '';
     }),
     newLocation: yup.string().when('location', {
-      is: (location) => location == t('create_new_location'),
+      is: (location: string) => location == t('create_new_location'),
       then: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     }),
     location: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -216,4 +227,6 @@ export default function CreatePractice(props) {
       onClose={onClose}
     />
   );
-}
+};
+
+export default CreatePractice;

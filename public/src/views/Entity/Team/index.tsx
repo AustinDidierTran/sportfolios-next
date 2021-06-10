@@ -10,6 +10,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
+import { entity, practice } from '../../../../../typescript/types';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -17,7 +18,28 @@ const TeamEvents = dynamic(() => import('../../../tabs/TeamEvents'));
 const TeamRosters = dynamic(() => import('../../../tabs/TeamRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
-export default function Team(props) {
+interface IProps {
+  basicInfos: entity;
+  eventInfos: IEventInfos;
+}
+
+interface IGameInfos {
+  eventId: string;
+  eventName: string;
+  id: string;
+  timeslot: string;
+  field: string;
+  name: string;
+  teamNames: string;
+  teamScores: string;
+}
+
+interface IEventInfos {
+  gamesInfos: IGameInfos[];
+  practiceInfos: practice[];
+}
+
+const Team: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps, eventInfos: eventInfosProps } = props;
   const router = useRouter();
@@ -123,4 +145,5 @@ export default function Team(props) {
       </IgContainer>
     </>
   );
-}
+};
+export default Team;

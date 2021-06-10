@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState, useContext, useEffect } from 'react';
 import CustomCard from '../Card';
 import Typography from '@material-ui/core/Typography';
 import { CARD_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
@@ -9,9 +9,32 @@ import CustomButton from '../Button';
 import CreatePractice from './CreatePractice';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
-import { Store } from '../../../../../public/src/Store';
+import { Store } from '../../../Store';
+import { practice } from '../../../../../typescript/types';
 
-export default function MyEventsTeam(props) {
+interface IProps {
+  gamesInfos: IGameInfos[];
+  practiceInfos: practice[];
+  adminView: boolean;
+}
+
+interface IGameInfos {
+  eventId: string;
+  eventName: string;
+  id: string;
+  timeslot: string;
+  field: string;
+  name: string;
+  teamNames: string;
+  teamScores: string;
+}
+
+interface IEntity {
+  id: number;
+  eventId?: string;
+}
+
+const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { gamesInfos, practiceInfos: practiceInfosProps, adminView } = props;
   const {
@@ -22,15 +45,15 @@ export default function MyEventsTeam(props) {
   const [practiceInfos, setPracticeInfos] = useState(practiceInfosProps);
   const [openPractice, setOpenPractice] = useState(false);
 
-  const openGameDetailed = async (game) => {
-    goTo(ROUTES_ENUM.entity, { id: game.event_id }, { tab: router.query.tab, gameId: game.id });
+  const openGameDetailed = async (game: IEntity) => {
+    goTo(ROUTES_ENUM.entity, { id: game.eventId }, { tab: router.query.tab, gameId: game.id });
   };
 
-  const openPracticeDetailed = async (practice) => {
+  const openPracticeDetailed = async (practice: IEntity) => {
     goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
   };
 
-  const openEventDetailed = async (event) => {
+  const openEventDetailed = async (event: any) => {
     if (event.type == CARD_TYPE_ENUM.PRACTICE) {
       openPracticeDetailed(event);
     } else {
@@ -54,19 +77,35 @@ export default function MyEventsTeam(props) {
   };
 
   const events = useMemo(() => {
+    let array = [];
     let game = gamesInfos?.map((game) => {
       const positions = [
-        { name: game.team_names[0], score: game.team_scores[0] },
-        { name: game.team_names[1], score: game.team_scores[1] },
+        { name: game.teamNames[0], score: game.teamScores[0] },
+        { name: game.teamNames[1], score: game.teamScores[1] },
       ];
-      return { ...game, positions, type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME, start_time: game.timeslot };
+      return {
+        ...game,
+        positions,
+        type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME,
+        startTime: game.timeslot,
+      };
     });
+    array.push(game);
 
     let practice = practiceInfos?.map((practice) => {
-      return { ...practice, type: CARD_TYPE_ENUM.PRACTICE, start_time: practice.start_date };
+      return {
+        id: practice.id,
+        name: practice.name,
+        location: practice.location,
+        type: CARD_TYPE_ENUM.PRACTICE,
+        startTime: practice.startDate,
+        endTime: practice.endDate,
+      };
     });
 
-    return practice.concat(game).sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
+    return (practice as Array<any>)
+      .concat(game)
+      .sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
   }, [gamesInfos, practiceInfos]);
 
   return (
@@ -95,4 +134,6 @@ export default function MyEventsTeam(props) {
       <CreatePractice isOpen={openPractice} onCreate={refreshPractice} onClose={closePractice} />
     </div>
   );
-}
+};
+
+export default MyEventsTeam;
