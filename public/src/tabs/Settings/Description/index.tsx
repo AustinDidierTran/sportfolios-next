@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 
-export default function Description() {
+const Description: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     dispatch,
@@ -25,7 +25,7 @@ export default function Description() {
     }
   }, [entityId]);
 
-  const [initial, setInitial] = useState('');
+  const [initial, setInitial] = useState<string>('');
 
   const getDescription = async () => {
     const { data } = await api(
@@ -116,4 +116,5 @@ export default function Description() {
       </form>
     </Paper>
   );
-}
+};
+export default Description;

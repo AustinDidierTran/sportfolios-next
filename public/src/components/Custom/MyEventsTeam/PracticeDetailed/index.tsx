@@ -83,6 +83,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       }),
       { method: 'GET' }
     );
+
     if (!data) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
