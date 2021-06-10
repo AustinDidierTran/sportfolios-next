@@ -15,7 +15,7 @@ import Button from '../../../components/Custom/Button';
 import Paper from '../../../components/Custom/Paper';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import TextField from '../../../components/Custom/TextField';
-import { entity } from '../../../../../typescript/types';
+import { Entity } from '../../../../../typescript/types';
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -23,7 +23,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 interface IProps {
-  basicInfos: entity;
+  basicInfos: Entity;
 }
 
 const BasicInfos: React.FunctionComponent<IProps> = (props) => {

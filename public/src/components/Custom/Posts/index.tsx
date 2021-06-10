@@ -12,10 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
-import { post, user } from '../../../../../typescript/types';
+import { Post, User } from '../../../../../typescript/types';
 
 interface IProps {
-  userInfo: user;
+  userInfo: User;
   allowNewPost: boolean;
   allowPostImage: boolean;
   entityIdCreatePost: string | number;
@@ -71,7 +71,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
   } = React.useContext(Store);
   const classes = useStyles();
 
-  const [posts, setPosts] = useState<post[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const currentPage = useRef(1);
   const [isMore, setIsMore] = useState<boolean>(true);
 
@@ -105,7 +105,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
       return;
     }
 
-    setPosts((posts) => [...posts, ...data.filter((post: post) => posts.findIndex((t) => t.id === post.id) === -1)]);
+    setPosts((posts) => [...posts, ...data.filter((post: Post) => posts.findIndex((t) => t.id === post.id) === -1)]);
   };
 
   const loadMorePost = async () => {

@@ -16,10 +16,10 @@ import Avatar from '../../../../components/Custom/Avatar';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { player } from '../../../../../../typescript/types';
+import { Player as PlayerType } from '../../../../../../typescript/types';
 
 interface IProps {
-  player: player;
+  player: PlayerType;
   index: number;
   update: () => void;
   isAdmin: boolean;

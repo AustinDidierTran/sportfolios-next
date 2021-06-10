@@ -10,11 +10,11 @@ import CreatePractice from './CreatePractice';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { Store } from '../../../Store';
-import { practice } from '../../../../../typescript/types';
+import { Practice } from '../../../../../typescript/types';
 
 interface IProps {
   gamesInfos: IGameInfos[];
-  practiceInfos: practice[];
+  practiceInfos: Practice[];
   adminView: boolean;
 }
 interface IGameInfos {

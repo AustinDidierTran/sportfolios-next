@@ -16,13 +16,13 @@ import Avatar from '../../../../../components/Custom/Avatar';
 import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
-import { player } from '../../../../../../../typescript/types';
+import { Player } from '../../../../../../../typescript/types';
 
 interface IProps {
   index: number;
   isAdmin: Boolean;
   update: () => void;
-  player: player;
+  player: Player;
 }
 
 const RosterPlayer: React.FunctionComponent<IProps> = (props) => {

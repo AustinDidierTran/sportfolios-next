@@ -7,13 +7,13 @@ import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { player } from '../../../../../../typescript/types';
+import { Player } from '../../../../../../typescript/types';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   update: () => void;
-  player: player;
+  player: Player;
 }
 
 const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {

@@ -2,14 +2,14 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { practice } from '../../../../typescript/types';
+import { Practice } from '../../../../typescript/types';
 
 const MyEventsTeam = dynamic(() => import('../../components/Custom/MyEventsTeam'));
 const PracticeDetailed = dynamic(() => import('../../components/Custom/MyEventsTeam/PracticeDetailed'));
 
 interface IProps {
   gamesInfos: IGameInfos[];
-  practiceInfos: practice[];
+  practiceInfos: Practice[];
   adminView: boolean;
 }
 

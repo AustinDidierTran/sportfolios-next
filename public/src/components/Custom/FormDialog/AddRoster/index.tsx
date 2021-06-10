@@ -10,7 +10,7 @@ import CustomIconButton from '../../IconButton';
 import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { player } from '../../../../../../typescript/types';
+import { Player } from '../../../../../../typescript/types';
 
 interface IProps {
   open: boolean;
@@ -37,8 +37,8 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
   }, [teamId]);
 
   const [open, setOpen] = useState(false);
-  const [people, setPeople] = useState<player[]>([]);
-  const [players, setPlayers] = useState<player[]>([]);
+  const [people, setPeople] = useState<Player[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
 
   const getPlayers = async () => {
     const { data } = await api(
@@ -97,11 +97,11 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const onClick = (newPerson: player) => {
+  const onClick = (newPerson: Player) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: player) => {
+  const removePerson = (person: Player) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 

@@ -11,7 +11,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import styles from './Players.module.css';
 import List from '@material-ui/core/List';
 import Player from './Player';
-import { player } from '../../../../../typescript/types';
+import { Player as PlayerType } from '../../../../../typescript/types';
 
 interface IProps {
   adminView: boolean;
@@ -31,7 +31,7 @@ const Players: React.FunctionComponent<IProps> = (props) => {
   }, [teamId]);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [players, setPlayers] = useState<player[]>([]);
+  const [players, setPlayers] = useState<PlayerType[]>([]);
 
   const getPlayers = async () => {
     const { data } = await api(

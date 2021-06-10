@@ -21,7 +21,7 @@ import LoadingSpinner from '../../LoadingSpinner';
 import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
-import { practice } from '../../../../../../typescript/types';
+import { Practice } from '../../../../../../typescript/types';
 
 const Roster = dynamic(() => import('../../Roster'));
 
@@ -34,7 +34,7 @@ interface IData {
 }
 
 interface IReponse {
-  practice: practice;
+  practice: Practice;
   role: number;
 }
 
@@ -59,7 +59,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [practice, setPractice] = useState<practice>({
+  const [practice, setPractice] = useState<Practice>({
     entityId: '',
     id: '',
     name: '',

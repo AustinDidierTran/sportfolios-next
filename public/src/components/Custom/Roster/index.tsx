@@ -12,16 +12,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '../Avatar';
-import { player } from '../../../../../typescript/types';
+import { Player } from '../../../../../typescript/types';
 
 interface IProps {
-  roster?: player[];
+  roster?: Player[];
 }
 
 const Roster: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { roster } = props;
-  const [teamRoster, setTeamRoster] = useState<player[]>([]);
+  const [teamRoster, setTeamRoster] = useState<Player[]>([]);
 
   useEffect(() => {
     if (roster) {
@@ -34,7 +34,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       <Typography className={styles.title} variant="h4">
         {t('roster')}
       </Typography>
-      {teamRoster.map((player: player, index: number) => (
+      {teamRoster.map((player: Player, index: number) => (
         <ListItem key={player.id} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <ListItemIcon>
             <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />

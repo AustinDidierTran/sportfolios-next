@@ -30,13 +30,13 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
 import dynamic from 'next/dynamic';
-import { post, comment, postImage } from '../../../../../../typescript/types';
+import { Post as PostType, Comment as CommentType, PostImage } from '../../../../../../typescript/types';
 
 const Comment = dynamic(() => import('../Comment'));
 const PostInput = dynamic(() => import('../../Input/PostInput'));
 
 interface IProps {
-  postInfo: post;
+  postInfo: PostType;
   entityId: string;
   isAdmin: boolean;
   handleEditComment: () => void;
@@ -78,9 +78,9 @@ const Post: React.FunctionComponent<IProps> = (props) => {
   const [editPostContent, setEditPostContent] = useState<string>(decodeURIComponent(postInfo.content));
   const [editImages, setEditImages] = useState<any>(postInfo.images);
   const [postContent, setPostContent] = useState<string>(decodeURIComponent(postInfo.content));
-  const [images, setImages] = useState<postImage[]>(postInfo.images);
+  const [images, setImages] = useState<PostImage[]>(postInfo.images);
+  const [comments, setComments] = useState<CommentType[]>(postInfo.comments);
 
-  const [comments, setComments] = useState<comment[]>(postInfo.comments);
   useEffect(() => {
     setComments(postInfo.comments);
   }, [postInfo.comments]);

@@ -9,14 +9,14 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { formatRoute } from '../../../../utils/stringFormats';
 import IconButton from '../../IconButton';
-import { roster, player } from '../../../../../../typescript/types';
+import { Roster, Player } from '../../../../../../typescript/types';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   update: () => void;
-  roster: roster;
-  players: player[];
+  roster: Roster;
+  players: Player[];
 }
 
 interface person {
@@ -36,7 +36,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
 
   const [open, setOpen] = useState<boolean>(false);
   const [people, setPeople] = useState<person[]>([]);
-  const [players, setPlayers] = useState<player[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
     if (teamId) {

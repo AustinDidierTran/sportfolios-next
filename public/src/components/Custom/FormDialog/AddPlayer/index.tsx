@@ -7,13 +7,13 @@ import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
-import { player } from '../../../../../../typescript/types';
+import { Player } from '../../../../../../typescript/types';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   update: () => void;
-  players: player[];
+  players: Player[];
 }
 
 const AddPlayer: React.FunctionComponent<IProps> = (props) => {
@@ -29,7 +29,7 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
   }, [openProps]);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [people, setPeople] = useState<player[]>([]);
+  const [people, setPeople] = useState<Player[]>([]);
 
   const onSubmit = async () => {
     const res = await api(`/api/entity/players`, {
@@ -64,11 +64,11 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const onClick = (newPerson: player) => {
+  const onClick = (newPerson: Player) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: player) => {
+  const removePerson = (person: Player) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 

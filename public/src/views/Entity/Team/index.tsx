@@ -10,7 +10,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { entity, practice } from '../../../../../typescript/types';
+import { Entity, Practice } from '../../../../../typescript/types';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -19,7 +19,7 @@ const TeamRosters = dynamic(() => import('../../../tabs/TeamRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 interface IProps {
-  basicInfos: entity;
+  basicInfos: Entity;
   eventInfos: IEventInfos;
 }
 
@@ -36,7 +36,7 @@ interface IGameInfos {
 
 interface IEventInfos {
   gamesInfos: IGameInfos[];
-  practiceInfos: practice[];
+  practiceInfos: Practice[];
 }
 
 const Team: React.FunctionComponent<IProps> = (props) => {

@@ -17,10 +17,10 @@ import { useTranslation } from 'react-i18next';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { roster, player } from '../../../../../../typescript/types';
+import { Roster as RosterType, Player } from '../../../../../../typescript/types';
 
 interface IProps {
-  roster: roster;
+  roster: RosterType;
   index: number;
   isAdmin: boolean;
   update: () => void;
@@ -38,7 +38,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     }
   }, [roster.id]);
 
-  const [players, setPlayers] = useState<player[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
   const [expanded, setExpanded] = useState<boolean>(false);
   const [deleteRoster, setDeleteRoster] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
