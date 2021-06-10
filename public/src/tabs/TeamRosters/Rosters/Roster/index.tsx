@@ -18,6 +18,7 @@ import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../.
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Roster as RosterType, Player } from '../../../../../../typescript/types';
+import { deleteRoster as deleteRosterApi, getRosterPlayers } from '../../../../actions/service/entity';
 
 interface IProps {
   roster: RosterType;
@@ -44,12 +45,8 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   const [edit, setEdit] = useState<boolean>(false);
 
   const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/rosterPlayers', null, {
-        rosterId: roster.id,
-      })
-    );
-    setPlayers(data);
+    const players = await getRosterPlayers(roster.id);
+    setPlayers(players);
   };
 
   const onExpand = () => {
@@ -65,15 +62,8 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   }, [index]);
 
   const onDelete = async () => {
-    const res = await api(
-      formatRoute('/api/entity/roster', null, {
-        id: roster.id,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
-    if (res.status === STATUS_ENUM.ERROR) {
+    const status = await deleteRosterApi(roster.id);
+    if (status === STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

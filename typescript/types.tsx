@@ -134,9 +134,9 @@ export interface EntityRole {
 }
 
 export interface Player {
-  id?: string;
-  personId?: string;
-  teamId?: string;
+  id: string;
+  personId: string;
+  teamId: string;
   role: RosterRole;
   name: string;
   photoUrl: string;

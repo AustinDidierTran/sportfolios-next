@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../../utils/stringFormats';
+import { getIconFromRole, getInitialsFromName } from '../../../../utils/stringFormats';
 import styles from './Player.module.css';
 import { FORM_DIALOG_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
@@ -13,10 +13,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '../../../../components/Custom/Avatar';
-import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Player as PlayerType } from '../../../../../../typescript/types';
+import { deletePlayer as deletePlayerApi } from '../../../../actions/service/entity';
 
 interface IProps {
   player: PlayerType;
@@ -24,7 +24,6 @@ interface IProps {
   update: () => void;
   isAdmin: boolean;
 }
-
 const Player: React.FunctionComponent<IProps> = (props) => {
   const { player, index, update, isAdmin } = props;
   const { t } = useTranslation();
@@ -35,15 +34,8 @@ const Player: React.FunctionComponent<IProps> = (props) => {
   const [deletePlayer, setDelete] = useState<boolean>(false);
 
   const onDelete = async () => {
-    const res = await api(
-      formatRoute('/api/entity/player', null, {
-        id: player.id,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
-    if (res.status === STATUS_ENUM.ERROR) {
+    const status = await deletePlayerApi(player.id);
+    if (status === STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
