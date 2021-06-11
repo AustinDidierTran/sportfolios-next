@@ -9,6 +9,7 @@ import AddressSearchInput from '../AddressSearchInput';
 import TextField from '../TextField';
 import { SELECT_ENUM, LANGUAGE_ENUM } from '../../../../common/enums';
 import { FormikValues } from 'formik';
+import styles from './Locations.module.css';
 
 interface IProps {
   className?: string;
@@ -122,7 +123,7 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
             onChange={onAddressChanged}
             required={false}
           />
-          <TextField fullWidth placeholder="location" namespace="newLocation" formik={formik} />
+          <TextField fullWidth label={t('location_description')} namespace="newLocation" formik={formik} />
         </div>
       ) : (
         <div />
