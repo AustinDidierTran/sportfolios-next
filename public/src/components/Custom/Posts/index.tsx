@@ -12,8 +12,21 @@ import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
+import { Post, User } from '../../../../../typescript/types';
 
-export default function Posts(props) {
+interface IProps {
+  userInfo: User;
+  allowNewPost: boolean;
+  allowPostImage: boolean;
+  entityIdCreatePost: string | number;
+  allowComment: boolean;
+  allowLike: boolean;
+  locationId: string;
+  elevation: number;
+  placeholder: string;
+}
+
+const Posts: React.FunctionComponent<IProps> = (props) => {
   const [width] = useWindowSize();
 
   const useStyles = makeStyles((theme) => ({
@@ -43,7 +56,6 @@ export default function Posts(props) {
   const { t } = useTranslation();
 
   const {
-    userInfo,
     allowNewPost,
     allowPostImage,
     entityIdCreatePost,
@@ -53,21 +65,26 @@ export default function Posts(props) {
     elevation,
     placeholder,
   } = props;
-  const { dispatch } = React.useContext(Store);
+  const {
+    dispatch,
+    state: { userInfo },
+  } = React.useContext(Store);
   const classes = useStyles();
 
-  const [posts, setPosts] = useState([]);
-  const currentPage = useRef(1);
-  const [isMore, setIsMore] = useState(true);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const currentPage = useRef<any>(1);
+  const [isMore, setIsMore] = useState<boolean>(true);
 
-  useEffect(() => {
-    initialLoad();
-  }, []);
+  useEffect((): void => {
+    if (userInfo?.primaryPerson?.personId) {
+      getPostFeed();
+    }
+  }, [userInfo?.primaryPerson?.personId]);
 
-  const getPostFeed = async () => {
+  const getPostFeed = async (): Promise<void> => {
     const { status, data } = await api(
       formatRoute('/api/posts', null, {
-        userId: Object.is(userInfo?.primaryPerson?.entity_id, undefined) ? -1 : userInfo.primaryPerson.entity_id,
+        userId: userInfo?.primaryPerson?.personId || -1,
         locationId,
         currentPage: currentPage.current,
         perPage: 5,
@@ -88,18 +105,15 @@ export default function Posts(props) {
       return;
     }
 
-    setPosts((posts) => [...posts, ...data.filter((post) => posts.findIndex((t) => t.id === post.id) === -1)]);
-  };
-  const initialLoad = async () => {
-    await getPostFeed();
+    setPosts((posts) => [...posts, ...data.filter((post: Post) => posts.findIndex((t) => t.id === post.id) === -1)]);
   };
 
-  const loadMorePost = async () => {
+  const loadMorePost = async (): Promise<void> => {
     currentPage.current += 1;
     await getPostFeed();
   };
 
-  const handleLike = async (postId, entityId, like) => {
+  const handleLike = async (postId: string, entityId: string, like: boolean): Promise<void> => {
     const apiRoute = like ? '/api/posts/like' : '/api/posts/unlike';
 
     const { data } = await api(apiRoute, {
@@ -116,12 +130,17 @@ export default function Posts(props) {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
-  const handleComment = async (entityId, postContent, images, post_id) => {
+  const handleComment = async (
+    entityId: string,
+    postContent: string,
+    images: string,
+    postId: string
+  ): Promise<void> => {
     const { data } = await api('/api/posts/comment', {
       method: 'POST',
       body: JSON.stringify({
         entityId,
-        postId: post_id,
+        postId,
         content: encodeURIComponent(postContent),
       }),
     });
@@ -134,13 +153,13 @@ export default function Posts(props) {
       return;
     }
 
-    setPosts((oldPosts) => oldPosts.map((o) => (o.id === post_id ? data : o)));
+    setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
-  const handleDeletePost = async (post_id) => {
+  const handleDeletePost = async (postId: string): Promise<void> => {
     const { status } = await api(
       formatRoute('/api/posts/deletePost', null, {
-        postId: post_id,
+        postId,
       }),
       {
         method: 'DELETE',
@@ -154,11 +173,11 @@ export default function Posts(props) {
       });
       return;
     }
-    setPosts((oldPosts) => oldPosts.filter((o) => o.id !== post_id));
+    setPosts((oldPosts) => oldPosts.filter((o) => o.id !== postId));
     await getPostFeed();
   };
 
-  const handleDeleteComment = async (commentId) => {
+  const handleDeleteComment = async (commentId: string): Promise<void> => {
     const { status } = await api(
       formatRoute('/api/posts/comment', null, {
         commentId,
@@ -178,7 +197,7 @@ export default function Posts(props) {
     await getPostFeed();
   };
 
-  const handleEditComment = async (commentId, commentContent) => {
+  const handleEditComment = async (commentId: string, commentContent: string): Promise<void> => {
     await api('/api/posts/comment', {
       method: 'PUT',
       body: JSON.stringify({
@@ -188,7 +207,7 @@ export default function Posts(props) {
     });
   };
 
-  const handlePost = async (entityId, postContent, images) => {
+  const handlePost = async (entityId: string, postContent: string, images: any): Promise<void> => {
     const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
       body: JSON.stringify({
@@ -204,7 +223,7 @@ export default function Posts(props) {
     }
 
     await Promise.all(
-      images.map(async (image) => {
+      images.map(async (image: any) => {
         const { file } = image;
         const url = await uploadPicture(newPost.id, file);
         const { data: newImages } = await api('/api/posts/image', {
@@ -221,7 +240,7 @@ export default function Posts(props) {
     });
   };
 
-  const handleEditPost = async (postId, postContent, images) => {
+  const handleEditPost = async (postId: string, postContent: string, images: any): Promise<void> => {
     await api('/api/posts', {
       method: 'PUT',
       body: JSON.stringify({
@@ -235,7 +254,7 @@ export default function Posts(props) {
     }
 
     await Promise.all(
-      images.map(async (image) => {
+      images.map(async (image: any) => {
         let url;
         if (image.image_url) {
           url = image.image_url;
@@ -280,8 +299,8 @@ export default function Posts(props) {
               allowComment,
               allowLike,
               elevation,
-              entityId: userInfo?.primaryPerson?.entity_id,
-              isAdmin: entityIdCreatePost === post.entity_id && allowNewPost,
+              entityId: userInfo?.primaryPerson?.personId,
+              isAdmin: entityIdCreatePost === post.entityId && allowNewPost,
             }}
             type={CARD_TYPE_ENUM.POST}
             key={post.id}
@@ -291,4 +310,5 @@ export default function Posts(props) {
       {isMore && <Button onClick={loadMorePost}>{t('show_more')}</Button>}
     </div>
   );
-}
+};
+export default Posts;

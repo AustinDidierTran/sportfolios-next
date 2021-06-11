@@ -16,17 +16,25 @@ import Avatar from '../../../../../components/Custom/Avatar';
 import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
+import { Player } from '../../../../../../../typescript/types';
 
-export default function RosterPlayer(props) {
+interface IProps {
+  index: number;
+  isAdmin: Boolean;
+  update: () => void;
+  player: Player;
+}
+
+const RosterPlayer: React.FunctionComponent<IProps> = (props) => {
   const { player, index, update, isAdmin } = props;
   const { t } = useTranslation();
 
   const { dispatch } = useContext(Store);
 
-  const [edit, setEdit] = useState(false);
-  const [deletePlayer, setDelete] = useState(false);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [deletePlayer, setDelete] = useState<boolean>(false);
 
-  const onDelete = async () => {
+  const onDelete = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/rosterPlayer', null, {
         id: player.id,
@@ -51,13 +59,15 @@ export default function RosterPlayer(props) {
   return (
     <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}>
       <ListItemIcon>
-        <Avatar photoUrl={player.photo_url} initials={getInitialsFromName(player.name)} />
+        <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
       </ListItemIcon>
       <div className={styles.position}>
         {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
           <></>
         ) : (
-          <Tooltip title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}>
+          <Tooltip
+            title={t<string>(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}
+          >
             <div>
               <Icon icon={getIconFromRole(player.role)} />
             </div>
@@ -106,4 +116,5 @@ export default function RosterPlayer(props) {
       )}
     </ListItem>
   );
-}
+};
+export default RosterPlayer;

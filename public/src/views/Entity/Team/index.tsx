@@ -10,6 +10,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
+import { Entity, Practice } from '../../../../../typescript/types';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -17,7 +18,35 @@ const TeamEvents = dynamic(() => import('../../../tabs/TeamEvents'));
 const TeamRosters = dynamic(() => import('../../../tabs/TeamRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
-export default function Team(props) {
+interface IProps {
+  basicInfos: Entity;
+  eventInfos: IEventInfos;
+}
+
+interface IGameInfos {
+  eventId: string;
+  eventName: string;
+  id: string;
+  timeslot: string;
+  field: string;
+  name: string;
+  teamNames: string;
+  teamScores: string;
+}
+
+interface IEventInfos {
+  gamesInfos: IGameInfos[];
+  practiceInfos: Practice[];
+}
+
+interface IStates {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
+}
+
+const Team: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps, eventInfos: eventInfosProps } = props;
   const router = useRouter();
@@ -25,15 +54,15 @@ export default function Team(props) {
   const {
     state: { id },
   } = useContext(Store);
-  const [basicInfos, setBasicInfos] = useState(basicInfosProps);
+  const [basicInfos, setBasicInfos] = useState<Entity>(basicInfosProps);
   const gamesInfos = eventInfosProps?.gamesInfos;
   const practiceInfos = eventInfosProps?.practiceInfos;
 
-  useEffect(() => {
+  useEffect((): void => {
     document.title = formatPageTitle(basicInfos.name);
   }, [basicInfos.name]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (id) {
       getRole();
     }
@@ -51,9 +80,9 @@ export default function Team(props) {
     { component: TeamRosters, value: TABS_ENUM.TEAM_ROSTERS, label: t('rosters'), icon: 'Group' },
   ];
 
-  const [adminView, setAdminView] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [states, setStates] = useState(userState);
+  const [adminView, setAdminView] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [states, setStates] = useState<IStates[]>(userState);
 
   const index = useMemo(() => {
     if (adminState.find((s) => s.value === tab) && tab != TABS_ENUM.TEAM_EVENTS && tab != TABS_ENUM.TEAM_ROSTERS) {
@@ -70,7 +99,7 @@ export default function Team(props) {
     return res;
   }, [tab, isAdmin]);
 
-  const OpenTab = useMemo(() => {
+  const OpenTab = useMemo((): React.ComponentType<any> => {
     const res = states[index];
     if (res) {
       return res.component;
@@ -78,7 +107,7 @@ export default function Team(props) {
     return Home;
   }, [index, states]);
 
-  const onSwitch = () => {
+  const onSwitch = (): void => {
     const newState = !adminView;
     setAdminView(newState);
     if (newState) {
@@ -90,7 +119,7 @@ export default function Team(props) {
     }
   };
 
-  const getRole = async () => {
+  const getRole = async (): Promise<void> => {
     const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let newInfos = basicInfos;
@@ -123,4 +152,5 @@ export default function Team(props) {
       </IgContainer>
     </>
   );
-}
+};
+export default Team;

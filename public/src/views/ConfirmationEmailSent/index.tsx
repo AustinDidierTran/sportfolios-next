@@ -15,7 +15,7 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
   const { email } = props;
   const { t } = useTranslation();
 
-  const goToLogin = () => {
+  const goToLogin = (): void => {
     goTo(ROUTES.login);
   };
 

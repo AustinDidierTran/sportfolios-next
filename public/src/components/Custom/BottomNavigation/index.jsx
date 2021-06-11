@@ -42,7 +42,7 @@ export default function CustomBottomNavigation() {
     [TABS_ENUM.PROFILE]: [
       ROUTES.entity,
       {
-        id: userInfo && userInfo.primaryPerson && userInfo.primaryPerson.entity_id,
+        id: userInfo && userInfo.primaryPerson && userInfo.primaryPerson.personId,
       },
     ],
     [TABS_ENUM.NOTIFICATIONS]: [ROUTES.notifications],
@@ -54,9 +54,9 @@ export default function CustomBottomNavigation() {
     goTo(...routeEnum[newValue]);
   };
 
-  const displayNav = useMemo(() => width < MOBILE_WIDTH && Boolean(userInfo && userInfo.user_id), [
+  const displayNav = useMemo(() => width < MOBILE_WIDTH && Boolean(userInfo && userInfo.userId), [
     width,
-    userInfo && userInfo.user_id,
+    userInfo && userInfo.userId,
   ]);
 
   const fetchUnreadNotificationsCount = async () => {

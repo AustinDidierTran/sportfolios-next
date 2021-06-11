@@ -8,15 +8,23 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 
-export default function Practice(props) {
+interface IProps {
+  location: string;
+  name: string;
+  startTime: string;
+  endTime: string;
+  onClick: (props: IProps) => void;
+}
+
+const Practice: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { location, name, start_date: startTime, end_date: endTime, onClick } = props;
+  const { location, name, startTime, endTime, onClick } = props;
 
   return (
     <Card className={styles.game} onClick={() => onClick(props)}>
-        <Typography className={styles.phase} color="textPrimary">
+      <Typography className={styles.phase} color="textPrimary">
         {t('practice')}
-        </Typography>
+      </Typography>
       <Typography className={styles.main} color="textPrimary">
         {name}
         <ListItemText
@@ -24,10 +32,10 @@ export default function Practice(props) {
           primary={`${formatDate(moment.utc(startTime), 'HH:mm')} - ${formatDate(moment.utc(endTime), 'HH:mm')}`}
           secondary={formatDate(moment.utc(startTime), 'ddd D MMM')}
         ></ListItemText>
-        <Typography color="textSecondary">
-          {location}
-        </Typography>
+        <Typography color="textSecondary">{location}</Typography>
       </Typography>
     </Card>
   );
-}
+};
+
+export default Practice;

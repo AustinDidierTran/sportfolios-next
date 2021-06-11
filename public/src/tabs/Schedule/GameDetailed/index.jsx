@@ -210,8 +210,8 @@ export default function GameDetailed(props) {
             display: p.completeName,
           };
         });
-      if (options.some((o) => o.value === userInfo.primaryPerson.entity_id)) {
-        formik.setFieldValue('person', userInfo.primaryPerson.entity_id);
+      if (options.some((o) => o.value === userInfo.primaryPerson.personId)) {
+        formik.setFieldValue('person', userInfo.primaryPerson.personId);
       } else {
         formik.setFieldValue('person', options[0].value);
       }
@@ -299,7 +299,10 @@ export default function GameDetailed(props) {
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
             <div className={styles.gameInfo}>
-              <div className={styles.gameInfoDate}>{formatDate(moment.utc(game.start_time), 'dddd Do MMM').charAt(0).toUpperCase() + formatDate(moment.utc(game.start_time), 'dddd Do MMM').slice(1)}</div>
+              <div className={styles.gameInfoDate}>
+                {formatDate(moment.utc(game.start_time), 'dddd Do MMM').charAt(0).toUpperCase() +
+                  formatDate(moment.utc(game.start_time), 'dddd Do MMM').slice(1)}
+              </div>
               <div className={styles.phaseName}>{game.phase_name}</div>
               <div>{game.field}</div>
             </div>
@@ -374,7 +377,7 @@ export default function GameDetailed(props) {
           userInfo={userInfo}
           allowPostImage
           allowNewPost
-          entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
+          entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
           allowComment
           allowLike
           locationId={game.entity_id}

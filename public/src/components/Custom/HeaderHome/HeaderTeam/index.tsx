@@ -1,93 +1,79 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, TABS_ENUM } from '../../../../../common/enums';
 import FormDialog from '../../FormDialog';
 import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../../utils/stringFormats';
-import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
 import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
+import { Entity } from '../../../../../../typescript/types';
 
-const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
+const BannerTeam = dynamic(() => import('../../BannerTeam'));
 
-export default function HeaderOrganization(props) {
+interface IProps {
+  basicInfos: Entity;
+  navTabs: INavTabs[];
+  index: string;
+  isAdmin: boolean;
+  onSwitch: () => void;
+  adminView: boolean;
+}
+
+interface INavTabs {
+  component: React.ComponentType<any>;
+  value: typeof TABS_ENUM;
+  label: string;
+  icon: string;
+}
+
+const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
   const { basicInfos, navTabs, index, isAdmin, onSwitch, adminView } = props;
   const { t } = useTranslation();
   const [width] = useWindowSize();
   const router = useRouter();
 
   const {
-    state: { userInfo, isAuthenticated, id },
+    state: { isAuthenticated, id },
   } = useContext(Store);
 
-  const [openBecomeMember, setOpenBecomeMember] = useState(false);
-  const [openToLogin, setOpenToLogin] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openToLogin, setOpenToLogin] = useState<boolean>(false);
 
-  const [hasMemberships, setHasMemberships] = useState(false);
-  const [member, setMember] = useState(null);
-
-  useEffect(() => {
-    if (id && userInfo) {
-      getMemberships();
-    }
-  }, [id, userInfo]);
-
-  const getMemberships = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/hasMemberships', null, {
-        id,
-      })
-    );
-    const member = await api(
-      formatRoute('/api/entity/recentMember', null, { personId: userInfo?.primaryPerson?.personId, id })
-    );
-    setMember(member.data);
-    setHasMemberships(data);
-  };
-
-  const goToLogin = () => {
+  const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
-  const onOpenBecomeMember = () => {
-    setOpenBecomeMember(true);
-  };
-  const onCloseBecomeMember = () => {
-    setOpenBecomeMember(false);
-  };
-
-  const onOpenToLoggin = () => {
+  const onOpenToLoggin = (): void => {
     setOpenToLogin(true);
   };
 
-  const onCloseToLoggin = () => {
+  const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
-  const update = () => {};
+  const update = (): void => {};
 
   return (
     <Paper elevation={1} className={styles.paper}>
-      <BannerOrganization
+      <BannerTeam
         basicInfos={basicInfos}
-        onBecomeMemberButton={onOpenBecomeMember}
+        onJoinTeamButton={() => {
+          setOpen(true);
+        }}
         onOpenToLoggin={onOpenToLoggin}
         onSwitch={onSwitch}
         isAdmin={isAdmin}
         adminView={adminView}
-        hasMemberships={hasMemberships}
-        member={member}
         isAuthenticated={isAuthenticated}
       />
       <div className={styles.navigation}>
@@ -105,7 +91,7 @@ export default function HeaderOrganization(props) {
           variant="fullWidth"
           scrollButtons="off"
         >
-          {navTabs.map((s, index) => (
+          {navTabs.map((s: INavTabs, index: number) => (
             <Tab
               key={index}
               onClick={() => {
@@ -121,7 +107,6 @@ export default function HeaderOrganization(props) {
                   )}
                 </div>
               }
-              fontSize={0.6}
               style={{
                 borderRightColor: 'white',
                 borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
@@ -129,22 +114,27 @@ export default function HeaderOrganization(props) {
                 minHeight: 0,
                 minWidth: 0,
                 overflow: 'auto',
+                fontSize: 0.6,
               }}
             />
           ))}
         </Tabs>
         <FormDialog
-          type={FORM_DIALOG_TYPE_ENUM.BECOME_MEMBER}
+          type={FORM_DIALOG_TYPE_ENUM.JOIN_TEAM}
           items={{
-            open: openBecomeMember,
-            onClose: onCloseBecomeMember,
-            onOpen: () => {},
+            open,
+            onClose: () => {
+              setOpen(false);
+            },
+            onOpen: () => {
+              setOpen(true);
+            },
             update,
           }}
         />
         <AlertDialog
           open={openToLogin}
-          title={t('you.you_need_to_be_connected_to_become_member', { organization: basicInfos.name })}
+          title={t('you.you_need_to_be_connected_to_join_team', { team: basicInfos.name })}
           description={t('click_to_go_to_login')}
           onCancel={onCloseToLoggin}
           onSubmit={goToLogin}
@@ -152,4 +142,5 @@ export default function HeaderOrganization(props) {
       </div>
     </Paper>
   );
-}
+};
+export default HeaderTeam;

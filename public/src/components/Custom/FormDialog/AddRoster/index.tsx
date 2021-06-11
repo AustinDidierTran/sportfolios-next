@@ -10,8 +10,23 @@ import CustomIconButton from '../../IconButton';
 import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { Player } from '../../../../../../typescript/types';
 
-export default function AddRoster(props) {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  update: () => void;
+}
+
+interface IPersonComponent {
+  componentType: string;
+  person: Player;
+  secondary: string;
+  notClickable: boolean;
+  secondaryActions: any[];
+}
+
+const AddRoster: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
   const {
@@ -19,21 +34,21 @@ export default function AddRoster(props) {
     state: { id: teamId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(openProps);
   }, [openProps]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (teamId) {
       getPlayers();
     }
   }, [teamId]);
 
-  const [open, setOpen] = useState(false);
-  const [people, setPeople] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [people, setPeople] = useState<Player[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
 
-  const getPlayers = async () => {
+  const getPlayers = async (): Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/players', null, {
         teamId,
@@ -84,22 +99,22 @@ export default function AddRoster(props) {
     },
   });
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     formik.resetForm();
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson) => {
-    setPeople((p) => [...p, newPerson]);
+  const onClick = (newPlayer: Player): void => {
+    setPeople((p) => [...p, newPlayer]);
   };
 
-  const removePerson = (person) => {
-    setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
+  const removePlayer = (player: Player): void => {
+    setPeople((currentPeople) => currentPeople.filter((p) => p.id != player.id));
   };
 
   const personComponent = useMemo(
-    () =>
+    (): IPersonComponent[] =>
       people.map((person, index) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
@@ -110,16 +125,16 @@ export default function AddRoster(props) {
             key={index}
             icon="Remove"
             style={{ color: 'secondary' }}
-            onClick={() => removePerson(person)}
+            onClick={() => removePlayer(person)}
           />,
         ],
       })),
     [people]
   );
 
-  const blackList = useMemo(() => people.map((person) => person.id), [people]);
+  const blackList = useMemo((): (string | undefined)[] => people.map((person) => person.id), [people]);
 
-  const whiteList = useMemo(() => players.map((player) => player.person_id), [players]);
+  const whiteList = useMemo((): (string | undefined)[] => players.map((player) => player.personId), [players]);
 
   const fields = [
     {
@@ -129,14 +144,7 @@ export default function AddRoster(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       onClick: () => {
-        setPeople(
-          players.map((player) => ({
-            id: player.person_id,
-            completeName: player.name,
-            photoUrl: player.photo_url,
-            type: 1,
-          }))
-        );
+        setPeople(players);
       },
       children: t('add.add_all_players'),
     },
@@ -174,4 +182,6 @@ export default function AddRoster(props) {
       onClose={handleClose}
     />
   );
-}
+};
+
+export default AddRoster;

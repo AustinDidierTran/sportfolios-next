@@ -91,7 +91,7 @@ export default function CustomerForm(props) {
               postal_code: postalCode,
               state: state, //2 letter state code (ISO)
             },
-            description: userInfo.user_id,
+            description: userInfo.personid,
             email: email,
             name: name,
             phone: phoneNumber,

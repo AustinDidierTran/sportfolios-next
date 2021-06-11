@@ -12,22 +12,22 @@ import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 
-export default function Description() {
+const Description: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     dispatch,
     state: { id: entityId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (entityId) {
       getDescription();
     }
   }, [entityId]);
 
-  const [initial, setInitial] = useState('');
+  const [initial, setInitial] = useState<string>('');
 
-  const getDescription = async () => {
+  const getDescription = async (): Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/generalInfos', null, {
         entityId,
@@ -78,11 +78,11 @@ export default function Description() {
     },
   });
 
-  const onCancel = () => {
+  const onCancel = (): void => {
     formik.setFieldValue('description', initial);
   };
 
-  const disabled = useMemo(() => {
+  const disabled = useMemo((): boolean => {
     return formik.values.description === initial;
   }, [formik.values.description, initial]);
 
@@ -116,4 +116,5 @@ export default function Description() {
       </form>
     </Paper>
   );
-}
+};
+export default Description;

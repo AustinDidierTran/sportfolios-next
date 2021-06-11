@@ -17,25 +17,33 @@ import { useTranslation } from 'react-i18next';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
+import { Roster as RosterType, Player } from '../../../../../../typescript/types';
 
-export default function Roster(props) {
+interface IProps {
+  roster: RosterType;
+  index: number;
+  isAdmin: boolean;
+  update: () => void;
+}
+
+const Roster: React.FunctionComponent<IProps> = (props) => {
   const { roster, index, isAdmin, update } = props;
   const { t } = useTranslation();
 
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (roster.id) {
       getPlayers();
     }
   }, [roster.id]);
 
-  const [players, setPlayers] = useState([]);
-  const [expanded, setExpanded] = useState(false);
-  const [deleteRoster, setDeleteRoster] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [deleteRoster, setDeleteRoster] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
-  const getPlayers = async () => {
+  const getPlayers = async (): Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/rosterPlayers', null, {
         rosterId: roster.id,
@@ -44,11 +52,11 @@ export default function Roster(props) {
     setPlayers(data);
   };
 
-  const onExpand = () => {
+  const onExpand = (): void => {
     setExpanded(!expanded);
   };
 
-  const style = useMemo(() => {
+  const style = useMemo((): string => {
     if (index % 2 === 0) {
       return styles.even;
     } else {
@@ -56,7 +64,7 @@ export default function Roster(props) {
     }
   }, [index]);
 
-  const onDelete = async () => {
+  const onDelete = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/roster', null, {
         id: roster.id,
@@ -141,4 +149,6 @@ export default function Roster(props) {
       </AccordionDetails>
     </Accordion>
   );
-}
+};
+
+export default Roster;

@@ -14,9 +14,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import AlertDialog from '../../Dialog/AlertDialog';
 
-export default function Comment(props) {
+interface IProps {
+  commentId: string;
+  commentContent: string;
+  commentDate: string;
+  commentPhotoUrl: string;
+  commentFullName: string;
+  handleEditComment: (commentId: string, editCommentContent: string) => void;
+  handleDeleteComment: (commentId: string) => void;
+  isAdmin: boolean;
+}
+
+const Comment: React.FunctionComponent<IProps> = (props) => {
   const {
-    index,
     commentId,
     commentContent: content,
     commentDate,
@@ -27,7 +37,7 @@ export default function Comment(props) {
     isAdmin,
   } = props;
 
-  const modifyComment = () => {
+  const modifyComment = (): void => {
     if (editCommentContent === '') {
       setOpenAlert(true);
       return;
@@ -37,48 +47,48 @@ export default function Comment(props) {
     setEdit(false);
   };
 
-  const cancelEdit = () => {
+  const cancelEdit = (): void => {
     setEditCommentContent(decodeURIComponent(commentContent));
     setEdit(false);
   };
 
   const { t } = useTranslation();
-  const [edit, setEdit] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [editCommentContent, setEditCommentContent] = useState(decodeURIComponent(content));
-  const [commentContent, setCommentContent] = useState(decodeURIComponent(content));
+  const [anchorEl, setAnchorEl] = useState<any>(null);
+  const [editCommentContent, setEditCommentContent] = useState<string>(decodeURIComponent(content));
+  const [commentContent, setCommentContent] = useState<string>(decodeURIComponent(content));
 
-  useEffect(() => {
+  useEffect((): void => {
     setCommentContent(decodeURIComponent(content));
     setEditCommentContent(decodeURIComponent(content));
   }, [content]);
 
-  const handleClick = (event) => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const onClickDelete = () => {
+  const onClickDelete = (): void => {
     handleDeleteComment(commentId);
     handleClose();
   };
 
-  const onClickEdit = () => {
+  const onClickEdit = (): void => {
     setEdit(true);
     handleClose();
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any): void => {
     setEditCommentContent(event.target.value);
   };
 
   if (edit) {
     return (
-      <Card elevation={0} key={index}>
+      <Card elevation={0}>
         <CardHeader
           className={styles.headerComment}
           classes={{
@@ -130,7 +140,7 @@ export default function Comment(props) {
   }
 
   return (
-    <Card elevation={0} key={index}>
+    <Card elevation={0}>
       <CardHeader
         className={styles.headerComment}
         classes={{
@@ -160,4 +170,5 @@ export default function Comment(props) {
       </Menu>
     </Card>
   );
-}
+};
+export default Comment;

@@ -21,7 +21,7 @@ import LoadingSpinner from '../../LoadingSpinner';
 import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
-import { IPractice } from '../../../../../../typescript/types';
+import { Practice } from '../../../../../../typescript/types';
 
 const Roster = dynamic(() => import('../../Roster'));
 
@@ -29,13 +29,22 @@ interface IProps {
   practiceId: string;
 }
 
+interface IData {
+  data: IReponse;
+}
+
+interface IReponse {
+  practice: Practice;
+  role: number;
+}
+
 interface IValues {
-  name?: string;
+  name: string;
   country?: string;
-  startDate?: string;
-  startTime?: string;
-  endDate?: string;
-  endTime?: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
   location?: string;
   address?: string;
   addressFormatted?: string;
@@ -49,20 +58,30 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo },
   } = useContext(Store);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [practice, setPractice] = useState<IPractice>({});
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [edit, setEdit] = useState(false);
-  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
-  const [openDelete, setOpenDelete] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [practice, setPractice] = useState<Practice>({
+    entityId: '',
+    id: '',
+    name: '',
+    startDate: '',
+    endDate: '',
+    teamId: '',
+    roster: [],
+  });
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<any>(null);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
 
-  const getPractice = async () => {
-    const { data } = await api(
+  const getPractice = async (): Promise<void> => {
+    const {
+      data: { practice: data, role },
+    }: IData = await api(
       formatRoute('/api/entity/practiceInfo', null, {
         practiceId: practiceId,
       }),
-      { method: 'GET', body: null }
+      { method: 'GET' }
     );
 
     if (!data) {
@@ -76,45 +95,44 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       return;
     }
 
-    let street_address = data.street_address ? data.street_address + ', ' : '';
+    let streetAddress = data.streetAddress ? data.streetAddress + ', ' : '';
     let city = data.city ? data.city + ', ' : '';
     let state = data.state ? data.state : '';
     let zip = data.zip ? data.zip : '';
     let country = data.country ? ', ' + data.country : '';
-    let addressFormatted = street_address + city + state + zip + country;
+    let addressFormatted = streetAddress + city + state + zip + country;
     data.addressFormatted = addressFormatted;
 
     setPractice(data);
 
     formik.setFieldValue('name', data?.name || '');
-    formik.setFieldValue('startDate', formatDate(moment.utc(data.start_date), 'YYYY-MM-DD'));
-    formik.setFieldValue('startTime', formatDate(moment.utc(data.start_date), 'HH:mm'));
-    formik.setFieldValue('endDate', formatDate(moment.utc(data.end_date), 'YYYY-MM-DD'));
-    formik.setFieldValue('endTime', formatDate(moment.utc(data.end_date), 'HH:mm'));
+    formik.setFieldValue('startDate', formatDate(moment.utc(data?.startDate), 'YYYY-MM-DD'));
+    formik.setFieldValue('startTime', formatDate(moment.utc(data?.startDate), 'HH:mm'));
+    formik.setFieldValue('endDate', formatDate(moment.utc(data?.endDate), 'YYYY-MM-DD'));
+    formik.setFieldValue('endTime', formatDate(moment.utc(data?.endDate), 'HH:mm'));
     formik.setFieldValue('location', data?.location || '');
     formik.setFieldValue('addressFormatted', addressFormatted);
     formik.setFieldValue('address', '');
-
-    if (data.role === ENTITIES_ROLE_ENUM.ADMIN || data.role === ENTITIES_ROLE_ENUM.EDITOR) {
+    if (role === ENTITIES_ROLE_ENUM.ADMIN || role === ENTITIES_ROLE_ENUM.EDITOR) {
       setIsAdmin(true);
     }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (practiceId) {
       getPractice();
     }
   }, [practiceId]);
 
-  useEffect(() => {
-    if (!practice || !practice.entity_id) {
+  useEffect((): void => {
+    if (!practice || !practice.entityId) {
       return;
     }
 
     setIsLoading(false);
   }, [practice]);
 
-  const goBack = () => {
+  const goBack = (): void => {
     history.back();
   };
 
@@ -158,7 +176,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       const res = await api(`/api/entity/practice`, {
         method: 'PUT',
         body: JSON.stringify({
-          id: practice.id,
+          id: practice?.id,
           name,
           start_date: start,
           end_date: end,
@@ -187,24 +205,24 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const hasChanged = useMemo(() => {
+  const hasChanged = useMemo((): boolean => {
     return (
-      practice.name != formik.values.name ||
-      formatDate(moment.utc(practice.start_date), 'YYYY-MM-DD') != formik.values.startDate ||
-      formatDate(moment.utc(practice.start_date), 'HH:mm') != formik.values.startTime ||
-      formatDate(moment.utc(practice.end_date), 'YYYY-MM-DD') != formik.values.endDate ||
-      formatDate(moment.utc(practice.end_date), 'HH:mm') != formik.values.endTime ||
-      practice.location != formik.values.location ||
-      practice.addressFormatted != formik.values.addressFormatted
+      practice?.name != formik.values.name ||
+      formatDate(moment.utc(practice?.startDate), 'YYYY-MM-DD') != formik.values.startDate ||
+      formatDate(moment.utc(practice?.startDate), 'HH:mm') != formik.values.startTime ||
+      formatDate(moment.utc(practice?.endDate), 'YYYY-MM-DD') != formik.values.endDate ||
+      formatDate(moment.utc(practice?.endDate), 'HH:mm') != formik.values.endTime ||
+      practice?.location != formik.values.location ||
+      practice?.addressFormatted != formik.values.addressFormatted
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (newAddress: string) => {
+  const addressChanged = (newAddress: string): void => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', newAddress);
   };
 
-  const onAddressChanged = (event: string) => {
+  const onAddressChanged = (event: string): void => {
     if (event.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -213,23 +231,22 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const onDelete = async () => {
+  const onDelete = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/practice', null, {
-        teamId: practice.team_id,
+        teamId: practice?.teamId,
         practiceId: practiceId,
       }),
       {
         method: 'DELETE',
-        body: null,
       }
     );
 
@@ -245,16 +262,16 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const onEdit = () => {
+  const onEdit = (): void => {
     setEdit(true);
     handleClose();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     formik?.handleSubmit();
-  }
+  };
 
-  const cancelEdit = () => {
+  const cancelEdit = (): void => {
     setEdit(false);
     getPractice();
   };
@@ -354,16 +371,16 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             </div>
           )}
           <Divider variant="middle" />
-          <Roster roster={practice.roster} />
+          <Roster roster={practice?.roster} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}
             allowPostImage
             allowNewPost
-            entityIdCreatePost={userInfo?.primaryPerson?.entity_id || -1}
+            entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
-            locationId={practice.entity_id}
+            locationId={practice.entityId}
             elevation={0}
             placeholder={t('write_a_comment')}
           />

@@ -36,13 +36,13 @@ export default function MyMemberships(props) {
         const { data } = await api(
           formatRoute('/api/entity/members', null, {
             id,
-            personId: p.entity_id,
+            personId: p.personId,
           })
         );
         if (data.length) {
           const person = await api(
             formatRoute('/api/entity', null, {
-              id: p.entity_id,
+              id: p.personId,
             })
           );
           const items = await Promise.all(
