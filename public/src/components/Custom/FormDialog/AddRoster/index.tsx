@@ -2,15 +2,14 @@ import React, { useState, useContext, useEffect, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
-import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Player } from '../../../../../../typescript/types';
+import { addRoster, getPlayers as getPlayersApi } from '../../../../actions/service/entity';
 
 interface IProps {
   open: boolean;
@@ -41,12 +40,8 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
   const [players, setPlayers] = useState<Player[]>([]);
 
   const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/players', null, {
-        teamId,
-      })
-    );
-    setPlayers(data);
+    const players = await getPlayersApi(teamId);
+    setPlayers(players);
   };
 
   const validationSchema = yup.object().shape({
@@ -62,15 +57,10 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { name } = values;
-      const res = await api(`/api/entity/roster`, {
-        method: 'POST',
-        body: JSON.stringify({
-          teamId,
-          players: people,
-          name,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR) {
+
+      const status = await addRoster(teamId, people, name);
+
+      if (status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

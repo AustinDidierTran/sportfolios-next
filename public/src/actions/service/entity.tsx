@@ -1,6 +1,6 @@
 import { formatRoute } from '../../utils/stringFormats';
 import api from '../api';
-import { Player, Roster } from '../../../../typescript/types';
+import { Person, Player, Roster } from '../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
 
@@ -29,6 +29,64 @@ export async function getRosterPlayers(rosterId: string): Promise<Player[]> {
     })
   );
   return data;
+}
+
+export async function updatePlayer(id: string, role: string): Promise<number> {
+  const { status } = await api(
+    formatRoute(`${BASE_URL}/player`, null, {
+      id,
+      role,
+    }),
+    {
+      method: 'PUT',
+    }
+  );
+  return status;
+}
+
+export async function updateRoster(
+  players: Pick<Person, 'id' | 'completeName' | 'photoUrl'>[],
+  id: string,
+  name: string
+): Promise<number> {
+  const { status } = await api(
+    formatRoute(`${BASE_URL}/roster`, null, {
+      players,
+      id,
+      name,
+    }),
+    {
+      method: 'PUT',
+    }
+  );
+  return status;
+}
+
+export async function addRoster(teamId: string, players: Player[], name: string): Promise<number> {
+  const { status } = await api(
+    formatRoute(`${BASE_URL}/roster`, null, {
+      teamId,
+      players,
+      name,
+    }),
+    {
+      method: 'POST',
+    }
+  );
+  return status;
+}
+
+export async function addPlayers(teamId: string, players: Player[]): Promise<number> {
+  const { status } = await api(
+    formatRoute(`${BASE_URL}/players`, null, {
+      teamId,
+      players,
+    }),
+    {
+      method: 'POST',
+    }
+  );
+  return status;
 }
 
 export async function deletePlayer(id: string): Promise<number> {

@@ -2,12 +2,12 @@ import React, { useState, useContext, useEffect, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
 import { Player } from '../../../../../../typescript/types';
+import { addPlayers } from '../../../../actions/service/entity';
 
 interface IProps {
   open: boolean;
@@ -32,14 +32,8 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
   const [people, setPeople] = useState<Player[]>([]);
 
   const onSubmit = async () => {
-    const res = await api(`/api/entity/players`, {
-      method: 'POST',
-      body: JSON.stringify({
-        teamId,
-        players: people,
-      }),
-    });
-    if (res.status === STATUS_ENUM.ERROR) {
+    const status = await addPlayers(teamId, people);
+    if (status === STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
