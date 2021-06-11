@@ -28,7 +28,7 @@ const EditPlayer: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('role', player.role);
   }, [openProps]);
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     formik.resetForm();
     onClose();
   };

@@ -68,13 +68,13 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     teamId: '',
     roster: [],
   });
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [edit, setEdit] = useState(false);
-  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
-  const [openDelete, setOpenDelete] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<any>(null);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
 
-  const getPractice = async () => {
+  const getPractice = async ():Promise<void> => {
     const {
       data: { practice: data, role },
     }: IData = await api(
@@ -132,7 +132,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     setIsLoading(false);
   }, [practice]);
 
-  const goBack = () => {
+  const goBack = ():void => {
     history.back();
   };
 
@@ -217,12 +217,12 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (newAddress: string) => {
+  const addressChanged = (newAddress: string):void => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', newAddress);
   };
 
-  const onAddressChanged = (event: string) => {
+  const onAddressChanged = (event: string):void => {
     if (event.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -231,15 +231,15 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: any):void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     setAnchorEl(null);
   };
 
-  const onDelete = async () => {
+  const onDelete = async ():Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/practice', null, {
         teamId: practice?.teamId,
@@ -262,16 +262,16 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const onEdit = () => {
+  const onEdit = ():void => {
     setEdit(true);
     handleClose();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = ():void => {
     formik?.handleSubmit();
   };
 
-  const cancelEdit = () => {
+  const cancelEdit = ():void => {
     setEdit(false);
     getPractice();
   };

@@ -15,7 +15,7 @@ import Button from '../../../components/Custom/Button';
 import Paper from '../../../components/Custom/Paper';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import TextField from '../../../components/Custom/TextField';
-import { Entity } from '../../../../../typescript/types';
+import { Entity, Role } from '../../../../../typescript/types';
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -34,12 +34,12 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
     basicInfos: { id, name: initialName, photoUrl: initialPhotoUrl, role },
   } = props;
 
-  const isEditor = useEditor(role);
+  const isEditor = useEditor<Role>(role);
 
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(initialPhotoUrl);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isEditMode, setEditMode] = useState<boolean>(false);
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState<any>(null);
 
   useEffect(() => {
     formik.setFieldValue('name', initialName);
@@ -122,7 +122,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
     },
   };
 
-  const onImgUpload = async () => {
+  const onImgUpload = async ():Promise<void> => {
     const photoUrl = await uploadEntityPicture(id, img);
 
     if (photoUrl) {

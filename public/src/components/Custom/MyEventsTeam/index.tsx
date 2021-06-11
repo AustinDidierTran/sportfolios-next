@@ -41,18 +41,18 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
   const router = useRouter();
 
-  const [practiceInfos, setPracticeInfos] = useState(practiceInfosProps);
-  const [openPractice, setOpenPractice] = useState(false);
+  const [practiceInfos, setPracticeInfos] = useState<Practice[]>(practiceInfosProps);
+  const [openPractice, setOpenPractice] = useState<boolean>(false);
 
-  const openGameDetailed = async (game: IEntity) => {
+  const openGameDetailed = async (game: IEntity):Promise<void> => {
     goTo(ROUTES_ENUM.entity, { id: game.eventId }, { tab: router.query.tab, gameId: game.id });
   };
 
-  const openPracticeDetailed = async (practice: IEntity) => {
+  const openPracticeDetailed = async (practice: IEntity):Promise<void> => {
     goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
   };
 
-  const openEventDetailed = async (event: any) => {
+  const openEventDetailed = async (event: any):Promise<void> => {
     if (event.type == CARD_TYPE_ENUM.PRACTICE) {
       openPracticeDetailed(event);
     } else {
@@ -60,15 +60,15 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const createPractice = () => {
+  const createPractice = ():void => {
     setOpenPractice(true);
   };
 
-  const closePractice = () => {
+  const closePractice = ():void => {
     setOpenPractice(false);
   };
 
-  const refreshPractice = async () => {
+  const refreshPractice = async ():Promise<void> => {
     const { data } = await api(formatRoute('/api/entity', null, { id }));
 
     setPracticeInfos(data.eventInfos.practiceInfos);

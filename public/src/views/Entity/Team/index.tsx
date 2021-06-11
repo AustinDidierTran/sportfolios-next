@@ -47,7 +47,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { id },
   } = useContext(Store);
-  const [basicInfos, setBasicInfos] = useState(basicInfosProps);
+  const [basicInfos, setBasicInfos] = useState<Entity>(basicInfosProps);
   const gamesInfos = eventInfosProps?.gamesInfos;
   const practiceInfos = eventInfosProps?.practiceInfos;
 
@@ -100,7 +100,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
     return Home;
   }, [index, states]);
 
-  const onSwitch = () => {
+  const onSwitch = ():void => {
     const newState = !adminView;
     setAdminView(newState);
     if (newState) {
@@ -112,7 +112,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const getRole = async () => {
+  const getRole = async ():Promise<void> => {
     const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let newInfos = basicInfos;

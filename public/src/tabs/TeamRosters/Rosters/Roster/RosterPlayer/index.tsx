@@ -34,7 +34,7 @@ const RosterPlayer: React.FunctionComponent<IProps> = (props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [deletePlayer, setDelete] = useState<boolean>(false);
 
-  const onDelete = async () => {
+  const onDelete = async ():Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/rosterPlayer', null, {
         id: player.id,

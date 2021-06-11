@@ -49,7 +49,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('name', roster.name);
   }, [openProps]);
 
-  const getPlayers = async () => {
+  const getPlayers = async ():Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/players', null, {
         teamId,
@@ -86,17 +86,17 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     formik.resetForm();
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson: person) => {
+  const onClick = (newPerson: person):void => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: person) => {
+  const removePerson = (person: person):void => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 

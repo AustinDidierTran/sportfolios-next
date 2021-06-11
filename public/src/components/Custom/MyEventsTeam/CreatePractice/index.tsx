@@ -32,17 +32,17 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     setOpen(isOpen);
   }, [isOpen]);
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     formik.resetForm();
     onClose();
   };
 
-  const addressChanged = (newAddress: string) => {
+  const addressChanged = (newAddress: string):void => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', newAddress);
   };
 
-  const onAddressChanged = (event: any) => {
+  const onAddressChanged = (event: any):void => {
     if (event.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -51,7 +51,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any):void => {
     let newTime = moment().hour(event.substring(0, 2)).minutes(event.substring(3, 5)).add(2, 'hours').format('HH:mm');
 
     formik.setFieldValue('timeEnd', newTime);

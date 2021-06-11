@@ -36,11 +36,11 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     }
   }, [teamId]);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [people, setPeople] = useState<Player[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
 
-  const getPlayers = async () => {
+  const getPlayers = async ():Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/players', null, {
         teamId,
@@ -91,17 +91,17 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     formik.resetForm();
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson: Player) => {
+  const onClick = (newPerson: Player):void => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: Player) => {
+  const removePerson = (person: Player):void => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 

@@ -33,7 +33,7 @@ const Players: React.FunctionComponent<IProps> = (props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [players, setPlayers] = useState<PlayerType[]>([]);
 
-  const getPlayers = async () => {
+  const getPlayers = async ():Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/players', null, {
         teamId,
@@ -42,7 +42,7 @@ const Players: React.FunctionComponent<IProps> = (props) => {
     setPlayers(data);
   };
 
-  const onClose = () => {
+  const onClose = ():void => {
     setOpen(false);
   };
 

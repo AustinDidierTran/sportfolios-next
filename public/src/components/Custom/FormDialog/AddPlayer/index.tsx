@@ -31,7 +31,7 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [people, setPeople] = useState<Player[]>([]);
 
-  const onSubmit = async () => {
+  const onSubmit = async ():Promise<void> => {
     const res = await api(`/api/entity/players`, {
       method: 'POST',
       body: JSON.stringify({
@@ -59,16 +59,16 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson: Player) => {
+  const onClick = (newPerson: Player):void => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: Player) => {
+  const removePerson = (person: Player):void => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 

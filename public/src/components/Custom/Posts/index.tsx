@@ -72,7 +72,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
   const classes = useStyles();
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const currentPage = useRef(1);
+  const currentPage = useRef<any>(1);
   const [isMore, setIsMore] = useState<boolean>(true);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     await getPostFeed();
   };
 
-  const handleLike = async (postId: string, entityId: string, like: boolean) => {
+  const handleLike = async (postId: string, entityId: string, like: boolean):Promise<void> => {
     const apiRoute = like ? '/api/posts/like' : '/api/posts/unlike';
 
     const { data } = await api(apiRoute, {
@@ -130,7 +130,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
-  const handleComment = async (entityId: string, postContent: string, images: string, postId: string) => {
+  const handleComment = async (entityId: string, postContent: string, images: string, postId: string):Promise<void> => {
     const { data } = await api('/api/posts/comment', {
       method: 'POST',
       body: JSON.stringify({
@@ -151,7 +151,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
-  const handleDeletePost = async (postId: string) => {
+  const handleDeletePost = async (postId: string):Promise<void> => {
     const { status } = await api(
       formatRoute('/api/posts/deletePost', null, {
         postId,
@@ -172,7 +172,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     await getPostFeed();
   };
 
-  const handleDeleteComment = async (commentId: string) => {
+  const handleDeleteComment = async (commentId: string):Promise<void> => {
     const { status } = await api(
       formatRoute('/api/posts/comment', null, {
         commentId,
@@ -192,7 +192,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     await getPostFeed();
   };
 
-  const handleEditComment = async (commentId: string, commentContent: string) => {
+  const handleEditComment = async (commentId: string, commentContent: string):Promise<void> => {
     await api('/api/posts/comment', {
       method: 'PUT',
       body: JSON.stringify({
@@ -202,7 +202,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     });
   };
 
-  const handlePost = async (entityId: string, postContent: string, images: any) => {
+  const handlePost = async (entityId: string, postContent: string, images: any):Promise<void> => {
     const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
       body: JSON.stringify({
@@ -235,7 +235,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     });
   };
 
-  const handleEditPost = async (postId: string, postContent: string, images: any) => {
+  const handleEditPost = async (postId: string, postContent: string, images: any):Promise<void> => {
     await api('/api/posts', {
       method: 'PUT',
       body: JSON.stringify({

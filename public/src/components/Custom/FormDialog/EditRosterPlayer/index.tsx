@@ -19,7 +19,7 @@ interface IProps {
 const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { open: openProps, onClose, player, update } = props;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const { dispatch } = useContext(Store);
 
@@ -28,7 +28,7 @@ const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('role', player.role);
   }, [openProps]);
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     formik.resetForm();
     onClose();
   };

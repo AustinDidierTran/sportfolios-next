@@ -44,7 +44,7 @@ interface IValues {
 const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
   const { entityId, id } = props;
   const { t } = useTranslation();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { dispatch } = useContext(Store);
 
   const isANumber = (number: number | undefined) => !isNaN(Number(number));
