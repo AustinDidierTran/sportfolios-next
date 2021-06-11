@@ -148,6 +148,19 @@ export async function deletePlayer(id: string): Promise<number> {
   return status;
 }
 
+export async function deletePractice(teamId: string, practiceId: string): Promise<number> {
+  const { status } = await api(
+    formatRoute(`${BASE_URL}/practice`, null, {
+      teamId,
+      practiceId,
+    }),
+    {
+      method: 'DELETE',
+    }
+  );
+  return status;
+}
+
 export async function deleteRosterPlayer(id: string): Promise<number> {
   const { status } = await api(
     formatRoute(`${BASE_URL}/rosterPlayer`, null, {

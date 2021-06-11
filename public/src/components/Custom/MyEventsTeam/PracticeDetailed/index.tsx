@@ -3,8 +3,6 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import AlertDialog from '../../Dialog/AlertDialog';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../utils/stringFormats';
 import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
@@ -22,7 +20,7 @@ import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
 import { Practice } from '../../../../../../typescript/types';
-import { getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
+import { deletePractice, getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
 
 const Roster = dynamic(() => import('../../Roster'));
 
@@ -220,17 +218,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const onDelete = async (): Promise<void> => {
-    const res = await api(
-      formatRoute('/api/entity/practice', null, {
-        teamId: practice?.teamId,
-        practiceId: practiceId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    const status = await deletePractice(practice?.teamId, practiceId);
 
-    if (res.status > STATUS_ENUM.SUCCESS) {
+    if (status > STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
