@@ -6,11 +6,11 @@ import TextField from '../../../components/Custom/TextField';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './QuickDescription.module.css';
-import { formatRoute } from '../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
+import { getGeneralInfos } from '../../../actions/service/entity';
 
 export default function Description() {
   const { t } = useTranslation();
@@ -28,14 +28,10 @@ export default function Description() {
   const [initial, setInitial] = useState('');
 
   const getDescription = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/generalInfos', null, {
-        entityId,
-      })
-    );
-    if (data.quickDescription) {
-      setInitial(decodeURIComponent(data.quickDescription));
-      formik.setFieldValue('description', decodeURIComponent(data.quickDescription));
+    const generalInfos = await getGeneralInfos(entityId);
+    if (generalInfos.quickDescription) {
+      setInitial(decodeURIComponent(generalInfos.quickDescription));
+      formik.setFieldValue('description', decodeURIComponent(generalInfos.quickDescription));
     } else {
       setInitial('');
       formik.setFieldValue('description', '');
