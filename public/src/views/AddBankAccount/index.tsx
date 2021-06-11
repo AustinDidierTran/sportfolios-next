@@ -47,9 +47,9 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { dispatch } = useContext(Store);
 
-  const isANumber = (number: number | undefined) => !isNaN(Number(number));
+  const isANumber = (number: number | undefined): boolean => !isNaN(Number(number));
 
-  const validate = (values: IValues) => {
+  const validate = (values: IValues): IErrors => {
     const errors: IErrors = {};
     const { country, currency, accountHolderName, transitNumber, institutionNumber, accountNumber } = values;
 

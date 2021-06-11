@@ -23,7 +23,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   const { roster } = props;
   const [teamRoster, setTeamRoster] = useState<Player[]>([]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (roster) {
       setTeamRoster(roster);
     }

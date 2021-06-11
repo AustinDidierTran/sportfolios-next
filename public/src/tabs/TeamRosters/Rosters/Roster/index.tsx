@@ -32,7 +32,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
 
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (roster.id) {
       getPlayers();
     }
@@ -43,7 +43,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   const [deleteRoster, setDeleteRoster] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
 
-  const getPlayers = async ():Promise<void> => {
+  const getPlayers = async (): Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/rosterPlayers', null, {
         rosterId: roster.id,
@@ -52,11 +52,11 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     setPlayers(data);
   };
 
-  const onExpand = ():void => {
+  const onExpand = (): void => {
     setExpanded(!expanded);
   };
 
-  const style = useMemo(() => {
+  const style = useMemo((): string => {
     if (index % 2 === 0) {
       return styles.even;
     } else {
@@ -64,7 +64,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     }
   }, [index]);
 
-  const onDelete = async ():Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/roster', null, {
         id: roster.id,

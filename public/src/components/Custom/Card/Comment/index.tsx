@@ -37,7 +37,7 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
     isAdmin,
   } = props;
 
-  const modifyComment = ():void => {
+  const modifyComment = (): void => {
     if (editCommentContent === '') {
       setOpenAlert(true);
       return;
@@ -47,7 +47,7 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
     setEdit(false);
   };
 
-  const cancelEdit = ():void => {
+  const cancelEdit = (): void => {
     setEditCommentContent(decodeURIComponent(commentContent));
     setEdit(false);
   };
@@ -60,29 +60,29 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
   const [editCommentContent, setEditCommentContent] = useState<string>(decodeURIComponent(content));
   const [commentContent, setCommentContent] = useState<string>(decodeURIComponent(content));
 
-  useEffect(() => {
+  useEffect((): void => {
     setCommentContent(decodeURIComponent(content));
     setEditCommentContent(decodeURIComponent(content));
   }, [content]);
 
-  const handleClick = (event: any):void => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = ():void => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const onClickDelete = ():void => {
+  const onClickDelete = (): void => {
     handleDeleteComment(commentId);
     handleClose();
   };
 
-  const onClickEdit = ():void => {
+  const onClickEdit = (): void => {
     setEdit(true);
     handleClose();
   };
 
-  const handleChange = (event: any):void => {
+  const handleChange = (event: any): void => {
     setEditCommentContent(event.target.value);
   };
 

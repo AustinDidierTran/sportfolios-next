@@ -81,27 +81,27 @@ const Post: React.FunctionComponent<IProps> = (props) => {
   const [images, setImages] = useState<PostImage[]>(postInfo.images);
   const [comments, setComments] = useState<CommentType[]>(postInfo.comments);
 
-  useEffect(() => {
+  useEffect((): void => {
     setComments(postInfo.comments);
   }, [postInfo.comments]);
 
-  const handleClick = (event: any):void => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = ():void => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const goToLogin = ():void => {
+  const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
-  const onOpenToLoggin = ():void => {
+  const onOpenToLoggin = (): void => {
     setOpenToLogin(true);
   };
 
-  const onCloseToLoggin = ():void => {
+  const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
 
@@ -109,9 +109,9 @@ const Post: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo },
   } = useContext(Store);
 
-  const getTimeToShow = (date: string) => {
-    const newDate:any = new Date(date);
-    const today:any = new Date();
+  const getTimeToShow = (date: string): string => {
+    const newDate: any = new Date(date);
+    const today: any = new Date();
     const deltaTime = Math.floor(Math.abs(today - newDate) / 1000 / 86400);
     if (deltaTime < 1) {
       return moment.utc(newDate).fromNow();
@@ -124,7 +124,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const clearImage = () => {
+  const clearImage = (): void => {
     setEditImages([]);
   };
 
@@ -148,52 +148,50 @@ const Post: React.FunctionComponent<IProps> = (props) => {
     },
   };
 
-  const handleChange= (event:any):void => {
+  const handleChange = (event: any): void => {
     setEditPostContent(event.target.value);
   };
 
-  const onClickLike = async (e:any):Promise<void> => {
+  const onClickLike = async (e: any): Promise<void> => {
     e.preventDefault();
     handleLike(postInfo.id, userInfo.primaryPerson.personId, !postInfo.liked);
   };
 
-  const onClickDelete = async ():Promise<void> => {
+  const onClickDelete = async (): Promise<void> => {
     handleDeletePost(postInfo.id);
   };
 
-  const onClickComment = ():void => {
+  const onClickComment = (): void => {
     setDisplayComment((displayComment) => !displayComment && allowComment);
   };
 
-  const onClickEdit = ():void => {
+  const onClickEdit = (): void => {
     setEdit(true);
     handleClose();
   };
 
-  const modifyPost = ():void => {
+  const modifyPost = (): void => {
     handleEditPost(postInfo.id, encodeURIComponent(editPostContent), editImages);
     setPostContent(decodeURIComponent(editPostContent));
     setImages(editImages);
     setEdit(false);
   };
 
-  const onClickDeleteComment = (commentId: string):void => {
+  const onClickDeleteComment = (commentId: string): void => {
     handleDeleteComment(commentId);
     setComments(comments.filter((comment) => comment.id !== commentId));
   };
 
-  const cancelEdit = ():void => {
+  const cancelEdit = (): void => {
     setEditPostContent(decodeURIComponent(postContent));
     setEditImages(images);
     setEdit(false);
   };
 
-  const showStats = useMemo(() => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike), [
-    postInfo.likes.length,
-    comments.length,
-    allowComment,
-    allowLike,
-  ]);
+  const showStats = useMemo(
+    (): boolean => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike),
+    [postInfo.likes.length, comments.length, allowComment, allowLike]
+  );
 
   if (edit) {
     return (

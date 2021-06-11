@@ -34,7 +34,7 @@ const Player: React.FunctionComponent<IProps> = (props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [deletePlayer, setDelete] = useState<boolean>(false);
 
-  const onDelete = async ():Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/player', null, {
         id: player.id,

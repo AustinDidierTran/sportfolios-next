@@ -25,7 +25,7 @@ interface IProps {
   navTabs: INavTabs[];
   index: string;
   isAdmin: boolean;
-  onSwitch: ()=> void;
+  onSwitch: () => void;
   adminView: boolean;
 }
 
@@ -49,19 +49,19 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openToLogin, setOpenToLogin] = useState<boolean>(false);
 
-  const goToLogin = ():void => {
+  const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
-  const onOpenToLoggin = ():void => {
+  const onOpenToLoggin = (): void => {
     setOpenToLogin(true);
   };
 
-  const onCloseToLoggin = ():void => {
+  const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
-  const update = ():void => {};
+  const update = (): void => {};
 
   return (
     <Paper elevation={1} className={styles.paper}>
@@ -91,7 +91,7 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
           variant="fullWidth"
           scrollButtons="off"
         >
-          {navTabs.map((s:INavTabs, index:number) => (
+          {navTabs.map((s: INavTabs, index: number) => (
             <Tab
               key={index}
               onClick={() => {
@@ -142,5 +142,5 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
       </div>
     </Paper>
   );
-}
+};
 export default HeaderTeam;

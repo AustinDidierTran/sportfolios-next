@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import styles from './BasicInfos.module.css';
 import { uploadEntityPicture } from '../../../actions/aws';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { useFormInput } from '../../../hooks/forms';
 import { useEditor } from '../../../hooks/roles';
 import { changeEntityName } from '../../../actions/api';
 import Typography from '@material-ui/core/Typography';
@@ -41,11 +40,11 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const [img, setImg] = useState<any>(null);
 
-  useEffect(() => {
+  useEffect((): void => {
     formik.setFieldValue('name', initialName);
   }, [initialName]);
 
-  useEffect(() => {
+  useEffect((): void => {
     setPhotoUrl(initialPhotoUrl);
   }, [initialPhotoUrl]);
 
@@ -122,7 +121,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
     },
   };
 
-  const onImgUpload = async ():Promise<void> => {
+  const onImgUpload = async (): Promise<{ status: number }> => {
     const photoUrl = await uploadEntityPicture(id, img);
 
     if (photoUrl) {

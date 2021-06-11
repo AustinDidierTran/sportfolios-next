@@ -19,7 +19,7 @@ const Description: React.FunctionComponent = () => {
     state: { id: entityId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (entityId) {
       getDescription();
     }
@@ -27,7 +27,7 @@ const Description: React.FunctionComponent = () => {
 
   const [initial, setInitial] = useState<string>('');
 
-  const getDescription = async () => {
+  const getDescription = async (): Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/generalInfos', null, {
         entityId,
@@ -78,11 +78,11 @@ const Description: React.FunctionComponent = () => {
     },
   });
 
-  const onCancel = () => {
+  const onCancel = (): void => {
     formik.setFieldValue('description', initial);
   };
 
-  const disabled = useMemo(() => {
+  const disabled = useMemo((): boolean => {
     return formik.values.description === initial;
   }, [formik.values.description, initial]);
 

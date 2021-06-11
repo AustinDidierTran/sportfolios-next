@@ -23,12 +23,12 @@ const EditPlayer: React.FunctionComponent<IProps> = (props) => {
 
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(openProps);
     formik.setFieldValue('role', player.role);
   }, [openProps]);
 
-  const handleClose = ():void => {
+  const handleClose = (): void => {
     formik.resetForm();
     onClose();
   };

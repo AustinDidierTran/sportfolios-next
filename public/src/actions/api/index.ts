@@ -10,7 +10,7 @@ const api = async (
     method?: string;
     body?: string;
   } = {}
-) => {
+):Promise<any> => {
   const headers: any = {
     'Content-Type': 'application/json',
   };
@@ -87,7 +87,7 @@ export const changeEntityName = async (
     name?: string;
     surname?: string;
   } = {}
-) => {
+):Promise<any> => {
   const bodyJSON: { id?: string; name?: string; surname?: string } = { id };
 
   if (name) {
@@ -103,8 +103,8 @@ export const changeEntityName = async (
   });
 };
 
-export const deleteEntity = async (id: string) => {
-  return api(formatRoute('/api/entity', null, { id }), {
+export const deleteEntity = async (id: string):Promise<void> => {
+  api(formatRoute('/api/entity', null, { id }), {
     method: 'DELETE',
   });
 };

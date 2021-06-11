@@ -18,6 +18,14 @@ interface IProps {
   update: () => void;
 }
 
+interface IPersonComponent {
+  componentType: string;
+  person: Player;
+  secondary: string;
+  notClickable: boolean;
+  secondaryActions: any[];
+}
+
 const AddRoster: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update } = props;
   const { t } = useTranslation();
@@ -26,11 +34,11 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(openProps);
   }, [openProps]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (teamId) {
       getPlayers();
     }
@@ -40,7 +48,7 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
   const [people, setPeople] = useState<Player[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
 
-  const getPlayers = async ():Promise<void> => {
+  const getPlayers = async (): Promise<void> => {
     const { data } = await api(
       formatRoute('/api/entity/players', null, {
         teamId,
@@ -91,22 +99,22 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const handleClose = ():void => {
+  const handleClose = (): void => {
     formik.resetForm();
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson: Player):void => {
+  const onClick = (newPerson: Player): void => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: Player):void => {
+  const removePerson = (person: Player): void => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
   const personComponent = useMemo(
-    () =>
+    (): IPersonComponent[] =>
       people.map((person, index) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
@@ -124,9 +132,9 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     [people]
   );
 
-  const blackList = useMemo(() => people.map((person) => person.id), [people]);
+  const blackList = useMemo((): (string | undefined)[] => people.map((person) => person.id), [people]);
 
-  const whiteList = useMemo(() => players.map((player) => player.personId), [players]);
+  const whiteList = useMemo((): (string | undefined)[] => players.map((player) => player.personId), [players]);
 
   const fields = [
     {

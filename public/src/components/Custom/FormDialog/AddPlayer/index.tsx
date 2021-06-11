@@ -16,6 +16,13 @@ interface IProps {
   players: Player[];
 }
 
+interface IPersonComponent {
+  componentType: string;
+  person: Player;
+  secondary: string;
+  notClickable: boolean;
+  secondaryActions: any[];
+}
 const AddPlayer: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update, players } = props;
   const { t } = useTranslation();
@@ -24,14 +31,14 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(openProps);
   }, [openProps]);
 
   const [open, setOpen] = useState<boolean>(false);
   const [people, setPeople] = useState<Player[]>([]);
 
-  const onSubmit = async ():Promise<void> => {
+  const onSubmit = async (): Promise<void> => {
     const res = await api(`/api/entity/players`, {
       method: 'POST',
       body: JSON.stringify({
@@ -59,21 +66,21 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleClose = ():void => {
+  const handleClose = (): void => {
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson: Player):void => {
+  const onClick = (newPerson: Player): void => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: Player):void => {
+  const removePerson = (person: Player): void => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
   const personComponent = useMemo(
-    () =>
+    (): IPersonComponent[] =>
       people.map((person, index) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
@@ -91,12 +98,12 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
     [people]
   );
 
-  const blackList = useMemo(() => people.map((person) => person.id).concat(players.map((player) => player.personId)), [
-    people,
-    players,
-  ]);
+  const blackList = useMemo(
+    (): (string | undefined)[] => people.map((person) => person.id).concat(players.map((player) => player.personId)),
+    [people, players]
+  );
 
-  const disabled = useMemo(() => {
+  const disabled = useMemo((): boolean => {
     return people.length < 1;
   }, [people]);
 

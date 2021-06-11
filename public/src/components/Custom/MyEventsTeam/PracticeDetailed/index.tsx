@@ -58,7 +58,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo },
   } = useContext(Store);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [practice, setPractice] = useState<Practice>({
     entityId: '',
     id: '',
@@ -74,7 +74,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
-  const getPractice = async ():Promise<void> => {
+  const getPractice = async (): Promise<void> => {
     const {
       data: { practice: data, role },
     }: IData = await api(
@@ -118,13 +118,13 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (practiceId) {
       getPractice();
     }
   }, [practiceId]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!practice || !practice.entityId) {
       return;
     }
@@ -132,7 +132,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     setIsLoading(false);
   }, [practice]);
 
-  const goBack = ():void => {
+  const goBack = (): void => {
     history.back();
   };
 
@@ -205,7 +205,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const hasChanged = useMemo(() => {
+  const hasChanged = useMemo((): boolean => {
     return (
       practice?.name != formik.values.name ||
       formatDate(moment.utc(practice?.startDate), 'YYYY-MM-DD') != formik.values.startDate ||
@@ -217,12 +217,12 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (newAddress: string):void => {
+  const addressChanged = (newAddress: string): void => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', newAddress);
   };
 
-  const onAddressChanged = (event: string):void => {
+  const onAddressChanged = (event: string): void => {
     if (event.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -231,15 +231,15 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleClick = (event: any):void => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = ():void => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const onDelete = async ():Promise<void> => {
+  const onDelete = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/practice', null, {
         teamId: practice?.teamId,
@@ -262,16 +262,16 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const onEdit = ():void => {
+  const onEdit = (): void => {
     setEdit(true);
     handleClose();
   };
 
-  const handleSubmit = ():void => {
+  const handleSubmit = (): void => {
     formik?.handleSubmit();
   };
 
-  const cancelEdit = ():void => {
+  const cancelEdit = (): void => {
     setEdit(false);
     getPractice();
   };
