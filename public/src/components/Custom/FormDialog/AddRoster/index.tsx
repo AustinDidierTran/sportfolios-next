@@ -105,12 +105,12 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const onClick = (newPerson: Player): void => {
-    setPeople((p) => [...p, newPerson]);
+  const onClick = (newPlayer: Player): void => {
+    setPeople((p) => [...p, newPlayer]);
   };
 
-  const removePerson = (person: Player): void => {
-    setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
+  const removePlayer = (player: Player): void => {
+    setPeople((currentPeople) => currentPeople.filter((p) => p.id != player.id));
   };
 
   const personComponent = useMemo(
@@ -125,7 +125,7 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
             key={index}
             icon="Remove"
             style={{ color: 'secondary' }}
-            onClick={() => removePerson(person)}
+            onClick={() => removePlayer(person)}
           />,
         ],
       })),
