@@ -22,15 +22,12 @@ import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
 import { Practice } from '../../../../../../typescript/types';
+import { getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
 
 const Roster = dynamic(() => import('../../Roster'));
 
 interface IProps {
   practiceId: string;
-}
-
-interface IData {
-  data: IReponse;
 }
 
 interface IReponse {
@@ -75,14 +72,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
   const getPractice = async (): Promise<void> => {
-    const {
-      data: { practice: data, role },
-    }: IData = await api(
-      formatRoute('/api/entity/practiceInfo', null, {
-        practiceId: practiceId,
-      }),
-      { method: 'GET' }
-    );
+    const { practice: data, role }: IReponse = await getPracticeInfo(practiceId);
 
     if (!data) {
       dispatch({
@@ -173,18 +163,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
         end = null;
       }
 
-      const res = await api(`/api/entity/practice`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          id: practice?.id,
-          name,
-          start_date: start,
-          end_date: end,
-          location,
-          address,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+      const status = await updatePractice(practice?.id, name, start, end, location, address);
+
+      if (status === STATUS_ENUM.ERROR || status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -194,7 +175,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       } else {
         setEdit(false);
         getPractice();
-
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('practice_changed'),
