@@ -11,6 +11,7 @@ import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
+import { getGeneralInfos } from '../../../actions/service/entity';
 
 const Description: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -27,15 +28,12 @@ const Description: React.FunctionComponent = () => {
 
   const [initial, setInitial] = useState<string>('');
 
-  const getDescription = async (): Promise<void> => {
-    const { data } = await api(
-      formatRoute('/api/entity/generalInfos', null, {
-        entityId,
-      })
-    );
-    if (data.description) {
-      setInitial(decodeURIComponent(data.description));
-      formik.setFieldValue('description', decodeURIComponent(data.description));
+  const getDescription = async () => {
+    const generalInfos = await getGeneralInfos(entityId);
+
+    if (generalInfos.description) {
+      setInitial(decodeURIComponent(generalInfos.description));
+      formik.setFieldValue('description', decodeURIComponent(generalInfos.description));
     } else {
       setInitial('');
       formik.setFieldValue('description', '');

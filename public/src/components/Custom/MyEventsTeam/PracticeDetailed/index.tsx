@@ -3,8 +3,6 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import AlertDialog from '../../Dialog/AlertDialog';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../utils/stringFormats';
 import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
@@ -22,15 +20,12 @@ import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
 import { Practice } from '../../../../../../typescript/types';
+import { deletePractice, getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
 
 const Roster = dynamic(() => import('../../Roster'));
 
 interface IProps {
   practiceId: string;
-}
-
-interface IData {
-  data: IReponse;
 }
 
 interface IReponse {
@@ -75,14 +70,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
   const getPractice = async (): Promise<void> => {
-    const {
-      data: { practice: data, role },
-    }: IData = await api(
-      formatRoute('/api/entity/practiceInfo', null, {
-        practiceId: practiceId,
-      }),
-      { method: 'GET' }
-    );
+    const { practice: data, role }: IReponse = await getPracticeInfo(practiceId);
 
     if (!data) {
       dispatch({
@@ -173,18 +161,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
         end = null;
       }
 
-      const res = await api(`/api/entity/practice`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          id: practice?.id,
-          name,
-          start_date: start,
-          end_date: end,
-          location,
-          address,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+      const status = await updatePractice(practice?.id, name, start, end, location, address);
+
+      if (status === STATUS_ENUM.ERROR || status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -194,7 +173,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       } else {
         setEdit(false);
         getPractice();
-
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('practice_changed'),
@@ -240,17 +218,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const onDelete = async (): Promise<void> => {
-    const res = await api(
-      formatRoute('/api/entity/practice', null, {
-        teamId: practice?.teamId,
-        practiceId: practiceId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    const status = await deletePractice(practice?.teamId, practiceId);
 
-    if (res.status > STATUS_ENUM.SUCCESS) {
+    if (status > STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

@@ -3,13 +3,12 @@ import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
-import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { formatRoute } from '../../../../utils/stringFormats';
 import IconButton from '../../IconButton';
-import { Roster, Player } from '../../../../../../typescript/types';
+import { Roster, Player, Person } from '../../../../../../typescript/types';
+import { getPlayers as getPlayersApi, updateRoster } from '../../../../actions/service/entity';
 
 interface IProps {
   open: boolean;
@@ -19,15 +18,11 @@ interface IProps {
   players: Player[];
 }
 
-interface person {
-  id: string;
-  completeName: string;
-  photoUrl: string;
-}
+type PickPerson = Pick<Person, 'id' | 'completeName' | 'photoUrl'>;
 
 interface IPersonComponent {
   componentType: string;
-  person: person;
+  person: PickPerson;
   secondary: string;
   notClickable: boolean;
   secondaryActions: any[];
@@ -42,7 +37,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [people, setPeople] = useState<person[]>([]);
+  const [people, setPeople] = useState<PickPerson[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
 
   useEffect((): void => {
@@ -56,13 +51,9 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('name', roster.name);
   }, [openProps]);
 
-  const getPlayers = async (): Promise<void> => {
-    const { data } = await api(
-      formatRoute('/api/entity/players', null, {
-        teamId,
-      })
-    );
-    setPlayers(data);
+  const getPlayers = async () => {
+    const players = await getPlayersApi(teamId);
+    setPlayers(players);
   };
 
   const formik = useFormik({
@@ -71,15 +62,8 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     },
     onSubmit: async (values) => {
       const { name } = values;
-      const res = await api('/api/entity/roster', {
-        method: 'PUT',
-        body: JSON.stringify({
-          players: people,
-          id: roster.id,
-          name,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR) {
+      const status = await updateRoster(people, roster.id, name);
+      if (status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -99,11 +83,11 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const onClick = (newPerson: person): void => {
+  const onClick = (newPerson: PickPerson) => {
     setPeople((p) => [...p, newPerson]);
   };
 
-  const removePerson = (person: person): void => {
+  const removePerson = (person: PickPerson) => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
   };
 
@@ -137,15 +121,13 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       onClick: () => {
-        setPeople(
-          players
-            .map((player) => ({
-              id: player.personId,
-              completeName: player.name,
-              photoUrl: player.photoUrl,
-            }))
-            .filter((player: person) => !blackList.includes(player.id))
-        );
+        const res: PickPerson[] = players
+          .map((player) => {
+            const res: PickPerson = { id: player.personId, completeName: player.name, photoUrl: player.photoUrl };
+            return res;
+          })
+          .filter((player) => !blackList.includes(player.id));
+        setPeople(res);
       },
       children: t('add.add_all_players'),
     },

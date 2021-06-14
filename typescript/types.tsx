@@ -117,9 +117,10 @@ export interface CreditCard {
 export interface Entity {
   id: string;
   type: EntityType;
-  name: string;
   role: Role;
+  name: string;
   surname?: string;
+  completeName?: string;
   description?: string;
   quickDescription?: string;
   photoUrl?: string;
@@ -134,16 +135,15 @@ export interface EntityRole {
 }
 
 export interface Player {
-  id?: string;
-  personId?: string;
-  teamId?: string;
+  id: string;
+  personId: string;
+  teamId: string;
   role: RosterRole;
   name: string;
   photoUrl: string;
 }
 
 export interface Person extends Entity {
-  personId: string;
   birthDate?: string;
   phoneNumber?: string;
   gender?: Gender;

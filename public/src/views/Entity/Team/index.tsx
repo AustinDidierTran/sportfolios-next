@@ -6,11 +6,10 @@ import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } 
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../utils/stringFormats';
-import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import { Entity, Practice } from '../../../../../typescript/types';
+import { getRole as getRoleApi } from '../../../actions/service/entity';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -120,7 +119,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getRole = async (): Promise<void> => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
+    const res = await getRoleApi(id);
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let newInfos = basicInfos;
       newInfos.role = res.data;
