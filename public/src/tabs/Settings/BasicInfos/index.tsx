@@ -33,7 +33,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
     basicInfos: { id, name: initialName, photoUrl: initialPhotoUrl, role },
   } = props;
 
-  const isEditor = useEditor<Role>(role);
+  const isEditor = useEditor(role);
 
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(initialPhotoUrl);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -167,6 +167,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
                 className={styles.cancel}
                 endIcon="Close"
                 onClick={() => {
+                  formik.setFieldValue('name', initialName);
                   setEditMode(false);
                 }}
                 style={{ marginLeft: '8px' }}
