@@ -7,13 +7,14 @@ import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { player } from '../../../../../../typescript/types';
+import { Player } from '../../../../../../typescript/types';
+import { updatePlayer } from '../../../../actions/service/entity';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   update: () => void;
-  player: player;
+  player: Player;
 }
 
 const EditPlayer: React.FunctionComponent<IProps> = (props) => {
@@ -23,12 +24,12 @@ const EditPlayer: React.FunctionComponent<IProps> = (props) => {
 
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(openProps);
     formik.setFieldValue('role', player.role);
   }, [openProps]);
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     formik.resetForm();
     onClose();
   };
@@ -39,14 +40,8 @@ const EditPlayer: React.FunctionComponent<IProps> = (props) => {
     },
     onSubmit: async (values) => {
       const { role } = values;
-      const res = await api('/api/entity/player', {
-        method: 'PUT',
-        body: JSON.stringify({
-          id: player.id,
-          role,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR) {
+      const status = await updatePlayer(player.id, role);
+      if (status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

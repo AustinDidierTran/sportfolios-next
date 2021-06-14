@@ -1,16 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import api from '../../../actions/api';
 import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { Store } from '../../../Store';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../utils/stringFormats';
 import styles from './Rosters.module.css';
 import Roster from './Roster';
-import { roster } from '../../../../../typescript/types';
+import { Roster as RosterType } from '../../../../../typescript/types';
+import { getRosters as getRostersApi } from '../../../actions/service/entity';
 
 interface IProps {
   adminView: boolean;
@@ -23,25 +22,21 @@ const Rosters: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (teamId) {
       getRosters();
     }
   }, [teamId]);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [rosters, setRosters] = useState<roster[]>([]);
+  const [rosters, setRosters] = useState<RosterType[]>([]);
 
   const getRosters = async () => {
-    const { rosters } = await api(
-      formatRoute('/api/entity/rosters', null, {
-        teamId,
-      })
-    );
+    const rosters = await getRostersApi(teamId);
     setRosters(rosters);
   };
 
-  const onClose = () => {
+  const onClose = (): void => {
     setOpen(false);
   };
 

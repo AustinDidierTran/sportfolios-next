@@ -11,31 +11,29 @@ import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
+import { getGeneralInfos } from '../../../actions/service/entity';
 
-export default function Description() {
+const Description: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     dispatch,
     state: { id: entityId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (entityId) {
       getDescription();
     }
   }, [entityId]);
 
-  const [initial, setInitial] = useState('');
+  const [initial, setInitial] = useState<string>('');
 
   const getDescription = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/generalInfos', null, {
-        entityId,
-      })
-    );
-    if (data.description) {
-      setInitial(decodeURIComponent(data.description));
-      formik.setFieldValue('description', decodeURIComponent(data.description));
+    const generalInfos = await getGeneralInfos(entityId);
+
+    if (generalInfos.description) {
+      setInitial(decodeURIComponent(generalInfos.description));
+      formik.setFieldValue('description', decodeURIComponent(generalInfos.description));
     } else {
       setInitial('');
       formik.setFieldValue('description', '');
@@ -78,11 +76,11 @@ export default function Description() {
     },
   });
 
-  const onCancel = () => {
+  const onCancel = (): void => {
     formik.setFieldValue('description', initial);
   };
 
-  const disabled = useMemo(() => {
+  const disabled = useMemo((): boolean => {
     return formik.values.description === initial;
   }, [formik.values.description, initial]);
 
@@ -116,4 +114,5 @@ export default function Description() {
       </form>
     </Paper>
   );
-}
+};
+export default Description;

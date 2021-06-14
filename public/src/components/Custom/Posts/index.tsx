@@ -12,10 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
-import { post, user } from '../../../../../typescript/types';
+import { Post, User } from '../../../../../typescript/types';
 
 interface IProps {
-  userInfo: user;
+  userInfo: User;
   allowNewPost: boolean;
   allowPostImage: boolean;
   entityIdCreatePost: string | number;
@@ -71,17 +71,17 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
   } = React.useContext(Store);
   const classes = useStyles();
 
-  const [posts, setPosts] = useState<post[]>([]);
-  const currentPage = useRef(1);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const currentPage = useRef<any>(1);
   const [isMore, setIsMore] = useState<boolean>(true);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (userInfo?.primaryPerson?.personId) {
       getPostFeed();
     }
   }, [userInfo?.primaryPerson?.personId]);
 
-  const getPostFeed = async () => {
+  const getPostFeed = async (): Promise<void> => {
     const { status, data } = await api(
       formatRoute('/api/posts', null, {
         userId: userInfo?.primaryPerson?.personId || -1,
@@ -105,15 +105,15 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
       return;
     }
 
-    setPosts((posts) => [...posts, ...data.filter((post: post) => posts.findIndex((t) => t.id === post.id) === -1)]);
+    setPosts((posts) => [...posts, ...data.filter((post: Post) => posts.findIndex((t) => t.id === post.id) === -1)]);
   };
 
-  const loadMorePost = async () => {
+  const loadMorePost = async (): Promise<void> => {
     currentPage.current += 1;
     await getPostFeed();
   };
 
-  const handleLike = async (postId: string, entityId: string, like: boolean) => {
+  const handleLike = async (postId: string, entityId: string, like: boolean): Promise<void> => {
     const apiRoute = like ? '/api/posts/like' : '/api/posts/unlike';
 
     const { data } = await api(apiRoute, {
@@ -130,7 +130,12 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
-  const handleComment = async (entityId: string, postContent: string, images: string, postId: string) => {
+  const handleComment = async (
+    entityId: string,
+    postContent: string,
+    images: string,
+    postId: string
+  ): Promise<void> => {
     const { data } = await api('/api/posts/comment', {
       method: 'POST',
       body: JSON.stringify({
@@ -151,7 +156,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     setPosts((oldPosts) => oldPosts.map((o) => (o.id === postId ? data : o)));
   };
 
-  const handleDeletePost = async (postId: string) => {
+  const handleDeletePost = async (postId: string): Promise<void> => {
     const { status } = await api(
       formatRoute('/api/posts/deletePost', null, {
         postId,
@@ -172,7 +177,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     await getPostFeed();
   };
 
-  const handleDeleteComment = async (commentId: string) => {
+  const handleDeleteComment = async (commentId: string): Promise<void> => {
     const { status } = await api(
       formatRoute('/api/posts/comment', null, {
         commentId,
@@ -192,7 +197,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     await getPostFeed();
   };
 
-  const handleEditComment = async (commentId: string, commentContent: string) => {
+  const handleEditComment = async (commentId: string, commentContent: string): Promise<void> => {
     await api('/api/posts/comment', {
       method: 'PUT',
       body: JSON.stringify({
@@ -202,7 +207,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     });
   };
 
-  const handlePost = async (entityId: string, postContent: string, images: any) => {
+  const handlePost = async (entityId: string, postContent: string, images: any): Promise<void> => {
     const { data: newPost } = await api('/api/posts/create', {
       method: 'POST',
       body: JSON.stringify({
@@ -235,7 +240,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
     });
   };
 
-  const handleEditPost = async (postId: string, postContent: string, images: any) => {
+  const handleEditPost = async (postId: string, postContent: string, images: any): Promise<void> => {
     await api('/api/posts', {
       method: 'PUT',
       body: JSON.stringify({

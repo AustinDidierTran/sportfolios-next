@@ -10,21 +10,21 @@ import CreatePractice from './CreatePractice';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { Store } from '../../../Store';
-import { practice } from '../../../../../typescript/types';
+import { Practice } from '../../../../../typescript/types';
 
 interface IProps {
   gamesInfos: IGameInfos[];
-  practiceInfos: practice[];
+  practiceInfos: Practice[];
   adminView: boolean;
 }
 
 interface IGameInfos {
-  eventId: string;
-  eventName: string;
-  id: string;
+  eventId?: string;
+  eventName?: string;
+  id?: string;
   timeslot: string;
-  field: string;
-  name: string;
+  field?: string;
+  name?: string;
   teamNames: string;
   teamScores: string;
 }
@@ -32,6 +32,25 @@ interface IGameInfos {
 interface IEntity {
   id: number;
   eventId?: string;
+}
+
+interface IEvent {
+  location?: string;
+  positions?: {
+    name: string;
+    score: string;
+  }[];
+  type: string;
+  startTime: string;
+  endTime?: string;
+  eventId?: string;
+  eventName?: string;
+  id?: string;
+  timeslot?: string;
+  field?: string;
+  name?: string;
+  teamNames?: string;
+  teamScores?: string;
 }
 
 const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
@@ -42,18 +61,18 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
   const router = useRouter();
 
-  const [practiceInfos, setPracticeInfos] = useState(practiceInfosProps);
-  const [openPractice, setOpenPractice] = useState(false);
+  const [practiceInfos, setPracticeInfos] = useState<Practice[]>(practiceInfosProps);
+  const [openPractice, setOpenPractice] = useState<boolean>(false);
 
-  const openGameDetailed = async (game: IEntity) => {
+  const openGameDetailed = async (game: IEntity): Promise<void> => {
     goTo(ROUTES_ENUM.entity, { id: game.eventId }, { tab: router.query.tab, gameId: game.id });
   };
 
-  const openPracticeDetailed = async (practice: IEntity) => {
+  const openPracticeDetailed = async (practice: IEntity): Promise<void> => {
     goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
   };
 
-  const openEventDetailed = async (event: any) => {
+  const openEventDetailed = async (event: any): Promise<void> => {
     if (event.type == CARD_TYPE_ENUM.PRACTICE) {
       openPracticeDetailed(event);
     } else {
@@ -61,22 +80,22 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const createPractice = () => {
+  const createPractice = (): void => {
     setOpenPractice(true);
   };
 
-  const closePractice = () => {
+  const closePractice = (): void => {
     setOpenPractice(false);
   };
 
-  const refreshPractice = async () => {
+  const refreshPractice = async (): Promise<void> => {
     const { data } = await api(formatRoute('/api/entity', null, { id }));
 
     setPracticeInfos(data.eventInfos.practiceInfos);
     setOpenPractice(false);
   };
 
-  const events = useMemo(() => {
+  const events = useMemo((): IEvent[] => {
     let array = [];
     let game = gamesInfos?.map((game) => {
       const positions = [
@@ -92,18 +111,20 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     });
     array.push(game);
 
-    let practice = practiceInfos?.map((practice) => {
-      return {
-        id: practice.id,
-        name: practice.name,
-        location: practice.location,
-        type: CARD_TYPE_ENUM.PRACTICE,
-        startTime: practice.startDate,
-        endTime: practice.endDate,
-      };
-    });
+    let practice = practiceInfos?.map(
+      (practice): IEvent => {
+        return {
+          id: practice.id,
+          name: practice.name,
+          location: practice.location,
+          type: CARD_TYPE_ENUM.PRACTICE,
+          startTime: practice.startDate,
+          endTime: practice.endDate,
+        };
+      }
+    );
 
-    return (practice as Array<any>)
+    return practice
       .concat(game)
       .sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
   }, [gamesInfos, practiceInfos]);

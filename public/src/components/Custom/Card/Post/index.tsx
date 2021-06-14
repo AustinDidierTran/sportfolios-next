@@ -30,13 +30,13 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
 import dynamic from 'next/dynamic';
-import { post, comment, postImage } from '../../../../../../typescript/types';
+import { Post as PostType, Comment as CommentType, PostImage } from '../../../../../../typescript/types';
 
 const Comment = dynamic(() => import('../Comment'));
 const PostInput = dynamic(() => import('../../Input/PostInput'));
 
 interface IProps {
-  postInfo: post;
+  postInfo: PostType;
   entityId: string;
   isAdmin: boolean;
   handleEditComment: () => void;
@@ -72,36 +72,36 @@ const Post: React.FunctionComponent<IProps> = (props) => {
 
   const [openToLogin, setOpenToLogin] = useState<boolean>(false);
   const [displayComment, setDisplayComment] = useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const [edit, setEdit] = useState<boolean>(false);
 
   const [editPostContent, setEditPostContent] = useState<string>(decodeURIComponent(postInfo.content));
   const [editImages, setEditImages] = useState<any>(postInfo.images);
   const [postContent, setPostContent] = useState<string>(decodeURIComponent(postInfo.content));
-  const [images, setImages] = useState<postImage[]>(postInfo.images);
+  const [images, setImages] = useState<PostImage[]>(postInfo.images);
+  const [comments, setComments] = useState<CommentType[]>(postInfo.comments);
 
-  const [comments, setComments] = useState<comment[]>(postInfo.comments);
-  useEffect(() => {
+  useEffect((): void => {
     setComments(postInfo.comments);
   }, [postInfo.comments]);
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const goToLogin = () => {
+  const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
-  const onOpenToLoggin = () => {
+  const onOpenToLoggin = (): void => {
     setOpenToLogin(true);
   };
 
-  const onCloseToLoggin = () => {
+  const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
 
@@ -109,7 +109,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo },
   } = useContext(Store);
 
-  const getTimeToShow = (date: string) => {
+  const getTimeToShow = (date: string): string => {
     const newDate: any = new Date(date);
     const today: any = new Date();
     const deltaTime = Math.floor(Math.abs(today - newDate) / 1000 / 86400);
@@ -124,7 +124,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const clearImage = () => {
+  const clearImage = (): void => {
     setEditImages([]);
   };
 
@@ -148,52 +148,50 @@ const Post: React.FunctionComponent<IProps> = (props) => {
     },
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any): void => {
     setEditPostContent(event.target.value);
   };
 
-  const onClickLike = async (e: any) => {
+  const onClickLike = async (e: any): Promise<void> => {
     e.preventDefault();
     handleLike(postInfo.id, userInfo.primaryPerson.personId, !postInfo.liked);
   };
 
-  const onClickDelete = async () => {
+  const onClickDelete = async (): Promise<void> => {
     handleDeletePost(postInfo.id);
   };
 
-  const onClickComment = () => {
+  const onClickComment = (): void => {
     setDisplayComment((displayComment) => !displayComment && allowComment);
   };
 
-  const onClickEdit = () => {
+  const onClickEdit = (): void => {
     setEdit(true);
     handleClose();
   };
 
-  const modifyPost = () => {
+  const modifyPost = (): void => {
     handleEditPost(postInfo.id, encodeURIComponent(editPostContent), editImages);
     setPostContent(decodeURIComponent(editPostContent));
     setImages(editImages);
     setEdit(false);
   };
 
-  const onClickDeleteComment = (commentId: string) => {
+  const onClickDeleteComment = (commentId: string): void => {
     handleDeleteComment(commentId);
     setComments(comments.filter((comment) => comment.id !== commentId));
   };
 
-  const cancelEdit = () => {
+  const cancelEdit = (): void => {
     setEditPostContent(decodeURIComponent(postContent));
     setEditImages(images);
     setEdit(false);
   };
 
-  const showStats = useMemo(() => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike), [
-    postInfo.likes.length,
-    comments.length,
-    allowComment,
-    allowLike,
-  ]);
+  const showStats = useMemo(
+    (): boolean => (postInfo.likes.length > 0 || comments.length > 0) && (allowComment || allowLike),
+    [postInfo.likes.length, comments.length, allowComment, allowLike]
+  );
 
   if (edit) {
     return (

@@ -11,7 +11,7 @@ interface IProps {
 const Description: React.FunctionComponent<IProps> = (props) => {
   const { description } = props;
 
-  const text: string = useMemo(() => (description ? decodeURIComponent(description) : ''), [description]);
+  const text = useMemo((): string => (description ? decodeURIComponent(description) : ''), [description]);
 
   if (text && text != 'null') {
     return (

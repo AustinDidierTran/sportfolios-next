@@ -10,7 +10,7 @@ import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../
 import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import moment from 'moment';
-import { location } from '../../../../../../typescript/types';
+import { Location } from '../../../../../../typescript/types';
 
 interface IProps {
   isOpen: boolean;
@@ -36,13 +36,13 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
   const [locationHidden, setLocationHidden] = useState(true);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(isOpen);
     getLocations();
     setLocationHidden(true);
   }, [isOpen]);
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     formik.resetForm();
     onClose();
     setLocationHidden(true);
@@ -50,13 +50,13 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
 
   const getLocations = async () => {
     const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
-    const formattedData = data.filter((n: location) => n.id != null);
+    const formattedData = data.filter((n: Location) => n.id != null);
     formattedData.push(
       { id: t('no_location'), location: t('no_location') },
       { id: t('create_new_location'), location: t('create_new_location') }
     );
 
-    const locationOption: ILocationOption[] = formattedData.map((c: location) => ({
+    const locationOption: ILocationOption[] = formattedData.map((c: Location) => ({
       value: c.id,
       display: `${c.streetAddress ? `${c.location} - ${c.streetAddress}` : c.location}`,
     }));
@@ -64,12 +64,12 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     setLocationOptions(locationOption);
   };
 
-  const addressChanged = (address: string) => {
+  const addressChanged = (address: string): void => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', address);
   };
 
-  const onAddressChanged = (address: any) => {
+  const onAddressChanged = (address: any): void => {
     if (address.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -78,7 +78,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any): void => {
     let newTime = moment().hour(event.substring(0, 2)).minutes(event.substring(3, 5)).add(2, 'hours').format('HH:mm');
 
     formik.setFieldValue('timeEnd', newTime);

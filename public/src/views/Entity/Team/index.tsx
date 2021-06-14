@@ -6,11 +6,10 @@ import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } 
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../utils/stringFormats';
-import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { entity, practice } from '../../../../../typescript/types';
+import { Entity, Practice } from '../../../../../typescript/types';
+import { getRole as getRoleApi } from '../../../actions/service/entity';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -19,7 +18,7 @@ const TeamRosters = dynamic(() => import('../../../tabs/TeamRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 interface IProps {
-  basicInfos: entity;
+  basicInfos: Entity;
   eventInfos: IEventInfos;
 }
 
@@ -36,7 +35,14 @@ interface IGameInfos {
 
 interface IEventInfos {
   gamesInfos: IGameInfos[];
-  practiceInfos: practice[];
+  practiceInfos: Practice[];
+}
+
+interface IStates {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
 }
 
 const Team: React.FunctionComponent<IProps> = (props) => {
@@ -47,15 +53,15 @@ const Team: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { id },
   } = useContext(Store);
-  const [basicInfos, setBasicInfos] = useState(basicInfosProps);
+  const [basicInfos, setBasicInfos] = useState<Entity>(basicInfosProps);
   const gamesInfos = eventInfosProps?.gamesInfos;
   const practiceInfos = eventInfosProps?.practiceInfos;
 
-  useEffect(() => {
+  useEffect((): void => {
     document.title = formatPageTitle(basicInfos.name);
   }, [basicInfos.name]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (id) {
       getRole();
     }
@@ -73,9 +79,9 @@ const Team: React.FunctionComponent<IProps> = (props) => {
     { component: TeamRosters, value: TABS_ENUM.TEAM_ROSTERS, label: t('rosters'), icon: 'Group' },
   ];
 
-  const [adminView, setAdminView] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [states, setStates] = useState(userState);
+  const [adminView, setAdminView] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [states, setStates] = useState<IStates[]>(userState);
 
   const index = useMemo(() => {
     if (adminState.find((s) => s.value === tab) && tab != TABS_ENUM.TEAM_EVENTS && tab != TABS_ENUM.TEAM_ROSTERS) {
@@ -92,7 +98,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
     return res;
   }, [tab, isAdmin]);
 
-  const OpenTab = useMemo(() => {
+  const OpenTab = useMemo((): React.ComponentType<any> => {
     const res = states[index];
     if (res) {
       return res.component;
@@ -100,7 +106,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
     return Home;
   }, [index, states]);
 
-  const onSwitch = () => {
+  const onSwitch = (): void => {
     const newState = !adminView;
     setAdminView(newState);
     if (newState) {
@@ -112,8 +118,8 @@ const Team: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const getRole = async () => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
+  const getRole = async (): Promise<void> => {
+    const res = await getRoleApi(id);
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let newInfos = basicInfos;
       newInfos.role = res.data;

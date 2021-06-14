@@ -177,6 +177,7 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
           <Button
             color="primary"
             onClick={async () => {
+              //@ts-ignore
               const { token } = await stripe!.createToken(elements!.getElement(CardElement)!);
               //@ts-ignore
               setStripeToken(token);

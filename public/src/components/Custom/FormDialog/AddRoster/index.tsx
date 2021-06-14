@@ -2,20 +2,27 @@ import React, { useState, useContext, useEffect, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
-import { formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { player } from '../../../../../../typescript/types';
+import { Player } from '../../../../../../typescript/types';
+import { addRoster, getPlayers as getPlayersApi } from '../../../../actions/service/entity';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   update: () => void;
+}
+
+interface IPersonComponent {
+  componentType: string;
+  person: Player;
+  secondary: string;
+  notClickable: boolean;
+  secondaryActions: any[];
 }
 
 const AddRoster: React.FunctionComponent<IProps> = (props) => {
@@ -26,27 +33,23 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     setOpen(openProps);
   }, [openProps]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (teamId) {
       getPlayers();
     }
   }, [teamId]);
 
-  const [open, setOpen] = useState(false);
-  const [people, setPeople] = useState<player[]>([]);
-  const [players, setPlayers] = useState<player[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [people, setPeople] = useState<Player[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
 
   const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/players', null, {
-        teamId,
-      })
-    );
-    setPlayers(data);
+    const players = await getPlayersApi(teamId);
+    setPlayers(players);
   };
 
   const validationSchema = yup.object().shape({
@@ -62,15 +65,10 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { name } = values;
-      const res = await api(`/api/entity/roster`, {
-        method: 'POST',
-        body: JSON.stringify({
-          teamId,
-          players: people,
-          name,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR) {
+
+      const status = await addRoster(teamId, people, name);
+
+      if (status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -91,22 +89,22 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     formik.resetForm();
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPerson: player) => {
-    setPeople((p) => [...p, newPerson]);
+  const onClick = (newPlayer: Player): void => {
+    setPeople((p) => [...p, newPlayer]);
   };
 
-  const removePerson = (person: player) => {
-    setPeople((currentPeople) => currentPeople.filter((p) => p.id != person.id));
+  const removePlayer = (player: Player): void => {
+    setPeople((currentPeople) => currentPeople.filter((p) => p.id != player.id));
   };
 
   const personComponent = useMemo(
-    () =>
+    (): IPersonComponent[] =>
       people.map((person, index) => ({
         componentType: COMPONENT_TYPE_ENUM.PERSON_ITEM,
         person,
@@ -117,16 +115,16 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
             key={index}
             icon="Remove"
             style={{ color: 'secondary' }}
-            onClick={() => removePerson(person)}
+            onClick={() => removePlayer(person)}
           />,
         ],
       })),
     [people]
   );
 
-  const blackList = useMemo(() => people.map((person) => person.id), [people]);
+  const blackList = useMemo((): (string | undefined)[] => people.map((person) => person.id), [people]);
 
-  const whiteList = useMemo(() => players.map((player) => player.personId), [players]);
+  const whiteList = useMemo((): (string | undefined)[] => players.map((player) => player.personId), [players]);
 
   const fields = [
     {

@@ -1,23 +1,23 @@
 import { event } from 'react-ga';
 
 //ENUMS
-export enum language {
+export enum Language {
   fr = 'fr',
   en = 'en',
 }
 
-export enum userAppRole {
+export enum UserAppRole {
   admin = 1,
   user = 2,
 }
 
-export enum role {
+export enum Role {
   admin = 1,
   editor = 2,
   viewer = 3,
 }
 
-export enum entityType {
+export enum EntityType {
   person = 1,
   organization = 2,
   team = 3,
@@ -25,7 +25,7 @@ export enum entityType {
   game = 5,
 }
 
-export enum membershipType {
+export enum MembershipType {
   elite = 1,
   competitive = 2,
   recreational = 3,
@@ -33,25 +33,25 @@ export enum membershipType {
   notSpecified = 5,
 }
 
-export enum membershipLength {
+export enum MembershipLength {
   fixed = 'fixed',
   length = 'length',
 }
 
-export enum gender {
+export enum Gender {
   male = 'Male',
   female = 'Female',
   notSpecified = 'Other',
 }
 
-export enum notification {
+export enum Notification {
   addedToRoster = 'added to roster',
   otherTeamSubmittedAScore = 'other team submitted a score',
   scoreSubmissionConflict = 'score submission conflict',
   scoreSubmissionRequest = 'score submission request',
 }
 
-export enum invoiceStatus {
+export enum InvoiceStatus {
   draft = 'draft',
   deleted = 'deleted',
   free = 'free',
@@ -62,7 +62,7 @@ export enum invoiceStatus {
   void = 'void',
 }
 
-export enum status {
+export enum Status {
   accepted = 'accepted',
   acceptedFree = 'accepted free',
   pending = 'pending',
@@ -70,7 +70,7 @@ export enum status {
   unchanged = 'unchanged',
 }
 
-export enum rosterRole {
+export enum RosterRole {
   captain = 'captain',
   assistantCaptain = 'assistant-captain',
   coach = 'coach',
@@ -78,34 +78,34 @@ export enum rosterRole {
   viewer = 'viewer',
 }
 
-export enum phaseStatus {
+export enum PhaseStatus {
   notStarted = 'not_started',
   started = 'started',
   done = 'done',
 }
 
 //INTERFACES
-export interface user {
+export interface User {
   email: string;
-  language: language;
+  language: Language;
   userId: string;
-  appRole?: userAppRole;
+  appRole?: UserAppRole;
   facebookId?: string;
   messengerId?: string;
-  primaryPerson: person;
-  entities: entityRole[];
-  notifications: notificationSetting[];
-  creditCards?: creditCard[];
-  persons: person[];
+  primaryPerson: Person;
+  entities: EntityRole[];
+  notifications: NotificationSetting[];
+  creditCards?: CreditCard[];
+  persons: Person[];
 }
 
-export interface notificationSetting {
-  type: notification;
+export interface NotificationSetting {
+  type: Notification;
   email: boolean;
   chatbot: boolean;
 }
 
-export interface creditCard {
+export interface CreditCard {
   userId: string;
   customerId: string;
   informations: JSON;
@@ -114,39 +114,39 @@ export interface creditCard {
   isDefault: boolean;
 }
 
-export interface entity {
+export interface Entity {
   id: string;
-  type: entityType;
+  type: EntityType;
+  role: Role;
   name: string;
-  role: role;
   surname?: string;
+  completeName?: string;
   description?: string;
   quickDescription?: string;
   photoUrl?: string;
   infosSuppId?: string;
-  admins: entityRole[];
-  posts?: post[];
+  admins: EntityRole[];
+  posts?: Post[];
 }
 
-export interface entityRole {
+export interface EntityRole {
   entityId: string;
-  role: role;
+  role: Role;
 }
 
-export interface player {
-  id?: string;
-  personId?: string;
-  teamId?: string;
-  role: rosterRole;
+export interface Player {
+  id: string;
+  personId: string;
+  teamId: string;
+  role: RosterRole;
   name: string;
   photoUrl: string;
 }
 
-export interface person extends entity {
-  personId: string;
+export interface Person extends Entity {
   birthDate?: string;
   phoneNumber?: string;
-  gender?: gender;
+  gender?: Gender;
   emergencyName?: string;
   emergencySurname?: string;
   emergencyPhoneNumber?: string;
@@ -154,7 +154,7 @@ export interface person extends entity {
   addressId?: string;
 }
 
-export interface address {
+export interface Address {
   id: string;
   streetAddress?: string;
   city?: string;
@@ -163,13 +163,13 @@ export interface address {
   country?: string;
 }
 
-export interface membership {
+export interface Membership {
   id: string;
   organizationId: string;
   personId: string;
   membershipId: string;
-  type: membershipType;
-  status: invoiceStatus;
+  type: MembershipType;
+  status: InvoiceStatus;
   invoiceItemId: string;
   paidOn: string;
   expirationDate: string;
@@ -182,16 +182,16 @@ export interface membership {
   addressId?: string;
 }
 
-export interface organization extends entity {
-  memberships?: entityMembership[];
-  bankAccounts?: bankAccount[];
+export interface Organization extends Entity {
+  memberships?: EntityMembership[];
+  bankAccounts?: BankAccount[];
 }
 
-export interface entityMembership {
+export interface EntityMembership {
   id: string;
   entityId: string;
-  type: membershipType;
-  length?: membershipLength;
+  type: MembershipType;
+  length?: MembershipLength;
   fixedDate?: string;
   price: number;
   description?: string;
@@ -200,27 +200,27 @@ export interface entityMembership {
   stripePriceId?: string;
 }
 
-export interface bankAccount {
+export interface BankAccount {
   accountId: string;
   bankAccountId: string;
   last4: string;
   isDefault: boolean;
 }
 
-export interface event extends entity {
+export interface Event extends Entity {
   startDate: string;
   endDate?: string;
   maximumSpot?: number;
   alias?: string;
-  fields?: field[];
-  timeSlots?: timeSlot[];
-  paymentOptions?: eventPaymentOption[];
-  persons?: eventPerson[];
-  teams?: eventTeam[];
-  phases?: phase[];
+  fields?: Field[];
+  timeSlots?: TimeSlot[];
+  paymentOptions?: EventPaymentOption[];
+  persons?: EventPerson[];
+  teams?: EventTeam[];
+  phases?: Phase[];
 }
 
-export interface eventPaymentOption {
+export interface EventPaymentOption {
   id: string;
   eventId: string;
   name: string;
@@ -236,80 +236,80 @@ export interface eventPaymentOption {
   informations?: string;
 }
 
-export interface timeSlot {
+export interface TimeSlot {
   id: string;
   eventId: string;
   date: string;
 }
 
-export interface field {
+export interface Field {
   id: string;
   field: string;
   name: string;
 }
 
-export interface eventPerson {
+export interface EventPerson {
   personId: string;
   eventId: string;
-  status: invoiceStatus;
-  registrationStatus?: status;
+  status: InvoiceStatus;
+  registrationStatus?: Status;
   invoiceItemId?: string;
   paymentOptionId?: string;
   informations?: string;
 }
 
-export interface eventTeam {
+export interface EventTeam {
   rosterId: string;
   eventId: string;
   teamId: string;
-  status: invoiceStatus;
-  registrationStatus: status;
+  status: InvoiceStatus;
+  registrationStatus: Status;
   invoiceItemId?: string;
   paymentOptionId?: string;
   informations?: string;
 }
 
-export interface team extends entity {
-  rosters: roster[];
+export interface Team extends Entity {
+  rosters: Roster[];
 }
 
-export interface roster {
+export interface Roster {
   id: string;
   teamId: string;
   name: string;
-  players?: teamPlayer[];
+  players?: TeamPlayer[];
 }
 
-export interface teamPlayer {
+export interface TeamPlayer {
   id: string;
   rosterId: string;
   personId: string;
   name: string;
   isSub: boolean;
-  paymentStatus: status;
+  paymentStatus: Status;
   invoiceItemId?: string;
-  role: rosterRole;
+  role: RosterRole;
 }
 
-export interface phase {
+export interface Phase {
   id: string;
   name: string;
   eventId: string;
   spot?: number;
   phaseOrder: number;
-  status: phaseStatus;
-  games?: game[];
+  status: PhaseStatus;
+  games?: Game[];
 }
 
-export interface game extends entity {
+export interface Game extends Entity {
   phaseId: string;
   eventId: string;
   timeSlotId: string;
   fieldId: string;
-  teams: gameTeam[];
+  teams: GameTeam[];
 }
 
-export interface gameTeam {
+export interface GameTeam {
   id: string;
   gameId: string;
   roserId: string;
@@ -320,7 +320,7 @@ export interface gameTeam {
   rankingId: string;
 }
 
-export interface practice {
+export interface Practice {
   entityId: string;
   id: string;
   name: string;
@@ -330,7 +330,7 @@ export interface practice {
   locationId?: string;
   addressFormatted?: string;
   teamId: string;
-  roster: player[];
+  roster: Player[];
   streetAddress?: string;
   city?: string;
   state?: string;
@@ -338,7 +338,7 @@ export interface practice {
   country?: string;
 }
 
-export interface location {
+export interface Location {
   value?:string;
   display?:string;
   id: string;
@@ -350,7 +350,7 @@ export interface location {
   country?: string;
 }
 
-export interface post {
+export interface Post {
   id: string;
   name: string;
   surname: string;
@@ -360,17 +360,17 @@ export interface post {
   content: string;
   locationId: string;
   liked?: boolean;
-  likes: like[];
-  comments: comment[];
-  images: postImage[];
+  likes: Like[];
+  comments: Comment[];
+  images: PostImage[];
 }
 
-export interface like {
+export interface Like {
   entityId: string;
   postId: string;
 }
 
-export interface comment {
+export interface Comment {
   id: string;
   postId: string;
   entityId: string;
@@ -382,12 +382,12 @@ export interface comment {
   parentId?: string;
 }
 
-export interface postImage {
+export interface PostImage {
   postId: string;
   imageUrl: string;
 }
 
-export interface tax {
+export interface Tax {
   id: string;
   displayName: string;
   description: string;

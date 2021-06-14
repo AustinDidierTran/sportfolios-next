@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../Store';
 import dynamic from 'next/dynamic';
 import Description from './Description';
-import { entity } from '../../../../typescript/types';
+import { Entity } from '../../../../typescript/types';
 
 const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface IProps {
-  basicInfos: entity;
+  basicInfos: Entity;
 }
 
 const Home: React.FunctionComponent<IProps> = (props) => {

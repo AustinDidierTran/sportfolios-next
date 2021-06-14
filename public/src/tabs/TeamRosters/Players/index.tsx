@@ -1,17 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import api from '../../../actions/api';
 import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { Store } from '../../../Store';
 import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../utils/stringFormats';
 import styles from './Players.module.css';
 import List from '@material-ui/core/List';
 import Player from './Player';
-import { player } from '../../../../../typescript/types';
+import { Player as PlayerType } from '../../../../../typescript/types';
+import { getPlayers as getPlayersApi } from '../../../actions/service/entity';
 
 interface IProps {
   adminView: boolean;
@@ -24,25 +23,21 @@ const Players: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId },
   } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (teamId) {
       getPlayers();
     }
   }, [teamId]);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [players, setPlayers] = useState<player[]>([]);
+  const [players, setPlayers] = useState<PlayerType[]>([]);
 
   const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/players', null, {
-        teamId,
-      })
-    );
-    setPlayers(data);
+    const players = await getPlayersApi(teamId);
+    setPlayers(players);
   };
 
-  const onClose = () => {
+  const onClose = (): void => {
     setOpen(false);
   };
 

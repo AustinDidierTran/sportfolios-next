@@ -3,8 +3,6 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import AlertDialog from '../../Dialog/AlertDialog';
-import api from '../../../../actions/api';
-import { formatRoute } from '../../../../utils/stringFormats';
 import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
@@ -21,7 +19,10 @@ import LoadingSpinner from '../../LoadingSpinner';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
 import CustomLocations from '../../Locations';
-import { practice, location } from '../../../../../../typescript/types';
+import { Practice, Location } from '../../../../../../typescript/types';
+import { deletePractice, getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 const Roster = dynamic(() => import('../../Roster'));
 
@@ -29,17 +30,13 @@ interface IProps {
   practiceId: string;
 }
 
-interface IData {
-  data: IReponse;
-}
-
 interface IReponse {
-  practice: practice;
+  practice: Practice;
   role: number;
 }
 
 interface ILocationResponse {
-  data: location[];
+  data: Location[];
 }
 
 interface ILocationOption {
@@ -55,8 +52,8 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId, userInfo },
   } = useContext(Store);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [practice, setPractice] = useState<practice>({
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [practice, setPractice] = useState<Practice>({
     entityId: '',
     id: '',
     name: '',
@@ -65,11 +62,12 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     teamId: '',
     roster: [],
   });
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [edit, setEdit] = useState(false);
-  const [wrongAddressFormat, setWrongAddressFormat] = useState('');
-  const [openDelete, setOpenDelete] = useState(false);
+
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<any>(null);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
   const [locationHidden, setLocationHidden] = useState(true);
   const [showCreateLocation, setShowCreateLocation] = useState(false);
@@ -77,7 +75,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const getLocations = async () => {
     const { data }: ILocationResponse = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
 
-    const formattedData = data.filter((n: location) => n.id != null);
+    const formattedData = data.filter((n: Location) => n.id != null);
     formattedData.push(
       { id: t('no_location'), location: t('no_location') },
       { id: t('create_new_location'), location: t('create_new_location') }
@@ -87,7 +85,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       setLocationHidden(true);
     }
 
-    const locationOption: ILocationOption[] = formattedData.map((c: location) => ({
+    const locationOption: ILocationOption[] = formattedData.map((c: Location) => ({
       value: c.id,
       display: `${c.streetAddress ? `${c.location} - ${c.streetAddress}` : c.location}`,
     }));
@@ -95,15 +93,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     setLocationOptions(locationOption);
   };
 
-  const getPractice = async () => {
-    const {
-      data: { practice: data, role },
-    }: IData = await api(
-      formatRoute('/api/entity/practiceInfo', null, {
-        practiceId: practiceId,
-      }),
-      { method: 'GET' }
-    );
+  const getPractice = async (): Promise<void> => {
+    const { practice: data, role }: IReponse = await getPracticeInfo(practiceId);
+
     if (!data) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -148,14 +140,14 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (practiceId) {
       getPractice();
       getLocations();
     }
   }, [practiceId]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!practice || !practice.entityId) {
       return;
     }
@@ -163,7 +155,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     setIsLoading(false);
   }, [practice]);
 
-  const goBack = () => {
+  const goBack = (): void => {
     history.back();
   };
 
@@ -216,19 +208,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
         end = null;
       }
 
-      const res = await api(`/api/entity/practice`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          id: practice?.id,
-          name,
-          dateStart: start,
-          dateEnd: end,
-          newLocation,
-          locationId,
-          address,
-        }),
-      });
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+      const status = await updatePractice(practice?.id, name, start, end, newLocation, locationId, address);
+
+      if (status === STATUS_ENUM.ERROR || status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -250,7 +232,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const hasChanged = useMemo(() => {
+  const hasChanged = useMemo((): boolean => {
     return (
       practice.name != formik.values.name ||
       formatDate(moment.utc(practice?.startDate), 'YYYY-MM-DD') != formik.values.startDate ||
@@ -263,12 +245,12 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (address: string) => {
+  const addressChanged = (address: string): void => {
     setWrongAddressFormat('');
     formik.setFieldValue('address', address);
   };
 
-  const onAddressChanged = (address: string) => {
+  const onAddressChanged = (address: string): void => {
     if (address.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
@@ -277,27 +259,19 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: any): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
     setShowCreateLocation(false);
   };
 
-  const onDelete = async () => {
-    const res = await api(
-      formatRoute('/api/entity/practice', null, {
-        teamId: practice?.teamId,
-        practiceId: practiceId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+  const onDelete = async (): Promise<void> => {
+    const status = await deletePractice(practice?.teamId, practiceId);
 
-    if (res.status > STATUS_ENUM.SUCCESS) {
+    if (status > STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
@@ -309,17 +283,17 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const onEdit = () => {
+  const onEdit = (): void => {
     setEdit(true);
     setLocationHidden(false);
     handleClose();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     formik?.handleSubmit();
   };
 
-  const cancelEdit = () => {
+  const cancelEdit = (): void => {
     setEdit(false);
     setLocationHidden(true);
     getPractice();

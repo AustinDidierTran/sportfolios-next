@@ -16,16 +16,16 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
-import { entity } from '../../../../../../typescript/types';
+import { Entity } from '../../../../../../typescript/types';
 
 const BannerTeam = dynamic(() => import('../../BannerTeam'));
 
 interface IProps {
-  basicInfos: entity;
+  basicInfos: Entity;
   navTabs: INavTabs[];
   index: string;
   isAdmin: boolean;
-  onSwitch: ()=> void;
+  onSwitch: () => void;
   adminView: boolean;
 }
 
@@ -46,22 +46,22 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
     state: { isAuthenticated, id },
   } = useContext(Store);
 
-  const [open, setOpen] = useState(false);
-  const [openToLogin, setOpenToLogin] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openToLogin, setOpenToLogin] = useState<boolean>(false);
 
-  const goToLogin = () => {
+  const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
-  const onOpenToLoggin = () => {
+  const onOpenToLoggin = (): void => {
     setOpenToLogin(true);
   };
 
-  const onCloseToLoggin = () => {
+  const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
-  const update = () => {};
+  const update = (): void => {};
 
   return (
     <Paper elevation={1} className={styles.paper}>
@@ -91,7 +91,7 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
           variant="fullWidth"
           scrollButtons="off"
         >
-          {navTabs.map((s:INavTabs, index:number) => (
+          {navTabs.map((s: INavTabs, index: number) => (
             <Tab
               key={index}
               onClick={() => {
@@ -142,5 +142,5 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
       </div>
     </Paper>
   );
-}
+};
 export default HeaderTeam;

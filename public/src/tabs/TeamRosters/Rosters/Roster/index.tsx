@@ -17,10 +17,11 @@ import { useTranslation } from 'react-i18next';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { roster, player } from '../../../../../../typescript/types';
+import { Roster as RosterType, Player } from '../../../../../../typescript/types';
+import { deleteRoster as deleteRosterApi, getRosterPlayers } from '../../../../actions/service/entity';
 
 interface IProps {
-  roster: roster;
+  roster: RosterType;
   index: number;
   isAdmin: boolean;
   update: () => void;
@@ -32,31 +33,27 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
 
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (roster.id) {
       getPlayers();
     }
   }, [roster.id]);
 
-  const [players, setPlayers] = useState<player[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
   const [expanded, setExpanded] = useState<boolean>(false);
   const [deleteRoster, setDeleteRoster] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
 
   const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/rosterPlayers', null, {
-        rosterId: roster.id,
-      })
-    );
-    setPlayers(data);
+    const players = await getRosterPlayers(roster.id);
+    setPlayers(players);
   };
 
-  const onExpand = () => {
+  const onExpand = (): void => {
     setExpanded(!expanded);
   };
 
-  const style = useMemo(() => {
+  const style = useMemo((): string => {
     if (index % 2 === 0) {
       return styles.even;
     } else {
@@ -65,15 +62,8 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   }, [index]);
 
   const onDelete = async () => {
-    const res = await api(
-      formatRoute('/api/entity/roster', null, {
-        id: roster.id,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
-    if (res.status === STATUS_ENUM.ERROR) {
+    const status = await deleteRosterApi(roster.id);
+    if (status === STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
