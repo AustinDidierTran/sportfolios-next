@@ -55,6 +55,7 @@ const COMPONENT_TYPE_ENUM = {
   LINK: 'link',
   LIST_ITEM: 'list item',
   LIST: 'list',
+  LOCATION: 'location',
   MULTISELECT: 'multiselect',
   PERSON_ITEM: 'person item',
   PERSON_SEARCH_LIST: 'person search list',

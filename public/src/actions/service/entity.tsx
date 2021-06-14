@@ -70,18 +70,20 @@ export async function updatePlayer(id: string, role: string): Promise<number> {
 export async function updatePractice(
   id: string,
   name: string,
-  start_date: string | null,
-  end_date: string | null,
-  location: string | undefined,
+  dateStart: string | null,
+  dateEnd: string | null,
+  newLocation: string | undefined,
+  locationId: string | null,
   address: string | undefined
 ): Promise<number> {
   const { status } = await api(
     formatRoute(`${BASE_URL}/practice`, null, {
       id,
       name,
-      start_date,
-      end_date,
-      location,
+      dateStart,
+      dateEnd,
+      newLocation,
+      locationId,
       address,
     }),
     {

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState, useContext, useEffect } from 'react';
 import CustomCard from '../Card';
 import Typography from '@material-ui/core/Typography';
 import { CARD_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
@@ -17,6 +17,7 @@ interface IProps {
   practiceInfos: Practice[];
   adminView: boolean;
 }
+
 interface IGameInfos {
   eventId?: string;
   eventName?: string;

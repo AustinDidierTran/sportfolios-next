@@ -16,11 +16,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '../../TextField';
 import { formatDate } from '../../../../utils/stringFormats';
 import LoadingSpinner from '../../LoadingSpinner';
-import AddressSearchInput from '../../AddressSearchInput';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
-import { Practice } from '../../../../../../typescript/types';
+import CustomLocations from '../../Locations';
+import { Practice, Location } from '../../../../../../typescript/types';
 import { deletePractice, getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
+import api from '../../../../actions/api';
+import { formatRoute } from '../../../../utils/stringFormats';
 
 const Roster = dynamic(() => import('../../Roster'));
 
@@ -33,16 +35,13 @@ interface IReponse {
   role: number;
 }
 
-interface IValues {
-  name: string;
-  country?: string;
-  startDate: string;
-  startTime: string;
-  endDate: string;
-  endTime: string;
-  location?: string;
-  address?: string;
-  addressFormatted?: string;
+interface ILocationResponse {
+  data: Location[];
+}
+
+interface ILocationOption {
+  value: string;
+  display: string;
 }
 
 const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
@@ -50,7 +49,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo },
+    state: { id: teamId, userInfo },
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -63,11 +62,36 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     teamId: '',
     roster: [],
   });
+
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
+  const [locationHidden, setLocationHidden] = useState(true);
+  const [showCreateLocation, setShowCreateLocation] = useState(false);
+
+  const getLocations = async () => {
+    const { data }: ILocationResponse = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+
+    const formattedData = data.filter((n: Location) => n.id != null);
+    formattedData.push(
+      { id: t('no_location'), location: t('no_location') },
+      { id: t('create_new_location'), location: t('create_new_location') }
+    );
+
+    if (!formattedData) {
+      setLocationHidden(true);
+    }
+
+    const locationOption: ILocationOption[] = formattedData.map((c: Location) => ({
+      value: c.id,
+      display: `${c.streetAddress ? `${c.location} - ${c.streetAddress}` : c.location}`,
+    }));
+
+    setLocationOptions(locationOption);
+  };
 
   const getPractice = async (): Promise<void> => {
     const { practice: data, role }: IReponse = await getPracticeInfo(practiceId);
@@ -91,6 +115,10 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     let addressFormatted = streetAddress + city + state + zip + country;
     data.addressFormatted = addressFormatted;
 
+    if (!data?.locationId) {
+      data.locationId = t('no_location');
+    }
+
     setPractice(data);
 
     formik.setFieldValue('name', data?.name || '');
@@ -98,9 +126,15 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('startTime', formatDate(moment.utc(data?.startDate), 'HH:mm'));
     formik.setFieldValue('endDate', formatDate(moment.utc(data?.endDate), 'YYYY-MM-DD'));
     formik.setFieldValue('endTime', formatDate(moment.utc(data?.endDate), 'HH:mm'));
-    formik.setFieldValue('location', data?.location || '');
+    formik.setFieldValue('locationValue', data?.locationId || t('no_location'));
+    formik.setFieldValue('location', data?.location || null);
     formik.setFieldValue('addressFormatted', addressFormatted);
     formik.setFieldValue('address', '');
+    formik.setFieldValue('newLocation', '');
+
+    if (data?.locationId) {
+      setShowCreateLocation(false);
+    }
     if (role === ENTITIES_ROLE_ENUM.ADMIN || role === ENTITIES_ROLE_ENUM.EDITOR) {
       setIsAdmin(true);
     }
@@ -109,6 +143,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     if (practiceId) {
       getPractice();
+      getLocations();
     }
   }, [practiceId]);
 
@@ -133,6 +168,10 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     addressFormatted: yup.string().test('validate', () => {
       return wrongAddressFormat == '';
     }),
+    newLocation: yup.string().when('locationValue', {
+      is: (locationValue: string) => locationValue == t('create_new_location'),
+      then: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    }),
   });
 
   const formik = useFormik({
@@ -142,14 +181,22 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       startTime: '',
       endDate: '',
       endTime: '',
+      locationValue: '',
       location: '',
+      newLocation: '',
       address: '',
+      addressFormatted: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values: IValues) => {
-      const { name, startDate, startTime, endDate, endTime, location, address } = values;
+    onSubmit: async (values) => {
+      const { name, startDate, startTime, endDate, endTime, locationValue, newLocation, address } = values;
+      let locationId = null;
+
+      if (locationValue != t('no_location') && locationValue != t('create_new_location')) {
+        locationId = locationValue;
+      }
 
       let start: string | null = `${startDate} ${startTime}`;
       let end: string | null = `${endDate} ${endTime}`;
@@ -161,7 +208,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
         end = null;
       }
 
-      const status = await updatePractice(practice?.id, name, start, end, location, address);
+      const status = await updatePractice(practice?.id, name, start, end, newLocation, locationId, address);
 
       if (status === STATUS_ENUM.ERROR || status >= 400) {
         dispatch({
@@ -173,6 +220,8 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       } else {
         setEdit(false);
         getPractice();
+        getLocations();
+        setLocationHidden(true);
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('practice_changed'),
@@ -185,23 +234,24 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const hasChanged = useMemo((): boolean => {
     return (
-      practice?.name != formik.values.name ||
+      practice.name != formik.values.name ||
       formatDate(moment.utc(practice?.startDate), 'YYYY-MM-DD') != formik.values.startDate ||
       formatDate(moment.utc(practice?.startDate), 'HH:mm') != formik.values.startTime ||
       formatDate(moment.utc(practice?.endDate), 'YYYY-MM-DD') != formik.values.endDate ||
       formatDate(moment.utc(practice?.endDate), 'HH:mm') != formik.values.endTime ||
-      practice?.location != formik.values.location ||
-      practice?.addressFormatted != formik.values.addressFormatted
+      practice.location != formik.values.location ||
+      practice.addressFormatted != formik.values.addressFormatted ||
+      practice.locationId != formik.values.locationValue
     );
   }, [formik.values, practice]);
 
-  const addressChanged = (newAddress: string): void => {
+  const addressChanged = (address: string): void => {
     setWrongAddressFormat('');
-    formik.setFieldValue('address', newAddress);
+    formik.setFieldValue('address', address);
   };
 
-  const onAddressChanged = (event: string): void => {
-    if (event.length > 0) {
+  const onAddressChanged = (address: string): void => {
+    if (address.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
       setWrongAddressFormat('');
@@ -215,6 +265,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const handleClose = (): void => {
     setAnchorEl(null);
+    setShowCreateLocation(false);
   };
 
   const onDelete = async (): Promise<void> => {
@@ -234,6 +285,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const onEdit = (): void => {
     setEdit(true);
+    setLocationHidden(false);
     handleClose();
   };
 
@@ -243,7 +295,19 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const cancelEdit = (): void => {
     setEdit(false);
+    setLocationHidden(true);
     getPractice();
+  };
+
+  const handleLocationChange = (event: any) => {
+    if (event == t('create_new_location')) {
+      setShowCreateLocation(true);
+    } else {
+      setShowCreateLocation(false);
+      formik.setFieldValue('address', null);
+      formik.setFieldValue('addressFormated', null);
+      formik.setFieldValue('newLocation', '');
+    }
   };
 
   if (isLoading) {
@@ -297,25 +361,19 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
                     formik.values.endTime
                   )}
                 </div>
-                <div className={styles.practiceInfoSecondary}>
-                  <TextField placeholder="location" namespace="location" formik={formik} disabled={!edit} />
-                </div>
-                <div className={styles.practiceInfoSecondary}>
-                  {edit ? (
-                    <AddressSearchInput
-                      namespace="addressFormatted"
-                      formik={formik}
-                      addressChanged={addressChanged}
-                      country="ca"
-                      language={userInfo.language}
-                      errorFormat={wrongAddressFormat}
-                      placeholder={t('type_address')}
-                      onChange={onAddressChanged}
-                    />
-                  ) : (
-                    <TextField namespace="addressFormatted" formik={formik} disabled />
-                  )}
-                </div>
+                <CustomLocations
+                  formik={formik}
+                  label={t('location')}
+                  namespace="locationValue"
+                  onChange={handleLocationChange}
+                  showView={locationHidden}
+                  options={locationOptions}
+                  addressChanged={addressChanged}
+                  onAddressChanged={onAddressChanged}
+                  language={userInfo.language}
+                  errorFormat={wrongAddressFormat}
+                  showCreate={showCreateLocation}
+                />
               </div>
             </div>
 

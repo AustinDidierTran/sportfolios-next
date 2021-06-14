@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 // See native documentation here: https://material-ui.com/components/text-fields/
 
 export default function CustomTextField(props) {
-  const { disabled, error, formik, hidden, namespace, onChange, color, variant, formikDisabled, ...otherProps } = props;
+  const { disabled, error, formik, hidden, namespace, onChange, color, variant, formikDisabled, required, ...otherProps } = props;
 
   const handleChange = (event, ...args) => {
     if (formik) {
@@ -41,6 +41,7 @@ export default function CustomTextField(props) {
       {...otherProps}
       onChange={handleChange}
       disabled={formikDisabled}
+      required={required}
     />
   );
 }

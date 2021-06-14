@@ -7,14 +7,20 @@ import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
-import { formatDate } from '../../../../utils/stringFormats';
+import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import moment from 'moment';
+import { Location } from '../../../../../../typescript/types';
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
   onCreate: () => void;
+}
+
+interface ILocationOption {
+  value: string;
+  display: string;
 }
 
 const CreatePractice: React.FunctionComponent<IProps> = (props) => {
@@ -27,23 +33,44 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
 
   const [open, setOpen] = useState<boolean>(isOpen);
   const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
+  const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
+  const [locationHidden, setLocationHidden] = useState(true);
 
   useEffect((): void => {
     setOpen(isOpen);
+    getLocations();
+    setLocationHidden(true);
   }, [isOpen]);
 
   const handleClose = (): void => {
     formik.resetForm();
     onClose();
+    setLocationHidden(true);
   };
 
-  const addressChanged = (newAddress: string): void => {
+  const getLocations = async () => {
+    const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+    const formattedData = data.filter((n: Location) => n.id != null);
+    formattedData.push(
+      { id: t('no_location'), location: t('no_location') },
+      { id: t('create_new_location'), location: t('create_new_location') }
+    );
+
+    const locationOption: ILocationOption[] = formattedData.map((c: Location) => ({
+      value: c.id,
+      display: `${c.streetAddress ? `${c.location} - ${c.streetAddress}` : c.location}`,
+    }));
+
+    setLocationOptions(locationOption);
+  };
+
+  const addressChanged = (address: string): void => {
     setWrongAddressFormat('');
-    formik.setFieldValue('address', newAddress);
+    formik.setFieldValue('address', address);
   };
 
-  const onAddressChanged = (event: any): void => {
-    if (event.length > 0) {
+  const onAddressChanged = (address: any): void => {
+    if (address.length > 0) {
       setWrongAddressFormat(t('address_error'));
     } else {
       setWrongAddressFormat('');
@@ -57,6 +84,16 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('timeEnd', newTime);
   };
 
+  const handleLocationChange = (event: any) => {
+    if (event == t('create_new_location')) {
+      setLocationHidden(false);
+    } else {
+      setLocationHidden(true);
+      formik.setFieldValue('address', null);
+      formik.setFieldValue('newLocation', '');
+    }
+  };
+
   const validationSchema = yup.object().shape({
     name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     date: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -65,6 +102,11 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     addressFormatted: yup.string().test('validate', () => {
       return wrongAddressFormat == '';
     }),
+    newLocation: yup.string().when('location', {
+      is: (location: string) => location == t('create_new_location'),
+      then: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    }),
+    location: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
@@ -76,13 +118,17 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
       addressFormatted: '',
       address: '',
       location: '',
+      newLocation: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { name, date, timeStart, timeEnd, address, location } = values;
-
+      const { name, date, timeStart, timeEnd, address, location, newLocation } = values;
+      let locationId = null;
+      if (location != t('no_location') && location != t('create_new_location')) {
+        locationId = location;
+      }
       let dateStart = `${date} ${timeStart}`;
       let dateEnd = `${date} ${timeEnd}`;
       const res = await api('/api/entity/practice', {
@@ -92,7 +138,8 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
           dateStart,
           dateEnd,
           address,
-          location,
+          locationId,
+          newLocation,
           teamId,
         }),
       });
@@ -157,21 +204,16 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
       shrink: true,
     },
     {
-      componentType: COMPONENT_TYPE_ENUM.ADDRESS,
-      namespace: 'addressFormatted',
-      language: userInfo.language,
-      country: 'ca',
-      addressChanged: addressChanged,
-      onChange: onAddressChanged,
-      errorFormat: wrongAddressFormat,
-      placeholder: t('type_address'),
-      noValidate: true,
-      required: false,
-    },
-    {
-      namespace: 'location',
+      componentType: COMPONENT_TYPE_ENUM.LOCATION,
       label: t('location'),
-      type: 'text',
+      namespace: 'location',
+      onChange: handleLocationChange,
+      options: locationOptions,
+      addressChanged: addressChanged,
+      onAddressChanged: onAddressChanged,
+      language: userInfo.language,
+      errorFormat: wrongAddressFormat,
+      showCreate: !locationHidden,
     },
   ];
 

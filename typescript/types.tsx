@@ -156,7 +156,7 @@ export interface Person extends Entity {
 
 export interface Address {
   id: string;
-  streetAdress?: string;
+  streetAddress?: string;
   city?: string;
   state?: string;
   zip?: string;
@@ -327,9 +327,22 @@ export interface Practice {
   startDate: string;
   endDate: string;
   location?: string;
+  locationId?: string;
   addressFormatted?: string;
   teamId: string;
   roster: Player[];
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+}
+
+export interface Location {
+  value?:string;
+  display?:string;
+  id: string;
+  location: string;
   streetAddress?: string;
   city?: string;
   state?: string;

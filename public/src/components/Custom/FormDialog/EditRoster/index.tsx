@@ -107,7 +107,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
 
   const blackList = useMemo(
     (): string[] =>
-      (people as Array<any>).map((person) => person.id).concat(rosterPlayers.map((player) => player.personId)),
+      people.map((person) => person.id).concat(rosterPlayers.map((player) => player.personId)),
     [people, rosterPlayers]
   );
 

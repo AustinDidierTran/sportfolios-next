@@ -11,6 +11,7 @@ import CheckBox from '../CheckBox';
 import RadioGroup from '../RadioGroup';
 import CustomIconButton from '../IconButton';
 import PhoneNumberFormat from '../PhoneNumberFormat';
+import CustomLocations from '../Locations';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -67,6 +68,7 @@ export default function ComponentFactory(props) {
         noValidate={component.noValidate}
         placeholder={component.placeholder}
         required={component.required}
+        hidden={component.hidden}
       >
         {component.children}
       </AddressSearchInput>
@@ -284,6 +286,23 @@ export default function ComponentFactory(props) {
           tooltip={component.secondTooltip}
         />
       </div>
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.LOCATION) {
+    return (
+      <CustomLocations
+        formik={component.formik}
+        label={component.label}
+        namespace={component.namespace}
+        onChange={component.onChange}
+        showView={component.showVIew}
+        options={component.options}
+        addressChanged={component.addressChanged}
+        onAddressChanged={component.onAddressChanged}
+        language={component.language}
+        errorFormat={component.errorFormat}
+        showCreate={component.showCreate}
+      />
     );
   }
   return (
