@@ -8,7 +8,7 @@ import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { Player } from '../../../../../../typescript/types';
+import { Player, Person } from '../../../../../../typescript/types';
 import { addRoster, getPlayers as getPlayersApi } from '../../../../actions/service/entity';
 
 interface IProps {
@@ -19,11 +19,13 @@ interface IProps {
 
 interface IPersonComponent {
   componentType: string;
-  person: Player;
+  person: PickPerson;
   secondary: string;
   notClickable: boolean;
   secondaryActions: any[];
 }
+
+type PickPerson = Pick<Person, 'id' | 'completeName' | 'photoUrl'>;
 
 const AddRoster: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update } = props;
@@ -44,7 +46,7 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
   }, [teamId]);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [people, setPeople] = useState<Player[]>([]);
+  const [people, setPeople] = useState<PickPerson[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
 
   const getPlayers = async () => {
@@ -67,7 +69,6 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
       const { name } = values;
 
       const status = await addRoster(teamId, people, name);
-
       if (status === STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -88,18 +89,17 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
       }
     },
   });
-
   const handleClose = (): void => {
     formik.resetForm();
     setPeople([]);
     onClose();
   };
 
-  const onClick = (newPlayer: Player): void => {
+  const onClick = (newPlayer: PickPerson): void => {
     setPeople((p) => [...p, newPlayer]);
   };
 
-  const removePlayer = (player: Player): void => {
+  const removePlayer = (player: PickPerson): void => {
     setPeople((currentPeople) => currentPeople.filter((p) => p.id != player.id));
   };
 
@@ -134,7 +134,12 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
     {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       onClick: () => {
-        setPeople(players);
+        setPeople(
+          players.map((player) => {
+            const res: PickPerson = { id: player.personId, completeName: player.name, photoUrl: player.photoUrl };
+            return res;
+          })
+        );
       },
       children: t('add.add_all_players'),
     },
