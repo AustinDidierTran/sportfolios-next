@@ -504,6 +504,8 @@ export default {
       teams_unregister_success: 'Équipes désinscrites avec succès',
       teams: 'Équipes',
       team_skipped: 'Équipe passée',
+      team_registration: "Inscription d'équipe",
+      team_registration_description: "Notification envoyée lors de l'inscription de votre équipe",
     },
     member: {
       active_members: 'Membres actifs',
@@ -574,6 +576,10 @@ export default {
       added_to_roster_notif_description: "Quelqu'un vous a ajouté à l'équipe {{teamName}}",
       added_to_roster_notif_title: 'Vous avez été ajouté à un alignement',
       added_to_roster: 'Ajouté à un alignement',
+      added_to_team_description: 'Notification envoyée lorsque vous êtes ajoutée à une équipe',
+      added_to_team_notif_description: "Quelqu'un vous a ajouté à l'équipe {{teamName}}",
+      added_to_team_notif_title: 'Vous avez été ajouté à une équipe',
+      added_to_team: 'Ajouté à une équipe',
     },
     choose: {
       choose_date: 'Choisir la date',
@@ -772,6 +778,8 @@ export default {
       person: 'Personne',
       personal_information: 'Informations personnelles',
       persons: 'Personnes',
+      person_registration: 'Inscription individuelle',
+      person_registration_description: 'Notification envoyée lorsque vous vous inscrivez à un événement individuel',
     },
     select: {
       select_existing_person: 'Sélectionner une personne existante',
@@ -1128,6 +1136,7 @@ export default {
       'Importez le fichier excel (seulement les fichiers .CSV sont acceptés)',
     import: 'Importer',
     improvement_feedback: 'Pour nous aider à améliorer votre expérience',
+    in_app: "Dans l'app",
     in_cart: 'Dans le panier',
     in_partnership: 'En partenariat avec',
     inclusive: 'Inclus',
@@ -1325,7 +1334,7 @@ export default {
     refuse: 'Refuser',
     refused: 'Refusé',
     refresh: 'Rafraîchir',
-    remaining_spots: 'place restantes',
+    remaining_spots: 'places restantes',
     remove_bank_account_confirmation:
       'Êtes-vous certain de vouloir retirer le compte bancaire finissant par {{last4}} de votre organisation?',
     remove_from_roster: "Retirer de l'alignement",

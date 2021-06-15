@@ -11,7 +11,6 @@ import api from '../../../actions/api';
 
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { useMemo } from 'react';
-import { FEATURE_FLAGS } from '../../../../common/flags';
 
 export default function EntityList(props) {
   const { t } = useTranslation();
@@ -45,7 +44,6 @@ export default function EntityList(props) {
       [GLOBAL_ENUM.PERSON]: {
         title: t('people'),
         buttonLabel: t('create.create_person'),
-        flag: FEATURE_FLAGS.CHILD_ACCOUNTS,
       },
       [GLOBAL_ENUM.EVENT]: {
         title: t('event.event'),
