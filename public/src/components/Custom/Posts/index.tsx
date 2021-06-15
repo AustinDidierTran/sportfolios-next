@@ -216,7 +216,6 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
         entity_id: entityId,
       }),
     });
-    console.log({ newPost });
 
     if (!images.length) {
       setPosts((posts) => [newPost, ...posts]);
@@ -308,9 +307,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
                 type={CARD_TYPE_ENUM.POST}
                 key={post.id}
               />
-            ) : (
-              <></>
-            )}
+            ) : null}
           </>
         ))}
       </div>

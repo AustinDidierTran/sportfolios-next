@@ -135,10 +135,7 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       onClick: () => {
         setPeople(
-          players.map((player) => {
-            const res: PickPerson = { id: player.personId, completeName: player.name, photoUrl: player.photoUrl };
-            return res;
-          })
+          players.map((player) => ({ id: player.personId, completeName: player.name, photoUrl: player.photoUrl }))
         );
       },
       children: t('add.add_all_players'),
