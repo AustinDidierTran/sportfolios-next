@@ -110,7 +110,7 @@ export default function LoggedIn(props) {
           <SearchInput apiRoute="/api/data/search/previous" />
           <div className={classes.grow} />
           <div className={styles.sectionDesktop}>
-            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson?.entityId} />
+            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson?.personId} />
             <div ref={refCreateEntity}>
               <IconButton
                 className={styles.iconButton}
