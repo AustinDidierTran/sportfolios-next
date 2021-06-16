@@ -11,7 +11,7 @@
         ],
         ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
       ],
-      "presets": ["next/babel", "@babel/preset-env"]
+      "presets": ["@babel/preset-env", "next/babel"]
     },
     "production": {
       "plugins": [
@@ -24,7 +24,7 @@
         ],
         ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
       ],
-      "presets": ["next/babel"]
+      "presets": ["@babel/preset-env", "next/babel"]
     }
   },
   "plugins": [
@@ -37,15 +37,5 @@
     ],
     ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
   ],
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        },
-        "useBuiltIns": "false"
-      }
-    ]
-  ]
+  "presets": ["@babel/preset-env"]
 }

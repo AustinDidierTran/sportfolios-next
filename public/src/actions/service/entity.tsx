@@ -55,15 +55,13 @@ export async function getRosterPlayers(rosterId: string): Promise<Player[]> {
 }
 
 export async function updatePlayer(id: string, role: string): Promise<number> {
-  const { status } = await api(
-    formatRoute(`${BASE_URL}/player`, null, {
+  const { status } = await api(`${BASE_URL}/player`, {
+    method: 'PUT',
+    body: JSON.stringify({
       id,
       role,
     }),
-    {
-      method: 'PUT',
-    }
-  );
+  });
   return status;
 }
 
@@ -76,8 +74,9 @@ export async function updatePractice(
   locationId: string | null,
   address: string | undefined
 ): Promise<number> {
-  const { status } = await api(
-    formatRoute(`${BASE_URL}/practice`, null, {
+  const { status } = await api(`${BASE_URL}/practice`, {
+    method: 'PUT',
+    body: JSON.stringify({
       id,
       name,
       dateStart,
@@ -86,10 +85,7 @@ export async function updatePractice(
       locationId,
       address,
     }),
-    {
-      method: 'PUT',
-    }
-  );
+  });
   return status;
 }
 
@@ -98,43 +94,41 @@ export async function updateRoster(
   id: string,
   name: string
 ): Promise<number> {
-  const { status } = await api(
-    formatRoute(`${BASE_URL}/roster`, null, {
+  const { status } = await api(`${BASE_URL}/roster`, {
+    method: 'PUT',
+    body: JSON.stringify({
       players,
       id,
       name,
     }),
-    {
-      method: 'PUT',
-    }
-  );
+  });
   return status;
 }
 
-export async function addRoster(teamId: string, players: Player[], name: string): Promise<number> {
-  const { status } = await api(
-    formatRoute(`${BASE_URL}/roster`, null, {
+export async function addRoster(
+  teamId: string,
+  players: Pick<Person, 'id' | 'completeName' | 'photoUrl'>[],
+  name: string
+): Promise<number> {
+  const res = await api(`${BASE_URL}/roster`, {
+    method: 'POST',
+    body: JSON.stringify({
       teamId,
       players,
       name,
     }),
-    {
-      method: 'POST',
-    }
-  );
-  return status;
+  });
+  return res.status;
 }
 
 export async function addPlayers(teamId: string, players: Player[]): Promise<number> {
-  const { status } = await api(
-    formatRoute(`${BASE_URL}/players`, null, {
+  const { status } = await api(`${BASE_URL}/players`, {
+    method: 'POST',
+    body: JSON.stringify({
       teamId,
       players,
     }),
-    {
-      method: 'POST',
-    }
-  );
+  });
   return status;
 }
 

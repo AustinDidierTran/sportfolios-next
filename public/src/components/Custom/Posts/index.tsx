@@ -287,24 +287,28 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
           </CustomPaper>
         )}
         {posts.map((post) => (
-          <CustomCard
-            items={{
-              postInfo: post,
-              handleLike,
-              handleComment,
-              handleDeletePost,
-              handleEditPost,
-              handleEditComment,
-              handleDeleteComment,
-              allowComment,
-              allowLike,
-              elevation,
-              entityId: userInfo?.primaryPerson?.personId,
-              isAdmin: entityIdCreatePost === post.entityId && allowNewPost,
-            }}
-            type={CARD_TYPE_ENUM.POST}
-            key={post.id}
-          />
+          <>
+            {post ? (
+              <CustomCard
+                items={{
+                  postInfo: post,
+                  handleLike,
+                  handleComment,
+                  handleDeletePost,
+                  handleEditPost,
+                  handleEditComment,
+                  handleDeleteComment,
+                  allowComment,
+                  allowLike,
+                  elevation,
+                  entityId: userInfo?.primaryPerson?.personId,
+                  isAdmin: entityIdCreatePost === post.entityId && allowNewPost,
+                }}
+                type={CARD_TYPE_ENUM.POST}
+                key={post.id}
+              />
+            ) : null}
+          </>
         ))}
       </div>
       {isMore && <Button onClick={loadMorePost}>{t('show_more')}</Button>}

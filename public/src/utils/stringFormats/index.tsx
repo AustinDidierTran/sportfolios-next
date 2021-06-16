@@ -60,9 +60,9 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
   );
 };
 
-export const formatDate = (date: any, format: string = 'LL'): string | null => {
+export const formatDate = (date: any, format: string = 'LL'): string => {
   if (!date.isValid()) {
-    return null;
+    return '';
   }
   if (typeof window != 'undefined') {
     const language = (localStorage && localStorage.getItem('i18nextLng')) || 'fr';

@@ -1,5 +1,5 @@
 name: Tests CI
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,6 +9,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12'
+      - run: cp conf-template.js conf.js
       - run: npm install
-      - run: npm build
+      - run: npm run build
       - run: npm test
