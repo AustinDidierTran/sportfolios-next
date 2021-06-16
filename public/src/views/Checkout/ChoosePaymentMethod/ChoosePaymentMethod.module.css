@@ -9,3 +9,9 @@
   width: 100%;
   height: auto;
 }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
