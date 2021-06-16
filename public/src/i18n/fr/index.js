@@ -576,7 +576,7 @@ export default {
       added_to_roster_notif_description: "Quelqu'un vous a ajouté à l'équipe {{teamName}}",
       added_to_roster_notif_title: 'Vous avez été ajouté à un alignement',
       added_to_roster: 'Ajouté à un alignement',
-      added_to_team_description: 'Notification envoyée lorsque vous êtes ajoutée à une équipe',
+      added_to_team_description: 'Notification envoyée lorsque vous êtes ajouté à une équipe',
       added_to_team_notif_description: "Quelqu'un vous a ajouté à l'équipe {{teamName}}",
       added_to_team_notif_title: 'Vous avez été ajouté à une équipe',
       added_to_team: 'Ajouté à une équipe',
