@@ -7,7 +7,7 @@ import api from '../../../actions/api';
 import { LIST_ITEM_ENUM, NOTIFICATION_MEDIA, NOTIFICATION_TYPE } from '../../../../common/enums';
 
 const iconMap = {
-  [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: 'PeopleIcon',
+  [NOTIFICATION_TYPE.ADDED_TO_EVENT]: 'PeopleIcon',
   [NOTIFICATION_TYPE.ADDED_TO_TEAM]: 'PeopleIcon',
   [NOTIFICATION_TYPE.PERSON_REGISTRATION]: 'Person',
   [NOTIFICATION_TYPE.TEAM_REGISTRATION]: 'PeopleIcon',
@@ -17,7 +17,7 @@ const iconMap = {
 };
 
 const titleMap = {
-  [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: 'add.added_to_roster',
+  [NOTIFICATION_TYPE.ADDED_TO_EVENT]: 'add.added_to_event',
   [NOTIFICATION_TYPE.ADDED_TO_TEAM]: 'add.added_to_team',
   [NOTIFICATION_TYPE.PERSON_REGISTRATION]: 'person.person_registration',
   [NOTIFICATION_TYPE.TEAM_REGISTRATION]: 'team.team_registration',
@@ -27,7 +27,7 @@ const titleMap = {
 };
 
 const descriptionMap = {
-  [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: 'add.added_to_roster_description',
+  [NOTIFICATION_TYPE.ADDED_TO_EVENT]: 'add.added_to_event_description',
   [NOTIFICATION_TYPE.ADDED_TO_TEAM]: 'add.added_to_team_description',
   [NOTIFICATION_TYPE.PERSON_REGISTRATION]: 'person.person_registration_description',
   [NOTIFICATION_TYPE.TEAM_REGISTRATION]: 'team.team_registration_description',
