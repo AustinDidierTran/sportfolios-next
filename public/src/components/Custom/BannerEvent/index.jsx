@@ -25,7 +25,7 @@ export default function BannerEvent(props) {
       !(
         !Array.isArray(eventInfo.options) ||
         eventInfo.options.length < 1 ||
-        eventInfo.remainingSpots < 1 ||
+        (eventInfo.remainingSpots < 1 && eventInfo.remainingSpots != null) ||
         eventInfo.isLate ||
         eventInfo.isEarly
       ),

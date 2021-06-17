@@ -11,10 +11,21 @@ import { timestampToRelativeTime } from '../../../../utils/stringFormats';
 import CustomAvatar from '../../Avatar';
 import CustomIcon from '../../Icon';
 
-export default function NotificationItem(props) {
+interface IProps {
+  clicked?: boolean;
+  description: string;
+  photoUrl?: string;
+  onClick: () => void;
+  initials: string;
+  id?: string;
+  created_at: string;
+  buttons?: JSX.Element[];
+}
+
+const NotificationItem: React.FunctionComponent<IProps> = (props) => {
   const { clicked, description, photoUrl, onClick, initials, id, created_at, buttons } = props;
 
-  function handleClick() {
+  function handleClick(): void {
     if (!clicked) {
       api('/api/notifications/click', {
         method: 'PUT',
@@ -63,4 +74,5 @@ export default function NotificationItem(props) {
       </ListItemSecondaryAction>
     </ListItem>
   );
-}
+};
+export default NotificationItem;

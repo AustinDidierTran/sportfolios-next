@@ -1246,7 +1246,7 @@ export default {
     organization: 'Organisation',
     organizations: 'Organisations',
     other_team_submitted_a_score_description:
-      "Notification reçue lorsqu'une équipe adverse soumet un score pour une partie dont vous n'avez pas encore soumis le votre",
+      "Notification reçue lorsque vous êtes entraîneur ou capitaine et qu'une équipe adverse soumet un score pour une partie dont vous n'avez pas encore soumis le votre",
     other_team_submitted_a_score: "L'équipe adverse a soumis son score",
     Other: 'Autre',
     other: 'Autre',

@@ -1223,7 +1223,7 @@ export default {
     organization: 'Organization',
     organizations: 'Organizations',
     other_team_submitted_a_score_description:
-      'Notification received when an opponent team submit a score for a game awaiting for your score submission',
+      'Notification received if you are a team captain or coach when an opponent team submit a score for a game awaiting for your score submission',
     other_team_submitted_a_score: 'Opponent team submitted a score',
     Other: 'Other',
     other: 'Other',
