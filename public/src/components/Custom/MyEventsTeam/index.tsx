@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useContext, useEffect } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import CustomCard from '../Card';
 import Typography from '@material-ui/core/Typography';
 import { CARD_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
@@ -124,9 +124,12 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
       }
     );
 
-    return practice
-      .concat(game)
-      .sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
+    if (game) {
+      return practice
+        .concat(game)
+        .sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
+    }
+    return practice.sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
   }, [gamesInfos, practiceInfos]);
 
   return (

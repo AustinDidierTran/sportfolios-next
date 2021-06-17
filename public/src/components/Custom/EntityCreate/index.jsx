@@ -253,11 +253,11 @@ export default function EntityCreate(props) {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname, creator, maximumSpots, startDate, endDate, startTime, endTime, eventType } = values;
+      const { name, surname:surnameProps, creator, maximumSpots, startDate, endDate, startTime, endTime, eventType } = values;
       setIsSubmitting(true);
       let start = `${startDate} ${startTime}`;
       let end = `${endDate} ${endTime}`;
-
+      let surname = '';
       if (!moment(start).isValid()) {
         start = null;
       }
@@ -267,6 +267,9 @@ export default function EntityCreate(props) {
       let maximum = maximumSpots;
       if (!limit) {
         maximum = null;
+      }
+      if (surnameProps){
+        surname = surnameProps;
       }
       try {
         const res = await api('/api/entity', {

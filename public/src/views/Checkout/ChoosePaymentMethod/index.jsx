@@ -4,7 +4,7 @@ import Button from '../../../components/Custom/Button';
 import RadioGroup from '../../../components/Custom/RadioGroup';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import ContainerBottomFixed from '../../../components/Custom/ContainerBottomFixed';
-import { goTo, ROUTES } from '../../../actions/goTo';
+import { goTo, goBack, ROUTES } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { checkout } from '../../../utils/stripe';
 import styles from './ChoosePaymentMethod.module.css';
@@ -13,6 +13,7 @@ import { LOGO_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { formatPrice } from '../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
+import CustomIconButton from '../../../components/Custom/IconButton';
 
 export default function ChoosePaymentMethod(props) {
   const { response } = props;
@@ -95,6 +96,15 @@ export default function ChoosePaymentMethod(props) {
 
   return (
     <div style={{ paddingBottom: 16, textAlign: 'center' }}>
+      <div className={styles.header}>
+        <CustomIconButton
+          icon="ArrowBack"
+          onClick={() => goBack()}
+          tooltip={t('return_cart')}
+          className={styles.iconButton}
+          style={{ color: 'primary' }}
+        />
+      </div>
       <div className={styles.logo}>
         <img className={styles.img} src={LOGO_ENUM.LOGO_512X512} />
       </div>

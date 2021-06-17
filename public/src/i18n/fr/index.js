@@ -1345,6 +1345,7 @@ export default {
     results: 'Résultats',
     return_home: "Retourner à la page d'accueil",
     return_event: "Retourner à l'évènement",
+    return_cart: 'Retourner au panier',
     review: 'Passer en revue et payer',
     role: 'Rôle',
     roster_doesnt_have_to_be_final_only_for_pre_ranking_purpose:
