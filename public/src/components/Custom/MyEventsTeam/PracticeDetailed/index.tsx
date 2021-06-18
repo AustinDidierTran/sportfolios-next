@@ -160,7 +160,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     endDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -399,7 +398,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             </div>
           )}
           <Divider variant="middle" />
-          <Roster roster={practice?.roster} />
+          <Roster roster={practice?.roster} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}
