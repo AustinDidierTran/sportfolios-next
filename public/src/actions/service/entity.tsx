@@ -134,7 +134,7 @@ export async function addPlayers(teamId: string, players: Player[]): Promise<num
 
 export async function deletePlayer(id: string): Promise<number> {
   const { status } = await api(
-    formatRoute(`${BASE_URL}/players`, null, {
+    formatRoute(`${BASE_URL}/player`, null, {
       id,
     }),
     {
