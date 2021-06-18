@@ -45,6 +45,11 @@ export async function getTeamPlayersPending(teamId: string): Promise<PendingPlay
   return data;
 }
 
+export async function getPracticeBasicInfo(teamId: string): Promise<Practice[]> {
+  const { data } = await api(formatRoute(`${BASE_URL}/practiceBasicInfo`, null, { teamId }));
+  return data;
+}
+
 export async function getPracticeInfo(practiceId: string): Promise<{ practice: Practice; role: number }> {
   const { data } = await api(
     formatRoute(`${BASE_URL}/practiceInfo`, null, {
@@ -70,6 +75,34 @@ export async function getRosterPlayers(rosterId: string): Promise<Player[]> {
     })
   );
   return data;
+}
+
+export async function getEntityOwned(type: number): Promise<Player[]> {
+  const { data } = await api(
+    formatRoute(`${BASE_URL}/allOwned`, null, {
+      type,
+      onlyAdmin: true,
+    })
+  );
+  return data;
+}
+
+export async function updatePracticeRsvp(
+  id: string,
+  rsvp: string,
+  personId?: string,
+  multipleRsvp: boolean = false
+): Promise<number> {
+  const { status } = await api(`${BASE_URL}/practiceRsvp`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      id,
+      rsvp,
+      personId,
+      updateAll: multipleRsvp,
+    }),
+  });
+  return status;
 }
 
 export async function updatePlayer(id: string, role: string): Promise<number> {

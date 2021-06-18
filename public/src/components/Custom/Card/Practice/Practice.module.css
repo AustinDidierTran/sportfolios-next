@@ -1,4 +1,4 @@
-.game {
+.practice {
   margin-bottom: 16px;
 }
 
@@ -8,12 +8,12 @@
   grid-template-areas: 'phase time field';
 }
 
-.game:hover {
+.practice:hover {
   cursor: pointer;
 }
 
-.phase {
-  grid-area: phase;
+.title {
+  grid-area: title;
   margin: 8px !important;
   overflow: auto;
 }

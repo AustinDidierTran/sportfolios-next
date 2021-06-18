@@ -139,6 +139,7 @@ export interface Player {
   role: RosterRole;
   name: string;
   photoUrl: string;
+  rsvp?: string;
 }
 
 export interface PendingPlayer extends Player {
@@ -338,6 +339,13 @@ export interface Practice {
   state?: string;
   zip?: string;
   country?: string;
+  rsvp?: Rsvp;
+}
+
+export interface Rsvp {
+  name:string;
+  photoUrl?:string;
+  rsvp: string;
 }
 
 export interface Location {
