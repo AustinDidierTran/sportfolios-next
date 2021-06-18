@@ -29,7 +29,7 @@ export default function TeamItem(props) {
     onDelete,
   } = props;
 
-  const initials = useMemo(() => getInitialsFromName(name), [name]);
+  const initials = useMemo(() => getInitialsFromName(name));
 
   const handleClick = useCallback(
     (e) => {

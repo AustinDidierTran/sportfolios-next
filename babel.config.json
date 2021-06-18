@@ -1,13 +1,41 @@
 {
   "env": {
     "development": {
-      "plugins": [["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]],
-      "presets": ["next/babel"]
+      "plugins": [
+        [
+          "@babel/plugin-transform-runtime",
+          {
+            "regenerator": true,
+            "corejs": 3
+          }
+        ],
+        ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
+      ],
+      "presets": ["@babel/preset-env", "next/babel"]
     },
     "production": {
-      "plugins": [["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]],
-      "presets": ["next/babel"]
+      "plugins": [
+        [
+          "@babel/plugin-transform-runtime",
+          {
+            "regenerator": true,
+            "corejs": 3
+          }
+        ],
+        ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
+      ],
+      "presets": ["@babel/preset-env", "next/babel"]
     }
   },
-  "plugins": [["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]]
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true,
+        "corejs": 3
+      }
+    ],
+    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
+  ],
+  "presets": ["@babel/preset-env"]
 }
