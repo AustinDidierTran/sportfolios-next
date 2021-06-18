@@ -20,17 +20,17 @@ export default function BannerEvent(props) {
     return width > MOBILE_WIDTH ? 'subtitle1' : 'caption';
   }, [width]);
 
-  const canRegister = useMemo(
-    () =>
-      !(
-        !Array.isArray(eventInfo.options) ||
-        eventInfo.options.length < 1 ||
-        (eventInfo.remainingSpots < 1 && eventInfo.remainingSpots != null) ||
-        eventInfo.isLate ||
-        eventInfo.isEarly
-      ),
-    [eventInfo]
-  );
+  const checkCanRegister = () => {
+    return (
+      !Array.isArray(eventInfo.options) ||
+      eventInfo.options.length < 1 ||
+      (eventInfo.remainingSpots < 1 && eventInfo.remainingSpots != null) ||
+      eventInfo.isLate ||
+      eventInfo.isEarly
+    );
+  };
+
+  const canRegister = useMemo(() => !checkCanRegister()[eventInfo]);
 
   const Registration = () => {
     if (!Array.isArray(eventInfo.options) || eventInfo.options.length < 1) {

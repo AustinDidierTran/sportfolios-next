@@ -12,14 +12,14 @@ import CustomAvatar from '../../Avatar';
 import CustomIcon from '../../Icon';
 
 interface IProps {
-  clicked?: boolean;
-  description: string;
-  photoUrl?: string;
-  onClick: () => void;
-  initials: string;
-  id?: string;
   created_at: string;
+  description: string;
+  initials: string;
+  onClick: () => void;
   buttons?: JSX.Element[];
+  clicked?: boolean;
+  id?: string;
+  photoUrl?: string;
 }
 
 const NotificationItem: React.FunctionComponent<IProps> = (props) => {
