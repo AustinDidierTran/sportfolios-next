@@ -1,10 +1,11 @@
 import { useFormik } from 'formik';
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { sendRequestToJoinTeam } from '../../../../actions/service/entity';
-import { Store } from '../../../../Store';
+import { ACTION_ENUM, Store } from '../../../../Store';
 import { formatRoute } from '../../../../utils/stringFormats';
 import BasicFormDialog from '../BasicFormDialog';
 
@@ -19,6 +20,7 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
 
   const {
     state: { id: teamId },
+    dispatch,
   } = useContext(Store);
 
   const [open, setOpen] = useState<boolean>(false);
@@ -33,9 +35,24 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
     initialValues: {
       person: '',
     },
-    onSubmit: () => {
-      console.log({ person: formik.values.person, teamId });
-      sendRequestToJoinTeam(formik.values.person, teamId);
+    onSubmit: async () => {
+      const status = await sendRequestToJoinTeam(teamId, formik.values.person);
+      if (status === STATUS_ENUM.ERROR) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('request_sent'),
+          severity: SEVERITY_ENUM.SUCCESS,
+          duration: 2000,
+        });
+        setOpen(false);
+      }
     },
   });
 

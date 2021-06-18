@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import NotificationItem from '../index';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
+import { TABS_ENUM } from '../../../../../../common/enums';
 
 interface Imetadata {
   teamId: string;
@@ -16,9 +17,9 @@ interface IProps {
   created_at: string;
 }
 
-const RequestToJoinTeam: React.FunctionComponent<IProps> = (props) => {
+const RequestToJoinTeamItem: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { metadata, onClick, created_at, ...otherProps } = props;
+  const { metadata, created_at, ...otherProps } = props;
 
   const { teamId, teamName, personName, personSurname } = metadata;
 
@@ -35,10 +36,7 @@ const RequestToJoinTeam: React.FunctionComponent<IProps> = (props) => {
   });
 
   function handleClick(): void {
-    if (onClick) {
-      onClick();
-    }
-    goTo(ROUTES.entity, { id: teamId });
+    goTo(ROUTES.entity, { id: teamId }, { tab: TABS_ENUM.TEAM_ROSTERS });
   }
 
   return (
@@ -51,4 +49,4 @@ const RequestToJoinTeam: React.FunctionComponent<IProps> = (props) => {
     />
   );
 };
-export default RequestToJoinTeam;
+export default RequestToJoinTeamItem;

@@ -1348,7 +1348,11 @@ export default {
     reports: 'Rapports',
     required_informations: 'Informations demandées',
     required_informations_optional: 'Informations demandées (facultatif)',
+    request_to_join_team: 'Demande pour rejoindre une équipe',
     request_to_join_team_description: '{{completeName}} veut rejoindre votre équipe {{teamName}}',
+    request_to_join_team_settings_description:
+      "Notification envoyée lorsque un joueur veut rejoindre une équipe dont vous êtes l'administrateur",
+    request_sent: 'Request sent',
     reset_password: 'Réinitialiser le mot de passe',
     reset: 'Réinitialiser',
     reserve: 'Réserver',

@@ -410,6 +410,7 @@ const SOCKET_EVENT = {
 const NOTIFICATION_TYPE = {
   ADDED_TO_EVENT: 'added to event',
   ADDED_TO_TEAM: 'added to team',
+  REQUEST_TO_JOIN_TEAM: 'request to join team',
   OTHER_TEAM_SUBMITTED_A_SCORE: 'other team submitted a score',
   SCORE_SUBMISSION_CONFLICT: 'score submission conflict',
   SCORE_SUBMISSION_REQUEST: 'score submission request',

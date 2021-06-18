@@ -133,7 +133,6 @@ export async function addPlayers(teamId: string, players: Player[]): Promise<num
 }
 
 export async function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
-  console.log({ teamId, personId });
   const { status } = await api(`${BASE_URL}/joinTeam`, {
     method: 'POST',
     body: JSON.stringify({

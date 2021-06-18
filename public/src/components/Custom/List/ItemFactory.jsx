@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 const { AvatarAndTextSkeleton } = dynamic(() => import('./SkeletonItems'));
 const AddedToEventItem = dynamic(() => import('./NotificationItem/AddedToEventItem'));
 const AddedToTeamItem = dynamic(() => import('./NotificationItem/AddedToTeamItem'));
+const RequestToJoinTeamItem = dynamic(() => import('./NotificationItem/RequestToJoinTeamItem'));
 const AppItem = dynamic(() => import('./AppItem'));
 const BankAccountItem = dynamic(() => import('./BankAccountItem'));
 const CartItem = dynamic(() => import('./CartItem'));
@@ -65,6 +66,7 @@ const ItemMap = {
   [LIST_ITEM_ENUM.SALES]: SalesItem,
   [NOTIFICATION_TYPE.ADDED_TO_EVENT]: AddedToEventItem,
   [NOTIFICATION_TYPE.ADDED_TO_TEAM]: AddedToTeamItem,
+  [NOTIFICATION_TYPE.REQUEST_TO_JOIN_TEAM]: RequestToJoinTeamItem,
   [NOTIFICATION_TYPE.OTHER_TEAM_SUBMITTED_A_SCORE]: ConfirmOrDeclineScoreNotificationItem,
   [NOTIFICATION_TYPE.SCORE_SUBMISSION_CONFLICT]: ScoreSubmissionConflictNotificationItem,
   [NOTIFICATION_TYPE.SCORE_SUBMISSION_REQUEST]: ScoreSubmissionRequestNotificationItem,
