@@ -31,7 +31,6 @@ const RankingWithStatsItem = dynamic(() => import('./RankingWithStatsItem'));
 const ReportItemFactory = dynamic(() => import('./ReportItemFactory'));
 const RosterItem = dynamic(() => import('./RosterItem'));
 const SalesItem = dynamic(() => import('./SalesItem'));
-const TeamItem = dynamic(() => import('./TeamItem'));
 const ScoreSubmissionConflictNotificationItem = dynamic(() =>
   import('./NotificationItem/ScoreSubmissionConflictNotificationItem')
 );
