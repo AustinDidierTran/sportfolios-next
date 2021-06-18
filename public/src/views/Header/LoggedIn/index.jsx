@@ -33,12 +33,12 @@ export default function LoggedIn(props) {
 
   socket.emit(SOCKET_EVENT.CONNECTED_USER, userInfo.userId);
 
-  const photoUrl = useMemo(() => userInfo.primaryPerson?.photoUrl, [userInfo.primaryPerson]);
+  const photoUrl = useMemo(() => userInfo.primaryPerson.photoUrl, [userInfo.primaryPerson]);
 
   const nameObj = useMemo(
     () => ({
-      name: userInfo.primaryPerson?.name,
-      surname: userInfo.primaryPerson?.surname,
+      name: userInfo.primaryPerson.name,
+      surname: userInfo.primaryPerson.surname,
     }),
     [userInfo.primaryPerson]
   );
@@ -110,7 +110,7 @@ export default function LoggedIn(props) {
           <SearchInput apiRoute="/api/data/search/previous" />
           <div className={classes.grow} />
           <div className={styles.sectionDesktop}>
-            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson?.entityId} />
+            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson.personId} />
             <div ref={refCreateEntity}>
               <IconButton
                 className={styles.iconButton}
