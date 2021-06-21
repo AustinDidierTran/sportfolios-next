@@ -6,24 +6,25 @@ import Add from '@material-ui/icons/Add';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import ArrowForward from '@material-ui/icons/ArrowForward';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import ArrowForward from '@material-ui/icons/ArrowForward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Assignment from '@material-ui/icons/Assignment';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import Autorenew from '@material-ui/icons/Autorenew';
+import Brush from '@material-ui/icons/Brush';
 import Build from '@material-ui/icons/Build';
 import Business from '@material-ui/icons/Business';
-import Brush from '@material-ui/icons/Brush';
 import CameraAlt from '@material-ui/icons/CameraAlt';
 import Cancel from '@material-ui/icons/Cancel';
 import CancelSend from '@material-ui/icons/CancelScheduleSend';
-import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import Chat from '@material-ui/icons/Chat';
+import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import Check from '@material-ui/icons/Check';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
+import Clear from '@material-ui/icons/Clear';
 import Close from '@material-ui/icons/Close';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Create from '@material-ui/icons/Create';
@@ -40,8 +41,10 @@ import EmojiPeople from '@material-ui/icons/EmojiPeople';
 import Equalizer from '@material-ui/icons/Equalizer';
 import Event from '@material-ui/icons/Event';
 import ExitToApp from '@material-ui/icons/ExitToApp';
+import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Facebook from '@material-ui/icons/Facebook';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import FileCopy from '@material-ui/icons/FileCopy';
@@ -52,25 +55,28 @@ import FormatListNumbered from '@material-ui/icons/FormatListNumbered';
 import GetApp from '@material-ui/icons/GetApp';
 import GridOn from '@material-ui/icons/GridOn';
 import Group from '@material-ui/icons/Group';
-import Home from '@material-ui/icons/Home';
 import Help from '@material-ui/icons/Help';
+import Home from '@material-ui/icons/Home';
+import Image from '@material-ui/icons/Image';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import Info from '@material-ui/icons/Info';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import Language from '@material-ui/icons/Language';
 import Link from '@material-ui/icons/Link';
 import Lock from '@material-ui/icons/Lock';
 import Mail from '@material-ui/icons/Mail';
 import Menu from '@material-ui/icons/Menu';
 import MoneyOff from '@material-ui/icons/MoneyOff';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import Notifications from '@material-ui/icons/Notifications';
 import OpenWith from '@material-ui/icons/OpenWith';
 import PeopleIcon from '@material-ui/icons/People';
+import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import Person from '@material-ui/icons/Person';
 import PersonAdd from '@material-ui/icons/PersonAdd';
-import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import Play from '@material-ui/icons/PlayArrow';
 import Power from '@material-ui/icons/PowerSettingsNew';
 import PrintIcon from '@material-ui/icons/Print';
@@ -87,6 +93,7 @@ import Search from '@material-ui/icons/Search';
 import Send from '@material-ui/icons/Send';
 import Settings from '@material-ui/icons/Settings';
 import ShareIcon from '@material-ui/icons/Share';
+import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 import SportsKabaddi from '@material-ui/icons/SportsKabaddi';
@@ -94,21 +101,15 @@ import SportsWhistle from '@material-ui/icons/Sports';
 import Stars from '@material-ui/icons/Stars';
 import Store from '@material-ui/icons/Store';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
-import TrendingUp from '@material-ui/icons/TrendingUp';
 import TextFormat from '@material-ui/icons/TextFormat';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import TrendingUp from '@material-ui/icons/TrendingUp';
 import Undo from '@material-ui/icons/Undo';
 import Videocam from '@material-ui/icons/Videocam';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
-import Image from '@material-ui/icons/Image';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import Clear from '@material-ui/icons/Clear';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Web from '@material-ui/icons/Web';
 const icons: any = {
   AccountBalance,
   AccountCircle,
@@ -116,16 +117,16 @@ const icons: any = {
   AddAPhoto,
   AddShoppingCart,
   ArrowBack,
-  ArrowForward,
   ArrowDropDown,
+  ArrowForward,
   ArrowUpward,
   Assignment,
   AssignmentTurnedInIcon,
   AttachMoney,
   Autorenew,
+  Brush,
   Build,
   Business,
-  Brush,
   CameraAlt,
   Cancel,
   CancelSend,
@@ -134,6 +135,7 @@ const icons: any = {
   Check,
   CheckCircle,
   CheckCircleOutline,
+  Clear,
   Close,
   CloudUploadIcon,
   Create,
@@ -153,6 +155,7 @@ const icons: any = {
   ExpandLess,
   ExpandMore,
   Facebook,
+  FavoriteBorderIcon,
   FavoriteIcon,
   FiberManualRecord,
   FileCopy,
@@ -165,23 +168,26 @@ const icons: any = {
   Group,
   Help,
   Home,
+  Image,
+  ImageOutlinedIcon,
   Info,
   KeyboardArrowDown,
-  KeyboardArrowUp,
   KeyboardArrowRight,
+  KeyboardArrowUp,
   Language,
   Link,
   Lock,
   Mail,
   Menu,
   MoneyOff,
+  MoreVertIcon,
   NavigateNext,
   Notifications,
   OpenWith,
   PeopleIcon,
+  PermContactCalendar,
   Person,
   PersonAdd,
-  PermContactCalendar,
   Play,
   Power,
   PrintIcon,
@@ -198,6 +204,7 @@ const icons: any = {
   Send,
   Settings,
   ShareIcon,
+  ShareOutlinedIcon,
   ShoppingCart,
   ShoppingCartOutlined,
   SportsKabaddi,
@@ -206,19 +213,14 @@ const icons: any = {
   Store,
   SupervisedUserCircle,
   TextFormat,
-  TrendingUp,
   ThumbUp,
   ThumbUpAltOutlinedIcon,
+  TrendingUp,
   Undo,
   Videocam,
   Visibility,
   VisibilityOff,
-  MoreVertIcon,
-  ShareOutlinedIcon,
-  Image,
-  ImageOutlinedIcon,
-  Clear,
-  FavoriteBorderIcon,
+  Web,
 };
 
 interface IProps {

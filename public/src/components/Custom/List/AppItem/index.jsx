@@ -21,7 +21,7 @@ const defaultImage =
 
 export default function AppItem(props) {
   const { t } = useTranslation();
-  const { onConnect, onDisconnect, app, description, isConnected, secondaryActions } = props;
+  const { onConnect, onDisconnect, app, description, isConnected, secondaryActions, disabled } = props;
   const imageSrc = images[app] || defaultImage;
   const actions = secondaryActions ? (
     secondaryActions
@@ -31,6 +31,7 @@ export default function AppItem(props) {
       onClick={isConnected ? onDisconnect : onConnect}
       variant="outlined"
       color={isConnected ? 'secondary' : 'primary'}
+      disabled={disabled}
     >
       {isConnected ? t('disconnect') : t('connect')}
     </CustomButton>

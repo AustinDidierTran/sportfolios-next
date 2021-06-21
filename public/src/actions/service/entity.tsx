@@ -132,9 +132,20 @@ export async function addPlayers(teamId: string, players: Player[]): Promise<num
   return status;
 }
 
+export async function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
+  const { status } = await api(`${BASE_URL}/joinTeam`, {
+    method: 'POST',
+    body: JSON.stringify({
+      teamId,
+      personId,
+    }),
+  });
+  return status;
+}
+
 export async function deletePlayer(id: string): Promise<number> {
   const { status } = await api(
-    formatRoute(`${BASE_URL}/players`, null, {
+    formatRoute(`${BASE_URL}/player`, null, {
       id,
     }),
     {

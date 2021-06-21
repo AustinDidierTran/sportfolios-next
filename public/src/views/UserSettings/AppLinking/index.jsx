@@ -186,6 +186,7 @@ export default function AppLinking() {
       type: LIST_ITEM_ENUM.APP_ITEM,
       description: t('messenger_description'),
       key: APP_ENUM.MESSENGER,
+      disabled: true,
     },
   ];
 

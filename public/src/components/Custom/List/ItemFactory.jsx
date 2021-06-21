@@ -1,20 +1,28 @@
 import { GLOBAL_ENUM, LIST_ITEM_ENUM, NOTIFICATION_TYPE } from '../../../../common/enums';
 import dynamic from 'next/dynamic';
 
+const { AvatarAndTextSkeleton } = dynamic(() => import('./SkeletonItems'));
+const AddedToEventItem = dynamic(() => import('./NotificationItem/AddedToEventItem'));
+const AddedToTeamItem = dynamic(() => import('./NotificationItem/AddedToTeamItem'));
+const RequestToJoinTeamItem = dynamic(() => import('./NotificationItem/RequestToJoinTeamItem'));
 const AppItem = dynamic(() => import('./AppItem'));
 const BankAccountItem = dynamic(() => import('./BankAccountItem'));
 const CartItem = dynamic(() => import('./CartItem'));
+const ConfirmOrDeclineScoreNotificationItem = dynamic(() =>
+  import('./NotificationItem/ConfirmOrDeclineScoreNotificationItem')
+);
 const CreateEntityItem = dynamic(() => import('./CreateEntityItem'));
 const CreditCardItem = dynamic(() => import('./CreditCardItem'));
 const DefaultItem = dynamic(() => import('./DefaultItem'));
 const EventCreatorItem = dynamic(() => import('./EventCreatorItem'));
 const EventItem = dynamic(() => import('./EventItem'));
 const MembershipDetailItem = dynamic(() => import('./MembershipDetailItem'));
-const MembershipItem = dynamic(() => import('./MembershipItem'));
-const PartnerItem = dynamic(() => import('./PartnerItem'));
 const MembershipInfoItem = dynamic(() => import('./MembershipInfoItem'));
+const MembershipItem = dynamic(() => import('./MembershipItem'));
 const MembershipOrganizationItem = dynamic(() => import('./MembershipOrganizationItem'));
+const NotificationSettingItem = dynamic(() => import('./NotificationSettingItem'));
 const OrganizationItem = dynamic(() => import('./OrganizationItem'));
+const PartnerItem = dynamic(() => import('./PartnerItem'));
 const PaymentOptionItem = dynamic(() => import('./PaymentOptionItem'));
 const PersonItem = dynamic(() => import('./PersonItem'));
 const PurchasesItem = dynamic(() => import('./PurchasesItem'));
@@ -23,19 +31,13 @@ const RankingWithStatsItem = dynamic(() => import('./RankingWithStatsItem'));
 const ReportItemFactory = dynamic(() => import('./ReportItemFactory'));
 const RosterItem = dynamic(() => import('./RosterItem'));
 const SalesItem = dynamic(() => import('./SalesItem'));
-const TeamItem = dynamic(() => import('./TeamItem'));
-const { AvatarAndTextSkeleton } = dynamic(() => import('./SkeletonItems'));
-const NotificationSettingItem = dynamic(() => import('./NotificationSettingItem'));
-const RosterNotificationItem = dynamic(() => import('./NotificationItem/RosterNotificationItem'));
 const ScoreSubmissionConflictNotificationItem = dynamic(() =>
   import('./NotificationItem/ScoreSubmissionConflictNotificationItem')
 );
 const ScoreSubmissionRequestNotificationItem = dynamic(() =>
   import('./NotificationItem/ScoreSubmissionRequestNotificationItem')
 );
-const ConfirmOrDeclineScoreNotificationItem = dynamic(() =>
-  import('./NotificationItem/ConfirmOrDeclineScoreNotificationItem')
-);
+const TeamItem = dynamic(() => import('./TeamItem'));
 
 const ItemMap = {
   [GLOBAL_ENUM.EVENT]: EventItem,
@@ -50,9 +52,9 @@ const ItemMap = {
   [LIST_ITEM_ENUM.CREDIT_CARD]: CreditCardItem,
   [LIST_ITEM_ENUM.EVENT_CREATOR]: EventCreatorItem,
   [LIST_ITEM_ENUM.MEMBERSHIP_DETAIL]: MembershipDetailItem,
+  [LIST_ITEM_ENUM.MEMBERSHIP_INFO]: MembershipInfoItem,
   [LIST_ITEM_ENUM.MEMBERSHIP_ORGANIZATION]: MembershipOrganizationItem,
   [LIST_ITEM_ENUM.MEMBERSHIP]: MembershipItem,
-  [LIST_ITEM_ENUM.MEMBERSHIP_INFO]: MembershipInfoItem,
   [LIST_ITEM_ENUM.NOTIFICATION_SETTING]: NotificationSettingItem,
   [LIST_ITEM_ENUM.PARTNER]: PartnerItem,
   [LIST_ITEM_ENUM.PAYMENT_OPTION]: PaymentOptionItem,
@@ -62,7 +64,9 @@ const ItemMap = {
   [LIST_ITEM_ENUM.REPORT]: ReportItemFactory,
   [LIST_ITEM_ENUM.ROSTER_ITEM]: RosterItem,
   [LIST_ITEM_ENUM.SALES]: SalesItem,
-  [NOTIFICATION_TYPE.ADDED_TO_ROSTER]: RosterNotificationItem,
+  [NOTIFICATION_TYPE.ADDED_TO_EVENT]: AddedToEventItem,
+  [NOTIFICATION_TYPE.ADDED_TO_TEAM]: AddedToTeamItem,
+  [NOTIFICATION_TYPE.REQUEST_TO_JOIN_TEAM]: RequestToJoinTeamItem,
   [NOTIFICATION_TYPE.OTHER_TEAM_SUBMITTED_A_SCORE]: ConfirmOrDeclineScoreNotificationItem,
   [NOTIFICATION_TYPE.SCORE_SUBMISSION_CONFLICT]: ScoreSubmissionConflictNotificationItem,
   [NOTIFICATION_TYPE.SCORE_SUBMISSION_REQUEST]: ScoreSubmissionRequestNotificationItem,
