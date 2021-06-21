@@ -1,0 +1,64 @@
+import React, { useEffect, useState, useMemo } from 'react';
+import styles from './EditGames.module.css';
+import { Collapse, IconButton } from '../../../../components/Custom';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
+import ScoreSuggestion from './ScoreSuggestion';
+import { useTranslation } from 'react-i18next';
+import { Games } from '../../../../../../typescript/types';
+
+interface IProps {
+  games: Games[];
+  title: string;
+  isOpen: boolean;
+  update: any;
+}
+
+const EditGames: React.FunctionComponent<IProps> = (props) => {
+  const { games, title, isOpen, update } = props;
+  const { t } = useTranslation();
+
+  const [expanded, setExpanded] = useState<boolean>(isOpen);
+
+  const handleExpand = (): void => {
+    setExpanded(!expanded);
+  };
+
+  const icon = useMemo((): string => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
+
+  useEffect((): void => {
+    setExpanded(isOpen);
+  }, [isOpen]);
+
+  return (
+    <>
+      <div className={styles.collapse} onClick={handleExpand}>
+        <div className={styles.nothing} />
+        {games.length > 99 ? (
+          <Typography className={styles.seeScore} color="textSecondary">
+            {`${title} (99+)`}
+          </Typography>
+        ) : (
+          <Typography className={styles.seeScore} color="textSecondary">
+            {`${title} (${games.length})`}
+          </Typography>
+        )}
+        <IconButton aria-expanded={expanded} icon={icon} className={styles.iconButton} style={{ color: 'grey' }} />
+      </div>
+      <Divider className={styles.divider} />
+      <Collapse in={expanded} timeout="auto" unmountOnExit className={styles.games}>
+        {games.length ? (
+          <>
+            {games.map((game) => (
+              <ScoreSuggestion game={game} update={update} key={game.id} />
+            ))}
+          </>
+        ) : (
+          <Typography color="textSecondary">{t('no.no_games')}</Typography>
+        )}
+      </Collapse>
+    </>
+  );
+};
+export default EditGames;

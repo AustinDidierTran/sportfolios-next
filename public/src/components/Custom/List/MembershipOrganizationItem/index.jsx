@@ -24,7 +24,7 @@ export default function MembershipOrganizationItem(props) {
   const {
     membership,
     price,
-    membershipType,
+    membershipTypeText,
     expirationDate,
     update,
     id,
@@ -90,13 +90,13 @@ export default function MembershipOrganizationItem(props) {
   return (
     <>
       <ListItem onClick={handleExpand}>
-        <ListItemText primary={`${membership} | ${formatPrice(price)}`} secondary={membershipType}></ListItemText>
+        <ListItemText primary={`${membership} | ${formatPrice(price)}`} secondary={membershipTypeText}></ListItemText>
         <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
       <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         <div style={{ backgroundColor: '#F5F5F5' }}>
           <ListItem>
-            <ListItemText primary={membershipType} secondary={`${t('expire_on')} ${expirationDate}`}></ListItemText>
+            <ListItemText primary={membershipTypeText} secondary={`${t('expire_on')} ${expirationDate}`}></ListItemText>
           </ListItem>
           {fileUrl != null && (
             <ListItem className={styles.money}>

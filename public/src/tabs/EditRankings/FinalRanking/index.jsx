@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import styles from './FinalRanking.module.css';
 import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
@@ -19,6 +18,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { FormControlLabel } from '@material-ui/core';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { ACTION_ENUM, Store } from '../../../Store';
+import { getPhasesGameAndTeams } from '../../../actions/service/entity';
 
 const AccordionSummary = withStyles({
   content: {
@@ -67,14 +67,7 @@ export default function FinalRanking(props) {
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
 
   const getRankings = async () => {
-    const {
-      data: { games, teams: allTeams },
-    } = await api(
-      formatRoute('/api/entity/phasesGameAndTeams', null, {
-        eventId,
-        phaseId: phase.id,
-      })
-    );
+    const {games, teams:allTeams} = await getPhasesGameAndTeams(eventId, phase.id);
     const teams = allTeams.map((team) => {
       let positionName = `${team.origin_position}. ${team.phaseName}`;
       if (team.origin_phase === prerankPhaseId) {

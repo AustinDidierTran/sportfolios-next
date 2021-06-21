@@ -13,6 +13,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../hooks/window';
 import { MOBILE_WIDTH } from '../../../common/constants';
+import { getPhases } from '../../actions/service/entity';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -89,11 +90,7 @@ export default function EditRankings() {
       })
     );
 
-    const { data: phases } = await api(
-      formatRoute('/api/entity/phases', null, {
-        eventId,
-      })
-    );
+    const phases = await getPhases(eventId);
 
     let preranking = [];
 
@@ -113,45 +110,45 @@ export default function EditRankings() {
         id: d.id,
         spots: d.spots,
         status: d.status,
-        order: d.phase_order,
+        order: d.phaseOrder,
         ranking: d.ranking.map((r) => {
-          if (r && r.roster_id) {
-            if (r.origin_phase === prerankPhase.phaseId) {
+          if (r && r.rosterId) {
+            if (r.originPhase === prerankPhase.phaseId) {
               return {
                 ...r,
-                rankingId: r.ranking_id,
-                positionName: `${r.origin_position}. ${t('preranking')}`,
+                rankingId: r.rankingId,
+                positionName: `${r.originPosition}. ${t('preranking')}`,
                 name: r.name,
               };
             }
             return {
               ...r,
-              rankingId: r.ranking_id,
-              positionName: `${r.origin_position}. ${r.phaseName}`,
+              rankingId: r.rankingId,
+              positionName: `${r.originPosition}. ${r.phaseName}`,
               name: r.name,
             };
           }
-          if (r && r.origin_phase && r.origin_position) {
-            if (r.origin_phase === prerankPhase.phaseId) {
-              const rankingWithName = preranking.find((p) => p.position === r.origin_position);
+          if (r && r.originPhase && r.originPosition) {
+            if (r.originPhase === prerankPhase.phaseId) {
+              const rankingWithName = preranking.find((p) => p.position === r.originPosition);
               if (rankingWithName.rosterId) {
                 return {
                   ...r,
-                  rankingId: r.ranking_id,
+                  rankingId: r.rankingId,
                   name: rankingWithName.content,
-                  positionName: `${r.origin_position}. ${t('preranking')}`,
+                  positionName: `${r.originPosition}. ${t('preranking')}`,
                 };
               } else {
                 return {
                   ...r,
-                  rankingId: r.ranking_id,
-                  positionName: `${r.origin_position}. ${t('preranking')}`,
+                  rankingId: r.rankingId,
+                  positionName: `${r.originPosition}. ${t('preranking')}`,
                 };
               }
             }
-            return { ...r, rankingId: r.ranking_id, positionName: `${r.origin_position}. ${r.phaseName}` };
+            return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.phaseName}` };
           }
-          return { ...r, isEmpty: true, rankingId: r.ranking_id };
+          return { ...r, isEmpty: true, rankingId: r.rankingId };
         }),
       }))
       .sort((a, b) => a.order - b.order);
@@ -226,10 +223,10 @@ export default function EditRankings() {
   };
 
   const handleStartPhase = async (phase) => {
-    const rankingsFromPhase = phase.ranking.filter((r) => r.origin_phase && !r.roster_id);
-    const rankingsFromPrerank = phase.ranking.filter((r) => r.origin_phase === prerankPhase.phaseId && !r.roster_id);
-    const emptyRankings = phase.ranking.filter((r) => !r.origin_phase && !r.origin_position);
-    const rankingsWithRosterId = phase.ranking.map((r) => r.roster_id);
+    const rankingsFromPhase = phase.ranking.filter((r) => r.originPhase && !r.rosterId);
+    const rankingsFromPrerank = phase.ranking.filter((r) => r.originPhase === prerankPhase.phaseId && !r.rosterId);
+    const emptyRankings = phase.ranking.filter((r) => !r.originPhase && !r.originPosition);
+    const rankingsWithRosterId = phase.ranking.map((r) => r.rosterId);
 
     if (!rankingsWithRosterId.includes(null) && phase.spots !== 0) {
       const res = await api('/api/entity/updatePhase', {
