@@ -39,7 +39,7 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
   }, []);
 
   const onSetRsvp = (newRsvp: string): void => {
-    rsvpValue.forEach((r: any) => {
+    rsvpValue.forEach((r: IRsvp) => {
       r.rsvp = newRsvp;
     });
 

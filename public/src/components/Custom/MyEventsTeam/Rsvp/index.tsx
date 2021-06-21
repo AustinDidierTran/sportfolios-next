@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import CustomButton from '../../Button';
-import styles from './Rsvp.module.css';
 import { updatePracticeRsvp } from '../../../../actions/service/entity';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
@@ -66,7 +65,6 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
       {open ? (
         <div>
           <CustomButton
-            className={styles.view}
             startIcon="Check"
             color="primary"
             textColor={goingVariant == 'outlined' ? '#18B393' : 'white'}
@@ -79,7 +77,6 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
           </CustomButton>
           &nbsp;
           <CustomButton
-            className={styles.view}
             startIcon="Close"
             color="secondary"
             textColor="primary"

@@ -322,7 +322,6 @@ export interface GameTeam {
 }
 
 export interface Practice {
-  entityId: string;
   id: string;
   name: string;
   startDate: string;
