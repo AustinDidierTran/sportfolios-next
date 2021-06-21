@@ -49,9 +49,7 @@ const ConfirmOrDeclineScoreNotificationItem: React.FunctionComponent<IProps> = (
   });
 
   function handleClick(): void {
-    if (onClick) {
-      onClick();
-    }
+    onClick();
     goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, gameId });
   }
 

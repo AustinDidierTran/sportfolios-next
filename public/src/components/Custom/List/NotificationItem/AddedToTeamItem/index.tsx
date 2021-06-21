@@ -25,9 +25,7 @@ const AddedToTeamItem: React.FunctionComponent<IProps> = (props) => {
   });
 
   function handleClick(): void {
-    if (onClick) {
-      onClick();
-    }
+    onClick();
     goTo(ROUTES.entity, { id: teamId });
   }
 

@@ -23,9 +23,7 @@ const ScoreSubmissionRequestNotificationItem: React.FunctionComponent<IProps> = 
   const { eventId, gameId, eventName } = metadata;
 
   function handleClick(): void {
-    if (onClick) {
-      onClick();
-    }
+    onClick();
     goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, gameId });
   }
 

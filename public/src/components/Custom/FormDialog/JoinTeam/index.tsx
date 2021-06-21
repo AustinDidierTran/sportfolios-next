@@ -1,10 +1,12 @@
 import { useFormik } from 'formik';
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Person } from '../../../../../../typescript/types';
 import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { sendRequestToJoinTeam } from '../../../../actions/service/entity';
+import { getOwnedPerson } from '../../../../actions/service/user';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { formatRoute } from '../../../../utils/stringFormats';
 import BasicFormDialog from '../BasicFormDialog';
@@ -56,23 +58,13 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const getPeople = async () => {
-    const { data } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
-        type: GLOBAL_ENUM.PERSON,
-      })
-    );
-    //Permet de mettre la primary person comme 1er élément de la liste
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].isPrimaryPerson) {
-        data.unshift(data.splice(i, 1)[0]);
-        break;
-      }
-    }
+  const getPeople = async (): Promise<void> => {
+    const data = await getOwnedPerson();
     const res = data.map((d: any) => ({
       display: d.complete_name,
       value: d.id,
     }));
+
     setPeople(res);
     formik.setFieldValue('person', res[0].value);
   };
