@@ -54,7 +54,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [practice, setPractice] = useState<Practice>({
-    entityId: '',
     id: '',
     name: '',
     startDate: '',
@@ -148,7 +147,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   }, [practiceId]);
 
   useEffect((): void => {
-    if (!practice || !practice.entityId) {
+    if (!practice) {
       return;
     }
 
@@ -407,7 +406,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
-            locationId={practice.entityId}
+            locationId={practice.id}
             elevation={0}
             placeholder={t('write_a_comment')}
           />
