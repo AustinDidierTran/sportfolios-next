@@ -131,6 +131,7 @@ const CARD_TYPE_ENUM = {
   MULTIPLE_TEAM_GAME: 'MultipleTeamGame',
   ACCEPT_PLAYER_INFOS: 'accept player infos',
   ACCEPT_TEAM_INFOS: 'accept team infos',
+  ACCEPT_TEAM_PLAYER: 'accept team player',
   OUR_TEAM_MEMBER: ' our team member',
 };
 
@@ -242,10 +243,10 @@ const COUPON_CODE_ENUM = {
 };
 
 const ROUTES_ENUM = {
-  analytics: '/page/analytics',
   addBankAccount: '/page/addBankAccount',
   addPaymentMethod: '/page/addPaymentMethod',
   adminPanel: '/page/adminPanel',
+  analytics: '/page/analytics',
   cart: '/page/cart',
   checkout: '/page/checkout',
   confirmationEmailSent: '/page/confirmationEmailSent/:email',
@@ -267,15 +268,15 @@ const ROUTES_ENUM = {
   membersList: '/page/membersList',
   menu: '/page/menu',
   mockEvent: '/page/mock/Event/:openTab',
-  optionPayment: '/page/optionPayment/:id',
   notifications: '/page/notifications',
+  optionPayment: '/page/optionPayment/:id',
   orderProcessed: '/page/orderProcessed',
   organizationList: '/page/organizationList',
   passwordRecovery: '/page/passwordRecovery',
+  paymentOptionStats: '/page/paymentOptionStats/:id',
   playersAcceptation: '/page/playersAcceptation/:id',
   privacyPolicy: '/page/privacy',
   productAddedToCart: '/page/productAddedToCart',
-  paymentOptionStats: '/page/paymentOptionStats/:id',
   redirectWithToken: '/page/redirect',
   registrationStatus: '/page/registrationStatus',
   rosterInviteLink: '/page/inviteRoster/:token',
@@ -286,6 +287,7 @@ const ROUTES_ENUM = {
   shopDetails: '/page/shopDetails/:id/:stripePriceId',
   signup: '/page/signup',
   stripe: '/page/stripe',
+  teamPlayersAcceptation: '/page/teamPlayersAcceptation/:id',
   teamsAcceptation: '/page/teamsAcceptation/:id',
   transferPerson: '/page/transferPerson/:token',
   transferPersonExpired: '/page/transferPersonExpired',

@@ -1,5 +1,3 @@
-import { event } from 'react-ga';
-
 //ENUMS
 export enum Language {
   fr = 'fr',
@@ -141,6 +139,10 @@ export interface Player {
   role: RosterRole;
   name: string;
   photoUrl: string;
+}
+
+export interface PendingPlayer extends Player {
+  status: string;
 }
 
 export interface Person extends Entity {
@@ -339,8 +341,8 @@ export interface Practice {
 }
 
 export interface Location {
-  value?:string;
-  display?:string;
+  value?: string;
+  display?: string;
   id: string;
   location: string;
   streetAddress?: string;
