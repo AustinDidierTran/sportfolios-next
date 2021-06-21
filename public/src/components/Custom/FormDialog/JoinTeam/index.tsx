@@ -53,7 +53,7 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 2000,
         });
-        setOpen(false);
+        onClose();
       }
     },
   });
