@@ -10,8 +10,18 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { Entity } from '../../../../../typescript/types';
 
-export default function BannerEvent(props) {
+interface IProps {
+  adminView: boolean;
+  onSwitch: () => void;
+  isAdmin: boolean;
+  onClickMainButton: () => void;
+  eventInfo: any;
+  basicInfos: Entity;
+}
+
+const BannerEvent: React.FunctionComponent<IProps> = (props) => {
   const { basicInfos, onClickMainButton, eventInfo, onSwitch, adminView, isAdmin } = props;
   const { t } = useTranslation();
   const [width] = useWindowSize();
@@ -20,17 +30,19 @@ export default function BannerEvent(props) {
     return width > MOBILE_WIDTH ? 'subtitle1' : 'caption';
   }, [width]);
 
-  const canRegister = useMemo(
-    () =>
-      !(
-        !Array.isArray(eventInfo.options) ||
-        eventInfo.options.length < 1 ||
-        eventInfo.remainingSpots < 1 ||
-        eventInfo.isLate ||
-        eventInfo.isEarly
-      ),
-    [eventInfo]
-  );
+  const checkCanRegister = (): boolean => {
+    return (
+      !Array.isArray(eventInfo.options) ||
+      eventInfo.options.length < 1 ||
+      (eventInfo.remainingSpots < 1 && eventInfo.remainingSpots != null) ||
+      eventInfo.isLate ||
+      eventInfo.isEarly
+    );
+  };
+
+  const canRegister: boolean = useMemo<boolean>(() => {
+    return !checkCanRegister();
+  }, [eventInfo]);
 
   const Registration = () => {
     if (!Array.isArray(eventInfo.options) || eventInfo.options.length < 1) {
@@ -179,4 +191,5 @@ export default function BannerEvent(props) {
       </>
     </div>
   );
-}
+};
+export default BannerEvent;

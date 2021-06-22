@@ -30,7 +30,7 @@ export default function PersonItem(props) {
     disabled,
   } = props;
 
-  const initials = useMemo(() => getInitialsFromName(completeName || name), [completeName, name]);
+  const initials = useMemo(() => getInitialsFromName(completeName || name));
 
   const handleClick = useCallback(
     (e) => {

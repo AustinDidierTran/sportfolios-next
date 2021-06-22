@@ -23,7 +23,6 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import styles from './Post.module.css';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { SEVERITY_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { goTo, ROUTES } from '../../../../actions/goTo';
@@ -31,6 +30,7 @@ import { useRouter } from 'next/router';
 import Upload from 'rc-upload';
 import dynamic from 'next/dynamic';
 import { Post as PostType, Comment as CommentType, PostImage } from '../../../../../../typescript/types';
+import { getTimeToShow } from '../../../../utils/stringFormats';
 
 const Comment = dynamic(() => import('../Comment'));
 const PostInput = dynamic(() => import('../../Input/PostInput'));
@@ -108,21 +108,6 @@ const Post: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { userInfo },
   } = useContext(Store);
-
-  const getTimeToShow = (date: string): string => {
-    const newDate: any = new Date(date);
-    const today: any = new Date();
-    const deltaTime = Math.floor(Math.abs(today - newDate) / 1000 / 86400);
-    if (deltaTime < 1) {
-      return moment.utc(newDate).fromNow();
-    } else if (deltaTime > 1 && deltaTime < moment.utc(newDate).daysInMonth()) {
-      return moment.utc(newDate).format('DD MMMM, HH:mm');
-    } else if (deltaTime == 1) {
-      return t('yesterday_at', { date_time: moment.utc(newDate).format('HH:mm') });
-    } else {
-      return moment.utc(newDate).format('DD MMMM YYYY');
-    }
-  };
 
   const clearImage = (): void => {
     setEditImages([]);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import CustomButton from '../../Button';
@@ -12,24 +12,16 @@ interface IProps {
   rsvpStatus?: string;
   playerId?: string;
   multipleRsvp?: boolean;
-  OnSetRsvp: (rsvp: string) => void;
+  update: (rsvp?: string, playerId?: string, practiceId?: string) => void;
 }
 
 const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { isOpen, practiceId, rsvpStatus, playerId, multipleRsvp, OnSetRsvp } = props;
+  const { isOpen, practiceId, rsvpStatus, playerId, multipleRsvp, update } = props;
   const { dispatch } = useContext(Store);
 
-  const [open, setOpen] = useState<boolean>();
   const [goingVariant, setGoingVariant] = useState<'outlined' | 'text' | 'contained' | undefined>('outlined');
   const [notGoingVariant, setNotGoingVariant] = useState<'outlined' | 'text' | 'contained' | undefined>('outlined');
-
-  useEffect((): void => {
-    setOpen(isOpen);
-    if (rsvpStatus) {
-      changeStatus(rsvpStatus);
-    }
-  }, [isOpen]);
 
   const changeStatus = (status: string): void => {
     if (status == 'going') {
@@ -41,6 +33,13 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
+  const open = useMemo((): boolean => {
+    if(rsvpStatus){
+      changeStatus(rsvpStatus);
+    }
+    return isOpen;
+  }, [isOpen, rsvpStatus]);
+
   const submitRsvp = async (type: string): Promise<void> => {
     const status = await updatePracticeRsvp(practiceId, type, playerId, multipleRsvp);
     if (status === STATUS_ENUM.ERROR || status >= 400) {
@@ -51,12 +50,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
         duration: 4000,
       });
     } else {
-      OnSetRsvp(type);
-      if (!playerId) {
-        setOpen(false);
-      } else {
-        changeStatus(type);
-      }
+      update(type, playerId, practiceId);
     }
   };
 
@@ -89,7 +83,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
           </CustomButton>
         </div>
       ) : (
-        <></>
+        null
       )}
     </div>
   );

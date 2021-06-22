@@ -7,10 +7,29 @@ import api from '../../../../../actions/api';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
 import Button from '../../../Button';
 
-export default function ConfirmOrDeclineScoreNotificationItem(props) {
+interface Imetadata {
+  eventId: string;
+  gameId: string;
+  eventName: string;
+  submittedBy: string;
+  myRosterId: string;
+  myPlayerId: string;
+  submitted: boolean;
+  suggestionId: string;
+  score: string;
+}
+
+interface IProps {
+  id: string;
+  metadata: Imetadata;
+  onClick: () => void;
+  created_at: string;
+}
+
+const ConfirmOrDeclineScoreNotificationItem: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { metadata, onClick, ...otherProps } = props;
+  const { metadata, onClick, created_at, ...otherProps } = props;
   const {
     eventId,
     gameId,
@@ -29,14 +48,12 @@ export default function ConfirmOrDeclineScoreNotificationItem(props) {
     score: scoreString,
   });
 
-  function handleClick() {
-    if (onClick) {
-      onClick();
-    }
+  function handleClick(): void {
+    onClick();
     goTo(ROUTES.entity, { id: eventId }, { tab: TABS_ENUM.SCHEDULE, gameId });
   }
 
-  async function acceptScore(e) {
+  async function acceptScore(e: any): Promise<void> {
     e.stopPropagation();
     if (onClick) {
       onClick();
@@ -64,7 +81,7 @@ export default function ConfirmOrDeclineScoreNotificationItem(props) {
     }
   }
 
-  function formatScore() {
+  function formatScore(): string {
     return (
       Object.entries(scoreObj).reduce((acc, curr) => {
         const [name, score] = curr;
@@ -106,6 +123,8 @@ export default function ConfirmOrDeclineScoreNotificationItem(props) {
       initials={eventName[0]}
       onClick={handleClick}
       buttons={buttons}
+      created_at={created_at}
     />
   );
-}
+};
+export default ConfirmOrDeclineScoreNotificationItem;

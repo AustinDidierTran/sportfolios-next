@@ -336,18 +336,19 @@ export interface Practice {
   state?: string;
   zip?: string;
   country?: string;
-  rsvp?: Rsvp;
+  rsvp?: Rsvp[];
+  myRsvp?: Rsvp[];
 }
 
 export interface Rsvp {
-  name:string;
-  photoUrl?:string;
+  name: string;
+  photoUrl?: string;
   rsvp: string;
 }
 
 export interface Location {
-  value?:string;
-  display?:string;
+  value?: string;
+  display?: string;
   id: string;
   location: string;
   streetAddress?: string;

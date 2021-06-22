@@ -14,7 +14,7 @@ export default function EventItem(props) {
 
   const { id, onClick, selected, photoUrl, name } = props;
 
-  const initials = useMemo(() => getInitialsFromName(name), [name]);
+  const initials = useMemo(() => getInitialsFromName(name));
 
   const handleClick = useCallback(() => {
     if (onClick) {

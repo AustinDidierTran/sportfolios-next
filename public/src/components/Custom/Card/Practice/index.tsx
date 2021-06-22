@@ -22,55 +22,45 @@ interface IProps {
   endTime: string;
   rsvp: IRsvp[];
   onClick: (props: IProps) => void;
+  update: () => void;
 }
 
 const Practice: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { id, location, name, startTime, endTime, rsvp, onClick } = props;
-  const [rsvpValue, setRsvpValue] = useState<IRsvp[]>(rsvp);
-  const [openRsvp, setOpenRsvp] = useState<boolean>(true);
+  const { id, location, name = t('practice'), startTime, endTime, rsvp, onClick, update } = props;
+  const [openRsvp, setOpenRsvp] = useState<boolean>(rsvp !== null);
 
   useEffect(() => {
-    rsvpValue?.map((event) => {
+    rsvp?.map((event) => {
       if (event.rsvp) {
         setOpenRsvp(false);
       }
     });
-  }, []);
-
-  const onSetRsvp = (newRsvp: string): void => {
-    rsvpValue.forEach((r: IRsvp) => {
-      r.rsvp = newRsvp;
-    });
-
-    setRsvpValue([...rsvpValue]);
-  };
+  }, [rsvp]);
 
   return (
     <Card className={styles.practice}>
       <CardContent className={styles.content} onClick={() => onClick(props)}>
         <Typography className={styles.title} color="textPrimary">
-          {name ? name : t('practice')}
+          {name}
         </Typography>
         <Typography className={styles.main} color="textPrimary">
           <ListItemIcon>
-            {rsvpValue.length > 1 ? (
-              rsvpValue.map((event, index) => (
-                <div key={index}>
-                  {event.rsvp ? (
-                    <Avatar
-                      style={event.rsvp == 'going' ? { border: '4px solid green' } : { border: '4px solid red' }}
-                      photoUrl={event.photoUrl}
-                      initials={getInitialsFromName(event.name)}
-                    />
-                  ) : (
-                    <Avatar photoUrl={event.photoUrl} initials={getInitialsFromName(event.name)} />
-                  )}
-                </div>
-              ))
-            ) : (
-              <div>{t(rsvpValue[0].rsvp)}</div>
-            )}
+            {rsvp
+              ? rsvp.map((event, index) => (
+                  <div key={index}>
+                    {event.rsvp ? (
+                      <Avatar
+                        style={event.rsvp == 'going' ? { border: '4px solid green' } : { border: '4px solid red' }}
+                        photoUrl={event.photoUrl}
+                        initials={getInitialsFromName(event.name)}
+                      />
+                    ) : (
+                      <Avatar photoUrl={event.photoUrl} initials={getInitialsFromName(event.name)} />
+                    )}
+                  </div>
+                ))
+              : null}
           </ListItemIcon>
           <ListItemText
             className={styles.time}
@@ -80,7 +70,7 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
           <Typography color="textSecondary">{location}</Typography>
         </Typography>
       </CardContent>
-      <Rsvp isOpen={openRsvp} practiceId={id} OnSetRsvp={onSetRsvp} multipleRsvp={rsvpValue.length > 1} />
+      <Rsvp isOpen={openRsvp} practiceId={id} update={update} multipleRsvp />
     </Card>
   );
 };

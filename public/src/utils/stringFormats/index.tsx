@@ -5,15 +5,9 @@ import moment from 'moment';
 import 'moment/locale/fr';
 import i18n from '../../i18n';
 
-export const getInitialsFromName = (completeName, isName) => {
+export const getInitialsFromName = (completeName: any): string => {
   if (!completeName) {
     return '';
-  }
-
-  if (isName !== undefined && isName !== true && typeof completeName === 'string') {
-    const str = completeName.trim().split(' ');
-    let res = `${str[0]}${str[3] ? str[3].charAt(0) : str[2].charAt(0)}`.toUpperCase();
-    return res;
   }
 
   if (typeof completeName === 'string') {
@@ -29,7 +23,7 @@ export const getInitialsFromName = (completeName, isName) => {
   return `${completeName?.name ? completeName?.name[0] : ''}${completeName?.surname ? completeName?.surname[0] : ''}`;
 };
 
-export const getIconFromRole = (role) => {
+export const getIconFromRole = (role: string): string => {
   switch (role) {
     case ROSTER_ROLE_ENUM.COACH:
       return 'SportsWhistle';
@@ -42,22 +36,7 @@ export const getIconFromRole = (role) => {
   }
 };
 
-export const fillWithZeros = (number, zeros = 0) => {
-  if (!zeros) {
-    return number;
-  }
-  const parsedNumber = Number(number);
-
-  const numberOfDigits = parsedNumber === 0 ? 1 : Math.floor(Math.log(parsedNumber) / Math.log(10)) + 1;
-
-  const zerosToAdd = zeros - numberOfDigits;
-
-  const zerosArray = Array(zerosToAdd).fill(0);
-
-  return zerosArray.reduce((prev) => `0${prev}`, `${parsedNumber}`);
-};
-
-export const formatRoute = (route, params, queryParams) => {
+export const formatRoute = (route: string, params: any, queryParams: any): string => {
   if (!route) {
     /* eslint-disable-next-line */
     console.error('Route is undefined');
@@ -81,29 +60,31 @@ export const formatRoute = (route, params, queryParams) => {
   );
 };
 
-export const formatDate = (moment, format = 'LL') => {
-  if (!moment.isValid()) {
-    return null;
+export const formatDate = (date: any, format: string = 'LL'): string => {
+  if (!date.isValid()) {
+    return '';
   }
   if (typeof window != 'undefined') {
     const language = (localStorage && localStorage.getItem('i18nextLng')) || 'fr';
-    moment.locale(language);
+    date.locale(language);
     if (format === 'MMM D' && language === 'fr') {
-      return moment.format('D MMM');
+      return moment.utc(date).format('D MMM');
     }
   }
-  return moment.format(format);
+  return moment.utc(date).format(format);
 };
 
-export const formatIntervalDate = (start, end) => {
+export const formatIntervalDate = (start: any, end: any): string | null => {
   let word = 'to';
+  let split = true;
   if (typeof window != 'undefined') {
     if (localStorage.getItem('i18nextLng') === 'fr') {
       word = 'au';
+      split = false;
     }
   }
 
-  if (!start.isValid() || !end.isValid() || !start || !end) {
+  if (!start || !end || !start.isValid() || !end.isValid()) {
     return '';
   }
 
@@ -114,13 +95,13 @@ export const formatIntervalDate = (start, end) => {
   if (start.year() != end.year()) {
     return `${formatDate(start)} ${word} ${formatDate(end)} `;
   }
-  if (start.month() != end.month()) {
-    return `${formatDate(start).split(' ')[0]} ${formatDate(start).split(' ')[1]} ${word} ${formatDate(end)} `;
-  }
-  return `${formatDate(start).split(' ')[0]} ${formatDate(start).split(' ')[1]} ${word} ${formatDate(end)} `;
+
+  return `${formatDate(start)?.split(' ')[0]} ${
+    split ? formatDate(start)?.split(' ')[1].slice(0, -1) : formatDate(start)?.split(' ')[1]
+  } ${word} ${formatDate(end)} `;
 };
 
-export const getEntityTypeName = (type) => {
+export const getEntityTypeName = (type: number): string => {
   if (type === GLOBAL_ENUM.PERSON) {
     return 'person.person';
   } else if (type === GLOBAL_ENUM.TEAM) {
@@ -134,14 +115,14 @@ export const getEntityTypeName = (type) => {
   }
 };
 
-export const formatPageTitle = (title) => {
+export const formatPageTitle = (title?: string): string => {
   if (title) {
     return `${title} | Sportfolios`;
   }
   return 'Sportfolios';
 };
 
-export const getMembershipName = (type) => {
+export const getMembershipName = (type: number): string => {
   if (type === MEMBERSHIP_TYPE_ENUM.RECREATIONAL) {
     return 'recreational_member';
   } else if (type === MEMBERSHIP_TYPE_ENUM.COMPETITIVE) {
@@ -155,7 +136,7 @@ export const getMembershipName = (type) => {
   }
 };
 
-export const getMembershipType = (length, date) => {
+export const getMembershipType = (length?: number, date?: string): string | undefined => {
   if (length) {
     if (length === MEMBERSHIP_LENGTH_ENUM.ONE_YEAR) {
       return 'yearly';
@@ -166,14 +147,15 @@ export const getMembershipType = (length, date) => {
     if (length === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
       return 'monthly';
     }
+    return '';
   } else if (date) {
     return 'fixed_date';
   } else {
-    return null;
+    return '';
   }
 };
 
-export const getMembershipLength = (type) => {
+export const getMembershipLength = (type: number): number | undefined => {
   if (type === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
     return 1;
   }
@@ -185,7 +167,7 @@ export const getMembershipLength = (type) => {
   }
 };
 
-export const getMembershipUnit = (type) => {
+export const getMembershipUnit = (type: number): moment.unitOfTime.DurationConstructor | undefined => {
   if (type === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
     return 'M';
   }
@@ -197,7 +179,7 @@ export const getMembershipUnit = (type) => {
   }
 };
 
-export const getExpirationDate = (length, date) => {
+export const getExpirationDate = (length?: number, date?: string): string | null => {
   if (length) {
     return formatDate(moment.utc().add(getMembershipLength(length), getMembershipUnit(length)));
   } else if (date) {
@@ -211,14 +193,14 @@ export const getExpirationDate = (length, date) => {
   }
 };
 
-export const formatPrice = (price) => {
+export const formatPrice = (price?: number): string => {
   if (!price) {
     return '0.00$';
   }
   return `${(price / 100).toFixed(2)}$`;
 };
 
-export const validateDate = (dateProps) => {
+export const validateDate = (dateProps: string): boolean => {
   //date format: 'MM/DD'
   const days = [31, 28, 31, 30, 31, 30, 31, 30, 31, 31, 30, 31];
   const date = dateProps.split('/');
@@ -231,7 +213,7 @@ export const validateDate = (dateProps) => {
   }
   return true;
 };
-export const validateDateWithYear = (dateProps) => {
+export const validateDateWithYear = (dateProps: string): boolean => {
   //date format: 'DD/MM/YYYY'
   const days = [31, 28, 31, 30, 31, 30, 31, 30, 31, 31, 30, 31];
   const date = dateProps.split('/');
@@ -250,7 +232,7 @@ export const validateDateWithYear = (dateProps) => {
   return true;
 };
 
-export const getFormattedMailTo = (emails, subject, body) => {
+export const getFormattedMailTo = (emails?: string, subject?: string, body?: string): string => {
   if (!emails) {
     throw 'No email is provided';
   }
@@ -265,7 +247,7 @@ export const getFormattedMailTo = (emails, subject, body) => {
 
   const formattedEmails = emails.join(', ');
 
-  const queryParams = {};
+  const queryParams: any = {};
 
   if (subject) {
     queryParams.subject = encodeURIComponent(subject);
@@ -278,17 +260,18 @@ export const getFormattedMailTo = (emails, subject, body) => {
   return formatRoute(`mailTo:${formattedEmails}`, null, queryParams);
 };
 
-export const validateEmail = (email) => {
-  return email && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+export const validateEmail = (email: string): boolean => {
+  return (email ? true : false) && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 };
 
-export function timestampToRelativeTime(timeStamp) {
+export function timestampToRelativeTime(timeStamp: any): string {
   const msPerMinute = 60 * 1000;
   const msPerHour = msPerMinute * 60;
   const msPerDay = msPerHour * 24;
   const msPerMonth = msPerDay * 30;
   const msPerYear = msPerDay * 365;
-  const elapsed = new Date() - timeStamp;
+  const today: any = new Date();
+  const elapsed = today - timeStamp;
   if (elapsed < msPerMinute) {
     return i18n.t('second_ago', {
       count: Math.round(elapsed / 1000),
@@ -313,5 +296,20 @@ export function timestampToRelativeTime(timeStamp) {
     return i18n.t('year_ago', {
       count: Math.round(elapsed / msPerYear),
     });
+  }
+}
+
+export function getTimeToShow(date: string): string {
+  const newDate: any = new Date(date);
+  const today: any = new Date();
+  const deltaTime = Math.floor(Math.abs(today - newDate) / 1000 / 86400);
+  if (deltaTime < 1) {
+    return moment.utc(newDate).fromNow();
+  } else if (deltaTime > 1 && deltaTime < moment.utc(newDate).daysInMonth()) {
+    return moment.utc(newDate).format('DD MMMM, HH:mm');
+  } else if (deltaTime == 1) {
+    return i18n.t('yesterday_at', { date_time: moment.utc(newDate).format('HH:mm') });
+  } else {
+    return moment.utc(newDate).format('DD MMMM YYYY');
   }
 }

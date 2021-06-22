@@ -24,6 +24,7 @@ interface IGameInfos {
   name?: string;
   teamNames: string;
   teamScores: string;
+  update?: () => void;
 }
 
 interface IEntity {
@@ -48,7 +49,8 @@ interface IEvent {
   name?: string;
   teamNames?: string;
   teamScores?: string;
-  rsvp?: Rsvp;
+  rsvp?: Rsvp[];
+  update?: () => void;
 }
 
 const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
@@ -93,9 +95,13 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getPractice = async (): Promise<void> => {
-    const data =  await getPracticeBasicInfo(id);
+    const data = await getPracticeBasicInfo(id);
     setPracticeInfos(data);
     setOpenPractice(false);
+  };
+
+  const update = (): void => {
+    getPractice();
   };
 
   const events = useMemo((): IEvent[] => {
@@ -123,18 +129,22 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
           type: CARD_TYPE_ENUM.PRACTICE,
           startTime: practice.startDate,
           endTime: practice.endDate,
-          rsvp: practice.rsvp,
+          rsvp:
+            practice.myRsvp.length < 3
+              ? practice.myRsvp.concat(practice.rsvp.slice(0, 3 - practice.myRsvp.length))
+              : practice.myRsvp.slice(0, 3),
+          update,
         };
       }
     );
 
-    if (practice) {
+    if (game) {
       return practice
         .concat(game)
         .sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
     }
 
-    return game.sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
+    return practice.sort((a: any, b: any) => new Date(a.startTime).valueOf() - new Date(b.startTime).valueOf());
   }, [gamesInfos, practiceInfos]);
 
   return (
@@ -158,7 +168,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
         ))
       ) : (
         <Typography variant="h6" color="textPrimary">
-          {t('no.no_games')}
+          {t('no.no_events')}
         </Typography>
       )}
       <CreatePractice isOpen={openPractice} onCreate={getPractice} onClose={closePractice} />

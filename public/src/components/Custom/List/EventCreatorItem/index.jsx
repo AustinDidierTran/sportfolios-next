@@ -13,7 +13,7 @@ export default function EventCreatorItem(props) {
   const { t } = useTranslation();
   const { id, onClick, selected, photoUrl, name } = props;
 
-  const initials = useMemo(() => getInitialsFromName(name), [name]);
+  const initials = useMemo(() => getInitialsFromName(name));
 
   const handleClick = useCallback(() => {
     if (onClick) {

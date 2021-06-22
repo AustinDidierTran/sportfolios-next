@@ -18,7 +18,7 @@ export default function RosterItem(props) {
   const { dispatch } = useContext(Store);
 
   const { personId, photoUrl, name, surname, onDelete, index, formik } = props;
-  const initials = useMemo(() => getInitialsFromName(name), [name]);
+  const initials = useMemo(() => getInitialsFromName(name));
   const { roster } = formik.values;
 
   const handleRoleChange = (newRole) => {
