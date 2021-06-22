@@ -100,6 +100,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      teamPlayersAcceptation: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       sales: {
         title: 'Sportfolios',
         description:
@@ -1264,6 +1269,7 @@ export default {
     player_view: 'Player view',
     player: 'Player',
     players: 'Players',
+    players_request: 'Players request',
     position: 'Position',
     positive_attitude_and_self_control: 'Positive Attitude and Self Control',
     postal_code: 'Zip Code',

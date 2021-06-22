@@ -10,8 +10,15 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import IgContainer from '../../components/Custom/IgContainer';
 
-export default function PlayersAndTeamsAcceptation(props) {
-  const { cards: cardsProps, update, getCards } = props;
+interface IProps {
+  cards: any;
+  update: (cartItemsId: string, status: string) => void;
+  getCards: () => void;
+  name: string;
+}
+
+const PlayersAndTeamsAcceptation: React.FunctionComponent<IProps> = (props) => {
+  const { cards: cardsProps, update, getCards, name } = props;
   const { t } = useTranslation();
 
   const [noCards, setNoCards] = useState(false);
@@ -50,7 +57,7 @@ export default function PlayersAndTeamsAcceptation(props) {
 
   useEffect(() => {
     if (cardsProps && cardsProps.length) {
-      setCards(cardsProps.map((card) => ({ items: { ...card.items, swipe }, type: card.type })));
+      setCards(cardsProps.map((card: any) => ({ items: { ...card.items, swipe }, type: card.type })));
     }
   }, [cardsProps]);
 
@@ -68,7 +75,7 @@ export default function PlayersAndTeamsAcceptation(props) {
     setAlreadyRemoved([]);
   };
 
-  const swiped = (direction, id) => {
+  const swiped = (direction: string, id: string): void => {
     const card = cards.find((card) => {
       return card.items.id === id;
     });
@@ -87,12 +94,13 @@ export default function PlayersAndTeamsAcceptation(props) {
     }
   };
 
-  const swipe = (dir) => {
+  const swipe = (dir: string): void => {
     if (alreadyRemoved.length === cards.length) {
       return;
     }
     const cardsLeft = cards.filter((card) => !alreadyRemoved.includes(card.items.id));
     const index = cards.findIndex((card) => card.items.id === cardsLeft[0].items.id);
+    //@ts-ignore
     childRefs[index].current.swipe(dir);
   };
 
@@ -108,7 +116,7 @@ export default function PlayersAndTeamsAcceptation(props) {
             tooltip={t('back')}
             style={{ color: 'primary' }}
           />
-          <Typography color="textSecondary">{cards[0]?.items.event.name}</Typography>
+          <Typography color="textSecondary">{name}</Typography>
         </div>
         <Typography variant="h5" className={styles.text} color="textSecondary">
           {t('you.you_swiped_everyone')}
@@ -139,12 +147,13 @@ export default function PlayersAndTeamsAcceptation(props) {
           tooltip={t('back')}
           style={{ color: 'primary' }}
         />
-        <Typography color="textSecondary">{cards[0]?.items.event.name}</Typography>
+        <Typography color="textSecondary">{name}</Typography>
       </div>
       <div style={{ overflow: 'hidden' }}>
         <div style={{ display: 'flex' }}>
           {cards.map((card, index) => (
             <div key={card.items.id}>
+              {/* @ts-ignore */}
               <TinderCard ref={childRefs[index]} onSwipe={(dir) => swiped(dir, card.items.id)} preventSwipe={['down']}>
                 <Card type={card?.type} items={card?.items} />
               </TinderCard>
@@ -184,4 +193,5 @@ export default function PlayersAndTeamsAcceptation(props) {
       </div>
     </IgContainer>
   );
-}
+};
+export default PlayersAndTeamsAcceptation;
