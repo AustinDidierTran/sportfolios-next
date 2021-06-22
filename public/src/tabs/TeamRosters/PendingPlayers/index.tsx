@@ -23,7 +23,7 @@ const PendingPlayers: React.FunctionComponent = () => {
 
   const [players, setPlayers] = useState<PendingPlayerType[]>([]);
 
-  const getPlayersPending = async () => {
+  const getPlayersPending = () => {
     getTeamPlayersPending(teamId).then(setPlayers);
   };
 
