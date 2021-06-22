@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../public/src/utils/stringFormats';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
-import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import dynamic from 'next/dynamic';
-import { getEntity, getTeamPlayersPending } from '../../../public/src/actions/service/entity';
+import {
+  getEntity,
+  getTeamPlayersPending,
+  updateTeamPlayerAcceptation,
+} from '../../../public/src/actions/service/entity';
 
 const TeamPlayersAcceptation = dynamic(() => import('../../../public/src/views/TeamPlayersAcceptation'));
 
@@ -32,14 +34,7 @@ const TeamPlayersAcceptationRoute: React.FunctionComponent = () => {
         vertical: 'top',
       });
     } else {
-      await api('/api/entity/teamPlayerAcceptation', {
-        method: 'PUT',
-        body: JSON.stringify({
-          teamId,
-          personId,
-          status,
-        }),
-      });
+      await updateTeamPlayerAcceptation(teamId, personId, status);
       if (status === STATUS_ENUM.ACCEPTED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,

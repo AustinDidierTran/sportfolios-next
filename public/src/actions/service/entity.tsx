@@ -83,6 +83,22 @@ export async function updatePlayer(id: string, role: string): Promise<number> {
   return status;
 }
 
+export async function updateTeamPlayerAcceptation(
+  teamId: string,
+  personId: string,
+  statusProps: string
+): Promise<string> {
+  const { status } = await api(`${BASE_URL}/teamPlayerAcceptation`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      teamId,
+      personId,
+      status: statusProps,
+    }),
+  });
+  return status;
+}
+
 export async function updatePractice(
   id: string,
   name: string,

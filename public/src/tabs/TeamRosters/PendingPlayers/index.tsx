@@ -24,8 +24,7 @@ const PendingPlayers: React.FunctionComponent = () => {
   const [players, setPlayers] = useState<PendingPlayerType[]>([]);
 
   const getPlayersPending = async () => {
-    const players = await getTeamPlayersPending(teamId);
-    setPlayers(players);
+    getTeamPlayersPending(teamId).then(setPlayers);
   };
 
   return (

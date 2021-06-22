@@ -1292,7 +1292,7 @@ export default {
     player_view: 'Vue Joueur',
     player: 'Joueur',
     players: 'Joueurs',
-    players_request: 'Demande de joueurs',
+    players_request: 'Demandes de joueurs',
     position: 'Position',
     positive_attitude_and_self_control: 'Attitude positive et maîtrise de soi',
     postal_code: 'Code postal',
