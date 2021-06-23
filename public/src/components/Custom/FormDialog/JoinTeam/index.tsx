@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { getMyTeamPlayers, sendRequestToJoinTeam } from '../../../../actions/service/entity';
 import { getOwnedPerson } from '../../../../actions/service/user';
@@ -75,7 +75,9 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
     const available = res.find((r) => !r.disabled);
 
     setPeople(res);
-    formik.setFieldValue('person', available.value);
+    if (available) {
+      formik.setFieldValue('person', available.value);
+    }
   };
 
   const fields = [
