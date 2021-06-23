@@ -1,6 +1,15 @@
 import { formatRoute } from '../../utils/stringFormats';
 import api from '../api';
-import { Entity, Person, Player, PendingPlayer, Practice, Role, Roster } from '../../../../typescript/types';
+import {
+  Entity,
+  Person,
+  Player,
+  PendingPlayer,
+  Practice,
+  Role,
+  Roster,
+  TeamPlayer,
+} from '../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
 
@@ -103,6 +112,11 @@ export async function updatePracticeRsvp(
     }),
   });
   return status;
+}
+
+export async function getMyTeamPlayers(teamId: string): Promise<Player[]> {
+  const { data } = await api(formatRoute(`${BASE_URL}/myTeamPlayers`, null, { teamId }));
+  return data;
 }
 
 export async function updatePlayer(id: string, role: string): Promise<number> {

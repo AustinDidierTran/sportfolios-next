@@ -1,14 +1,11 @@
 import { useFormik } from 'formik';
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Person } from '../../../../../../typescript/types';
 import { COMPONENT_TYPE_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
-import { sendRequestToJoinTeam } from '../../../../actions/service/entity';
+import { getMyTeamPlayers, sendRequestToJoinTeam } from '../../../../actions/service/entity';
 import { getOwnedPerson } from '../../../../actions/service/user';
 import { ACTION_ENUM, Store } from '../../../../Store';
-import { formatRoute } from '../../../../utils/stringFormats';
 import BasicFormDialog from '../BasicFormDialog';
 
 interface IProps {
@@ -30,8 +27,13 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
 
   useEffect(() => {
     setOpen(openProps);
-    getPeople();
   }, [openProps]);
+
+  useEffect(() => {
+    if (teamId) {
+      getPeople();
+    }
+  }, [teamId]);
 
   const formik = useFormik({
     initialValues: {
@@ -60,13 +62,20 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
 
   const getPeople = async (): Promise<void> => {
     const data = await getOwnedPerson();
-    const res = data.map((d: any) => ({
-      display: d.complete_name,
-      value: d.id,
-    }));
+    const players = await getMyTeamPlayers(teamId);
+    const ids = players.map((p) => p.personId);
+
+    const res = data.map((d: any) => {
+      if (ids.includes(d.id)) {
+        return { display: d.complete_name, value: d.id, disabled: true };
+      }
+      return { display: d.complete_name, value: d.id };
+    });
+
+    const available = res.find((r) => !r.disabled);
 
     setPeople(res);
-    formik.setFieldValue('person', res[0].value);
+    formik.setFieldValue('person', available.value);
   };
 
   const fields = [
