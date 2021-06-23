@@ -54,7 +54,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [practice, setPractice] = useState<Practice>({
-    entityId: '',
     id: '',
     name: '',
     startDate: '',
@@ -148,7 +147,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   }, [practiceId]);
 
   useEffect((): void => {
-    if (!practice || !practice.entityId) {
+    if (!practice) {
       return;
     }
 
@@ -160,7 +159,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     endDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -399,7 +397,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             </div>
           )}
           <Divider variant="middle" />
-          <Roster roster={practice?.roster} />
+          <Roster roster={practice?.roster} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}
@@ -408,7 +406,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
-            locationId={practice.entityId}
+            locationId={practice.id}
             elevation={0}
             placeholder={t('write_a_comment')}
           />
