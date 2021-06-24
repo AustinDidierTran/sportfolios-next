@@ -9,7 +9,7 @@ import CustomButton from '../Button';
 import CreatePractice from './CreatePractice';
 import { Store } from '../../../Store';
 import { Practice, Rsvp } from '../../../../../typescript/types';
-import { getPracticeBasicInfo } from '../../../actions/service/entity';
+import { getPracticeBasicInfo } from '../../../actions/service/entity/get';
 interface IProps {
   gamesInfos: IGameInfos[];
   adminView: boolean;

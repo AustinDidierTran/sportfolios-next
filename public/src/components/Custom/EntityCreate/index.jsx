@@ -23,7 +23,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import { formatDate } from '../../../utils/stringFormats';
 
 import * as yup from 'yup';
-import { addEntity } from '../../../actions/service/entity';
+import { addEntity } from '../../../actions/service/entity/post';
 
 export default function EntityCreate(props) {
   const { t } = useTranslation();

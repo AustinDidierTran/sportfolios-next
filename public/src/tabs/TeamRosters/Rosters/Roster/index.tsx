@@ -18,7 +18,8 @@ import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../.
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Roster as RosterType, Player } from '../../../../../../typescript/types';
-import { deleteRoster as deleteRosterApi, getRosterPlayers } from '../../../../actions/service/entity';
+import { getRosterPlayers } from '../../../../actions/service/entity/get';
+import { deleteRoster as deleteRosterApi } from '../../../../actions/service/entity/delete';
 
 interface IProps {
   roster: RosterType;

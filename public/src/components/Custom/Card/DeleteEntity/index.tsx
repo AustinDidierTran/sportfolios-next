@@ -8,7 +8,7 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 
 import styles from './DeleteEntity.module.css';
 import { useTranslation } from 'react-i18next';
-import { deleteEntity } from '../../../../actions/service/entity';
+import { deleteEntity } from '../../../../actions/service/entity/delete';
 
 interface IProps {
   id: string;

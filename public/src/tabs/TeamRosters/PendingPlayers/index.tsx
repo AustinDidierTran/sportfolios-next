@@ -6,7 +6,7 @@ import { Store } from '../../../Store';
 import styles from './Players.module.css';
 import List from '@material-ui/core/List';
 import { PendingPlayer as PendingPlayerType } from '../../../../../typescript/types';
-import { getTeamPlayersPending } from '../../../actions/service/entity';
+import { getTeamPlayersPending } from '../../../actions/service/entity/get';
 import PendingPlayer from './PendingPlayer';
 
 const PendingPlayers: React.FunctionComponent = () => {
