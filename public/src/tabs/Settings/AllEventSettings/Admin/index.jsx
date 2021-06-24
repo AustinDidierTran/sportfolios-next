@@ -10,7 +10,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { CARD_TYPE_ENUM } from '../../../../../common/enums';
+import { CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
 
 const ManageRoles = dynamic(() => import('../../ManageRoles'));
 
@@ -46,7 +46,7 @@ export default function Admin(props) {
         </AccordionSummary>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <ManageRoles role={role} />
-          <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
+          <Card items={{ id, name: basicInfos.name, type: GLOBAL_ENUM.EVENT }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
         </Collapse>
       </Accordion>
     </>

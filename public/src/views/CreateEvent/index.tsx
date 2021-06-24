@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 
 const EntityCreate = dynamic(() => import('../../components/Custom/EntityCreate'));
 
-export default function CreateEvent() {
+const CreateEvent: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
@@ -22,4 +22,5 @@ export default function CreateEvent() {
       <EntityCreate type={GLOBAL_ENUM.EVENT} />
     </>
   );
-}
+};
+export default CreateEvent;

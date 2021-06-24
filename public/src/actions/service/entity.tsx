@@ -202,6 +202,32 @@ export async function addRoster(
   return res.status;
 }
 
+export async function addEntity(
+  name: string,
+  surname: string,
+  type: string,
+  creator: string,
+  maximumSpots: string,
+  startDate: string,
+  endDate: string,
+  eventType: string
+): Promise<string> {
+  const res = await api(BASE_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      name,
+      surname,
+      type,
+      creator,
+      maximumSpots,
+      startDate,
+      endDate,
+      eventType,
+    }),
+  });
+  return res.data.id;
+}
+
 export async function addPlayers(teamId: string, players: Player[]): Promise<number> {
   const { status } = await api(`${BASE_URL}/players`, {
     method: 'POST',
@@ -272,3 +298,9 @@ export async function deleteRoster(id: string): Promise<number> {
   );
   return status;
 }
+
+export const deleteEntity = async (id: string, type: string): Promise<void> => {
+  api(formatRoute('/api/entity', null, { id, type }), {
+    method: 'DELETE',
+  });
+};

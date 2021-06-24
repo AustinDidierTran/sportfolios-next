@@ -6,11 +6,12 @@ import dynamic from 'next/dynamic';
 
 const EntityCreate = dynamic(() => import('../../components/Custom/EntityCreate'));
 
-export default function CreateTeam() {
+const CreateTeam: React.FunctionComponent = () => {
   const { t } = useTranslation();
   useEffect(() => {
     document.title = formatPageTitle(t('create.create_team'));
   }, []);
 
   return <EntityCreate type={GLOBAL_ENUM.TEAM} />;
-}
+};
+export default CreateTeam;

@@ -4,35 +4,41 @@ import CustomButton from '../../Button';
 import CustomPaper from '../../Paper';
 import CustomTextField from '../../TextField';
 import { useFormInput } from '../../../../hooks/forms';
-import { deleteEntity } from '../../../../actions/api';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 
 import styles from './DeleteEntity.module.css';
 import { useTranslation } from 'react-i18next';
+import { deleteEntity } from '../../../../actions/service/entity';
 
-export default function DeleteEntity(props) {
+interface IProps {
+  id: string;
+  name: string;
+  type: string;
+}
+
+const DeleteEntity: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { id, name, ...otherProps } = props;
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { id, name, type } = props;
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const validator = useFormInput('');
 
-  const isValid = useMemo(() => validator.value === name, [validator.value, name]);
+  const isValid = useMemo<boolean>(() => validator.value === name, [validator.value, name]);
 
-  const handleClick = async () => {
+  const handleClick = async (): Promise<void> => {
     setIsSubmitting(true);
     if (!isValid) {
       validator.setError(`To delete, enter ${name}`);
       setIsSubmitting(false);
     } else {
-      await deleteEntity(id);
+      await deleteEntity(id, type);
       setIsSubmitting(false);
       goTo(ROUTES.home);
     }
   };
 
   return (
-    <CustomPaper title={t('delete.delete')} childrenProps={{ className: styles.paper }} {...otherProps}>
+    <CustomPaper title={t('delete.delete')} childrenProps={{ className: styles.paper }}>
       <CustomTextField
         className={styles.textfield}
         helperText={t('delete.delete_confirmation_text', { name })}
@@ -49,4 +55,5 @@ export default function DeleteEntity(props) {
       </CustomButton>
     </CustomPaper>
   );
-}
+};
+export default DeleteEntity;
