@@ -23,6 +23,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import { formatDate } from '../../../utils/stringFormats';
 
 import * as yup from 'yup';
+import { addEntity } from '../../../actions/service/entity';
 
 export default function EntityCreate(props) {
   const { t } = useTranslation();
@@ -253,7 +254,17 @@ export default function EntityCreate(props) {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { name, surname:surnameProps, creator, maximumSpots, startDate, endDate, startTime, endTime, eventType } = values;
+      const {
+        name,
+        surname: surnameProps,
+        creator,
+        maximumSpots,
+        startDate,
+        endDate,
+        startTime,
+        endTime,
+        eventType,
+      } = values;
       setIsSubmitting(true);
       let start = `${startDate} ${startTime}`;
       let end = `${endDate} ${endTime}`;
@@ -268,24 +279,12 @@ export default function EntityCreate(props) {
       if (!limit) {
         maximum = null;
       }
-      if (surnameProps){
+      if (surnameProps) {
         surname = surnameProps;
       }
       try {
-        const res = await api('/api/entity', {
-          method: 'POST',
-          body: JSON.stringify({
-            name,
-            surname,
-            type,
-            creator,
-            maximumSpots: maximum,
-            startDate: start,
-            endDate: end,
-            eventType,
-          }),
-        });
-        goTo(ROUTES.entity, { id: res.data.id }, { tab: TABS_ENUM.SETTINGS });
+        const id = await addEntity(name, surname, type, creator, maximum, start, end, eventType);
+        goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS });
         setIsSubmitting(false);
       } catch (err) {
         setIsSubmitting(false);

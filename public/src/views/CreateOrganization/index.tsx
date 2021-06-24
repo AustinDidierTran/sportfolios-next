@@ -6,11 +6,12 @@ import dynamic from 'next/dynamic';
 
 const EntityCreate = dynamic(() => import('../../components/Custom/EntityCreate'));
 
-export default function CreateOrganization() {
+const CreateOrganization: React.FunctionComponent = () => {
   const { t } = useTranslation();
   useEffect(() => {
     document.title = formatPageTitle(t('create.create_organization'));
   }, []);
 
   return <EntityCreate type={GLOBAL_ENUM.ORGANIZATION} />;
-}
+};
+export default CreateOrganization;
