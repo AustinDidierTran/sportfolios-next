@@ -195,8 +195,8 @@ export async function getRosterPlayers(rosterId: string): Promise<Player[]> {
   return data;
 }
 
-export async function getRecentMember(personId: string, id: string): Promise<Member> {
-  const { data } = await api(formatRoute(`${BASE_URL}/recentMember`, null, { personId, id }));
+export async function getRecentMember(id: string): Promise<Member> {
+  const { data } = await api(formatRoute(`${BASE_URL}/recentMember`, null, { id }));
   return data;
 }
 

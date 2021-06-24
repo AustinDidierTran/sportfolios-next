@@ -44,7 +44,7 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
   const router = useRouter();
 
   const {
-    state: { userInfo, isAuthenticated, id },
+    state: { isAuthenticated, id },
   } = useContext(Store);
 
   const [openBecomeMember, setOpenBecomeMember] = useState<boolean>(false);
@@ -54,14 +54,14 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
   const [member, setMember] = useState<Member>(null);
 
   useEffect((): void => {
-    if (id && userInfo) {
+    if (id) {
       getMemberships();
     }
-  }, [id, userInfo]);
+  }, [id]);
 
   const getMemberships = async (): Promise<void> => {
     getHasMemberships(id).then(setHasMemberships);
-    getRecentMember(userInfo?.primaryPerson?.personId, id).then(setMember);
+    getRecentMember(id).then(setMember);
   };
 
   const goToLogin = (): void => {
