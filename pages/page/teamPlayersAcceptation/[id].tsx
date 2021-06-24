@@ -6,11 +6,8 @@ import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import dynamic from 'next/dynamic';
-import {
-  getEntity,
-  getTeamPlayersPending,
-  updateTeamPlayerAcceptation,
-} from '../../../public/src/actions/service/entity';
+import { getEntity, getTeamPlayersPending } from '../../../public/src/actions/service/entity/get';
+import { updateTeamPlayerAcceptation } from '../../../public/src/actions/service/entity/put';
 
 const TeamPlayersAcceptation = dynamic(() => import('../../../public/src/views/TeamPlayersAcceptation'));
 

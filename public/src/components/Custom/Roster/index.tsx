@@ -16,7 +16,7 @@ import { Player } from '../../../../../typescript/types';
 import Rsvp from '../MyEventsTeam/Rsvp';
 import { Store } from '../../../Store';
 import Chip from '@material-ui/core/Chip';
-import { getEntityOwned } from '../../../actions/service/entity';
+import { getEntityOwned } from '../../../actions/service/entity/get';
 
 interface IProps {
   roster?: Player[];
@@ -53,10 +53,10 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   const getPersons = async (): Promise<void> => {
     let data = await getEntityOwned(GLOBAL_ENUM.PERSON);
 
-    let idPersonList:string[] = [];
+    let idPersonList: string[] = [];
 
     data.forEach((p) => {
-      idPersonList.push(p.id)
+      idPersonList.push(p.id);
     });
     setPersonList(idPersonList);
   };
@@ -72,16 +72,16 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     setTeamRoster([...teamRoster]);
   };
 
-  const hideRosterRsvp = ():void => {
+  const hideRosterRsvp = (): void => {
     setOpen(false);
-  }
+  };
 
   return (
     <>
       <Typography className={styles.title} variant="h4">
         {t('roster')}
         <div>
-        <Rsvp isOpen={isOpen} practiceId={practiceId} OnSetRsvp={setSelectedRsvp}/>
+          <Rsvp isOpen={isOpen} practiceId={practiceId} OnSetRsvp={setSelectedRsvp} />
         </div>
       </Typography>
       {teamRoster.map((player: Player, index: number) => (
@@ -106,7 +106,13 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
           </div>
           <ListItemText primary={player.name} />
           {player.personId == userInfo?.primaryPerson.personId || personList?.includes(player.personId) ? (
-            <Rsvp isOpen rsvpStatus={player.rsvp} practiceId={practiceId} playerId={player.personId} OnSetRsvp={hideRosterRsvp}/>
+            <Rsvp
+              isOpen
+              rsvpStatus={player.rsvp}
+              practiceId={practiceId}
+              playerId={player.personId}
+              OnSetRsvp={hideRosterRsvp}
+            />
           ) : player.rsvp ? (
             <Chip label={t(player.rsvp)} color={player.rsvp == 'going' ? 'primary' : 'secondary'} variant="outlined" />
           ) : (

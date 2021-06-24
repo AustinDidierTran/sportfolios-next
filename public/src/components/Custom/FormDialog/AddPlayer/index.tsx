@@ -7,7 +7,7 @@ import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
 import { Player } from '../../../../../../typescript/types';
-import { addPlayers } from '../../../../actions/service/entity';
+import { addPlayers } from '../../../../actions/service/entity/post';
 
 interface IProps {
   open: boolean;

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import styles from './BannerTeam.module.css';
 import { Entity } from '../../../../../typescript/types';
-import { getEntityOwned, getMyTeamPlayers } from '../../../actions/service/entity';
+import { getEntityOwned, getMyTeamPlayers } from '../../../actions/service/entity/get';
 import { Store } from '../../../Store';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { getOwnedPerson } from '../../../actions/service/user';

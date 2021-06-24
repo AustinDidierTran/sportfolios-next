@@ -10,7 +10,7 @@ import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
-import { getGeneralInfos } from '../../../actions/service/entity';
+import { getGeneralInfos } from '../../../actions/service/entity/get';
 
 export default function Description() {
   const { t } = useTranslation();

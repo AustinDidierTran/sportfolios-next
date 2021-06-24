@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import CustomButton from '../../Button';
-import { updatePracticeRsvp } from '../../../../actions/service/entity';
+import { updatePracticeRsvp } from '../../../../actions/service/entity/put';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 
