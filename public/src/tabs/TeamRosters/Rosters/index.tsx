@@ -9,7 +9,7 @@ import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import styles from './Rosters.module.css';
 import Roster from './Roster';
 import { Roster as RosterType } from '../../../../../typescript/types';
-import { getRosters as getRostersApi } from '../../../actions/service/entity';
+import { getRosters as getRostersApi } from '../../../actions/service/entity/get';
 
 interface IProps {
   adminView: boolean;

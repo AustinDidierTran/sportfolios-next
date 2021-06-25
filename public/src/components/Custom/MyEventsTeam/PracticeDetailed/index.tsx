@@ -20,7 +20,9 @@ import CustomButton from '../../Button';
 import * as yup from 'yup';
 import CustomLocations from '../../Locations';
 import { Practice, Location } from '../../../../../../typescript/types';
-import { deletePractice, getPracticeInfo, updatePractice } from '../../../../actions/service/entity';
+import { updatePractice } from '../../../../actions/service/entity/put';
+import { getPracticeInfo } from '../../../../actions/service/entity/get';
+import { deletePractice } from '../../../../actions/service/entity/delete';
 import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
 

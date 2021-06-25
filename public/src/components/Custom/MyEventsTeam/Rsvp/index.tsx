@@ -12,7 +12,7 @@ interface IProps {
   rsvpStatus?: string;
   playerId?: string;
   multipleRsvp?: boolean;
-  update: (rsvp?: string, playerId?: string, practiceId?: string) => void;
+  update: (rsvp?: string, playerId?: string) => void;
 }
 
 const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
@@ -50,7 +50,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
         duration: 4000,
       });
     } else {
-      update(type, playerId, practiceId);
+      update(type, playerId);
     }
   };
 

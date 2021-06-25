@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import { Entity } from '../../../../../typescript/types';
-import { getRole as getRoleApi } from '../../../actions/service/entity';
+import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -134,11 +134,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
       />
       <IgContainer>
         <div>
-          <OpenTab
-            basicInfos={basicInfos}
-            gamesInfos={gamesInfos}
-            adminView={adminView}
-          />
+          <OpenTab basicInfos={basicInfos} gamesInfos={gamesInfos} adminView={adminView} />
         </div>
       </IgContainer>
     </>

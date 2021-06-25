@@ -36,7 +36,7 @@ export default function EntitySettings(props) {
             <BasicInfos basicInfos={basicInfos} />
             <Description />
             <ManageRoles role={role} />
-            <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
+            <Card items={{ id, name: basicInfos.name, type }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
           </div>
         );
@@ -63,7 +63,7 @@ export default function EntitySettings(props) {
             <BankAccount />
             <Analytics />
             <ManageRoles role={role} />
-            <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
+            <Card items={{ id, name: basicInfos.name, type }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />
             <BottomPageLogo />
           </div>
         );

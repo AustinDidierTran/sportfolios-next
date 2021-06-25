@@ -14,7 +14,7 @@ import Avatar from '../Avatar';
 import { Player } from '../../../../../typescript/types';
 import Rsvp from '../MyEventsTeam/Rsvp';
 import { Store } from '../../../Store';
-import { getEntityOwned } from '../../../actions/service/entity';
+import { getEntityOwned } from '../../../actions/service/entity/get';
 import RsvpItem from './RsvpItem';
 
 interface IProps {

@@ -8,7 +8,8 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import IconButton from '../../IconButton';
 import { Roster, Player, Person } from '../../../../../../typescript/types';
-import { getPlayers as getPlayersApi, updateRoster } from '../../../../actions/service/entity';
+import { updateRoster } from '../../../../actions/service/entity/put';
+import { getPlayers as getPlayersApi } from '../../../../actions/service/entity/get';
 
 interface IProps {
   open: boolean;
@@ -106,8 +107,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
   );
 
   const blackList = useMemo(
-    (): string[] =>
-      people.map((person) => person.id).concat(rosterPlayers.map((player) => player.personId)),
+    (): string[] => people.map((person) => person.id).concat(rosterPlayers.map((player) => player.personId)),
     [people, rosterPlayers]
   );
 

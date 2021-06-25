@@ -10,7 +10,7 @@ import styles from './Players.module.css';
 import List from '@material-ui/core/List';
 import Player from './Player';
 import { Player as PlayerType } from '../../../../../typescript/types';
-import { getPlayers as getPlayersApi } from '../../../actions/service/entity';
+import { getPlayers as getPlayersApi } from '../../../actions/service/entity/get';
 
 interface IProps {
   adminView: boolean;
