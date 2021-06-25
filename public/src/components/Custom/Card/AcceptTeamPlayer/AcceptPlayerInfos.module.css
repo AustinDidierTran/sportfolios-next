@@ -1,0 +1,24 @@
+.card {
+  width: 95vw;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  margin: 0px !important;
+}
+
+@media (min-width: 700px) {
+  .card {
+    width: 650px !important;
+    margin-left: 25px;
+    margin-right: 25px;
+    bottom: 0px;
+  }
+}

@@ -1,8 +1,17 @@
 import { formatRoute } from '../../utils/stringFormats';
 import api from '../api';
-import { Entity, Person, Player, Practice, Role, Roster } from '../../../../typescript/types';
+import { Entity, Person, Player, PendingPlayer, Practice, Role, Roster } from '../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
+
+export async function getEntity(id: string): Promise<Entity> {
+  const { data } = await api(
+    formatRoute(`${BASE_URL}`, null, {
+      id,
+    })
+  );
+  return data.basicInfos;
+}
 
 export async function getGeneralInfos(entityId: string): Promise<Entity> {
   const { data } = await api(
@@ -29,7 +38,15 @@ export async function getPlayers(teamId: string): Promise<Player[]> {
 
 export async function getPracticeBasicInfo(teamId: string): Promise<Practice[]> {
   const { data } = await api(formatRoute(`${BASE_URL}/practiceBasicInfo`, null, { teamId }));
+  return data;
+}
 
+export async function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {
+  const { data } = await api(
+    formatRoute(`${BASE_URL}/teamPlayersPending`, null, {
+      teamId,
+    })
+  );
   return data;
 }
 
@@ -70,7 +87,12 @@ export async function getEntityOwned(type: number): Promise<Player[]> {
   return data;
 }
 
-export async function updatePracticeRsvp(id: string, rsvp: string, personId?:string, multipleRsvp:boolean = false): Promise<number> {
+export async function updatePracticeRsvp(
+  id: string,
+  rsvp: string,
+  personId?: string,
+  multipleRsvp: boolean = false
+): Promise<number> {
   const { status } = await api(`${BASE_URL}/practiceRsvp`, {
     method: 'PUT',
     body: JSON.stringify({
@@ -89,6 +111,22 @@ export async function updatePlayer(id: string, role: string): Promise<number> {
     body: JSON.stringify({
       id,
       role,
+    }),
+  });
+  return status;
+}
+
+export async function updateTeamPlayerAcceptation(
+  teamId: string,
+  personId: string,
+  statusProps: string
+): Promise<string> {
+  const { status } = await api(`${BASE_URL}/teamPlayerAcceptation`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      teamId,
+      personId,
+      status: statusProps,
     }),
   });
   return status;

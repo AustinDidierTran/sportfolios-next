@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PendingPlayers from './PendingPlayers';
 import Players from './Players';
 import Rosters from './Rosters';
 
@@ -13,6 +14,7 @@ const TabTeamRosters: React.FunctionComponent<IProps> = (props) => {
   return (
     <>
       <Rosters adminView={adminView}></Rosters>
+      {adminView ? <PendingPlayers /> : null}
       <Players adminView={adminView}></Players>
     </>
   );
