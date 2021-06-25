@@ -23,11 +23,7 @@ import {
 
 const BASE_URL = '/api/entity';
 
-export async function getEntity(id: string, entityId?: string): Promise<{ basicInfos: Entity }> {
-  if (entityId) {
-    const { data } = await api(`${BASE_URL}?id=${entityId}`);
-    return data;
-  }
+export async function getEntity(id: string): Promise<{ basicInfos: Entity }> {
   const { data } = await api(
     formatRoute(`${BASE_URL}`, null, {
       id,
@@ -76,10 +72,10 @@ export async function getGeneralInfos(entityId: string): Promise<Entity> {
   return data;
 }
 
-export async function getMembers(id: string, personId: string): Promise<Member[]> {
+export async function getMembers(organiationId: string, personId: string): Promise<Member[]> {
   const { data } = await api(
     formatRoute(`${BASE_URL}/members`, null, {
-      id,
+      organiationId,
       personId,
     })
   );
@@ -124,8 +120,8 @@ export async function getPhasesGameAndTeams(eventId: string, phaseId: string): P
   return data;
 }
 
-export async function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: number; data: SubmissionerInfos[] }> {
-  const res = await api(
+export function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: number; data: SubmissionerInfos[] }> {
+  const res = api(
     formatRoute(`${BASE_URL}/getPossibleSubmissionerInfos`, null, {
       gameId: game.id,
       teamsIds: JSON.stringify(

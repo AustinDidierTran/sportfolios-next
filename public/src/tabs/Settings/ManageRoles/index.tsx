@@ -28,7 +28,7 @@ const ManageRoles: React.FunctionComponent = () => {
   const [entity, setEntity] = useState<Entity>();
 
   const getEntity = async (): Promise<void> => {
-    const data = await getEntityApi(null, entity_id);
+    const data = await getEntityApi(entity_id);
     setEntity(data.basicInfos);
   };
 
