@@ -86,6 +86,14 @@ export async function getSlots(eventId: string): Promise<TimeSlot[]> {
   return data;
 }
 
+export function getMostRecentMember(organizationId: string): Promise<Member> {
+  return api(formatRoute(`${BASE_URL}/recentMember`, null, { organizationId })).then((res) => res.data);
+}
+
+export function hasMemberships(organizationId: string): Promise<boolean> {
+  return api(formatRoute(`${BASE_URL}/hasMemberships`, null, { organizationId })).then((res) => res.data);
+}
+
 export async function getPlayers(teamId: string): Promise<Player[]> {
   const { data } = await api(
     formatRoute(`${BASE_URL}/players`, null, {
@@ -195,8 +203,8 @@ export async function getRosterPlayers(rosterId: string): Promise<Player[]> {
   return data;
 }
 
-export async function getRecentMember(personId: string, id: string): Promise<Member> {
-  const { data } = await api(formatRoute(`${BASE_URL}/recentMember`, null, { personId, id }));
+export async function getRecentMember(id: string): Promise<Member> {
+  const { data } = await api(formatRoute(`${BASE_URL}/recentMember`, null, { id }));
   return data;
 }
 

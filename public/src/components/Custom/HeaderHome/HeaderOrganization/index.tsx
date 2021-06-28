@@ -17,7 +17,7 @@ import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
 import { Entity, Member } from '../../../../../../typescript/types';
-import { getRecentMember, getHasMemberships } from '../../../../actions/service/entity/get';
+import { getMostRecentMember, hasMemberships as hasMembershipsApi } from '../../../../actions/service/entity/get';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
@@ -44,7 +44,7 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
   const router = useRouter();
 
   const {
-    state: { userInfo, isAuthenticated, id },
+    state: { isAuthenticated, id },
   } = useContext(Store);
 
   const [openBecomeMember, setOpenBecomeMember] = useState<boolean>(false);
@@ -54,14 +54,14 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
   const [member, setMember] = useState<Member>(null);
 
   useEffect((): void => {
-    if (id && userInfo) {
+    if (id) {
       getMemberships();
     }
-  }, [id, userInfo]);
+  }, [id]);
 
-  const getMemberships = async (): Promise<void> => {
-    getHasMemberships(id).then(setHasMemberships);
-    getRecentMember(userInfo?.primaryPerson?.personId, id).then(setMember);
+  const getMemberships = (): void => {
+    hasMembershipsApi(id).then(setHasMemberships);
+    getMostRecentMember(id).then(setMember);
   };
 
   const goToLogin = (): void => {
