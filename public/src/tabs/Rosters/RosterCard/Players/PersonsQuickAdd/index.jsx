@@ -28,7 +28,7 @@ export default function PersonsQuickAdd(props) {
               endIcon="Add"
               onClick={() =>
                 onAdd({
-                  id: p.entity_id,
+                  id: p.personId,
                 })
               }
             >
