@@ -10,7 +10,8 @@ import Icon from '../../../../../components/Custom/Icon';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
 import PaymentChip from '../../../../Settings/TeamsRegistered/StatusChip';
-import { formatRoute, getIconFromRole } from '../../../../../utils/stringFormats';
+import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../../../utils/stringFormats';
+import Avatar from '../../../../../components/Custom/Avatar';
 
 export default function PlayerCard(props) {
   const { isEditable, player, onDelete, onRoleUpdate, withInfos, index } = props;
@@ -71,10 +72,9 @@ export default function PlayerCard(props) {
     return (
       <div className={className}>
         <div className={styles.player}>
+          <Avatar className={styles.avatar} photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
           <div className={styles.position}>
-            {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-              <></>
-            ) : (
+            {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
               <Tooltip
                 title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}
               >
@@ -93,9 +93,7 @@ export default function PlayerCard(props) {
           <div className={styles.icon}>
             {withInfos ? (
               <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
-            ) : (
-              <></>
-            )}
+            ) : null}
             <IconButton
               onClick={() => setOpenOptions(true)}
               icon="Edit"
@@ -129,10 +127,9 @@ export default function PlayerCard(props) {
   return (
     <div className={className}>
       <div className={styles.player}>
+        <Avatar className={styles.avatar} photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
         <div className={styles.position}>
-          {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-            <></>
-          ) : (
+          {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
             <Tooltip title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}>
               <div>
                 <Icon icon={getIconFromRole(player.role)} />
@@ -146,9 +143,7 @@ export default function PlayerCard(props) {
         <div className={styles.icon}>
           {withInfos ? (
             <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
       <PersonInfoDialog
