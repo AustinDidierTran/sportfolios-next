@@ -69,7 +69,7 @@ const BannerEvent: React.FunctionComponent<IProps> = (props) => {
         </Typography>
       );
     }
-    if (!eventInfo.remainingSpots) {
+    if (!eventInfo.remainingSpots && isNaN(eventInfo.remainingSpots)) {
       return (
         <Typography display={width > MOBILE_WIDTH ? 'inline' : 'block'} variant={fontVariant}>
           {t('event.event_is_open')}&nbsp;

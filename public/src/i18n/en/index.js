@@ -1322,7 +1322,7 @@ export default {
     refuse: 'Refuse',
     refused: 'Refused',
     refresh: 'Refresh',
-    remaining_spots: 'remaning spots',
+    remaining_spots: 'remaining spots',
     remove_bank_account_confirmation:
       'Are you sure you want to remove bank account ending with {{last4}} from your organization?',
     remove_from_roster: 'Remove from roster',

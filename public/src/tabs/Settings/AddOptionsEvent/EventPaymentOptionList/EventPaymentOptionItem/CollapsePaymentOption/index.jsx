@@ -23,7 +23,7 @@ export default function CollapsePaymentOption(props) {
     owner,
     individualTaxRates,
     teamTaxRates,
-    teamActivity,
+    team_activity: teamActivity,
     teamAcceptation,
     playerAcceptation,
     informations,
