@@ -65,7 +65,7 @@ export default function Signup() {
           lastName,
           email,
           password,
-          redirectUrl: encodeURIComponent(redirectUrl),
+          redirectUrl: redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
           newsLetterSubscription: isSubscribed,
         }),
       });
