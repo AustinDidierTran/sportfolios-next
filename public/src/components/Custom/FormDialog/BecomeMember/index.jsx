@@ -231,7 +231,7 @@ export default function BecomeMember(props) {
         });
       } else {
         setPersonalInfos(false);
-        setOrganizationId(membership.entity_id);
+        setOrganizationId(membership.entityId);
         if (hasChanged()) {
           setUpdateInfos(true);
         } else {

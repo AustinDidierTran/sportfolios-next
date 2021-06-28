@@ -13,8 +13,8 @@ const getRankingInfos = (teams, games) => {
   }));
 
   games.reduce((ranking, game) => {
-    const index0 = ranking.findIndex((r) => r.id === game.teams[0].team_id);
-    const index1 = ranking.findIndex((r) => r.id === game.teams[1].team_id);
+    const index0 = ranking.findIndex((r) => r.id === game.teams[0].teamId);
+    const index1 = ranking.findIndex((r) => r.id === game.teams[1].teamId);
     const {
       id: id0,
       rosterId: rosterId0,
@@ -199,7 +199,7 @@ const applyGameBetweenTeamRules = (games, ranking, prevRankingLength) => {
     if (currentEntry.length < prevRankingLength) {
       const teamIds = currentEntry.map((r) => r.id);
 
-      const interestingGames = games.filter((g) => g.teams.every((team) => teamIds.includes(team.team_id)));
+      const interestingGames = games.filter((g) => g.teams.every((team) => teamIds.includes(team.teamId)));
       const newRanking = getRankingInfos(currentEntry, interestingGames);
 
       const newEntry = applyRules(interestingGames, newRanking, prevRankingLength);

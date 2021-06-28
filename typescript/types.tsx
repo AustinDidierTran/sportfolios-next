@@ -434,7 +434,7 @@ export interface Games {
 }
 
 export interface GameTeam {
-  id: string;
+  teamId: string;
   gameId: string;
   rosterId: string;
   name: string;

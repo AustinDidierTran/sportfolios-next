@@ -30,7 +30,7 @@ export default function AddPartner() {
       name: d.name,
       website: d.website,
       description: d.description,
-      photoUrl: d.photo_url,
+      photoUrl: d.photoUrl,
       type: LIST_ITEM_ENUM.PARTNER,
       id: d.id,
       update,

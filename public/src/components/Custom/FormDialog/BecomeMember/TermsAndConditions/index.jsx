@@ -41,10 +41,10 @@ export default function TermsAndConditions(props) {
       componentType: COMPONENT_TYPE_ENUM.BUTTON,
       variant: 'outlined',
       onClick: () => {
-        window.open(membership?.file_url);
+        window.open(membership?.fileUrl);
       },
       children: t('see_terms_and_conditions'),
-      disabled: membership?.file_url ? false : true,
+      disabled: membership?.fileUrl ? false : true,
       color: 'primary',
     },
   ];

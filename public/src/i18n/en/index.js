@@ -1115,6 +1115,7 @@ export default {
     hour_ago_plural: '{{count}} hours ago',
     hour_ago: '{{count}} hour ago',
     i_want_to_be_anonyme: 'I want to be anonyme',
+    image_required: 'Image required',
     import_members_confirmation:
       'An email will be sent to all {{membersAmount}} members.  They will receive a unique usage coupon code to become a {{membershipName}} of your organization. Do you want to complete the transfer?',
     import_members: 'Import members',
@@ -1346,6 +1347,7 @@ export default {
     results: 'Results',
     return_home: 'Return home',
     return_event: 'Return to event',
+    return_organization: 'Return to organization',
     return_cart: 'Return to cart',
     review: 'Review & Pay',
     role: 'Role',

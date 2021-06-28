@@ -13,7 +13,7 @@ export default function GameCard(props) {
 
   const alphabet = '0ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let letter;
-  letter = alphabet[phase.order];
+  letter = alphabet[phase?.order];
 
   const tooltip = useMemo(
     () =>
@@ -40,7 +40,7 @@ export default function GameCard(props) {
             <Avatar
               // initials={getInitialsFromName(ranking1.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
               initials={
-                phase.status !== PHASE_STATUS_ENUM.NOT_STARTED
+                phase?.status !== PHASE_STATUS_ENUM.NOT_STARTED
                   ? getInitialsFromName(ranking1.name, true)
                   : `${ranking1.name[0]}.${letter}`
               } // or team pic?
@@ -51,7 +51,7 @@ export default function GameCard(props) {
             <Avatar
               // initials={getInitialsFromName(ranking2.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
               initials={
-                phase.status !== PHASE_STATUS_ENUM.NOT_STARTED
+                phase?.status !== PHASE_STATUS_ENUM.NOT_STARTED
                   ? getInitialsFromName(ranking2.name, true)
                   : `${ranking2.name[0]}.${letter}`
               } // or team pic?
