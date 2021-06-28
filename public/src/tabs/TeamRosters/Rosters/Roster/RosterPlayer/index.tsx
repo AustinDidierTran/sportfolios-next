@@ -16,7 +16,7 @@ import Avatar from '../../../../../components/Custom/Avatar';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import { Player } from '../../../../../../../typescript/types';
-import { deleteRosterPlayer } from '../../../../../actions/service/entity';
+import { deleteRosterPlayer } from '../../../../../actions/service/entity/delete';
 
 interface IProps {
   index: number;

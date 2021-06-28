@@ -48,88 +48,97 @@ interface IPositionOption {
 
 export const getPhases = async (eventId: string, withoutAll: boolean): Promise<IPhases[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/phases`, null, { eventId }));
-  const res = data
-    .sort((a:Phase, b:Phase) => a.phaseOrder - b.phaseOrder)
-    .map((d:Phase) => ({
-      value: d.id,
-      display: d.name,
-      status: d.status,
-    }));
-  if (withoutAll) {
-    return res;
+  if (data.length > 0) {
+    const res = data
+      .sort((a: Phase, b: Phase) => a.phaseOrder - b.phaseOrder)
+      .map((d: Phase) => ({
+        value: d.id,
+        display: d.name,
+        status: d.status,
+      }));
+    if (withoutAll) {
+      return res;
+    }
+    return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
   }
-  return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
 };
 
 export const getSlots = async (eventId: string): Promise<IData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/slots`, null, { eventId }));
-  const res = data.map((d: TimeSlot) => ({
-    value: d.id,
-    display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
-  }));
-  return res;
+  if (data.length > 0) {
+    const res = data.map((d: TimeSlot) => ({
+      value: d.id,
+      display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
+    }));
+    return res;
+  }
 };
 
 export const getFutureSlots = async (eventId: string): Promise<IData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/slots`, null, { eventId }));
-  const res = data
-    .filter((d: TimeSlot) => moment(d.date) >= moment())
-    .map((d: TimeSlot) => ({
-      value: d.id,
-      display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
-    }));
-  return res;
+  if (data.length > 0) {
+    const res = data
+      .filter((d: TimeSlot) => moment(d.date) >= moment())
+      .map((d: TimeSlot) => ({
+        value: d.id,
+        display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
+      }));
+    return res;
+  }
 };
 
 export const getTeams = async (eventId: string, withoutAll: boolean): Promise<IWithAllData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/teamsSchedule`, null, { eventId }));
-  const res = data.map((d: TeamsSchedule) => {
-    return {
-      value: d.rosterId,
-      display: d.name,
-    };
-  });
-  if (withoutAll) {
-    return res;
+  if (data.length > 0) {
+    const res = data.map((d: TeamsSchedule) => {
+      return {
+        value: d.rosterId,
+        display: d.name,
+      };
+    });
+    if (withoutAll) {
+      return res;
+    }
+    return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
   }
-  return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
 };
 
 export const getFields = async (eventId: string, withoutAll: boolean): Promise<IWithAllData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/fields`, null, { eventId }));
-  const res = data.map((d:EventField) => ({
-    value: d.id,
-    display: d.field,
-  }));
-  if (withoutAll) {
-    return res;
+  if (data.length > 0) {
+    const res = data.map((d: EventField) => ({
+      value: d.id,
+      display: d.field,
+    }));
+    if (withoutAll) {
+      return res;
+    }
+    return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
   }
-  return [{ value: SELECT_ENUM.ALL, displayKey: 'all' }, ...res];
 };
 
 export const getPositionOptions = async (eventId: string): Promise<IPositionOption[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/phases`, null, { eventId }));
-  const rankingOptions = data.reduce((prev:Ranking[], curr:Phase) => {
+  const rankingOptions = data.reduce((prev: Ranking[], curr: Phase) => {
     return prev.concat(curr.ranking);
   }, []);
 
-  const formattedRankingOptions = rankingOptions.map((r:Ranking) => ({
+  const formattedRankingOptions = rankingOptions.map((r: Ranking) => ({
     value: r.rankingId,
     display: r.name
       ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${
-          data.find((d:Phase) => d.id === r.currentPhase).name
+          data.find((d: Phase) => d.id === r.currentPhase).name
         } (${r.name})`
-      : `${r.initialPosition.toString()}. ${data.find((d:Ranking) => d.id === r.currentPhase).name}`,
+      : `${r.initialPosition.toString()}. ${data.find((d: Ranking) => d.id === r.currentPhase).name}`,
     ...r,
   }));
   return formattedRankingOptions.sort(
-    (a:Ranking, b:Ranking) =>
-      (a.finalPosition ? a.finalPosition : a.initialPosition) -
-      (b.finalPosition ? b.finalPosition : b.initialPosition)
+    (a: Ranking, b: Ranking) =>
+      (a.finalPosition ? a.finalPosition : a.initialPosition) - (b.finalPosition ? b.finalPosition : b.initialPosition)
   );
 };
 
-export const getFutureGameOptions = async (eventId: string, withoutAll: boolean): Promise<GameOptions>  => {
+export const getFutureGameOptions = async (eventId: string, withoutAll: boolean): Promise<GameOptions> => {
   const res = await Promise.all([
     getFutureSlots(eventId),
     getTeams(eventId, withoutAll),
@@ -146,7 +155,7 @@ export const getFutureGameOptions = async (eventId: string, withoutAll: boolean)
   };
 };
 
-export const getGameOptions = async (eventId: string, withoutAll: boolean): Promise<GameOptions>  => {
+export const getGameOptions = async (eventId: string, withoutAll: boolean): Promise<GameOptions> => {
   const res = await Promise.all([
     getSlots(eventId),
     getTeams(eventId, withoutAll),

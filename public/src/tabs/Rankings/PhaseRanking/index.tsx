@@ -4,7 +4,7 @@ import Ranking from '../Ranking';
 import { updateRanking } from '../RankingFunctions';
 import { useTranslation } from 'react-i18next';
 import { Store } from '../../../Store';
-import { getPhases as getPhasesApi, getPhasesGameAndTeams } from '../../../actions/service/entity';
+import { getPhases as getPhasesApi, getPhasesGameAndTeams } from '../../../actions/service/entity/get';
 import { PhaseGames, Ranking as IRanking} from '../../../../../typescript/types';
 
 interface IProps {

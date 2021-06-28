@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState, useContext, useEffect } from 'react';
 import CustomCard from '../Card';
 import Typography from '@material-ui/core/Typography';
 import { CARD_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
@@ -7,14 +7,11 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import CustomButton from '../Button';
 import CreatePractice from './CreatePractice';
-import { formatRoute } from '../../../utils/stringFormats';
-import api from '../../../actions/api';
 import { Store } from '../../../Store';
-import { Practice } from '../../../../../typescript/types';
-
+import { Practice, Rsvp } from '../../../../../typescript/types';
+import { getPracticeBasicInfo } from '../../../actions/service/entity/get';
 interface IProps {
   gamesInfos: IGameInfos[];
-  practiceInfos: Practice[];
   adminView: boolean;
 }
 
@@ -51,17 +48,24 @@ interface IEvent {
   name?: string;
   teamNames?: string;
   teamScores?: string;
+  rsvp?: Rsvp;
 }
 
 const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { gamesInfos, practiceInfos: practiceInfosProps, adminView } = props;
+  const { gamesInfos, adminView } = props;
   const {
     state: { id },
   } = useContext(Store);
   const router = useRouter();
 
-  const [practiceInfos, setPracticeInfos] = useState<Practice[]>(practiceInfosProps);
+  useEffect((): void => {
+    if (id) {
+      getPractice();
+    }
+  }, [id]);
+
+  const [practiceInfos, setPracticeInfos] = useState<Practice[]>([]);
   const [openPractice, setOpenPractice] = useState<boolean>(false);
 
   const openGameDetailed = async (game: IEntity): Promise<void> => {
@@ -88,10 +92,9 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     setOpenPractice(false);
   };
 
-  const refreshPractice = async (): Promise<void> => {
-    const { data } = await api(formatRoute('/api/entity', null, { id }));
-
-    setPracticeInfos(data.eventInfos.practiceInfos);
+  const getPractice = async (): Promise<void> => {
+    const data = await getPracticeBasicInfo(id);
+    setPracticeInfos(data);
     setOpenPractice(false);
   };
 
@@ -120,6 +123,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
           type: CARD_TYPE_ENUM.PRACTICE,
           startTime: practice.startDate,
           endTime: practice.endDate,
+          rsvp: practice.rsvp,
         };
       }
     );
@@ -141,21 +145,22 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
       )}
       {events?.length ? (
         events.map((event) => (
-          <CustomCard
-            key={event.id}
-            items={{
-              ...event,
-              onClick: openEventDetailed,
-            }}
-            type={event.type}
-          />
+          <div key={event.id}>
+            <CustomCard
+              items={{
+                ...event,
+                onClick: openEventDetailed,
+              }}
+              type={event.type}
+            />
+          </div>
         ))
       ) : (
         <Typography variant="h6" color="textPrimary">
           {t('no.no_games')}
         </Typography>
       )}
-      <CreatePractice isOpen={openPractice} onCreate={refreshPractice} onClose={closePractice} />
+      <CreatePractice isOpen={openPractice} onCreate={getPractice} onClose={closePractice} />
     </div>
   );
 };

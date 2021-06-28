@@ -20,7 +20,7 @@ import dynamic from 'next/dynamic';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { formatDate } from '../../../utils/stringFormats';
 import { Entity, PersonAdmin, GameInfo, SubmissionerInfos, SubmissionerTeam } from '../../../../../typescript/types';
-import { getGameInfo, getPossibleSubmissionerInfos } from '../../../actions/service/entity';
+import { getGameInfo, getPossibleSubmissionerInfos } from '../../../actions/service/entity/get';
 
 const EnterScore = dynamic(
   () => import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')

@@ -8,7 +8,7 @@ import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Player } from '../../../../../../typescript/types';
-import { updatePlayer } from '../../../../actions/service/entity';
+import { updatePlayer } from '../../../../actions/service/entity/put';
 
 interface IProps {
   open: boolean;

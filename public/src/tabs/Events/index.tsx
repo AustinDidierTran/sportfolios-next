@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { goTo, ROUTES } from '../../actions/goTo';
 import CustomButton from '../../components/Custom/Button';
 import { Store } from '../../Store';
-import { getEntityEvents } from '../../actions/service/entity';
+import { getEntityEvents } from '../../actions/service/entity/get';
 import { OwnedEvents } from '../../../../typescript/types';
 
 interface IProps {

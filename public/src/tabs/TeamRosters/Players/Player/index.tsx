@@ -16,7 +16,7 @@ import Avatar from '../../../../components/Custom/Avatar';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Player as PlayerType } from '../../../../../../typescript/types';
-import { deletePlayer as deletePlayerApi } from '../../../../actions/service/entity';
+import { deletePlayer as deletePlayerApi } from '../../../../actions/service/entity/delete';
 
 interface IProps {
   player: PlayerType;

@@ -17,7 +17,7 @@ import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
 import { Entity, Member } from '../../../../../../typescript/types';
-import { getRecentMember, getHasMemberships } from '../../../../actions/service/entity';
+import { getRecentMember, getHasMemberships } from '../../../../actions/service/entity/get';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
@@ -59,35 +59,31 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
     }
   }, [id, userInfo]);
 
-  const getMemberships = async ():Promise<void> => {
-    const data = await getHasMemberships(id);
-
-
-    const member = await getRecentMember(userInfo?.primaryPerson?.personId, id);
-    setMember(member);
-    setHasMemberships(data);
+  const getMemberships = async (): Promise<void> => {
+    getHasMemberships(id).then(setHasMemberships);
+    getRecentMember(userInfo?.primaryPerson?.personId, id).then(setMember);
   };
 
-  const goToLogin = ():void => {
+  const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);
     goTo(ROUTES.login, null, { redirectUrl });
   };
 
-  const onOpenBecomeMember = ():void => {
+  const onOpenBecomeMember = (): void => {
     setOpenBecomeMember(true);
   };
-  const onCloseBecomeMember = ():void => {
+  const onCloseBecomeMember = (): void => {
     setOpenBecomeMember(false);
   };
 
-  const onOpenToLoggin = ():void => {
+  const onOpenToLoggin = (): void => {
     setOpenToLogin(true);
   };
 
-  const onCloseToLoggin = ():void => {
+  const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
-  const update = ():void => {};
+  const update = (): void => {};
 
   return (
     <Paper elevation={1} className={styles.paper}>
@@ -163,5 +159,5 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
       </div>
     </Paper>
   );
-}
+};
 export default HeaderOrganization;

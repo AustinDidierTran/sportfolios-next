@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import PartnerItem from './PartnerItem';
 import Typography from '@material-ui/core/Typography';
 import { Store } from '../../Store';
-import { getPartners as getPartnersApi } from '../../actions/service/entity';
+import { getPartners as getPartnersApi } from '../../actions/service/entity/get';
 import { Partner } from '../../../../typescript/types';
 
 interface IPartners extends Partner {

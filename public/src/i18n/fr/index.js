@@ -100,6 +100,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      teamPlayersAcceptation: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       paymentOptionStats: {
         title: 'Sportfolios',
         description:
@@ -1121,6 +1126,7 @@ export default {
     go_to_event: "Aller vers l'événement",
     go_to_login: 'Aller vers la connexion',
     goal: 'Objectif',
+    going: 'Présent',
     graphs: 'Graphiques',
     have_an_account_signin: 'Vous avez déjà un compte? Connectez-vous!',
     heard_organization: 'Comment avez-vous entendu parler de cette organisation?',
@@ -1215,6 +1221,7 @@ export default {
     no_location: 'Pas de location',
     not_used: 'Pas Utilisé',
     not_member: 'Non membre',
+    not_going: 'Absent',
     notifications_disabled: 'Notifications désactivées',
     notifications: 'Notifications',
     of_everyone: 'de tout le monde',
@@ -1287,6 +1294,7 @@ export default {
     player_view: 'Vue Joueur',
     player: 'Joueur',
     players: 'Joueurs',
+    players_request: 'Demandes de joueurs',
     position: 'Position',
     positive_attitude_and_self_control: 'Attitude positive et maîtrise de soi',
     postal_code: 'Code postal',

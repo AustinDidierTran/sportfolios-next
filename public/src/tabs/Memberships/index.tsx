@@ -11,7 +11,7 @@ import FormDialog from '../../components/Custom/FormDialog';
 import Paper from '../../components/Custom/Paper';
 import dynamic from 'next/dynamic';
 import Typography from '@material-ui/core/Typography';
-import { getMembers, getMemberships as getMembershipsApi } from '../../actions/service/entity';
+import { getMembers, getMemberships as getMembershipsApi } from '../../actions/service/entity/get';
 import { EntityMembership, Member } from '../../../../typescript/types';
 import { getCartItems } from '../../actions/service/shop';
 

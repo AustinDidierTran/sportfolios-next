@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../actions/goTo';
 import List from '../../components/Custom/List';
 import { Store } from '../../Store';
-import { getMemberships as getMembershipsApi } from '../../actions/service/entity';
+import { getMemberships as getMembershipsApi } from '../../actions/service/entity/get';
 import { EntityMembership } from '../../../../typescript/types';
 
 interface IOptions extends EntityMembership {
@@ -36,7 +36,7 @@ const EditMemberships: React.FunctionComponent = () => {
   }, [id]);
 
   const getMemberships = async (): Promise<void> => {
-    const res = await getMembershipsApi(null, id);
+    const res = await getMembershipsApi(id);
 
     const data = res.map((d) => ({
       membership: t(getMembershipName(d.membershipType)),

@@ -1,14 +1,50 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import styles from './BannerTeam.module.css';
+import { Entity } from '../../../../../typescript/types';
+import { getEntityOwned, getMyTeamPlayers } from '../../../actions/service/entity/get';
+import { Store } from '../../../Store';
+import { GLOBAL_ENUM } from '../../../../common/enums';
+import { getOwnedPerson } from '../../../actions/service/user';
 
-export default function BannerTeam(props) {
+interface IProps {
+  basicInfos: Entity;
+  onJoinTeamButton: () => void;
+  onOpenToLoggin: () => void;
+  isAuthenticated: boolean;
+  onSwitch: () => void;
+  isAdmin: boolean;
+  adminView: boolean;
+}
+
+const BannerTeam: React.FunctionComponent<IProps> = (props) => {
   const { basicInfos, onJoinTeamButton, onOpenToLoggin, isAuthenticated, isAdmin, onSwitch, adminView } = props;
   const { t } = useTranslation();
+
+  const {
+    state: { id: teamId },
+  } = useContext(Store);
+
+  useEffect(() => {
+    if (teamId) {
+      IsTeamPlayer();
+    }
+  }, [teamId]);
+
+  const [isTeamPlayer, setIsTeamPlayer] = useState<boolean>(true);
+
+  const IsTeamPlayer = async () => {
+    const players = await getMyTeamPlayers(teamId);
+    const persons = await getOwnedPerson();
+    const ids = players.map((r) => r.personId);
+    const notInTeam = persons.filter((p) => !ids.includes(p.id));
+
+    setIsTeamPlayer(!Boolean(notInTeam.length));
+  };
 
   return (
     <div className={styles.root}>
@@ -21,14 +57,13 @@ export default function BannerTeam(props) {
             <Grid container item className={styles.title}>
               {basicInfos.name}
             </Grid>
-            <Grid container item className={styles.subtitle}>
-              {basicInfos.city}
-            </Grid>
           </Grid>
           <Grid container className={styles.gridButton}>
-            <Button onClick={isAuthenticated ? onJoinTeamButton : onOpenToLoggin} className={styles.eventButton}>
-              {t('join_team')}
-            </Button>
+            {isTeamPlayer ? null : (
+              <Button onClick={isAuthenticated ? onJoinTeamButton : onOpenToLoggin} className={styles.eventButton}>
+                {t('join_team')}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -64,4 +99,5 @@ export default function BannerTeam(props) {
       </div>
     </div>
   );
-}
+};
+export default BannerTeam;

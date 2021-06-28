@@ -18,7 +18,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { FormControlLabel } from '@material-ui/core';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { getPhasesGameAndTeams } from '../../../actions/service/entity';
+import { getPhasesGameAndTeams } from '../../../actions/service/entity/get';
 
 const AccordionSummary = withStyles({
   content: {

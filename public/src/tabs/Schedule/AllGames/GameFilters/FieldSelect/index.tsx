@@ -5,7 +5,7 @@ import styles from './FieldSelect.module.css';
 import { useTranslation } from 'react-i18next';
 import { SELECT_ENUM } from '../../../../../../common/enums';
 import { Store } from '../../../../../Store';
-import { getFields as getFieldsApi } from '../../../../../actions/service/entity';
+import { getFields as getFieldsApi } from '../../../../../actions/service/entity/get';
 interface IProps {
   fieldId: string;
   onChange: (field: any) => void;
@@ -33,11 +33,13 @@ const FieldSelect: React.FunctionComponent<IProps> = (props) => {
 
   const getFields = async (): Promise<void> => {
     const data = await getFieldsApi(eventId);
-    const res = data.map((d) => ({
-      value: d.id,
-      display: d.field,
-    }));
-    setFields([{ value: SELECT_ENUM.ALL, display: t('all_fields') }, ...res]);
+    if (data.length > 0) {
+      const res = data.map((d) => ({
+        value: d.id,
+        display: d.field,
+      }));
+      setFields([{ value: SELECT_ENUM.ALL, display: t('all_fields') }, ...res]);
+    }
   };
 
   const handleChange = (fieldId: string): void => {

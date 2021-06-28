@@ -8,8 +8,8 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { Entity, Practice } from '../../../../../typescript/types';
-import { getRole as getRoleApi } from '../../../actions/service/entity';
+import { Entity } from '../../../../../typescript/types';
+import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -19,7 +19,7 @@ const Settings = dynamic(() => import('../../../tabs/Settings'));
 
 interface IProps {
   basicInfos: Entity;
-  eventInfos: IEventInfos;
+  gamesInfos: IGameInfos[];
 }
 
 interface IGameInfos {
@@ -33,11 +33,6 @@ interface IGameInfos {
   teamScores: string;
 }
 
-interface IEventInfos {
-  gamesInfos: IGameInfos[];
-  practiceInfos: Practice[];
-}
-
 interface IStates {
   component: any;
   value: string;
@@ -47,15 +42,13 @@ interface IStates {
 
 const Team: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { basicInfos: basicInfosProps, eventInfos: eventInfosProps } = props;
+  const { basicInfos: basicInfosProps, gamesInfos } = props;
   const router = useRouter();
   const { tab } = router.query;
   const {
     state: { id },
   } = useContext(Store);
   const [basicInfos, setBasicInfos] = useState<Entity>(basicInfosProps);
-  const gamesInfos = eventInfosProps?.gamesInfos;
-  const practiceInfos = eventInfosProps?.practiceInfos;
 
   useEffect((): void => {
     document.title = formatPageTitle(basicInfos.name);
@@ -141,12 +134,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
       />
       <IgContainer>
         <div>
-          <OpenTab
-            basicInfos={basicInfos}
-            gamesInfos={gamesInfos}
-            practiceInfos={practiceInfos}
-            adminView={adminView}
-          />
+          <OpenTab basicInfos={basicInfos} gamesInfos={gamesInfos} adminView={adminView} />
         </div>
       </IgContainer>
     </>

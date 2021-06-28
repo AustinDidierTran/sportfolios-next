@@ -39,12 +39,14 @@ const TeamSelect: React.FunctionComponent<IProps> = (props) => {
 
   const getTeams = async (): Promise<void> => {
     const { data } = await api(formatRoute('/api/entity/teamsSchedule', null, { eventId }));
-    const res = data.map((d:ITeams) => ({
-      value: d.rosterId,
-      display: d.name,
-    }));
+    if (data.length > 0) {
+      const res = data.map((d: ITeams) => ({
+        value: d.rosterId,
+        display: d.name,
+      }));
 
-    setTeams([{ value: SELECT_ENUM.ALL, display: t('all_teams') }, ...res]);
+      setTeams([{ value: SELECT_ENUM.ALL, display: t('all_teams') }, ...res]);
+    }
   };
 
   const handleChange = (teamId: string): void => {
@@ -66,5 +68,5 @@ const TeamSelect: React.FunctionComponent<IProps> = (props) => {
       />
     </div>
   );
-}
+};
 export default TeamSelect;

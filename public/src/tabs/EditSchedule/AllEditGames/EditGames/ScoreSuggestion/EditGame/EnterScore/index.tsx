@@ -33,9 +33,9 @@ const EnterScore: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue('score2', game.positions[1].score);
   }, [game]);
 
-  const validate = (values: { score1: number, score2: number }): { score1?: string, score2?: string } => {
+  const validate = (values: { score1: number; score2: number }): { score1?: string; score2?: string } => {
     const { score1, score2 } = values;
-    const errors: { score1?: string, score2?: string } = {};
+    const errors: { score1?: string; score2?: string } = {};
     if (isNaN(score1)) {
       errors.score1 = t(ERROR_ENUM.VALUE_IS_INVALID);
     }

@@ -221,19 +221,19 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'field',
       label: t('field'),
-      options: gameOptions.fields,
+      options: gameOptions?.fields,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'time',
       label: t('time_slot'),
-      options: gameOptions.timeSlots,
+      options: gameOptions?.timeSlots,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'phase',
       label: t('phase'),
-      options: gameOptions.phases,
+      options: gameOptions?.phases,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,

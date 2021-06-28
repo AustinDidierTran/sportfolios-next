@@ -5,11 +5,11 @@ import styles from './PhaseSelect.module.css';
 import { useTranslation } from 'react-i18next';
 import { SELECT_ENUM } from '../../../../../../common/enums';
 import { Store } from '../../../../../Store';
-import { getPhases as getPhasesApi } from '../../../../../actions/service/entity';
+import { getPhases as getPhasesApi } from '../../../../../actions/service/entity/get';
 
 interface IProps {
   phaseId: string;
-  onChange: (phase: any) => void;
+  onChange: (phase: IPhases) => void;
 }
 interface IPhases {
   value: string;

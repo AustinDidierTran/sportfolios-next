@@ -6,12 +6,11 @@ import TextField from '../../../components/Custom/TextField';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './Description.module.css';
-import { formatRoute } from '../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormik } from 'formik';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
-import { getGeneralInfos } from '../../../actions/service/entity';
+import { getGeneralInfos } from '../../../actions/service/entity/get';
 
 const Description: React.FunctionComponent = () => {
   const { t } = useTranslation();

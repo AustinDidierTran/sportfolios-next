@@ -191,7 +191,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  useEffect((): void=> {
+  useEffect((): void => {
     if (formik.values.phase !== '' && formik.values.position1 === '' && formik.values.position2 === '') {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
@@ -235,7 +235,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
 
   useEffect((): void => {
     const unavailableTimeSlot = games.filter((g) => g.fieldId === formik.values.field).map((g) => g.timeslotId);
-    setTimeslotOptions(gameOptions.timeSlots?.filter((t) => !unavailableTimeSlot.includes(t.value)));
+    setTimeslotOptions(gameOptions?.timeSlots?.filter((t) => !unavailableTimeSlot.includes(t.value)));
   }, [formik.values.field, formik.values.time]);
 
   const buttons = [
@@ -268,7 +268,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'phase',
       label: t('phase'),
-      options: gameOptions.phases,
+      options: gameOptions?.phases,
     },
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,

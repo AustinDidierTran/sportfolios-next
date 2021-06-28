@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { Store } from '../../../Store';
-import {getEntity, getMembers as getMembersApi} from '../../../actions/service/entity';
+import {getEntity, getMembers as getMembersApi} from '../../../actions/service/entity/get';
 import { Entity, InvoiceStatus, Member } from '../../../../../typescript/types';
 
 interface IProps {
@@ -73,10 +73,10 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
             items,
             person: [
               {
-                ...person?.basicInfos,
-                completeName: `${person?.basicInfos?.name} ${person?.basicInfos?.surname}`,
+                ...person,
+                completeName: `${person?.name} ${person?.surname}`,
                 type: GLOBAL_ENUM.PERSON,
-                key: person?.basicInfos.id,
+                key: person?.id,
               },
             ],
           };

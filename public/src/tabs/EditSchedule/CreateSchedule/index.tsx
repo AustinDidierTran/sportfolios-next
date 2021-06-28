@@ -11,7 +11,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { Store } from '../../../Store';
-import { getGames as getGamesApi } from '../../../actions/service/entity';
+import { getGames as getGamesApi } from '../../../actions/service/entity/get';
 import { Games } from '../../../../../typescript/types';
 
 interface IProps {
@@ -41,8 +41,7 @@ const ScheduleTab: React.FunctionComponent<IProps> = (props) => {
   }, [game, eventId]);
 
   const getGames = async (): Promise<void> => {
-    const data = await getGamesApi(eventId);
-    setGames(data);
+    getGamesApi(eventId).then((res)=> setGames(res))
   };
 
   const openGame = (): void => {

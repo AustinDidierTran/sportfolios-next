@@ -13,7 +13,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../hooks/window';
 import { MOBILE_WIDTH } from '../../../common/constants';
-import { getPhases } from '../../actions/service/entity';
+import { getPhases } from '../../actions/service/entity/get';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -222,11 +222,23 @@ export default function EditRankings() {
     }
   };
 
+  const phaseFilter = (phase, type) => {
+    if (type == 'Phase') {
+      return phase.ranking.filter((r) => r.originPhase && !r.rosterId);
+    } else if (type == 'Prerank') {
+      return phase.ranking.filter((r) => r.originPhase === prerankPhase.phaseId && !r.rosterId);
+    } else if (type == 'Ranking') {
+      return phase.ranking.filter((r) => !r.originPhase && !r.originPosition);
+    } else {
+      return phase.ranking.map((r) => r.rosterId);
+    }
+  };
+
   const handleStartPhase = async (phase) => {
-    const rankingsFromPhase = phase.ranking.filter((r) => r.originPhase && !r.rosterId);
-    const rankingsFromPrerank = phase.ranking.filter((r) => r.originPhase === prerankPhase.phaseId && !r.rosterId);
-    const emptyRankings = phase.ranking.filter((r) => !r.originPhase && !r.originPosition);
-    const rankingsWithRosterId = phase.ranking.map((r) => r.rosterId);
+    const rankingsFromPhase = phaseFilter(phase, 'Phase');
+    const rankingsFromPrerank = phaseFilter(phase, 'Prerank');
+    const emptyRankings = phaseFilter(phase, 'Ranking');
+    const rankingsWithRosterId = phaseFilter(phase);
 
     if (!rankingsWithRosterId.includes(null) && phase.spots !== 0) {
       const res = await api('/api/entity/updatePhase', {

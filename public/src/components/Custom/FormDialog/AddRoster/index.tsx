@@ -9,7 +9,8 @@ import CustomIconButton from '../../IconButton';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Player, Person } from '../../../../../../typescript/types';
-import { addRoster, getPlayers as getPlayersApi } from '../../../../actions/service/entity';
+import { getPlayers as getPlayersApi } from '../../../../actions/service/entity/get';
+import { addRoster } from '../../../../actions/service/entity/post';
 
 interface IProps {
   open: boolean;

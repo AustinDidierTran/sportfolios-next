@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { LoadingSpinner } from '../../../components/Custom';
 import dynamic from 'next/dynamic';
 import { Store } from '../../../Store';
-import { getGames as getGamesApi } from '../../../actions/service/entity';
+import { getGames as getGamesApi } from '../../../actions/service/entity/get';
 import { Games } from '../../../../../typescript/types';
 
 const GameFilters = dynamic(() => import('../../Schedule/AllGames/GameFilters'));
@@ -118,10 +118,6 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     sortGames(games);
   };
 
-  const update = (): void => {
-    getGames();
-  };
-
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -131,8 +127,8 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
       <ProTip />
       <GameFilters update={filter} eventId={eventId} oldFilter={oldFilter} />
       <div className={styles.main} style={{ marginTop: '16px' }}>
-        <EditGames title={t('past_games')} games={pastGames} isOpen={false} update={update} />
-        <EditGames title={t('upcoming_games')} games={games} isOpen update={update} />
+        <EditGames title={t('past_games')} games={pastGames} isOpen={false} update={getGames} />
+        <EditGames title={t('upcoming_games')} games={games} isOpen update={getGames} />
       </div>
     </>
   );

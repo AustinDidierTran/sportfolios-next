@@ -7,7 +7,7 @@ import { SELECT_ENUM } from '../../../../../../common/enums';
 import { formatDate } from '../../../../../utils/stringFormats';
 import moment from 'moment';
 import { Store } from '../../../../../Store';
-import { getSlots } from '../../../../../actions/service/entity';
+import { getSlots } from '../../../../../actions/service/entity/get';
 
 interface IProps {
   timeSlot: string;
@@ -35,21 +35,23 @@ const TimeSlotSelect: React.FunctionComponent<IProps> = (props) => {
 
   const getTimeSlots = async (): Promise<void> => {
     const data = await getSlots(eventId);
-    const res = data
-      .map((d) => ({
-        value: moment.utc(d.date).format('YYYY M D'),
-        display: formatDate(moment.utc(d.date), 'DD MMM'),
-      }))
-      .reduce((prev, curr) => {
-        if (prev) {
-          if (!prev.map((p) => p.value).includes(curr.value)) {
-            return [...prev, curr];
+    if (data.length > 0) {
+      const res = data
+        .map((d) => ({
+          value: moment.utc(d.date).format('YYYY M D'),
+          display: formatDate(moment.utc(d.date), 'DD MMM'),
+        }))
+        .reduce((prev, curr) => {
+          if (prev) {
+            if (!prev.map((p) => p.value).includes(curr.value)) {
+              return [...prev, curr];
+            }
+            return prev;
           }
-          return prev;
-        }
-      }, []);
+        }, []);
 
-    setTimeSlots([{ value: SELECT_ENUM.ALL, display: t('all_time_slots') }, ...res]);
+      setTimeSlots([{ value: SELECT_ENUM.ALL, display: t('all_time_slots') }, ...res]);
+    }
   };
 
   return (

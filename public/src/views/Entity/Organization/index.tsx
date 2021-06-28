@@ -69,8 +69,12 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [states, setStates] = useState<IStates[]>(userState);
 
+  const tabNotHomeOrEvents = () => {
+    return adminState.find((s) => s.value === tab) && tab != TABS_ENUM.HOME && tab != TABS_ENUM.EVENTS;
+  }
+
   const index = useMemo((): number => {
-    if (adminState.find((s) => s.value === tab) && tab != TABS_ENUM.HOME && tab != TABS_ENUM.EVENTS) {
+    if (tabNotHomeOrEvents()) {
       if (isAdmin) {
         setStates(adminState);
         setAdminView(true);

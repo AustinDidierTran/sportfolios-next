@@ -9,7 +9,7 @@ import ProTip from './ProTip';
 import { LoadingSpinner } from '../../../components/Custom';
 import { Store } from '../../../Store';
 import { Games as IGames } from '../../../../../typescript/types';
-import { getGames as getGamesApi } from '../../../actions/service/entity';
+import { getGames as getGamesApi } from '../../../actions/service/entity/get';
 
 interface IProps {
   oldFilter: IFilter;

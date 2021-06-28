@@ -38,8 +38,10 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
 
   useEffect((): void => {
     setOpen(isOpen);
-    getLocations();
-    setLocationHidden(true);
+    if (isOpen) {
+      getLocations();
+      setLocationHidden(true);
+    }
   }, [isOpen]);
 
   const handleClose = (): void => {
@@ -95,7 +97,6 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     date: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     timeStart: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     timeEnd: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),

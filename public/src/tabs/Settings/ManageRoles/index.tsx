@@ -15,7 +15,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import AddAdmins from './AddAdmins';
 import { getInitialsFromName } from '../../../utils/stringFormats';
 import { GLOBAL_ENUM } from '../../../../common/enums';
-import { getEntity as getEntityApi, getRoles } from '../../../actions/service/entity';
+import { getEntity as getEntityApi, getRoles } from '../../../actions/service/entity/get';
 import { Entity, EntityRole } from '../../../../../typescript/types';
 
 const ManageRoles: React.FunctionComponent = () => {
@@ -28,8 +28,7 @@ const ManageRoles: React.FunctionComponent = () => {
   const [entity, setEntity] = useState<Entity>();
 
   const getEntity = async (): Promise<void> => {
-    const data = await getEntityApi(entity_id);
-    setEntity(data.basicInfos);
+    getEntityApi(entity_id).then((res)=> setEntity(res));
   };
 
   useEffect((): void => {
@@ -51,6 +50,10 @@ const ManageRoles: React.FunctionComponent = () => {
 
   const blackList = useMemo((): string[] => entities.map((entity) => entity.entityId), [entities]);
 
+  const isAdmin = (arr: EntityRole[], entity_id_admin: string) => {
+    return arr.length < 2 && arr[0].entityId === entity_id_admin;
+  }
+
   const updateRole = async (entity_id_admin: string, role: string): Promise<void> => {
     if (entity.type === GLOBAL_ENUM.PERSON) {
       await api(`/api/entity/role`, {
@@ -65,7 +68,7 @@ const ManageRoles: React.FunctionComponent = () => {
     }
     const arr = entities.filter((e) => e.role === ENTITIES_ROLE_ENUM.ADMIN);
 
-    if (arr.length < 2 && arr[0].entityId === entity_id_admin) {
+    if (isAdmin(arr, entity_id_admin)) {
       throw 'Last Admin';
     } else {
       await api(`/api/entity/role`, {
