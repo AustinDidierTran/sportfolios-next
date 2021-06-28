@@ -733,6 +733,7 @@ export default {
       no_existing_account_with_this_email: 'There is no account linked with this email. Sign up!',
       no_following: 'You are following no one',
       no_games: 'No games',
+      no_events: 'No events',
       no_members_message: 'You have no members',
       no_membership_available: 'No membership available',
       no_notifications_message: 'Come back later.',

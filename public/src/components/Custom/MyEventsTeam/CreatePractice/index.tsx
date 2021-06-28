@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { FormDialog } from '../..';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -31,17 +31,19 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     state: { id: teamId, userInfo },
   } = useContext(Store);
 
-  const [open, setOpen] = useState<boolean>(isOpen);
   const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
   const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
-  const [locationHidden, setLocationHidden] = useState(true);
+  const [locationHidden, setLocationHidden] = useState<boolean>(true);
 
   useEffect((): void => {
-    setOpen(isOpen);
     if (isOpen) {
       getLocations();
       setLocationHidden(true);
     }
+  }, [isOpen]);
+
+  const open = useMemo((): boolean => {
+    return isOpen;
   }, [isOpen]);
 
   const handleClose = (): void => {

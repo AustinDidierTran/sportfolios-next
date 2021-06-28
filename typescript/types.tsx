@@ -338,12 +338,13 @@ export interface Practice {
   state?: string;
   zip?: string;
   country?: string;
-  rsvp?: Rsvp;
+  rsvp?: Rsvp[];
+  myRsvp?: Rsvp[];
 }
 
 export interface Rsvp {
-  name:string;
-  photoUrl?:string;
+  name: string;
+  photoUrl?: string;
   rsvp: string;
 }
 

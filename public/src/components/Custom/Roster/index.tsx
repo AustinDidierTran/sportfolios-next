@@ -8,15 +8,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '../Icon';
 import styles from './Roster.module.css';
 import Typography from '@material-ui/core/Typography';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '../Avatar';
 import { Player } from '../../../../../typescript/types';
 import Rsvp from '../MyEventsTeam/Rsvp';
 import { Store } from '../../../Store';
-import Chip from '@material-ui/core/Chip';
 import { getEntityOwned } from '../../../actions/service/entity/get';
+import RsvpItem from './RsvpItem';
 
 interface IProps {
   roster?: Player[];
@@ -31,12 +30,10 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   const [personList, setPersonList] = useState<string[]>();
 
   useEffect((): void => {
-    if (roster) {
-      setTeamRoster(roster);
-      getCurrentUserRsvp(roster);
-      getPersons();
-    }
-  }, [props]);
+    setTeamRoster(roster);
+    getCurrentUserRsvp(roster);
+    getPersons();
+  }, [roster]);
 
   const {
     state: { userInfo },
@@ -62,18 +59,25 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   };
 
   const setSelectedRsvp = (newRsvp: string): void => {
-    teamRoster.forEach((player) => {
-      if (player.personId == userInfo?.primaryPerson.personId) {
-        player.rsvp = newRsvp;
-      }
+    setTeamRoster((teamRoster) => {
+      return teamRoster.map((player) => ({
+        ...player,
+        rsvp: player.personId === userInfo?.primaryPerson.personId ? newRsvp : player.rsvp,
+      }));
     });
 
-    setTeamRoster([]);
-    setTeamRoster([...teamRoster]);
+    setOpen(false);
   };
 
-  const hideRosterRsvp = (): void => {
+  const hideRosterRsvp = (type: string, playerId: string): void => {
     setOpen(false);
+
+    setTeamRoster((teamRoster) => {
+      return teamRoster.map((player) => ({
+        ...player,
+        rsvp: player.personId === playerId ? type : player.rsvp,
+      }));
+    });
   };
 
   return (
@@ -81,7 +85,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       <Typography className={styles.title} variant="h4">
         {t('roster')}
         <div>
-          <Rsvp isOpen={isOpen} practiceId={practiceId} OnSetRsvp={setSelectedRsvp} />
+          <Rsvp isOpen={isOpen} practiceId={practiceId} update={setSelectedRsvp} />
         </div>
       </Typography>
       {teamRoster.map((player: Player, index: number) => (
@@ -104,20 +108,13 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
               </Tooltip>
             )}
           </div>
-          <ListItemText primary={player.name} />
-          {player.personId == userInfo?.primaryPerson.personId || personList?.includes(player.personId) ? (
-            <Rsvp
-              isOpen
-              rsvpStatus={player.rsvp}
-              practiceId={practiceId}
-              playerId={player.personId}
-              OnSetRsvp={hideRosterRsvp}
-            />
-          ) : player.rsvp ? (
-            <Chip label={t(player.rsvp)} color={player.rsvp == 'going' ? 'primary' : 'secondary'} variant="outlined" />
-          ) : (
-            <></>
-          )}
+          <RsvpItem
+            player={player}
+            personId={userInfo?.primaryPerson.personId}
+            practiceId={practiceId}
+            personList={personList}
+            update={hideRosterRsvp}
+          />
         </ListItem>
       ))}
     </>
