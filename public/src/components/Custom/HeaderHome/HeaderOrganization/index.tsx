@@ -17,7 +17,7 @@ import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
 import { Entity, Member } from '../../../../../../typescript/types';
-import { getMostRecentMember, getRecentMember, getHasMemberships } from '../../../../actions/service/entity/get';
+import { getMostRecentMember, hasMemberships as hasMembershipsApi } from '../../../../actions/service/entity/get';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
@@ -59,9 +59,9 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
     }
   }, [id]);
 
-  const getMemberships = async (): Promise<void> => {
-    getHasMemberships(id).then(setHasMemberships);
-    getRecentMember(id).then(setMember);
+  const getMemberships = (): void => {
+    hasMembershipsApi(id).then(setHasMemberships);
+    getMostRecentMember(id).then(setMember);
   };
 
   const goToLogin = (): void => {
