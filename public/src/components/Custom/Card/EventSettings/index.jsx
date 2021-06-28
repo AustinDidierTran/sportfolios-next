@@ -33,7 +33,7 @@ export default function EventSettings(props) {
             />
             <TextField
               namespace="maximumSpots"
-              disabled={!limit}
+              hidden={!limit}
               formik={formik}
               label={t('maximum_spots')}
               type="number"

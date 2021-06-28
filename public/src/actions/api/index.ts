@@ -1,5 +1,4 @@
 import { API_BASE_URL } from '../../../../conf';
-import { formatRoute } from '../../utils/stringFormats';
 
 const api = async (
   route: string,

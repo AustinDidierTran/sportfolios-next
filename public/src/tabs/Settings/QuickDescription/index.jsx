@@ -31,23 +31,23 @@ export default function Description() {
     const generalInfos = await getGeneralInfos(entityId);
     if (generalInfos.quickDescription) {
       setInitial(decodeURIComponent(generalInfos.quickDescription));
-      formik.setFieldValue('description', decodeURIComponent(generalInfos.quickDescription));
+      formik.setFieldValue('quickDescription', decodeURIComponent(generalInfos.quickDescription));
     } else {
       setInitial('');
-      formik.setFieldValue('description', '');
+      formik.setFieldValue('quickDescription', '');
     }
   };
 
   const formik = useFormik({
     initialValues: {
-      description: '',
+      quickDescription: '',
     },
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { description } = values;
+      const { quickDescription } = values;
 
-      const encoded = encodeURIComponent(description);
+      const encoded = encodeURIComponent(quickDescription);
       const res = await api('/api/entity/updateGeneralInfos', {
         method: 'PUT',
         body: JSON.stringify({
@@ -63,7 +63,7 @@ export default function Description() {
           duration: 4000,
         });
       } else {
-        setInitial(description);
+        setInitial(quickDescription);
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('saved'),
@@ -75,19 +75,19 @@ export default function Description() {
   });
 
   const onCancel = () => {
-    formik.setFieldValue('description', initial);
+    formik.setFieldValue('quickDescription', initial);
   };
 
   const disabled = useMemo(() => {
-    return formik.values.description === initial;
-  }, [formik.values.description, initial]);
+    return formik.values.quickDescription === initial;
+  }, [formik.values.quickDescription, initial]);
 
   return (
     <Paper title="Description">
       <form onSubmit={formik.handleSubmit}>
         <TextField
-          className={styles.description}
-          namespace="description"
+          className={styles.quickDescription}
+          namespace="quickDescription"
           formik={formik}
           multiline
           rows={1}

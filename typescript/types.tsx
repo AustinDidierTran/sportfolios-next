@@ -103,6 +103,34 @@ export interface NotificationSetting {
   chatbot: boolean;
 }
 
+export interface Cart {
+  items: CartItems;
+  total: CartTotal;
+}
+
+export interface CartItems {
+  active: string;
+  amount: string;
+  description: string;
+  id: string;
+  label: string;
+  metadata: string;
+  quantity: number;
+  selected: string;
+  photoUrl: string;
+  stripePriceId: string;
+  striePriceMetadata: string;
+  stripeProductId: string;
+  userId: string;
+  taxRates: string;
+}
+
+export interface CartTotal {
+  total: number;
+  subtotal: number;
+  taxes: number;
+}
+
 export interface CreditCard {
   userId: string;
   customerId: string;
@@ -130,6 +158,10 @@ export interface Entity {
 export interface EntityRole {
   entityId: string;
   role: Role;
+  surname: string;
+  name: string;
+  type: number;
+  photoUrl: string;
 }
 
 export interface Player {
@@ -166,6 +198,16 @@ export interface Address {
   country?: string;
 }
 
+export interface Member {
+  id: string;
+  memberType: number;
+  personId: string;
+  expirationDate: string;
+  status: InvoiceStatus;
+  organizationId?: string;
+  membershipId?: string;
+}
+
 export interface Membership {
   id: string;
   organizationId: string;
@@ -192,15 +234,17 @@ export interface Organization extends Entity {
 
 export interface EntityMembership {
   id: string;
-  entityId: string;
-  type: MembershipType;
-  length?: MembershipLength;
+  entityId?: string;
+  membershipType?: MembershipType;
+  length?: number;
   fixedDate?: string;
   price: number;
   description?: string;
   fileName?: string;
   fileUrl?: string;
   stripePriceId?: string;
+  taxRates?: string;
+  transactionFees?: string;
 }
 
 export interface BankAccount {
@@ -221,6 +265,27 @@ export interface Event extends Entity {
   persons?: EventPerson[];
   teams?: EventTeam[];
   phases?: Phase[];
+}
+
+export interface EventField {
+  eventId: string;
+  field: string;
+  id: string;
+}
+
+export interface OwnedEvents extends Entity {
+  type: number;
+  cardType: number;
+  eventId: string;
+  photoUrl: string;
+  startDate: string;
+  endDate: string;
+  quickDescription: string;
+  description: string;
+  location: string;
+  name: string;
+  createdAt: string;
+  creator: Entity;
 }
 
 export interface EventPaymentOption {
@@ -302,6 +367,45 @@ export interface Phase {
   phaseOrder: number;
   status: PhaseStatus;
   games?: Game[];
+  ranking?: Ranking[];
+}
+export interface PhaseGameAndTeams {
+  games: PhaseGames[];
+  teams: PhaseTeams[];
+}
+
+export interface PhaseTeams {
+  rosterId: string;
+  originPhase: string;
+  originPosition: number;
+  currentPhase: string;
+  initialPosition: number;
+  finalPosition: number;
+  rankingId: string;
+  teamId: string;
+  name: string;
+  phaseName: string;
+}
+
+export interface PhaseGames {
+  id: string;
+  phaseId: string;
+  eventId: string;
+  teams: GameTeam[];
+}
+
+export interface Ranking {
+  id: string;
+  rosterId: string;
+  originPhase: string;
+  originPosition: string;
+  currentPhase: string;
+  initialPosition: number;
+  finalPosition: number;
+  rankingId: string;
+  phaseName?: string;
+  name?: string;
+  teamName?: string;
 }
 
 export interface Game extends Entity {
@@ -312,15 +416,74 @@ export interface Game extends Entity {
   teams: GameTeam[];
 }
 
+export interface Games {
+  id: string;
+  phaseId: string;
+  eventId: string;
+  description: string;
+  entityId: string;
+  notifiedStart: string;
+  notifiedEnd: string;
+  locationId: string;
+  phaseName: string;
+  positions: Positions[];
+  field: string;
+  fieldId: string;
+  startTime: string;
+  timeslotId?: string;
+}
+
 export interface GameTeam {
   id: string;
   gameId: string;
-  roserId: string;
+  rosterId: string;
   name: string;
   score: number;
   position?: number;
   spirit?: number;
   rankingId: string;
+}
+
+export interface GameInfo {
+  id: string;
+  gameId: string;
+  phaseId: string;
+  locationId: string;
+  entityId: string;
+  fieldId: string;
+  timeslotId: string;
+  eventId: string;
+  description: string;
+  notifiedStart?: string;
+  notifiedEnd?: string;
+  phaseName: string;
+  positions: Positions[];
+  scoreSubmited: string;
+  field?: string;
+  startTime: string;
+  role: Role;
+}
+
+export interface Partner {
+  id: string;
+  name: string;
+  website: string;
+  description: string;
+  photoUrl: string;
+  organizationId?: string;
+}
+
+export interface Positions {
+  id: string;
+  gameId: string;
+  rosterId: string;
+  score: number;
+  name: string;
+  spirit: string;
+  rankingId: string;
+  position?: number;
+  photoUrl?: string;
+  teamName?: string;
 }
 
 export interface Practice {
@@ -397,6 +560,22 @@ export interface PostImage {
   imageUrl: string;
 }
 
+export interface SubmissionerInfos {
+  myTeam: SubmissionerTeam;
+  enemyTeam: SubmissionerTeam;
+  myAdminPersons: PersonAdmin[];
+}
+
+export interface SubmissionerTeam {
+  rosterId: string;
+  name: string;
+}
+
+export interface PersonAdmin {
+  entityId: string;
+  completeName: string;
+}
+
 export interface Tax {
   id: string;
   displayName: string;
@@ -404,4 +583,11 @@ export interface Tax {
   inclusive: boolean;
   active: boolean;
   percentage: number;
+}
+
+export interface TeamsSchedule {
+  teamId: string;
+  rosterId: string;
+  eventId: string;
+  name: string;
 }
