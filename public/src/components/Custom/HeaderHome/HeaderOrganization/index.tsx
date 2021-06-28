@@ -17,7 +17,7 @@ import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
 import { Entity, Member } from '../../../../../../typescript/types';
-import { getRecentMember, getHasMemberships } from '../../../../actions/service/entity/get';
+import { getMostRecentMember, getRecentMember, getHasMemberships } from '../../../../actions/service/entity/get';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
