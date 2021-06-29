@@ -186,12 +186,12 @@ export async function getPracticeInfo(practiceId: string): Promise<{ practice: P
 }
 
 export async function getRosters(teamId: string): Promise<Roster[]> {
-  const { rosters } = await api(
+  const { data } = await api(
     formatRoute(`${BASE_URL}/rosters`, null, {
       teamId,
     })
   );
-  return rosters;
+  return data;
 }
 
 export async function getRosterPlayers(rosterId: string): Promise<Player[]> {

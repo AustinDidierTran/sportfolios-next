@@ -17,29 +17,40 @@ interface IProps {
   index: number;
   update: () => void;
   teamId: string;
+  isAdmin: boolean;
 }
 
 const PendingPlayer: React.FunctionComponent<IProps> = (props) => {
-  const { player, index, teamId } = props;
-
+  const { player, index, teamId, isAdmin } = props;
+  if (isAdmin) {
+    return (
+      <ListItem
+        className={index % 2 === 0 ? styles.greycard : styles.card}
+        onClick={() => {
+          goTo(ROUTES_ENUM.teamPlayersAcceptation, { id: teamId }, { personId: player.id });
+        }}
+        button
+      >
+        <ListItemIcon>
+          <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+        </ListItemIcon>
+        <ListItemText primary={`${player.name}`} />
+        <StatusChip
+          status={player.status}
+          onClick={() => {
+            goTo(ROUTES_ENUM.teamPlayersAcceptation, { id: teamId }, { personId: player.id });
+          }}
+        />
+      </ListItem>
+    );
+  }
   return (
-    <ListItem
-      className={index % 2 === 0 ? styles.greycard : styles.card}
-      onClick={() => {
-        goTo(ROUTES_ENUM.teamPlayersAcceptation, { id: teamId }, { personId: player.id });
-      }}
-      button
-    >
+    <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}>
       <ListItemIcon>
         <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
       </ListItemIcon>
       <ListItemText primary={`${player.name}`} />
-      <StatusChip
-        status={player.status}
-        onClick={() => {
-          goTo(ROUTES_ENUM.teamPlayersAcceptation, { id: teamId }, { personId: player.id });
-        }}
-      />
+      <StatusChip status={player.status} clickable={false} />
     </ListItem>
   );
 };
