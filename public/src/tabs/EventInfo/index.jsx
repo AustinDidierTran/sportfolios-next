@@ -228,7 +228,6 @@ export default function TabEventInfo() {
       <div className={styles.description}>
         <Description description={event.description} />
       </div>
-
       <ContainerBottomFixed>
         <div className={styles.buttonDiv}>
           {canRegister ? (

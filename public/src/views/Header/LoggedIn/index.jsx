@@ -33,12 +33,12 @@ export default function LoggedIn(props) {
 
   socket.emit(SOCKET_EVENT.CONNECTED_USER, userInfo.userId);
 
-  const photoUrl = useMemo(() => userInfo.primaryPerson.photoUrl, [userInfo.primaryPerson]);
+  const photoUrl = useMemo(() => userInfo?.primaryPerson?.photoUrl, [userInfo.primaryPerson.photoUrl]);
 
   const nameObj = useMemo(
     () => ({
-      name: userInfo.primaryPerson.name,
-      surname: userInfo.primaryPerson.surname,
+      name: userInfo?.primaryPerson?.name,
+      surname: userInfo?.primaryPerson?.surname,
     }),
     [userInfo.primaryPerson]
   );
