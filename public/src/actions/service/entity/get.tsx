@@ -23,67 +23,40 @@ import {
 
 const BASE_URL = '/api/entity';
 
-export async function getEntity(id: string): Promise<Entity> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}`, null, {
-      id,
-    })
-  );
-  return data.basicInfos;
+export function getEntity(id: string): Promise<Entity> {
+  return api(formatRoute(`${BASE_URL}`, null, { id })).then((res) => res.data.basicInfos);
 }
 
-export async function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/ownedEvents`, null, {
-      organizationId,
-    })
-  );
-
-  return data;
+export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> {
+  return api(formatRoute(`${BASE_URL}/ownedEvents`, null, { organizationId })).then((res) => res.data);
 }
 
-export async function getFields(eventId: string): Promise<Field[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/fields`, null, {
-      eventId,
-    })
-  );
-
-  return data;
+export function getFields(eventId: string): Promise<Field[]> {
+  return api(formatRoute(`${BASE_URL}/fields`, null, { eventId })).then((res) => res.data);
 }
 
-export async function getGames(eventId: string): Promise<Games[]> {
-  const { data } = await api(formatRoute(`${BASE_URL}/games`, null, { eventId }));
-  return data;
+export function getGames(eventId: string): Promise<Games[]> {
+  return api(formatRoute(`${BASE_URL}/games`, null, { eventId })).then((res) => res.data);
 }
 
-export async function getGameInfo(gameId: string): Promise<GameInfo> {
-  const { data } = await api(formatRoute(`${BASE_URL}/gameInfo`, null, { gameId }));
-  return data;
+export function getGameInfo(gameId: string): Promise<GameInfo> {
+  return api(formatRoute(`${BASE_URL}/gameInfo`, null, { gameId })).then((res) => res.data);
 }
 
-export async function getGeneralInfos(entityId: string): Promise<Entity> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/generalInfos`, null, {
-      entityId,
-    })
-  );
-  return data;
+export function getGeneralInfos(entityId: string): Promise<Entity> {
+  return api(formatRoute(`${BASE_URL}/generalInfos`, null, { entityId })).then((res) => res.data);
 }
 
-export async function getRole(entityId: string): Promise<{ status: string; data: Role }> {
-  const res = await api(formatRoute(`${BASE_URL}/role`, null, { entityId }));
-  return res;
+export function getRole(entityId: string): Promise<{ status: string; data: Role }> {
+  return api(formatRoute(`${BASE_URL}/role`, null, { entityId })).then((res) => res);
 }
 
-export async function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
-  const res = await api(`${BASE_URL}/roles?id=${id}`);
-  return res;
+export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
+  return api(`${BASE_URL}/roles?id=${id}`).then((res) => res);
 }
 
-export async function getSlots(eventId: string): Promise<TimeSlot[]> {
-  const { data } = await api(formatRoute('/api/entity/slots', null, { eventId }));
-  return data;
+export function getSlots(eventId: string): Promise<TimeSlot[]> {
+  return api(formatRoute('/api/entity/slots', null, { eventId })).then((res) => res.data);
 }
 
 export function getMostRecentMember(organizationId: string): Promise<Member> {
@@ -94,140 +67,75 @@ export function hasMemberships(organizationId: string): Promise<boolean> {
   return api(formatRoute(`${BASE_URL}/hasMemberships`, null, { organizationId })).then((res) => res.data);
 }
 
-export async function getPlayers(teamId: string): Promise<Player[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/players`, null, {
-      teamId,
-    })
-  );
-  return data;
+export function getPlayers(teamId: string): Promise<Player[]> {
+  return api(formatRoute(`${BASE_URL}/players`, null, { teamId })).then((res) => res.data);
 }
 
-export async function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/teamPlayersPending`, null, {
-      teamId,
-    })
-  );
-  return data;
+export function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {
+  return api(formatRoute(`${BASE_URL}/teamPlayersPending`, null, { teamId })).then((res) => res.data);
 }
 
-export async function getMembers(organizationId: string, personId: string): Promise<Member[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/members`, null, {
-      organizationId,
-      personId,
-    })
-  );
-
-  return data;
+export function getMyTeamPlayersRequest(teamId: string): Promise<PendingPlayer[]> {
+  return api(formatRoute(`${BASE_URL}/myTeamPlayersRequest`, null, { teamId })).then((res) => res.data);
 }
 
-export async function getMemberships(id: string): Promise<EntityMembership[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/memberships`, null, {
-      id,
-    })
-  );
-
-  return data;
+export function getMembers(organizationId: string, personId: string): Promise<Member[]> {
+  return api(formatRoute(`${BASE_URL}/members`, null, { organizationId, personId })).then((res) => res.data);
 }
 
-export async function getPartners(id: string): Promise<Partner[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/partners`, null, {
-      id,
-    })
-  );
-
-  return data;
+export function getMemberships(id: string): Promise<EntityMembership[]> {
+  return api(formatRoute(`${BASE_URL}/memberships`, null, { id })).then((res) => res.data);
 }
 
-export async function getPhases(eventId: string): Promise<Phase[]> {
-  const { data } = await api(formatRoute(`${BASE_URL}/phases`, null, { eventId }));
-
-  return data;
+export function getPartners(id: string): Promise<Partner[]> {
+  return api(formatRoute(`${BASE_URL}/partners`, null, { id })).then((res) => res.data);
 }
 
-export async function getPhasesGameAndTeams(eventId: string, phaseId: string): Promise<PhaseGameAndTeams> {
-  const { data } = await api(formatRoute(`${BASE_URL}/phasesGameAndTeams`, null, { eventId, phaseId }));
-
-  return data;
+export function getPhases(eventId: string): Promise<Phase[]> {
+  return api(formatRoute(`${BASE_URL}/phases`, null, { eventId })).then((res) => res.data);
 }
 
-export async function getPracticeBasicInfo(teamId: string): Promise<Practice[]> {
-  const { data } = await api(formatRoute(`${BASE_URL}/practiceBasicInfo`, null, { teamId }));
-  return data;
+export function getPhasesGameAndTeams(eventId: string, phaseId: string): Promise<PhaseGameAndTeams> {
+  return api(formatRoute(`${BASE_URL}/phasesGameAndTeams`, null, { eventId, phaseId })).then((res) => res.data);
+}
+
+export function getPracticeBasicInfo(teamId: string): Promise<Practice[]> {
+  return api(formatRoute(`${BASE_URL}/practiceBasicInfo`, null, { teamId })).then((res) => res.data);
 }
 
 export function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: number; data: SubmissionerInfos[] }> {
-  const res = api(
+  return api(
     formatRoute(`${BASE_URL}/getPossibleSubmissionerInfos`, null, {
       gameId: game.id,
-      teamsIds: JSON.stringify(
-        game.positions.map((t) => ({
-          rosterId: t.rosterId,
-          name: t.name,
-        }))
-      ),
+      teamsIds: JSON.stringify(game.positions.map((t) => ({ rosterId: t.rosterId, name: t.name }))),
     })
-  );
-
-  return res;
+  ).then((res) => res);
 }
 
-export async function getPracticeInfo(practiceId: string): Promise<{ practice: Practice; role: number }> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/practiceInfo`, null, {
-      practiceId,
-    })
-  );
-  return data;
+export function getPracticeInfo(practiceId: string): Promise<{ practice: Practice; role: number }> {
+  return api(formatRoute(`${BASE_URL}/practiceInfo`, null, { practiceId })).then((res) => res.data);
 }
 
-export async function getRosters(teamId: string): Promise<Roster[]> {
-  const { rosters } = await api(
-    formatRoute(`${BASE_URL}/rosters`, null, {
-      teamId,
-    })
-  );
-  return rosters;
+export function getRosters(teamId: string): Promise<Roster[]> {
+  return api(formatRoute(`${BASE_URL}/rosters`, null, { teamId })).then((res) => res.data);
 }
 
-export async function getRosterPlayers(rosterId: string): Promise<Player[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/rosterPlayers`, null, {
-      rosterId,
-    })
-  );
-  return data;
+export function getRosterPlayers(rosterId: string): Promise<Player[]> {
+  return api(formatRoute(`${BASE_URL}/rosterPlayers`, null, { rosterId })).then((res) => res.data);
 }
 
-export async function getRecentMember(id: string): Promise<Member> {
-  const { data } = await api(formatRoute(`${BASE_URL}/recentMember`, null, { id }));
-  return data;
+export function getRecentMember(id: string): Promise<Member> {
+  return api(formatRoute(`${BASE_URL}/recentMember`, null, { id })).then((res) => res.data);
 }
 
-export async function getHasMemberships(id: string): Promise<boolean> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/hasMemberships`, null, {
-      id,
-    })
-  );
-  return data;
+export function getHasMemberships(id: string): Promise<boolean> {
+  return api(formatRoute(`${BASE_URL}/hasMemberships`, null, { id })).then((res) => res.data);
 }
 
-export async function getEntityOwned(type: number): Promise<Player[]> {
-  const { data } = await api(
-    formatRoute(`${BASE_URL}/allOwned`, null, {
-      type,
-      onlyAdmin: true,
-    })
-  );
-  return data;
+export function getEntityOwned(type: number): Promise<Player[]> {
+  return api(formatRoute(`${BASE_URL}/allOwned`, null, { type, onlyAdmin: true })).then((res) => res.data);
 }
 
-export async function getMyTeamPlayers(teamId: string): Promise<Player[]> {
-  const { data } = await api(formatRoute(`${BASE_URL}/myTeamPlayers`, null, { teamId }));
-  return data;
+export function getMyTeamPlayers(teamId: string): Promise<Player[]> {
+  return api(formatRoute(`${BASE_URL}/myTeamPlayers`, null, { teamId })).then((res) => res.data);
 }

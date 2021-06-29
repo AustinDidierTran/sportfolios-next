@@ -19,13 +19,14 @@ const useStyles = makeStyles((theme) => ({
 interface IProps {
   status: string;
   onClick?: () => void;
+  clickable?: boolean;
 }
 
 const StatusChip: React.FunctionComponent<IProps> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { status, onClick } = props;
+  const { status, onClick, clickable = true } = props;
 
   if (status === STATUS_ENUM.PENDING) {
     return (
@@ -35,6 +36,7 @@ const StatusChip: React.FunctionComponent<IProps> = (props) => {
           label={t(status)}
           style={{ border: '1px solid #dddd00', color: '#dddd00 ' }}
           variant="outlined"
+          clickable={clickable}
         />
       </div>
     );
@@ -42,14 +44,14 @@ const StatusChip: React.FunctionComponent<IProps> = (props) => {
   if (status === STATUS_ENUM.REFUSED) {
     return (
       <div className={classes.root}>
-        <Chip onClick={onClick} label={t(status)} color="secondary" variant="outlined" />
+        <Chip onClick={onClick} label={t(status)} color="secondary" variant="outlined" clickable={clickable} />
       </div>
     );
   }
   if (status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE) {
     return (
       <div className={classes.root}>
-        <Chip label={t(status)} icon={<AttachMoney />} color="primary" variant="outlined" />
+        <Chip label={t(status)} icon={<AttachMoney />} color="primary" variant="outlined" clickable={clickable} />
       </div>
     );
   }
@@ -57,9 +59,10 @@ const StatusChip: React.FunctionComponent<IProps> = (props) => {
   if (status === INVOICE_STATUS_ENUM.REFUNDED) {
     return (
       <div className={classes.root}>
-        <Chip label={t('refunded')} icon={<AttachMoney />} color="secondary" variant="outlined" />
+        <Chip label={t('refunded')} icon={<AttachMoney />} color="secondary" variant="outlined" clickable={clickable} />
       </div>
     );
   }
+  return null;
 };
 export default StatusChip;
