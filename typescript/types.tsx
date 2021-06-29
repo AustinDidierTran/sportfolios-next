@@ -273,6 +273,21 @@ export interface EventField {
   id: string;
 }
 
+export interface Evaluation {
+  id: string;
+  exerciseId: string;
+  coachId: string;
+  personId: string;
+  rating: number;
+  sessionId: string
+}
+
+export interface Exercise {
+  id: string;
+  name: string;
+  description: string;
+}
+
 export interface OwnedEvents extends Entity {
   type: number;
   cardType: number;

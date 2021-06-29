@@ -5,9 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { useTranslation } from 'react-i18next';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import AddressSearchInput from '../AddressSearchInput';
-import TextField from '../TextField';
-import { SELECT_ENUM, LANGUAGE_ENUM } from '../../../../common/enums';
+import TextField from '../../TextField';
+import { SELECT_ENUM } from '../../../../../common/enums';
 import { FormikValues } from 'formik';
 
 interface IProps {
@@ -17,22 +16,18 @@ interface IProps {
   label: string;
   namespace: string;
   onChange: (event: any) => void;
-  options: ILocationOption[];
+  options: IExerciseOption[];
   showView: boolean;
-  addressChanged: (address: string) => void;
-  onAddressChanged: (address: string) => void;
-  language: typeof LANGUAGE_ENUM;
-  errorFormat: string;
   showCreate: boolean;
   value?: string;
 }
 
-interface ILocationOption {
+interface IExerciseOption {
   value: string;
   display: string;
 }
 
-const CustomLocations: React.FunctionComponent<IProps> = (props) => {
+const CustomExercises: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const {
     className,
@@ -43,10 +38,6 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
     onChange,
     options,
     showView,
-    addressChanged,
-    onAddressChanged,
-    language,
-    errorFormat,
     showCreate,
     value: valueProp,
   } = props;
@@ -59,7 +50,7 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
     value = valueProp;
   }
 
-  const handleChange = (event: any, ...args: any) => {
+  const handleChange = (event: any, ...args: any): void => {
     if (formik) {
       formik.handleChange(event, ...args);
     }
@@ -72,8 +63,8 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
   if (showView === true) {
     return (
       <div>
-        <TextField namespace="addressFormatted" formik={formik} disabled />
-        <TextField placeholder="location" namespace="location" formik={formik} disabled />
+        <TextField namespace="name" formik={formik} disabled />
+        <TextField placeholder="description" namespace="description" formik={formik} disabled />
       </div>
     );
   }
@@ -104,28 +95,18 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
             </MenuItem>
           ))
         ) : (
-          <div />
+          null
         )}
       </Select>
 
       {showCreate ? (
         <div>
           <br></br>
-          <AddressSearchInput
-            namespace="addressFormatted"
-            formik={formik}
-            addressChanged={addressChanged}
-            country="ca"
-            language={language}
-            errorFormat={errorFormat}
-            placeholder={t('type_address')}
-            onChange={onAddressChanged}
-            required={false}
-          />
-          <TextField fullWidth label={t('location_description')} namespace="newLocation" formik={formik} />
+          <TextField fullWidth label={t('name')} namespace="name" formik={formik} />
+          <TextField fullWidth label={'Description'} namespace="description" formik={formik} />
         </div>
       ) : (
-        <div />
+        null
       )}
 
       <FormHelperText error={Boolean((formik && formik.errors[namespace]) || error)}>
@@ -134,4 +115,4 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
     </FormControl>
   );
 };
-export default CustomLocations;
+export default CustomExercises;

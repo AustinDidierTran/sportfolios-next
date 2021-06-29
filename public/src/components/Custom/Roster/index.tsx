@@ -81,7 +81,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   };
 
   return (
-    <>
+    <div style={{marginTop: '8px'}}>
       <Typography className={styles.title} variant="h4">
         {t('roster')}
         <div>
@@ -117,7 +117,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
           />
         </ListItem>
       ))}
-    </>
+    </div>
   );
 };
 

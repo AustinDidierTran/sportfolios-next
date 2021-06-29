@@ -45,6 +45,19 @@ export async function addEntity(
   return res.data.id;
 }
 
+export async function addExercise(
+  exerciseId: string,
+  name: string,
+  description: string,
+  practiceId: string,
+  teamId: string
+): Promise<number> {
+  return api(`${BASE_URL}/exercise`, {
+    method: 'POST',
+    body: JSON.stringify({ exerciseId, name, description, sessionId: practiceId, teamId }),
+  }).then((res) => res.status);
+}
+
 export async function addPlayers(teamId: string, players: Player[]): Promise<number> {
   const { status } = await api(`${BASE_URL}/players`, {
     method: 'POST',

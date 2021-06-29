@@ -19,6 +19,7 @@ import {
   Phase,
   Games,
   Field,
+  Exercise,
 } from '../../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
@@ -230,4 +231,20 @@ export async function getEntityOwned(type: number): Promise<Player[]> {
 export async function getMyTeamPlayers(teamId: string): Promise<Player[]> {
   const { data } = await api(formatRoute(`${BASE_URL}/myTeamPlayers`, null, { teamId }));
   return data;
+}
+
+export async function getTeamExercises(teamId: string): Promise<Exercise[]> {
+  return api(
+    formatRoute(`${BASE_URL}/teamExercises`, null, {
+      teamId,
+    })
+  ).then((res) => res.data);
+}
+
+export async function getSessionExercises(sessionId: string): Promise<Exercise[]> {
+  return api(
+    formatRoute(`${BASE_URL}/sessionExercises`, null, {
+      sessionId,
+    })
+  ).then((res) => res.data);
 }

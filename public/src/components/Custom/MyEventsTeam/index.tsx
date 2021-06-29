@@ -120,23 +120,21 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     });
     array.push(game);
 
-    let practice = practiceInfos?.map(
-      (practice): IEvent => {
-        return {
-          id: practice.id,
-          name: practice.name,
-          location: practice.location,
-          type: CARD_TYPE_ENUM.PRACTICE,
-          startTime: practice.startDate,
-          endTime: practice.endDate,
-          rsvp:
-            practice.myRsvp.length < 3
-              ? practice.myRsvp.concat(practice.rsvp.slice(0, 3 - practice.myRsvp.length))
-              : practice.myRsvp.slice(0, 3),
-          update,
-        };
-      }
-    );
+    let practice = practiceInfos?.map((practice): IEvent => {
+      return {
+        id: practice.id,
+        name: practice.name,
+        location: practice.location,
+        type: CARD_TYPE_ENUM.PRACTICE,
+        startTime: practice.startDate,
+        endTime: practice.endDate,
+        rsvp:
+          practice.myRsvp.length < 3 && practice.rsvp
+            ? practice.myRsvp.concat(practice.rsvp.slice(0, 3 - practice.myRsvp.length))
+            : practice.myRsvp.slice(0, 3),
+        update,
+      };
+    });
 
     if (game) {
       return practice
