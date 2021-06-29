@@ -63,5 +63,6 @@ const StatusChip: React.FunctionComponent<IProps> = (props) => {
       </div>
     );
   }
+  return null;
 };
 export default StatusChip;

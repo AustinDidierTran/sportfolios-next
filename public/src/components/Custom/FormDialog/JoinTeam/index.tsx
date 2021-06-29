@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { getMyTeamPlayers } from '../../../../actions/service/entity/get';
+import { getMyTeamPlayers, getMyTeamPlayersRequest } from '../../../../actions/service/entity/get';
 import { sendRequestToJoinTeam } from '../../../../actions/service/entity/post';
 import { getOwnedPerson } from '../../../../actions/service/user';
 import { ACTION_ENUM, Store } from '../../../../Store';
@@ -63,8 +63,9 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
 
   const getPeople = async (): Promise<void> => {
     const data = await getOwnedPerson();
-    const players = await getMyTeamPlayers(teamId);
-    const ids = players.map((p) => p.personId);
+    const playersIds = (await getMyTeamPlayers(teamId)).map((p) => p.personId);
+    const pendingPlayersIds = (await getMyTeamPlayersRequest(teamId)).map((p) => p.id);
+    const ids = playersIds.concat(pendingPlayersIds);
 
     const res = data.map((d: any) => {
       if (ids.includes(d.id)) {

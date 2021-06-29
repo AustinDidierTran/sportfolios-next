@@ -34,7 +34,7 @@ const PendingPlayer: React.FunctionComponent<IProps> = (props) => {
         <ListItemIcon>
           <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
         </ListItemIcon>
-        <ListItemText primary={`${player.name}`} />
+        <ListItemText primary={player.name} />
         <StatusChip
           status={player.status}
           onClick={() => {
@@ -49,7 +49,7 @@ const PendingPlayer: React.FunctionComponent<IProps> = (props) => {
       <ListItemIcon>
         <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
       </ListItemIcon>
-      <ListItemText primary={`${player.name}`} />
+      <ListItemText primary={player.name} />
       <StatusChip status={player.status} clickable={false} />
     </ListItem>
   );
