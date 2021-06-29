@@ -59,7 +59,7 @@ const getMembershipName = (type) => {
 const getProductDetail = (metadata) => {
   switch (metadata.type) {
     case GLOBAL_ENUM.MEMBERSHIP:
-      return getMembershipName(metadata.membership_type);
+      return getMembershipName(metadata.membershipType);
     case GLOBAL_ENUM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:

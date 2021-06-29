@@ -1136,6 +1136,7 @@ export default {
     home: 'Accueil',
     hour_ago_plural: 'Il y a {{count}} heures',
     i_want_to_be_anonyme: 'Je veux être anonyme',
+    image_required: 'Image obligatoire',
     import_members_confirmation:
       'Un courriel va être envoyé à {{membersAmount}} membres. Ils vont recevoir un code coupon à usage unique pour devenir {{membershipName}} de votre organisation. Voulez vous compléter le transfert?',
     import_members: 'Importer des membres',
@@ -1368,6 +1369,7 @@ export default {
     results: 'Résultats',
     return_home: "Retourner à la page d'accueil",
     return_event: "Retourner à l'évènement",
+    return_organization: "Retourner à l'organisation",
     return_cart: 'Retourner au panier',
     review: 'Passer en revue et payer',
     role: 'Rôle',

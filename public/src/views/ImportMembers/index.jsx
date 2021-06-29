@@ -96,10 +96,10 @@ export default function ImportMembers() {
       return;
     }
     const data = res.data.reduce((prev, curr) => {
-      if (!prev.some((p) => p.value === curr.membership_type)) {
+      if (!prev.some((p) => p.value === curr.membershipType)) {
         const res = {
-          display: t(getMembershipName(curr.membership_type)),
-          value: curr.membership_type,
+          display: t(getMembershipName(curr.membershipType)),
+          value: curr.membershipType,
         };
         prev.push(res);
       }
@@ -261,7 +261,7 @@ export default function ImportMembers() {
           <CustomIconButton
             icon="ArrowBack"
             onClick={() => goBack()}
-            tooltip={t('return_event')}
+            tooltip={t('return_organization')}
             className={styles.iconButton}
             style={{ color: 'primary' }}
           />

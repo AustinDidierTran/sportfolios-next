@@ -126,8 +126,8 @@ export default function BecomeMember(props) {
   };
 
   const formatMembership = (membership) => {
-    const { length, fixed_date, membership_type, price } = membership;
-    const name = getMembershipName(membership_type);
+    const { length, fixedDate, membershipType, price } = membership;
+    const name = getMembershipName(membershipType);
     if (length) {
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_YEAR) {
         return `${t(name)} | ${formatPrice(price)} (${t('one_year')})`;
@@ -139,12 +139,12 @@ export default function BecomeMember(props) {
         return `${t(name)} | ${formatPrice(price)} (${t('one_month')})`;
       }
     }
-    if (fixed_date) {
+    if (fixedDate) {
       let finalDate;
-      if (moment(new Date(fixed_date)).set('year', moment().get('year')) < moment()) {
-        finalDate = moment(new Date(fixed_date)).set('year', moment().get('year')).add(1, 'year');
+      if (moment(new Date(fixedDate)).set('year', moment().get('year')) < moment()) {
+        finalDate = moment(new Date(fixedDate)).set('year', moment().get('year')).add(1, 'year');
       } else {
-        finalDate = moment(new Date(fixed_date)).set('year', moment().get('year'));
+        finalDate = moment(new Date(fixedDate)).set('year', moment().get('year'));
       }
       return `${t(name)} | ${formatPrice(price)} (${formatDate(finalDate)})`;
     }
@@ -208,10 +208,10 @@ export default function BecomeMember(props) {
         method: 'POST',
         body: JSON.stringify({
           membershipId: type,
-          membershipType: membership.membership_type,
-          organizationId: membership.entity_id,
+          membershipType: membership.membershipType,
+          organizationId: membership.entityId,
           personId: person,
-          expirationDate: router.query.expirationDate || getExpirationDate(membership.length, membership.fixed_date),
+          expirationDate: router.query.expirationDate || getExpirationDate(membership.length, membership.fixedDate),
           birthDate,
           gender,
           phoneNumber,
@@ -231,7 +231,7 @@ export default function BecomeMember(props) {
         });
       } else {
         setPersonalInfos(false);
-        setOrganizationId(membership.entity_id);
+        setOrganizationId(membership.entityId);
         if (hasChanged()) {
           setUpdateInfos(true);
         } else {

@@ -34,7 +34,7 @@ export default function SuggestedGames(props) {
     }
   };
 
-  if (suggestions.length === 0) {
+  if (suggestions.length === 0 || !suggestions[0]) {
     return (
       <div className={styles.warning}>
         <Typography color="textSecondary" className={styles.text}>
