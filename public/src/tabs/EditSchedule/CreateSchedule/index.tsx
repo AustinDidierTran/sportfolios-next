@@ -15,7 +15,7 @@ import { getGames as getGamesApi } from '../../../actions/service/entity/get';
 import { Games } from '../../../../../typescript/types';
 
 interface IProps {
-  update: any;
+  update: () => void;
 }
 
 const ScheduleTab: React.FunctionComponent<IProps> = (props) => {
@@ -41,7 +41,7 @@ const ScheduleTab: React.FunctionComponent<IProps> = (props) => {
   }, [game, eventId]);
 
   const getGames = async (): Promise<void> => {
-    getGamesApi(eventId).then((res)=> setGames(res))
+    getGamesApi(eventId).then((res) => setGames(res));
   };
 
   const openGame = (): void => {

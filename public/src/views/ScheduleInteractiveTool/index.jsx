@@ -8,7 +8,7 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Icon from '../../components/Custom/Icon';
 import Button from '../../components/Custom/Button';
 import { Store, ACTION_ENUM } from '../../Store';
-import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM, PHASE_STATUS_ENUM } from '../../../common/enums';
+import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM, PHASE_STATUS_ENUM, PHASE_TYPE_ENUM } from '../../../common/enums';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
@@ -431,16 +431,15 @@ export default function ScheduleInteractiveTool() {
       setFields(fieldsData);
       setInitialFields(fieldsData);
     }
-
     const games = data.games.map((g) => ({
-      field_id: g.field_id,
-      timeslot_id: g.timeslot_id,
-      phase_id: g.phase_id,
+      fieldId: g.fieldId,
+      timeslotId: g.timeslotId,
+      phaseId: g.phaseId,
       phaseName: g.phaseName,
       rankings: g.positions,
       id: g.id,
-      x: data.fields.findIndex((f) => f.id === g.field_id),
-      y: data.timeSlots.findIndex((ts) => ts.id === g.timeslot_id),
+      x: data.fields.findIndex((f) => f.id === g.fieldId),
+      y: data.timeSlots.findIndex((ts) => ts.id === g.timeslotId),
     }));
 
     const gameArr = games.reduce(
@@ -469,7 +468,7 @@ export default function ScheduleInteractiveTool() {
         display: p.name,
         name: p.name,
         ranking: p.ranking,
-        order: p.phase_order,
+        order: p.phaseOrder,
         status: p.status,
       }))
     );
@@ -477,11 +476,9 @@ export default function ScheduleInteractiveTool() {
     const allRankings = data.phases.reduce((prev, curr) => {
       const withName = curr.ranking.map((r) => ({
         ...r,
-        value: r.ranking_id,
-        display: r.roster_id
-          ? `${r.initial_position}. ${curr.name} (${r.name})`
-          : `${r.initial_position}. ${curr.name}`,
-        name: r.roster_id ? `${r.initial_position}. ${curr.name} (${r.name})` : `${r.initial_position}. ${curr.name}`,
+        value: r.rankingId,
+        display: r.rosterId ? `${r.initialPosition}. ${curr.name} (${r.name})` : `${r.initialPosition}. ${curr.name}`,
+        name: r.rosterId ? `${r.initialPosition}. ${curr.name} (${r.name})` : `${r.initialPosition}. ${curr.name}`,
         teamName: r.name ? r.name : '',
       }));
       return prev.concat(withName);
@@ -492,7 +489,7 @@ export default function ScheduleInteractiveTool() {
     setSuggestedGames(
       suggestGames(
         allRankings,
-        data.phases.sort((a, b) => a.phase_order - b.phase_order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+        data.phases.sort((a, b) => a.phaseOrder - b.phaseOrder).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
         games
       )
     );
@@ -603,8 +600,8 @@ export default function ScheduleInteractiveTool() {
       if (index !== -1) {
         prev[index] = {
           id: game.id,
-          timeslot_id: timeslots[game.y].id,
-          field_id: fields[game.x].id,
+          timeslotId: timeslots[game.y].id,
+          fieldId: fields[game.x].id,
           x: game.x,
           y: game.y,
         };
@@ -615,8 +612,8 @@ export default function ScheduleInteractiveTool() {
         ...prev,
         {
           id: game.id,
-          timeslot_id: timeslots[game.y].id,
-          field_id: fields[game.x].id,
+          timeslotId: timeslots[game.y].id,
+          fieldId: fields[game.x].id,
           x: game.x,
           y: game.y,
         },
@@ -809,8 +806,8 @@ export default function ScheduleInteractiveTool() {
 
   const handleAddSuggestedGame = (x, y) => {
     const suggestion = suggestedGames[index];
-    const field_id = fields[x].id;
-    const timeslot_id = timeslots[y].id;
+    const fieldId = fields[x].id;
+    const timeslotId = timeslots[y].id;
 
     if (!suggestion) {
       dispatch({
@@ -822,16 +819,16 @@ export default function ScheduleInteractiveTool() {
       return;
     }
     createCard({
-      field_id,
-      timeslot_id,
+      fieldId,
+      timeslotId,
       rankings: suggestion.rankings,
-      phase_id: suggestion.phaseId,
+      phaseId: suggestion.phaseId,
     });
   };
 
   const createCard = (game) => {
-    const gridX = fields.findIndex((f) => f.id === game.field_id);
-    const gridY = timeslots.findIndex((ts) => ts.id === game.timeslot_id);
+    const gridX = fields.findIndex((f) => f.id === game.fieldId);
+    const gridY = timeslots.findIndex((ts) => ts.id === game.timeslotId);
 
     const newGame = {
       ...game,
@@ -844,7 +841,9 @@ export default function ScheduleInteractiveTool() {
     setSuggestedGames(
       suggestGames(
         rankings,
-        phases.sort((a, b) => a.order - b.order).filter((p) => p.status !== PHASE_STATUS_ENUM.DONE),
+        phases
+          .sort((a, b) => a.order - b.order)
+          .filter((p) => p.status !== PHASE_STATUS_ENUM.DONE && p.type === PHASE_TYPE_ENUM.POOL),
         games.concat([newGame])
       )
     );
@@ -960,7 +959,7 @@ export default function ScheduleInteractiveTool() {
         timeSlots={timeslots}
         x={g.x}
         y={g.y}
-        phase={phases.find((p) => g.phase_id === p.value)}
+        phase={phases.find((p) => g.phaseId === p.value)}
       />
     </div>
   ));

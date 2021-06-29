@@ -66,6 +66,11 @@ const COMPONENT_TYPE_ENUM = {
   TEXT_FIELD_BOX: 'text field box',
 };
 
+const PHASE_TYPE_ENUM = {
+  CUSTOM: 'custom',
+  POOL: 'pool',
+};
+
 const ROSTER_ROLE_ENUM = {
   CAPTAIN: 'captain',
   ASSISTANT_CAPTAIN: 'assistant-captain',
@@ -620,6 +625,7 @@ module.exports = {
   PARTENERS_LOGO_ENUM,
   PERSON_TRANSFER_STATUS_ENUM,
   PHASE_STATUS_ENUM,
+  PHASE_TYPE_ENUM,
   PHOTO_ENUM,
   PLATEFORM_FEES_FIX,
   PLATEFORM_FEES_PERCENTAGE,

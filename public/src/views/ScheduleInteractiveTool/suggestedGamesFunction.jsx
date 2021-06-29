@@ -2,14 +2,14 @@ export const suggestGames = (allRankings, phases, games) => {
   let suggestedGames = [];
   const gamesWithRanking = games.map((g) => ({
     gameId: g.id,
-    phaseId: g.phase_id,
-    rankingId1: g.rankings[0].ranking_id,
-    rankingId2: g.rankings[1].ranking_id,
+    phaseId: g.phaseId,
+    rankingId1: g.rankings[0].rankingId,
+    rankingId2: g.rankings[1].rankingId,
   }));
 
   phases.map((p) => {
     const phaseGames = getSuggestedGamesForPhase(
-      allRankings.filter((r) => r.current_phase === p.id),
+      allRankings.filter((r) => r.currentPhase === p.id),
       p,
       gamesWithRanking.filter((g) => g.phaseId === p.id)
     );
@@ -27,8 +27,8 @@ const getSuggestedGamesForPhase = (ranking, phase, gamesWithRanking) => {
         if (
           gamesWithRanking.some(
             (g) =>
-              (g.rankingId1 === active.ranking_id && g.rankingId2 === r.ranking_id) ||
-              (g.rankingId2 === active.ranking_id && g.rankingId1 === r.ranking_id)
+              (g.rankingId1 === active.rankingId && g.rankingId2 === r.rankingId) ||
+              (g.rankingId2 === active.rankingId && g.rankingId1 === r.rankingId)
           )
         ) {
           return;
@@ -37,7 +37,7 @@ const getSuggestedGamesForPhase = (ranking, phase, gamesWithRanking) => {
             phaseId: phase.id,
             status: phase.status,
             phaseName: phase.name,
-            phaseOrder: phase.order ? phase.order : phase.phase_order,
+            phaseOrder: phase.order ? phase.order : phase.phaseOrder,
             rankings: [active, r],
           });
           return;

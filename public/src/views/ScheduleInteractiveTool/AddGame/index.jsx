@@ -39,8 +39,8 @@ export default function AddGame(props) {
 
   const sendToInteractiveTool = (values) => {
     const { phase, position1, position2 } = values;
-    const [ranking1] = rankings.filter((r) => r.ranking_id === position1);
-    const [ranking2] = rankings.filter((r) => r.ranking_id === position2);
+    const [ranking1] = rankings.filter((r) => r.rankingId === position1);
+    const [ranking2] = rankings.filter((r) => r.rankingId === position2);
     const [selectedPhase] = phases.filter((p) => p.value === phase);
     if (position1 === position2) {
       dispatch({
@@ -52,14 +52,14 @@ export default function AddGame(props) {
       return;
     }
     if (
-      ranking1.current_phase !== ranking2.current_phase ||
-      phase !== ranking1.current_phase ||
-      phase !== ranking2.current_phase
+      ranking1.currentPhase !== ranking2.currentPhase ||
+      phase !== ranking1.currentPhase ||
+      phase !== ranking2.currentPhase
     ) {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      setFirstPositionOptions(rankings.filter((r) => r.current_phase === phase));
-      setSecondPositionOptions(rankings.filter((r) => r.current_phase === phase));
+      setFirstPositionOptions(rankings.filter((r) => r.currentPhase === phase));
+      setSecondPositionOptions(rankings.filter((r) => r.currentPhase === phase));
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_have_different_phase'),
@@ -74,10 +74,10 @@ export default function AddGame(props) {
       ranking2.name = ranking2.teamName;
     }
     const game = {
-      field_id: field.id,
-      timeslot_id: timeslot.id,
+      fieldId: field.id,
+      timeslotId: timeslot.id,
       rankings: [ranking1, ranking2],
-      phase_id: phase,
+      phaseId: phase,
     };
 
     createCard(game);
@@ -113,7 +113,7 @@ export default function AddGame(props) {
     if (formik.values.phase !== '' && formik.values.position1 === '' && formik.values.position2 === '') {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      const positions = rankings.filter((p) => p.current_phase === formik.values.phase);
+      const positions = rankings.filter((p) => p.currentPhase === formik.values.phase);
       setFirstPositionOptions(positions);
       setSecondPositionOptions(positions);
     }
@@ -122,30 +122,26 @@ export default function AddGame(props) {
   useEffect(() => {
     //TODO: refine the filter. Some flows can make it bug i.e. no position options available
     if (formik.values.position1 !== '' && formik.values.position2 === '') {
-      const [{ current_phase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
-      const samePhaseRankings = rankings.filter(
-        (r) => r.value !== formik.values.position1 && r.current_phase === phase
-      );
+      const [{ currentPhase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
+      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position1 && r.currentPhase === phase);
       setSecondPositionOptions(samePhaseRankings);
     }
     if (formik.values.position2 !== '' && formik.values.position1 === '') {
-      const [{ current_phase: phase }] = rankings.filter((r) => r.value === formik.values.position2);
-      const samePhaseRankings = rankings.filter(
-        (r) => r.value !== formik.values.position2 && r.current_phase === phase
-      );
+      const [{ currentPhase: phase }] = rankings.filter((r) => r.value === formik.values.position2);
+      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position2 && r.currentPhase === phase);
       setFirstPositionOptions(samePhaseRankings);
     }
     if (formik.values.position2 !== '' && formik.values.position1 !== '') {
       if (formik.values.phase === '') {
-        const [{ current_phase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
+        const [{ currentPhase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
         formik.setFieldValue('phase', phase);
         return;
       }
       const firstPosition = rankings.filter(
-        (p) => p.value !== formik.values.position2 && p.current_phase === formik.values.phase
+        (p) => p.value !== formik.values.position2 && p.currentPhase === formik.values.phase
       );
       const secondPosition = rankings.filter(
-        (p) => p.value !== formik.values.position1 && p.current_phase === formik.values.phase
+        (p) => p.value !== formik.values.position1 && p.currentPhase === formik.values.phase
       );
       setFirstPositionOptions(firstPosition);
       setSecondPositionOptions(secondPosition);
