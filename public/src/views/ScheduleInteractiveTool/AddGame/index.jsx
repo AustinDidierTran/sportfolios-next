@@ -9,13 +9,13 @@ import moment from 'moment';
 import * as yup from 'yup';
 import { Store, ACTION_ENUM } from '../../../Store';
 
-export const haveDifferentPhase = (ranking1, ranking2, phase) => {
+export function haveDifferentPhase(ranking1, ranking2, phase) {
   return (
     ranking1.currentPhase !== ranking2.currentPhase ||
     phase !== ranking1.currentPhase ||
     phase !== ranking2.currentPhase
   );
-};
+}
 
 export default function AddGame(props) {
   const { t } = useTranslation();

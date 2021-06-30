@@ -7,7 +7,8 @@ module.exports = {
   roots: ['public/src'],
   testMatch: ['<rootDir>/public/src/**/?(*.)test.{ts,tsx}'],
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!variables/.*)'],
   verbose: true,
 };
