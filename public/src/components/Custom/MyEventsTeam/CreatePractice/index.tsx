@@ -52,7 +52,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
     setLocationHidden(true);
   };
 
-  const getLocations = async () => {
+  const getLocations = async (): Promise<void> => {
     const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
     const formattedData = data.filter((n: Location) => n.id != null);
     formattedData.push(

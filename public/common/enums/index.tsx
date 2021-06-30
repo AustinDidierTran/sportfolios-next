@@ -68,6 +68,7 @@ export enum COMPONENT_TYPE_ENUM {
   CHECKBOX = 'checkbox',
   DIVIDER = 'divider',
   EMPTY = 'empty',
+  EXERCISE = 'exercise',
   FILE_UPLOAD = 'file upload',
   IMAGE_UPLOAD = 'image upload',
   LINK = 'link',

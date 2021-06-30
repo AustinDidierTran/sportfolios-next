@@ -29,6 +29,20 @@ export function addEntity(
   }).then((res) => res.data.id);
 }
 
+export function addExercise(
+  exerciseId: string,
+  name: string,
+  description: string,
+  practiceId: string,
+  teamId: string,
+  type: string = 'default',
+): Promise<number> {
+  return api(`${BASE_URL}/exercise`, {
+    method: 'POST',
+    body: JSON.stringify({ exerciseId, name, description, type, sessionId: practiceId, teamId }),
+  }).then((res) => res.status);
+}
+
 export function addPhase(phase: string, spots: number, eventId: string, type: string): Promise<number> {
   return api('/api/entity/phase', { method: 'POST', body: JSON.stringify({ phase, spots, eventId, type }) }).then(
     (res) => res.status

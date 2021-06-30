@@ -19,14 +19,16 @@ import LoadingSpinner from '../../LoadingSpinner';
 import CustomButton from '../../Button';
 import * as yup from 'yup';
 import CustomLocations from '../../Locations';
-import { Practice, Location } from '../../../../../../typescript/types';
+import { Practice, Location, Exercise as IExercise } from '../../../../../../typescript/types';
 import { updatePractice } from '../../../../actions/service/entity/put';
 import { getPracticeInfo } from '../../../../actions/service/entity/get';
 import { deletePractice } from '../../../../actions/service/entity/delete';
 import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
+import { getSessionExercises } from '../../../../actions/service/entity/get';
 
 const Roster = dynamic(() => import('../../Roster'));
+const Exercise = dynamic(() => import('../../Exercise'));
 
 interface IProps {
   practiceId: string;
@@ -72,8 +74,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const [locationOptions, setLocationOptions] = useState<ILocationOption[]>([]);
   const [locationHidden, setLocationHidden] = useState(true);
   const [showCreateLocation, setShowCreateLocation] = useState(false);
+  const [exercises, setExercises] = useState<IExercise[]>([]);
 
-  const getLocations = async () => {
+  const getLocations = async (): Promise<void> => {
     const { data }: ILocationResponse = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
 
     const formattedData = data.filter((n: Location) => n.id != null);
@@ -141,10 +144,15 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
+  const getExercises = (): void => {
+    getSessionExercises(practiceId).then(setExercises);
+  };
+
   useEffect((): void => {
     if (practiceId) {
       getPractice();
       getLocations();
+      getExercises();
     }
   }, [practiceId]);
 
@@ -400,6 +408,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
           )}
           <Divider variant="middle" />
           <Roster roster={practice?.roster} practiceId={practice?.id} />
+          <Divider variant="middle" />
+
+          <Exercise getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}

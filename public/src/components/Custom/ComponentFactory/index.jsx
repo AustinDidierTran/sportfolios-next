@@ -12,6 +12,7 @@ import RadioGroup from '../RadioGroup';
 import CustomIconButton from '../IconButton';
 import PhoneNumberFormat from '../PhoneNumberFormat';
 import CustomLocations from '../Locations';
+import CustomExercises from '../Exercise/ExerciseComponent';
 
 import { COMPONENT_TYPE_ENUM } from '../../../../common/enums';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -295,12 +296,25 @@ export default function ComponentFactory(props) {
         label={component.label}
         namespace={component.namespace}
         onChange={component.onChange}
-        showView={component.showVIew}
+        showView={component.showView}
         options={component.options}
         addressChanged={component.addressChanged}
         onAddressChanged={component.onAddressChanged}
         language={component.language}
         errorFormat={component.errorFormat}
+        showCreate={component.showCreate}
+      />
+    );
+  }
+  if (component.componentType === COMPONENT_TYPE_ENUM.EXERCISE) {
+    return (
+      <CustomExercises
+        formik={component.formik}
+        label={component.label}
+        namespace={component.namespace}
+        onChange={component.onChange}
+        showView={component.showView}
+        options={component.options}
         showCreate={component.showCreate}
       />
     );

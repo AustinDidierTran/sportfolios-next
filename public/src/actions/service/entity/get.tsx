@@ -18,6 +18,7 @@ import {
   Phase,
   Games,
   Field,
+  Exercise,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -138,4 +139,20 @@ export function getEntityOwned(type: number): Promise<Player[]> {
 
 export function getMyTeamPlayers(teamId: string): Promise<Player[]> {
   return api(formatRoute(`${BASE_URL}/myTeamPlayers`, null, { teamId })).then((res) => res.data);
+}
+
+export function getTeamExercises(teamId: string): Promise<Exercise[]> {
+  return api(
+    formatRoute(`${BASE_URL}/teamExercises`, null, {
+      teamId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getSessionExercises(sessionId: string): Promise<Exercise[]> {
+  return api(
+    formatRoute(`${BASE_URL}/sessionExercises`, null, {
+      sessionId,
+    })
+  ).then((res) => res.data);
 }
