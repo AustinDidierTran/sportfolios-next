@@ -4,13 +4,13 @@ import moment from 'moment';
 import List from '../../../components/Custom/List';
 import Paper from '../../../components/Custom/Paper';
 import { formatDate, getMembershipName } from '../../../utils/stringFormats';
-import { GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM, INVOICE_STATUS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { Store } from '../../../Store';
-import {getEntity, getMembers as getMembersApi} from '../../../actions/service/entity/get';
-import { Entity, InvoiceStatus, Member } from '../../../../../typescript/types';
+import { getEntity, getMembers as getMembersApi } from '../../../actions/service/entity/get';
+import { Entity, Member } from '../../../../../typescript/types';
 
 interface IProps {
   refreshMemberships: boolean;
@@ -31,7 +31,7 @@ interface IPerson {
 interface Items {
   primary: string;
   secondary: string;
-  status: InvoiceStatus;
+  status: INVOICE_STATUS_ENUM;
   type: string;
   key: number;
 }
@@ -45,18 +45,18 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
 
   const [members, setMembers] = useState<IMembers[]>([]);
 
-  useEffect(():void => {
+  useEffect((): void => {
     if (id) {
       getMembers();
     }
   }, [refreshMemberships, id]);
 
-  const getMembers = async ():Promise<void> => {
+  const getMembers = async (): Promise<void> => {
     if (!userInfo.persons) {
       return;
     }
-    const members:IMembers[] = await Promise.all(
-      userInfo.persons.map(async (p:Member) => {
+    const members: IMembers[] = await Promise.all(
+      userInfo.persons.map(async (p: Member) => {
         const data = await getMembersApi(id, p.personId);
         if (data.length) {
           const person = await getEntity(p.personId);
@@ -87,12 +87,12 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
     setMembers(res);
   };
 
-  const getPrimary = (member:Member): string => {
+  const getPrimary = (member: Member): string => {
     const name = t(getMembershipName(member.memberType));
     return name;
   };
 
-  const getSecondary = (member:Member): string => {
+  const getSecondary = (member: Member): string => {
     const expirationDate = formatDate(moment.utc(member.expirationDate));
     return `${t('expire_on')} ${expirationDate}`;
   };
@@ -114,5 +114,5 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
       )}
     </Paper>
   );
-}
+};
 export default MyMemberships;
