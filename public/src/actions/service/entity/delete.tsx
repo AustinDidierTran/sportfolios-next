@@ -20,6 +20,6 @@ export function deleteRoster(id: string): Promise<number> {
   return api(formatRoute('/api/entity/roster', null, { id }), { method: 'DELETE' }).then((res) => res.status);
 }
 
-export function deleteEntity(id: string, type: string): void {
-  api(formatRoute('/api/entity', null, { id, type }), { method: 'DELETE' });
+export function deleteEntity(id: string, type: string): Promise<number> {
+  return api(formatRoute('/api/entity', null, { id, type }), { method: 'DELETE' }).then((res) => res.status);
 }

@@ -47,7 +47,7 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
   return api(formatRoute(`${BASE_URL}/generalInfos`, null, { entityId })).then((res) => res.data);
 }
 
-export async function getRole(entityId: string): Promise<{ status: string; data: ENTITIES_ROLE_ENUM }> {
+export function getRole(entityId: string): Promise<{ status: string; data: ENTITIES_ROLE_ENUM }> {
   return api(formatRoute(`${BASE_URL}/role`, null, { entityId })).then((res) => res);
 }
 
