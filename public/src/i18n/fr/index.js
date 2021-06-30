@@ -1032,7 +1032,7 @@ export default {
     credit_card: 'Carte de crédit',
     credit_cards: 'Cartes de crédits',
     currency: 'Devise',
-    custom: 'Personalisé',
+    custom: 'Personnalisé',
     custom_donation_amount: 'Montant du don personnalisé',
     date_in_future: 'La date est dans le futur',
     date: 'Date',
