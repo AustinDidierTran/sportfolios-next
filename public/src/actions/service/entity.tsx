@@ -1,7 +1,7 @@
 import { formatRoute } from '../../utils/stringFormats';
 import api from '../api';
-import { Entity, Person, Player, PendingPlayer, Practice, Role, Roster } from '../../../../typescript/types';
-
+import { Entity, Person, Player, PendingPlayer, Practice, Roster } from '../../../../typescript/types';
+import { ENTITIES_ROLE_ENUM } from '../../../common/enums';
 const BASE_URL = '/api/entity';
 
 export async function getEntity(id: string): Promise<Entity> {
@@ -22,7 +22,7 @@ export async function getGeneralInfos(entityId: string): Promise<Entity> {
   return data;
 }
 
-export async function getRole(entityId: string): Promise<{ status: string; data: Role }> {
+export async function getRole(entityId: string): Promise<{ status: string; data: ENTITIES_ROLE_ENUM }> {
   const res = await api(formatRoute(`${BASE_URL}/role`, null, { entityId }));
   return res;
 }

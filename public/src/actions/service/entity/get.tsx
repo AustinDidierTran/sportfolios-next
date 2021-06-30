@@ -6,7 +6,6 @@ import {
   PendingPlayer,
   OwnedEvents,
   Practice,
-  Role,
   Roster,
   TimeSlot,
   EntityRole,
@@ -20,6 +19,7 @@ import {
   Games,
   Field,
 } from '../../../../../typescript/types';
+import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
 
@@ -47,7 +47,7 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
   return api(formatRoute(`${BASE_URL}/generalInfos`, null, { entityId })).then((res) => res.data);
 }
 
-export function getRole(entityId: string): Promise<{ status: string; data: Role }> {
+export function getRole(entityId: string): Promise<{ status: string; data: ENTITIES_ROLE_ENUM }> {
   return api(formatRoute(`${BASE_URL}/role`, null, { entityId })).then((res) => res);
 }
 

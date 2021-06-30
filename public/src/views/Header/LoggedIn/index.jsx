@@ -33,15 +33,20 @@ export default function LoggedIn(props) {
 
   socket.emit(SOCKET_EVENT.CONNECTED_USER, userInfo.userId);
 
-  const photoUrl = useMemo(() => userInfo?.primaryPerson?.photoUrl, [userInfo.primaryPerson.photoUrl]);
+  const photoUrl = useMemo(() => {
+    if (userInfo.primaryPerson) {
+      return userInfo.primaryPerson.photoUrl;
+    }
+  }, [userInfo.primaryPerson.photoUrl]);
 
-  const nameObj = useMemo(
-    () => ({
-      name: userInfo?.primaryPerson?.name,
-      surname: userInfo?.primaryPerson?.surname,
-    }),
-    [userInfo.primaryPerson]
-  );
+  const nameObj = useMemo(() => {
+    if (userInfo.primaryPerson) {
+      return {
+        name: userInfo.primaryPerson?.name,
+        surname: userInfo.primaryPerson?.surname,
+      };
+    }
+  }, [userInfo.primaryPerson]);
 
   const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 

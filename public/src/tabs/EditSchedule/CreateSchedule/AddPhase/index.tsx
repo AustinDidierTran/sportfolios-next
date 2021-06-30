@@ -6,8 +6,9 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import * as yup from 'yup';
+import { addPhase } from '../../../../actions/service/entity/post';
 
 interface IProps {
   isOpen: boolean;
@@ -29,7 +30,7 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
     setOpen(isOpen);
   }, [isOpen]);
 
-  const handleClose = (): void  => {
+  const handleClose = (): void => {
     formik.resetForm();
     onClose();
   };
@@ -37,28 +38,22 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
   const validationSchema = yup.object().shape({
     phase: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     spots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    type: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
   const formik = useFormik({
     initialValues: {
       phase: '',
       spots: 0,
+      type: '',
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { phase, spots } = values;
-      const res = await api('/api/entity/phase', {
-        method: 'POST',
-        body: JSON.stringify({
-          phase,
-          spots,
-          eventId,
-        }),
-      });
-
-      if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
+      const { phase, spots, type } = values;
+      const status = await addPhase(phase, spots, eventId, type);
+      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -91,7 +86,6 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
       color: 'primary',
     },
   ];
-
   const fields = [
     {
       namespace: 'phase',
@@ -105,6 +99,21 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
       label: t('maximum_spots'),
       type: 'number',
     },
+    {
+      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      namespace: 'type',
+      label: t('type'),
+      options: [
+        {
+          display: t('custom'),
+          value: PHASE_TYPE_ENUM.CUSTOM,
+        },
+        {
+          display: t('pool'),
+          value: PHASE_TYPE_ENUM.POOL,
+        },
+      ],
+    },
   ];
 
   return (
@@ -117,5 +126,5 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
       onClose={onClose}
     />
   );
-}
+};
 export default AddPhase;

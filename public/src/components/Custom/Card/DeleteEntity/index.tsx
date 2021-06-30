@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 
 import CustomButton from '../../Button';
 import CustomPaper from '../../Paper';
@@ -9,6 +9,9 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 import styles from './DeleteEntity.module.css';
 import { useTranslation } from 'react-i18next';
 import { deleteEntity } from '../../../../actions/service/entity/delete';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { ERROR_ENUM } from '../../../../../common/errors';
+import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   id: string;
@@ -21,6 +24,8 @@ const DeleteEntity: React.FunctionComponent<IProps> = (props) => {
   const { id, name, type } = props;
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  const { dispatch } = useContext(Store);
+
   const validator = useFormInput('');
 
   const isValid = useMemo<boolean>(() => validator.value === name, [validator.value, name]);
@@ -31,9 +36,18 @@ const DeleteEntity: React.FunctionComponent<IProps> = (props) => {
       validator.setError(`To delete, enter ${name}`);
       setIsSubmitting(false);
     } else {
-      await deleteEntity(id, type);
+      const status = await deleteEntity(id, type);
+      if (status === STATUS_ENUM.ERROR) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        goTo(ROUTES.home);
+      }
       setIsSubmitting(false);
-      goTo(ROUTES.home);
     }
   };
 

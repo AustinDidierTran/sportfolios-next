@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { STATUS_ENUM, SEVERITY_ENUM, ERROR_ENUM } from '../../../../../../common/enums';
+import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { ERROR_ENUM } from '../../../../../../common/errors';
 import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 

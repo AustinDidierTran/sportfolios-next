@@ -11,10 +11,6 @@ import { PHASE_STATUS_ENUM } from '../../../../common/enums';
 export default function GameCard(props) {
   const { ranking1, ranking2, timeSlots, fields, x, y, phase } = props;
 
-  const alphabet = '0ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  let letter;
-  letter = alphabet[phase?.order];
-
   const tooltip = useMemo(
     () =>
       `${ranking1.name} vs ${ranking2.name}, ${fields[x]?.field}, ${formatDate(
@@ -38,23 +34,13 @@ export default function GameCard(props) {
         <div className={styles.gameDiv}>
           <div className={styles.team1}>
             <Avatar
-              // initials={getInitialsFromName(ranking1.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
-              initials={
-                phase?.status !== PHASE_STATUS_ENUM.NOT_STARTED
-                  ? getInitialsFromName(ranking1.name, true)
-                  : `${ranking1.name[0]}.${letter}`
-              } // or team pic?
+              initials={getInitialsFromName(ranking1.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
             ></Avatar>
           </div>
           <Typography className={styles.vs}>vs</Typography>
           <div className={styles.team2}>
             <Avatar
-              // initials={getInitialsFromName(ranking2.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
-              initials={
-                phase?.status !== PHASE_STATUS_ENUM.NOT_STARTED
-                  ? getInitialsFromName(ranking2.name, true)
-                  : `${ranking2.name[0]}.${letter}`
-              } // or team pic?
+              initials={getInitialsFromName(ranking2.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
             ></Avatar>
           </div>
         </div>

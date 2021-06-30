@@ -2,7 +2,6 @@ import React from 'react';
 
 import { getInitialsFromName } from '../../../../utils/stringFormats';
 import styles from './Player.module.css';
-import { useTranslation } from 'react-i18next';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
