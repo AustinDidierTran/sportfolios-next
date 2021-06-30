@@ -842,8 +842,8 @@ export default function ScheduleInteractiveTool() {
       suggestGames(
         rankings,
         phases
-          .sort((a, b) => a.order - b.order)
-          .filter((p) => p.status !== PHASE_STATUS_ENUM.DONE && p.type === PHASE_TYPE_ENUM.POOL),
+          .filter((p) => p.status !== PHASE_STATUS_ENUM.DONE && p.type === PHASE_TYPE_ENUM.POOL)
+          .sort((a, b) => a.order - b.order),
         games.concat([newGame])
       )
     );

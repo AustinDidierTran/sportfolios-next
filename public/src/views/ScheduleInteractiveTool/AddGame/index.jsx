@@ -9,6 +9,14 @@ import moment from 'moment';
 import * as yup from 'yup';
 import { Store, ACTION_ENUM } from '../../../Store';
 
+export const haveDifferentPhase = (ranking1, ranking2, phase) => {
+  return (
+    ranking1.currentPhase !== ranking2.currentPhase ||
+    phase !== ranking1.currentPhase ||
+    phase !== ranking2.currentPhase
+  );
+};
+
 export default function AddGame(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -51,11 +59,7 @@ export default function AddGame(props) {
       });
       return;
     }
-    if (
-      ranking1.currentPhase !== ranking2.currentPhase ||
-      phase !== ranking1.currentPhase ||
-      phase !== ranking2.currentPhase
-    ) {
+    if (haveDifferentPhase(ranking1, ranking2, phase)) {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
       setFirstPositionOptions(rankings.filter((r) => r.currentPhase === phase));

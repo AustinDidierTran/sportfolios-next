@@ -41,7 +41,7 @@ const ScheduleTab: React.FunctionComponent<IProps> = (props) => {
   }, [game, eventId]);
 
   const getGames = async (): Promise<void> => {
-    getGamesApi(eventId).then((res) => setGames(res));
+    getGamesApi(eventId).then(setGames);
   };
 
   const openGame = (): void => {
