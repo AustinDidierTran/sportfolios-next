@@ -20,10 +20,9 @@ import {
   timestampToRelativeTime,
   getTimeToShow,
 } from './index';
+import { haveDifferentPhase } from '../../views/ScheduleInteractiveTool/AddGame/index';
 import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import moment from 'moment';
-
-import { haveDifferentPhase } from '../../views/ScheduleInteractiveTool/AddGame';
 
 var localStorageMock = (function () {
   var store: any = {};

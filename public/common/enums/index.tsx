@@ -38,6 +38,11 @@ export enum ENTITIES_ROLE_ENUM {
   VIEWER = 3,
 }
 
+export enum USER_APP_ROLE_ENUM {
+  ADMIN = 1,
+  USER = 2,
+}
+
 export enum APP_ENUM {
   FACEBOOK = 'Facebook',
   MESSENGER = 'Messenger',
