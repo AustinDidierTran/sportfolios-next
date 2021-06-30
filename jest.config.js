@@ -6,9 +6,12 @@ module.exports = {
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
   roots: ['public/src'],
   testMatch: ['<rootDir>/public/src/**/?(*.)test.{ts,tsx}'],
-  transform: {
-    'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
+  moduleNameMapper: {
+    '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
   },
-  transformIgnorePatterns: ['node_modules/(?!variables/.*)'],
+  transform: {
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
+  },
   verbose: true,
 };

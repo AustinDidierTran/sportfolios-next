@@ -35,7 +35,8 @@
         "corejs": 3
       }
     ],
-    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
+    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }],
+    ["@babel/plugin-transform-react-jsx", { "pragma":"h" }]
   ],
   "presets": ["@babel/preset-env"]
 }

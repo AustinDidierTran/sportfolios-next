@@ -20,7 +20,6 @@ import {
   timestampToRelativeTime,
   getTimeToShow,
 } from './index';
-import { haveDifferentPhase } from '../../views/ScheduleInteractiveTool/AddGame/index';
 import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import moment from 'moment';
 
@@ -80,22 +79,6 @@ describe('ValidateInitialsFromName', () => {
     expect(getInitialsFromName(objectName)).toBe(stringInitialName);
     expect(getInitialsFromName(objectSurname)).toBe(stringInitialSurname);
     expect(getInitialsFromName(objectSurname)).toBe(stringInitialSurname);
-  });
-});
-
-describe('haveDifferentPhase', () => {
-  const ranking1: { currentPhase: string } = { currentPhase: '123' };
-  const ranking2: { currentPhase: string } = { currentPhase: '123' };
-  const phase1: string = '123';
-  const ranking3: { currentPhase: string } = { currentPhase: '456' };
-  const ranking4: { currentPhase: string } = { currentPhase: '456' };
-  const phase2: string = '456';
-
-  it('should return', async () => {
-    expect(haveDifferentPhase(ranking1, ranking2, phase1)).toBe(false);
-    expect(haveDifferentPhase(ranking1, ranking2, phase2)).toBe(true);
-    expect(haveDifferentPhase(ranking3, ranking4, phase2)).toBe(false);
-    expect(haveDifferentPhase(ranking1, ranking3, phase1)).toBe(true);
   });
 });
 

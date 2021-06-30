@@ -1,7 +1,8 @@
 import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import isArray from 'lodash/isArray';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
+import 'moment/locale/fr';
+import i18n from '../../i18n';
 
 export const getInitialsFromName = (completeName: any): string => {
   if (!completeName) {
@@ -263,7 +264,6 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export function timestampToRelativeTime(timeStamp: any): string {
-  const { t } = useTranslation();
   const msPerMinute = 60 * 1000;
   const msPerHour = msPerMinute * 60;
   const msPerDay = msPerHour * 24;
@@ -272,34 +272,33 @@ export function timestampToRelativeTime(timeStamp: any): string {
   const today: any = new Date();
   const elapsed = today - timeStamp;
   if (elapsed < msPerMinute) {
-    return t('second_ago', {
+    return i18n.t('second_ago', {
       count: Math.round(elapsed / 1000),
     });
   } else if (elapsed < msPerHour) {
-    return t('minute_ago', {
+    return i18n.t('minute_ago', {
       count: Math.round(elapsed / msPerMinute),
     });
   } else if (elapsed < msPerDay) {
-    return t('hour_ago', {
+    return i18n.t('hour_ago', {
       count: Math.round(elapsed / msPerHour),
     });
   } else if (elapsed < msPerMonth) {
-    return t('day_ago', {
+    return i18n.t('day_ago', {
       count: Math.round(elapsed / msPerDay),
     });
   } else if (elapsed < msPerYear) {
-    return t('month_ago', {
+    return i18n.t('month_ago', {
       count: Math.round(elapsed / msPerMonth),
     });
   } else {
-    return t('year_ago', {
+    return i18n.t('year_ago', {
       count: Math.round(elapsed / msPerYear),
     });
   }
 }
 
 export function getTimeToShow(date: string): string {
-  const { t } = useTranslation();
   const newDate: any = new Date(date);
   const today: any = new Date();
   const deltaTime = Math.floor(Math.abs(today - newDate) / 1000 / 86400);
@@ -308,7 +307,7 @@ export function getTimeToShow(date: string): string {
   } else if (deltaTime > 1 && deltaTime < moment.utc(newDate).daysInMonth()) {
     return moment.utc(newDate).format('DD MMMM, HH:mm');
   } else if (deltaTime == 1) {
-    return t('yesterday_at', { date_time: moment.utc(newDate).format('HH:mm') });
+    return i18n.t('yesterday_at', { date_time: moment.utc(newDate).format('HH:mm') });
   } else {
     return moment.utc(newDate).format('DD MMMM YYYY');
   }
