@@ -36,6 +36,8 @@
       }
     ],
     ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }],
+    ["@babel/plugin-proposal-class-properties"],
+    ["@babel/plugin-transform-react-jsx"]
   ],
   "presets": ["@babel/preset-env"]
 }
