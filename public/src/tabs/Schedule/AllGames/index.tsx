@@ -87,7 +87,16 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
     onlyYourGames: boolean
   ): Promise<boolean | void> => {
     let games = await getGames();
-    let filter = {
+    let filter: {
+      teamId: string;
+      teamName: string;
+      phaseId: string;
+      phaseName: string;
+      fieldId: string;
+      fieldName: string;
+      timeSlot: string;
+      onlyYourGames: boolean;
+    } = {
       teamId: SELECT_ENUM.ALL,
       teamName: '',
       phaseId: SELECT_ENUM.ALL,
