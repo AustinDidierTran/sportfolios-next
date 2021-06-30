@@ -52,14 +52,18 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
         (game) =>
           moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment() && scoreIsSubmitted(game)
       )
-      .sort((a, b) => Math.abs(moment(a.startTime).valueOf() - moment(b.startTime).valueOf()));
+      .sort((a, b) => {
+        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
+      });
     setPastGames(pastGames);
     const res = games
       .filter(
         (game) =>
           moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !scoreIsSubmitted(game)
       )
-      .sort((a, b) => Math.abs(moment(a.startTime).valueOf() - moment(b.startTime).valueOf()));
+      .sort((a, b) => {
+        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
+      });
     setGames(res);
   };
 

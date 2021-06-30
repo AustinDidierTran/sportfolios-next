@@ -54,7 +54,6 @@ interface GameOptions {
   positions: IPositionOption[];
 }
 
-
 const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
   const { game, update, open, onClose } = props;
   const { t } = useTranslation();
@@ -72,12 +71,12 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
   const oldRanking1 = game.positions[0];
   const oldRanking2 = game.positions[1];
 
-  const getOptions = async ():Promise<void> => {
+  const getOptions = async (): Promise<void> => {
     const res = await getGameOptions(eventId, true);
     setGameOptions(res);
-    setFirstPositionOptions(res.positions.filter((p:Ranking) => p.currentPhase === game.phaseId));
-    setSecondPositionOptions(res.positions.filter((p:Ranking) => p.currentPhase === game.phaseId));
-    setOriginalOptions(res.positions.filter((p:Ranking) => p.currentPhase === game.phaseId));
+    setFirstPositionOptions(res.positions.filter((p: Ranking) => p.currentPhase === game.phaseId));
+    setSecondPositionOptions(res.positions.filter((p: Ranking) => p.currentPhase === game.phaseId));
+    setOriginalOptions(res.positions.filter((p: Ranking) => p.currentPhase === game.phaseId));
   };
 
   useEffect((): void => {
@@ -261,5 +260,5 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
       ></FormDialog>
     </>
   );
-}
+};
 export default EditGameDialog;
