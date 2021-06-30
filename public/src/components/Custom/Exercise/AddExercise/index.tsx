@@ -42,9 +42,7 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
     }
   }, [isOpen]);
 
-  const open = useMemo((): boolean => {
-    return isOpen;
-  }, [isOpen]);
+  const open = useMemo((): boolean => isOpen, [isOpen]);
 
   const handleClose = (): void => {
     formik.resetForm();
@@ -62,7 +60,7 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
       data = data.filter((e: Exercise) => !exercises.some((exe) => exe.id === e.id));
     }
 
-    data.push({ id: t('create_new_exercise'), name: t('create_new_exercise'), description: '' });
+    data.push({ id: t('create_new_exercise'), name: t('create_new_exercise'), description: '', type: '' });
 
     const exerciseOption: IExerciseOption[] = data.map((e: Exercise) => ({
       value: e.id,

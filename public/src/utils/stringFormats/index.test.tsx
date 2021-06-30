@@ -303,7 +303,7 @@ describe('ValidateExpirationDate', () => {
   const previousDate: any = moment.utc().subtract(1, 'year');
   const futureDate: any = moment.utc().add(1, 'month');
   const expectedPreviousDate: any = formatDate(moment.utc().set('year', moment().get('year') + 1));
-  const expectedFutureDate: any = formatDate(moment.utc().set('month', moment().get('month')+ 1));
+  const expectedFutureDate: any = formatDate(moment.utc().set('month', moment().get('month') + 1));
   const emptyString: string = '';
 
   it('should return expiration date', async () => {

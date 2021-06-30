@@ -3,52 +3,30 @@ import { Person } from '../../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
 
-export async function updatePracticeRsvp(
+export function updatePracticeRsvp(
   id: string,
   rsvp: string,
   personId?: string,
   multipleRsvp: boolean = false
 ): Promise<number> {
-  const { status } = await api(`${BASE_URL}/practiceRsvp`, {
+  return api(`${BASE_URL}/practiceRsvp`, {
     method: 'PUT',
-    body: JSON.stringify({
-      id,
-      rsvp,
-      personId,
-      updateAll: multipleRsvp,
-    }),
-  });
-  return status;
+    body: JSON.stringify({ id, rsvp, personId, updateAll: multipleRsvp }),
+  }).then((res) => res.status);
 }
 
-export async function updatePlayer(id: string, role: string): Promise<number> {
-  const { status } = await api(`${BASE_URL}/player`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      id,
-      role,
-    }),
-  });
-  return status;
+export function updatePlayer(id: string, role: string): Promise<number> {
+  return api(`${BASE_URL}/player`, { method: 'PUT', body: JSON.stringify({ id, role }) }).then((res) => res.status);
 }
 
-export async function updateTeamPlayerAcceptation(
-  teamId: string,
-  personId: string,
-  statusProps: string
-): Promise<string> {
-  const { status } = await api(`${BASE_URL}/teamPlayerAcceptation`, {
+export function updateTeamPlayerAcceptation(teamId: string, personId: string, statusProps: string): Promise<string> {
+  return api(`${BASE_URL}/teamPlayerAcceptation`, {
     method: 'PUT',
-    body: JSON.stringify({
-      teamId,
-      personId,
-      status: statusProps,
-    }),
-  });
-  return status;
+    body: JSON.stringify({ teamId, personId, status: statusProps }),
+  }).then((res) => res.status);
 }
 
-export async function updatePractice(
+export function updatePractice(
   id: string,
   name: string,
   dateStart: string | null,
@@ -57,33 +35,18 @@ export async function updatePractice(
   locationId: string | null,
   address: string | undefined
 ): Promise<number> {
-  const { status } = await api(`${BASE_URL}/practice`, {
+  return api(`${BASE_URL}/practice`, {
     method: 'PUT',
-    body: JSON.stringify({
-      id,
-      name,
-      dateStart,
-      dateEnd,
-      newLocation,
-      locationId,
-      address,
-    }),
-  });
-  return status;
+    body: JSON.stringify({ id, name, dateStart, dateEnd, newLocation, locationId, address }),
+  }).then((res) => res.status);
 }
 
-export async function updateRoster(
+export function updateRoster(
   players: Pick<Person, 'id' | 'completeName' | 'photoUrl'>[],
   id: string,
   name: string
 ): Promise<number> {
-  const { status } = await api(`${BASE_URL}/roster`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      players,
-      id,
-      name,
-    }),
-  });
-  return status;
+  return api(`${BASE_URL}/roster`, { method: 'PUT', body: JSON.stringify({ players, id, name }) }).then(
+    (res) => res.status
+  );
 }

@@ -28,8 +28,8 @@ const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
   return (
     <>
       <ListItem className={index % 2 === 0 ? styles.greycard : styles.card} onClick={handleExpand} key={exercise.id}>
-        <ListItemText primary={`${exercise.name}`} />
-        <CustomIconButton className={styles.grey} onClick={handleExpand} aria-expanded={expanded} icon={icon} />
+        <ListItemText primary={exercise.name} />
+        <CustomIconButton style={{ color: 'grey' }} onClick={handleExpand} aria-expanded={expanded} icon={icon} />
       </ListItem>
 
       <CustomCollapse in={expanded} timeout="auto" unmountOnExit>

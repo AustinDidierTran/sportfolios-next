@@ -88,15 +88,13 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
           </MenuItem>
         )}
 
-        {options && options.length ? (
-          options.map((option) => (
-            <MenuItem value={option.value} key={option.value}>
-              {option.display}
-            </MenuItem>
-          ))
-        ) : (
-          null
-        )}
+        {options && options.length
+          ? options.map((option) => (
+              <MenuItem value={option.value} key={option.value}>
+                {option.display}
+              </MenuItem>
+            ))
+          : null}
       </Select>
 
       {showCreate ? (
@@ -105,9 +103,7 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
           <TextField fullWidth label={t('name')} namespace="name" formik={formik} />
           <TextField fullWidth label={'Description'} namespace="description" formik={formik} />
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
 
       <FormHelperText error={Boolean((formik && formik.errors[namespace]) || error)}>
         {(formik && formik.errors[namespace]) || error}

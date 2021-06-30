@@ -1,93 +1,24 @@
-//ENUMS
-export enum Language {
-  fr = 'fr',
-  en = 'en',
-}
-
-export enum UserAppRole {
-  admin = 1,
-  user = 2,
-}
-
-export enum Role {
-  admin = 1,
-  editor = 2,
-  viewer = 3,
-}
-
-export enum EntityType {
-  person = 1,
-  organization = 2,
-  team = 3,
-  event = 4,
-  game = 5,
-}
-
-export enum MembershipType {
-  elite = 1,
-  competitive = 2,
-  recreational = 3,
-  junior = 4,
-  notSpecified = 5,
-}
-
-export enum MembershipLength {
-  fixed = 'fixed',
-  length = 'length',
-}
-
-export enum Gender {
-  male = 'Male',
-  female = 'Female',
-  notSpecified = 'Other',
-}
-
-export enum Notification {
-  addedToRoster = 'added to roster',
-  otherTeamSubmittedAScore = 'other team submitted a score',
-  scoreSubmissionConflict = 'score submission conflict',
-  scoreSubmissionRequest = 'score submission request',
-}
-
-export enum InvoiceStatus {
-  draft = 'draft',
-  deleted = 'deleted',
-  free = 'free',
-  open = 'open',
-  paid = 'paid',
-  refunded = 'refunded',
-  uncollectible = 'uncollectible',
-  void = 'void',
-}
-
-export enum Status {
-  accepted = 'accepted',
-  acceptedFree = 'accepted free',
-  pending = 'pending',
-  refused = 'refused',
-  unchanged = 'unchanged',
-}
-
-export enum RosterRole {
-  captain = 'captain',
-  assistantCaptain = 'assistant-captain',
-  coach = 'coach',
-  player = 'player',
-  viewer = 'viewer',
-}
-
-export enum PhaseStatus {
-  notStarted = 'not_started',
-  started = 'started',
-  done = 'done',
-}
+import {
+  ROSTER_ROLE_ENUM,
+  LANGUAGE_ENUM,
+  ENTITIES_ROLE_ENUM,
+  GLOBAL_ENUM,
+  MEMBERSHIP_TYPE_ENUM,
+  GENDER_ENUM,
+  NOTIFICATION_TYPE,
+  INVOICE_STATUS_ENUM,
+  PHASE_STATUS_ENUM,
+  STATUS_ENUM,
+  USER_APP_ROLE_ENUM,
+  PHASE_TYPE_ENUM,
+} from '../public/common/enums';
 
 //INTERFACES
 export interface User {
   email: string;
-  language: Language;
+  language: LANGUAGE_ENUM;
   userId: string;
-  appRole?: UserAppRole;
+  appRole?: USER_APP_ROLE_ENUM;
   facebookId?: string;
   messengerId?: string;
   primaryPerson: Person;
@@ -98,7 +29,7 @@ export interface User {
 }
 
 export interface NotificationSetting {
-  type: Notification;
+  type: NOTIFICATION_TYPE;
   email: boolean;
   chatbot: boolean;
 }
@@ -142,8 +73,8 @@ export interface CreditCard {
 
 export interface Entity {
   id: string;
-  type: EntityType;
-  role: Role;
+  type: GLOBAL_ENUM;
+  role: ENTITIES_ROLE_ENUM;
   name: string;
   surname?: string;
   completeName?: string;
@@ -157,7 +88,7 @@ export interface Entity {
 
 export interface EntityRole {
   entityId: string;
-  role: Role;
+  role: ENTITIES_ROLE_ENUM;
   surname: string;
   name: string;
   type: number;
@@ -168,7 +99,7 @@ export interface Player {
   id: string;
   personId: string;
   teamId: string;
-  role: RosterRole;
+  role: ROSTER_ROLE_ENUM;
   name: string;
   photoUrl: string;
   rsvp?: string;
@@ -181,7 +112,7 @@ export interface PendingPlayer extends Player {
 export interface Person extends Entity {
   birthDate?: string;
   phoneNumber?: string;
-  gender?: Gender;
+  gender?: GENDER_ENUM;
   emergencyName?: string;
   emergencySurname?: string;
   emergencyPhoneNumber?: string;
@@ -203,7 +134,7 @@ export interface Member {
   memberType: number;
   personId: string;
   expirationDate: string;
-  status: InvoiceStatus;
+  status: INVOICE_STATUS_ENUM;
   organizationId?: string;
   membershipId?: string;
 }
@@ -213,8 +144,8 @@ export interface Membership {
   organizationId: string;
   personId: string;
   membershipId: string;
-  type: MembershipType;
-  status: InvoiceStatus;
+  type: MEMBERSHIP_TYPE_ENUM;
+  status: INVOICE_STATUS_ENUM;
   invoiceItemId: string;
   paidOn: string;
   expirationDate: string;
@@ -235,7 +166,7 @@ export interface Organization extends Entity {
 export interface EntityMembership {
   id: string;
   entityId?: string;
-  membershipType?: MembershipType;
+  membershipType?: MEMBERSHIP_TYPE_ENUM;
   length?: number;
   fixedDate?: string;
   price: number;
@@ -286,6 +217,7 @@ export interface Exercise {
   id: string;
   name: string;
   description: string;
+  type: string;
 }
 
 export interface OwnedEvents extends Entity {
@@ -334,8 +266,8 @@ export interface Field {
 export interface EventPerson {
   personId: string;
   eventId: string;
-  status: InvoiceStatus;
-  registrationStatus?: Status;
+  status: INVOICE_STATUS_ENUM;
+  registrationStatus?: STATUS_ENUM;
   invoiceItemId?: string;
   paymentOptionId?: string;
   informations?: string;
@@ -345,8 +277,8 @@ export interface EventTeam {
   rosterId: string;
   eventId: string;
   teamId: string;
-  status: InvoiceStatus;
-  registrationStatus: Status;
+  status: INVOICE_STATUS_ENUM;
+  registrationStatus: STATUS_ENUM;
   invoiceItemId?: string;
   paymentOptionId?: string;
   informations?: string;
@@ -369,9 +301,9 @@ export interface TeamPlayer {
   personId: string;
   name: string;
   isSub: boolean;
-  paymentStatus: Status;
+  paymentStatus: STATUS_ENUM;
   invoiceItemId?: string;
-  role: RosterRole;
+  role: ROSTER_ROLE_ENUM;
 }
 
 export interface Phase {
@@ -380,9 +312,10 @@ export interface Phase {
   eventId: string;
   spot?: number;
   phaseOrder: number;
-  status: PhaseStatus;
+  status: PHASE_STATUS_ENUM;
   games?: Game[];
   ranking?: Ranking[];
+  type?: PHASE_TYPE_ENUM;
 }
 export interface PhaseGameAndTeams {
   games: PhaseGames[];
@@ -476,7 +409,7 @@ export interface GameInfo {
   scoreSubmited: string;
   field?: string;
   startTime: string;
-  role: Role;
+  role: ENTITIES_ROLE_ENUM;
 }
 
 export interface Partner {

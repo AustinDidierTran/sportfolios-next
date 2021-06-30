@@ -58,7 +58,7 @@ export default function ScoreSuggestion(props) {
     await api('/api/entity/updateSuggestionStatus', {
       method: 'PUT',
       body: JSON.stringify({
-        eventId: game.event_id,
+        eventId: game.eventId,
         id: suggestion.id,
         gameId: game.id,
         scores: suggestion.score,

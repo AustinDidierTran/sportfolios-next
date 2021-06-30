@@ -34,7 +34,7 @@ export default function SuggestedGameCard(props) {
                 initials={
                   phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED
                     ? getInitialsFromName(ranking1.name, true)
-                    : `${ranking1.initial_position}.${letter}`
+                    : `${ranking1.initialPosition}.${letter}`
                 } // or team pic?
               ></Avatar>
             </div>
@@ -44,7 +44,7 @@ export default function SuggestedGameCard(props) {
                 initials={
                   phaseStatus !== PHASE_STATUS_ENUM.NOT_STARTED
                     ? getInitialsFromName(ranking2.name, true)
-                    : `${ranking2.initial_position}.${letter}`
+                    : `${ranking2.initialPosition}.${letter}`
                 } // or team pic?
               ></Avatar>
             </div>

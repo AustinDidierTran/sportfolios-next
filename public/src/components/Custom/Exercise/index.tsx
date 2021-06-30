@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import styles from './Exercise.module.css';
@@ -20,9 +20,7 @@ const Exercise: React.FunctionComponent<IProps> = (props) => {
   const [exercisesList, setExercisesList] = useState<IExercise[]>([]);
   const [openExercise, setOpenExercise] = useState<boolean>(false);
 
-  useEffect((): void => {
-    setExercisesList(exercises);
-  }, [exercises]);
+  useMemo((): void => setExercisesList(exercises), [exercises]);
 
   const addExercise = (): void => {
     setOpenExercise(true);
@@ -35,7 +33,7 @@ const Exercise: React.FunctionComponent<IProps> = (props) => {
   return (
     <div style={{ marginTop: '8px' }}>
       <Typography className={styles.title} variant="h4">
-        {t('exercise')}
+        {t('exercises')}
         <div>
           <CustomButton style={{ marginBottom: '6px' }} onClick={addExercise} endIcon="Add" color="primary">
             {t('add.add_exercise')}

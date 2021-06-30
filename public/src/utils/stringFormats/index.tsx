@@ -1,6 +1,5 @@
 import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import isArray from 'lodash/isArray';
-
 import moment from 'moment';
 import 'moment/locale/fr';
 import i18n from '../../i18n';
