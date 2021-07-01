@@ -45,7 +45,7 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
           {name}
         </Typography>
         <div className={styles.main} color="textPrimary">
-          <ListItemIcon>
+          <ListItemIcon className={styles.avatar} >
             {rsvp
               ? rsvp.map((event, index) => (
                   <div key={index}>
@@ -67,7 +67,7 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
             primary={`${formatDate(moment.utc(startTime), 'HH:mm')} - ${formatDate(moment.utc(endTime), 'HH:mm')}`}
             secondary={formatDate(moment.utc(startTime), 'ddd D MMM')}
           ></ListItemText>
-          <Typography color="textSecondary">{location}</Typography>
+          <Typography className={styles.location} color="textSecondary">{location}</Typography>
         </div>
       </CardContent>
       <Rsvp isOpen={openRsvp} practiceId={id} update={update} multipleRsvp />
