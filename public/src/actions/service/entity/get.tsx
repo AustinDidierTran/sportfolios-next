@@ -19,6 +19,7 @@ import {
   Games,
   Field,
   Exercise,
+  Evaluation,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -153,6 +154,22 @@ export function getSessionExercises(sessionId: string): Promise<Exercise[]> {
   return api(
     formatRoute(`${BASE_URL}/sessionExercises`, null, {
       sessionId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getPlayerSessionEvaluation(exerciseId: string): Promise<Evaluation> {
+  return api(
+    formatRoute(`${BASE_URL}/playerSessionEvaluation`, null, {
+      exerciseId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getPlayerTeamRole(teamId: string): Promise<string> {
+  return api(
+    formatRoute(`${BASE_URL}/playerTeamRole`, null, {
+      teamId,
     })
   ).then((res) => res.data);
 }

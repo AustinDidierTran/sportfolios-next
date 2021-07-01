@@ -210,7 +210,13 @@ export interface Evaluation {
   coachId: string;
   personId: string;
   rating: number;
-  sessionId: string
+  sessionId: string;
+  comments?: EvaluationComment[];
+}
+
+export interface EvaluationComment {
+  content: string;
+  active: boolean;
 }
 
 export interface Exercise {

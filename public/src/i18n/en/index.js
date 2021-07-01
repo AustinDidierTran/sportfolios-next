@@ -1314,6 +1314,7 @@ export default {
     ranking: 'Ranking',
     rankings: 'Rankings',
     ranking_saved: 'Ranking saved!',
+    rating: 'Rating',
     receipt: 'Receipt',
     recent_search_results: 'Recent search results',
     recreational_member: 'Recreational Member',
