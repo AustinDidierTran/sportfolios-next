@@ -17,20 +17,25 @@ import TableRow from '@material-ui/core/TableRow';
 
 import styles from './TeamsRegistered.module.css';
 import { useTranslation } from 'react-i18next';
-import api from '../../../actions/api';
 import { unregisterTeams } from '../../../actions/api/helpers';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { formatRoute } from '../../../utils/stringFormats';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import TeamRow from './TeamRow';
 import TeamRowMobile from './TeamRowMobile';
 import MailtoButton from '../../../components/Custom/MailToButton';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { EventTeam } from '../../../../../typescript/types';
+import {
+  getCanUnregisterTeamsList as getCanUnregisterTeamsListApi,
+  getAllTeamsRegisteredInfos,
+  getEventInfo,
+  getAllTeamsAcceptedRegistered,
+} from '../../../actions/service/entity/get';
 
-export default function TeamsRegistered() {
+const TeamsRegistered: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     dispatch,
@@ -38,21 +43,21 @@ export default function TeamsRegistered() {
   } = useContext(Store);
   const [width] = useWindowSize();
 
-  const [teams, setTeams] = useState([]);
-  const [teamsThatCanBeUnregistered, setTeamsThatCanBeUnregistered] = useState([]);
-  const [maximumSpots, setMaximumSpots] = useState();
-  const [acceptedSpots, setAcceptedSpots] = useState();
-  const [openUnregister, setOpenUnregister] = useState(false);
-  const [openUnregisterAll, setOpenUnregisterAll] = useState(false);
-  const [rosterId, setRosterId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [teams, setTeams] = useState<EventTeam[]>([]);
+  const [teamsThatCanBeUnregistered, setTeamsThatCanBeUnregistered] = useState<EventTeam[]>([]);
+  const [maximumSpots, setMaximumSpots] = useState<number>();
+  const [acceptedSpots, setAcceptedSpots] = useState<number>();
+  const [openUnregister, setOpenUnregister] = useState<boolean>(false);
+  const [openUnregisterAll, setOpenUnregisterAll] = useState<boolean>(false);
+  const [rosterId, setRosterId] = useState<string>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [teamAsc, setTeamAsc] = useState(null);
-  const [optionAsc, setOptionAsc] = useState(null);
-  const [statusAsc, setStatusAsc] = useState(null);
-  const [memberAsc, setMemberAsc] = useState(null);
+  const [teamAsc, setTeamAsc] = useState<boolean>(null);
+  const [optionAsc, setOptionAsc] = useState<boolean>(null);
+  const [statusAsc, setStatusAsc] = useState<boolean>(null);
+  const [memberAsc, setMemberAsc] = useState<boolean>(null);
 
-  const iconTeam = useMemo(() => {
+  const iconTeam = useMemo<string>(() => {
     if (teamAsc == null) {
       return 'KeyboardArrowRight';
     }
@@ -62,7 +67,7 @@ export default function TeamsRegistered() {
     return teamAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
   }, [teamAsc]);
 
-  const iconOption = useMemo(() => {
+  const iconOption = useMemo<string>(() => {
     if (optionAsc == null) {
       return 'KeyboardArrowRight';
     }
@@ -72,7 +77,7 @@ export default function TeamsRegistered() {
     return optionAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
   }, [optionAsc]);
 
-  const iconStatus = useMemo(() => {
+  const iconStatus = useMemo<string>(() => {
     if (statusAsc == null) {
       return 'KeyboardArrowRight';
     }
@@ -82,7 +87,7 @@ export default function TeamsRegistered() {
     return statusAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
   }, [statusAsc]);
 
-  const iconMember = useMemo(() => {
+  const iconMember = useMemo<string>(() => {
     if (memberAsc == null) {
       return 'KeyboardArrowRight';
     }
@@ -92,33 +97,25 @@ export default function TeamsRegistered() {
     return memberAsc ? 'KeyboardArrowUp' : 'KeyboardArrowDown';
   }, [memberAsc]);
 
-  const onCloseUnregister = () => {
+  const onCloseUnregister = (): void => {
     setOpenUnregister(false);
   };
 
-  const onCloseUnregisterAll = () => {
+  const onCloseUnregisterAll = (): void => {
     setOpenUnregisterAll(false);
   };
 
-  const getTeams = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/allTeamsRegisteredInfos', null, {
-        eventId,
-      })
-    );
-
-    if (data) {
-      setTeams(data);
-    }
+  const getTeams = (): void => {
+    getAllTeamsRegisteredInfos(eventId).then(setTeams);
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (eventId) {
       getTeams();
     }
   }, [eventId]);
 
-  const emails = useMemo(() => {
+  const emails = useMemo<{ email: string }[]>(() => {
     if (teams) {
       const res = teams
         .filter((t) => !(t.registrationStatus === STATUS_ENUM.PENDING || t.registrationStatus === STATUS_ENUM.REFUSED))
@@ -127,24 +124,18 @@ export default function TeamsRegistered() {
     }
   }, [teams]);
 
-  const hasPending = useMemo(() => {
+  const hasPending = useMemo<boolean>(() => {
     if (teams) {
       return teams.some((t) => t.registrationStatus === STATUS_ENUM.PENDING);
     }
-    return [];
+    return false;
   }, [teams]);
 
-  const getCanUnregisterTeamsList = async (rosterIds) => {
-    const { data } = await api(
-      formatRoute('/api/entity/canUnregisterTeamsList', null, {
-        eventId,
-        rosterIds: JSON.stringify(rosterIds),
-      })
-    );
-    return data;
+  const getCanUnregisterTeamsList = (rosterIds: string[]): Promise<EventTeam[]> => {
+    return getCanUnregisterTeamsListApi(eventId, rosterIds);
   };
 
-  const handleUnregisterClick = async (rosterId) => {
+  const handleUnregisterClick = async (rosterId: string): Promise<void> => {
     setRosterId(rosterId);
     const data = await getCanUnregisterTeamsList([rosterId]);
 
@@ -160,7 +151,7 @@ export default function TeamsRegistered() {
     }
   };
 
-  const handleUnregisterAllClick = async () => {
+  const handleUnregisterAllClick = async (): Promise<void> => {
     const data = await getCanUnregisterTeamsList(teams.map((t) => t.rosterId));
 
     setTeamsThatCanBeUnregistered(data);
@@ -177,7 +168,7 @@ export default function TeamsRegistered() {
     }
   };
 
-  const onUnregisterTeam = async () => {
+  const onUnregisterTeam = async (): Promise<void> => {
     setOpenUnregister(false);
     setIsLoading(true);
     const res = await unregisterTeams({
@@ -205,7 +196,7 @@ export default function TeamsRegistered() {
     setTeams(res.data);
   };
 
-  const onUnregisterAll = async () => {
+  const onUnregisterAll = async (): Promise<void> => {
     setOpenUnregisterAll(false);
     setIsLoading(true);
     const res = await unregisterTeams({
@@ -233,22 +224,12 @@ export default function TeamsRegistered() {
     setTeams(res.data);
   };
 
-  const getMaximumSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/event', null, {
-        eventId,
-      })
-    );
-    setMaximumSpots(data.maximum_spots);
+  const getMaximumSpots = (): void => {
+    getEventInfo(eventId).then((res) => setMaximumSpots(res.maximumSpots));
   };
 
-  const getAcceptedSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/allTeamsAcceptedRegistered', null, {
-        eventId,
-      })
-    );
-    setAcceptedSpots(data?.length);
+  const getAcceptedSpots = (): void => {
+    getAllTeamsAcceptedRegistered(eventId).then((res) => setAcceptedSpots(res?.length));
   };
 
   useEffect(() => {
@@ -258,7 +239,7 @@ export default function TeamsRegistered() {
     }
   }, [teams]);
 
-  const handleTeam = async () => {
+  const handleTeam = (): void => {
     if (teamAsc) {
       setTeams([...teams].sort((a, b) => b.name.localeCompare(a.name)));
     } else {
@@ -267,7 +248,7 @@ export default function TeamsRegistered() {
     setTeamAsc(!teamAsc);
   };
 
-  const handleOption = async () => {
+  const handleOption = (): void => {
     if (optionAsc) {
       setTeams(
         [...teams].sort((a, b) =>
@@ -288,7 +269,7 @@ export default function TeamsRegistered() {
     setOptionAsc(!optionAsc);
   };
 
-  const handleStatus = async () => {
+  const handleStatus = (): void => {
     if (statusAsc) {
       setTeams(
         [...teams].sort((a, b) =>
@@ -309,7 +290,7 @@ export default function TeamsRegistered() {
     setStatusAsc(!statusAsc);
   };
 
-  const handleIsMember = async () => {
+  const handleIsMember = (): void => {
     if (memberAsc) {
       setTeams([...teams].sort((a, b) => Number(a.isMember) - Number(b.isMember)));
     } else {
@@ -389,7 +370,7 @@ export default function TeamsRegistered() {
                   </div>
                 </StyledTableCell>
                 <StyledTableCell>
-                  <MailtoButton color={'white'}  tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+                  <MailtoButton color={'white'} tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
                 </StyledTableCell>
               </TableRow>
             </TableHead>
@@ -586,4 +567,5 @@ export default function TeamsRegistered() {
       />
     </Paper>
   );
-}
+};
+export default TeamsRegistered;
