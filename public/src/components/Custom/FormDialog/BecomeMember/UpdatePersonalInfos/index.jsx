@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { NUMBER_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
@@ -35,7 +35,7 @@ export default function UpdatePersonalInfos(props) {
         },
       }),
     });
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('informations_saved'),

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { formatRoute } from '../../../../utils/stringFormats';
-import { GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { GLOBAL_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
@@ -66,7 +66,7 @@ export default function CartItem(props) {
     );
     fetchItems();
     setOpen(false);
-    if (res.status > STATUS_ENUM.SUCCESS) {
+    if (res.status > NUMBER_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

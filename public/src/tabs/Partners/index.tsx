@@ -11,7 +11,7 @@ interface IPartners extends Partner {
   key: string;
 }
 
-export default function Partners() {
+const Partners: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const {
@@ -20,13 +20,13 @@ export default function Partners() {
 
   const [partners, setPartners] = useState<IPartners[]>([]);
 
-  useEffect(():void => {
+  useEffect((): void => {
     if (id && userInfo) {
       getPartners();
     }
   }, [id, userInfo]);
 
-  const getPartners = async ():Promise<void> => {
+  const getPartners = async (): Promise<void> => {
     const data = await getPartnersApi(id);
 
     const partners = data.map((d) => ({
@@ -55,4 +55,5 @@ export default function Partners() {
       ))}
     </div>
   );
-}
+};
+export default Partners;

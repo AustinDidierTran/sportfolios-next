@@ -7,7 +7,7 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import * as yup from 'yup';
 import { FormDialog } from '../../../components/Custom';
 import { ERROR_ENUM } from '../../../../common/errors';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
 
 export default function EditPhase(props) {
   const { t } = useTranslation();
@@ -50,7 +50,7 @@ export default function EditPhase(props) {
         }),
       });
 
-      if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
+      if (res.status === NUMBER_STATUS_ENUM.ERROR || res.status === NUMBER_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

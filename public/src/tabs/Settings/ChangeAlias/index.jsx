@@ -7,7 +7,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import styles from './ChangeAlias.module.css';
 import { useFormik } from 'formik';
-import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { NUMBER_STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useContext } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -78,7 +78,7 @@ export default function ChangeAlias() {
           alias,
         }),
       });
-      if (res.status === STATUS_ENUM.ERROR) {
+      if (res.status === NUMBER_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('alias_is_already_used'),

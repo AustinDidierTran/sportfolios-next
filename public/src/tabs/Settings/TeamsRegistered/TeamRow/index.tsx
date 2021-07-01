@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useContext } from 'react';
 
 import IconButton from '../../../../components/Custom/IconButton';
-import StatusChip from '../StatusChip';
+import StatusChip from '../../../../components/Custom/StatusChip';
 
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,19 +12,27 @@ import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../utils/stringFormats';
 import CollapseTeamsRegistered from './CollapseTeamsRegistered';
 import { Store } from '../../../../Store';
+import { ROUTES_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { goTo } from '../../../../actions/goTo';
+import { EventTeam } from '../../../../../../typescript/types';
 
-export default function TeamRow(props) {
+interface IProps {
+  team: EventTeam;
+  handleUnregisterClick: (rosterId: string) => void;
+}
+
+const TeamRow: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const {
     state: { id: eventId },
   } = useContext(Store);
   const { team, handleUnregisterClick } = props;
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
-  const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
+  const icon = useMemo((): string => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
 
-  const handleExpand = () => {
+  const handleExpand = (): void => {
     setExpanded(!expanded);
   };
 
@@ -47,10 +55,9 @@ export default function TeamRow(props) {
     },
   }))(TableRow);
 
-  const unregister = () => {
+  const unregister = (): void => {
     handleUnregisterClick(team.rosterId);
   };
-
   return (
     <>
       <StyledTableRow>
@@ -60,7 +67,7 @@ export default function TeamRow(props) {
         {team.option ? (
           <StyledTableCell component="th" scope="row" onClick={handleExpand}>
             {team.option.name}&nbsp;
-            {`(${team.option.team_price === 0 ? t('free') : formatPrice(team.option.team_price)})`}
+            {`(${team.option.teamPrice === 0 ? t('free') : formatPrice(team.option.teamPrice)})`}
           </StyledTableCell>
         ) : (
           <StyledTableCell component="th" scope="row" onClick={handleExpand}>
@@ -68,12 +75,16 @@ export default function TeamRow(props) {
           </StyledTableCell>
         )}
         <StyledTableCell>
-          <StatusChip
-            status={team.status}
-            registrationStatus={team.registrationStatus}
-            eventId={eventId}
-            rosterId={team.rosterId}
-          />
+          {team.registrationStatus === STATUS_ENUM.REFUSED || team.registrationStatus === STATUS_ENUM.PENDING ? (
+            <StatusChip
+              status={team.registrationStatus}
+              onClick={() => {
+                goTo(ROUTES_ENUM.teamsAcceptation, { id: eventId }, { rosterId: team.rosterId });
+              }}
+            />
+          ) : (
+            <StatusChip status={team.status} />
+          )}
         </StyledTableCell>
         <StyledTableCell style={{ padding: '25px' }}>
           {team.isMember ? (
@@ -93,4 +104,5 @@ export default function TeamRow(props) {
       </StyledTableRow>
     </>
   );
-}
+};
+export default TeamRow;

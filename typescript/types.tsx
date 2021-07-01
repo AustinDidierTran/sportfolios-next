@@ -285,6 +285,10 @@ export interface EventTeam {
   informations?: string;
   name?: string;
   email?: string;
+  isMember?: boolean;
+  registeredOn?: Date;
+  invoice?: any;
+  captains?: Person[];
 }
 
 export interface Team extends Entity {

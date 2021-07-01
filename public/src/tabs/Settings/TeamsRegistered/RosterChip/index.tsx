@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RosterChips(props) {
+interface IProps {
+  state: string;
+}
+
+const RosterChips: React.FunctionComponent<IProps> = (props) => {
   const classes = useStyles();
 
   const { state } = props;
@@ -29,4 +33,5 @@ export default function RosterChips(props) {
       )}
     </div>
   );
-}
+};
+export default RosterChips;

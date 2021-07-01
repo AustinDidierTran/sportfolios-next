@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import CustomButton from '../../Button';
 import { updatePracticeRsvp } from '../../../../actions/service/entity/put';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 
 interface IProps {
@@ -34,7 +34,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
   };
 
   const open = useMemo((): boolean => {
-    if(rsvpStatus){
+    if (rsvpStatus) {
       changeStatus(rsvpStatus);
     }
     return isOpen;
@@ -42,7 +42,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
 
   const submitRsvp = async (type: string): Promise<void> => {
     const status = await updatePracticeRsvp(practiceId, type, playerId, multipleRsvp);
-    if (status === STATUS_ENUM.ERROR || status >= 400) {
+    if (status === NUMBER_STATUS_ENUM.ERROR || status >= 400) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
@@ -82,9 +82,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
             {t('not_going')}
           </CustomButton>
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
     </div>
   );
 };
