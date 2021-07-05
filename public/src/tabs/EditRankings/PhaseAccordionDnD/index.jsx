@@ -98,6 +98,7 @@ export default function PhaseAccordionDnD(props) {
     const res = await getAllOptions(eventId, phaseId, t);
     setAllOptions(res);
   };
+  console.log({ allOptions });
 
   const isOneExpanded = useMemo(() => expandedPhases.length > 0, [expandedPhases.length]);
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
