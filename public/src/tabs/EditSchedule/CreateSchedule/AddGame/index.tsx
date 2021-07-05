@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, NUMBER_STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../../common/enums';
 import { getFutureGameOptions } from '../../../Schedule/ScheduleFunctions';
 import * as yup from 'yup';
 import { Games } from '../../../../../../typescript/types';
@@ -164,7 +164,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
           rankingId2: position2,
         }),
       });
-      if (res.status === STATUS_ENUM.ERROR || res.status === STATUS_ENUM.UNAUTHORIZED) {
+      if (res.status === NUMBER_STATUS_ENUM.ERROR || res.status === NUMBER_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

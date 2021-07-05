@@ -16,14 +16,14 @@ export default function CollapsePaymentOption(props) {
   const { option, expanded, setEdit, setAlertDialog } = props;
   const {
     id,
-    team_price: teamPrice,
-    individual_price: individualPrice,
+    teamPrice,
+    individualPrice,
     startTime,
     endTime,
     owner,
     individualTaxRates,
     teamTaxRates,
-    team_activity: teamActivity,
+    teamActivity,
     teamAcceptation,
     playerAcceptation,
     informations,

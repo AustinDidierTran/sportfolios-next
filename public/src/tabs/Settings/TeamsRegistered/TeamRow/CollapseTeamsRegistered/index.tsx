@@ -9,8 +9,15 @@ import MailToButton from '../../../../../components/Custom/MailToButton';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 import styles from './CollapseTeamsRegistered.module.css';
+import { EventTeam } from '../../../../../../../typescript/types';
 
-export default function CollapseTeamsRegistered(props) {
+interface IProps {
+  team: EventTeam;
+  unregister: () => void;
+  expanded: boolean;
+}
+
+const CollapseTeamsRegistered: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { expanded, team, unregister } = props;
 
@@ -33,6 +40,7 @@ export default function CollapseTeamsRegistered(props) {
             primary={team?.option?.informations}
             secondary={
               <TextField
+                //@ts-ignore
                 InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
                 multiline
                 className={styles.textArea}
@@ -62,4 +70,5 @@ export default function CollapseTeamsRegistered(props) {
       </Button>
     </Collapse>
   );
-}
+};
+export default CollapseTeamsRegistered;

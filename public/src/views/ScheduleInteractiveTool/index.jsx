@@ -8,7 +8,13 @@ import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Icon from '../../components/Custom/Icon';
 import Button from '../../components/Custom/Button';
 import { Store, ACTION_ENUM } from '../../Store';
-import { STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM, PHASE_STATUS_ENUM, PHASE_TYPE_ENUM } from '../../../common/enums';
+import {
+  NUMBER_STATUS_ENUM,
+  SEVERITY_ENUM,
+  TABS_ENUM,
+  PHASE_STATUS_ENUM,
+  PHASE_TYPE_ENUM,
+} from '../../../common/enums';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
@@ -629,10 +635,10 @@ export default function ScheduleInteractiveTool() {
     });
 
     if (
-      status === STATUS_ENUM.ERROR ||
-      status === STATUS_ENUM.UNAUTHORIZED ||
-      res.status === STATUS_ENUM.ERROR ||
-      res.status === STATUS_ENUM.UNAUTHORIZED
+      status === NUMBER_STATUS_ENUM.ERROR ||
+      status === NUMBER_STATUS_ENUM.UNAUTHORIZED ||
+      res.status === NUMBER_STATUS_ENUM.ERROR ||
+      res.status === NUMBER_STATUS_ENUM.UNAUTHORIZED
     ) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,

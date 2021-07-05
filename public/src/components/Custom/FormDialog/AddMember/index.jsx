@@ -5,7 +5,12 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM, MEMBERSHIP_TYPE_ENUM } from '../../../../../common/enums';
+import {
+  SEVERITY_ENUM,
+  NUMBER_STATUS_ENUM,
+  COMPONENT_TYPE_ENUM,
+  MEMBERSHIP_TYPE_ENUM,
+} from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
 import CustomIconButton from '../../IconButton';
@@ -58,7 +63,7 @@ export default function AddMember(props) {
         })
       );
 
-      if (res.some((r) => r.status === STATUS_ENUM.ERROR) || res.some((r) => r.status >= 400)) {
+      if (res.some((r) => r.status === NUMBER_STATUS_ENUM.ERROR) || res.some((r) => r.status >= 400)) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

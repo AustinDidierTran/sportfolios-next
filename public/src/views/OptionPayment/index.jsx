@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import styles from './OptionPayment.module.css';
 
 import Typography from '@material-ui/core/Typography';
-import { FIELD_GROUP_ENUM, SEVERITY_ENUM, EVENT_TYPE, STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
+import { FIELD_GROUP_ENUM, SEVERITY_ENUM, EVENT_TYPE, NUMBER_STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
 import { goBack, goTo, ROUTES } from '../../actions/goTo';
 import AddTeamFeeDialog from '../../components/Custom/FormDialog/AddTeamFee';
 import AddPlayerFeeDialog from '../../components/Custom/FormDialog/AddPlayerFee';
@@ -90,7 +90,7 @@ export default function OptionPayment() {
       }),
     });
 
-    if (res.status === STATUS_ENUM.ERROR) {
+    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),

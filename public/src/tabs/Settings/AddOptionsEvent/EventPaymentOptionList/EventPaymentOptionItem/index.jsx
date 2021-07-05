@@ -11,14 +11,14 @@ import CustomIconButton from '../../../../../components/Custom/IconButton';
 import { formatRoute } from '../../../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
-import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../../common/enums';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
   const { option, update } = props;
-  const { id, name, team_price, individual_price, startTime, endTime } = option;
+  const { id, name, teamPrice, individualPrice, startTime, endTime } = option;
 
   const { dispatch } = useContext(Store);
   const [alertDialog, setAlertDialog] = useState(false);
@@ -54,7 +54,7 @@ export default function EventPaymentOptionItem(props) {
       }),
     });
 
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('changes_saved'),
@@ -75,9 +75,9 @@ export default function EventPaymentOptionItem(props) {
     <div>
       <ListItem onClick={handleExpand}>
         <ListItemText
-          primary={`${name} | ${t('price_team')} ${team_price === 0 ? t('free') : formatPrice(team_price)}, ${t(
+          primary={`${name} | ${t('price_team')} ${teamPrice === 0 ? t('free') : formatPrice(teamPrice)}, ${t(
             'price_individual'
-          )} ${individual_price === 0 ? t('free') : formatPrice(individual_price)}`}
+          )} ${individualPrice === 0 ? t('free') : formatPrice(individualPrice)}`}
           secondary={t('open_from_to', {
             startDate: formatDate(moment.utc(startTime), 'MMM D'),
             endDate: formatDate(moment.utc(endTime), 'MMM D'),

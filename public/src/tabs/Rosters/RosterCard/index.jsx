@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Players from './Players';
 import Typography from '@material-ui/core/Typography';
-import { ROSTER_ROLE_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { ROSTER_ROLE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
@@ -62,7 +62,7 @@ export default function RosterCard(props) {
       }
     );
 
-    if (res.status === STATUS_ENUM.FORBIDDEN) {
+    if (res.status === NUMBER_STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_delete_paid_player'),
@@ -71,7 +71,7 @@ export default function RosterCard(props) {
       });
       return;
     }
-    if (res.status === STATUS_ENUM.METHOD_NOT_ALLOWED) {
+    if (res.status === NUMBER_STATUS_ENUM.METHOD_NOT_ALLOWED) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team.team_player_role_error'),
@@ -80,7 +80,7 @@ export default function RosterCard(props) {
       });
       return;
     }
-    if (res.status === STATUS_ENUM.ERROR) {
+    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),
@@ -100,7 +100,7 @@ export default function RosterCard(props) {
         rosterId,
       }),
     });
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
       update();
     } else {
       dispatch({
@@ -121,9 +121,9 @@ export default function RosterCard(props) {
       }),
     });
 
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
       update();
-    } else if (res.status === STATUS_ENUM.FORBIDDEN) {
+    } else if (res.status === NUMBER_STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team.team_player_role_error'),
@@ -156,16 +156,14 @@ export default function RosterCard(props) {
   };
 
   const isTeamEditor = useMemo(() => role == ROSTER_ROLE_ENUM.CAPTAIN || role == ROSTER_ROLE_ENUM.COACH, [role]);
-  const editableRoster = useMemo(() => editableRosterProp || isTeamEditor || isEventAdmin, [
-    editableRosterProp,
-    isTeamEditor,
-    isEventAdmin,
-  ]);
-  const editableRole = useMemo(() => editableRoleProp || isTeamEditor || isEventAdmin, [
-    editableRoleProp,
-    isTeamEditor,
-    isEventAdmin,
-  ]);
+  const editableRoster = useMemo(
+    () => editableRosterProp || isTeamEditor || isEventAdmin,
+    [editableRosterProp, isTeamEditor, isEventAdmin]
+  );
+  const editableRole = useMemo(
+    () => editableRoleProp || isTeamEditor || isEventAdmin,
+    [editableRoleProp, isTeamEditor, isEventAdmin]
+  );
 
   const greenBackground = isEventAdmin || role != ROSTER_ROLE_ENUM.VIEWER;
   const style = useMemo(() => {

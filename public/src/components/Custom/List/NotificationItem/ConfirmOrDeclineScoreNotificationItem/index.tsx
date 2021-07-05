@@ -2,7 +2,7 @@ import NotificationItem from '../index';
 import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../../../common/enums';
+import { SEVERITY_ENUM, NUMBER_STATUS_ENUM, TABS_ENUM } from '../../../../../../common/enums';
 import api from '../../../../../actions/api';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
 import Button from '../../../Button';
@@ -66,7 +66,7 @@ const ConfirmOrDeclineScoreNotificationItem: React.FunctionComponent<IProps> = (
         submitted_by_person: myPlayerId,
       }),
     });
-    if (!res || res.status === STATUS_ENUM.ERROR) {
+    if (!res || res.status === NUMBER_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),

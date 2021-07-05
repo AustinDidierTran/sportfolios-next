@@ -267,7 +267,13 @@ export enum COUPON_CODE_ENUM {
   BECOME_MEMBER = 'become member',
 }
 
+export enum PILL_TYPE_ENUM {
+  NOT_PAID = 'not paid',
+  NOT_MEMBER = 'not member',
+}
+
 export enum ROUTES_ENUM {
+  // eslint-disable-next-line
   addBankAccount = '/page/addBankAccount',
   addPaymentMethod = '/page/addPaymentMethod',
   adminPanel = '/page/adminPanel',
@@ -319,19 +325,22 @@ export enum ROUTES_ENUM {
   userSettings = '/page/userSettings',
 }
 
+export enum NUMBER_STATUS_ENUM {
+  FORBIDDEN = 403,
+  METHOD_NOT_ALLOWED = 405,
+  ERROR = 404,
+  SUCCESS = 201,
+  UNAUTHORIZED = 401,
+}
+
 export enum STATUS_ENUM {
   ACCEPTED = 'accepted',
   ACCEPTED_FREE = 'accepted free',
+  ERROR_STRING = 'error',
   PENDING = 'pending',
   REFUSED = 'refused',
-  UNCHANGED = 'unchanged',
-  SUCCESS = 201,
-  FORBIDDEN = 403,
-  ERROR = 404,
-  METHOD_NOT_ALLOWED = 405,
-  ERROR_STRING = 'error',
   SUCCESS_STRING = 'success',
-  UNAUTHORIZED = 401,
+  UNCHANGED = 'unchanged',
 }
 
 export enum PLAYER_ATTENDANCE_STATUS {
@@ -549,8 +558,7 @@ export enum PHOTO_ENUM {
 
 export const MESSENGER_MESSAGES_EN = {
   CONNECTION_SUCCESS: {
-    text:
-      "You have been sign up to Sportfolios' chatbot successfuly! Come again after your next match to submit your scores",
+    text: "You have been signed up to Sportfolios' chatbot successfully! Come again after your next match to submit your scores",
     quick_replies: [
       {
         content_type: 'text',
@@ -563,8 +571,7 @@ export const MESSENGER_MESSAGES_EN = {
     text: 'There was an error while linking your account, please try again later',
   },
   GET_STARTED_NO_REF: {
-    text:
-      'You now need to link your Sportfolios account, please follow the following link= https://sportfolios.app/page/userSettings',
+    text: 'You now need to link your Sportfolios account, please click on the following link: https://sportfolios.app/page/userSettings',
   },
 };
 

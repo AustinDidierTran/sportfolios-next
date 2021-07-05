@@ -3,7 +3,12 @@ import React, { useState, useContext } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import { getIconFromRole, getInitialsFromName } from '../../../../utils/stringFormats';
 import styles from './Player.module.css';
-import { FORM_DIALOG_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import {
+  FORM_DIALOG_TYPE_ENUM,
+  ROSTER_ROLE_ENUM,
+  SEVERITY_ENUM,
+  NUMBER_STATUS_ENUM,
+} from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import Icon from '../../../../components/Custom/Icon';
 import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
@@ -35,7 +40,7 @@ const Player: React.FunctionComponent<IProps> = (props) => {
 
   const onDelete = async () => {
     const status = await deletePlayerApi(player.id);
-    if (status === STATUS_ENUM.ERROR) {
+    if (status === NUMBER_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

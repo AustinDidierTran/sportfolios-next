@@ -8,7 +8,7 @@ import styles from './SalesItem.module.css';
 import { formatPrice, formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import CustomAvatar from '../../Avatar';
-import MailtoButton from '../../MailToButton';
+import MailToButton from '../../MailToButton';
 
 export default function SalesItem(props) {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ export default function SalesItem(props) {
         ></ListItemText>
         {email ? <ListItemText secondary={`${t('by')}: ${email}`} className={styles.email}></ListItemText> : <></>}
 
-        <MailtoButton emails={emails} className={styles.mail} />
+        <MailToButton emails={emails} className={styles.mail} />
         <ListItemText
           className={styles.date}
           secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
