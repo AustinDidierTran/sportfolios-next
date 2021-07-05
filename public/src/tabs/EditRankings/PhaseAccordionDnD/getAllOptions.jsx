@@ -25,6 +25,7 @@ export const getAllOptions = async (eventId, phaseId, t) => {
     })
   );
   console.log({ prerankPhase });
+
   const allPhases = data
     .map((d) => ({
       content: d.name,
@@ -55,14 +56,18 @@ export const getAllOptions = async (eventId, phaseId, t) => {
 
   const prerankingOptions = getPrerankingOptions(preranking, allRankings, t);
   console.log({ prerankingOptions });
+
   const rankingOptions = getRankingOptions(allRankings, allPhases, prerankPhase.phaseId, phaseId);
+  console.log({ rankingOptions });
 
   const allOptions = prerankingOptions.concat(rankingOptions).sort((a, b) => {
     if (a.index && b.index && a.phaseId === b.phaseId) {
       return a.index - b.index;
     }
   });
+  console.log({ allOptions });
   const placeholder = [{ value: 'selected', display: `${t('add.add_position')}...`, disabled: true }];
+  console.log({ placeholder });
   const res = placeholder.concat(allOptions);
   console.log({ res });
   return res;
@@ -99,7 +104,6 @@ const getPrerankingOptions = (preranking, allRankings, t) => {
 };
 
 const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
-  console.log('getRankingOptions');
   console.log({ allRankings, allPhases, prerankId, phaseId });
   const allPositions = allRankings
     .filter((r) => r.currentPhase !== phaseId)
@@ -143,7 +147,7 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
   console.log({ unavailablePositions });
 
   const filteredPositions = allPositions.filter((p) => !unavailablePositions.includes(p.value));
-  console.log({ filteredPositions });
 
+  console.log({ filteredPositions });
   return filteredPositions;
 };
