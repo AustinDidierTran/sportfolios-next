@@ -10,8 +10,15 @@ import moment from 'moment';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import styles from './CollapseTeamsRegisteredMobile.module.css';
+import { EventTeam } from '../../../../../../../typescript/types';
 
-export default function CollapseTeamsRegisteredMobile(props) {
+interface IProps {
+  team: EventTeam;
+  unregister: () => void;
+  expanded: boolean;
+}
+
+const CollapseTeamsRegisteredMobile: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { expanded, team, unregister } = props;
 
@@ -34,7 +41,7 @@ export default function CollapseTeamsRegisteredMobile(props) {
           <ListItemText
             className={styles.text}
             primary={`${team.option.name} (${
-              team.option.team_price === 0 ? t('free') : formatPrice(team.option.team_price)
+              team.option.teamPrice === 0 ? t('free') : formatPrice(team.option.teamPrice)
             })`}
             secondary={t('option')}
           />
@@ -49,6 +56,7 @@ export default function CollapseTeamsRegisteredMobile(props) {
             primary={team?.option?.informations}
             secondary={
               <TextField
+                //@ts-ignore
                 InputProps={{ disableUnderline: true, whiteSpace: 'pre-wrap' }}
                 multiline
                 className={styles.textArea}
@@ -86,4 +94,5 @@ export default function CollapseTeamsRegisteredMobile(props) {
       </Button>
     </Collapse>
   );
-}
+};
+export default CollapseTeamsRegisteredMobile;

@@ -129,9 +129,9 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
         startTime: practice.startDate,
         endTime: practice.endDate,
         rsvp:
-          practice.myRsvp.length < 3 && practice.rsvp
+          practice.myRsvp?.length < 3 && practice.rsvp
             ? practice.myRsvp.concat(practice.rsvp.slice(0, 3 - practice.myRsvp.length))
-            : practice.myRsvp.slice(0, 3),
+            : practice.myRsvp? practice.myRsvp.slice(0, 3) : null,
         update,
       };
     });

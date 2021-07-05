@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './FinalRanking.module.css';
-import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, NUMBER_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { updateRanking } from '../../Rankings/RankingFunctions';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -67,13 +67,13 @@ export default function FinalRanking(props) {
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
 
   const getRankings = async () => {
-    const {games, teams:allTeams} = await getPhasesGameAndTeams(eventId, phase.id);
+    const { games, teams: allTeams } = await getPhasesGameAndTeams(eventId, phase.id);
     const teams = allTeams.map((team) => {
-      let positionName = `${team.origin_position}. ${team.phaseName}`;
-      if (team.origin_phase === prerankPhaseId) {
-        positionName = `${team.origin_position}. ${t('preranking')}`;
+      let positionName = `${team.originPosition}. ${team.phaseName}`;
+      if (team.originPhase === prerankPhaseId) {
+        positionName = `${team.originPosition}. ${t('preranking')}`;
       }
-      return { ...team, position: team.initial_position, id: team.teamId, rosterId: team.roster_id, positionName };
+      return { ...team, position: team.initialPosition, id: team.teamId, rosterId: team.rosterId, positionName };
     });
 
     const res = updateRanking(teams, games);
@@ -87,8 +87,8 @@ export default function FinalRanking(props) {
         index: index + 1,
         key: index,
         positionName: t.positionName,
-        initialPosition: t.initial_position,
-        finalPosition: t.final_position,
+        initialPosition: t.initialPosition,
+        finalPosition: t.finalPosition,
       };
     });
 
@@ -123,7 +123,7 @@ export default function FinalRanking(props) {
         manualRanking: items,
       }),
     });
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('manual_ranking_updated'),

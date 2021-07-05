@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import List from '../../../../components/Custom/List';
-import { LIST_ITEM_ENUM, HEADER_FLYOUT_TYPE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { LIST_ITEM_ENUM, HEADER_FLYOUT_TYPE_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import Typography from '@material-ui/core/Typography';
@@ -62,7 +62,7 @@ export default function Notifications(props) {
       })
     );
 
-    if (status === STATUS_ENUM.ERROR) {
+    if (status === NUMBER_STATUS_ENUM.ERROR) {
       return;
     }
 

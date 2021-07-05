@@ -51,7 +51,13 @@ const StatusChip: React.FunctionComponent<IProps> = (props) => {
   if (status === INVOICE_STATUS_ENUM.PAID || status === INVOICE_STATUS_ENUM.FREE) {
     return (
       <div className={classes.root}>
-        <Chip label={t(status)} icon={<AttachMoney />} color="primary" variant="outlined" clickable={clickable} />
+        <Chip
+          label={t(`payment.${status}`)}
+          icon={<AttachMoney />}
+          color="primary"
+          variant="outlined"
+          clickable={clickable}
+        />
       </div>
     );
   }
@@ -60,6 +66,19 @@ const StatusChip: React.FunctionComponent<IProps> = (props) => {
     return (
       <div className={classes.root}>
         <Chip label={t('refunded')} icon={<AttachMoney />} color="secondary" variant="outlined" clickable={clickable} />
+      </div>
+    );
+  }
+  if (status === INVOICE_STATUS_ENUM.OPEN) {
+    return (
+      <div className={classes.root}>
+        <Chip
+          label={t('payment.not_paid')}
+          icon={<AttachMoney />}
+          color="secondary"
+          variant="outlined"
+          clickable={clickable}
+        />
       </div>
     );
   }

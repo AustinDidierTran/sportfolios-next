@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './AddOptionsEvent.module.css';
-import { SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, NUMBER_STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
@@ -90,7 +90,7 @@ export default function AddOptionsEvent() {
         informations: infos,
       }),
     });
-    if (res.status === STATUS_ENUM.ERROR) {
+    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),

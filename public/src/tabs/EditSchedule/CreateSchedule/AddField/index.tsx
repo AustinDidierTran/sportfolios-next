@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   isOpen: boolean;
@@ -64,7 +64,7 @@ const AddField: React.FunctionComponent<IProps> = (props) => {
 
       resetForm();
 
-      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
+      if (status === NUMBER_STATUS_ENUM.ERROR || status === NUMBER_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

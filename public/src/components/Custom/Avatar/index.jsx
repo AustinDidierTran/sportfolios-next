@@ -25,7 +25,6 @@ export default function CustomAvatar(props) {
   } else if (props.size === 'lg') {
     className = clsx(styles.lg, styles.avatar, props.className);
   }
-
   if (photoUrl) {
     return (
       <Avatar

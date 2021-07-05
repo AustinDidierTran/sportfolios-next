@@ -8,7 +8,14 @@ import { useStepper } from '../../hooks/forms';
 import api from '../../actions/api';
 import { ROUTES, goTo, goToAndReplace } from '../../actions/goTo';
 import { useTranslation } from 'react-i18next';
-import { INVOICE_STATUS_ENUM, GLOBAL_ENUM, SEVERITY_ENUM, STATUS_ENUM, REJECTION_ENUM, TABS_ENUM } from '../../../common/enums';
+import {
+  INVOICE_STATUS_ENUM,
+  GLOBAL_ENUM,
+  SEVERITY_ENUM,
+  NUMBER_STATUS_ENUM,
+  REJECTION_ENUM,
+  TABS_ENUM,
+} from '../../../common/enums';
 import styles from './EventRegistration.module.css';
 import Typography from '@material-ui/core/Typography';
 import { Store, ACTION_ENUM } from '../../Store';
@@ -109,7 +116,7 @@ export default function EventRegistration() {
           informations,
         }),
       });
-      if (status === STATUS_ENUM.SUCCESS) {
+      if (status === NUMBER_STATUS_ENUM.SUCCESS) {
         goTo(ROUTES.registrationStatus, null, {
           status: data.status,
           rosterId: data.rosterId,
@@ -149,6 +156,9 @@ export default function EventRegistration() {
 
   useEffect(() => {
     formik.setFieldValue('teamActivity', true);
+    if (!eventId) {
+      return;
+    }
     if (!isAuthenticated) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -160,11 +170,6 @@ export default function EventRegistration() {
       });
       return;
     }
-
-    if (!eventId) {
-      return;
-    }
-
     getData();
   }, [eventId]);
 

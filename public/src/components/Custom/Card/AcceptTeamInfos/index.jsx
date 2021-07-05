@@ -55,7 +55,7 @@ export default function AcceptTeamInfos(props) {
         </div>
         <div className={styles.div}>
           <Typography color="textSecondary">{`${t('price')}:`}</Typography>
-          <Typography>{formatPrice(paymentOption?.team_price) || t('missing_info')}</Typography>
+          <Typography>{formatPrice(paymentOption?.teamPrice) || t('missing_info')}</Typography>
         </div>
         <div style={{ marginTop: '16px' }}>
           <Players className={styles.players} players={roster} />

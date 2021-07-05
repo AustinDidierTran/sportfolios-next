@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
 import * as yup from 'yup';
 import { Exercise } from '../../../../../../typescript/types';
 import { getTeamExercises as getTeamExercisesApi } from '../../../../actions/service/entity/get';
@@ -106,7 +106,7 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
 
       const status = await addExercise(exerciseId, name, description, practiceId, teamId);
 
-      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
+      if (status === NUMBER_STATUS_ENUM.ERROR || status === NUMBER_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

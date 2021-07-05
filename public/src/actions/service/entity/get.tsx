@@ -20,6 +20,7 @@ import {
   Field,
   Exercise,
   Evaluation,
+  EventTeam,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -71,6 +72,24 @@ export function hasMemberships(organizationId: string): Promise<boolean> {
 
 export function getPlayers(teamId: string): Promise<Player[]> {
   return api(formatRoute(`${BASE_URL}/players`, null, { teamId })).then((res) => res.data);
+}
+
+export function getAllTeamsRegisteredInfos(eventId: string, pills: string[]): Promise<EventTeam[]> {
+  return api(formatRoute(`${BASE_URL}/allTeamsRegisteredInfos`, null, { eventId, pills })).then((res) => res.data);
+}
+
+export function getAllTeamsAcceptedRegistered(eventId: string): Promise<EventTeam[]> {
+  return api(formatRoute(`${BASE_URL}/allTeamsAcceptedRegistered`, null, { eventId })).then((res) => res.data);
+}
+
+export function getCanUnregisterTeamsList(eventId: string, rosterIds: string[]): Promise<string[]> {
+  return api(
+    formatRoute(`${BASE_URL}/canUnregisterTeamsList`, null, { eventId, rosterIds: JSON.stringify(rosterIds) })
+  ).then((res) => res.data);
+}
+
+export function getEventInfo(eventId: string): Promise<Event> {
+  return api(formatRoute(`${BASE_URL}/event`, null, { eventId })).then((res) => res.data);
 }
 
 export function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {

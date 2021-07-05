@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { GLOBAL_ENUM, STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM, NUMBER_STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import Card from '@material-ui/core/Card';
 import styles from './MyPersons.module.css';
 import api from '../../../actions/api';
@@ -79,7 +79,7 @@ export default function MyPersons() {
         id: selectedPerson.id,
       })
     );
-    if (res.status === STATUS_ENUM.ERROR) {
+    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
       showSuccessMessage(t('person.person_transfer_declined'));
@@ -94,7 +94,7 @@ export default function MyPersons() {
         id: person.id,
       })
     );
-    if (res.status === STATUS_ENUM.ERROR) {
+    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
       showSuccessMessage(t('person.person_transfer_done'));
@@ -109,7 +109,7 @@ export default function MyPersons() {
       }),
       { method: 'DELETE' }
     );
-    if (res.status === STATUS_ENUM.ERROR) {
+    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
       showErrorMessage(res.message);
     } else {
       showSuccessMessage(t('person.person_transfer_canceled'));
@@ -128,7 +128,7 @@ export default function MyPersons() {
     });
     if (res.status === errors[ERROR_ENUM.VALUE_IS_INVALID].code) {
       showErrorMessage(t('cant_transfer_person_to_your_own_email'));
-    } else if (res.status == STATUS_ENUM.ERROR) {
+    } else if (res.status == NUMBER_STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
       showSuccessMessage(t('person.person_transfer_email_sent', { email }), 3000);
@@ -145,7 +145,7 @@ export default function MyPersons() {
           primaryPersonId: newPrimaryPersonId,
         }),
       });
-      if (res.status === STATUS_ENUM.ERROR) {
+      if (res.status === NUMBER_STATUS_ENUM.ERROR) {
         showErrorMessage();
       } else {
         showSuccessMessage(t('primary_person_changed'));

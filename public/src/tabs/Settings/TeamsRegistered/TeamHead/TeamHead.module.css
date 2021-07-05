@@ -1,0 +1,12 @@
+.header:hover {
+  cursor: pointer;
+}
+
+.chips {
+  display: flex;
+  flex-direction: row;
+}
+
+.chip {
+  margin-right: 8px !important;
+}
