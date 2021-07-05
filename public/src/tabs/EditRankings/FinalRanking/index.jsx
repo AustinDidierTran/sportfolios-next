@@ -69,11 +69,11 @@ export default function FinalRanking(props) {
   const getRankings = async () => {
     const {games, teams:allTeams} = await getPhasesGameAndTeams(eventId, phase.id);
     const teams = allTeams.map((team) => {
-      let positionName = `${team.origin_position}. ${team.phaseName}`;
-      if (team.origin_phase === prerankPhaseId) {
-        positionName = `${team.origin_position}. ${t('preranking')}`;
+      let positionName = `${team.originPosition}. ${team.phaseName}`;
+      if (team.originPhase === prerankPhaseId) {
+        positionName = `${team.originPosition}. ${t('preranking')}`;
       }
-      return { ...team, position: team.initial_position, id: team.teamId, rosterId: team.roster_id, positionName };
+      return { ...team, position: team.initialPosition, id: team.teamId, rosterId: team.rosterId, positionName };
     });
 
     const res = updateRanking(teams, games);
@@ -87,8 +87,8 @@ export default function FinalRanking(props) {
         index: index + 1,
         key: index,
         positionName: t.positionName,
-        initialPosition: t.initial_position,
-        finalPosition: t.final_position,
+        initialPosition: t.initialPosition,
+        finalPosition: t.finalPosition,
       };
     });
 

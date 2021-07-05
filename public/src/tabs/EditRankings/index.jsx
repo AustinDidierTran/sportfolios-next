@@ -240,7 +240,7 @@ export default function EditRankings() {
     const emptyRankings = phaseFilter(phase, 'Ranking');
     const rankingsWithRosterId = phaseFilter(phase);
 
-    if (!rankingsWithRosterId.includes(null) && phase.spots !== 0) {
+    if (!rankingsWithRosterId.includes(null || undefined) && phase.spots !== 0) {
       const res = await api('/api/entity/updatePhase', {
         method: 'PUT',
         body: JSON.stringify({

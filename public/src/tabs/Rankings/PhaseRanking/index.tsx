@@ -5,7 +5,7 @@ import { updateRanking } from '../RankingFunctions';
 import { useTranslation } from 'react-i18next';
 import { Store } from '../../../Store';
 import { getPhases as getPhasesApi, getPhasesGameAndTeams } from '../../../actions/service/entity/get';
-import { PhaseGames, Ranking as IRanking} from '../../../../../typescript/types';
+import { PhaseGames, Ranking as IRanking } from '../../../../../typescript/types';
 
 interface IProps {
   prerankPhaseId: string;
@@ -33,6 +33,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
     const phases = await getPhasesApi(eventId);
 
     phases.sort((a, b) => a.phaseOrder - b.phaseOrder);
+
     const res = await Promise.all(
       phases.map(async (phase) => {
         if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED) {
@@ -76,9 +77,10 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             positionName,
           };
         });
+
         const ranking = updateRanking(teams, games);
 
-        const rankingStats = ranking.map((r:IRanking) => {
+        const rankingStats = ranking.map((r: IRanking) => {
           const t = teams.find((t) => t.id === r.id);
           return {
             ...r,
@@ -89,7 +91,9 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
         });
 
         if (phase.status === PHASE_STATUS_ENUM.DONE) {
-          const rankingFromFinalPosition = rankingStats.sort((a:IRanking, b:IRanking) => a.finalPosition - b.finalPosition);
+          const rankingFromFinalPosition = rankingStats.sort(
+            (a: IRanking, b: IRanking) => a.finalPosition - b.finalPosition
+          );
           return {
             ranking: rankingFromFinalPosition,
             title: phase.name,
@@ -97,7 +101,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             status: phase.status,
           };
         } else {
-          const playedGames = games.reduce((prev:any[], curr:PhaseGames) => {
+          const playedGames = games.reduce((prev: any[], curr: PhaseGames) => {
             const score1 = curr.teams[0].score;
             const score2 = curr.teams[1].score;
             return prev.concat([score1, score2]);
@@ -125,7 +129,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <>
-      {phases.map((phase:IPhase, index:number) => (
+      {phases.map((phase: IPhase, index: number) => (
         <div key={index}>
           {phase.ranking.length < 1 ? (
             <></>
