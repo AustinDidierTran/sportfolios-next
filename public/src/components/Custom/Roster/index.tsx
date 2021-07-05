@@ -81,7 +81,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   };
 
   return (
-    <div style={{marginTop: '8px'}}>
+    <div style={{ marginTop: '8px' }}>
       <Typography className={styles.title} variant="h4">
         {t('roster')}
         <div>
@@ -89,7 +89,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
         </div>
       </Typography>
       {teamRoster.map((player: Player, index: number) => (
-        <ListItem key={player.id} className={index % 2 === 0 ? styles.greycard : styles.card}>
+        <ListItem key={index} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <ListItemIcon>
             <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
           </ListItemIcon>

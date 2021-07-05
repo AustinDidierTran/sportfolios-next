@@ -410,7 +410,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
           <Roster roster={practice?.roster} practiceId={practice?.id} />
           <Divider variant="middle" />
 
-          <Exercise getExercises={getExercises} teamId={practice.teamId} exercises={exercises} practiceId={practice?.id} />
+          <Exercise getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}

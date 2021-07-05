@@ -1,0 +1,14 @@
+.greycard {
+  background-color: rgb(240, 240, 240);
+}
+
+.element {
+  margin-right: 5px !important;
+}
+
+.evaluation {
+  display: grid !important;
+  grid-template-columns: 0.5fr 10fr 2fr;
+  width: 100%;
+  align-items: center;
+}
