@@ -753,9 +753,9 @@ export default {
       no_taxes: 'No taxes',
       no_team_in_prerank_position:
         'There is no team on some of the positions in prerank. You need more teams in your event or remove the empty positions from your phase.',
-      no_team_number: 'Edit the number of teams. ',
+      no_team_number: 'Edit the number of teams ',
       no_team_yet: 'No team yet',
-      no_teams_registered: 'No teams registered.',
+      no_teams_registered: 'No teams registered',
       no_teams: 'No teams',
       no_users_found: 'No users found',
       no: 'no',

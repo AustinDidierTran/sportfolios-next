@@ -87,6 +87,8 @@ const TeamHead: React.FunctionComponent<IProps> = (props) => {
     return 'outlined';
   };
 
+  const margin = { margin: '-5px 0 -5px -3px' };
+
   return (
     <>
       <TableHead>
@@ -124,25 +126,25 @@ const TeamHead: React.FunctionComponent<IProps> = (props) => {
           <StyledTableCell className={styles.header} onClick={handleTeam}>
             <div>
               {t('team.team')}
-              <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconTeam} />
+              <Icon style={margin} icon={iconTeam} />
             </div>
           </StyledTableCell>
           <StyledTableCell className={styles.header} onClick={handleOption}>
             <div>
               {t('option')}
-              <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconOption} />
+              <Icon style={margin} icon={iconOption} />
             </div>
           </StyledTableCell>
           <StyledTableCell className={styles.header} onClick={handleStatus} align="center">
             <div>
               {t('status')}
-              <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconStatus} />
+              <Icon style={margin} icon={iconStatus} />
             </div>
           </StyledTableCell>
           <StyledTableCell className={styles.header} onClick={handleIsMember} align="center">
             <div>
               {t('is_member')}
-              <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconMember} />
+              <Icon style={margin} icon={iconMember} />
             </div>
           </StyledTableCell>
           <StyledTableCell>

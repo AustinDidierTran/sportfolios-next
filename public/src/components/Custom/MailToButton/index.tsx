@@ -37,14 +37,6 @@ const MailToButton: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  return (
-    <IconButton
-      variant="contained"
-      onClick={onClick}
-      icon="Mail"
-      tooltip={tooltip}
-      style={{ color: color }}
-    ></IconButton>
-  );
+  return <IconButton variant="contained" onClick={onClick} icon="Mail" tooltip={tooltip} style={{ color: color }} />;
 };
 export default MailToButton;

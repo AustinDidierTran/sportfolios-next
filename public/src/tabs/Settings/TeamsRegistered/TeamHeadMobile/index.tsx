@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { useTranslation } from 'react-i18next';
 import { EventTeam } from '../../../../../../typescript/types';
 import styles from './TeamHead.module.css';
+import { COLORS } from '../../../../utils/colors';
 
 interface IProps {
   teams: EventTeam[];
@@ -50,6 +51,8 @@ const TeamHeadMobile: React.FunctionComponent<IProps> = (props) => {
     emails,
   } = props;
 
+  const margin = { margin: '-5px 0 -5px -3px' };
+
   return (
     <>
       <TableHead>
@@ -74,7 +77,7 @@ const TeamHeadMobile: React.FunctionComponent<IProps> = (props) => {
                 icon="MoneyOff"
                 tooltip={t('register.unregister_all')}
                 onClick={() => handleUnregisterAllClick()}
-                style={{ color: '#f44336' }}
+                style={COLORS.red}
               />
             )}
           </StyledTableCell>
@@ -85,13 +88,13 @@ const TeamHeadMobile: React.FunctionComponent<IProps> = (props) => {
           <StyledTableCell className={styles.header} onClick={handleTeam}>
             <div>
               {t('team.team')}
-              <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconTeam} />
+              <Icon style={margin} icon={iconTeam} />
             </div>
           </StyledTableCell>
           <StyledTableCell className={styles.header} onClick={handleStatus} align="center">
             <div>
               {t('status')}
-              <Icon style={{ margin: '-5px 0 -5px -3px' }} icon={iconStatus} />
+              <Icon style={margin} icon={iconStatus} />
             </div>
           </StyledTableCell>
           <StyledTableCell>

@@ -7,10 +7,6 @@ import { Store } from '../../Store';
 import { getPartners as getPartnersApi } from '../../actions/service/entity/get';
 import { Partner } from '../../../../typescript/types';
 
-interface IPartners extends Partner {
-  key: string;
-}
-
 const Partners: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
@@ -18,7 +14,7 @@ const Partners: React.FunctionComponent = () => {
     state: { userInfo, id },
   } = useContext(Store);
 
-  const [partners, setPartners] = useState<IPartners[]>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
 
   useEffect((): void => {
     if (id && userInfo) {
@@ -26,18 +22,8 @@ const Partners: React.FunctionComponent = () => {
     }
   }, [id, userInfo]);
 
-  const getPartners = async (): Promise<void> => {
-    const data = await getPartnersApi(id);
-
-    const partners = data.map((d) => ({
-      name: d.name,
-      website: d.website,
-      description: d.description,
-      photoUrl: d.photoUrl,
-      id: d.id,
-      key: d.id,
-    }));
-    setPartners(partners);
+  const getPartners = (): void => {
+    getPartnersApi(id).then(setPartners);
   };
 
   if (!partners.length) {
