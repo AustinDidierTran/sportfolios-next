@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import * as yup from 'yup';
 import { addPhase } from '../../../../actions/service/entity/post';
 
@@ -52,7 +52,7 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
     onSubmit: async (values) => {
       const { phase, spots, type } = values;
       const status = await addPhase(phase, spots, eventId, type);
-      if (status === NUMBER_STATUS_ENUM.ERROR || status === NUMBER_STATUS_ENUM.UNAUTHORIZED) {
+      if (status === REQUEST_STATUS_ENUM.ERROR || status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

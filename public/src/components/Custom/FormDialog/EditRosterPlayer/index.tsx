@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
@@ -46,7 +46,7 @@ const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
           role,
         }),
       });
-      if (res.status === NUMBER_STATUS_ENUM.ERROR) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './FinalRanking.module.css';
-import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, NUMBER_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { updateRanking } from '../../Rankings/RankingFunctions';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -123,7 +123,7 @@ export default function FinalRanking(props) {
         manualRanking: items,
       }),
     });
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('manual_ranking_updated'),

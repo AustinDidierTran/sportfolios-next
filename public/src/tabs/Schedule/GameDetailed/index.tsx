@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, ENTITIES_ROLE_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, ENTITIES_ROLE_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
 import Avatar from '../../../components/Custom/Avatar';
@@ -82,7 +82,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   const getSubmissioner = async (): Promise<void> => {
     const res = await getPossibleSubmissionerInfos(game);
 
-    if (res.status === NUMBER_STATUS_ENUM.FORBIDDEN) {
+    if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
       setIsLoading(false);
       return;
     } else if (res.data) {

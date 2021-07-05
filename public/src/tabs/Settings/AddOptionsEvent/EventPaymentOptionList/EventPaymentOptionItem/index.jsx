@@ -11,7 +11,7 @@ import CustomIconButton from '../../../../../components/Custom/IconButton';
 import { formatRoute } from '../../../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import api from '../../../../../actions/api';
-import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../common/enums';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import CustomFormDialog from '../../../../../components/Custom/FormDialog';
 
@@ -54,7 +54,7 @@ export default function EventPaymentOptionItem(props) {
       }),
     });
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('changes_saved'),

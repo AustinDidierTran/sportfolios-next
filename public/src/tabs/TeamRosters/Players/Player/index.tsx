@@ -7,7 +7,7 @@ import {
   FORM_DIALOG_TYPE_ENUM,
   ROSTER_ROLE_ENUM,
   SEVERITY_ENUM,
-  NUMBER_STATUS_ENUM,
+  REQUEST_STATUS_ENUM,
 } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import Icon from '../../../../components/Custom/Icon';
@@ -40,7 +40,7 @@ const Player: React.FunctionComponent<IProps> = (props) => {
 
   const onDelete = async () => {
     const status = await deletePlayerApi(player.id);
-    if (status === NUMBER_STATUS_ENUM.ERROR) {
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

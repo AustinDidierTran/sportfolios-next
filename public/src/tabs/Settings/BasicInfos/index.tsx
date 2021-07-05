@@ -16,7 +16,7 @@ import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import TextField from '../../../components/Custom/TextField';
 import { Entity } from '../../../../../typescript/types';
 import Upload from 'rc-upload';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -81,7 +81,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
       if (name != initialName) {
         const res = await changeEntityName(id, { name });
 
-        if (res.status === NUMBER_STATUS_ENUM.ERROR || res.status >= 400) {
+        if (res.status === REQUEST_STATUS_ENUM.ERROR || res.status >= 400) {
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,
             message: ERROR_ENUM.ERROR_OCCURED,

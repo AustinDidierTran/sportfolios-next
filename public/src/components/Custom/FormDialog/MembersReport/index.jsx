@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM, REPORT_TYPE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, REPORT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
 
@@ -46,7 +46,7 @@ export default function MembersReport(props) {
           date,
         }),
       });
-      if (res.status === NUMBER_STATUS_ENUM.ERROR) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

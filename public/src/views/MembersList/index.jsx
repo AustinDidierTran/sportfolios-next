@@ -4,7 +4,7 @@ import { formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
 import api from '../../actions/api';
 import { goToAndReplace, ROUTES } from '../../actions/goTo';
-import { FORM_DIALOG_TYPE_ENUM, NUMBER_STATUS_ENUM } from '../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import styles from './MembersList.module.css';
 import dynamic from 'next/dynamic';
 import { formatRoute } from '../../utils/stringFormats';
@@ -49,7 +49,7 @@ export default function MembersList() {
 
   const getMembers = async () => {
     const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }));
-    if (status === NUMBER_STATUS_ENUM.ERROR_STRING) {
+    if (status === REQUEST_STATUS_ENUM.ERROR_STRING) {
       goToAndReplace(ROUTES.entityNotFound);
     } else {
       const res = data.map((d, index) => ({

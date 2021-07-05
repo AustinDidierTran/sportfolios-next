@@ -12,7 +12,7 @@ import {
   INVOICE_STATUS_ENUM,
   GLOBAL_ENUM,
   SEVERITY_ENUM,
-  NUMBER_STATUS_ENUM,
+  REQUEST_STATUS_ENUM,
   REJECTION_ENUM,
   TABS_ENUM,
 } from '../../../common/enums';
@@ -116,7 +116,7 @@ export default function EventRegistration() {
           informations,
         }),
       });
-      if (status === NUMBER_STATUS_ENUM.SUCCESS) {
+      if (status === REQUEST_STATUS_ENUM.SUCCESS) {
         goTo(ROUTES.registrationStatus, null, {
           status: data.status,
           rosterId: data.rosterId,

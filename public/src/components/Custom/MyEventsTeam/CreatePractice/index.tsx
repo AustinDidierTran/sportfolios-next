@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import * as yup from 'yup';
 import moment from 'moment';
@@ -147,7 +147,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
         }),
       });
 
-      if (res.status === NUMBER_STATUS_ENUM.ERROR || res.status === NUMBER_STATUS_ENUM.UNAUTHORIZED) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR || res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

@@ -8,7 +8,7 @@ import Button from '../../components/Custom/Button';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { ACTION_ENUM, Store } from '../../Store';
-import { PHASE_STATUS_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../common/enums';
+import { PHASE_STATUS_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../hooks/window';
@@ -166,7 +166,7 @@ export default function EditRankings() {
       }),
     });
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('order_saved'),
@@ -249,7 +249,7 @@ export default function EditRankings() {
           status: PHASE_STATUS_ENUM.STARTED,
         }),
       });
-      if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('phase_started'),
@@ -292,7 +292,7 @@ export default function EditRankings() {
         finalRanking: phaseToEnd.finalRanking,
       }),
     });
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('phase_done'),
@@ -321,7 +321,7 @@ export default function EditRankings() {
         method: 'DELETE',
       }
     );
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('delete.delete_phase_success'),

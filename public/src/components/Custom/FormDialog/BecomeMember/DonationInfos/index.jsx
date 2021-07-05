@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import api from '../../../../../actions/api';
 import BasicFormDialog from '../../BasicFormDialog';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../../Store';
 import * as yup from 'yup';
@@ -68,7 +68,7 @@ export default function DonationInfos(props) {
         }),
       });
 
-      if (res.status === NUMBER_STATUS_ENUM.ERROR || res.status >= 400) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR || res.status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

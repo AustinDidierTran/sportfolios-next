@@ -325,7 +325,7 @@ export enum ROUTES_ENUM {
   userSettings = '/page/userSettings',
 }
 
-export enum NUMBER_STATUS_ENUM {
+export enum REQUEST_STATUS_ENUM {
   FORBIDDEN = 403,
   METHOD_NOT_ALLOWED = 405,
   ERROR = 404,

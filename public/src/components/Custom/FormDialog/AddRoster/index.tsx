@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
 import * as yup from 'yup';
@@ -70,7 +70,7 @@ const AddRoster: React.FunctionComponent<IProps> = (props) => {
       const { name } = values;
 
       const status = await addRoster(teamId, people, name);
-      if (status === NUMBER_STATUS_ENUM.ERROR) {
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

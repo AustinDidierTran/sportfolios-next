@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { deleteEntity } from '../../../../actions/service/entity/delete';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import { NUMBER_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   id: string;
@@ -37,7 +37,7 @@ const DeleteEntity: React.FunctionComponent<IProps> = (props) => {
       setIsSubmitting(false);
     } else {
       const status = await deleteEntity(id, type);
-      if (status === NUMBER_STATUS_ENUM.ERROR) {
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
