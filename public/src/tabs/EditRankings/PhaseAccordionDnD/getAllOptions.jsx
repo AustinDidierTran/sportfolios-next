@@ -8,7 +8,6 @@ export const getAllOptions = async (eventId, phaseId, t) => {
       eventId,
     })
   );
-  console.log({ data });
 
   const {
     data: { preranking },
@@ -17,14 +16,12 @@ export const getAllOptions = async (eventId, phaseId, t) => {
       eventId,
     })
   );
-  console.log({ preranking });
 
   const { data: prerankPhase } = await api(
     formatRoute('/api/entity/prerankPhase', null, {
       eventId,
     })
   );
-  console.log({ prerankPhase });
 
   const allPhases = data
     .map((d) => ({
@@ -47,29 +44,22 @@ export const getAllOptions = async (eventId, phaseId, t) => {
       })),
     }))
     .sort((a, b) => a.order - b.order);
-  console.log({ allPhases });
 
   const allRankings = allPhases.reduce((prev, curr) => {
     return prev.concat(curr.ranking);
   }, []);
-  console.log({ allRankings });
 
   const prerankingOptions = getPrerankingOptions(preranking, allRankings, t);
-  console.log({ prerankingOptions });
 
   const rankingOptions = getRankingOptions(allRankings, allPhases, prerankPhase.phaseId, phaseId);
-  console.log({ rankingOptions });
 
   const allOptions = prerankingOptions.concat(rankingOptions).sort((a, b) => {
     if (a.index && b.index && a.phaseId === b.phaseId) {
       return a.index - b.index;
     }
   });
-  console.log({ allOptions });
   const placeholder = [{ value: 'selected', display: `${t('add.add_position')}...`, disabled: true }];
-  console.log({ placeholder });
   const res = placeholder.concat(allOptions);
-  console.log({ res });
   return res;
 };
 
@@ -104,7 +94,6 @@ const getPrerankingOptions = (preranking, allRankings, t) => {
 };
 
 const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
-  console.log({ allRankings, allPhases, prerankId, phaseId });
   const allPositions = allRankings
     .filter((r) => r.currentPhase !== phaseId)
     .map((r) => {
@@ -126,7 +115,6 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
       };
     })
     .filter((o) => o !== undefined);
-  console.log({ allPositions });
 
   const unavailablePositions = allRankings
     .filter((r) => r.originPhase && r.originPosition && r.originPhase !== prerankId)
@@ -144,10 +132,8 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
       return unavailablePosition.rankingId;
     })
     .filter((r) => r !== undefined);
-  console.log({ unavailablePositions });
 
   const filteredPositions = allPositions.filter((p) => !unavailablePositions.includes(p.value));
 
-  console.log({ filteredPositions });
   return filteredPositions;
 };
