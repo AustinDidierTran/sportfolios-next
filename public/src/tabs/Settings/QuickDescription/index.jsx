@@ -8,7 +8,7 @@ import api from '../../../actions/api';
 import styles from './QuickDescription.module.css';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useFormik } from 'formik';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { getGeneralInfos } from '../../../actions/service/entity/get';
 
@@ -55,7 +55,7 @@ export default function Description() {
           entityId,
         }),
       });
-      if (res.status === NUMBER_STATUS_ENUM.ERROR) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

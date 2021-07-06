@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FormDialog } from '../../../../../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../../../actions/api';
-import { NUMBER_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../../../common/enums';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../../../../common/errors';
 import { useContext } from 'react';
@@ -68,7 +68,7 @@ const EnterScore: React.FunctionComponent<IProps> = (props) => {
         }),
       });
       resetForm();
-      if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         update();
         onClose();
       } else {

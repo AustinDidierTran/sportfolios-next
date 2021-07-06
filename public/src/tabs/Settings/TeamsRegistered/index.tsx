@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { useTranslation } from 'react-i18next';
 import { unregisterTeams } from '../../../actions/api/helpers';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM, STATUS_ENUM, PILL_TYPE_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, STATUS_ENUM, PILL_TYPE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { goTo, ROUTES } from '../../../actions/goTo';
@@ -196,7 +196,7 @@ const TeamsRegistered: React.FunctionComponent = () => {
     });
     setIsLoading(false);
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team.team_unregister_success'),
@@ -224,7 +224,7 @@ const TeamsRegistered: React.FunctionComponent = () => {
     });
     setIsLoading(false);
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team.teams_unregister_success'),

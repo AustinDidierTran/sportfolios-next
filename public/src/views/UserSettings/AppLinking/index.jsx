@@ -6,7 +6,7 @@ import { useFacebookSDK } from '../../../hooks/setup';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import {
-  NUMBER_STATUS_ENUM,
+  REQUEST_STATUS_ENUM,
   SEVERITY_ENUM,
   APP_ENUM,
   FACEBOOK_STATUS_ENUM,
@@ -32,7 +32,7 @@ export default function AppLinking() {
 
   const fetchConnectedApp = async () => {
     const res = await api('/api/user/connectedApps');
-    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
+    if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       return;
     }
     const { data } = res;
@@ -67,7 +67,7 @@ export default function AppLinking() {
       });
       if (res.status === errors[ERROR_ENUM.ACCESS_DENIED].code) {
         showErrorToast(t('account_already_linked'));
-      } else if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+      } else if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         setIsLinkedFB(true);
         setFBUserId(facebook_id);
       } else {
@@ -110,7 +110,7 @@ export default function AppLinking() {
     });
     if (fbUserId == conf.FACEBOOK_ADMIN_ID) {
       setIsLinkedFB(false);
-    } else if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    } else if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       await window.FB.api('/me/permissions', 'DELETE', {}, function (response) {
         if (response.success || response.error.subcode == 466 /*Permissions already revoked*/) {
           window.FB.logout();
@@ -143,7 +143,7 @@ export default function AppLinking() {
       });
       if (res.status == errors[ERROR_ENUM.VALUE_IS_INVALID].code) {
         openMessenger();
-      } else if (res.status == NUMBER_STATUS_ENUM.SUCCESS) {
+      } else if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
         setIsLinkedMessenger(true);
       } else {
         showErrorToast();
@@ -162,7 +162,7 @@ export default function AppLinking() {
     const res = await api('/api/user/messengerConnection', {
       method: 'DELETE',
     });
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       setIsLinkedMessenger(false);
     } else {
       showErrorToast();

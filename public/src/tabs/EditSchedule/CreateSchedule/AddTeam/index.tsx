@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   isOpen: boolean;
@@ -64,7 +64,7 @@ const AddTeam: React.FunctionComponent<IProps> = (props) => {
       });
       onClose();
       resetForm();
-      if (status === NUMBER_STATUS_ENUM.ERROR) {
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
         if (data.reason) {
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,

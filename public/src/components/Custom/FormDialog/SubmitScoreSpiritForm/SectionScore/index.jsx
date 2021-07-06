@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
 import { useTranslation } from 'react-i18next';
-import { STATUS_ENUM, NUMBER_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { STATUS_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import api from '../../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../../Store';
@@ -62,7 +62,7 @@ export default function SectionScore(props) {
         }),
       });
 
-      if (status === NUMBER_STATUS_ENUM.SUCCESS) {
+      if (status === REQUEST_STATUS_ENUM.SUCCESS) {
         submittedState(true);
       } else {
         dispatch({
@@ -85,7 +85,7 @@ export default function SectionScore(props) {
       }),
     });
 
-    if (status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       update();
       setAcceptedOrRefused(true);
       submittedState(true);

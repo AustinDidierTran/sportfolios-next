@@ -9,7 +9,7 @@ import Icon from '../../components/Custom/Icon';
 import Button from '../../components/Custom/Button';
 import { Store, ACTION_ENUM } from '../../Store';
 import {
-  NUMBER_STATUS_ENUM,
+  REQUEST_STATUS_ENUM,
   SEVERITY_ENUM,
   TABS_ENUM,
   PHASE_STATUS_ENUM,
@@ -635,10 +635,10 @@ export default function ScheduleInteractiveTool() {
     });
 
     if (
-      status === NUMBER_STATUS_ENUM.ERROR ||
-      status === NUMBER_STATUS_ENUM.UNAUTHORIZED ||
-      res.status === NUMBER_STATUS_ENUM.ERROR ||
-      res.status === NUMBER_STATUS_ENUM.UNAUTHORIZED
+      status === REQUEST_STATUS_ENUM.ERROR ||
+      status === REQUEST_STATUS_ENUM.UNAUTHORIZED ||
+      res.status === REQUEST_STATUS_ENUM.ERROR ||
+      res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED
     ) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,

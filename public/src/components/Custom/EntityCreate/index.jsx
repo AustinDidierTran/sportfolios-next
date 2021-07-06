@@ -15,7 +15,7 @@ import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, NUMBER_STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, REQUEST_STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
@@ -79,7 +79,7 @@ export default function EntityCreate(props) {
       filteredData = data.filter((a) => a.id == id);
     }
 
-    if (status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setCreatorOptions(
         filteredData.map((c) => ({
           value: c.id,

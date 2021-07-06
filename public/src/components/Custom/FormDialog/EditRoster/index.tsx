@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useMemo } from 'react';
 
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
@@ -64,7 +64,7 @@ const EditRoster: React.FunctionComponent<IProps> = (props) => {
     onSubmit: async (values) => {
       const { name } = values;
       const status = await updateRoster(people, roster.id, name);
-      if (status === NUMBER_STATUS_ENUM.ERROR) {
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

@@ -15,7 +15,7 @@ import Button from '../../../components/Custom/Button';
 import IconButton from '../../../components/Custom/IconButton';
 import EditPhase from '../EditPhase';
 import { useTranslation } from 'react-i18next';
-import { PHASE_STATUS_ENUM, SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../Store';
 import api from '../../../actions/api';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -130,7 +130,7 @@ export default function PhaseAccordionDnD(props) {
       }),
     });
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('ranking_saved'),

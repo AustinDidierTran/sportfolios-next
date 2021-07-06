@@ -18,7 +18,7 @@ import styles from './PlayersRegistered.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { unregisterPeople } from '../../../actions/api/helpers';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { formatRoute } from '../../../utils/stringFormats';
@@ -130,7 +130,7 @@ export default function PlayersRegistered() {
     });
     setIsLoading(false);
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('player_unregister_success'),
@@ -158,7 +158,7 @@ export default function PlayersRegistered() {
     });
     setIsLoading(false);
 
-    if (res.status === NUMBER_STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('players_unregister_success'),

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import api from '../../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../../Store';
-import { SEVERITY_ENUM, NUMBER_STATUS_ENUM } from '../../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../common/enums';
 import { useEffect } from 'react';
 import PersonSearchList from '../../../SearchList/PersonSearchList';
 import { useFormInput } from '../../../../../hooks/forms';
@@ -55,7 +55,7 @@ export default function AddPlayer(props) {
         personId: person.id,
       }),
     });
-    if (res.status === NUMBER_STATUS_ENUM.ERROR) {
+    if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
