@@ -211,6 +211,12 @@ export interface Evaluation {
   personId: string;
   rating: number;
   sessionId: string;
+  comments?: EvaluationComment[];
+}
+
+export interface EvaluationComment {
+  content: string;
+  active: boolean;
 }
 
 export interface Exercise {

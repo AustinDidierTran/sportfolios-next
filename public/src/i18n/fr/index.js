@@ -1339,6 +1339,7 @@ export default {
     ranking: 'Classement',
     rankings: 'Classements',
     ranking_saved: 'Classement sauvegardé!',
+    rating: 'Évaluation',
     receipt: 'Reçu',
     recent_search_results: 'Dernières recherches',
     recreational_member: 'Membre récréatif',

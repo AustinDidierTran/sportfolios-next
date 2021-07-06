@@ -5,7 +5,7 @@
 .main {
   display: grid !important;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: 'phase time field';
+  grid-template-areas: 'avatar time location';
 }
 
 .practice:hover {
@@ -20,6 +20,18 @@
 
 .time {
   grid-area: time;
+  margin: 8px !important;
+  overflow: auto;
+}
+
+.location {
+  grid-area: location;
+  margin: 8px !important;
+  overflow: auto;
+}
+
+.avatar {
+  grid-area: avatar;
   margin: 8px !important;
   overflow: auto;
 }
