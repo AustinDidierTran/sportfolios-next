@@ -7,7 +7,7 @@ import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import {
   SEVERITY_ENUM,
-  STATUS_ENUM,
+  REQUEST_STATUS_ENUM,
   COMPONENT_TYPE_ENUM,
   MEMBERSHIP_TYPE_ENUM,
   MEMBERSHIP_LENGTH_TYPE_ENUM,
@@ -155,7 +155,7 @@ export default function AddMembership(props) {
         }),
       });
 
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR || res.status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

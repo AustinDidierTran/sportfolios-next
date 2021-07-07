@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useContext } from 'react';
 import styles from './Cart.module.css';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { CARD_TYPE_ENUM, LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { CARD_TYPE_ENUM, LIST_ITEM_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import Button from '../../components/Custom/Button';
@@ -79,7 +79,7 @@ export default function Cart() {
     fetchItems();
     setOpen(false);
 
-    if (res.status > STATUS_ENUM.SUCCESS) {
+    if (res.status > REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import styles from '../LandingPage.module.css';
-import { LOGO_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { LOGO_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import MobileContainer from '../../../components/Custom/MobileContainer';
 import Button from '../../../components/Custom/Button';
 import TextField from '../../../components/Custom/TextField';
@@ -42,7 +42,7 @@ export default function Page5() {
           message,
         }),
       });
-      if (res.status === STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('message_sent'),

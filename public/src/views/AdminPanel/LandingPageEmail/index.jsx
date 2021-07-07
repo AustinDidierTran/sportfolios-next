@@ -6,7 +6,7 @@ import Table from '../../../components/Custom/Table';
 import CardContent from '@material-ui/core/CardContent';
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import FormDialog from '../../../components/Custom/FormDialog';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -75,7 +75,7 @@ export default function LandingPageEmail() {
           email,
         }),
       });
-      if (res.status === STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('email.email_added'),

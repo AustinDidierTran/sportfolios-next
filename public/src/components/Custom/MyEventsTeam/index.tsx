@@ -9,7 +9,7 @@ import CustomButton from '../Button';
 import CreatePractice from './CreatePractice';
 import { Store } from '../../../Store';
 import { Practice, Rsvp } from '../../../../../typescript/types';
-import { getPracticeBasicInfo } from '../../../actions/service/entity/get';
+import { getMyTeamPlayers, getPracticeBasicInfo } from '../../../actions/service/entity/get';
 interface IProps {
   gamesInfos: IGameInfos[];
   adminView: boolean;
@@ -64,18 +64,27 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     if (id) {
       getPractice();
+      getIsTeamPlayer();
     }
   }, [id]);
 
   const [practiceInfos, setPracticeInfos] = useState<Practice[]>([]);
   const [openPractice, setOpenPractice] = useState<boolean>(false);
+  const [isTeamPlayer, setIsTeamPlayer] = useState<boolean>(false);
+
+  const getIsTeamPlayer = async () => {
+    const players = await getMyTeamPlayers(id);
+    setIsTeamPlayer(players.length > 0);
+  };
 
   const openGameDetailed = async (game: IEntity): Promise<void> => {
     goTo(ROUTES_ENUM.entity, { id: game.eventId }, { tab: router.query.tab, gameId: game.id });
   };
 
   const openPracticeDetailed = async (practice: IEntity): Promise<void> => {
-    goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
+    if (isTeamPlayer) {
+      goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
+    }
   };
 
   const openEventDetailed = async (event: any): Promise<void> => {
@@ -131,7 +140,9 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
         rsvp:
           practice.myRsvp?.length < 3 && practice.rsvp
             ? practice.myRsvp.concat(practice.rsvp.slice(0, 3 - practice.myRsvp.length))
-            : practice.myRsvp? practice.myRsvp.slice(0, 3) : null,
+            : practice.myRsvp
+            ? practice.myRsvp.slice(0, 3)
+            : null,
         update,
       };
     });

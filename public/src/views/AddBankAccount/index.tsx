@@ -16,7 +16,7 @@ import TextField from '../../components/Custom/TextField';
 import api from '../../actions/api';
 import { ERROR_ENUM } from '../../../common/errors';
 import { ACTION_ENUM, Store } from '../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
 
 interface IProps {
   entityId: string;
@@ -116,7 +116,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
           method: 'POST',
           body: JSON.stringify(params),
         });
-        if (res.status === STATUS_ENUM.ERROR) {
+        if (res.status === REQUEST_STATUS_ENUM.ERROR) {
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,
             message: t(ERROR_ENUM.INVALID_INFORMATION),

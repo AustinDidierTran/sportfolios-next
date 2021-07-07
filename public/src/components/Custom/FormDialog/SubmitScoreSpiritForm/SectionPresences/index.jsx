@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../actions/api';
 import AddPlayer from '../AddPlayer';
-import { PLAYER_ATTENDANCE_STATUS, STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { PLAYER_ATTENDANCE_STATUS, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 
 import styles from '../SubmitScoreSpiritForm.module.css';
@@ -118,7 +118,7 @@ export default function SectionSpirit(props) {
         }),
       });
 
-      if (status === STATUS_ENUM.SUCCESS) {
+      if (status === REQUEST_STATUS_ENUM.SUCCESS) {
         submittedState(true);
       } else {
         dispatch({

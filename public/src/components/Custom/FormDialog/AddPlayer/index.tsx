@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import CustomIconButton from '../../IconButton';
 import { Player } from '../../../../../../typescript/types';
@@ -40,7 +40,7 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
 
   const onSubmit = async () => {
     const status = await addPlayers(teamId, people);
-    if (status === STATUS_ENUM.ERROR) {
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

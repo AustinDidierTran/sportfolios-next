@@ -14,8 +14,8 @@ const Evaluation: React.FunctionComponent<IProps> = (props) => {
   return (
     <>
       {evaluations?.map((evaluation: IEvaluation, index: number) => (
-        <ListItem className={index % 2 === 0 ? styles.greycard : styles.card} key={evaluation.id}>
-          <EvaluationItem evaluation={evaluation} isCoach key={evaluation.id}/>
+        <ListItem className={index % 2 === 0 ? styles.greycard : styles.card} key={index}>
+          <EvaluationItem evaluation={evaluation} isCoach/>
         </ListItem>
       ))}
     </>

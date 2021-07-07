@@ -50,6 +50,7 @@ export const getAllOptions = async (eventId, phaseId, t) => {
   }, []);
 
   const prerankingOptions = getPrerankingOptions(preranking, allRankings, t);
+
   const rankingOptions = getRankingOptions(allRankings, allPhases, prerankPhase.phaseId, phaseId);
 
   const allOptions = prerankingOptions.concat(rankingOptions).sort((a, b) => {
@@ -133,5 +134,6 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
     .filter((r) => r !== undefined);
 
   const filteredPositions = allPositions.filter((p) => !unavailablePositions.includes(p.value));
+
   return filteredPositions;
 };

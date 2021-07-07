@@ -104,9 +104,9 @@ export default function EditEventPaymentOption(props) {
       title={t('payment.edit_payment_option')}
       description={
         `${option.name} | ${t('price_team')} ` +
-        (option.team_price === 0 ? t('free') : formatPrice(option.team_price)) +
+        (option.teamPrice === 0 ? t('free') : formatPrice(option.teamPrice)) +
         `, ${t('price_individual')} ` +
-        (option.individual_price === 0 ? t('free') : formatPrice(option.individual_price))
+        (option.individualPrice === 0 ? t('free') : formatPrice(option.individualPrice))
       }
       buttons={buttons}
       fields={fields}

@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { getMyTeamPlayers, getMyTeamPlayersRequest } from '../../../../actions/service/entity/get';
 import { sendRequestToJoinTeam } from '../../../../actions/service/entity/post';
@@ -42,7 +42,7 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
     },
     onSubmit: async () => {
       const status = await sendRequestToJoinTeam(teamId, formik.values.person);
-      if (status === STATUS_ENUM.ERROR) {
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

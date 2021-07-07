@@ -12,7 +12,7 @@ import FormDialog from '../../components/Custom/FormDialog';
 import { useTranslation } from 'react-i18next';
 import { ExcelRenderer } from 'react-excel-renderer';
 import { ACTION_ENUM, Store } from '../../Store';
-import { LIST_ITEM_ENUM, SEVERITY_ENUM, STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../common/enums';
+import { LIST_ITEM_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../common/enums';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useFormik } from 'formik';
@@ -139,7 +139,7 @@ export default function ImportMembers() {
           }),
         }),
       });
-      if (res.status === STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         formik.setFieldValue('dialogOpen', false);
         formik.setFieldValue('members', []);
 

@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import LoadingSpinner from '../../LoadingSpinner';
 import { uploadFile } from '../../../../actions/aws';
@@ -74,7 +74,7 @@ export default function EditMembershipTermsAndConditions(props) {
         }),
       });
 
-      if (res.status === STATUS_ENUM.ERROR || res.status >= 400) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR || res.status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

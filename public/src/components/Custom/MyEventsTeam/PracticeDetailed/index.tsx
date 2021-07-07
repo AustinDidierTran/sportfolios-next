@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import AlertDialog from '../../Dialog/AlertDialog';
-import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
 import CustomIconButton from '../../IconButton';
@@ -32,6 +32,7 @@ const Exercise = dynamic(() => import('../../Exercise'));
 
 interface IProps {
   practiceId: string;
+  adminView: boolean;
 }
 
 interface IReponse {
@@ -49,7 +50,7 @@ interface ILocationOption {
 }
 
 const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
-  const { practiceId } = props;
+  const { practiceId, adminView } = props;
   const { t } = useTranslation();
   const {
     dispatch,
@@ -218,7 +219,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
       const status = await updatePractice(practice?.id, name, start, end, newLocation, locationId, address);
 
-      if (status === STATUS_ENUM.ERROR || status >= 400) {
+      if (status === REQUEST_STATUS_ENUM.ERROR || status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
@@ -279,7 +280,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const onDelete = async (): Promise<void> => {
     const status = await deletePractice(practice?.teamId, practiceId);
 
-    if (status > STATUS_ENUM.SUCCESS) {
+    if (status > REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
@@ -410,7 +411,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
           <Roster roster={practice?.roster} practiceId={practice?.id} />
           <Divider variant="middle" />
 
-          <Exercise getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
+          <Exercise adminView={adminView} getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}

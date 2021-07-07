@@ -31,7 +31,7 @@ const Evaluation: React.FunctionComponent<IProps> = (props) => {
             <ListItemText
               className={styles.element}
               primary={
-                evaluation.rating ? t('rating') + ' : ' + evaluation.rating : t('rating') + ' : ' + t('not_available')
+                evaluation.value ? t('rating') + ' : ' + evaluation.value : t('rating') + ' : ' + t('not_available')
               }
             />
           </div>
@@ -39,7 +39,7 @@ const Evaluation: React.FunctionComponent<IProps> = (props) => {
           <ListItemText
             className={styles.element}
             primary={
-              evaluation.rating ? t('rating') + ' : ' + evaluation.rating : t('rating') + ' : ' + t('not_available')
+              evaluation.value ? t('rating') + ' : ' + evaluation.value : t('rating') + ' : ' + t('not_available')
             }
           />
         )}

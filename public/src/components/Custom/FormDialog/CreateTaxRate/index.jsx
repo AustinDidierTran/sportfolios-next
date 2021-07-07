@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 
 export default function CreateTaxRate(props) {
@@ -63,7 +63,7 @@ export default function CreateTaxRate(props) {
           inclusive,
         }),
       });
-      if (res.status === STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('tax_added'),

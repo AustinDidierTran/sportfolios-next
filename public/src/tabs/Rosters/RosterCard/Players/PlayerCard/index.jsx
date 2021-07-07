@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import IconButton from '../../../../../components/Custom/IconButton';
 import FormDialog from '../../../../../components/Custom/FormDialog';
 import Icon from '../../../../../components/Custom/Icon';
+import StatusChip from '../../../../../components/Custom/StatusChip';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
-import PaymentChip from '../../../../Settings/TeamsRegistered/StatusChip';
 import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../../../utils/stringFormats';
 import Avatar from '../../../../../components/Custom/Avatar';
 
@@ -88,7 +88,7 @@ export default function PlayerCard(props) {
             <Typography>{player && player.name}</Typography>
           </div>
           <div className={styles.chip}>
-            <PaymentChip status={player.paymentStatus} />
+            <StatusChip status={player.paymentStatus} />
           </div>
           <div className={styles.icon}>
             {withInfos ? (

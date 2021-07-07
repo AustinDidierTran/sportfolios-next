@@ -9,7 +9,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import Button from '@material-ui/core/Button';
 import { uploadPicture } from '../../../actions/aws';
 import { useTranslation } from 'react-i18next';
-import { STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { REQUEST_STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
 import { Post, User } from '../../../../../typescript/types';
@@ -91,7 +91,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
       })
     );
 
-    if (status === STATUS_ENUM.ERROR) {
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('something_went_wrong'),

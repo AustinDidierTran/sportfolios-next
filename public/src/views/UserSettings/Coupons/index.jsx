@@ -10,7 +10,7 @@ import api from '../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { useFormik } from 'formik';
 import CouponFactory from './CouponFactory';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../utils/stringFormats';
 
 export default function Coupons() {
@@ -33,7 +33,7 @@ export default function Coupons() {
       const { data, status } = await api(formatRoute('/api/user/getTokenPromoCode', null, { token }), {
         method: 'GET',
       });
-      if (status === STATUS_ENUM.SUCCESS) {
+      if (status === REQUEST_STATUS_ENUM.SUCCESS) {
         if (data?.used) {
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,

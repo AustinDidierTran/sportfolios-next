@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 
-import { formatRoute } from '../../../../utils/stringFormats';
 import styles from './Roster.module.css';
 import Icon from '../../../../components/Custom/Icon';
 import Button from '../../../../components/Custom/Button';
 import FormDialog from '../../../../components/Custom/FormDialog';
 import AlertDialog from '../../../../components/Custom/Dialog/AlertDialog';
-import api from '../../../../actions/api';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -14,7 +12,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import RosterPlayer from './RosterPlayer';
 import { useTranslation } from 'react-i18next';
-import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Roster as RosterType, Player } from '../../../../../../typescript/types';
@@ -64,7 +62,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
 
   const onDelete = async () => {
     const status = await deleteRosterApi(roster.id);
-    if (status === STATUS_ENUM.ERROR) {
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

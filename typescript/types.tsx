@@ -188,7 +188,7 @@ export interface BankAccount {
 export interface Event extends Entity {
   startDate: string;
   endDate?: string;
-  maximumSpot?: number;
+  maximumSpots?: number;
   alias?: string;
   fields?: Field[];
   timeSlots?: TimeSlot[];
@@ -208,7 +208,7 @@ export interface Evaluation {
   id: string;
   exerciseId: string;
   personId: string;
-  rating: number;
+  value: number;
   sessionId: string;
   name: string;
   surname: string;
@@ -287,10 +287,17 @@ export interface EventTeam {
   eventId: string;
   teamId: string;
   status: INVOICE_STATUS_ENUM;
+  option: EventPaymentOption;
   registrationStatus: STATUS_ENUM;
   invoiceItemId?: string;
   paymentOptionId?: string;
   informations?: string;
+  name?: string;
+  email?: string;
+  isMember?: boolean;
+  registeredOn?: Date;
+  invoice?: any;
+  captains?: Person[];
 }
 
 export interface Team extends Entity {

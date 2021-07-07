@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Card, AlertDialog } from '../../../../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../../actions/api';
-import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../../common/enums';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../../common/enums';
 import EditGameDialog from './EditGameDialog';
 import EnterScore from './EnterScore';
 import { ACTION_ENUM, Store } from '../../../../../../Store';
@@ -62,7 +62,7 @@ export default function EditGame(props) {
         method: 'DELETE',
       }
     );
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       setDeleteDialogIsOpen(false);
       update();
       dispatch({

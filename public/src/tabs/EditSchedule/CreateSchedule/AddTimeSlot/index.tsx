@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import moment from 'moment';
 
 interface IProps {
@@ -34,9 +34,9 @@ const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const validate = (values: { time: string, date: string }): { time?: string, date?: string } => {
+  const validate = (values: { time: string; date: string }): { time?: string; date?: string } => {
     const { date, time } = values;
-    const errors: { time?: string, date?: string } = {};
+    const errors: { time?: string; date?: string } = {};
     if (!time.length) {
       errors.time = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
@@ -65,7 +65,7 @@ const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
         }),
       });
 
-      if (status === STATUS_ENUM.ERROR || status === STATUS_ENUM.UNAUTHORIZED) {
+      if (status === REQUEST_STATUS_ENUM.ERROR || status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

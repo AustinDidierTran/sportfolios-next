@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM } from '../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, ENTITIES_ROLE_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
 import Avatar from '../../../components/Custom/Avatar';
@@ -82,7 +82,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   const getSubmissioner = async (): Promise<void> => {
     const res = await getPossibleSubmissionerInfos(game);
 
-    if (res.status === STATUS_ENUM.FORBIDDEN) {
+    if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
       setIsLoading(false);
       return;
     } else if (res.data) {
@@ -187,7 +187,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const optionsTeam = useMemo(
-    (): {value:string, display: string}[] =>
+    (): { value: string; display: string }[] =>
       possibleTeams.map((t) => ({
         value: t.rosterId,
         display: t.name,
@@ -195,7 +195,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
     [possibleTeams]
   );
 
-  const optionsPerson = useMemo((): {value:string, display: string}[] => {
+  const optionsPerson = useMemo((): { value: string; display: string }[] => {
     if (formik.values.team) {
       const options = possibleSubmissionersInfos
         .find((p) => p.myTeam.rosterId === formik.values.team)
@@ -216,8 +216,8 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
     }
   }, [formik.values.team]);
 
-  const disableTeamSelect = useMemo(():boolean => optionsTeam?.length === 1, [optionsTeam]);
-  const disablePersonSelect = useMemo(():boolean => optionsPerson?.length === 1, [optionsPerson]);
+  const disableTeamSelect = useMemo((): boolean => optionsTeam?.length === 1, [optionsTeam]);
+  const disablePersonSelect = useMemo((): boolean => optionsPerson?.length === 1, [optionsPerson]);
 
   const fields = [
     {

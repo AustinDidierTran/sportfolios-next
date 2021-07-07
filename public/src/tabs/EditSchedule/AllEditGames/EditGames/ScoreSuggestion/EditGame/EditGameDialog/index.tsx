@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormDialog } from '../../../../../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../../../actions/api';
-import { STATUS_ENUM, SEVERITY_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM, COMPONENT_TYPE_ENUM } from '../../../../../../../../common/enums';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../../../../common/errors';
 import { useContext } from 'react';
@@ -129,7 +129,7 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
           description,
         }),
       });
-      if (res.status === STATUS_ENUM.ERROR) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,

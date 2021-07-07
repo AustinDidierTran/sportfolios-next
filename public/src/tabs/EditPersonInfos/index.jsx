@@ -20,7 +20,7 @@ import { getInitialsFromName } from '../../utils/stringFormats';
 import { uploadEntityPicture } from '../../actions/aws';
 import { useFormik } from 'formik';
 import { ACTION_ENUM, Store } from '../../Store';
-import { GENDER_ENUM, STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
+import { GENDER_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import { formatRoute } from '../../utils/stringFormats';
 const moment = require('moment');
@@ -179,7 +179,7 @@ export default function EditPersonInfos(props) {
           },
         }),
       });
-      if (res.status === STATUS_ENUM.SUCCESS) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('informations_saved'),

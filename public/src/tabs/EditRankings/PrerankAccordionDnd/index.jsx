@@ -15,7 +15,7 @@ import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
@@ -91,7 +91,7 @@ export default function PrerankAccordionDnD(props) {
         ranking: preranking,
       }),
     });
-    if (res.status === STATUS_ENUM.SUCCESS) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('preranking_saved'),
