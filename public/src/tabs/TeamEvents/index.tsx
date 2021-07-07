@@ -28,7 +28,7 @@ const TabTeamEvents: React.FunctionComponent<IProps> = (props) => {
   const { gamesInfos, adminView } = props;
 
   if (practiceId) {
-    return <PracticeDetailed practiceId={practiceId.toString()} />;
+    return <PracticeDetailed adminView={adminView} practiceId={practiceId.toString()} />;
   }
   return <MyEventsTeam gamesInfos={gamesInfos} adminView={adminView} />;
 };

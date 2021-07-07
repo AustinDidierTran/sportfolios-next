@@ -207,10 +207,13 @@ export interface EventField {
 export interface Evaluation {
   id: string;
   exerciseId: string;
-  coachId: string;
   personId: string;
-  rating: number;
+  value: number;
   sessionId: string;
+  name: string;
+  surname: string;
+  photoUrl?: string;
+  coachId?: string;
   comments?: EvaluationComment[];
 }
 

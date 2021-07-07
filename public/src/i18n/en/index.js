@@ -1206,6 +1206,7 @@ export default {
     new_team: 'New team',
     next: 'Next',
     no_location: 'No location',
+    not_available: 'N/A',
     not_used: 'Not Used',
     not_member: 'Not member',
     not_going: 'Not going',

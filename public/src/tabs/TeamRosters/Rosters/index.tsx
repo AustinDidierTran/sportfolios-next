@@ -56,7 +56,7 @@ const Rosters: React.FunctionComponent<IProps> = (props) => {
           <></>
         )}
         {rosters?.map((roster, index) => (
-          <Roster key={roster.id} roster={roster} index={index} update={getRosters} isAdmin={adminView}></Roster>
+          <Roster key={roster.id} roster={roster} index={index} update={getRosters} isAdmin={adminView} />
         ))}
       </Paper>
       <FormDialog

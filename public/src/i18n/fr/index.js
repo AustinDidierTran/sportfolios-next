@@ -1228,6 +1228,7 @@ export default {
     new_team: 'Nouvelle Équipe',
     next: 'Prochain',
     no_location: 'Pas de location',
+    not_available: 'N/A',
     not_used: 'Pas Utilisé',
     not_member: 'Non membre',
     not_going: 'Absent',

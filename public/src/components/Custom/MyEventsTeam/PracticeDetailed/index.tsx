@@ -32,6 +32,7 @@ const Exercise = dynamic(() => import('../../Exercise'));
 
 interface IProps {
   practiceId: string;
+  adminView: boolean;
 }
 
 interface IReponse {
@@ -49,7 +50,7 @@ interface ILocationOption {
 }
 
 const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
-  const { practiceId } = props;
+  const { practiceId, adminView } = props;
   const { t } = useTranslation();
   const {
     dispatch,
@@ -410,7 +411,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
           <Roster roster={practice?.roster} practiceId={practice?.id} />
           <Divider variant="middle" />
 
-          <Exercise getExercises={getExercises} teamId={practice.teamId} exercises={exercises} practiceId={practice?.id} />
+          <Exercise adminView={adminView} getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}

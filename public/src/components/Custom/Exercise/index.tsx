@@ -10,14 +10,14 @@ import ExerciseItem from './ExerciseItem';
 
 interface IProps {
   exercises?: IExercise[];
-  teamId: string;
   practiceId: string;
+  adminView: boolean;
   getExercises: () => void;
 }
 
 const Exercise: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { exercises, teamId, practiceId, getExercises } = props;
+  const { exercises, practiceId, adminView, getExercises } = props;
   const [exercisesList, setExercisesList] = useState<IExercise[]>([]);
   const [openExercise, setOpenExercise] = useState<boolean>(false);
 
@@ -36,13 +36,15 @@ const Exercise: React.FunctionComponent<IProps> = (props) => {
       <Typography className={styles.title} variant="h4">
         {t('exercises')}
         <div>
-          <CustomButton style={{ marginBottom: '6px' }} onClick={addExercise} endIcon="Add" color="primary">
-            {t('add.add_exercise')}
-          </CustomButton>
+          {adminView ? (
+            <CustomButton style={{ marginBottom: '6px' }} onClick={addExercise} endIcon="Add" color="primary">
+              {t('add.add_exercise')}
+            </CustomButton>
+          ) : null}
         </div>
       </Typography>
       {exercisesList?.map((exercise: IExercise, index: number) => (
-        <ExerciseItem exercise={exercise} teamId={teamId} index={index} key={exercise.id} />
+        <ExerciseItem exercise={exercise} practiceId={practiceId} index={index} key={exercise.id} />
       ))}
       <AddExercise
         exercises={exercisesList}

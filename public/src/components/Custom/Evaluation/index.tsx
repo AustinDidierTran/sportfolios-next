@@ -1,39 +1,24 @@
 import React from 'react';
-import ListItemText from '@material-ui/core/ListItemText';
-import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
-import { Evaluation as IEvaluation, EvaluationComment } from '../../../../../typescript/types';
+import ListItem from '@material-ui/core/ListItem';
+import styles from './Evaluation.module.css';
+import { Evaluation as IEvaluation } from '../../../../../typescript/types';
+import EvaluationItem from './EvaluationItem';
 
 interface IProps {
-  evaluation: IEvaluation;
-  role: string;
+  evaluations: IEvaluation[];
 }
 
 const Evaluation: React.FunctionComponent<IProps> = (props) => {
-  const { evaluation, role } = props;
-  const { t } = useTranslation();
+  const { evaluations } = props;
 
-  if (role == 'coach') {
-    return null; //TODO next pr
-  } else {
-    return (
-      <>
-        <Typography color="textSecondary">
-          {evaluation.rating ? t('Rating') + ' : ' + evaluation.rating : null}
-        </Typography>
-        <Typography color="textSecondary">
-          {evaluation?.comments
-            ? evaluation.comments.length > 1
-              ? t('comments') + ' : '
-              : t('comment') + ' : '
-            : null}
-        </Typography>
-
-        {evaluation?.comments?.map((comment: EvaluationComment, index:number) => (
-          <ListItemText key={index} secondary={comment.content} />
-        ))}
-      </>
-    );
-  }
+  return (
+    <>
+      {evaluations?.map((evaluation: IEvaluation, index: number) => (
+        <ListItem className={index % 2 === 0 ? styles.greycard : styles.card} key={index}>
+          <EvaluationItem evaluation={evaluation} isCoach/>
+        </ListItem>
+      ))}
+    </>
+  );
 };
 export default Evaluation;

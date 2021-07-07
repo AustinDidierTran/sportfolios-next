@@ -177,18 +177,29 @@ export function getSessionExercises(sessionId: string): Promise<Exercise[]> {
   ).then((res) => res.data);
 }
 
-export function getPlayerSessionEvaluation(exerciseId: string): Promise<Evaluation> {
+export function getPlayerSessionEvaluation(exerciseId: string, sessionId: string): Promise<Evaluation[]> {
   return api(
     formatRoute(`${BASE_URL}/playerSessionEvaluation`, null, {
       exerciseId,
+      sessionId,
     })
   ).then((res) => res.data);
 }
 
-export function getPlayerTeamRole(teamId: string): Promise<string> {
+export function getIsEvaluationCoach(exerciseId: string, sessionId: string): Promise<boolean> {
   return api(
-    formatRoute(`${BASE_URL}/playerTeamRole`, null, {
-      teamId,
+    formatRoute(`${BASE_URL}/isEvaluationCoach`, null, {
+      exerciseId,
+      sessionId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getCoachSessionEvaluation(exerciseId: string, sessionId: string): Promise<Evaluation[]> {
+  return api(
+    formatRoute(`${BASE_URL}/coachSessionEvaluation`, null, {
+      exerciseId,
+      sessionId,
     })
   ).then((res) => res.data);
 }

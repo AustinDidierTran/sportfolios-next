@@ -6,23 +6,29 @@ import styles from './ExerciseItem.module.css';
 import CustomCollapse from '../../Collapse';
 import CustomIconButton from '../../IconButton';
 import { Evaluation as IEvaluation, Exercise } from '../../../../../../typescript/types';
-import { getPlayerSessionEvaluation, getPlayerTeamRole } from '../../../../actions/service/entity/get';
+import {
+  getCoachSessionEvaluation,
+  getPlayerSessionEvaluation,
+  getIsEvaluationCoach,
+} from '../../../../actions/service/entity/get';
 import Evaluation from '../../Evaluation';
 import Typography from '@material-ui/core/Typography';
+import EvaluationItem from '../../Evaluation/EvaluationItem';
 
 interface IProps {
   exercise?: Exercise;
-  teamId: string;
   index: number;
+  practiceId: string;
 }
 
 const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
-  const { exercise, teamId, index } = props;
+  const { exercise, practiceId, index } = props;
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [evaluation, setEvaluation] = useState<IEvaluation>();
-  const [role, setRole] = useState<string>('');
+  const [evaluation, setEvaluation] = useState<IEvaluation[]>();
+  const [evaluations, setEvaluations] = useState<IEvaluation[]>();
+  const [isCoach, setIsCoach] = useState<boolean>(false);
 
   const handleExpand = (): void => {
     setExpanded(!expanded);
@@ -35,10 +41,17 @@ const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
 
   useEffect((): void => {
     if (exercise) {
-      getPlayerSessionEvaluation(exercise.id).then(setEvaluation);
-      getPlayerTeamRole(teamId).then(setRole);
+      getIsEvaluationCoach(exercise.id, practiceId).then(setIsCoach);
     }
   }, [exercise]);
+
+  useMemo(
+    (): Promise<void> =>
+      isCoach
+        ? getCoachSessionEvaluation(exercise.id, practiceId).then(setEvaluations)
+        : getPlayerSessionEvaluation(exercise.id, practiceId).then(setEvaluation),
+    [isCoach]
+  );
 
   return (
     <>
@@ -52,7 +65,13 @@ const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
           <Typography color="textSecondary">
             {exercise.description ? t('description.description') + ' : ' + exercise.description : null}
           </Typography>
-          <Evaluation evaluation={evaluation} role={role} />
+          {isCoach ? (
+            <Evaluation evaluations={evaluations} key={exercise.id} />
+          ) : evaluation?.length > 1 ? (
+            <Evaluation evaluations={evaluation} key={exercise.id}/>
+          ) : (
+            <EvaluationItem evaluation={evaluation ? evaluation[0] : null} key={exercise.id}/>
+          )}
         </div>
       </CustomCollapse>
     </>
