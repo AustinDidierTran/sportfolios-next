@@ -114,8 +114,8 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   };
 
   const events = useMemo((): IEvent[] => {
-    let array = [];
-    let game = gamesInfos?.map((game) => {
+    const array = [];
+    const game = gamesInfos?.map((game) => {
       const positions = [
         { name: game.teamNames[0], score: game.teamScores[0] },
         { name: game.teamNames[1], score: game.teamScores[1] },
@@ -129,7 +129,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     });
     array.push(game);
 
-    let practice = practiceInfos?.map((practice): IEvent => {
+    const practice = practiceInfos?.map((practice): IEvent => {
       return {
         id: practice.id,
         name: practice.name,

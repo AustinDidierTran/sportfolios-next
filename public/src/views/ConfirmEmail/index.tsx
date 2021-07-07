@@ -5,7 +5,7 @@ import Container from '../../components/Custom/Container';
 // @ts-ignore
 import styles from './ConfirmEmail.module.css';
 
-const ConfirmEmail = () => {
+const ConfirmEmail: React.FunctionComponent = () => {
   return (
     <div className={styles.main}>
       <Container>

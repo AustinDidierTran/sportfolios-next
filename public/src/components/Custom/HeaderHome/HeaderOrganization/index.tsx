@@ -83,7 +83,6 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
   const onCloseToLoggin = (): void => {
     setOpenToLogin(false);
   };
-  const update = (): void => {};
 
   return (
     <Paper elevation={1} className={styles.paper}>
@@ -145,8 +144,6 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
           items={{
             open: openBecomeMember,
             onClose: onCloseBecomeMember,
-            onOpen: () => {},
-            update,
           }}
         />
         <AlertDialog

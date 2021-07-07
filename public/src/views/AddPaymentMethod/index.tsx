@@ -177,8 +177,8 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
           <Button
             color="primary"
             onClick={async () => {
-              //@ts-ignore
-              const { token } = await stripe!.createToken(elements!.getElement(CardElement)!);
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              const { token } = await stripe.createToken(elements.getElement(CardElement));
               //@ts-ignore
               setStripeToken(token);
               formik.handleSubmit();

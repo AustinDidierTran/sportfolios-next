@@ -11,10 +11,15 @@ const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSp
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
 const Home = dynamic(import('../public/src/views/Home'));
 
-export default function HomeRoute() {
+const HomeRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const { isLoading, refetch, response: posts, status } = useApiRoute('/api/entity/forYouPage', {
+  const {
+    isLoading,
+    refetch,
+    response: posts,
+    status,
+  } = useApiRoute('/api/entity/forYouPage', {
     defaultValue: [],
     method: 'GET',
   });
@@ -37,8 +42,7 @@ export default function HomeRoute() {
             description: t('metadata.forYouPage.description'),
             images: [
               {
-                url:
-                  'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+                url: 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
               },
             ],
             site_name: 'Sportfolios',
@@ -77,8 +81,7 @@ export default function HomeRoute() {
           description: t('metadata.forYouPage.description'),
           images: [
             {
-              url:
-                'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+              url: 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
             },
           ],
           site_name: 'Sportfolios',
@@ -100,4 +103,5 @@ export default function HomeRoute() {
       <Home posts={posts} refetch={refetch} />
     </>
   );
-}
+};
+export default HomeRoute;

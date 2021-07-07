@@ -48,9 +48,9 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getPersons = async (): Promise<void> => {
-    let data = await getEntityOwned(GLOBAL_ENUM.PERSON);
+    const data = await getEntityOwned(GLOBAL_ENUM.PERSON);
 
-    let idPersonList: string[] = [];
+    const idPersonList: string[] = [];
 
     data.forEach((p) => {
       idPersonList.push(p.id);

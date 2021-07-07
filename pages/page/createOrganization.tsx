@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 
 const OrganizationCreation = dynamic(() => import('../../public/src/views/CreateOrganization'));
 
-const CreateOrganization = () => {
+const CreateOrganization: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

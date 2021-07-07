@@ -273,7 +273,6 @@ export enum PILL_TYPE_ENUM {
 }
 
 export enum ROUTES_ENUM {
-  // eslint-disable-next-line
   addBankAccount = '/page/addBankAccount',
   addPaymentMethod = '/page/addPaymentMethod',
   adminPanel = '/page/adminPanel',

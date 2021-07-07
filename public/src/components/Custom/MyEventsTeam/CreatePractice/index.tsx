@@ -83,7 +83,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   };
 
   const handleChange = (event: any): void => {
-    let newTime = moment().hour(event.substring(0, 2)).minutes(event.substring(3, 5)).add(2, 'hours').format('HH:mm');
+    const newTime = moment().hour(event.substring(0, 2)).minutes(event.substring(3, 5)).add(2, 'hours').format('HH:mm');
 
     formik.setFieldValue('timeEnd', newTime);
   };
@@ -132,8 +132,8 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
       if (location != t('no_location') && location != t('create_new_location')) {
         locationId = location;
       }
-      let dateStart = `${date} ${timeStart}`;
-      let dateEnd = `${date} ${timeEnd}`;
+      const dateStart = `${date} ${timeStart}`;
+      const dateEnd = `${date} ${timeEnd}`;
       const res = await api('/api/entity/practice', {
         method: 'POST',
         body: JSON.stringify({

@@ -13,7 +13,7 @@ export async function getOwnedPerson(): Promise<Person[]> {
   );
 
   //Permet de mettre la primary person comme 1er élément de la liste
-  for (var i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     if (data[i].isPrimaryPerson) {
       data.unshift(data.splice(i, 1)[0]);
       break;
