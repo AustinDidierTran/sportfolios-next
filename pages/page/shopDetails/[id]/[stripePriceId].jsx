@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
-import { IMAGE_ENUM } from '../../public/common/enums';
+import { IMAGE_ENUM } from '../../../../public/common/enums';
 
 const ShopDetails = dynamic(() => import('../../../../public/src/views/ShopDetails'));
 

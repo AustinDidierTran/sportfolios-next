@@ -2,13 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../public/src/utils/stringFormats';
-import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import dynamic from 'next/dynamic';
-import { IMAGE_ENUM } from '../../public/common/enums';
 
 const TeamsAcceptation = dynamic(() => import('../../../public/src/views/TeamsAcceptation'));
 
