@@ -3,12 +3,7 @@ import { Person } from '../../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
 
-export function updatePracticeRsvp(
-  id: string,
-  rsvp: string,
-  personId?: string,
-  multipleRsvp: boolean = false
-): Promise<number> {
+export function updatePracticeRsvp(id: string, rsvp: string, personId?: string, multipleRsvp = false): Promise<number> {
   return api(`${BASE_URL}/practiceRsvp`, {
     method: 'PUT',
     body: JSON.stringify({ id, rsvp, personId, updateAll: multipleRsvp }),
@@ -42,6 +37,7 @@ export function updatePractice(
 }
 
 export function updateRoster(
+  // eslint-disable-next-line no-undef
   players: Pick<Person, 'id' | 'completeName' | 'photoUrl'>[],
   id: string,
   name: string

@@ -42,7 +42,7 @@ const BannerTeam: React.FunctionComponent<IProps> = (props) => {
     const ids = players.map((r) => r.personId);
     const notInTeam = persons.filter((p) => !ids.includes(p.id));
 
-    setIsTeamPlayer(!Boolean(notInTeam.length));
+    setIsTeamPlayer(!notInTeam.length);
   };
 
   return (

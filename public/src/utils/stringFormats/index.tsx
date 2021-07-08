@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/fr';
 import i18n from '../../i18n';
 
-export const getInitialsFromName = (completeName: any): string => {
+export const getInitialsFromName = (completeName: string | { name: string; surname: string }): string => {
   if (!completeName) {
     return '';
   }
@@ -59,7 +59,7 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
   );
 };
 
-export const formatDate = (date: any, format: string = 'LL'): string => {
+export const formatDate = (date: any, format = 'LL'): string => {
   if (!date.isValid()) {
     return '';
   }

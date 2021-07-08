@@ -114,7 +114,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
   const getRole = async (): Promise<void> => {
     const res = await getRoleApi(id);
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
-      let newInfos = basicInfos;
+      const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
       setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);

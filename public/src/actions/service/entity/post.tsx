@@ -5,6 +5,7 @@ const BASE_URL = '/api/entity';
 
 export function addRoster(
   teamId: string,
+  // eslint-disable-next-line no-undef
   players: Pick<Person, 'id' | 'completeName' | 'photoUrl'>[],
   name: string
 ): Promise<number> {
@@ -35,7 +36,7 @@ export function addExercise(
   description: string,
   practiceId: string,
   teamId: string,
-  type: string = 'default',
+  type = 'default'
 ): Promise<number> {
   return api(`${BASE_URL}/exercise`, {
     method: 'POST',

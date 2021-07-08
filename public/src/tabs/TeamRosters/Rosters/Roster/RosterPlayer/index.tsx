@@ -25,7 +25,7 @@ import { deleteRosterPlayer } from '../../../../../actions/service/entity/delete
 
 interface IProps {
   index: number;
-  isAdmin: Boolean;
+  isAdmin: boolean;
   update: () => void;
   player: Player;
 }

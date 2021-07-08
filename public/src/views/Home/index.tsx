@@ -12,7 +12,7 @@ interface IPost {
 
 interface IProps {
   posts: Array<IPost>;
-  refetch: Function;
+  refetch: () => void;
 }
 
 const Home: React.FunctionComponent<IProps> = ({ posts = [], refetch }) => {

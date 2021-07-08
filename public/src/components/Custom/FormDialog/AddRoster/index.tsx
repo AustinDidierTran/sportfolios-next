@@ -26,6 +26,7 @@ interface IPersonComponent {
   secondaryActions: any[];
 }
 
+// eslint-disable-next-line no-undef
 type PickPerson = Pick<Person, 'id' | 'completeName' | 'photoUrl'>;
 
 const AddRoster: React.FunctionComponent<IProps> = (props) => {

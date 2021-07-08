@@ -91,7 +91,7 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
     onlyYourGames: boolean
   ): Promise<boolean | void> => {
     let games = await getGames();
-    let filter: {
+    const filter: {
       teamId: string;
       teamName: string;
       phaseId: string;

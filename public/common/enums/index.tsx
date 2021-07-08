@@ -273,7 +273,6 @@ export enum PILL_TYPE_ENUM {
 }
 
 export enum ROUTES_ENUM {
-  // eslint-disable-next-line
   addBankAccount = '/page/addBankAccount',
   addPaymentMethod = '/page/addPaymentMethod',
   adminPanel = '/page/adminPanel',
@@ -508,8 +507,10 @@ export enum STRIPE_STATUS_ENUM {
 export enum STRIPE_ERROR_ENUM {
   CHARGE_ALREADY_REFUNDED = 'charge_already_refunded',
 }
+
 export enum IMAGE_ENUM {
   ULTIMATE_TOURNAMENT = 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20200716-u8zhq-8317ff33-3b04-49a1-afd3-420202cddf73',
+  SPORTFOLIOS_BANNER = 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
 }
 
 export enum LOGO_ENUM {
