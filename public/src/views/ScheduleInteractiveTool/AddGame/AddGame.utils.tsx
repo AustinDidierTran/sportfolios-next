@@ -2,7 +2,7 @@ export function haveDifferentPhase(
   ranking1: { currentPhase: string },
   ranking2: { currentPhase: string },
   phase: string
-) {
+): boolean {
   return (
     ranking1.currentPhase !== ranking2.currentPhase ||
     phase !== ranking1.currentPhase ||
