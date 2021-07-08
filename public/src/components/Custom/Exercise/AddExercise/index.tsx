@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../../Store';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM, EXERCISES_TYPE_ENUM } from '../../../../../common/enums';
 import * as yup from 'yup';
 import { Exercise } from '../../../../../../typescript/types';
 import { getTeamExercises as getTeamExercisesApi } from '../../../../actions/service/entity/get';
@@ -60,7 +60,7 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
       data = data.filter((e: Exercise) => !exercises.some((exe) => exe.id === e.id));
     }
 
-    data.push({ id: t('create_new_exercise'), name: t('create_new_exercise'), description: '', type: '' });
+    data.push({ id: t('create_new_exercise'), name: t('create_new_exercise'), description: '', type: EXERCISES_TYPE_ENUM.DEFAULT });
 
     const exerciseOption: IExerciseOption[] = data.map((e: Exercise) => ({
       value: e.id,
@@ -77,6 +77,7 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
       setExerciseHidden(true);
       formik.setFieldValue('name', '');
       formik.setFieldValue('description', '');
+      formik.setFieldValue('type', EXERCISES_TYPE_ENUM.DEFAULT);
     }
   };
 
@@ -93,19 +94,18 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
       exercise: '',
       name: '',
       description: '',
+      type: EXERCISES_TYPE_ENUM.DEFAULT,
     },
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { exercise, name, description } = values;
+      const { exercise, name, description, type} = values;
       let exerciseId = null;
       if (exercise != t('create_new_exercise')) {
         exerciseId = exercise;
       }
-
-      const status = await addExercise(exerciseId, name, description, practiceId, teamId);
-
+      const status = await addExercise(exerciseId, name, description, practiceId, teamId, type);
       if (status === REQUEST_STATUS_ENUM.ERROR || status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,

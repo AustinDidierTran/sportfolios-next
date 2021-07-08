@@ -35,7 +35,7 @@ export function addExercise(
   description: string,
   practiceId: string,
   teamId: string,
-  type: string = 'default',
+  type: string,
 ): Promise<number> {
   return api(`${BASE_URL}/exercise`, {
     method: 'POST',

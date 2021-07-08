@@ -11,6 +11,7 @@ import {
   STATUS_ENUM,
   USER_APP_ROLE_ENUM,
   PHASE_TYPE_ENUM,
+  EXERCISES_TYPE_ENUM,
 } from '../public/common/enums';
 
 //INTERFACES
@@ -226,7 +227,7 @@ export interface Exercise {
   id: string;
   name: string;
   description: string;
-  type: string;
+  type: EXERCISES_TYPE_ENUM;
 }
 
 export interface OwnedEvents extends Entity {

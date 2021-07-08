@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import { useTranslation } from 'react-i18next';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '../../TextField';
-import { SELECT_ENUM } from '../../../../../common/enums';
+import { EXERCISES_TYPE_ENUM } from '../../../../../common/enums';
 import { FormikValues } from 'formik';
 
 interface IProps {
@@ -50,12 +50,36 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
     value = valueProp;
   }
 
+  let valueType = 'default'
+  if (formik) {
+    valueType = formik.values['type'];
+  }
+
+  const typeOptions = [
+    {
+      display: t('default'),
+      value: EXERCISES_TYPE_ENUM.DEFAULT,
+    },
+    {
+      display: t('distance'),
+      value: EXERCISES_TYPE_ENUM.DISTANCE,
+    },
+    {
+      display: t('repetitions'),
+      value: EXERCISES_TYPE_ENUM.REPETITIONS,
+    },
+    {
+      display: t('time'),
+      value: EXERCISES_TYPE_ENUM.TIME,
+    },
+  ];
+
   const handleChange = (event: any, ...args: any): void => {
     if (formik) {
       formik.handleChange(event, ...args);
     }
 
-    if (onChange) {
+    if (onChange && event.target.name == namespace) {
       onChange(event.target.value);
     }
   };
@@ -75,9 +99,7 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
       <Select
         id={namespace}
         name={namespace}
-        {...props}
-        error={Boolean((formik && formik.errors[namespace]) || error)}
-        value={!options?.length && value === SELECT_ENUM.ALL ? '' : value}
+        value={value}
         onChange={handleChange}
         defaultValue=""
         inputProps={{ 'aria-label': namespace }}
@@ -102,6 +124,23 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
           <br></br>
           <TextField fullWidth label={t('name')} namespace="name" formik={formik} />
           <TextField fullWidth label={'Description'} namespace="description" formik={formik} />
+
+          <FormControl className={'type'} style={{ width: '100%' }}>
+            <InputLabel>{'type'}</InputLabel>
+            <Select
+              id={'type'}
+              name="type"
+              value={valueType}
+              onChange={handleChange}
+              inputProps={{ 'aria-label': 'type' }}
+            >
+              {typeOptions.map((option) => (
+                <MenuItem value={option.value} key={option.value}>
+                  {option.display}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       ) : null}
 

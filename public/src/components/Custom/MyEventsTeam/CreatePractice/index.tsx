@@ -99,6 +99,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   };
 
   const validationSchema = yup.object().shape({
+    name: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     date: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     timeStart: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     timeEnd: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -223,7 +224,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   return (
     <FormDialog
       open={open}
-      title={t('create.create_practice')}
+      title={t('create.create_activity')}
       buttons={buttons}
       fields={fields}
       formik={formik}

@@ -186,11 +186,10 @@ export function getPlayerSessionEvaluation(exerciseId: string, sessionId: string
   ).then((res) => res.data);
 }
 
-export function getIsEvaluationCoach(exerciseId: string, sessionId: string): Promise<boolean> {
+export function getIsTeamCoach(teamId: string): Promise<boolean> {
   return api(
-    formatRoute(`${BASE_URL}/isEvaluationCoach`, null, {
-      exerciseId,
-      sessionId,
+    formatRoute(`${BASE_URL}/isTeamCoach`, null, {
+      teamId,
     })
   ).then((res) => res.data);
 }
