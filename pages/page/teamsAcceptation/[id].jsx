@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import dynamic from 'next/dynamic';
+import { IMAGE_ENUM } from '../../public/common/enums';
 
 const TeamsAcceptation = dynamic(() => import('../../../public/src/views/TeamsAcceptation'));
 
@@ -92,10 +93,7 @@ const TeamsAcceptationRoute = () => {
       <Head>
         <meta property="og:title" content={t('metadata.teamsAcceptation.title')} />
         <meta property="og:description" content={t('metadata.teamsAcceptation.description')} />
-        <meta
-          property="og:image"
-          content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-        />
+        <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
       <TeamsAcceptation cards={cards} update={update} getCards={getCardsInfos} />
     </>

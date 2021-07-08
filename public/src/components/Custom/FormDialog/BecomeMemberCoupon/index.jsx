@@ -50,12 +50,8 @@ export default function BecomeMemberCoupon(props) {
       })
     );
     //Permet de mettre la primary person comme 1er élément de la liste
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].isPrimaryPerson) {
-        data.unshift(data.splice(i, 1)[0]);
-        break;
-      }
-    }
+    data.sort((a, b) => (a.isPrimaryPerson ? -1 : b.isPrimaryPerson ? 1 : 0));
+
     const res = data.map((d) => ({
       display: d.complete_name,
       value: d.id,

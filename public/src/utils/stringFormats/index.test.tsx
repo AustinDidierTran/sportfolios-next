@@ -63,16 +63,16 @@ describe('ValidateInitialsFromName', () => {
   const objectName: any = { name: 'Paul' };
   const objectSurname: any = { surname: 'Blart' };
 
-  it('should return nothing when empty name', async () => {
+  it('should return nothing when empty name', () => {
     expect(getInitialsFromName(noName)).toBe(noName);
     expect(getInitialsFromName(noName)).toBe(noName);
   });
 
-  it('should return string initial name when name is string', async () => {
+  it('should return string initial name when name is string', () => {
     expect(getInitialsFromName(stringName)).toBe(stringInitialFullName);
   });
 
-  it('should return string inital name when name is object', async () => {
+  it('should return string inital name when name is object', () => {
     expect(getInitialsFromName(objectFullName)).toBe(stringInitialFullName);
     expect(getInitialsFromName(objectFullName)).toBe(stringInitialFullName);
     expect(getInitialsFromName(objectName)).toBe(stringInitialName);
@@ -90,7 +90,7 @@ describe('ValidateIconsFromRole', () => {
   const randomRole = '123 day';
   const emptyRole = '';
 
-  it('should return icon', async () => {
+  it('should return icon', () => {
     expect(getIconFromRole(ROSTER_ROLE_ENUM.COACH)).toBe(coachIcon);
     expect(getIconFromRole(ROSTER_ROLE_ENUM.CAPTAIN)).toBe(captainIcon);
     expect(getIconFromRole(ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN)).toBe(assistantCaptainIcon);
@@ -111,13 +111,13 @@ describe('ValidateFormatRoute', () => {
   const nullQueryParams: any = null;
   const noRoute = '';
 
-  it('should return route', async () => {
+  it('should return route', () => {
     expect(formatRoute(route, nullParams, nullQueryParams)).toBe(route);
     expect(formatRoute(routeWithParam, params, nullQueryParams)).toBe(routeWithParamResult);
     expect(formatRoute(route, params, queryParams)).toBe(routeWithQueryParams);
   });
 
-  it('should give a console.error', async () => {
+  it('should give a console.error', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
     formatRoute(noRoute, params, queryParams);
     expect(consoleSpy).toHaveBeenCalled();
@@ -138,18 +138,18 @@ describe('ValidateFormatDate', () => {
   const newLanguageEnFormatedDate = 'Jan 1';
   const emptyDate = '';
 
-  it('should return non valid date', async () => {
+  it('should return non valid date', () => {
     expect(formatDate(nonValidDate)).toBe(emptyDate);
   });
 
-  it('should return date', async () => {
+  it('should return date', () => {
     expect(formatDate(momentDate)).toBe(formatedFrDate);
     expect(formatDate(momentLongDate)).toBe(formatedFrDate);
     expect(formatDate(momentDate, format)).toBe(newLanguageFrFormatedDate);
     expect(formatDate(momentLongDate, format)).toBe(newLanguageFrFormatedDate);
   });
 
-  it('should return date and window exist', async () => {
+  it('should return date and window exist', () => {
     expect(formatDate(momentLongDate, newFormat)).toBe(newLanguageFrFormatedDate);
     localStorageMock.setItem('i18nextLng', 'en');
     expect(formatDate(momentLongDate, newFormat)).toBe(newLanguageEnFormatedDate);
@@ -171,7 +171,7 @@ describe('ValidateFormatIntervalDate', () => {
   const formatedFrDate = '10 janvier 2000';
   const formatedEnDate = 'January 10, 2000';
 
-  it('should return nothing', async () => {
+  it('should return nothing', () => {
     expect(formatIntervalDate(nonValidStartDate, endDate)).toBe('');
     expect(formatIntervalDate(startDate, nonValidEndDate)).toBe('');
     expect(formatIntervalDate(nonValidStartDate, nonValidEndDate)).toBe('');
@@ -180,14 +180,14 @@ describe('ValidateFormatIntervalDate', () => {
     expect(formatIntervalDate(null, null)).toBe('');
   });
 
-  it('should return interval in english', async () => {
+  it('should return interval in english', () => {
     localStorageMock.setItem('i18nextLng', 'en');
     expect(formatIntervalDate(startDate, startDate)).toBe(formatedEnDate);
     expect(formatIntervalDate(startDate, endOneYearDate)).toBe(formatedYearEnDate);
     expect(formatIntervalDate(startDate, endOneDayMonthDate)).toBe(formatedIntervalEnDate);
   });
 
-  it('should return interval in french', async () => {
+  it('should return interval in french', () => {
     localStorageMock.setItem('i18nextLng', 'fr');
     expect(formatIntervalDate(startDate, startDate)).toBe(formatedFrDate);
     expect(formatIntervalDate(startDate, endOneYearDate)).toBe(formatedYearFrDate);
@@ -203,7 +203,7 @@ describe('ValidateEntityName', () => {
   const defaultType = '';
   const randomType = 123;
 
-  it('should return name', async () => {
+  it('should return name', () => {
     expect(getEntityTypeName(GLOBAL_ENUM.PERSON)).toBe(personType);
     expect(getEntityTypeName(GLOBAL_ENUM.TEAM)).toBe(teamType);
     expect(getEntityTypeName(GLOBAL_ENUM.ORGANIZATION)).toBe(organizationType);
@@ -217,7 +217,7 @@ describe('ValidatePageTitle', () => {
   const noTitle = 'Sportfolios';
   const WithTitle: string = title + ' | Sportfolios';
 
-  it('should return title', async () => {
+  it('should return title', () => {
     expect(formatPageTitle()).toBe(noTitle);
     expect(formatPageTitle(title)).toBe(WithTitle);
   });
@@ -231,7 +231,7 @@ describe('ValidateMembershipName', () => {
   const randomType = 123;
   const defaultType = '';
 
-  it('should return name', async () => {
+  it('should return name', () => {
     expect(getMembershipName(MEMBERSHIP_TYPE_ENUM.RECREATIONAL)).toBe(recreationalType);
     expect(getMembershipName(MEMBERSHIP_TYPE_ENUM.COMPETITIVE)).toBe(competitiveType);
     expect(getMembershipName(MEMBERSHIP_TYPE_ENUM.ELITE)).toBe(eliteType);
@@ -250,7 +250,7 @@ describe('ValidateMembershipType', () => {
   const dateType: any = 'fixed_date';
   const defaultType: any = '';
 
-  it('should return type', async () => {
+  it('should return type', () => {
     expect(getMembershipType(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearType);
     expect(getMembershipType(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthType);
     expect(getMembershipType(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthType);
@@ -271,7 +271,7 @@ describe('ValidateMembershipLength', () => {
   const randomType = 123;
   const noType: any = undefined;
 
-  it('should return length', async () => {
+  it('should return length', () => {
     expect(getMembershipLength(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthType);
     expect(getMembershipLength(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthType);
     expect(getMembershipLength(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearType);
@@ -286,7 +286,7 @@ describe('ValidateMembershipUnit', () => {
   const randomType = 123;
   const noType: any = undefined;
 
-  it('should return unit', async () => {
+  it('should return unit', () => {
     expect(getMembershipUnit(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthType);
     expect(getMembershipUnit(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthType);
     expect(getMembershipUnit(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearType);
@@ -306,7 +306,7 @@ describe('ValidateExpirationDate', () => {
   const expectedFutureDate: any = formatDate(moment.utc().set('month', moment().get('month') + 1));
   const emptyString = '';
 
-  it('should return expiration date', async () => {
+  it('should return expiration date', () => {
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthDate);
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthDate);
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearDate);
@@ -324,7 +324,7 @@ describe('ValidateFormatPrice', () => {
   const priceString = '1.23$';
   const noPrice = '0.00$';
 
-  it('should return price', async () => {
+  it('should return price', () => {
     expect(formatPrice(price)).toBe(priceString);
     expect(formatPrice(priceDigit)).toBe(priceString);
     expect(formatPrice()).toBe(noPrice);
@@ -343,7 +343,7 @@ describe('ValidateDate', () => {
   const noDate = '';
   const date = '01/01';
 
-  it('should reject bad date', async () => {
+  it('should reject bad date', () => {
     expect(validateDate(badDateMonth)).toBe(false);
     expect(validateDate(badDateNoMonth)).toBe(false);
     expect(validateDate(badDateMonthType)).toBe(false);
@@ -353,7 +353,7 @@ describe('ValidateDate', () => {
     expect(validateDate(noDate)).toBe(false);
   });
 
-  it('should accept a valid date', async () => {
+  it('should accept a valid date', () => {
     expect(validateDate(date)).toBe(true);
   });
 });
@@ -370,7 +370,7 @@ describe('ValidateDateWithYear', () => {
   const noDate = '';
   const date = '01/01/2000';
 
-  it('should reject bad date', async () => {
+  it('should reject bad date', () => {
     expect(validateDateWithYear(badDateMonth)).toBe(false);
     expect(validateDateWithYear(badDateNoMonth)).toBe(false);
     expect(validateDateWithYear(badDateMonthType)).toBe(false);
@@ -382,7 +382,7 @@ describe('ValidateDateWithYear', () => {
     expect(validateDateWithYear(noDate)).toBe(false);
   });
 
-  it('should accept a valid date', async () => {
+  it('should accept a valid date', () => {
     expect(validateDateWithYear(date)).toBe(true);
   });
 });
@@ -399,7 +399,7 @@ describe('ValidateFormattedMailTo', () => {
   const emailsSubjectFormat = 'mailTo:test, test?subject=subject';
   const emailsSubjectBodyFormat = 'mailTo:test, test?subject=subject&body=body';
 
-  test('should throw an error', async () => {
+  test('should throw an error', () => {
     const noEmail = () => {
       getFormattedMailTo();
     };
@@ -418,7 +418,7 @@ describe('ValidateFormattedMailTo', () => {
     expect(emailArrayEmpty).toThrow(noEmailsMsg);
   });
 
-  it('should return email', async () => {
+  it('should return email', () => {
     expect(getFormattedMailTo(emails)).toBe(emailsOnlyFormat);
     expect(getFormattedMailTo(emails, subject)).toBe(emailsSubjectFormat);
     expect(getFormattedMailTo(emails, subject, body)).toBe(emailsSubjectBodyFormat);
@@ -435,7 +435,7 @@ describe('ValidateEmail', () => {
   const validInput = 'test@test.com';
   const validInput1 = 'AbCdE@gmail.za';
 
-  it('should reject invalid input', async () => {
+  it('should reject invalid input', () => {
     expect(validateEmail(invalidInput)).toBe(false);
     expect(validateEmail(invalidInput2)).toBe(false);
     expect(validateEmail(invalidInput3)).toBe(false);
@@ -444,7 +444,7 @@ describe('ValidateEmail', () => {
     expect(validateEmail(invalidInput6)).toBe(false);
   });
 
-  it('should accept a valid input', async () => {
+  it('should accept a valid input', () => {
     expect(validateEmail(validInput)).toBe(true);
     expect(validateEmail(validInput1)).toBe(true);
   });
@@ -464,7 +464,7 @@ describe('ValidateTimestampToRelativeTime', () => {
   const inMonth = '1 month ago';
   const inYear = '1 year ago';
 
-  it('should return timestamp relative to time', async () => {
+  it('should return timestamp relative to time', () => {
     expect(timestampToRelativeTime(secondAgoDate)).toBe(inSeconds);
     expect(timestampToRelativeTime(minutesAgoDate)).toBe(inMinutes);
     expect(timestampToRelativeTime(hoursAgoDate)).toBe(inHours);
@@ -486,7 +486,7 @@ describe('ValidateTimeShow', () => {
   const aDayAgo = 'Yesterday, at ' + daysAgoDate.format('HH:mm');
   const overADay = monthAgoDate.format('DD MMMM YYYY');
 
-  it('should return time show', async () => {
+  it('should return time show', () => {
     expect(getTimeToShow(secondAgoDate)).toBe(inSeconds);
     expect(getTimeToShow(minutesAgoDate)).toBe(inMinutes);
     expect(getTimeToShow(hoursAgoDate)).toBe(inHours);
