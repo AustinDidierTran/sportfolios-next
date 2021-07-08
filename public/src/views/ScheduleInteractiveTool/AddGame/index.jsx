@@ -8,32 +8,7 @@ import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
 import * as yup from 'yup';
 import { Store, ACTION_ENUM } from '../../../Store';
-
-export function haveDifferentPhase(ranking1, ranking2, phase) {
-  return (
-    ranking1.currentPhase !== ranking2.currentPhase ||
-    phase !== ranking1.currentPhase ||
-    phase !== ranking2.currentPhase
-  );
-}
-// test for this function
-// import { haveDifferentPhase } from '.';
-
-// describe('haveDifferentPhase', () => {
-//   const ranking1: { currentPhase: string } = { currentPhase: '123' };
-//   const ranking2: { currentPhase: string } = { currentPhase: '123' };
-//   const phase1: string = '123';
-//   const ranking3: { currentPhase: string } = { currentPhase: '456' };
-//   const ranking4: { currentPhase: string } = { currentPhase: '456' };
-//   const phase2: string = '456';
-
-//   it('should return', async () => {
-//     expect(haveDifferentPhase(ranking1, ranking2, phase1)).toBe(false);
-//     expect(haveDifferentPhase(ranking1, ranking2, phase2)).toBe(true);
-//     expect(haveDifferentPhase(ranking3, ranking4, phase2)).toBe(false);
-//     expect(haveDifferentPhase(ranking1, ranking3, phase1)).toBe(true);
-//   });
-// });
+import { haveDifferentPhase } from './AddGame.utils';
 
 export default function AddGame(props) {
   const { t } = useTranslation();

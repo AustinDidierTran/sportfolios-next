@@ -717,11 +717,11 @@ export default {
       invalid_file_format_pdf: 'Invalid file format. Only pdf files are accepted.',
       invalid_file: 'Invalid file',
       invalid_file_image: 'Invalid file format. Only  jpg, png and jpeg files are accepted.',
-      invalid_information: 'Invalid information',
       invalid_input: 'Invalid input',
       invalid_roster_role_to_submit_score:
         'You must be a coach, captain or assistant captain to be able to submit a result',
     },
+    invalid_information: 'Invalid information',
     no: {
       no_account_signup: "Don't have an account? Signup!",
       no_admins_with_bank_account: 'No admins with a bank account',

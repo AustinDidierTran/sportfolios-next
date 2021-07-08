@@ -722,11 +722,11 @@ export default {
       invalid_file_format_csv: 'Format de fichier invalide. Seulement les fichiers csv sont acceptés.',
       invalid_file_format_pdf: 'Format de fichier invalide. Seulement les fichiers pdf sont acceptés.',
       invalid_file_image: 'Format de fichier invalide. Seulement les fichiers jpg, png et jpeg sont acceptés.',
-      invalid_information: 'Information non valide',
       invalid_input: 'Valeur incorrect',
       invalid_roster_role_to_submit_score:
         'Vous devez être entraîneur, capitaine ou assistant capitaine pour pouvoir soumettre un résultat',
     },
+    invalid_information: 'Information non valide',
     no: {
       no_account_signup: 'Pas de compte? Inscrivez-vous!',
       no_admins_with_bank_account: 'Aucun administrateurs avec un compte bancaire',
