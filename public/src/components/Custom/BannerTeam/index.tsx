@@ -30,13 +30,13 @@ const BannerTeam: React.FunctionComponent<IProps> = (props) => {
 
   useEffect(() => {
     if (teamId) {
-      IsTeamPlayer();
+      getIsTeamPlayer();
     }
   }, [teamId]);
 
   const [isTeamPlayer, setIsTeamPlayer] = useState<boolean>(true);
 
-  const IsTeamPlayer = async () => {
+  const getIsTeamPlayer = async () => {
     const players = await getMyTeamPlayers(teamId);
     const persons = await getOwnedPerson();
     const ids = players.map((r) => r.personId);
@@ -58,7 +58,11 @@ const BannerTeam: React.FunctionComponent<IProps> = (props) => {
             </Grid>
           </Grid>
           <Grid container className={styles.gridButton}>
-            {isTeamPlayer ? null : (
+            {isTeamPlayer ? (
+              <Button disabled className={styles.eventButton}>
+                {t('joined')}
+              </Button>
+            ) : (
               <Button onClick={isAuthenticated ? onJoinTeamButton : onOpenToLoggin} className={styles.eventButton}>
                 {t('join_team')}
               </Button>
