@@ -63,9 +63,13 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
 
   const getPeople = async (): Promise<void> => {
     const data = await getOwnedPerson();
+    console.log({ data });
     const playersIds = (await getMyTeamPlayers(teamId)).map((p) => p.personId);
+    console.log({ playersIds });
     const pendingPlayersIds = (await getMyTeamPlayersRequest(teamId)).map((p) => p.id);
+    console.log({ pendingPlayersIds });
     const ids = playersIds.concat(pendingPlayersIds);
+    console.log({ ids });
 
     const res = data.map((d: any) => {
       if (ids.includes(d.id)) {
@@ -74,7 +78,9 @@ const JoinTeam: React.FunctionComponent<IProps> = (props) => {
       return { display: d.complete_name, value: d.id };
     });
 
+    console.log({ res });
     const available = res.find((r) => !r.disabled);
+    console.log({ available });
 
     setPeople(res);
     if (available) {
