@@ -48,15 +48,15 @@ export default function PaymentOptionSelect(props) {
   };
 
   const getPaymentOptionDisplay = (option) => {
-    if (option.teamPrice === 0 && option.individual_price === 0) {
+    if (option.teamPrice === 0 && option.individualPrice === 0) {
       return t('free');
-    } else if (option.teamPrice === 0 && option.individual_price !== 0) {
-      return `${formatPrice(option.individual_price)} (${t('per_player')})`;
-    } else if (option.teamPrice !== 0 && option.individual_price === 0) {
+    } else if (option.teamPrice === 0 && option.individualPrice !== 0) {
+      return `${formatPrice(option.individualPrice)} (${t('per_player')})`;
+    } else if (option.teamPrice !== 0 && option.individualPrice === 0) {
       return `${formatPrice(option.teamPrice)} (${t('team.team')})`;
     } else {
       return `${formatPrice(option.teamPrice)} (${t('team.team')}) ${t('and_lowerCased')} ${formatPrice(
-        option.individual_price
+        option.individualPrice
       )} (${t('per_player')})`;
     }
   };
