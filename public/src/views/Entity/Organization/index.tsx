@@ -71,7 +71,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
 
   const tabNotHomeOrEvents = () => {
     return adminState.find((s) => s.value === tab) && tab != TABS_ENUM.HOME && tab != TABS_ENUM.EVENTS;
-  }
+  };
 
   const index = useMemo((): number => {
     if (tabNotHomeOrEvents()) {
@@ -111,7 +111,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   const getRole = async (): Promise<void> => {
     const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
-      let newInfos = basicInfos;
+      const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
       setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);

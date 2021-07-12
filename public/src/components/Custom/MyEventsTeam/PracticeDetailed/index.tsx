@@ -111,12 +111,12 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
       return;
     }
 
-    let streetAddress = data.streetAddress ? data.streetAddress + ', ' : '';
-    let city = data.city ? data.city + ', ' : '';
-    let state = data.state ? data.state : '';
-    let zip = data.zip ? data.zip : '';
-    let country = data.country ? ', ' + data.country : '';
-    let addressFormatted = streetAddress + city + state + zip + country;
+    const streetAddress = data.streetAddress ? data.streetAddress + ', ' : '';
+    const city = data.city ? data.city + ', ' : '';
+    const state = data.state ? data.state : '';
+    const zip = data.zip ? data.zip : '';
+    const country = data.country ? ', ' + data.country : '';
+    const addressFormatted = streetAddress + city + state + zip + country;
     data.addressFormatted = addressFormatted;
 
     if (!data?.locationId) {

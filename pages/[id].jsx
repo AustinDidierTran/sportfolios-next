@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GLOBAL_ENUM } from '../public/common/enums';
+import { GLOBAL_ENUM, IMAGE_ENUM } from '../public/common/enums';
 import dynamic from 'next/dynamic';
 import { formatRoute } from '../public/src/utils/stringFormats';
 import { useTranslation } from 'react-i18next';
@@ -30,9 +30,7 @@ export default function EntityRoute({ response }) {
     return <Error />;
   }
 
-  const img =
-    response.basicInfos.photoUrl ||
-    'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73';
+  const img = response.basicInfos.photoUrl || IMAGE_ENUM.SPORTFOLIOS_BANNER;
   const description = response.basicInfos.quickDescription
     ? decodeURIComponent(response.basicInfos.quickDescription)
     : t('metadata.[id].home.description');

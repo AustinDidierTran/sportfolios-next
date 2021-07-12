@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { useRouter } from 'next/router';
-import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
@@ -81,10 +81,7 @@ const TeamPlayersAcceptationRoute: React.FunctionComponent = () => {
       <Head>
         <meta property="og:title" content={t('metadata.playersAcceptation.title')} />
         <meta property="og:description" content={t('metadata.playersAcceptation.description')} />
-        <meta
-          property="og:image"
-          content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-        />
+        <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
       <TeamPlayersAcceptation cards={cards} update={update} getCards={getCardsInfos} name={name} />
     </>

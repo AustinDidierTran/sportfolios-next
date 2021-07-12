@@ -5,7 +5,7 @@ import Paper from '../../../components/Custom/Paper';
 import { Store } from '../../../Store';
 import styles from './Players.module.css';
 import List from '@material-ui/core/List';
-import { PendingPlayer as PendingPlayerType, Player } from '../../../../../typescript/types';
+import { PendingPlayer as PendingPlayerType } from '../../../../../typescript/types';
 import { getTeamPlayersPending, getMyTeamPlayersRequest } from '../../../actions/service/entity/get';
 import PendingPlayer from './PendingPlayer';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';

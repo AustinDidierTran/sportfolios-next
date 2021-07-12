@@ -15,8 +15,7 @@ interface IOldFilter {
   timeSlot: string;
 }
 
-
-export default function EditScheduleTab() {
+const EditScheduleTab: React.FunctionComponent = () => {
   const [updated, setUpdated] = useState<boolean>(true);
   const [filter, setFilter] = useState<IOldFilter>();
 
@@ -30,4 +29,5 @@ export default function EditScheduleTab() {
       <AllEditGames updated={updated} setFilter={setFilter} oldFilter={filter} />
     </>
   );
-}
+};
+export default EditScheduleTab;

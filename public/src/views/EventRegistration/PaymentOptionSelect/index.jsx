@@ -37,8 +37,8 @@ export default function PaymentOptionSelect(props) {
           {
             display: `${d.name} | ${getPaymentOptionDisplay(d)}`,
             value: d.id,
-            secondary: d.team_activity ? t('team.team_activity') : t('individual_activity'),
-            teamActivity: d.team_activity,
+            secondary: d.teamActivity ? t('team.team_activity') : t('individual_activity'),
+            teamActivity: d.teamActivity,
             informations: d.informations,
           },
         ],
@@ -48,15 +48,15 @@ export default function PaymentOptionSelect(props) {
   };
 
   const getPaymentOptionDisplay = (option) => {
-    if (option.teamPrice === 0 && option.individual_price === 0) {
+    if (option.teamPrice === 0 && option.individualPrice === 0) {
       return t('free');
-    } else if (option.teamPrice === 0 && option.individual_price !== 0) {
-      return `${formatPrice(option.individual_price)} (${t('per_player')})`;
-    } else if (option.teamPrice !== 0 && option.individual_price === 0) {
+    } else if (option.teamPrice === 0 && option.individualPrice !== 0) {
+      return `${formatPrice(option.individualPrice)} (${t('per_player')})`;
+    } else if (option.teamPrice !== 0 && option.individualPrice === 0) {
       return `${formatPrice(option.teamPrice)} (${t('team.team')})`;
     } else {
       return `${formatPrice(option.teamPrice)} (${t('team.team')}) ${t('and_lowerCased')} ${formatPrice(
-        option.individual_price
+        option.individualPrice
       )} (${t('per_player')})`;
     }
   };

@@ -6,7 +6,7 @@
     "dev": "node --max_old_space_size=8192 server.js",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js --ext .jsx",
+    "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "test": "jest",
     "clear_jest": "jest --clearCache"
   },

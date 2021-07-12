@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
+import { IMAGE_ENUM } from '../../../public/common/enums';
 
 const ConfirmationEmailSent = dynamic(() => import('../../../public/src/views/ConfirmationEmailSent'));
 
@@ -16,10 +17,7 @@ const ConfirmationEmailSentRoute = () => {
       <Head>
         <meta property="og:title" content={t('metadata.confirmationEmailSent.title')} />
         <meta property="og:description" content={t('metadata.confirmationEmailSent.description')} />
-        <meta
-          property="og:image"
-          content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-        />
+        <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
       <ConfirmationEmailSent email={email} />
     </>

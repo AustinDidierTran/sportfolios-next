@@ -5,16 +5,21 @@ import { useTranslation } from 'react-i18next';
 import { useApiRoute } from '../public/src/hooks/queries';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../conf';
-import { ROUTES_ENUM } from '../public/common/enums';
+import { IMAGE_ENUM, ROUTES_ENUM } from '../public/common/enums';
 
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
 const Home = dynamic(import('../public/src/views/Home'));
 
-export default function HomeRoute() {
+const HomeRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const { isLoading, refetch, response: posts, status } = useApiRoute('/api/entity/forYouPage', {
+  const {
+    isLoading,
+    refetch,
+    response: posts,
+    status,
+  } = useApiRoute('/api/entity/forYouPage', {
     defaultValue: [],
     method: 'GET',
   });
@@ -37,8 +42,7 @@ export default function HomeRoute() {
             description: t('metadata.forYouPage.description'),
             images: [
               {
-                url:
-                  'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+                url: IMAGE_ENUM.SPORTFOLIOS_BANNER,
               },
             ],
             site_name: 'Sportfolios',
@@ -77,8 +81,7 @@ export default function HomeRoute() {
           description: t('metadata.forYouPage.description'),
           images: [
             {
-              url:
-                'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+              url: IMAGE_ENUM.SPORTFOLIOS_BANNER,
             },
           ],
           site_name: 'Sportfolios',
@@ -100,4 +103,5 @@ export default function HomeRoute() {
       <Home posts={posts} refetch={refetch} />
     </>
   );
-}
+};
+export default HomeRoute;
