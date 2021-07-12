@@ -50,7 +50,7 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
     value = valueProp;
   }
 
-  let valueType = 'default'
+  let valueType = EXERCISES_TYPE_ENUM.DEFAULT;
   if (formik) {
     valueType = formik.values['type'];
   }
@@ -126,7 +126,7 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
           <TextField fullWidth label={'Description'} namespace="description" formik={formik} />
 
           <FormControl className={'type'} style={{ width: '100%' }}>
-            <InputLabel>{'type'}</InputLabel>
+            <InputLabel>{t('type')}</InputLabel>
             <Select
               id={'type'}
               name="type"

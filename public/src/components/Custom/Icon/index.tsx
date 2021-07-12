@@ -226,7 +226,7 @@ const icons: any = {
 interface IProps {
   icon: keyof typeof icons;
   color?: string;
-  onClick?: Function;
+  onClick?: () => void;
   fontSize?: number;
   style?: React.CSSProperties;
 }
@@ -239,7 +239,7 @@ const CustomIcon: React.FunctionComponent<IProps> = (props) => {
   }
   const Icon = icons[icon];
 
-  return <Icon style={{ ...style, fill: color }} fontSize={fontSize} component={'svg'} />;
+  return <Icon style={{ ...style, fill: color }} onClick={onClick} fontSize={fontSize} component={'svg'} />;
 };
 
 export default CustomIcon;

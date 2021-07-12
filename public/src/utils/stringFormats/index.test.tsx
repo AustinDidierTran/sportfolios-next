@@ -23,8 +23,8 @@ import {
 import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import moment from 'moment';
 
-var localStorageMock = (function () {
-  var store: any = {};
+const localStorageMock = (function () {
+  let store: any = {};
   return {
     getItem: function (key: any) {
       return store[key];
@@ -54,25 +54,25 @@ Object.defineProperty(global, 'localStorage', {
 });
 
 describe('ValidateInitialsFromName', () => {
-  const noName: string = '';
-  const stringName: string = 'Paul Blart';
-  const stringInitialFullName: string = 'PB';
-  const stringInitialName: string = 'P';
-  const stringInitialSurname: string = 'B';
+  const noName = '';
+  const stringName = 'Paul Blart';
+  const stringInitialFullName = 'PB';
+  const stringInitialName = 'P';
+  const stringInitialSurname = 'B';
   const objectFullName: any = { name: 'Paul', surname: 'Blart' };
   const objectName: any = { name: 'Paul' };
   const objectSurname: any = { surname: 'Blart' };
 
-  it('should return nothing when empty name', async () => {
+  it('should return nothing when empty name', () => {
     expect(getInitialsFromName(noName)).toBe(noName);
     expect(getInitialsFromName(noName)).toBe(noName);
   });
 
-  it('should return string initial name when name is string', async () => {
+  it('should return string initial name when name is string', () => {
     expect(getInitialsFromName(stringName)).toBe(stringInitialFullName);
   });
 
-  it('should return string inital name when name is object', async () => {
+  it('should return string inital name when name is object', () => {
     expect(getInitialsFromName(objectFullName)).toBe(stringInitialFullName);
     expect(getInitialsFromName(objectFullName)).toBe(stringInitialFullName);
     expect(getInitialsFromName(objectName)).toBe(stringInitialName);
@@ -83,14 +83,14 @@ describe('ValidateInitialsFromName', () => {
 });
 
 describe('ValidateIconsFromRole', () => {
-  const coachIcon: string = 'SportsWhistle';
-  const captainIcon: string = 'Stars';
-  const assistantCaptainIcon: string = 'TextFormat';
-  const defaultIcon: string = 'Person';
-  const randomRole: string = '123 day';
-  const emptyRole: string = '';
+  const coachIcon = 'SportsWhistle';
+  const captainIcon = 'Stars';
+  const assistantCaptainIcon = 'TextFormat';
+  const defaultIcon = 'Person';
+  const randomRole = '123 day';
+  const emptyRole = '';
 
-  it('should return icon', async () => {
+  it('should return icon', () => {
     expect(getIconFromRole(ROSTER_ROLE_ENUM.COACH)).toBe(coachIcon);
     expect(getIconFromRole(ROSTER_ROLE_ENUM.CAPTAIN)).toBe(captainIcon);
     expect(getIconFromRole(ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN)).toBe(assistantCaptainIcon);
@@ -100,25 +100,25 @@ describe('ValidateIconsFromRole', () => {
 });
 
 describe('ValidateFormatRoute', () => {
-  const route: string = '/test/api';
-  const routeWithParam: string = '/test/api/:user';
+  const route = '/test/api';
+  const routeWithParam = '/test/api/:user';
   const params: any = { user: 'Paul' };
   const queryParams: any = { id: 33 };
 
-  const routeWithParamResult: string = '/test/api/Paul';
-  const routeWithQueryParams: string = '/test/api?id=33';
+  const routeWithParamResult = '/test/api/Paul';
+  const routeWithQueryParams = '/test/api?id=33';
   const nullParams: any = null;
   const nullQueryParams: any = null;
-  const noRoute: string = '';
+  const noRoute = '';
 
-  it('should return route', async () => {
+  it('should return route', () => {
     expect(formatRoute(route, nullParams, nullQueryParams)).toBe(route);
     expect(formatRoute(routeWithParam, params, nullQueryParams)).toBe(routeWithParamResult);
     expect(formatRoute(route, params, queryParams)).toBe(routeWithQueryParams);
   });
 
-  it('should give a console.error', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  it('should give a console.error', () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
     formatRoute(noRoute, params, queryParams);
     expect(consoleSpy).toHaveBeenCalled();
     formatRoute(noRoute, nullParams, nullQueryParams);
@@ -130,26 +130,26 @@ describe('ValidateFormatDate', () => {
   const nonValidDate: any = moment(new Date('20001-11-32'));
   const momentDate: any = moment(new Date('2000-01-01'));
   const momentLongDate: any = moment(new Date('2000-01-01T03:24:00'));
-  const formatedFrDate: string = '1 janvier 2000';
-  const formatedEnDate: string = 'January 1, 2000';
-  const newFormat: string = 'MMM D';
-  const format: string = 'D MMM';
-  const newLanguageFrFormatedDate: string = '1 janv.';
-  const newLanguageEnFormatedDate: string = 'Jan 1';
-  const emptyDate: string = '';
+  const formatedFrDate = '1 janvier 2000';
+  const formatedEnDate = 'January 1, 2000';
+  const newFormat = 'MMM D';
+  const format = 'D MMM';
+  const newLanguageFrFormatedDate = '1 janv.';
+  const newLanguageEnFormatedDate = 'Jan 1';
+  const emptyDate = '';
 
-  it('should return non valid date', async () => {
+  it('should return non valid date', () => {
     expect(formatDate(nonValidDate)).toBe(emptyDate);
   });
 
-  it('should return date', async () => {
+  it('should return date', () => {
     expect(formatDate(momentDate)).toBe(formatedFrDate);
     expect(formatDate(momentLongDate)).toBe(formatedFrDate);
     expect(formatDate(momentDate, format)).toBe(newLanguageFrFormatedDate);
     expect(formatDate(momentLongDate, format)).toBe(newLanguageFrFormatedDate);
   });
 
-  it('should return date and window exist', async () => {
+  it('should return date and window exist', () => {
     expect(formatDate(momentLongDate, newFormat)).toBe(newLanguageFrFormatedDate);
     localStorageMock.setItem('i18nextLng', 'en');
     expect(formatDate(momentLongDate, newFormat)).toBe(newLanguageEnFormatedDate);
@@ -164,14 +164,14 @@ describe('ValidateFormatIntervalDate', () => {
   const endDate: any = moment(new Date('2001-01-10'));
   const endOneYearDate: any = moment(new Date('2001-01-10'));
   const endOneDayMonthDate: any = moment(new Date('2000-02-11'));
-  const formatedYearEnDate: string = 'January 10, 2000 to January 10, 2001 ';
-  const formatedIntervalEnDate: string = 'January 10 to February 11, 2000 ';
-  const formatedYearFrDate: string = '10 janvier 2000 au 10 janvier 2001 ';
-  const formatedIntervalFrDate: string = '10 janvier au 11 février 2000 ';
-  const formatedFrDate: string = '10 janvier 2000';
-  const formatedEnDate: string = 'January 10, 2000';
+  const formatedYearEnDate = 'January 10, 2000 to January 10, 2001 ';
+  const formatedIntervalEnDate = 'January 10 to February 11, 2000 ';
+  const formatedYearFrDate = '10 janvier 2000 au 10 janvier 2001 ';
+  const formatedIntervalFrDate = '10 janvier au 11 février 2000 ';
+  const formatedFrDate = '10 janvier 2000';
+  const formatedEnDate = 'January 10, 2000';
 
-  it('should return nothing', async () => {
+  it('should return nothing', () => {
     expect(formatIntervalDate(nonValidStartDate, endDate)).toBe('');
     expect(formatIntervalDate(startDate, nonValidEndDate)).toBe('');
     expect(formatIntervalDate(nonValidStartDate, nonValidEndDate)).toBe('');
@@ -180,14 +180,14 @@ describe('ValidateFormatIntervalDate', () => {
     expect(formatIntervalDate(null, null)).toBe('');
   });
 
-  it('should return interval in english', async () => {
+  it('should return interval in english', () => {
     localStorageMock.setItem('i18nextLng', 'en');
     expect(formatIntervalDate(startDate, startDate)).toBe(formatedEnDate);
     expect(formatIntervalDate(startDate, endOneYearDate)).toBe(formatedYearEnDate);
     expect(formatIntervalDate(startDate, endOneDayMonthDate)).toBe(formatedIntervalEnDate);
   });
 
-  it('should return interval in french', async () => {
+  it('should return interval in french', () => {
     localStorageMock.setItem('i18nextLng', 'fr');
     expect(formatIntervalDate(startDate, startDate)).toBe(formatedFrDate);
     expect(formatIntervalDate(startDate, endOneYearDate)).toBe(formatedYearFrDate);
@@ -196,14 +196,14 @@ describe('ValidateFormatIntervalDate', () => {
 });
 
 describe('ValidateEntityName', () => {
-  const personType: string = 'person.person';
-  const teamType: string = 'team.team';
-  const organizationType: string = 'organization';
-  const eventType: string = 'event.event';
-  const defaultType: string = '';
-  const randomType: number = 123;
+  const personType = 'person.person';
+  const teamType = 'team.team';
+  const organizationType = 'organization';
+  const eventType = 'event.event';
+  const defaultType = '';
+  const randomType = 123;
 
-  it('should return name', async () => {
+  it('should return name', () => {
     expect(getEntityTypeName(GLOBAL_ENUM.PERSON)).toBe(personType);
     expect(getEntityTypeName(GLOBAL_ENUM.TEAM)).toBe(teamType);
     expect(getEntityTypeName(GLOBAL_ENUM.ORGANIZATION)).toBe(organizationType);
@@ -213,25 +213,25 @@ describe('ValidateEntityName', () => {
 });
 
 describe('ValidatePageTitle', () => {
-  const title: string = 'Title ';
-  const noTitle: string = 'Sportfolios';
+  const title = 'Title ';
+  const noTitle = 'Sportfolios';
   const WithTitle: string = title + ' | Sportfolios';
 
-  it('should return title', async () => {
+  it('should return title', () => {
     expect(formatPageTitle()).toBe(noTitle);
     expect(formatPageTitle(title)).toBe(WithTitle);
   });
 });
 
 describe('ValidateMembershipName', () => {
-  const recreationalType: string = 'recreational_member';
-  const competitiveType: string = 'competitive_member';
-  const eliteType: string = 'elite_member';
-  const juniorType: string = 'junior_member';
-  const randomType: number = 123;
-  const defaultType: string = '';
+  const recreationalType = 'recreational_member';
+  const competitiveType = 'competitive_member';
+  const eliteType = 'elite_member';
+  const juniorType = 'junior_member';
+  const randomType = 123;
+  const defaultType = '';
 
-  it('should return name', async () => {
+  it('should return name', () => {
     expect(getMembershipName(MEMBERSHIP_TYPE_ENUM.RECREATIONAL)).toBe(recreationalType);
     expect(getMembershipName(MEMBERSHIP_TYPE_ENUM.COMPETITIVE)).toBe(competitiveType);
     expect(getMembershipName(MEMBERSHIP_TYPE_ENUM.ELITE)).toBe(eliteType);
@@ -241,16 +241,16 @@ describe('ValidateMembershipName', () => {
 });
 
 describe('ValidateMembershipType', () => {
-  const oneYearType: string = 'yearly';
-  const sixMonthType: string = 'biannual';
-  const oneMonthType: string = 'monthly';
-  const date: string = 'January 1, 2000';
-  const noLength: number = 0;
-  const randomLength: number = 123;
+  const oneYearType = 'yearly';
+  const sixMonthType = 'biannual';
+  const oneMonthType = 'monthly';
+  const date = 'January 1, 2000';
+  const noLength = 0;
+  const randomLength = 123;
   const dateType: any = 'fixed_date';
   const defaultType: any = '';
 
-  it('should return type', async () => {
+  it('should return type', () => {
     expect(getMembershipType(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearType);
     expect(getMembershipType(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthType);
     expect(getMembershipType(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthType);
@@ -265,13 +265,13 @@ describe('ValidateMembershipType', () => {
 });
 
 describe('ValidateMembershipLength', () => {
-  const oneMonthType: number = 1;
-  const sixMonthType: number = 6;
-  const oneYearType: number = 1;
-  const randomType: number = 123;
-  const noType: undefined = undefined;
+  const oneMonthType = 1;
+  const sixMonthType = 6;
+  const oneYearType = 1;
+  const randomType = 123;
+  const noType: any = undefined;
 
-  it('should return length', async () => {
+  it('should return length', () => {
     expect(getMembershipLength(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthType);
     expect(getMembershipLength(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthType);
     expect(getMembershipLength(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearType);
@@ -283,10 +283,10 @@ describe('ValidateMembershipUnit', () => {
   const oneMonthType: moment.unitOfTime.DurationConstructor = 'M';
   const sixMonthType: moment.unitOfTime.DurationConstructor = 'M';
   const oneYearType: moment.unitOfTime.DurationConstructor = 'y';
-  const randomType: number = 123;
-  const noType: undefined = undefined;
+  const randomType = 123;
+  const noType: any = undefined;
 
-  it('should return unit', async () => {
+  it('should return unit', () => {
     expect(getMembershipUnit(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthType);
     expect(getMembershipUnit(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthType);
     expect(getMembershipUnit(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearType);
@@ -298,15 +298,15 @@ describe('ValidateExpirationDate', () => {
   const oneMonthDate: any = formatDate(moment.utc().add(1, 'M'));
   const sixMonthDate: any = formatDate(moment.utc().add(6, 'M'));
   const oneYearDate: any = formatDate(moment.utc().add(1, 'y'));
-  const randomType: number = 123;
+  const randomType = 123;
   const currentDate: any = formatDate(moment.utc());
   const previousDate: any = moment.utc().subtract(1, 'year');
   const futureDate: any = moment.utc().add(1, 'month');
   const expectedPreviousDate: any = formatDate(moment.utc().set('year', moment().get('year') + 1));
   const expectedFutureDate: any = formatDate(moment.utc().set('month', moment().get('month') + 1));
-  const emptyString: string = '';
+  const emptyString = '';
 
-  it('should return expiration date', async () => {
+  it('should return expiration date', () => {
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthDate);
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthDate);
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearDate);
@@ -319,12 +319,12 @@ describe('ValidateExpirationDate', () => {
 });
 
 describe('ValidateFormatPrice', () => {
-  const price: number = 123;
-  const priceDigit: number = 123.123456789;
-  const priceString: string = '1.23$';
-  const noPrice: string = '0.00$';
+  const price = 123;
+  const priceDigit = 123.123456789;
+  const priceString = '1.23$';
+  const noPrice = '0.00$';
 
-  it('should return price', async () => {
+  it('should return price', () => {
     expect(formatPrice(price)).toBe(priceString);
     expect(formatPrice(priceDigit)).toBe(priceString);
     expect(formatPrice()).toBe(noPrice);
@@ -334,16 +334,16 @@ describe('ValidateFormatPrice', () => {
 });
 
 describe('ValidateDate', () => {
-  const badDateMonth: string = '00/01';
-  const badDateDay: string = '02/29';
-  const badDateMonthType: string = 'bb/01';
-  const badDateDayType: string = '02/aa';
-  const badDateNoMonth: string = '/01';
-  const badDateNoDay: string = '01';
-  const noDate: string = '';
-  const date: string = '01/01';
+  const badDateMonth = '00/01';
+  const badDateDay = '02/29';
+  const badDateMonthType = 'bb/01';
+  const badDateDayType = '02/aa';
+  const badDateNoMonth = '/01';
+  const badDateNoDay = '01';
+  const noDate = '';
+  const date = '01/01';
 
-  it('should reject bad date', async () => {
+  it('should reject bad date', () => {
     expect(validateDate(badDateMonth)).toBe(false);
     expect(validateDate(badDateNoMonth)).toBe(false);
     expect(validateDate(badDateMonthType)).toBe(false);
@@ -353,24 +353,24 @@ describe('ValidateDate', () => {
     expect(validateDate(noDate)).toBe(false);
   });
 
-  it('should accept a valid date', async () => {
+  it('should accept a valid date', () => {
     expect(validateDate(date)).toBe(true);
   });
 });
 
 describe('ValidateDateWithYear', () => {
-  const badDateMonth: string = '00/01/2000';
-  const badDateDay: string = '02/29/2000';
-  const badDateMonthType: string = 'bb/01/2000';
-  const badDateDayType: string = '02/aa/2000';
-  const badDateNoMonth: string = '/01/2000';
-  const badDateNoDay: string = '01/2000';
-  const badDateYearType: string = '02/01/cccc';
-  const badDateNoYear: string = '02/01';
-  const noDate: string = '';
-  const date: string = '01/01/2000';
+  const badDateMonth = '00/01/2000';
+  const badDateDay = '02/29/2000';
+  const badDateMonthType = 'bb/01/2000';
+  const badDateDayType = '02/aa/2000';
+  const badDateNoMonth = '/01/2000';
+  const badDateNoDay = '01/2000';
+  const badDateYearType = '02/01/cccc';
+  const badDateNoYear = '02/01';
+  const noDate = '';
+  const date = '01/01/2000';
 
-  it('should reject bad date', async () => {
+  it('should reject bad date', () => {
     expect(validateDateWithYear(badDateMonth)).toBe(false);
     expect(validateDateWithYear(badDateNoMonth)).toBe(false);
     expect(validateDateWithYear(badDateMonthType)).toBe(false);
@@ -382,24 +382,24 @@ describe('ValidateDateWithYear', () => {
     expect(validateDateWithYear(noDate)).toBe(false);
   });
 
-  it('should accept a valid date', async () => {
+  it('should accept a valid date', () => {
     expect(validateDateWithYear(date)).toBe(true);
   });
 });
 
 describe('ValidateFormattedMailTo', () => {
-  const noEmailsMsg: string = 'No email is provided';
-  const emailNotArrayMsg: string = 'Emails should be an array';
+  const noEmailsMsg = 'No email is provided';
+  const emailNotArrayMsg = 'Emails should be an array';
   const emails: any = ['test, test'];
   const subject: any = 'subject';
-  const body: string = 'body';
+  const body = 'body';
   const emailNotArray: any = [];
   const emailsString: any = 'test';
-  const emailsOnlyFormat: string = 'mailTo:test, test';
-  const emailsSubjectFormat: string = 'mailTo:test, test?subject=subject';
-  const emailsSubjectBodyFormat: string = 'mailTo:test, test?subject=subject&body=body';
+  const emailsOnlyFormat = 'mailTo:test, test';
+  const emailsSubjectFormat = 'mailTo:test, test?subject=subject';
+  const emailsSubjectBodyFormat = 'mailTo:test, test?subject=subject&body=body';
 
-  test('should throw an error', async () => {
+  test('should throw an error', () => {
     const noEmail = () => {
       getFormattedMailTo();
     };
@@ -418,7 +418,7 @@ describe('ValidateFormattedMailTo', () => {
     expect(emailArrayEmpty).toThrow(noEmailsMsg);
   });
 
-  it('should return email', async () => {
+  it('should return email', () => {
     expect(getFormattedMailTo(emails)).toBe(emailsOnlyFormat);
     expect(getFormattedMailTo(emails, subject)).toBe(emailsSubjectFormat);
     expect(getFormattedMailTo(emails, subject, body)).toBe(emailsSubjectBodyFormat);
@@ -435,7 +435,7 @@ describe('ValidateEmail', () => {
   const validInput = 'test@test.com';
   const validInput1 = 'AbCdE@gmail.za';
 
-  it('should reject invalid input', async () => {
+  it('should reject invalid input', () => {
     expect(validateEmail(invalidInput)).toBe(false);
     expect(validateEmail(invalidInput2)).toBe(false);
     expect(validateEmail(invalidInput3)).toBe(false);
@@ -444,7 +444,7 @@ describe('ValidateEmail', () => {
     expect(validateEmail(invalidInput6)).toBe(false);
   });
 
-  it('should accept a valid input', async () => {
+  it('should accept a valid input', () => {
     expect(validateEmail(validInput)).toBe(true);
     expect(validateEmail(validInput1)).toBe(true);
   });
@@ -457,14 +457,14 @@ describe('ValidateTimestampToRelativeTime', () => {
   const daysAgoDate: any = moment.utc().subtract(1, 'days');
   const monthAgoDate: any = moment.utc().subtract(1, 'month');
   const yearAgoDate: any = moment.utc().subtract(1, 'year');
-  const inSeconds: string = '0 seconds ago';
-  const inMinutes: string = '1 minute ago';
-  const inHours: string = '1 hour ago';
-  const inDays: string = '1 day ago';
-  const inMonth: string = '1 month ago';
-  const inYear: string = '1 year ago';
+  const inSeconds = '0 seconds ago';
+  const inMinutes = '1 minute ago';
+  const inHours = '1 hour ago';
+  const inDays = '1 day ago';
+  const inMonth = '1 month ago';
+  const inYear = '1 year ago';
 
-  it('should return timestamp relative to time', async () => {
+  it('should return timestamp relative to time', () => {
     expect(timestampToRelativeTime(secondAgoDate)).toBe(inSeconds);
     expect(timestampToRelativeTime(minutesAgoDate)).toBe(inMinutes);
     expect(timestampToRelativeTime(hoursAgoDate)).toBe(inHours);
@@ -480,13 +480,13 @@ describe('ValidateTimeShow', () => {
   const hoursAgoDate: any = moment.utc().subtract(1, 'hours');
   const daysAgoDate: any = moment.utc().subtract(1, 'days');
   const monthAgoDate: any = moment.utc().subtract(1, 'month');
-  const inSeconds: string = 'il y a quelques secondes';
-  const inMinutes: string = 'il y a une minute';
-  const inHours: string = 'il y a une heure';
-  const aDayAgo: string = 'Yesterday, at ' + daysAgoDate.format('HH:mm');
-  const overADay: string = monthAgoDate.format('DD MMMM YYYY');
+  const inSeconds = 'il y a quelques secondes';
+  const inMinutes = 'il y a une minute';
+  const inHours = 'il y a une heure';
+  const aDayAgo = 'Yesterday, at ' + daysAgoDate.format('HH:mm');
+  const overADay = monthAgoDate.format('DD MMMM YYYY');
 
-  it('should return time show', async () => {
+  it('should return time show', () => {
     expect(getTimeToShow(secondAgoDate)).toBe(inSeconds);
     expect(getTimeToShow(minutesAgoDate)).toBe(inMinutes);
     expect(getTimeToShow(hoursAgoDate)).toBe(inHours);

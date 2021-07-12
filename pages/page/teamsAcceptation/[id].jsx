@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../public/src/utils/stringFormats';
-import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM } from '../../../public/common/enums';
+import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
@@ -92,10 +92,7 @@ const TeamsAcceptationRoute = () => {
       <Head>
         <meta property="og:title" content={t('metadata.teamsAcceptation.title')} />
         <meta property="og:description" content={t('metadata.teamsAcceptation.description')} />
-        <meta
-          property="og:image"
-          content="https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73"
-        />
+        <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
       <TeamsAcceptation cards={cards} update={update} getCards={getCardsInfos} />
     </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ROUTES_ENUM } from '../../public/common/enums';
+import { ROUTES_ENUM, IMAGE_ENUM } from '../../public/common/enums';
 import { CLIENT_BASE_URL } from '../../conf';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
@@ -23,8 +23,7 @@ const SignupRoute = () => {
           description: t('metadata.signup.description'),
           images: [
             {
-              url:
-                'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210225-h08xs-8317ff33-3b04-49a1-afd3-420202cddf73',
+              url: IMAGE_ENUM.SPORTFOLIOS_BANNER,
             },
           ],
           site_name: 'Sportfolios',
