@@ -44,6 +44,10 @@ const Exercise: React.FunctionComponent<IProps> = (props) => {
     setOpenExercise(false);
   };
 
+  const deleteExercise = (exerciseId: string): void => {
+    setExercisesList(exercisesList.filter((e) => e.id != exerciseId));
+  };
+
   return (
     <div style={{ marginTop: '8px' }}>
       <Typography className={styles.title} variant="h4">
@@ -57,7 +61,7 @@ const Exercise: React.FunctionComponent<IProps> = (props) => {
         </div>
       </Typography>
       {exercisesList?.map((exercise: IExercise, index: number) => (
-        <ExerciseItem isCoach={isCoach} exercise={exercise} practiceId={practiceId} index={index} key={exercise.id} />
+        <ExerciseItem isCoach={isCoach} exercise={exercise} practiceId={practiceId} deleteExercise={deleteExercise} index={index} key={exercise.id} />
       ))}
       <AddExercise
         exercises={exercisesList}

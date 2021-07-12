@@ -1085,6 +1085,7 @@ export default {
     exercise: 'Exercice',
     exercises: 'Exercices',
     exercise_added: 'Exercice ajouté',
+    exercise_delete: 'Êtes-vous certain de vouloir supprimer cet exercice?',
     existing_bank_accounts: 'Comptes bancaires existants',
     expiration_date: "Date d'expiration",
     expire_on: 'Expire le',
