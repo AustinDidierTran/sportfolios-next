@@ -1007,6 +1007,7 @@ export default {
     competitive_membership: 'Affiliation Compétitif',
     competitive: 'Compétitif',
     complete_order: 'Compléter la commande',
+    complete_schedule_manager: "Le gestionnaire d'horaire complet est seulement disponible sur oridnateur",
     complete_transfer: 'Compléter le transfert',
     confirm_new_password: 'Confirmer votre nouveau mot de passe',
     confirm_or_decline_score_notif_description:
@@ -1407,6 +1408,7 @@ export default {
     save_phase_order: "Sauvegarder l'ordre",
     save_changes_before_starting_phase: 'Veuillez sauvegarder les changements avant de démarrer la phase',
     schedule: 'Horaire',
+    schedule_manager: "Gestionnaire d'horaire",
     search_results: 'Résultats de recherche pour {{query}}',
     search_sportfolios: 'Rechercher Sportfolios',
     search: 'Rechercher...',

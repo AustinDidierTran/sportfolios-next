@@ -988,6 +988,7 @@ export default {
     competitive_membership: 'Competitive Membership',
     competitive: 'Competitive',
     complete_order: 'Complete order',
+    complete_schedule_manager: 'The complete schedule manager is only available on desktop',
     complete_transfer: 'Complete transfer',
     confirm_new_password: 'Confirm New Password',
     confirm_or_decline_score_notif_description:
@@ -1385,6 +1386,7 @@ export default {
     save_phase_order: 'Save phase order',
     save_changes_before_starting_phase: 'Save changes before starting the phase',
     schedule: 'Schedule',
+    schedule_manager: 'Schedule manager',
     search_results: 'Search results for {{query}}',
     search_sportfolios: 'Search Sportfolios',
     search: 'Search...',
