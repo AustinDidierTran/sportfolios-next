@@ -1,11 +1,8 @@
-import api from '../../../actions/api';
 import { SELECT_ENUM } from '../../../../common/enums';
 import moment from 'moment';
 import { formatDate } from '../../../utils/stringFormats';
-import { formatRoute } from '../../../utils/stringFormats';
 import { EventField, Phase, Ranking, TeamsSchedule, TimeSlot } from '../../../../../typescript/types';
-
-const BASE_URL = '/api/entity';
+import { getGameOptions as getGameOptionsApi } from '../../../actions/service/entity/get';
 
 interface IData {
   value: string;
@@ -15,11 +12,11 @@ interface IData {
 interface IWithAllData {
   value: string;
   displayKey?: string;
-  display: string;
+  display?: string;
 }
 
 interface IPhases extends IWithAllData {
-  status: string;
+  status?: string;
 }
 
 interface GameOptions {
@@ -46,8 +43,7 @@ interface IPositionOption {
   teamName?: string;
 }
 
-export const getPhases = async (eventId: string, withoutAll: boolean): Promise<IPhases[]> => {
-  const { data } = await api(formatRoute(`${BASE_URL}/phases`, null, { eventId }));
+export const getPhases = (data: Phase[], withoutAll: boolean): IPhases[] => {
   if (data.length > 0) {
     const res = data
       .sort((a: Phase, b: Phase) => a.phaseOrder - b.phaseOrder)
@@ -63,8 +59,7 @@ export const getPhases = async (eventId: string, withoutAll: boolean): Promise<I
   }
 };
 
-export const getSlots = async (eventId: string): Promise<IData[]> => {
-  const { data } = await api(formatRoute(`${BASE_URL}/slots`, null, { eventId }));
+export const getSlots = (data: TimeSlot[]): IData[] => {
   if (data.length > 0) {
     const res = data.map((d: TimeSlot) => ({
       value: d.id,
@@ -74,8 +69,7 @@ export const getSlots = async (eventId: string): Promise<IData[]> => {
   }
 };
 
-export const getFutureSlots = async (eventId: string): Promise<IData[]> => {
-  const { data } = await api(formatRoute(`${BASE_URL}/slots`, null, { eventId }));
+export const getFutureSlots = (data: TimeSlot[]): IData[] => {
   if (data.length > 0) {
     const res = data
       .filter((d: TimeSlot) => moment(d.date) >= moment())
@@ -87,8 +81,7 @@ export const getFutureSlots = async (eventId: string): Promise<IData[]> => {
   }
 };
 
-export const getTeams = async (eventId: string, withoutAll: boolean): Promise<IWithAllData[]> => {
-  const { data } = await api(formatRoute(`${BASE_URL}/teamsSchedule`, null, { eventId }));
+export const getTeams = (data: TeamsSchedule[], withoutAll: boolean): IWithAllData[] => {
   if (data.length > 0) {
     const res = data.map((d: TeamsSchedule) => {
       return {
@@ -103,8 +96,7 @@ export const getTeams = async (eventId: string, withoutAll: boolean): Promise<IW
   }
 };
 
-export const getFields = async (eventId: string, withoutAll: boolean): Promise<IWithAllData[]> => {
-  const { data } = await api(formatRoute(`${BASE_URL}/fields`, null, { eventId }));
+export const getFields = (data: EventField[], withoutAll: boolean): IWithAllData[] => {
   if (data.length > 0) {
     const res = data.map((d: EventField) => ({
       value: d.id,
@@ -117,8 +109,7 @@ export const getFields = async (eventId: string, withoutAll: boolean): Promise<I
   }
 };
 
-export const getPositionOptions = async (eventId: string): Promise<IPositionOption[]> => {
-  const { data } = await api(formatRoute(`${BASE_URL}/phases`, null, { eventId }));
+export const getPositionOptions = (data: Phase[]): IPositionOption[] => {
   const rankingOptions = data.reduce((prev: Ranking[], curr: Phase) => {
     return prev.concat(curr.ranking);
   }, []);
@@ -129,7 +120,7 @@ export const getPositionOptions = async (eventId: string): Promise<IPositionOpti
       ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${
           data.find((d: Phase) => d.id === r.currentPhase).name
         } (${r.name})`
-      : `${r.initialPosition.toString()}. ${data.find((d: Ranking) => d.id === r.currentPhase).name}`,
+      : `${r.initialPosition.toString()}. ${data.find((d) => d.id === r.currentPhase).name}`,
     ...r,
   }));
   return formattedRankingOptions.sort(
@@ -138,36 +129,24 @@ export const getPositionOptions = async (eventId: string): Promise<IPositionOpti
   );
 };
 
-export const getFutureGameOptions = async (eventId: string, withoutAll: boolean): Promise<GameOptions> => {
-  const res = await Promise.all([
-    getFutureSlots(eventId),
-    getTeams(eventId, withoutAll),
-    getPhases(eventId, withoutAll),
-    getFields(eventId, withoutAll),
-    getPositionOptions(eventId),
-  ]);
-  return {
-    timeSlots: res[0],
-    teams: res[1],
-    phases: res[2],
-    fields: res[3],
-    positions: res[4],
-  };
-};
+export const getGameOptions = async (eventId: string, withoutAll: boolean, isFuture = false): Promise<GameOptions> => {
+  const options = await getGameOptionsApi(eventId);
+  let timeSlotsRes;
+  if (isFuture) {
+    timeSlotsRes = getFutureSlots(options.timeSlots);
+  } else {
+    timeSlotsRes = getSlots(options.timeSlots);
+  }
+  const teamRes = getTeams(options.teams, withoutAll);
+  const phasesRes = getPhases(options.phases, withoutAll);
+  const fieldsRes = getFields(options.fields, withoutAll);
+  const positionsRes = getPositionOptions(options.phases);
 
-export const getGameOptions = async (eventId: string, withoutAll: boolean): Promise<GameOptions> => {
-  const res = await Promise.all([
-    getSlots(eventId),
-    getTeams(eventId, withoutAll),
-    getPhases(eventId, withoutAll),
-    getFields(eventId, withoutAll),
-    getPositionOptions(eventId),
-  ]);
   return {
-    timeSlots: res[0],
-    teams: res[1],
-    phases: res[2],
-    fields: res[3],
-    positions: res[4],
+    timeSlots: timeSlotsRes,
+    teams: teamRes,
+    phases: phasesRes,
+    fields: fieldsRes,
+    positions: positionsRes,
   };
 };
