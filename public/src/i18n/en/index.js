@@ -1063,6 +1063,7 @@ export default {
     exercise: 'Exercise',
     exercises: 'Exercises',
     exercise_added: 'Exercise added',
+    exercise_delete: 'Are you sure you want to delete this exercise?',
     existing_bank_accounts: 'Existing bank accounts',
     expiration_date: 'Expiration Date',
     expire_on: 'Expire on',
