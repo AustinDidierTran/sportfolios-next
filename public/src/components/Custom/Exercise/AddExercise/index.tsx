@@ -24,7 +24,7 @@ interface IExerciseOption {
   display: string;
 }
 
-const AddPractice: React.FunctionComponent<IProps> = (props) => {
+const AddExercise: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { exercises, isOpen, practiceId, onClose, onAdd } = props;
   const {
@@ -164,4 +164,4 @@ const AddPractice: React.FunctionComponent<IProps> = (props) => {
   );
 };
 
-export default AddPractice;
+export default AddExercise;

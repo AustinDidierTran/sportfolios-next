@@ -30,11 +30,10 @@ const Exercise: React.FunctionComponent<IProps> = (props) => {
   useMemo((): void => setExercisesList(exercises), [exercises]);
 
   useEffect((): void => {
-    if (exercises.length > 0) {
+    if (teamId) {
       getIsTeamCoach(teamId).then(setIsCoach);
     }
-  }, [exercises]);
-
+  }, [teamId]);
 
   const addExercise = (): void => {
     setOpenExercise(true);
