@@ -44,27 +44,23 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
     }
   }, [eventId]);
 
-  const scoreIsSubmitted = (game: IGames): boolean => game.positions[0].score != 0 || game.positions[1].score != 0;
-
   const sortGames = (games: IGames[]): void => {
-    const pastGames = games
-      .filter(
-        (game) =>
-          moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment() && scoreIsSubmitted(game)
-      )
-      .sort((a, b) => {
-        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
-      });
-    setPastGames(pastGames);
     const res = games
       .filter(
-        (game) =>
-          moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !scoreIsSubmitted(game)
+        (game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !game.startTime
       )
       .sort((a, b) => {
+        if (!b.startTime) {
+          return -Infinity;
+        }
         return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
       });
+
     setGames(res);
+    const pastGames = games
+      .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment())
+      .sort((a, b) => moment(a.startTime).valueOf() - moment(b.startTime).valueOf());
+    setPastGames(pastGames);
   };
 
   const getGames = async (): Promise<IGames[]> => {

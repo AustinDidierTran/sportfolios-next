@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Card, AlertDialog } from '../../../../../../components/Custom';
+import AlertDialog from '../../../../../../components/Custom/Dialog/AlertDialog';
+import Card from '../../../../../../components/Custom/Card';
 import { useTranslation } from 'react-i18next';
 import api from '../../../../../../actions/api';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../../common/enums';
@@ -28,7 +29,7 @@ export default function EditGame(props) {
   };
 
   const gameClick = () => {
-    if (game.positions[0].roster_id && game.positions[1].roster_id) {
+    if (game.positions[0].rosterId && game.positions[1].rosterId) {
       setGameDialog(true);
     } else {
       dispatch({
@@ -55,7 +56,7 @@ export default function EditGame(props) {
   const onDeleteConfirmed = async () => {
     const res = await api(
       formatRoute('/api/entity/game', null, {
-        eventId: game.event_id,
+        eventId: game.eventId,
         gameId: game.id,
       }),
       {

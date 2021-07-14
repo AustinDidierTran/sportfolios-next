@@ -374,7 +374,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
           entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
           allowComment
           allowLike
-          locationId={game.entityId}
+          locationId={game.id}
           elevation={0}
           placeholder={t('write_a_comment')}
         />

@@ -49,12 +49,19 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
 
   const sortGames = (games: Games[]): void => {
     const res = games
-      .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment())
-      .sort((a, b) => Math.abs(moment(a.startTime).valueOf() - moment(b.startTime).valueOf()));
+      .filter(
+        (game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !game.startTime
+      )
+      .sort((a, b) => {
+        if (!b.startTime) {
+          return -Infinity;
+        }
+        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
+      });
     setGames(res);
     const pastGames = games
       .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment())
-      .sort((a, b) => Math.abs(moment(a.startTime).valueOf() - moment(b.startTime).valueOf()));
+      .sort((a, b) => moment(a.startTime).valueOf() - moment(b.startTime).valueOf());
     setPastGames(pastGames);
   };
 

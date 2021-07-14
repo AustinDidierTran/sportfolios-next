@@ -15,7 +15,6 @@ const Comment = dynamic(() => import('./Comment'));
 const Report = dynamic(() => import('./Report'));
 const ScoreSuggestion = dynamic(() => import('./ScoreSuggestion'));
 const Shop = dynamic(() => import('./ShopItem'));
-const TwoTeamGame = dynamic(() => import('./TwoTeamGame'));
 const TwoTeamGameEditable = dynamic(() => import('./TwoTeamGameEditable'));
 const TwoTeamGameProfile = dynamic(() => import('./TwoTeamGameProfile'));
 const CartSummary = dynamic(() => import('./CartSummary'));
@@ -38,7 +37,6 @@ const CardMap = {
   [CARD_TYPE_ENUM.SCORE_SUGGESTION]: ScoreSuggestion,
   [CARD_TYPE_ENUM.SHOP]: Shop,
   [CARD_TYPE_ENUM.TWO_TEAM_GAME_EDITABLE]: TwoTeamGameEditable,
-  [CARD_TYPE_ENUM.TWO_TEAM_GAME]: TwoTeamGame,
   [CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME]: MultipleTeamGame,
   [CARD_TYPE_ENUM.TWO_TEAM_GAME_PROFILE]: TwoTeamGameProfile,
   [CARD_TYPE_ENUM.CART_SUMMARY]: CartSummary,

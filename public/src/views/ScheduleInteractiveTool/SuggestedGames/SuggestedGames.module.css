@@ -4,8 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  padding-left: 140px;
+  width: 180px;
 }
 
 .div {
@@ -13,14 +12,23 @@
   justify-content: center;
 }
 
-.text {
-  margin-top: 12px !important;
-  margin-bottom: 12px !important;
-}
-
 .textBox {
   text-align: center !important;
   width: 70%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin: 18px 0px 8px 0px;
+}
+
+.back {
+  margin: 0px 4px 0px 0px;
+}
+
+.back {
+  margin: 0px 4px 0px 0px;
 }
 
 .warning {

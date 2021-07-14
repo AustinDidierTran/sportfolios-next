@@ -2,18 +2,16 @@ import React, { useMemo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import Tooltip from '@material-ui/core/Tooltip';
-import Avatar from '../../../components/Custom/Avatar';
 import styles from './GameCard.module.css';
-import { formatDate, getInitialsFromName } from '../../../utils/stringFormats';
+import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
-import { PHASE_STATUS_ENUM } from '../../../../common/enums';
 
 export default function GameCard(props) {
   const { ranking1, ranking2, timeSlots, fields, x, y, phase } = props;
 
   const tooltip = useMemo(
     () =>
-      `${ranking1.name} vs ${ranking2.name}, ${fields[x]?.field}, ${formatDate(
+      `${ranking1.name} vs ${ranking2.name}, ${phase.name}, ${fields[x]?.field}, ${formatDate(
         moment.utc(timeSlots[y]?.date),
         'DD MMM HH:mm'
       )}`,
@@ -33,15 +31,13 @@ export default function GameCard(props) {
       <Tooltip title={tooltip} enterDelay={500}>
         <div className={styles.gameDiv}>
           <div className={styles.team1}>
-            <Avatar
-              initials={getInitialsFromName(ranking1.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
-            ></Avatar>
+            <Typography>{ranking1.name}</Typography>
           </div>
-          <Typography className={styles.vs}>vs</Typography>
+          <Typography color="textSecondary" className={styles.vs}>
+            vs
+          </Typography>
           <div className={styles.team2}>
-            <Avatar
-              initials={getInitialsFromName(ranking2.name, phase.status !== PHASE_STATUS_ENUM.NOT_STARTED)} // or team pic?
-            ></Avatar>
+            <Typography>{ranking2.name}</Typography>
           </div>
         </div>
       </Tooltip>

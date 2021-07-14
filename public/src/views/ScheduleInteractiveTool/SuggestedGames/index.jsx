@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import styles from './SuggestedGames.module.css';
 import Typography from '@material-ui/core/Typography';
 import Button from '../../../components/Custom/Button';
@@ -8,29 +8,28 @@ import dynamic from 'next/dynamic';
 const SuggestedGameCard = dynamic(() => import('./SuggestedGameCard'));
 
 export default function SuggestedGames(props) {
-  const { suggestions, setNewIndex } = props;
+  const { suggestions, index, setNewIndex } = props;
   const { t } = useTranslation();
-
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (index === suggestions.length) {
-      setIndex(0);
       setNewIndex(0);
     }
-    setIndex(0);
-    setNewIndex(0);
-  }, [suggestions.length, suggestions]);
+  }, [suggestions.length]);
 
-  const overrideIndex = useMemo(() => index === suggestions.length, [suggestions.length]);
-
-  const handleSkip = () => {
+  const handleNext = () => {
     if (index === suggestions.length - 1) {
-      setIndex(0);
       setNewIndex(0);
     } else {
-      setIndex(index + 1);
       setNewIndex(index + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (index === 0) {
+      setNewIndex(suggestions.length - 1);
+    } else {
+      setNewIndex(index - 1);
     }
   };
 
@@ -48,22 +47,29 @@ export default function SuggestedGames(props) {
     <div className={styles.card}>
       <div className={styles.div}>
         <SuggestedGameCard
-          ranking1={overrideIndex ? suggestions[0].rankings[0] : suggestions[index].rankings[0]}
-          ranking2={overrideIndex ? suggestions[0].rankings[1] : suggestions[index].rankings[1]}
-          phaseStatus={overrideIndex ? suggestions[0].status : suggestions[index].status}
-          phaseName={overrideIndex ? suggestions[0].phaseName : suggestions[index].phaseName}
-          phaseOrder={overrideIndex ? suggestions[0].phaseOrder : suggestions[index].phaseOrder}
+          ranking1={suggestions[index].rankings[0]}
+          ranking2={suggestions[index].rankings[1]}
+          phaseStatus={suggestions[index].status}
+          phaseName={suggestions[index].phaseName}
+          phaseOrder={suggestions[index].phaseOrder}
         />
+      </div>
+      <div className={styles.buttons}>
+        <div className={styles.back}>
+          <Button startIcon="ArrowBack" onClick={handleBack}>
+            {t('back')}
+          </Button>
+        </div>
+        <div className={styles.next}>
+          <Button endIcon="ArrowForward" onClick={handleNext}>
+            {t('next')}
+          </Button>
+        </div>
       </div>
       <div className={styles.textBox}>
         <Typography color="textSecondary" className={styles.text}>
           {t('click_to_add_game')}
         </Typography>
-      </div>
-      <div>
-        <Button endIcon="ArrowForward" onClick={handleSkip}>
-          {t('skip')}
-        </Button>
       </div>
     </div>
   );
