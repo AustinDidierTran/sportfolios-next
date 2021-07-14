@@ -90,6 +90,13 @@ export enum PHASE_TYPE_ENUM {
   POOL = 'pool',
 }
 
+export enum EXERCISES_TYPE_ENUM {
+  DEFAULT = 'default',
+  TIME = 'time',
+  DISTANCE = 'distance',
+  REPETITIONS = 'repetitions',
+}
+
 export enum ROSTER_ROLE_ENUM {
   CAPTAIN = 'captain',
   ASSISTANT_CAPTAIN = 'assistant-captain',

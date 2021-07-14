@@ -26,7 +26,7 @@ const Evaluation: React.FunctionComponent<IProps> = (props) => {
             </ListItemIcon>
             <ListItemText
               className={styles.element}
-              primary={t('name') + ' : ' + evaluation.name + ' ' + evaluation.surname}
+              primary={t('name') + ' : ' + evaluation.name? evaluation.name : '' + ' ' + evaluation.surname? evaluation.surname : ''}
             />
             <ListItemText
               className={styles.element}
