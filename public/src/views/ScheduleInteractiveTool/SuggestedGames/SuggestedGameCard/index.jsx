@@ -3,9 +3,11 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import Tooltip from '@material-ui/core/Tooltip';
 import styles from './SuggestedGameCard.module.css';
+import { useTranslation } from 'react-i18next';
 
 export default function SuggestedGameCard(props) {
   const { ranking1, ranking2, phaseName } = props;
+  const { t } = useTranslation();
 
   const tooltip = `${ranking1.name} vs ${ranking2.name}, ${phaseName}`;
 
@@ -17,7 +19,7 @@ export default function SuggestedGameCard(props) {
             <Typography> {ranking1.name} </Typography>
           </div>
           <Typography color="textSecondary" className={styles.vs}>
-            vs
+            {t('vs')}
           </Typography>
           <div className={styles.team2}>
             <Typography> {ranking2.name} </Typography>

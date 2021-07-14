@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import { Store } from '../../../Store';
 import { getGames as getGamesApi } from '../../../actions/service/entity/get';
 import { Games } from '../../../../../typescript/types';
+import { sortGames } from '../../Schedule/Schedule.utils';
 
 const GameFilters = dynamic(() => import('../../Schedule/AllGames/GameFilters'));
 const EditGames = dynamic(() => import('./EditGames'));
@@ -47,27 +48,15 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     }
   }, [eventId, updated]);
 
-  const sortGames = (games: Games[]): void => {
-    const res = games
-      .filter(
-        (game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !game.startTime
-      )
-      .sort((a, b) => {
-        if (!b.startTime) {
-          return -Infinity;
-        }
-        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
-      });
-    setGames(res);
-    const pastGames = games
-      .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment())
-      .sort((a, b) => moment(a.startTime).valueOf() - moment(b.startTime).valueOf());
-    setPastGames(pastGames);
+  const sortAllGames = (allGames: Games[]): void => {
+    const res = sortGames(allGames);
+    setGames(res.games);
+    setPastGames(res.pastGames);
   };
 
   const getGames = async (): Promise<Games[]> => {
     const data = await getGamesApi(eventId);
-    sortGames(data);
+    sortAllGames(data);
     setIsLoading(false);
     return data;
   };
@@ -131,7 +120,7 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
       filter.timeSlot = timeSlot;
     }
     setFilter(filter);
-    sortGames(games);
+    sortAllGames(games);
   };
 
   if (isLoading) {

@@ -10,6 +10,7 @@ import { LoadingSpinner } from '../../../components/Custom';
 import { Store } from '../../../Store';
 import { Games as IGames } from '../../../../../typescript/types';
 import { getGames as getGamesApi } from '../../../actions/service/entity/get';
+import { sortGames } from '../Schedule.utils';
 
 interface IProps {
   oldFilter: IFilter;
@@ -44,23 +45,10 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
     }
   }, [eventId]);
 
-  const sortGames = (games: IGames[]): void => {
-    const res = games
-      .filter(
-        (game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !game.startTime
-      )
-      .sort((a, b) => {
-        if (!b.startTime) {
-          return -Infinity;
-        }
-        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
-      });
-
-    setGames(res);
-    const pastGames = games
-      .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment())
-      .sort((a, b) => moment(a.startTime).valueOf() - moment(b.startTime).valueOf());
-    setPastGames(pastGames);
+  const sortAllGames = (allGames: IGames[]): void => {
+    const res = sortGames(allGames);
+    setGames(res.games);
+    setPastGames(res.pastGames);
   };
 
   const getGames = async (): Promise<IGames[]> => {
@@ -69,13 +57,12 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
       if (!data) {
         return [];
       }
-      sortGames(data);
+      sortAllGames(data);
       setIsLoading(false);
       return data;
     }
     setIsLoading(false);
   };
-
   const filter = async (
     teamId: string,
     teamName: string,
@@ -136,7 +123,7 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
       filter.timeSlot = timeSlot;
     }
     setFilter(filter);
-    sortGames(games);
+    sortAllGames(games);
   };
 
   if (isLoading) {

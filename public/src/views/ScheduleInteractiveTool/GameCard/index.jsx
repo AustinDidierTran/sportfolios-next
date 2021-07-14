@@ -5,9 +5,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import styles from './GameCard.module.css';
 import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 export default function GameCard(props) {
   const { ranking1, ranking2, timeSlots, fields, x, y, phase } = props;
+  const { t } = useTranslation();
 
   const tooltip = useMemo(
     () =>
@@ -34,7 +36,7 @@ export default function GameCard(props) {
             <Typography>{ranking1.name}</Typography>
           </div>
           <Typography color="textSecondary" className={styles.vs}>
-            vs
+            {t('vs')}
           </Typography>
           <div className={styles.team2}>
             <Typography>{ranking2.name}</Typography>

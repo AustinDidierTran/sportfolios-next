@@ -1549,6 +1549,7 @@ export default {
     value_must_have_x_digits: 'La valeur doit avoir {{digits}} chiffres.',
     view_your_profile: 'Voir votre profil',
     viewer: 'Visiteur',
+    vs: 'vs',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
     website: 'Site web',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
