@@ -111,6 +111,10 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
           display: t('pool'),
           value: PHASE_TYPE_ENUM.POOL,
         },
+        {
+          display: t('elimination_bracket'),
+          value: PHASE_TYPE_ENUM.ELIMINATION_BRACKET,
+        },
       ],
     },
   ];

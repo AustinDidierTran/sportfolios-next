@@ -59,6 +59,8 @@ export default function EditRankings() {
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
+  console.log({ phases });
+
   useEffect(() => {
     if (eventId) {
       getData();
@@ -111,6 +113,7 @@ export default function EditRankings() {
         spots: d.spots,
         status: d.status,
         order: d.phaseOrder,
+        type: d.type,
         ranking: d.ranking.map((r) => {
           if (r && r.rosterId) {
             if (r.originPhase === prerankPhase.phaseId) {
@@ -246,6 +249,7 @@ export default function EditRankings() {
         body: JSON.stringify({
           eventId,
           phaseId: phase.phaseId,
+          type: phase.type,
           status: PHASE_STATUS_ENUM.STARTED,
         }),
       });

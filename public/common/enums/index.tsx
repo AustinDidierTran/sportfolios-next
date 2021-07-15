@@ -88,6 +88,7 @@ export enum COMPONENT_TYPE_ENUM {
 export enum PHASE_TYPE_ENUM {
   CUSTOM = 'custom',
   POOL = 'pool',
+  ELIMINATION_BRACKET = 'elimination bracket',
 }
 
 export enum EXERCISES_TYPE_ENUM {
