@@ -103,6 +103,7 @@ export interface Player {
   name: string;
   photoUrl: string;
   rsvp?: string;
+  surname?: string;
 }
 
 export interface PendingPlayer extends Player {
@@ -156,6 +157,11 @@ export interface Membership {
   gettingInvolved?: string;
   infosSuppId: string;
   addressId?: string;
+}
+
+export interface Image {
+  photoUrl: string;
+  type: string;
 }
 
 export interface Organization extends Entity {

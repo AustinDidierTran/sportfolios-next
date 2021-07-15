@@ -22,11 +22,12 @@ export function addEntity(
   maximumSpots: string,
   startDate: string,
   endDate: string,
-  eventType: string
+  eventType: string,
+  photoUrl: string,
 ): Promise<string> {
   return api(BASE_URL, {
     method: 'POST',
-    body: JSON.stringify({ name, surname, type, creator, maximumSpots, startDate, endDate, eventType }),
+    body: JSON.stringify({ name, surname, type, creator, maximumSpots, startDate, endDate, eventType, photoUrl }),
   }).then((res) => res.data.id);
 }
 

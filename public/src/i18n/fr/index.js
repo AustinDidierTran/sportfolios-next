@@ -549,6 +549,7 @@ export default {
       add_existing_person: 'Ajouter une personne existante',
       add_field: 'Ajouter un terrain',
       add_game: 'Ajouter une partie',
+      add_from_images_list: "Ajouter à partir d'une liste d'images",
       add_member: 'Ajouter un membre',
       add_membership: 'Ajouter une affiliation',
       add_mode: 'Mode ajout',
@@ -663,6 +664,7 @@ export default {
     edit: {
       edit_credit_cards: 'Modifier les cartes de crédits',
       edit_game: 'Modifier la partie',
+      edit_image: "Modifier l'image",
       edit_infos: 'Modifier les infos',
       edit_membership: 'Modifier une affiliation',
       edit_mode: 'Mode édition',
@@ -790,7 +792,9 @@ export default {
       person_registration_description: 'Notification envoyée lorsque vous vous inscrivez à un événement individuel',
     },
     select: {
+      select: 'Sélectionner',
       select_existing_person: 'Sélectionner une personne existante',
+      select_image: 'Sélectionner votre image',
       select_language: 'Sélectionner votre langue',
       select_payment_method: 'Sélectionner une méthode de paiement',
       select_person: 'Sélectionner une personne',
@@ -941,6 +945,7 @@ export default {
     bank_accounts_information:
       'Dans les 7 prochains jours, vos revenues seront déposés dans votre compte bancaire par défaut',
     bank_accounts: 'Comptes bancaires',
+    baseball: 'Baseball',
     basic_info: 'Information générales',
     become_member_of: "Devenir membre de {{organizationName}}. Date d'expiration: {{expirationDate}}",
     become_member: 'Devenir membre',
@@ -1111,6 +1116,7 @@ export default {
     fouls_and_body_contact: 'Fautes et contacts',
     free: 'Gratuit',
     frequented_school: 'École fréquentée',
+    frisbee: 'Frisbee',
     full_name: 'Nom complet',
     funding_goal: 'Objectif: {{goal}}$',
     funding: 'Financement',
@@ -1143,7 +1149,9 @@ export default {
     home: 'Accueil',
     hour_ago_plural: 'Il y a {{count}} heures',
     i_want_to_be_anonyme: 'Je veux être anonyme',
+    images_list: "Liste d'images",
     image_required: 'Image obligatoire',
+    import_image: 'Importer une image',
     import_members_confirmation:
       'Un courriel va être envoyé à {{membersAmount}} membres. Ils vont recevoir un code coupon à usage unique pour devenir {{membershipName}} de votre organisation. Voulez vous compléter le transfert?',
     import_members: 'Importer des membres',
@@ -1440,6 +1448,7 @@ export default {
     sizes_enum_xxxs: '3X-Small',
     sizes: 'Grandeurs',
     skip: 'Passer',
+    soccer: 'Soccer',
     some_teams_cannot_be_deleted:
       "Des équipes n'ont pas pu être désinscrites de l'événement puisqu'elles sont déjà dans des parties.",
     something_went_wrong: "Une erreur s'est produite. Veuillez réessayer.",
@@ -1546,6 +1555,7 @@ export default {
     value_must_have_x_digits: 'La valeur doit avoir {{digits}} chiffres.',
     view_your_profile: 'Voir votre profil',
     viewer: 'Visiteur',
+    volleyball: 'Volleyball',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
     website: 'Site web',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
