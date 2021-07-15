@@ -10,6 +10,7 @@ import moment from 'moment';
 
 import styles from './TwoTeamGameProfile.module.css';
 import { AvatarGroup } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -21,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TwoTeamGameProfile(props) {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   const { event_id, event_name, field, timeslot, team_names, team_scores, playersinfos, onClick } = props;
+
   const team1 = {
     name: team_names[0],
     score: team_scores[0],
@@ -39,15 +43,22 @@ export default function TwoTeamGameProfile(props) {
         <Typography className={styles.event} color="textSecondary">
           {event_name}
         </Typography>
-        <ListItemText
-          className={styles.time}
-          primary={formatDate(moment.utc(timeslot), 'HH:mm')}
-          secondary={formatDate(moment.utc(timeslot), 'D MMM')}
-        ></ListItemText>
+        {timeslot ? (
+          <ListItemText
+            className={styles.time}
+            primary={formatDate(moment.utc(timeslot), 'HH:mm')}
+            secondary={formatDate(moment.utc(timeslot), 'D MMM')}
+          ></ListItemText>
+        ) : (
+          <ListItemText
+            className={styles.time}
+            primary={t('no.no_time_yet')}
+            secondary={t('no.no_date_yet')}
+          ></ListItemText>
+        )}
         <Typography className={styles.field} color="textSecondary">
-          {field}
+          {field ? field : t('no.no_field_yet')}
         </Typography>
-
         <AvatarGroup className={styles.players1} classes={{ avatar: classes.avatar }} max={4}>
           {team1.players
             ? team1.players.map((p, index) => (

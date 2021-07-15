@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function TwoTeamGameEditable(props) {
   const { t } = useTranslation();
-  const { positions, field, start_time, phaseName, onClick, onEdit, onDelete } = props;
+  const { positions, field, startTime, phaseName, onClick, onEdit, onDelete } = props;
 
   const position1 = positions[0];
   const position2 = positions[1];
@@ -25,13 +25,21 @@ export default function TwoTeamGameEditable(props) {
           <Typography className={styles.phase} color="textSecondary">
             {phaseName}
           </Typography>
-          <ListItemText
-            className={styles.time}
-            primary={formatDate(moment.utc(start_time), 'HH:mm')}
-            secondary={formatDate(moment.utc(start_time), 'D MMM')}
-          ></ListItemText>
+          {startTime ? (
+            <ListItemText
+              className={styles.time}
+              primary={formatDate(moment.utc(startTime), 'HH:mm')}
+              secondary={formatDate(moment.utc(startTime), 'D MMM')}
+            ></ListItemText>
+          ) : (
+            <ListItemText
+              className={styles.time}
+              primary={t('no.no_time_yet')}
+              secondary={t('no.no_date_yet')}
+            ></ListItemText>
+          )}
           <Typography className={styles.field} color="textSecondary">
-            {field}
+            {field ? field : t('no.no_field_yet')}
           </Typography>
         </div>
         <div className={styles.teams}>

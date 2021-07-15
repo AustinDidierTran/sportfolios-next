@@ -9,9 +9,11 @@ import List from '@material-ui/core/List';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import Avatar from '../../Avatar';
+import { useTranslation } from 'react-i18next';
 
 export default function MultipleTeamGame(props) {
   const { positions, field, startTime, phaseName, onClick } = props;
+  const { t } = useTranslation();
 
   return (
     <Card className={styles.game} onClick={() => onClick(props)}>
@@ -27,11 +29,19 @@ export default function MultipleTeamGame(props) {
 
       <div className={styles.time}>
         <List>
-          <ListItemText primary={phaseName} secondary={field} />
-          <ListItemText
-            primary={formatDate(moment.utc(startTime), 'ddd D MMM')}
-            secondary={formatDate(moment.utc(startTime), 'HH:mm')}
-          />
+          <ListItemText primary={phaseName} secondary={field ? field : t('no.no_field_yet')} />
+          {startTime ? (
+            <ListItemText
+              primary={formatDate(moment.utc(startTime), 'ddd D MMM')}
+              secondary={formatDate(moment.utc(startTime), 'HH:mm')}
+            />
+          ) : (
+            <ListItemText
+              className={styles.time}
+              primary={t('no.no_time_yet')}
+              secondary={t('no.no_date_yet')}
+            ></ListItemText>
+          )}
         </List>
       </div>
     </Card>
