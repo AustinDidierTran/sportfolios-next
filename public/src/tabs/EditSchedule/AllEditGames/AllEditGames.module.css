@@ -5,3 +5,17 @@
   justify-content: center;
   margin: 8px;
 }
+
+.tabs {
+  color: white !important;
+  background-color: #18b393 !important;
+  min-height: 0px !important;
+  margin-bottom: 4px !important;
+}
+
+.tab {
+  border-right-color: 'white' !important;
+  border-right-width: 1 !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+}

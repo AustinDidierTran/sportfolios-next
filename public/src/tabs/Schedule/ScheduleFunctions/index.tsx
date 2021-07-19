@@ -65,7 +65,7 @@ export const getPhases = async (eventId: string, withoutAll: boolean): Promise<I
 
 export const getSlots = async (eventId: string): Promise<IData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/slots`, null, { eventId }));
-  if (data.length > 0) {
+  if (data?.length > 0) {
     const res = data.map((d: TimeSlot) => ({
       value: d.id,
       display: formatDate(moment.utc(d.date), 'ddd DD MMM HH:mm'),
@@ -76,7 +76,7 @@ export const getSlots = async (eventId: string): Promise<IData[]> => {
 
 export const getFutureSlots = async (eventId: string): Promise<IData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/slots`, null, { eventId }));
-  if (data.length > 0) {
+  if (data?.length > 0) {
     const res = data
       .filter((d: TimeSlot) => moment(d.date) >= moment())
       .map((d: TimeSlot) => ({
@@ -89,7 +89,7 @@ export const getFutureSlots = async (eventId: string): Promise<IData[]> => {
 
 export const getTeams = async (eventId: string, withoutAll: boolean): Promise<IWithAllData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/teamsSchedule`, null, { eventId }));
-  if (data.length > 0) {
+  if (data?.length > 0) {
     const res = data.map((d: TeamsSchedule) => {
       return {
         value: d.rosterId,
@@ -105,7 +105,7 @@ export const getTeams = async (eventId: string, withoutAll: boolean): Promise<IW
 
 export const getFields = async (eventId: string, withoutAll: boolean): Promise<IWithAllData[]> => {
   const { data } = await api(formatRoute(`${BASE_URL}/fields`, null, { eventId }));
-  if (data.length > 0) {
+  if (data?.length > 0) {
     const res = data.map((d: EventField) => ({
       value: d.id,
       display: d.field,
