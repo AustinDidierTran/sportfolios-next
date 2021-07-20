@@ -25,8 +25,11 @@ const api = async (
       headers,
       body,
     });
+
     const status = res.status;
+
     const { data } = await res.json();
+
     return { data, status };
   }
 
@@ -49,10 +52,11 @@ const api = async (
       method: 'DELETE',
       headers,
     });
-
     const status = res.status;
 
-    return { status };
+    const { data } = await res.json();
+
+    return { data, status };
   }
 
   if (method === 'GET') {

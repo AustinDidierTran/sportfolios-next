@@ -54,7 +54,7 @@ export default function EditGame(props) {
   };
 
   const onDeleteConfirmed = async () => {
-    const res = await api(
+    const { status, data } = await api(
       formatRoute('/api/entity/game', null, {
         eventId: game.eventId,
         gameId: game.id,
@@ -63,7 +63,14 @@ export default function EditGame(props) {
         method: 'DELETE',
       }
     );
-    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
+    if (data && data.reason) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t(data.reason),
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setDeleteDialogIsOpen(false);
       update();
       dispatch({
