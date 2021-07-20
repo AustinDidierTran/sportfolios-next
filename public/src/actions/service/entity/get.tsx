@@ -19,6 +19,7 @@ import {
   Exercise,
   Evaluation,
   EventTeam,
+  Image,
   GameOptions,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
@@ -194,6 +195,14 @@ export function getCoachSessionEvaluation(exerciseId: string, sessionId: string)
     formatRoute(`${BASE_URL}/coachSessionEvaluation`, null, {
       exerciseId,
       sessionId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getImages(type: string): Promise<Image[]> {
+  return api(
+    formatRoute(`${BASE_URL}/images`, null, {
+      type,
     })
   ).then((res) => res.data);
 }

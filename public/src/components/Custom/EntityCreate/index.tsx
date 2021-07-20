@@ -1,12 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
-
-import api from '../../../actions/api';
 import { ROUTES, goTo } from '../../../actions/goTo';
 import { useRouter } from 'next/router';
-
 import { useTranslation } from 'react-i18next';
-
 import styles from './Create.module.css';
 import moment from 'moment';
 import CustomPaper from '../Paper';
@@ -15,17 +11,31 @@ import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, REQUEST_STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
-import { formatRoute } from '../../../utils/stringFormats';
 import { formatDate } from '../../../utils/stringFormats';
 
 import * as yup from 'yup';
 import { addEntity } from '../../../actions/service/entity/post';
+import Avatar from '../Avatar';
+import { getEntityOwned } from '../../../actions/service/entity/get';
+import ImagesList from '../ImageSelection';
 
-export default function EntityCreate(props) {
+interface IProps {
+  type: GLOBAL_ENUM;
+}
+interface ITitleDictionnary {
+  [index: string]: string;
+}
+
+interface ICreatorOption {
+  value: string;
+  display: string;
+}
+
+const EntityCreate: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { type } = props;
@@ -34,11 +44,12 @@ export default function EntityCreate(props) {
   } = useContext(Store);
   const { id } = router.query;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [creatorOptions, setCreatorOptions] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [creatorOptions, setCreatorOptions] = useState<ICreatorOption[]>([]);
+  const [hasNoImage, setHasNoImage] = useState<boolean>(false);
 
   const titleDictionary = useMemo(
-    () => ({
+    (): ITitleDictionnary => ({
       [GLOBAL_ENUM.ORGANIZATION]: t('create.create_organization'),
       [GLOBAL_ENUM.TEAM]: t('create.create_team'),
       [GLOBAL_ENUM.PERSON]: t('create.create_person'),
@@ -47,13 +58,13 @@ export default function EntityCreate(props) {
     []
   );
 
-  const entityObject = useMemo(() => ({ title: titleDictionary[type] }), [type]);
+  const entityObject = useMemo((): { title: string } => ({ title: titleDictionary[type] }), [type]);
 
-  const creatingEntity = useMemo(() => Number(type), [type]);
+  const creatingEntity = useMemo((): number => Number(type), [type]);
 
-  const [limit, setLimit] = useState(false);
+  const [limit, setLimit] = useState<boolean>(false);
 
-  const getCreatorsOptions = async () => {
+  const getCreatorsOptions = async (): Promise<void> => {
     if (creatingEntity === GLOBAL_ENUM.PERSON) {
       return;
     }
@@ -65,13 +76,7 @@ export default function EntityCreate(props) {
       creatorEntityType = GLOBAL_ENUM.ORGANIZATION;
     }
 
-    const { status, data } = await api(
-      formatRoute('/api/entity/allOwned', null, {
-        type: creatorEntityType,
-        onlyAdmin: true,
-      }),
-      { method: 'GET' }
-    );
+    const data = await getEntityOwned(Number(creatorEntityType));
 
     let filteredData = data;
 
@@ -79,7 +84,7 @@ export default function EntityCreate(props) {
       filteredData = data.filter((a) => a.id == id);
     }
 
-    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+    if (data) {
       setCreatorOptions(
         filteredData.map((c) => ({
           value: c.id,
@@ -89,16 +94,16 @@ export default function EntityCreate(props) {
     }
   };
 
-  const onChangeEventType = (e) => {
+  const onChangeEventType = (e: any): void => {
     formik.setFieldValue('eventType', e.target.value);
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     formik.resetForm();
     getCreatorsOptions();
   }, [type, id]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!creatorOptions.length) {
       return;
     }
@@ -142,7 +147,7 @@ export default function EntityCreate(props) {
             { display: t('by_team'), value: EVENT_TYPE.TEAM },
             { display: t('by_player'), value: EVENT_TYPE.PLAYER },
           ],
-          onChange: (e) => {
+          onChange: (e: any) => {
             onChangeEventType(e);
           },
           defaultValue: EVENT_TYPE.TEAM,
@@ -213,6 +218,10 @@ export default function EntityCreate(props) {
     validationSchema = yup.object().shape({
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       surname: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      photoUrl: yup.string().test('validate', (): boolean => {
+        setHasNoImage(formik.values.photoUrl == '');
+        return formik.values.photoUrl != '';
+      }),
     });
   } else if (creatingEntity === GLOBAL_ENUM.EVENT) {
     if (!limit) {
@@ -221,6 +230,10 @@ export default function EntityCreate(props) {
         startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
         startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
         creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        photoUrl: yup.string().test('validate', (): boolean => {
+          setHasNoImage(formik.values.photoUrl == '');
+          return formik.values.photoUrl != '';
+        }),
       });
     } else {
       validationSchema = yup.object().shape({
@@ -229,12 +242,20 @@ export default function EntityCreate(props) {
         startDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
         startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
         creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+        photoUrl: yup.string().test('validate', (): boolean => {
+          setHasNoImage(formik.values.photoUrl == '');
+          return formik.values.photoUrl != '';
+        }),
       });
     }
   } else {
     validationSchema = yup.object().shape({
       name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
       creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+      photoUrl: yup.string().test('validate', (): boolean => {
+        setHasNoImage(formik.values.photoUrl == '');
+        return formik.values.photoUrl != '';
+      }),
     });
   }
 
@@ -249,6 +270,7 @@ export default function EntityCreate(props) {
       endDate: '',
       endTime: '',
       eventType: EVENT_TYPE.TEAM,
+      photoUrl: '',
     },
     validationSchema,
     validateOnChange: false,
@@ -264,6 +286,7 @@ export default function EntityCreate(props) {
         startTime,
         endTime,
         eventType,
+        photoUrl,
       } = values;
       setIsSubmitting(true);
       let start = `${startDate} ${startTime}`;
@@ -282,8 +305,9 @@ export default function EntityCreate(props) {
       if (surnameProps) {
         surname = surnameProps;
       }
+
       try {
-        const id = await addEntity(name, surname, type, creator, maximum, start, end, eventType);
+        const id = await addEntity(name, surname, type.toString(), creator, maximum, start, end, eventType, photoUrl);
         goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS });
         setIsSubmitting(false);
       } catch (err) {
@@ -294,11 +318,11 @@ export default function EntityCreate(props) {
     },
   });
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     history.back();
   };
 
-  const handleChecked = () => {
+  const handleChecked = (): void => {
     setLimit(!limit);
   };
 
@@ -312,7 +336,7 @@ export default function EntityCreate(props) {
         <form onSubmit={formik.handleSubmit}>
           <CustomPaper className={styles.card} title={entityObject.title}>
             <CardContent>
-              {fields.map((field, index) => {
+              {fields.map((field: any, index: number) => {
                 return field.label == t('maximum_spots') ? (
                   <div className={styles.row}>
                     <span style={{ marginLeft: '-12px', marginTop: '8px', float: 'left' }}>
@@ -334,6 +358,12 @@ export default function EntityCreate(props) {
                   </div>
                 );
               })}
+              <span style={{ float: 'left', marginTop: '8px' }}>
+                <Avatar namespace="photoUrl" photoUrl={formik.values.photoUrl} size="lg" />
+              </span>
+              <div style={{ marginTop: '8px', alignItems: 'center' }}>
+                <ImagesList formik={formik} hasNoImage={hasNoImage} />
+              </div>
             </CardContent>
             <CardActions className={styles.buttons}>
               <>
@@ -364,4 +394,5 @@ export default function EntityCreate(props) {
       </div>
     </IgContainer>
   );
-}
+};
+export default EntityCreate;

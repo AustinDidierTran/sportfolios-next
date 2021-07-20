@@ -3,16 +3,11 @@ import { FormDialog } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
-import { Store, ACTION_ENUM } from '../../../../Store';
-import {
-  SEVERITY_ENUM,
-  REQUEST_STATUS_ENUM,
-  COMPONENT_TYPE_ENUM,
-  PHASE_STATUS_ENUM,
-} from '../../../../../common/enums';
-import { getGameOptions } from '../../../Schedule/ScheduleFunctions';
+import { ERROR_ENUM } from '../../../../common/errors';
+import api from '../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../common/enums';
+import { getGameOptions } from '../../../tabs/Schedule/ScheduleFunctions';
 import * as yup from 'yup';
 import { Games } from '../../../../../typescript/types';
 
