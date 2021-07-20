@@ -98,6 +98,25 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
       label: 'Phase',
       type: 'phase',
     },
+    {
+      componentType: COMPONENT_TYPE_ENUM.SELECT,
+      namespace: 'type',
+      label: t('type'),
+      options: [
+        {
+          display: t('custom'),
+          value: PHASE_TYPE_ENUM.CUSTOM,
+        },
+        {
+          display: t('pool'),
+          value: PHASE_TYPE_ENUM.POOL,
+        },
+        {
+          display: t('elimination_bracket'),
+          value: PHASE_TYPE_ENUM.ELIMINATION_BRACKET,
+        },
+      ],
+    },
     formik.values.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET
       ? {
           componentType: COMPONENT_TYPE_ENUM.SELECT,
@@ -128,26 +147,6 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
           label: t('spots'),
           type: 'number',
         },
-
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
-      namespace: 'type',
-      label: t('type'),
-      options: [
-        {
-          display: t('custom'),
-          value: PHASE_TYPE_ENUM.CUSTOM,
-        },
-        {
-          display: t('pool'),
-          value: PHASE_TYPE_ENUM.POOL,
-        },
-        {
-          display: t('elimination_bracket'),
-          value: PHASE_TYPE_ENUM.ELIMINATION_BRACKET,
-        },
-      ],
-    },
   ];
 
   return (

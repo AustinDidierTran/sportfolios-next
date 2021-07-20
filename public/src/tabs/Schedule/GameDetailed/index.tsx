@@ -284,7 +284,6 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.root}>
@@ -295,11 +294,13 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
             </div>
             <div className={styles.gameInfo}>
               <div className={styles.gameInfoDate}>
-                {formatDate(moment.utc(game.startTime), 'dddd Do MMM').charAt(0).toUpperCase() +
-                  formatDate(moment.utc(game.startTime), 'dddd Do MMM').slice(1)}
+                {game.startTime
+                  ? formatDate(moment.utc(game.startTime), 'dddd Do MMM').charAt(0).toUpperCase() +
+                    formatDate(moment.utc(game.startTime), 'dddd Do MMM').slice(1)
+                  : t('no.no_time_yet')}
               </div>
               <div className={styles.phaseName}>{game.phaseName}</div>
-              <div>{game.field}</div>
+              <div>{game.field ? game.field : t('no.no_field_yet')}</div>
             </div>
 
             <div className={styles.iconOptions}>
