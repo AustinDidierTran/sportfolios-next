@@ -42,8 +42,9 @@ export default function EventPaymentOptionItem(props) {
   const editOptionEvent = async (values) => {
     const { openDate, openTime, closeDate, closeTime } = values;
 
-    const start = new Date(`${openDate} ${openTime}`).getTime();
-    const end = new Date(`${closeDate} ${closeTime}`).getTime();
+    const timeZone = new Date().getTimezoneOffset() * 1000 * 60;
+    const start = new Date(`${openDate} ${openTime}`).getTime() - timeZone;
+    const end = new Date(`${closeDate} ${closeTime}`).getTime() - timeZone;
 
     const res = await api('/api/entity/updateOption', {
       method: 'PUT',
