@@ -32,7 +32,6 @@ const Exercise = dynamic(() => import('../../Exercise'));
 
 interface IProps {
   practiceId: string;
-  adminView: boolean;
 }
 
 interface IReponse {
@@ -50,7 +49,7 @@ interface ILocationOption {
 }
 
 const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
-  const { practiceId, adminView } = props;
+  const { practiceId } = props;
   const { t } = useTranslation();
   const {
     dispatch,
@@ -170,6 +169,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const validationSchema = yup.object().shape({
+    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     startTime: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     endDate: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
@@ -410,7 +410,8 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
           <Divider variant="middle" />
           <Roster roster={practice?.roster} practiceId={practice?.id} />
           <Divider variant="middle" />
-          <Exercise adminView={adminView} getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
+
+          <Exercise getExercises={getExercises} exercises={exercises} practiceId={practice?.id} />
           <Divider variant="middle" />
           <Posts
             userInfo={userInfo}
@@ -419,7 +420,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
             entityIdCreatePost={userInfo?.primaryPerson?.personId || -1}
             allowComment
             allowLike
-            locationId={practice.id}
+            locationId={practiceId}
             elevation={0}
             placeholder={t('write_a_comment')}
           />

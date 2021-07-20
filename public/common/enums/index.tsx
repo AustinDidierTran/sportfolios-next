@@ -90,6 +90,13 @@ export enum PHASE_TYPE_ENUM {
   POOL = 'pool',
 }
 
+export enum EXERCISES_TYPE_ENUM {
+  DEFAULT = 'default',
+  TIME = 'time',
+  DISTANCE = 'distance',
+  REPETITIONS = 'repetitions',
+}
+
 export enum ROSTER_ROLE_ENUM {
   CAPTAIN = 'captain',
   ASSISTANT_CAPTAIN = 'assistant-captain',
@@ -151,7 +158,6 @@ export enum CARD_TYPE_ENUM {
   SCORE_SUGGESTION = 'score suggestion',
   SHOP = 'shop',
   TWO_TEAM_GAME_EDITABLE = 'twoTeamGameEditable',
-  TWO_TEAM_GAME = 'twoTeamGame',
   TWO_TEAM_GAME_PROFILE = 'twoTeamGameProfile',
   MULTIPLE_TEAM_GAME = 'MultipleTeamGame',
   ACCEPT_PLAYER_INFOS = 'accept player infos',
@@ -175,7 +181,6 @@ export enum TABS_ENUM {
   EDIT_MEMBERSHIPS = 'editMemberships',
   EDIT_PERSON_INFOS = 'editPersonInfos',
   EDIT_RANKINGS = 'editRankings',
-  EDIT_RESULTS = 'editResults',
   EDIT_ROSTERS = 'editRosters',
   EDIT_SCHEDULE = 'editSchedule',
   EDIT = 'edit',

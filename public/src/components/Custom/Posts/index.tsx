@@ -287,7 +287,7 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
           </CustomPaper>
         )}
         {posts.map((post) => (
-          <>
+          <div key={post.id}>
             {post ? (
               <CustomCard
                 items={{
@@ -305,10 +305,9 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
                   isAdmin: entityIdCreatePost === post.entityId && allowNewPost,
                 }}
                 type={CARD_TYPE_ENUM.POST}
-                key={post.id}
               />
             ) : null}
-          </>
+          </div>
         ))}
       </div>
       {isMore && <Button onClick={loadMorePost}>{t('show_more')}</Button>}

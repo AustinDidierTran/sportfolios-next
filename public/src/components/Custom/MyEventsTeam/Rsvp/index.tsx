@@ -5,6 +5,7 @@ import CustomButton from '../../Button';
 import { updatePracticeRsvp } from '../../../../actions/service/entity/put';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
+import styles from './Rsvp.module.css';
 
 interface IProps {
   isOpen: boolean;
@@ -57,8 +58,9 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
   return (
     <div>
       {open ? (
-        <div>
+        <div className={styles.div}>
           <CustomButton
+            className={styles.rsvpButton}
             startIcon="Check"
             color="primary"
             textColor={goingVariant == 'outlined' ? '#18B393' : 'white'}
@@ -69,8 +71,8 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
           >
             {t('going')}
           </CustomButton>
-          &nbsp;
           <CustomButton
+            className={styles.rsvpButton}
             startIcon="Close"
             color="secondary"
             textColor="primary"

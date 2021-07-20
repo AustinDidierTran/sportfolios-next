@@ -160,7 +160,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     <div>
       {adminView && (
         <CustomButton style={{ marginBottom: '6px' }} onClick={createPractice} endIcon="Add" color="primary">
-          {t('create.create_practice')}
+          {t('create.create_activity')}
         </CustomButton>
       )}
       {events?.length ? (

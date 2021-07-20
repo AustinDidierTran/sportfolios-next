@@ -1,5 +1,6 @@
 import api from '../../api';
 import { Person, Player } from '../../../../../typescript/types';
+import { EXERCISES_TYPE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
 
@@ -37,7 +38,7 @@ export function addExercise(
   description: string,
   practiceId: string,
   teamId: string,
-  type = 'default'
+  type: EXERCISES_TYPE_ENUM,
 ): Promise<number> {
   return api(`${BASE_URL}/exercise`, {
     method: 'POST',

@@ -1,70 +1,39 @@
-import React, { useEffect, useState, useContext } from 'react';
-
-import { Select } from '../../../../../components/Custom';
+import React from 'react';
+import MultiSelect from '../../../../../components/Custom/MultiSelect';
 import styles from './TeamSelect.module.css';
 import { useTranslation } from 'react-i18next';
-import api from '../../../../../actions/api';
-import { SELECT_ENUM } from '../../../../../../common/enums';
-import { formatRoute } from '../../../../../utils/stringFormats';
-import { Store } from '../../../../../Store';
+import { formatFilter } from '../GameFilters.utils';
 
 interface IProps {
-  onChange: (team: any) => void;
-  teamId: string;
+  onChange: (teams: ITeams[]) => void;
+  teams: ITeams[];
+  allTeams: ITeams[];
 }
 
 interface ITeams {
   value: string;
   display: string;
-  teamId: string;
-  rosterId: string;
-  eventId: string;
-  name: string;
 }
 
 const TeamSelect: React.FunctionComponent<IProps> = (props) => {
-  const { onChange, teamId } = props;
+  const { onChange, teams, allTeams } = props;
   const { t } = useTranslation();
-  const {
-    state: { id: eventId },
-  } = useContext(Store);
 
-  const [teams, setTeams] = useState<ITeams[]>([]);
-
-  useEffect((): void => {
-    if (eventId) {
-      getTeams();
-    }
-  }, [eventId]);
-
-  const getTeams = async (): Promise<void> => {
-    const { data } = await api(formatRoute('/api/entity/teamsSchedule', null, { eventId }));
-    if (data.length > 0) {
-      const res = data.map((d: ITeams) => ({
-        value: d.rosterId,
-        display: d.name,
-      }));
-
-      setTeams([{ value: SELECT_ENUM.ALL, display: t('all_teams') }, ...res]);
-    }
-  };
-
-  const handleChange = (teamId: string): void => {
-    const team = teams.find((team) => team.value === teamId);
-    onChange(team);
+  const handleChange = (teams: ITeams[]): void => {
+    onChange(formatFilter(teams, t('all_teams')));
   };
 
   return (
     <div className={styles.select}>
-      <Select
-        options={teams}
+      <MultiSelect
+        options={allTeams}
         namespace="team"
         autoFocus
         margin="dense"
         label={t('team.team')}
         fullWidth
         onChange={handleChange}
-        value={teamId}
+        values={teams}
       />
     </div>
   );

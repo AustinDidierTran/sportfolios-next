@@ -62,3 +62,8 @@
 .title {
   margin: 4px !important;
 }
+
+.import {
+  margin-top: 8px !important;
+  margin-bottom: 16px !important;
+}

@@ -357,7 +357,7 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
                     <ComponentFactory component={{ ...field, formik }} />
                   </div>
                 );
-              })}{' '}
+              })}
               <span style={{ float: 'left', marginTop: '8px' }}>
                 <Avatar namespace="photoUrl" photoUrl={formik.values.photoUrl} size="lg" />
               </span>

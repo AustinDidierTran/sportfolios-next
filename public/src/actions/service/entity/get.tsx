@@ -7,7 +7,6 @@ import {
   OwnedEvents,
   Practice,
   Roster,
-  TimeSlot,
   EntityRole,
   Member,
   EntityMembership,
@@ -17,11 +16,11 @@ import {
   GameInfo,
   Phase,
   Games,
-  Field,
   Exercise,
   Evaluation,
   EventTeam,
   Image,
+  GameOptions,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -33,10 +32,6 @@ export function getEntity(id: string): Promise<Entity> {
 
 export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> {
   return api(formatRoute(`${BASE_URL}/ownedEvents`, null, { organizationId })).then((res) => res.data);
-}
-
-export function getFields(eventId: string): Promise<Field[]> {
-  return api(formatRoute(`${BASE_URL}/fields`, null, { eventId })).then((res) => res.data);
 }
 
 export function getGames(eventId: string): Promise<Games[]> {
@@ -57,10 +52,6 @@ export function getRole(entityId: string): Promise<{ status: string; data: ENTIT
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
   return api(`${BASE_URL}/roles?id=${id}`).then((res) => res);
-}
-
-export function getSlots(eventId: string): Promise<TimeSlot[]> {
-  return api(formatRoute('/api/entity/slots', null, { eventId })).then((res) => res.data);
 }
 
 export function getMostRecentMember(organizationId: string): Promise<Member> {
@@ -107,6 +98,10 @@ export function getMembers(organizationId: string, personId: string): Promise<Me
 
 export function getMemberships(id: string): Promise<EntityMembership[]> {
   return api(formatRoute(`${BASE_URL}/memberships`, null, { id })).then((res) => res.data);
+}
+
+export function getMyRosters(eventId: string): Promise<{ rosterId: string; name: string }[]> {
+  return api(formatRoute(`${BASE_URL}/myRosters`, null, { eventId })).then((res) => res.data);
 }
 
 export function getPartners(id: string): Promise<Partner[]> {
@@ -187,11 +182,10 @@ export function getPlayerSessionEvaluation(exerciseId: string, sessionId: string
   ).then((res) => res.data);
 }
 
-export function getIsEvaluationCoach(exerciseId: string, sessionId: string): Promise<boolean> {
+export function getIsTeamCoach(teamId: string): Promise<boolean> {
   return api(
-    formatRoute(`${BASE_URL}/isEvaluationCoach`, null, {
-      exerciseId,
-      sessionId,
+    formatRoute(`${BASE_URL}/isTeamCoach`, null, {
+      teamId,
     })
   ).then((res) => res.data);
 }
@@ -209,6 +203,14 @@ export function getImages(type: string): Promise<Image[]> {
   return api(
     formatRoute(`${BASE_URL}/images`, null, {
       type,
+    })
+  ).then((res) => res.data);
+}
+
+export function getGameOptions(eventId: string): Promise<GameOptions> {
+  return api(
+    formatRoute(`${BASE_URL}/gameOptions`, null, {
+      eventId,
     })
   ).then((res) => res.data);
 }

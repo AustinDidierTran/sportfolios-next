@@ -22,7 +22,7 @@ interface IProps {
 interface IWithAllData {
   value: string;
   displayKey?: string;
-  display: string;
+  display?: string;
 }
 
 interface IData {
