@@ -3,11 +3,16 @@ import { FormDialog } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from '../../../../common/errors';
-import api from '../../../actions/api';
-import { Store, ACTION_ENUM } from '../../../Store';
-import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../common/enums';
-import { getFutureGameOptions } from '../../../tabs/Schedule/ScheduleFunctions';
+import { ERROR_ENUM } from '../../../../../common/errors';
+import api from '../../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../../Store';
+import {
+  SEVERITY_ENUM,
+  REQUEST_STATUS_ENUM,
+  COMPONENT_TYPE_ENUM,
+  PHASE_STATUS_ENUM,
+} from '../../../../../common/enums';
+import { getGameOptions } from '../../../Schedule/ScheduleFunctions';
 import * as yup from 'yup';
 import { Games } from '../../../../../typescript/types';
 
@@ -23,11 +28,11 @@ interface IProps {
 interface IWithAllData {
   value: string;
   displayKey?: string;
-  display: string;
+  display?: string;
 }
 
 interface IPhases extends IWithAllData {
-  status: string;
+  status?: string;
 }
 
 interface IData {
@@ -75,7 +80,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
   const [timeslotOptions, setTimeslotOptions] = useState<IData[]>([]);
 
   const getOptions = async (): Promise<void> => {
-    const res = await getFutureGameOptions(eventId, true);
+    const res = await getGameOptions(eventId, true, true);
     setGameOptions(res);
     setFieldOptions(res.fields);
     setTimeslotOptions(res.timeSlots);

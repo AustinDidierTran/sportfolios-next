@@ -1,64 +1,39 @@
-import React, { useEffect, useState, useContext } from 'react';
-
-import { Select } from '../../../../../components/Custom';
+import React from 'react';
+import MultiSelect from '../../../../../components/Custom/MultiSelect';
 import styles from './PhaseSelect.module.css';
 import { useTranslation } from 'react-i18next';
-import { SELECT_ENUM } from '../../../../../../common/enums';
-import { Store } from '../../../../../Store';
-import { getPhases as getPhasesApi } from '../../../../../actions/service/entity/get';
+import { formatFilter } from '../GameFilters.utils';
 
 interface IProps {
-  phaseId: string;
-  onChange: (phase: IPhases) => void;
+  phases: IPhases[];
+  onChange: (phases: IPhases[]) => void;
+  allPhases: IPhases[];
 }
+
 interface IPhases {
   value: string;
   display: string;
 }
 
 const PhaseSelect: React.FunctionComponent<IProps> = (props) => {
-  const { onChange, phaseId } = props;
+  const { onChange, phases, allPhases } = props;
   const { t } = useTranslation();
-  const {
-    state: { id: eventId },
-  } = useContext(Store);
 
-  const [phases, setPhases] = useState<IPhases[]>([]);
-
-  useEffect((): void => {
-    if (eventId) {
-      getPhases();
-    }
-  }, [eventId]);
-
-  const getPhases = async (): Promise<void> => {
-    const data = await getPhasesApi(eventId);
-    const res = data.map((d) => ({
-      value: d.id,
-      display: d.name,
-    }));
-
-    setPhases([{ value: SELECT_ENUM.ALL, display: t('all_phases') }, ...res]);
-  };
-
-  const handleChange = (phaseId: string): void => {
-    const phase = phases.find((phase) => {
-      return phase.value === phaseId;
-    });
-    onChange(phase);
+  const handleChange = (phases: IPhases[]): void => {
+    onChange(formatFilter(phases, t('all_phases')));
   };
 
   return (
     <div className={styles.select}>
-      <Select
-        options={phases}
+      <MultiSelect
+        options={allPhases}
         namespace="phase"
         autoFocus
         margin="dense"
         label={t('phase')}
         fullWidth
         onChange={handleChange}
-        value={phaseId}
+        values={phases}
       />
     </div>
   );

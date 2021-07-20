@@ -205,6 +205,13 @@ export interface EventField {
   id: string;
 }
 
+export interface GameOptions {
+  timeSlots: TimeSlot[];
+  teams: TeamsSchedule[];
+  phases: Phase[];
+  fields: EventField[];
+}
+
 export interface Evaluation {
   id: string;
   exerciseId: string;

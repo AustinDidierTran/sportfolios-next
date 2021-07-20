@@ -6,13 +6,15 @@ const CreateSchedule = dynamic(() => import('./CreateSchedule'));
 
 interface IOldFilter {
   onlyYourGames: boolean;
-  teamId: string;
-  teamName: string;
-  phaseId: string;
-  phaseName: string;
-  fieldId: string;
-  fieldName: string;
-  timeSlot: string;
+  teams: IFilterFields[];
+  phases: IFilterFields[];
+  fields: IFilterFields[];
+  timeSlots: IFilterFields[];
+}
+
+interface IFilterFields {
+  value: string;
+  display: string;
 }
 
 const EditScheduleTab: React.FunctionComponent = () => {

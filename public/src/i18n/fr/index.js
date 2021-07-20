@@ -841,8 +841,6 @@ export default {
       you_can_start_to_swipe: 'Swiper ou appuyer sur un bouton pour commencer!',
       you_have_no_account_with_this_email_create_one:
         "Vous n'avez de compte associé avec ce courriel! Créez votre compte!",
-      you_have_more_than_one_team_in_event:
-        "Vous faites parties de plus d'une équipe dans l'événement. Vous voyez les parties de {{team}} actuellement.",
       you_need_to_connect_your_messenger_account:
         'Vous devez d\'abord connecter votre compte avec messenger dans la section "Applications" afin de pouvoir activer les notifications du chatbot',
       you_need_to_be_connected_to_become_member: 'Vous devez vous connecter pour être membre de {{organization}}',
@@ -1242,12 +1240,15 @@ export default {
     notifications: 'Notifications',
     of_everyone: 'de tout le monde',
     of_team: "de l'équipe",
-    of: 'du',
+    of_teams: 'des équipes',
+    of_phase: 'de la phase',
+    of_phases: 'des phases',
     old_password: 'Ancien mot de passe',
     old_members: 'Membres anciens',
     on_going_events: 'Événements en cours',
-    on_le_in_french: 'le',
+    on_timeslot: 'le',
     on: 'sur le',
+    on_multiple: 'sur les',
     one_month: 'Un mois',
     one_year: 'Un an',
     one_admin_need_bank_account:
