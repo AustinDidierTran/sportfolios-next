@@ -28,7 +28,6 @@ export default function PaymentOptionSelect(props) {
 
   const getOptions = async () => {
     const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
-
     const options = data
       .filter((d) => moment(d.startTime) <= moment() && moment(d.endTime) >= moment())
       .reduce(

@@ -1,23 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FormDialog } from '../../../../components/Custom';
+
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-
-import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
-import { Store, ACTION_ENUM } from '../../../../Store';
-import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
-import moment from 'moment';
+import { ERROR_ENUM } from '../../../../common/errors';
+import api from '../../../actions/api';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import FormDialog from '../../../components/Custom/FormDialog';
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
-  addTimeslotToGrid?: (data: any, realDate: number) => void;
+  addFieldToGrid?: (data: any) => void;
 }
 
-const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
+const AddField: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { isOpen, onClose, addTimeslotToGrid } = props;
+  const { isOpen, onClose, addFieldToGrid } = props;
   const {
     dispatch,
     state: { id: eventId },
@@ -34,37 +33,36 @@ const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
     onClose();
   };
 
-  const validate = (values: { time: string; date: string }): { time?: string; date?: string } => {
-    const { date, time } = values;
-    const errors: { time?: string; date?: string } = {};
-    if (!time.length) {
-      errors.time = t(ERROR_ENUM.VALUE_IS_REQUIRED);
+  const validate = (values: { field: string }): { field?: string } => {
+    const { field } = values;
+    const errors: { field?: string } = {};
+    if (!field.length) {
+      errors.field = t(ERROR_ENUM.VALUE_IS_REQUIRED);
     }
-    if (!date.length) {
-      errors.date = t(ERROR_ENUM.VALUE_IS_REQUIRED);
+    if (field.length > 64) {
+      formik.setFieldValue('field', field.slice(0, 64));
     }
     return errors;
   };
 
   const formik = useFormik({
     initialValues: {
-      time: '09:00',
-      date: moment().format('YYYY-MM-DD'),
+      field: '',
     },
     validate,
-    validateOnChange: false,
+    validateOnChange: true,
     validateOnBlur: false,
-    onSubmit: async (values) => {
-      const { date, time } = values;
-      const timeZone = new Date().getTimezoneOffset() * 1000 * 60;
-      const realDate = new Date(`${date} ${time}`).getTime() - timeZone;
-      const { status, data } = await api('/api/entity/timeSlots', {
+    onSubmit: async (values, { resetForm }) => {
+      const { field } = values;
+      const { status, data } = await api('/api/entity/field', {
         method: 'POST',
         body: JSON.stringify({
-          date: realDate,
+          field,
           eventId,
         }),
       });
+
+      resetForm();
 
       if (status === REQUEST_STATUS_ENUM.ERROR || status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         dispatch({
@@ -78,14 +76,14 @@ const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
 
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('time_slot_added'),
+        message: t('field_added'),
         severity: SEVERITY_ENUM.SUCCESS,
         duration: 2000,
       });
 
       // used in interactive tool
-      if (addTimeslotToGrid) {
-        addTimeslotToGrid(data, realDate);
+      if (addFieldToGrid) {
+        addFieldToGrid(data);
       }
     },
   });
@@ -105,20 +103,17 @@ const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
 
   const fields = [
     {
-      namespace: 'date',
-      id: 'date',
-      type: 'date',
-    },
-    {
-      namespace: 'time',
-      id: 'time',
-      type: 'time',
+      namespace: 'field',
+      id: 'field',
+      type: 'text',
+      label: t('field'),
     },
   ];
+
   return (
     <FormDialog
       open={open}
-      title={t('add.add_time_slot')}
+      title={t('add.add_field')}
       buttons={buttons}
       fields={fields}
       formik={formik}
@@ -126,4 +121,4 @@ const AddTimeSlot: React.FunctionComponent<IProps> = (props) => {
     />
   );
 };
-export default AddTimeSlot;
+export default AddField;

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FormDialog } from '../../../../components/Custom';
+import FormDialog from '../../../components/Custom/FormDialog';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import { ERROR_ENUM } from '../../../../../common/errors';
-import { Store, ACTION_ENUM } from '../../../../Store';
-import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { Store, ACTION_ENUM } from '../../../Store';
+import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import * as yup from 'yup';
-import { addPhase } from '../../../../actions/service/entity/post';
+import { addPhase } from '../../../actions/service/entity/post';
 
 interface IProps {
   isOpen: boolean;

@@ -6,27 +6,24 @@ const CreateSchedule = dynamic(() => import('./CreateSchedule'));
 
 interface IOldFilter {
   onlyYourGames: boolean;
-  teamId: string;
-  teamName: string;
-  phaseId: string;
-  phaseName: string;
-  fieldId: string;
-  fieldName: string;
-  timeSlot: string;
+  teams: IFilterFields[];
+  phases: IFilterFields[];
+  fields: IFilterFields[];
+  timeSlots: IFilterFields[];
+}
+
+interface IFilterFields {
+  value: string;
+  display: string;
 }
 
 const EditScheduleTab: React.FunctionComponent = () => {
-  const [updated, setUpdated] = useState<boolean>(true);
   const [filter, setFilter] = useState<IOldFilter>();
-
-  const update = () => {
-    setUpdated(!updated);
-  };
 
   return (
     <>
-      <CreateSchedule update={update} />
-      <AllEditGames updated={updated} setFilter={setFilter} oldFilter={filter} />
+      <CreateSchedule />
+      <AllEditGames setFilter={setFilter} oldFilter={filter} />
     </>
   );
 };
