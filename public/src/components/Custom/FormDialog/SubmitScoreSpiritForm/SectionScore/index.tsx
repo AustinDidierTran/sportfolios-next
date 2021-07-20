@@ -15,19 +15,40 @@ import Collapse from '../../../Collapse';
 import TextField from '../../../TextField';
 import IconButton from '../../../IconButton';
 import Button from '../../../Button';
+import { ScoreSuggestion, SubmissionerTeam, PersonAdmin } from '../../../../../../../typescript/types';
 
-export default function SectionScore(props) {
+interface IProps {
+  suggestions: ScoreSuggestion[];
+  gameId: string;
+  IsSubmittedCheck: JSX.Element;
+  submissionerInfos: ISubmissionerInfos;
+  update: () => void;
+}
+
+interface ISubmissionerInfos {
+  myTeam: SubmissionerTeam;
+  enemyTeam: SubmissionerTeam;
+  person: PersonAdmin;
+}
+
+const SectionScore: React.FunctionComponent<IProps> = (props) => {
   const { suggestions, gameId, IsSubmittedCheck, submissionerInfos, update } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
-  const [expanded, setExpanded] = useState(true);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const expandedIcon = useMemo(() => (!expanded ? 'KeyboardArrowDown' : 'KeyboardArrowUp'), [expanded]);
+  const [expanded, setExpanded] = useState<boolean>(true);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const expandedIcon = useMemo(
+    (): 'KeyboardArrowUp' | 'KeyboardArrowDown' => (!expanded ? 'KeyboardArrowDown' : 'KeyboardArrowUp'),
+    [expanded]
+  );
 
-  const validate = (values) => {
+  const validate = (values: {
+    scoreTeam1: number;
+    scoreTeam2: number;
+  }): { scoreTeam1?: string; scoreTeam2?: string } => {
     const { scoreTeam1, scoreTeam2 } = values;
-    const errors = {};
+    const errors: { scoreTeam1?: string; scoreTeam2?: string } = {};
     if (scoreTeam1 < 0) {
       errors.scoreTeam1 = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
@@ -48,7 +69,7 @@ export default function SectionScore(props) {
     onSubmit: async (values) => {
       const { scoreTeam1, scoreTeam2 } = values;
 
-      const score = {};
+      const score: any = {};
       score[submissionerInfos.myTeam.rosterId] = scoreTeam1;
       score[submissionerInfos.enemyTeam.rosterId] = scoreTeam2;
 
@@ -102,16 +123,18 @@ export default function SectionScore(props) {
     setAcceptedOrRefused(true);
   };
 
-  const submittedState = (submitted) => {
+  const submittedState = (submitted: boolean) => {
     setIsSubmitted(submitted);
   };
 
   const myScoreSuggestion = useMemo(
-    () => suggestions?.find((s) => s.submitted_by_roster === submissionerInfos.myTeam.rosterId),
+    (): ScoreSuggestion =>
+      suggestions?.find((s: ScoreSuggestion) => s.submittedByRoster === submissionerInfos.myTeam.rosterId),
     [suggestions]
   );
   const enemyScoreSuggestion = useMemo(
-    () => suggestions?.find((s) => s.submitted_by_roster === submissionerInfos.enemyTeam.rosterId),
+    (): ScoreSuggestion =>
+      suggestions?.find((s: ScoreSuggestion) => s.submittedByRoster === submissionerInfos.enemyTeam.rosterId),
     [suggestions]
   );
   const showSuggestion = useMemo(
@@ -130,7 +153,7 @@ export default function SectionScore(props) {
     }
   }, [suggestions]);
 
-  const getChipStyle = (status) => {
+  const getChipStyle = (status: STATUS_ENUM) => {
     switch (status) {
       case STATUS_ENUM.ACCEPTED:
         return { border: '1px solid #18B393', color: '#18B393 ' };
@@ -232,4 +255,5 @@ export default function SectionScore(props) {
       </Collapse>
     </div>
   );
-}
+};
+export default SectionScore;

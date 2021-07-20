@@ -46,3 +46,13 @@ export function updateRoster(
     (res) => res.status
   );
 }
+
+export function updateHasSpirit(
+  // eslint-disable-next-line no-undef
+  eventId: string,
+  hasSpirit: boolean
+): Promise<number> {
+  return api(`${BASE_URL}/hasSpirit`, { method: 'PUT', body: JSON.stringify({ eventId, hasSpirit }) }).then(
+    (res) => res.status
+  );
+}

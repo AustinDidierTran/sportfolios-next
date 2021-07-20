@@ -21,6 +21,7 @@ import {
   EventTeam,
   Image,
   GameOptions,
+  GameSubmissionInfo,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -210,6 +211,24 @@ export function getImages(type: string): Promise<Image[]> {
 export function getGameOptions(eventId: string): Promise<GameOptions> {
   return api(
     formatRoute(`${BASE_URL}/gameOptions`, null, {
+      eventId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getHasSpirit(eventId: string): Promise<boolean> {
+  return api(
+    formatRoute(`${BASE_URL}/hasSpirit`, null, {
+      eventId,
+    })
+  ).then((res) => res.data.hasSpirit);
+}
+
+export function getGameSubmissionInfos(gameId: string, rosterId: string, eventId: string): Promise<GameSubmissionInfo> {
+  return api(
+    formatRoute(`${BASE_URL}/gameSubmissionInfos`, null, {
+      gameId,
+      rosterId,
       eventId,
     })
   ).then((res) => res.data);

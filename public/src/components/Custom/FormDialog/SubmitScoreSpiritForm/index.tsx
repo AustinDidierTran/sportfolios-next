@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 
 import Button from '../../Button';
 import Icon from '../../Icon';
@@ -9,30 +9,42 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import styles from './SubmitScoreSpiritForm.module.css';
-import api from '../../../../actions/api';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../../utils/stringFormats';
+import { Store } from '../../../../Store';
+import { getGameSubmissionInfos } from '../../../../actions/service/entity/get';
+import { GameSubmissionInfo, PersonAdmin, SubmissionerTeam } from '../../../../../../typescript/types';
+
+interface IProps {
+  open: boolean;
+  gameId: string;
+  submissionerInfos: ISubmissionerInfos;
+  onClose: () => void;
+  update: () => void;
+}
+
+interface ISubmissionerInfos {
+  myTeam: SubmissionerTeam;
+  enemyTeam: SubmissionerTeam;
+  person: PersonAdmin;
+}
 
 const SectionScore = dynamic(() => import('./SectionScore'));
-// const SectionSpirit = dynamic(() => import('./SectionSpirit'));
+const SectionSpirit = dynamic(() => import('./SectionSpirit'));
 // const SectionPresences = dynamic(() => import('./SectionPresences'));
 
-export default function SubmitScoreDialog(props) {
+const SubmitScoreDialog: React.FunctionComponent<IProps> = (props) => {
   const { open, onClose, gameId, submissionerInfos, update } = props;
   const { t } = useTranslation();
+  const {
+    state: { id: entityId },
+  } = useContext(Store);
 
   const getData = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/gameSubmissionInfos', null, {
-        gameId,
-        rosterId: submissionerInfos.myTeam.rosterId,
-      })
-    );
-    setsubmissionInfos(data);
+    getGameSubmissionInfos(gameId, submissionerInfos.myTeam.rosterId, entityId).then(setsubmissionInfos);
   };
 
-  const [submissionInfos, setsubmissionInfos] = useState({});
+  const [submissionInfos, setsubmissionInfos] = useState<GameSubmissionInfo>();
 
   const personName = useMemo(() => submissionerInfos?.person?.completeName || '', [submissionerInfos?.person]);
   const teamName = useMemo(() => submissionerInfos?.myTeam?.name || '', [submissionerInfos?.myTeam]);
@@ -68,12 +80,14 @@ export default function SubmitScoreDialog(props) {
             submissionerInfos={submissionerInfos}
             update={update}
           />
-          {/* <SectionSpirit
-            gameId={gameId}
-            IsSubmittedCheck={SubmittedCheck}
-            submittedSpirit={submissionInfos?.spiritSubmission}
-            submissionerInfos={submissionerInfos}
-          /> */}
+          {submissionInfos?.hasSpirit ? (
+            <SectionSpirit
+              gameId={gameId}
+              IsSubmittedCheck={SubmittedCheck}
+              submittedSpirit={submissionInfos?.spiritSubmission}
+              submissionerInfos={submissionerInfos}
+            />
+          ) : null}
           {/* <SectionPresences
             gameId={gameId}
             IsSubmittedCheck={SubmittedCheck}
@@ -89,4 +103,5 @@ export default function SubmitScoreDialog(props) {
       </div>
     </Dialog>
   );
-}
+};
+export default SubmitScoreDialog;

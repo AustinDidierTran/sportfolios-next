@@ -24,7 +24,7 @@ export function addEntity(
   startDate: string,
   endDate: string,
   eventType: string,
-  photoUrl: string,
+  photoUrl: string
 ): Promise<string> {
   return api(BASE_URL, {
     method: 'POST',
@@ -38,7 +38,7 @@ export function addExercise(
   description: string,
   practiceId: string,
   teamId: string,
-  type: EXERCISES_TYPE_ENUM,
+  type: EXERCISES_TYPE_ENUM
 ): Promise<number> {
   return api(`${BASE_URL}/exercise`, {
     method: 'POST',
@@ -62,4 +62,25 @@ export function sendRequestToJoinTeam(teamId: string, personId: string): Promise
   return api(`${BASE_URL}/joinTeam`, { method: 'POST', body: JSON.stringify({ teamId, personId }) }).then(
     (res) => res.status
   );
+}
+
+export function addSpirit(
+  submitted_by_roster: string,
+  submitted_by_person: string,
+  game_id: string,
+  submitted_for_roster: string,
+  spirit_score: number,
+  comment: string
+): Promise<number> {
+  return api(`${BASE_URL}/spirit`, {
+    method: 'POST',
+    body: JSON.stringify({
+      submitted_by_roster,
+      submitted_by_person,
+      game_id,
+      submitted_for_roster,
+      spirit_score,
+      comment,
+    }),
+  }).then((res) => res.status);
 }

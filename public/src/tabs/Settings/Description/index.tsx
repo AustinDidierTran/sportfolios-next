@@ -79,9 +79,7 @@ const Description: React.FunctionComponent = () => {
     formik.setFieldValue('description', initial);
   };
 
-  const disabled = useMemo((): boolean => {
-    return formik.values.description === initial;
-  }, [formik.values.description, initial]);
+  const disabled = useMemo((): boolean => formik.values.description === initial, [formik.values.description, initial]);
 
   return (
     <Paper title="Description">

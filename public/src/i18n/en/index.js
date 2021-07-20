@@ -802,6 +802,7 @@ export default {
       selected_team: 'Selected team',
     },
     score: {
+      score_submission_settings: 'Paramètre de soumission de score',
       score_confirmed: 'Score confirmed',
       score_submission_conflict_description:
         'Notification received if you are the admin of an event and there is a score conflict',
@@ -1125,6 +1126,7 @@ export default {
     going: 'Going',
     graphs: 'Graphs',
     have_an_account_signin: 'Already have an account? Sign in!',
+    have_spirit: 'Have a spirit field',
     heard_organization: 'How have you heard of this organization?',
     here: 'here',
     hide_password: 'Hide password',

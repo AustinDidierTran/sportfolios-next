@@ -15,6 +15,7 @@ const ChangeAlias = dynamic(() => import('../../ChangeAlias'));
 const Description = dynamic(() => import('../../Description'));
 const EventSettings = dynamic(() => import('../../EventSettings'));
 const QuickDescription = dynamic(() => import('../../QuickDescription'));
+const ScoreSubmission = dynamic(() => import('../../ScoreSubmission'));
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -51,6 +52,7 @@ export default function General(props) {
           <QuickDescription />
           <Description />
           <EventSettings />
+          <ScoreSubmission />
         </Collapse>
       </Accordion>
     </div>

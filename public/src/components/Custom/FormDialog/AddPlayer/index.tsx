@@ -97,9 +97,7 @@ const AddPlayer: React.FunctionComponent<IProps> = (props) => {
     [people, players]
   );
 
-  const disabled = useMemo((): boolean => {
-    return people.length < 1;
-  }, [people]);
+  const disabled = useMemo((): boolean => people.length < 1, [people]);
 
   const fields = [
     ...personComponent,
