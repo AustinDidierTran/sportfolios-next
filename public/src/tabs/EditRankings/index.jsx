@@ -59,8 +59,6 @@ export default function EditRankings() {
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  console.log({ phases });
-
   useEffect(() => {
     if (eventId) {
       getData();

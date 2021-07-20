@@ -120,8 +120,6 @@ export default function PhaseAccordionDnD(props) {
     setEdit(true);
   };
 
-  console.log({ teams });
-
   const onSave = async () => {
     const res = await api(`/api/entity/updateInitialPositionPhase`, {
       method: 'PUT',
