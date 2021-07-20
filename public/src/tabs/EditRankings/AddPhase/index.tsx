@@ -73,6 +73,12 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
+  useEffect(() => {
+    if (formik.values.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET) {
+      formik.setFieldValue('spots', 8);
+    }
+  }, [formik.values.type]);
+
   const buttons = [
     {
       onClick: handleClose,
@@ -92,12 +98,37 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
       label: 'Phase',
       type: 'phase',
     },
-    {
-      namespace: 'spots',
-      id: 'spots',
-      label: t('maximum_spots'),
-      type: 'number',
-    },
+    formik.values.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET
+      ? {
+          componentType: COMPONENT_TYPE_ENUM.SELECT,
+          namespace: 'spots',
+          label: t('spots'),
+          options: [
+            {
+              display: '2',
+              value: 2,
+            },
+            {
+              display: '4',
+              value: 4,
+            },
+            {
+              display: '8',
+              value: 8,
+            },
+            {
+              display: '16',
+              value: 16,
+            },
+          ],
+        }
+      : {
+          namespace: 'spots',
+          id: 'spots',
+          label: t('spots'),
+          type: 'number',
+        },
+
     {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'type',
