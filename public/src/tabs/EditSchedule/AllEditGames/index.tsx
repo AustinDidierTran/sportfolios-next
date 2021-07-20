@@ -17,7 +17,6 @@ const EditGames = dynamic(() => import('./EditGames'));
 interface IProps {
   oldFilter: IOldFilter;
   setFilter: any;
-  updated: any;
 }
 
 interface IOldFilter {
@@ -33,7 +32,7 @@ interface IOldFilter {
 
 const AllEditGames: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { oldFilter, setFilter, updated } = props;
+  const { oldFilter, setFilter } = props;
   const {
     state: { id: eventId },
   } = useContext(Store);
@@ -46,7 +45,7 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     if (eventId) {
       getGames();
     }
-  }, [eventId, updated]);
+  }, [eventId]);
 
   const sortAllGames = (allGames: Games[]): void => {
     const res = sortGames(allGames);

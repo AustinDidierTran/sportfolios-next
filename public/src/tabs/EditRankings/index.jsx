@@ -19,7 +19,7 @@ const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
 const FinalRanking = dynamic(() => import('./FinalRanking'));
 const AlertDialog = dynamic(() => import('../../components/Custom/Dialog/AlertDialog'));
-const AddPhase = dynamic(() => import('../EditSchedule/CreateSchedule/AddPhase'));
+const AddPhase = dynamic(() => import('./AddPhase'));
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
