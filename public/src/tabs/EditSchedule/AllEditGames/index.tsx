@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import { Store } from '../../../Store';
 import { getGames as getGamesApi } from '../../../actions/service/entity/get';
 import { Games } from '../../../../../typescript/types';
+import { sortGames } from '../../Schedule/Schedule.utils';
 
 const GameFilters = dynamic(() => import('../../Schedule/AllGames/GameFilters'));
 const EditGames = dynamic(() => import('./EditGames'));
@@ -16,7 +17,6 @@ const EditGames = dynamic(() => import('./EditGames'));
 interface IProps {
   oldFilter: IOldFilter;
   setFilter: any;
-  updated: any;
 }
 
 interface IFilterFields {
@@ -34,7 +34,7 @@ interface IOldFilter {
 
 const AllEditGames: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { oldFilter, setFilter, updated } = props;
+  const { oldFilter, setFilter } = props;
   const {
     state: { id: eventId },
   } = useContext(Store);
@@ -47,22 +47,17 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     if (eventId) {
       getGames();
     }
-  }, [eventId, updated]);
+  }, [eventId]);
 
-  const sortGames = (games: Games[]): void => {
-    const res = games
-      .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment())
-      .sort((a, b) => Math.abs(moment(a.startTime).valueOf() - moment(b.startTime).valueOf()));
-    setGames(res);
-    const pastGames = games
-      .filter((game) => moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment())
-      .sort((a, b) => Math.abs(moment(a.startTime).valueOf() - moment(b.startTime).valueOf()));
-    setPastGames(pastGames);
+  const sortAllGames = (allGames: Games[]): void => {
+    const res = sortGames(allGames);
+    setGames(res.games);
+    setPastGames(res.pastGames);
   };
 
   const getGames = async (): Promise<Games[]> => {
     const data = await getGamesApi(eventId);
-    sortGames(data);
+    sortAllGames(data);
     setIsLoading(false);
     return data;
   };
@@ -116,7 +111,7 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
       filter.timeSlots = timeSlots;
     }
     setFilter(filter);
-    sortGames(games);
+    sortAllGames(games);
   };
 
   if (isLoading) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FormDialog } from '../../../../components/Custom';
+import { FormDialog } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
@@ -14,7 +14,7 @@ import {
 } from '../../../../../common/enums';
 import { getGameOptions } from '../../../Schedule/ScheduleFunctions';
 import * as yup from 'yup';
-import { Games } from '../../../../../../typescript/types';
+import { Games } from '../../../../../typescript/types';
 
 interface IProps {
   games: Games[];

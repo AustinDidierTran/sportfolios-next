@@ -18,17 +18,12 @@ interface IFilterFields {
 }
 
 const EditScheduleTab: React.FunctionComponent = () => {
-  const [updated, setUpdated] = useState<boolean>(true);
   const [filter, setFilter] = useState<IOldFilter>();
-
-  const update = () => {
-    setUpdated(!updated);
-  };
 
   return (
     <>
-      <CreateSchedule update={update} />
-      <AllEditGames updated={updated} setFilter={setFilter} oldFilter={filter} />
+      <CreateSchedule />
+      <AllEditGames setFilter={setFilter} oldFilter={filter} />
     </>
   );
 };

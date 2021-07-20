@@ -10,6 +10,7 @@ import { LoadingSpinner } from '../../../components/Custom';
 import { Store } from '../../../Store';
 import { Games as IGames } from '../../../../../typescript/types';
 import { getGames as getGamesApi } from '../../../actions/service/entity/get';
+import { sortGames } from '../Schedule.utils';
 
 interface IProps {
   oldFilter: IFilter;
@@ -46,27 +47,10 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
     }
   }, [eventId]);
 
-  const scoreIsSubmitted = (game: IGames): boolean => game.positions[0].score != 0 || game.positions[1].score != 0;
-
-  const sortGames = (games: IGames[]): void => {
-    const pastGames = games
-      .filter(
-        (game) =>
-          moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') < moment() && scoreIsSubmitted(game)
-      )
-      .sort((a, b) => {
-        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
-      });
-    setPastGames(pastGames);
-    const res = games
-      .filter(
-        (game) =>
-          moment(game.startTime).set('hour', 0).set('minute', 0).add(1, 'day') > moment() || !scoreIsSubmitted(game)
-      )
-      .sort((a, b) => {
-        return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
-      });
-    setGames(res);
+  const sortAllGames = (allGames: IGames[]): void => {
+    const res = sortGames(allGames);
+    setGames(res.games);
+    setPastGames(res.pastGames);
   };
 
   const getGames = async (): Promise<IGames[]> => {
@@ -75,13 +59,12 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
       if (!data) {
         return [];
       }
-      sortGames(data);
+      sortAllGames(data);
       setIsLoading(false);
       return data;
     }
     setIsLoading(false);
   };
-
   const filter = async (
     teams: IFilterFields[],
     phases: IFilterFields[],
@@ -133,7 +116,7 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
       filter.timeSlots = timeSlots;
     }
     setFilter(filter);
-    sortGames(games);
+    sortAllGames(games);
   };
 
   if (isLoading) {

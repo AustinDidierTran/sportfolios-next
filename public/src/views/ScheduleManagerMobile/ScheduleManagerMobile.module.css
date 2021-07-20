@@ -1,0 +1,17 @@
+.iconButton {
+  margin: 16px 0px 0px 16px !important;
+}
+
+.button {
+  margin: 16px !important;
+}
+
+.typography {
+  margin: 16px 0px !important;
+  text-align: center;
+}
+
+.div {
+  display: flex;
+  flex-direction: column;
+}
