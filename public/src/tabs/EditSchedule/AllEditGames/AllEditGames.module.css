@@ -5,3 +5,14 @@
   justify-content: center;
   margin: 8px;
 }
+
+.tabs {
+  min-height: 0px !important;
+  margin-bottom: 4px !important;
+}
+
+.tab {
+  background-color: lightgray !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+}

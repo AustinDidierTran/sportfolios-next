@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styles from './AllEditGames.module.css';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { SELECT_ENUM } from '../../../../common/enums';
 import moment from 'moment';
 import ProTip from './ProTip';
@@ -42,6 +44,7 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
   const [games, setGames] = useState<Games[]>([]);
   const [pastGames, setPastGames] = useState<Games[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [index, setIndex] = useState<number>(0);
 
   useEffect((): void => {
     if (eventId) {
@@ -118,13 +121,30 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     return <LoadingSpinner />;
   }
 
+  const tabs = [
+    { name: t('upcoming_games'), game: games },
+    { name: t('past_games'), game: pastGames },
+  ];
+
   return (
     <>
       <ProTip />
       <GameFilters update={filter} eventId={eventId} oldFilter={oldFilter} />
-      <div className={styles.main} style={{ marginTop: '16px' }}>
-        <EditGames title={t('past_games')} games={pastGames} isOpen={false} update={getGames} />
-        <EditGames title={t('upcoming_games')} games={games} isOpen update={getGames} />
+      <div className={styles.main} style={{ marginTop: '8px' }}>
+        <Tabs value={index} indicatorColor="primary" textColor="primary" className={styles.tabs} variant="fullWidth">
+          {tabs.map((tab, index) => (
+            <Tab
+              key={index}
+              label={`${tab.name} (${tab.game.length > 99 ? '99+' : tab.game.length})`}
+              onClick={() => {
+                setIndex(index);
+              }}
+              className={styles.tab}
+            />
+          ))}
+        </Tabs>
+        <EditGames games={games} isOpen={index == 0 ? true : false} update={getGames} />
+        <EditGames games={pastGames} isOpen={index == 1 ? true : false} update={getGames} />
       </div>
     </>
   );
