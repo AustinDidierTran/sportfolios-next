@@ -1,8 +1,8 @@
 .image {
   opacity: 1;
   display: block;
-  width: 100%;
-  height: auto;
+  min-height: 95px;
+  min-width: 95px;
   transition: 0.5s ease;
   backface-visibility: hidden;
 }
