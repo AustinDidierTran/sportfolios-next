@@ -11,14 +11,28 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../../Store';
-import api from '../../../../../actions/api';
 import styles from '../SubmitScoreSpiritForm.module.css';
 import TextField from '../../../TextField';
 import IconButton from '../../../IconButton';
 import Collapse from '../../../Collapse';
 import Button from '../../../Button';
+import { PersonAdmin, SpiritSubmission, SubmissionerTeam } from '../../../../../../../typescript/types';
+import { addSpirit } from '../../../../../actions/service/entity/post';
 
-export default function SectionSpirit(props) {
+interface IProps {
+  submittedSpirit: SpiritSubmission;
+  gameId: string;
+  IsSubmittedCheck: JSX.Element;
+  submissionerInfos: ISubmissionerInfos;
+}
+
+interface ISubmissionerInfos {
+  myTeam: SubmissionerTeam;
+  enemyTeam: SubmissionerTeam;
+  person: PersonAdmin;
+}
+
+const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
   const { submittedSpirit, gameId, IsSubmittedCheck, submissionerInfos } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -31,45 +45,45 @@ export default function SectionSpirit(props) {
     onSubmit: async (values) => {
       const { spirit, comment } = values;
 
-      const { status } = await api('/api/entity/spirit', {
-        method: 'POST',
-        body: JSON.stringify({
-          submitted_by_roster: submissionerInfos.myTeam.rosterId,
-          submitted_by_person: submissionerInfos.person.entityId,
-          game_id: gameId,
-          submitted_for_roster: submissionerInfos.enemyTeam.rosterId,
-          spirit_score: spirit.reduce((a, b) => a + b, 0),
-          comment,
-        }),
+      addSpirit(
+        submissionerInfos.myTeam.rosterId,
+        submissionerInfos.person.entityId,
+        gameId,
+        submissionerInfos.enemyTeam.rosterId,
+        spirit.reduce((a, b) => a + b, 0),
+        comment
+      ).then((status) => {
+        if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+          submittedState(true);
+        } else {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('an_error_has_occured'),
+            severity: SEVERITY_ENUM.ERROR,
+          });
+        }
       });
-
-      if (status === REQUEST_STATUS_ENUM.SUCCESS) {
-        submittedState(true);
-      } else {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('an_error_has_occured'),
-          severity: SEVERITY_ENUM.ERROR,
-        });
-      }
     },
   });
 
-  const [expanded, setExpanded] = useState(true);
-  const [isSubmitted, setIsSubmitted] = useState(true);
-  const expandedIcon = useMemo(() => (!expanded ? 'KeyboardArrowDown' : 'KeyboardArrowUp'), [expanded]);
-  const spiritTotal = useMemo(() => formik.values.spirit.reduce((a, b) => a + b, 0), [formik.values.spirit]);
+  const [expanded, setExpanded] = useState<boolean>(true);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(true);
+  const expandedIcon = useMemo(
+    (): 'KeyboardArrowUp' | 'KeyboardArrowDown' => (!expanded ? 'KeyboardArrowDown' : 'KeyboardArrowUp'),
+    [expanded]
+  );
+  const spiritTotal = useMemo((): number => formik.values.spirit.reduce((a, b) => a + b, 0), [formik.values.spirit]);
 
-  useEffect(() => {
-    submittedState(Boolean(submittedSpirit?.spirit_score));
+  useEffect((): void => {
+    submittedState(Boolean(submittedSpirit?.spiritScore));
   }, [submittedSpirit]);
 
-  const submittedState = (submitted) => {
+  const submittedState = (submitted: boolean): void => {
     setExpanded(!submitted);
     setIsSubmitted(submitted);
   };
 
-  const handleRadioChange = (event) => {
+  const handleRadioChange = (event: any): void => {
     formik.setFieldValue(`spirit[${event.target.name.substring(1)}]`, Number(event.target.value));
   };
 
@@ -127,7 +141,7 @@ export default function SectionSpirit(props) {
         {isSubmitted ? (
           <div>
             <Typography className={styles.totalSpirit}>{`Total: ${
-              submittedSpirit?.spirit_score || spiritTotal
+              submittedSpirit?.spiritScore || spiritTotal
             }`}</Typography>
             {formik.values.comment ? (
               <TextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
@@ -162,4 +176,5 @@ export default function SectionSpirit(props) {
       </Collapse>
     </div>
   );
-}
+};
+export default SectionSpirit;

@@ -807,6 +807,7 @@ export default {
       selected_team: 'Équipe sélectionnée',
     },
     score: {
+      score_submission_settings: 'Paramètre de soumission de résultats',
       score_confirmed: 'Résultat confirmé',
       score_submission_conflict_description:
         "Notification reçue si vous êtes admin d'un événement et qu'il y a un conflit de score",
@@ -1147,6 +1148,7 @@ export default {
     going: 'Présent',
     graphs: 'Graphiques',
     have_an_account_signin: 'Vous avez déjà un compte? Connectez-vous!',
+    have_spirit: "Avoir un champ d'esprit de jeu",
     heard_organization: 'Comment avez-vous entendu parler de cette organisation?',
     here: 'ici',
     hide_password: 'Masquer le mot de passe',

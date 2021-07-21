@@ -1,0 +1,32 @@
+.quickDescription {
+  width: 90% !important;
+  margin: 8px !important;
+}
+
+.buttons {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+}
+
+.save {
+  margin: 8px !important;
+}
+
+.cancel {
+  margin: 8px !important;
+}
+
+@media (min-width: 600px) {
+  .buttons {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: '. save cancel .';
+  }
+
+  .cancel {
+    grid-area: cancel;
+  }
+
+  .save {
+    grid-area: save;
+  }
+}
