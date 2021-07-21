@@ -130,25 +130,21 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     return <LoadingSpinner />;
   }
 
-  const tabs = [{ name: t('upcoming_games') }, { name: t('past_games') }];
+  const tabs = [
+    { name: t('upcoming_games'), game: games },
+    { name: t('past_games'), game: pastGames },
+  ];
 
   return (
     <>
       <ProTip />
       <GameFilters update={filter} eventId={eventId} oldFilter={oldFilter} />
       <div className={styles.main} style={{ marginTop: '8px' }}>
-        <Tabs
-          value={index}
-          TabIndicatorProps={{
-            style: { backgroundColor: 'white' },
-          }}
-          className={styles.tabs}
-          variant="fullWidth"
-        >
+        <Tabs value={index} indicatorColor="primary" textColor="primary" className={styles.tabs} variant="fullWidth">
           {tabs.map((tab, index) => (
             <Tab
               key={index}
-              label={`${tab.name} (${games.length > 99 ? '99+' : games.length})`}
+              label={`${tab.name} (${tab.game.length > 99 ? '99+' : tab.game.length})`}
               onClick={() => {
                 setIndex(index);
               }}
@@ -156,8 +152,8 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
             />
           ))}
         </Tabs>
-        <EditGames games={pastGames} isOpen={index == 0 ? true : false} update={getGames} />
-        <EditGames games={games} isOpen={index == 1 ? true : false} update={getGames} />
+        <EditGames games={games} isOpen={index == 0 ? true : false} update={getGames} />
+        <EditGames games={pastGames} isOpen={index == 1 ? true : false} update={getGames} />
       </div>
     </>
   );
