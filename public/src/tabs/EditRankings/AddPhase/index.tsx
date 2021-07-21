@@ -139,6 +139,10 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
               display: '16',
               value: 16,
             },
+            {
+              display: '32',
+              value: 32,
+            },
           ],
         }
       : {

@@ -9,7 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Icon from '../../../components/Custom/Icon';
-import { PHASE_STATUS_ENUM } from '../../../../common/enums';
+import { PHASE_STATUS_ENUM, PHASE_TYPE_ENUM } from '../../../../common/enums';
 
 const StyledMenu = withStyles({
   paper: {
@@ -66,7 +66,7 @@ export default function CustomizedMenus(props) {
     handleClose();
   };
 
-  if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED) {
+  if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED && phase.type != PHASE_TYPE_ENUM.ELIMINATION_BRACKET) {
     return (
       <div>
         <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleClick}>

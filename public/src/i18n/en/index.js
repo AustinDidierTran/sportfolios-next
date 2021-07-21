@@ -1445,6 +1445,7 @@ export default {
     spirit_chart_ligue_mardi: '0: Bad 1: Below average 2: Good or nothing to report 3: Very good 4: Exceptional',
     spirit: 'Spirit',
     sports_table_title: 'Sports List',
+    spots: 'Spots',
     start_phase_warning: 'This phase depends on unfinished phases. Please complete them before starting it.',
     state: 'State',
     statistics: 'Statistics',

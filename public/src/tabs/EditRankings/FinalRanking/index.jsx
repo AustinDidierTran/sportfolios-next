@@ -98,11 +98,11 @@ export default function FinalRanking(props) {
       };
     });
 
-    if (phase.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET) {
-      //RENDU ICI
-    }
-
-    if (rankingStats.every((r) => r.finalPosition !== null) || phase.status === PHASE_STATUS_ENUM.DONE) {
+    if (
+      rankingStats.every((r) => r.finalPosition !== null) ||
+      phase.status === PHASE_STATUS_ENUM.DONE ||
+      phase.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET
+    ) {
       setItems(rankingStats.sort((a, b) => a.finalPosition - b.finalPosition));
     } else {
       const playedGames = games.reduce((prev, curr) => {
