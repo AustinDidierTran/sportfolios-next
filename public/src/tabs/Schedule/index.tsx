@@ -11,14 +11,16 @@ interface IProps {
   basicInfos: Entity;
 }
 
+interface IFilterFields {
+  value: string;
+  display: string;
+}
+
 interface IFilter {
-  teamId: string;
-  teamName: string;
-  phaseId: string;
-  phaseName: string;
-  fieldId: string;
-  fieldName: string;
-  timeSlot: string;
+  teams: IFilterFields[];
+  phases: IFilterFields[];
+  fields: IFilterFields[];
+  timeSlots: IFilterFields[];
   onlyYourGames: boolean;
 }
 

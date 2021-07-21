@@ -104,6 +104,7 @@ export interface Player {
   name: string;
   photoUrl: string;
   rsvp?: string;
+  surname?: string;
 }
 
 export interface PendingPlayer extends Player {
@@ -159,6 +160,11 @@ export interface Membership {
   addressId?: string;
 }
 
+export interface Image {
+  photoUrl: string;
+  type: string;
+}
+
 export interface Organization extends Entity {
   memberships?: EntityMembership[];
   bankAccounts?: BankAccount[];
@@ -203,6 +209,13 @@ export interface EventField {
   eventId: string;
   field: string;
   id: string;
+}
+
+export interface GameOptions {
+  timeSlots: TimeSlot[];
+  teams: TeamsSchedule[];
+  phases: Phase[];
+  fields: EventField[];
 }
 
 export interface Evaluation {

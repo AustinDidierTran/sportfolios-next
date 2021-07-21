@@ -10,10 +10,10 @@ export default function EditEventPaymentOption(props) {
   const { open, onClose, option, editOptionEvent } = props;
   const { t } = useTranslation();
   useEffect(() => {
-    formik.setFieldValue('openDate', moment.utc(option.start_time).format('yyyy-MM-DD'));
-    formik.setFieldValue('openTime', moment.utc(option.start_time).format('HH:mm'));
-    formik.setFieldValue('closeDate', moment.utc(option.end_time).format('yyyy-MM-DD'));
-    formik.setFieldValue('closeTime', moment.utc(option.end_time).format('HH:mm'));
+    formik.setFieldValue('openDate', moment.utc(option.startTime).format('yyyy-MM-DD'));
+    formik.setFieldValue('openTime', moment.utc(option.startTime).format('HH:mm'));
+    formik.setFieldValue('closeDate', moment.utc(option.endTime).format('yyyy-MM-DD'));
+    formik.setFieldValue('closeTime', moment.utc(option.endTime).format('HH:mm'));
   }, [open]);
   const handleClose = () => {
     formik.resetForm();

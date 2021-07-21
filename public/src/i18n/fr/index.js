@@ -549,6 +549,7 @@ export default {
       add_existing_person: 'Ajouter une personne existante',
       add_field: 'Ajouter un terrain',
       add_game: 'Ajouter une partie',
+      add_from_images_list: "Ajouter à partir d'une liste d'images",
       add_member: 'Ajouter un membre',
       add_membership: 'Ajouter une affiliation',
       add_mode: 'Mode ajout',
@@ -663,6 +664,7 @@ export default {
     edit: {
       edit_credit_cards: 'Modifier les cartes de crédits',
       edit_game: 'Modifier la partie',
+      edit_image: "Modifier l'image",
       edit_infos: 'Modifier les infos',
       edit_membership: 'Modifier une affiliation',
       edit_mode: 'Mode édition',
@@ -793,7 +795,9 @@ export default {
       person_registration_description: 'Notification envoyée lorsque vous vous inscrivez à un événement individuel',
     },
     select: {
+      select: 'Sélectionner',
       select_existing_person: 'Sélectionner une personne existante',
+      select_image: 'Sélectionner votre image',
       select_language: 'Sélectionner votre langue',
       select_payment_method: 'Sélectionner une méthode de paiement',
       select_person: 'Sélectionner une personne',
@@ -841,8 +845,6 @@ export default {
       you_can_start_to_swipe: 'Swiper ou appuyer sur un bouton pour commencer!',
       you_have_no_account_with_this_email_create_one:
         "Vous n'avez de compte associé avec ce courriel! Créez votre compte!",
-      you_have_more_than_one_team_in_event:
-        "Vous faites parties de plus d'une équipe dans l'événement. Vous voyez les parties de {{team}} actuellement.",
       you_need_to_connect_your_messenger_account:
         'Vous devez d\'abord connecter votre compte avec messenger dans la section "Applications" afin de pouvoir activer les notifications du chatbot',
       you_need_to_be_connected_to_become_member: 'Vous devez vous connecter pour être membre de {{organization}}',
@@ -944,6 +946,7 @@ export default {
     bank_accounts_information:
       'Dans les 7 prochains jours, vos revenues seront déposés dans votre compte bancaire par défaut',
     bank_accounts: 'Comptes bancaires',
+    baseball: 'Baseball',
     basic_info: 'Information générales',
     become_member_of: "Devenir membre de {{organizationName}}. Date d'expiration: {{expirationDate}}",
     become_member: 'Devenir membre',
@@ -1007,6 +1010,7 @@ export default {
     competitive_membership: 'Affiliation Compétitif',
     competitive: 'Compétitif',
     complete_order: 'Compléter la commande',
+    complete_schedule_manager: "Le gestionnaire d'horaire complet est seulement disponible sur oridnateur",
     complete_transfer: 'Compléter le transfert',
     confirm_new_password: 'Confirmer votre nouveau mot de passe',
     confirm_or_decline_score_notif_description:
@@ -1116,6 +1120,7 @@ export default {
     fouls_and_body_contact: 'Fautes et contacts',
     free: 'Gratuit',
     frequented_school: 'École fréquentée',
+    frisbee: 'Frisbee',
     full_name: 'Nom complet',
     funding_goal: 'Objectif: {{goal}}$',
     funding: 'Financement',
@@ -1148,7 +1153,9 @@ export default {
     home: 'Accueil',
     hour_ago_plural: 'Il y a {{count}} heures',
     i_want_to_be_anonyme: 'Je veux être anonyme',
+    images_list: "Liste d'images",
     image_required: 'Image obligatoire',
+    import_image: 'Importer une image',
     import_members_confirmation:
       'Un courriel va être envoyé à {{membersAmount}} membres. Ils vont recevoir un code coupon à usage unique pour devenir {{membershipName}} de votre organisation. Voulez vous compléter le transfert?',
     import_members: 'Importer des membres',
@@ -1241,12 +1248,15 @@ export default {
     notifications: 'Notifications',
     of_everyone: 'de tout le monde',
     of_team: "de l'équipe",
-    of: 'du',
+    of_teams: 'des équipes',
+    of_phase: 'de la phase',
+    of_phases: 'des phases',
     old_password: 'Ancien mot de passe',
     old_members: 'Membres anciens',
     on_going_events: 'Événements en cours',
-    on_le_in_french: 'le',
+    on_timeslot: 'le',
     on: 'sur le',
+    on_multiple: 'sur les',
     one_month: 'Un mois',
     one_year: 'Un an',
     one_admin_need_bank_account:
@@ -1407,6 +1417,7 @@ export default {
     save_phase_order: "Sauvegarder l'ordre",
     save_changes_before_starting_phase: 'Veuillez sauvegarder les changements avant de démarrer la phase',
     schedule: 'Horaire',
+    schedule_manager: "Gestionnaire d'horaire",
     search_results: 'Résultats de recherche pour {{query}}',
     search_sportfolios: 'Rechercher Sportfolios',
     search: 'Rechercher...',
@@ -1446,6 +1457,7 @@ export default {
     sizes_enum_xxxs: '3X-Small',
     sizes: 'Grandeurs',
     skip: 'Passer',
+    soccer: 'Soccer',
     some_teams_cannot_be_deleted:
       "Des équipes n'ont pas pu être désinscrites de l'événement puisqu'elles sont déjà dans des parties.",
     something_went_wrong: "Une erreur s'est produite. Veuillez réessayer.",
@@ -1552,6 +1564,7 @@ export default {
     value_must_have_x_digits: 'La valeur doit avoir {{digits}} chiffres.',
     view_your_profile: 'Voir votre profil',
     viewer: 'Visiteur',
+    volleyball: 'Volleyball',
     vs: 'vs',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
     website: 'Site web',

@@ -19,23 +19,24 @@ const EditGames = dynamic(() => import('./EditGames'));
 interface IProps {
   oldFilter: IOldFilter;
   setFilter: any;
-  updated: any;
+}
+
+interface IFilterFields {
+  value: string;
+  display: string;
 }
 
 interface IOldFilter {
   onlyYourGames: boolean;
-  teamId: string;
-  teamName: string;
-  phaseId: string;
-  phaseName: string;
-  fieldId: string;
-  fieldName: string;
-  timeSlot: string;
+  teams: IFilterFields[];
+  phases: IFilterFields[];
+  fields: IFilterFields[];
+  timeSlots: IFilterFields[];
 }
 
 const AllEditGames: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { oldFilter, setFilter, updated } = props;
+  const { oldFilter, setFilter } = props;
   const {
     state: { id: eventId },
   } = useContext(Store);
@@ -49,7 +50,7 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     if (eventId) {
       getGames();
     }
-  }, [eventId, updated]);
+  }, [eventId]);
 
   const sortAllGames = (allGames: Games[]): void => {
     const res = sortGames(allGames);
@@ -65,62 +66,52 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
   };
 
   const filter = async (
-    teamId: string,
-    teamName: string,
-    phaseId: string,
-    phaseName: string,
-    fieldId: string,
-    fieldName: string,
-    timeSlot: string,
+    teams: IFilterFields[],
+    phases: IFilterFields[],
+    fields: IFilterFields[],
+    timeSlots: IFilterFields[],
     onlyYourGames: boolean
   ): Promise<void> => {
     let games = await getGames();
     const filter: {
-      teamId: string;
-      teamName: string;
-      phaseId: string;
-      phaseName: string;
-      fieldId: string;
-      fieldName: string;
-      timeSlot: string;
+      teams: IFilterFields[];
+      phases: IFilterFields[];
+      fields: IFilterFields[];
+      timeSlots: IFilterFields[];
       onlyYourGames: boolean;
     } = {
-      teamId: SELECT_ENUM.ALL,
-      teamName: '',
-      phaseId: SELECT_ENUM.ALL,
-      phaseName: '',
-      fieldId: SELECT_ENUM.ALL,
-      fieldName: '',
-      timeSlot: SELECT_ENUM.ALL,
+      teams: [{value: SELECT_ENUM.ALL, display: ''}],
+      phases: [{value: SELECT_ENUM.ALL, display: ''}],
+      fields: [{value: SELECT_ENUM.ALL, display: ''}],
+      timeSlots: [{value: SELECT_ENUM.ALL, display: ''}],
       onlyYourGames,
     };
-    if (teamId != SELECT_ENUM.ALL) {
+    if (teams[0].value != SELECT_ENUM.ALL) {
       games = games.filter((game) =>
         game.positions.some((team) => {
           if (team.rosterId) {
-            return team.rosterId === teamId;
+            return teams.filter((t) => t.value === team.rosterId).length > 0;
           }
-          return team.name.includes(teamName);
+          return teams.filter((t) => t.display === team.name).length > 0;
         })
       );
-      filter.teamName = teamName;
-      filter.teamId = teamId;
+      filter.teams = teams;
     }
-    if (phaseId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.phaseId === phaseId);
-      filter.phaseName = phaseName;
-      filter.phaseId = phaseId;
+    if (phases[0].value != SELECT_ENUM.ALL) {
+      games = games.filter((game: Games) => phases.some((phase) => phase.value === game.phaseId));
+      filter.phases = phases;
     }
-    if (fieldId != SELECT_ENUM.ALL) {
-      games = games.filter((game) => game.fieldId === fieldId);
-      filter.fieldName = fieldName;
-      filter.fieldId = fieldId;
+    if (fields[0].value != SELECT_ENUM.ALL) {
+      games = games.filter((game: Games) => fields.some((field) => field.value === game.fieldId));
+      filter.fields = fields;
     }
-    if (timeSlot != SELECT_ENUM.ALL) {
-      games = games.filter(
-        (game) => moment.utc(game.startTime).format('YYYY M D') === moment.utc(timeSlot).format('YYYY M D')
+    if (timeSlots[0].value != SELECT_ENUM.ALL) {
+      games = games.filter((game: Games) =>
+        (timeSlots.some(
+          (timeSlot) => moment(game.startTime).format('YYYY M D') === moment(timeSlot.value).format('YYYY M D')
+        ))
       );
-      filter.timeSlot = timeSlot;
+      filter.timeSlots = timeSlots;
     }
     setFilter(filter);
     sortAllGames(games);

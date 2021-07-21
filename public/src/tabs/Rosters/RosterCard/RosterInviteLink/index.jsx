@@ -75,7 +75,9 @@ export default function RosterInviteLink(props) {
     return updateTokenInfos(res.data);
   }
   useEffect(() => {
-    fetchLink();
+    if (rosterId) {
+      fetchLink();
+    }
   }, [rosterId]);
 
   async function onConfirm() {
