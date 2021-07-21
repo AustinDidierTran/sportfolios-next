@@ -9,6 +9,8 @@ export function sortGames(allGames: Games[]): { games: Games[]; pastGames: Games
     .sort((a, b) => {
       if (!b.startTime) {
         return -Infinity;
+      } else if (!a.startTime) {
+        return Infinity;
       }
       return moment(a.startTime).valueOf() - moment(b.startTime).valueOf();
     });
