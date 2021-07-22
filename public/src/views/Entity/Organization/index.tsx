@@ -18,6 +18,7 @@ const Events = dynamic(() => import('../../../tabs/Events'));
 const Memberships = dynamic(() => import('../../../tabs/Memberships'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 const Partners = dynamic(() => import('../../../tabs/Partners'));
+const Shop = dynamic(() => import('../../../tabs/Shop'));
 const EditMemberships = dynamic(() => import('../../../tabs/EditMemberships'));
 
 interface IProps {
@@ -56,6 +57,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
     { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
     { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
     { component: Partners, value: TABS_ENUM.PARTNERS, label: t('partner.partners'), icon: 'EmojiPeople' },
+    { component: Shop, value: TABS_ENUM.SHOP, label: t('shop'), icon: 'Store' },
   ];
 
   const adminState = [
@@ -63,6 +65,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
     { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
     { component: EditMemberships, value: TABS_ENUM.EDIT_MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
     { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },
+    { component: Shop, value: TABS_ENUM.SHOP, label: t('shop'), icon: 'Store' },
   ];
 
   const [adminView, setAdminView] = useState<boolean>(false);

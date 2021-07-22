@@ -569,3 +569,26 @@ export interface TeamsSchedule {
   eventId: string;
   name: string;
 }
+
+export interface ShopItems {
+  active: boolean;
+  amount: number;
+  description: string;
+  entityId: string;
+  label: string;
+  photoUrl: string;
+  stripePriceId: string;
+  stripeProductId: string;
+  sizes: string;
+}
+
+export interface ShopCartItems {
+  label: string;
+  amount: string;
+  description: string;
+  metadata: string;
+  quantity: number;
+  email: string;
+  photoUrl: string;
+  createdAt: string;
+}

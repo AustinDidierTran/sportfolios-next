@@ -6,49 +6,55 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import Container from '@material-ui/core/Container';
 import { Button } from '../../components/Custom';
 import CustomCard from '../../components/Custom/Card';
-import { useEditor } from '../../hooks/roles';
 
 import CreateItem from './CreateItem';
-import api from '../../actions/api';
-import { CARD_TYPE_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../utils/stringFormats';
 import { Store } from '../../Store';
+import { ShopItems } from '../../../../typescript/types';
+import { getShopItems } from '../../actions/service/shop';
+import { CARD_TYPE_ENUM } from '../../../common/enums';
 
-export default function Shop(props) {
+interface IProps {
+  adminView: boolean;
+}
+
+const Shop: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<ShopItems[]>();
   const {
     state: { id },
   } = useContext(Store);
-  const {
-    basicInfos: { role },
-  } = props;
-  const isEditor = useEditor(role);
+  const { adminView } = props;
 
-  const fetchShopItems = async () => {
-    const { data = [] } = await api(formatRoute('/api/shop/getItems', null, { id }));
-    setItems(data);
+  const fetchShopItems = (): void => {
+    getShopItems(id).then((res) => {
+      setItems(
+        res.map((r) => ({
+          ...r,
+          sizes: JSON.parse(r.sizes),
+        }))
+      );
+    });
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (id) {
       fetchShopItems();
     }
   }, [id]);
 
-  const update = () => {
+  const update = (): void => {
     fetchShopItems();
   };
 
-  const goToSales = () => {
+  const goToSales = (): void => {
     goTo(ROUTES.sales, { id });
   };
 
   return (
     <Container className={styles.items} style={{ marginTop: '8px' }}>
       <div>
-        {isEditor ? (
+        {adminView ? (
           <>
             <CreateItem fetchItems={fetchShopItems} />
             <br />
@@ -57,10 +63,11 @@ export default function Shop(props) {
             <br />
           </>
         ) : null}
-        {items.map((item, index) => {
-          return <CustomCard items={{ ...item, setItems, isEditor, update }} type={CARD_TYPE_ENUM.SHOP} key={index} />;
-        })}
+        {items?.map((item, index) => (
+          <CustomCard items={{ ...item, setItems, adminView, update }} type={CARD_TYPE_ENUM.SHOP} key={index} />
+        ))}
       </div>
     </Container>
   );
-}
+};
+export default Shop;

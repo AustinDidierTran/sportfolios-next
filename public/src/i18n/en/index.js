@@ -622,6 +622,7 @@ export default {
     delete: {
       delete_bank_account_confirmation: 'Are you sure you want to delete your bank account ending with {{last4}}?',
       delete_cart_item_confirmation: 'Are you sure you want to delete this item from your cart?',
+      delete_this_item_from_shop: 'Are you sure you want to delete this item from your shop?',
       delete_comment_confirmation: 'Are you sure you want to delete this comment?',
       delete_confirmation_text: 'To delete, type {{name}}',
       delete_credit_card_confirmation: 'Are you sure you want to delete your credit card ending with {{last4}}?',
@@ -752,6 +753,7 @@ export default {
       no_remaining_spots:
         'Sorry, your registration has been refused. Event is now full and there are no available spots left.',
       no_roster: 'No roster',
+      no_sales: 'No sales',
       no_taxes: 'No taxes',
       no_team_in_prerank_position:
         'There is no team on some of the positions in prerank. You need more teams in your event or remove the empty positions from your phase.',
