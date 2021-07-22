@@ -19,11 +19,20 @@ export function deleteRosterPlayer(id: string): Promise<number> {
 export function deleteRoster(id: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/roster`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
 }
+export function deleteField(id: string): Promise<number> {
+  return api(formatRoute(`${BASE_URL}/field`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
+}
+
+export function deleteTimeslot(id: string): Promise<number> {
+  return api(formatRoute(`${BASE_URL}/timeslot`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
+}
 
 export function deleteEntity(id: string, type: string): Promise<number> {
   return api(formatRoute('/api/entity', null, { id, type }), { method: 'DELETE' }).then((res) => res.status);
 }
 
 export function deleteSessionExercise(sessionId: string, exerciseId: string): Promise<number> {
-  return api(formatRoute(`${BASE_URL}/sessionExercise`, null, { sessionId, exerciseId }), { method: 'DELETE' }).then((res) => res.status);
+  return api(formatRoute(`${BASE_URL}/sessionExercise`, null, { sessionId, exerciseId }), { method: 'DELETE' }).then(
+    (res) => res.status
+  );
 }

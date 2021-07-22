@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import FormDialog from '../../../components/Custom/FormDialog';
@@ -7,25 +7,51 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '../../../components/Custom/IconButton';
 import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { SEVERITY_ENUM } from '../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { updateField } from '../../../actions/service/entity/put';
+import { deleteField } from '../../../actions/service/entity/delete';
+import { ERROR_ENUM } from '../../../../common/errors';
+import * as yup from 'yup';
 
 export default function Field(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { field, games } = props;
+  const { field, games, update } = props;
 
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+
+  useEffect(() => {
+    if (field.field) {
+      formik.setFieldValue('name', field.field);
+    }
+  }, [field.field]);
+
+  const validationSchema = yup.object().shape({
+    name: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
 
   const formik = useFormik({
     initialValues: {
       name: '',
     },
+    validationSchema: validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { name } = values;
-      console.log('changeName', name);
+      const status = await updateField(field.id, name);
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        update();
+        setOpen(close);
+      }
     },
   });
 
@@ -45,8 +71,19 @@ export default function Field(props) {
     }
   };
 
-  const onDeleteConfirmed = () => {
-    console.log('deleteField', field);
+  const onDeleteConfirmed = async () => {
+    const status = await deleteField(field.id);
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else {
+      setOpenDelete(false);
+      update();
+    }
   };
 
   const buttons = [
@@ -59,7 +96,7 @@ export default function Field(props) {
     },
     {
       type: 'submit',
-      name: t('add.add'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
@@ -98,7 +135,7 @@ export default function Field(props) {
       />
       <FormDialog
         open={open}
-        title={t('add.add_field')}
+        title={t('edit.edit_field')}
         buttons={buttons}
         fields={fields}
         formik={formik}

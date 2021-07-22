@@ -923,13 +923,13 @@ export default function ScheduleInteractiveTool() {
 
   const Fields = fields.map((f) => (
     <div key={f.id}>
-      <Field field={f} games={games} />
+      <Field update={getData} field={f} games={games} />
     </div>
   ));
 
   const Times = timeslots.map((t) => (
     <div key={t.id}>
-      <Timeslot timeslot={t} games={games} />
+      <Timeslot update={getData} timeslot={t} games={games} />
     </div>
   ));
 
@@ -1027,9 +1027,9 @@ export default function ScheduleInteractiveTool() {
           <div style={{ height: `${timeslots?.length * 84 + 200}px`, paddingBottom: '100px' }}>
             <ReactGridLayout
               className={styles.gridLayoutTimes}
-              width={768}
-              cols={fields?.length}
+              maxCols={1}
               rowHeight={64}
+              width={2300}
               maxRows={timeslots?.length}
               margin={[0, 20]}
               layout={layoutTimes}

@@ -7,27 +7,51 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '../../../components/Custom/IconButton';
 import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { ACTION_ENUM, Store } from '../../../Store';
-import { SEVERITY_ENUM } from '../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { updateTimeslot } from '../../../actions/service/entity/put';
+import { deleteTimeslot } from '../../../actions/service/entity/delete';
+import * as yup from 'yup';
 
 export default function Timeslot(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const { timeslot, games } = props;
+  const { timeslot, games, update } = props;
 
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 
+  const validationSchema = yup.object().shape({
+    time: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    date: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+  });
+
   const formik = useFormik({
     initialValues: {
-      time: '',
+      time: moment.utc(timeslot.date).format('HH:mm'),
+      date: moment.utc(timeslot.date).format('YYYY-MM-DD'),
     },
+    validationSchema: validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const { time } = values;
-      console.log('changetime', time);
+      const { date, time } = values;
+      const timeZone = new Date(`${date} ${time}`).getTimezoneOffset() * 1000 * 60;
+      const realDate = new Date(`${date} ${time}`).getTime() - timeZone;
+      const status = await updateTimeslot(timeslot.id, realDate);
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: ERROR_ENUM.ERROR_OCCURED,
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
+      } else {
+        update();
+        setOpen(close);
+      }
     },
   });
 
@@ -47,8 +71,19 @@ export default function Timeslot(props) {
     }
   };
 
-  const onDeleteConfirmed = () => {
-    console.log('deleteField', timeslot);
+  const onDeleteConfirmed = async () => {
+    const status = await deleteTimeslot(timeslot.id);
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    } else {
+      setOpenDelete(false);
+      update();
+    }
   };
 
   const buttons = [
@@ -61,17 +96,21 @@ export default function Timeslot(props) {
     },
     {
       type: 'submit',
-      name: t('add.add'),
+      name: t('edit.edit'),
       color: 'primary',
     },
   ];
 
   const fields = [
     {
+      namespace: 'date',
+      id: 'date',
+      type: 'date',
+    },
+    {
       namespace: 'time',
-      id: 'timeslot',
-      type: 'text',
-      label: t('timeslot'),
+      id: 'time',
+      type: 'time',
     },
   ];
 

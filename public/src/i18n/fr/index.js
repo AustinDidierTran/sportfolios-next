@@ -973,9 +973,9 @@ export default {
     cant_delete_paid_player:
       "Vous ne pouvez pas retirer ce joueur de l'alignement puisqu'il a déjà payé. Contactez un organisateur de l'événement pour obtenir de l'aide.",
     cant_delete_field:
-      "Vous ne pouvez pas supprimer ce terrain. Il y a toujours des parties associées à cette terrain. N'oubliez pas de sauvegarder vos changements",
+      "Vous ne pouvez pas supprimer ce terrain. Il y a toujours des parties associées à ce terrain. N'oubliez pas de sauvegarder vos changements",
     cant_delete_timeslot:
-      "Vous ne pouvez pas supprimer cette plage horaire. Il y a toujours des parties associées à ce plage horaire. N'oubliez pas de sauvegarder vos changements",
+      "Vous ne pouvez pas supprimer cette plage horaire. Il y a toujours des parties associées à cette plage horaire. N'oubliez pas de sauvegarder vos changements",
     cant_edit_game_score:
       "Les équipes ne sont pas encore définies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
     cant_have_different_phase: 'Les positions sont issues de phases différentes',
