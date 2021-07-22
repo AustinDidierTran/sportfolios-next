@@ -82,13 +82,14 @@ const ScoreSubmission: React.FunctionComponent = () => {
   );
 
   return (
-    <Paper title={t('score.score_submission_settings')}>
+    <Paper title={t('score.score_submission_setting')}>
       <form onSubmit={formik.handleSubmit}>
         <List>
           <ListItem>
             <CheckBox
               style={{ marginBottom: '6px' }}
               label={t('have_spirit')}
+              fullwidth
               checked={spiritSubmission}
               formik={formik}
               onChange={handleChecked}

@@ -807,7 +807,7 @@ export default {
       selected_team: 'Équipe sélectionnée',
     },
     score: {
-      score_submission_settings: 'Paramètre de soumission de résultats',
+      score_submission_setting: 'Paramètre de soumission de résultats',
       score_confirmed: 'Résultat confirmé',
       score_submission_conflict_description:
         "Notification reçue si vous êtes admin d'un événement et qu'il y a un conflit de score",

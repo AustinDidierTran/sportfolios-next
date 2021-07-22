@@ -802,7 +802,7 @@ export default {
       selected_team: 'Selected team',
     },
     score: {
-      score_submission_settings: 'Paramètre de soumission de score',
+      score_submission_setting: 'Score submission setting',
       score_confirmed: 'Score confirmed',
       score_submission_conflict_description:
         'Notification received if you are the admin of an event and there is a score conflict',
