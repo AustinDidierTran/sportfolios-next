@@ -623,7 +623,8 @@ export default {
       creation_date: 'Date de création',
     },
     delete: {
-      delete_field_confirmation: 'Êtes-vous certain de vouloir supprimer ce terrain',
+      delete_field_confirmation: 'Êtes-vous certain de vouloir supprimer ce terrain?',
+      delete_timeslot_confirmation: 'Êtes-vous certain de vouloir supprimer cette plage horaire?',
       delete_bank_account_confirmation:
         'Êtes-vous certain de vouloir supprimer votre compte bancaire finissant par {{last4}}?',
       delete_cart_item_confirmation: 'Êtes-vous certain de vouloir supprimer cet article de votre panier?',

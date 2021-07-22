@@ -11,6 +11,7 @@ import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { updateField } from '../../../actions/service/entity/put';
 import { deleteField } from '../../../actions/service/entity/delete';
 import { ERROR_ENUM } from '../../../../common/errors';
+import { COLORS } from '../../../utils/colors';
 import * as yup from 'yup';
 
 export default function Field(props) {
@@ -56,11 +57,7 @@ export default function Field(props) {
   });
 
   const onOpenDelete = () => {
-    if (
-      games.some((game) => {
-        return game.fieldId === field.id;
-      })
-    ) {
+    if (games.some((game) => game.fieldId === field.id)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_delete_field'),
@@ -113,20 +110,11 @@ export default function Field(props) {
   return (
     <div className={styles.divField}>
       <Typography className={styles.label}>{field.field}</Typography>
-      <IconButton
-        style={{ color: 'grey' }}
-        icon="Edit"
-        onClick={() => {
-          setOpen(true);
-        }}
-        className={styles.hide}
-      />
-      <IconButton style={{ color: 'grey' }} icon="Delete" onClick={onOpenDelete} className={styles.hide} />
+      <IconButton style={{ color: COLORS.grey }} icon="Edit" onClick={() => setOpen(true)} className={styles.hide} />
+      <IconButton style={{ color: COLORS.grey }} icon="Delete" onClick={onOpenDelete} className={styles.hide} />
       <AlertDialog
         open={openDelete}
-        onCancel={() => {
-          setOpenDelete(false);
-        }}
+        onCancel={() => setOpenDelete(false)}
         title={t('delete.delete_field_confirmation')}
         onSubmit={() => {
           setOpenDelete(false);
@@ -139,9 +127,7 @@ export default function Field(props) {
         buttons={buttons}
         fields={fields}
         formik={formik}
-        onClose={() => {
-          setOpen(false);
-        }}
+        onClose={() => setOpen(false)}
       />
     </div>
   );

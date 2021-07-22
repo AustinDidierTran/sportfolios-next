@@ -9,6 +9,7 @@ import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { formatDate } from '../../../utils/stringFormats';
+import { COLORS } from '../../../utils/colors';
 import moment from 'moment';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { updateTimeslot } from '../../../actions/service/entity/put';
@@ -56,11 +57,7 @@ export default function Timeslot(props) {
   });
 
   const onOpenDelete = () => {
-    if (
-      games.some((game) => {
-        return game.timeslotId === timeslot.id;
-      })
-    ) {
+    if (games.some((game) => game.timeslotId === timeslot.id)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_delete_field'),
@@ -117,20 +114,11 @@ export default function Timeslot(props) {
   return (
     <div className={styles.divTime}>
       <Typography className={styles.label}>{formatDate(moment.utc(timeslot.date), 'DD MMM HH:mm')}</Typography>
-      <IconButton
-        style={{ color: 'grey' }}
-        icon="Edit"
-        onClick={() => {
-          setOpen(true);
-        }}
-        className={styles.hide}
-      />
-      <IconButton style={{ color: 'grey' }} icon="Delete" onClick={onOpenDelete} className={styles.hide} />
+      <IconButton style={{ color: COLORS.grey }} icon="Edit" onClick={() => setOpen(true)} className={styles.hide} />
+      <IconButton style={{ color: COLORS.grey }} icon="Delete" onClick={onOpenDelete} className={styles.hide} />
       <AlertDialog
         open={openDelete}
-        onCancel={() => {
-          setOpenDelete(false);
-        }}
+        onCancel={() => setOpenDelete(false)}
         title={t('delete.delete_timeslot_confirmation')}
         onSubmit={() => {
           setOpenDelete(false);
@@ -143,9 +131,7 @@ export default function Timeslot(props) {
         buttons={buttons}
         fields={fields}
         formik={formik}
-        onClose={() => {
-          setOpen(false);
-        }}
+        onClose={() => setOpen(false)}
       />
     </div>
   );
