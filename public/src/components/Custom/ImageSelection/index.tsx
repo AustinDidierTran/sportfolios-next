@@ -119,32 +119,31 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <>
-      {imageList ? (
-        <>
-          <Typography className={styles.title} color={hasNoImage ? 'error' : 'textPrimary'}>
-            {t('select.select_image')}
-          </Typography>
-          <div className={styles.dialogContent}>
-            {CHIPS_MAP.map((c: any, index: number) => (
-              <Chip
-                key={index}
-                onClick={c.onClick}
-                label={t(c.label)}
-                variant={getVariant(c.type)}
-                className={styles.chip}
-                clickable
-              />
-            ))}
+      <Typography className={styles.title} color={hasNoImage ? 'error' : 'textPrimary'}>
+        {t('select.select_image')}
+      </Typography>
+      <div className={styles.dialogContent}>
+        {CHIPS_MAP.map((c: any, index: number) => (
+          <Chip
+            key={index}
+            onClick={c.onClick}
+            label={t(c.label)}
+            variant={getVariant(c.type)}
+            className={styles.chip}
+            clickable
+          />
+        ))}
+      </div>
+      <ImageList className={styles.imageList} cols={width > MOBILE_WIDTH ? 5 : 3}>
+        <div className={styles.container}>
+          <div className={styles.addImage}>
+            <Upload {...uploadImageProps}>
+              <CustomButton className={styles.import}>{t('import_image')}</CustomButton>
+            </Upload>
           </div>
-          <ImageList className={styles.imageList} cols={width > MOBILE_WIDTH ? 5 : 3}>
-            <div className={styles.container}>
-              <div className={styles.addImage}>
-                <Upload {...uploadImageProps}>
-                  <CustomButton className={styles.import}>{t('import_image')}</CustomButton>
-                </Upload>
-              </div>
-            </div>
-            {imageList.map((img) => (
+        </div>
+        {imageList
+          ? imageList.map((img) => (
               <ImageListItem key={img.photoUrl} className={styles.container}>
                 <img loading={'lazy'} className={styles.image} srcSet={img.photoUrl} />
                 <div className={styles.middle}>
@@ -158,10 +157,9 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
                   </CustomButton>
                 </div>
               </ImageListItem>
-            ))}
-          </ImageList>
-        </>
-      ) : null}
+            ))
+          : null}
+      </ImageList>
     </>
   );
 };
