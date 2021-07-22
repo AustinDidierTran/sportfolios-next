@@ -1074,7 +1074,7 @@ export default {
     elite_member: 'Membre élite',
     elite_membership: 'Affiliation Élite',
     elite: 'Élite',
-    other_games_depends_on_it: "Vous ne pouvez pas supprimer cette partie parce que d'autre parties en dépendent",
+    other_games_depends_on_it: "Vous ne pouvez pas supprimer cette partie parce que d'autres parties en dépendent",
     emergency_contact: "Contact d'urgence",
     employer: 'Employeur',
     empty_phase_spots_warning: 'Veuillez supprimer ou remplir les places vides avant de démarrer la phase.',

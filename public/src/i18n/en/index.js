@@ -1054,7 +1054,7 @@ export default {
     elite_member: 'Elite Member',
     elite_membership: 'Elite Membership',
     elite: 'Elite',
-    other_games_depends_on_it: "You can't delete this game because other games depends on it",
+    other_games_depends_on_it: "You can't delete this game because other games depend on it",
     emergency_contact: 'Emergency Contact',
     employer: 'Employer',
     empty_phase_spots_warning: 'There is still empty spots, fill them or delete them before starting the phase.',

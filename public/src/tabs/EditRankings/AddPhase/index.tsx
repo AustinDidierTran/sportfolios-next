@@ -5,7 +5,13 @@ import { useFormik } from 'formik';
 
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import {
+  COMPONENT_TYPE_ENUM,
+  PHASE_TYPE_ENUM,
+  SEVERITY_ENUM,
+  REQUEST_STATUS_ENUM,
+  ELIMINATION_BRACKET_SPOTS,
+} from '../../../../common/enums';
 import * as yup from 'yup';
 import { addPhase } from '../../../actions/service/entity/post';
 
@@ -122,28 +128,7 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
           componentType: COMPONENT_TYPE_ENUM.SELECT,
           namespace: 'spots',
           label: t('spots'),
-          options: [
-            {
-              display: '2',
-              value: 2,
-            },
-            {
-              display: '4',
-              value: 4,
-            },
-            {
-              display: '8',
-              value: 8,
-            },
-            {
-              display: '16',
-              value: 16,
-            },
-            {
-              display: '32',
-              value: 32,
-            },
-          ],
+          options: ELIMINATION_BRACKET_SPOTS,
         }
       : {
           namespace: 'spots',
