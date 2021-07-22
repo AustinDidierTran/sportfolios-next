@@ -623,6 +623,7 @@ export default {
       creation_date: 'Date de création',
     },
     delete: {
+      delete_field_confirmation: 'Êtes-vous certain de vouloir supprimer ce terrain',
       delete_bank_account_confirmation:
         'Êtes-vous certain de vouloir supprimer votre compte bancaire finissant par {{last4}}?',
       delete_cart_item_confirmation: 'Êtes-vous certain de vouloir supprimer cet article de votre panier?',
@@ -971,6 +972,10 @@ export default {
       "Vous ne pouvez pas ajouter de produit car l'administrateur n'a pas de compte banquaire",
     cant_delete_paid_player:
       "Vous ne pouvez pas retirer ce joueur de l'alignement puisqu'il a déjà payé. Contactez un organisateur de l'événement pour obtenir de l'aide.",
+    cant_delete_field:
+      "Vous ne pouvez pas supprimer ce terrain. Il y a toujours des parties associées à cette terrain. N'oubliez pas de sauvegarder vos changements",
+    cant_delete_timeslot:
+      "Vous ne pouvez pas supprimer cette plage horaire. Il y a toujours des parties associées à ce plage horaire. N'oubliez pas de sauvegarder vos changements",
     cant_edit_game_score:
       "Les équipes ne sont pas encore définies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
     cant_have_different_phase: 'Les positions sont issues de phases différentes',

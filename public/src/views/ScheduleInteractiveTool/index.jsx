@@ -1,26 +1,22 @@
 import React, { useEffect, useState, useContext, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { formatDate } from '../../utils/stringFormats';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Icon from '../../components/Custom/Icon';
 import Button from '../../components/Custom/Button';
 import { Store, ACTION_ENUM } from '../../Store';
 import { REQUEST_STATUS_ENUM, SEVERITY_ENUM, TABS_ENUM } from '../../../common/enums';
-import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import styles from './ScheduleInteractiveTool.module.css';
-
 import { v4 as uuidv4 } from 'uuid';
 import RGL from 'react-grid-layout';
 import { formatRoute } from '../../utils/stringFormats';
-
+import Field from './Field';
+import Timeslot from './Timeslot';
 import Hotkeys from 'react-hot-keys';
-
 import dynamic from 'next/dynamic';
 
 const GameCard = dynamic(() => import('./GameCard'));
@@ -926,14 +922,14 @@ export default function ScheduleInteractiveTool() {
   ));
 
   const Fields = fields.map((f) => (
-    <div className={styles.divField} key={f.id}>
-      <Typography className={styles.label}>{f.field}</Typography>
+    <div key={f.id}>
+      <Field field={f} games={games} />
     </div>
   ));
 
   const Times = timeslots.map((t) => (
-    <div className={styles.divTime} key={t.id}>
-      <Typography className={styles.label}>{formatDate(moment.utc(t.date), 'DD MMM HH:mm')}</Typography>
+    <div key={t.id}>
+      <Timeslot timeslot={t} games={games} />
     </div>
   ));
 
@@ -1031,7 +1027,7 @@ export default function ScheduleInteractiveTool() {
           <div style={{ height: `${timeslots?.length * 84 + 200}px`, paddingBottom: '100px' }}>
             <ReactGridLayout
               className={styles.gridLayoutTimes}
-              width={500}
+              width={768}
               cols={fields?.length}
               rowHeight={64}
               maxRows={timeslots?.length}

@@ -620,6 +620,8 @@ export default {
       creation_date: 'Creation date',
     },
     delete: {
+      delete_field_confirmation: 'Are you sure you want to delete this field',
+      delete_timeslot_confirmation: 'Are you sure you want to delete this timeslot',
       delete_bank_account_confirmation: 'Are you sure you want to delete your bank account ending with {{last4}}?',
       delete_cart_item_confirmation: 'Are you sure you want to delete this item from your cart?',
       delete_comment_confirmation: 'Are you sure you want to delete this comment?',
@@ -658,6 +660,8 @@ export default {
     edit: {
       edit_credit_cards: 'Edit credit cards',
       edit_game: 'Edit game',
+      edit_field: 'Edit field',
+      edit_timeslot: 'Edit timeslot',
       edit_image: 'Edit image',
       edit_infos: 'Edit infos',
       edit_membership: 'Edit membership',
@@ -954,6 +958,10 @@ export default {
     cant_add_product_no_bank_account: "Can't add product admin has no bank account",
     cant_delete_paid_player:
       "You can't remove this player from the roster since he already paid. Contact an event organizer for help.",
+    cant_delete_field:
+      "You can't delete this field, there are still games attributed to this field. Dont forget to save your changes",
+    cant_delete_timeslot:
+      "You can't delete this timeslot, there are still games attributed to this timeslot. Dont forget to save your changes",
     cant_edit_game_score: 'Teams are still undefined. Start the phase or end the preceding phase before editing score.',
     cant_have_different_phase: 'Positions are issued from different phases',
     cant_have_same_positions: "Can't have a position playing against itself",
