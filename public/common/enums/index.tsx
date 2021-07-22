@@ -88,7 +88,31 @@ export enum COMPONENT_TYPE_ENUM {
 export enum PHASE_TYPE_ENUM {
   CUSTOM = 'custom',
   POOL = 'pool',
+  ELIMINATION_BRACKET = 'elimination bracket',
 }
+
+export const ELIMINATION_BRACKET_SPOTS = [
+  {
+    display: '2',
+    value: 2,
+  },
+  {
+    display: '4',
+    value: 4,
+  },
+  {
+    display: '8',
+    value: 8,
+  },
+  {
+    display: '16',
+    value: 16,
+  },
+  {
+    display: '32',
+    value: 32,
+  },
+];
 
 export enum EXERCISES_TYPE_ENUM {
   DEFAULT = 'default',
