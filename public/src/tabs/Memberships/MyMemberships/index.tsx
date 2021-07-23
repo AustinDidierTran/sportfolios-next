@@ -88,7 +88,7 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getPrimary = (member: Member): string => {
-    const name = t(getMembershipName(member.memberType));
+    const name = getMembershipName(member.memberType);
     return name;
   };
 

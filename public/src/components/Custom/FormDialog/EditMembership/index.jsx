@@ -88,7 +88,7 @@ export default function EditMembership(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
       primary: `${person?.name} ${person?.surname}`,
-      secondary: t(getMembershipName(membership)),
+      secondary: getMembershipName(membership),
     },
     {
       namespace: 'expirationDate',

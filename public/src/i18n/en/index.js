@@ -479,6 +479,7 @@ export default {
       registration_type: 'Registration type',
       registration_fee_team: 'Registration fees per team: {{fee}}',
       registration_fee_player: 'Registration fees per player: {{fee}}',
+      registration_for: 'Registration for',
       unregister_all: 'Unregister all',
       unregister_pending: 'Unregistrations and refunds in progress, please wait...',
       unregister: 'Unregister',

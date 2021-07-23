@@ -17,9 +17,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useFormik } from 'formik';
 import styles from './ImportMembers.module.css';
-import { formatRoute, validateDateWithYear, validateEmail } from '../../utils/stringFormats';
+import { formatRoute, getMembershipName, validateDateWithYear, validateEmail } from '../../utils/stringFormats';
 import api from '../../actions/api';
-import { getMembershipName } from '../../../common/functions';
 import moment from 'moment';
 import { ERROR_ENUM } from '../../../common/errors';
 import { withStyles } from '@material-ui/core/styles';
@@ -98,7 +97,7 @@ export default function ImportMembers() {
     const data = res.data.reduce((prev, curr) => {
       if (!prev.some((p) => p.value === curr.membershipType)) {
         const res = {
-          display: t(getMembershipName(curr.membershipType)),
+          display: getMembershipName(curr.membershipType),
           value: curr.membershipType,
         };
         prev.push(res);
@@ -403,7 +402,7 @@ export default function ImportMembers() {
         title={t('complete_transfer')}
         description={t('import_members_confirmation', {
           membersAmount: members.length || '',
-          membershipName: t(getMembershipName(formik.values.membership)),
+          membershipName: getMembershipName(formik.values.membership),
         })}
         onSubmit={formik.handleSubmit}
       />

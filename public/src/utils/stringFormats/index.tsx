@@ -1,4 +1,10 @@
-import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
+import {
+  MEMBERSHIP_LENGTH_ENUM,
+  MEMBERSHIP_TYPE_ENUM,
+  GLOBAL_ENUM,
+  ROSTER_ROLE_ENUM,
+  INVOICE_STATUS_ENUM,
+} from '../../../common/enums';
 import isArray from 'lodash/isArray';
 import moment from 'moment';
 import 'moment/locale/fr';
@@ -102,13 +108,13 @@ export const formatIntervalDate = (start: any, end: any): string | null => {
 
 export const getEntityTypeName = (type: number): string => {
   if (type === GLOBAL_ENUM.PERSON) {
-    return 'person.person';
+    return i18n.t('person.person');
   } else if (type === GLOBAL_ENUM.TEAM) {
-    return 'team.team';
+    return i18n.t('team.team');
   } else if (type === GLOBAL_ENUM.ORGANIZATION) {
-    return 'organization';
+    return i18n.t('organization');
   } else if (type === GLOBAL_ENUM.EVENT) {
-    return 'event.event';
+    return i18n.t('event.event');
   } else {
     return '';
   }
@@ -123,32 +129,46 @@ export const formatPageTitle = (title?: string): string => {
 
 export const getMembershipName = (type: number): string => {
   if (type === MEMBERSHIP_TYPE_ENUM.RECREATIONAL) {
-    return 'recreational_member';
+    return i18n.t('recreational_member');
   } else if (type === MEMBERSHIP_TYPE_ENUM.COMPETITIVE) {
-    return 'competitive_member';
+    return i18n.t('competitive_member');
   } else if (type === MEMBERSHIP_TYPE_ENUM.ELITE) {
-    return 'elite_member';
+    return i18n.t('elite_member');
   } else if (type === MEMBERSHIP_TYPE_ENUM.JUNIOR) {
-    return 'junior_member';
+    return i18n.t('junior_member');
   } else {
     return '';
+  }
+};
+export const getPaymentStatusName = (status: string): string => {
+  switch (status) {
+    case INVOICE_STATUS_ENUM.OPEN:
+      return i18n.t('payment.not_paid');
+    case INVOICE_STATUS_ENUM.PAID:
+      return i18n.t('payment.paid');
+    case INVOICE_STATUS_ENUM.FREE:
+      return i18n.t('free');
+    case INVOICE_STATUS_ENUM.REFUNDED:
+      return i18n.t('refunded');
+    default:
+      return '';
   }
 };
 
 export const getMembershipType = (length?: number, date?: string): string | undefined => {
   if (length) {
     if (length === MEMBERSHIP_LENGTH_ENUM.ONE_YEAR) {
-      return 'yearly';
+      return i18n.t('yearly');
     }
     if (length === MEMBERSHIP_LENGTH_ENUM.SIX_MONTH) {
-      return 'biannual';
+      return i18n.t('biannual');
     }
     if (length === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
-      return 'monthly';
+      return i18n.t('monthly');
     }
     return '';
   } else if (date) {
-    return 'fixed_date';
+    return i18n.t('fixed_date');
   } else {
     return '';
   }
