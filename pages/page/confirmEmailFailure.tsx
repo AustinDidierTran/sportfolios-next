@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const ConfirmEmailFailure = dynamic(() => import('../../public/src/views/ConfirmEmail/ConfirmEmailFailure'));
 
-const ConfirmEmailFailureRoute = () => {
+const ConfirmEmailFailureRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

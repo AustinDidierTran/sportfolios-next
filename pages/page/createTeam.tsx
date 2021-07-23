@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const TeamCreation = dynamic(() => import('../../public/src/views/CreateTeam'));
 
-const CreateTeam = () => {
+const CreateTeam: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

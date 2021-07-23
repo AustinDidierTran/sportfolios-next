@@ -9,17 +9,17 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const AddPaymentMethod = dynamic(() => import('../../public/src/views/AddPaymentMethod'));
 
-const AddPaymentMethodRoute = () => {
+const AddPaymentMethodRoute: React.FunctionComponent = () => {
   const router = useRouter();
   const { redirect: redirectProps } = router.query;
   const { t } = useTranslation();
 
-  const redirect = useMemo(() => {
+  const redirect = useMemo<string>(() => {
     if (redirectProps) {
-      return redirectProps;
+      return redirectProps.toString();
     }
     return ROUTES.userSettings;
-  });
+  }, [redirectProps]);
 
   if (redirect) {
     return (

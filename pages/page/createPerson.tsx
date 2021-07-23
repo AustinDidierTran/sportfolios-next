@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const PersonCreation = dynamic(() => import('../../public/src/views/CreatePerson'));
 
-const CreatePerson = () => {
+const CreatePerson: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

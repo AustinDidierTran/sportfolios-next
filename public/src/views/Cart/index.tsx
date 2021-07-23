@@ -13,12 +13,19 @@ import { goTo } from '../../actions/goTo';
 const CartTab = dynamic(() => import('../../tabs/Cart'));
 const Purchases = dynamic(() => import('../../tabs/Purchases'));
 
-export default function Cart() {
+type ITab = {
+  value: string;
+  component: any;
+  label: string;
+  icon: string;
+};
+
+const Cart: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const { tab } = router.query;
 
-  const tabs = [
+  const tabs: ITab[] = [
     {
       value: TABS_ENUM.CART,
       component: CartTab,
@@ -34,7 +41,7 @@ export default function Cart() {
     },
   ];
 
-  const index = useMemo(() => {
+  const index = useMemo<number>(() => {
     const res = tabs.findIndex((s) => s.value === tab);
     if (res === -1) {
       return 0;
@@ -42,11 +49,11 @@ export default function Cart() {
     return res;
   }, [tab, tabs]);
 
-  const onClick = (s) => {
+  const onClick = (s: ITab) => {
     goTo(ROUTES_ENUM.cart, null, { tab: s.value });
   };
 
-  const OpenTab = useMemo(() => {
+  const OpenTab = useMemo<any>(() => {
     const res = tabs[index];
     if (res) {
       return res.component;
@@ -66,4 +73,5 @@ export default function Cart() {
       <OpenTab />
     </IgContainer>
   );
-}
+};
+export default Cart;

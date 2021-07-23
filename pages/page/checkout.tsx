@@ -8,7 +8,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const Checkout = dynamic(() => import('../../public/src/views/Checkout'));
 
-const CheckoutRoute = () => {
+const CheckoutRoute: React.FunctionComponent = () => {
   const { isLoading, response } = useApiRoute('/api/shop/cartTotal');
   const { t } = useTranslation();
 

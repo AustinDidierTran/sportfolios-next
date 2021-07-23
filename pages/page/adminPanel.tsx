@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const AdminPanel = dynamic(() => import('../../public/src/views/AdminPanel'));
 
-const AdminPanelRoute = () => {
+const AdminPanelRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

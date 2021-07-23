@@ -11,7 +11,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const AddBankAccount = dynamic(() => import('../../public/src/views/AddBankAccount'));
 
-const AddBankAccountRoute = () => {
+const AddBankAccountRoute: React.FunctionComponent = () => {
   const router = useRouter();
   const { entityId, id } = router.query;
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ const AddBankAccountRoute = () => {
     hasStripeAccount();
   }, [entityId]);
 
-  const hasStripeAccount = async () => {
+  const hasStripeAccount = async (): Promise<void> => {
     if (!entityId) {
       return;
     }
@@ -38,7 +38,7 @@ const AddBankAccountRoute = () => {
           <meta property="og:description" content={t('metadata.addBankAccount.description')} />
           <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
         </Head>
-        <AddBankAccount entityId={entityId} id={id} />
+        <AddBankAccount entityId={entityId.toString()} id={id.toString()} />
       </>
     );
   }
