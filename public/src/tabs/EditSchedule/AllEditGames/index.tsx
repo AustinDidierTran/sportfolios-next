@@ -80,10 +80,10 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
       timeSlots: IFilterFields[];
       onlyYourGames: boolean;
     } = {
-      teams: [{value: SELECT_ENUM.ALL, display: ''}],
-      phases: [{value: SELECT_ENUM.ALL, display: ''}],
-      fields: [{value: SELECT_ENUM.ALL, display: ''}],
-      timeSlots: [{value: SELECT_ENUM.ALL, display: ''}],
+      teams: [{ value: SELECT_ENUM.ALL, display: '' }],
+      phases: [{ value: SELECT_ENUM.ALL, display: '' }],
+      fields: [{ value: SELECT_ENUM.ALL, display: '' }],
+      timeSlots: [{ value: SELECT_ENUM.ALL, display: '' }],
       onlyYourGames,
     };
     if (teams[0].value != SELECT_ENUM.ALL) {
@@ -107,9 +107,9 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     }
     if (timeSlots[0].value != SELECT_ENUM.ALL) {
       games = games.filter((game: Games) =>
-        (timeSlots.some(
+        timeSlots.some(
           (timeSlot) => moment(game.startTime).format('YYYY M D') === moment(timeSlot.value).format('YYYY M D')
-        ))
+        )
       );
       filter.timeSlots = timeSlots;
     }
@@ -125,6 +125,12 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
     { name: t('upcoming_games'), game: games },
     { name: t('past_games'), game: pastGames },
   ];
+
+  const update = () => {
+    if (oldFilter) {
+      filter(oldFilter.teams, oldFilter.phases, oldFilter.fields, oldFilter.timeSlots, oldFilter.onlyYourGames);
+    }
+  };
 
   return (
     <>
@@ -143,8 +149,8 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
             />
           ))}
         </Tabs>
-        <EditGames games={games} isOpen={index == 0 ? true : false} update={getGames} />
-        <EditGames games={pastGames} isOpen={index == 1 ? true : false} update={getGames} />
+        <EditGames games={games} isOpen={index == 0 ? true : false} update={update} />
+        <EditGames games={pastGames} isOpen={index == 1 ? true : false} update={update} />
       </div>
     </>
   );
