@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 
 const Login = dynamic(() => import('../../public/src/views/Login'));
 
-const LoginRoute = () => {
+const LoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

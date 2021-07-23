@@ -1,26 +1,26 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ROUTES_ENUM, IMAGE_ENUM } from '../../public/common/enums';
-import { CLIENT_BASE_URL } from '../../conf';
 import { NextSeo } from 'next-seo';
+import { CLIENT_BASE_URL } from '../../conf';
+import { ROUTES_ENUM, IMAGE_ENUM } from '../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const Signup = dynamic(() => import('../../public/src/views/Signup'));
+const LandingPage = dynamic(() => import('../../public/src/views/LandingPage'));
 
-const SignupRoute = () => {
+const LandingPageRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
     <>
       <NextSeo
-        title={t('metadata.signup.title')}
-        description={t('metadata.signup.description')}
+        title={t('metadata.landingPage.title')}
+        description={t('metadata.landingPage.description')}
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.signup}`,
-          title: t('metadata.signup.title'),
-          description: t('metadata.signup.description'),
+          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.landingPage}`,
+          title: t('metadata.landingPage.title'),
+          description: t('metadata.landingPage.description'),
           images: [
             {
               url: IMAGE_ENUM.SPORTFOLIOS_BANNER,
@@ -42,9 +42,9 @@ const SignupRoute = () => {
           cardType: 'summary_large_image',
         }}
       />
-      <Signup />
+      <LandingPage />
     </>
   );
 };
 
-export default SignupRoute;
+export default LandingPageRoute;

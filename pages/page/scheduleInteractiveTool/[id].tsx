@@ -9,7 +9,7 @@ import { MOBILE_WIDTH } from '../../../public/common/constants';
 const ScheduleInteractiveTool = dynamic(() => import('../../../public/src/views/ScheduleInteractiveTool'));
 const ScheduleManagerMobile = dynamic(() => import('../../../public/src/views/ScheduleManagerMobile'));
 
-const ScheduleInteractiveToolRoute = () => {
+const ScheduleInteractiveToolRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const [width] = useWindowSize();
 

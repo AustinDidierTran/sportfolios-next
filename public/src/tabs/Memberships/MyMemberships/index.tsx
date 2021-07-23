@@ -62,7 +62,7 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
           const person = await getEntity(p.personId);
           const items = await Promise.all(
             data.map((d, index) => ({
-              primary: getPrimary(d),
+              primary: getMembershipName(d.memberType),
               secondary: getSecondary(d),
               status: d.status,
               type: GLOBAL_ENUM.MEMBERSHIP,
@@ -85,11 +85,6 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
     );
     const res = members.filter((m) => m);
     setMembers(res);
-  };
-
-  const getPrimary = (member: Member): string => {
-    const name = getMembershipName(member.memberType);
-    return name;
   };
 
   const getSecondary = (member: Member): string => {

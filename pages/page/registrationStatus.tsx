@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const RegistrationStatus = dynamic(() => import('../../public/src/views/RegistrationStatus'));
 
-const RegistrationStatusRoute = () => {
+const RegistrationStatusRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

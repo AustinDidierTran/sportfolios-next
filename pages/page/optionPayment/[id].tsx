@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../../public/common/enums';
 
 const OptionPayment = dynamic(() => import('../../../public/src/views/OptionPayment'));
 
-const OptionPaymentRoute = () => {
+const OptionPaymentRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

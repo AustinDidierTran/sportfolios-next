@@ -4,21 +4,21 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../../public/common/enums';
 
-const TransferPerson = dynamic(() => import('../../../public/src/views/TransferPerson'));
+const Sales = dynamic(() => import('../../../public/src/views/Sales'));
 
-const TransferPersonRoute = () => {
+const SalesRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.transferPerson.title')} />
-        <meta property="og:description" content={t('metadata.transferPerson.description')} />
+        <meta property="og:title" content={t('metadata.sales.title')} />
+        <meta property="og:description" content={t('metadata.sales.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <TransferPerson />
+      <Sales />
     </>
   );
 };
 
-export default TransferPersonRoute;
+export default SalesRoute;

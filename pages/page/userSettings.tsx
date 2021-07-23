@@ -4,21 +4,21 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../public/common/enums';
 
-const RedirectWithToken = dynamic(() => import('../../public/src/views/RedirectWithToken'));
+const UserSettings = dynamic(() => import('../../public/src/views/UserSettings'));
 
-const RedirectRoute = () => {
+const UserSettingsRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.redirect.title')} />
-        <meta property="og:description" content={t('metadata.redirect.description')} />
+        <meta property="og:title" content={t('metadata.userSettings.title')} />
+        <meta property="og:description" content={t('metadata.userSettings.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <RedirectWithToken />
+      <UserSettings />
     </>
   );
 };
 
-export default RedirectRoute;
+export default UserSettingsRoute;

@@ -7,7 +7,7 @@ import { IMAGE_ENUM } from '../../../public/common/enums';
 
 const RosterInvite = dynamic(() => import('../../../public/src/views/RosterInvite'));
 
-const RosterInviteRoute = () => {
+const RosterInviteRoute: React.FunctionComponent = () => {
   const router = useRouter();
   const { token } = router.query;
   const { t } = useTranslation();

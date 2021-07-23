@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../../public/src/utils/stringFormats';
@@ -9,11 +9,16 @@ import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import dynamic from 'next/dynamic';
 
-const PlayersAcceptation = dynamic(() => import('../../../public/src/views/PlayersAcceptation'));
+const TeamsAcceptation = dynamic(() => import('../../../public/src/views/TeamsAcceptation'));
 
-const PlayersAcceptationRoute = () => {
+type ITeam = {
+  items: { id: string };
+  type: string;
+};
+
+const TeamsAcceptationRoute: React.FunctionComponent = () => {
   const router = useRouter();
-  const { personId } = router.query;
+  const { rosterId } = router.query;
   const [cards, setCards] = useState([]);
   const { t } = useTranslation();
   const {
@@ -21,34 +26,34 @@ const PlayersAcceptationRoute = () => {
     state: { id: eventId },
   } = useContext(Store);
 
-  const update = async (personId, registrationStatus) => {
+  const update = async (rosterId: string, registrationStatus: string): Promise<void> => {
     if (registrationStatus === STATUS_ENUM.UNCHANGED) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('player_skipped'),
+        message: t('team.team_skipped'),
         severity: SEVERITY_ENUM.INFO,
         vertical: 'top',
       });
     } else {
-      await api('/api/entity/playerAcceptation', {
+      await api('/api/entity/teamAcceptation', {
         method: 'PUT',
         body: JSON.stringify({
           eventId,
-          personId,
+          rosterId,
           registrationStatus,
         }),
       });
       if (registrationStatus === STATUS_ENUM.ACCEPTED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('player_accepted'),
+          message: t('team.team_accepted'),
           severity: SEVERITY_ENUM.SUCCESS,
           vertical: 'top',
         });
       } else if (registrationStatus === STATUS_ENUM.REFUSED) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('player_refused'),
+          message: t('team.team_refused'),
           severity: SEVERITY_ENUM.ERROR,
           vertical: 'top',
         });
@@ -56,28 +61,28 @@ const PlayersAcceptationRoute = () => {
     }
   };
 
-  const getCardsInfos = async () => {
+  const getCardsInfos = async (): Promise<void> => {
     if (eventId) {
       const { data } = await api(
-        formatRoute('/api/entity/playersPendingAndRefused', null, {
+        formatRoute('/api/entity/teamsPendingAndRefused', null, {
           eventId,
         })
       );
 
-      const pending = data.pending?.map((p) => {
-        return { items: p, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
+      const pending = data.pending?.map((t: ITeam) => {
+        return { items: t, type: CARD_TYPE_ENUM.ACCEPT_TEAM_INFOS };
       });
-      const refused = data.refused?.map((t) => {
-        return { items: t, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
+      const refused = data.refused?.map((t: ITeam) => {
+        return { items: t, type: CARD_TYPE_ENUM.ACCEPT_TEAM_INFOS };
       });
-      const players = pending.concat(refused);
+      const teams = pending.concat(refused);
 
-      if (personId) {
-        players?.sort((a, b) => {
-          return a.items.id == personId ? -1 : b.items.id == personId ? 1 : 0;
+      if (rosterId) {
+        teams?.sort((a: ITeam, b: ITeam) => {
+          return a.items.id == rosterId ? -1 : b.items.id == rosterId ? 1 : 0;
         });
       }
-      setCards(players);
+      setCards(teams);
     }
   };
 
@@ -90,13 +95,13 @@ const PlayersAcceptationRoute = () => {
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.playersAcceptation.title')} />
-        <meta property="og:description" content={t('metadata.playersAcceptation.description')} />
+        <meta property="og:title" content={t('metadata.teamsAcceptation.title')} />
+        <meta property="og:description" content={t('metadata.teamsAcceptation.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <PlayersAcceptation cards={cards} update={update} getCards={getCardsInfos} />
+      <TeamsAcceptation cards={cards} update={update} getCards={getCardsInfos} />
     </>
   );
 };
 
-export default PlayersAcceptationRoute;
+export default TeamsAcceptationRoute;

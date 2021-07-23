@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const PasswordRecovery = dynamic(() => import('../../public/src/views/PasswordRecovery'));
 
-const PasswordRecoveryRoute = () => {
+const PasswordRecoveryRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

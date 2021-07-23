@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const ProductAddedToCart = dynamic(() => import('../../public/src/views/ProductAddedToCart'));
 
-const ProductAddedToCartRoute = () => {
+const ProductAddedToCartRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

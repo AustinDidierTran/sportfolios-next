@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../../../public/common/enums';
 
 const ShopDetails = dynamic(() => import('../../../../public/src/views/ShopDetails'));
 
-const ShopDetailsRoute = () => {
+const ShopDetailsRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

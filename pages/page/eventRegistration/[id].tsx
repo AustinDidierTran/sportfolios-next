@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../../public/common/enums';
 
 const EventRegistration = dynamic(() => import('../../../public/src/views/EventRegistration'));
 
-const EventRegistrationRoute = () => {
+const EventRegistrationRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

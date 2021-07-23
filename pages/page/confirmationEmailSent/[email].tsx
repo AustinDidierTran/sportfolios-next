@@ -7,7 +7,7 @@ import { IMAGE_ENUM } from '../../../public/common/enums';
 
 const ConfirmationEmailSent = dynamic(() => import('../../../public/src/views/ConfirmationEmailSent'));
 
-const ConfirmationEmailSentRoute = () => {
+const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
   const router = useRouter();
   const { email } = router.query;
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ const ConfirmationEmailSentRoute = () => {
         <meta property="og:description" content={t('metadata.confirmationEmailSent.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <ConfirmationEmailSent email={email} />
+      <ConfirmationEmailSent email={email.toString()} />
     </>
   );
 };

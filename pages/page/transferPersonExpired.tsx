@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const TransferPersonExpired = dynamic(() => import('../../public/src/views/TransferPerson/TransferPersonExpired'));
 
-const TransferPersonExpiredRoute = () => {
+const TransferPersonExpiredRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (

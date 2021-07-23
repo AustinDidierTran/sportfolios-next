@@ -6,7 +6,7 @@ import { IMAGE_ENUM } from '../../public/common/enums';
 
 const OrderProcessed = dynamic(() => import('../../public/src/views/OrderProcessed'));
 
-const OrderProcessedRoute = () => {
+const OrderProcessedRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
