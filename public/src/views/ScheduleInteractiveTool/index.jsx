@@ -14,11 +14,11 @@ import styles from './ScheduleInteractiveTool.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import RGL from 'react-grid-layout';
 import { formatRoute } from '../../utils/stringFormats';
-import Field from './Field';
-import Timeslot from './Timeslot';
 import Hotkeys from 'react-hot-keys';
 import dynamic from 'next/dynamic';
 
+const Timeslot = dynamic(() => import('./Timeslot'));
+const Field = dynamic(() => import('./Field'));
 const GameCard = dynamic(() => import('./GameCard'));
 const SuggestedGames = dynamic(() => import('./SuggestedGames'));
 const AddFieldInteractiveTool = dynamic(() => import('./AddFieldInteractiveTool'));
