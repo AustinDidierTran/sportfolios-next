@@ -29,7 +29,7 @@ const EditMemberships: React.FunctionComponent = () => {
 
   const [options, setOptions] = useState<IOptions[]>([]);
 
-  useEffect(():void => {
+  useEffect((): void => {
     if (id) {
       getMemberships();
     }
@@ -39,8 +39,8 @@ const EditMemberships: React.FunctionComponent = () => {
     const res = await getMembershipsApi(id);
 
     const data = res.map((d) => ({
-      membership: t(getMembershipName(d.membershipType)),
-      membershipTypeText: t(getMembershipType(d.length, d.fixedDate)),
+      membership: getMembershipName(d.membershipType),
+      membershipTypeText: getMembershipType(d.length, d.fixedDate),
       expirationDate: getExpirationDate(d.length, d.fixedDate),
       price: d.price,
       transactionFees: d.transactionFees,
@@ -101,5 +101,5 @@ const EditMemberships: React.FunctionComponent = () => {
       <List items={options} />
     </Paper>
   );
-}
+};
 export default EditMemberships;

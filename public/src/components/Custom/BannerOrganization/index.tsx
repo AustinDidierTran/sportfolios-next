@@ -9,8 +9,6 @@ import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
 import { Entity, Member } from '../../../../../typescript/types';
 
-
-
 interface IProps {
   basicInfos: Entity;
   onBecomeMemberButton: () => void;
@@ -91,7 +89,7 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
         </div>
         <div className={styles.chip}>
           {member ? (
-            <Chip label={t(getMembershipName(member.memberType))} color="primary" variant="outlined" />
+            <Chip label={getMembershipName(member.memberType)} color="primary" variant="outlined" />
           ) : (
             <Chip label={t('not_member')} style={{ color: 'grey' }} variant="outlined" />
           )}
@@ -99,5 +97,5 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
       </div>
     </div>
   );
-}
-export default BannerOrganization; 
+};
+export default BannerOrganization;

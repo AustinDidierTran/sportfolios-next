@@ -72,7 +72,7 @@ export default function MemberItem(props) {
           <ListItemText
             secondaryTypographyProps={{ color: 'secondary' }}
             className={styles.item2}
-            primary={t(getMembershipName(memberType))}
+            primary={getMembershipName(memberType)}
             secondary={`${t('expired_on')}
               ${formatDate(moment.utc(expirationDate))}`}
             onClick={() => {
@@ -82,7 +82,7 @@ export default function MemberItem(props) {
         ) : (
           <ListItemText
             className={styles.item2}
-            primary={t(getMembershipName(memberType))}
+            primary={getMembershipName(memberType)}
             secondary={`${t('valid_until')}
               ${formatDate(moment.utc(expirationDate))}`}
             onClick={() => {

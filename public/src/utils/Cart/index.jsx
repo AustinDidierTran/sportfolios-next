@@ -1,4 +1,6 @@
-import { GLOBAL_ENUM, MEMBERSHIP_TYPE_ENUM } from '../../../common/enums';
+import { GLOBAL_ENUM } from '../../../common/enums';
+import { getMembershipName } from '../stringFormats';
+import i18n from '../../i18n';
 
 const groupBy = (list, keyGetter) => {
   const map = new Map();
@@ -32,44 +34,44 @@ const getNbInCart = (cart, key) => {
 
 const getProductName = (type) => {
   if (type === GLOBAL_ENUM.MEMBERSHIP) {
-    return 'member.membership';
+    return i18n.t('member.membership');
   }
   if (type === GLOBAL_ENUM.SHOP_ITEM) {
-    return type;
+    return i18n.t(type);
   }
   if (type === GLOBAL_ENUM.EVENT) {
-    return 'event.event';
+    return i18n.t('event.event');
   }
   return '';
 };
 
-const getMembershipName = (type) => {
-  if (type === MEMBERSHIP_TYPE_ENUM.RECREATIONAL) {
-    return 'Recreational member';
-  } else if (type === MEMBERSHIP_TYPE_ENUM.COMPETITIVE) {
-    return 'Competitive member';
-  } else if (type === MEMBERSHIP_TYPE_ENUM.ELITE) {
-    return 'Elite member';
-  } else if (type === MEMBERSHIP_TYPE_ENUM.JUNIOR) {
-    return 'Junior member';
-  } else {
-    return '';
-  }
-};
 const getProductDetail = (metadata) => {
   switch (metadata.type) {
     case GLOBAL_ENUM.MEMBERSHIP:
-      return getMembershipName(metadata.membershipType);
+      return getMembershipName(metadata.membership_type);
     case GLOBAL_ENUM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:
-      if (metadata.isIndividualOption) {
-        return `${metadata.event.basicInfos.name} | registration for ${metadata.name} | ${metadata.team?.name}`;
-      }
-      return `${metadata.event.basicInfos.name} | registration for ${metadata.team?.name}`;
+      return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.team?.name}`;
     default:
       return '';
   }
 };
 
-export { groupBy, groupedCart, getNbInCart, getProductName, getProductDetail };
+const getRegistrationFor = (metadata) => {
+  switch (metadata.type) {
+    case GLOBAL_ENUM.MEMBERSHIP:
+      return `${metadata?.person?.name} ${metadata?.person?.surname}`;
+    case GLOBAL_ENUM.SHOP_ITEM:
+      return '';
+    case GLOBAL_ENUM.EVENT:
+      if (metadata.isIndividualOption) {
+        return metadata.name;
+      }
+      return '';
+    default:
+      return '';
+  }
+};
+
+export { groupBy, groupedCart, getNbInCart, getProductName, getProductDetail, getRegistrationFor };
