@@ -10,7 +10,6 @@ import {
 } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
-import Avatar from '../../../components/Custom/Avatar';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { useFormik } from 'formik';
 import styles from './GameDetailed.module.css';
@@ -20,13 +19,10 @@ import CustomIconButton from '../../../components/Custom/IconButton';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
-import Typography from '@material-ui/core/Typography';
-import moment from 'moment';
 import dynamic from 'next/dynamic';
-import { goTo, ROUTES } from '../../../actions/goTo';
-import { formatDate } from '../../../utils/stringFormats';
 import { Entity, PersonAdmin, GameInfo, SubmissionerInfos, SubmissionerTeam } from '../../../../../typescript/types';
 import { getGameInfo, getHasSpirit, getPossibleSubmissionerInfos } from '../../../actions/service/entity/get';
+import { MultipleTeamGame } from '../../../components/Custom/Card/MultipleTeamGame';
 
 const EnterScore = dynamic(
   () => import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
@@ -311,17 +307,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
             <div>
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
-            <div className={styles.gameInfo}>
-              <div className={styles.gameInfoDate}>
-                {game.startTime
-                  ? formatDate(moment.utc(game.startTime), 'dddd Do MMM').charAt(0).toUpperCase() +
-                    formatDate(moment.utc(game.startTime), 'dddd Do MMM').slice(1)
-                  : t('no.no_time_yet')}
-              </div>
-              <div className={styles.phaseName}>{game.phaseName}</div>
-              <div>{game.field ? game.field : t('no.no_field_yet')}</div>
-            </div>
-
+            <h2>{game.description || t('game')}</h2>
             <div className={styles.iconOptions}>
               {isAdmin && (
                 <CustomIconButton
@@ -333,49 +319,13 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
               )}
             </div>
           </div>
-          <div className={styles.content}>
-            {game.positions.map((team, i) => (
-              <div key={i}>
-                {i % 2 === 0 ? (
-                  <div className={styles.teamContent}>
-                    <a href="#">
-                      <div
-                        onClick={() => {
-                          goTo(ROUTES.entity, { id: team.id });
-                        }}
-                      >
-                        <Avatar photoUrl={team.photoUrl} size="lg"></Avatar>
-                        <Typography className={styles.teamName} variant="h5">
-                          {team.name}
-                        </Typography>
-                      </div>
-                    </a>
-                    <div className={styles.score}>
-                      <Typography variant="h5">{team.score}</Typography>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.teamContent}>
-                    <div className={styles.score}>
-                      <Typography variant="h5">{team.score}</Typography>
-                    </div>
-                    <a href="#">
-                      <div
-                        onClick={() => {
-                          goTo(ROUTES.entity, { id: team.id });
-                        }}
-                      >
-                        <Avatar photoUrl={team.photoUrl} size="lg"></Avatar>
-                        <Typography className={styles.teamName} variant="h5">
-                          {team.name}
-                        </Typography>
-                      </div>
-                    </a>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+
+          <MultipleTeamGame
+            positions={game.positions}
+            field={game.field}
+            startTime={game.startTime}
+            phaseName={game.phaseName}
+          />
 
           <div className={styles.scoreButton}>
             {possibleSubmissioners.length > 0 && !game.scoreSubmited && (

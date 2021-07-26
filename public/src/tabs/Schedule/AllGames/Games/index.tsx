@@ -16,20 +16,16 @@ const Games: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <>
-      {isOpen ? (
-        <div>
-          <Divider className={styles.divider} />
-          <div className={styles.games}>
-            {games.length ? (
-              games.map((game) => <Game game={game} key={game.id} />)
-            ) : (
-              <Typography color="textSecondary">{t('no.no_games')}</Typography>
-            )}
-          </div>
-        </div>
-      ) : null}
-    </>
+    <div>
+      <Divider className={styles.divider} />
+      <div className={styles.games}>
+        {games.length ? (
+          games.map((game) => <Game game={game} key={game.id} />)
+        ) : (
+          <Typography color="textSecondary">{t('no.no_games')}</Typography>
+        )}
+      </div>
+    </div>
   );
 };
 export default Games;

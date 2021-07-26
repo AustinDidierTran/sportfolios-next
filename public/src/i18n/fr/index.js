@@ -987,7 +987,7 @@ export default {
     cant_join_team_yet: 'Vous ne pouvez pas rejoindre cette équipe. Vous devez être invité à rejoindre cette équipe',
     cant_transfer_person_to_your_own_email:
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
-    captain: 'Capitaine',
+    captain: 'Capitaine 🏅',
     captains: 'Capitaines',
     card_ending_with: 'Carte finissant avec {{last4}}',
     cart_empty_go_shop: "Votre panier est vide! C'est l'heure d'aller faire des achats!",
@@ -1142,6 +1142,7 @@ export default {
     game_added: 'Partie ajoutée',
     game_deleted: 'Partie supprimée',
     game_updated: 'Partie modifiée',
+    game: 'Partie',
     games: 'Parties',
     gender: 'Genre',
     general_informations: 'Informations générales',

@@ -1121,6 +1121,7 @@ export default {
     game_added: 'Game added',
     game_deleted: 'Game deleted',
     game_updated: 'Game updated',
+    game: 'Game',
     games: 'Games',
     gender: 'Gender',
     general_informations: 'General information',

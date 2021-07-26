@@ -11,12 +11,12 @@ import moment from 'moment';
 import Avatar from '../../Avatar';
 import { useTranslation } from 'react-i18next';
 
-export default function MultipleTeamGame(props) {
-  const { positions, field, startTime, phaseName, onClick } = props;
+export function MultipleTeamGame(props) {
+  const { positions, field, startTime, phaseName, onClick = () => {} } = props;
   const { t } = useTranslation();
 
   return (
-    <Card className={styles.game} onClick={() => onClick(props)}>
+    <div className={styles.game} onClick={() => onClick(props)}>
       <div className={styles.teams}>
         {positions.map((position, i) => (
           <div className={styles.teamContent} key={i}>
@@ -44,6 +44,14 @@ export default function MultipleTeamGame(props) {
           )}
         </List>
       </div>
+    </div>
+  );
+}
+
+export default function MultipleTeamGameCard(props) {
+  return (
+    <Card>
+      <MultipleTeamGame {...props} />
     </Card>
   );
 }
