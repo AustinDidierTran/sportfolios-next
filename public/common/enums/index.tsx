@@ -376,6 +376,11 @@ export enum PLAYER_ATTENDANCE_STATUS {
   ABSENT = 'absent',
 }
 
+export enum SUBMISSION_ENUM {
+  SCORE = 'score',
+  SPIRIT = 'spirit',
+}
+
 export enum PERSON_TRANSFER_STATUS_ENUM {
   ACCEPTED = 'accepted',
   PENDING = 'pending',
