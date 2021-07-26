@@ -93,21 +93,6 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
           <ListItemIcon>
             <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
           </ListItemIcon>
-          <div className={styles.position}>
-            {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-              <></>
-            ) : (
-              <Tooltip
-                title={t<string>(
-                  player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role
-                )}
-              >
-                <div>
-                  <Icon icon={getIconFromRole(player.role)} />
-                </div>
-              </Tooltip>
-            )}
-          </div>
           <RsvpItem
             player={player}
             personId={userInfo?.primaryPerson.personId}

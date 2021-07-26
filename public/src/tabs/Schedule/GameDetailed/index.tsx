@@ -121,9 +121,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   }, [game]);
 
   useEffect((): void => {
-    if (basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR) {
-      setIsAdmin(true);
-    }
+    setIsAdmin(basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN || basicInfos.role === ENTITIES_ROLE_ENUM.EDITOR);
   }, [basicInfos]);
 
   const openSubmitScore = async (): Promise<void> => {
@@ -304,6 +302,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.root}>
