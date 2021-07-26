@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import { ROUTES } from '../../public/src/actions/goTo';
 import LoadingSpinner from '../../public/src/components/Custom/LoadingSpinner';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
@@ -15,10 +14,10 @@ const AddPaymentMethodRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const redirect = useMemo<string>(() => {
-    if (redirectProps) {
-      return redirectProps.toString();
+    if (Array.isArray(redirectProps)) {
+      return redirectProps[0];
     }
-    return ROUTES.userSettings;
+    return redirectProps;
   }, [redirectProps]);
 
   if (redirect) {

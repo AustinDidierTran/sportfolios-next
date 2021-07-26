@@ -1,5 +1,5 @@
+import React, { useMemo, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { formatRoute } from '../../public/src/utils/stringFormats';
 import api from '../../public/src/actions/api';
 import { goTo } from '../../public/src/actions/goTo';
@@ -13,10 +13,17 @@ const AddBankAccount = dynamic(() => import('../../public/src/views/AddBankAccou
 
 const AddBankAccountRoute: React.FunctionComponent = () => {
   const router = useRouter();
-  const { entityId, id } = router.query;
+  const { entityIdProps, id } = router.query;
   const { t } = useTranslation();
 
-  React.useEffect(() => {
+  const entityId = useMemo<string>(() => {
+    if (Array.isArray(entityIdProps)) {
+      return entityIdProps[0];
+    }
+    return entityIdProps;
+  }, [entityIdProps]);
+
+  useEffect(() => {
     hasStripeAccount();
   }, [entityId]);
 
