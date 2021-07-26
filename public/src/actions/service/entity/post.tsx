@@ -64,7 +64,7 @@ export function confirmEmail(token: string): Promise<any> {
     body: JSON.stringify({
       token,
     }),
-  }).then((res) => res);
+  });
 }
 
 export function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
