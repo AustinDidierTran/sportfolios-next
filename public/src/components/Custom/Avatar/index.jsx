@@ -8,8 +8,8 @@ import clsx from 'clsx';
 import styles from './Avatar.module.css';
 
 const useStyles = makeStyles({
-  avatarNoBackgroundColor: {
-    backgroundColor: 'transparent !important',
+  white: {
+    backgroundColor: 'white !important',
   },
 });
 
@@ -27,12 +27,7 @@ export default function CustomAvatar(props) {
   }
   if (photoUrl) {
     return (
-      <Avatar
-        {...otherProps}
-        className={[className, classes.avatarNoBackgroundColor].join(' ')}
-        src={photoUrl}
-        alt={initials}
-      >
+      <Avatar {...otherProps} className={[className, classes.white].join(' ')} src={photoUrl} alt={initials}>
         {initials}
       </Avatar>
     );
