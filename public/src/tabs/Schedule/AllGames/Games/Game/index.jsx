@@ -7,7 +7,7 @@ import { ACTION_ENUM, Store } from '../../../../../Store';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 
 export default function Game(props) {
-  const { game, isPastGame } = props;
+  const { game } = props;
   const router = useRouter();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -36,8 +36,7 @@ export default function Game(props) {
     <>
       <Card
         items={{
-          ...game,
-          isPastGame,
+          game: { field: game.field, startTime: game.startTime, phaseName: game.phaseName, positions: game.positions },
           onClick: openGameDetailed,
         }}
         type={CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME}

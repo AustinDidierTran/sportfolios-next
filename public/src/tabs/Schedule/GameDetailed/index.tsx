@@ -322,9 +322,11 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
 
           <MultipleTeamGame
             positions={game.positions}
-            field={game.field}
-            startTime={game.startTime}
-            phaseName={game.phaseName}
+            game={{
+              field: game.field,
+              startTime: game.startTime,
+              phaseName: game.phaseName,
+            }}
           />
 
           <div className={styles.scoreButton}>

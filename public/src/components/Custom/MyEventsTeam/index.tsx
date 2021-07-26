@@ -120,8 +120,9 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
         { name: game.teamNames[0], score: game.teamScores[0] },
         { name: game.teamNames[1], score: game.teamScores[1] },
       ];
+
       return {
-        ...game,
+        game,
         positions,
         type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME,
         startTime: game.timeslot,

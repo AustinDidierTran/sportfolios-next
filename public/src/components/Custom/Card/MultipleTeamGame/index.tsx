@@ -11,8 +11,29 @@ import moment from 'moment';
 import Avatar from '../../Avatar';
 import { useTranslation } from 'react-i18next';
 
-export function MultipleTeamGame(props) {
-  const { positions, field, startTime, phaseName, onClick = () => {} } = props;
+interface IProps {
+  game: IGame;
+  onClick: Function;
+}
+
+interface IGame {
+  field: string;
+  phaseName: string;
+  startTime: string;
+  positions: IPosition[];
+}
+
+interface IPosition {
+  name: string;
+  score: number;
+  photoUrl: string;
+}
+
+export function MultipleTeamGame(props: IProps) {
+  const {
+    game: { field, startTime, phaseName, positions },
+    onClick = () => {},
+  } = props;
   const { t } = useTranslation();
 
   return (
@@ -48,10 +69,10 @@ export function MultipleTeamGame(props) {
   );
 }
 
-export default function MultipleTeamGameCard(props) {
+export default function MultipleTeamGameCard(props: IProps) {
   return (
     <Card>
-      <MultipleTeamGame {...props} />
+      <MultipleTeamGame game={props.game} onClick={props.onClick} />
     </Card>
   );
 }
