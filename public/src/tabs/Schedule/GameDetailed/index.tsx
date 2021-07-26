@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { COMPONENT_TYPE_ENUM, SEVERITY_ENUM, ENTITIES_ROLE_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import {
+  COMPONENT_TYPE_ENUM,
+  SEVERITY_ENUM,
+  ENTITIES_ROLE_ENUM,
+  REQUEST_STATUS_ENUM,
+  GLOBAL_ENUM,
+  SUBMISSION_ENUM,
+} from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
 import Avatar from '../../../components/Custom/Avatar';
@@ -20,7 +27,7 @@ import dynamic from 'next/dynamic';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { formatDate } from '../../../utils/stringFormats';
 import { Entity, PersonAdmin, GameInfo, SubmissionerInfos, SubmissionerTeam } from '../../../../../typescript/types';
-import { getGameInfo, getPossibleSubmissionerInfos } from '../../../actions/service/entity/get';
+import { getGameInfo, getHasSpirit, getPossibleSubmissionerInfos } from '../../../actions/service/entity/get';
 
 const EnterScore = dynamic(
   () => import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
@@ -47,7 +54,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const {
     dispatch,
-    state: { userInfo },
+    state: { id: entityId, userInfo },
   } = useContext(Store);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -58,6 +65,8 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [gameDialog, setGameDialog] = useState<boolean>(false);
+  const [hasSpirit, setHasSpirit] = useState<boolean>(false);
+  const [submitType, setSubmitType] = useState<SUBMISSION_ENUM>();
 
   const getGame = async (): Promise<void> => {
     const data = await getGameInfo(gameId);
@@ -99,7 +108,10 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   useEffect((): void => {
-    getGame();
+    if (gameId) {
+      getGame();
+      getHasSpirit(entityId).then(setHasSpirit);
+    }
   }, [gameId]);
 
   useEffect((): void => {
@@ -122,6 +134,16 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
     } else {
       setChooseSubmitter(true);
     }
+    setSubmitType(SUBMISSION_ENUM.SCORE);
+  };
+
+  const openSpiritScore = async (): Promise<void> => {
+    if (possibleSubmissionersInfos.length === 1 && possibleSubmissionersInfos[0].myAdminPersons.length === 1) {
+      setSubmitScore(true);
+    } else {
+      setChooseSubmitter(true);
+    }
+    setSubmitType(SUBMISSION_ENUM.SPIRIT);
   };
 
   const closeSubmitScore = (): void => {
@@ -360,7 +382,16 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
 
           <div className={styles.scoreButton}>
             {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
-              <CustomButton onClick={openSubmitScore}>{t('submit_score')}</CustomButton>
+              <div style={{ display: 'inline-grid' }}>
+                <CustomButton style={{ margin: '4px' }} onClick={openSubmitScore}>
+                  {t('submit_score')}
+                </CustomButton>
+                {hasSpirit ? (
+                  <CustomButton style={{ margin: '4px' }} onClick={openSpiritScore}>
+                    {t('submit_spirit')}
+                  </CustomButton>
+                ) : null}
+              </div>
             )}
             {possibleSubmissioners.length > 0 && game.scoreSubmited && <div>{t('score.score_confirmed')}</div>}
           </div>
@@ -380,6 +411,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
           placeholder={t('write_a_comment')}
         />
         <SubmitScoreDialog
+          type={submitType}
           open={submitScore}
           onClose={closeSubmitScore}
           gameId={game.id}

@@ -165,7 +165,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
               className={styles.submitButton}
               onClick={() => formik.handleSubmit()}
               color={'primary'}
-              variant="text"
+              variant="outlined"
             >
               {t('submit')}
             </Button>

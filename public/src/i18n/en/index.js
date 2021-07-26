@@ -1471,6 +1471,7 @@ export default {
     submit_as: 'Submit the result as',
     submit_for_team: 'Submit the result for',
     submit_score: 'Submit Score',
+    submit_spirit: 'Submit Spirit',
     submit: 'Submit',
     submitted: 'Submitted',
     submitting_as_for: 'Submitting as {{person}} for {{team}}',
