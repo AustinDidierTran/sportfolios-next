@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Avatar } from '..';
 
 import { TeamPlayer } from '../../../../../typescript/types';
-// import { useOwnedPeopleIds } from '../../../hooks/entities';
 
 interface IProps {
   roster: TeamPlayer[];
