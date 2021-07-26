@@ -13,7 +13,7 @@ const AddBankAccount = dynamic(() => import('../../public/src/views/AddBankAccou
 
 const AddBankAccountRoute: React.FunctionComponent = () => {
   const router = useRouter();
-  const { entityIdProps, id } = router.query;
+  const { entityId: entityIdProps, id: idProps } = router.query;
   const { t } = useTranslation();
 
   const entityId = useMemo<string>(() => {
@@ -22,6 +22,13 @@ const AddBankAccountRoute: React.FunctionComponent = () => {
     }
     return entityIdProps;
   }, [entityIdProps]);
+
+  const id = useMemo<string>(() => {
+    if (Array.isArray(idProps)) {
+      return idProps[0];
+    }
+    return idProps;
+  }, [idProps]);
 
   useEffect(() => {
     hasStripeAccount();
@@ -45,7 +52,7 @@ const AddBankAccountRoute: React.FunctionComponent = () => {
           <meta property="og:description" content={t('metadata.addBankAccount.description')} />
           <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
         </Head>
-        <AddBankAccount entityId={entityId.toString()} id={id.toString()} />
+        <AddBankAccount entityId={entityId} id={id} />
       </>
     );
   }
