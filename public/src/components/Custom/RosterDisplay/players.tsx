@@ -14,7 +14,6 @@ const Players = (props: IProps) => {
 
   const { t } = useTranslation();
 
-
   return (
     <React.Fragment>
       {roster.map((player, index) => (
