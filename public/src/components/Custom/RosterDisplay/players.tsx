@@ -15,7 +15,6 @@ const Players = (props: IProps) => {
 
   const { t } = useTranslation();
 
-  // const ownedPeopleIds = useOwnedPeopleIds();
 
   return (
     <React.Fragment>
