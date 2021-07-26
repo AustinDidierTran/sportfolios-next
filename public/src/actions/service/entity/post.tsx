@@ -58,6 +58,15 @@ export function addPlayers(teamId: string, players: Player[]): Promise<number> {
   );
 }
 
+export function confirmEmail(token: string): Promise<any> {
+  return api('/api/auth/confirmEmail', {
+    method: 'POST',
+    body: JSON.stringify({
+      token,
+    }),
+  }).then((res) => res);
+}
+
 export function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
   return api(`${BASE_URL}/joinTeam`, { method: 'POST', body: JSON.stringify({ teamId, personId }) }).then(
     (res) => res.status

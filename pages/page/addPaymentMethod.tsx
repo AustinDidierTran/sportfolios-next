@@ -20,18 +20,6 @@ const AddPaymentMethodRoute: React.FunctionComponent = () => {
     return redirectProps;
   }, [redirectProps]);
 
-  if (redirect) {
-    return (
-      <>
-        <Head>
-          <meta property="og:title" content={t('metadata.addPaymentMethod.title')} />
-          <meta property="og:description" content={t('metadata.addPaymentMethod.description')} />
-          <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
-        </Head>
-        <AddPaymentMethod redirect={redirect} />
-      </>
-    );
-  }
   return (
     <>
       <Head>
@@ -39,7 +27,7 @@ const AddPaymentMethodRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.addPaymentMethod.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <LoadingSpinner />
+      {redirect ? <AddPaymentMethod redirect={redirect} /> : <LoadingSpinner />}
     </>
   );
 };

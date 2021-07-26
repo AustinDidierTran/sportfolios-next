@@ -20,18 +20,6 @@ const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
     return emailProps;
   }, [emailProps]);
 
-  if (email) {
-    return (
-      <>
-        <Head>
-          <meta property="og:title" content={t('metadata.confirmationEmailSent.title')} />
-          <meta property="og:description" content={t('metadata.confirmationEmailSent.description')} />
-          <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
-        </Head>
-        <ConfirmationEmailSent email={email} />
-      </>
-    );
-  }
   return (
     <>
       <Head>
@@ -39,7 +27,7 @@ const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.confirmationEmailSent.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <LoadingSpinner />
+      {email ? <LoadingSpinner /> : <ConfirmationEmailSent email={email} />}
     </>
   );
 };

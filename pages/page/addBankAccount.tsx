@@ -44,18 +44,6 @@ const AddBankAccountRoute: React.FunctionComponent = () => {
     }
   };
 
-  if (entityId || id) {
-    return (
-      <>
-        <Head>
-          <meta property="og:title" content={t('metadata.addBankAccount.title')} />
-          <meta property="og:description" content={t('metadata.addBankAccount.description')} />
-          <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
-        </Head>
-        <AddBankAccount entityId={entityId} id={id} />
-      </>
-    );
-  }
   return (
     <>
       <Head>
@@ -63,7 +51,7 @@ const AddBankAccountRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.addBankAccount.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <LoadingSpinner />
+      {entityId || id ? <AddBankAccount entityId={entityId} id={id} /> : <LoadingSpinner />}
     </>
   );
 };
