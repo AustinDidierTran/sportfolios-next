@@ -11,17 +11,11 @@ import { Store } from '../../Store';
 import { getGames as getGamesApi } from '../../actions/service/entity/get';
 import Typography from '@material-ui/core/Typography';
 
-interface IProps {
-  update: () => void;
-}
-
-const ScheduleManagerMobile: React.FunctionComponent<IProps> = (props) => {
+const ScheduleManagerMobile: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     state: { id: eventId },
   } = useContext(Store);
-
-  const { update } = props;
 
   const [game, setGame] = useState<boolean>(false);
   const [games, setGames] = useState<Games[]>([]);
@@ -100,7 +94,6 @@ const ScheduleManagerMobile: React.FunctionComponent<IProps> = (props) => {
         onClose={(): void => {
           setGame(false);
         }}
-        update={update}
         updateGames={updateGames}
         games={games}
       />
