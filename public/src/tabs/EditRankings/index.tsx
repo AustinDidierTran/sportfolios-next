@@ -13,7 +13,7 @@ import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../hooks/window';
 import { MOBILE_WIDTH } from '../../../common/constants';
-import { getPhases } from '../../actions/service/entity/get';
+import { getPhases, getPreranking } from '../../actions/service/entity/get';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -21,7 +21,40 @@ const FinalRanking = dynamic(() => import('./FinalRanking'));
 const AlertDialog = dynamic(() => import('../../components/Custom/Dialog/AlertDialog'));
 const AddPhase = dynamic(() => import('./AddPhase'));
 
-const getItemStyle = (isDragging, draggableStyle) => ({
+interface IPreranking {
+  position: any;
+  content: string;
+  rosterId: string;
+  rankingId: string;
+}
+
+interface IPhases {
+  content: string;
+  phaseId: string;
+  id: string;
+  spots: number;
+  status: string;
+  order: number;
+  type: string;
+  ranking: IRanking[];
+  finalRanking?: IRanking[];
+}
+
+interface IRanking {
+  rankingId: string;
+  id?: string;
+  rosterId: string;
+  originPhase?: string;
+  originPosition?: number;
+  currentPhase?: string;
+  initialPosition?: number;
+  finalPosition?: number;
+  phaseName?: string;
+  name?: string;
+  teamName?: string;
+}
+
+const getItemStyle = (draggableStyle: any) => ({
   userSelect: 'none',
   ...draggableStyle,
 });
@@ -30,14 +63,14 @@ const getListStyle = () => ({
   width: '100%',
 });
 
-const reorder = (list, startIndex, endIndex) => {
+const reorder = (list: IPhases[], startIndex: number, endIndex: number): IPhases[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
   return result;
 };
 
-export default function EditRankings() {
+const EditRankings: React.FunctionComponent = () => {
   const [width] = useWindowSize();
   const { t } = useTranslation();
   const {
@@ -45,19 +78,19 @@ export default function EditRankings() {
     state: { id: eventId },
   } = useContext(Store);
 
-  const [phases, setPhases] = useState([]);
-  const [preranking, setPreranking] = useState([]);
-  const [expandedPhases, setExpandedPhases] = useState([]);
+  const [phases, setPhases] = useState<IPhases[]>([]);
+  const [preranking, setPreranking] = useState<IPreranking[]>();
+  const [expandedPhases, setExpandedPhases] = useState<IPhases[]>([]);
 
-  const [phaseToEnd, setPhaseToEnd] = useState({});
-  const [phaseToDelete, setPhaseToDelete] = useState({});
-  const [prerankPhase, setPrerankPhase] = useState({});
+  const [phaseToEnd, setPhaseToEnd] = useState<IPhases>();
+  const [phaseToDelete, setPhaseToDelete] = useState<IPhases>();
+  const [prerankPhase, setPrerankPhase] = useState<IPhases>();
 
-  const [openPhase, setOpenPhase] = useState(false);
-  const [madeChanges, setMadeChanges] = useState(false);
-  const [isOneExpanded, setIsOneExpanded] = useState(false);
-  const [openAlertDialog, setOpenAlertDialog] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openPhase, setOpenPhase] = useState<boolean>(false);
+  const [madeChanges, setMadeChanges] = useState<boolean>(false);
+  const [isOneExpanded, setIsOneExpanded] = useState<boolean>(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState<boolean>(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
 
   useEffect(() => {
     if (eventId) {
@@ -82,17 +115,10 @@ export default function EditRankings() {
 
     setPrerankPhase(prerankPhase);
 
-    const {
-      data: { preranking: ranking },
-    } = await api(
-      formatRoute('/api/entity/preranking', null, {
-        eventId,
-      })
-    );
-
+    const { preranking: ranking } = await getPreranking(eventId);
     const phases = await getPhases(eventId);
 
-    let preranking = [];
+    let preranking: IPreranking[] = [];
 
     if (ranking) {
       preranking = ranking.map((d) => ({
@@ -158,7 +184,7 @@ export default function EditRankings() {
     setPhases(allPhases);
   };
 
-  const handleUpdateOrder = async () => {
+  const handleUpdateOrder = async (): Promise<void> => {
     const res = await api('/api/entity/updatePhaseOrder', {
       method: 'PUT',
       body: JSON.stringify({
@@ -184,7 +210,7 @@ export default function EditRankings() {
     update();
   };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: any): void => {
     if (!result.destination) {
       return;
     }
@@ -197,7 +223,7 @@ export default function EditRankings() {
     }
   };
 
-  const handleDeleteTeam = async (phaseId, position) => {
+  const handleDeleteTeam = async (phaseId: string, position: number) => {
     await api('/api/entity/teamPhase', {
       method: 'PUT',
       body: JSON.stringify({
@@ -209,7 +235,7 @@ export default function EditRankings() {
     update();
   };
 
-  const startPhase = (phase, event, madeChanges) => {
+  const startPhase = (phase: IPhases, event: any, madeChanges: boolean): void => {
     event.stopPropagation();
     if (!madeChanges) {
       handleStartPhase(phase);
@@ -223,7 +249,7 @@ export default function EditRankings() {
     }
   };
 
-  const phaseFilter = (phase, type) => {
+  const phaseFilter = (phase: IPhases, type: string): IRanking[] | string[] => {
     if (type == 'Phase') {
       return phase.ranking.filter((r) => r.originPhase && !r.rosterId);
     } else if (type == 'Prerank') {
@@ -235,11 +261,11 @@ export default function EditRankings() {
     }
   };
 
-  const handleStartPhase = async (phase) => {
+  const handleStartPhase = async (phase: IPhases) => {
     const rankingsFromPhase = phaseFilter(phase, 'Phase');
     const rankingsFromPrerank = phaseFilter(phase, 'Prerank');
     const emptyRankings = phaseFilter(phase, 'Ranking');
-    const rankingsWithRosterId = phaseFilter(phase);
+    const rankingsWithRosterId = phaseFilter(phase, '');
 
     if (!rankingsWithRosterId.some((r) => !r) && phase.spots !== 0) {
       const res = await api('/api/entity/updatePhase', {
@@ -284,7 +310,7 @@ export default function EditRankings() {
     }
   };
 
-  const endPhase = async () => {
+  const endPhase = async (): Promise<void> => {
     const res = await api('/api/entity/updatePhase', {
       method: 'PUT',
       body: JSON.stringify({
@@ -313,7 +339,7 @@ export default function EditRankings() {
     setOpenAlertDialog(false);
   };
 
-  const handleDeletePhase = async () => {
+  const handleDeletePhase = async (): Promise<void> => {
     const res = await api(
       formatRoute('/api/entity/phase', null, {
         eventId: eventId,
@@ -342,43 +368,43 @@ export default function EditRankings() {
     setOpenDeleteDialog(false);
   };
 
-  const update = () => {
+  const update = (): void => {
     getData();
   };
 
-  const closePhaseDialog = () => {
+  const closePhaseDialog = (): void => {
     setOpenPhase(false);
   };
 
-  const openPhaseDialog = () => {
+  const openPhaseDialog = (): void => {
     setOpenPhase(true);
   };
 
-  const onCloseAlertDialog = () => {
+  const onCloseAlertDialog = (): void => {
     setOpenAlertDialog(false);
   };
 
-  const onOpenAlertDialog = (phase, event, items) => {
+  const onOpenAlertDialog = (phase: IPhases, event: any, items: any): void => {
     event.preventDefault();
     setPhaseToEnd({ ...phase, finalRanking: items });
     setOpenAlertDialog(true);
   };
 
-  const onCloseDeleteDialog = () => {
+  const onCloseDeleteDialog = (): void => {
     setOpenDeleteDialog(false);
   };
 
-  const onOpenDeleteDialog = (phase) => {
+  const onOpenDeleteDialog = (phase: IPhases): void => {
     setPhaseToDelete(phase);
     setOpenDeleteDialog(true);
   };
 
-  const onShrink = (phaseId) => {
-    setExpandedPhases((e) => e.filter((p) => p !== phaseId));
+  const onShrink = (phaseId: string): void => {
+    setExpandedPhases((e) => e.filter((p) => p.phaseId !== phaseId));
   };
 
-  const onExpand = (phaseId) => {
-    setExpandedPhases((e) => [...e, phaseId]);
+  const onExpand = (phaseId: string): void => {
+    setExpandedPhases((e) => [...e]);
   };
 
   return (
@@ -401,8 +427,8 @@ export default function EditRankings() {
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+          {(provided: any) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle()}>
               <div>
                 {phases.map((phase, index) => (
                   <Draggable
@@ -412,12 +438,12 @@ export default function EditRankings() {
                     className={styles.draggable}
                     isDragDisabled={isOneExpanded}
                   >
-                    {(provided, snapshot) => (
+                    {(provided: any) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                        style={getItemStyle(provided.draggableProps.style)}
                       >
                         <div className={styles.div} key={phase.id}>
                           {phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
@@ -470,4 +496,6 @@ export default function EditRankings() {
       ></AlertDialog>
     </div>
   );
-}
+};
+
+export default EditRankings;

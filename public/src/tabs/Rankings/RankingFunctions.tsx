@@ -1,5 +1,37 @@
-const getRankingInfos = (teams, games) => {
-  const allRankings = teams.map((team) => ({
+import { PhaseGames } from '../../../../typescript/types';
+
+interface ITeams {
+  position: number;
+  finalPosition?: number;
+  id?: string;
+  rosterId: string;
+  positionName?: string;
+  originPhase?: string;
+  originPosition?: number;
+  currentPhase?: string;
+  initialPosition?: number;
+  rankingId: string;
+  teamId: string;
+  name: string;
+  phaseName?: string;
+  content?: string;
+}
+
+interface IAllRanking {
+  id: string;
+  rosterId: string;
+  name: string;
+  wins: number;
+  loses: number;
+  pointFor: number;
+  pointAgainst: number;
+  random: number;
+  points?: number;
+  number?: number;
+}
+
+const getRankingInfos = (teams: ITeams[], games: PhaseGames[]): any => {
+  const allRankings: IAllRanking[] = teams.map((team) => ({
     id: team.id,
     rosterId: team.rosterId,
     name: team.name ? team.name : team.content,
@@ -77,7 +109,7 @@ const getRankingInfos = (teams, games) => {
   return [allRankings];
 };
 
-const applyVictoryRule = (ranking) => {
+const applyVictoryRule = (ranking: IAllRanking[]): IAllRanking[] => {
   const updatedRanking = ranking
     .reduce((prevRanking, currentEntry) => {
       if (!Array.isArray(currentEntry)) {
@@ -88,7 +120,7 @@ const applyVictoryRule = (ranking) => {
         return [...prevRanking, currentEntry[0]];
       }
 
-      const winSortedArray = [];
+      const winSortedArray: any = [];
 
       currentEntry.forEach((team) => {
         if (Array.isArray(winSortedArray[team.wins])) {
@@ -108,7 +140,7 @@ const applyVictoryRule = (ranking) => {
   return updatedRanking;
 };
 
-const applyLoseRule = (ranking) => {
+const applyLoseRule = (ranking: IAllRanking[]): IAllRanking[] => {
   const updatedRanking = ranking
     .reduce((prevRanking, currentEntry) => {
       if (!Array.isArray(currentEntry)) {
@@ -118,7 +150,7 @@ const applyLoseRule = (ranking) => {
       if (currentEntry.length === 1) {
         return [...prevRanking, currentEntry[0]];
       }
-      const loseSortedArray = [];
+      const loseSortedArray: any = [];
 
       currentEntry.forEach((team) => {
         if (Array.isArray(loseSortedArray[team.loses])) {
@@ -136,7 +168,7 @@ const applyLoseRule = (ranking) => {
   return updatedRanking;
 };
 
-const applyDifferentialRule = (ranking) => {
+const applyDifferentialRule = (ranking: IAllRanking[]) => {
   const updatedRanking = ranking
     .reduce((prevRanking, currentEntry) => {
       if (!Array.isArray(currentEntry)) {
@@ -151,7 +183,7 @@ const applyDifferentialRule = (ranking) => {
 
       const offSet = Math.max(...differentials);
 
-      const differentialSortedArray = [];
+      const differentialSortedArray: any = [];
 
       currentEntry.forEach((team) => {
         const index = team.pointFor - team.pointAgainst + offSet;
@@ -172,7 +204,7 @@ const applyDifferentialRule = (ranking) => {
   return updatedRanking;
 };
 
-const applyRandomRule = (ranking) => {
+const applyRandomRule = (ranking: IAllRanking[]) => {
   const updatedRanking = ranking.reduce((prevRanking, currentEntry) => {
     if (!Array.isArray(currentEntry)) {
       // Already sorted, leave it like this
@@ -186,7 +218,7 @@ const applyRandomRule = (ranking) => {
   return updatedRanking;
 };
 
-const applyGameBetweenTeamRules = (games, ranking, prevRankingLength) => {
+const applyGameBetweenTeamRules = (games: PhaseGames[], ranking: IAllRanking[], prevRankingLength: number) => {
   const updatedRanking = ranking.reduce((prevRanking, currentEntry) => {
     if (!Array.isArray(currentEntry)) {
       // Already sorted, leave it like this
@@ -202,7 +234,7 @@ const applyGameBetweenTeamRules = (games, ranking, prevRankingLength) => {
       const interestingGames = games.filter((g) => g.teams.every((team) => teamIds.includes(team.teamId)));
       const newRanking = getRankingInfos(currentEntry, interestingGames);
 
-      const newEntry = applyRules(interestingGames, newRanking, prevRankingLength);
+      const newEntry = applyRules(interestingGames, newRanking);
 
       const mappedEntry = newEntry.map((entry) => {
         if (!Array.isArray(entry)) {
@@ -224,7 +256,7 @@ const applyGameBetweenTeamRules = (games, ranking, prevRankingLength) => {
   return updatedRanking;
 };
 
-const applyRules = (games, initialRanking) => {
+const applyRules = (games: PhaseGames[], initialRanking: any) => {
   const rankingWithVictoryRule = applyVictoryRule(initialRanking);
   const rankingWithLoseRule = applyLoseRule(rankingWithVictoryRule);
 
@@ -235,12 +267,12 @@ const applyRules = (games, initialRanking) => {
   return rankingWithDifferentialRule;
 };
 
-export const updateRanking = (teams, games) => {
+export const updateRanking = (teams: ITeams[], games: PhaseGames[]): any => {
   // Filter games that have not been played
   const playedGames = games.filter((game) => game.teams.map((t) => Number(t.score)).some((score) => score !== 0));
 
   const ranking = getRankingInfos(teams, playedGames);
-  const rankingWithAppliedRules = applyRules(playedGames, ranking, ranking[0].length);
+  const rankingWithAppliedRules = applyRules(playedGames, ranking);
 
   const rankingWithRandom = applyRandomRule(rankingWithAppliedRules);
 

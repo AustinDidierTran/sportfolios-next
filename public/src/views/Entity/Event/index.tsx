@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import IgContainer from '../../../components/Custom/IgContainer';
 import dynamic from 'next/dynamic';
-import api from '../../../actions/api';
-import { formatRoute } from '../../../utils/stringFormats';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
+import { Entity } from '../../../../../typescript/types';
+import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Schedule = dynamic(() => import('../../../tabs/Schedule'));
@@ -22,7 +22,19 @@ const EditRankings = dynamic(() => import('../../../tabs/EditRankings'));
 const EditRosters = dynamic(() => import('../../../tabs/EditRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
-export default function Event(props) {
+interface IProps {
+  basicInfos: Entity;
+  eventInfo: any;
+}
+
+interface IStates {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
+}
+
+const Event: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps, eventInfo } = props;
   const router = useRouter();
@@ -31,9 +43,9 @@ export default function Event(props) {
     state: { id },
   } = useContext(Store);
 
-  const [basicInfos, setBasicInfos] = useState(basicInfosProps);
+  const [basicInfos, setBasicInfos] = useState<Entity>(basicInfosProps);
 
-  useEffect(() => {
+  useEffect((): void => {
     document.title = formatPageTitle(basicInfos.name);
     AddGaEvent({
       category: 'Visit',
@@ -42,7 +54,7 @@ export default function Event(props) {
     });
   }, [basicInfos.name]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (id) {
       getRole();
     }
@@ -62,11 +74,11 @@ export default function Event(props) {
     { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },
   ];
 
-  const [adminView, setAdminView] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [states, setStates] = useState(userState);
+  const [adminView, setAdminView] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [states, setStates] = useState<IStates[]>(userState);
 
-  const index = useMemo(() => {
+  const index = useMemo((): number => {
     if (adminState.find((s) => s.value === tab)) {
       if (isAdmin) {
         setStates(adminState);
@@ -81,7 +93,7 @@ export default function Event(props) {
     return res;
   }, [tab, isAdmin]);
 
-  const OpenTab = useMemo(() => {
+  const OpenTab = useMemo((): any => {
     const res = states[index];
     if (res) {
       return res.component;
@@ -89,7 +101,7 @@ export default function Event(props) {
     return Schedule;
   }, [index, states]);
 
-  const onSwitch = () => {
+  const onSwitch = (): void => {
     const newState = !adminView;
     setAdminView(newState);
     if (newState) {
@@ -101,10 +113,10 @@ export default function Event(props) {
     }
   };
 
-  const getRole = async () => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
+  const getRole = async (): Promise<void> => {
+    const res = await getRoleApi(id);
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
-      let newInfos = basicInfos;
+      const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
       setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
@@ -131,3 +143,4 @@ export default function Event(props) {
     </>
   );
 }
+export default Event;

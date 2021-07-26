@@ -10,49 +10,24 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { formatIntervalDate, formatDate } from '../../utils/stringFormats';
-import api from '../../actions/api';
 import moment from 'moment';
 import styles from './EventInfo.module.css';
-import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { Store } from '../../Store';
+import { getEvent, getOptions, getRemainingSpots } from '../../actions/service/entity/get';
+import { EventInfos, Options } from '../../../../typescript/types';
 
 const Description = dynamic(() => import('./Description'));
 
-const getEvent = async (eventId) => {
-  const { data } = await api(
-    formatRoute('/api/entity/eventInfos', null, {
-      id: eventId,
-    })
-  );
-  return data;
-};
-
-const getOptions = async (eventId) => {
-  const { data } = await api(formatRoute('/api/entity/options', null, { eventId }), {
-    method: 'GET',
-  });
-  return data;
-};
-
-const getRemainingSpots = async (id) => {
-  const { data } = await api(
-    formatRoute('/api/entity/remainingSpots', null, {
-      id,
-    })
-  );
-  return data;
-};
-
-export default function TabEventInfo() {
+const TabEventInfo: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     state: { id },
   } = useContext(Store);
 
-  const [options, setOptions] = useState([]);
-  const [event, setEvent] = useState({});
-  const [remainingSpots, setRemainingSpots] = useState(null);
+  const [options, setOptions] = useState<Options[]>();
+  const [event, setEvent] = useState<EventInfos>();
+  const [remainingSpots, setRemainingSpots] = useState<number>();
   const [isLoading, setIsLoading] = useState(true);
 
   const goToRegistration = () => {
@@ -65,35 +40,30 @@ export default function TabEventInfo() {
     }
   }, [id]);
 
-  const getData = async () => {
+  const getData = async (): Promise<void> => {
     if (id) {
-      const event = await getEvent(id);
-      setEvent(event);
-
-      const options = await getOptions(id);
-      setOptions(options);
-
-      const remainingSpots = await getRemainingSpots(id);
-      setRemainingSpots(remainingSpots);
+      getEvent(id).then(setEvent);
+      getOptions(id).then(setOptions);
+      getRemainingSpots(id).then(setRemainingSpots);
     }
     setIsLoading(false);
   };
 
-  const isEarly = useMemo(() => {
+  const isEarly = useMemo((): boolean => {
     if (!Array.isArray(options)) {
       return true;
     }
     return options.every((option) => moment(option.startTime) > moment());
   }, [options]);
 
-  const isLate = useMemo(() => {
+  const isLate = useMemo((): boolean => {
     if (!Array.isArray(options)) {
       return true;
     }
     return options.every((option) => moment(option.endTime).add(24, 'hours') < moment());
   }, [options]);
 
-  const RegistrationStart = useMemo(() => {
+  const RegistrationStart = useMemo((): boolean | string => {
     if (!Array.isArray(options)) {
       return true;
     }
@@ -101,7 +71,7 @@ export default function TabEventInfo() {
     return formatDate(moment.min(startsDate));
   }, [options]);
 
-  const registrationEnd = useMemo(() => {
+  const registrationEnd = useMemo((): boolean | string => {
     if (!Array.isArray(options)) {
       return true;
     }
@@ -109,33 +79,34 @@ export default function TabEventInfo() {
     return formatDate(moment.max(endsDate));
   }, [options]);
 
-  const color = useMemo(() => {
-    if (remainingSpots <= Math.ceil(event.maximumSpots * 0.2)) {
-      return 'secondary';
-    }
-    return 'textSecondary';
-  }, [remainingSpots]);
+  const color =
+    useMemo((): 'inherit' | 'primary' | 'secondary' | 'textPrimary' | 'textSecondary' | 'initial' | 'error' => {
+      if (remainingSpots <= Math.ceil(event.maximumSpots * 0.2)) {
+        return 'secondary';
+      }
+      return 'textSecondary';
+    }, [remainingSpots]);
 
-  const isFull = useMemo(() => {
+  const isFull = useMemo((): boolean => {
     return remainingSpots && remainingSpots < 1;
   }, [remainingSpots]);
 
-  const hasNoLimit = useMemo(() => {
+  const hasNoLimit = useMemo((): boolean => {
     return !remainingSpots;
   }, [remainingSpots]);
 
-  const canRegister = useMemo(() => {
+  const canRegister = useMemo((): boolean => {
     if (!Array.isArray(options) || options.length < 1 || isFull || isLate || isEarly) {
       return false;
     }
     return true;
   }, [isFull, options, isLate, isEarly, hasNoLimit]);
 
-  const getDate = () => {
+  const getDate = (): string => {
     return formatIntervalDate(moment(event.startDate), moment(event.endDate));
   };
 
-  const Problems = () => {
+  const Problems = (): any => {
     if (!Array.isArray(options) || options.length < 1) {
       return (
         <Typography variant="body2" color="textSecondary" component="p">
@@ -210,13 +181,10 @@ export default function TabEventInfo() {
             <Typography variant="body2" color="textSecondary" component="p">
               {getDate()}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {event.location || 'Sherbrooke'}
-            </Typography>
             {isFull || hasNoLimit ? (
               <></>
             ) : (
-              <Typography variant="body2" color={color} component="p">
+              <Typography variant="body2" component="p" color={color}>
                 {remainingSpots}&nbsp;
                 {t('places_left')}
               </Typography>
@@ -249,4 +217,5 @@ export default function TabEventInfo() {
       </ContainerBottomFixed>
     </div>
   );
-}
+};
+export default TabEventInfo;

@@ -134,7 +134,7 @@ export default function CollapsePaymentOption(props) {
           </ListItem>
           {allTaxes.map((t, index) => (
             <ListItem className={styles.money} key={index}>
-              <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description} />
+              <ListItemText primary={`${t.displayName} (${t.percentage}%)`} secondary={t.description} />
               {teamTaxRates.some((team) => team.id === t.id) ? (
                 <ListItemText primary={`${formatPrice((teamPrice * t.percentage) / 100)}`}></ListItemText>
               ) : (

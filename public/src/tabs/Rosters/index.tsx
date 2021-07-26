@@ -1,46 +1,42 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import api from '../../actions/api';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import Button from '../../components/Custom/Button';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
-import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { Store } from '../../Store';
 import AddTeam from './AddTeam';
 import styles from './TabRosters.module.css';
+import { getAllTeamsAcceptedInfos } from '../../actions/service/entity/get';
+import { AllTeamsAcceptedInfos } from '../../../../typescript/types';
 
 const Rosters = dynamic(() => import('./Rosters'));
 
-export default function TabRosters(props) {
+interface IProps {
+  isEventAdmin: boolean;
+}
+
+const TabRosters: React.FunctionComponent<IProps> = (props) => {
   const { isEventAdmin } = props;
   const {
     state: { id: eventId },
   } = useContext(Store);
 
   const { t } = useTranslation();
-  const [rosters, setRosters] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [team, setTeam] = useState(false);
+  const [rosters, setRosters] = useState<AllTeamsAcceptedInfos[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [team, setTeam] = useState<boolean>(false);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (eventId) {
       getData();
     }
   }, [eventId]);
 
-  const getRosters = async (eventId) => {
-    const { data } = await api(
-      formatRoute('/api/entity/allTeamsAcceptedInfos', null, {
-        eventId,
-      })
-    );
-    return data;
-  };
 
-  const getData = async () => {
-    const rosters = await getRosters(eventId);
+  const getData = async (): Promise<void> => {
+    const rosters = await getAllTeamsAcceptedInfos(eventId);
     const rostersUpdated = rosters.map((roster) => {
       const players = roster.players.filter((player) => !player.isSub);
       return { ...roster, players };
@@ -77,3 +73,4 @@ export default function TabRosters(props) {
     </>
   );
 }
+export default TabRosters;

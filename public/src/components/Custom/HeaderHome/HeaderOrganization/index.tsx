@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { FORM_DIALOG_TYPE_ENUM, TABS_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
 import FormDialog from '../../FormDialog';
 import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
@@ -24,15 +24,15 @@ const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 interface IProps {
   basicInfos: Entity;
   navTabs: INavTabs[];
-  index: string;
+  index: number;
   isAdmin: boolean;
   onSwitch: () => void;
   adminView: boolean;
 }
 
 interface INavTabs {
-  component: React.ComponentType<any>;
-  value: typeof TABS_ENUM;
+  component: any;
+  value: string;
   label: string;
   icon: string;
 }

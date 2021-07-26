@@ -63,7 +63,7 @@ export default function TaxeRatesTable() {
         updateTax(d.id, d.active);
       },
       color: 'primary',
-      tax: d.display_name,
+      tax: d.displayName,
       description: d.description,
       percentage: `${d.percentage} %`,
       inclusive: t(d.inclusive.toString()),

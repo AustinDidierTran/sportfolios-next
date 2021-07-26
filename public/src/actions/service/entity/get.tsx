@@ -22,6 +22,11 @@ import {
   Image,
   GameOptions,
   GameSubmissionInfo,
+  Preranking,
+  PhaseGames,
+  AllTeamsAcceptedInfos,
+  EventInfos,
+  Options,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -230,6 +235,54 @@ export function getGameSubmissionInfos(gameId: string, rosterId: string, eventId
       gameId,
       rosterId,
       eventId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getPreranking(eventId: string): Promise<{ preranking: Preranking[]; prerankPhaseId: string }> {
+  return api(
+    formatRoute(`${BASE_URL}/preranking`, null, {
+      eventId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getTeamgames(eventId: string): Promise<PhaseGames[]> {
+  return api(
+    formatRoute(`${BASE_URL}/teamGames`, null, {
+      eventId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getAllTeamsAcceptedInfos(eventId: string): Promise<AllTeamsAcceptedInfos[]> {
+  return api(
+    formatRoute(`${BASE_URL}/allTeamsAcceptedInfos`, null, {
+      eventId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getEvent(id: string): Promise<EventInfos> {
+  return api(
+    formatRoute(`${BASE_URL}/eventInfos`, null, {
+      id,
+    })
+  ).then((res) => res.data);
+}
+
+export function getOptions(eventId: string): Promise<Options[]> {
+  return api(
+    formatRoute(`${BASE_URL}/options`, null, {
+      eventId,
+    })
+  ).then((res) => res.data);
+}
+
+export function getRemainingSpots(id: string): Promise<number> {
+  return api(
+    formatRoute(`${BASE_URL}/remainingSpots`, null, {
+      id,
     })
   ).then((res) => res.data);
 }

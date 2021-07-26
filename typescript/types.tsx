@@ -57,6 +57,14 @@ export interface CartItems {
   taxRates: string;
 }
 
+export interface TaxRate {
+  id: string;
+  displayName: string;
+  description: string;
+  inclusive: boolean;
+  percentage: number;
+  active: boolean;
+}
 export interface CartTotal {
   total: number;
   subtotal: number;
@@ -205,6 +213,21 @@ export interface Event extends Entity {
   phases?: Phase[];
 }
 
+export interface EventInfos {
+  id: string;
+  type: GLOBAL_ENUM;
+  name: string;
+  surname: string;
+  photoUrl: string;
+  role: ROSTER_ROLE_ENUM;
+  maximumSpots: number;
+  startDate: string;
+  endDate: string;
+  description: string;
+  quickDescription: string;
+  creator: Entity;
+}
+
 export interface EventField {
   eventId: string;
   field: string;
@@ -332,15 +355,16 @@ export interface TeamPlayer {
   name: string;
   isSub: boolean;
   paymentStatus: STATUS_ENUM;
-  invoiceItemId?: string;
   role: ROSTER_ROLE_ENUM;
+  invoiceItemId?: string;
+  photoUrl?: string;
 }
 
 export interface Phase {
   id: string;
   name: string;
   eventId: string;
-  spot?: number;
+  spots?: number;
   phaseOrder: number;
   status: PHASE_STATUS_ENUM;
   games?: Game[];
@@ -372,14 +396,25 @@ export interface PhaseGames {
   teams: GameTeam[];
 }
 
+export interface Preranking {
+  position: string;
+  rankingId: string;
+  phaseId: string;
+  noTeam: boolean;
+  name?: string;
+  rosterId?: string;
+  teamId?: string;
+  finalPosition?: number;
+}
+
 export interface Ranking {
-  id: string;
+  id?: string;
   rosterId: string;
-  originPhase: string;
-  originPosition: string;
-  currentPhase: string;
-  initialPosition: number;
-  finalPosition: number;
+  originPhase?: string;
+  originPosition?: number;
+  currentPhase?: string;
+  initialPosition?: number;
+  finalPosition?: number;
   rankingId: string;
   phaseName?: string;
   name?: string;
@@ -417,9 +452,11 @@ export interface GameTeam {
   rosterId: string;
   name: string;
   score: number;
+  rankingId: string;
+  id?: string;
+  active?: boolean;
   position?: number;
   spirit?: number;
-  rankingId: string;
 }
 
 export interface GameInfo {
@@ -515,6 +552,26 @@ export interface Practice {
   myRsvp?: Rsvp[];
 }
 
+export interface Options {
+  id: string;
+  informations: string;
+  name: string;
+  individualPrice: string;
+  individualStripePriceId: string;
+  individualTaxRates: TaxRate;
+  individualTransactionFees: number;
+  playerAcceptation: boolean;
+  teamAcceptation: boolean;
+  endTime: string;
+  startTime: string;
+  teamActivity: boolean;
+  teamPrice: number;
+  teamStripePriceId: string;
+  teamTaxRates: TaxRate;
+  teamTransactionFees: number;
+  owner: Entity;
+}
+
 export interface Rsvp {
   name: string;
   photoUrl?: string;
@@ -600,4 +657,21 @@ export interface TeamsSchedule {
   rosterId: string;
   eventId: string;
   name: string;
+}
+
+export interface AllTeamsAcceptedInfos {
+  name: string;
+  surname: string;
+  photoUrl: string;
+  rosterId: string;
+  teamId: string;
+  invoiceItemId: string;
+  informations: string;
+  status: string;
+  emails: string;
+  players: TeamPlayer[];
+  captains: Entity[];
+  option: EventPaymentOption;
+  role: ENTITIES_ROLE_ENUM;
+  registrationStatus: STATUS_ENUM;
 }
