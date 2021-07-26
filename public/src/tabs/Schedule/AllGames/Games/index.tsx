@@ -8,11 +8,10 @@ import { Games as IGames } from '../../../../../../typescript/types';
 
 interface IProps {
   games: IGames[];
-  isOpen: boolean;
 }
 
 const Games: React.FunctionComponent<IProps> = (props) => {
-  const { games, isOpen } = props;
+  const { games } = props;
   const { t } = useTranslation();
 
   return (
