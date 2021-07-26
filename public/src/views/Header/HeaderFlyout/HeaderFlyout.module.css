@@ -9,6 +9,12 @@
   z-index: 100;
 }
 
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .title {
   margin: 16px 16px 0 16px;
 }

@@ -82,16 +82,8 @@ export default function Notifications(props) {
 
   if (isLoading) {
     return (
-      <div>
-        <List
-          items={[
-            {
-              type: LIST_ITEM_ENUM.AVATAR_TEXT_SKELETON,
-              key: '0',
-              quantity: 4,
-            },
-          ]}
-        />
+      <div className={styles.spinnerContainer}>
+        <LoadingSpinner isComponent />
       </div>
     );
   }
