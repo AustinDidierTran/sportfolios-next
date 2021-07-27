@@ -11,12 +11,13 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
+import { COLORS } from '../../../../utils/colors';
 
 const ManageRoles = dynamic(() => import('../../ManageRoles'));
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
     borderRadius: '15px !important',
     margin: '8px !important',
     position: 'static',

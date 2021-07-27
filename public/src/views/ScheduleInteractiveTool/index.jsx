@@ -16,6 +16,7 @@ import RGL from 'react-grid-layout';
 import { formatRoute } from '../../utils/stringFormats';
 import Hotkeys from 'react-hot-keys';
 import dynamic from 'next/dynamic';
+import { COLORS } from '../../utils/colors';
 
 const Timeslot = dynamic(() => import('./Timeslot'));
 const Field = dynamic(() => import('./Field'));
@@ -34,14 +35,14 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(3),
     right: theme.spacing(4),
     zIndex: 100,
-    color: 'white',
+    color: COLORS.white,
   },
   fabAdd: {
     position: 'absolute',
     bottom: theme.spacing(5) + 56,
     right: theme.spacing(4),
     zIndex: 100,
-    color: 'white',
+    color: COLORS.white,
     backgroundColor: '#1c1cff',
     '&:hover': {
       background: '#0000b5',
@@ -52,14 +53,14 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(7) + 112,
     right: theme.spacing(4),
     zIndex: 100,
-    color: 'white',
+    color: COLORS.white,
   },
   fabSave: {
     position: 'absolute',
     bottom: theme.spacing(9) + 168,
     right: theme.spacing(4),
     zIndex: 100,
-    color: 'white',
+    color: COLORS.white,
   },
   fabRedo: {
     position: 'absolute',

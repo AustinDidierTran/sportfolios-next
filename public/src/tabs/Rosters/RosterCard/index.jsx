@@ -13,6 +13,7 @@ import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../utils/stringFormats';
+import { COLORS } from '../../../utils/colors';
 
 const isEven = (n) => {
   return n % 2 == 0;
@@ -21,9 +22,9 @@ const isEven = (n) => {
 const useStyles = makeStyles((theme) => ({
   evenGreen: {
     backgroundColor: theme.palette.primary.light,
-    color: '#fff',
+    color: COLORS.white,
   },
-  oddGreen: { backgroundColor: theme.palette.primary.main, color: '#fff' },
+  oddGreen: { backgroundColor: theme.palette.primary.main, color: COLORS.white },
   even: { backgroundColor: theme.palette.shadesOfGrey.light },
   odd: { backgroundColor: theme.palette.shadesOfGrey.veryLight },
 }));

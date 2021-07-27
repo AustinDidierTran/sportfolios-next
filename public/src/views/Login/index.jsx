@@ -24,6 +24,7 @@ import api from '../../actions/api';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
+import { COLORS } from '../../utils/colors';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -156,7 +157,7 @@ export default function Login() {
               variant="contained"
               className={styles.button}
               type="submit"
-              style={{ color: '#fff' }}
+              style={{ color: COLORS.white }}
               onClick={() => {
                 AddGaEvent({
                   category: 'Login',

@@ -25,6 +25,7 @@ import { FormControlLabel } from '@material-ui/core';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { getPhasesGameAndTeams } from '../../../actions/service/entity/get';
+import { COLORS } from '../../../utils/colors';
 
 const AccordionSummary = withStyles({
   content: {
@@ -34,12 +35,12 @@ const AccordionSummary = withStyles({
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  background: isDragging ? '#F0F0F0' : COLORS.white,
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
+  background: isDraggingOver ? 'whitesmoke' : COLORS.white,
   width: '100%',
 });
 

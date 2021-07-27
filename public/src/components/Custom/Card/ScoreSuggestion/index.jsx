@@ -13,6 +13,7 @@ import { STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import api from '../../../../actions/api';
+import { COLORS } from '../../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   secondary: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(() => ({
     background: '#e9e9e9',
   },
   odd: {
-    background: 'lightGrey',
+    background: COLORS.lightGrey,
   },
 }));
 

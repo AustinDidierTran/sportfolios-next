@@ -18,6 +18,7 @@ import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
 import { Entity, Member } from '../../../../../../typescript/types';
 import { getMostRecentMember, hasMemberships as hasMembershipsApi } from '../../../../actions/service/entity/get';
+import { COLORS } from '../../../../utils/colors';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
@@ -101,10 +102,10 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
         <Tabs
           value={index}
           TabIndicatorProps={{
-            style: { backgroundColor: 'white' },
+            style: { backgroundColor: COLORS.white },
           }}
           style={{
-            color: 'white',
+            color: COLORS.white,
             backgroundColor: '#18B393',
             minHeight: 0,
             borderRadius: width > MOBILE_WIDTH ? '7px' : '0px',
@@ -129,7 +130,7 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
                 </div>
               }
               style={{
-                borderRightColor: 'white',
+                borderRightColor: COLORS.white,
                 borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
                 borderRightWidth: 1,
                 minHeight: 0,

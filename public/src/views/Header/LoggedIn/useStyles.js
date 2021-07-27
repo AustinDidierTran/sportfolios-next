@@ -1,4 +1,5 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { COLORS } from '../../../utils/colors';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
-    color: 'white',
+    color: COLORS.white,
     textDecoration: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',

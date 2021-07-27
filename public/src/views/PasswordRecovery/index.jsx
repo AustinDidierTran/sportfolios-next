@@ -18,6 +18,7 @@ import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
 import { LOGO_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
+import { COLORS } from '../../utils/colors';
 
 export default function PasswordRecovery() {
   const { dispatch } = useContext(Store);
@@ -99,7 +100,7 @@ export default function PasswordRecovery() {
               variant="contained"
               className={styles.button}
               type="submit"
-              style={{ color: '#fff' }}
+              style={{ color: COLORS.white }}
             >
               {t('reset_password')}
             </Button>

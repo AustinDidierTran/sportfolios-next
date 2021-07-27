@@ -8,6 +8,7 @@ import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
 import styles from './RegisterCard.module.css';
+import { COLORS } from '../../../utils/colors';
 
 export default function RegisterCard(props) {
   const { t } = useTranslation();
@@ -37,7 +38,7 @@ export default function RegisterCard(props) {
             color="primary"
             variant="contained"
             type="submit"
-            style={{ color: '#fff' }}
+            style={{ color: COLORS.white }}
             fullWidth
           >
             {t('signup')}

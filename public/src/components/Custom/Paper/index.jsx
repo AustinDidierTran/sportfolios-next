@@ -7,6 +7,7 @@ import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function CustomPaper(props) {
   const { title, children, childrenProps, ...paperProps } = props;
+
   const [width] = useWindowSize();
 
   const [elevation, setElevation] = React.useState(0);

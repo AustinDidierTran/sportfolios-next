@@ -41,8 +41,6 @@ export default function CustomAvatar(props) {
     );
   }
 
-  console.log(initials);
-
   return (
     <Avatar {...otherProps} className={className}>
       {initials}

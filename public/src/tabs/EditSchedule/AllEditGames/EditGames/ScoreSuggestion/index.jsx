@@ -9,10 +9,11 @@ import { useTranslation } from 'react-i18next';
 import styles from './ScoreSuggestion.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { formatRoute } from '../../../../../utils/stringFormats';
+import { COLORS } from '../../../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
   },
 }));
 

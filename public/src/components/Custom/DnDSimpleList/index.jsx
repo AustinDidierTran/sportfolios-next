@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import styles from './DnDSimpleList.module.css';
+import { COLORS } from '../../../utils/colors';
 
 const grid = 8;
 
@@ -19,12 +20,12 @@ const reorder = (list, startIndex, endIndex) => {
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  background: isDragging ? '#F0F0F0' : COLORS.white,
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
+  background: isDraggingOver ? 'whitesmoke' : COLORS.white,
   padding: grid,
   width: '100%',
 });

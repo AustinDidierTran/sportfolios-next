@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { Entity } from '../../../../../../typescript/types';
+import { COLORS } from '../../../../utils/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,7 +87,7 @@ const EventPost: React.FunctionComponent<IProps> = (props) => {
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon style={flag ? {} : { color: '#fff' }} />
+            <MoreVertIcon style={flag ? {} : { color: COLORS.white }} />
           </IconButton>
         }
         title={name || ''}

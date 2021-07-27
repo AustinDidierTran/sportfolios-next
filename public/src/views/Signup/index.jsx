@@ -25,6 +25,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
+import { COLORS } from '../../utils/colors';
 
 export default function Signup() {
   const { t } = useTranslation();
@@ -129,7 +130,7 @@ export default function Signup() {
               variant="contained"
               className={styles.button}
               type="submit"
-              style={{ color: '#fff' }}
+              style={{ color: COLORS.white }}
             >
               {t('signup')}
             </Button>

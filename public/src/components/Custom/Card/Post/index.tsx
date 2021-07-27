@@ -31,6 +31,7 @@ import Upload from 'rc-upload';
 import dynamic from 'next/dynamic';
 import { Post as PostType, Comment as CommentType, PostImage } from '../../../../../../typescript/types';
 import { getTimeToShow } from '../../../../utils/stringFormats';
+import { COLORS } from '../../../../utils/colors';
 
 const Comment = dynamic(() => import('../Comment'));
 const PostInput = dynamic(() => import('../../Input/PostInput'));
@@ -222,7 +223,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
                   top: 0,
                   right: 0,
                   color: 'black',
-                  backgroundColor: 'white',
+                  backgroundColor: COLORS.white,
                   borderRaduis: 25,
                   padding: 2,
                   margin: 5,

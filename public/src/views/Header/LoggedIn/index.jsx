@@ -16,6 +16,7 @@ import { ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { COLORS } from '../../../utils/colors';
 
 export default function LoggedIn(props) {
   const {
@@ -122,7 +123,7 @@ export default function LoggedIn(props) {
                 icon="Add"
                 size="medium"
                 onClick={handleCreateClick}
-                style={{ color: 'white' }}
+                style={{ color: COLORS.white }}
                 tooltip={t('create.create')}
               />
             </div>
@@ -135,7 +136,7 @@ export default function LoggedIn(props) {
                 icon="ArrowDropDown"
                 size="medium"
                 onClick={handlePlusClick}
-                style={{ color: 'white' }}
+                style={{ color: COLORS.white }}
                 tooltip={t('account')}
                 withBadge
                 badgeContent={totalCartItems}
