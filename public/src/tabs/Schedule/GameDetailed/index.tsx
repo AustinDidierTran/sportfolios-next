@@ -6,7 +6,6 @@ import {
   SEVERITY_ENUM,
   ENTITIES_ROLE_ENUM,
   REQUEST_STATUS_ENUM,
-  GLOBAL_ENUM,
   SUBMISSION_ENUM,
 } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -90,7 +89,6 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const getSubmissioner = async (): Promise<void> => {
     const res = await getPossibleSubmissionerInfos(game);
-
     if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
       setIsLoading(false);
       return;
