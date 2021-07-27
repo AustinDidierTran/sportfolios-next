@@ -918,7 +918,7 @@ export default function ScheduleInteractiveTool() {
       }}
       onClick={() => (isSuggestedGames ? handleAddSuggestedGame(b.x, b.y) : handleAddGameAt(b.x, b.y))}
     >
-      <Icon icon="Add" color="#18b393" />
+      <Icon icon="Add" color={COLORS.turquoise} />
     </div>
   ));
 

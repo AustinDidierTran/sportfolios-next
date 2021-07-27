@@ -3,6 +3,7 @@ import React from 'react';
 import { unregister } from '../../../actions/api/helpers';
 import { useTranslation } from 'react-i18next';
 import CustomIconButton from '../IconButton';
+import { COLORS } from '../../../utils/colors';
 
 export default function UnregisterButton(props) {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default function UnregisterButton(props) {
       icon="MoneyOff"
       tooltip={t('refund')}
       onClick={onClick}
-      style={{ color: '#18b393' }}
+      style={{ color: COLORS.turquoise }}
     />
   );
 }
