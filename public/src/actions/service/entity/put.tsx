@@ -3,10 +3,23 @@ import { Person } from '../../../../../typescript/types';
 
 const BASE_URL = '/api/entity';
 
-export function updatePracticeRsvp(id: string, rsvp: string, personId?: string, multipleRsvp = false): Promise<number> {
+export function updatePracticeRsvp(id: string, rsvp: string, personId: string, multipleRsvp = false): Promise<number> {
   return api(`${BASE_URL}/practiceRsvp`, {
     method: 'PUT',
     body: JSON.stringify({ id, rsvp, personId, updateAll: multipleRsvp }),
+  }).then((res) => res.status);
+}
+
+export function updateGameRsvp(
+  id: string,
+  rsvp: string,
+  personId: string,
+  rosterId: string,
+  multipleRsvp = false
+): Promise<number> {
+  return api(`${BASE_URL}/gameRsvp`, {
+    method: 'PUT',
+    body: JSON.stringify({ id, rsvp, personId, rosterId, updateAll: multipleRsvp }),
   }).then((res) => res.status);
 }
 

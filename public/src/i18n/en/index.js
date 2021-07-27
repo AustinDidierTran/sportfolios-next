@@ -1173,6 +1173,7 @@ export default {
     is_sub: 'Is Sub',
     job_title: 'Job title',
     join_team: 'Join team',
+    joined: 'Joined',
     junior_member: 'Junior member',
     junior: 'Junior',
     last_name: 'Last Name',

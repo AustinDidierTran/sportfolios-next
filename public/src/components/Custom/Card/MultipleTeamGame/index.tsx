@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from './MultipleTeamGame.module.css';
 
-import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
@@ -11,10 +10,11 @@ import moment from 'moment';
 import Avatar from '../../Avatar';
 import { useTranslation } from 'react-i18next';
 import { Positions } from '../../../../../../typescript/types';
+import { Card } from '../..';
 
 interface IProps {
   game: IGame;
-  onClick: Function;
+  onClick: (id: string, eventId?: string) => void;
 }
 
 interface IGame {
@@ -22,19 +22,21 @@ interface IGame {
   phaseName: string;
   startTime: string;
   positions: Positions[];
+  id?: string;
+  eventId?: string;
 }
 
-export function MultipleTeamGame(props: IProps) {
+const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
   const {
-    game: { field, startTime, phaseName, positions },
-    onClick = () => {},
+    game: { field, startTime, phaseName, positions, eventId, id },
+    onClick,
   } = props;
   const { t } = useTranslation();
 
   return (
-    <div className={styles.game} onClick={() => onClick()}>
+    <Card className={styles.game} onClick={() => onClick(eventId, id)}>
       <div className={styles.teams}>
-        {positions.map((position, i) => (
+        {positions?.map((position, i) => (
           <div className={styles.teamContent} key={i}>
             <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
             <Typography className={styles.name}>{position.name}</Typography>
@@ -60,14 +62,7 @@ export function MultipleTeamGame(props: IProps) {
           )}
         </List>
       </div>
-    </div>
-  );
-}
-
-export default function MultipleTeamGameCard(props: IProps) {
-  return (
-    <Card>
-      <MultipleTeamGame game={props.game} onClick={props.onClick} />
     </Card>
   );
-}
+};
+export default MultipleTeamGame;

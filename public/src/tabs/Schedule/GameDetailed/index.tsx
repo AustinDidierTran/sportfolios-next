@@ -7,6 +7,7 @@ import {
   ENTITIES_ROLE_ENUM,
   REQUEST_STATUS_ENUM,
   SUBMISSION_ENUM,
+  ROUTES_ENUM,
 } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
@@ -22,7 +23,8 @@ import Posts from '../../../components/Custom/Posts';
 import dynamic from 'next/dynamic';
 import { Entity, PersonAdmin, GameInfo, SubmissionerInfos, SubmissionerTeam } from '../../../../../typescript/types';
 import { getGameInfo, getHasSpirit, getPossibleSubmissionerInfos } from '../../../actions/service/entity/get';
-import { MultipleTeamGame } from '../../../components/Custom/Card/MultipleTeamGame';
+import MultipleTeamGame from '../../../components/Custom/Card/MultipleTeamGame';
+import { goTo, ROUTES } from '../../../actions/goTo';
 
 const EnterScore = dynamic(
   () => import('../../EditSchedule/AllEditGames/EditGames/ScoreSuggestion/EditGame/EnterScore')
@@ -326,7 +328,9 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
               startTime: game.startTime,
               phaseName: game.phaseName,
               positions: game.positions,
+              id: game.id,
             }}
+            onClick={(id)=> {goTo(ROUTES.entity, { id })}}
           />
 
           <div className={styles.scoreButton}>
@@ -346,7 +350,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
           </div>
         </div>
         <Divider variant="middle" />
-        <RosterDisplay teams={game.positions} />
+        <RosterDisplay teams={game.positions} update={getGame} />
         <Divider variant="middle" />
         <Posts
           userInfo={userInfo}

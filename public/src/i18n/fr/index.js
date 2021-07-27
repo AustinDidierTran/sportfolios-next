@@ -1193,6 +1193,7 @@ export default {
     is_sub: 'Est un remplaçant',
     job_title: "Titre d'emploi",
     join_team: "Rejoindre l'équipe",
+    joined: 'Rejoint',
     junior_member: 'Membre junior',
     junior: 'Junior',
     last_name: 'Nom de famille',
