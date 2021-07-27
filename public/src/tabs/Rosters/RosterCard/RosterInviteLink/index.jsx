@@ -37,7 +37,8 @@ export default function RosterInviteLink(props) {
     const res = await api(
       formatRoute('/api/entity/rosterInviteToken', null, {
         rosterId,
-      })
+      }),
+      { method: 'GET' }
     );
     if (res.status !== STATUS_ENUM.SUCCESS_STRING) {
       setLink(null);
@@ -67,7 +68,8 @@ export default function RosterInviteLink(props) {
     const res = await api(
       formatRoute('/api/entity/newRosterInviteToken', null, {
         rosterId,
-      })
+      }),
+      { method: 'GET' }
     );
     if (res.status !== STATUS_ENUM.SUCCESS_STRING) {
       return;

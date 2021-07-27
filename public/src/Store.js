@@ -219,12 +219,7 @@ export function StoreProvider(props) {
   };
 
   const getRealId = async (id) => {
-    const res = await api(
-      formatRoute('/api/entity/realId', null, {
-        id,
-      }),
-      { method: 'GET' }
-    );
+    const res = await api(formatRoute('/api/entity/realId', null, { id }), { method: 'GET' });
     dispatch({
       type: ACTION_ENUM.GET_ID,
       payload: res.data,

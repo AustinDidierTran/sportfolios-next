@@ -25,9 +25,13 @@ export default function BankAccount() {
   }, [entityId]);
 
   const getBankAccounts = async () => {
-    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }));
+    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }), {
+      method: 'GET',
+    });
     setHasAccount(hasStripeAccount);
-    const { data: bankAccounts } = await api(formatRoute('/api/stripe/bankAccounts', null, { entityId }));
+    const { data: bankAccounts } = await api(formatRoute('/api/stripe/bankAccounts', null, { entityId }), {
+      method: 'GET',
+    });
     const res = bankAccounts.map((b) => ({
       type: LIST_ITEM_ENUM.BANK_ACCOUNT,
       last4: b.last4,

@@ -53,7 +53,7 @@ const CreatePractice: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getLocations = async (): Promise<void> => {
-    const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+    const { data } = await api(formatRoute('/api/entity/teamLocations', null, { teamId }), { method: 'GET' });
     const formattedData = data.filter((n: Location) => n.id != null);
     formattedData.push(
       { id: t('no_location'), location: t('no_location') },

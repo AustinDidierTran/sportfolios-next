@@ -12,7 +12,6 @@ const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
   const router = useRouter();
   const { email: emailProps } = router.query;
   const { t } = useTranslation();
-
   const email = useMemo<string>(() => {
     if (Array.isArray(emailProps)) {
       return emailProps[0];
@@ -27,7 +26,7 @@ const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.confirmationEmailSent.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      {email ? <LoadingSpinner /> : <ConfirmationEmailSent email={email} />}
+      {email ? <ConfirmationEmailSent email={email} /> : <LoadingSpinner />}
     </>
   );
 };

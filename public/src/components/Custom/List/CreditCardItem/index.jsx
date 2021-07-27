@@ -29,9 +29,13 @@ export default function CreditCardItem(props) {
   };
 
   const onDelete = async () => {
-    await api(formatRoute('/api/stripe/creditCard', null, { customerId }), {
-      method: 'DELETE',
-    });
+    await api(
+      formatRoute('/api/stripe/creditCard', null, { customerId }),
+      {
+        method: 'DELETE',
+      },
+      { method: 'GET' }
+    );
     update();
   };
 

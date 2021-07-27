@@ -22,7 +22,8 @@ export default function EditEvents(props) {
     const { data } = await api(
       formatRoute('/api/entity/ownedEvents', null, {
         organizationId: id,
-      })
+      }),
+      { method: 'GET' }
     );
     return data || [];
   };

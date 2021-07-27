@@ -27,7 +27,7 @@ export default function Shop(props) {
   const isEditor = useEditor(role);
 
   const fetchShopItems = async () => {
-    const { data = [] } = await api(formatRoute('/api/shop/getItems', null, { id }));
+    const { data = [] } = await api(formatRoute('/api/shop/getItems', null, { id }), { method: 'GET' });
     setItems(data);
   };
 

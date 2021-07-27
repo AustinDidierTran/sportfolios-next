@@ -46,7 +46,7 @@ export default function ReportItem(props) {
   };
 
   const handleClick = async () => {
-    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }));
+    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let sumSubTotal = 0;
       let sumTotalTax = 0;

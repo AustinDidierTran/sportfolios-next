@@ -145,7 +145,8 @@ export function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: 
     formatRoute(`${BASE_URL}/getPossibleSubmissionerInfos`, null, {
       gameId: game.id,
       teamsIds: JSON.stringify(game.positions.map((t) => ({ rosterId: t.rosterId, name: t.name }))),
-    })
+    }),
+    { method: 'GET' }
   );
 }
 

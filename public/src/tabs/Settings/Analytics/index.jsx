@@ -24,7 +24,7 @@ export default function Analytics() {
   }, [id]);
 
   const getReports = async () => {
-    const { data } = await api(formatRoute('/api/entity/reports', null, { id }));
+    const { data } = await api(formatRoute('/api/entity/reports', null, { id }), { method: 'GET' });
     const items = data.map((d) => ({
       metadata: d.metadata,
       reportType: d.type,

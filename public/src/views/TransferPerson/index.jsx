@@ -25,7 +25,7 @@ export default function TransferPerson() {
       goTo(ROUTES.entityNotFound);
       return;
     }
-    const res = await api(formatRoute('/api/user/transferPerson', null, { token }));
+    const res = await api(formatRoute('/api/user/transferPerson', null, { token }), { method: 'GET' });
 
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       goTo(ROUTES.entityNotFound);

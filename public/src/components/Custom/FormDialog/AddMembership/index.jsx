@@ -59,7 +59,7 @@ export default function AddMembership(props) {
   };
 
   const getTaxes = async () => {
-    const { data } = await api(formatRoute('/api/stripe/getTaxes'));
+    const { data } = await api(formatRoute('/api/stripe/getTaxes'), { method: 'GET' });
     const res = data.map((d) => ({
       id: d.id,
       percentage: d.percentage,
@@ -72,7 +72,8 @@ export default function AddMembership(props) {
     const { data: hasStripeBankAccount } = await api(
       formatRoute('/api/stripe/hasStripeBankAccount', null, {
         entityId,
-      })
+      }),
+      { method: 'GET' }
     );
     return hasStripeBankAccount;
   };

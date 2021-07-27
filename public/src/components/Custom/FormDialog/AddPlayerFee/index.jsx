@@ -25,7 +25,7 @@ export default function AddPlayerFee(props) {
   }, [openProps]);
 
   const getTaxes = async () => {
-    const { data } = await api(formatRoute('/api/stripe/getTaxes'));
+    const { data } = await api(formatRoute('/api/stripe/getTaxes'), { method: 'GET' });
 
     if (!data) {
       return;
