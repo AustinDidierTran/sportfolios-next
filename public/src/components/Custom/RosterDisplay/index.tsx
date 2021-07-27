@@ -34,16 +34,10 @@ export default function RosterDisplay(props: IProps) {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          style={{ width: '700px' }}
+          style={{ width: '100%' }}
         >
           {teams.map((team, index) => (
-            <Tab
-              key={index}
-              label={team.name}
-              onClick={() => {
-                setTeamIndex(index);
-              }}
-            />
+            <Tab key={index} label={team.name} onClick={() => setTeamIndex(index)} />
           ))}
         </Tabs>
       </div>

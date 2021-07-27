@@ -10,6 +10,7 @@ import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import Avatar from '../../Avatar';
 import { useTranslation } from 'react-i18next';
+import { Positions } from '../../../../../../typescript/types';
 
 interface IProps {
   game: IGame;
@@ -20,13 +21,7 @@ interface IGame {
   field: string;
   phaseName: string;
   startTime: string;
-  positions: IPosition[];
-}
-
-interface IPosition {
-  name: string;
-  score: number;
-  photoUrl: string;
+  positions: Positions[];
 }
 
 export function MultipleTeamGame(props: IProps) {
@@ -37,7 +32,7 @@ export function MultipleTeamGame(props: IProps) {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.game} onClick={() => onClick(props)}>
+    <div className={styles.game} onClick={() => onClick()}>
       <div className={styles.teams}>
         {positions.map((position, i) => (
           <div className={styles.teamContent} key={i}>

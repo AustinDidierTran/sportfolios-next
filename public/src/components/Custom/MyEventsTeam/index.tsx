@@ -22,6 +22,7 @@ interface IGameInfos {
   timeslot: string;
   field?: string;
   name?: string;
+  phaseName?: string;
   teamNames: string;
   teamScores: string;
   update?: () => void;
@@ -122,10 +123,8 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
       ];
 
       return {
-        game,
-        positions,
+        game: { field: game.field, startTime: game.timeslot, phaseName: game.phaseName, positions: game.positions },
         type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME,
-        startTime: game.timeslot,
       };
     });
     array.push(game);
