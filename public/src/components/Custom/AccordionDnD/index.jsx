@@ -31,12 +31,12 @@ const reorder = (list, startIndex, endIndex) => {
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : COLORS.white,
+  background: isDragging ? COLORS.whiteSmoke : COLORS.white,
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : COLORS.white,
+  background: isDraggingOver ? COLORS.whiteSmoke : COLORS.white,
   width: '100%',
 });
 

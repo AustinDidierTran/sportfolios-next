@@ -72,7 +72,7 @@ export default function PartnerItem(props) {
         <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
       </ListItem>
       <Collapse in={expanded} timeaout="auto" unmountOnExit>
-        <div style={{ backgroundColor: '#F5F5F5' }}>
+        <div style={{ backgroundColor: COLORS.whiteSmoke }}>
           <ListItem button onClick={redirect}>
             <ListItemText primary={name} secondary={website} />
           </ListItem>

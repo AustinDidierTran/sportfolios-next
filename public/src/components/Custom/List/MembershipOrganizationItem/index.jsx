@@ -95,7 +95,7 @@ export default function MembershipOrganizationItem(props) {
         <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
       </ListItem>
       <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
-        <div style={{ backgroundColor: '#F5F5F5' }}>
+        <div style={{ backgroundColor: COLORS.whiteSmoke }}>
           <ListItem>
             <ListItemText primary={membershipTypeText} secondary={`${t('expire_on')} ${expirationDate}`} />
           </ListItem>

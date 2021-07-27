@@ -17,7 +17,7 @@ export default function Tag(props) {
       case TAG_TYPE_ENUM.ACCEPTED_FREE:
         return {
           name: t('accepted'),
-          backgroundColor: '#4fc947',
+          backgroundColor: COLORS.green,
           color: COLORS.white,
         };
 
@@ -30,7 +30,7 @@ export default function Tag(props) {
 
       case TAG_TYPE_ENUM.REGISTERED:
         return {
-          backgroundColor: '#4fc947',
+          backgroundColor: COLORS.green,
           icon: 'FiberManualRecord',
         };
 

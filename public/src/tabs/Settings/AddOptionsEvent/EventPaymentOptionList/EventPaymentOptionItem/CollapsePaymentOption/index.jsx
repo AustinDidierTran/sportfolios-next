@@ -10,6 +10,7 @@ import CustomCollapse from '../../../../../../components/Custom/Collapse';
 import { formatDate, formatPrice } from '../../../../../../utils/stringFormats';
 import TextField from '@material-ui/core/TextField';
 import { goTo, ROUTES } from '../../../../../../actions/goTo';
+import { COLORS } from '../../../../../../utils/colors';
 
 export default function CollapsePaymentOption(props) {
   const { t } = useTranslation();
@@ -66,7 +67,7 @@ export default function CollapsePaymentOption(props) {
 
   return (
     <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
-      <div style={{ backgroundColor: '#F5F5F5' }}>
+      <div style={{ backgroundColor: COLORS.whiteSmoke }}>
         <ListItem>
           <ListItemText
             primary={teamActivity ? t('team.team_activity') : t('individual_activity')}

@@ -147,7 +147,7 @@ const TeamHead: React.FunctionComponent<IProps> = (props) => {
             </div>
           </StyledTableCell>
           <StyledTableCell>
-            <MailToButton color={'white'} tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+            <MailToButton color={COLORS.white} tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
           </StyledTableCell>
         </TableRow>
       </TableHead>

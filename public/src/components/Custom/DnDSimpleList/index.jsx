@@ -25,7 +25,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : COLORS.white,
+  background: isDraggingOver ? COLORS.whiteSmoke : COLORS.white,
   padding: grid,
   width: '100%',
 });
