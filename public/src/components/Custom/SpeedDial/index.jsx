@@ -27,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
     right: '40px',
     zIndex: theme.zIndex.drawer + 2,
   },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
 }));
 
 export default function SpeedDialTooltipOpen() {
@@ -112,7 +108,7 @@ export default function SpeedDialTooltipOpen() {
 
   return (
     <div className={classes.root}>
-      <Backdrop open={open} className={classes.backdrop} />
+      <Backdrop open={open} />
       <SpeedDial
         ariaLabel="SpeedDial"
         className={width < MOBILE_WIDTH ? classes.speedDial : classes.speedDial2}

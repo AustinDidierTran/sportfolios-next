@@ -51,7 +51,7 @@ export default function LoggedIn(props) {
   const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 
   const updateCart = async () => {
-    const { data: cartItems } = await api('/api/shop/getCartItems');
+    const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
     dispatch({
       type: ACTION_ENUM.UPDATE_CART,
       payload: cartItems,
