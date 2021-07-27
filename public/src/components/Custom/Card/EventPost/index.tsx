@@ -82,11 +82,7 @@ const EventPost: React.FunctionComponent<IProps> = (props) => {
       <CardHeader
         className={styles.header}
         avatar={
-          <CustomAvatar
-            aria-label="recipe"
-            className={classes.avatar}
-            photoUrl={(creator && creator.photoUrl) || ''}
-          ></CustomAvatar>
+          <CustomAvatar aria-label="recipe" className={classes.avatar} photoUrl={(creator && creator.photoUrl) || ''} />
         }
         action={
           <IconButton aria-label="settings">
@@ -132,9 +128,7 @@ const EventPost: React.FunctionComponent<IProps> = (props) => {
           >
             <ExpandMoreIcon />
           </IconButton>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

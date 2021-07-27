@@ -30,7 +30,7 @@ const CollapseTeamsRegistered: React.FunctionComponent<IProps> = (props) => {
           ${team.captains[0].surname}`}
           secondary={t('captain')}
         />
-        <ListItemText className={styles.text} primary={team.email} secondary={t('email.email')}></ListItemText>
+        <ListItemText className={styles.text} primary={team.email} secondary={t('email.email')} />
         <MailToButton emails={[{ email: team.email }]} color="grey" />
       </ListItem>
       <ListItem>

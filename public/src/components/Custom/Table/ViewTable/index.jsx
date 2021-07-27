@@ -22,9 +22,7 @@ export default function ViewTable(props) {
             <TableRow>
               <TableCell>{description}</TableCell>
             </TableRow>
-          ) : (
-            <></>
-          )}
+          ) : null}
           <TableRow>
             {headers.map((h, index) => (
               <TableCell key={index}>{h.display}</TableCell>

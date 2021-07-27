@@ -101,9 +101,9 @@ const Rankings: React.FunctionComponent = () => {
 
   return (
     <>
-      <Ranking ranking={preranking} title={t('preranking')}></Ranking>
+      <Ranking ranking={preranking} title={t('preranking')} />
       <PhaseRanking prerankPhaseId={prerankPhaseId} />
-      <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition></Ranking>
+      <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition />
     </>
   );
 };

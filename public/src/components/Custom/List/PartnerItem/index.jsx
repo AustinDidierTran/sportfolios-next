@@ -65,7 +65,7 @@ export default function PartnerItem(props) {
     <>
       <ListItem button onClick={handleExpand}>
         <ListItemIcon>
-          <Avatar photoUrl={photoUrl}></Avatar>
+          <Avatar photoUrl={photoUrl} />
         </ListItemIcon>
         <ListItemText primary={name} secondary={t('partner.partner')} />
         <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />

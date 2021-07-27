@@ -1122,7 +1122,7 @@ export default function ScheduleInteractiveTool() {
 
       {isSuggestedGames && (
         <div className={classes.suggestedGameBox}>
-          <SuggestedGames suggestions={suggestedGames} index={index} setNewIndex={setNewIndex}></SuggestedGames>
+          <SuggestedGames suggestions={suggestedGames} index={index} setNewIndex={setNewIndex} />
         </div>
       )}
       <AlertDialog

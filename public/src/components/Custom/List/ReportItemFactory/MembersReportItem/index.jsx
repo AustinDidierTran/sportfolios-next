@@ -125,7 +125,7 @@ export default function MembersReportItem(props) {
   return (
     <>
       <ListItem style={{ width: '100%' }}>
-        <ListItemText primary={reportName}></ListItemText>
+        <ListItemText primary={reportName} />
         <CustomIconButton
           variant="contained"
           icon="GetApp"

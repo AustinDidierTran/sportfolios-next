@@ -116,7 +116,7 @@ export default function Signup() {
                 onChange={() => {
                   setIsSubcribed(!isSubscribed);
                 }}
-              ></Checkbox>
+              />
               <label>
                 <Typography color="textSecondary">{t('newsletter_subscribe')}</Typography>
               </label>

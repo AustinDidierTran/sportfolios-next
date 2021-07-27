@@ -88,7 +88,7 @@ export default function ScoreSuggestion(props) {
           </Collapse>
         </>
       ) : (
-        <div style={{ marginBottom: '16px' }}></div>
+        <div style={{ marginBottom: '16px' }} />
       )}
     </>
   );

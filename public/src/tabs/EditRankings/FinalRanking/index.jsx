@@ -170,9 +170,9 @@ export default function FinalRanking(props) {
             <ListItemIcon>{!(expanded || isOneExpanded) && <Icon icon="Reorder" color="textSecondary" />}</ListItemIcon>
           </div>
           {phase.status === PHASE_STATUS_ENUM.DONE ? (
-            <ListItemText primary={phase.content} secondary={t('phase_done')}></ListItemText>
+            <ListItemText primary={phase.content} secondary={t('phase_done')} />
           ) : (
-            <ListItemText primary={phase.content} secondary={t('phase_in_progress')}></ListItemText>
+            <ListItemText primary={phase.content} secondary={t('phase_in_progress')} />
           )}
         </AccordionSummary>
         {phase.status !== PHASE_STATUS_ENUM.DONE && (
@@ -254,37 +254,25 @@ export default function FinalRanking(props) {
                                   <ListItemText
                                     className={styles.position}
                                     secondary={item.finalPosition ? item.finalPosition : index + 1}
-                                  ></ListItemText>
+                                  />
                                   <ListItemText
                                     className={styles.team}
                                     primary={item.name}
                                     secondary={item.positionName}
-                                  ></ListItemText>
-                                  <ListItemText
-                                    className={styles.win}
-                                    primary={item.wins}
-                                    secondary={'W'}
-                                  ></ListItemText>
-                                  <ListItemText
-                                    className={styles.lose}
-                                    primary={item.loses}
-                                    secondary={'L'}
-                                  ></ListItemText>
-                                  <ListItemText
-                                    className={styles.pointFor}
-                                    primary={item.pointFor}
-                                    secondary={'+'}
-                                  ></ListItemText>
+                                  />
+                                  <ListItemText className={styles.win} primary={item.wins} secondary={'W'} />
+                                  <ListItemText className={styles.lose} primary={item.loses} secondary={'L'} />
+                                  <ListItemText className={styles.pointFor} primary={item.pointFor} secondary={'+'} />
                                   <ListItemText
                                     className={styles.pointAgainst}
                                     primary={item.pointAgainst}
                                     secondary={'-'}
-                                  ></ListItemText>
+                                  />
                                   <ListItemText
                                     className={styles.delta}
                                     primary={item.pointFor - item.pointAgainst}
                                     secondary={'+/-'}
-                                  ></ListItemText>
+                                  />
                                 </div>
                               </ListItem>
                               <Divider />

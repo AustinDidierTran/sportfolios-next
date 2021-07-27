@@ -18,7 +18,7 @@ export default function CollapsePlayersRegisteredMobile(props) {
   return (
     <Collapse in={expanded} timeout="auto" unmountOnExit>
       <ListItem>
-        <ListItemText className={styles.text} primary={player.email} secondary={t('email.email')}></ListItemText>
+        <ListItemText className={styles.text} primary={player.email} secondary={t('email.email')} />
         <MailToButton emails={[{ email: player.email }]} color="grey" />
       </ListItem>
       <ListItem>
@@ -29,9 +29,9 @@ export default function CollapsePlayersRegisteredMobile(props) {
               player.option.individual_price === 0 ? t('free') : formatPrice(player.option.individual_price)
             })`}
             secondary={t('option')}
-          ></ListItemText>
+          />
         ) : (
-          <ListItemText className={styles.text} primary={t('no.no_option')} secondary={t('option')}></ListItemText>
+          <ListItemText className={styles.text} primary={t('no.no_option')} secondary={t('option')} />
         )}
       </ListItem>
       <ListItem>

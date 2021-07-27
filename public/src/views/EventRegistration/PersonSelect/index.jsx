@@ -69,9 +69,7 @@ export default function PersonSelect(props) {
         <Typography component="p" style={{ marginBottom: '8px' }}>
           {t('no.no_person_selected')}
         </Typography>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {formik.values.persons.map((p, index) => (
         <PersonItem
           key={p.id}
@@ -120,9 +118,7 @@ export default function PersonSelect(props) {
             />
           ))}
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 }

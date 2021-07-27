@@ -115,7 +115,7 @@ export default function ComponentFactory(props) {
         label={component.label}
         onChange={component.onChange}
         className={component.className}
-      ></TextField>
+      />
     );
   }
   if (component.componentType === COMPONENT_TYPE_ENUM.LIST_ITEM) {
@@ -327,9 +327,7 @@ export default function ComponentFactory(props) {
       InputProps={{
         endAdornment: component.endAdorment ? (
           <InputAdornment position="end">{component.endAdorment}</InputAdornment>
-        ) : (
-          <></>
-        ),
+        ) : null,
         inputProps: { min: component.min, max: component.max },
         ...component.inputProps,
       }}

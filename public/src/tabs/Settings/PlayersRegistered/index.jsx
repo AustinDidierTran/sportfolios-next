@@ -280,7 +280,7 @@ export default function PlayersRegistered() {
   }))(TableRow);
 
   if (players.length < 1) {
-    return <></>;
+    return null;
   }
 
   if (width < MOBILE_WIDTH) {
@@ -401,9 +401,7 @@ export default function PlayersRegistered() {
                     onClick={handleUnregisterAllClick}
                     style={{ color: '#f44336' }}
                   />
-                ) : (
-                  <></>
-                )}
+                ) : null}
               </StyledTableCell>
             </TableRow>
           </TableHead>

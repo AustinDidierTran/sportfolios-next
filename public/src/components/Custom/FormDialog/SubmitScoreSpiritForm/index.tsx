@@ -14,11 +14,13 @@ import dynamic from 'next/dynamic';
 import { Store } from '../../../../Store';
 import { getGameSubmissionInfos } from '../../../../actions/service/entity/get';
 import { GameSubmissionInfo, PersonAdmin, SubmissionerTeam } from '../../../../../../typescript/types';
+import { SUBMISSION_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   open: boolean;
   gameId: string;
   submissionerInfos: ISubmissionerInfos;
+  type: string;
   onClose: () => void;
   update: () => void;
 }
@@ -34,7 +36,7 @@ const SectionSpirit = dynamic(() => import('./SectionSpirit'));
 // const SectionPresences = dynamic(() => import('./SectionPresences'));
 
 const SubmitScoreDialog: React.FunctionComponent<IProps> = (props) => {
-  const { open, onClose, gameId, submissionerInfos, update } = props;
+  const { open, onClose, gameId, submissionerInfos, type, update } = props;
   const { t } = useTranslation();
   const {
     state: { id: entityId },
@@ -64,7 +66,9 @@ const SubmitScoreDialog: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth={'xs'} fullWidth>
-      <DialogTitle id="form-dialog-title">{t('submit_score')}</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        {type == SUBMISSION_ENUM.SCORE ? t('submit_score') : t('submit_spirit')}
+      </DialogTitle>
       <div>
         <DialogContent>
           <DialogContentText>
@@ -73,21 +77,22 @@ const SubmitScoreDialog: React.FunctionComponent<IProps> = (props) => {
               team: teamName,
             })}
           </DialogContentText>
-          <SectionScore
-            gameId={gameId}
-            IsSubmittedCheck={SubmittedCheck}
-            suggestions={submissionInfos?.scoreSuggestions}
-            submissionerInfos={submissionerInfos}
-            update={update}
-          />
-          {submissionInfos?.hasSpirit ? (
+          {type == SUBMISSION_ENUM.SCORE ? (
+            <SectionScore
+              gameId={gameId}
+              IsSubmittedCheck={SubmittedCheck}
+              suggestions={submissionInfos?.scoreSuggestions}
+              submissionerInfos={submissionerInfos}
+              update={update}
+            />
+          ) : (
             <SectionSpirit
               gameId={gameId}
               IsSubmittedCheck={SubmittedCheck}
               submittedSpirit={submissionInfos?.spiritSubmission}
               submissionerInfos={submissionerInfos}
             />
-          ) : null}
+          )}
           {/* <SectionPresences
             gameId={gameId}
             IsSubmittedCheck={SubmittedCheck}

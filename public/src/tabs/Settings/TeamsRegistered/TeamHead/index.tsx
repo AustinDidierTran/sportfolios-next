@@ -115,9 +115,7 @@ const TeamHead: React.FunctionComponent<IProps> = (props) => {
                 onClick={() => handleUnregisterAllClick()}
                 style={{ color: '#f44336' }}
               />
-            ) : (
-              <></>
-            )}
+            ) : null}
           </StyledTableCell>
         </TableRow>
       </TableHead>

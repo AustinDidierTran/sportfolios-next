@@ -15,7 +15,7 @@ export default function DownloadReportDialog(props) {
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
         <DialogTitle id="dialog-title">{title}</DialogTitle>
-        <DialogContent></DialogContent>
+        <DialogContent></DialogContent> {/*???*/}
         <DialogActions>
           <CSVLink
             data={data}

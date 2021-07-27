@@ -67,7 +67,7 @@ export default function RosterItem(props) {
   return (
     <ListItem className={styles.item}>
       <ListItemIcon>
-        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
+        <CustomAvatar photoUrl={photoUrl} initials={initials} />
       </ListItemIcon>
       <div className={styles.text}>
         <Typography>{`${name}${surname ? ` ${surname}` : ''}`}</Typography>

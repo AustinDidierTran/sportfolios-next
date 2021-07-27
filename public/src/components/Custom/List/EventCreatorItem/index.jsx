@@ -26,9 +26,9 @@ export default function EventCreatorItem(props) {
   return (
     <ListItem button onClick={handleClick} selected={selected} style={{ width: '100%' }}>
       <ListItemIcon>
-        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
+        <CustomAvatar photoUrl={photoUrl} initials={initials} />
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t('event.event_creator')}></ListItemText>
+      <ListItemText primary={name} secondary={t('event.event_creator')} />
     </ListItem>
   );
 }

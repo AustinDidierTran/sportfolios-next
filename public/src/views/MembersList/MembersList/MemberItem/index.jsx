@@ -67,7 +67,7 @@ export default function MemberItem(props) {
           onClick={() => {
             goTo(ROUTES.entity, { id: person.id });
           }}
-        ></ListItemText>
+        />
         {moment.utc(expirationDate) < moment.utc() ? (
           <ListItemText
             secondaryTypographyProps={{ color: 'secondary' }}
@@ -78,7 +78,7 @@ export default function MemberItem(props) {
             onClick={() => {
               goTo(ROUTES.entity, { id: person.id });
             }}
-          ></ListItemText>
+          />
         ) : (
           <ListItemText
             className={styles.item2}
@@ -88,7 +88,7 @@ export default function MemberItem(props) {
             onClick={() => {
               goTo(ROUTES.entity, { id: person.id });
             }}
-          ></ListItemText>
+          />
         )}
         <CustomFormDialog
           type={FORM_DIALOG_TYPE_ENUM.EDIT_MEMBERSHIP}

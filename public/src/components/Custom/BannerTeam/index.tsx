@@ -49,7 +49,7 @@ const BannerTeam: React.FunctionComponent<IProps> = (props) => {
     <div className={styles.root}>
       <Grid container>
         <Grid item lg={4} md={4} sm={12} xs={12}>
-          <Avatar photoUrl={basicInfos.photoUrl} size="lg" className={styles.avatar}></Avatar>
+          <Avatar photoUrl={basicInfos.photoUrl} size="lg" className={styles.avatar} />
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} container>
           <Grid container className={styles.gridText}>

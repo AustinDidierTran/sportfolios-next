@@ -20,19 +20,15 @@ export default function ShopItem(props) {
       <ListItem style={{ width: '100%' }}>
         <div className={styles.div}>
           <ListItemIcon>
-            <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
+            <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo} />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={label} secondary={t(size) || ''}></ListItemText>
-          <ListItemText
-            className={styles.quantity}
-            primary={formatPrice(amount)}
-            secondary={t('Qt', { quantity })}
-          ></ListItemText>
+          <ListItemText className={styles.name} primary={label} secondary={t(size) || ''} />
+          <ListItemText className={styles.quantity} primary={formatPrice(amount)} secondary={t('Qt', { quantity })} />
           <CustomIconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
           <ListItemText
             className={styles.date}
             secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
-          ></ListItemText>
+          />
         </div>
       </ListItem>
       <Divider />

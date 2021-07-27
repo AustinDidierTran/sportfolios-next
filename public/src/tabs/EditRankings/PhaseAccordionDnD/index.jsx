@@ -195,17 +195,12 @@ export default function PhaseAccordionDnD(props) {
                 className={button.className}
                 key={index}
               >
-                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon}></Icon> : button.name}
+                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon} /> : button.name}
               </Button>
             ))}
           </div>
           <div className={styles.menuContainer}>
-            <Menu
-              className={styles.menu}
-              phase={phase}
-              openEdit={openEdit}
-              onOpenDeleteDialog={onOpenDeleteDialog}
-            ></Menu>
+            <Menu className={styles.menu} phase={phase} openEdit={openEdit} onOpenDeleteDialog={onOpenDeleteDialog} />
           </div>
         </div>
         <AccordionDetails>
@@ -272,7 +267,7 @@ export default function PhaseAccordionDnD(props) {
                                           icon="Delete"
                                           style={{ color: 'grey' }}
                                           tooltip={t('delete.delete_team')}
-                                        ></IconButton>
+                                        />
                                       </ListItemIcon>
                                     </div>
                                   </ListItem>

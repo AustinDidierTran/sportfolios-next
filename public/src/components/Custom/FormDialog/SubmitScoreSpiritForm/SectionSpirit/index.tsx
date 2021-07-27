@@ -127,7 +127,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
       <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
         <Typography>{t('spirit')}</Typography>
         <div className={styles.expand}>
-          {isSubmitted ? IsSubmittedCheck : <></>}
+          {isSubmitted ? IsSubmittedCheck : null}
           <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
@@ -145,9 +145,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
             }`}</Typography>
             {formik.values.comment ? (
               <TextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
         ) : (
           <div>
@@ -165,14 +163,12 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
               className={styles.submitButton}
               onClick={() => formik.handleSubmit()}
               color={'primary'}
-              variant="text"
+              variant="outlined"
             >
               {t('submit')}
             </Button>
           </div>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </Collapse>
     </div>
   );

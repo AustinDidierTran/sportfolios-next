@@ -34,14 +34,14 @@ export default function ShopItem(props) {
       <ListItem style={{ width: '100%' }}>
         <div className={styles.div}>
           <ListItemIcon>
-            <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
+            <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo} />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={label} secondary={t(size) || ''}></ListItemText>
+          <ListItemText className={styles.name} primary={label} secondary={t(size) || ''} />
           <ListItemText
             className={styles.quantity}
             primary={taxLength ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
             secondary={`Qt: ${quantity}`}
-          ></ListItemText>
+          />
           <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
             <div>
               <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />

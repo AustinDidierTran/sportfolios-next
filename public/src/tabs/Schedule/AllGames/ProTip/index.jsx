@@ -12,7 +12,7 @@ export default function ProTip() {
 
   return (
     <div className={styles.proTip}>
-      {width < MOBILE_WIDTH ? <></> : <Icon icon="EmojiObjects" color="grey" />}
+      {width < MOBILE_WIDTH ? null : <Icon icon="EmojiObjects" color="grey" />}
       <Typography color="textSecondary" variant="body2">
         {t('you.you_can_click_on_your_game_to_submit_your_score')}
       </Typography>

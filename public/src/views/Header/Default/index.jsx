@@ -8,6 +8,7 @@ import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function DefaultHeader(props) {
   const [width] = useWindowSize();
+  //what is this
   const { Item1 = () => <></>, Item2 = () => <></>, Item3 = () => <></>, Item4 = () => <></>, showBar = true } = props;
 
   const It1 = () => {

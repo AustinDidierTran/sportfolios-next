@@ -59,9 +59,7 @@ const Player: React.FunctionComponent<IProps> = (props) => {
         <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
       </ListItemIcon>
       <div className={styles.position}>
-        {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-          <></>
-        ) : (
+        {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
           <Tooltip
             title={t<string>(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}
           >
@@ -108,9 +106,7 @@ const Player: React.FunctionComponent<IProps> = (props) => {
             }}
           />
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </ListItem>
   );
 };

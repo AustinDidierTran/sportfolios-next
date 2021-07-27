@@ -256,7 +256,7 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
         fields={fields}
         formik={formik}
         buttons={buttons}
-      ></FormDialog>
+      />
     </>
   );
 };

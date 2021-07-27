@@ -66,7 +66,7 @@ export default function NewsLetterEmail() {
             onChange={() => {
               handleUnsubscribe(!isSubscribed);
             }}
-          ></Checkbox>
+          />
           <label>
             <Typography color="textSecondary">
               {isSubscribed

@@ -21,6 +21,6 @@ const Description: React.FunctionComponent<IProps> = (props) => {
     );
   }
 
-  return <></>;
+  return null;
 };
 export default Description;

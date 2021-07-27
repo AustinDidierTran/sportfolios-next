@@ -15,7 +15,7 @@ const AcceptTeamPlayer: React.FunctionComponent<PendingPlayer> = (props) => {
     <Card className={styles.card}>
       <CardHeader
         className={styles.header}
-        avatar={<Avatar aria-label="recipe" photoUrl={photoUrl}></Avatar>}
+        avatar={<Avatar aria-label="recipe" photoUrl={photoUrl} />}
         title={
           <div className={styles.title}>
             <Typography variant="h5">{name}</Typography>

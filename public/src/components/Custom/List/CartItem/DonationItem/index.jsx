@@ -41,14 +41,14 @@ export default function DonationItem(props) {
               photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
               variant="square"
               className={styles.photo}
-            ></CustomAvatar>
+            />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
+          <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name} />
           <ListItemText
             className={styles.quantity}
             primary={taxLength ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
             secondary={`${person?.name} ${person?.surname || ''}`}
-          ></ListItemText>
+          />
           <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
             <div>
               <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
@@ -60,18 +60,16 @@ export default function DonationItem(props) {
             icon="Delete"
             tooltip={t('delete.delete')}
             style={{ color: 'primary' }}
-          ></CustomIconButton>
+          />
         </div>
       </ListItem>
       {note ? (
         <ListItem style={{ width: '100%' }}>
           <div style={{ textAlign: 'left' }}>
-            {t('donation_note')}:<ListItemText style={{ textAlign: 'left' }} secondary={note}></ListItemText>
+            {t('donation_note')}:<ListItemText style={{ textAlign: 'left' }} secondary={note} />
           </div>
         </ListItem>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <Divider />
       <AlertDialog
         open={open}

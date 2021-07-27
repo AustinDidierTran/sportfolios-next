@@ -91,7 +91,7 @@ export default function AddPlayer(props) {
       <DialogTitle id="form-dialog-title">{t('add.add_player')}</DialogTitle>
       <div>
         <DialogContent>
-          {person ? <PersonItem {...person} secondary={t('player')} notClickable /> : <></>}
+          {person ? <PersonItem {...person} secondary={t('player')} notClickable /> : null}
           <PersonSearchList
             clearOnSelect={false}
             blackList={blackList}

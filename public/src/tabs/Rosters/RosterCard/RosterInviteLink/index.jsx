@@ -117,7 +117,7 @@ export default function RosterInviteLink(props) {
           onClick={() => setAlertOpened(true)}
           tooltip={t('get_a_new_link')}
           style={{ color: 'secondary' }}
-        ></IconButton>
+        />
       </div>
       <AlertDialog
         open={alertOpened}

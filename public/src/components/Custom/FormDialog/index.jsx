@@ -21,7 +21,7 @@ export default function CustomFormDialog(props) {
       <form onSubmit={formik.handleSubmit}>
         <div>
           <DialogContent>
-            {description ? <DialogContentText>{description}</DialogContentText> : <></>}
+            {description ? <DialogContentText>{description}</DialogContentText> : null}
             {fields.map((field, index) => (
               <div style={{ marginTop: '8px' }} key={index}>
                 <ComponentFactory component={{ ...field, formik }} key={index} />

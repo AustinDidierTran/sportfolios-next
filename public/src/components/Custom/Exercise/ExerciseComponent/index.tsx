@@ -121,7 +121,7 @@ const CustomExercises: React.FunctionComponent<IProps> = (props) => {
 
       {showCreate ? (
         <div>
-          <br></br>
+          <br />
           <TextField fullWidth label={t('name')} namespace="name" formik={formik} />
           <TextField fullWidth label={'Description'} namespace="description" formik={formik} />
 

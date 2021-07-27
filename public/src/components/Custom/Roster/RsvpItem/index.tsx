@@ -23,18 +23,10 @@ const RsvpItem: React.FunctionComponent<IProps> = (props) => {
     <>
       <ListItemText primary={player.name} />
       {player.personId == personId || personList?.includes(player.personId) ? (
-        <Rsvp
-          isOpen
-          rsvpStatus={player.rsvp}
-          practiceId={practiceId}
-          playerId={player.personId}
-          update={update}
-        />
+        <Rsvp isOpen rsvpStatus={player.rsvp} practiceId={practiceId} playerId={player.personId} update={update} />
       ) : player.rsvp ? (
         <Chip label={t(player.rsvp)} color={player.rsvp == 'going' ? 'primary' : 'secondary'} variant="outlined" />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

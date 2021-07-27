@@ -37,7 +37,7 @@ export default function MembershipItem(props) {
 
   return (
     <ListItem style={{ width: '100%' }}>
-      <ListItemText primary={primary} secondary={secondary}></ListItemText>
+      <ListItemText primary={primary} secondary={secondary} />
       <Chip label={label} color={color} variant="outlined" onClick={onClick} />
     </ListItem>
   );

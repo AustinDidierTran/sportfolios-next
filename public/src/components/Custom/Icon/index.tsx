@@ -235,7 +235,7 @@ const CustomIcon: React.FunctionComponent<IProps> = (props) => {
   const { icon, color = 'primary', onClick, fontSize = 'default', style } = props;
 
   if (!icon) {
-    return <></>;
+    return null;
   }
   const Icon = icons[icon];
 

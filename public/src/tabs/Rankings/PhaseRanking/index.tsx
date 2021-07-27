@@ -131,9 +131,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
     <>
       {phases.map((phase: IPhase, index: number) => (
         <div key={index}>
-          {phase.ranking.length < 1 ? (
-            <></>
-          ) : phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
+          {phase.ranking.length < 1 ? null : phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
             <Ranking
               key={phase.id}
               ranking={phase.ranking}
@@ -141,7 +139,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
               subtitle={phase.subtitle}
               allTeamsEqual={isTeamsScoreEqual}
               withStats
-            ></Ranking>
+            />
           ) : (
             <Ranking
               key={phase.id}
@@ -149,7 +147,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
               title={phase.title}
               subtitle={phase.subtitle}
               withStats={false}
-            ></Ranking>
+            />
           )}
         </div>
       ))}

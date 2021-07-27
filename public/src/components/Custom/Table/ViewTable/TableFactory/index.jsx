@@ -33,7 +33,7 @@ export default function TableFactory(props) {
           onChange={d.handleChange}
           inputProps={d.inputProps}
           color={d.color}
-        ></Switch>
+        />
       </TableCell>
     );
   }

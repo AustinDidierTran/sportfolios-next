@@ -15,7 +15,7 @@ export default function ReportItemFactory(props) {
   if (!Report) {
     /* eslint-disable-next-line */
     console.error(`${reportType} is not supported in ItemFactory`);
-    return <></>;
+    return null;
   }
   return <Report reportId={reportId} update={update} metadata={metadata} />;
 }

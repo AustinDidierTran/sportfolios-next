@@ -171,7 +171,7 @@ const SectionScore: React.FunctionComponent<IProps> = (props) => {
       <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
         <Typography>{t('score.score')}</Typography>
         <div className={styles.expand}>
-          {isSubmitted ? IsSubmittedCheck : <></>}
+          {isSubmitted ? IsSubmittedCheck : null}
           <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
@@ -187,9 +187,7 @@ const SectionScore: React.FunctionComponent<IProps> = (props) => {
         <div>
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <Typography className={styles.suggestedBy}>{'*' + t('suggested_by_the_other_team')}</Typography>
-          ) : (
-            <></>
-          )}
+          ) : null}
           <div className={styles.scores}>
             <Typography className={styles.teamName}>{`${submissionerInfos.myTeam.name}: (${t(
               'you.your_team'

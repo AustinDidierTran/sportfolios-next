@@ -100,7 +100,7 @@ export default function LoggedIn(props) {
   }
 
   if (!showBar) {
-    return <></>;
+    return null;
   }
 
   return (
