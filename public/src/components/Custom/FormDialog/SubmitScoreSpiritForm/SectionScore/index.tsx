@@ -16,6 +16,7 @@ import TextField from '../../../TextField';
 import IconButton from '../../../IconButton';
 import Button from '../../../Button';
 import { ScoreSuggestion, SubmissionerTeam, PersonAdmin } from '../../../../../../../typescript/types';
+import { COLORS } from '../../../../../utils/colors';
 
 interface IProps {
   suggestions: ScoreSuggestion[];
@@ -156,13 +157,13 @@ const SectionScore: React.FunctionComponent<IProps> = (props) => {
   const getChipStyle = (status: STATUS_ENUM) => {
     switch (status) {
       case STATUS_ENUM.ACCEPTED:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
       case STATUS_ENUM.REFUSED:
         return { border: '1px solid #f44336', color: '#f44336 ' };
       case STATUS_ENUM.PENDING:
         return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
     }
   };
 

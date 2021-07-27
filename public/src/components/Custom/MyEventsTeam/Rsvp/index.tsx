@@ -64,7 +64,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
             className={styles.rsvpButton}
             startIcon="Check"
             color="primary"
-            textColor={goingVariant == 'outlined' ? '#18B393' : COLORS.white}
+            textColor={goingVariant == 'outlined' ? COLORS.turquoise : COLORS.white}
             variant={goingVariant}
             onClick={() => {
               submitRsvp('going');

@@ -3,4 +3,5 @@ export enum COLORS {
   grey = 'grey',
   lightGrey = 'lightGrey',
   white = 'white',
+  turquoise = '#18B393',
 }

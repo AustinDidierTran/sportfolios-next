@@ -14,7 +14,7 @@ const theme = createMuiTheme({
   palette: {
     // primary: teal,
     primary: {
-      main: '#18B393',
+      main: COLORS.turquoise,
       veryLight: '#1acba8',
       dark: '#008a6c',
       light: '#19bf9d',

@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#b2102f' },
   },
   primary: {
-    background: '#18B393',
+    background: COLORS.turquoise,
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#009687' },
   },
   even: {
@@ -45,13 +45,13 @@ export default function ScoreSuggestion(props) {
   const chipStyle = useMemo(() => {
     switch (suggestion.status) {
       case STATUS_ENUM.ACCEPTED:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
       case STATUS_ENUM.REFUSED:
         return { border: '1px solid #f44336', color: '#f44336 ' };
       case STATUS_ENUM.PENDING:
         return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
     }
   }, [suggestion]);
 

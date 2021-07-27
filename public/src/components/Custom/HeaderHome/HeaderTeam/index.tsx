@@ -84,7 +84,7 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
           }}
           style={{
             color: COLORS.white,
-            backgroundColor: '#18B393',
+            backgroundColor: COLORS.turquoise,
             minHeight: 0,
             borderRadius: width > MOBILE_WIDTH ? '7px' : '0px',
           }}
