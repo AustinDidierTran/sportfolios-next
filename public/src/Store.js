@@ -222,7 +222,8 @@ export function StoreProvider(props) {
     const res = await api(
       formatRoute('/api/entity/realId', null, {
         id,
-      })
+      }),
+      { method: 'GET' }
     );
     dispatch({
       type: ACTION_ENUM.GET_ID,
@@ -238,6 +239,7 @@ export function StoreProvider(props) {
         headers: {
           Authorization: authToken,
         },
+        method: 'GET',
       });
 
       const { status } = res;
@@ -261,7 +263,7 @@ export function StoreProvider(props) {
           i18n.changeLanguage(data.language);
         }
 
-        const res2 = await api('/api/shop/getCartItems');
+        const res2 = await api('/api/shop/getCartItems', { method: 'GET' });
         if (res2 && res2.data) {
           dispatch({
             type: ACTION_ENUM.UPDATE_CART,
@@ -271,7 +273,7 @@ export function StoreProvider(props) {
       }
     }
 
-    const res3 = await api('/api/ga/activePageviews');
+    const res3 = await api('/api/ga/activePageviews', { method: 'GET' });
     if (res3 && res3.data) {
       dispatch({
         type: ACTION_ENUM.SET_GA_PAGEVIEWS,
@@ -279,7 +281,7 @@ export function StoreProvider(props) {
       });
     }
 
-    const res4 = await api('/api/ga/activeEvents');
+    const res4 = await api('/api/ga/activeEvents', { method: 'GET' });
     if (res4 && res4.data) {
       dispatch({
         type: ACTION_ENUM.SET_GA_EVENTS,

@@ -3,10 +3,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomAutocomplete from '../Autocomplete';
 import { goTo, goToAndReplace, ROUTES } from '../../../actions/goTo';
-import { useApiRoute } from '../../../hooks/queries';
 
 import styles from './SearchInput.module.css';
 import { useRouter } from 'next/router';
+import api from '../../../actions/api';
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -29,7 +29,7 @@ export default function SearchInput(props) {
   const location = router.pathname;
   const { query: queryQuery } = router.query;
 
-  const { response: apiRes } = useApiRoute(searchQuery);
+  const { data: apiRes } = api(searchQuery, { method: 'GET' });
 
   const [query, setQuery] = useState(queryQuery);
 

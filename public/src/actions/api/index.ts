@@ -75,7 +75,7 @@ const api = async (
   // Then, it is a get
   // eslint-disable-next-line no-console
   console.warn(
-    'You are using the api function without specifying the method. Support may be deprecated please fix this.'
+    `You are using the api function with the route ${route} without specifying the method. Support may be deprecated please fix this.`
   );
   const res = await fetch(`${API_BASE_URL}${route}`, {
     headers,
