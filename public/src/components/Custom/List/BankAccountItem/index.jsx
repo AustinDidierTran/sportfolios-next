@@ -52,9 +52,7 @@ export default function BankAccountItem(props) {
         />
         <ListItemText secondary={t('default')} style={{ textAlign: 'end', margin: '4px' }} />
         <Radio checked={isDefault} label={t('default')} color="primary" onClick={onChange} />
-        {removeDelete ? (
-          <></>
-        ) : (
+        {removeDelete ? null : (
           <CustomIconButton
             icon="Delete"
             onClick={() => {

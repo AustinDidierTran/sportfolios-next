@@ -25,7 +25,7 @@ export default function TeamItem(props) {
               photoUrl={photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
               variant="square"
               className={styles.photo}
-            ></CustomAvatar>
+            />
           </ListItemIcon>
           <ListItemText className={styles.name} primary={description} secondary={teamName} />
           <ListItemText
@@ -37,7 +37,7 @@ export default function TeamItem(props) {
           <ListItemText
             className={styles.date}
             secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
-          ></ListItemText>
+          />
         </div>
       </ListItem>
       <Divider />

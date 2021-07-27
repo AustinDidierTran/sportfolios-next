@@ -112,7 +112,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      {query.value.length === 0 ? <></> : <PersonList items={options}></PersonList>}
+      {query.value.length === 0 ? null : <PersonList items={options} />}
     </>
   );
 }

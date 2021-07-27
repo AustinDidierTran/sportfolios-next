@@ -13,7 +13,7 @@ export default function CouponFactory(props) {
   const { items, open, onClose, type } = props;
   const Coupon = couponMap[type];
   if (!Coupon) {
-    return <></>;
+    return null;
   }
   return <Coupon items={items} open={open} onClose={onClose} />;
 }

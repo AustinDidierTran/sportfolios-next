@@ -204,18 +204,14 @@ export default function TabEventInfo() {
               <Typography className={styles.quickDescription} variant="body2" color="textSecondary" component="p">
                 {decodeURIComponent(event.quickDescription)}
               </Typography>
-            ) : (
-              <></>
-            )}
+            ) : null}
             <Typography variant="body2" color="textSecondary" component="p">
               {getDate()}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {event.location || 'Sherbrooke'}
             </Typography>
-            {isFull || hasNoLimit ? (
-              <></>
-            ) : (
+            {isFull || hasNoLimit ? null : (
               <Typography variant="body2" color={color} component="p">
                 {remainingSpots}&nbsp;
                 {t('places_left')}
@@ -242,9 +238,7 @@ export default function TabEventInfo() {
             >
               {t('register.register')}
             </Button>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </ContainerBottomFixed>
     </div>

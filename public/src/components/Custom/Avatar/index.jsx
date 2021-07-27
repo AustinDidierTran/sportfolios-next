@@ -36,10 +36,12 @@ export default function CustomAvatar(props) {
   if (icon) {
     return (
       <Avatar {...otherProps} className={className} alt={initials}>
-        <CustomIcon icon={icon}></CustomIcon>
+        <CustomIcon icon={icon} />
       </Avatar>
     );
   }
+
+  console.log(initials);
 
   return (
     <Avatar {...otherProps} className={className}>

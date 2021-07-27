@@ -347,7 +347,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
                           goTo(ROUTES.entity, { id: team.id });
                         }}
                       >
-                        <Avatar photoUrl={team.photoUrl} size="lg"></Avatar>
+                        <Avatar photoUrl={team.photoUrl} size="lg" />
                         <Typography className={styles.teamName} variant="h5">
                           {team.name}
                         </Typography>
@@ -368,7 +368,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
                           goTo(ROUTES.entity, { id: team.id });
                         }}
                       >
-                        <Avatar photoUrl={team.photoUrl} size="lg"></Avatar>
+                        <Avatar photoUrl={team.photoUrl} size="lg" />
                         <Typography className={styles.teamName} variant="h5">
                           {team.name}
                         </Typography>

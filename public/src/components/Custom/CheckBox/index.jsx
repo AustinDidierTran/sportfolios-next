@@ -26,7 +26,7 @@ export default function CustomCheckBox(props) {
         }
         label={label}
       />
-      {tooltip ? <IconButton icon="Info" style={{ color: 'grey' }} tooltip={tooltip} /> : <></>}
+      {tooltip ? <IconButton icon="Info" style={{ color: 'grey' }} tooltip={tooltip} /> : null}
     </div>
   );
 }

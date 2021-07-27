@@ -39,9 +39,7 @@ export default function CustomList(props) {
           <ListSubheader component="div" id="nested-list-subheader">
             {title}
           </ListSubheader>
-        ) : (
-          <></>
-        )
+        ) : null
       }
       className={classes.root}
       disablePadding

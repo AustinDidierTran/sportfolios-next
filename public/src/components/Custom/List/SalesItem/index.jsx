@@ -21,21 +21,17 @@ export default function SalesItem(props) {
     <ListItem button style={{ width: '100%' }}>
       <div className={styles.div}>
         <ListItemIcon>
-          <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
+          <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo} />
         </ListItemIcon>
-        <ListItemText className={styles.name} primary={label} secondary={t(metadata.size)}></ListItemText>
-        <ListItemText
-          className={styles.quantity}
-          primary={formatPrice(amount)}
-          secondary={t('qt', { quantity })}
-        ></ListItemText>
-        {email ? <ListItemText secondary={`${t('by')}: ${email}`} className={styles.email}></ListItemText> : <></>}
+        <ListItemText className={styles.name} primary={label} secondary={t(metadata.size)} />
+        <ListItemText className={styles.quantity} primary={formatPrice(amount)} secondary={t('qt', { quantity })} />
+        {email ? <ListItemText secondary={`${t('by')}: ${email}`} className={styles.email} /> : null}
 
         <MailToButton emails={emails} className={styles.mail} />
         <ListItemText
           className={styles.date}
           secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
-        ></ListItemText>
+        />
       </div>
     </ListItem>
   );

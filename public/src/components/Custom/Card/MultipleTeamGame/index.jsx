@@ -20,7 +20,7 @@ export default function MultipleTeamGame(props) {
       <div className={styles.teams}>
         {positions.map((position, i) => (
           <div className={styles.teamContent} key={i}>
-            <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
+            <Avatar photoUrl={position.photoUrl} className={styles.avatar} />
             <Typography className={styles.name}>{position.name}</Typography>
             <Typography className={styles.score}>{position.score}</Typography>
           </div>
@@ -36,11 +36,7 @@ export default function MultipleTeamGame(props) {
               secondary={formatDate(moment.utc(startTime), 'HH:mm')}
             />
           ) : (
-            <ListItemText
-              className={styles.time}
-              primary={t('no.no_time_yet')}
-              secondary={t('no.no_date_yet')}
-            ></ListItemText>
+            <ListItemText className={styles.time} primary={t('no.no_time_yet')} secondary={t('no.no_date_yet')} />
           )}
         </List>
       </div>

@@ -54,10 +54,10 @@ export default function CustomBottomNavigation() {
     goTo(...routeEnum[newValue]);
   };
 
-  const displayNav = useMemo(() => width < MOBILE_WIDTH && Boolean(userInfo && userInfo.userId), [
-    width,
-    userInfo && userInfo.userId,
-  ]);
+  const displayNav = useMemo(
+    () => width < MOBILE_WIDTH && Boolean(userInfo && userInfo.userId),
+    [width, userInfo && userInfo.userId]
+  );
 
   const fetchUnreadNotificationsCount = async () => {
     const res = await api('/api/notifications/unseenCount');
@@ -86,7 +86,5 @@ export default function CustomBottomNavigation() {
       />
       <BottomNavigationAction label={t('menu')} value={TABS_ENUM.MENU} icon={<CustomIcon icon="Menu" />} />
     </BottomNavigation>
-  ) : (
-    <></>
-  );
+  ) : null;
 }

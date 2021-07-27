@@ -80,7 +80,5 @@ export default function CreateRow(props) {
         <IconButton size="small" onClick={onReset} icon="Delete" />
       </TableCell>
     </TableRow>
-  ) : (
-    <></>
-  );
+  ) : null;
 }

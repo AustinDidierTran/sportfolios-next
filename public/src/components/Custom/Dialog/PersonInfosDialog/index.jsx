@@ -29,9 +29,7 @@ export default function PersonInfosDialog(props) {
             {t('postal_code')}: {personInfos?.address?.zip || t('missing_info')}
           </Typography>
         </DialogContent>
-        {withoutButton ? (
-          <></>
-        ) : (
+        {withoutButton ? null : (
           <DialogActions>
             <Button onClick={onClose} color={'default'} variant="text">
               {t('cancel')}

@@ -15,19 +15,8 @@ import CustomIcon from '../../Icon';
 export default function TeamItem(props) {
   const { t } = useTranslation();
 
-  const {
-    id,
-    secondary,
-    onClick,
-    selected,
-    photoUrl,
-    name,
-    isRegistered,
-    icon,
-    inverseColor,
-    notClickable,
-    onDelete,
-  } = props;
+  const { id, secondary, onClick, selected, photoUrl, name, isRegistered, icon, inverseColor, notClickable, onDelete } =
+    props;
 
   const initials = useMemo(() => getInitialsFromName(name));
 
@@ -56,12 +45,12 @@ export default function TeamItem(props) {
     >
       <ListItemIcon>
         {inverseColor ? (
-          <CustomAvatar className={styles.avatar} photoUrl={photoUrl} icon={icon} initials={initials}></CustomAvatar>
+          <CustomAvatar className={styles.avatar} photoUrl={photoUrl} icon={icon} initials={initials} />
         ) : (
-          <CustomAvatar photoUrl={photoUrl} icon={icon} initials={initials}></CustomAvatar>
+          <CustomAvatar photoUrl={photoUrl} icon={icon} initials={initials} />
         )}
       </ListItemIcon>
-      <ListItemText className={styles.text} primary={name} secondary={secondary || t('team.team')}></ListItemText>
+      <ListItemText className={styles.text} primary={name} secondary={secondary || t('team.team')} />
       {onDelete ? (
         <IconButton
           edge="end"
@@ -71,9 +60,7 @@ export default function TeamItem(props) {
         >
           <CustomIcon icon="Delete" />
         </IconButton>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </ListItem>
   );
 }

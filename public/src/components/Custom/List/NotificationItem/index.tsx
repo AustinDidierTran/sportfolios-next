@@ -53,9 +53,7 @@ const NotificationItem: React.FunctionComponent<IProps> = (props) => {
           </Typography>
         }
       />
-      {clicked ? (
-        <></>
-      ) : (
+      {clicked ? null : (
         <div className={styles.dot}>
           <CustomIcon icon="Dot" color="#18b393" />
         </div>

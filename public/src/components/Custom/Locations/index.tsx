@@ -110,7 +110,7 @@ const CustomLocations: React.FunctionComponent<IProps> = (props) => {
 
       {showCreate ? (
         <div>
-          <br></br>
+          <br />
           <AddressSearchInput
             namespace="addressFormatted"
             formik={formik}

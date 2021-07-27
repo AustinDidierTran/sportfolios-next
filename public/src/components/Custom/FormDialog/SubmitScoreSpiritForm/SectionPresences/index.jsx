@@ -144,7 +144,7 @@ export default function SectionSpirit(props) {
       <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
         <Typography>{t('roster')}</Typography>
         <div className={styles.expand}>
-          {isSubmitted ? IsSubmittedCheck : <></>}
+          {isSubmitted ? IsSubmittedCheck : null}
           <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}

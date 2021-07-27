@@ -52,11 +52,11 @@ export default function Graph(props) {
           {longLabelInfo}
         </Typography>
         <div className={styles.text}>
-          <IconButton className={styles.iconButtonMain} size="medium"></IconButton>
+          <IconButton className={styles.iconButtonMain} size="medium" />
           <Typography>{`${t(newTitle)}: ${newStatsInfo}`}</Typography>
         </div>
         <div className={styles.text}>
-          <IconButton className={styles.iconButtonDark}></IconButton>
+          <IconButton className={styles.iconButtonDark} />
           <Typography>{`${t(totalTitle)}: ${totalStatsInfo}`}</Typography>
         </div>
       </div>

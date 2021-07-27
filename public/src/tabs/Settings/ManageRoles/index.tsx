@@ -117,9 +117,9 @@ const ManageRoles: React.FunctionComponent = () => {
               />
             </ListItemIcon>
             {e.surname ? (
-              <ListItemText primary={`${e.name} ${e.surname}`} secondary={getEntityTypeName(e.type)}></ListItemText>
+              <ListItemText primary={`${e.name} ${e.surname}`} secondary={getEntityTypeName(e.type)} />
             ) : (
-              <ListItemText primary={`${e.name}`} secondary={getEntityTypeName(e.type)}></ListItemText>
+              <ListItemText primary={`${e.name}`} secondary={getEntityTypeName(e.type)} />
             )}
           </ListItem>
           <Select

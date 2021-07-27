@@ -35,7 +35,7 @@ export default function PurchasesItem(props) {
           amount={amount}
           label={label}
           goToReceipt={goToReceipt}
-        ></TeamItem>
+        />
       );
     }
     if (person) {
@@ -49,10 +49,10 @@ export default function PurchasesItem(props) {
           amount={amount}
           label={label}
           goToReceipt={goToReceipt}
-        ></PersonItem>
+        />
       );
     }
-    return <></>;
+    return null;
   }
   if (type === GLOBAL_ENUM.MEMBERSHIP) {
     const { organization, person } = metadata;
@@ -65,7 +65,7 @@ export default function PurchasesItem(props) {
         amount={amount}
         label={label}
         goToReceipt={goToReceipt}
-      ></MembershipItem>
+      />
     );
   }
 
@@ -80,7 +80,7 @@ export default function PurchasesItem(props) {
         amount={amount}
         label={label}
         goToReceipt={goToReceipt}
-      ></ShopItem>
+      />
     );
   }
 
@@ -95,8 +95,8 @@ export default function PurchasesItem(props) {
         amount={amount}
         label={label}
         goToReceipt={goToReceipt}
-      ></DonationItem>
+      />
     );
   }
-  return <></>;
+  return null;
 }

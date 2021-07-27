@@ -27,9 +27,9 @@ export default function EventItem(props) {
   return (
     <ListItem button onClick={handleClick} selected={selected} style={{ width: '100%' }}>
       <ListItemIcon>
-        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
+        <CustomAvatar photoUrl={photoUrl} initials={initials} />
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t('event.event')}></ListItemText>
+      <ListItemText primary={name} secondary={t('event.event')} />
     </ListItem>
   );
 }

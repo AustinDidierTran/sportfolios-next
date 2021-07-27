@@ -12,7 +12,7 @@ export default function CustomInput(props) {
   const { isVisible = true, type, ...inputProps } = props;
 
   if (!isVisible) {
-    return <></>;
+    return null;
   }
   switch (type) {
     case 'date':

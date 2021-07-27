@@ -69,13 +69,13 @@ export default function PersonItem(props) {
         disabled={disabled}
       >
         <ListItemIcon>
-          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} initials={initials}></CustomAvatar>
+          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} initials={initials} />
         </ListItemIcon>
         <ListItemText
           className={styles.text}
           primary={completeName || name}
           secondary={secondary || t('person.person')}
-        ></ListItemText>
+        />
         <ListItemSecondaryAction>
           {secondaryActions ? (
             <div className={styles.secondaryActions}>
@@ -83,9 +83,7 @@ export default function PersonItem(props) {
                 <div key={index}>{action}</div>
               ))}
             </div>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </ListItemSecondaryAction>
       </ListItem>
     </div>

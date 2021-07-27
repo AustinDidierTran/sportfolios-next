@@ -143,7 +143,7 @@ export default function PrerankAccordionDnD(props) {
                 className={styles.prerankButton}
                 key={index}
               >
-                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon} tooltip={''}></Icon> : button.name}
+                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon} tooltip={''} /> : button.name}
               </Button>
             ))}
           </div>

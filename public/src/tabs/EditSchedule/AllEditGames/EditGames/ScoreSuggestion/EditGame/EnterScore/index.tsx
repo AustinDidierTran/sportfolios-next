@@ -116,7 +116,7 @@ const EnterScore: React.FunctionComponent<IProps> = (props) => {
       fields={fields}
       formik={formik}
       buttons={formButtons}
-    ></FormDialog>
+    />
   );
 };
 export default EnterScore;

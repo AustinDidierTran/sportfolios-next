@@ -66,7 +66,7 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
             className={styles.time}
             primary={`${formatDate(moment.utc(startTime), 'HH:mm')} - ${formatDate(moment.utc(endTime), 'HH:mm')}`}
             secondary={formatDate(moment.utc(startTime), 'ddd D MMM')}
-          ></ListItemText>
+          />
           <Typography className={styles.location} color="textSecondary">
             {location}
           </Typography>

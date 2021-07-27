@@ -392,12 +392,7 @@ export default function EditRankings() {
         </Button>
       </div>
       <div className={styles.div}>
-        <PrerankAccordionDnD
-          title={t('preranking')}
-          ranking={preranking}
-          update={getData}
-          id={'preranking'}
-        ></PrerankAccordionDnD>
+        <PrerankAccordionDnD title={t('preranking')} ranking={preranking} update={getData} id={'preranking'} />
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
@@ -429,7 +424,7 @@ export default function EditRankings() {
                               onOpenAlertDialog={onOpenAlertDialog}
                               prerankPhaseId={prerankPhase.phaseId}
                               update={update}
-                            ></FinalRanking>
+                            />
                           ) : (
                             <PhaseAccordionDnD
                               phase={phase}
@@ -440,7 +435,7 @@ export default function EditRankings() {
                               onExpand={() => onExpand(phase.id)}
                               startPhase={startPhase}
                               onOpenDeleteDialog={onOpenDeleteDialog}
-                            ></PhaseAccordionDnD>
+                            />
                           )}
                         </div>
                       </div>
@@ -460,14 +455,14 @@ export default function EditRankings() {
         onSubmit={endPhase}
         description={t('end_phase_warning')}
         title={t('end_phase_warning_title')}
-      ></AlertDialog>
+      />
       <AlertDialog
         open={openDeleteDialog}
         onCancel={onCloseDeleteDialog}
         onSubmit={handleDeletePhase}
         description={t('delete.delete_phase_warning')}
         title={t('delete.delete') + ' ' + phaseToDelete.content}
-      ></AlertDialog>
+      />
     </div>
   );
 }

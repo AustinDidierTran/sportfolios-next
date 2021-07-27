@@ -15,10 +15,10 @@ export default function DefaultItem(props) {
         <ListItemIcon>{iconComponent}</ListItemIcon>
       ) : (
         <ListItemIcon>
-          <Icon icon={icon}></Icon>
+          <Icon icon={icon} />
         </ListItemIcon>
       )}
-      <ListItemText primary={value} secondary={description}></ListItemText>
+      <ListItemText primary={value} secondary={description} />
       <ListItemSecondaryAction>
         <>{secondaryAction}</>
       </ListItemSecondaryAction>

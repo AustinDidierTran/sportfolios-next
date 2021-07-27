@@ -187,9 +187,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
             content: styles.headerContent,
             title: styles.headerTitle,
           }}
-          avatar={
-            <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl}></CustomAvatar>
-          }
+          avatar={<CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl} />}
           title={postInfo.name + ' ' + postInfo.surname}
           subheader={getTimeToShow(postInfo.createdAt)}
         />
@@ -257,9 +255,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
           content: styles.headerContent,
           title: styles.headerTitle,
         }}
-        avatar={
-          <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl}></CustomAvatar>
-        }
+        avatar={<CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl} />}
         action={
           <>
             {isAdmin && (
@@ -299,7 +295,6 @@ const Post: React.FunctionComponent<IProps> = (props) => {
               </div>
             )}
           </div>
-          <div className={styles.share}></div>
         </CardContent>
       )}
       {(postInfo.images.length < 1 || showStats) && <Divider variant="middle" />}

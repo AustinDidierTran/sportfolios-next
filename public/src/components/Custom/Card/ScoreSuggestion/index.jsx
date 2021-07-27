@@ -83,7 +83,7 @@ export default function ScoreSuggestion(props) {
             className={styles.person}
             primary={suggestion.name}
             secondary={formatDate(moment.utc(suggestion.created_at), 'D MMM H:mm')}
-          ></ListItemText>
+          />
           <Typography className={styles.score1}>{suggestion.score[game.positions[0].roster_id]}</Typography>
           <Typography className={styles.union}>-</Typography>
           <Typography className={styles.score2}>{suggestion.score[game.positions[1].roster_id]}</Typography>

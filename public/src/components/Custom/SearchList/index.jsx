@@ -161,7 +161,7 @@ export default function SearchList(props) {
           }}
         />
       )}
-      {query.value.length === 0 ? <></> : <CustomList items={options}></CustomList>}
+      {query.value.length === 0 ? null : <CustomList items={options} />}
     </>
   );
 }

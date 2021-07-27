@@ -11,7 +11,7 @@ import CustomAvatar from '../../Avatar';
 
 interface IProps {
   id: string;
-  onClick: (e: any, values: {id :string, name: string}) => void;
+  onClick: (e: any, values: { id: string; name: string }) => void;
   selected: boolean;
   photoUrl: string;
   name: string;
@@ -21,7 +21,7 @@ const OrganizationItem: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { id, onClick, selected, photoUrl, name } = props;
 
-  const initials = useMemo((): string => getInitialsFromName(name),[name]);
+  const initials = useMemo((): string => getInitialsFromName(name), [name]);
 
   const handleClick = useCallback(
     (e) => {
@@ -37,9 +37,9 @@ const OrganizationItem: React.FunctionComponent<IProps> = (props) => {
   return (
     <ListItem button onClick={handleClick} selected={selected} style={{ width: '100%' }}>
       <ListItemIcon>
-        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
+        <CustomAvatar photoUrl={photoUrl} initials={initials} />
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t('organization')}></ListItemText>
+      <ListItemText primary={name} secondary={t('organization')} />
     </ListItem>
   );
 };

@@ -204,7 +204,7 @@ export default function AppLinking() {
   return (
     <>
       <Card className={styles.main}>
-        <List title={t('my_apps')} items={items}></List>
+        <List title={t('my_apps')} items={items} />
       </Card>
       <AlertDialog
         open={alertDialog}

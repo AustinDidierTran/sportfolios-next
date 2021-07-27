@@ -31,7 +31,7 @@ export default function Sales() {
   }
 
   if (!response) {
-    return <></>;
+    return null;
   }
   return (
     <IgContainer>

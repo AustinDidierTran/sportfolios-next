@@ -21,5 +21,5 @@ export default function PrivacyPolicy() {
       onClick: () => {},
     },
   ];
-  return <MessageAndButtons message={message} buttons={buttons}></MessageAndButtons>;
+  return <MessageAndButtons message={message} buttons={buttons} />;
 }

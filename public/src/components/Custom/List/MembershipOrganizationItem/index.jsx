@@ -90,34 +90,34 @@ export default function MembershipOrganizationItem(props) {
   return (
     <>
       <ListItem onClick={handleExpand}>
-        <ListItemText primary={`${membership} | ${formatPrice(price)}`} secondary={membershipTypeText}></ListItemText>
+        <ListItemText primary={`${membership} | ${formatPrice(price)}`} secondary={membershipTypeText} />
         <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
       </ListItem>
       <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         <div style={{ backgroundColor: '#F5F5F5' }}>
           <ListItem>
-            <ListItemText primary={membershipTypeText} secondary={`${t('expire_on')} ${expirationDate}`}></ListItemText>
+            <ListItemText primary={membershipTypeText} secondary={`${t('expire_on')} ${expirationDate}`} />
           </ListItem>
           {fileUrl != null && (
             <ListItem className={styles.money}>
-              <ListItemText primary={`${t('terms_and_conditions')}:`}></ListItemText>
+              <ListItemText primary={`${t('terms_and_conditions')}:`} />
               <a style={{ color: 'blue' }} href={`${fileUrl}`} target="_blank">{`${fileName}`}</a>
             </ListItem>
           )}
           {description != null && (
             <ListItem className={styles.money}>
-              <ListItemText primary={`${t('description.description')}:`}></ListItemText>
-              <ListItemText style={{ 'white-space': 'pre-wrap' }} primary={`${description}`}></ListItemText>
+              <ListItemText primary={`${t('description.description')}:`} />
+              <ListItemText style={{ 'white-space': 'pre-wrap' }} primary={`${description}`} />
             </ListItem>
           )}
           <ListItem className={styles.money}>
-            <ListItemText primary={`${t('subtotal')}:`}></ListItemText>
-            <ListItemText primary={formatPrice(price)}></ListItemText>
+            <ListItemText primary={`${t('subtotal')}:`} />
+            <ListItemText primary={formatPrice(price)} />
           </ListItem>
           {taxRates.map((t, index) => (
             <ListItem className={styles.money} key={index}>
-              <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description}></ListItemText>
-              <ListItemText primary={formatPrice((price * t.percentage) / 100)}></ListItemText>
+              <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description} />
+              <ListItemText primary={formatPrice((price * t.percentage) / 100)} />
             </ListItem>
           ))}
           <Divider />

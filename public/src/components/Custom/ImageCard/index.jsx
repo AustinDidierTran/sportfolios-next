@@ -9,5 +9,5 @@ export default function ImageCard(props) {
 
   const image = useMemo(() => (photoUrl ? photoUrl : IMAGE_ENUM.ULTIMATE_TOURNAMENT), [photoUrl]);
 
-  return <CardMedia image={image} {...otherProps} className={(props.className, styles.card)}></CardMedia>;
+  return <CardMedia image={image} {...otherProps} className={(props.className, styles.card)} />;
 }

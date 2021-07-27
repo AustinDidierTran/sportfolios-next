@@ -63,9 +63,7 @@ export default function PlayerCard(props) {
     <div className={className}>
       <div className={styles.player}>
         <div className={styles.position}>
-          {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-            <></>
-          ) : (
+          {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
             <Tooltip title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}>
               <div>
                 <Icon icon={getIconFromRole(player.role)} />

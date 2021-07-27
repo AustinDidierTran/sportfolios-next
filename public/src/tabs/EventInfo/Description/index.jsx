@@ -17,5 +17,5 @@ export default function Description(props) {
     );
   }
 
-  return <></>;
+  return null;
 }

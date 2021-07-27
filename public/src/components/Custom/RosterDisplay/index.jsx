@@ -35,7 +35,7 @@ export default function RosterDisplay(props) {
               <div className={styles.rootPlayer} key={index}>
                 <div className={styles.position}>
                   {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-                    <div></div>
+                    <div>{/*???*/}</div>
                   ) : (
                     <Tooltip
                       title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}

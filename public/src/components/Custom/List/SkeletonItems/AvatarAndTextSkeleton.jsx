@@ -18,7 +18,7 @@ export default function AvatarAndTextSkeleton(props) {
       </ListItemAvatar>
 
       <ListItemText>
-        <Skeleton variant="text"></Skeleton>
+        <Skeleton variant="text" />
       </ListItemText>
     </ListItem>
   );
