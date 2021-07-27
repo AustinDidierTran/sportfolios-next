@@ -41,7 +41,7 @@ export default function EmergencyContact(props) {
           helperText={t('phone_number')}
           onChange={valueChanged}
           className={styles.zone1}
-        ></TextField>
+        />
       </div>
       <Typography className={styles.typo}>{t('medical_conditions')}</Typography>
       <Divider />

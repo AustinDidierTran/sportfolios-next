@@ -123,6 +123,7 @@ export const getPositionOptions = (data: Phase[]): IPositionOption[] => {
       : `${r.initialPosition.toString()}. ${data.find((d) => d.id === r.currentPhase).name}`,
     ...r,
   }));
+
   return formattedRankingOptions.sort(
     (a: Ranking, b: Ranking) =>
       (a.finalPosition ? a.finalPosition : a.initialPosition) - (b.finalPosition ? b.finalPosition : b.initialPosition)

@@ -69,7 +69,7 @@ export default function PersonItem(props) {
             icon="Delete"
             tooltip={t('delete.delete')}
             style={{ color: 'primary' }}
-          ></CustomIconButton>
+          />
         </div>
       </ListItem>
       <Divider />
