@@ -11,6 +11,7 @@ import CollapsePlayersRegistered from './CollapsePlayersRegistered';
 import StatusChip from '../StatusChip';
 import IconButton from '../../../../components/Custom/IconButton';
 import { Store } from '../../../../Store';
+import { COLORS } from '../../../../utils/colors';
 
 export default function PlayersRow(props) {
   const { t } = useTranslation();
@@ -80,7 +81,7 @@ export default function PlayersRow(props) {
           )}
         </StyledTableCell>
         <StyledTableCell align="center" onClick={handleExpand}>
-          <IconButton aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+          <IconButton aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
         </StyledTableCell>
       </StyledTableRow>
       <StyledTableRow style={{ margin: '0px', padding: '0px' }}>

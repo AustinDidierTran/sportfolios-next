@@ -141,7 +141,7 @@ export default function Signup() {
               <Typography
                 style={{
                   textDecoration: 'none',
-                  color: 'grey',
+                  color: COLORS.grey,
                   margin: '0 auto',
                   fontSize: 12,
                   cursor: 'pointer',

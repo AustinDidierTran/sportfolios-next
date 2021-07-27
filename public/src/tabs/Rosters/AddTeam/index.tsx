@@ -7,6 +7,7 @@ import { ERROR_ENUM } from '../../../../common/errors';
 import api from '../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import { COLORS } from '../../../utils/colors';
 
 interface IProps {
   isOpen: boolean;
@@ -96,7 +97,7 @@ const AddTeam: React.FunctionComponent<IProps> = (props) => {
     {
       onClick: onFinish,
       name: t('finish'),
-      color: 'grey',
+      color: COLORS.grey,
     },
     {
       type: 'submit',

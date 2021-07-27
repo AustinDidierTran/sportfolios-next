@@ -266,7 +266,7 @@ export default function PhaseAccordionDnD(props) {
                                             handleDeleteTeam(phaseId, index + 1);
                                           }}
                                           icon="Delete"
-                                          style={{ color: 'grey' }}
+                                          style={{ color: COLORS.grey }}
                                           tooltip={t('delete.delete_team')}
                                         />
                                       </ListItemIcon>

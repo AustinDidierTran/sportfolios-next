@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import api from '../../../../actions/api';
+import { COLORS } from '../../../../utils/colors';
 
 const CustomFormDialog = dynamic(() => import('../../FormDialog'));
 
@@ -91,7 +92,7 @@ export default function MembershipOrganizationItem(props) {
     <>
       <ListItem onClick={handleExpand}>
         <ListItemText primary={`${membership} | ${formatPrice(price)}`} secondary={membershipTypeText} />
-        <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
       </ListItem>
       <CustomCollapse in={expanded} timeout="auto" unmountOnExit>
         <div style={{ backgroundColor: '#F5F5F5' }}>

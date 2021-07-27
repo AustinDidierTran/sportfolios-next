@@ -16,21 +16,20 @@ import { deleteSessionExercise } from '../../../../actions/service/entity/delete
 import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
+import { COLORS } from '../../../../utils/colors';
 
 interface IProps {
   exercise?: Exercise;
   index: number;
   practiceId: string;
   isCoach: boolean;
-  deleteExercise: (exerciseId: string)=>void;
+  deleteExercise: (exerciseId: string) => void;
 }
 
 const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
   const { exercise, practiceId, index, isCoach, deleteExercise } = props;
   const { t } = useTranslation();
-  const {
-    dispatch,
-  } = useContext(Store);
+  const { dispatch } = useContext(Store);
 
   const [expanded, setExpanded] = useState<boolean>(false);
   const [evaluation, setEvaluation] = useState<IEvaluation[]>();
@@ -58,7 +57,7 @@ const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
     setOpenDelete(true);
   };
 
-  const onDelete =  (): void => {
+  const onDelete = (): void => {
     deleteSessionExercise(practiceId, exercise.id).then((status) => {
       if (status > REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
@@ -71,13 +70,13 @@ const ExerciseItem: React.FunctionComponent<IProps> = (props) => {
         deleteExercise(exercise.id);
       }
     });
-  }
+  };
 
   return (
     <>
       <ListItem className={index % 2 === 0 ? styles.greycard : styles.card} onClick={handleExpand} key={exercise.id}>
         <ListItemText className={styles.primary} primary={exercise.name} secondary={t(exercise.type)} />
-        <CustomIconButton style={{ color: 'grey' }} onClick={handleExpand} aria-expanded={expanded} icon={icon} />
+        <CustomIconButton style={{ color: COLORS.grey }} onClick={handleExpand} aria-expanded={expanded} icon={icon} />
       </ListItem>
 
       <CustomCollapse in={expanded} timeout="auto" unmountOnExit>

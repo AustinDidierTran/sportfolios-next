@@ -175,7 +175,7 @@ export default function Login() {
               style={{
                 fontSize: 12,
                 textDecoration: 'none',
-                color: 'grey',
+                color: COLORS.grey,
                 margin: '0 auto',
                 cursor: 'pointer',
               }}

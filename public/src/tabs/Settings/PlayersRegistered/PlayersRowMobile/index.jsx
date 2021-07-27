@@ -8,6 +8,7 @@ import CollapsePlayersRegisteredMobile from './CollapsePlayersRegisteredMobile';
 import Status from '../StatusChip';
 import IconButton from '../../../../components/Custom/IconButton';
 import { Store } from '../../../../Store';
+import { COLORS } from '../../../../utils/colors';
 
 export default function PlayersRowMobile(props) {
   const { player, handleUnregisterClick } = props;
@@ -60,7 +61,7 @@ export default function PlayersRowMobile(props) {
           />
         </StyledTableCell>
         <StyledTableCell align="center">
-          <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+          <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
         </StyledTableCell>
       </StyledTableRow>
       <StyledTableRow style={{ margin: '0px', padding: '0px' }}>

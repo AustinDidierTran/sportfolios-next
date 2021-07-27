@@ -71,7 +71,12 @@ export default function ScoreSuggestion(props) {
             <Typography className={styles.seeScore} color="textSecondary">
               {message}
             </Typography>
-            <IconButton aria-expanded={expanded} icon={icon} className={classes.primary} style={{ color: 'grey' }} />
+            <IconButton
+              aria-expanded={expanded}
+              icon={icon}
+              className={classes.primary}
+              style={{ color: COLORS.grey }}
+            />
           </div>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             {suggestions.map((suggestion, index) => (

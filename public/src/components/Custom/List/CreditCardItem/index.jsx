@@ -12,6 +12,7 @@ import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
+import { COLORS } from '../../../../utils/colors';
 
 export default function CreditCardItem(props) {
   const { t } = useTranslation();
@@ -52,7 +53,7 @@ export default function CreditCardItem(props) {
           onClick={() => {
             setOpenDelete(true);
           }}
-          style={{ color: 'grey' }}
+          style={{ color: COLORS.grey }}
           tooltip={t('delete.delete')}
         />
       </ListItem>

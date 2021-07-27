@@ -26,6 +26,7 @@ import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { COLORS } from '../../../utils/colors';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
@@ -310,7 +311,7 @@ export default function PlayersRegistered() {
                       icon="MoneyOff"
                       tooltip={t('register.unregister_all')}
                       onClick={handleUnregisterAllClick}
-                      style={{ color: '#f44336' }}
+                      style={{ color: COLORS.red }}
                     />
                   )}
                 </StyledTableCell>
@@ -399,7 +400,7 @@ export default function PlayersRegistered() {
                     icon="MoneyOff"
                     tooltip={t('register.unregister_all')}
                     onClick={handleUnregisterAllClick}
-                    style={{ color: '#f44336' }}
+                    style={{ color: COLORS.red }}
                   />
                 ) : null}
               </StyledTableCell>

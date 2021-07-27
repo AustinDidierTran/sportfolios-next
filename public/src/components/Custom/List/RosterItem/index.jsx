@@ -12,6 +12,7 @@ import styles from './RosterItem.module.css';
 import CustomAvatar from '../../Avatar';
 import CustomSelect from '../../Select';
 import CustomIconButton from '../../IconButton';
+import { COLORS } from '../../../../utils/colors';
 
 export default function RosterItem(props) {
   const { t } = useTranslation();
@@ -73,7 +74,13 @@ export default function RosterItem(props) {
         <Typography>{`${name}${surname ? ` ${surname}` : ''}`}</Typography>
         {RoleSelect}
       </div>
-      <CustomIconButton icon="Delete" style={{ color: 'grey' }} tooltip={t('remove')} edge="end" onClick={onDelete} />
+      <CustomIconButton
+        icon="Delete"
+        style={{ color: COLORS.grey }}
+        tooltip={t('remove')}
+        edge="end"
+        onClick={onDelete}
+      />
     </ListItem>
   );
 }

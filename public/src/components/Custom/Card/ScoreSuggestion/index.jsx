@@ -17,7 +17,7 @@ import { COLORS } from '../../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   secondary: {
-    background: '#f44336',
+    background: COLORS.red,
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#b2102f' },
   },
   primary: {
@@ -47,7 +47,7 @@ export default function ScoreSuggestion(props) {
       case STATUS_ENUM.ACCEPTED:
         return { border: '1px solid #18B393', color: COLORS.turquoise };
       case STATUS_ENUM.REFUSED:
-        return { border: '1px solid #f44336', color: '#f44336 ' };
+        return { border: '1px solid #f44336', color: COLORS.red };
       case STATUS_ENUM.PENDING:
         return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:

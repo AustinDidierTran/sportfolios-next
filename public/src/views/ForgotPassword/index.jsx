@@ -84,7 +84,7 @@ export default function ForgotPassword() {
                   fontSize: 12,
                   textDecoration: 'none',
                   textAlign: 'center',
-                  color: 'grey',
+                  color: COLORS.grey,
                   margin: '0 16px',
                   cursor: 'pointer',
                 }}
@@ -97,7 +97,7 @@ export default function ForgotPassword() {
                   fontSize: 12,
                   textDecoration: 'none',
                   textAlign: 'center',
-                  color: 'grey',
+                  color: COLORS.grey,
                   margin: '0 16px',
                   cursor: 'pointer',
                 }}

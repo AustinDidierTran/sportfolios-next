@@ -15,6 +15,7 @@ import api from '../../../../actions/api';
 import { formatRoute } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../../Store';
+import { COLORS } from '../../../../utils/colors';
 
 export default function PartnerItem(props) {
   const { t } = useTranslation();
@@ -68,7 +69,7 @@ export default function PartnerItem(props) {
           <Avatar photoUrl={photoUrl} />
         </ListItemIcon>
         <ListItemText primary={name} secondary={t('partner.partner')} />
-        <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
       </ListItem>
       <Collapse in={expanded} timeaout="auto" unmountOnExit>
         <div style={{ backgroundColor: '#F5F5F5' }}>
