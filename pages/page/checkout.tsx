@@ -34,7 +34,7 @@ const CheckoutRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.checkout.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      {isLoading ? <LoadingSpinner /> : <Checkout total={total} />}
+      {isLoading ? <LoadingSpinner /> : total ? <Checkout total={total} /> : null}
     </>
   );
 };
