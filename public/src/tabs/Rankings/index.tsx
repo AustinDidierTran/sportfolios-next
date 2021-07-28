@@ -6,24 +6,19 @@ import { updateRanking } from './RankingFunctions';
 import dynamic from 'next/dynamic';
 import { Store } from '../../Store';
 import { getPreranking, getTeamgames } from '../../actions/service/entity/get';
+import { Ranking as RankingType } from '../../../../typescript/types';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));
 const Ranking = dynamic(() => import('./Ranking'));
 
-interface IRanking {
+interface IRanking extends RankingType {
   position: any;
-  name: string;
-  rosterId: string;
-  rankingId: string;
   teamId: string;
 }
 
-interface IPreranking {
+interface IPreranking extends RankingType {
   position: any;
   positionName: string;
-  rosterId: string;
-  rankingId: string;
-  id: string;
 }
 
 const Rankings: React.FunctionComponent = () => {

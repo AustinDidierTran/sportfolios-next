@@ -9,7 +9,7 @@ import { Store, ACTION_ENUM } from '../../../Store';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM } from '../../../../common/enums';
 import { getGameOptions } from '../../../tabs/Schedule/ScheduleFunctions';
 import * as yup from 'yup';
-import { Games } from '../../../../../typescript/types';
+import { Games, Phase, Ranking } from '../../../../../typescript/types';
 
 interface IProps {
   games: Games[];
@@ -26,8 +26,10 @@ interface IWithAllData {
   display?: string;
 }
 
-interface IPhases extends IWithAllData {
-  status?: string;
+interface IPhaseOption extends Phase {
+  value: string;
+  displayKey?: string;
+  display?: string;
 }
 
 interface IData {
@@ -35,26 +37,15 @@ interface IData {
   display: string;
 }
 
-interface IPositionOption {
+interface IPositionOption extends Ranking {
   value: string;
   display: string;
-  id: string;
-  rosterId: string;
-  originPhase: string;
-  originPosition: string;
-  currentPhase: string;
-  initialPosition: number;
-  finalPosition: number;
-  rankingId: string;
-  phaseName?: string;
-  name?: string;
-  teamName?: string;
 }
 
-interface GameOptions {
+interface IGameOptions {
   timeSlots: IData[];
   teams: IWithAllData[];
-  phases: IPhases[];
+  phases: IPhaseOption[];
   fields: IWithAllData[];
   positions: IPositionOption[];
 }
@@ -68,7 +59,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const [open, setOpen] = useState<boolean>(isOpen);
-  const [gameOptions, setGameOptions] = useState<GameOptions>();
+  const [gameOptions, setGameOptions] = useState<IGameOptions>();
   const [firstPositionOptions, setFirstPositionOptions] = useState<IPositionOption[]>([]);
   const [secondPositionOptions, setSecondPositionOptions] = useState<IPositionOption[]>([]);
   const [fieldOptions, setFieldOptions] = useState<IWithAllData[]>([]);
@@ -133,13 +124,13 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
       }
       if (
         ranking1.currentPhase !== ranking2.currentPhase ||
-        phase !== ranking1.currentPhase ||
-        phase !== ranking2.currentPhase
+        phase !== ranking1.currentPhase.id ||
+        phase !== ranking2.currentPhase.id
       ) {
         formik.setFieldValue('position1', '');
         formik.setFieldValue('position2', '');
-        setFirstPositionOptions(gameOptions.positions.filter((r) => r.currentPhase === phase));
-        setSecondPositionOptions(gameOptions.positions.filter((r) => r.currentPhase === phase));
+        setFirstPositionOptions(gameOptions.positions.filter((r) => r.currentPhase.id === phase));
+        setSecondPositionOptions(gameOptions.positions.filter((r) => r.currentPhase.id === phase));
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('cant_have_different_phase'),
@@ -195,7 +186,7 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
     if (formik.values.phase !== '' && formik.values.position1 === '' && formik.values.position2 === '') {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      const positions = gameOptions.positions.filter((p) => p.currentPhase === formik.values.phase);
+      const positions = gameOptions.positions.filter((p) => p.currentPhase.id === formik.values.phase);
       setFirstPositionOptions(positions);
       setSecondPositionOptions(positions);
     }
@@ -223,10 +214,10 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
         return;
       }
       const firstPosition = gameOptions.positions.filter(
-        (p) => p.value !== formik.values.position2 && p.currentPhase === formik.values.phase
+        (p) => p.value !== formik.values.position2 && p.currentPhase.id === formik.values.phase
       );
       const secondPosition = gameOptions.positions.filter(
-        (p) => p.value !== formik.values.position1 && p.currentPhase === formik.values.phase
+        (p) => p.value !== formik.values.position1 && p.currentPhase.id === formik.values.phase
       );
       setFirstPositionOptions(firstPosition);
       setSecondPositionOptions(secondPosition);

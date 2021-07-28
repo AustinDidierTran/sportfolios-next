@@ -66,9 +66,6 @@ export default function FormDialogFactory(props) {
     /* eslint-disable-next-line */
     console.error(`${type} is not supported in FormDialogFactory`);
     return <div></div>;
-    {
-      /*???*/
-    }
   }
 
   return FormDialog;

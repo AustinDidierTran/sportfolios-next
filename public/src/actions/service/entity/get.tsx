@@ -27,6 +27,7 @@ import {
   AllTeamsAcceptedInfos,
   EventInfos,
   Options,
+  Report,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -122,6 +123,10 @@ export function getPhasesGameAndTeams(eventId: string, phaseId: string): Promise
   return api(formatRoute(`${BASE_URL}/phasesGameAndTeams`, null, { eventId, phaseId })).then((res) => res.data);
 }
 
+export function getPrerankPhase(eventId: string): Promise<Phase> {
+  return api(formatRoute(`${BASE_URL}/prerankPhase`, null, { eventId })).then((res) => res.data);
+}
+
 export function getPracticeBasicInfo(teamId: string): Promise<Practice[]> {
   return api(formatRoute(`${BASE_URL}/practiceBasicInfo`, null, { teamId })).then((res) => res.data);
 }
@@ -137,6 +142,10 @@ export function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: 
 
 export function getPracticeInfo(practiceId: string): Promise<{ practice: Practice; role: number }> {
   return api(formatRoute(`${BASE_URL}/practiceInfo`, null, { practiceId })).then((res) => res.data);
+}
+
+export function getReports(id: string): Promise<Report[]> {
+  return api(formatRoute(`${BASE_URL}/reports`, null, { id })).then((res) => res.data);
 }
 
 export function getRosters(teamId: string): Promise<Roster[]> {

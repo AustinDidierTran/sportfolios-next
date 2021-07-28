@@ -9,7 +9,7 @@ import IgContainer from '../../../components/Custom/IgContainer';
 import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { Entity } from '../../../../../typescript/types';
+import { Entity, States } from '../../../../../typescript/types';
 import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
@@ -25,13 +25,6 @@ const Settings = dynamic(() => import('../../../tabs/Settings'));
 interface IProps {
   basicInfos: Entity;
   eventInfo: any;
-}
-
-interface IStates {
-  component: any;
-  value: string;
-  label: string;
-  icon: string;
 }
 
 const Event: React.FunctionComponent<IProps> = (props) => {
@@ -76,7 +69,7 @@ const Event: React.FunctionComponent<IProps> = (props) => {
 
   const [adminView, setAdminView] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [states, setStates] = useState<IStates[]>(userState);
+  const [states, setStates] = useState<States[]>(userState);
 
   const index = useMemo((): number => {
     if (adminState.find((s) => s.value === tab)) {

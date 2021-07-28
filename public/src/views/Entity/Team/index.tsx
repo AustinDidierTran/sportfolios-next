@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { Entity } from '../../../../../typescript/types';
+import { Entity, States } from '../../../../../typescript/types';
 import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
@@ -31,13 +31,6 @@ interface IGameInfos {
   name: string;
   teamNames: string;
   teamScores: string;
-}
-
-interface IStates {
-  component: any;
-  value: string;
-  label: string;
-  icon: string;
 }
 
 const Team: React.FunctionComponent<IProps> = (props) => {
@@ -74,7 +67,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
 
   const [adminView, setAdminView] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [states, setStates] = useState<IStates[]>(userState);
+  const [states, setStates] = useState<States[]>(userState);
 
   const index = useMemo(() => {
     if (adminState.find((s) => s.value === tab) && tab != TABS_ENUM.TEAM_EVENTS && tab != TABS_ENUM.TEAM_ROSTERS) {

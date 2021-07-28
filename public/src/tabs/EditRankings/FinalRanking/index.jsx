@@ -76,8 +76,8 @@ export default function FinalRanking(props) {
   const getRankings = async () => {
     const { games, teams: allTeams } = await getPhasesGameAndTeams(eventId, phase.id);
     const teams = allTeams.map((team) => {
-      let positionName = `${team.originPosition}. ${team.phaseName}`;
-      if (team.originPhase === prerankPhaseId) {
+      let positionName = `${team.originPosition}. ${team.currentPhase.name}`;
+      if (team.originPhase.id === prerankPhaseId) {
         positionName = `${team.originPosition}. ${t('preranking')}`;
       }
       return { ...team, position: team.initialPosition, id: team.teamId, rosterId: team.rosterId, positionName };

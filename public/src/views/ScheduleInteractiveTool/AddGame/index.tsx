@@ -9,8 +9,29 @@ import moment from 'moment';
 import * as yup from 'yup';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { haveDifferentPhase } from './AddGame.utils';
+import { Field, Game, Phase, Ranking, TimeSlot } from '../../../../../typescript/types';
 
-export default function AddGame(props) {
+interface IProps {
+  isOpen: boolean;
+  onClose: () => void;
+  createCard: (game: Game) => void;
+  field: Field;
+  timeslot: TimeSlot;
+  rankings: IRankingOptions[];
+  phases: IPhaseOptions[];
+}
+
+interface IRankingOptions extends Ranking {
+  value: string;
+  display: string;
+}
+
+interface IPhaseOptions extends Phase {
+  value: string;
+  display: string;
+}
+
+const AddGame: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
@@ -18,17 +39,17 @@ export default function AddGame(props) {
   const [firstPositionOptions, setFirstPositionOptions] = useState([]);
   const [secondPositionOptions, setSecondPositionOptions] = useState([]);
 
-  useEffect(() => {
+  useEffect((): void => {
     setFirstPositionOptions(rankings);
     setSecondPositionOptions(rankings);
   }, [isOpen]);
 
-  const onFinish = () => {
+  const onFinish = (): void => {
     formik.resetForm();
     onClose();
   };
 
-  const description = useMemo(() => {
+  const description = useMemo((): string => {
     return `${field?.name}, ${formatDate(moment.utc(timeslot.date))}`;
   }, [field, timeslot]);
 
@@ -38,7 +59,7 @@ export default function AddGame(props) {
     position2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
 
-  const sendToInteractiveTool = (values) => {
+  const sendToInteractiveTool = (values: { phase: string; position1: string; position2: string }): void => {
     const { phase, position1, position2 } = values;
     const [ranking1] = rankings.filter((r) => r.rankingId === position1);
     const [ranking2] = rankings.filter((r) => r.rankingId === position2);
@@ -52,11 +73,11 @@ export default function AddGame(props) {
       });
       return;
     }
-    if (haveDifferentPhase(ranking1, ranking2, phase)) {
+    if (haveDifferentPhase(ranking1.currentPhase.id, ranking2.currentPhase.id, phase)) {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      setFirstPositionOptions(rankings.filter((r) => r.currentPhase === phase));
-      setSecondPositionOptions(rankings.filter((r) => r.currentPhase === phase));
+      setFirstPositionOptions(rankings.filter((r) => r.currentPhase.id === phase));
+      setSecondPositionOptions(rankings.filter((r) => r.currentPhase.id === phase));
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_have_different_phase'),
@@ -106,26 +127,30 @@ export default function AddGame(props) {
     },
   ];
 
-  useEffect(() => {
+  useEffect((): void => {
     if (formik.values.phase !== '' && formik.values.position1 === '' && formik.values.position2 === '') {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      const positions = rankings.filter((p) => p.currentPhase === formik.values.phase);
+      const positions = rankings.filter((p) => p.currentPhase.id === formik.values.phase);
       setFirstPositionOptions(positions);
       setSecondPositionOptions(positions);
     }
   }, [formik.values.phase]);
 
-  useEffect(() => {
+  useEffect((): void => {
     //TODO: refine the filter. Some flows can make it bug i.e. no position options available
     if (formik.values.position1 !== '' && formik.values.position2 === '') {
       const [{ currentPhase: phase }] = rankings.filter((r) => r.value === formik.values.position1);
-      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position1 && r.currentPhase === phase);
+      const samePhaseRankings = rankings.filter(
+        (r) => r.value !== formik.values.position1 && r.currentPhase.id === phase.id
+      );
       setSecondPositionOptions(samePhaseRankings);
     }
     if (formik.values.position2 !== '' && formik.values.position1 === '') {
       const [{ currentPhase: phase }] = rankings.filter((r) => r.value === formik.values.position2);
-      const samePhaseRankings = rankings.filter((r) => r.value !== formik.values.position2 && r.currentPhase === phase);
+      const samePhaseRankings = rankings.filter(
+        (r) => r.value !== formik.values.position2 && r.currentPhase.id === phase.id
+      );
       setFirstPositionOptions(samePhaseRankings);
     }
     if (formik.values.position2 !== '' && formik.values.position1 !== '') {
@@ -135,10 +160,10 @@ export default function AddGame(props) {
         return;
       }
       const firstPosition = rankings.filter(
-        (p) => p.value !== formik.values.position2 && p.currentPhase === formik.values.phase
+        (p) => p.value !== formik.values.position2 && p.currentPhase.id === formik.values.phase
       );
       const secondPosition = rankings.filter(
-        (p) => p.value !== formik.values.position1 && p.currentPhase === formik.values.phase
+        (p) => p.value !== formik.values.position1 && p.currentPhase.id === formik.values.phase
       );
       setFirstPositionOptions(firstPosition);
       setSecondPositionOptions(secondPosition);
@@ -177,4 +202,5 @@ export default function AddGame(props) {
       onClose={onClose}
     />
   );
-}
+};
+export default AddGame;

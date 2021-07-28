@@ -3,7 +3,7 @@ import React from 'react';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import Error from 'next/error';
 import dynamic from 'next/dynamic';
-import { Entity } from '../../../../../typescript/types';
+import { Entity, NavTabs } from '../../../../../typescript/types';
 
 const HeaderOrganization = dynamic(() => import('./HeaderOrganization'));
 const HeaderEvent = dynamic(() => import('./HeaderEvent'));
@@ -11,26 +11,18 @@ const HeaderTeam = dynamic(() => import('./HeaderTeam'));
 
 interface IProps {
   basicInfos: Entity;
-  eventInfo: any;
+  eventInfo?: any;
   type: GLOBAL_ENUM;
-  navTabs: INavTabs[];
+  navTabs: NavTabs[];
   index: number;
   isAdmin: boolean;
   onSwitch: () => void;
   adminView: boolean;
 }
 
-interface INavTabs {
-  component: any;
-  value: string;
-  label: string;
-  icon: string;
-}
-
-
 const HeaderHome: React.FunctionComponent<IProps> = (props) => {
   const {
-    basicInfos: { type }
+    basicInfos: { type },
   } = props;
 
   if (type === GLOBAL_ENUM.ORGANIZATION) {
@@ -42,6 +34,6 @@ const HeaderHome: React.FunctionComponent<IProps> = (props) => {
   if (type === GLOBAL_ENUM.TEAM) {
     return <HeaderTeam {...props} />;
   }
-  return <Error statusCode={404}/>;
-}
+  return <Error statusCode={404} />;
+};
 export default HeaderHome;

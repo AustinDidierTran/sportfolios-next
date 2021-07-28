@@ -108,7 +108,7 @@ export default function MembershipOrganizationItem(props) {
           {description != null && (
             <ListItem className={styles.money}>
               <ListItemText primary={`${t('description.description')}:`} />
-              <ListItemText style={{ 'white-space': 'pre-wrap' }} primary={`${description}`} />
+              <ListItemText style={{ whiteSpace: 'pre-wrap' }} primary={`${description}`} />
             </ListItem>
           )}
           <ListItem className={styles.money}>
@@ -117,7 +117,7 @@ export default function MembershipOrganizationItem(props) {
           </ListItem>
           {taxRates.map((t, index) => (
             <ListItem className={styles.money} key={index}>
-              <ListItemText primary={`${t.display_name} (${t.percentage}%)`} secondary={t.description} />
+              <ListItemText primary={`${t.displayName} (${t.percentage}%)`} secondary={t.description} />
               <ListItemText primary={formatPrice((price * t.percentage) / 100)} />
             </ListItem>
           ))}

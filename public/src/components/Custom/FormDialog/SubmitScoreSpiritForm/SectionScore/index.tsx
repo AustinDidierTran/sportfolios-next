@@ -15,21 +15,15 @@ import Collapse from '../../../Collapse';
 import TextField from '../../../TextField';
 import IconButton from '../../../IconButton';
 import Button from '../../../Button';
-import { ScoreSuggestion, SubmissionerTeam, PersonAdmin } from '../../../../../../../typescript/types';
+import { ScoreSuggestion, SubmissionerInfos } from '../../../../../../../typescript/types';
 import { COLORS } from '../../../../../utils/colors';
 
 interface IProps {
   suggestions: ScoreSuggestion[];
   gameId: string;
   IsSubmittedCheck: JSX.Element;
-  submissionerInfos: ISubmissionerInfos;
+  submissionerInfos: SubmissionerInfos;
   update: () => void;
-}
-
-interface ISubmissionerInfos {
-  myTeam: SubmissionerTeam;
-  enemyTeam: SubmissionerTeam;
-  person: PersonAdmin;
 }
 
 const SectionScore: React.FunctionComponent<IProps> = (props) => {

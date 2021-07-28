@@ -16,25 +16,18 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
-import { Entity } from '../../../../../../typescript/types';
+import { Entity, NavTabs } from '../../../../../../typescript/types';
 import { COLORS } from '../../../../utils/colors';
 
 const BannerTeam = dynamic(() => import('../../BannerTeam'));
 
 interface IProps {
   basicInfos: Entity;
-  navTabs: INavTabs[];
+  navTabs: NavTabs[];
   index: number;
   isAdmin: boolean;
   onSwitch: () => void;
   adminView: boolean;
-}
-
-interface INavTabs {
-  component: any;
-  value: string;
-  label: string;
-  icon: string;
 }
 
 const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
@@ -91,7 +84,7 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
           variant="fullWidth"
           scrollButtons="off"
         >
-          {navTabs.map((s: INavTabs, index: number) => (
+          {navTabs.map((s: NavTabs, index: number) => (
             <Tab
               key={index}
               onClick={() => {

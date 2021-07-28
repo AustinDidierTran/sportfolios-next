@@ -13,46 +13,14 @@ import { ERROR_ENUM } from '../../../common/errors';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../hooks/window';
 import { MOBILE_WIDTH } from '../../../common/constants';
-import { getPhases, getPreranking } from '../../actions/service/entity/get';
+import { getPhases, getPreranking, getPrerankPhase } from '../../actions/service/entity/get';
+import { Phase, Preranking, Ranking } from '../../../../typescript/types';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
 const FinalRanking = dynamic(() => import('./FinalRanking'));
 const AlertDialog = dynamic(() => import('../../components/Custom/Dialog/AlertDialog'));
 const AddPhase = dynamic(() => import('./AddPhase'));
-
-interface IPreranking {
-  position: any;
-  content: string;
-  rosterId: string;
-  rankingId: string;
-}
-
-interface IPhases {
-  content: string;
-  phaseId: string;
-  id: string;
-  spots: number;
-  status: string;
-  order: number;
-  type: string;
-  ranking: IRanking[];
-  finalRanking?: IRanking[];
-}
-
-interface IRanking {
-  rankingId: string;
-  id?: string;
-  rosterId: string;
-  originPhase?: string;
-  originPosition?: number;
-  currentPhase?: string;
-  initialPosition?: number;
-  finalPosition?: number;
-  phaseName?: string;
-  name?: string;
-  teamName?: string;
-}
 
 const getItemStyle = (draggableStyle: any) => ({
   userSelect: 'none',
@@ -63,7 +31,7 @@ const getListStyle = () => ({
   width: '100%',
 });
 
-const reorder = (list: IPhases[], startIndex: number, endIndex: number): IPhases[] => {
+const reorder = (list: Phase[], startIndex: number, endIndex: number): Phase[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -78,13 +46,13 @@ const EditRankings: React.FunctionComponent = () => {
     state: { id: eventId },
   } = useContext(Store);
 
-  const [phases, setPhases] = useState<IPhases[]>([]);
-  const [preranking, setPreranking] = useState<IPreranking[]>();
-  const [expandedPhases, setExpandedPhases] = useState<IPhases[]>([]);
+  const [phases, setPhases] = useState<Phase[]>([]);
+  const [preranking, setPreranking] = useState<Preranking[]>();
+  const [expandedPhases, setExpandedPhases] = useState<Phase[]>([]);
 
-  const [phaseToEnd, setPhaseToEnd] = useState<IPhases>();
-  const [phaseToDelete, setPhaseToDelete] = useState<IPhases>();
-  const [prerankPhase, setPrerankPhase] = useState<IPhases>();
+  const [phaseToEnd, setPhaseToEnd] = useState<Phase>();
+  const [phaseToDelete, setPhaseToDelete] = useState<Phase>();
+  const [prerankPhase, setPrerankPhase] = useState<Phase>();
 
   const [openPhase, setOpenPhase] = useState<boolean>(false);
   const [madeChanges, setMadeChanges] = useState<boolean>(false);
@@ -106,19 +74,15 @@ const EditRankings: React.FunctionComponent = () => {
     }
   }, [expandedPhases.length]);
 
-  const getData = async () => {
-    const { data: prerankPhase } = await api(
-      formatRoute('/api/entity/prerankPhase', null, {
-        eventId,
-      })
-    );
+  const getData = async (): Promise<void> => {
+    const prerankPhase = await getPrerankPhase(eventId);
 
     setPrerankPhase(prerankPhase);
 
     const { preranking: ranking } = await getPreranking(eventId);
     const phases = await getPhases(eventId);
 
-    let preranking: IPreranking[] = [];
+    let preranking: Preranking[] = [];
 
     if (ranking) {
       preranking = ranking.map((d) => ({
@@ -140,7 +104,7 @@ const EditRankings: React.FunctionComponent = () => {
         type: d.type,
         ranking: d.ranking.map((r) => {
           if (r && r.rosterId) {
-            if (r.originPhase === prerankPhase.phaseId) {
+            if (r.originPhase.id === prerankPhase.phaseId) {
               return {
                 ...r,
                 rankingId: r.rankingId,
@@ -151,12 +115,12 @@ const EditRankings: React.FunctionComponent = () => {
             return {
               ...r,
               rankingId: r.rankingId,
-              positionName: `${r.originPosition}. ${r.phaseName}`,
+              positionName: `${r.originPosition}. ${r.currentPhase.name}`,
               name: r.name,
             };
           }
-          if (r && r.originPhase && r.originPosition) {
-            if (r.originPhase === prerankPhase.phaseId) {
+          if (r && r.originPhase.id && r.originPosition) {
+            if (r.originPhase.id === prerankPhase.phaseId) {
               const rankingWithName = preranking.find((p) => p.position === r.originPosition);
               if (rankingWithName.rosterId) {
                 return {
@@ -173,7 +137,7 @@ const EditRankings: React.FunctionComponent = () => {
                 };
               }
             }
-            return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.phaseName}` };
+            return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.currentPhase.name}` };
           }
           return { ...r, isEmpty: true, rankingId: r.rankingId };
         }),
@@ -235,7 +199,7 @@ const EditRankings: React.FunctionComponent = () => {
     update();
   };
 
-  const startPhase = (phase: IPhases, event: any, madeChanges: boolean): void => {
+  const startPhase = (phase: Phase, event: any, madeChanges: boolean): void => {
     event.stopPropagation();
     if (!madeChanges) {
       handleStartPhase(phase);
@@ -249,19 +213,19 @@ const EditRankings: React.FunctionComponent = () => {
     }
   };
 
-  const phaseFilter = (phase: IPhases, type: string): IRanking[] | string[] => {
+  const phaseFilter = (phase: Phase, type: string): Ranking[] | string[] => {
     if (type == 'Phase') {
-      return phase.ranking.filter((r) => r.originPhase && !r.rosterId);
+      return phase.ranking.filter((r) => r.originPhase.id && !r.rosterId);
     } else if (type == 'Prerank') {
-      return phase.ranking.filter((r) => r.originPhase === prerankPhase.phaseId && !r.rosterId);
+      return phase.ranking.filter((r) => r.originPhase.id === prerankPhase.phaseId && !r.rosterId);
     } else if (type == 'Ranking') {
-      return phase.ranking.filter((r) => !r.originPhase && !r.originPosition);
+      return phase.ranking.filter((r) => !r.originPhase.id && !r.originPosition);
     } else {
       return phase.ranking.map((r) => r.rosterId);
     }
   };
 
-  const handleStartPhase = async (phase: IPhases) => {
+  const handleStartPhase = async (phase: Phase) => {
     const rankingsFromPhase = phaseFilter(phase, 'Phase');
     const rankingsFromPrerank = phaseFilter(phase, 'Prerank');
     const emptyRankings = phaseFilter(phase, 'Ranking');
@@ -384,7 +348,7 @@ const EditRankings: React.FunctionComponent = () => {
     setOpenAlertDialog(false);
   };
 
-  const onOpenAlertDialog = (phase: IPhases, event: any, items: any): void => {
+  const onOpenAlertDialog = (phase: Phase, event: any, items: any): void => {
     event.preventDefault();
     setPhaseToEnd({ ...phase, finalRanking: items });
     setOpenAlertDialog(true);
@@ -394,7 +358,7 @@ const EditRankings: React.FunctionComponent = () => {
     setOpenDeleteDialog(false);
   };
 
-  const onOpenDeleteDialog = (phase: IPhases): void => {
+  const onOpenDeleteDialog = (phase: Phase): void => {
     setPhaseToDelete(phase);
     setOpenDeleteDialog(true);
   };
@@ -404,7 +368,7 @@ const EditRankings: React.FunctionComponent = () => {
   };
 
   const onExpand = (phaseId: string): void => {
-    setExpandedPhases((e) => [...e]);
+    setExpandedPhases((e) => e.filter((p) => p.phaseId == phaseId));
   };
 
   return (
@@ -426,13 +390,7 @@ const EditRankings: React.FunctionComponent = () => {
             <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle()}>
               <div>
                 {phases.map((phase, index) => (
-                  <Draggable
-                    key={phase.id}
-                    draggableId={phase.id}
-                    index={index}
-                    className={styles.draggable}
-                    isDragDisabled={isOneExpanded}
-                  >
+                  <Draggable key={phase.id} draggableId={phase.id} index={index} isDragDisabled={isOneExpanded}>
                     {(provided: any) => (
                       <div
                         ref={provided.innerRef}
@@ -487,7 +445,7 @@ const EditRankings: React.FunctionComponent = () => {
         onCancel={onCloseDeleteDialog}
         onSubmit={handleDeletePhase}
         description={t('delete.delete_phase_warning')}
-        title={t('delete.delete') + ' ' + phaseToDelete.content}
+        title={t('delete.delete') + ' ' + phaseToDelete?.content}
       />
     </div>
   );

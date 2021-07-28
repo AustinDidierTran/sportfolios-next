@@ -12,6 +12,7 @@ import {
   USER_APP_ROLE_ENUM,
   PHASE_TYPE_ENUM,
   EXERCISES_TYPE_ENUM,
+  REPORT_TYPE_ENUM,
 } from '../public/common/enums';
 
 //INTERFACES
@@ -57,14 +58,6 @@ export interface CartItems {
   taxRates: string;
 }
 
-export interface TaxRate {
-  id: string;
-  displayName: string;
-  description: string;
-  inclusive: boolean;
-  percentage: number;
-  active: boolean;
-}
 export interface CartTotal {
   total: number;
   subtotal: number;
@@ -168,6 +161,13 @@ export interface Membership {
   addressId?: string;
 }
 
+export interface NavTabs {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
+}
+
 export interface Image {
   photoUrl: string;
   type: string;
@@ -267,14 +267,11 @@ export interface Exercise {
 }
 
 export interface OwnedEvents extends Entity {
-  type: number;
   cardType: number;
   eventId: string;
   photoUrl: string;
   startDate: string;
   endDate: string;
-  quickDescription: string;
-  description: string;
   location: string;
   name: string;
   createdAt: string;
@@ -361,32 +358,40 @@ export interface TeamPlayer {
 }
 
 export interface Phase {
-  id: string;
-  name: string;
-  eventId: string;
+  id?: string;
+  name?: string;
+  eventId?: string;
   spots?: number;
-  phaseOrder: number;
-  status: PHASE_STATUS_ENUM;
-  games?: Game[];
+  phaseOrder?: number;
+  status?: PHASE_STATUS_ENUM;
+  games?: EntityGame[];
   ranking?: Ranking[];
   type?: PHASE_TYPE_ENUM;
+  content?: string;
+  phaseId?: string;
+  order?: number;
+  finalRanking?: string;
 }
 export interface PhaseGameAndTeams {
   games: PhaseGames[];
   teams: PhaseTeams[];
 }
 
+export interface PhaseType {
+  id: string;
+  name: string;
+}
+
 export interface PhaseTeams {
   rosterId: string;
-  originPhase: string;
+  originPhase: PhaseType;
   originPosition: number;
-  currentPhase: string;
+  currentPhase: PhaseType;
   initialPosition: number;
   finalPosition: number;
   rankingId: string;
   teamId: string;
   name: string;
-  phaseName: string;
 }
 
 export interface PhaseGames {
@@ -397,36 +402,43 @@ export interface PhaseGames {
 }
 
 export interface Preranking {
-  position: string;
+  position: number;
   rankingId: string;
-  phaseId: string;
-  noTeam: boolean;
+  phaseId?: string;
+  noTeam?: boolean;
   name?: string;
   rosterId?: string;
   teamId?: string;
   finalPosition?: number;
+  content?: string;
 }
 
 export interface Ranking {
   id?: string;
   rosterId: string;
-  originPhase?: string;
+  originPhase?: PhaseType;
+  currentPhase?: PhaseType;
   originPosition?: number;
-  currentPhase?: string;
   initialPosition?: number;
   finalPosition?: number;
   rankingId: string;
-  phaseName?: string;
   name?: string;
   teamName?: string;
 }
 
-export interface Game extends Entity {
+export interface EntityGame extends Entity {
   phaseId: string;
   eventId: string;
   timeSlotId: string;
   fieldId: string;
   teams: GameTeam[];
+}
+
+export interface Game {
+  fieldId: string;
+  timeslotId: string;
+  rankings: Ranking[];
+  phaseId: string;
 }
 
 export interface Games {
@@ -498,6 +510,13 @@ export interface SpiritSubmission {
   spiritScore: number;
 }
 
+export interface States {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
+}
+
 export interface Presence {
   value: string;
   display: string;
@@ -558,7 +577,7 @@ export interface Options {
   name: string;
   individualPrice: string;
   individualStripePriceId: string;
-  individualTaxRates: TaxRate;
+  individualTaxRates: Tax;
   individualTransactionFees: number;
   playerAcceptation: boolean;
   teamAcceptation: boolean;
@@ -567,7 +586,7 @@ export interface Options {
   teamActivity: boolean;
   teamPrice: number;
   teamStripePriceId: string;
-  teamTaxRates: TaxRate;
+  teamTaxRates: Tax;
   teamTransactionFees: number;
   owner: Entity;
 }
@@ -630,7 +649,8 @@ export interface PostImage {
 export interface SubmissionerInfos {
   myTeam: SubmissionerTeam;
   enemyTeam: SubmissionerTeam;
-  myAdminPersons: PersonAdmin[];
+  myAdminPersons?: PersonAdmin[];
+  person?: PersonAdmin;
 }
 
 export interface SubmissionerTeam {
@@ -672,6 +692,13 @@ export interface AllTeamsAcceptedInfos {
   players: TeamPlayer[];
   captains: Entity[];
   option: EventPaymentOption;
-  role: ENTITIES_ROLE_ENUM;
+  role: ROSTER_ROLE_ENUM;
   registrationStatus: STATUS_ENUM;
+}
+
+export interface Report {
+  reportId: string;
+  entityId?: string;
+  type: REPORT_TYPE_ENUM;
+  metadata: string;
 }

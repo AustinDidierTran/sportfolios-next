@@ -9,26 +9,36 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { formatRoute } from '../../../utils/stringFormats';
 import { Store } from '../../../Store';
 
-export default function BankAccount() {
+interface BankAccountItem {
+  type: LIST_ITEM_ENUM;
+  last4: string;
+  createdAt: string;
+  bankAccountId: string;
+  update: () => void;
+  isDefault: boolean;
+  key: string;
+  removeDelete: boolean;
+}
+const BankAccount: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     state: { id: entityId },
   } = useContext(Store);
 
-  const [hasAccount, setHasAccount] = useState(false);
-  const [bankAccounts, setBankAccounts] = useState([]);
+  const [hasAccount, setHasAccount] = useState<boolean>(false);
+  const [bankAccounts, setBankAccounts] = useState<BankAccountItem[]>();
 
-  useEffect(() => {
+  useEffect((): void => {
     if (entityId) {
       getBankAccounts();
     }
   }, [entityId]);
 
-  const getBankAccounts = async () => {
+  const getBankAccounts = async (): Promise<void> => {
     const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }));
     setHasAccount(hasStripeAccount);
     const { data: bankAccounts } = await api(formatRoute('/api/stripe/bankAccounts', null, { entityId }));
-    const res = bankAccounts.map((b) => ({
+    const res = bankAccounts.map((b: any) => ({
       type: LIST_ITEM_ENUM.BANK_ACCOUNT,
       last4: b.last4,
       createdAt: b.created_at,
@@ -41,7 +51,7 @@ export default function BankAccount() {
     setBankAccounts(res);
   };
 
-  const handleClick = async () => {
+  const handleClick = async (): Promise<void> => {
     if (!hasAccount) {
       const { data } = await api(
         formatRoute('/api/stripe/accountLink', null, {
@@ -64,4 +74,6 @@ export default function BankAccount() {
       <List items={bankAccounts} />
     </Paper>
   );
-}
+};
+
+export default BankAccount;

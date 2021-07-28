@@ -1,4 +1,4 @@
-import { PhaseGames } from '../../../../typescript/types';
+import { PhaseGames, PhaseType } from '../../../../typescript/types';
 
 interface ITeams {
   position: number;
@@ -6,14 +6,13 @@ interface ITeams {
   id?: string;
   rosterId: string;
   positionName?: string;
-  originPhase?: string;
+  originPhase?: PhaseType;
   originPosition?: number;
-  currentPhase?: string;
+  currentPhase?: PhaseType;
   initialPosition?: number;
   rankingId: string;
   teamId: string;
-  name: string;
-  phaseName?: string;
+  name?: string;
   content?: string;
 }
 
@@ -32,7 +31,7 @@ interface IAllRanking {
 
 const getRankingInfos = (teams: ITeams[], games: PhaseGames[]): any => {
   const allRankings: IAllRanking[] = teams.map((team) => ({
-    id: team.id,
+    id: team.id ? team.id : team.teamId,
     rosterId: team.rosterId,
     name: team.name ? team.name : team.content,
     wins: 0,

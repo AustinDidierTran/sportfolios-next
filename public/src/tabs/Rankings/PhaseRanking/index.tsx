@@ -5,18 +5,20 @@ import { updateRanking } from '../RankingFunctions';
 import { useTranslation } from 'react-i18next';
 import { Store } from '../../../Store';
 import { getPhases as getPhasesApi, getPhasesGameAndTeams } from '../../../actions/service/entity/get';
-import { PhaseGames, Ranking as IRanking } from '../../../../../typescript/types';
+import { Phase, PhaseGames, Ranking as IRanking } from '../../../../../typescript/types';
 
 interface IProps {
   prerankPhaseId: string;
 }
 
-interface IPhase {
-  id: string;
-  status: string;
-  ranking: IRanking[];
-  title: string;
-  subtitle: string;
+interface IPhaseOption extends Phase {
+  rankingId?: string;
+  positionName?: string;
+  subtitle?: string;
+  title?: string;
+  finalPosition?: number;
+  initialPosition?: number;
+  position?: number;
 }
 
 const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
@@ -26,7 +28,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
   const { t } = useTranslation();
 
-  const [phases, setPhases] = useState<any>([]);
+  const [phases, setPhases] = useState<IPhaseOption[]>();
   const [isTeamsScoreEqual, setIsTeamScoreEqual] = useState<boolean>(false);
 
   const getPhases = async (): Promise<void> => {
@@ -39,7 +41,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
         if (phase.status === PHASE_STATUS_ENUM.NOT_STARTED) {
           const ranking = phase.ranking.map((r) => {
             if (r && r.rosterId) {
-              if (r.originPhase === prerankPhaseId) {
+              if (r.originPhase.id === prerankPhaseId) {
                 return {
                   ...r,
                   rankingId: r.rankingId,
@@ -50,12 +52,12 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
               return {
                 ...r,
                 rankingId: r.rankingId,
-                positionName: `${r.originPosition}. ${r.phaseName}`,
+                positionName: `${r.originPosition}. ${r.currentPhase.name}`,
                 name: r.name,
               };
             }
-            if (r && r.originPhase && r.originPosition) {
-              return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.phaseName}` };
+            if (r && r.originPhase?.id && r.originPosition) {
+              return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.currentPhase.name}` };
             }
             return { ...r, rankingId: r.rankingId, name: t('no.no_team_yet') };
           });
@@ -64,8 +66,8 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
 
         const { games, teams: allTeams } = await getPhasesGameAndTeams(eventId, phase.id);
         const teams = allTeams.map((team) => {
-          let positionName = `${team.originPosition}. ${team.phaseName}`;
-          if (team.originPhase === prerankPhaseId) {
+          let positionName = `${team.originPosition}. ${team.currentPhase.name}`;
+          if (team.originPhase.id === prerankPhaseId) {
             positionName = `${team.originPosition}. ${t('preranking')}`;
           }
           return {
@@ -129,7 +131,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <>
-      {phases.map((phase: IPhase, index: number) => (
+      {phases?.map((phase: IPhaseOption, index: number) => (
         <div key={index}>
           {phase.ranking.length < 1 ? null : phase.status !== PHASE_STATUS_ENUM.NOT_STARTED ? (
             <Ranking

@@ -16,7 +16,7 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
-import { Entity, Member } from '../../../../../../typescript/types';
+import { Entity, Member, NavTabs } from '../../../../../../typescript/types';
 import { getMostRecentMember, hasMemberships as hasMembershipsApi } from '../../../../actions/service/entity/get';
 import { COLORS } from '../../../../utils/colors';
 
@@ -24,18 +24,11 @@ const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
 interface IProps {
   basicInfos: Entity;
-  navTabs: INavTabs[];
+  navTabs: NavTabs[];
   index: number;
   isAdmin: boolean;
   onSwitch: () => void;
   adminView: boolean;
-}
-
-interface INavTabs {
-  component: any;
-  value: string;
-  label: string;
-  icon: string;
 }
 
 const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {

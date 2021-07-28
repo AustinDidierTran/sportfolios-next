@@ -30,20 +30,9 @@ interface IData {
   display: string;
 }
 
-interface IPositionOption {
+interface IPositionOption extends Ranking {
   value: string;
   display: string;
-  id: string;
-  rosterId: string;
-  originPhase: string;
-  originPosition: string;
-  currentPhase: string;
-  initialPosition: number;
-  finalPosition: number;
-  rankingId: string;
-  phaseName?: string;
-  name?: string;
-  teamName?: string;
 }
 
 interface GameOptions {
@@ -74,9 +63,9 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
   const getOptions = async (): Promise<void> => {
     const res = await getGameOptions(eventId, true);
     setGameOptions(res);
-    setFirstPositionOptions(res.positions.filter((p: Ranking) => p.currentPhase === game.phaseId));
-    setSecondPositionOptions(res.positions.filter((p: Ranking) => p.currentPhase === game.phaseId));
-    setOriginalOptions(res.positions.filter((p: Ranking) => p.currentPhase === game.phaseId));
+    setFirstPositionOptions(res.positions.filter((p: Ranking) => p.currentPhase.id === game.phaseId));
+    setSecondPositionOptions(res.positions.filter((p: Ranking) => p.currentPhase.id === game.phaseId));
+    setOriginalOptions(res.positions.filter((p: Ranking) => p.currentPhase.id === game.phaseId));
   };
 
   useEffect((): void => {
@@ -152,7 +141,7 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
     if (formik.values.phase !== game.phaseId) {
       formik.setFieldValue('position1', '');
       formik.setFieldValue('position2', '');
-      const positions = gameOptions.positions.filter((p) => p.currentPhase === formik.values.phase);
+      const positions = gameOptions.positions.filter((p) => p.currentPhase.id === formik.values.phase);
       setFirstPositionOptions(positions);
       setSecondPositionOptions(positions);
     } else {
@@ -184,10 +173,10 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
       formik.values.position2 !== game.positions[1].rankingId
     ) {
       const firstPosition = gameOptions.positions.filter(
-        (p) => p.value !== formik.values.position2 && p.currentPhase === formik.values.phase
+        (p) => p.value !== formik.values.position2 && p.currentPhase.id === formik.values.phase
       );
       const secondPosition = gameOptions.positions.filter(
-        (p) => p.value !== formik.values.position1 && p.currentPhase === formik.values.phase
+        (p) => p.value !== formik.values.position1 && p.currentPhase.id === formik.values.phase
       );
       setFirstPositionOptions(firstPosition);
       setSecondPositionOptions(secondPosition);

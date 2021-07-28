@@ -519,6 +519,7 @@ export enum LIST_ITEM_ENUM {
   SHOP_ITEM = 'shop item',
   AVATAR_TEXT_SKELETON = 'avatar and text',
   NOTIFICATION_SETTING = 'notification setting',
+  PARTNER = 'partner',
 }
 
 export enum MILLIS_TIME_ENUM {
