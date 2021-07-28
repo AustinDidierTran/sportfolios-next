@@ -19,6 +19,7 @@ import {
 import BasicFormDialog from '../BasicFormDialog';
 import { validateDate, formatPrice, formatRoute } from '../../../../utils/stringFormats';
 import { uploadFile } from '../../../../actions/aws';
+import { hasStripeBankAccount } from '../../../../actions/service/stripe';
 
 export default function AddMembership(props) {
   const { open: openProps, onClose, update } = props;
@@ -68,16 +69,6 @@ export default function AddMembership(props) {
     setAllTaxes(res);
   };
 
-  const hasBankAccount = async () => {
-    const { data: hasStripeBankAccount } = await api(
-      formatRoute('/api/stripe/hasStripeBankAccount', null, {
-        entityId,
-      }),
-      { method: 'GET' }
-    );
-    return hasStripeBankAccount;
-  };
-
   const validate = async (values) => {
     const { price, date, type } = values;
     const errors = {};
@@ -87,7 +78,7 @@ export default function AddMembership(props) {
     if (price < 0) {
       errors.price = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
-    if (price > 0 && !(await hasBankAccount())) {
+    if (price > 0 && !(await hasStripeBankAccount(entityId))) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('no.no_bank_account_linked'),

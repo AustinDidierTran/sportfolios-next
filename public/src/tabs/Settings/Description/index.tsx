@@ -82,7 +82,7 @@ const Description: React.FunctionComponent = () => {
   const disabled = useMemo((): boolean => formik.values.description === initial, [formik.values.description, initial]);
 
   return (
-    <Paper title="Description">
+    <Paper title={t('description.description')}>
       <form onSubmit={formik.handleSubmit}>
         <TextField
           className={styles.description}

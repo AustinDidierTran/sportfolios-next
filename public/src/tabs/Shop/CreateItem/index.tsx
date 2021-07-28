@@ -13,13 +13,15 @@ import { createItem, onImgUpload } from '../../../utils/shop';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import api from '../../../actions/api';
-import { GLOBAL_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { SEVERITY_ENUM } from '../../../../common/enums';
 import Upload from 'rc-upload';
-import { formatRoute } from '../../../utils/stringFormats';
+import { hasStripeBankAccount } from '../../../actions/service/stripe';
 
-export default function CreateItem(props) {
+interface IProps {
+  fetchItems: () => void;
+}
+
+const CreateItem: React.FunctionComponent<IProps> = (props) => {
   const {
     dispatch,
     state: { id },
@@ -27,25 +29,24 @@ export default function CreateItem(props) {
   const { t } = useTranslation();
   const { fetchItems } = props;
 
-  const [isCreating, setIsCreating] = useState(false);
-  const [img, setImg] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(null);
-  const [sizes, setSizes] = useState([]);
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [sizes, setSizes] = useState<string[]>([]);
 
   const name = useFormInput('');
   const amount = useFormInput('');
   const description = useFormInput('');
+  const photoUrl = useFormInput('');
 
-  const handleChange = (value) => {
+  const handleChange = (value: string[]): void => {
     setSizes(value);
   };
 
   const uploadImageProps = {
     multiple: false,
     accept: '.jpg, .png, .jpeg, .gif, .webp',
-    onStart(file) {
+    onStart(file: any) {
       if (file.type.split('/')[0] === 'image') {
-        setImg(file);
+        onImgUpload(id, file, dispatch).then((res) => photoUrl.setValue(res.photoUrl));
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -56,23 +57,8 @@ export default function CreateItem(props) {
     },
   };
 
-  const onUpload = async () => {
-    const res = await onImgUpload(id, img, dispatch);
-    setPhotoUrl(res.photoUrl);
-  };
-
-  const getHasBankAccount = async () => {
-    const res = await api(
-      formatRoute('/api/stripe/eventHasBankAccount', null, {
-        id,
-      }),
-      { method: 'GET' }
-    );
-    return res.data;
-  };
-
   const reset = async () => {
-    const hasBankAccount = await getHasBankAccount();
+    const hasBankAccount = await hasStripeBankAccount(id);
     if (!hasBankAccount) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -85,7 +71,7 @@ export default function CreateItem(props) {
     }
   };
 
-  const validateName = (value) => {
+  const validateName = (value: string[]) => {
     if (name.value.length > 64) {
       name.reset();
     } else {
@@ -107,7 +93,7 @@ export default function CreateItem(props) {
       description.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
-    if (!photoUrl) {
+    if (!photoUrl.value) {
       photoUrl.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
@@ -120,10 +106,9 @@ export default function CreateItem(props) {
         name: name.value,
         description: encodeURIComponent(description.value),
         amount: amount.value,
-        photoUrl,
+        photoUrl: photoUrl.value,
         entityId: id,
         sizes,
-        type: GLOBAL_ENUM.SHOP_ITEM,
       });
       setIsCreating(!isCreating);
       name.reset();
@@ -145,36 +130,37 @@ export default function CreateItem(props) {
 
   return (
     <Paper style={{ marginBottom: '8px' }}>
-      {photoUrl ? (
+      {photoUrl.value ? (
         <>
-          <CardMedia className={styles.media} image={photoUrl} />
-          <Button onClick={() => setPhotoUrl(null)} style={{ margin: '8px' }} endIcon="Undo">
-            {t('change')}
-          </Button>
+          <CardMedia className={styles.media} image={photoUrl.value} />
+          <Upload {...uploadImageProps}>
+            <Button style={{ margin: '8px' }} endIcon="Undo">
+              {t('change_picture')}
+            </Button>
+          </Upload>
         </>
       ) : (
         <div className={styles.media}>
           <Upload {...uploadImageProps}>
-            <Button
-              variant="outlined"
-              endIcon="CloudUploadIcon"
-              style={{ marginTop: '8px', marginBottom: '16px' }}
-              component="label"
-            >
-              {t('change_picture')}
+            <Button variant="outlined" endIcon="CloudUploadIcon" style={{ marginTop: '8px', marginBottom: '16px' }}>
+              {t('upload')}
             </Button>
           </Upload>
-          <Button onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
-            {t('upload')}
-          </Button>
         </div>
       )}
       <CardContent className={styles.infos}>
         <TextField {...name.inputProps} label={t('name')} className={styles.name} onChange={validateName} />
         <TextField {...amount.inputProps} type="number" label={t('price')} className={styles.price} />
-        <TextareaAutosize {...description.inputProps} placeholder="Description" className={styles.description} />
+        <TextField
+          multiline
+          rows={5}
+          rowsMax={10}
+          {...description.inputProps}
+          placeholder={t('description.description')}
+          className={styles.description}
+        />
         <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
-        <Button size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
+        <Button size="small" endIcon="Add" onClick={addToStore} className={styles.cart}>
           {t('add.add')}
         </Button>
         <Button onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
@@ -183,4 +169,5 @@ export default function CreateItem(props) {
       </CardContent>
     </Paper>
   );
-}
+};
+export default CreateItem;

@@ -10,12 +10,22 @@ import moment from 'moment';
 import CustomAvatar from '../../Avatar';
 import MailToButton from '../../MailToButton';
 
-export default function SalesItem(props) {
+interface IProps {
+  photoUrl: string;
+  createdAt: string;
+  label: string;
+  amount: number;
+  metadata: any;
+  quantity: number;
+  email: string;
+}
+
+const SalesItem: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
 
-  const { photo_url: photoUrl, created_at: createdAt, label, amount, metadata, quantity, email } = props;
+  const { photoUrl, createdAt, label, amount, metadata, quantity, email } = props;
 
-  const emails = useMemo(() => [{ email }], [email]);
+  const emails = useMemo((): { email: string }[] => [{ email }], [email]);
 
   return (
     <ListItem button style={{ width: '100%' }}>
@@ -23,20 +33,21 @@ export default function SalesItem(props) {
         <ListItemIcon>
           <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
         </ListItemIcon>
-        <ListItemText className={styles.name} primary={label} secondary={t(metadata.size)}></ListItemText>
         <ListItemText
-          className={styles.quantity}
-          primary={formatPrice(amount)}
-          secondary={t('qt', { quantity })}
-        ></ListItemText>
-        {email ? <ListItemText secondary={`${t('by')}: ${email}`} className={styles.email}></ListItemText> : <></>}
+          className={styles.name}
+          primary={label}
+          secondary={metadata.size ? t('sizes_enum_' + metadata.size.toLowerCase()) : null}
+        />
+        <ListItemText className={styles.quantity} primary={formatPrice(amount)} secondary={t('qt', { quantity })} />
+        {email ? <ListItemText secondary={`${t('by')}: ${email}`} className={styles.email} /> : <></>}
 
-        <MailToButton emails={emails} className={styles.mail} />
+        <MailToButton emails={emails} />
         <ListItemText
           className={styles.date}
           secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
-        ></ListItemText>
+        />
       </div>
     </ListItem>
   );
-}
+};
+export default SalesItem;
