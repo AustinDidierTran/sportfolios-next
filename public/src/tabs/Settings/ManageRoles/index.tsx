@@ -28,7 +28,7 @@ const ManageRoles: React.FunctionComponent = () => {
   const [entity, setEntity] = useState<Entity>();
 
   const getEntity = async (): Promise<void> => {
-    getEntityApi(entity_id).then((res)=> setEntity(res));
+    getEntityApi(entity_id).then((res) => setEntity(res));
   };
 
   useEffect((): void => {
@@ -52,7 +52,7 @@ const ManageRoles: React.FunctionComponent = () => {
 
   const isAdmin = (arr: EntityRole[], entity_id_admin: string) => {
     return arr.length < 2 && arr[0].entityId === entity_id_admin;
-  }
+  };
 
   const updateRole = async (entity_id_admin: string, role: string): Promise<void> => {
     if (entity.type === GLOBAL_ENUM.PERSON) {
@@ -117,9 +117,9 @@ const ManageRoles: React.FunctionComponent = () => {
               />
             </ListItemIcon>
             {e.surname ? (
-              <ListItemText primary={`${e.name} ${e.surname}`} secondary={t(getEntityTypeName(e.type))}></ListItemText>
+              <ListItemText primary={`${e.name} ${e.surname}`} secondary={getEntityTypeName(e.type)}></ListItemText>
             ) : (
-              <ListItemText primary={`${e.name}`} secondary={t(getEntityTypeName(e.type))}></ListItemText>
+              <ListItemText primary={`${e.name}`} secondary={getEntityTypeName(e.type)}></ListItemText>
             )}
           </ListItem>
           <Select

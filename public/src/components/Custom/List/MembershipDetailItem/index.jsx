@@ -39,7 +39,7 @@ export default function MembershipDetailItem(props) {
       {width < MOBILE_WIDTH ? (
         <ListItemText
           secondaryTypographyProps={{ color: 'primary' }}
-          primary={t(name)}
+          primary={name}
           secondary={
             <div>
               <div>{t('valid_until')}:</div>
@@ -50,7 +50,7 @@ export default function MembershipDetailItem(props) {
       ) : (
         <ListItemText
           secondaryTypographyProps={{ color: 'primary' }}
-          primary={t(name)}
+          primary={name}
           secondary={`${t('valid_until')}:  ${expirationDate()}`}
         ></ListItemText>
       )}

@@ -26,7 +26,8 @@ export default function PersonSelect(props) {
     const { data } = await api(
       formatRoute('/api/user/ownedPersonsRegistration', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
 
     if (!data[0].registered) {

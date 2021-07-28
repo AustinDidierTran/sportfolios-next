@@ -2,13 +2,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+
 import styles from './LoggedOut.module.css';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import Button from '../../../components/Custom/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function LoggedOut(props) {
   const { t } = useTranslation();

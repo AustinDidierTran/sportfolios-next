@@ -22,6 +22,7 @@ import {
 } from './index';
 import { MEMBERSHIP_LENGTH_ENUM, MEMBERSHIP_TYPE_ENUM, GLOBAL_ENUM, ROSTER_ROLE_ENUM } from '../../../common/enums';
 import moment from 'moment';
+import i18n from '../../i18n';
 
 const localStorageMock = (function () {
   let store: any = {};
@@ -196,10 +197,10 @@ describe('ValidateFormatIntervalDate', () => {
 });
 
 describe('ValidateEntityName', () => {
-  const personType = 'person.person';
-  const teamType = 'team.team';
-  const organizationType = 'organization';
-  const eventType = 'event.event';
+  const personType = i18n.t('person.person');
+  const teamType = i18n.t('team.team');
+  const organizationType = i18n.t('organization');
+  const eventType = i18n.t('event.event');
   const defaultType = '';
   const randomType = 123;
 
@@ -224,10 +225,10 @@ describe('ValidatePageTitle', () => {
 });
 
 describe('ValidateMembershipName', () => {
-  const recreationalType = 'recreational_member';
-  const competitiveType = 'competitive_member';
-  const eliteType = 'elite_member';
-  const juniorType = 'junior_member';
+  const recreationalType = i18n.t('recreational_member');
+  const competitiveType = i18n.t('competitive_member');
+  const eliteType = i18n.t('elite_member');
+  const juniorType = i18n.t('junior_member');
   const randomType = 123;
   const defaultType = '';
 
@@ -241,13 +242,13 @@ describe('ValidateMembershipName', () => {
 });
 
 describe('ValidateMembershipType', () => {
-  const oneYearType = 'yearly';
-  const sixMonthType = 'biannual';
-  const oneMonthType = 'monthly';
+  const oneYearType = i18n.t('yearly');
+  const sixMonthType = i18n.t('biannual');
+  const oneMonthType = i18n.t('monthly');
   const date = 'January 1, 2000';
   const noLength = 0;
   const randomLength = 123;
-  const dateType: any = 'fixed_date';
+  const dateType: any = i18n.t('fixed_date');
   const defaultType: any = '';
 
   it('should return type', () => {

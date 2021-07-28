@@ -114,13 +114,13 @@ const Memberships: React.FunctionComponent = () => {
     const name = getMembershipName(membershipType);
     if (length) {
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_YEAR) {
-        return `${t(name)} | ${formatPrice(price)} (${t('one_year')})`;
+        return `${name} | ${formatPrice(price)} (${t('one_year')})`;
       }
       if (length === MEMBERSHIP_LENGTH_ENUM.SIX_MONTH) {
-        return `${t(name)} | ${formatPrice(price)} (${t('six_month')})`;
+        return `${name} | ${formatPrice(price)} (${t('six_month')})`;
       }
       if (length === MEMBERSHIP_LENGTH_ENUM.ONE_MONTH) {
-        return `${t(name)} | ${formatPrice(price)} (${t('one_month')})`;
+        return `${name} | ${formatPrice(price)} (${t('one_month')})`;
       }
     }
     if (fixedDate) {

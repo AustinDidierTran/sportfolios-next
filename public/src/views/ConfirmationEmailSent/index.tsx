@@ -1,9 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MessageAndButtons } from '../../components/Custom';
-
-// @ts-ignore
+import MessageAndButtons from '../../components/Custom/MessageAndButtons';
 import styles from './ConfirmationEmailSent.module.css';
 import { goTo, ROUTES } from '../../actions/goTo';
 
@@ -30,7 +28,7 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <div className={styles.main}>
-      <MessageAndButtons buttons={buttons} message={t('email.email_confirmed', { email })} />
+      <MessageAndButtons buttons={buttons} message={t('email.email_confirmed', { email: email ? email : '' })} />
     </div>
   );
 };

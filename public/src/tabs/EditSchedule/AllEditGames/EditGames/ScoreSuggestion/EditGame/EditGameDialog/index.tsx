@@ -100,7 +100,6 @@ const EditGameDialog: React.FunctionComponent<IProps> = (props) => {
     position1: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     position2: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
   });
-
   const formik = useFormik({
     initialValues: {
       description: game.description ? game.description : '',

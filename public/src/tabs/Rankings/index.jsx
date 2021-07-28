@@ -28,7 +28,8 @@ export default function Rankings() {
     } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
     setPrerankPhaseId(prerankPhaseId);
     let ranking = [];
@@ -57,7 +58,7 @@ export default function Rankings() {
       );
     }
 
-    const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }));
+    const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }), { method: 'GET' });
     const playedGames = games.reduce((prev, curr) => {
       const score1 = curr.teams[0].score;
       const score2 = curr.teams[1].score;

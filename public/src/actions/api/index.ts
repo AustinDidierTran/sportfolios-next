@@ -25,8 +25,11 @@ const api = async (
       headers,
       body,
     });
+
     const status = res.status;
+
     const { data } = await res.json();
+
     return { data, status };
   }
 
@@ -49,10 +52,11 @@ const api = async (
       method: 'DELETE',
       headers,
     });
-
     const status = res.status;
 
-    return { status };
+    const { data } = await res.json();
+
+    return { data, status };
   }
 
   if (method === 'GET') {
@@ -63,12 +67,16 @@ const api = async (
       headers,
     });
     const status = res.status;
+
     const { data } = await res.json();
 
     return { data, status };
   }
-
   // Then, it is a get
+  // eslint-disable-next-line no-console
+  console.warn(
+    `You are using the api function with the route ${route} without specifying the method. Support may be deprecated please fix this.`
+  );
   const res = await fetch(`${API_BASE_URL}${route}`, {
     headers,
   }).then((res) => res.json());

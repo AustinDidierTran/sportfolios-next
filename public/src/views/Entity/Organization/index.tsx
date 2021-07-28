@@ -112,7 +112,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getRole = async (): Promise<void> => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
+    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }), { method: 'GET' });
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       const newInfos = basicInfos;
       newInfos.role = res.data;

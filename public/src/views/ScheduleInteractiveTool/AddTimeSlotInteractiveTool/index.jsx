@@ -22,7 +22,7 @@ export default function AddTimeSlotInteractiveTool(props) {
 
   const sendToInteractiveTool = (values) => {
     const { date, time } = values;
-    const timeZone = new Date().getTimezoneOffset() * 1000 * 60;
+    const timeZone = new Date(`${date} ${time}`).getTimezoneOffset() * 1000 * 60;
     const realDate = new Date(`${date} ${time}`).getTime() - timeZone;
     if (addTimeslotToGrid) {
       addTimeslotToGrid(realDate);

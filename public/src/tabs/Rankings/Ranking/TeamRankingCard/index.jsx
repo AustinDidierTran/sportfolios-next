@@ -14,7 +14,8 @@ export default function TeamRankingCard(props) {
     } = await api(
       formatRoute('/api/entity', null, {
         id: teamId,
-      })
+      }),
+      { method: 'GET' }
     );
     setTeam(data);
   };

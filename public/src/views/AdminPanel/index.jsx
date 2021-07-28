@@ -37,7 +37,8 @@ export default function AdminPanel() {
       formatRoute('/api/entity/graphUserCount', null, {
         date: dateFilter,
         language: userInfo.language,
-      })
+      }),
+      { method: 'GET' }
     );
     if (!data) {
       return;

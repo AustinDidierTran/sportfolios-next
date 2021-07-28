@@ -19,7 +19,8 @@ export default function RedirectWithToken() {
     const res = await api(
       formatRoute('/api/auth/loginWithToken', null, {
         token,
-      })
+      }),
+      { method: 'GET' }
     );
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       dispatch({

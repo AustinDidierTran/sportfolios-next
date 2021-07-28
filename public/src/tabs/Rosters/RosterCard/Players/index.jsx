@@ -47,7 +47,8 @@ export default function Players(props) {
       formatRoute('/api/entity/getRoster', null, {
         rosterId,
         withSub: true,
-      })
+      }),
+      { method: 'GET' }
     );
     setBlackList(data.map((d) => d.personId));
     setIsLoading(false);

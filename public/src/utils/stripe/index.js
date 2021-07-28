@@ -17,6 +17,6 @@ export const createRefund = async (params) => {
 };
 
 export const getCartItems = async () => {
-  const { data: cartItems } = await api('/api/shop/getCartItems');
+  const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
   return cartItems;
 };

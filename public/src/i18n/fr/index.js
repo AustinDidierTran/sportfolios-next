@@ -472,6 +472,7 @@ export default {
       registration_refused: "Désolé, votre équipe n'est pas éligible pour cet événement vous avez été refusé.",
       registration_status: 'État des inscriptions',
       registration: 'Inscription',
+      registration_for: 'Inscription pour',
       registrations: 'Inscriptions',
       registrations_closed_for_now: 'Inscriptions fermées',
       registrations_ended: 'Inscriptions terminées le',
@@ -623,6 +624,8 @@ export default {
       creation_date: 'Date de création',
     },
     delete: {
+      delete_field_confirmation: 'Êtes-vous certain de vouloir supprimer ce terrain?',
+      delete_timeslot_confirmation: 'Êtes-vous certain de vouloir supprimer cette plage horaire?',
       delete_bank_account_confirmation:
         'Êtes-vous certain de vouloir supprimer votre compte bancaire finissant par {{last4}}?',
       delete_cart_item_confirmation: 'Êtes-vous certain de vouloir supprimer cet article de votre panier?',
@@ -766,9 +769,9 @@ export default {
       no_team_yet: 'Aucune équipe',
       no_teams_registered: 'Aucune équipe inscrite.',
       no_teams: 'Aucune équipe',
-      no_time_yet: 'No time yet',
-      no_date_yet: 'No date yet',
-      no_field_yet: 'No field yet',
+      no_time_yet: 'Pas de temps encore',
+      no_date_yet: 'Pas de date encore',
+      no_field_yet: 'Pas de terrain encore',
       no_users_found: 'Aucun utilisateur trouvé',
       no: 'non',
       none_feminine: 'Aucune',
@@ -809,6 +812,7 @@ export default {
       selected_team: 'Équipe sélectionnée',
     },
     score: {
+      score_submission_setting: 'Paramètre de soumission de résultats',
       score_confirmed: 'Résultat confirmé',
       score_submission_conflict_description:
         "Notification reçue si vous êtes admin d'un événement et qu'il y a un conflit de score",
@@ -972,6 +976,10 @@ export default {
       "Vous ne pouvez pas ajouter de produit car l'administrateur n'a pas de compte banquaire",
     cant_delete_paid_player:
       "Vous ne pouvez pas retirer ce joueur de l'alignement puisqu'il a déjà payé. Contactez un organisateur de l'événement pour obtenir de l'aide.",
+    cant_delete_field:
+      "Vous ne pouvez pas supprimer ce terrain. Il y a toujours des parties associées à ce terrain. N'oubliez pas de sauvegarder vos changements",
+    cant_delete_timeslot:
+      "Vous ne pouvez pas supprimer cette plage horaire. Il y a toujours des parties associées à cette plage horaire. N'oubliez pas de sauvegarder vos changements",
     cant_edit_game_score:
       "Les équipes ne sont pas encore définies. Veuillez commencer la phase ou terminer les phases précédentes avant d'inscrire le score.",
     cant_have_different_phase: 'Les positions sont issues de phases différentes',
@@ -1071,9 +1079,11 @@ export default {
     download_excel_template: 'Télécharger le modèle excel',
     download_report: 'Télécharger le rapport',
     download: 'Télécharger',
+    elimination_bracket: "Tableau d'élimination",
     elite_member: 'Membre élite',
     elite_membership: 'Affiliation Élite',
     elite: 'Élite',
+    other_games_depends_on_it: "Vous ne pouvez pas supprimer cette partie parce que d'autres parties en dépendent",
     emergency_contact: "Contact d'urgence",
     employer: 'Employeur',
     empty_phase_spots_warning: 'Veuillez supprimer ou remplir les places vides avant de démarrer la phase.',
@@ -1101,7 +1111,7 @@ export default {
     expired_on: 'A expiré le',
     expired: 'Expiré',
     facebook_description: 'Connecte ton compte Facebook pour retrouver tes amis sur Sportfolios',
-    fair_mindedness: 'Honnêteter et équité',
+    fair_mindedness: 'Honnêteté et équité',
     false: 'Faux',
     feature_coming_soon: 'Fonctionnalité à venir!',
     fees: 'Frais',
@@ -1149,6 +1159,7 @@ export default {
     going: 'Présent',
     graphs: 'Graphiques',
     have_an_account_signin: 'Vous avez déjà un compte? Connectez-vous!',
+    have_spirit: "Avoir un champ d'esprit de jeu",
     heard_organization: 'Comment avez-vous entendu parler de cette organisation?',
     here: 'ici',
     hide_password: 'Masquer le mot de passe',
@@ -1466,6 +1477,7 @@ export default {
     spirit_chart_ligue_mardi: '0: Mauvais  1: Moyen  2: Bon ou rien à signaler  3: Très bon  4: Mémorable',
     spirit: 'Esprit de jeu',
     sports_table_title: 'Liste des sports',
+    spots: 'Places',
     start_phase_warning: 'Cette phase dépend de phases non-terminées. Veuillez les terminer avant de la démarrer.',
     state: 'Province',
     statistics: 'Statistiques',
@@ -1482,6 +1494,7 @@ export default {
     submit_as: 'Soumettre le résultat en tant que',
     submit_for_team: 'Soumettre le résultat pour',
     submit_score: 'Soumettre un résultat',
+    submit_spirit: 'Soumettre un esprit sportif',
     submit: 'Soumettre',
     submitted: 'Soumis',
     submitting_as_for: 'Soumission en tant que {{person}} pour {{team}}',

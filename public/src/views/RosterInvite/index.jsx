@@ -38,7 +38,8 @@ export default function RosterInvite(props) {
     const res = await api(
       formatRoute('/api/entity/rosterFromInviteToken', null, {
         token,
-      })
+      }),
+      { method: 'GET' }
     );
     if (res.status == STATUS_ENUM.SUCCESS_STRING) {
       setRoster({ ...res.data.roster });

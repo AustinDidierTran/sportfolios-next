@@ -16,7 +16,7 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
   addTimeslotToGrid?: (data: any, realDate: number) => void;
-  update: any;
+  update?: any;
   updateGames: () => Promise<void>;
 }
 

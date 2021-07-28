@@ -479,6 +479,7 @@ export default {
       registration_type: 'Registration type',
       registration_fee_team: 'Registration fees per team: {{fee}}',
       registration_fee_player: 'Registration fees per player: {{fee}}',
+      registration_for: 'Registration for',
       unregister_all: 'Unregister all',
       unregister_pending: 'Unregistrations and refunds in progress, please wait...',
       unregister: 'Unregister',
@@ -620,6 +621,8 @@ export default {
       creation_date: 'Creation date',
     },
     delete: {
+      delete_field_confirmation: 'Are you sure you want to delete this field?',
+      delete_timeslot_confirmation: 'Are you sure you want to delete this timeslot?',
       delete_bank_account_confirmation: 'Are you sure you want to delete your bank account ending with {{last4}}?',
       delete_cart_item_confirmation: 'Are you sure you want to delete this item from your cart?',
       delete_this_item_from_shop: 'Are you sure you want to delete this item from your shop?',
@@ -659,6 +662,8 @@ export default {
     edit: {
       edit_credit_cards: 'Edit credit cards',
       edit_game: 'Edit game',
+      edit_field: 'Edit field',
+      edit_timeslot: 'Edit timeslot',
       edit_image: 'Edit image',
       edit_infos: 'Edit infos',
       edit_membership: 'Edit membership',
@@ -804,6 +809,7 @@ export default {
       selected_team: 'Selected team',
     },
     score: {
+      score_submission_setting: 'Score submission setting',
       score_confirmed: 'Score confirmed',
       score_submission_conflict_description:
         'Notification received if you are the admin of an event and there is a score conflict',
@@ -955,6 +961,10 @@ export default {
     cant_add_product_no_bank_account: "Can't add product admin has no bank account",
     cant_delete_paid_player:
       "You can't remove this player from the roster since he already paid. Contact an event organizer for help.",
+    cant_delete_field:
+      "You can't delete this field, there are still games attributed to this field. Dont forget to save your changes",
+    cant_delete_timeslot:
+      "You can't delete this timeslot, there are still games attributed to this timeslot. Dont forget to save your changes",
     cant_edit_game_score: 'Teams are still undefined. Start the phase or end the preceding phase before editing score.',
     cant_have_different_phase: 'Positions are issued from different phases',
     cant_have_same_positions: "Can't have a position playing against itself",
@@ -1051,9 +1061,11 @@ export default {
     download_excel_template: 'Download excel template',
     download_report: 'Download report',
     download: 'Download',
+    elimination_bracket: 'Elimination bracket',
     elite_member: 'Elite Member',
     elite_membership: 'Elite Membership',
     elite: 'Elite',
+    other_games_depends_on_it: "You can't delete this game because other games depend on it",
     emergency_contact: 'Emergency Contact',
     employer: 'Employer',
     empty_phase_spots_warning: 'There is still empty spots, fill them or delete them before starting the phase.',
@@ -1127,6 +1139,7 @@ export default {
     going: 'Going',
     graphs: 'Graphs',
     have_an_account_signin: 'Already have an account? Sign in!',
+    have_spirit: 'Have a spirit field',
     heard_organization: 'How have you heard of this organization?',
     here: 'here',
     hide_password: 'Hide password',
@@ -1443,6 +1456,7 @@ export default {
     spirit_chart_ligue_mardi: '0: Bad 1: Below average 2: Good or nothing to report 3: Very good 4: Exceptional',
     spirit: 'Spirit',
     sports_table_title: 'Sports List',
+    spots: 'Spots',
     start_phase_warning: 'This phase depends on unfinished phases. Please complete them before starting it.',
     state: 'State',
     statistics: 'Statistics',
@@ -1459,6 +1473,7 @@ export default {
     submit_as: 'Submit the result as',
     submit_for_team: 'Submit the result for',
     submit_score: 'Submit Score',
+    submit_spirit: 'Submit Spirit',
     submit: 'Submit',
     submitted: 'Submitted',
     submitting_as_for: 'Submitting as {{person}} for {{team}}',

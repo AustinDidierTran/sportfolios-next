@@ -442,6 +442,38 @@ export interface GameInfo {
   role: ENTITIES_ROLE_ENUM;
 }
 
+export interface ScoreSuggestion {
+  id: string;
+  gameId: string;
+  submittedByRoster: string;
+  submittedByPerson: string;
+  status: STATUS_ENUM;
+  score: any;
+}
+
+export interface SpiritSubmission {
+  id: string;
+  gameId: string;
+  submittedByRoster: string;
+  submittedByPerson: string;
+  submittedForRoster: string;
+  comment: string;
+  spiritScore: number;
+}
+
+export interface Presence {
+  value: string;
+  display: string;
+  isSub: boolean;
+}
+
+export interface GameSubmissionInfo {
+  scoreSuggestions: ScoreSuggestion[];
+  spiritSubmission: SpiritSubmission;
+  presences: Presence[];
+  hasSpirit: boolean;
+}
+
 export interface Partner {
   id: string;
   name: string;

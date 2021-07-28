@@ -27,7 +27,7 @@ export default function NotificationModule(props) {
   };
 
   const getNotificationCount = async () => {
-    const res = await api('/api/notifications/unseenCount');
+    const res = await api('/api/notifications/unseenCount', { method: 'GET' });
     if (res.status == STATUS_ENUM.SUCCESS_STRING) {
       setUnreadNotificationsCount(Number(res.data));
     }

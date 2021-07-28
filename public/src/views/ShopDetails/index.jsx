@@ -36,7 +36,7 @@ export default function ShopDetails() {
 
   const text = useMemo(() => decodeURIComponent(description), [description]);
   const fetchItem = async () => {
-    const { data } = await api(formatRoute('/api/shop/getItem', null, { id: stripePriceId }));
+    const { data } = await api(formatRoute('/api/shop/getItem', null, { id: stripePriceId }), { method: 'GET' });
     setItem(data);
 
     setIsLoading(false);

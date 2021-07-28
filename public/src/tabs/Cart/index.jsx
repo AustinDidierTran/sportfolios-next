@@ -16,7 +16,7 @@ import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM } from '../../../common/errors';
 
 const getCartItems = async () => {
-  const { data: cartItems } = await api('/api/shop/getCartItems');
+  const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
   return cartItems;
 };
 

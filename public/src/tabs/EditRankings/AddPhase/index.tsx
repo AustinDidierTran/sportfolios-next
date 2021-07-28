@@ -5,7 +5,13 @@ import { useFormik } from 'formik';
 
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { COMPONENT_TYPE_ENUM, PHASE_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import {
+  COMPONENT_TYPE_ENUM,
+  PHASE_TYPE_ENUM,
+  SEVERITY_ENUM,
+  REQUEST_STATUS_ENUM,
+  ELIMINATION_BRACKET_SPOTS,
+} from '../../../../common/enums';
 import * as yup from 'yup';
 import { addPhase } from '../../../actions/service/entity/post';
 
@@ -73,6 +79,12 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
+  useEffect(() => {
+    if (formik.values.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET) {
+      formik.setFieldValue('spots', 8);
+    }
+  }, [formik.values.type]);
+
   const buttons = [
     {
       onClick: handleClose,
@@ -93,12 +105,6 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
       type: 'phase',
     },
     {
-      namespace: 'spots',
-      id: 'spots',
-      label: t('maximum_spots'),
-      type: 'number',
-    },
-    {
       componentType: COMPONENT_TYPE_ENUM.SELECT,
       namespace: 'type',
       label: t('type'),
@@ -111,8 +117,25 @@ const AddPhase: React.FunctionComponent<IProps> = (props) => {
           display: t('pool'),
           value: PHASE_TYPE_ENUM.POOL,
         },
+        {
+          display: t('elimination_bracket'),
+          value: PHASE_TYPE_ENUM.ELIMINATION_BRACKET,
+        },
       ],
     },
+    formik.values.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET
+      ? {
+          componentType: COMPONENT_TYPE_ENUM.SELECT,
+          namespace: 'spots',
+          label: t('spots'),
+          options: ELIMINATION_BRACKET_SPOTS,
+        }
+      : {
+          namespace: 'spots',
+          id: 'spots',
+          label: t('spots'),
+          type: 'number',
+        },
   ];
 
   return (

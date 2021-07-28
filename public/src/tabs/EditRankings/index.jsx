@@ -77,7 +77,8 @@ export default function EditRankings() {
     const { data: prerankPhase } = await api(
       formatRoute('/api/entity/prerankPhase', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
 
     setPrerankPhase(prerankPhase);
@@ -87,7 +88,8 @@ export default function EditRankings() {
     } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
 
     const phases = await getPhases(eventId);
@@ -111,6 +113,7 @@ export default function EditRankings() {
         spots: d.spots,
         status: d.status,
         order: d.phaseOrder,
+        type: d.type,
         ranking: d.ranking.map((r) => {
           if (r && r.rosterId) {
             if (r.originPhase === prerankPhase.phaseId) {
@@ -246,6 +249,7 @@ export default function EditRankings() {
         body: JSON.stringify({
           eventId,
           phaseId: phase.phaseId,
+          type: phase.type,
           status: PHASE_STATUS_ENUM.STARTED,
         }),
       });

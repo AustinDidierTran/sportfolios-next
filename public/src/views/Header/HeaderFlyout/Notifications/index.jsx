@@ -5,7 +5,7 @@ import { LIST_ITEM_ENUM, HEADER_FLYOUT_TYPE_ENUM, REQUEST_STATUS_ENUM } from '..
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import Typography from '@material-ui/core/Typography';
-
+import { LoadingSpinner } from '../../../../components/Custom';
 import styles from '../HeaderFlyout.module.css';
 import { formatRoute } from '../../../../utils/stringFormats';
 
@@ -59,7 +59,8 @@ export default function Notifications(props) {
       formatRoute('/api/notifications/all', null, {
         currentPage: currentPage.current,
         perPage: 5,
-      })
+      }),
+      { method: 'GET' }
     );
 
     if (status === REQUEST_STATUS_ENUM.ERROR) {
@@ -82,16 +83,8 @@ export default function Notifications(props) {
 
   if (isLoading) {
     return (
-      <div>
-        <List
-          items={[
-            {
-              type: LIST_ITEM_ENUM.AVATAR_TEXT_SKELETON,
-              key: '0',
-              quantity: 4,
-            },
-          ]}
-        />
+      <div className={styles.spinnerContainer}>
+        <LoadingSpinner isComponent />
       </div>
     );
   }

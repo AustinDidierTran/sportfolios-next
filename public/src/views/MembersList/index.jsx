@@ -43,12 +43,12 @@ export default function MembersList() {
   const getEntity = async () => {
     const {
       data: { basicInfos: data },
-    } = await api(formatRoute('/api/entity', null, { id }));
+    } = await api(formatRoute('/api/entity', null, { id }), { method: 'GET' });
     setOrganization(data);
   };
 
   const getMembers = async () => {
-    const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }));
+    const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }), { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.ERROR_STRING) {
       goToAndReplace(ROUTES.entityNotFound);
     } else {

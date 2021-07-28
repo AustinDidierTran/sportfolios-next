@@ -36,7 +36,8 @@ export default function MyPersons() {
     const { data } = await api(
       formatRoute('/api/user/ownedPersons', null, {
         type: GLOBAL_ENUM.PERSON,
-      })
+      }),
+      { method: 'GET' }
     );
     setPersons(data);
     setIsLoading(false);
@@ -77,7 +78,8 @@ export default function MyPersons() {
     const res = await api(
       formatRoute('/api/user/declinePersonTransfer', null, {
         id: selectedPerson.id,
-      })
+      }),
+      { method: 'GET' }
     );
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       showErrorMessage();
@@ -92,7 +94,8 @@ export default function MyPersons() {
     const res = await api(
       formatRoute('/api/user/acceptPersonTransfer', null, {
         id: person.id,
-      })
+      }),
+      { method: 'GET' }
     );
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       showErrorMessage();

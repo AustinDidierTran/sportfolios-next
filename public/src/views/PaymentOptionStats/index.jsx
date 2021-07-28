@@ -40,7 +40,8 @@ export default function PaymentOptionStats() {
         eventPaymentId,
         language: userInfo.language,
         date: dateFilter,
-      })
+      }),
+      { method: 'GET' }
     );
     if (!data) {
       dispatch({

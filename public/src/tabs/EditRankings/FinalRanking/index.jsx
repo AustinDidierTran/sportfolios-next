@@ -2,7 +2,13 @@ import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './FinalRanking.module.css';
-import { PHASE_STATUS_ENUM, LIST_ITEM_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import {
+  PHASE_STATUS_ENUM,
+  LIST_ITEM_ENUM,
+  REQUEST_STATUS_ENUM,
+  SEVERITY_ENUM,
+  PHASE_TYPE_ENUM,
+} from '../../../../common/enums';
 import { updateRanking } from '../../Rankings/RankingFunctions';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -92,11 +98,12 @@ export default function FinalRanking(props) {
       };
     });
 
-    if (phase.status !== PHASE_STATUS_ENUM.DONE && rankingStats.every((r) => r.finalPosition !== null)) {
+    if (
+      rankingStats.every((r) => r.finalPosition !== null) ||
+      phase.status === PHASE_STATUS_ENUM.DONE ||
+      phase.type === PHASE_TYPE_ENUM.ELIMINATION_BRACKET
+    ) {
       setItems(rankingStats.sort((a, b) => a.finalPosition - b.finalPosition));
-    } else if (phase.status === PHASE_STATUS_ENUM.DONE) {
-      const rankingStatsAndFinalPosition = rankingStats.sort((a, b) => a.finalPosition - b.finalPosition);
-      setItems(rankingStatsAndFinalPosition);
     } else {
       const playedGames = games.reduce((prev, curr) => {
         const score1 = curr.teams[0].score;
@@ -106,8 +113,7 @@ export default function FinalRanking(props) {
       if (playedGames.some((g) => g > 0)) {
         setItems(rankingStats);
       } else {
-        const rankingFromInitialPosition = rankingStats.sort((a, b) => a.initialPosition - b.initialPosition);
-        setItems(rankingFromInitialPosition);
+        setItems(rankingStats.sort((a, b) => a.initialPosition - b.initialPosition));
       }
     }
     setMadeChanges(false);

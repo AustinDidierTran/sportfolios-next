@@ -45,7 +45,6 @@
   overflow: hidden;
   background-color: gainsboro;
   box-shadow: 0 8px 6px -8px black;
-
   z-index: 1;
   position: sticky;
 }
@@ -55,7 +54,6 @@
   overflow: hidden;
   background-color: gainsboro;
   box-shadow: 8px 0 6px -8px black;
-
   z-index: 1;
   position: sticky;
 }
@@ -64,25 +62,6 @@
   height: calc(100vh - 84px);
   width: calc(100vw - 192px);
   overflow: auto;
-}
-
-.divField {
-  height: 98% !important;
-}
-
-.divTime {
-  width: 99% !important;
-}
-
-.label {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  margin: 0;
-  text-align: center;
-  max-width: 192px;
-  min-width: 1px;
 }
 
 .divAddGame {

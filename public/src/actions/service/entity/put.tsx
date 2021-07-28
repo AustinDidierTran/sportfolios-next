@@ -46,3 +46,21 @@ export function updateRoster(
     (res) => res.status
   );
 }
+
+export function updateHasSpirit(
+  // eslint-disable-next-line no-undef
+  eventId: string,
+  hasSpirit: boolean
+): Promise<number> {
+  return api(`${BASE_URL}/hasSpirit`, { method: 'PUT', body: JSON.stringify({ eventId, hasSpirit }) }).then(
+    (res) => res.status
+  );
+}
+
+export function updateField(id: string, name: string): Promise<number> {
+  return api(`${BASE_URL}/field`, { method: 'PUT', body: JSON.stringify({ id, name }) }).then((res) => res.status);
+}
+
+export function updateTimeslot(id: string, date: string): Promise<number> {
+  return api(`${BASE_URL}/timeslot`, { method: 'PUT', body: JSON.stringify({ id, date }) }).then((res) => res.status);
+}

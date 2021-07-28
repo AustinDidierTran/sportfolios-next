@@ -4,14 +4,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice, formatRoute } from '../../../../../utils/stringFormats';
+import { formatDate, formatPrice, formatRoute, getPaymentStatusName } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
 import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import AlertDialog from '../../../Dialog/AlertDialog';
-import { getProductDetail, getProductName } from '../../../../../utils/Cart';
+import { getProductDetail, getRegistrationFor, getProductName } from '../../../../../utils/Cart';
 import CustomIconButton from '../../../IconButton';
 import DownloadReportDialog from '../../../Dialog/DownloadReportDialog';
 
@@ -46,7 +46,7 @@ export default function ReportItem(props) {
   };
 
   const handleClick = async () => {
-    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }));
+    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let sumSubTotal = 0;
       let sumTotalTax = 0;
@@ -62,13 +62,14 @@ export default function ReportItem(props) {
         sumTotalNet = sumTotalNet + d.totalNet;
         sumQuantity = sumQuantity + d.quantity;
         return {
-          type: t(getProductName(d.metadata.type)),
+          type: getProductName(d.metadata.type),
           detail: getProductDetail(d.metadata),
-          name: d.person.name,
-          surname: d.person.surname,
+          registrationFor: getRegistrationFor(d.metadata),
+          status: getPaymentStatusName(d.status),
+          name: `${d?.name} ${d?.surname}`,
           email: d.email,
-          purchasedOn: formatDate(moment.utc(d.created_at), 'YYYY-MM-DD HH:mm'),
-          price: formatPrice(d.unit_amount),
+          purchasedOn: formatDate(moment.utc(d.createAt), 'YYYY-MM-DD HH:mm'),
+          price: formatPrice(d.unitAmount),
           quantity: d.quantity,
           subtotal: formatPrice(d.subtotal),
           totalTax: formatPrice(d.totalTax),
@@ -102,8 +103,9 @@ export default function ReportItem(props) {
   const headers = [
     { label: t('type'), key: 'type' },
     { label: t('product_detail'), key: 'detail' },
+    { label: t('register.registration_for'), key: 'registrationFor' },
+    { label: t('status'), key: 'status' },
     { label: t('buyers_name'), key: 'name' },
-    { label: t('surname'), key: 'surname' },
     { label: t('email.email'), key: 'email' },
     { label: t('purchased_on'), key: 'purchasedOn' },
     { label: t('price'), key: 'price' },
@@ -115,7 +117,10 @@ export default function ReportItem(props) {
     { label: t('total_net'), key: 'totalNet' },
   ];
 
-  const fileName = `${metadata.organizationName} ${t('sales')} ${formatDate(moment.utc(metadata.date), 'YYYY-MM-DD')}.csv`;
+  const fileName = `${metadata.organizationName} ${t('sales')} ${formatDate(
+    moment.utc(metadata.date),
+    'YYYY-MM-DD'
+  )}.csv`;
 
   return (
     <>
