@@ -39,7 +39,8 @@ export default function Analytics() {
       formatRoute('/api/entity/graphMemberCount', null, {
         organizationId,
         date: dateGraph,
-      })
+      }),
+      { method: 'GET' }
     );
     if (!data) {
       return;

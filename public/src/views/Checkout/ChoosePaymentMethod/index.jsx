@@ -27,7 +27,7 @@ export default function ChoosePaymentMethod(props) {
 
   const getPaymentMethods = async () => {
     setIsLoading(true);
-    const { data } = await api('/api/stripe/paymentMethods');
+    const { data } = await api('/api/stripe/paymentMethods', { method: 'GET' });
     data.forEach((d) => {
       if (d.is_default) {
         setPaymentMethod(d.payment_method_id);

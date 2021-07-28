@@ -29,9 +29,7 @@ const getEvent = async (eventId) => {
 };
 
 const getOptions = async (eventId) => {
-  const { data } = await api(formatRoute('/api/entity/options', null, { eventId }), {
-    method: 'GET',
-  });
+  const { data } = await api(formatRoute('/api/entity/options', null, { eventId }), { method: 'GET' });
   return data;
 };
 

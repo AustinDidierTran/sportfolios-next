@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CustomAutocomplete from '../Autocomplete';
@@ -29,16 +29,21 @@ export default function SearchInput(props) {
   const location = router.pathname;
   const { query: queryQuery } = router.query;
 
-  const { data: apiRes } = api(searchQuery, { method: 'GET' });
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    getPreviousSearchQueries();
+  }, []);
+
+  const getPreviousSearchQueries = async () => {
+    const { data } = await api(searchQuery, { method: 'GET' });
+    if (data) {
+      setOptions(data.map((ar) => ({ value: ar, display: ar })));
+    }
+    setOptions([]);
+  };
 
   const [query, setQuery] = useState(queryQuery);
-
-  const options = useMemo(() => {
-    if (apiRes) {
-      return apiRes.map((ar) => ({ value: ar, display: ar }));
-    }
-    return [];
-  }, [apiRes]);
 
   useEffect(() => {
     if (query) {

@@ -50,7 +50,8 @@ export default function EditPersonInfos(props) {
     const { data } = await api(
       formatRoute('/api/entity/personInfos', null, {
         entityId: personId,
-      })
+      }),
+      { method: 'GET' }
     );
 
     formik.setFieldValue('name', data.name || '');

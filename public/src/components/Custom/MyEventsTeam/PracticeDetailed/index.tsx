@@ -77,7 +77,9 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   const [exercises, setExercises] = useState<IExercise[]>([]);
 
   const getLocations = async (): Promise<void> => {
-    const { data }: ILocationResponse = await api(formatRoute('/api/entity/teamLocations', null, { teamId }));
+    const { data }: ILocationResponse = await api(formatRoute('/api/entity/teamLocations', null, { teamId }), {
+      method: 'GET',
+    });
 
     const formattedData = data.filter((n: Location) => n.id != null);
     formattedData.push(

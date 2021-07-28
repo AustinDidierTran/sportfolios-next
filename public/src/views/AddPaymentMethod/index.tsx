@@ -16,7 +16,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import api from '../../actions/api';
 import { goTo } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
-import { SEVERITY_ENUM } from '../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { ERROR_ENUM } from '../../../common/errors';
 import * as yup from 'yup';
 
@@ -63,7 +63,7 @@ const AddPaymentMethod: React.FunctionComponent<IProps> = (props) => {
         body: JSON.stringify(params),
       });
 
-      if (res.status === 200) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('credit_card_added'),

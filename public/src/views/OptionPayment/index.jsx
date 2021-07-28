@@ -109,7 +109,7 @@ export default function OptionPayment() {
   };
 
   const getAccounts = async () => {
-    const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }));
+    const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }), { method: 'GET' });
 
     if (!data) {
       return;
@@ -128,7 +128,7 @@ export default function OptionPayment() {
   };
 
   const getEventType = async () => {
-    const { data } = await api(formatRoute('/api/entity/event', null, { eventId }));
+    const { data } = await api(formatRoute('/api/entity/event', null, { eventId }), { method: 'GET' });
     if (!data) {
       return;
     }

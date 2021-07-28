@@ -25,7 +25,7 @@ export default function AddPartner() {
   }, [id]);
 
   const getPartners = async () => {
-    const res = await api(formatRoute('/api/entity/partners', null, { id }));
+    const res = await api(formatRoute('/api/entity/partners', null, { id }), { method: 'GET' });
     const data = res.data.map((d) => ({
       name: d.name,
       website: d.website,

@@ -65,7 +65,8 @@ export default function CreateItem(props) {
     const res = await api(
       formatRoute('/api/stripe/eventHasBankAccount', null, {
         id,
-      })
+      }),
+      { method: 'GET' }
     );
     return res.data;
   };

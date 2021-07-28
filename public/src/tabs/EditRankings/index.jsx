@@ -77,7 +77,8 @@ export default function EditRankings() {
     const { data: prerankPhase } = await api(
       formatRoute('/api/entity/prerankPhase', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
 
     setPrerankPhase(prerankPhase);
@@ -87,7 +88,8 @@ export default function EditRankings() {
     } = await api(
       formatRoute('/api/entity/preranking', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
 
     const phases = await getPhases(eventId);

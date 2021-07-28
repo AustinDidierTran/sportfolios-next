@@ -38,7 +38,10 @@ const AddBankAccountRoute: React.FunctionComponent = () => {
     if (!entityId) {
       return;
     }
-    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }));
+    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }), {
+      method: 'GET',
+    });
+
     if (!hasStripeAccount) {
       goTo(`/${entityId}?tab=settings`);
     }

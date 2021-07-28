@@ -57,13 +57,12 @@ const AddTeam: React.FunctionComponent<IProps> = (props) => {
 
       const { status, data } = await api('/api/entity/addTeamAsAdmin', {
         method: 'POST',
-        body: JSON.stringify({
-          eventId,
-          name,
-        }),
+        body: JSON.stringify({ eventId, name }),
       });
+
       onClose();
       resetForm();
+
       if (status === REQUEST_STATUS_ENUM.ERROR) {
         if (data.reason) {
           dispatch({

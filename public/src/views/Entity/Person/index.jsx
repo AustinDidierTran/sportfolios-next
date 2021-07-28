@@ -64,7 +64,7 @@ export default function Person(props) {
   }, [tab, tabs]);
 
   const getRole = async () => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
+    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }), { method: 'GET' });
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let newInfos = basicInfos;
       newInfos.role = res.data;

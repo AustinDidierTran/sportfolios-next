@@ -22,7 +22,7 @@ export default function CreditCards() {
 
   const getPaymentMethods = async () => {
     setIsLoading(true);
-    const { data } = await api('/api/stripe/paymentMethods');
+    const { data } = await api('/api/stripe/paymentMethods', { method: 'GET' });
     const sorted = data.sort((a, b) => moment(b.created_at) - moment(a.created_at));
     const pms = sorted.map((d) => ({
       last4: d.last4,
