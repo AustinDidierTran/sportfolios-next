@@ -33,14 +33,7 @@ export default function ReportItem(props) {
   };
 
   const confirmDelete = async () => {
-    await api(
-      formatRoute('/api/entity/report', null, {
-        reportId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    await api(formatRoute('/api/entity/report', null, { reportId }), { method: 'DELETE' });
     setOpenDelete(false);
     update();
   };
@@ -68,7 +61,7 @@ export default function ReportItem(props) {
           status: getPaymentStatusName(d.status),
           name: `${d?.name} ${d?.surname}`,
           email: d.email,
-          purchasedOn: formatDate(moment.utc(d.createAt), 'YYYY-MM-DD HH:mm'),
+          purchasedOn: formatDate(moment.utc(d.createdAt), 'YYYY-MM-DD HH:mm'),
           price: formatPrice(d.unitAmount),
           quantity: d.quantity,
           subtotal: formatPrice(d.subtotal),
