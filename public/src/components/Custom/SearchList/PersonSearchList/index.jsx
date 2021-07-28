@@ -45,6 +45,9 @@ export default function PersonSearchList(props) {
   }, [query]);
 
   const options = useMemo(() => {
+    if (!optionsRoute) {
+      return [];
+    }
     const { data, status } = api(optionsRoute, { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       return formatOptions(data);

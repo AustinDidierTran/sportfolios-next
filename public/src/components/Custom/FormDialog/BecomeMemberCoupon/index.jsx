@@ -31,12 +31,7 @@ export default function BecomeMemberCoupon(props) {
   }, [organizationId]);
 
   const getOrganization = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity', null, {
-        id: organizationId,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/entity', null, { id: organizationId }), { method: 'GET' });
     setOrganization(data);
   };
 

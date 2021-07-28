@@ -31,12 +31,7 @@ export default function TabRosters(props) {
   }, [eventId]);
 
   const getRosters = async (eventId) => {
-    const { data } = await api(
-      formatRoute('/api/entity/allTeamsAcceptedInfos', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/entity/allTeamsAcceptedInfos', null, { eventId }), { method: 'GET' });
     return data;
   };
 

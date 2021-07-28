@@ -33,6 +33,9 @@ export default function TeamSearchList(props) {
   }, [formik.values.teamSearchQuery]);
 
   const options = useMemo(() => {
+    if (!optionsRoute) {
+      return [];
+    }
     const { data, status } = api(optionsRoute, { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       return formatOptions(data);

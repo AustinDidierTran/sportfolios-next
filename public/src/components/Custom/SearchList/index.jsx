@@ -56,6 +56,9 @@ export default function SearchList(props) {
   }, [query, type]);
 
   const options = useMemo(async () => {
+    if (!optionsRoute) {
+      return [];
+    }
     const { data, status } = await api(optionsRoute, { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       return formatOptions(data);

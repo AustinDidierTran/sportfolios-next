@@ -28,7 +28,7 @@ import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 const BASE_URL = '/api/entity';
 
 export function getEntity(id: string): Promise<Entity> {
-  return api(formatRoute(`${BASE_URL}`, null, { id })).then((res) => res.data.basicInfos);
+  return api(formatRoute(`${BASE_URL}`, null, { id }), { method: 'GET' }).then((res) => res.data.basicInfos);
 }
 
 export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> {
