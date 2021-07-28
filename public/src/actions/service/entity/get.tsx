@@ -49,7 +49,7 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
   return api(formatRoute(`${BASE_URL}/generalInfos`, null, { entityId }), { method: 'GET' }).then((res) => res.data);
 }
 
-export function getRole(entityId: string): Promise<{ status: string; data: ENTITIES_ROLE_ENUM }> {
+export function getRole(entityId: string): Promise<{ status: number; data: ENTITIES_ROLE_ENUM }> {
   return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' }).then((res) => res);
 }
 

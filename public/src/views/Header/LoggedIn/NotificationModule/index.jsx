@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import api from '../../../../actions/api';
 import { IconButton } from '../../../../components/Custom';
-import { STATUS_ENUM, SOCKET_EVENT } from '../../../../../common/enums';
+import { SOCKET_EVENT, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { Store } from '../../../../Store';
 import { useTranslation } from 'react-i18next';
 
@@ -28,7 +28,7 @@ export default function NotificationModule(props) {
 
   const getNotificationCount = async () => {
     const res = await api('/api/notifications/unseenCount', { method: 'GET' });
-    if (res.status == STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
       setUnreadNotificationsCount(Number(res.data));
     }
   };

@@ -1,11 +1,11 @@
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import React from 'react';
 import { goTo, ROUTES } from '../public/src/actions/goTo';
 import { useTranslation } from 'react-i18next';
-import { useApiRoute } from '../public/src/hooks/queries';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../conf';
-import { IMAGE_ENUM, ROUTES_ENUM } from '../public/common/enums';
+import { IMAGE_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM } from '../public/common/enums';
+import api from '../public/src/actions/api';
 
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
@@ -14,59 +14,23 @@ const Home = dynamic(import('../public/src/views/Home'));
 const HomeRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const {
-    isLoading,
-    refetch,
-    response: posts,
-    status,
-  } = useApiRoute('/api/entity/forYouPage', {
-    defaultValue: [],
-    method: 'GET',
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
 
-  if (status === 401) {
-    goTo(ROUTES.landingPage);
-  }
+  useEffect(() => {
+    getPosts();
+  }, []);
 
-  if (isLoading) {
-    return (
-      <>
-        <NextSeo
-          title={t('metadata.forYouPage.title')}
-          description={t('metadata.forYouPage.description')}
-          canonical={CLIENT_BASE_URL}
-          openGraph={{
-            type: 'website',
-            url: `${CLIENT_BASE_URL}${ROUTES_ENUM.home}`,
-            title: t('metadata.forYouPage.title'),
-            description: t('metadata.forYouPage.description'),
-            images: [
-              {
-                url: IMAGE_ENUM.SPORTFOLIOS_BANNER,
-              },
-            ],
-            site_name: 'Sportfolios',
-          }}
-          additionalMetaTags={[
-            {
-              name: 'keywords',
-              content:
-                'Sportfolios.app, Sport, Organization, Athlete, Coach, Schedule, Registration, Results, Statistics, Coaching, Information, Gestion',
-            },
-            { name: 'apple-mobile-web-app-capable', content: 'yes' },
-          ]}
-          facebook={{ appId: '346677216672687' }}
-          twitter={{
-            site: '@sportfoliosapp',
-            cardType: 'summary_large_image',
-          }}
-        />
-        <IgContainer>
-          <LoadingSpinner />
-        </IgContainer>
-      </>
-    );
-  }
+  const getPosts = async () => {
+    setIsLoading(true);
+    const { status, data } = await api('/api/entity/forYouPage', { method: 'GET' });
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+      setPosts(data);
+    } else {
+      goTo(ROUTES.landingPage);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -100,7 +64,13 @@ const HomeRoute: React.FunctionComponent = () => {
           cardType: 'summary_large_image',
         }}
       />
-      <Home posts={posts} refetch={refetch} />
+      {isLoading ? (
+        <IgContainer>
+          <LoadingSpinner />
+        </IgContainer>
+      ) : (
+        <Home posts={posts} />
+      )}
     </>
   );
 };

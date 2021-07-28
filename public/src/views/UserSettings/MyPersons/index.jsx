@@ -31,14 +31,10 @@ export default function MyPersons() {
   const { dispatch } = useContext(Store);
   const [width] = useWindowSize();
 
-  // TODO: use the useApiRoute function, and ownedpersons should
   const fetchOwnedPersons = async () => {
-    const { data } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
-        type: GLOBAL_ENUM.PERSON,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/user/ownedPersons', null, { type: GLOBAL_ENUM.PERSON }), {
+      method: 'GET',
+    });
     setPersons(data);
     setIsLoading(false);
   };

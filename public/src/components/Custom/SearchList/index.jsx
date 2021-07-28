@@ -3,12 +3,12 @@ import React, { useMemo } from 'react';
 import CustomIcon from '../Icon';
 import CustomList from '../List';
 import CustomTextField from '../TextField';
-import { useApiRoute } from '../../../hooks/queries';
 import { useFormInput } from '../../../hooks/forms';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
-import { GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { formatRoute } from '../../../utils/stringFormats';
+import api from '../../../actions/api';
 
 export default function SearchList(props) {
   const {
@@ -55,16 +55,20 @@ export default function SearchList(props) {
     return res;
   }, [query, type]);
 
-  const { response } = useApiRoute(optionsRoute, {
-    defaultValue: { entities: [] },
-  });
+  const options = useMemo(async () => {
+    const { data, status } = await api(optionsRoute, { method: 'GET' });
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+      return formatOptions(data);
+    }
+    return [];
+  }, [optionsRoute]);
 
   const handleClick = (...args) => {
     onClick(...args);
     query.reset();
   };
 
-  const options = useMemo(() => {
+  const formatOptions = (response) => {
     if (allowCreate) {
       let uniqueSecondary = '';
       if (type === GLOBAL_ENUM.TEAM) {
@@ -104,7 +108,7 @@ export default function SearchList(props) {
           handleClick(...args);
         },
       }));
-  }, [response]);
+  };
 
   const handleChange = (value) => {
     if (value.length > 64) {

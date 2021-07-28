@@ -2,16 +2,14 @@ import React, { useState, useEffect, useMemo, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../../../utils/stringFormats';
-import api from '../../../actions/api';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import { Entity } from '../../../../../typescript/types';
-
+import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
 const Events = dynamic(() => import('../../../tabs/Events'));
@@ -112,8 +110,8 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getRole = async (): Promise<void> => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }), { method: 'GET' });
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    const res = await getRoleApi(id);
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);

@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import isEqual from 'lodash/isEqual';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { useApiRoute } from '../../../hooks/queries';
 import { useTranslation } from 'react-i18next';
 import CustomTextField from '../TextField';
 import CustomIcon from '../Icon';
+import api from '../../../actions/api';
+import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 
 export default function CustomAutocomplete(props) {
   const { t } = useTranslation();
   const { formik, inputProps = {}, namespace, onChange, optionsRoute, type, icon, iconColor, ...otherProps } = props;
+  const [options, setOptions] = useState([]);
 
-  const { response: options } = useApiRoute(optionsRoute, {
-    defaultValue: [],
-  });
+  useEffect(() => {
+    if (optionsRoute) {
+      getOptions();
+    }
+  }, [optionsRoute]);
+
+  const getOptions = async () => {
+    const { status, data } = await api(optionsRoute, { method: 'GET' });
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+      setOptions(data.options);
+    } else {
+      setOptions([]);
+    }
+  };
 
   const handleChange = (...args) => {
     const [, { value } = {}] = args;
@@ -66,7 +79,7 @@ export default function CustomAutocomplete(props) {
               startAdornment: (
                 <>
                   {icon ? (
-                    <InputAdornment>
+                    <InputAdornment position="start">
                       <CustomIcon icon={icon} color={iconColor} />
                     </InputAdornment>
                   ) : (

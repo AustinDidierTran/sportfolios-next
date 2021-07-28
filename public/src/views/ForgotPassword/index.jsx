@@ -12,7 +12,7 @@ import TextField from '../../components/Custom/TextField';
 import Container from '../../components/Custom/Container';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { goTo, ROUTES } from '../../actions/goTo';
 import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -44,7 +44,7 @@ export default function ForgotPassword() {
         // Email not found
         formik.setFieldError('email', t('email.email_not_found'));
       }
-      if (res.status === 200) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('confirmation_email_sent'),

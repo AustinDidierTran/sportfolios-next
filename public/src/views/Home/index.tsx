@@ -12,15 +12,14 @@ interface IPost {
 
 interface IProps {
   posts: Array<IPost>;
-  refetch: () => void;
 }
-
-const Home: React.FunctionComponent<IProps> = ({ posts = [], refetch }) => {
+const Home: React.FunctionComponent<IProps> = (props: IProps) => {
+  const { posts = [] } = props;
   return (
     <IgContainer>
       <div className={styles.general}>
         {posts.map((e, index) => (
-          <Card type={e.cardType} items={{ ...e, update: refetch }} key={index} />
+          <Card type={e.cardType} items={{ ...e }} key={index} />
         ))}
       </div>
     </IgContainer>

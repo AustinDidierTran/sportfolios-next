@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice, formatRoute, getPaymentStatusName } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
@@ -47,7 +47,7 @@ export default function ReportItem(props) {
 
   const handleClick = async () => {
     const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       let sumSubTotal = 0;
       let sumTotalTax = 0;
       let sumTotal = 0;

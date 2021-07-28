@@ -25,7 +25,7 @@ export const goToLink = (route) => {
 };
 
 export const goToAlias = async (entityId, params, queryParams) => {
-  const { data } = await api(formatRoute('/api/entity/alias', null, { entityId }, { method: 'GET' }));
+  const { data } = await api(formatRoute('/api/entity/alias', null, { entityId }), { method: 'GET' });
   if (!data) {
     Router.push(ROUTES.entityNotFound);
   }
