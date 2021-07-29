@@ -22,6 +22,7 @@ import {
   Image,
   GameOptions,
   GameSubmissionInfo,
+  ForYouPagePost,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -55,6 +56,10 @@ export function getRole(entityId: string): Promise<{ status: number; data: ENTIT
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
   return api(`${BASE_URL}/roles?id=${id}`, { method: 'GET' }).then((res) => res);
+}
+
+export function getForYouPage(): Promise<{ status: number; data: ForYouPagePost[] }> {
+  return api(`${BASE_URL}/forYouPage`, { method: 'GET' }).then((res) => res);
 }
 
 export function getMostRecentMember(organizationId: string): Promise<Member> {

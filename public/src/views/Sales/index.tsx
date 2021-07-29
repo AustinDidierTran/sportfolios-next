@@ -5,7 +5,7 @@ import IgContainer from '../../components/Custom/IgContainer';
 import { LIST_ITEM_ENUM } from '../../../common/enums';
 import { Store } from '../../Store';
 import CustomIconButton from '../../components/Custom/IconButton';
-import { getSoldItems } from '../../actions/service/shop';
+import { getSoldItems as getSoldItemsApi } from '../../actions/service/shop';
 import { ShopCartItems } from '../../../../typescript/types';
 import Paper from '../../components/Custom/Paper';
 import styles from './Sales.module.css';
@@ -19,21 +19,26 @@ const Sales: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [response, setResponse] = useState<ShopCartItems[]>();
+  const [sales, setSales] = useState<ShopCartItems[]>();
 
   useEffect((): void => {
-    getSoldItems(id).then((res) => {
-      setResponse(res);
-      setIsLoading(false);
-    });
+    getSoldItems();
   }, []);
+
+  const getSoldItems = (): void => {
+    setIsLoading(true);
+    getSoldItemsApi(id).then((res) => {
+      setSales(res);
+    });
+    setIsLoading(false);
+  };
 
   const goBack = (): void => {
     history.back();
   };
 
   const formatSales = (): ShopCartItems[] =>
-    response
+    sales
       .sort((a, b) => Math.abs(new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()))
       .map((s) => ({
         ...s,
@@ -60,7 +65,7 @@ const Sales: React.FunctionComponent = () => {
             onClick={goBack}
           />
         </div>
-        {response ? <List items={formatSales()} /> : <Typography> {t('no.no_sales')} </Typography>}
+        {sales ? <List items={formatSales()} /> : <Typography> {t('no.no_sales')} </Typography>}
       </Paper>
     </IgContainer>
   );

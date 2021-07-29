@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../conf';
 import { IMAGE_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM } from '../public/common/enums';
-import api from '../public/src/actions/api';
+import { getForYouPage } from '../public/src/actions/service/entity/get';
+import { ForYouPagePost } from '../typescript/types';
 
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
@@ -14,16 +15,16 @@ const Home = dynamic(import('../public/src/views/Home'));
 const HomeRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [posts, setPosts] = useState<ForYouPagePost[]>([]);
 
   useEffect(() => {
     getPosts();
   }, []);
 
-  const getPosts = async () => {
+  const getPosts = async (): Promise<void> => {
     setIsLoading(true);
-    const { status, data } = await api('/api/entity/forYouPage', { method: 'GET' });
+    const { status, data } = await getForYouPage();
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setPosts(data);
     } else {
