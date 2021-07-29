@@ -15,7 +15,7 @@ import TextField from '../../components/Custom/TextField';
 import * as yup from 'yup';
 
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { AddGaEvent } from '../../components/Custom/Analytics';
 import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -72,7 +72,7 @@ export default function Login() {
         }),
       });
 
-      if (res.status === 401) {
+      if (res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         // Email is not validated
         await api('/api/auth/sendConfirmationEmail', {
           method: 'POST',
@@ -81,10 +81,10 @@ export default function Login() {
           }),
         });
         formik.setFieldError('email', t('email.email_not_confirmed'));
-      } else if (res.status === 403) {
+      } else if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
         // Password is not good
         formik.setFieldError('password', t('email.email_password_no_match'));
-      } else if (res.status === 404) {
+      } else if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
       } else {
         let { data } = res;

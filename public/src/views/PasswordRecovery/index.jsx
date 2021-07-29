@@ -64,7 +64,7 @@ export default function PasswordRecovery() {
         });
         goTo(ROUTES.home);
       }
-      if (res.status === 403) {
+      if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
         // Token expired
         formik.setFieldError('password', t('token_expired'));
       }

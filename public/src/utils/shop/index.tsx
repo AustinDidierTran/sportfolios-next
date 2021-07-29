@@ -1,4 +1,4 @@
-import { GLOBAL_ENUM } from '../../../common/enums';
+import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { uploadPicture } from '../../actions/aws';
 import { editShopItem, createShopItem } from '../../actions/service/stripe';
 import { ACTION_ENUM } from '../../Store';
@@ -81,9 +81,9 @@ const onImgUpload = async (id: string, img: any, dispatch: any): Promise<{ statu
       type: ACTION_ENUM.UPDATE_STORE_ITEM_PICTURE,
       payload: photoUrl,
     });
-    return { status: 200, photoUrl: photoUrl };
+    return { status: REQUEST_STATUS_ENUM.SUCCESS, photoUrl: photoUrl };
   }
-  return { status: 404, photoUrl: photoUrl };
+  return { status: REQUEST_STATUS_ENUM.ERROR, photoUrl: photoUrl };
 };
 
 export { createItem, onImgUpload, editItem };

@@ -40,7 +40,7 @@ export default function ForgotPassword() {
         }),
       });
 
-      if (res.status === 404) {
+      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         // Email not found
         formik.setFieldError('email', t('email.email_not_found'));
       }

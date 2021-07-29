@@ -13,7 +13,7 @@ export default function Email() {
   const [emails, setEmails] = useState([]);
 
   const fetchAllEmails = async () => {
-    const { data } = await api('/api/user/emails');
+    const { data } = await api('/api/user/emails', { method: 'GET' });
     setEmails(data);
   };
 

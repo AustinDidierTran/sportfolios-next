@@ -40,12 +40,9 @@ export default function BecomeMemberCoupon(props) {
   };
 
   const getPeople = async () => {
-    const { data } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
-        type: GLOBAL_ENUM.PERSON,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/user/ownedPersons', null, { type: GLOBAL_ENUM.PERSON }), {
+      method: 'GET',
+    });
     //Permet de mettre la primary person comme 1er élément de la liste
     data.sort((a, b) => (a.isPrimaryPerson ? -1 : b.isPrimaryPerson ? 1 : 0));
 
