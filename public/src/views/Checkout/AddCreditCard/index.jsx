@@ -6,7 +6,7 @@ import TextField from '../../../components/Custom/TextField';
 import api from '../../../actions/api';
 import { useFormInput } from '../../../hooks/forms';
 import styles from './AddCreditCard.module.css';
-import CardSection from '../../../utils/stripe/Payment/CardSection';
+import CardSection from '../../../utils/stripe/CardSection';
 import { useTranslation } from 'react-i18next';
 
 export async function getCustomer() {

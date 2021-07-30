@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import api from '../../../actions/api';
+import api from '../../actions/api';
 
 const customerParams = {
   customer: {

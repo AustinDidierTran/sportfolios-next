@@ -6,7 +6,6 @@ import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import ContainerBottomFixed from '../../../components/Custom/ContainerBottomFixed';
 import { goTo, goBack, ROUTES } from '../../../actions/goTo';
 import { useTranslation } from 'react-i18next';
-import { checkout } from '../../../utils/stripe';
 import styles from './ChoosePaymentMethod.module.css';
 import Typography from '@material-ui/core/Typography';
 import { LOGO_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
@@ -14,6 +13,7 @@ import { formatPrice } from '../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomIconButton from '../../../components/Custom/IconButton';
+import { checkout } from '../../../actions/service/stripe';
 
 export default function ChoosePaymentMethod(props) {
   const { response } = props;

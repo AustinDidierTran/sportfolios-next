@@ -35,7 +35,7 @@ export default function SearchList(props) {
 
   const optionsRoute = useMemo(() => {
     if (whiteList) {
-      const res = formatRoute('/api/data/search/global', null, {
+      const res = formatRoute('/api/search/global', null, {
         whiteList: JSON.stringify(whiteList),
         query: query.value,
         type,
@@ -44,7 +44,7 @@ export default function SearchList(props) {
     }
     if (blackList) {
       if (blackList.length > 0) {
-        const res = formatRoute('/api/data/search/global', null, {
+        const res = formatRoute('/api/search/global', null, {
           blackList: JSON.stringify(blackList),
           query: query.value,
           type,
@@ -53,7 +53,7 @@ export default function SearchList(props) {
       }
     }
 
-    const res = formatRoute('/api/data/search/global', null, {
+    const res = formatRoute('/api/search/global', null, {
       query: query.value,
       type,
     });

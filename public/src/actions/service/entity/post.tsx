@@ -67,6 +67,14 @@ export function confirmEmail(token: string): Promise<any> {
   });
 }
 
+export function unregisterPeople({ eventId, people }: { eventId: string; people: any }): Promise<any> {
+  return api('/api/entity/unregisterPeople', { method: 'POST', body: JSON.stringify({ eventId, people }) });
+}
+
+export function unregisterTeams({ eventId, rosterIds }: { eventId: string; rosterIds: any }): Promise<any> {
+  return api('/api/entity/unregisterTeams', { method: 'POST', body: JSON.stringify({ eventId, rosterIds }) });
+}
+
 export function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
   return api(`${BASE_URL}/joinTeam`, { method: 'POST', body: JSON.stringify({ teamId, personId }) }).then(
     (res) => res.status

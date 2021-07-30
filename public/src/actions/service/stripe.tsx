@@ -7,11 +7,19 @@ export async function editShopItem(itemParams: any): Promise<number> {
   return api(`${BASE_URL}/editItem`, { method: 'PUT', body: JSON.stringify({ itemParams }) }).then((res) => res.data);
 }
 
+export async function createRefund({ invoiceItemId }: { invoiceItemId: string }): Promise<any> {
+  return await api('/api/stripe/createRefund', { method: 'POST', body: JSON.stringify({ invoiceItemId }) });
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function createShopItem(itemParams: any): Promise<number> {
   return api(`${BASE_URL}/createItem`, { method: 'POST', body: JSON.stringify({ itemParams }) }).then(
     (res) => res.data
   );
+}
+
+export async function checkout(paymentMethodId: string): Promise<any> {
+  return api(`${BASE_URL}/checkout`, { method: 'POST', body: JSON.stringify({ paymentMethodId }) });
 }
 
 export async function hasStripeBankAccount(entityId: string): Promise<boolean> {

@@ -4,11 +4,11 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import CardSection from './CardSection';
 import Button from '@material-ui/core/Button';
 
-import api from '../../../actions/api';
-import { useFormInput } from '../../../hooks/forms';
-import { TextField } from '../../../components/Custom';
+import api from '../../actions/api';
+import { useFormInput } from '../../hooks/forms';
+import TextField from '../../components/Custom/TextField';
 import styles from './CheckoutForm.module.css';
-import { Store } from '../../../Store';
+import { Store } from '../../Store';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
