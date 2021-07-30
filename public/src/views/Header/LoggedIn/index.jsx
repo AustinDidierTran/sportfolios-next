@@ -39,7 +39,7 @@ export default function LoggedIn(props) {
     if (userInfo.primaryPerson) {
       return userInfo.primaryPerson.photoUrl;
     }
-  }, [userInfo.primaryPerson.photoUrl]);
+  }, [userInfo.primaryPerson]);
 
   const nameObj = useMemo(() => {
     if (userInfo.primaryPerson) {

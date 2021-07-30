@@ -10,6 +10,7 @@ import styles from './ChangePassword.module.css';
 import { Store, ACTION_ENUM } from '../../../Store';
 import api from '../../../actions/api';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 
 export default function ChangePassword() {
   const {
@@ -68,10 +69,10 @@ export default function ChangePassword() {
           message: t('password_changed'),
           severity: 'success',
         });
-      } else if (res.status === 402) {
+      } else if (res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
         // Token is expired, redirect
         goTo(ROUTES.login);
-      } else if (res.status === 403) {
+      } else if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
         // old password doesn't match
         formik.setFieldError('oldPassword', t('wrong_password'));
       }

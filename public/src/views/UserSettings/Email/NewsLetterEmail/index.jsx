@@ -18,7 +18,7 @@ export default function NewsLetterEmail() {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   const fetchEmail = async () => {
-    const { data } = await api('/api/user/emails');
+    const { data } = await api('/api/user/emails', { method: 'GET' });
     setIsSubscribed(data[0].is_subscribed);
     setEmail(data[0]);
   };

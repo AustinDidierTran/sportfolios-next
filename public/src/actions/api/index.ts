@@ -1,18 +1,7 @@
 import { API_BASE_URL } from '../../../../conf';
 
-const api = async (
-  route: string,
-  {
-    method,
-    body,
-  }: {
-    method?: string;
-    body?: string;
-  } = {}
-): Promise<any> => {
-  const headers: any = {
-    'Content-Type': 'application/json',
-  };
+const api = async (route: string, { method, body }: { method?: string; body?: string } = {}): Promise<any> => {
+  const headers: any = { 'Content-Type': 'application/json' };
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
 
   if (authToken && authToken !== 'null') {
@@ -20,11 +9,7 @@ const api = async (
   }
 
   if (method === 'POST') {
-    const res = await fetch(`${API_BASE_URL}${route}`, {
-      method: 'POST',
-      headers,
-      body,
-    });
+    const res = await fetch(`${API_BASE_URL}${route}`, { method: 'POST', headers, body });
 
     const status = res.status;
 
@@ -34,11 +19,7 @@ const api = async (
   }
 
   if (method === 'PUT') {
-    const res = await fetch(`${API_BASE_URL}${route}`, {
-      method: 'PUT',
-      headers,
-      body,
-    });
+    const res = await fetch(`${API_BASE_URL}${route}`, { method: 'PUT', headers, body });
 
     const status = res.status;
 
@@ -48,10 +29,8 @@ const api = async (
   }
 
   if (method === 'DELETE') {
-    const res = await fetch(`${API_BASE_URL}${route}`, {
-      method: 'DELETE',
-      headers,
-    });
+    const res = await fetch(`${API_BASE_URL}${route}`, { method: 'DELETE', headers });
+
     const status = res.status;
 
     const { data } = await res.json();
@@ -60,12 +39,10 @@ const api = async (
   }
 
   if (method === 'GET') {
-    const headers: any = {
-      Authorization: authToken,
-    };
-    const res = await fetch(`${API_BASE_URL}${route}`, {
-      headers,
-    });
+    const headers: any = { Authorization: authToken };
+
+    const res = await fetch(`${API_BASE_URL}${route}`, { headers });
+
     const status = res.status;
 
     const { data } = await res.json();
@@ -77,9 +54,7 @@ const api = async (
   console.warn(
     `You are using the api function with the route ${route} without specifying the method. Support may be deprecated please fix this.`
   );
-  const res = await fetch(`${API_BASE_URL}${route}`, {
-    headers,
-  }).then((res) => res.json());
+  const res = await fetch(`${API_BASE_URL}${route}`, { headers }).then((res) => res.json());
   return res;
 };
 

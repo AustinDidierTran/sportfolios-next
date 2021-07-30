@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { checkout } from '../../../utils/stripe';
 import styles from './ChoosePaymentMethod.module.css';
 import Typography from '@material-ui/core/Typography';
-import { LOGO_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
+import { LOGO_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { formatPrice } from '../../../utils/stringFormats';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { ERROR_ENUM } from '../../../../common/errors';
@@ -50,7 +50,7 @@ export default function ChoosePaymentMethod(props) {
     setIsPaying(true);
     const res = await checkout(paymentMethod);
     const { data, status } = res;
-    if (status === 200) {
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       goTo(ROUTES.orderProcessed, null, {
         paid: data?.invoice?.amount_paid,
         last4: paymentMethods.find((p) => p.value === paymentMethod).last4,

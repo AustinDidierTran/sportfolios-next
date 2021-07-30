@@ -5,22 +5,19 @@ import styles from './Home.module.css';
 
 import IgContainer from '../../components/Custom/IgContainer';
 import Card from '../../components/Custom/Card';
-
-interface IPost {
-  cardType: string;
-}
+import { ForYouPagePost } from '../../../../typescript/types';
 
 interface IProps {
-  posts: Array<IPost>;
-  refetch: () => void;
+  posts: ForYouPagePost[];
 }
 
-const Home: React.FunctionComponent<IProps> = ({ posts = [], refetch }) => {
+const Home: React.FunctionComponent<IProps> = (props: IProps) => {
+  const { posts = [] } = props;
   return (
     <IgContainer>
       <div className={styles.general}>
         {posts.map((e, index) => (
-          <Card type={e.cardType} items={{ ...e, update: refetch }} key={index} />
+          <Card type={e.cardType} items={{ ...e }} key={index} />
         ))}
       </div>
     </IgContainer>

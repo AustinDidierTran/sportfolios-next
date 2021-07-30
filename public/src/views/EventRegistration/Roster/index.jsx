@@ -54,11 +54,7 @@ export default function Roster(props) {
     if (person.id) {
       const {
         data: { basicInfos: data },
-      } = await api(
-        formatRoute('/api/entity', null, {
-          id: person.id,
-        })
-      );
+      } = await api(formatRoute('/api/entity', null, { id: person.id }), { method: 'GET' });
 
       formik.setFieldValue('roster', [
         ...roster,

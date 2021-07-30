@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CLIENT_BASE_URL } from '../../../../../../conf';
 import api from '../../../../actions/api';
-import { STATUS_ENUM, ROUTES_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
+import { ROUTES_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { AlertDialog, IconButton } from '../../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import styles from './RosterInviteLink.module.css';
@@ -24,28 +24,20 @@ export default function RosterInviteLink(props) {
   function updateTokenInfos(data) {
     const { token, expires_at } = data;
     setExpireDate(formatDate(moment.utc(expires_at)));
-    const newLink =
-      CLIENT_BASE_URL +
-      formatRoute(ROUTES_ENUM.rosterInviteLink, {
-        token,
-      });
+    const newLink = CLIENT_BASE_URL + formatRoute(ROUTES_ENUM.rosterInviteLink, { token });
     setLink(newLink);
     return newLink;
   }
 
   async function fetchLink() {
-    const res = await api(
-      formatRoute('/api/entity/rosterInviteToken', null, {
-        rosterId,
-      }),
-      { method: 'GET' }
-    );
-    if (res.status !== STATUS_ENUM.SUCCESS_STRING) {
+    const res = await api(formatRoute('/api/entity/rosterInviteToken', null, { rosterId }), { method: 'GET' });
+    if (res.status !== REQUEST_STATUS_ENUM.SUCCESS) {
       setLink(null);
       return;
     }
     updateTokenInfos(res.data);
   }
+
   function makeToastLinkIsCopied() {
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
@@ -56,6 +48,7 @@ export default function RosterInviteLink(props) {
       duration: 2000,
     });
   }
+
   function makeToastError() {
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
@@ -64,6 +57,7 @@ export default function RosterInviteLink(props) {
       duration: 4000,
     });
   }
+
   async function changeToken() {
     const res = await api(
       formatRoute('/api/entity/newRosterInviteToken', null, {
@@ -71,11 +65,12 @@ export default function RosterInviteLink(props) {
       }),
       { method: 'GET' }
     );
-    if (res.status !== STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status !== REQUEST_STATUS_ENUM.SUCCESS) {
       return;
     }
     return updateTokenInfos(res.data);
   }
+
   useEffect(() => {
     if (rosterId) {
       fetchLink();

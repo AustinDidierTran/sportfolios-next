@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { STATUS_ENUM } from '../../../common/enums';
+import { REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { Store, ACTION_ENUM } from '../../Store';
 import { goTo } from '../../actions/goTo';
 import Container from '@material-ui/core/Container';
@@ -22,7 +22,7 @@ export default function RedirectWithToken() {
       }),
       { method: 'GET' }
     );
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.LOGIN,
         payload: {

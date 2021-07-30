@@ -9,6 +9,7 @@ import styles from './BasicInfo.module.css';
 import api from '../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 
 export default function BasicInfo() {
   const [basicInfos, setBasicInfos] = useState([]);
@@ -24,14 +25,9 @@ export default function BasicInfo() {
   const submit = async (values) => {
     const { language } = values;
 
-    const res = await api(`/api/user/changeBasicUserInfo`, {
-      method: 'POST',
-      body: JSON.stringify({
-        language,
-      }),
-    });
+    const res = await api(`/api/user/changeBasicUserInfo`, { method: 'POST', body: JSON.stringify({ language }) });
 
-    if (res.status === 402) {
+    if (res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
       // Token is expired, redirect
       goTo(ROUTES.login);
     } else if (res.status >= 400) {
@@ -53,7 +49,7 @@ export default function BasicInfo() {
   };
 
   const updateData = async () => {
-    const { data } = await api('/api/user/userInfo');
+    const { data } = await api('/api/user/userInfo', { method: 'GET' });
     setBasicInfos(data);
   };
 

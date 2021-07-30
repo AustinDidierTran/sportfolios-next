@@ -533,6 +533,10 @@ export interface Location {
   country?: string;
 }
 
+export interface ForYouPagePost extends Post {
+  cardType: string;
+}
+
 export interface Post {
   id: string;
   name: string;

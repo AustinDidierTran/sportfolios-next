@@ -11,12 +11,7 @@ export default function TeamRankingCard(props) {
   const getTeam = async () => {
     const {
       data: { basicInfos: data },
-    } = await api(
-      formatRoute('/api/entity', null, {
-        id: teamId,
-      }),
-      { method: 'GET' }
-    );
+    } = await api(formatRoute('/api/entity', null, { id: teamId }), { method: 'GET' });
     setTeam(data);
   };
 

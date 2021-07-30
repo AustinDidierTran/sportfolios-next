@@ -22,13 +22,14 @@ import {
   Image,
   GameOptions,
   GameSubmissionInfo,
+  ForYouPagePost,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
 
 export function getEntity(id: string): Promise<Entity> {
-  return api(formatRoute(`${BASE_URL}`, null, { id })).then((res) => res.data.basicInfos);
+  return api(formatRoute(`${BASE_URL}`, null, { id }), { method: 'GET' }).then((res) => res.data.basicInfos);
 }
 
 export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> {
@@ -49,12 +50,16 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
   return api(formatRoute(`${BASE_URL}/generalInfos`, null, { entityId }), { method: 'GET' }).then((res) => res.data);
 }
 
-export function getRole(entityId: string): Promise<{ status: string; data: ENTITIES_ROLE_ENUM }> {
+export function getRole(entityId: string): Promise<{ status: number; data: ENTITIES_ROLE_ENUM }> {
   return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' }).then((res) => res);
 }
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
   return api(`${BASE_URL}/roles?id=${id}`, { method: 'GET' }).then((res) => res);
+}
+
+export function getForYouPage(): Promise<{ status: number; data: ForYouPagePost[] }> {
+  return api(`${BASE_URL}/forYouPage`, { method: 'GET' }).then((res) => res);
 }
 
 export function getMostRecentMember(organizationId: string): Promise<Member> {

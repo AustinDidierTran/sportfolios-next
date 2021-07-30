@@ -3,11 +3,11 @@ import React, { useMemo } from 'react';
 import CustomIcon from '../../Icon';
 import CustomList from '../../List';
 import CustomTextField from '../../TextField';
-import { useApiRoute } from '../../../../hooks/queries';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
-import { GLOBAL_ENUM } from '../../../../../common/enums';
+import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { formatRoute } from '../../../../utils/stringFormats';
+import api from '../../../../actions/api';
 
 export default function TeamSearchList(props) {
   const {
@@ -32,16 +32,23 @@ export default function TeamSearchList(props) {
     return res;
   }, [formik.values.teamSearchQuery]);
 
-  const { response } = useApiRoute(optionsRoute, {
-    defaultValue: { entities: [] },
-  });
+  const options = useMemo(() => {
+    if (!optionsRoute) {
+      return [];
+    }
+    const { data, status } = api(optionsRoute, { method: 'GET' });
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+      return formatOptions(data);
+    }
+    return [];
+  }, [optionsRoute]);
 
   const handleClick = (e) => {
     formik.setFieldValue('team', e);
     formik.setFieldValue('teamSearchQuery', '');
   };
 
-  const options = useMemo(() => {
+  const formatOptions = (response) => {
     if (allowCreate) {
       return [
         {
@@ -76,7 +83,7 @@ export default function TeamSearchList(props) {
           handleClick(e);
         },
       }));
-  }, [response]);
+  };
 
   const handleChange = (value) => {
     if (value.length > 64) {

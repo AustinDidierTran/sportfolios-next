@@ -70,10 +70,7 @@ export default function EventRegistration() {
         if (!team.id) {
           const tempTeam = await api('/api/entity', {
             method: 'POST',
-            body: JSON.stringify({
-              name: team.name,
-              type: GLOBAL_ENUM.TEAM,
-            }),
+            body: JSON.stringify({ name: team.name, type: GLOBAL_ENUM.TEAM }),
           });
           newTeamId = tempTeam.data.id;
         }

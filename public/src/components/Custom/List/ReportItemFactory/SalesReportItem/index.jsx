@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatPrice, formatRoute, getPaymentStatusName } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
@@ -33,21 +33,14 @@ export default function ReportItem(props) {
   };
 
   const confirmDelete = async () => {
-    await api(
-      formatRoute('/api/entity/report', null, {
-        reportId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    await api(formatRoute('/api/entity/report', null, { reportId }), { method: 'DELETE' });
     setOpenDelete(false);
     update();
   };
 
   const handleClick = async () => {
     const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       let sumSubTotal = 0;
       let sumTotalTax = 0;
       let sumTotal = 0;
@@ -68,7 +61,7 @@ export default function ReportItem(props) {
           status: getPaymentStatusName(d.status),
           name: `${d?.name} ${d?.surname}`,
           email: d.email,
-          purchasedOn: formatDate(moment.utc(d.createAt), 'YYYY-MM-DD HH:mm'),
+          purchasedOn: formatDate(moment.utc(d.createdAt), 'YYYY-MM-DD HH:mm'),
           price: formatPrice(d.unitAmount),
           quantity: d.quantity,
           subtotal: formatPrice(d.subtotal),

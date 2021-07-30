@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Store, ACTION_ENUM } from '../../Store';
-import { SEVERITY_ENUM } from '../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../utils/stringFormats';
 import CustomIconButton from '../../components/Custom/IconButton';
@@ -91,7 +91,7 @@ export default function ShopDetails() {
         }),
       });
 
-      if (res.status === 200) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         goTo(ROUTES.productAddedToCart, null, {
           amount: quantity,
           name: item.label,

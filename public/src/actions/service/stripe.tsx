@@ -15,21 +15,13 @@ export async function createShopItem(itemParams: any): Promise<number> {
 }
 
 export async function hasStripeBankAccount(entityId: string): Promise<boolean> {
-  return api(
-    formatRoute(`${BASE_URL}/hasStripeBankAccount`, null, {
-      entityId,
-    })
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/hasStripeBankAccount`, null, { entityId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export async function deleteShopItem(stripeProductId: string, stripePriceId: string): Promise<boolean> {
-  return api(
-    formatRoute(`${BASE_URL}/deleteItem`, null, {
-      stripeProductId,
-      stripePriceId,
-    }),
-    {
-      method: 'DELETE',
-    }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/deleteItem`, null, { stripeProductId, stripePriceId }), {
+    method: 'DELETE',
+  }).then((res) => res.data);
 }

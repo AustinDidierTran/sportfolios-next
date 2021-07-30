@@ -90,12 +90,9 @@ export default function BecomeMember(props) {
     if (!data) {
       return;
     }
-    const { data: people } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
-        type: GLOBAL_ENUM.PERSON,
-      }),
-      { method: 'GET' }
-    );
+    const { data: people } = await api(formatRoute('/api/user/ownedPersons', null, { type: GLOBAL_ENUM.PERSON }), {
+      method: 'GET',
+    });
     const res = people.map((p) => ({
       value: p.id,
       display: `${p.name} ${p?.surname}`,

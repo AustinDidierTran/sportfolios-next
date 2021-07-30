@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useState, useContext } from 'react';
 
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { TABS_ENUM, GLOBAL_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
+import { TABS_ENUM, GLOBAL_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import IgContainer from '../../../components/Custom/IgContainer';
 import dynamic from 'next/dynamic';
-import api from '../../../actions/api';
-import { formatRoute } from '../../../utils/stringFormats';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
+import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Schedule = dynamic(() => import('../../../tabs/Schedule'));
@@ -102,8 +101,8 @@ export default function Event(props) {
   };
 
   const getRole = async () => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }), { method: 'GET' });
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    const res = await getRoleApi(id);
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       let newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
