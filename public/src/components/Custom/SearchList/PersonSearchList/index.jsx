@@ -40,7 +40,7 @@ export default function PersonSearchList(props) {
     if (blackList) {
       body.blackList = JSON.stringify(blackList);
     }
-    const res = formatRoute('/api/data/search/global', null, body);
+    const res = formatRoute('/api/search/global', null, body);
     return res;
   }, [query]);
 

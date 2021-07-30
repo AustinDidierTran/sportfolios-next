@@ -19,7 +19,7 @@ export default function Search(props) {
   const [entities, setEntities] = useState([]);
   const [timeoutRef, setTimeoutRef] = useState(null);
   const asyncFetchResult = async () => {
-    const res = await api(formatRoute('/api/data/search/global', null, { query, type }), { method: 'GET' });
+    const res = await api(formatRoute('/api/search/global', null, { query, type }), { method: 'GET' });
 
     setEntities(res.data.entities);
 

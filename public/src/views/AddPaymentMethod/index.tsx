@@ -8,7 +8,7 @@ import Paper from '../../components/Custom/Paper';
 import TextField from '../../components/Custom/TextField';
 import PhoneNumberFormat from '../../components/Custom/PhoneNumberFormat';
 import CountrySelect from '../AddBankAccount/CountrySelect';
-import CardSection from '../../utils/stripe/Payment/CardSection';
+import CardSection from '../../utils/stripe/CardSection';
 // @ts-ignore
 import styles from './AddPaymentMethod.module.css';
 import { useTranslation } from 'react-i18next';

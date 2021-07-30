@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchInput(props) {
   const classes = useStyles();
-  const { searchQuery = '/api/data/search/previous', type } = props;
+  const { searchQuery = '/api/search/previous', type } = props;
   const router = useRouter();
   const location = router.pathname;
   const { query: queryQuery } = router.query;
