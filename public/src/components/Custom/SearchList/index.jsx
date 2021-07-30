@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import CustomIcon from '../Icon';
 import CustomList from '../List';
@@ -27,6 +27,11 @@ export default function SearchList(props) {
 
   const { t } = useTranslation();
   const query = useFormInput('');
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    getOptions();
+  }, [optionsRoute]);
 
   const optionsRoute = useMemo(() => {
     if (whiteList) {
@@ -55,16 +60,17 @@ export default function SearchList(props) {
     return res;
   }, [query, type]);
 
-  const options = useMemo(async () => {
+  const getOptions = async () => {
     if (!optionsRoute) {
       return [];
     }
     const { data, status } = await api(optionsRoute, { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
-      return formatOptions(data);
+      setOptions(formatOptions(data));
+    } else {
+      setOptions([]);
     }
-    return [];
-  }, [optionsRoute]);
+  };
 
   const handleClick = (...args) => {
     onClick(...args);
