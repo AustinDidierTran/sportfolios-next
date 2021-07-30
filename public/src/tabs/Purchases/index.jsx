@@ -19,7 +19,7 @@ export default function PurchasesTab() {
     setIsLoading(true);
     const { data, status } = await api('/api/shop/purchases', { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
-      setPurchases(formatPurchases(data.purchases));
+      setPurchases(formatPurchases(data));
     } else {
       setPurchases([]);
     }

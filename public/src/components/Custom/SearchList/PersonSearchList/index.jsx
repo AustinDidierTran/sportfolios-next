@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useFormInput } from '../../../../hooks/forms';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -25,6 +25,7 @@ export default function PersonSearchList(props) {
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
+  const [options, setOptions] = useState([]);
 
   const optionsRoute = useMemo(() => {
     if (!query.value) {
@@ -44,16 +45,21 @@ export default function PersonSearchList(props) {
     return res;
   }, [query]);
 
-  const options = useMemo(() => {
+  useEffect(() => {
+    getOptions();
+  }, [optionsRoute]);
+
+  const getOptions = async () => {
     if (!optionsRoute) {
       return [];
     }
-    const { data, status } = api(optionsRoute, { method: 'GET' });
+    const { data, status } = await api(optionsRoute, { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
-      return formatOptions(data);
+      setOptions(formatOptions(data));
+    } else {
+      setOptions([]);
     }
-    return [];
-  }, [optionsRoute]);
+  };
 
   const handleClick = (e) => {
     onClick(e);
