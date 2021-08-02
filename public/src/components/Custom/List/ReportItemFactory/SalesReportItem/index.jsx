@@ -44,9 +44,10 @@ export default function ReportItem(props) {
     setOpenDelete(false);
     update();
   };
-
+  console.log({ data });
   const handleClick = async () => {
     const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }));
+    console.log({ res });
     if (res.status === STATUS_ENUM.SUCCESS_STRING) {
       let sumSubTotal = 0;
       let sumTotalTax = 0;

@@ -77,8 +77,10 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             positionName,
           };
         });
+        console.log({ teams, games });
 
         const ranking = updateRanking(teams, games);
+        console.log({ ranking });
 
         const rankingStats = ranking.map((r: IRanking) => {
           const t = teams.find((t) => t.id === r.id);
@@ -89,11 +91,14 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             initialPosition: t.initialPosition,
           };
         });
+        console.log({ rankingStats });
 
         if (phase.status === PHASE_STATUS_ENUM.DONE) {
           const rankingFromFinalPosition = rankingStats.sort(
             (a: IRanking, b: IRanking) => a.finalPosition - b.finalPosition
           );
+          console.log({ rankingFromFinalPosition });
+
           return {
             ranking: rankingFromFinalPosition,
             title: phase.name,

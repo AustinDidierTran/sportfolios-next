@@ -37,7 +37,8 @@ export default function LoggedIn(props) {
     if (userInfo.primaryPerson) {
       return userInfo.primaryPerson.photoUrl;
     }
-  }, [userInfo.primaryPerson.photoUrl]);
+    return '';
+  }, [userInfo.primaryPerson?.photoUrl]);
 
   const nameObj = useMemo(() => {
     if (userInfo.primaryPerson) {
@@ -46,7 +47,15 @@ export default function LoggedIn(props) {
         surname: userInfo.primaryPerson?.surname,
       };
     }
+    return '';
   }, [userInfo.primaryPerson]);
+
+  const personId = useMemo(() => {
+    if (userInfo.primaryPerson) {
+      return userInfo.primaryPerson.personId;
+    }
+    return '';
+  }, [userInfo.primaryPerson?.personId]);
 
   const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 
@@ -115,7 +124,7 @@ export default function LoggedIn(props) {
           <SearchInput apiRoute="/api/data/search/previous" />
           <div className={classes.grow} />
           <div className={styles.sectionDesktop}>
-            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson.personId} />
+            <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={personId} />
             <div ref={refCreateEntity}>
               <IconButton
                 className={styles.iconButton}
