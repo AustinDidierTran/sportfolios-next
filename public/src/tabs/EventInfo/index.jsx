@@ -19,19 +19,16 @@ import { Store } from '../../Store';
 
 const Description = dynamic(() => import('./Description'));
 
-const getEvent = async (eventId) => {
-  const { data } = await api(formatRoute('/api/entity/eventInfos', null, { id: eventId }), { method: 'GET' });
-  return data;
+const getEvent = (eventId) => {
+  return api(formatRoute('/api/entity/eventInfos', null, { id: eventId }), { method: 'GET' }).then((res) => res.data);
 };
 
-const getOptions = async (eventId) => {
-  const { data } = await api(formatRoute('/api/entity/options', null, { eventId }), { method: 'GET' });
-  return data;
+const getOptions = (eventId) => {
+  return api(formatRoute('/api/entity/options', null, { eventId }), { method: 'GET' }).then((res) => res.data);
 };
 
-const getRemainingSpots = async (id) => {
-  const { data } = await api(formatRoute('/api/entity/remainingSpots', null, { id }), { method: 'GET' });
-  return data;
+const getRemainingSpots = (id) => {
+  return api(formatRoute('/api/entity/remainingSpots', null, { id }), { method: 'GET' }).then((res) => res.data);
 };
 
 export default function TabEventInfo() {
