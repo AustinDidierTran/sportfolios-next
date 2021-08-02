@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import CustomAvatar from '../Avatar';
 
 import styles from './ProfileChip.module.css';
-import { getInitialsFromName } from '../../../utils/stringFormats';
 import { goTo, ROUTES } from '../../../actions/goTo';
 
 const useStyles = makeStyles({
@@ -31,7 +30,6 @@ export default function ProfileChip(props) {
         <CustomAvatar
           className={photoUrl ? [classes.avatar, classes.noBorder].join(' ') : classes.avatar}
           photoUrl={photoUrl}
-          initials={getInitialsFromName(nameObj)}
         />
       }
       variant="outlined"

@@ -10,7 +10,7 @@ import Icon from '../../../../../components/Custom/Icon';
 import StatusChip from '../../../../../components/Custom/StatusChip';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
-import { formatRoute, getIconFromRole, getInitialsFromName } from '../../../../../utils/stringFormats';
+import { formatRoute, getIconFromRole } from '../../../../../utils/stringFormats';
 import Avatar from '../../../../../components/Custom/Avatar';
 
 export default function PlayerCard(props) {
@@ -73,7 +73,7 @@ export default function PlayerCard(props) {
     return (
       <div className={className}>
         <div className={styles.player}>
-          <Avatar className={styles.avatar} photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+          <Avatar className={styles.avatar} photoUrl={player.photoUrl} />
           <div className={styles.position}>
             {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
               <Tooltip
@@ -128,7 +128,7 @@ export default function PlayerCard(props) {
   return (
     <div className={className}>
       <div className={styles.player}>
-        <Avatar className={styles.avatar} photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+        <Avatar className={styles.avatar} photoUrl={player.photoUrl} />
         <div className={styles.position}>
           {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
             <Tooltip title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}>

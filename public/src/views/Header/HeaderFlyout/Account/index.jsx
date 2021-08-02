@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { HEADER_FLYOUT_TYPE_ENUM } from '../../../../../common/enums';
 import { Avatar, Button, Icon } from '../../../../components/Custom';
 import { ACTION_ENUM, Store } from '../../../../Store';
-import { getInitialsFromName } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
 
 import styles from '../HeaderFlyout.module.css';
@@ -97,7 +96,6 @@ export default function Plus() {
             <Avatar
               className={photoUrl ? [classes.avatar, classes.noBorder].join(' ') : classes.avatar}
               photoUrl={photoUrl}
-              initials={getInitialsFromName(nameObj)}
             />
           </ListItemAvatar>
           <ListItemText primary={`${nameObj.name} ${nameObj.surname}`} secondary={t('view_your_profile')} />

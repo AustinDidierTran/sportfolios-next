@@ -16,7 +16,6 @@ import * as yup from 'yup';
 
 import api from '../../actions/api';
 import { useTranslation } from 'react-i18next';
-import { getInitialsFromName } from '../../utils/stringFormats';
 import { uploadEntityPicture } from '../../actions/aws';
 import { useFormik } from 'formik';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -35,7 +34,7 @@ export default function EditPersonInfos(props) {
     dispatch,
   } = useContext(Store);
 
-  const { id: personId, name: nameProp, surname: surnameProp, photoUrl: initialPhotoUrl } = basicInfos;
+  const { id: personId, photoUrl: initialPhotoUrl } = basicInfos;
 
   const [isLoading, setIsLoading] = useState(false);
   const [img, setImg] = useState(null);
@@ -43,8 +42,6 @@ export default function EditPersonInfos(props) {
   const [personInfos, setPersonInfos] = useState({});
   const [changesMade, setChangesMade] = useState(false);
   const [wrongAddressFormat, setWrongAddressFormat] = useState('');
-
-  const initials = getInitialsFromName(surnameProp ? `${nameProp} ${surnameProp}` : nameProp);
 
   const getPersonInfos = async () => {
     const { data } = await api(
@@ -231,7 +228,7 @@ export default function EditPersonInfos(props) {
   return (
     <Paper className={styles.card} formik={formik}>
       <form onSubmit={formik.handleSubmit} onKeyDown={onKeyDown} autoComplete="off">
-        <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
+        <Avatar photoUrl={photoUrl} size="lg" />
         <Upload {...uploadImageProps}>
           <Button
             variant="outlined"

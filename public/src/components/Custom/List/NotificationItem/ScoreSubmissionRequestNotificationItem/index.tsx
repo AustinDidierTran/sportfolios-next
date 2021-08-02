@@ -36,7 +36,6 @@ const ScoreSubmissionRequestNotificationItem: React.FunctionComponent<IProps> = 
       {...otherProps}
       created_at={created_at}
       description={description}
-      initials={eventName[0]}
       onClick={handleClick}
     />
   );

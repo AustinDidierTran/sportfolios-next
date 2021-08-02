@@ -23,11 +23,6 @@ export default function FollowNotification(props) {
 
   const text = useMemo(() => t('follow_notification_text', { follower: fullName }), [fullName]);
 
-  const initials = useMemo(
-    () => fullName.split(/(?:-| )+/).reduce((prev, curr, index) => (index <= 2 ? `${prev}${curr[0]}` : prev), ''),
-    [fullName]
-  );
-
   const onClick = async () => {
     if (!seen_at) {
       await api('/api/notifications/follow/see', {
@@ -44,7 +39,7 @@ export default function FollowNotification(props) {
   return (
     <ListItem button onClick={onClick} key={fullName}>
       <ListItemIcon className={styles.icon}>
-        <Avatar className={styles.avatar} initials={initials} photoUrl={photoUrl} />
+        <Avatar className={styles.avatar} photoUrl={photoUrl} />
       </ListItemIcon>
       <ListItemText primary={text} />
       {seen_at ? <></> : <FiberManualRecordIcon style={{ color: '#54b095' }} />}

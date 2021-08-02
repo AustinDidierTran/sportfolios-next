@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ROSTER_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
-import { getIconFromRole, getInitialsFromName } from '../../../utils/stringFormats';
+import { getIconFromRole } from '../../../utils/stringFormats';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '../Icon';
@@ -91,7 +91,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       {teamRoster.map((player: Player, index: number) => (
         <ListItem key={index} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <ListItemIcon>
-            <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+            <Avatar photoUrl={player.photoUrl} />
           </ListItemIcon>
           <div className={styles.position}>
             {player.role === ROSTER_ROLE_ENUM.PLAYER ? (

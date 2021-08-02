@@ -38,7 +38,6 @@ const ScoreSubmissionConflictNotificationItem: React.FunctionComponent<IProps> =
       {...otherProps}
       description={description}
       created_at={created_at}
-      initials={eventName[0]}
       onClick={handleClick}
     />
   );

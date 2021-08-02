@@ -2,7 +2,6 @@ import React from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import styles from './EvaluationItem.module.css';
-import { getInitialsFromName } from '../../../../utils/stringFormats';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '../../Avatar';
@@ -22,11 +21,17 @@ const Evaluation: React.FunctionComponent<IProps> = (props) => {
         {isCoach ? (
           <div className={styles.evaluation}>
             <ListItemIcon>
-              <Avatar photoUrl={evaluation.photoUrl} initials={getInitialsFromName(evaluation.name)} />
+              <Avatar photoUrl={evaluation.photoUrl} />
             </ListItemIcon>
             <ListItemText
               className={styles.element}
-              primary={t('name') + ' : ' + evaluation.name? evaluation.name : '' + ' ' + evaluation.surname? evaluation.surname : ''}
+              primary={
+                t('name') + ' : ' + evaluation.name
+                  ? evaluation.name
+                  : '' + ' ' + evaluation.surname
+                  ? evaluation.surname
+                  : ''
+              }
             />
             <ListItemText
               className={styles.element}
