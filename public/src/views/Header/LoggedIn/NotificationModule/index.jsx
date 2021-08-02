@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 export default function NotificationModule(props) {
   const { className, onClick } = props;
   const {
-    state: { socket },
+    state: { isAuthenticated, socket },
   } = useContext(Store);
   const { t } = useTranslation();
 
@@ -34,8 +34,8 @@ export default function NotificationModule(props) {
   };
 
   useEffect(() => {
-    getNotificationCount();
-  }, []);
+    if (isAuthenticated) getNotificationCount();
+  }, [isAuthenticated]);
 
   return (
     <IconButton

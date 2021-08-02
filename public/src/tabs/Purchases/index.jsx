@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { List, LoadingSpinner } from '../../components/Custom';
 import { LIST_ITEM_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import api from '../../actions/api';
-
+import { Store } from '../../Store';
 export default function PurchasesTab() {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [purchases, setPurchases] = useState(false);
+  const {
+    state: { isAuthenticated },
+  } = useContext(Store);
 
   useEffect(() => {
-    getPurchases();
-  }, []);
+    if (isAuthenticated) {
+      getPurchases();
+    }
+  }, [isAuthenticated]);
 
   const getPurchases = async () => {
     setIsLoading(true);
