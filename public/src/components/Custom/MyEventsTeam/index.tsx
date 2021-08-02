@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import CustomButton from '../Button';
 import CreatePractice from './CreatePractice';
 import { Store } from '../../../Store';
-import { Practice, Rsvp } from '../../../../../typescript/types';
+import { Positions, Practice, Rsvp } from '../../../../../typescript/types';
 import { getMyTeamPlayers, getPracticeBasicInfo } from '../../../actions/service/entity/get';
 interface IProps {
   gamesInfos: IGameInfos[];
@@ -21,15 +21,12 @@ interface IGameInfos {
   id?: string;
   timeslot: string;
   field?: string;
-  name?: string;
+  phaseName?: string;
   teamNames: string;
   teamScores: string;
+  positions: Positions;
+  startTime: string;
   update?: () => void;
-}
-
-interface IEntity {
-  id: number;
-  eventId?: string;
 }
 
 interface IEvent {
@@ -77,21 +74,21 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     setIsTeamPlayer(players.length > 0);
   };
 
-  const openGameDetailed = async (game: IEntity): Promise<void> => {
-    goTo(ROUTES_ENUM.entity, { id: game.eventId }, { tab: router.query.tab, gameId: game.id });
+  const openGameDetailed = async (id: string, eventId: string): Promise<void> => {
+    goTo(ROUTES_ENUM.entity, { id: eventId }, { tab: router.query.tab, gameId: id });
   };
 
-  const openPracticeDetailed = async (practice: IEntity): Promise<void> => {
+  const openPracticeDetailed = async (id: string): Promise<void> => {
     if (isTeamPlayer) {
-      goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: practice.id });
+      goTo(ROUTES_ENUM.entity, { id: router.query.id }, { tab: router.query.tab, practiceId: id });
     }
   };
 
-  const openEventDetailed = async (event: any): Promise<void> => {
+  const openEventDetailed = async (id: string, eventId?: string): Promise<void> => {
     if (event.type == CARD_TYPE_ENUM.PRACTICE) {
-      openPracticeDetailed(event);
+      openPracticeDetailed(id);
     } else {
-      openGameDetailed(event);
+      openGameDetailed(id, eventId);
     }
   };
 
@@ -120,11 +117,18 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
         { name: game.teamNames[0], score: game.teamScores[0] },
         { name: game.teamNames[1], score: game.teamScores[1] },
       ];
+
       return {
-        ...game,
-        positions,
-        type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME,
+        game: {
+          field: game.field,
+          startTime: game.timeslot,
+          phaseName: game.phaseName,
+          positions: positions,
+          eventId: game.eventId,
+          id: game.id,
+        },
         startTime: game.timeslot,
+        type: CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME,
       };
     });
     array.push(game);

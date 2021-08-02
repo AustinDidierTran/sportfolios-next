@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { ROSTER_ROLE_ENUM, GLOBAL_ENUM } from '../../../../common/enums';
-import { getIconFromRole, getInitialsFromName } from '../../../utils/stringFormats';
+import { GLOBAL_ENUM } from '../../../../common/enums';
+import { getInitialsFromName } from '../../../utils/stringFormats';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import Icon from '../Icon';
 import styles from './Roster.module.css';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
@@ -93,21 +91,6 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
           <ListItemIcon>
             <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
           </ListItemIcon>
-          <div className={styles.position}>
-            {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-              <></>
-            ) : (
-              <Tooltip
-                title={t<string>(
-                  player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role
-                )}
-              >
-                <div>
-                  <Icon icon={getIconFromRole(player.role)} />
-                </div>
-              </Tooltip>
-            )}
-          </div>
           <RsvpItem
             player={player}
             personId={userInfo?.primaryPerson.personId}

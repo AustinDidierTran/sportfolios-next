@@ -148,8 +148,7 @@ const AllGames: React.FunctionComponent<IProps> = (props) => {
             />
           ))}
         </Tabs>
-        <Games games={games} isOpen={index == 0 ? true : false} />
-        <Games games={pastGames} isOpen={index == 1 ? true : false} />
+        {index === 0 ? <Games games={games} /> : <Games games={pastGames} />}
       </div>
     </>
   );

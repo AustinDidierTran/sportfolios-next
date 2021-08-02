@@ -325,7 +325,7 @@ export interface Roster {
   players?: TeamPlayer[];
 }
 
-export interface TeamPlayer {
+export interface TeamPlayer extends Player {
   id: string;
   rosterId: string;
   personId: string;
@@ -486,6 +486,7 @@ export interface Partner {
 export interface Positions {
   id: string;
   gameId: string;
+  roster: TeamPlayer[];
   rosterId: string;
   score: number;
   name: string;

@@ -1,24 +1,27 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import CustomButton from '../../Button';
-import { updatePracticeRsvp } from '../../../../actions/service/entity/put';
+import { updateGameRsvp, updatePracticeRsvp } from '../../../../actions/service/entity/put';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './Rsvp.module.css';
 
 interface IProps {
   isOpen: boolean;
-  practiceId: string;
+  practiceId?: string;
+  gameId?: string;
   rsvpStatus?: string;
   playerId?: string;
+  personId?: string;
   multipleRsvp?: boolean;
-  update: (rsvp?: string, playerId?: string) => void;
+  rosterId?: string;
+  update: (rsvp?: string, personId?: string) => void;
 }
 
 const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { isOpen, practiceId, rsvpStatus, playerId, multipleRsvp, update } = props;
+  const { isOpen, practiceId, gameId, rsvpStatus, personId, playerId, multipleRsvp, rosterId, update } = props;
   const { dispatch } = useContext(Store);
 
   const [goingVariant, setGoingVariant] = useState<'outlined' | 'text' | 'contained' | undefined>('outlined');
@@ -31,18 +34,30 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
     } else if (status == 'not_going') {
       setNotGoingVariant('contained');
       setGoingVariant('outlined');
+    } else {
+      setNotGoingVariant('outlined');
+      setGoingVariant('outlined');
     }
   };
 
+  useEffect((): void => {
+    changeStatus(rsvpStatus);
+  }, [playerId]);
+
   const open = useMemo((): boolean => {
-    if (rsvpStatus) {
+    if (isOpen) {
       changeStatus(rsvpStatus);
     }
     return isOpen;
   }, [isOpen, rsvpStatus]);
 
   const submitRsvp = async (type: string): Promise<void> => {
-    const status = await updatePracticeRsvp(practiceId, type, playerId, multipleRsvp);
+    let status = 404;
+    if (practiceId) {
+      status = await updatePracticeRsvp(practiceId, type, personId, multipleRsvp);
+    } else if (gameId) {
+      status = await updateGameRsvp(gameId, type, personId, rosterId, multipleRsvp);
+    }
     if (status === REQUEST_STATUS_ENUM.ERROR || status >= 400) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -51,7 +66,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
         duration: 4000,
       });
     } else {
-      update(type, playerId);
+      update(type, personId);
     }
   };
 

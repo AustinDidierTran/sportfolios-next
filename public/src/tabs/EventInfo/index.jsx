@@ -20,11 +20,7 @@ import { Store } from '../../Store';
 const Description = dynamic(() => import('./Description'));
 
 const getEvent = async (eventId) => {
-  const { data } = await api(
-    formatRoute('/api/entity/eventInfos', null, {
-      id: eventId,
-    })
-  );
+  const { data } = await api(formatRoute('/api/entity/eventInfos', null, { id: eventId }), { method: 'GET' });
   return data;
 };
 
@@ -34,11 +30,7 @@ const getOptions = async (eventId) => {
 };
 
 const getRemainingSpots = async (id) => {
-  const { data } = await api(
-    formatRoute('/api/entity/remainingSpots', null, {
-      id,
-    })
-  );
+  const { data } = await api(formatRoute('/api/entity/remainingSpots', null, { id }), { method: 'GET' });
   return data;
 };
 

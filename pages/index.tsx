@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { goTo, ROUTES } from '../public/src/actions/goTo';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import { CLIENT_BASE_URL } from '../conf';
 import { IMAGE_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM } from '../public/common/enums';
 import { getForYouPage } from '../public/src/actions/service/entity/get';
 import { ForYouPagePost } from '../typescript/types';
+import { Store } from '../public/src/Store';
 
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
@@ -17,10 +18,15 @@ const HomeRoute: React.FunctionComponent = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [posts, setPosts] = useState<ForYouPagePost[]>([]);
+  const {
+    state: { isAuthenticated },
+  } = useContext(Store);
 
   useEffect(() => {
-    getPosts();
-  }, []);
+    if (isAuthenticated) {
+      getPosts();
+    }
+  }, [isAuthenticated]);
 
   const getPosts = async (): Promise<void> => {
     setIsLoading(true);

@@ -31,11 +31,7 @@ const TeamSelect = dynamic(() => import('./TeamSelect/index'));
 const AdditionalInformation = dynamic(() => import('./AdditionalInformation'));
 
 const getEvent = async (eventId) => {
-  const { data } = await api(
-    formatRoute('/api/entity/eventInfos', null, {
-      id: eventId,
-    })
-  );
+  const { data } = await api(formatRoute('/api/entity/eventInfos', null, { id: eventId }, { method: 'GET' }));
   return data;
 };
 
