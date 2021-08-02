@@ -19,7 +19,9 @@ const Games: React.FunctionComponent<IProps> = (props) => {
       <Divider className={styles.divider} />
       <div className={styles.games}>
         {games.length ? (
-          games.map((game) => <Game game={game} key={game.id} />)
+          games.map((game) => {
+            return <Game game={game} key={game.id} />;
+          })
         ) : (
           <Typography color="textSecondary">{t('no.no_games')}</Typography>
         )}

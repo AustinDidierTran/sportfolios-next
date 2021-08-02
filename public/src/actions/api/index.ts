@@ -1,7 +1,6 @@
 import { API_BASE_URL } from '../../../../conf';
 
 const api = async (route: string, { method, body }: { method?: string; body?: string } = {}): Promise<any> => {
-  console.log({ route, method, body });
   const headers: any = { 'Content-Type': 'application/json' };
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
 

@@ -7,7 +7,6 @@ import {
   ENTITIES_ROLE_ENUM,
   REQUEST_STATUS_ENUM,
   SUBMISSION_ENUM,
-  ROUTES_ENUM,
 } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import CustomButton from '../../../components/Custom/Button';
@@ -321,7 +320,6 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
               )}
             </div>
           </div>
-
           <MultipleTeamGame
             game={{
               field: game.field,
@@ -330,9 +328,11 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
               positions: game.positions,
               id: game.id,
             }}
-            onClick={(id)=> {goTo(ROUTES.entity, { id })}}
+            onClick={(id) => {
+              goTo(ROUTES.entity, { id });
+            }}
+            withoutCard
           />
-
           <div className={styles.scoreButton}>
             {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
               <div style={{ display: 'inline-grid' }}>

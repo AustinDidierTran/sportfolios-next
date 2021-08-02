@@ -12,7 +12,7 @@ export default function Game(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
-  const openGameDetailed = async () => {
+  const openGameDetailed = () => {
     //if there is no teams in the game yet, no need to see the detailed view
     if (!game.positions[0].roster_id || !game.positions[1].roster_id) {
       dispatch({
@@ -33,14 +33,12 @@ export default function Game(props) {
   };
 
   return (
-    <>
-      <Card
-        items={{
-          game: { field: game.field, startTime: game.startTime, phaseName: game.phaseName, positions: game.positions },
-          onClick: openGameDetailed,
-        }}
-        type={CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME}
-      />
-    </>
+    <Card
+      items={{
+        game: { field: game.field, startTime: game.startTime, phaseName: game.phaseName, positions: game.positions },
+        onClick: openGameDetailed,
+      }}
+      type={CARD_TYPE_ENUM.MULTIPLE_TEAM_GAME}
+    />
   );
 }
