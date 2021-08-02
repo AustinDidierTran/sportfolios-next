@@ -77,7 +77,6 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             positionName,
           };
         });
-        console.log({ teams, games });
 
         const ranking = updateRanking(teams, games);
         console.log({ ranking });
