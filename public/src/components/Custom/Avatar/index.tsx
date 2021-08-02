@@ -19,6 +19,8 @@ interface IProps {
   size?: string;
   variant?: 'circle' | 'circular' | 'rounded' | 'square';
   'aria-label'?: string;
+  style?: any;
+  namespace?: string;
 }
 
 const CustomAvatar: React.FunctionComponent<IProps> = (props) => {
@@ -27,7 +29,6 @@ const CustomAvatar: React.FunctionComponent<IProps> = (props) => {
 
   let className = clsx(styles.avatar, props.className);
   let iconStyle = { width: 25, height: 25 };
-  console.log(props.size);
   if (props.size === 'sm') {
     className = clsx(styles.avatar, styles.sm, props.className);
   } else if (props.size === 'md') {

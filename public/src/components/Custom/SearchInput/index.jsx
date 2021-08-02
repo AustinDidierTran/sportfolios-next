@@ -32,8 +32,10 @@ export default function SearchInput(props) {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    getPreviousSearchQueries();
-  }, []);
+    if (query) {
+      getPreviousSearchQueries();
+    }
+  }, [query]);
 
   const getPreviousSearchQueries = async () => {
     const { data } = await api(searchQuery, { method: 'GET' });

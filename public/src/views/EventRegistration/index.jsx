@@ -30,13 +30,8 @@ const PaymentOptionSelect = dynamic(() => import('./PaymentOptionSelect/index'))
 const TeamSelect = dynamic(() => import('./TeamSelect/index'));
 const AdditionalInformation = dynamic(() => import('./AdditionalInformation'));
 
-const getEvent = async (eventId) => {
-  const { data } = await api(
-    formatRoute('/api/entity/eventInfos', null, {
-      id: eventId,
-    })
-  );
-  return data;
+const getEvent = (eventId) => {
+  return api(formatRoute('/api/entity/eventInfos', null, { id: eventId }, { method: 'GET' })).then((res) => res.data);
 };
 
 export default function EventRegistration() {

@@ -28,7 +28,7 @@ interface IGameInfos {
   id: string;
   timeslot: string;
   field: string;
-  name: string;
+  phaseName: string;
   teamNames: string;
   teamScores: string;
 }

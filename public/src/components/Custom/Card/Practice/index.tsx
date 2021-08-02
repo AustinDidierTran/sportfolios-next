@@ -20,7 +20,7 @@ interface IProps {
   startTime: string;
   endTime: string;
   rsvp: IRsvp[];
-  onClick: (props: IProps) => void;
+  onClick: (id: string) => void;
   update: () => void;
 }
 
@@ -39,7 +39,7 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <Card className={styles.practice}>
-      <CardContent className={styles.content} onClick={() => onClick(props)}>
+      <CardContent className={styles.content} onClick={() => onClick(id)}>
         <Typography className={styles.title} color="textPrimary">
           {name}
         </Typography>
