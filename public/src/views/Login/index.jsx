@@ -15,7 +15,7 @@ import TextField from '../../components/Custom/TextField';
 import * as yup from 'yup';
 
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
+import { LOGO_ENUM } from '../../../common/enums';
 import { AddGaEvent } from '../../components/Custom/Analytics';
 import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -25,6 +25,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 import { COLORS } from '../../utils/colors';
+import { ERROR_ENUM, errors } from '../../../common/errors';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -72,8 +73,7 @@ export default function Login() {
           password,
         }),
       });
-
-      if (res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
+      if (res.status === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
         // Email is not validated
         await api('/api/auth/sendConfirmationEmail', {
           method: 'POST',
@@ -82,10 +82,10 @@ export default function Login() {
           }),
         });
         formik.setFieldError('email', t('email.email_not_confirmed'));
-      } else if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
+      } else if (res.status === errors[ERROR_ENUM.ERROR_OCCURED].code) {
         // Password is not good
         formik.setFieldError('password', t('email.email_password_no_match'));
-      } else if (res.status === REQUEST_STATUS_ENUM.ERROR) {
+      } else if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
         formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
       } else {
         let { data } = res;

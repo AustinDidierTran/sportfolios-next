@@ -18,7 +18,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
+import { LOGO_ENUM } from '../../../common/enums';
 import Link from 'next/link';
 import { goTo, ROUTES } from '../../actions/goTo';
 import * as yup from 'yup';
@@ -26,6 +26,7 @@ import { useFormik } from 'formik';
 import api from '../../actions/api';
 import { useRouter } from 'next/router';
 import { COLORS } from '../../utils/colors';
+import { errors, ERROR_ENUM } from '../../../common/errors';
 
 export default function Signup() {
   const { t } = useTranslation();
@@ -59,6 +60,7 @@ export default function Signup() {
     validationSchema,
     onSubmit: async (values) => {
       const { firstName, lastName, email, password } = values;
+
       const res = await api('/api/auth/signup', {
         method: 'POST',
         body: JSON.stringify({
@@ -70,7 +72,7 @@ export default function Signup() {
           newsLetterSubscription: isSubscribed,
         }),
       });
-      if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
+      if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
         formik.setFieldError('email', t('email.email_already_used'));
       } else if (res.status >= 400) {
         formik.setFieldError('firstName', t('something_went_wrong'));

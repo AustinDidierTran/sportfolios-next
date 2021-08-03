@@ -17,16 +17,18 @@ const ConfirmEmailRoute: React.FunctionComponent = () => {
 
   const { dispatch } = useContext(Store);
 
-  useEffect(() => {
-    confirmEmail();
-  }, []);
-
   const token = useMemo(() => {
     if (Array.isArray(tokenProps)) {
       return tokenProps[0];
     }
     return tokenProps;
   }, [tokenProps]);
+
+  useEffect(() => {
+    if (token) {
+      confirmEmail();
+    }
+  }, [token]);
 
   const confirmEmail = async (): Promise<void> => {
     if (!token) {
