@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { GLOBAL_ENUM, IMAGE_ENUM } from '../public/common/enums';
 import dynamic from 'next/dynamic';
@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import api from '../public/src/actions/api';
 import { CLIENT_BASE_URL } from '../conf';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
+import LoadingSpinner from '../public/src/components/Custom/LoadingSpinner';
 
 const Error = dynamic(() => import('next/error'));
 const Event = dynamic(() => import('../public/src/views/Entity/Event'));
@@ -21,8 +23,30 @@ const EntityMap = {
   [GLOBAL_ENUM.EVENT]: Event,
 };
 
-export default function EntityRoute({ response }) {
+export default function EntityRoute() {
   const { t } = useTranslation();
+  const router = useRouter();
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    api(formatRoute('/api/entity/realId', null, { id: router.query.id }), { method: 'GET' }).then((res) => {
+      api(formatRoute('/api/entity', null, { id: res.data }), { defaultValue: {} }, { method: 'GET' })
+        .then((res) => {
+          setResponse(res.data);
+        })
+        .catch((err) => setError(err));
+    });
+  }, [router.query.id]);
+
+  // What do we do when there is an error?
+  if (error) {
+    return <></>;
+  }
+
+  if (!response) {
+    return <LoadingSpinner />;
+  }
 
   const EntityObject = EntityMap[response.basicInfos.type];
 
@@ -71,27 +95,4 @@ export default function EntityRoute({ response }) {
       <EntityObject {...response} />
     </>
   );
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [], //indicates that no page needs be created at build time
-    fallback: 'blocking', //indicates the type of fallback
-  };
-}
-
-export async function getStaticProps(context) {
-  const { data: id } = await api(formatRoute('/api/entity/realId', null, { id: context.params.id }), { method: 'GET' });
-
-  const res = await api(formatRoute('/api/entity', null, { id }), { defaultValue: {} }, { method: 'GET' });
-
-  if (!res) {
-    return {
-      notFound: true,
-    };
-  }
-  return {
-    props: { response: res.data }, // will be passed to the page component as props
-    revalidate: 1, // In seconds
-  };
 }
