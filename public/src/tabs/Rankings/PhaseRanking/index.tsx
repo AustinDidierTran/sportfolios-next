@@ -17,6 +17,7 @@ interface IPhase {
   ranking: IRanking[];
   title: string;
   subtitle: string;
+  allTeamsEqual?: boolean;
 }
 
 const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
@@ -27,7 +28,6 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
 
   const [phases, setPhases] = useState<any>([]);
-  const [isTeamsScoreEqual, setIsTeamScoreEqual] = useState<boolean>(false);
 
   const getPhases = async (): Promise<void> => {
     const phases = await getPhasesApi(eventId);
@@ -94,22 +94,22 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
           const rankingFromFinalPosition = rankingStats.sort(
             (a: IRanking, b: IRanking) => a.finalPosition - b.finalPosition
           );
+
           return {
             ranking: rankingFromFinalPosition,
             title: phase.name,
             subtitle: t('phase_done'),
             status: phase.status,
           };
-        } else {
-          const playedGames = games.reduce((prev: any[], curr: PhaseGames) => {
-            const score1 = curr.teams[0].score;
-            const score2 = curr.teams[1].score;
-            return prev.concat([score1, score2]);
-          }, []);
-          setIsTeamScoreEqual(!playedGames.some((g) => g > 0));
         }
+        const playedGames = games.reduce((prev: any[], curr: PhaseGames) => {
+          const score1 = curr.teams[0].score;
+          const score2 = curr.teams[1].score;
+          return prev.concat([score1, score2]);
+        }, []);
 
         return {
+          allTeamsEqual: !playedGames.some((g) => g > 0),
           ranking: rankingStats,
           title: phase.name,
           subtitle: t('phase_in_progress'),
@@ -117,7 +117,6 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
         };
       })
     );
-
     setPhases(res);
   };
 
@@ -139,7 +138,7 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
               ranking={phase.ranking}
               title={phase.title}
               subtitle={phase.subtitle}
-              allTeamsEqual={isTeamsScoreEqual}
+              allTeamsEqual={phase.allTeamsEqual}
               withStats
             ></Ranking>
           ) : (
