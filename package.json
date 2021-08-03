@@ -18,6 +18,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@next/bundle-analyzer": "^10.2.3",
     "@pwabuilder/pwaupdate": "^0.2.0",
+    "@sls-next/serverless-component": "^3.2.0",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.15.1",
     "axios": "^0.21.1",
