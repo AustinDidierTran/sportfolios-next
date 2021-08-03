@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Container from '../../components/Custom/Container';
 import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
@@ -20,6 +20,7 @@ export default function TransferPerson() {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [personId, setPersonId] = useState();
+
   const fetchTransferInfos = async () => {
     if (!validator.isUUID(token)) {
       goTo(ROUTES.entityNotFound);
@@ -60,9 +61,11 @@ export default function TransferPerson() {
     setIsLoading(false);
   };
 
-  React.useEffect(() => {
-    fetchTransferInfos();
-  }, []);
+  useEffect(() => {
+    if (token) {
+      fetchTransferInfos();
+    }
+  }, [token]);
 
   const validate = (values) => {
     const errors = {};
