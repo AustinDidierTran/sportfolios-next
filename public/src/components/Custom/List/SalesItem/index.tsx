@@ -31,7 +31,7 @@ const SalesItem: React.FunctionComponent<IProps> = (props) => {
     <ListItem button style={{ width: '100%' }}>
       <div className={styles.div}>
         <ListItemIcon>
-          <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo}></CustomAvatar>
+          <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo} />
         </ListItemIcon>
         <ListItemText
           className={styles.name}

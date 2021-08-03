@@ -1,9 +1,8 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useContext } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 
-import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { ROSTER_ROLE_ENUM, SEVERITY_ENUM } from '../../../../../common/enums';
 import { ACTION_ENUM, Store } from '../../../../Store';
@@ -18,7 +17,6 @@ export default function RosterItem(props) {
   const { dispatch } = useContext(Store);
 
   const { personId, photoUrl, name, surname, onDelete, index, formik } = props;
-  const initials = useMemo(() => getInitialsFromName(name));
   const { roster } = formik.values;
 
   const handleRoleChange = (newRole) => {
@@ -67,7 +65,7 @@ export default function RosterItem(props) {
   return (
     <ListItem className={styles.item}>
       <ListItemIcon>
-        <CustomAvatar photoUrl={photoUrl} initials={initials}></CustomAvatar>
+        <CustomAvatar photoUrl={photoUrl} />
       </ListItemIcon>
       <div className={styles.text}>
         <Typography>{`${name}${surname ? ` ${surname}` : ''}`}</Typography>

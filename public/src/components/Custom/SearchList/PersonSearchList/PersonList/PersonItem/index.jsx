@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import styles from './PersonItem.module.css';
 import { goTo, ROUTES } from '../../../../../../actions/goTo';
-import { getInitialsFromName } from '../../../../../../utils/stringFormats';
 import CustomAvatar from '../../../../Avatar';
 
 export default function PersonItem(props) {
@@ -29,8 +28,6 @@ export default function PersonItem(props) {
     notClickable,
     disabled,
   } = props;
-
-  const initials = useMemo(() => getInitialsFromName(completeName || name));
 
   const handleClick = useCallback(
     (e) => {
@@ -69,7 +66,7 @@ export default function PersonItem(props) {
         disabled={disabled}
       >
         <ListItemIcon>
-          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} initials={initials}></CustomAvatar>
+          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} />
         </ListItemIcon>
         <ListItemText
           className={styles.text}

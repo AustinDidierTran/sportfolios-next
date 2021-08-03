@@ -1,6 +1,4 @@
 import React from 'react';
-
-import { getInitialsFromName } from '../../../../utils/stringFormats';
 import styles from './Player.module.css';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -31,7 +29,7 @@ const PendingPlayer: React.FunctionComponent<IProps> = (props) => {
         button
       >
         <ListItemIcon>
-          <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+          <Avatar photoUrl={player.photoUrl} />
         </ListItemIcon>
         <ListItemText primary={player.name} />
         <StatusChip
@@ -46,7 +44,7 @@ const PendingPlayer: React.FunctionComponent<IProps> = (props) => {
   return (
     <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}>
       <ListItemIcon>
-        <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+        <Avatar photoUrl={player.photoUrl} />
       </ListItemIcon>
       <ListItemText primary={player.name} />
       <StatusChip status={player.status} clickable={false} />

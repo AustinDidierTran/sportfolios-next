@@ -9,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import Rsvp from '../../MyEventsTeam/Rsvp';
-import { getInitialsFromName } from '../../../../utils/stringFormats';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '../../Avatar';
 import { Rsvp as IRsvp } from '../../../../../../typescript/types';
@@ -53,10 +52,9 @@ const Practice: React.FunctionComponent<IProps> = (props) => {
                       <Avatar
                         style={event.rsvp == 'going' ? { border: '4px solid green' } : { border: '4px solid red' }}
                         photoUrl={event.photoUrl}
-                        initials={getInitialsFromName(event.name)}
                       />
                     ) : (
-                      <Avatar photoUrl={event.photoUrl} initials={getInitialsFromName(event.name)} />
+                      <Avatar photoUrl={event.photoUrl} />
                     )}
                   </div>
                 ))

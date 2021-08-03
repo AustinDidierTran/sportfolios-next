@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM } from '../../../../common/enums';
-import { getInitialsFromName } from '../../../utils/stringFormats';
 
 import styles from './Roster.module.css';
 import Typography from '@material-ui/core/Typography';
@@ -89,7 +88,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       {teamRoster.map((player: Player, index: number) => (
         <ListItem key={index} className={index % 2 === 0 ? styles.greycard : styles.card}>
           <ListItemIcon>
-            <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+            <Avatar photoUrl={player.photoUrl} />
           </ListItemIcon>
           <RsvpItem
             player={player}
