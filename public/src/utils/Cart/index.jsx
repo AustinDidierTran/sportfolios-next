@@ -52,6 +52,9 @@ const getProductDetail = (metadata) => {
     case GLOBAL_ENUM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:
+      if (metadata.isIndividualOption) {
+        return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.person?.name} ${metadata.person?.surname}`;
+      }
       return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.team?.name}`;
     default:
       return '';
@@ -66,9 +69,9 @@ const getRegistrationFor = (metadata) => {
       return '';
     case GLOBAL_ENUM.EVENT:
       if (metadata.isIndividualOption) {
-        return metadata.name;
+        return `${metadata.person?.name} ${metadata.person?.surname}`;
       }
-      return '';
+      return metadata.team?.name;
     default:
       return '';
   }
