@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { GLOBAL_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
 import Card from '@material-ui/core/Card';
 import styles from './MyPersons.module.css';
 import api from '../../../actions/api';
@@ -16,6 +16,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { getOwnedPerson } from '../../../actions/service/user';
 
 const EditPrimaryPerson = dynamic(() => import('./EditPrimaryPerson'));
 
@@ -31,13 +32,8 @@ export default function MyPersons() {
   const { dispatch } = useContext(Store);
   const [width] = useWindowSize();
 
-  // TODO: use the useApiRoute function, and ownedpersons should
   const fetchOwnedPersons = async () => {
-    const { data } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
-        type: GLOBAL_ENUM.PERSON,
-      })
-    );
+    const data = await getOwnedPerson();
     setPersons(data);
     setIsLoading(false);
   };
@@ -74,11 +70,9 @@ export default function MyPersons() {
     });
 
   const confirmDecline = async () => {
-    const res = await api(
-      formatRoute('/api/user/declinePersonTransfer', null, {
-        id: selectedPerson.id,
-      })
-    );
+    const res = await api(formatRoute('/api/user/declinePersonTransfer', null, { id: selectedPerson.id }), {
+      method: 'GET',
+    });
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
@@ -89,11 +83,7 @@ export default function MyPersons() {
   };
 
   const approveTransfer = async (person) => {
-    const res = await api(
-      formatRoute('/api/user/acceptPersonTransfer', null, {
-        id: person.id,
-      })
-    );
+    const res = await api(formatRoute('/api/user/acceptPersonTransfer', null, { id: person.id }), { method: 'GET' });
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       showErrorMessage();
     } else {
@@ -103,12 +93,9 @@ export default function MyPersons() {
   };
 
   const confirmCancelPersonTransfer = async () => {
-    const res = await api(
-      formatRoute('/api/user/transferPerson', null, {
-        id: selectedPerson.id,
-      }),
-      { method: 'DELETE' }
-    );
+    const res = await api(formatRoute('/api/user/transferPerson', null, { id: selectedPerson.id }), {
+      method: 'DELETE',
+    });
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       showErrorMessage(res.message);
     } else {
@@ -121,10 +108,7 @@ export default function MyPersons() {
   const onSendEmail = async (email) => {
     const res = await api('/api/user/transferPerson', {
       method: 'POST',
-      body: JSON.stringify({
-        email,
-        sendedPersonId: selectedPerson.id,
-      }),
+      body: JSON.stringify({ email, sendedPersonId: selectedPerson.id }),
     });
     if (res.status === errors[ERROR_ENUM.VALUE_IS_INVALID].code) {
       showErrorMessage(t('cant_transfer_person_to_your_own_email'));
@@ -141,9 +125,7 @@ export default function MyPersons() {
     if (persons[0].id !== newPrimaryPersonId) {
       const res = await api('/api/user/primaryPerson', {
         method: 'PUT',
-        body: JSON.stringify({
-          primaryPersonId: newPrimaryPersonId,
-        }),
+        body: JSON.stringify({ primaryPersonId: newPrimaryPersonId }),
       });
       if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         showErrorMessage();

@@ -18,7 +18,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import Link from 'next/link';
 import { goTo, ROUTES } from '../../actions/goTo';
 import * as yup from 'yup';
@@ -70,7 +70,7 @@ export default function Signup() {
           newsLetterSubscription: isSubscribed,
         }),
       });
-      if (res.status === 403) {
+      if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
         formik.setFieldError('email', t('email.email_already_used'));
       } else if (res.status >= 400) {
         formik.setFieldError('firstName', t('something_went_wrong'));

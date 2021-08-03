@@ -23,11 +23,7 @@ export default function PersonSelect(props) {
   }, [eventId]);
 
   const getPersons = async () => {
-    const { data } = await api(
-      formatRoute('/api/user/ownedPersonsRegistration', null, {
-        eventId,
-      })
-    );
+    const { data } = await api(formatRoute('/api/user/ownedPersonsRegistration', null, { eventId }), { method: 'GET' });
 
     if (!data[0].registered) {
       formik.setFieldValue('persons', [data[0]]);

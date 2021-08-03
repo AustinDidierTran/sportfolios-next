@@ -20,7 +20,7 @@ export default function OrderProcessed() {
   const { dispatch } = useContext(Store);
 
   const updateCart = async () => {
-    const { data: cartItems } = await api('/api/shop/getCartItems');
+    const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
     dispatch({
       type: ACTION_ENUM.UPDATE_CART,
       payload: cartItems,

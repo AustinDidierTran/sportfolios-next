@@ -24,6 +24,7 @@
 .description {
   grid-area: description;
   text-align: left;
+  white-space: pre-wrap;
 }
 
 .cartButtonChildren {

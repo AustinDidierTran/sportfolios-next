@@ -12,7 +12,7 @@ import {
   getPaymentStatusName,
 } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
-import { SEVERITY_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
@@ -38,22 +38,15 @@ export default function MembersReportItem(props) {
   };
 
   const confirmDelete = async () => {
-    await api(
-      formatRoute('/api/entity/report', null, {
-        reportId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    await api(formatRoute('/api/entity/report', null, { reportId }), { method: 'DELETE' });
     setOpenDelete(false);
     update();
   };
 
   const handleClick = async () => {
-    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }));
+    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
 
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       const formattedData = res.data.map((d) => ({
         name: d.name,
         surname: d.surname,

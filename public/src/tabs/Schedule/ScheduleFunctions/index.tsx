@@ -111,7 +111,7 @@ export const getPositionOptions = (data: Phase[]): IPositionOption[] => {
       ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${
           data.find((d: Phase) => d.id === r.currentPhase.id)?.name
         } (${r.name})`
-      : `${r.initialPosition.toString()}. ${data.find((d) => d.id === r.currentPhase.id).name}`,
+      : `${r.initialPosition.toString()}. ${data.find((d) => d.id === r.currentPhase.id)?.name}`,
     ...r,
   }));
 

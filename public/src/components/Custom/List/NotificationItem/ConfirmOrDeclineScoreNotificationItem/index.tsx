@@ -120,7 +120,6 @@ const ConfirmOrDeclineScoreNotificationItem: React.FunctionComponent<IProps> = (
     <NotificationItem
       {...otherProps}
       description={description}
-      initials={eventName[0]}
       onClick={handleClick}
       buttons={buttons}
       created_at={created_at}

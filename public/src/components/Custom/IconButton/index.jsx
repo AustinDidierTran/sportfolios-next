@@ -13,7 +13,7 @@ export default function CustomIconButton(props) {
     onClick = () => {},
     size = 'small',
     tooltip = '',
-    fontSize = 'default',
+    fontSize = 'medium',
 
     // badge props
     withBadge = false,

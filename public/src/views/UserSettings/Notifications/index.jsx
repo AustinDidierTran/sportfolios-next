@@ -81,7 +81,7 @@ export default function Notifications() {
   };
 
   const fetchSettings = async () => {
-    const { data } = await api('/api/notifications/settings/all');
+    const { data } = await api('/api/notifications/settings/all', { method: 'GET' });
     if (!data) {
       return;
     }

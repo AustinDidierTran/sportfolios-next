@@ -388,7 +388,7 @@ export default function ScheduleInteractiveTool() {
     if (!eventId) {
       return;
     }
-    const { data } = await api(formatRoute('/api/entity/interactiveTool', null, { eventId }));
+    const { data } = await api(formatRoute('/api/entity/interactiveTool', null, { eventId }), { method: 'GET' });
 
     const timeslots = data.timeSlots.map((t) => ({
       id: t.id,

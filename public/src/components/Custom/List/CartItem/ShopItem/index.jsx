@@ -36,7 +36,11 @@ export default function ShopItem(props) {
           <ListItemIcon>
             <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo} />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={label} secondary={t(size) || ''} />
+          <ListItemText
+            className={styles.name}
+            primary={label}
+            secondary={size ? t('sizes_enum_' + size.toLowerCase()) : ''}
+          />
           <ListItemText
             className={styles.quantity}
             primary={taxLength ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import api from '../../../../actions/api';
 import { IconButton } from '../../../../components/Custom';
-import { STATUS_ENUM, SOCKET_EVENT } from '../../../../../common/enums';
+import { SOCKET_EVENT, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { Store } from '../../../../Store';
 import { useTranslation } from 'react-i18next';
 import { COLORS } from '../../../../utils/colors';
@@ -9,7 +9,7 @@ import { COLORS } from '../../../../utils/colors';
 export default function NotificationModule(props) {
   const { className, onClick } = props;
   const {
-    state: { socket },
+    state: { isAuthenticated, socket },
   } = useContext(Store);
   const { t } = useTranslation();
 
@@ -28,15 +28,15 @@ export default function NotificationModule(props) {
   };
 
   const getNotificationCount = async () => {
-    const res = await api('/api/notifications/unseenCount');
-    if (res.status == STATUS_ENUM.SUCCESS_STRING) {
+    const res = await api('/api/notifications/unseenCount', { method: 'GET' });
+    if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
       setUnreadNotificationsCount(Number(res.data));
     }
   };
 
   useEffect(() => {
-    getNotificationCount();
-  }, []);
+    if (isAuthenticated) getNotificationCount();
+  }, [isAuthenticated]);
 
   return (
     <IconButton

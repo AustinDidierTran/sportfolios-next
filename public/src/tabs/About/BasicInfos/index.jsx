@@ -5,7 +5,6 @@ import { Avatar } from '../../../components/Custom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
-import { getInitialsFromName } from '../../../utils/stringFormats';
 import { useFormInput } from '../../../hooks/forms';
 
 export default function BasicInfos(props) {
@@ -17,12 +16,11 @@ export default function BasicInfos(props) {
     setPhotoUrl(initialPhotoUrl);
   }, [initialPhotoUrl]);
 
-  const initials = getInitialsFromName({ name: nameProp, surname });
   const name = useFormInput(nameProp);
 
   return (
     <Container className={styles.card}>
-      <Avatar initials={initials} photoUrl={photoUrl} size="lg" />
+      <Avatar photoUrl={photoUrl} size="lg" />
       <div className={styles.fullName}>
         <Typography variant="h3" className={styles.text}>
           {`${name.value}${surname ? ' ' + surname : ''}`}

@@ -17,13 +17,14 @@ import Typography from '@material-ui/core/Typography';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Store, ACTION_ENUM } from '../../Store';
-import { SEVERITY_ENUM } from '../../../common/enums';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 import { formatRoute } from '../../utils/stringFormats';
+import CustomIconButton from '../../components/Custom/IconButton';
 
 export default function ShopDetails() {
   const {
-    state: { authToken, id },
+    state: { isAuthenticated, id },
     dispatch,
   } = useContext(Store);
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export default function ShopDetails() {
 
   const text = useMemo(() => decodeURIComponent(description), [description]);
   const fetchItem = async () => {
-    const { data } = await api(formatRoute('/api/shop/getItem', null, { id: stripePriceId }));
+    const { data } = await api(formatRoute('/api/shop/getItem', null, { id: stripePriceId }), { method: 'GET' });
     setItem(data);
 
     setIsLoading(false);
@@ -58,8 +59,6 @@ export default function ShopDetails() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      const isAuthenticated = Boolean(authToken);
-
       if (!isAuthenticated) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -92,7 +91,7 @@ export default function ShopDetails() {
         }),
       });
 
-      if (res.status === 200) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         goTo(ROUTES.productAddedToCart, null, {
           amount: quantity,
           name: item.label,
@@ -108,6 +107,10 @@ export default function ShopDetails() {
       }
     },
   });
+
+  const goBack = () => {
+    history.back();
+  };
 
   const sizeOptions = useMemo(() => {
     if (metadata && metadata.sizes) {
@@ -148,6 +151,15 @@ export default function ShopDetails() {
     <IgContainer>
       <form onSubmit={formik.handleSubmit}>
         <Paper>
+          <div className={styles.button}>
+            <CustomIconButton
+              size="medium"
+              icon="ArrowBack"
+              tooltip={t('back')}
+              style={{ color: 'primary' }}
+              onClick={goBack}
+            />
+          </div>
           <CardMedia className={styles.media} image={photoUrl} />
           <CardContent className={styles.infos}>
             <Typography gutterBottom variant="h5" className={styles.name}>
@@ -156,7 +168,7 @@ export default function ShopDetails() {
             <Typography variant="h6" className={styles.price}>
               {formatPrice(price)}
             </Typography>
-            <TextareaAutosize className={styles.description} placeholder="Description" value={text} disabled />
+            <TextareaAutosize className={styles.description} placeholder={t('description.description')} value={text} disabled />
             {sizeOptions.length > 0 ? (
               <div className={styles.sizes}>
                 <Select label={t('size')} formik={formik} namespace="size" options={sizeOptions} />

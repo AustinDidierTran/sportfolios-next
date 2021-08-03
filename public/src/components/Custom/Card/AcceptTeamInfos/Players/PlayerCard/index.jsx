@@ -29,7 +29,8 @@ export default function PlayerCard(props) {
     const { data } = await api(
       formatRoute('/api/entity/personInfos', null, {
         entityId: player.personId,
-      })
+      }),
+      { method: 'GET' }
     );
     setPlayerInfos(data);
   };

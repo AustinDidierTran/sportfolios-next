@@ -32,7 +32,7 @@ export default function AddOptionsEvent() {
   }, [eventId]);
 
   const getOptions = async () => {
-    const { data } = await api(formatRoute('/api/entity/options', null, { eventId }));
+    const { data } = await api(formatRoute('/api/entity/options', null, { eventId }), { method: 'GET' });
     const dataOptions = data.map((o) => ({
       option: o,
       update: getOptions,

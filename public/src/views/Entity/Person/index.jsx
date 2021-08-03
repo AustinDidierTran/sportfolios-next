@@ -5,7 +5,7 @@ import Tabs from '../../../components/Custom/Tabs';
 import IgContainer from '../../../components/Custom/IgContainer';
 import Paper from '../../../components/Custom/Paper';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useRouter } from 'next/router';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../utils/stringFormats';
@@ -64,8 +64,8 @@ export default function Person(props) {
   }, [tab, tabs]);
 
   const getRole = async () => {
-    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }));
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    const res = await api(formatRoute('/api/entity/role', null, { entityId: id }), { method: 'GET' });
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       let newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { Positions } from '../../../../typescript/types';
 
 const MyEventsTeam = dynamic(() => import('../../components/Custom/MyEventsTeam'));
 const PracticeDetailed = dynamic(() => import('../../components/Custom/MyEventsTeam/PracticeDetailed'));
@@ -17,9 +18,11 @@ interface IGameInfos {
   id: string;
   timeslot: string;
   field: string;
-  name: string;
+  phaseName: string;
   teamNames: string;
   teamScores: string;
+  positions: Positions;
+  startTime: string;
 }
 
 const TabTeamEvents: React.FunctionComponent<IProps> = (props) => {

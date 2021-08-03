@@ -4,8 +4,7 @@ import { useFormInput } from '../../../hooks/forms';
 import styles from './EditItem.module.css';
 import { ACTION_ENUM, Store } from '../../../Store';
 
-import Typography from '@material-ui/core/Typography';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import TextField from '../../../components/Custom/TextField';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CustomButton from '../../../components/Custom/Button';
@@ -18,7 +17,24 @@ import AddSizes from '../AddSizes';
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM } from '../../../../common/enums';
 
-export default function EditItem(props) {
+interface IProps {
+  fetchItems: () => void;
+  isEditing: boolean;
+  setIsEditing: (isEditing: boolean) => void;
+  item: ShopItem;
+}
+
+interface ShopItem {
+  photoUrl: string;
+  name: string;
+  description: string;
+  price: number;
+  stripePriceId: string;
+  stripeProductId: string;
+  sizes: string[];
+}
+
+const EditItem: React.FunctionComponent<IProps> = (props) => {
   const {
     dispatch,
     state: { id },
@@ -26,24 +42,23 @@ export default function EditItem(props) {
   const { t } = useTranslation();
   const { fetchItems, isEditing, setIsEditing, item } = props;
 
-  const [img, setImg] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(item.photoUrl);
-  const [sizes, setSizes] = useState([]);
+  const [sizes, setSizes] = useState<string[]>(item.sizes);
 
   const name = useFormInput(item.name);
-  const amount = item.price / 100;
+  const amount = useFormInput(item.price / 100);
   const description = useFormInput(decodeURIComponent(item.description));
+  const photoUrl = useFormInput(item.photoUrl);
 
-  const handleChange = (value) => {
+  const handleChange = (value: string[]) => {
     setSizes(value);
   };
 
   const uploadImageProps = {
     multiple: false,
     accept: '.jpg, .png, .jpeg, .gif, .webp',
-    onStart(file) {
+    onStart(file: any) {
       if (file.type.split('/')[0] === 'image') {
-        setImg(file);
+        onImgUpload(id, file, dispatch).then((res) => photoUrl.setValue(res.photoUrl));
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -54,16 +69,11 @@ export default function EditItem(props) {
     },
   };
 
-  const onUpload = async () => {
-    const res = await onImgUpload(id, img, dispatch);
-    setPhotoUrl(res.photoUrl);
-  };
-
-  const reset = () => {
+  const reset = (): void => {
     setIsEditing(!isEditing);
   };
 
-  const validateName = (value) => {
+  const validateName = (value: string): void => {
     if (name.value.length > 64) {
       name.reset();
     } else {
@@ -71,7 +81,8 @@ export default function EditItem(props) {
       name.changeDefault(value);
     }
   };
-  const validate = () => {
+
+  const validate = (): boolean => {
     let res = true;
     if (!name.value) {
       name.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
@@ -81,28 +92,29 @@ export default function EditItem(props) {
       description.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
-    if (!photoUrl) {
+    if (!photoUrl.value) {
       photoUrl.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
       res = false;
     }
     return res;
   };
 
-  const addToStore = async () => {
+  const addToStore = (): void => {
     if (validate()) {
-      await editItem({
+      editItem({
         name: name.value,
         description: encodeURIComponent(description.value),
-        amount: amount,
-        photoUrl,
+        amount: amount.value,
+        photoUrl: photoUrl.value,
         entityId: id,
         sizes,
         stripePriceIdToUpdate: item.stripePriceId,
+      }).then(() => {
+        setIsEditing(!isEditing);
+        name.reset();
+        description.reset();
+        fetchItems();
       });
-      setIsEditing(!isEditing);
-      name.reset();
-      description.reset();
-      fetchItems();
     }
   };
 
@@ -118,36 +130,25 @@ export default function EditItem(props) {
 
   return (
     <CustomPaper style={{ marginBottom: '8px' }}>
-      {photoUrl ? (
-        <>
-          <CardMedia className={styles.media} image={photoUrl} />
-          <CustomButton onClick={() => setPhotoUrl(null)} style={{ margin: '8px' }} endIcon="Undo">
-            {t('change')}
-          </CustomButton>
-        </>
-      ) : (
-        <div className={styles.media}>
-          <Upload {...uploadImageProps}>
-            <CustomButton
-              variant="outlined"
-              endIcon="CloudUploadIcon"
-              style={{ marginTop: '8px', marginBottom: '16px' }}
-              component="label"
-            >
-              {t('change_picture')}
-            </CustomButton>
-          </Upload>
-          <CustomButton onClick={onUpload} style={{ margin: '8px' }} endIcon="Publish">
-            {t('upload')}
-          </CustomButton>
-        </div>
-      )}
+      <CardMedia className={styles.media} image={photoUrl.value} />
+      <Upload {...uploadImageProps}>
+        <CustomButton style={{ margin: '8px' }} endIcon="Undo">
+          {t('change_picture')}
+        </CustomButton>
+      </Upload>
       <CardContent className={styles.infos}>
         <CustomTextField {...name.inputProps} label={t('name')} className={styles.name} onChange={validateName} />
-        <Typography className={styles.price}>{`${amount} CAD`}</Typography>
-        <TextareaAutosize {...description.inputProps} placeholder="Description" className={styles.description} />
+        <CustomTextField {...amount.inputProps} className={styles.price}></CustomTextField>
+        <TextField
+          multiline
+          rows={5}
+          rowsMax={10}
+          {...description.inputProps}
+          placeholder={t('description.description')}
+          className={styles.description}
+        />
         <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
-        <CustomButton size="small" endIcon="Store" onClick={addToStore} className={styles.cart}>
+        <CustomButton size="small" endIcon="SaveIcon" onClick={addToStore} className={styles.cart}>
           {t('done')}
         </CustomButton>
         <CustomButton onClick={reset} color="secondary" endIcon="Close" className={styles.cancel}>
@@ -156,4 +157,5 @@ export default function EditItem(props) {
       </CardContent>
     </CustomPaper>
   );
-}
+};
+export default EditItem;

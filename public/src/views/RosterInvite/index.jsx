@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { ROUTES_ENUM, STATUS_ENUM } from '../../../common/enums';
+import { ROUTES_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import api from '../../actions/api';
 import { goTo, goToAndReplace, ROUTES } from '../../actions/goTo';
 import IgContainer from '../../components/Custom/IgContainer';
@@ -38,9 +38,10 @@ export default function RosterInvite(props) {
     const res = await api(
       formatRoute('/api/entity/rosterFromInviteToken', null, {
         token,
-      })
+      }),
+      { method: 'GET' }
     );
-    if (res.status == STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
       setRoster({ ...res.data.roster });
       setEventId(res.data.eventId);
     } else {

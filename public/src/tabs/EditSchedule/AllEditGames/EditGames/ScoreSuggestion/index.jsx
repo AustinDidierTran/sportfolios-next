@@ -40,7 +40,8 @@ export default function ScoreSuggestion(props) {
     const { data } = await api(
       formatRoute('/api/entity/scoreSuggestion', null, {
         gameId: game.id,
-      })
+      }),
+      { method: 'GET' }
     );
 
     if (data.length) {

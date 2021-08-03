@@ -1,26 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import List from '../../components/Custom/List';
 import IgContainer from '../../components/Custom/IgContainer';
-import { useApiRoute } from '../../hooks/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { LIST_ITEM_ENUM } from '../../../common/enums';
+import { LIST_ITEM_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import moment from 'moment';
 import { Store } from '../../Store';
+import api from '../../actions/api';
 
 export default function Sales() {
   const {
     state: { id },
   } = useContext(Store);
 
-  const { isLoading, response } = useApiRoute(`/api/shop/sales?id=${id}`);
+  const [isLoading, setIsLoading] = useState(false);
+  const [sales, setSales] = useState([]);
 
-  const formatSales = () =>
+  useEffect(() => {
+    getSales();
+  }, []);
+
+  const getSales = async () => {
+    setIsLoading(true);
+    const { status, data } = await api(`/api/shop/sales?id=${id}`, { method: 'GET' });
+    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
+      setSales(formatSales(data));
+    } else {
+      setSales([]);
+    }
+    setIsLoading(false);
+  };
+
+  const formatSales = (response) =>
     response
       .sort((a, b) => moment(b.createdAt) - moment(a.createdAt))
-      .map((s) => ({
-        ...s,
-        type: LIST_ITEM_ENUM.SALES,
-      }));
+      .map((s) => ({ ...s, type: LIST_ITEM_ENUM.SALES }));
 
   if (isLoading) {
     return (
@@ -30,12 +43,12 @@ export default function Sales() {
     );
   }
 
-  if (!response) {
+  if (!sales) {
     return null;
   }
   return (
     <IgContainer>
-      <List items={formatSales()} />
+      <List items={sales} />
     </IgContainer>
   );
 }

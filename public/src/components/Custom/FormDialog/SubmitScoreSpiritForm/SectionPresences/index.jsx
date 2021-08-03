@@ -32,7 +32,8 @@ export default function SectionSpirit(props) {
       formatRoute('/api/entity/getRoster', null, {
         rosterId: submissionerInfos.myTeam.rosterId,
         withSub: true,
-      })
+      }),
+      { method: 'GET' }
     );
     if (data) {
       const fullRoster = data

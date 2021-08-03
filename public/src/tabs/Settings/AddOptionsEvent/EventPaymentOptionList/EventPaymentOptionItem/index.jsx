@@ -29,9 +29,7 @@ export default function EventPaymentOptionItem(props) {
   const icon = useMemo(() => (expanded ? 'KeyboardArrowUp' : 'KeyboardArrowDown'), [expanded]);
 
   const onDelete = async () => {
-    await api(formatRoute('/api/entity/option', null, { id }), {
-      method: 'DELETE',
-    });
+    await api(formatRoute('/api/entity/option', null, { id }), { method: 'DELETE' });
     update();
     setAlertDialog(false);
   };

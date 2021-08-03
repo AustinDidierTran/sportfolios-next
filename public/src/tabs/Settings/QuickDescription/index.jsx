@@ -83,7 +83,7 @@ export default function Description() {
   }, [formik.values.quickDescription, initial]);
 
   return (
-    <Paper title="Description">
+    <Paper title={t('description.description')}>
       <form onSubmit={formik.handleSubmit}>
         <TextField
           className={styles.quickDescription}

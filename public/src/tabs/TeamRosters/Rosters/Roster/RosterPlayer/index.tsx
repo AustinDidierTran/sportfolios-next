@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import { getIconFromRole, getInitialsFromName } from '../../../../../utils/stringFormats';
+import { getIconFromRole } from '../../../../../utils/stringFormats';
 import styles from './RosterPlayer.module.css';
 import {
   FORM_DIALOG_TYPE_ENUM,
@@ -57,7 +57,7 @@ const RosterPlayer: React.FunctionComponent<IProps> = (props) => {
   return (
     <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}>
       <ListItemIcon>
-        <Avatar photoUrl={player.photoUrl} initials={getInitialsFromName(player.name)} />
+        <Avatar photoUrl={player.photoUrl} />
       </ListItemIcon>
       <div className={styles.position}>
         {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (

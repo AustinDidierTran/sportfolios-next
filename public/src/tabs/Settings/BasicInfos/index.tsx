@@ -130,9 +130,9 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
         type: ACTION_ENUM.UPDATE_ORGANIZATION_PROFILE_PICTURE,
         payload: photoUrl,
       });
-      return { status: 200 };
+      return { status: REQUEST_STATUS_ENUM.SUCCESS };
     }
-    return { status: 404 };
+    return { status: REQUEST_STATUS_ENUM.ERROR };
   };
 
   if (isEditMode) {

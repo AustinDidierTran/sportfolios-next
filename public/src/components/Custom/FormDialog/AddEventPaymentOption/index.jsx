@@ -26,7 +26,7 @@ export default function AddEventPaymentOption(props) {
   } = useContext(Store);
 
   const getAccounts = async () => {
-    const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }));
+    const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }), { method: 'GET' });
     const res = data.map((r) => ({
       value: r.id,
       display: `${r?.name} ${r?.surname}`,
@@ -39,7 +39,7 @@ export default function AddEventPaymentOption(props) {
   };
 
   const getTaxes = async () => {
-    const { data } = await api(formatRoute('/api/stripe/getTaxes'));
+    const { data } = await api(formatRoute('/api/stripe/getTaxes'), { method: 'GET' });
     const res = data.map((d) => ({
       id: d.id,
       percentage: d.percentage,

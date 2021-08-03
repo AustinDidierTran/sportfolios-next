@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { ROUTES, goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import api from '../../../actions/api';
-import { STATUS_ENUM, SOCKET_EVENT } from '../../../../common/enums';
+import { SOCKET_EVENT, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { useWindowSize } from '../../../hooks/window';
 
@@ -60,15 +60,17 @@ export default function CustomBottomNavigation() {
   );
 
   const fetchUnreadNotificationsCount = async () => {
-    const res = await api('/api/notifications/unseenCount');
-    if (res.status == STATUS_ENUM.SUCCESS_STRING) {
+    const res = await api('/api/notifications/unseenCount', { method: 'GET' });
+    if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
       setUnreadNotificationsCount(Number(res.data));
     }
   };
 
   useEffect(() => {
-    fetchUnreadNotificationsCount();
-  }, []);
+    if (displayNav) {
+      fetchUnreadNotificationsCount();
+    }
+  }, [displayNav]);
 
   return displayNav ? (
     <BottomNavigation value={value} onChange={handleChange} className={styles.bottomnavigation}>

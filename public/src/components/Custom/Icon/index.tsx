@@ -232,7 +232,7 @@ interface IProps {
 }
 
 const CustomIcon: React.FunctionComponent<IProps> = (props) => {
-  const { icon, color = 'primary', onClick, fontSize = 'default', style } = props;
+  const { icon, color = 'primary', onClick, fontSize = 'medium', style } = props;
 
   if (!icon) {
     return null;

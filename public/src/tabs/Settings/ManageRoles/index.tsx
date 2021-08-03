@@ -13,7 +13,6 @@ import api from '../../../actions/api';
 import styles from './ManageRoles.module.css';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import AddAdmins from './AddAdmins';
-import { getInitialsFromName } from '../../../utils/stringFormats';
 import { GLOBAL_ENUM } from '../../../../common/enums';
 import { getEntity as getEntityApi, getRoles } from '../../../actions/service/entity/get';
 import { Entity, EntityRole } from '../../../../../typescript/types';
@@ -111,10 +110,7 @@ const ManageRoles: React.FunctionComponent = () => {
         <List disablePadding className={styles.list} key={index}>
           <ListItem key={index} button onClick={() => goTo(ROUTES.entity, { id: e.entityId })} className={styles.item}>
             <ListItemIcon>
-              <Avatar
-                photoUrl={e.photoUrl}
-                initials={getInitialsFromName(e.surname ? `${e.name} ${e.surname}` : e.name)}
-              />
+              <Avatar photoUrl={e.photoUrl} />
             </ListItemIcon>
             {e.surname ? (
               <ListItemText primary={`${e.name} ${e.surname}`} secondary={getEntityTypeName(e.type)} />

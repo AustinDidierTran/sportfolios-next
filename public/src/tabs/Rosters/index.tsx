@@ -34,7 +34,6 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
     }
   }, [eventId]);
 
-
   const getData = async (): Promise<void> => {
     const rosters = await getAllTeamsAcceptedInfos(eventId);
     const rostersUpdated = rosters.map((roster) => {
@@ -72,5 +71,5 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
       />
     </>
   );
-}
+};
 export default TabRosters;

@@ -1,10 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import styles from './TeamItem.module.css';
@@ -17,8 +16,6 @@ export default function TeamItem(props) {
 
   const { id, secondary, onClick, selected, photoUrl, name, isRegistered, icon, inverseColor, notClickable, onDelete } =
     props;
-
-  const initials = useMemo(() => getInitialsFromName(name));
 
   const handleClick = useCallback(
     (e) => {
@@ -45,9 +42,9 @@ export default function TeamItem(props) {
     >
       <ListItemIcon>
         {inverseColor ? (
-          <CustomAvatar className={styles.avatar} photoUrl={photoUrl} icon={icon} initials={initials} />
+          <CustomAvatar className={styles.avatar} photoUrl={photoUrl} icon={icon} />
         ) : (
-          <CustomAvatar photoUrl={photoUrl} icon={icon} initials={initials} />
+          <CustomAvatar photoUrl={photoUrl} icon={icon} />
         )}
       </ListItemIcon>
       <ListItemText className={styles.text} primary={name} secondary={secondary || t('team.team')} />

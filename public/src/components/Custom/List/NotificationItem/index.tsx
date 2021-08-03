@@ -15,7 +15,6 @@ import { COLORS } from '../../../../utils/colors';
 interface IProps {
   created_at: string;
   description: string;
-  initials: string;
   onClick: () => void;
   buttons?: JSX.Element[];
   clicked?: boolean;
@@ -24,7 +23,7 @@ interface IProps {
 }
 
 const NotificationItem: React.FunctionComponent<IProps> = (props) => {
-  const { clicked, description, photoUrl, onClick, initials, id, created_at, buttons } = props;
+  const { clicked, description, photoUrl, onClick, id, created_at, buttons } = props;
 
   function handleClick(): void {
     if (!clicked) {
@@ -41,7 +40,7 @@ const NotificationItem: React.FunctionComponent<IProps> = (props) => {
   return (
     <ListItem classes={{ container: clicked ? styles.old : styles.new }} ContainerProps={{ onClick: handleClick }}>
       <ListItemAvatar>
-        <CustomAvatar photoUrl={photoUrl} initials={initials} />
+        <CustomAvatar photoUrl={photoUrl} />
       </ListItemAvatar>
       <ListItemText
         className={styles.text}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, ROUTES_ENUM, STATUS_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM, TABS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -28,7 +28,7 @@ interface IGameInfos {
   id: string;
   timeslot: string;
   field: string;
-  name: string;
+  phaseName: string;
   teamNames: string;
   teamScores: string;
 }
@@ -106,7 +106,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
 
   const getRole = async (): Promise<void> => {
     const res = await getRoleApi(id);
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);

@@ -8,42 +8,63 @@ import CustomPaper from '../../Paper';
 
 import CardContent from '@material-ui/core/CardContent';
 import { goTo, ROUTES } from '../../../../actions/goTo';
-import { formatPrice, formatRoute } from '../../../../utils/stringFormats';
+import { formatPrice } from '../../../../utils/stringFormats';
 import { useTranslation } from 'react-i18next';
-import api from '../../../../actions/api';
 import ImageCard from '../../ImageCard';
 import EditItem from '../../../../tabs/Shop/EditItem';
 import { Store } from '../../../../Store';
+import { deleteShopItem } from '../../../../actions/service/stripe';
+import { AlertDialog } from '../..';
 
-export default function ShopItem(props) {
+interface IProps {
+  label: string;
+  amount: number;
+  photoUrl: string;
+  description: string;
+  stripePriceId: string;
+  stripeProductId: string;
+  sizes: string[];
+  adminView: string;
+  update: () => void;
+}
+
+const ShopItem: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const [isEditing, setIsEditing] = useState(false);
-  const { label: name, amount: price, photoUrl, description, stripePriceId, stripeProductId, isEditor, update } = props;
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
+
+  const {
+    label: name,
+    amount: price,
+    photoUrl,
+    description,
+    stripePriceId,
+    stripeProductId,
+    sizes,
+    adminView,
+    update,
+  } = props;
   const {
     state: { id },
   } = useContext(Store);
 
-  const text = useMemo(() => decodeURIComponent(description), [description]);
+  const text = useMemo((): string => decodeURIComponent(description), [description]);
 
-  const onPaperClick = () => {
+  const onPaperClick = (): void => {
     goTo(ROUTES.shopDetails, { id, stripePriceId });
   };
 
-  const deleteItem = async () => {
-    await api(
-      formatRoute('/api/stripe/deleteItem', null, {
-        stripeProductId,
-        stripePriceId,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
-    update();
+  const deleteItem = (): void => {
+    deleteShopItem(stripeProductId, stripePriceId).then(update);
+    setOpenDelete(false);
   };
 
-  const editItem = () => {
+  const editItem = (): void => {
     setIsEditing(!isEditing);
+  };
+
+  const onClickDelete = async (): Promise<void> => {
+    setOpenDelete(true);
   };
 
   if (isEditing) {
@@ -56,6 +77,7 @@ export default function ShopItem(props) {
           description,
           stripePriceId,
           stripeProductId,
+          sizes,
         }}
         fetchItems={update}
         isEditing={isEditing}
@@ -65,6 +87,7 @@ export default function ShopItem(props) {
   }
 
   return (
+    <>
     <CustomPaper className={styles.root}>
       <ImageCard className={styles.media} image={photoUrl} onClick={onPaperClick} />
       <CardContent className={styles.infos}>
@@ -79,17 +102,17 @@ export default function ShopItem(props) {
           color="textSecondary"
           component="p"
           className={styles.description}
-          placeholder="Description"
-          value={text}
-          disabled
-        />
+          placeholder={t('description.description')}
+        >
+          {text}
+        </Typography>
 
-        {isEditor ? (
+        {adminView ? (
           <div className={styles.buttons}>
-            <CustomButton onClick={editItem} endIcon="Settings" color="primary" className={styles.button}>
+            <CustomButton onClick={editItem} endIcon="Edit" color="primary" className={styles.button}>
               {t('edit.edit')}
             </CustomButton>
-            <CustomButton onClick={deleteItem} endIcon="Delete" color="secondary" className={styles.button}>
+            <CustomButton onClick={onClickDelete} endIcon="Delete" color="secondary" className={styles.button}>
               {t('delete.delete')}
             </CustomButton>
           </div>
@@ -105,5 +128,15 @@ export default function ShopItem(props) {
         )}
       </CardContent>
     </CustomPaper>
+    <AlertDialog
+    open={openDelete}
+    onCancel={() => 
+      setOpenDelete(false)
+    }
+    title={t('delete.delete_this_item_from_shop')}
+    onSubmit={deleteItem}
+    />
+  </>
   );
-}
+};
+export default ShopItem;

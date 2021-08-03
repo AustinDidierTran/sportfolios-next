@@ -86,15 +86,13 @@ export default function BecomeMember(props) {
   };
 
   const getPeople = async () => {
-    const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null));
+    const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null), { method: 'GET' });
     if (!data) {
       return;
     }
-    const { data: people } = await api(
-      formatRoute('/api/user/ownedPersons', null, {
-        type: GLOBAL_ENUM.PERSON,
-      })
-    );
+    const { data: people } = await api(formatRoute('/api/user/ownedPersons', null, { type: GLOBAL_ENUM.PERSON }), {
+      method: 'GET',
+    });
     const res = people.map((p) => ({
       value: p.id,
       display: `${p.name} ${p?.surname}`,
@@ -110,7 +108,8 @@ export default function BecomeMember(props) {
     const { data } = await api(
       formatRoute('/api/entity/memberships', null, {
         id,
-      })
+      }),
+      { method: 'GET' }
     );
     setFullMemberships(data);
     const memberships = data.map((d) => ({

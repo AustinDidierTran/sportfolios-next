@@ -59,7 +59,8 @@ export default function Notifications(props) {
       formatRoute('/api/notifications/all', null, {
         currentPage: currentPage.current,
         perPage: 5,
-      })
+      }),
+      { method: 'GET' }
     );
 
     if (status === REQUEST_STATUS_ENUM.ERROR) {

@@ -101,7 +101,8 @@ export default function PlayersRegistered() {
     const { data } = await api(
       formatRoute('/api/entity/allPeopleRegisteredInfos', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
     setPlayers(data);
   };
@@ -182,7 +183,8 @@ export default function PlayersRegistered() {
     const { data } = await api(
       formatRoute('/api/entity/event', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
     setMaximumSpots(data.maximum_spots);
   };
@@ -191,7 +193,8 @@ export default function PlayersRegistered() {
     const { data } = await api(
       formatRoute('/api/entity/allPlayersAcceptedRegistered', null, {
         eventId,
-      })
+      }),
+      { method: 'GET' }
     );
     setAcceptedSpots(data?.length);
   };

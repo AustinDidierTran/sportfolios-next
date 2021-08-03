@@ -61,6 +61,11 @@
   height: 250px;
 }
 
+.button {
+  display: grid;
+  grid-template-columns: 1fr 127fr;
+}
+
 @media (min-width: 600px) {
   .media {
     height: 400px;

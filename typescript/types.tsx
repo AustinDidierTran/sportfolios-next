@@ -345,7 +345,7 @@ export interface Roster {
   players?: TeamPlayer[];
 }
 
-export interface TeamPlayer {
+export interface TeamPlayer extends Player {
   id: string;
   rosterId: string;
   personId: string;
@@ -542,6 +542,7 @@ export interface Partner {
 export interface Positions {
   id: string;
   gameId: string;
+  roster: TeamPlayer[];
   rosterId: string;
   score: number;
   name: string;
@@ -607,6 +608,10 @@ export interface Location {
   state?: string;
   zip?: string;
   country?: string;
+}
+
+export interface ForYouPagePost extends Post {
+  cardType: string;
 }
 
 export interface Post {
@@ -701,4 +706,27 @@ export interface Report {
   entityId?: string;
   type: REPORT_TYPE_ENUM;
   metadata: string;
+}
+
+export interface ShopItems {
+  active: boolean;
+  amount: number;
+  description: string;
+  entityId: string;
+  label: string;
+  photoUrl: string;
+  stripePriceId: string;
+  stripeProductId: string;
+  sizes: string;
+}
+
+export interface ShopCartItems {
+  label: string;
+  amount: string;
+  description: string;
+  metadata: string;
+  quantity: number;
+  email: string;
+  photoUrl: string;
+  createdAt: string;
 }

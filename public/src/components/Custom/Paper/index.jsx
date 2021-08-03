@@ -6,8 +6,7 @@ import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 
 export default function CustomPaper(props) {
-  const { title, children, childrenProps, ...paperProps } = props;
-
+  const { title, children, childrenProps, titleStyle, ...paperProps } = props;
   const [width] = useWindowSize();
 
   const [elevation, setElevation] = React.useState(0);
@@ -23,7 +22,7 @@ export default function CustomPaper(props) {
   return (
     <Paper elevation={elevation} {...paperProps}>
       {title ? (
-        <div className={styles.title}>
+        <div className={titleStyle ? titleStyle: styles.title}>
           <span>{title}</span>
         </div>
       ) : null}

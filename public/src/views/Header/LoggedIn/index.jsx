@@ -5,7 +5,9 @@ import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { IconButton, SearchInput, ProfileChip } from '../../../components/Custom';
+import SearchInput from '../../../components/Custom/SearchInput';
+import IconButton from '../../../components/Custom/IconButton';
+import ProfileChip from '../../../components/Custom/ProfileChip';
 import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';
 import useStyles from './useStyles';
@@ -38,7 +40,7 @@ export default function LoggedIn(props) {
     if (userInfo.primaryPerson) {
       return userInfo.primaryPerson.photoUrl;
     }
-  }, [userInfo.primaryPerson.photoUrl]);
+  }, [userInfo.primaryPerson]);
 
   const nameObj = useMemo(() => {
     if (userInfo.primaryPerson) {
@@ -52,7 +54,7 @@ export default function LoggedIn(props) {
   const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 
   const updateCart = async () => {
-    const { data: cartItems } = await api('/api/shop/getCartItems');
+    const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
     dispatch({
       type: ACTION_ENUM.UPDATE_CART,
       payload: cartItems,
@@ -91,7 +93,7 @@ export default function LoggedIn(props) {
           <Toolbar className="toolBar">
             <div className={styles.container}>
               <div>
-                <SearchInput apiRoute="/api/data/search/previous" />
+                <SearchInput />
               </div>
             </div>
           </Toolbar>
@@ -113,7 +115,7 @@ export default function LoggedIn(props) {
               Sportfolios
             </Link>
           </Typography>
-          <SearchInput apiRoute="/api/data/search/previous" />
+          <SearchInput />
           <div className={classes.grow} />
           <div className={styles.sectionDesktop}>
             <ProfileChip photoUrl={photoUrl} nameObj={nameObj} entityId={userInfo.primaryPerson.personId} />

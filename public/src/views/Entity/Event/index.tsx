@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useContext } from 'react';
 
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { TABS_ENUM, GLOBAL_ENUM, STATUS_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
+import { TABS_ENUM, GLOBAL_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
@@ -108,7 +108,7 @@ const Event: React.FunctionComponent<IProps> = (props) => {
 
   const getRole = async (): Promise<void> => {
     const res = await getRoleApi(id);
-    if (res.status === STATUS_ENUM.SUCCESS_STRING) {
+    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);

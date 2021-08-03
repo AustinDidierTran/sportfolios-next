@@ -22,8 +22,12 @@ export default function ShopItem(props) {
           <ListItemIcon>
             <CustomAvatar photoUrl={photoUrl} variant="square" className={styles.photo} />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={label} secondary={t(size) || ''} />
-          <ListItemText className={styles.quantity} primary={formatPrice(amount)} secondary={t('Qt', { quantity })} />
+          <ListItemText
+            className={styles.name}
+            primary={label}
+            secondary={size ? t('sizes_enum_' + size.toLowerCase()) : ''}
+          />
+          <ListItemText className={styles.quantity} primary={formatPrice(amount)} secondary={t('qt', { quantity })} />
           <CustomIconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
           <ListItemText
             className={styles.date}

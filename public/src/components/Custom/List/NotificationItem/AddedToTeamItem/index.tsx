@@ -34,7 +34,6 @@ const AddedToTeamItem: React.FunctionComponent<IProps> = (props) => {
       {...otherProps}
       created_at={created_at}
       description={description}
-      initials={teamName[0]}
       onClick={handleClick}
     />
   );

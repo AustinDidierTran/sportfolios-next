@@ -31,7 +31,7 @@ export default function AppLinking() {
   } = useContext(Store);
 
   const fetchConnectedApp = async () => {
-    const res = await api('/api/user/connectedApps');
+    const res = await api('/api/user/connectedApps', { method: 'GET' });
     if (res.status === REQUEST_STATUS_ENUM.ERROR) {
       return;
     }

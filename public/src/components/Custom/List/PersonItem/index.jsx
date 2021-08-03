@@ -6,7 +6,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import CustomAvatar from '../../Avatar';
-import { getInitialsFromName } from '../../../../utils/stringFormats/index';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useCallback } from 'react';
@@ -29,8 +28,6 @@ export default function PersonItem(props) {
     notClickable,
     disabled,
   } = props;
-
-  const initials = useMemo(() => getInitialsFromName(completeName || name));
 
   const handleClick = useCallback(
     (e) => {
@@ -69,7 +66,7 @@ export default function PersonItem(props) {
         disabled={disabled}
       >
         <ListItemIcon>
-          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} initials={initials} />
+          <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} />
         </ListItemIcon>
         <ListItemText
           className={styles.text}

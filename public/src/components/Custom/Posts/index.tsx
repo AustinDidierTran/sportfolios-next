@@ -89,7 +89,8 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
         locationId,
         currentPage: currentPage.current,
         perPage: 5,
-      })
+      }),
+      { method: 'GET' }
     );
 
     if (status === REQUEST_STATUS_ENUM.ERROR) {

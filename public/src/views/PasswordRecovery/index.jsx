@@ -15,7 +15,7 @@ import api from '../../actions/api';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { Store, ACTION_ENUM } from '../../Store';
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { COLORS } from '../../utils/colors';
@@ -49,7 +49,7 @@ export default function PasswordRecovery() {
           password,
         }),
       });
-      if (res.status === 200) {
+      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
         const { authToken, userInfo } = res.data;
         dispatch({
           type: ACTION_ENUM.LOGIN,
@@ -65,7 +65,7 @@ export default function PasswordRecovery() {
         });
         goTo(ROUTES.home);
       }
-      if (res.status === 403) {
+      if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
         // Token expired
         formik.setFieldError('password', t('token_expired'));
       }

@@ -63,7 +63,7 @@ export default function ImportMembers() {
   };
 
   const getCoupons = async () => {
-    const { data } = await api(formatRoute('/api/entity/organizationTokenPromoCode', null, { id }));
+    const { data } = await api(formatRoute('/api/entity/organizationTokenPromoCode', null, { id }), { method: 'GET' });
 
     if (data) {
       setCoupons(data);
@@ -90,7 +90,7 @@ export default function ImportMembers() {
   }))(TableRow);
 
   const getMemberships = async () => {
-    const res = await api(formatRoute('/api/entity/memberships/', null, { id }));
+    const res = await api(formatRoute('/api/entity/memberships/', null, { id }), { method: 'GET' });
     if (!res.data) {
       return;
     }
