@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useContext } from 'react';
 
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { TABS_ENUM, GLOBAL_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import { TABS_ENUM, GLOBAL_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
