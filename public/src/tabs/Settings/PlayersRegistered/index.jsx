@@ -17,7 +17,6 @@ import TableRow from '@material-ui/core/TableRow';
 import styles from './PlayersRegistered.module.css';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import { unregisterPeople } from '../../../actions/api/helpers';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
@@ -27,6 +26,7 @@ import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { COLORS } from '../../../utils/colors';
+import { unregisterPeople } from '../../../actions/service/entity/post';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();

@@ -119,7 +119,7 @@ const EditRankings: React.FunctionComponent = () => {
               name: r.name,
             };
           }
-          if (r && r.originPhase.id && r.originPosition) {
+          if (r && r.originPhase?.id && r.originPosition) {
             if (r.originPhase.id === prerankPhase.phaseId) {
               const rankingWithName = preranking.find((p) => p.position === r.originPosition);
               if (rankingWithName.rosterId) {

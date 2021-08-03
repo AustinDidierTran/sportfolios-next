@@ -152,7 +152,7 @@ export default function PrerankAccordionDnD(props) {
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {preranking.length ? (
+                  {preranking?.length ? (
                     <div>
                       {preranking.map((rank, index) => (
                         <Draggable key={rank.rankingId} draggableId={rank.rankingId} index={index}>

@@ -30,7 +30,7 @@ export default function TeamSearchList(props) {
   }, [optionsRoute]);
 
   const optionsRoute = useMemo(() => {
-    const res = formatRoute('/api/data/search/myTeamsSearch', null, {
+    const res = formatRoute('/api/search/myTeamsSearch', null, {
       query: formik.values.teamSearchQuery,
       eventId,
     });

@@ -103,7 +103,7 @@ export interface Player {
   teamId: string;
   role: ROSTER_ROLE_ENUM;
   name: string;
-  photoUrl: string;
+  photoUrl?: string;
   rsvp?: string;
   surname?: string;
 }
@@ -346,15 +346,10 @@ export interface Roster {
 }
 
 export interface TeamPlayer extends Player {
-  id: string;
   rosterId: string;
-  personId: string;
-  name: string;
   isSub: boolean;
   paymentStatus: STATUS_ENUM;
-  role: ROSTER_ROLE_ENUM;
   invoiceItemId?: string;
-  photoUrl?: string;
 }
 
 export interface Phase {
@@ -371,6 +366,7 @@ export interface Phase {
   phaseId?: string;
   order?: number;
   finalRanking?: string;
+  allTeamsEqual?: boolean;
 }
 export interface PhaseGameAndTeams {
   games: PhaseGames[];

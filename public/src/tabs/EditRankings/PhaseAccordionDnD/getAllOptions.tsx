@@ -106,7 +106,7 @@ const getRankingOptions = (allRankings: Ranking[], allPhases: Phase[], prerankId
     .filter((r) => r.currentPhase.id !== phaseId)
     .map((r) => {
       let name;
-      if (allPhases.find((p) => p.phaseId === r.currentPhase.id).status === PHASE_STATUS_ENUM.DONE) {
+      if (allPhases.find((p) => p.phaseId === r.currentPhase.id)?.status === PHASE_STATUS_ENUM.DONE) {
         name = `${r.finalPosition.toString()}. ${r.currentPhase.name} (${r.teamName})`;
       }
       return {
@@ -137,7 +137,7 @@ const getRankingOptions = (allRankings: Ranking[], allPhases: Phase[], prerankId
           }
         }
       });
-      return unavailablePosition.rankingId;
+      return unavailablePosition?.rankingId;
     })
     .filter((r) => r !== undefined);
 

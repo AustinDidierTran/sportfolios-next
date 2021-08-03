@@ -45,7 +45,6 @@ export default function MembersReportItem(props) {
 
   const handleClick = async () => {
     const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
-
     if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       const formattedData = res.data.map((d) => ({
         name: d.name,

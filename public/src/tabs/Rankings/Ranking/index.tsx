@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import styles from './Ranking.module.css';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import Accordion from '../../../components/Custom/Accordion';
@@ -24,9 +24,7 @@ interface IItems extends RankingType {
 const Ranking: React.FunctionComponent<IProps> = (props) => {
   const { ranking, title, subtitle, withStats, withoutPosition, allTeamsEqual } = props;
 
-  const [items, setItems] = useState<IItems[]>([]);
-
-  const getItems = (): void => {
+  const items = useMemo<IItems[]>(() => {
     if (withStats) {
       const items = ranking.map((r: RankingType, index: number) => ({
         ...r,
@@ -36,9 +34,9 @@ const Ranking: React.FunctionComponent<IProps> = (props) => {
         withoutPosition,
       }));
       if (allTeamsEqual) {
-        setItems(items.sort((a, b) => a.initialPosition - b.initialPosition));
+        return items.sort((a, b) => a.initialPosition - b.initialPosition);
       }
-      setItems(items);
+      return items;
     } else {
       const items = ranking.map((r, index) => ({
         ...r,
@@ -47,12 +45,8 @@ const Ranking: React.FunctionComponent<IProps> = (props) => {
         key: index,
         withoutPosition,
       }));
-      setItems(items);
+      return items;
     }
-  };
-
-  useEffect((): void => {
-    getItems();
   }, [ranking]);
 
   return (

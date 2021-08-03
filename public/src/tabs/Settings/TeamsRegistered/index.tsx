@@ -13,7 +13,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 
 import { useTranslation } from 'react-i18next';
-import { unregisterTeams } from '../../../actions/api/helpers';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, STATUS_ENUM, PILL_TYPE_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
@@ -31,6 +30,7 @@ import {
 } from '../../../actions/service/entity/get';
 import TeamHead from './TeamHead';
 import TeamHeadMobile from './TeamHeadMobile';
+import { unregisterTeams } from '../../../actions/service/entity/post';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {

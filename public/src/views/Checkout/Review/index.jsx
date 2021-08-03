@@ -8,8 +8,9 @@ import CustomCard from '../../../components/Custom/Card';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { CARD_TYPE_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
-import { checkout, createRefund, getCartItems } from '../../../utils/stripe';
+import { getCartItems } from '../../../utils/stripe';
 import { formatPrice } from '../../../utils/stringFormats';
+import { checkout, createRefund } from '../../../actions/service/stripe';
 
 export default function Review() {
   const { t } = useTranslation();
