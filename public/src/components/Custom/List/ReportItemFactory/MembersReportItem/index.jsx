@@ -12,7 +12,7 @@ import {
   getPaymentStatusName,
 } from '../../../../../utils/stringFormats';
 import api from '../../../../../actions/api';
-import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { SEVERITY_ENUM } from '../../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../../common/errors';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
@@ -45,8 +45,8 @@ export default function MembersReportItem(props) {
 
   const handleClick = async () => {
     const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
-
-    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
+    //Change it to  if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
+    if (res.status === 201) {
       const formattedData = res.data.map((d) => ({
         name: d.name,
         surname: d.surname,

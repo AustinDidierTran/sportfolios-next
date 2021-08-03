@@ -52,10 +52,10 @@ const getProductDetail = (metadata) => {
     case GLOBAL_ENUM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:
+      if (metadata.person) {
+        return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.person.name} ${metadata.person.surname}`;
+      }
       if (metadata.isIndividualOption) {
-        if (metadata.person) {
-          return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.person?.name} ${metadata.person?.surname}`;
-        }
         return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.name}`;
       }
       return `${metadata.event.basicInfos.name} | ${metadata.option?.name} | ${metadata.team?.name}`;
@@ -71,10 +71,10 @@ const getRegistrationFor = (metadata) => {
     case GLOBAL_ENUM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:
+      if (metadata.person) {
+        return `${metadata.person.name} ${metadata.person.surname}`;
+      }
       if (metadata.isIndividualOption) {
-        if (metadata.person) {
-          return `${metadata.person?.name} ${metadata.person?.surname}`;
-        }
         return metadata.name;
       }
       return metadata.team?.name;

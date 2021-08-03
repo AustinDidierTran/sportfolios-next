@@ -49,8 +49,6 @@ const Ranking: React.FunctionComponent<IProps> = (props) => {
     }
   }, [ranking]);
 
-  console.log({ items, ranking, allTeamsEqual });
-
   return (
     <div className={styles.div}>
       <Accordion title={title} subtitle={subtitle} content={<List items={items} />} />
