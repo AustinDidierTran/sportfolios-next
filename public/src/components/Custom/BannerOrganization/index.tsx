@@ -8,6 +8,7 @@ import Chip from '@material-ui/core/Chip';
 import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
 import { Entity, Member } from '../../../../../typescript/types';
+import { COLORS } from '../../../utils/colors';
 
 interface IProps {
   basicInfos: Entity;
@@ -39,7 +40,7 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
     <div className={styles.root}>
       <Grid container>
         <Grid item lg={4} md={4} sm={12} xs={12}>
-          <Avatar photoUrl={basicInfos.photoUrl} size="lg" className={styles.avatar}></Avatar>
+          <Avatar photoUrl={basicInfos.photoUrl} size="lg" className={styles.avatar} />
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} container>
           <Grid container className={styles.gridText}>
@@ -91,7 +92,7 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
           {member ? (
             <Chip label={getMembershipName(member.memberType)} color="primary" variant="outlined" />
           ) : (
-            <Chip label={t('not_member')} style={{ color: 'grey' }} variant="outlined" />
+            <Chip label={t('not_member')} style={{ color: COLORS.grey }} variant="outlined" />
           )}
         </div>
       </div>

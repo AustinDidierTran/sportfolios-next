@@ -43,7 +43,7 @@ export default function CreditCards() {
 
   return (
     <Card className={styles.card}>
-      <List title={t('credit_cards')} items={paymentMethods}></List>
+      <List title={t('credit_cards')} items={paymentMethods} />
       <Button
         size="small"
         color="primary"

@@ -82,9 +82,7 @@ export default function CustomAutocomplete(props) {
                     <InputAdornment position="start">
                       <CustomIcon icon={icon} color={iconColor} />
                     </InputAdornment>
-                  ) : (
-                    <></>
-                  )}
+                  ) : null}
                 </>
               ),
             }}

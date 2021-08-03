@@ -32,7 +32,7 @@ export default function ShopItem(props) {
           <ListItemText
             className={styles.date}
             secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
-          ></ListItemText>
+          />
         </div>
       </ListItem>
       <Divider />

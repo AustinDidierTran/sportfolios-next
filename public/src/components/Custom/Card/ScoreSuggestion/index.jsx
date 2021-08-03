@@ -13,21 +13,22 @@ import { STATUS_ENUM } from '../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import api from '../../../../actions/api';
+import { COLORS } from '../../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   secondary: {
-    background: '#f44336',
+    background: COLORS.red,
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#b2102f' },
   },
   primary: {
-    background: '#18B393',
+    background: COLORS.turquoise,
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#009687' },
   },
   even: {
     background: '#e9e9e9',
   },
   odd: {
-    background: 'lightGrey',
+    background: COLORS.lightGrey,
   },
 }));
 
@@ -44,13 +45,13 @@ export default function ScoreSuggestion(props) {
   const chipStyle = useMemo(() => {
     switch (suggestion.status) {
       case STATUS_ENUM.ACCEPTED:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
       case STATUS_ENUM.REFUSED:
-        return { border: '1px solid #f44336', color: '#f44336 ' };
+        return { border: '1px solid #f44336', color: COLORS.red };
       case STATUS_ENUM.PENDING:
         return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
     }
   }, [suggestion]);
 
@@ -83,7 +84,7 @@ export default function ScoreSuggestion(props) {
             className={styles.person}
             primary={suggestion.name}
             secondary={formatDate(moment.utc(suggestion.created_at), 'D MMM H:mm')}
-          ></ListItemText>
+          />
           <Typography className={styles.score1}>{suggestion.score[game.positions[0].roster_id]}</Typography>
           <Typography className={styles.union}>-</Typography>
           <Typography className={styles.score2}>{suggestion.score[game.positions[1].roster_id]}</Typography>

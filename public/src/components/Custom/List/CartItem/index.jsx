@@ -96,7 +96,7 @@ export default function CartItem(props) {
           checked={checked}
           open={open}
           setOpen={setOpen}
-        ></TeamItem>
+        />
       );
     }
     const { person } = metadata;
@@ -117,7 +117,7 @@ export default function CartItem(props) {
           checked={checked}
           open={open}
           setOpen={setOpen}
-        ></PersonItem>
+        />
       );
     }
   }
@@ -137,7 +137,7 @@ export default function CartItem(props) {
         checked={checked}
         open={open}
         setOpen={setOpen}
-      ></MembershipItem>
+      />
     );
   }
   if (type === GLOBAL_ENUM.SHOP_ITEM) {
@@ -156,7 +156,7 @@ export default function CartItem(props) {
         disabled={disabled}
         checked={checked}
         id={id}
-      ></ShopItem>
+      />
     );
   }
   if (type === GLOBAL_ENUM.DONATION) {
@@ -176,8 +176,8 @@ export default function CartItem(props) {
         checked={checked}
         open={open}
         setOpen={setOpen}
-      ></DonationItem>
+      />
     );
   }
-  return <></>;
+  return null;
 }

@@ -25,19 +25,19 @@ export default function DonationItem(props) {
               photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
               variant="square"
               className={styles.photo}
-            ></CustomAvatar>
+            />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
+          <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name} />
           <ListItemText
             className={styles.quantity}
             primary={formatPrice(amount)}
-            secondary={`${person?.name} ${person?.surname? person.surname : ''}`}
-          ></ListItemText>
+            secondary={`${person?.name} ${person?.surname ? person.surname : ''}`}
+          />
           <CustomIconButton onClick={goToReceipt} tooltip={t('receipt')} icon="Receipt" style={{ color: 'primary' }} />
           <ListItemText
             className={styles.date}
             secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
-          ></ListItemText>
+          />
         </div>
       </ListItem>
       <Divider />

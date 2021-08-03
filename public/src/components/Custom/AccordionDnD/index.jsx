@@ -12,10 +12,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styles from './AccordionDnD.module.css';
 import CustomIcon from '../Icon';
 import CustomButton from '../Button';
+import { COLORS } from '../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
     justifySelf: 'end',
   },
 }));
@@ -30,12 +31,12 @@ const reorder = (list, startIndex, endIndex) => {
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  background: isDragging ? COLORS.whiteSmoke : COLORS.white,
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
+  background: isDraggingOver ? COLORS.whiteSmoke : COLORS.white,
   width: '100%',
 });
 

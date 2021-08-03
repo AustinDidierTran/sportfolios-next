@@ -55,7 +55,7 @@ const EntitySettings: React.FunctionComponent<IProps> = (props) => {
           </div>
         );
       }
-      return <></>;
+      return null;
 
     case GLOBAL_ENUM.EVENT:
       return <AllEventSettings basicInfos={basicInfos} role={role} />;
@@ -82,7 +82,7 @@ const EntitySettings: React.FunctionComponent<IProps> = (props) => {
           </div>
         );
       }
-      return <></>;
+      return null;
 
     case GLOBAL_ENUM.PERSON:
       if (isAdmin) {
@@ -101,7 +101,7 @@ const EntitySettings: React.FunctionComponent<IProps> = (props) => {
           </div>
         );
       }
-      return <></>;
+      return null;
     default:
       throw 'type not defined';
   }

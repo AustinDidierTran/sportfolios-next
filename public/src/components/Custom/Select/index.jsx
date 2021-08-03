@@ -65,8 +65,8 @@ export default function CustomSelect(props) {
         )}
 
         {options && options.length ? (
-          options.map((option) => (
-            <MenuItem disabled={option.disabled} value={option.value} key={option.value}>
+          options.map((option, index) => (
+            <MenuItem disabled={option.disabled} value={option.value} key={index}>
               {option.display || t(option.displayKey)}
             </MenuItem>
           ))

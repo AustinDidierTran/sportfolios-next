@@ -64,7 +64,7 @@ export default function AddMembership(props) {
     const res = data.map((d) => ({
       id: d.id,
       percentage: d.percentage,
-      display: `${d.display_name} ${d.percentage} %`,
+      display: `${d.displayName} ${d.percentage} %`,
     }));
     setAllTaxes(res);
   };

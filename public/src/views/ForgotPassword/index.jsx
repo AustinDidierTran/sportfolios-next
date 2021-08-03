@@ -16,6 +16,7 @@ import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { goTo, ROUTES } from '../../actions/goTo';
 import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
+import { COLORS } from '../../utils/colors';
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
@@ -71,7 +72,7 @@ export default function ForgotPassword() {
                 variant="contained"
                 className={styles.button}
                 type="submit"
-                style={{ color: '#fff' }}
+                style={{ color: COLORS.white }}
               >
                 {t('send_password_recovery_email')}
               </Button>
@@ -83,7 +84,7 @@ export default function ForgotPassword() {
                   fontSize: 12,
                   textDecoration: 'none',
                   textAlign: 'center',
-                  color: 'grey',
+                  color: COLORS.grey,
                   margin: '0 16px',
                   cursor: 'pointer',
                 }}
@@ -96,7 +97,7 @@ export default function ForgotPassword() {
                   fontSize: 12,
                   textDecoration: 'none',
                   textAlign: 'center',
-                  color: 'grey',
+                  color: COLORS.grey,
                   margin: '0 16px',
                   cursor: 'pointer',
                 }}

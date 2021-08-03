@@ -72,7 +72,7 @@ export default function PersonItem(props) {
           className={styles.text}
           primary={completeName || name}
           secondary={secondary || t('person.person')}
-        ></ListItemText>
+        />
         <ListItemSecondaryAction>
           {secondaryActions ? (
             <div className={styles.secondaryActions}>
@@ -80,9 +80,7 @@ export default function PersonItem(props) {
                 <div key={index}>{action}</div>
               ))}
             </div>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </ListItemSecondaryAction>
       </ListItem>
     </div>

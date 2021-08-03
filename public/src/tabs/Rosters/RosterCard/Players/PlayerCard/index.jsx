@@ -12,6 +12,7 @@ import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfo
 import api from '../../../../../actions/api';
 import { formatRoute, getIconFromRole } from '../../../../../utils/stringFormats';
 import Avatar from '../../../../../components/Custom/Avatar';
+import { COLORS } from '../../../../../utils/colors';
 
 export default function PlayerCard(props) {
   const { isEditable, player, onDelete, onRoleUpdate, withInfos, index } = props;
@@ -93,12 +94,12 @@ export default function PlayerCard(props) {
           </div>
           <div className={styles.icon}>
             {withInfos ? (
-              <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
+              <IconButton icon="Info" style={{ color: COLORS.grey }} onClick={onAboutClick} tooltip={t('infos')} />
             ) : null}
             <IconButton
               onClick={() => setOpenOptions(true)}
               icon="Edit"
-              style={{ color: 'grey' }}
+              style={{ color: COLORS.grey }}
               tooltip={t('edit.edit')}
             />
           </div>
@@ -143,7 +144,7 @@ export default function PlayerCard(props) {
         </div>
         <div className={styles.icon}>
           {withInfos ? (
-            <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
+            <IconButton icon="Info" style={{ color: COLORS.grey }} onClick={onAboutClick} tooltip={t('infos')} />
           ) : null}
         </div>
       </div>

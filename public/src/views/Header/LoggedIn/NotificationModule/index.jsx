@@ -4,6 +4,7 @@ import { IconButton } from '../../../../components/Custom';
 import { SOCKET_EVENT, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { Store } from '../../../../Store';
 import { useTranslation } from 'react-i18next';
+import { COLORS } from '../../../../utils/colors';
 
 export default function NotificationModule(props) {
   const { className, onClick } = props;
@@ -42,7 +43,7 @@ export default function NotificationModule(props) {
       className={className}
       onClick={toggleNotification}
       icon="Notifications"
-      style={{ color: 'white' }}
+      style={{ color: COLORS.white }}
       size="medium"
       tooltip={t('notifications')}
       withBadge

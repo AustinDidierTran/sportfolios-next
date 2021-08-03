@@ -37,9 +37,7 @@ const RsvpItem: React.FunctionComponent<IProps> = (props) => {
         />
       ) : player.rsvp ? (
         <Chip label={t(player.rsvp)} color={player.rsvp == 'going' ? 'primary' : 'secondary'} variant="outlined" />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

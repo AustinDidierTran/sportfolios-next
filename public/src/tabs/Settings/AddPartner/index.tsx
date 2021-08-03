@@ -4,29 +4,39 @@ import Button from '../../../components/Custom/Button';
 import FormDialog from '../../../components/Custom/FormDialog';
 import { FORM_DIALOG_TYPE_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
-import api from '../../../actions/api';
 import { List } from '../../../components/Custom';
-import { formatRoute } from '../../../utils/stringFormats';
 import { Store } from '../../../Store';
+import { getPartners as getPartnersApi } from '../../../actions/service/entity/get';
 
-export default function AddPartner() {
+interface IOption {
+  name: string;
+  website: string;
+  description: string;
+  photoUrl: string;
+  type: LIST_ITEM_ENUM;
+  id: string;
+  update: () => void;
+  key: string;
+}
+
+const AddPartner: React.FunctionComponent = () => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
   const {
     state: { id },
   } = useContext(Store);
 
-  const [options, setOptions] = useState([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [options, setOptions] = useState<IOption[]>();
 
-  useEffect(() => {
+  useEffect((): void => {
     if (id) {
       getPartners();
     }
   }, [id]);
 
   const getPartners = async () => {
-    const res = await api(formatRoute('/api/entity/partners', null, { id }), { method: 'GET' });
-    const data = res.data.map((d) => ({
+    const res = await getPartnersApi(id);
+    const data = res.map((d) => ({
       name: d.name,
       website: d.website,
       description: d.description,
@@ -39,13 +49,13 @@ export default function AddPartner() {
     setOptions(data);
   };
 
-  const onOpen = () => {
+  const onOpen = (): void => {
     setOpen(true);
   };
-  const onClose = () => {
+  const onClose = (): void => {
     setOpen(false);
   };
-  const update = () => {
+  const update = (): void => {
     getPartners();
   };
 
@@ -66,3 +76,4 @@ export default function AddPartner() {
     </Paper>
   );
 }
+export default AddPartner;

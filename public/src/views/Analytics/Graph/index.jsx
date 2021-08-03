@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import styles from './Graph.module.css';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
+import { COLORS } from '../../../utils/colors';
 
 export default function Graph(props) {
   const { graphData, title, totalTitle, newTitle, dateGraph, onChangeDate, formatData = (x) => x } = props;
@@ -52,11 +53,11 @@ export default function Graph(props) {
           {longLabelInfo}
         </Typography>
         <div className={styles.text}>
-          <IconButton className={styles.iconButtonMain} size="medium"></IconButton>
+          <IconButton className={styles.iconButtonMain} size="medium" />
           <Typography>{`${t(newTitle)}: ${newStatsInfo}`}</Typography>
         </div>
         <div className={styles.text}>
-          <IconButton className={styles.iconButtonDark}></IconButton>
+          <IconButton className={styles.iconButtonDark} />
           <Typography>{`${t(totalTitle)}: ${totalStatsInfo}`}</Typography>
         </div>
       </div>
@@ -82,7 +83,7 @@ export default function Graph(props) {
           }}
         />
         <VerticalBarSeries color="#008a6c" barWidth={0.75} onValueMouseOver={onMouseOver} data={totalStats} />
-        <VerticalBarSeries color="#18B393" barWidth={0.75} onValueMouseOver={onMouseOver} data={newStats} />
+        <VerticalBarSeries color={COLORS.turquoise} barWidth={0.75} onValueMouseOver={onMouseOver} data={newStats} />
       </FlexibleXYPlot>
     </div>
   );

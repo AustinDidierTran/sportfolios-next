@@ -7,8 +7,15 @@ import Registration from './Registration';
 import { useAdmin, useEditor } from '../../../hooks/roles';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { Store } from '../../../Store';
+import { Entity } from '../../../../../typescript/types';
+import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
-export default function AllEventSettings(props) {
+interface IProps {
+  basicInfos: Entity;
+  role: ENTITIES_ROLE_ENUM;
+}
+
+const AllEventSettings: React.FunctionComponent<IProps> = (props) => {
   const { basicInfos, role } = props;
   const {
     state: { id },
@@ -31,3 +38,4 @@ export default function AllEventSettings(props) {
     </div>
   );
 }
+export default AllEventSettings;

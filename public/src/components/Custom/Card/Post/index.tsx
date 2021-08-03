@@ -31,6 +31,7 @@ import Upload from 'rc-upload';
 import dynamic from 'next/dynamic';
 import { Post as PostType, Comment as CommentType, PostImage } from '../../../../../../typescript/types';
 import { getTimeToShow } from '../../../../utils/stringFormats';
+import { COLORS } from '../../../../utils/colors';
 
 const Comment = dynamic(() => import('../Comment'));
 const PostInput = dynamic(() => import('../../Input/PostInput'));
@@ -187,9 +188,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
             content: styles.headerContent,
             title: styles.headerTitle,
           }}
-          avatar={
-            <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl}></CustomAvatar>
-          }
+          avatar={<CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl} />}
           title={postInfo.name + ' ' + postInfo.surname}
           subheader={getTimeToShow(postInfo.createdAt)}
         />
@@ -224,7 +223,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
                   top: 0,
                   right: 0,
                   color: 'black',
-                  backgroundColor: 'white',
+                  backgroundColor: COLORS.white,
                   borderRaduis: 25,
                   padding: 2,
                   margin: 5,
@@ -257,9 +256,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
           content: styles.headerContent,
           title: styles.headerTitle,
         }}
-        avatar={
-          <CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl}></CustomAvatar>
-        }
+        avatar={<CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl} />}
         action={
           <>
             {isAdmin && (
@@ -299,7 +296,6 @@ const Post: React.FunctionComponent<IProps> = (props) => {
               </div>
             )}
           </div>
-          <div className={styles.share}></div>
         </CardContent>
       )}
       {(postInfo.images.length < 1 || showStats) && <Divider variant="middle" />}

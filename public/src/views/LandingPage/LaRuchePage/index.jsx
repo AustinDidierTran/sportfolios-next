@@ -53,7 +53,7 @@ export default function LaRuchePage() {
                 </span>
               )}
               zeroPadTime={2}
-            ></Countdown>
+            />
           </div>
         </div>
         <div className={styles.partnersContainer}>

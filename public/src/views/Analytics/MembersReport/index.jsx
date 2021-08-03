@@ -32,7 +32,7 @@ export default function MembersReport() {
           },
         }}
         type={CARD_TYPE_ENUM.REPORT}
-      ></Card>
+      />
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.MEMBERS_REPORT}
         items={{

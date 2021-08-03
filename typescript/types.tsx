@@ -12,6 +12,7 @@ import {
   USER_APP_ROLE_ENUM,
   PHASE_TYPE_ENUM,
   EXERCISES_TYPE_ENUM,
+  REPORT_TYPE_ENUM,
 } from '../public/common/enums';
 
 //INTERFACES
@@ -102,7 +103,7 @@ export interface Player {
   teamId: string;
   role: ROSTER_ROLE_ENUM;
   name: string;
-  photoUrl: string;
+  photoUrl?: string;
   rsvp?: string;
   surname?: string;
 }
@@ -160,6 +161,13 @@ export interface Membership {
   addressId?: string;
 }
 
+export interface NavTabs {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
+}
+
 export interface Image {
   photoUrl: string;
   type: string;
@@ -205,6 +213,21 @@ export interface Event extends Entity {
   phases?: Phase[];
 }
 
+export interface EventInfos {
+  id: string;
+  type: GLOBAL_ENUM;
+  name: string;
+  surname: string;
+  photoUrl: string;
+  role: ROSTER_ROLE_ENUM;
+  maximumSpots: number;
+  startDate: string;
+  endDate: string;
+  description: string;
+  quickDescription: string;
+  creator: Entity;
+}
+
 export interface EventField {
   eventId: string;
   field: string;
@@ -244,14 +267,11 @@ export interface Exercise {
 }
 
 export interface OwnedEvents extends Entity {
-  type: number;
   cardType: number;
   eventId: string;
   photoUrl: string;
   startDate: string;
   endDate: string;
-  quickDescription: string;
-  description: string;
   location: string;
   name: string;
   createdAt: string;
@@ -326,43 +346,48 @@ export interface Roster {
 }
 
 export interface TeamPlayer extends Player {
-  id: string;
   rosterId: string;
-  personId: string;
-  name: string;
   isSub: boolean;
   paymentStatus: STATUS_ENUM;
   invoiceItemId?: string;
-  role: ROSTER_ROLE_ENUM;
 }
 
 export interface Phase {
-  id: string;
-  name: string;
-  eventId: string;
-  spot?: number;
-  phaseOrder: number;
-  status: PHASE_STATUS_ENUM;
-  games?: Game[];
+  id?: string;
+  name?: string;
+  eventId?: string;
+  spots?: number;
+  phaseOrder?: number;
+  status?: PHASE_STATUS_ENUM;
+  games?: EntityGame[];
   ranking?: Ranking[];
   type?: PHASE_TYPE_ENUM;
+  content?: string;
+  phaseId?: string;
+  order?: number;
+  finalRanking?: string;
+  allTeamsEqual?: boolean;
 }
 export interface PhaseGameAndTeams {
   games: PhaseGames[];
   teams: PhaseTeams[];
 }
 
+export interface PhaseType {
+  id: string;
+  name: string;
+}
+
 export interface PhaseTeams {
   rosterId: string;
-  originPhase: string;
+  originPhase: PhaseType;
   originPosition: number;
-  currentPhase: string;
+  currentPhase: PhaseType;
   initialPosition: number;
   finalPosition: number;
   rankingId: string;
   teamId: string;
   name: string;
-  phaseName: string;
 }
 
 export interface PhaseGames {
@@ -372,26 +397,44 @@ export interface PhaseGames {
   teams: GameTeam[];
 }
 
-export interface Ranking {
-  id: string;
-  rosterId: string;
-  originPhase: string;
-  originPosition: string;
-  currentPhase: string;
-  initialPosition: number;
-  finalPosition: number;
+export interface Preranking {
+  position: number;
   rankingId: string;
-  phaseName?: string;
+  phaseId?: string;
+  noTeam?: boolean;
+  name?: string;
+  rosterId?: string;
+  teamId?: string;
+  finalPosition?: number;
+  content?: string;
+}
+
+export interface Ranking {
+  id?: string;
+  rosterId: string;
+  originPhase?: PhaseType;
+  currentPhase?: PhaseType;
+  originPosition?: number;
+  initialPosition?: number;
+  finalPosition?: number;
+  rankingId: string;
   name?: string;
   teamName?: string;
 }
 
-export interface Game extends Entity {
+export interface EntityGame extends Entity {
   phaseId: string;
   eventId: string;
   timeSlotId: string;
   fieldId: string;
   teams: GameTeam[];
+}
+
+export interface Game {
+  fieldId: string;
+  timeslotId: string;
+  rankings: Ranking[];
+  phaseId: string;
 }
 
 export interface Games {
@@ -417,9 +460,11 @@ export interface GameTeam {
   rosterId: string;
   name: string;
   score: number;
+  rankingId: string;
+  id?: string;
+  active?: boolean;
   position?: number;
   spirit?: number;
-  rankingId: string;
 }
 
 export interface GameInfo {
@@ -459,6 +504,13 @@ export interface SpiritSubmission {
   submittedForRoster: string;
   comment: string;
   spiritScore: number;
+}
+
+export interface States {
+  component: any;
+  value: string;
+  label: string;
+  icon: string;
 }
 
 export interface Presence {
@@ -514,6 +566,26 @@ export interface Practice {
   country?: string;
   rsvp?: Rsvp[];
   myRsvp?: Rsvp[];
+}
+
+export interface Options {
+  id: string;
+  informations: string;
+  name: string;
+  individualPrice: string;
+  individualStripePriceId: string;
+  individualTaxRates: Tax;
+  individualTransactionFees: number;
+  playerAcceptation: boolean;
+  teamAcceptation: boolean;
+  endTime: string;
+  startTime: string;
+  teamActivity: boolean;
+  teamPrice: number;
+  teamStripePriceId: string;
+  teamTaxRates: Tax;
+  teamTransactionFees: number;
+  owner: Entity;
 }
 
 export interface Rsvp {
@@ -578,7 +650,8 @@ export interface PostImage {
 export interface SubmissionerInfos {
   myTeam: SubmissionerTeam;
   enemyTeam: SubmissionerTeam;
-  myAdminPersons: PersonAdmin[];
+  myAdminPersons?: PersonAdmin[];
+  person?: PersonAdmin;
 }
 
 export interface SubmissionerTeam {
@@ -605,6 +678,30 @@ export interface TeamsSchedule {
   rosterId: string;
   eventId: string;
   name: string;
+}
+
+export interface AllTeamsAcceptedInfos {
+  name: string;
+  surname: string;
+  photoUrl: string;
+  rosterId: string;
+  teamId: string;
+  invoiceItemId: string;
+  informations: string;
+  status: string;
+  emails: string;
+  players: TeamPlayer[];
+  captains: Entity[];
+  option: EventPaymentOption;
+  role: ROSTER_ROLE_ENUM;
+  registrationStatus: STATUS_ENUM;
+}
+
+export interface Report {
+  reportId: string;
+  entityId?: string;
+  type: REPORT_TYPE_ENUM;
+  metadata: string;
 }
 
 export interface ShopItems {

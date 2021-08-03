@@ -33,7 +33,7 @@ const CollapseTeamsRegisteredMobile: React.FunctionComponent<IProps> = (props) =
         />
       </ListItem>
       <ListItem>
-        <ListItemText className={styles.text} primary={team.email} secondary={t('email.email')}></ListItemText>
+        <ListItemText className={styles.text} primary={team.email} secondary={t('email.email')} />
         <MailToButton emails={[{ email: team.email }]} color="grey" />
       </ListItem>
       <ListItem>

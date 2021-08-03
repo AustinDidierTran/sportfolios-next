@@ -13,6 +13,7 @@ import { REQUEST_STATUS_ENUM, CARD_TYPE_ENUM, SEVERITY_ENUM } from '../../../../
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
 import { Post, User } from '../../../../../typescript/types';
+import { COLORS } from '../../../utils/colors';
 
 interface IProps {
   userInfo: User;
@@ -35,14 +36,14 @@ const Posts: React.FunctionComponent<IProps> = (props) => {
       bottom: theme.spacing(2) + 58,
       right: theme.spacing(2),
       zIndex: 100,
-      color: 'white',
+      color: COLORS.white,
     },
     fab: {
       position: 'absolute',
       bottom: theme.spacing(2),
       right: theme.spacing(2) + (width - 700) / 2,
       zIndex: 100,
-      color: 'white',
+      color: COLORS.white,
     },
     IgContainer: {
       backgroundColor: '#f5f5f5 !important',

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
-import { Entity } from '../../../../../typescript/types';
+import { Entity, States } from '../../../../../typescript/types';
 import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -21,13 +21,6 @@ const EditMemberships = dynamic(() => import('../../../tabs/EditMemberships'));
 
 interface IProps {
   basicInfos: Entity;
-}
-
-interface IStates {
-  component: any;
-  value: string;
-  label: string;
-  icon: string;
 }
 
 const Organization: React.FunctionComponent<IProps> = (props) => {
@@ -68,7 +61,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
 
   const [adminView, setAdminView] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [states, setStates] = useState<IStates[]>(userState);
+  const [states, setStates] = useState<States[]>(userState);
 
   const tabNotHomeOrEvents = () => {
     return adminState.find((s) => s.value === tab) && tab != TABS_ENUM.HOME && tab != TABS_ENUM.EVENTS;

@@ -3,18 +3,18 @@ import styles from './Ranking.module.css';
 import { LIST_ITEM_ENUM } from '../../../../common/enums';
 import Accordion from '../../../components/Custom/Accordion';
 import List from '../../../components/Custom/List';
-import { Ranking as IRanking } from '../../../../../typescript/types';
+import { Ranking as RankingType } from '../../../../../typescript/types';
 
 interface IProps {
-  ranking: IRanking[];
+  ranking: RankingType[];
   title: string;
-  subtitle: string;
-  withStats: boolean;
+  subtitle?: string;
+  withStats?: boolean;
   withoutPosition?: boolean;
   allTeamsEqual?: boolean;
 }
 
-interface IItems extends IRanking {
+interface IItems extends RankingType {
   type: string;
   index: number;
   key: number;
@@ -26,7 +26,7 @@ const Ranking: React.FunctionComponent<IProps> = (props) => {
 
   const items = useMemo<IItems[]>(() => {
     if (withStats) {
-      const items = ranking.map((r: IRanking, index: number) => ({
+      const items = ranking.map((r: RankingType, index: number) => ({
         ...r,
         type: LIST_ITEM_ENUM.RANKING_WITH_STATS,
         index: index + 1,

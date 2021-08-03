@@ -5,6 +5,7 @@ import { Icon } from '../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import { TAG_TYPE_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
+import { COLORS } from '../../../utils/colors';
 
 export default function Tag(props) {
   const { t } = useTranslation();
@@ -16,20 +17,20 @@ export default function Tag(props) {
       case TAG_TYPE_ENUM.ACCEPTED_FREE:
         return {
           name: t('accepted'),
-          backgroundColor: '#4fc947',
-          color: '#fff',
+          backgroundColor: COLORS.green,
+          color: COLORS.white,
         };
 
       case TAG_TYPE_ENUM.PENDING:
         return {
           name: t('pending'),
           backgroundColor: '#ffca61',
-          color: '#fff',
+          color: COLORS.white,
         };
 
       case TAG_TYPE_ENUM.REGISTERED:
         return {
-          backgroundColor: '#4fc947',
+          backgroundColor: COLORS.green,
           icon: 'FiberManualRecord',
         };
 
@@ -43,7 +44,7 @@ export default function Tag(props) {
         return {
           name: t('DEFAULT'),
           backgroundColor: '#cf8f8a',
-          color: '#fff',
+          color: COLORS.white,
         };
     }
   }, [type]);

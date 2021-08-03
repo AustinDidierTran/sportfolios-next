@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import styles from './RankingItem.module.css';
 import Divider from '@material-ui/core/Divider';
+import { COLORS } from '../../../../utils/colors';
 
 export default function RankingItem(props) {
   const { index, name, positionName } = props;
@@ -15,7 +16,7 @@ export default function RankingItem(props) {
         <ListItem
           style={{
             width: '100%',
-            backGroundColor: 'grey',
+            backGroundColor: COLORS.grey,
           }}
         >
           <div className={styles.main} style={{ width: '100%' }}>

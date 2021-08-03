@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../../../actions/api';
 import styles from './TeamRankingCard.module.css';
 import Typography from '@material-ui/core/Typography';
-import { formatRoute } from '../../../../utils/stringFormats';
+import { getEntity } from '../../../../actions/service/entity/get';
+import { Entity } from '../../../../../../typescript/types';
 
-export default function TeamRankingCard(props) {
+interface IProps {
+  position: any;
+  teamId: string;
+}
+
+const TeamRankingCard: React.FunctionComponent<IProps> = (props) => {
   const { position, teamId } = props;
-  const [team, setTeam] = useState({});
+  const [team, setTeam] = useState<Entity>();
 
   const getTeam = async () => {
-    const {
-      data: { basicInfos: data },
-    } = await api(formatRoute('/api/entity', null, { id: teamId }), { method: 'GET' });
-    setTeam(data);
+    getEntity(teamId).then(setTeam);
   };
 
   useEffect(() => {
@@ -25,4 +27,5 @@ export default function TeamRankingCard(props) {
       <Typography>{team.name}</Typography>
     </div>
   );
-}
+};
+export default TeamRankingCard;

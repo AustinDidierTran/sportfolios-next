@@ -19,22 +19,23 @@ import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { COLORS } from '../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
     justifySelf: 'end',
   },
 }));
 
 const getTeamstyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  background: isDragging ? COLORS.draggedWhite : COLORS.white,
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
+  background: isDraggingOver ? COLORS.whiteSmoke : COLORS.white,
   width: '100%',
 });
 
@@ -143,7 +144,7 @@ export default function PrerankAccordionDnD(props) {
                 className={styles.prerankButton}
                 key={index}
               >
-                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon} tooltip={''}></Icon> : button.name}
+                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon} tooltip={''} /> : button.name}
               </Button>
             ))}
           </div>
@@ -151,7 +152,7 @@ export default function PrerankAccordionDnD(props) {
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {preranking.length ? (
+                  {preranking?.length ? (
                     <div>
                       {preranking.map((rank, index) => (
                         <Draggable key={rank.rankingId} draggableId={rank.rankingId} index={index}>

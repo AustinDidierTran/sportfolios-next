@@ -15,20 +15,15 @@ import Collapse from '../../../Collapse';
 import TextField from '../../../TextField';
 import IconButton from '../../../IconButton';
 import Button from '../../../Button';
-import { ScoreSuggestion, SubmissionerTeam, PersonAdmin } from '../../../../../../../typescript/types';
+import { ScoreSuggestion, SubmissionerInfos } from '../../../../../../../typescript/types';
+import { COLORS } from '../../../../../utils/colors';
 
 interface IProps {
   suggestions: ScoreSuggestion[];
   gameId: string;
   IsSubmittedCheck: JSX.Element;
-  submissionerInfos: ISubmissionerInfos;
+  submissionerInfos: SubmissionerInfos;
   update: () => void;
-}
-
-interface ISubmissionerInfos {
-  myTeam: SubmissionerTeam;
-  enemyTeam: SubmissionerTeam;
-  person: PersonAdmin;
 }
 
 const SectionScore: React.FunctionComponent<IProps> = (props) => {
@@ -156,13 +151,13 @@ const SectionScore: React.FunctionComponent<IProps> = (props) => {
   const getChipStyle = (status: STATUS_ENUM) => {
     switch (status) {
       case STATUS_ENUM.ACCEPTED:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
       case STATUS_ENUM.REFUSED:
-        return { border: '1px solid #f44336', color: '#f44336 ' };
+        return { border: '1px solid #f44336', color: COLORS.red };
       case STATUS_ENUM.PENDING:
         return { border: '1px solid #dddd00', color: '#dddd00 ' };
       default:
-        return { border: '1px solid #18B393', color: '#18B393 ' };
+        return { border: '1px solid #18B393', color: COLORS.turquoise };
     }
   };
 
@@ -171,7 +166,7 @@ const SectionScore: React.FunctionComponent<IProps> = (props) => {
       <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
         <Typography>{t('score.score')}</Typography>
         <div className={styles.expand}>
-          {isSubmitted ? IsSubmittedCheck : <></>}
+          {isSubmitted ? IsSubmittedCheck : null}
           <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
@@ -187,9 +182,7 @@ const SectionScore: React.FunctionComponent<IProps> = (props) => {
         <div>
           {showSuggestion && enemyScoreSuggestion.status === STATUS_ENUM.PENDING && !acceptedOrRefused ? (
             <Typography className={styles.suggestedBy}>{'*' + t('suggested_by_the_other_team')}</Typography>
-          ) : (
-            <></>
-          )}
+          ) : null}
           <div className={styles.scores}>
             <Typography className={styles.teamName}>{`${submissionerInfos.myTeam.name}: (${t(
               'you.your_team'

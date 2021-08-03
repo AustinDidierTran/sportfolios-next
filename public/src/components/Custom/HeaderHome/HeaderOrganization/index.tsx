@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { FORM_DIALOG_TYPE_ENUM, TABS_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
 import FormDialog from '../../FormDialog';
 import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
@@ -16,25 +16,19 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
-import { Entity, Member } from '../../../../../../typescript/types';
+import { Entity, Member, NavTabs } from '../../../../../../typescript/types';
 import { getMostRecentMember, hasMemberships as hasMembershipsApi } from '../../../../actions/service/entity/get';
+import { COLORS } from '../../../../utils/colors';
 
 const BannerOrganization = dynamic(() => import('../../BannerOrganization'));
 
 interface IProps {
   basicInfos: Entity;
-  navTabs: INavTabs[];
-  index: string;
+  navTabs: NavTabs[];
+  index: number;
   isAdmin: boolean;
   onSwitch: () => void;
   adminView: boolean;
-}
-
-interface INavTabs {
-  component: React.ComponentType<any>;
-  value: typeof TABS_ENUM;
-  label: string;
-  icon: string;
 }
 
 const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
@@ -101,11 +95,11 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
         <Tabs
           value={index}
           TabIndicatorProps={{
-            style: { backgroundColor: 'white' },
+            style: { backgroundColor: COLORS.white },
           }}
           style={{
-            color: 'white',
-            backgroundColor: '#18B393',
+            color: COLORS.white,
+            backgroundColor: COLORS.turquoise,
             minHeight: 0,
             borderRadius: width > MOBILE_WIDTH ? '7px' : '0px',
           }}
@@ -129,7 +123,7 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
                 </div>
               }
               style={{
-                borderRightColor: 'white',
+                borderRightColor: COLORS.white,
                 borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
                 borderRightWidth: 1,
                 minHeight: 0,

@@ -297,7 +297,7 @@ export default function EditPersonInfos(props) {
             helperText={t('phone_number')}
             onChange={valueChanged}
             className={styles.zone1}
-          ></TextField>
+          />
         </div>
         <div className={styles.divSearch}>
           <AddressSearchInput
@@ -316,9 +316,7 @@ export default function EditPersonInfos(props) {
               {t('address')}
             </Typography>
           </div>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <EmergencyContact formik={formik} valueChanged={valueChanged} />
         {changesMade && (
           <ContainerBottomFixed>

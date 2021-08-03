@@ -36,7 +36,7 @@ const OrganizationItem: React.FunctionComponent<IProps> = (props) => {
       <ListItemIcon>
         <CustomAvatar photoUrl={photoUrl} />
       </ListItemIcon>
-      <ListItemText primary={name} secondary={t('organization')}></ListItemText>
+      <ListItemText primary={name} secondary={t('organization')} />
     </ListItem>
   );
 };

@@ -14,6 +14,7 @@ import { EventTeam } from '../../../../../../typescript/types';
 import styles from './TeamHead.module.css';
 import Chip from '../../../../components/Custom/Chip';
 import { PILL_TYPE_ENUM } from '../../../../../common/enums';
+import { COLORS } from '../../../../utils/colors';
 
 interface IProps {
   teams: EventTeam[];
@@ -113,11 +114,9 @@ const TeamHead: React.FunctionComponent<IProps> = (props) => {
                 icon="MoneyOff"
                 tooltip={t('register.unregister_all')}
                 onClick={() => handleUnregisterAllClick()}
-                style={{ color: '#f44336' }}
+                style={{ color: COLORS.red }}
               />
-            ) : (
-              <></>
-            )}
+            ) : null}
           </StyledTableCell>
         </TableRow>
       </TableHead>
@@ -148,7 +147,7 @@ const TeamHead: React.FunctionComponent<IProps> = (props) => {
             </div>
           </StyledTableCell>
           <StyledTableCell>
-            <MailToButton color={'white'} tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
+            <MailToButton color={COLORS.white} tooltip={t('send_email_to_all_teams_registered')} emails={emails} />
           </StyledTableCell>
         </TableRow>
       </TableHead>

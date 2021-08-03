@@ -9,10 +9,11 @@ import { useTranslation } from 'react-i18next';
 import styles from './ScoreSuggestion.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { formatRoute } from '../../../../../utils/stringFormats';
+import { COLORS } from '../../../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
   },
 }));
 
@@ -71,7 +72,12 @@ export default function ScoreSuggestion(props) {
             <Typography className={styles.seeScore} color="textSecondary">
               {message}
             </Typography>
-            <IconButton aria-expanded={expanded} icon={icon} className={classes.primary} style={{ color: 'grey' }} />
+            <IconButton
+              aria-expanded={expanded}
+              icon={icon}
+              className={classes.primary}
+              style={{ color: COLORS.grey }}
+            />
           </div>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             {suggestions.map((suggestion, index) => (
@@ -89,7 +95,7 @@ export default function ScoreSuggestion(props) {
           </Collapse>
         </>
       ) : (
-        <div style={{ marginBottom: '16px' }}></div>
+        <div style={{ marginBottom: '16px' }} />
       )}
     </>
   );

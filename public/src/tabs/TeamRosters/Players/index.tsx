@@ -53,9 +53,7 @@ const Players: React.FunctionComponent<IProps> = (props) => {
           >
             {t('add.add_player')}
           </Button>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <List className={styles.list}>
           {players.map((player, index) => (
             <Player key={player.id} player={player} index={index} update={getPlayers} isAdmin={adminView} />

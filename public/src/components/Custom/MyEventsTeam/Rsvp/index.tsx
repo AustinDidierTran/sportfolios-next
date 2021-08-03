@@ -6,6 +6,7 @@ import { updateGameRsvp, updatePracticeRsvp } from '../../../../actions/service/
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './Rsvp.module.css';
+import { COLORS } from '../../../../utils/colors';
 
 interface IProps {
   isOpen: boolean;
@@ -78,7 +79,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
             className={styles.rsvpButton}
             startIcon="Check"
             color="primary"
-            textColor={goingVariant == 'outlined' ? '#18B393' : 'white'}
+            textColor={goingVariant == 'outlined' ? COLORS.turquoise : COLORS.white}
             variant={goingVariant}
             onClick={() => {
               submitRsvp('going');

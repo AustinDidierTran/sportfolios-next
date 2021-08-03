@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useContext } from 'react';
 
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { TABS_ENUM, GLOBAL_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import { TABS_ENUM, GLOBAL_ENUM, ENTITIES_ROLE_ENUM, ROUTES_ENUM, STATUS_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { AddGaEvent } from '../../../components/Custom/Analytics';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
@@ -9,19 +9,25 @@ import IgContainer from '../../../components/Custom/IgContainer';
 import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
+import { Entity, States } from '../../../../../typescript/types';
 import { getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Schedule = dynamic(() => import('../../../tabs/Schedule'));
 const Rankings = dynamic(() => import('../../../tabs/Rankings'));
 const Rosters = dynamic(() => import('../../../tabs/Rosters'));
-const EventInfo = dynamic(() => import('../../../tabs/EventInfo'));
+const EventInfo = dynamic(() => import('../../../tabs/EventInfo/Description'));
 const EditSchedule = dynamic(() => import('../../../tabs/EditSchedule'));
 const EditRankings = dynamic(() => import('../../../tabs/EditRankings'));
 const EditRosters = dynamic(() => import('../../../tabs/EditRosters'));
 const Settings = dynamic(() => import('../../../tabs/Settings'));
 
-export default function Event(props) {
+interface IProps {
+  basicInfos: Entity;
+  eventInfo: any;
+}
+
+const Event: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { basicInfos: basicInfosProps, eventInfo } = props;
   const router = useRouter();
@@ -30,9 +36,9 @@ export default function Event(props) {
     state: { id },
   } = useContext(Store);
 
-  const [basicInfos, setBasicInfos] = useState(basicInfosProps);
+  const [basicInfos, setBasicInfos] = useState<Entity>(basicInfosProps);
 
-  useEffect(() => {
+  useEffect((): void => {
     document.title = formatPageTitle(basicInfos.name);
     AddGaEvent({
       category: 'Visit',
@@ -41,7 +47,7 @@ export default function Event(props) {
     });
   }, [basicInfos.name]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (id) {
       getRole();
     }
@@ -61,11 +67,11 @@ export default function Event(props) {
     { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },
   ];
 
-  const [adminView, setAdminView] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [states, setStates] = useState(userState);
+  const [adminView, setAdminView] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [states, setStates] = useState<States[]>(userState);
 
-  const index = useMemo(() => {
+  const index = useMemo((): number => {
     if (adminState.find((s) => s.value === tab)) {
       if (isAdmin) {
         setStates(adminState);
@@ -80,7 +86,7 @@ export default function Event(props) {
     return res;
   }, [tab, isAdmin]);
 
-  const OpenTab = useMemo(() => {
+  const OpenTab = useMemo((): any => {
     const res = states[index];
     if (res) {
       return res.component;
@@ -88,7 +94,7 @@ export default function Event(props) {
     return Schedule;
   }, [index, states]);
 
-  const onSwitch = () => {
+  const onSwitch = (): void => {
     const newState = !adminView;
     setAdminView(newState);
     if (newState) {
@@ -100,10 +106,10 @@ export default function Event(props) {
     }
   };
 
-  const getRole = async () => {
+  const getRole = async (): Promise<void> => {
     const res = await getRoleApi(id);
     if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
-      let newInfos = basicInfos;
+      const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
       setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
@@ -129,4 +135,5 @@ export default function Event(props) {
       </IgContainer>
     </>
   );
-}
+};
+export default Event;

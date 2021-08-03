@@ -1,4 +1,5 @@
 import { createTheme } from '@material-ui/core/styles';
+import { COLORS } from './src/utils/colors';
 
 const theme = createTheme({
   breakpoints: {
@@ -13,20 +14,20 @@ const theme = createTheme({
   palette: {
     // primary: teal,
     primary: {
-      main: '#18B393',
+      main: COLORS.turquoise,
       veryLight: '#1acba8',
       dark: '#008a6c',
       light: '#19bf9d',
-      constrastText: '#fff',
+      constrastText: COLORS.white,
     },
     secondary: {
       light: '#ff7961',
-      main: '#f44336',
+      main: COLORS.red,
       dark: '#ba000d',
-      contrastText: '#fff',
+      contrastText: COLORS.white,
     },
     shadesOfGrey: {
-      white: '#fff',
+      white: COLORS.white,
       veryLight: '#f9f9f9',
       light: '#f1f1f1',
       black: '000000',

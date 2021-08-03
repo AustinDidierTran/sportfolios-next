@@ -13,22 +13,16 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { Store } from '../../../../Store';
 import { getGameSubmissionInfos } from '../../../../actions/service/entity/get';
-import { GameSubmissionInfo, PersonAdmin, SubmissionerTeam } from '../../../../../../typescript/types';
+import { GameSubmissionInfo, SubmissionerInfos } from '../../../../../../typescript/types';
 import { SUBMISSION_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   open: boolean;
   gameId: string;
-  submissionerInfos: ISubmissionerInfos;
+  submissionerInfos: SubmissionerInfos;
   type: string;
   onClose: () => void;
   update: () => void;
-}
-
-interface ISubmissionerInfos {
-  myTeam: SubmissionerTeam;
-  enemyTeam: SubmissionerTeam;
-  person: PersonAdmin;
 }
 
 const SectionScore = dynamic(() => import('./SectionScore'));

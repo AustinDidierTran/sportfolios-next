@@ -98,7 +98,7 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
             subheader: styles.subheaderComment,
             action: styles.headerAction,
           }}
-          avatar={<CustomAvatar className={styles.avatarComment} photoUrl={commentPhotoUrl}></CustomAvatar>}
+          avatar={<CustomAvatar className={styles.avatarComment} photoUrl={commentPhotoUrl} />}
           subheader={
             <TextField
               placeholder=""
@@ -150,7 +150,7 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
           subheader: styles.subheaderComment,
           action: styles.headerAction,
         }}
-        avatar={<CustomAvatar className={styles.avatarComment} photoUrl={commentPhotoUrl}></CustomAvatar>}
+        avatar={<CustomAvatar className={styles.avatarComment} photoUrl={commentPhotoUrl} />}
         action={
           <>
             {isAdmin && (

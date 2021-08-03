@@ -31,7 +31,7 @@ const Home: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <IgContainer className={classes.IgContainer}>
-      <Description description={basicInfos.description}></Description>
+      <Description description={basicInfos.description} />
       <Posts
         userInfo={userInfo}
         allowPostImage

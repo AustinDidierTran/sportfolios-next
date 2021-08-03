@@ -46,20 +46,20 @@ export default function MembershipDetailItem(props) {
               <div>{expirationDate()}</div>
             </div>
           }
-        ></ListItemText>
+        />
       ) : (
         <ListItemText
           secondaryTypographyProps={{ color: 'primary' }}
           primary={name}
           secondary={`${t('valid_until')}:  ${expirationDate()}`}
-        ></ListItemText>
+        />
       )}
       <ListItemText
         className={styles.price}
         secondaryTypographyProps={{ color: 'primary' }}
         primary={formatPrice(price)}
         secondary={t('price')}
-      ></ListItemText>
+      />
       {isMember ? (
         <CustomButton className={styles.button} onClick={() => clickRenewMember()}>
           {t('renew_membership')}

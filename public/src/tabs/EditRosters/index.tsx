@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 const Rosters = dynamic(() => import('../Rosters'));
 
-export default function EditRosters() {
+const EditRosters: React.FunctionComponent = () => {
   return <Rosters isEventAdmin />;
 }
+export default EditRosters;

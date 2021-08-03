@@ -106,7 +106,7 @@ export default function GaPageviewsTable() {
               label={t('add.add') + ' ' + t('pathname')}
               placeholder="/sportfoliosRoute"
               formik={formik}
-            ></TextField>
+            />
             <Button
               className={styles.button}
               size="medium"

@@ -9,6 +9,7 @@ import api from '../../../../../../actions/api';
 import { formatRoute } from '../../../../../../utils/stringFormats';
 import Icon from '../../../../Icon';
 import IconButton from '../../../../IconButton';
+import { COLORS } from '../../../../../../utils/colors';
 
 export default function PlayerCard(props) {
   const { player, index } = props;
@@ -64,9 +65,7 @@ export default function PlayerCard(props) {
     <div className={className}>
       <div className={styles.player}>
         <div className={styles.position}>
-          {player.role === ROSTER_ROLE_ENUM.PLAYER ? (
-            <></>
-          ) : (
+          {player.role === ROSTER_ROLE_ENUM.PLAYER ? null : (
             <Tooltip title={t(player.role === ROSTER_ROLE_ENUM.ASSISTANT_CAPTAIN ? 'assistant_captain' : player.role)}>
               <div>
                 <Icon icon={getIconFromRole(player.role)} />
@@ -78,7 +77,7 @@ export default function PlayerCard(props) {
           <Typography>{player && player.name}</Typography>
         </div>
         <div className={styles.icon}>
-          <IconButton icon="Info" style={{ color: 'grey' }} onClick={onAboutClick} tooltip={t('infos')} />
+          <IconButton icon="Info" style={{ color: COLORS.grey }} onClick={onAboutClick} tooltip={t('infos')} />
         </div>
       </div>
       <PersonInfoDialog open={open} personInfos={playerInfos} onClose={closePlayerAcceptation} withoutButton />

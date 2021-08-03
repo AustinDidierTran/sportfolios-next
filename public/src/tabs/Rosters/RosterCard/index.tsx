@@ -13,22 +13,41 @@ import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../utils/stringFormats';
+import { COLORS } from '../../../utils/colors';
+import { AllTeamsAcceptedInfos, Member } from '../../../../../typescript/types';
 
-const isEven = (n) => {
+interface Player {
+  personId: string;
+  role: ROSTER_ROLE_ENUM;
+  isSub: boolean;
+  rosterId: string;
+}
+const isEven = (n: number) => {
   return n % 2 == 0;
 };
 
 const useStyles = makeStyles((theme) => ({
   evenGreen: {
     backgroundColor: theme.palette.primary.light,
-    color: '#fff',
+    color: COLORS.white,
   },
-  oddGreen: { backgroundColor: theme.palette.primary.main, color: '#fff' },
-  even: { backgroundColor: theme.palette.shadesOfGrey.light },
-  odd: { backgroundColor: theme.palette.shadesOfGrey.veryLight },
+  oddGreen: { backgroundColor: theme.palette.primary.main, color: COLORS.white },
+  even: { backgroundColor: COLORS.lightGrey },
+  odd: { backgroundColor: COLORS.white },
 }));
 
-export default function RosterCard(props) {
+interface IProps {
+  isEventAdmin: boolean;
+  roster: AllTeamsAcceptedInfos;
+  whiteList?: Member;
+  index: number;
+  update: () => void;
+  withMyPersonsQuickAdd?: boolean;
+  editableRoster?: boolean;
+  editableRole?: boolean;
+}
+
+const RosterCard: React.FunctionComponent<IProps> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
@@ -37,22 +56,21 @@ export default function RosterCard(props) {
     roster,
     whiteList,
     index = 0,
-    update = () => {},
-    expanded: expandedProps,
+    update,
     withMyPersonsQuickAdd,
     editableRoster: editableRosterProp,
     editableRole: editableRoleProp,
   } = props;
   const { name, players, rosterId, role } = roster;
 
-  const [expanded, setExpanded] = useState(expandedProps);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   const onExpand = () => {
     const exp = !expanded;
     setExpanded(exp);
   };
 
-  const deletePlayerFromRoster = async (id) => {
+  const deletePlayerFromRoster = async (id: string) => {
     const res = await api(
       formatRoute('/api/entity/deletePlayerFromRoster', null, {
         id,
@@ -92,7 +110,7 @@ export default function RosterCard(props) {
     return true;
   };
 
-  const addPlayerToRoster = async (player) => {
+  const addPlayerToRoster = async (player: Player) => {
     const res = await api(`/api/entity/addPlayerToRoster`, {
       method: 'POST',
       body: JSON.stringify({
@@ -111,7 +129,7 @@ export default function RosterCard(props) {
     }
   };
 
-  const updatePlayerRole = async (playerId, role) => {
+  const updatePlayerRole = async (playerId: string, role: ROSTER_ROLE_ENUM) => {
     const res = await api(`/api/entity/rosterRole`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -137,10 +155,10 @@ export default function RosterCard(props) {
       });
     }
   };
-  function remainsOtherPlayerWithRole(teamPlayerId) {
+  function remainsOtherPlayerWithRole(teamPlayerId: string) {
     return roster.players.some((p) => p.id !== teamPlayerId && p.role !== ROSTER_ROLE_ENUM.PLAYER);
   }
-  const onDelete = async (id) => {
+  const onDelete = async (id: string) => {
     if (!remainsOtherPlayerWithRole(id)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
@@ -200,4 +218,6 @@ export default function RosterCard(props) {
       </AccordionDetails>
     </Accordion>
   );
-}
+};
+
+export default RosterCard;

@@ -145,7 +145,7 @@ export default function TeamSearchList(props) {
           }}
         />
       )}
-      {formik.values.teamSearchQuery.length === 0 ? <></> : <CustomList items={options}></CustomList>}
+      {formik.values.teamSearchQuery.length === 0 ? null : <CustomList items={options} />}
     </>
   );
 }

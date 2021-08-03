@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from './Stepper.module.css';
 import { useTranslation } from 'react-i18next';
 import ContainerBottomFixed from '../ContainerBottomFixed';
+import { COLORS } from '../../../utils/colors';
 
 export default function CustomStepperWithHooks(props) {
   const { activeStep, completed, Back, handleBack, handleNext, Next, handleReset, finish, steps } = props;
@@ -49,7 +50,7 @@ export default function CustomStepperWithHooks(props) {
                     }}
                     variant="contained"
                     color="primary"
-                    style={{ color: 'white' }}
+                    style={{ color: COLORS.white }}
                   >
                     {t('back')}
                   </Button>
@@ -61,7 +62,7 @@ export default function CustomStepperWithHooks(props) {
                       color="primary"
                       onClick={finish}
                       disabled={!completed.has(activeStep)}
-                      style={{ color: 'white' }}
+                      style={{ color: COLORS.white }}
                     >
                       {t('finish')}
                     </Button>
@@ -76,7 +77,7 @@ export default function CustomStepperWithHooks(props) {
                         handleNext();
                       }}
                       disabled={!completed.has(activeStep)}
-                      style={{ color: 'white' }}
+                      style={{ color: COLORS.white }}
                     >
                       {activeStep === steps.length - 1 ? t('finish') : t('next')}
                     </Button>

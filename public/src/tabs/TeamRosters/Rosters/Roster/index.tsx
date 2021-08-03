@@ -82,13 +82,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       <AccordionDetails className={styles.accordionDetail}>
         <List className={styles.list}>
           {players.map((player, index) => (
-            <RosterPlayer
-              key={player.id}
-              player={player}
-              index={index}
-              update={getPlayers}
-              isAdmin={isAdmin}
-            ></RosterPlayer>
+            <RosterPlayer key={player.id} player={player} index={index} update={getPlayers} isAdmin={isAdmin} />
           ))}
           {isAdmin ? (
             <div className={styles.divButton}>
@@ -110,9 +104,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
                 {t('delete.delete')}
               </Button>
             </div>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </List>
         <AlertDialog
           open={deleteRoster}

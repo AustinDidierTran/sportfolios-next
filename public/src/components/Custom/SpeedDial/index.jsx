@@ -13,6 +13,7 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { COLORS } from '../../../utils/colors';
 
 const useStyles = makeStyles((theme) => ({
   speedDial: {
@@ -113,7 +114,7 @@ export default function SpeedDialTooltipOpen() {
         ariaLabel="SpeedDial"
         className={width < MOBILE_WIDTH ? classes.speedDial : classes.speedDial2}
         hidden={hidden}
-        icon={<SpeedDialIcon style={{ color: '#fff' }} />}
+        icon={<SpeedDialIcon style={{ color: COLORS.white }} />}
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}

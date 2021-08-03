@@ -47,7 +47,7 @@ export default function TeamItem(props) {
           <CustomAvatar photoUrl={photoUrl} icon={icon} />
         )}
       </ListItemIcon>
-      <ListItemText className={styles.text} primary={name} secondary={secondary || t('team.team')}></ListItemText>
+      <ListItemText className={styles.text} primary={name} secondary={secondary || t('team.team')} />
       {onDelete ? (
         <IconButton
           edge="end"
@@ -57,9 +57,7 @@ export default function TeamItem(props) {
         >
           <CustomIcon icon="Delete" />
         </IconButton>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </ListItem>
   );
 }

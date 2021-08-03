@@ -29,6 +29,7 @@ interface IPersonComponent {
   notClickable: boolean;
   secondaryActions: any[];
 }
+
 const EditRoster: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { open: openProps, onClose, roster, update, players: rosterPlayers } = props;

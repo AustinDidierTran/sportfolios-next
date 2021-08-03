@@ -1,27 +1,36 @@
+import { TFunction } from 'react-i18next';
+import { Phase, Preranking, Ranking } from '../../../../../typescript/types';
 import { PHASE_STATUS_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../utils/stringFormats';
-import api from '../../../actions/api';
+import { getPhases, getPreranking, getPrerankPhase } from '../../../actions/service/entity/get';
 
-export const getAllOptions = async (eventId, phaseId, t) => {
-  const { data } = await api(
-    formatRoute('/api/entity/phases', null, {
-      eventId,
-    })
-  );
+interface Options {
+  value: string;
+  display: string;
+  phaseId: string;
+  index: number;
+  disabled?: boolean;
+}
 
-  const {
-    data: { preranking },
-  } = await api(
-    formatRoute('/api/entity/preranking', null, {
-      eventId,
-    })
-  );
+interface Placeholder {
+  value: string;
+  display: string;
+  disabled?: boolean;
+}
 
-  const { data: prerankPhase } = await api(
-    formatRoute('/api/entity/prerankPhase', null, {
-      eventId,
-    })
-  );
+export const getAllOptions = async (
+  eventId: string,
+  phaseId: string,
+  t: TFunction<'translation'>
+): Promise<
+  {
+    value: string;
+    display: string;
+    disabled?: boolean;
+  }[]
+> => {
+  const data = await getPhases(eventId);
+  const { preranking } = await getPreranking(eventId);
+  const prerankPhase = await getPrerankPhase(eventId);
 
   const allPhases = data
     .map((d) => ({
@@ -35,12 +44,11 @@ export const getAllOptions = async (eventId, phaseId, t) => {
         originPhase: r.originPhase,
         originPosition: r.originPosition,
         currentPhase: r.currentPhase,
-        currentPhaseName: d.name,
+        name: d.name,
         initialPosition: r.initialPosition,
         finalPosition: r.finalPosition,
         rankingId: r.rankingId,
         teamName: r.name,
-        originPhaseName: r.phaseName,
       })),
     }))
     .sort((a, b) => a.order - b.order);
@@ -53,17 +61,17 @@ export const getAllOptions = async (eventId, phaseId, t) => {
 
   const rankingOptions = getRankingOptions(allRankings, allPhases, prerankPhase.phaseId, phaseId);
 
-  const allOptions = prerankingOptions.concat(rankingOptions).sort((a, b) => {
+  const allOptions: Options[] = prerankingOptions.concat(rankingOptions).sort((a, b) => {
     if (a.index && b.index && a.phaseId === b.phaseId) {
-      return a.index - b.index;
+      return Number(a.index) - Number(b.index);
     }
   });
-  const placeholder = [{ value: 'selected', display: `${t('add.add_position')}...`, disabled: true }];
+  const placeholder: Placeholder[] = [{ value: 'selected', display: `${t('add.add_position')}...`, disabled: true }];
   const res = placeholder.concat(allOptions);
   return res;
 };
 
-const getPrerankingOptions = (preranking, allRankings, t) => {
+const getPrerankingOptions = (preranking: Preranking[], allRankings: Ranking[], t: TFunction<'translation'>) => {
   const prerankingPositions = preranking.map((d) => ({
     value: d.rankingId,
     display: d.noTeam
@@ -77,7 +85,7 @@ const getPrerankingOptions = (preranking, allRankings, t) => {
     .filter((r) => r.originPhase && r.originPosition)
     .map((r) => {
       const unavailablePrerankPosition = prerankingPositions.find((p) => {
-        if (p.phaseId === r.originPhase) {
+        if (p.phaseId === r.originPhase.id) {
           if (p.index === r.originPosition) {
             return p;
           }
@@ -93,31 +101,31 @@ const getPrerankingOptions = (preranking, allRankings, t) => {
   return filteredPositions;
 };
 
-const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
+const getRankingOptions = (allRankings: Ranking[], allPhases: Phase[], prerankId: string, phaseId: string) => {
   const allPositions = allRankings
-    .filter((r) => r.currentPhase !== phaseId)
+    .filter((r) => r.currentPhase.id !== phaseId)
     .map((r) => {
       let name;
-      if (allPhases.find((p) => p.phaseId === r.currentPhase).status === PHASE_STATUS_ENUM.DONE) {
-        name = `${r.finalPosition.toString()}. ${r.currentPhaseName} (${r.teamName})`;
+      if (allPhases.find((p) => p.phaseId === r.currentPhase.id)?.status === PHASE_STATUS_ENUM.DONE) {
+        name = `${r.finalPosition.toString()}. ${r.currentPhase.name} (${r.teamName})`;
       }
       return {
         display: name
           ? name
           : r.teamName
-          ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${r.currentPhaseName} (${
+          ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${r.currentPhase.name} (${
               r.teamName
             })`
-          : `${r.initialPosition.toString()}. ${r.currentPhaseName}`,
+          : `${r.initialPosition.toString()}. ${r.currentPhase.name}`,
         value: r.rankingId,
         index: r.finalPosition ? r.finalPosition : r.initialPosition,
-        phaseId: r.currentPhase,
+        phaseId: r.currentPhase.id,
       };
     })
     .filter((o) => o !== undefined);
 
   const unavailablePositions = allRankings
-    .filter((r) => r.originPhase && r.originPosition && r.originPhase !== prerankId)
+    .filter((r) => r.originPhase && r.originPosition && r.originPhase.id !== prerankId)
     .map((r) => {
       const unavailablePosition = allRankings.find((rank) => {
         if (rank.currentPhase === r.originPhase) {
@@ -129,7 +137,7 @@ const getRankingOptions = (allRankings, allPhases, prerankId, phaseId) => {
           }
         }
       });
-      return unavailablePosition.rankingId;
+      return unavailablePosition?.rankingId;
     })
     .filter((r) => r !== undefined);
 

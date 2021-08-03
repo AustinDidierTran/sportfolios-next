@@ -24,10 +24,11 @@ import Menu from '../Menu';
 import { getAllOptions } from './getAllOptions';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { COLORS } from '../../../utils/colors';
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
     justifySelf: 'end',
   },
   summary: {
@@ -43,12 +44,12 @@ const AccordionSummary = withStyles({
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  background: isDragging ? '#F0F0F0' : 'white',
+  background: isDragging ? COLORS.draggedWhite : COLORS.white,
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'whitesmoke' : 'white',
+  background: isDraggingOver ? COLORS.whiteSmoke : COLORS.white,
   width: '100%',
 });
 
@@ -195,17 +196,12 @@ export default function PhaseAccordionDnD(props) {
                 className={button.className}
                 key={index}
               >
-                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon}></Icon> : button.name}
+                {width < MOBILE_WIDTH ? <Icon icon={button.endIcon} /> : button.name}
               </Button>
             ))}
           </div>
           <div className={styles.menuContainer}>
-            <Menu
-              className={styles.menu}
-              phase={phase}
-              openEdit={openEdit}
-              onOpenDeleteDialog={onOpenDeleteDialog}
-            ></Menu>
+            <Menu className={styles.menu} phase={phase} openEdit={openEdit} onOpenDeleteDialog={onOpenDeleteDialog} />
           </div>
         </div>
         <AccordionDetails>
@@ -270,9 +266,9 @@ export default function PhaseAccordionDnD(props) {
                                             handleDeleteTeam(phaseId, index + 1);
                                           }}
                                           icon="Delete"
-                                          style={{ color: 'grey' }}
+                                          style={{ color: COLORS.grey }}
                                           tooltip={t('delete.delete_team')}
-                                        ></IconButton>
+                                        />
                                       </ListItemIcon>
                                     </div>
                                   </ListItem>

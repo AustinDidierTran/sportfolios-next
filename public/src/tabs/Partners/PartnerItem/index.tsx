@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '../../../components/Custom/Button';
 import IconButton from '../../../components/Custom/IconButton';
 import { useTranslation } from 'react-i18next';
+import { COLORS } from '../../../utils/colors';
 
 interface IProps {
   website: string;
@@ -54,7 +55,7 @@ const PartnerItem: React.FunctionComponent<IProps> = (props) => {
         </Typography>
       </div>
       <div className={styles.iconButton}>
-        <IconButton aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <IconButton aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
       </div>
     </Paper>
   );

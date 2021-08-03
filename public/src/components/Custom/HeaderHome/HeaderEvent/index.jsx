@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { Store } from '../../../../Store';
+import { COLORS } from '../../../../utils/colors';
 
 const BannerEvent = dynamic(() => import('../../BannerEvent'));
 
@@ -48,11 +49,11 @@ export default function HeaderHome(props) {
         <Tabs
           value={index}
           TabIndicatorProps={{
-            style: { backgroundColor: 'white' },
+            style: { backgroundColor: COLORS.white },
           }}
           style={{
-            color: 'white',
-            backgroundColor: '#18B393',
+            color: COLORS.white,
+            backgroundColor: COLORS.turquoise,
             minHeight: 0,
             borderRadius: width > MOBILE_WIDTH ? '7px' : '0px',
           }}
@@ -77,7 +78,7 @@ export default function HeaderHome(props) {
               }
               fontSize={0.6}
               style={{
-                borderRightColor: 'white',
+                borderRightColor: COLORS.white,
                 borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
                 borderRightWidth: 1,
                 minHeight: 0,

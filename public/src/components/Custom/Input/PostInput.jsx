@@ -7,6 +7,7 @@ import styles from './PostInput.module.css';
 import TextField from '@material-ui/core/TextField';
 
 import CustomIconButton from '../IconButton';
+import { COLORS } from '../../../utils/colors';
 export default function CustomDateInput(props) {
   const { t } = useTranslation();
   const { entityId, handlePost, canAddImage, postId = undefined, placeholder } = props;
@@ -91,7 +92,7 @@ export default function CustomDateInput(props) {
                 top: 0,
                 right: 0,
                 color: 'black',
-                backgroundColor: 'white',
+                backgroundColor: COLORS.white,
                 borderRaduis: 25,
                 padding: 2,
                 margin: 5,

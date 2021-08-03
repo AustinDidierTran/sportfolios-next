@@ -14,6 +14,7 @@ import api from '../../../../../actions/api';
 import { FORM_DIALOG_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../common/enums';
 import { formatDate, formatPrice } from '../../../../../utils/stringFormats';
 import CustomFormDialog from '../../../../../components/Custom/FormDialog';
+import { COLORS } from '../../../../../utils/colors';
 
 export default function EventPaymentOptionItem(props) {
   const { t } = useTranslation();
@@ -82,7 +83,7 @@ export default function EventPaymentOptionItem(props) {
             endDate: formatDate(moment.utc(endTime), 'MMM D'),
           })}
         />
-        <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+        <CustomIconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
       </ListItem>
       <CollapsePaymentOption option={option} expanded={expanded} setEdit={setEdit} setAlertDialog={setAlertDialog} />
       <Divider />

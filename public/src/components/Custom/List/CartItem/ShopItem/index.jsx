@@ -45,7 +45,7 @@ export default function ShopItem(props) {
             className={styles.quantity}
             primary={taxLength ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
             secondary={`Qt: ${quantity}`}
-          ></ListItemText>
+          />
           <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
             <div>
               <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />

@@ -4,6 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import IconButton from '../IconButton';
 import styles from './CheckBox.module.css';
+import { COLORS } from '../../../utils/colors';
 
 export default function CustomCheckBox(props) {
   const { checked, onChange, label, color, name, disabled, tooltip, ...otherProps } = props;
@@ -26,7 +27,7 @@ export default function CustomCheckBox(props) {
         }
         label={label}
       />
-      {tooltip ? <IconButton icon="Info" style={{ color: 'grey' }} tooltip={tooltip} /> : <></>}
+      {tooltip ? <IconButton icon="Info" style={{ color: COLORS.grey }} tooltip={tooltip} /> : null}
     </div>
   );
 }

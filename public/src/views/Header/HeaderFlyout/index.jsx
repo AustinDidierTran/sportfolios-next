@@ -73,5 +73,5 @@ export default function HeaderFlyout(props) {
     );
   }
 
-  return <></>;
+  return null;
 }

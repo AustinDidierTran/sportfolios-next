@@ -29,7 +29,7 @@ interface IGameInfos {
   update?: () => void;
 }
 
-interface IEvent {
+interface IEventOption {
   location?: string;
   positions?: {
     name: string;
@@ -110,7 +110,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     getPractice();
   };
 
-  const events = useMemo((): IEvent[] => {
+  const events = useMemo((): IEventOption[] => {
     const array = [];
     const game = gamesInfos?.map((game) => {
       const positions = [
@@ -133,7 +133,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
     });
     array.push(game);
 
-    const practice = practiceInfos?.map((practice): IEvent => {
+    const practice = practiceInfos?.map((practice): IEventOption => {
       return {
         id: practice.id,
         name: practice.name,

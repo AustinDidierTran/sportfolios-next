@@ -192,9 +192,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
               {formik.values.name}
             </Typography>
           </div>
-        ) : (
-          <></>
-        )}
+        ) : null}
         {isEditor ? (
           <Container className={styles.edit}>
             <Button
@@ -210,9 +208,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
               {t('edit.edit')}
             </Button>
           </Container>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </Container>
     </Paper>
   );

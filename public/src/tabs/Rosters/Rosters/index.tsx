@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Rosters.module.css';
 import RosterCard from '../RosterCard';
+import { AllTeamsAcceptedInfos } from '../../../../../typescript/types';
 
-export default function Rosters(props) {
+interface IProps {
+  isEventAdmin: boolean;
+  rosters: AllTeamsAcceptedInfos[];
+  update: () => void;
+}
+
+const Rosters: React.FunctionComponent<IProps> = (props) => {
   const { isEventAdmin, rosters, update } = props;
-  const [expandedIndex, setExpandedIndex] = useState();
-  const onExpand = (index) => {
-    if (expandedIndex === index) {
-      setExpandedIndex(null);
-    } else {
-      setExpandedIndex(index);
-    }
-  };
+
   if (!rosters || !rosters.length) {
     // TODO: It should say there are no rosters [WCS-372]
 
@@ -22,8 +22,6 @@ export default function Rosters(props) {
     <div className={styles.contain}>
       {rosters.map((roster, index) => (
         <RosterCard
-          onExpand={onExpand}
-          expanded={expandedIndex === index}
           isEventAdmin={isEventAdmin}
           roster={roster}
           index={index}
@@ -33,4 +31,5 @@ export default function Rosters(props) {
       ))}
     </div>
   );
-}
+};
+export default Rosters;

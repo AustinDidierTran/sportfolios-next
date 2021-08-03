@@ -1,38 +1,42 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import api from '../../actions/api';
 import { LoadingSpinner } from '../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 import { updateRanking } from './RankingFunctions';
-import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import { Store } from '../../Store';
+import { getPreranking, getTeamgames } from '../../actions/service/entity/get';
+import { Ranking as RankingType } from '../../../../typescript/types';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));
 const Ranking = dynamic(() => import('./Ranking'));
 
-export default function Rankings() {
+interface IRanking extends RankingType {
+  position: any;
+  teamId: string;
+}
+
+interface IPreranking extends RankingType {
+  position: any;
+  positionName: string;
+}
+
+const Rankings: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     state: { id: eventId },
   } = useContext(Store);
 
-  const [preranking, setPreranking] = useState([]);
-  const [prerankPhaseId, setPrerankPhaseId] = useState();
-  const [ranking, setRanking] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [preranking, setPreranking] = useState<IPreranking[]>([]);
+  const [prerankPhaseId, setPrerankPhaseId] = useState<string>();
+  const [ranking, setRanking] = useState<IRanking[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getRankings = async () => {
-    const {
-      data: { preranking, prerankPhaseId },
-    } = await api(
-      formatRoute('/api/entity/preranking', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
+    const { preranking, prerankPhaseId } = await getPreranking(eventId);
+
     setPrerankPhaseId(prerankPhaseId);
-    let ranking = [];
+    let ranking: IRanking[] = [];
     if (preranking) {
       ranking = preranking
         .map((d) => {
@@ -42,7 +46,7 @@ export default function Rankings() {
               name: d.name,
               rosterId: d.rosterId ? d.rosterId : null,
               rankingId: d.rankingId,
-              id: d.teamId ? d.teamId : null,
+              teamId: d.teamId ? d.teamId : null,
             };
           }
         })
@@ -58,13 +62,13 @@ export default function Rankings() {
       );
     }
 
-    const { data: games } = await api(formatRoute('/api/entity/teamGames', null, { eventId }), { method: 'GET' });
-    const playedGames = games.reduce((prev, curr) => {
+    const games = await getTeamgames(eventId);
+    const playedGames = games.reduce((prev: any, curr: any) => {
       const score1 = curr.teams[0].score;
       const score2 = curr.teams[1].score;
       return prev.concat([score1, score2]);
     }, []);
-    if (!playedGames.some((g) => g > 0)) {
+    if (!playedGames.some((g: any) => g > 0)) {
       setRanking(ranking.sort((a, b) => a.position - b.position));
     } else {
       const rankingInfos = updateRanking(ranking, games);
@@ -92,9 +96,10 @@ export default function Rankings() {
 
   return (
     <>
-      <Ranking ranking={preranking} title={t('preranking')}></Ranking>
+      <Ranking ranking={preranking} title={t('preranking')} />
       <PhaseRanking prerankPhaseId={prerankPhaseId} />
-      <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition></Ranking>
+      <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition />
     </>
   );
-}
+};
+export default Rankings;

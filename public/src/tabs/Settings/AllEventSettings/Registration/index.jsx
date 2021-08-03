@@ -9,6 +9,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { COLORS } from '../../../../utils/colors';
 
 const AddOptionsEvent = dynamic(() => import('../../AddOptionsEvent'));
 const TeamsRegistered = dynamic(() => import('../../TeamsRegistered'));
@@ -16,7 +17,7 @@ const PlayersRegistered = dynamic(() => import('../../PlayersRegistered'));
 
 const useStyles = makeStyles(() => ({
   primary: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'lightGrey' },
+    '&:hover, &.Mui-focusVisible': { backgroundColor: COLORS.lightGrey },
     borderRadius: '15px !important',
     margin: '8px !important',
     position: 'static',

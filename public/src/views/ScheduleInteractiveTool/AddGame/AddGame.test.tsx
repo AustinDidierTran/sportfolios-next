@@ -1,17 +1,17 @@
 import { haveDifferentPhase } from './AddGame.utils';
 
 describe('haveDifferentPhase', () => {
-  const ranking1: { currentPhase: string } = { currentPhase: '123' };
-  const ranking2: { currentPhase: string } = { currentPhase: '123' };
+  const ranking1CurrentPhaseId = '123';
+  const ranking2CurrentPhaseId = '123';
   const phase1 = '123';
-  const ranking3: { currentPhase: string } = { currentPhase: '456' };
-  const ranking4: { currentPhase: string } = { currentPhase: '456' };
+  const ranking3CurrentPhaseId = '456';
+  const ranking4CurrentPhaseId = '456';
   const phase2 = '456';
 
   it('should return', async () => {
-    expect(haveDifferentPhase(ranking1, ranking2, phase1)).toBe(false);
-    expect(haveDifferentPhase(ranking1, ranking2, phase2)).toBe(true);
-    expect(haveDifferentPhase(ranking3, ranking4, phase2)).toBe(false);
-    expect(haveDifferentPhase(ranking1, ranking3, phase1)).toBe(true);
+    expect(haveDifferentPhase(ranking1CurrentPhaseId, ranking2CurrentPhaseId, phase1)).toBe(false);
+    expect(haveDifferentPhase(ranking1CurrentPhaseId, ranking2CurrentPhaseId, phase2)).toBe(true);
+    expect(haveDifferentPhase(ranking3CurrentPhaseId, ranking4CurrentPhaseId, phase2)).toBe(false);
+    expect(haveDifferentPhase(ranking1CurrentPhaseId, ranking3CurrentPhaseId, phase1)).toBe(true);
   });
 });

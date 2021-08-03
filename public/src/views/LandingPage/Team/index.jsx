@@ -36,7 +36,7 @@ const Team = () => {
         <div className={styles.businessTeamContainer}>
           {team.map((m, index) => (
             <div key={index} className={styles.teamContainer}>
-              <img className={styles.picture} src={m.photoUrl}></img>
+              <img className={styles.picture} src={m.photoUrl} />
               <div className={styles.moduleDescription}>
                 <span className={styles.teamName}>{t(`landingPage.team.${m.labelKey}.name`)}</span>
                 <br />

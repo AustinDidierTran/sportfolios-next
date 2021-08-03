@@ -1,11 +1,11 @@
 export function haveDifferentPhase(
-  ranking1: { currentPhase: string },
-  ranking2: { currentPhase: string },
+  ranking1CurrentPhaseId: string,
+  ranking2CurrentPhaseId: string,
   phase: string
 ): boolean {
   return (
-    ranking1.currentPhase !== ranking2.currentPhase ||
-    phase !== ranking1.currentPhase ||
-    phase !== ranking2.currentPhase
+    ranking1CurrentPhaseId !== ranking2CurrentPhaseId ||
+    phase !== ranking1CurrentPhaseId ||
+    phase !== ranking2CurrentPhaseId
   );
 }

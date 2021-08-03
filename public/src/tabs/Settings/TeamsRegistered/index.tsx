@@ -448,9 +448,7 @@ const TeamsRegistered: React.FunctionComponent = () => {
                   {t('accept_teams')}
                 </Button>
               </StyledTableCell>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </StyledTableRow>
           <TableBody>
             {isLoading ? (

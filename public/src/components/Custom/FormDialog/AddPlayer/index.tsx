@@ -23,6 +23,7 @@ interface IPersonComponent {
   notClickable: boolean;
   secondaryActions: any[];
 }
+
 const AddPlayer: React.FunctionComponent<IProps> = (props) => {
   const { open: openProps, onClose, update, players } = props;
   const { t } = useTranslation();

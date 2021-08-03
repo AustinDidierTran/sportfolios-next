@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { FORM_DIALOG_TYPE_ENUM, TABS_ENUM } from '../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
 import FormDialog from '../../FormDialog';
 import styles from '../HeaderHome.module.css';
 import CustomIcon from '../../Icon';
@@ -16,24 +16,18 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
-import { Entity } from '../../../../../../typescript/types';
+import { Entity, NavTabs } from '../../../../../../typescript/types';
+import { COLORS } from '../../../../utils/colors';
 
 const BannerTeam = dynamic(() => import('../../BannerTeam'));
 
 interface IProps {
   basicInfos: Entity;
-  navTabs: INavTabs[];
-  index: string;
+  navTabs: NavTabs[];
+  index: number;
   isAdmin: boolean;
   onSwitch: () => void;
   adminView: boolean;
-}
-
-interface INavTabs {
-  component: React.ComponentType<any>;
-  value: typeof TABS_ENUM;
-  label: string;
-  icon: string;
 }
 
 const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
@@ -79,18 +73,18 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
         <Tabs
           value={index}
           TabIndicatorProps={{
-            style: { backgroundColor: 'white' },
+            style: { backgroundColor: COLORS.white },
           }}
           style={{
-            color: 'white',
-            backgroundColor: '#18B393',
+            color: COLORS.white,
+            backgroundColor: COLORS.turquoise,
             minHeight: 0,
             borderRadius: width > MOBILE_WIDTH ? '7px' : '0px',
           }}
           variant="fullWidth"
           scrollButtons="off"
         >
-          {navTabs.map((s: INavTabs, index: number) => (
+          {navTabs.map((s: NavTabs, index: number) => (
             <Tab
               key={index}
               onClick={() => {
@@ -107,7 +101,7 @@ const HeaderTeam: React.FunctionComponent<IProps> = (props) => {
                 </div>
               }
               style={{
-                borderRightColor: 'white',
+                borderRightColor: COLORS.white,
                 borderRightStyle: navTabs.length === index + 1 ? 'none' : 'solid',
                 borderRightWidth: 1,
                 minHeight: 0,

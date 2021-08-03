@@ -4,46 +4,37 @@ import { formatDate } from '../../../utils/stringFormats';
 import { EventField, Phase, Ranking, TeamsSchedule, TimeSlot } from '../../../../../typescript/types';
 import { getGameOptions as getGameOptionsApi } from '../../../actions/service/entity/get';
 
-interface IData {
-  value: string;
-  display: string;
-}
-
 interface IWithAllData {
   value: string;
   displayKey?: string;
   display?: string;
 }
 
-interface IPhases extends IWithAllData {
-  status?: string;
+interface IPhaseOption extends Phase {
+  value: string;
+  displayKey?: string;
+  display?: string;
 }
 
-interface GameOptions {
+interface IData {
+  value: string;
+  display: string;
+}
+
+interface IPositionOption extends Ranking {
+  value: string;
+  display: string;
+}
+
+interface IGameOptions {
   timeSlots: IData[];
   teams: IWithAllData[];
-  phases: IPhases[];
+  phases: IPhaseOption[];
   fields: IWithAllData[];
   positions: IPositionOption[];
 }
 
-interface IPositionOption {
-  value: string;
-  display: string;
-  id: string;
-  rosterId: string;
-  originPhase: string;
-  originPosition: string;
-  currentPhase: string;
-  initialPosition: number;
-  finalPosition: number;
-  rankingId: string;
-  phaseName?: string;
-  name?: string;
-  teamName?: string;
-}
-
-export const getPhases = (data: Phase[], withoutAll: boolean): IPhases[] => {
+export const getPhases = (data: Phase[], withoutAll: boolean): IPhaseOption[] => {
   if (data.length > 0) {
     const res = data
       .sort((a: Phase, b: Phase) => a.phaseOrder - b.phaseOrder)
@@ -118,18 +109,19 @@ export const getPositionOptions = (data: Phase[]): IPositionOption[] => {
     value: r.rankingId,
     display: r.name
       ? `${r.finalPosition ? r.finalPosition.toString() : r.initialPosition.toString()}. ${
-          data.find((d: Phase) => d.id === r.currentPhase).name
+          data.find((d: Phase) => d.id === r.currentPhase.id)?.name
         } (${r.name})`
-      : `${r.initialPosition.toString()}. ${data.find((d) => d.id === r.currentPhase).name}`,
+      : `${r.initialPosition.toString()}. ${data.find((d) => d.id === r.currentPhase.id)?.name}`,
     ...r,
   }));
+
   return formattedRankingOptions.sort(
     (a: Ranking, b: Ranking) =>
       (a.finalPosition ? a.finalPosition : a.initialPosition) - (b.finalPosition ? b.finalPosition : b.initialPosition)
   );
 };
 
-export const getGameOptions = async (eventId: string, withoutAll: boolean, isFuture = false): Promise<GameOptions> => {
+export const getGameOptions = async (eventId: string, withoutAll: boolean, isFuture = false): Promise<IGameOptions> => {
   const options = await getGameOptionsApi(eventId);
   let timeSlotsRes;
   if (isFuture) {

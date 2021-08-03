@@ -42,7 +42,7 @@ export default function FollowNotification(props) {
         <Avatar className={styles.avatar} photoUrl={photoUrl} />
       </ListItemIcon>
       <ListItemText primary={text} />
-      {seen_at ? <></> : <FiberManualRecordIcon style={{ color: '#54b095' }} />}
+      {seen_at ? null : <FiberManualRecordIcon style={{ color: '#54b095' }} />}
     </ListItem>
   );
 }

@@ -12,6 +12,7 @@ import { formatDate, formatRoute } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import api from '../../../../actions/api';
 import AlertDialog from '../../Dialog/AlertDialog';
+import { COLORS } from '../../../../utils/colors';
 
 export default function BankAccountItem(props) {
   const { t } = useTranslation();
@@ -52,15 +53,13 @@ export default function BankAccountItem(props) {
         />
         <ListItemText secondary={t('default')} style={{ textAlign: 'end', margin: '4px' }} />
         <Radio checked={isDefault} label={t('default')} color="primary" onClick={onChange} />
-        {removeDelete ? (
-          <></>
-        ) : (
+        {removeDelete ? null : (
           <CustomIconButton
             icon="Delete"
             onClick={() => {
               setOpenDelete(true);
             }}
-            style={{ color: 'grey' }}
+            style={{ color: COLORS.grey }}
             tooltip={t('remove')}
           />
         )}

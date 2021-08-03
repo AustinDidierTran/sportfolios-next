@@ -12,6 +12,7 @@ import { Store } from '../../../../Store';
 import { ROUTES_ENUM, STATUS_ENUM } from '../../../../../common/enums';
 import { goTo } from '../../../../actions/goTo';
 import { EventTeam } from '../../../../../../typescript/types';
+import { COLORS } from '../../../../utils/colors';
 
 interface IProps {
   team: EventTeam;
@@ -74,7 +75,7 @@ const TeamRowMobile: React.FunctionComponent<IProps> = (props) => {
           )}
         </StyledTableCell>
         <StyledTableCell align="center">
-          <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: 'grey' }} />
+          <IconButton onClick={handleExpand} aria-expanded={expanded} icon={icon} style={{ color: COLORS.grey }} />
         </StyledTableCell>
       </StyledTableRow>
       <StyledTableRow style={{ margin: '0px', padding: '0px' }}>

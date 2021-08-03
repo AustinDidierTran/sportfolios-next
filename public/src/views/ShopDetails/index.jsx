@@ -144,7 +144,7 @@ export default function ShopDetails() {
 
   if (!item) {
     // TODO: Return 404 view
-    return <></>;
+    return null;
   }
 
   return (
@@ -173,9 +173,7 @@ export default function ShopDetails() {
               <div className={styles.sizes}>
                 <Select label={t('size')} formik={formik} namespace="size" options={sizeOptions} />
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
             <div className={styles.quantity}>
               <Select label={t('quantity')} formik={formik} namespace="quantity" options={quantityOptions} />
             </div>

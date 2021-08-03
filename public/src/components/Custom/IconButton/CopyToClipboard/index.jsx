@@ -32,7 +32,5 @@ export default function CopyToClipBoard(props) {
       </Button>
     );
   }
-  return (
-    <IconButton icon="FileCopy" onClick={copyToClipBoard} style={style} tooltip={tooltip} size={size}></IconButton>
-  );
+  return <IconButton icon="FileCopy" onClick={copyToClipBoard} style={style} tooltip={tooltip} size={size} />;
 }

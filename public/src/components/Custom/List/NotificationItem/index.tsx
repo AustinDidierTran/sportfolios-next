@@ -10,6 +10,7 @@ import api from '../../../../actions/api';
 import { timestampToRelativeTime } from '../../../../utils/stringFormats';
 import CustomAvatar from '../../Avatar';
 import CustomIcon from '../../Icon';
+import { COLORS } from '../../../../utils/colors';
 
 interface IProps {
   created_at: string;
@@ -47,16 +48,14 @@ const NotificationItem: React.FunctionComponent<IProps> = (props) => {
         disableTypography
         primary={<Typography>{description}</Typography>}
         secondary={
-          <Typography color="textSecondary" style={{ color: clicked ? 'textSecondary' : '#18b393' }}>
+          <Typography color="textSecondary" style={{ color: clicked ? 'textSecondary' : COLORS.turquoise }}>
             {timestampToRelativeTime(new Date(created_at))}
           </Typography>
         }
       />
-      {clicked ? (
-        <></>
-      ) : (
+      {clicked ? null : (
         <div className={styles.dot}>
-          <CustomIcon icon="Dot" color="#18b393" />
+          <CustomIcon icon="Dot" color={COLORS.turquoise} />
         </div>
       )}
 

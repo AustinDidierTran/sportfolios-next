@@ -25,6 +25,7 @@ import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
+import { COLORS } from '../../../utils/colors';
 import { unregisterPeople } from '../../../actions/service/entity/post';
 
 export default function PlayersRegistered() {
@@ -283,7 +284,7 @@ export default function PlayersRegistered() {
   }))(TableRow);
 
   if (players.length < 1) {
-    return <></>;
+    return null;
   }
 
   if (width < MOBILE_WIDTH) {
@@ -313,7 +314,7 @@ export default function PlayersRegistered() {
                       icon="MoneyOff"
                       tooltip={t('register.unregister_all')}
                       onClick={handleUnregisterAllClick}
-                      style={{ color: '#f44336' }}
+                      style={{ color: COLORS.red }}
                     />
                   )}
                 </StyledTableCell>
@@ -402,11 +403,9 @@ export default function PlayersRegistered() {
                     icon="MoneyOff"
                     tooltip={t('register.unregister_all')}
                     onClick={handleUnregisterAllClick}
-                    style={{ color: '#f44336' }}
+                    style={{ color: COLORS.red }}
                   />
-                ) : (
-                  <></>
-                )}
+                ) : null}
               </StyledTableCell>
             </TableRow>
           </TableHead>

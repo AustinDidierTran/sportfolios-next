@@ -40,14 +40,14 @@ export default function MembershipItem(props) {
               photoUrl={organization?.photoUrl || IMAGE_ENUM.ULTIMATE_TOURNAMENT}
               variant="square"
               className={styles.photo}
-            ></CustomAvatar>
+            />
           </ListItemIcon>
-          <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name}></ListItemText>
+          <ListItemText className={styles.name} primary={t(label)} secondary={organization?.name} />
           <ListItemText
             className={styles.quantity}
             primary={taxLength ? `${formatPrice(amount)} + ${t('taxes')}` : formatPrice(amount)}
             secondary={`${person?.name} ${person?.surname}`}
-          ></ListItemText>
+          />
           <Tooltip title={checked ? t('payment.remove_from_current_invoice') : t('payment.add_to_current_invoice')}>
             <div>
               <CustomCheckBox disabled={disabled} checked={checked} onChange={handleChange} style={{ margin: '0px' }} />
@@ -59,7 +59,7 @@ export default function MembershipItem(props) {
             icon="Delete"
             tooltip={t('delete.delete')}
             style={{ color: 'primary' }}
-          ></CustomIconButton>
+          />
         </div>
       </ListItem>
       <Divider />

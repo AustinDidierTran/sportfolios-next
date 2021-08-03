@@ -17,7 +17,7 @@ export default function CollapsePlayersRegistered(props) {
   return (
     <Collapse in={expanded} timeout="auto" unmountOnExit>
       <ListItem>
-        <ListItemText className={styles.text} primary={player.email} secondary={t('email.email')}></ListItemText>
+        <ListItemText className={styles.text} primary={player.email} secondary={t('email.email')} />
         <MailToButton emails={[{ email: player.email }]} color="grey" />
       </ListItem>
       <ListItem>

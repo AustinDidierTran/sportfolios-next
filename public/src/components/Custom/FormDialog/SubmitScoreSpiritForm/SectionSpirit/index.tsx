@@ -16,20 +16,14 @@ import TextField from '../../../TextField';
 import IconButton from '../../../IconButton';
 import Collapse from '../../../Collapse';
 import Button from '../../../Button';
-import { PersonAdmin, SpiritSubmission, SubmissionerTeam } from '../../../../../../../typescript/types';
+import { SpiritSubmission, SubmissionerInfos } from '../../../../../../../typescript/types';
 import { addSpirit } from '../../../../../actions/service/entity/post';
 
 interface IProps {
   submittedSpirit: SpiritSubmission;
   gameId: string;
   IsSubmittedCheck: JSX.Element;
-  submissionerInfos: ISubmissionerInfos;
-}
-
-interface ISubmissionerInfos {
-  myTeam: SubmissionerTeam;
-  enemyTeam: SubmissionerTeam;
-  person: PersonAdmin;
+  submissionerInfos: SubmissionerInfos;
 }
 
 const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
@@ -127,7 +121,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
       <div className={styles.collapseHeader} onClick={() => setExpanded(!expanded)}>
         <Typography>{t('spirit')}</Typography>
         <div className={styles.expand}>
-          {isSubmitted ? IsSubmittedCheck : <></>}
+          {isSubmitted ? IsSubmittedCheck : null}
           <IconButton
             className={styles.arrowButton}
             aria-expanded={expanded}
@@ -145,9 +139,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
             }`}</Typography>
             {formik.values.comment ? (
               <TextField type="text" value={submittedSpirit?.comment} fullWidth formikDisabled />
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
         ) : (
           <div>
@@ -170,9 +162,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
               {t('submit')}
             </Button>
           </div>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </Collapse>
     </div>
   );

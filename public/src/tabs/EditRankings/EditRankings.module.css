@@ -14,10 +14,6 @@
   margin-top: 8px;
 }
 
-.draggable {
-  margin-bottom: 8px;
-}
-
 @media (max-width: 600px) {
   .main {
     padding-bottom: 200px;

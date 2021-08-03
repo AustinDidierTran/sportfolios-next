@@ -20,7 +20,7 @@ import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Divider from '@material-ui/core/Divider';
 import Posts from '../../../components/Custom/Posts';
 import dynamic from 'next/dynamic';
-import { Entity, PersonAdmin, GameInfo, SubmissionerInfos, SubmissionerTeam } from '../../../../../typescript/types';
+import { Entity, GameInfo, SubmissionerInfos } from '../../../../../typescript/types';
 import { getGameInfo, getHasSpirit, getPossibleSubmissionerInfos } from '../../../actions/service/entity/get';
 import MultipleTeamGame from '../../../components/Custom/Card/MultipleTeamGame';
 import { goTo, ROUTES } from '../../../actions/goTo';
@@ -39,12 +39,6 @@ interface IProps {
   basicInfos: Entity;
 }
 
-interface ISubmissionerInfos {
-  myTeam: SubmissionerTeam;
-  enemyTeam: SubmissionerTeam;
-  person: PersonAdmin;
-}
-
 const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   const { gameId, basicInfos } = props;
   const { t } = useTranslation();
@@ -55,7 +49,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [game, setGame] = useState<GameInfo>();
-  const [selectedSubmissionerInfos, setSelectedSubmissionerInfos] = useState<ISubmissionerInfos>();
+  const [selectedSubmissionerInfos, setSelectedSubmissionerInfos] = useState<SubmissionerInfos>();
   const [possibleSubmissionersInfos, setpossibleSubmissionersInfos] = useState<SubmissionerInfos[]>([]);
   const [submitScore, setSubmitScore] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<any>(null);
