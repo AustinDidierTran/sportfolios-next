@@ -79,7 +79,6 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
         });
 
         const ranking = updateRanking(teams, games);
-        console.log({ ranking });
 
         const rankingStats = ranking.map((r: IRanking) => {
           const t = teams.find((t) => t.id === r.id);
@@ -90,13 +89,11 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             initialPosition: t.initialPosition,
           };
         });
-        console.log({ rankingStats });
 
         if (phase.status === PHASE_STATUS_ENUM.DONE) {
           const rankingFromFinalPosition = rankingStats.sort(
             (a: IRanking, b: IRanking) => a.finalPosition - b.finalPosition
           );
-          console.log({ rankingFromFinalPosition });
 
           return {
             ranking: rankingFromFinalPosition,
@@ -110,6 +107,8 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
             const score2 = curr.teams[1].score;
             return prev.concat([score1, score2]);
           }, []);
+
+          console.log({ playedGames, isTeamsScoreEqual: !playedGames.some((g) => g > 0) });
           setIsTeamScoreEqual(!playedGames.some((g) => g > 0));
         }
 
@@ -121,9 +120,9 @@ const PhaseRankings: React.FunctionComponent<IProps> = (props) => {
         };
       })
     );
-
     setPhases(res);
   };
+  console.log({ isTeamsScoreEqual });
 
   useEffect((): void => {
     if (eventId) {
