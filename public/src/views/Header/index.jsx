@@ -13,7 +13,7 @@ const Default = dynamic(() => import('./Default'));
 const LoggedIn = dynamic(() => import('./LoggedIn'));
 
 const getEntity = async (entityId) => {
-  const { data } = await api(`/api/entity?id=${entityId}`);
+  const { data } = await api(`/api/entity?id=${entityId}`, { method: 'GET' });
   return data.basicInfos;
 };
 

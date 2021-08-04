@@ -148,7 +148,7 @@ export function getPhasesGameAndTeams(eventId: string, phaseId: string): Promise
 }
 
 export function getPrerankPhase(eventId: string): Promise<Phase> {
-  return api(formatRoute(`${BASE_URL}/prerankPhase`, null, { eventId })).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/prerankPhase`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getPracticeBasicInfo(teamId: string): Promise<Practice[]> {
@@ -288,7 +288,8 @@ export function getPreranking(eventId: string): Promise<{ preranking: Preranking
   return api(
     formatRoute(`${BASE_URL}/preranking`, null, {
       eventId,
-    })
+    }),
+    { method: 'GET' }
   ).then((res) => res.data);
 }
 

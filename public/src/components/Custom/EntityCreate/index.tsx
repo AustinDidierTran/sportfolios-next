@@ -11,7 +11,7 @@ import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, TABS_ENUM } from '../../../../common/enums';
+import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, TABS_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { Store } from '../../../Store';
@@ -306,15 +306,23 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
         surname = surnameProps;
       }
 
-      try {
-        const id = await addEntity(name, surname, type.toString(), creator, maximum, start, end, eventType, photoUrl);
+      const { id, status } = await addEntity(
+        name,
+        surname,
+        type.toString(),
+        creator,
+        maximum,
+        start,
+        end,
+        eventType,
+        photoUrl
+      );
+      if (status === REQUEST_STATUS_ENUM.SUCCESS) {
         goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS });
-        setIsSubmitting(false);
-      } catch (err) {
-        setIsSubmitting(false);
+      } else {
         formik.setFieldError('name', t('something_went_wrong'));
-        throw err;
       }
+      setIsSubmitting(false);
     },
   });
 
