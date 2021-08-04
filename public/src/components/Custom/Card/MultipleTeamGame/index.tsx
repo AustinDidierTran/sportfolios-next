@@ -74,7 +74,7 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
   }
 
   return (
-    <Card className={styles.game} onClick={() => onClick(eventId, id)}>
+    <Card className={styles.game} onClick={() => onClick(id, eventId)}>
       {getContent()}
     </Card>
   );
