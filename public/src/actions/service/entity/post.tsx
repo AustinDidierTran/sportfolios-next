@@ -25,11 +25,13 @@ export function addEntity(
   endDate: string,
   eventType: string,
   photoUrl: string
-): Promise<string> {
+): Promise<{ id: string; status: number }> {
   return api(BASE_URL, {
     method: 'POST',
     body: JSON.stringify({ name, surname, type, creator, maximumSpots, startDate, endDate, eventType, photoUrl }),
-  }).then((res) => res.data.id);
+  }).then((res) => {
+    return { id: res.data.id, status: res.status };
+  });
 }
 
 export function addExercise(

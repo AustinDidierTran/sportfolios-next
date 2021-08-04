@@ -42,7 +42,7 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
 
   const [imageList, setImageList] = useState<Image[]>([]);
   const [imageType, setImageType] = useState<string>(IMAGE_TYPE_ENUM.ALL);
-  const [img, setImg] = useState<Iimage>();
+  const [img, setImg] = useState<Iimage>(null);
 
   useEffect((): void => {
     getImages();
@@ -53,17 +53,19 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
   };
 
   useMemo((): void => {
-    uploadPicture(entityId, img).then((res) => {
-      if (res) {
-        formik.setFieldValue('photoUrl', res);
-      } else {
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('invalid.invalid_file_image'),
-          severity: SEVERITY_ENUM.ERROR,
-        });
-      }
-    });
+    if (img) {
+      uploadPicture(entityId, img).then((res) => {
+        if (res) {
+          formik.setFieldValue('photoUrl', res);
+        } else {
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('invalid.invalid_file_image'),
+            severity: SEVERITY_ENUM.ERROR,
+          });
+        }
+      });
+    }
   }, [img]);
 
   const uploadImageProps = {
