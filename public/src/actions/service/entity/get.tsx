@@ -297,7 +297,8 @@ export function getTeamgames(eventId: string): Promise<PhaseGames[]> {
   return api(
     formatRoute(`${BASE_URL}/teamGames`, null, {
       eventId,
-    })
+    }),
+    { method: 'GET' }
   ).then((res) => res.data);
 }
 
@@ -305,7 +306,8 @@ export function getAllTeamsAcceptedInfos(eventId: string): Promise<AllTeamsAccep
   return api(
     formatRoute(`${BASE_URL}/allTeamsAcceptedInfos`, null, {
       eventId,
-    })
+    }),
+    { method: 'GET' }
   ).then((res) => res.data);
 }
 
@@ -313,7 +315,8 @@ export function getEvent(id: string): Promise<EventInfos> {
   return api(
     formatRoute(`${BASE_URL}/eventInfos`, null, {
       id,
-    })
+    }),
+    { method: 'GET' }
   ).then((res) => res.data);
 }
 
@@ -321,7 +324,8 @@ export function getOptions(eventId: string): Promise<Options[]> {
   return api(
     formatRoute(`${BASE_URL}/options`, null, {
       eventId,
-    })
+    }),
+    { method: 'GET' }
   ).then((res) => res.data);
 }
 
@@ -329,6 +333,7 @@ export function getRemainingSpots(id: string): Promise<number> {
   return api(
     formatRoute(`${BASE_URL}/remainingSpots`, null, {
       id,
-    })
+    }),
+    { method: 'GET' }
   ).then((res) => res.data);
 }
