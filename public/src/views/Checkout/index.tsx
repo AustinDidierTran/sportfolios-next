@@ -32,7 +32,7 @@ const Checkout: React.FunctionComponent = () => {
     setIsLoading(true);
     const { status, data } = await api('/api/shop/cartTotal', { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
-      if (total <= 0) {
+      if (data.total <= 0) {
         goTo(ROUTES.cart);
       }
       setTotal(data.total);
