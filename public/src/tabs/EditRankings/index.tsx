@@ -76,7 +76,6 @@ const EditRankings: React.FunctionComponent = () => {
 
   const getData = async (): Promise<void> => {
     const prerankPhase = await getPrerankPhase(eventId);
-
     setPrerankPhase(prerankPhase);
 
     const { preranking: ranking } = await getPreranking(eventId);

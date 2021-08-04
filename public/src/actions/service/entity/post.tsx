@@ -49,7 +49,7 @@ export function addExercise(
 }
 
 export function addPhase(phase: string, spots: number, eventId: string, type: string): Promise<number> {
-  return api('/api/entity/phase', { method: 'POST', body: JSON.stringify({ phase, spots, eventId, type }) }).then(
+  return api(`${BASE_URL}/phase`, { method: 'POST', body: JSON.stringify({ phase, spots, eventId, type }) }).then(
     (res) => res.status
   );
 }
@@ -70,11 +70,11 @@ export function confirmEmail(token: string): Promise<any> {
 }
 
 export function unregisterPeople({ eventId, people }: { eventId: string; people: any }): Promise<any> {
-  return api('/api/entity/unregisterPeople', { method: 'POST', body: JSON.stringify({ eventId, people }) });
+  return api(`${BASE_URL}/unregisterPeople`, { method: 'POST', body: JSON.stringify({ eventId, people }) });
 }
 
 export function unregisterTeams({ eventId, rosterIds }: { eventId: string; rosterIds: any }): Promise<any> {
-  return api('/api/entity/unregisterTeams', { method: 'POST', body: JSON.stringify({ eventId, rosterIds }) });
+  return api(`${BASE_URL}/unregisterTeams`, { method: 'POST', body: JSON.stringify({ eventId, rosterIds }) });
 }
 
 export function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
