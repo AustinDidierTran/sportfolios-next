@@ -60,6 +60,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
 
   const getGame = async (): Promise<void> => {
     const data = await getGameInfo(gameId);
+
     if (!data) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,

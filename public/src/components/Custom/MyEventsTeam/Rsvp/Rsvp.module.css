@@ -1,7 +1,7 @@
-.buttonStyle {
-    margin-right: 15px
+.button {
+  margin: 4px !important;
 }
 
 .div {
-    margin-bottom: 5px
+  margin-bottom: 5px;
 }

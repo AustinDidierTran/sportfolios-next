@@ -76,7 +76,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
       {open ? (
         <div className={styles.div}>
           <CustomButton
-            className={styles.rsvpButton}
+            className={styles.button}
             startIcon="Check"
             color="primary"
             textColor={goingVariant == 'outlined' ? COLORS.turquoise : COLORS.white}
@@ -88,7 +88,7 @@ const RsvpComponent: React.FunctionComponent<IProps> = (props) => {
             {t('going')}
           </CustomButton>
           <CustomButton
-            className={styles.rsvpButton}
+            className={styles.button}
             startIcon="Close"
             color="secondary"
             textColor="primary"
