@@ -9,7 +9,7 @@ export const useFields = (type, options) => {
   const field = useMemo(() => {
     if (type === FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION) {
       const {
-        ownersId,
+        owners,
         teamPriceTotal,
         teamOnClick,
         onClickDeleteTeamsFee,
@@ -49,7 +49,7 @@ export const useFields = (type, options) => {
                 componentType: COMPONENT_TYPE_ENUM.BUTTON,
                 children: t('add.add_team_fees'),
                 onClick: teamOnClick,
-                disabled: !ownersId.length,
+                disabled: !owners.length,
               }
           : {
               componentType: COMPONENT_TYPE_ENUM.EMPTY,
@@ -69,9 +69,9 @@ export const useFields = (type, options) => {
               componentType: COMPONENT_TYPE_ENUM.BUTTON,
               children: t('add.add_player_fees'),
               onClick: playerOnClick,
-              disabled: !ownersId.length,
+              disabled: !owners.length,
             },
-        !ownersId.length
+        !owners.length
           ? {
               componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
               secondary: t('one_admin_need_bank_account'),
@@ -97,12 +97,12 @@ export const useFields = (type, options) => {
           primaryTypographyProps: { variant: 'h6' },
           primary: t('payment.payment_management'),
         },
-        ownersId.length
+        owners.length
           ? {
               namespace: 'ownerId',
               label: t('payment.payment_option_owner'),
               componentType: COMPONENT_TYPE_ENUM.SELECT,
-              options: ownersId,
+              options: owners,
             }
           : {
               componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,

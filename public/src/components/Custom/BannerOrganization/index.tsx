@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
-import { Entity, Member } from '../../../../../typescript/types';
+import { Entity } from '../../../../../typescript/types';
 import { COLORS } from '../../../utils/colors';
 
 interface IProps {
@@ -19,7 +19,7 @@ interface IProps {
   adminView: boolean;
   onSwitch: () => void;
   isAdmin: boolean;
-  member: Member;
+  member: number;
 }
 
 const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
@@ -90,7 +90,7 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
         </div>
         <div className={styles.chip}>
           {member ? (
-            <Chip label={getMembershipName(member.memberType)} color="primary" variant="outlined" />
+            <Chip label={getMembershipName(member)} color="primary" variant="outlined" />
           ) : (
             <Chip label={t('not_member')} style={{ color: COLORS.grey }} variant="outlined" />
           )}

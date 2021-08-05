@@ -63,7 +63,7 @@ const CreateItem: React.FunctionComponent<IProps> = (props) => {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_add_product_no_bank_account'),
-        severity: 'error',
+        severity: SEVERITY_ENUM.ERROR,
       });
       setIsCreating(false);
     } else {
@@ -94,7 +94,11 @@ const CreateItem: React.FunctionComponent<IProps> = (props) => {
       res = false;
     }
     if (!photoUrl.value) {
-      photoUrl.setError(t(ERROR_ENUM.VALUE_IS_REQUIRED));
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('image_required'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
       res = false;
     }
     return res;

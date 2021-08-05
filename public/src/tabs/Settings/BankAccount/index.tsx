@@ -35,9 +35,13 @@ const BankAccount: React.FunctionComponent = () => {
   }, [entityId]);
 
   const getBankAccounts = async (): Promise<void> => {
-    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }));
+    const { data: hasStripeAccount } = await api(formatRoute('/api/stripe/hasStripeAccount', null, { entityId }), {
+      method: 'GET',
+    });
     setHasAccount(hasStripeAccount);
-    const { data: bankAccounts } = await api(formatRoute('/api/stripe/bankAccounts', null, { entityId }));
+    const { data: bankAccounts } = await api(formatRoute('/api/stripe/bankAccounts', null, { entityId }), {
+      method: 'GET',
+    });
     const res = bankAccounts.map((b: any) => ({
       type: LIST_ITEM_ENUM.BANK_ACCOUNT,
       last4: b.last4,

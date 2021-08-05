@@ -9,7 +9,7 @@ import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import { Store } from '../../Store';
 import { Entity } from '../../../../typescript/types';
 
-const AddMembership = dynamic(() => import('./AddPartner'));
+const AddPartner = dynamic(() => import('./AddPartner'));
 const AllEventSettings = dynamic(() => import('./AllEventSettings'));
 const Analytics = dynamic(() => import('./Analytics'));
 const BankAccount = dynamic(() => import('./BankAccount'));
@@ -64,7 +64,7 @@ const EntitySettings: React.FunctionComponent<IProps> = (props) => {
         return (
           <div className={styles.div}>
             <BasicInfos basicInfos={basicInfos} />
-            <AddMembership />
+            <AddPartner />
             <BankAccount />
             <Analytics />
             <ManageRoles />
@@ -77,7 +77,7 @@ const EntitySettings: React.FunctionComponent<IProps> = (props) => {
         return (
           <div className={styles.div}>
             <BasicInfos basicInfos={basicInfos} />
-            <AddMembership />
+            <AddPartner />
             <BottomPageLogo />
           </div>
         );

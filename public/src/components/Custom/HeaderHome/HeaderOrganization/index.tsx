@@ -16,7 +16,7 @@ import { Store } from '../../../../Store';
 import { useWindowSize } from '../../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../../common/constants';
 import { useRouter } from 'next/router';
-import { Entity, Member, NavTabs } from '../../../../../../typescript/types';
+import { Entity, NavTabs } from '../../../../../../typescript/types';
 import { getMostRecentMember, hasMemberships as hasMembershipsApi } from '../../../../actions/service/entity/get';
 import { COLORS } from '../../../../utils/colors';
 
@@ -45,7 +45,7 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
   const [openToLogin, setOpenToLogin] = useState<boolean>(false);
 
   const [hasMemberships, setHasMemberships] = useState<boolean>(false);
-  const [member, setMember] = useState<Member>(null);
+  const [member, setMember] = useState<number>(null);
 
   useEffect((): void => {
     if (id) {

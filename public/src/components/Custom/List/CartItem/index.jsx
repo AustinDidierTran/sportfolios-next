@@ -56,17 +56,10 @@ export default function CartItem(props) {
   };
 
   const onDelete = async () => {
-    const res = await api(
-      formatRoute('/api/shop/deleteCartItem', null, {
-        cartItemId: id,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    const res = await api(formatRoute('/api/shop/deleteCartItem', null, { cartItemId: id }), { method: 'DELETE' });
     fetchItems();
     setOpen(false);
-    if (res.status > REQUEST_STATUS_ENUM.SUCCESS) {
+    if (res.status != REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,

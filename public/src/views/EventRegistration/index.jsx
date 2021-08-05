@@ -31,7 +31,7 @@ const TeamSelect = dynamic(() => import('./TeamSelect/index'));
 const AdditionalInformation = dynamic(() => import('./AdditionalInformation'));
 
 const getEvent = (eventId) => {
-  return api(formatRoute('/api/entity/eventInfos', null, { id: eventId }, { method: 'GET' })).then((res) => res.data);
+  return api(formatRoute('/api/entity/eventInfos', null, { id: eventId }), { method: 'GET' }).then((res) => res.data);
 };
 
 export default function EventRegistration() {

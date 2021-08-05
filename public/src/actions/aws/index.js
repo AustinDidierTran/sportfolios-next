@@ -6,7 +6,7 @@ const MAX_IMG_SIZE = 1024 * 1024 * 100;
 const MAX_FILE_SIZE = 1024 * 1024 * 100;
 
 const getSignature = async (imgType) => {
-  return api(`/api/entity/s3Signature?fileType=${imgType}`);
+  return api(`/api/entity/s3Signature?fileType=${imgType}`, { method: 'GET' });
 };
 
 const uploadToS3 = async (file, signedRequest) => {
