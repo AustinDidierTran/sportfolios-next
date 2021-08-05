@@ -269,7 +269,6 @@ export default function OptionPayment() {
       addOptionToEvent({ ...values });
     },
   });
-  console.log({ owners });
 
   const fields = useFields(FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION, {
     teamOnClick: handleOpenTeam,

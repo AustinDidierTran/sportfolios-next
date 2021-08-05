@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
-import { Entity, Member } from '../../../../../typescript/types';
+import { Entity } from '../../../../../typescript/types';
 import { COLORS } from '../../../utils/colors';
 
 interface IProps {

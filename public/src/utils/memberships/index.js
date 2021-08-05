@@ -15,7 +15,6 @@ export const addMembership = async (personId, stripePriceId) => {
 
 export const getMemberships = async (entityId) => {
   const { data } = await api(formatRoute('/api/entity/memberships', null, { id: entityId }), { method: 'GET' });
-  console.log({ data });
   return data.map((d) => ({
     entityId: d.entity_id,
     fixedDate: d.fixed_date,

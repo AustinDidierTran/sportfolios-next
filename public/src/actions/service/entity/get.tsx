@@ -68,7 +68,7 @@ export function getForYouPage(): Promise<{ status: number; data: ForYouPagePost[
   return api(`${BASE_URL}/forYouPage`, { method: 'GET' }).then((res) => res);
 }
 
-export function getMostRecentMember(organizationId: string): Promise<Member> {
+export function getMostRecentMember(organizationId: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/recentMember`, null, { organizationId }), { method: 'GET' }).then(
     (res) => res.data
   );
