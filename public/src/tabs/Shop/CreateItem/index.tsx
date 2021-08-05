@@ -16,9 +16,17 @@ import AddSizes from '../AddSizes';
 import { SEVERITY_ENUM } from '../../../../common/enums';
 import Upload from 'rc-upload';
 import { hasStripeBankAccount } from '../../../actions/service/stripe';
+import MultiSelect from '../../../components/Custom/MultiSelect';
+import { Tax } from '../../../../../typescript/types';
 
 interface IProps {
   fetchItems: () => void;
+  allTaxes: TaxesOption[];
+}
+
+interface TaxesOption extends Tax {
+  display: string;
+  value: string;
 }
 
 const CreateItem: React.FunctionComponent<IProps> = (props) => {
@@ -27,18 +35,23 @@ const CreateItem: React.FunctionComponent<IProps> = (props) => {
     state: { id },
   } = useContext(Store);
   const { t } = useTranslation();
-  const { fetchItems } = props;
+  const { fetchItems, allTaxes } = props;
 
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [sizes, setSizes] = useState<string[]>([]);
+  const [taxes, setTaxes] = useState<string[]>([]);
 
   const name = useFormInput('');
   const amount = useFormInput('');
   const description = useFormInput('');
   const photoUrl = useFormInput('');
 
-  const handleChange = (value: string[]): void => {
+  const handleSizesChange = (value: string[]): void => {
     setSizes(value);
+  };
+
+  const handleTaxesChange = (value: string[]) => {
+    setTaxes(value);
   };
 
   const uploadImageProps = {
@@ -102,6 +115,7 @@ const CreateItem: React.FunctionComponent<IProps> = (props) => {
 
   const addToStore = async () => {
     if (validate()) {
+      const taxRatesId = allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id);
       await createItem({
         name: name.value,
         description: encodeURIComponent(description.value),
@@ -109,6 +123,7 @@ const CreateItem: React.FunctionComponent<IProps> = (props) => {
         photoUrl: photoUrl.value,
         entityId: id,
         sizes,
+        taxRatesId,
       });
       setIsCreating(!isCreating);
       name.reset();
@@ -153,13 +168,21 @@ const CreateItem: React.FunctionComponent<IProps> = (props) => {
         <TextField {...amount.inputProps} type="number" label={t('price')} className={styles.price} />
         <TextField
           multiline
-          rows={5}
+          rows={1}
           rowsMax={10}
           {...description.inputProps}
           placeholder={t('description.description')}
           className={styles.description}
         />
-        <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
+        <div className={styles.sizeTaxes}>
+          <MultiSelect
+            label={t('taxes')}
+            options={allTaxes.map((a) => a.display)}
+            values={taxes}
+            onChange={handleTaxesChange}
+          />
+          <AddSizes handleChange={handleSizesChange} sizes={sizes} />
+        </div>
         <Button size="small" endIcon="Add" onClick={addToStore} className={styles.cart}>
           {t('add.add')}
         </Button>
