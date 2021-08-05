@@ -175,6 +175,7 @@ export default function TabEventInfo() {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+  console.log('allo');
 
   return (
     <div className={canRegister ? styles.event : styles.event1}>

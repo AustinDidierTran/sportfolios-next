@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     color: COLORS.white,
   },
   oddGreen: { backgroundColor: theme.palette.primary.main, color: COLORS.white },
-  even: { backgroundColor: COLORS.lightGrey },
-  odd: { backgroundColor: COLORS.white },
+  even: { backgroundColor: COLORS.mediumLightGrey },
+  odd: { backgroundColor: COLORS.veryLightGrey },
 }));
 
 interface IProps {
