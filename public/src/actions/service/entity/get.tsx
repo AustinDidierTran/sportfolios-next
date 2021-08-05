@@ -170,7 +170,7 @@ export function getPracticeInfo(practiceId: string): Promise<{ practice: Practic
 }
 
 export function getReports(id: string): Promise<Report[]> {
-  return api(formatRoute(`${BASE_URL}/reports`, null, { id })).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/reports`, null, { id }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getRosters(teamId: string): Promise<Roster[]> {
