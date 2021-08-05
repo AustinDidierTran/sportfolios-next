@@ -16,7 +16,7 @@ const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome')
 const Schedule = dynamic(() => import('../../../tabs/Schedule'));
 const Rankings = dynamic(() => import('../../../tabs/Rankings'));
 const Rosters = dynamic(() => import('../../../tabs/Rosters'));
-const EventInfo = dynamic(() => import('../../../tabs/EventInfo/Description'));
+const EventInfo = dynamic(() => import('../../../tabs/EventInfo'));
 const EditSchedule = dynamic(() => import('../../../tabs/EditSchedule'));
 const EditRankings = dynamic(() => import('../../../tabs/EditRankings'));
 const EditRosters = dynamic(() => import('../../../tabs/EditRosters'));
