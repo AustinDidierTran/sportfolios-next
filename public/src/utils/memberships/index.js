@@ -1,4 +1,4 @@
-import { getMembershipLength, getMembershipUnit } from '../stringFormats';
+import { formatRoute, getMembershipLength, getMembershipUnit } from '../stringFormats';
 import { ROUTES, goTo } from '../../actions/goTo';
 import api from '../../actions/api';
 import moment from 'moment';
@@ -14,7 +14,8 @@ export const addMembership = async (personId, stripePriceId) => {
 };
 
 export const getMemberships = async (entityId) => {
-  const { data } = await api(`/api/entity/memberships/?id=${entityId}`);
+  const { data } = await api(formatRoute('/api/entity/memberships', null, { id: entityId }), { method: 'GET' });
+  console.log({ data });
   return data.map((d) => ({
     entityId: d.entity_id,
     fixedDate: d.fixed_date,

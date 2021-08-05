@@ -15,7 +15,7 @@ export default function AddEventPaymentOption(props) {
   const { open, onClose, addOptionToEvent } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
-  const [ownersId, setOwnersId] = useState([]);
+  const [owners, setOwners] = useState([]);
   const [taxes, setTaxes] = useState([]);
   const [allTaxes, setAllTaxes] = useState([]);
   const [teamActivity, setTeamActivity] = useState(true);
@@ -29,10 +29,10 @@ export default function AddEventPaymentOption(props) {
     const { data } = await api(formatRoute('/api/stripe/eventAccounts', null, { eventId }), { method: 'GET' });
     const res = data.map((r) => ({
       value: r.id,
-      display: `${r?.name} ${r?.surname}`,
+      display: r.name,
       key: r.id,
     }));
-    setOwnersId(res);
+    setOwners(res);
     if (res[0]) {
       formik.setFieldValue('ownerId', res[0].value);
     }
@@ -167,7 +167,7 @@ export default function AddEventPaymentOption(props) {
     onChange,
     onPlayerChange,
     onTeamChange,
-    ownersId,
+    owners,
     playerAcceptation,
     playerPriceTotal,
     taxes,

@@ -57,6 +57,7 @@ const HeaderOrganization: React.FunctionComponent<IProps> = (props) => {
     hasMembershipsApi(id).then(setHasMemberships);
     getMostRecentMember(id).then(setMember);
   };
+  console.log({ member });
 
   const goToLogin = (): void => {
     const redirectUrl = encodeURIComponent(router.asPath);

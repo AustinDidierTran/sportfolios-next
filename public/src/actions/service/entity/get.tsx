@@ -200,140 +200,73 @@ export function getMyTeamPlayers(teamId: string): Promise<Player[]> {
 }
 
 export function getTeamExercises(teamId: string): Promise<Exercise[]> {
-  return api(
-    formatRoute(`${BASE_URL}/teamExercises`, null, {
-      teamId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/teamExercises`, null, { teamId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getSessionExercises(sessionId: string): Promise<Exercise[]> {
-  return api(
-    formatRoute(`${BASE_URL}/sessionExercises`, null, {
-      sessionId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/sessionExercises`, null, { sessionId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getPlayerSessionEvaluation(exerciseId: string, sessionId: string): Promise<Evaluation[]> {
-  return api(
-    formatRoute(`${BASE_URL}/playerSessionEvaluation`, null, {
-      exerciseId,
-      sessionId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/playerSessionEvaluation`, null, { exerciseId, sessionId }), {
+    method: 'GET',
+  }).then((res) => res.data);
 }
 
 export function getIsTeamCoach(teamId: string): Promise<boolean> {
-  return api(
-    formatRoute(`${BASE_URL}/isTeamCoach`, null, {
-      teamId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/isTeamCoach`, null, { teamId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getCoachSessionEvaluation(exerciseId: string, sessionId: string): Promise<Evaluation[]> {
-  return api(
-    formatRoute(`${BASE_URL}/coachSessionEvaluation`, null, {
-      exerciseId,
-      sessionId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/coachSessionEvaluation`, null, { exerciseId, sessionId }), {
+    method: 'GET',
+  }).then((res) => res.data);
 }
 
 export function getImages(type: string): Promise<Image[]> {
-  return api(
-    formatRoute(`${BASE_URL}/images`, null, {
-      type,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/images`, null, { type }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getGameOptions(eventId: string): Promise<GameOptions> {
-  return api(
-    formatRoute(`${BASE_URL}/gameOptions`, null, {
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/gameOptions`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getHasSpirit(eventId: string): Promise<boolean> {
-  return api(
-    formatRoute(`${BASE_URL}/hasSpirit`, null, {
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data.hasSpirit);
+  return api(formatRoute(`${BASE_URL}/hasSpirit`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data.hasSpirit
+  );
 }
 
 export function getGameSubmissionInfos(gameId: string, rosterId: string, eventId: string): Promise<GameSubmissionInfo> {
-  return api(
-    formatRoute(`${BASE_URL}/gameSubmissionInfos`, null, {
-      gameId,
-      rosterId,
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/gameSubmissionInfos`, null, { gameId, rosterId, eventId }), {
+    method: 'GET',
+  }).then((res) => res.data);
 }
 
 export function getPreranking(eventId: string): Promise<{ preranking: Preranking[]; prerankPhaseId: string }> {
-  return api(
-    formatRoute(`${BASE_URL}/preranking`, null, {
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/preranking`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getTeamgames(eventId: string): Promise<PhaseGames[]> {
-  return api(
-    formatRoute(`${BASE_URL}/teamGames`, null, {
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/teamGames`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getAllTeamsAcceptedInfos(eventId: string): Promise<AllTeamsAcceptedInfos[]> {
-  return api(
-    formatRoute(`${BASE_URL}/allTeamsAcceptedInfos`, null, {
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/allTeamsAcceptedInfos`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getEvent(id: string): Promise<EventInfos> {
-  return api(
-    formatRoute(`${BASE_URL}/eventInfos`, null, {
-      id,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/eventInfos`, null, { id }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getOptions(eventId: string): Promise<Options[]> {
-  return api(
-    formatRoute(`${BASE_URL}/options`, null, {
-      eventId,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/options`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getRemainingSpots(id: string): Promise<number> {
-  return api(
-    formatRoute(`${BASE_URL}/remainingSpots`, null, {
-      id,
-    }),
-    { method: 'GET' }
-  ).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/remainingSpots`, null, { id }), { method: 'GET' }).then((res) => res.data);
 }

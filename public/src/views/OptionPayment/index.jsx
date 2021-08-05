@@ -30,7 +30,7 @@ export default function OptionPayment() {
     state: { id: eventId },
   } = useContext(Store);
 
-  const [ownersId, setOwnersId] = useState([]);
+  const [owners, setOwners] = useState([]);
   const [playerPriceTotal, setPlayerPriceTotal] = useState(undefined);
   const [teamPriceTotal, setTeamPriceTotal] = useState(undefined);
   const [openPlayer, setOpenPlayer] = useState(false);
@@ -117,11 +117,11 @@ export default function OptionPayment() {
 
     const res = data.map((r) => ({
       value: r.id,
-      display: `${r?.name} ${r?.surname}`,
+      display: r.name,
       key: r.id,
     }));
 
-    setOwnersId(res);
+    setOwners(res);
     if (res[0]) {
       formik.setFieldValue('ownerId', res[0].value);
     }
@@ -269,10 +269,11 @@ export default function OptionPayment() {
       addOptionToEvent({ ...values });
     },
   });
+  console.log({ owners });
 
   const fields = useFields(FIELD_GROUP_ENUM.ADD_PAYMENT_OPTION, {
     teamOnClick: handleOpenTeam,
-    ownersId,
+    owners,
     playerPriceTotal,
     teamPriceTotal,
     onClickEditTeamsFee: handleEditTeam,
