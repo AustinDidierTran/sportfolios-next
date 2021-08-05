@@ -48,7 +48,7 @@ const EditRankings: React.FunctionComponent = () => {
 
   const [phases, setPhases] = useState<Phase[]>([]);
   const [preranking, setPreranking] = useState<Preranking[]>();
-  const [expandedPhases, setExpandedPhases] = useState<Phase[]>([]);
+  const [expandedPhases, setExpandedPhases] = useState<string[]>([]);
 
   const [phaseToEnd, setPhaseToEnd] = useState<Phase>();
   const [phaseToDelete, setPhaseToDelete] = useState<Phase>();
@@ -114,7 +114,7 @@ const EditRankings: React.FunctionComponent = () => {
             return {
               ...r,
               rankingId: r.rankingId,
-              positionName: `${r.originPosition}. ${r.currentPhase.name}`,
+              positionName: `${r.originPosition}. ${r.originPhase.name}`,
               name: r.name,
             };
           }
@@ -136,7 +136,7 @@ const EditRankings: React.FunctionComponent = () => {
                 };
               }
             }
-            return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.currentPhase.name}` };
+            return { ...r, rankingId: r.rankingId, positionName: `${r.originPosition}. ${r.originPhase.name}` };
           }
           return { ...r, isEmpty: true, rankingId: r.rankingId };
         }),
@@ -363,11 +363,11 @@ const EditRankings: React.FunctionComponent = () => {
   };
 
   const onShrink = (phaseId: string): void => {
-    setExpandedPhases((e) => e.filter((p) => p.phaseId !== phaseId));
+    setExpandedPhases((e) => e.filter((p) => p !== phaseId));
   };
 
   const onExpand = (phaseId: string): void => {
-    setExpandedPhases((e) => e.filter((p) => p.phaseId == phaseId));
+    setExpandedPhases([...expandedPhases, phaseId]);
   };
 
   return (

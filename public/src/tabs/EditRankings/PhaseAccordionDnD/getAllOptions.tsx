@@ -39,20 +39,9 @@ export const getAllOptions = async (
       spots: d.spots,
       status: d.status,
       order: d.phaseOrder,
-      ranking: d.ranking.map((r) => ({
-        rosterId: r.rosterId,
-        originPhase: r.originPhase,
-        originPosition: r.originPosition,
-        currentPhase: r.currentPhase,
-        name: d.name,
-        initialPosition: r.initialPosition,
-        finalPosition: r.finalPosition,
-        rankingId: r.rankingId,
-        teamName: r.name,
-      })),
+      ranking: d.ranking,
     }))
     .sort((a, b) => a.order - b.order);
-
   const allRankings = allPhases.reduce((prev, curr) => {
     return prev.concat(curr.ranking);
   }, []);
@@ -128,7 +117,7 @@ const getRankingOptions = (allRankings: Ranking[], allPhases: Phase[], prerankId
     .filter((r) => r.originPhase && r.originPosition && r.originPhase.id !== prerankId)
     .map((r) => {
       const unavailablePosition = allRankings.find((rank) => {
-        if (rank.currentPhase === r.originPhase) {
+        if (rank.currentPhase.id === r.originPhase.id) {
           if (rank.finalPosition === r.originPosition) {
             return rank;
           }

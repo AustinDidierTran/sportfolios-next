@@ -8,7 +8,6 @@ import Divider from '@material-ui/core/Divider';
 
 export default function RankingWithStatsItem(props) {
   const { index, name, positionName, wins = 0, loses = 0, pointFor = 0, pointAgainst = 0, withoutPosition } = props;
-
   return (
     <>
       <ListItem style={{ width: '100%' }}>
