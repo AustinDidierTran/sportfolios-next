@@ -17,6 +17,13 @@
   cursor: pointer;
 }
 
+.nonClickableGame {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 0;
+}
+
 .buttonsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -25,7 +32,6 @@
 }
 
 .avatar {
-  margin-left: 8px;
   margin-right: 8px;
 }
 
@@ -68,6 +74,28 @@
 .teamContent {
   display: flex;
   margin: 8px 0;
+  padding: 0px 5px;
+  justify-content: space-between;
+}
+
+.teamInfos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  margin-left: 8px;
+}
+
+.teamInfos:hover {
+  cursor: pointer;
+}
+
+.generalGameTeam {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  margin-left: 8px;
 }
 
 .teams {
