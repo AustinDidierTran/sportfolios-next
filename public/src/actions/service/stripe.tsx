@@ -1,3 +1,4 @@
+import { Tax } from '../../../../typescript/types';
 import { formatRoute } from '../../utils/stringFormats';
 import api from '../api';
 const BASE_URL = '/api/stripe';
@@ -32,4 +33,8 @@ export async function deleteShopItem(stripeProductId: string, stripePriceId: str
   return api(formatRoute(`${BASE_URL}/deleteItem`, null, { stripeProductId, stripePriceId }), {
     method: 'DELETE',
   }).then((res) => res.data);
+}
+
+export async function getTaxes(): Promise<Tax[]> {
+  return api(`${BASE_URL}/getTaxes`, { method: 'GET' }).then((res) => res.data);
 }

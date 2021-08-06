@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useFormInput } from '../../../hooks/forms';
 
 import styles from './EditItem.module.css';
@@ -16,6 +16,8 @@ import { useTranslation } from 'react-i18next';
 import AddSizes from '../AddSizes';
 import Upload from 'rc-upload';
 import { SEVERITY_ENUM } from '../../../../common/enums';
+import { Tax } from '../../../../../typescript/types';
+import MultiSelect from '../../../components/Custom/MultiSelect';
 
 interface IProps {
   fetchItems: () => void;
@@ -32,6 +34,13 @@ interface ShopItem {
   stripePriceId: string;
   stripeProductId: string;
   sizes: string[];
+  taxRatesId: string[];
+  allTaxes: TaxesOption[];
+}
+
+interface TaxesOption extends Tax {
+  display: string;
+  value: string;
 }
 
 const EditItem: React.FunctionComponent<IProps> = (props) => {
@@ -43,14 +52,24 @@ const EditItem: React.FunctionComponent<IProps> = (props) => {
   const { fetchItems, isEditing, setIsEditing, item } = props;
 
   const [sizes, setSizes] = useState<string[]>(item.sizes);
+  const [taxes, setTaxes] = useState<string[]>([]);
 
   const name = useFormInput(item.name);
   const amount = useFormInput(item.price / 100);
   const description = useFormInput(decodeURIComponent(item.description));
   const photoUrl = useFormInput(item.photoUrl);
 
-  const handleChange = (value: string[]) => {
+  useEffect(() => {
+    const taxes = item.allTaxes.filter((t) => item.taxRatesId?.includes(t.id)).map((t) => t.display);
+    setTaxes(taxes);
+  }, [item]);
+
+  const handleSizesChange = (value: string[]) => {
     setSizes(value);
+  };
+
+  const handleTaxesChange = (value: string[]) => {
+    setTaxes(value);
   };
 
   const uploadImageProps = {
@@ -101,6 +120,7 @@ const EditItem: React.FunctionComponent<IProps> = (props) => {
 
   const addToStore = (): void => {
     if (validate()) {
+      const taxRatesId = item.allTaxes.filter((t) => taxes.includes(t.display)).map((t) => t.id);
       editItem({
         name: name.value,
         description: encodeURIComponent(description.value),
@@ -109,6 +129,7 @@ const EditItem: React.FunctionComponent<IProps> = (props) => {
         entityId: id,
         sizes,
         stripePriceIdToUpdate: item.stripePriceId,
+        taxRatesId,
       }).then(() => {
         setIsEditing(!isEditing);
         name.reset();
@@ -141,13 +162,23 @@ const EditItem: React.FunctionComponent<IProps> = (props) => {
         <CustomTextField {...amount.inputProps} className={styles.price}></CustomTextField>
         <TextField
           multiline
-          rows={5}
+          rows={1}
           rowsMax={10}
           {...description.inputProps}
           placeholder={t('description.description')}
           className={styles.description}
         />
-        <AddSizes className={styles.sizes} handleChange={handleChange} sizes={sizes} />
+        <div className={styles.sizeTaxes}>
+          {item.allTaxes ? (
+            <MultiSelect
+              label={t('taxes')}
+              options={item.allTaxes.map((a) => a.display)}
+              values={taxes}
+              onChange={handleTaxesChange}
+            />
+          ) : null}
+          <AddSizes handleChange={handleSizesChange} sizes={sizes} />
+        </div>
         <CustomButton size="small" endIcon="SaveIcon" onClick={addToStore} className={styles.cart}>
           {t('done')}
         </CustomButton>
