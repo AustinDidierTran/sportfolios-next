@@ -10,6 +10,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import CustomButton from '../../../components/Custom/Button';
 import { LoadingSpinner } from '../../../components/Custom';
 import { Typography } from '@material-ui/core';
+
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
@@ -124,7 +125,7 @@ export default function UsersTable() {
               title={t('users_table_title')}
             />
           </CardContent>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '5px' }}>
+          <div className={styles.buttonContainer}>
             {users.length === numberToLoad ? (
               <CustomButton onClick={() => setNumberToLoad(numberToLoad + 50)}>{t('load_more')}</CustomButton>
             ) : (
