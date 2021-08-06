@@ -10,6 +10,7 @@ import { formatRoute } from '../../../utils/stringFormats';
 import CustomButton from '../../../components/Custom/Button';
 import { LoadingSpinner } from '../../../components/Custom';
 import { Typography } from '@material-ui/core';
+import { getAllUsers } from '../../../actions/service/entity/get';
 
 export default function UsersTable() {
   const { t } = useTranslation();
@@ -20,9 +21,9 @@ export default function UsersTable() {
 
   const loadUsers = async (number) => {
     setIsLoading(true);
-    const res = await api(formatRoute('/api/admin/users', null, { limitNumber: number }), { method: 'GET' });
+    const fetchedUsers = await getAllUsers(number);
 
-    const tempUser = res.data.map((user) => ({
+    const tempUser = fetchedUsers.map((user) => ({
       ...user,
       emails: user.emails.join(', '),
       secondAccount: user.secondAccount.map((account) => ({
