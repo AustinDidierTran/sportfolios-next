@@ -11,7 +11,14 @@ import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, TABS_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
+import {
+  EVENT_TYPE,
+  COMPONENT_TYPE_ENUM,
+  GLOBAL_ENUM,
+  TABS_ENUM,
+  REQUEST_STATUS_ENUM,
+  ROUTES_ENUM,
+} from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
 import { ACTION_ENUM, Store } from '../../../Store';
@@ -40,7 +47,7 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
   const router = useRouter();
   const { type } = props;
   const {
-    state: { userInfo },
+    state: { userInfo, isAuthenticated },
     dispatch,
   } = useContext(Store);
   const { id } = router.query;
@@ -50,17 +57,14 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
   const [hasNoImage, setHasNoImage] = useState<boolean>(false);
   const [userIsLoggedIn, setuserIsLoggedIn] = useState<boolean>(false);
 
-  useEffect((): void => {
-    if (userInfo.primaryPerson) {
-      setuserIsLoggedIn(true);
-    } else {
-      dispatch({ type: ACTION_ENUM.LOGOUT });
-    }
-  }, []);
+  //console.log(isAuthenticated);
 
-  if (!userIsLoggedIn) {
-    return <LoadingSpinner />;
-  }
+  useEffect((): void => {
+    if (!isAuthenticated) {
+      const redirectUrl = encodeURIComponent(router.asPath);
+      goTo(ROUTES.login, null, { redirectUrl });
+    }
+  }, [isAuthenticated]);
 
   const titleDictionary = useMemo(
     (): ITitleDictionnary => ({
