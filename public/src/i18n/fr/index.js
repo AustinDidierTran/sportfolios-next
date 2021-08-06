@@ -932,6 +932,7 @@ export default {
     all_the_admins_of_the_event_that_have_a_bank_account_linked_to_their_account_will_appear_here:
       "Tous les administrateurs de l'événement ayant un compte bancaire peuvent être choisis comme propriétaire de l'option de paiement",
     all_time_slots: 'Toutes les plages horaires',
+    all_users_are_displayed: 'Tous les utilisateurs sont affichés',
     all_your_members_on: 'Tous vos membres le',
     all: 'Tous',
     analytics: 'Analyses',
@@ -1207,6 +1208,7 @@ export default {
     link_bank_account: 'Lier le compte bancaire',
     link_has_been_copied_and_will_expire: 'Le lien a été copié et expirera le {{expireDate}}',
     link_to_website: 'Lien vers le site web',
+    load_more: 'Charger plus',
     location: 'Emplacement',
     location_description: 'Description de la location',
     location_unspecified: 'Lieu non spécifié',

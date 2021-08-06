@@ -7,13 +7,19 @@ import styles from './UsersTable.module.css';
 import api from '../../../actions/api';
 import Router from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
+import CustomButton from '../../../components/Custom/Button';
+import { LoadingSpinner } from '../../../components/Custom';
+import { Typography } from '@material-ui/core';
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [initialUsers, setInitialUsers] = useState([]);
+  const [numberToLoad, setNumberToLoad] = useState(50);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const updateUsers = async () => {
-    const res = await api('/api/admin/users');
+  const loadUsers = async (number) => {
+    setIsLoading(true);
+    const res = await api(formatRoute('/api/admin/users', null, { limitNumber: number }), { method: 'GET' });
 
     const tempUser = res.data.map((user) => ({
       ...user,
@@ -28,6 +34,7 @@ export default function UsersTable() {
     }));
     setUsers(tempUser);
     setInitialUsers(tempUser);
+    setIsLoading(false);
   };
 
   const deleteSecondPerson = async (entityId) => {
@@ -39,7 +46,7 @@ export default function UsersTable() {
         method: 'DELETE',
       }
     );
-    updateUsers();
+    loadUsers();
   };
 
   const headers = [
@@ -92,23 +99,40 @@ export default function UsersTable() {
   };
 
   useEffect(() => {
-    updateUsers();
+    loadUsers(numberToLoad);
   }, []);
+
+  useEffect(() => {
+    loadUsers(numberToLoad);
+  }, [numberToLoad]);
 
   return (
     <Paper className={styles.card}>
-      <CardContent className={styles.inputs}>
-        <Table
-          filter
-          filterhandler={handleFilter}
-          data={users}
-          headers={headers}
-          secondHeaders={secondHeaders}
-          mode={'collapse'}
-          onRowClick={(d) => () => Router.push(`/${d.entityId}`)}
-          title={t('users_table_title')}
-        />
-      </CardContent>
+      {isLoading ? (
+        <LoadingSpinner isComponent />
+      ) : (
+        <>
+          <CardContent className={styles.inputs}>
+            <Table
+              filter
+              filterhandler={handleFilter}
+              data={users}
+              headers={headers}
+              secondHeaders={secondHeaders}
+              mode={'collapse'}
+              onRowClick={(d) => () => Router.push(`/${d.entityId}`)}
+              title={t('users_table_title')}
+            />
+          </CardContent>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '5px' }}>
+            {users.length === numberToLoad ? (
+              <CustomButton onClick={() => setNumberToLoad(numberToLoad + 50)}>{t('load_more')}</CustomButton>
+            ) : (
+              <Typography>{t('all_users_are_displayed')}</Typography>
+            )}
+          </div>
+        </>
+      )}
     </Paper>
   );
 }
