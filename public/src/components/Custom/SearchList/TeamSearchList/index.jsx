@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CustomIcon from '../../Icon';
 import CustomList from '../../List';
@@ -27,21 +27,13 @@ export default function TeamSearchList(props) {
 
   useEffect(() => {
     getOptions();
-  }, [optionsRoute]);
-
-  const optionsRoute = useMemo(() => {
-    const res = formatRoute('/api/search/myTeamsSearch', null, {
-      query: formik.values.teamSearchQuery,
-      eventId,
-    });
-    return res;
   }, [formik.values.teamSearchQuery]);
 
   const getOptions = async () => {
-    if (!optionsRoute) {
-      return [];
-    }
-    const { data, status } = await api(optionsRoute, { method: 'GET' });
+    const { data, status } = await api(
+      formatRoute('/api/search/myTeamsSearch', null, { query: formik.values.teamSearchQuery, eventId }),
+      { method: 'GET' }
+    );
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {

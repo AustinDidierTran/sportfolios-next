@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useFormInput } from '../../../../hooks/forms';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -27,9 +27,13 @@ export default function PersonSearchList(props) {
   const query = useFormInput('');
   const [options, setOptions] = useState([]);
 
-  const optionsRoute = useMemo(() => {
+  useEffect(() => {
+    getOptions();
+  }, [query.value]);
+
+  const getOptions = async () => {
     if (!query.value) {
-      return;
+      setOptions([]);
     }
     const body = {
       query: query.value,
@@ -41,19 +45,7 @@ export default function PersonSearchList(props) {
     if (blackList) {
       body.blackList = JSON.stringify(blackList);
     }
-    const res = formatRoute('/api/search/global', null, body);
-    return res;
-  }, [query]);
-
-  useEffect(() => {
-    getOptions();
-  }, [optionsRoute]);
-
-  const getOptions = async () => {
-    if (!optionsRoute) {
-      return [];
-    }
-    const { data, status } = await api(optionsRoute, { method: 'GET' });
+    const { data, status } = await api(formatRoute('/api/search/global', null, body), { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CustomIcon from '../Icon';
 import CustomList from '../List';
@@ -31,40 +31,23 @@ export default function SearchList(props) {
 
   useEffect(() => {
     getOptions();
-  }, [optionsRoute]);
-
-  const optionsRoute = useMemo(() => {
-    if (whiteList) {
-      const res = formatRoute('/api/search/global', null, {
-        whiteList: JSON.stringify(whiteList),
-        query: query.value,
-        type,
-      });
-      return res;
-    }
-    if (blackList) {
-      if (blackList.length > 0) {
-        const res = formatRoute('/api/search/global', null, {
-          blackList: JSON.stringify(blackList),
-          query: query.value,
-          type,
-        });
-        return res;
-      }
-    }
-
-    const res = formatRoute('/api/search/global', null, {
-      query: query.value,
-      type,
-    });
-    return res;
-  }, [query, type]);
+  }, [query.value, type]);
 
   const getOptions = async () => {
-    if (!optionsRoute) {
-      return [];
+    if (!query.value) {
+      setOptions([]);
     }
-    const { data, status } = await api(optionsRoute, { method: 'GET' });
+    const body = {
+      query: query.value,
+      type,
+    };
+    if (whiteList) {
+      body.whiteList = JSON.stringify(whiteList);
+    }
+    if (blackList) {
+      body.blackList = JSON.stringify(blackList);
+    }
+    const { data, status } = await api(formatRoute('/api/search/global', null, body), { method: 'GET' });
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {
