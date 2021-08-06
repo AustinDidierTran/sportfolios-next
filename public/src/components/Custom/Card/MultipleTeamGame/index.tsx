@@ -11,6 +11,8 @@ import Avatar from '../../Avatar';
 import { useTranslation } from 'react-i18next';
 import { Positions } from '../../../../../../typescript/types';
 import Card from '@material-ui/core/Card';
+import { goTo } from '../../../../actions/goTo';
+import { ROUTES_ENUM } from '../../../../../common/enums';
 
 interface IProps {
   game: IGame;
@@ -40,7 +42,7 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
       <>
         <div className={styles.teams}>
           {positions?.map((position, i) => (
-            <div className={styles.teamContent} key={i}>
+            <div className={styles.teamContent} onClick={() => goTo(ROUTES_ENUM.entity, { id: position.id })} key={i}>
               <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
               <Typography className={styles.name}>{position.name}</Typography>
               <Typography className={styles.score}>{position.score}</Typography>
