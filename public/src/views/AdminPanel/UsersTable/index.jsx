@@ -8,8 +8,8 @@ import api from '../../../actions/api';
 import Router from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
 import CustomButton from '../../../components/Custom/Button';
-import { LoadingSpinner } from '../../../components/Custom';
-import { Typography } from '@material-ui/core';
+import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
+import Typography from '@material-ui/core/Typography';
 import { getAllUsers } from '../../../actions/service/entity/get';
 
 export default function UsersTable() {
@@ -48,7 +48,7 @@ export default function UsersTable() {
         method: 'DELETE',
       }
     );
-    loadUsers();
+    loadUsers(numberToLoad);
   };
 
   const headers = [
