@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './MultipleTeamGame.module.css';
 
@@ -37,6 +37,13 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
     withoutCard,
   } = props;
   const { t } = useTranslation();
+  const [isSpecific, setisSpecific] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (router.query.gameId) {
+      setisSpecific(true);
+    }
+  }, []);
 
   const getContent = () => {
     return (
@@ -45,10 +52,8 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
           {positions?.map((position, i) => (
             <div className={styles.teamContent} key={i}>
               <div
-                className={router.query.gameId ? styles.teamInfos : styles.generalGameTeam}
-                onClick={() => {
-                  goTo(ROUTES_ENUM.entity, { id: position.id });
-                }}
+                className={isSpecific ? styles.teamInfos : styles.generalGameTeam}
+                onClick={() => (isSpecific ? goTo(ROUTES_ENUM.entity, { id: position.id }) : null)}
               >
                 <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
                 <Typography className={styles.name}>{position.name}</Typography>
@@ -80,11 +85,11 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
   };
 
   if (withoutCard) {
-    return <div className={router.query.gameId ? styles.nonClickableGame : styles.game}>{getContent()}</div>;
+    return <div className={isSpecific ? styles.nonClickableGame : styles.game}>{getContent()}</div>;
   }
 
   return (
-    <Card className={router.query.gameId ? styles.nonClickableGame : styles.game} onClick={() => onClick(eventId, id)}>
+    <Card className={isSpecific ? styles.nonClickableGame : styles.game} onClick={() => onClick(eventId, id)}>
       {getContent()}
     </Card>
   );
