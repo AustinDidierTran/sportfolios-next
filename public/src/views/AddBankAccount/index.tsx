@@ -66,7 +66,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
 
     if (!isANumber(transitNumber)) {
       errors.transitNumber = t('value_must_be_numeric');
-    } else if (hasXDigits(transitNumber, 5)) {
+    } else if (!hasXDigits(transitNumber, 5)) {
       errors.transitNumber = t('value_must_have_x_digits', {
         digits: 5,
       });
@@ -74,7 +74,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
 
     if (!isANumber(institutionNumber)) {
       errors.institutionNumber = t('value_must_be_numeric');
-    } else if (hasXDigits(institutionNumber, 5)) {
+    } else if (!hasXDigits(institutionNumber, 5)) {
       errors.institutionNumber = t('value_must_have_x_digits', {
         digits: 5,
       });
@@ -84,7 +84,7 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
       errors.accountNumber = t('value_is_required');
     } else if (!isANumber(accountNumber)) {
       errors.accountNumber = t('value_must_be_numeric');
-    } else if (hasXDigits(accountNumber, 7)) {
+    } else if (!hasXDigits(accountNumber, 7)) {
       errors.transitNumber = t('value_must_have_x_digits', {
         digits: 7,
       });

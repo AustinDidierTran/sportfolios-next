@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 
 import IgContainer from '../../components/Custom/IgContainer';
-import { ENTITIES_ROLE_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Store } from '../../Store';
@@ -19,12 +18,13 @@ const useStyles = makeStyles(() => ({
 
 interface IProps {
   basicInfos: Entity;
+  isAdmin: boolean;
 }
 
 const Home: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { basicInfos } = props;
+  const { basicInfos, isAdmin } = props;
   const {
     state: { userInfo },
   } = useContext(Store);
@@ -35,7 +35,7 @@ const Home: React.FunctionComponent<IProps> = (props) => {
       <Posts
         userInfo={userInfo}
         allowPostImage
-        allowNewPost={basicInfos.role === ENTITIES_ROLE_ENUM.ADMIN}
+        allowNewPost={isAdmin}
         entityIdCreatePost={basicInfos.id}
         allowComment
         allowLike

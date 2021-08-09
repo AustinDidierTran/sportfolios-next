@@ -266,7 +266,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
             )}
           </>
         }
-        title={postInfo.name + ' ' + postInfo.surname}
+        title={postInfo.surname? postInfo.name + ' ' + postInfo.surname : postInfo.name}
         subheader={getTimeToShow(postInfo.createdAt)}
       />
       <CardContent className={styles.content}>

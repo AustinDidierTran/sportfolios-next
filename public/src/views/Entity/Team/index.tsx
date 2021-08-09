@@ -2,14 +2,21 @@ import React, { useState, useEffect, useMemo, useContext } from 'react';
 
 import IgContainer from '../../../components/Custom/IgContainer';
 import { formatPageTitle } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, GLOBAL_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM, TABS_ENUM } from '../../../../common/enums';
+import {
+  ENTITIES_ROLE_ENUM,
+  GLOBAL_ENUM,
+  REQUEST_STATUS_ENUM,
+  ROSTER_ROLE_ENUM,
+  ROUTES_ENUM,
+  TABS_ENUM,
+} from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { goTo } from '../../../actions/goTo';
 import { Store } from '../../../Store';
 import { Entity, States } from '../../../../../typescript/types';
-import { getRole as getRoleApi } from '../../../actions/service/entity/get';
+import { getPlayerTeamRole, getRole as getRoleApi } from '../../../actions/service/entity/get';
 
 const HeaderHome = dynamic(() => import('../../../components/Custom/HeaderHome'));
 const Home = dynamic(() => import('../../../tabs/Home'));
@@ -112,6 +119,11 @@ const Team: React.FunctionComponent<IProps> = (props) => {
       setBasicInfos(newInfos);
       setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
     }
+
+    const playerRole = await getPlayerTeamRole(id);
+    if (playerRole.status === REQUEST_STATUS_ENUM.SUCCESS) {
+      setIsAdmin(playerRole.data === ROSTER_ROLE_ENUM.CAPTAIN || playerRole.data === ROSTER_ROLE_ENUM.COACH || isAdmin);
+    }
   };
 
   return (
@@ -127,7 +139,7 @@ const Team: React.FunctionComponent<IProps> = (props) => {
       />
       <IgContainer>
         <div>
-          <OpenTab basicInfos={basicInfos} gamesInfos={gamesInfos} adminView={adminView} />
+          <OpenTab basicInfos={basicInfos} gamesInfos={gamesInfos} isAdmin={isAdmin} adminView={adminView} />
         </div>
       </IgContainer>
     </>
