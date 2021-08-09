@@ -19,6 +19,7 @@ interface IProps {
   game: IGame;
   onClick: (id: string, eventId?: string) => void;
   withoutCard?: boolean;
+  teamsAreClickable?: boolean;
 }
 
 interface IGame {
@@ -35,6 +36,7 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
     game: { field, startTime, phaseName, positions, eventId, id },
     onClick,
     withoutCard,
+    teamsAreClickable = true,
   } = props;
   const { t } = useTranslation();
 
@@ -49,7 +51,7 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
           {positions?.map((position, i) => (
             <div className={styles.teamContent} key={i}>
               <div
-                className={isSpecific ? styles.teamInfos : styles.generalGameTeam}
+                className={teamsAreClickable ? styles.teamInfos : styles.generalGameTeam}
                 onClick={() => (isSpecific ? goTo(ROUTES_ENUM.entity, { id: position.id }) : null)}
               >
                 <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
@@ -82,11 +84,11 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
   };
 
   if (withoutCard) {
-    return <div className={isSpecific ? styles.nonClickableGame : styles.game}>{getContent()}</div>;
+    return <div className={teamsAreClickable ? styles.game : styles.nonClickableGame}>{getContent()}</div>;
   }
 
   return (
-    <Card className={isSpecific ? styles.nonClickableGame : styles.game} onClick={() => onClick(eventId, id)}>
+    <Card className={teamsAreClickable ? styles.game : styles.nonClickableGame} onClick={() => onClick(eventId, id)}>
       {getContent()}
     </Card>
   );
