@@ -7,8 +7,7 @@ import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import CustomTextField from '../../TextField';
 import CustomIcon from '../../Icon';
 import PersonList from './PersonList';
-import { formatRoute } from '../../../../utils/stringFormats';
-import api from '../../../../actions/api';
+import { globalSearch } from '../../../../actions/service/entity/get';
 
 export default function PersonSearchList(props) {
   const {
@@ -45,7 +44,7 @@ export default function PersonSearchList(props) {
     if (blackList) {
       body.blackList = JSON.stringify(blackList);
     }
-    const { data, status } = await api(formatRoute('/api/search/global', null, body), { method: 'GET' });
+    const { data, status } = await globalSearch(body);
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {

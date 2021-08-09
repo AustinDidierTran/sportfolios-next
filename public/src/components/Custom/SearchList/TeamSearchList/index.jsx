@@ -6,8 +6,7 @@ import CustomTextField from '../../TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
-import { formatRoute } from '../../../../utils/stringFormats';
-import api from '../../../../actions/api';
+import { myTeamsSearch } from '../../../../actions/service/entity/get';
 
 export default function TeamSearchList(props) {
   const {
@@ -30,10 +29,7 @@ export default function TeamSearchList(props) {
   }, [formik.values.teamSearchQuery]);
 
   const getOptions = async () => {
-    const { data, status } = await api(
-      formatRoute('/api/search/myTeamsSearch', null, { query: formik.values.teamSearchQuery, eventId }),
-      { method: 'GET' }
-    );
+    const { data, status } = await myTeamsSearch(formik.values.teamSearchQuery, eventId);
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {

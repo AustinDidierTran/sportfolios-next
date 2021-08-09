@@ -47,6 +47,14 @@ export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> 
   );
 }
 
+export function globalSearch(body: any): Promise<any> {
+  return api(formatRoute('/api/search/global', null, body), { method: 'GET' });
+}
+
+export function myTeamsSearch(query: string, eventId: string): Promise<any> {
+  return api(formatRoute('/api/search/myTeamsSearch', null, { query, eventId }), { method: 'GET' });
+}
+
 export function getAllUsers(limitNumber: number): Promise<User> {
   return api(formatRoute('/api/admin/users', null, { limitNumber }), { method: 'GET' }).then((res) => res.data);
 }

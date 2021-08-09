@@ -7,8 +7,7 @@ import { useFormInput } from '../../../hooks/forms';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
-import { formatRoute } from '../../../utils/stringFormats';
-import api from '../../../actions/api';
+import { globalSearch } from '../../../actions/service/entity/get';
 
 export default function SearchList(props) {
   const {
@@ -47,7 +46,7 @@ export default function SearchList(props) {
     if (blackList) {
       body.blackList = JSON.stringify(blackList);
     }
-    const { data, status } = await api(formatRoute('/api/search/global', null, body), { method: 'GET' });
+    const { data, status } = await globalSearch(body);
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {
