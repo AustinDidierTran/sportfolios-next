@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import styles from './MultipleTeamGame.module.css';
 
@@ -37,13 +37,10 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
     withoutCard,
   } = props;
   const { t } = useTranslation();
-  const [isSpecific, setisSpecific] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (router.query.gameId) {
-      setisSpecific(true);
-    }
-  }, []);
+  const isSpecific = useMemo<boolean>(() => {
+    return !!router.query.gameId;
+  }, [router.query.gameId]);
 
   const getContent = () => {
     return (
