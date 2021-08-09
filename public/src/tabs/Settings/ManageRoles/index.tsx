@@ -7,19 +7,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import { getEntityTypeName } from '../../../utils/stringFormats';
-import { ENTITIES_ROLE_ENUM, Store } from '../../../Store';
+import { ACTION_ENUM, ENTITIES_ROLE_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
 import styles from './ManageRoles.module.css';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import AddAdmins from './AddAdmins';
-import { GLOBAL_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { getEntity as getEntityApi, getRoles } from '../../../actions/service/entity/get';
 import { Entity, EntityRole } from '../../../../../typescript/types';
 
 const ManageRoles: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
+    dispatch,
     state: { id: entity_id },
   } = useContext(Store);
 
@@ -68,16 +69,13 @@ const ManageRoles: React.FunctionComponent = () => {
     const arr = entities.filter((e) => e.role === ENTITIES_ROLE_ENUM.ADMIN);
 
     if (isAdmin(arr, entity_id_admin)) {
-      throw 'Last Admin';
-    } else {
-      await api(`/api/entity/role`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          entity_id,
-          entity_id_admin,
-          role,
-        }),
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('last_admin'),
+        severity: SEVERITY_ENUM.ERROR,
       });
+    } else {
+      await api(`/api/entity/role`, { method: 'PUT', body: JSON.stringify({ entity_id, entity_id_admin, role }) });
     }
   };
 

@@ -121,16 +121,14 @@ export default function PlayersRegistered() {
   const handleUnregisterAllClick = () => {
     setOpenUnregisterAll(true);
   };
-
   const onUnregisterPerson = async () => {
     setOpenUnregister(false);
     setIsLoading(true);
     const person = players.find((x) => x.personId === personId);
     const res = await unregisterPeople({
       eventId,
-      people: [{ personId: person.personId, stripePrice: person.option.individual_stripe_price_id }],
+      people: [{ personId: person.personId, stripePrice: person.option.individualStripePriceId }],
     });
-    setIsLoading(false);
 
     if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
@@ -147,8 +145,8 @@ export default function PlayersRegistered() {
         duration: 4000,
       });
     }
-
-    setPlayers(res.data);
+    getPlayers();
+    setIsLoading(false);
   };
 
   const onUnregisterAll = async () => {
@@ -156,7 +154,7 @@ export default function PlayersRegistered() {
     setIsLoading(true);
     const res = await unregisterPeople({
       eventId,
-      people: players.map((p) => ({ personId: p.personId, stripePrice: p.option.individual_stripe_price_id })),
+      people: players.map((p) => ({ personId: p.personId, stripePrice: p.option.individualStripePriceId })),
     });
     setIsLoading(false);
 
@@ -180,22 +178,14 @@ export default function PlayersRegistered() {
   };
 
   const getMaximumSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/event', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/entity/event', null, { eventId }), { method: 'GET' });
     setMaximumSpots(data.maximum_spots);
   };
 
   const getAcceptedSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/allPlayersAcceptedRegistered', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/entity/allPlayersAcceptedRegistered', null, { eventId }), {
+      method: 'GET',
+    });
     setAcceptedSpots(data?.length);
   };
 

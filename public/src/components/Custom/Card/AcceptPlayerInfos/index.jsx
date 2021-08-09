@@ -16,7 +16,7 @@ import moment from 'moment';
 export default function AcceptPlayerInfos(props) {
   const { registrationStatus, name, surname, photoUrl, birthDate, gender, fullAddress, player, paymentOption } = props;
   const { t } = useTranslation();
-
+  console.log({ player });
   return (
     <Card className={styles.card}>
       <CardHeader
@@ -52,7 +52,7 @@ export default function AcceptPlayerInfos(props) {
         <Divider />
         <div className={styles.div}>
           <Typography color="textSecondary">{`${t('price')}:`}</Typography>
-          <Typography>{formatPrice(paymentOption?.individual_price) || t('missing_info')}</Typography>
+          <Typography>{formatPrice(paymentOption?.individualPrice) || t('missing_info')}</Typography>
         </div>
         <Divider />
         <div className={styles.div}>

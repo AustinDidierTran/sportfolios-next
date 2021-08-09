@@ -58,7 +58,7 @@ export default function PlayersRow(props) {
         {player.option ? (
           <StyledTableCell component="th" scope="row" onClick={handleExpand}>
             {player.option.name}&nbsp;
-            {`(${player.option.individual_price === 0 ? t('free') : formatPrice(player.option.individual_price)})`}
+            {`(${player.option.individualPrice === 0 ? t('free') : formatPrice(player.option.individualPrice)})`}
           </StyledTableCell>
         ) : (
           <StyledTableCell component="th" scope="row" onClick={handleExpand}>

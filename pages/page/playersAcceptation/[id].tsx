@@ -37,11 +37,7 @@ const PlayersAcceptationRoute: React.FunctionComponent = () => {
     } else {
       await api('/api/entity/playerAcceptation', {
         method: 'PUT',
-        body: JSON.stringify({
-          eventId,
-          personId,
-          registrationStatus,
-        }),
+        body: JSON.stringify({ eventId, personId, registrationStatus }),
       });
       if (registrationStatus === STATUS_ENUM.ACCEPTED) {
         dispatch({
@@ -63,11 +59,9 @@ const PlayersAcceptationRoute: React.FunctionComponent = () => {
 
   const getCardsInfos = async (): Promise<void> => {
     if (eventId) {
-      const { data } = await api(
-        formatRoute('/api/entity/playersPendingAndRefused', null, {
-          eventId,
-        })
-      );
+      const { data } = await api(formatRoute('/api/entity/playersPendingAndRefused', null, { eventId }), {
+        method: 'GET',
+      });
 
       const pending = data.pending?.map((p: IPerson) => {
         return { items: p, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
