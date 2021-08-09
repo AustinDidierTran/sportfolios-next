@@ -15,11 +15,12 @@ export default function BecomeMemberCoupon(props) {
 
   const { open: openProps, onClose, items } = props;
   const { metadata } = items;
-  const { expirationDate, organizationId } = metadata;
+  const { expirationDate, organizationId, membershipType } = metadata;
   const [people, setPeople] = useState([]);
   const [open, setOpen] = useState(false);
   const [organization, setOrganization] = useState({});
   const [openBecomeMember, setOpenBecomeMember] = useState(false);
+  const [membership, setMembership] = useState(null);
 
   useEffect(() => {
     setOpen(openProps);
@@ -27,12 +28,27 @@ export default function BecomeMemberCoupon(props) {
   }, [openProps]);
 
   useEffect(() => {
-    getOrganization();
+    if (organizationId) {
+      getOrganization();
+    }
   }, [organizationId]);
+
+  useEffect(() => {
+    if (organizationId && membershipType) {
+      getMembership();
+    }
+  }, [organizationId, membershipType]);
 
   const getOrganization = async () => {
     const { data } = await api(formatRoute('/api/entity', null, { id: organizationId }), { method: 'GET' });
     setOrganization(data);
+  };
+
+  const getMembership = async () => {
+    const { data } = await api(formatRoute('/api/entity/membership', null, { organizationId, membershipType }), {
+      method: 'GET',
+    });
+    setMembership(data);
   };
 
   const onCloseBecomeMember = () => {
@@ -92,8 +108,9 @@ export default function BecomeMemberCoupon(props) {
         onClose();
         setOpenBecomeMember(true);
         router.query.coupon = 'coupon';
-        router.query.id = organizationId;
         router.query.expirationDate = expirationDate;
+        router.query.membership = membership;
+        router.query.tokenId = items.token_id;
       },
       name: t('next'),
       color: 'primary',

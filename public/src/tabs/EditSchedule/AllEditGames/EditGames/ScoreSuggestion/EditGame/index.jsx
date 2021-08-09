@@ -55,13 +55,8 @@ export default function EditGame(props) {
 
   const onDeleteConfirmed = async () => {
     const { status, data } = await api(
-      formatRoute('/api/entity/game', null, {
-        eventId: game.eventId,
-        gameId: game.id,
-      }),
-      {
-        method: 'DELETE',
-      }
+      formatRoute('/api/entity/game', null, { eventId: game.eventId, gameId: game.id }),
+      { method: 'DELETE' }
     );
     if (data && data.reason) {
       dispatch({

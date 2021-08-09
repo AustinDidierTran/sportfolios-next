@@ -47,30 +47,27 @@ export default function BecomeMember(props) {
   const [people, setPeople] = useState(userInfo.persons);
   const [memberships, setMemberships] = useState([]);
   const [fullMemberships, setFullMemberships] = useState([]);
+  const [membership, setMembership] = useState(null);
   const [membershipCreatedId, setMembershipCreatedId] = useState('');
   const [personId, setPersonId] = useState('');
   const [organizationId, setOrganizationId] = useState('');
 
   useEffect(() => {
-    if (openProps && id) {
-      getPeople();
-      getMemberships();
-    }
-    if (!router.query.coupon) {
-      setOpen(openProps);
-    } else {
-      onNext();
-    }
+    getPeople();
+    getMemberships();
   }, [openProps, id]);
+
+  useEffect(() => {
+    if (router.query.coupon) {
+      onNext();
+    } else {
+      setOpen(openProps);
+    }
+  }, [openProps]);
 
   const getPersonInfos = async (person) => {
     if (person) {
-      const { data } = await api(
-        formatRoute('/api/entity/personInfos', null, {
-          entityId: person,
-        })
-      );
-
+      const { data } = await api(formatRoute('/api/entity/personInfos', null, { entityId: person }), { method: 'GET' });
       formik.setFieldValue('birthDate', data?.birthDate || '');
       formik.setFieldValue('gender', data?.gender || '');
       formik.setFieldValue('address', data?.address || '');
@@ -105,22 +102,21 @@ export default function BecomeMember(props) {
   };
 
   const getMemberships = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/memberships', null, {
-        id,
-      }),
-      { method: 'GET' }
-    );
-    setFullMemberships(data);
-    const memberships = data.map((d) => ({
-      value: d.id,
-      display: formatMembership(d),
-    }));
-    setMemberships(memberships);
-    if (defaultTypeValue) {
-      formik.setFieldValue('type', defaultTypeValue);
-    } else if (memberships[0]) {
-      formik.setFieldValue('type', memberships[0].value);
+    if (router.query.membership) {
+      setMembership(router.query.membership);
+    } else if (id) {
+      const { data } = await api(formatRoute('/api/entity/memberships', null, { id }), { method: 'GET' });
+      setFullMemberships(data);
+      const memberships = data.map((d) => ({
+        value: d.id,
+        display: formatMembership(d),
+      }));
+      setMemberships(memberships);
+      if (defaultTypeValue) {
+        formik.setFieldValue('type', defaultTypeValue);
+      } else if (memberships[0]) {
+        formik.setFieldValue('type', memberships[0].value);
+      }
     }
   };
 
@@ -149,9 +145,13 @@ export default function BecomeMember(props) {
     }
     return null;
   };
-
   const validationSchema = yup.object().shape({
-    type: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    type: yup.string().test('validate', t(ERROR_ENUM.VALUE_IS_REQUIRED), (val) => {
+      if (router.query.coupon) {
+        return true;
+      }
+      return Boolean(val);
+    }),
     birthDate: yup.date().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     gender: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     phoneNumber: yup.string().test('len', t(ERROR_ENUM.VALUE_IS_INVALID), (val) => {
@@ -203,24 +203,49 @@ export default function BecomeMember(props) {
         emergencyPhoneNumber,
         medicalConditions,
       } = values;
-      const res = await api(`/api/entity/member`, {
-        method: 'POST',
-        body: JSON.stringify({
-          membershipId: type,
-          membershipType: membership.membershipType,
-          organizationId: membership.entityId,
-          personId: person,
-          expirationDate: router.query.expirationDate || getExpirationDate(membership.length, membership.fixedDate),
-          birthDate,
-          gender,
-          phoneNumber,
-          address,
-          emergencyName,
-          emergencySurname,
-          emergencyPhoneNumber,
-          medicalConditions,
-        }),
-      });
+      let res = null;
+      if (router.query.coupon) {
+        res = await api(`/api/entity/memberWithCoupon`, {
+          method: 'POST',
+          body: JSON.stringify({
+            membershipId: membership.id,
+            membershipType: membership.membershipType,
+            organizationId: membership.entityId,
+            termsAndConditionsId: membership.termsAndConditionsId,
+            personId: person,
+            expirationDate: router.query.expirationDate,
+            birthDate,
+            gender,
+            phoneNumber,
+            address,
+            emergencyName,
+            emergencySurname,
+            emergencyPhoneNumber,
+            medicalConditions,
+            tokenId: router.query.tokenId,
+          }),
+        });
+      } else {
+        res = await api(`/api/entity/member`, {
+          method: 'POST',
+          body: JSON.stringify({
+            membershipId: type,
+            membershipType: membership.membershipType,
+            organizationId: membership.entityId,
+            personId: person,
+            expirationDate: getExpirationDate(membership.length, membership.fixedDate),
+            birthDate,
+            gender,
+            phoneNumber,
+            address,
+            emergencyName,
+            emergencySurname,
+            emergencyPhoneNumber,
+            medicalConditions,
+          }),
+        });
+      }
+
       if (res.status === REQUEST_STATUS_ENUM.ERROR || res.status >= 400) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
@@ -249,7 +274,9 @@ export default function BecomeMember(props) {
     },
   });
 
-  const membership = useMemo(() => fullMemberships.find((m) => m.id === formik.values.type), [formik.values.type]);
+  useEffect(() => {
+    setMembership(fullMemberships.find((m) => m.id === formik.values.type));
+  }, [formik.values.type]);
 
   const hasTerms = useMemo(() => {
     if (membership) {
@@ -274,6 +301,12 @@ export default function BecomeMember(props) {
   useEffect(() => {
     getPersonInfos(formik.values.person);
   }, [formik.values.person]);
+
+  useEffect(() => {
+    if (terms) {
+      setPersonalInfos(false);
+    }
+  }, [terms]);
 
   const onClickMoreInfo = () => {
     goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.MEMBERSHIPS });
@@ -310,7 +343,7 @@ export default function BecomeMember(props) {
 
   const onDonationInfosClose = () => {
     setDonationInfos(false);
-    if (membership.price > 0) {
+    if (membership.price > 0 && !router.query.coupon) {
       setGoToCart(true);
     } else {
       formik.resetForm();
