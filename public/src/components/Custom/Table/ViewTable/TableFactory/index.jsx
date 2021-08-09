@@ -6,6 +6,8 @@ import CustomIconButton from '../../../IconButton';
 import { goTo } from '../../../../../actions/goTo';
 import Switch from '@material-ui/core/Switch';
 import Avatar from '@material-ui/core/Avatar';
+import { ENTITIES_ROLE_ENUM } from '../../../../../Store';
+import { updateUserRole } from '../../../../../actions/service/entity/post';
 
 export default function TableFactory(props) {
   const { d, h, width = false, onClick } = props;
@@ -20,6 +22,18 @@ export default function TableFactory(props) {
         >
           {d[h.value]}
         </CustomButton>
+      </TableCell>
+    );
+  }
+
+  if (h.type === 'adminButton') {
+    return (
+      <TableCell>
+        {d[h.value] === ENTITIES_ROLE_ENUM.ADMIN ? (
+          <CustomButton onClick={async () => await updateUserRole(d.id, ENTITIES_ROLE_ENUM.VIEWER)}>allo</CustomButton>
+        ) : (
+          <CustomButton onClick={async () => await updateUserRole(d.id, ENTITIES_ROLE_ENUM.ADMIN)}>Babye</CustomButton>
+        )}
       </TableCell>
     );
   }

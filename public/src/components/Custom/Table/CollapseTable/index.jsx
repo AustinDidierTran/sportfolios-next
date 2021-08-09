@@ -15,6 +15,9 @@ import Row from './row';
 export default function CollapseTable(props) {
   const { t } = useTranslation();
   const { data, description, headers, secondHeaders, onRowClick, title, filter, filterhandler } = props;
+
+  console.log(headers);
+
   return (
     <>
       <Typography gutterBottom variant="h5" component="h2">

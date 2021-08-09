@@ -57,7 +57,7 @@ export default function UsersTable() {
     { display: t('name'), value: 'name', width: '20%' },
     { display: t('surname'), value: 'surname', width: '20%' },
     { display: t('email.emails'), value: 'emails', width: '35%' },
-    { display: t('app_role'), value: 'role', width: '10%' },
+    { display: t('app_role'), value: 'role', type: 'adminButton', width: '10%' },
   ];
 
   const secondHeaders = [
