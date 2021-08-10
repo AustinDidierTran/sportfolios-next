@@ -1587,6 +1587,7 @@ export default {
     volleyball: 'Volleyball',
     vs: 'vs',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
+    warning: 'Attention',
     website: 'Site web',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
     with_taxes_the_total_for_a_team_is: 'Avec les taxes, le total pour une équipe est {{total}}$',

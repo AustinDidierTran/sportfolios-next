@@ -56,7 +56,7 @@ export default function TableFactory(props) {
           )}
           <AlertDialog
             open={alertIsOpen}
-            title={'warning'}
+            title={t('warning')}
             description={t('you_will_lose_your_role')}
             onSubmit={async () => {
               await updateUserRole(d.id, ENTITIES_ROLE_ENUM.VIEWER);

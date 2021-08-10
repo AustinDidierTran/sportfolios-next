@@ -101,12 +101,14 @@ export default function UsersTable() {
   };
 
   useEffect(() => {
-    loadUsers(numberToLoad);
+    loadUsers(50);
   }, []);
 
   useEffect(() => {
     loadUsers(numberToLoad);
   }, [numberToLoad]);
+
+  console.log(users);
 
   return (
     <Paper className={styles.card}>
