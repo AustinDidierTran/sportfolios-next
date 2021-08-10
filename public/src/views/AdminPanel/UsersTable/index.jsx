@@ -108,8 +108,6 @@ export default function UsersTable() {
     loadUsers(numberToLoad);
   }, [numberToLoad]);
 
-  console.log(users);
-
   return (
     <Paper className={styles.card}>
       {isLoading ? (
