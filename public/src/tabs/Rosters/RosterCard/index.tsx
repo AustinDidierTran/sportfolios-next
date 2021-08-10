@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { formatRoute } from '../../../utils/stringFormats';
 import { COLORS } from '../../../utils/colors';
 import { AllTeamsAcceptedInfos, Member } from '../../../../../typescript/types';
+import { remainsOneCaptainOrCoach } from '../../../utils/validators';
 
 interface Player {
   personId: string;
@@ -155,11 +156,9 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
       });
     }
   };
-  function remainsOtherPlayerWithRole(teamPlayerId: string) {
-    return roster.players.some((p) => p.id !== teamPlayerId && p.role !== ROSTER_ROLE_ENUM.PLAYER);
-  }
+
   const onDelete = async (id: string) => {
-    if (!remainsOtherPlayerWithRole(id)) {
+    if (!remainsOneCaptainOrCoach(roster.players, id)) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team.team_player_role_error'),

@@ -4,13 +4,16 @@ import { useTranslation } from 'react-i18next';
 import Paper from '../../../components/Custom/Paper';
 import Button from '../../../components/Custom/Button';
 import FormDialog from '../../../components/Custom/FormDialog';
-import { Store } from '../../../Store';
-import { FORM_DIALOG_TYPE_ENUM } from '../../../../common/enums';
+import { ACTION_ENUM, Store } from '../../../Store';
+import { FORM_DIALOG_TYPE_ENUM, REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import styles from './Players.module.css';
 import List from '@material-ui/core/List';
 import Player from './Player';
 import { Player as PlayerType } from '../../../../../typescript/types';
 import { getPlayers as getPlayersApi } from '../../../actions/service/entity/get';
+import { deletePlayer } from '../../../actions/service/entity/delete';
+import { ERROR_ENUM } from '../../../../common/errors';
+import { remainsOneCaptainOrCoach } from '../../../utils/validators';
 
 interface IProps {
   adminView: boolean;
@@ -22,6 +25,8 @@ const Players: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { id: teamId },
   } = useContext(Store);
+
+  const { dispatch } = useContext(Store);
 
   useEffect((): void => {
     if (teamId) {
@@ -41,6 +46,28 @@ const Players: React.FunctionComponent<IProps> = (props) => {
     setOpen(false);
   };
 
+  const onDelete = async (id: string) => {
+    if (!remainsOneCaptainOrCoach(players, id)) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('team.team_player_role_error'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      return;
+    }
+
+    const status = await deletePlayer(id);
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    }
+    getPlayers();
+  };
+
   return (
     <>
       <Paper title={t('players')}>
@@ -56,7 +83,14 @@ const Players: React.FunctionComponent<IProps> = (props) => {
         ) : null}
         <List className={styles.list}>
           {players.map((player, index) => (
-            <Player key={player.id} player={player} index={index} update={getPlayers} isAdmin={adminView} />
+            <Player
+              key={player.id}
+              player={player}
+              index={index}
+              update={getPlayers}
+              onDelete={onDelete}
+              isAdmin={adminView}
+            />
           ))}
         </List>
       </Paper>

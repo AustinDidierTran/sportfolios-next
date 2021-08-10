@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { useRouter } from 'next/router';
-import { formatRoute } from '../../../public/src/utils/stringFormats';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, STATUS_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import api from '../../../public/src/actions/api';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { ACTION_ENUM, Store } from '../../../public/src/Store';
 import dynamic from 'next/dynamic';
+import { getPlayersPendingAndRefused } from '../../../public/src/actions/service/entity/get';
 
 const PlayersAcceptation = dynamic(() => import('../../../public/src/views/PlayersAcceptation'));
 
@@ -37,11 +37,7 @@ const PlayersAcceptationRoute: React.FunctionComponent = () => {
     } else {
       await api('/api/entity/playerAcceptation', {
         method: 'PUT',
-        body: JSON.stringify({
-          eventId,
-          personId,
-          registrationStatus,
-        }),
+        body: JSON.stringify({ eventId, personId, registrationStatus }),
       });
       if (registrationStatus === STATUS_ENUM.ACCEPTED) {
         dispatch({
@@ -63,16 +59,12 @@ const PlayersAcceptationRoute: React.FunctionComponent = () => {
 
   const getCardsInfos = async (): Promise<void> => {
     if (eventId) {
-      const { data } = await api(
-        formatRoute('/api/entity/playersPendingAndRefused', null, {
-          eventId,
-        })
-      );
+      const data = await getPlayersPendingAndRefused(eventId);
 
-      const pending = data.pending?.map((p: IPerson) => {
+      const pending: IPerson[] = data.pending?.map((p: { id: string }) => {
         return { items: p, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
       });
-      const refused = data.refused?.map((t: IPerson) => {
+      const refused: IPerson[] = data.refused?.map((t: { id: string }) => {
         return { items: t, type: CARD_TYPE_ENUM.ACCEPT_PLAYER_INFOS };
       });
       const players = pending.concat(refused);

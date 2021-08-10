@@ -17,7 +17,8 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Roster as RosterType, Player } from '../../../../../../typescript/types';
 import { getRosterPlayers } from '../../../../actions/service/entity/get';
-import { deleteRoster as deleteRosterApi } from '../../../../actions/service/entity/delete';
+import { deleteRoster as deleteRosterApi, deleteRosterPlayer } from '../../../../actions/service/entity/delete';
+import { remainsOneCaptainOrCoach } from '../../../../utils/validators';
 
 interface IProps {
   roster: RosterType;
@@ -74,6 +75,28 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     }
     update();
   };
+
+  const onDeletePlayer = async (id: string) => {
+    if (!remainsOneCaptainOrCoach(players, id)) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('team.team_player_role_error'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+      return;
+    }
+
+    const status = await deleteRosterPlayer(id);
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: ERROR_ENUM.ERROR_OCCURED,
+        severity: SEVERITY_ENUM.ERROR,
+        duration: 4000,
+      });
+    }
+    update();
+  };
   return (
     <Accordion expanded={expanded} onChange={onExpand}>
       <AccordionSummary className={style} expandIcon={<Icon icon="ExpandMore" />}>
@@ -82,7 +105,14 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       <AccordionDetails className={styles.accordionDetail}>
         <List className={styles.list}>
           {players.map((player, index) => (
-            <RosterPlayer key={player.id} player={player} index={index} update={getPlayers} isAdmin={isAdmin} />
+            <RosterPlayer
+              key={player.id}
+              player={player}
+              index={index}
+              update={getPlayers}
+              isAdmin={isAdmin}
+              onDeletePlayer={onDeletePlayer}
+            />
           ))}
           {isAdmin ? (
             <div className={styles.divButton}>

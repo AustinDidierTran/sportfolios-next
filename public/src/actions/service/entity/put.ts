@@ -77,3 +77,10 @@ export function updateField(id: string, name: string): Promise<number> {
 export function updateTimeslot(id: string, date: string): Promise<number> {
   return api(`${BASE_URL}/timeslot`, { method: 'PUT', body: JSON.stringify({ id, date }) }).then((res) => res.status);
 }
+
+export function updateRole(entityId: string, entityIdAdmin: string, role: string): Promise<number> {
+  return api(`${BASE_URL}/role`, {
+    method: 'PUT',
+    body: JSON.stringify({ entity_id: entityId, entity_id_admin: entityIdAdmin, role }),
+  }).then((res) => res.status);
+}

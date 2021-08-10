@@ -1,14 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import { getIconFromRole } from '../../../../../utils/stringFormats';
 import styles from './RosterPlayer.module.css';
-import {
-  FORM_DIALOG_TYPE_ENUM,
-  ROSTER_ROLE_ENUM,
-  SEVERITY_ENUM,
-  REQUEST_STATUS_ENUM,
-} from '../../../../../../common/enums';
+import { FORM_DIALOG_TYPE_ENUM, ROSTER_ROLE_ENUM } from '../../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import Icon from '../../../../../components/Custom/Icon';
 import AlertDialog from '../../../../../components/Custom/Dialog/AlertDialog';
@@ -18,41 +13,22 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '../../../../../components/Custom/Avatar';
-import { ACTION_ENUM, Store } from '../../../../../Store';
-import { ERROR_ENUM } from '../../../../../../common/errors';
 import { Player } from '../../../../../../../typescript/types';
-import { deleteRosterPlayer } from '../../../../../actions/service/entity/delete';
 
 interface IProps {
   index: number;
   isAdmin: boolean;
   update: () => void;
   player: Player;
+  onDeletePlayer: (id: string) => void;
 }
 
 const RosterPlayer: React.FunctionComponent<IProps> = (props) => {
-  const { player, index, update, isAdmin } = props;
+  const { player, index, update, isAdmin, onDeletePlayer } = props;
   const { t } = useTranslation();
-
-  const { dispatch } = useContext(Store);
 
   const [edit, setEdit] = useState<boolean>(false);
   const [deletePlayer, setDelete] = useState<boolean>(false);
-
-  const onDelete = async () => {
-    const status = await deleteRosterPlayer(player.id);
-    if (status === REQUEST_STATUS_ENUM.ERROR) {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: ERROR_ENUM.ERROR_OCCURED,
-        severity: SEVERITY_ENUM.ERROR,
-        duration: 4000,
-      });
-    } else {
-      setDelete(false);
-    }
-    update();
-  };
 
   return (
     <ListItem className={index % 2 === 0 ? styles.greycard : styles.card}>
@@ -95,7 +71,10 @@ const RosterPlayer: React.FunctionComponent<IProps> = (props) => {
               setDelete(false);
             }}
             title={t('remove_roster_player_confirmation', { name: player.name })}
-            onSubmit={onDelete}
+            onSubmit={() => {
+              setDelete(false);
+              onDeletePlayer(player.id);
+            }}
           />
           <FormDialog
             type={FORM_DIALOG_TYPE_ENUM.EDIT_ROSTER_PLAYER}

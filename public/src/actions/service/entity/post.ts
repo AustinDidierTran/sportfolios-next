@@ -1,6 +1,8 @@
 import api from '../../api';
-import { Person, Player } from '../../../../../typescript/types';
+
+import { Member, Person, Player } from '../../../../../typescript/types';
 import { EXERCISES_TYPE_ENUM, USER_APP_ROLE_ENUM } from '../../../../common/enums';
+
 
 const BASE_URL = '/api/entity';
 
@@ -54,6 +56,51 @@ export function addPhase(phase: string, spots: number, eventId: string, type: st
   );
 }
 
+
+export function addMemberWithCoupon(body: {
+  membershipId: string;
+  membershipType: string;
+  organizationId: string;
+  termsAndConditionsId: string;
+  personId: string;
+  expirationDate: string;
+  birthDate: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  emergencyName: string;
+  emergencySurname: string;
+  emergencyPhoneNumber: string;
+  medicalConditions: string;
+  tokenId: string;
+}): Promise<Member> {
+  return api(`${BASE_URL}/memberWithCoupon`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function addMember(body: {
+  membershipId: string;
+  membershipType: string;
+  organizationId: string;
+  personId: string;
+  expirationDate: string;
+  birthDate: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  emergencyName: string;
+  emergencySurname: string;
+  emergencyPhoneNumber: string;
+  medicalConditions: string;
+}): Promise<Member> {
+  return api(`${BASE_URL}/member`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
 export function addPlayers(teamId: string, players: Player[]): Promise<number> {
   return api(`${BASE_URL}/players`, { method: 'POST', body: JSON.stringify({ teamId, players }) }).then(
     (res) => res.status
@@ -75,6 +122,14 @@ export function unregisterPeople({ eventId, people }: { eventId: string; people:
 
 export function unregisterTeams({ eventId, rosterIds }: { eventId: string; rosterIds: any }): Promise<any> {
   return api(`${BASE_URL}/unregisterTeams`, { method: 'POST', body: JSON.stringify({ eventId, rosterIds }) });
+}
+
+
+export function addRole(entityIdAdmin: string, role: number, entityId: string): Promise<any> {
+  return api(`${BASE_URL}/role`, {
+    method: 'POST',
+    body: JSON.stringify({ entity_id_admin: entityIdAdmin, role, entity_id: entityId }),
+  });
 }
 
 export function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
@@ -104,6 +159,7 @@ export function addSpirit(
   }).then((res) => res.status);
 }
 
+
 export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promise<void> {
   return api('/api/admin/updateUserRole', {
     method: 'POST',
@@ -112,4 +168,4 @@ export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promis
       role,
     }),
   });
-}
+

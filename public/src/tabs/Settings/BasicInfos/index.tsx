@@ -23,6 +23,7 @@ import { useFormik } from 'formik';
 
 interface IProps {
   basicInfos: Entity;
+  isAdmin?: boolean;
 }
 
 const BasicInfos: React.FunctionComponent<IProps> = (props) => {
@@ -31,6 +32,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
 
   const {
     basicInfos: { id, name: initialName, photoUrl: initialPhotoUrl, role },
+    isAdmin,
   } = props;
 
   const isEditor = useEditor(role);
@@ -193,7 +195,7 @@ const BasicInfos: React.FunctionComponent<IProps> = (props) => {
             </Typography>
           </div>
         ) : null}
-        {isEditor ? (
+        {isEditor || isAdmin ? (
           <Container className={styles.edit}>
             <Button
               variant="contained"

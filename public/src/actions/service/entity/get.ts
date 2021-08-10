@@ -30,8 +30,10 @@ import {
   Report,
   ForYouPagePost,
   User,
+  Person,
+  Membership,
 } from '../../../../../typescript/types';
-import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
 
@@ -43,6 +45,19 @@ export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> 
   return api(formatRoute(`${BASE_URL}/ownedEvents`, null, { organizationId }), { method: 'GET' }).then(
     (res) => res.data
   );
+}
+
+export function globalSearch(body: {
+  whiteList?: string[];
+  blackList?: string[];
+  query: string;
+  type: string;
+}): Promise<any> {
+  return api(formatRoute('/api/search/global', null, body), { method: 'GET' });
+}
+
+export function myTeamsSearch(query: string, eventId: string): Promise<any> {
+  return api(formatRoute('/api/search/myTeamsSearch', null, { query, eventId }), { method: 'GET' });
 }
 
 export function getAllUsers(limitNumber: number): Promise<User> {
@@ -62,11 +77,29 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
 }
 
 export function getRole(entityId: string): Promise<{ status: number; data: ENTITIES_ROLE_ENUM }> {
-  return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' }).then((res) => res);
+  return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' });
+}
+
+export function getPlayersPendingAndRefused(
+  eventId: string
+): Promise<{ pending: { id: string }[]; refused: { id: string }[] }> {
+  return api(formatRoute(`${BASE_URL}/playersPendingAndRefused`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
+
+export function getAllPeopleRegisteredInfos(eventId: string): Promise<Person[]> {
+  return api(formatRoute(`${BASE_URL}/allPeopleRegisteredInfos`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
-  return api(`${BASE_URL}/roles?id=${id}`, { method: 'GET' }).then((res) => res);
+  return api(formatRoute(`${BASE_URL}/roles`, null, { id }), { method: 'GET' }).then((res) => res);
+}
+
+export function getPlayerTeamRole(teamId: string): Promise<{ status: number; data: ROSTER_ROLE_ENUM }> {
+  return api(formatRoute(`${BASE_URL}/playerTeamRole`, null, { teamId }), { method: 'GET' });
 }
 
 export function getForYouPage(): Promise<{ status: number; data: ForYouPagePost[] }> {
@@ -83,6 +116,18 @@ export function hasMemberships(organizationId: string): Promise<boolean> {
   return api(formatRoute(`${BASE_URL}/hasMemberships`, null, { organizationId }), { method: 'GET' }).then(
     (res) => res.data
   );
+}
+
+export function getPersonInfos(entityId: string): Promise<Person> {
+  return api(formatRoute(`${BASE_URL}/personInfos`, null, { entityId }), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getPrimaryPerson(): Promise<Person> {
+  return api(formatRoute(`${BASE_URL}/primaryPerson`, null, null), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getOwnedPersons(): Promise<Person> {
+  return api(formatRoute(`${BASE_URL}/primaryPerson`, null, null), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getPlayers(teamId: string): Promise<Player[]> {
@@ -112,6 +157,12 @@ export function getEventInfo(eventId: string): Promise<Event> {
   return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
 
+export function getAllPlayersAcceptedRegistered(eventId: string): Promise<any> {
+  return api(formatRoute(`${BASE_URL}/allPlayersAcceptedRegistered`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
+
 export function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {
   return api(formatRoute(`${BASE_URL}/teamPlayersPending`, null, { teamId }), { method: 'GET' }).then(
     (res) => res.data
@@ -132,6 +183,12 @@ export function getMembers(organizationId: string, personId: string): Promise<Me
 
 export function getMemberships(id: string): Promise<EntityMembership[]> {
   return api(formatRoute(`${BASE_URL}/memberships`, null, { id }), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getMembership(organizationId: string, membershipType: number): Promise<Membership> {
+  return api(formatRoute(`${BASE_URL}/membership`, null, { organizationId, membershipType }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getMyRosters(eventId: string): Promise<{ rosterId: string; name: string }[]> {
@@ -170,7 +227,7 @@ export function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: 
   );
 }
 
-export function getPracticeInfo(practiceId: string): Promise<{ practice: Practice; role: number }> {
+export function getPracticeInfo(practiceId: string): Promise<Practice> {
   return api(formatRoute(`${BASE_URL}/practiceInfo`, null, { practiceId }), { method: 'GET' }).then((res) => res.data);
 }
 

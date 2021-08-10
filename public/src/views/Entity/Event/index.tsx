@@ -130,7 +130,7 @@ const Event: React.FunctionComponent<IProps> = (props) => {
       />
       <IgContainer>
         <div>
-          <OpenTab basicInfos={basicInfos} eventInfo={eventInfo} />
+          <OpenTab basicInfos={basicInfos} isAdmin={isAdmin} eventInfo={eventInfo} />
         </div>
       </IgContainer>
     </>

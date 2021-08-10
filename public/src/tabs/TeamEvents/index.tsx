@@ -10,6 +10,7 @@ const PracticeDetailed = dynamic(() => import('../../components/Custom/MyEventsT
 interface IProps {
   gamesInfos: IGameInfos[];
   adminView: boolean;
+  isAdmin: boolean
 }
 
 interface IGameInfos {
@@ -28,10 +29,10 @@ interface IGameInfos {
 const TabTeamEvents: React.FunctionComponent<IProps> = (props) => {
   const router = useRouter();
   const { practiceId } = router.query;
-  const { gamesInfos, adminView } = props;
+  const { gamesInfos, adminView, isAdmin } = props;
 
   if (practiceId) {
-    return <PracticeDetailed practiceId={practiceId.toString()} />;
+    return <PracticeDetailed isAdmin={isAdmin} practiceId={practiceId.toString()} />;
   }
   return <MyEventsTeam gamesInfos={gamesInfos} adminView={adminView} />;
 };

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { ENTITIES_ROLE_ENUM, CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../common/enums';
 import Card from '../../components/Custom/Card';
-import { useAdmin, useEditor } from '../../hooks/roles';
+import { useEditor } from '../../hooks/roles';
 import styles from './Settings.module.css';
 import BottomPageLogo from '../../components/Custom/BottomPageLogo';
 import { Store } from '../../Store';
@@ -19,26 +19,25 @@ const ManageRoles = dynamic(() => import('./ManageRoles'));
 
 interface IProps {
   basicInfos: Entity;
+  isAdmin: boolean;
 }
 
 const EntitySettings: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { id },
   } = useContext(Store);
-  const { basicInfos } = props;
+  const { basicInfos, isAdmin } = props;
 
   const { role = ENTITIES_ROLE_ENUM.VIEWER, type } = basicInfos;
 
   const isEditor = useEditor(role);
-
-  const isAdmin = useAdmin(role);
 
   switch (type) {
     case GLOBAL_ENUM.TEAM:
       if (isAdmin) {
         return (
           <div className={styles.div}>
-            <BasicInfos basicInfos={basicInfos} />
+            <BasicInfos basicInfos={basicInfos} isAdmin={isAdmin} />
             <Description />
             <ManageRoles />
             <Card items={{ id, name: basicInfos.name }} type={CARD_TYPE_ENUM.DELETE_ENTITY} />

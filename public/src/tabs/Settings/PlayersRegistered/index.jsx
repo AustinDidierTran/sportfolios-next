@@ -16,17 +16,20 @@ import TableRow from '@material-ui/core/TableRow';
 
 import styles from './PlayersRegistered.module.css';
 import { useTranslation } from 'react-i18next';
-import api from '../../../actions/api';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { formatRoute } from '../../../utils/stringFormats';
 import PlayersRow from './PlayersRow';
 import PlayersRowMobile from './PlayersRowMobile';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { COLORS } from '../../../utils/colors';
 import { unregisterPeople } from '../../../actions/service/entity/post';
+import {
+  getAllPeopleRegisteredInfos,
+  getAllPlayersAcceptedRegistered,
+  getEventInfo,
+} from '../../../actions/service/entity/get';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
@@ -97,14 +100,8 @@ export default function PlayersRegistered() {
     setOpenUnregisterAll(false);
   };
 
-  const getPlayers = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/allPeopleRegisteredInfos', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
-    setPlayers(data);
+  const getPlayers = () => {
+    getAllPeopleRegisteredInfos(eventId).then(setPlayers);
   };
 
   useEffect(() => {
@@ -121,16 +118,14 @@ export default function PlayersRegistered() {
   const handleUnregisterAllClick = () => {
     setOpenUnregisterAll(true);
   };
-
   const onUnregisterPerson = async () => {
     setOpenUnregister(false);
     setIsLoading(true);
     const person = players.find((x) => x.personId === personId);
     const res = await unregisterPeople({
       eventId,
-      people: [{ personId: person.personId, stripePrice: person.option.individual_stripe_price_id }],
+      people: [{ personId: person.personId, stripePrice: person.option.individualStripePriceId }],
     });
-    setIsLoading(false);
 
     if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       dispatch({
@@ -147,8 +142,9 @@ export default function PlayersRegistered() {
         duration: 4000,
       });
     }
-
-    setPlayers(res.data);
+    getPlayers().then(() => {
+      setIsLoading(false);
+    });
   };
 
   const onUnregisterAll = async () => {
@@ -156,7 +152,7 @@ export default function PlayersRegistered() {
     setIsLoading(true);
     const res = await unregisterPeople({
       eventId,
-      people: players.map((p) => ({ personId: p.personId, stripePrice: p.option.individual_stripe_price_id })),
+      people: players.map((p) => ({ personId: p.personId, stripePrice: p.option.individualStripePriceId })),
     });
     setIsLoading(false);
 
@@ -180,23 +176,15 @@ export default function PlayersRegistered() {
   };
 
   const getMaximumSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/event', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
-    setMaximumSpots(data.maximum_spots);
+    getEventInfo(eventId).then((data) => {
+      setMaximumSpots(data.maximum_spots);
+    });
   };
 
-  const getAcceptedSpots = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/allPlayersAcceptedRegistered', null, {
-        eventId,
-      }),
-      { method: 'GET' }
-    );
-    setAcceptedSpots(data?.length);
+  const getAcceptedSpots = () => {
+    getAllPlayersAcceptedRegistered().then((data) => {
+      setAcceptedSpots(data?.length);
+    });
   };
 
   useEffect(() => {
