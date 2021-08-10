@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styles from './MultipleTeamGame.module.css';
 
@@ -11,11 +11,15 @@ import Avatar from '../../Avatar';
 import { useTranslation } from 'react-i18next';
 import { Positions } from '../../../../../../typescript/types';
 import Card from '@material-ui/core/Card';
+import { goTo } from '../../../../actions/goTo';
+import { ROUTES_ENUM } from '../../../../../common/enums';
+import router from 'next/router';
 
 interface IProps {
   game: IGame;
   onClick: (id: string, eventId?: string) => void;
   withoutCard?: boolean;
+  teamsAreClickable?: boolean;
 }
 
 interface IGame {
@@ -32,6 +36,7 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
     game: { field, startTime, phaseName, positions, eventId, id },
     onClick,
     withoutCard,
+    teamsAreClickable = false,
   } = props;
   const { t } = useTranslation();
 
@@ -41,8 +46,13 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
         <div className={styles.teams}>
           {positions?.map((position, i) => (
             <div className={styles.teamContent} key={i}>
-              <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
-              <Typography className={styles.name}>{position.name}</Typography>
+              <div
+                className={teamsAreClickable ? styles.teamInfos : styles.generalGameTeam}
+                onClick={() => (teamsAreClickable ? goTo(ROUTES_ENUM.entity, { id: position.id }) : null)}
+              >
+                <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
+                <Typography className={styles.name}>{position.name}</Typography>
+              </div>
               <Typography className={styles.score}>{position.score}</Typography>
             </div>
           ))}
@@ -70,11 +80,11 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
   };
 
   if (withoutCard) {
-    return <div className={styles.game}>{getContent()}</div>;
+    return <div className={teamsAreClickable ? styles.nonClickableGame : styles.game}>{getContent()}</div>;
   }
 
   return (
-    <Card className={styles.game} onClick={() => onClick(id, eventId)}>
+    <Card className={teamsAreClickable ? styles.nonClickableGame : styles.game} onClick={() => onClick(eventId, id)}>
       {getContent()}
     </Card>
   );

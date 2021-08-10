@@ -327,6 +327,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
               goTo(ROUTES.entity, { id });
             }}
             withoutCard
+            teamsAreClickable
           />
           <div className={styles.scoreButton}>
             {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
