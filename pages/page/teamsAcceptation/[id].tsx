@@ -66,7 +66,8 @@ const TeamsAcceptationRoute: React.FunctionComponent = () => {
       const { data } = await api(
         formatRoute('/api/entity/teamsPendingAndRefused', null, {
           eventId,
-        })
+        }),
+        { method: 'GET' }
       );
 
       const pending = data.pending?.map((t: ITeam) => {
