@@ -1,3 +1,4 @@
+import { Game } from '../../../../../typescript/types';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../api';
 const BASE_URL = '/api/entity';
@@ -14,6 +15,10 @@ export async function deletePractice(teamId: string, practiceId: string): Promis
 
 export function deleteRosterPlayer(id: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/rosterPlayer`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
+}
+
+export function deleteGame(eventId: string, gameId: string): Promise<Game> {
+  return api(formatRoute(`${BASE_URL}/game`, null, { eventId, gameId }), { method: 'DELETE' });
 }
 
 export function deleteRoster(id: string): Promise<number> {

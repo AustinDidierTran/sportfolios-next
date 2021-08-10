@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import api from '../../../../actions/api';
-import { COMPONENT_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
+import { COMPONENT_TYPE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatDate, formatRoute } from '../../../../utils/stringFormats';
+import { formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import FormDialog from '../../FormDialog';
 import { useRouter } from 'next/router';
+import { getEntity, getMembership as getMembershipApi } from '../../../../actions/service/entity/get';
+import { getOwnedPerson } from '../../../../actions/service/user';
 
 export default function BecomeMemberCoupon(props) {
   const { t } = useTranslation();
@@ -39,16 +40,12 @@ export default function BecomeMemberCoupon(props) {
     }
   }, [organizationId, membershipType]);
 
-  const getOrganization = async () => {
-    const { data } = await api(formatRoute('/api/entity', null, { id: organizationId }), { method: 'GET' });
-    setOrganization(data);
+  const getOrganization = () => {
+    getEntity(organizationId).then(setOrganization);
   };
 
-  const getMembership = async () => {
-    const { data } = await api(formatRoute('/api/entity/membership', null, { organizationId, membershipType }), {
-      method: 'GET',
-    });
-    setMembership(data);
+  const getMembership = () => {
+    getMembershipApi(organizationId, membershipType).then(setMembership);
   };
 
   const onCloseBecomeMember = () => {
@@ -56,9 +53,8 @@ export default function BecomeMemberCoupon(props) {
   };
 
   const getPeople = async () => {
-    const { data } = await api(formatRoute('/api/user/ownedPersons', null, { type: GLOBAL_ENUM.PERSON }), {
-      method: 'GET',
-    });
+    const data = await getOwnedPerson();
+
     //Permet de mettre la primary person comme 1er élément de la liste
     data.sort((a, b) => (a.isPrimaryPerson ? -1 : b.isPrimaryPerson ? 1 : 0));
 
@@ -80,7 +76,7 @@ export default function BecomeMemberCoupon(props) {
     {
       componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
       primary: t('become_member_of', {
-        organizationName: organization?.basicInfos?.name || '',
+        organizationName: organization?.name || '',
         expirationDate: formatDate(moment.utc(expirationDate)),
       }),
     },

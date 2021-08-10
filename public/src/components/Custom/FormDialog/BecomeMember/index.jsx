@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
 import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import {
   SEVERITY_ENUM,
@@ -11,10 +10,9 @@ import {
   COMPONENT_TYPE_ENUM,
   MEMBERSHIP_LENGTH_ENUM,
   TABS_ENUM,
-  GLOBAL_ENUM,
 } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
-import { formatDate, formatPrice, formatRoute, getMembershipName } from '../../../../utils/stringFormats';
+import { formatDate, formatPrice, getMembershipName } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import { getExpirationDate } from '../../../../utils/memberships';
 import * as yup from 'yup';
@@ -26,6 +24,13 @@ import DonationInfos from './DonationInfos';
 import GoToCart from './GoToCart';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRouter } from 'next/router';
+import {
+  getPrimaryPerson,
+  getMemberships as getMembershipsApi,
+  getPersonInfos as getPersonInfosApi,
+} from '../../../../actions/service/entity/get';
+import { getOwnedPerson } from '../../../../actions/service/user';
+import { addMember, addMemberWithCoupon } from '../../../../actions/service/entity/post';
 
 export default function BecomeMember(props) {
   const { open: openProps, update, onClose, onOpen, moreInfo = true, defaultTypeValue } = props;
@@ -67,7 +72,7 @@ export default function BecomeMember(props) {
 
   const getPersonInfos = async (person) => {
     if (person) {
-      const { data } = await api(formatRoute('/api/entity/personInfos', null, { entityId: person }), { method: 'GET' });
+      const data = await getPersonInfosApi(person);
       formik.setFieldValue('birthDate', data?.birthDate || '');
       formik.setFieldValue('gender', data?.gender || '');
       formik.setFieldValue('address', data?.address || '');
@@ -83,13 +88,11 @@ export default function BecomeMember(props) {
   };
 
   const getPeople = async () => {
-    const { data } = await api(formatRoute('/api/entity/primaryPerson', null, null), { method: 'GET' });
+    const data = await getPrimaryPerson();
     if (!data) {
       return;
     }
-    const { data: people } = await api(formatRoute('/api/user/ownedPersons', null, { type: GLOBAL_ENUM.PERSON }), {
-      method: 'GET',
-    });
+    const people = await getOwnedPerson();
     const res = people.map((p) => ({
       value: p.id,
       display: `${p.name} ${p?.surname}`,
@@ -105,7 +108,7 @@ export default function BecomeMember(props) {
     if (router.query.membership) {
       setMembership(router.query.membership);
     } else if (id) {
-      const { data } = await api(formatRoute('/api/entity/memberships', null, { id }), { method: 'GET' });
+      const data = await getMembershipsApi(id);
       setFullMemberships(data);
       const memberships = data.map((d) => ({
         value: d.id,
@@ -205,44 +208,38 @@ export default function BecomeMember(props) {
       } = values;
       let res = null;
       if (router.query.coupon) {
-        res = await api(`/api/entity/memberWithCoupon`, {
-          method: 'POST',
-          body: JSON.stringify({
-            membershipId: membership.id,
-            membershipType: membership.membershipType,
-            organizationId: membership.entityId,
-            termsAndConditionsId: membership.termsAndConditionsId,
-            personId: person,
-            expirationDate: router.query.expirationDate,
-            birthDate,
-            gender,
-            phoneNumber,
-            address,
-            emergencyName,
-            emergencySurname,
-            emergencyPhoneNumber,
-            medicalConditions,
-            tokenId: router.query.tokenId,
-          }),
+        res = await addMemberWithCoupon({
+          membershipId: membership.id,
+          membershipType: membership.membershipType,
+          organizationId: membership.entityId,
+          termsAndConditionsId: membership.termsAndConditionsId,
+          personId: person,
+          expirationDate: router.query.expirationDate,
+          birthDate,
+          gender,
+          phoneNumber,
+          address,
+          emergencyName,
+          emergencySurname,
+          emergencyPhoneNumber,
+          medicalConditions,
+          tokenId: router.query.tokenId,
         });
       } else {
-        res = await api(`/api/entity/member`, {
-          method: 'POST',
-          body: JSON.stringify({
-            membershipId: type,
-            membershipType: membership.membershipType,
-            organizationId: membership.entityId,
-            personId: person,
-            expirationDate: getExpirationDate(membership.length, membership.fixedDate),
-            birthDate,
-            gender,
-            phoneNumber,
-            address,
-            emergencyName,
-            emergencySurname,
-            emergencyPhoneNumber,
-            medicalConditions,
-          }),
+        res = await addMember({
+          membershipId: type,
+          membershipType: membership.membershipType,
+          organizationId: membership.entityId,
+          personId: person,
+          expirationDate: getExpirationDate(membership.length, membership.fixedDate),
+          birthDate,
+          gender,
+          phoneNumber,
+          address,
+          emergencyName,
+          emergencySurname,
+          emergencyPhoneNumber,
+          medicalConditions,
         });
       }
 
