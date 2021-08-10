@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 
 import TableCell from '@material-ui/core/TableCell';
 import CustomButton from '../../../Button';
@@ -6,12 +6,27 @@ import CustomIconButton from '../../../IconButton';
 import { goTo } from '../../../../../actions/goTo';
 import Switch from '@material-ui/core/Switch';
 import Avatar from '@material-ui/core/Avatar';
-import { ENTITIES_ROLE_ENUM } from '../../../../../Store';
+import { ENTITIES_ROLE_ENUM, Store } from '../../../../../Store';
 import { updateUserRole } from '../../../../../actions/service/entity/post';
+import AlertDialog from '../../../Dialog/AlertDialog';
+import { useTranslation } from 'react-i18next';
 
 export default function TableFactory(props) {
   const { d, h, width = false, onClick } = props;
+  const {
+    state: { userInfo },
+  } = useContext(Store);
+  const { t } = useTranslation();
 
+  const [alertIsOpen, setAlertIsOpen] = useState(false);
+
+  async function handleUpdateRole(userId, role) {
+    if (userInfo.userId === userId && role === ENTITIES_ROLE_ENUM.VIEWER) {
+      setAlertIsOpen(true);
+    } else {
+      await updateUserRole(userId, role);
+    }
+  }
   if (h.type === 'button') {
     return (
       <TableCell>
@@ -29,11 +44,28 @@ export default function TableFactory(props) {
   if (h.type === 'adminButton') {
     return (
       <TableCell>
-        {d[h.value] === ENTITIES_ROLE_ENUM.ADMIN ? (
-          <CustomButton onClick={async () => await updateUserRole(d.id, ENTITIES_ROLE_ENUM.VIEWER)}>allo</CustomButton>
-        ) : (
-          <CustomButton onClick={async () => await updateUserRole(d.id, ENTITIES_ROLE_ENUM.ADMIN)}>Babye</CustomButton>
-        )}
+        <>
+          {d[h.value] === ENTITIES_ROLE_ENUM.ADMIN ? (
+            <CustomButton color="secondary" onClick={() => handleUpdateRole(d.id, ENTITIES_ROLE_ENUM.VIEWER)}>
+              {t('remove_admin')}
+            </CustomButton>
+          ) : (
+            <CustomButton color="primary" onClick={() => handleUpdateRole(d.id, ENTITIES_ROLE_ENUM.ADMIN)}>
+              {t('add.add_admin')}
+            </CustomButton>
+          )}
+          <AlertDialog
+            open={alertIsOpen}
+            title={'warning'}
+            description={t('you_will_lose_your_role')}
+            onSubmit={async () => {
+              await updateUserRole(d.id, ENTITIES_ROLE_ENUM.VIEWER);
+              setAlertIsOpen(false);
+              location.reload();
+            }}
+            onCancel={() => setAlertIsOpen(false)}
+          />
+        </>
       </TableCell>
     );
   }

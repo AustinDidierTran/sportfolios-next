@@ -1394,6 +1394,7 @@ export default {
     remove_roster_player_confirmation: 'Êtes-vous certain de vouloir retirer {{name}} de votre alignement?',
     remove_terms_and_conditions: 'Retirer les termes et conditions',
     remove: 'Retirer',
+    remove_admin: "Retirer l'administrateur",
     renew_membership: 'Renouveler',
     repetitions: 'Répétitions',
     report_created: 'Rapport créé',
@@ -1601,6 +1602,8 @@ export default {
     yearly: 'Annuel',
     yes: 'oui',
     yesterday_at: 'Hier, à {{date_time}}',
+    you_will_lose_your_role: "Si vous continuez, vous allez perdre votre rôle d'administrateur. Voulez-vous continuer?",
+
     zip_code: 'Code postal',
     sizes_enum: {
       [SIZES_ENUM.XXXS]: '3X-Small',
