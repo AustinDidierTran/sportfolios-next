@@ -22,9 +22,6 @@ export default function Row(props) {
     headers = header;
   }
 
-  console.log('DATA = ', data);
-  console.log('SECONDDATA =   ', secondData);
-
   return (
     <React.Fragment>
       <TableRow hover>

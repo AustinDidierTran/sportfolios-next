@@ -105,7 +105,6 @@ export function addSpirit(
 }
 
 export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promise<void> {
-  console.log('allo', userId, role);
   return api('/api/admin/updateUserRole', {
     method: 'POST',
     body: JSON.stringify({
