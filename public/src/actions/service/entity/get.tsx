@@ -31,7 +31,7 @@ import {
   ForYouPagePost,
   User,
 } from '../../../../../typescript/types';
-import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
+import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
 
@@ -67,6 +67,10 @@ export function getRole(entityId: string): Promise<{ status: number; data: ENTIT
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
   return api(`${BASE_URL}/roles?id=${id}`, { method: 'GET' }).then((res) => res);
+}
+
+export function getPlayerTeamRole(teamId: string): Promise<{ status: number; data: ROSTER_ROLE_ENUM }> {
+  return api(formatRoute(`${BASE_URL}/playerTeamRole`, null, { teamId }), { method: 'GET' });
 }
 
 export function getForYouPage(): Promise<{ status: number; data: ForYouPagePost[] }> {
@@ -170,7 +174,7 @@ export function getPossibleSubmissionerInfos(game: GameInfo): Promise<{ status: 
   );
 }
 
-export function getPracticeInfo(practiceId: string): Promise<{ practice: Practice; role: number }> {
+export function getPracticeInfo(practiceId: string): Promise<Practice> {
   return api(formatRoute(`${BASE_URL}/practiceInfo`, null, { practiceId }), { method: 'GET' }).then((res) => res.data);
 }
 

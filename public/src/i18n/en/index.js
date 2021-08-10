@@ -501,7 +501,7 @@ export default {
       team_added: 'Team added',
       team_already_registered: 'Team already registered',
       team_history: 'Team History',
-      team_player_role_error: 'There must always be at least one coach, captain or assistant captain in the team.',
+      team_player_role_error: 'There must always be at least one coach or captain in the team.',
       team_refused: 'Team refused',
       team_registration_description: 'Notification sent when you register your team to an event',
       team_registration: 'Team registration',

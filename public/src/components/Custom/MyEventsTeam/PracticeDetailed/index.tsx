@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../../../../../public/src/Store';
 import AlertDialog from '../../Dialog/AlertDialog';
-import { SEVERITY_ENUM, ENTITIES_ROLE_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
+import { SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import styles from './PracticeDetailed.module.css';
 import CustomIconButton from '../../IconButton';
@@ -32,11 +32,7 @@ const Exercise = dynamic(() => import('../../Exercise'));
 
 interface IProps {
   practiceId: string;
-}
-
-interface IReponse {
-  practice: Practice;
-  role: number;
+  isAdmin: boolean;
 }
 
 interface ILocationResponse {
@@ -49,7 +45,7 @@ interface ILocationOption {
 }
 
 const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
-  const { practiceId } = props;
+  const { practiceId, isAdmin } = props;
   const { t } = useTranslation();
   const {
     dispatch,
@@ -66,7 +62,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
     roster: [],
   });
 
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [wrongAddressFormat, setWrongAddressFormat] = useState<string>('');
@@ -100,7 +95,7 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
   };
 
   const getPractice = async (): Promise<void> => {
-    const { practice: data, role }: IReponse = await getPracticeInfo(practiceId);
+    const data = await getPracticeInfo(practiceId);
 
     if (!data) {
       dispatch({
@@ -140,9 +135,6 @@ const PracticeDetailed: React.FunctionComponent<IProps> = (props) => {
 
     if (data?.locationId) {
       setShowCreateLocation(false);
-    }
-    if (role === ENTITIES_ROLE_ENUM.ADMIN || role === ENTITIES_ROLE_ENUM.EDITOR) {
-      setIsAdmin(true);
     }
   };
 

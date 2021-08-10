@@ -125,7 +125,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
       />
       <IgContainer>
         <div>
-          <OpenTab basicInfos={basicInfos} adminView={adminView} />
+          <OpenTab basicInfos={basicInfos} isAdmin={isAdmin} adminView={adminView} />
         </div>
       </IgContainer>
     </>
