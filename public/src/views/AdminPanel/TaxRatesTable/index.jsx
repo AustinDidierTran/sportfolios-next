@@ -56,7 +56,7 @@ export default function TaxeRatesTable() {
   };
 
   const getTaxes = async () => {
-    const res = await api('/api/admin/taxRates');
+    const res = await api('/api/admin/taxRates', { method: 'GET' });
     const arr = res.data.map((d) => ({
       isChecked: d.active,
       handleChange: () => {

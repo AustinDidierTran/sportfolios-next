@@ -60,7 +60,8 @@ const BankAccount: React.FunctionComponent = () => {
       const { data } = await api(
         formatRoute('/api/stripe/accountLink', null, {
           entityId,
-        })
+        }),
+        { method: 'GET' }
       );
       window.location.href = data.url;
     } else {

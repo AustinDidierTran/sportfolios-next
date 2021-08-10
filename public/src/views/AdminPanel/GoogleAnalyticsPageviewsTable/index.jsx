@@ -16,7 +16,7 @@ export default function GaPageviewsTable() {
   const [pageViews, setPageviews] = useState([]);
 
   const updatePageviews = async () => {
-    const res = await api('/api/admin/gaPageviews');
+    const res = await api('/api/admin/gaPageviews', { method: 'GET' });
 
     const newPageviews = res.data.map((d) => {
       const onToggle = async (event) => {

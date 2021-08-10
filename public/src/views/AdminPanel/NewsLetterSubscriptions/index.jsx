@@ -14,7 +14,7 @@ export default function NewsLetterSubscriptions() {
   const { dispatch } = useContext(Store);
 
   const getNewsLetterEmails = async () => {
-    const res = await api('/api/admin/newsLetterSubscriptions');
+    const res = await api('/api/admin/newsLetterSubscriptions', { method: 'GET' });
 
     const tempUser = res.data.map((user) => ({
       ...user,

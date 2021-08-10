@@ -27,7 +27,7 @@ i18n.use(LanguageDetector).init({
   },
 
   react: {
-    wait: true,
+    useSuspense: true,
   },
 });
 
