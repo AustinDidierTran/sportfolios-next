@@ -11,17 +11,10 @@ import IgContainer from '../IgContainer';
 import LoadingSpinner from '../LoadingSpinner';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import {
-  EVENT_TYPE,
-  COMPONENT_TYPE_ENUM,
-  GLOBAL_ENUM,
-  TABS_ENUM,
-  REQUEST_STATUS_ENUM,
-  ROUTES_ENUM,
-} from '../../../../common/enums';
+import { EVENT_TYPE, COMPONENT_TYPE_ENUM, GLOBAL_ENUM, TABS_ENUM, REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
 import ComponentFactory from '../ComponentFactory';
-import { ACTION_ENUM, Store } from '../../../Store';
+import { Store } from '../../../Store';
 import { formatDate } from '../../../utils/stringFormats';
 
 import * as yup from 'yup';
@@ -48,21 +41,16 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
   const { type } = props;
   const {
     state: { userInfo, isAuthenticated },
-    dispatch,
   } = useContext(Store);
   const { id } = router.query;
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [creatorOptions, setCreatorOptions] = useState<ICreatorOption[]>([]);
   const [hasNoImage, setHasNoImage] = useState<boolean>(false);
-  const [userIsLoggedIn, setuserIsLoggedIn] = useState<boolean>(false);
-
-  //console.log(isAuthenticated);
 
   useEffect((): void => {
     if (!isAuthenticated) {
-      const redirectUrl = encodeURIComponent(router.asPath);
-      goTo(ROUTES.login, null, { redirectUrl });
+      goTo(ROUTES.login, null, { redirectUrl: encodeURIComponent(router.asPath) });
     }
   }, [isAuthenticated]);
 

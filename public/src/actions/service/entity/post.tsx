@@ -1,5 +1,5 @@
 import api from '../../api';
-import { Person, Player } from '../../../../../typescript/types';
+import { Member, Person, Player } from '../../../../../typescript/types';
 import { EXERCISES_TYPE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
@@ -52,6 +52,50 @@ export function addPhase(phase: string, spots: number, eventId: string, type: st
   return api(`${BASE_URL}/phase`, { method: 'POST', body: JSON.stringify({ phase, spots, eventId, type }) }).then(
     (res) => res.status
   );
+}
+
+export function addMemberWithCoupon(body: {
+  membershipId: string;
+  membershipType: string;
+  organizationId: string;
+  termsAndConditionsId: string;
+  personId: string;
+  expirationDate: string;
+  birthDate: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  emergencyName: string;
+  emergencySurname: string;
+  emergencyPhoneNumber: string;
+  medicalConditions: string;
+  tokenId: string;
+}): Promise<Member> {
+  return api(`${BASE_URL}/memberWithCoupon`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export function addMember(body: {
+  membershipId: string;
+  membershipType: string;
+  organizationId: string;
+  personId: string;
+  expirationDate: string;
+  birthDate: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  emergencyName: string;
+  emergencySurname: string;
+  emergencyPhoneNumber: string;
+  medicalConditions: string;
+}): Promise<Member> {
+  return api(`${BASE_URL}/member`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
 }
 
 export function addPlayers(teamId: string, players: Player[]): Promise<number> {

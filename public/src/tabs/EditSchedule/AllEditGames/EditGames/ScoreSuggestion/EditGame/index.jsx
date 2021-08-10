@@ -3,13 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import AlertDialog from '../../../../../../components/Custom/Dialog/AlertDialog';
 import Card from '../../../../../../components/Custom/Card';
 import { useTranslation } from 'react-i18next';
-import api from '../../../../../../actions/api';
 import { CARD_TYPE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../../../common/enums';
 import EditGameDialog from './EditGameDialog';
 import EnterScore from './EnterScore';
 import { ACTION_ENUM, Store } from '../../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../../common/errors';
-import { formatRoute } from '../../../../../../utils/stringFormats';
+import { deleteGame } from '../../../../../../actions/service/entity/delete';
 
 export default function EditGame(props) {
   const { game, update, withoutEdit } = props;
@@ -54,15 +53,7 @@ export default function EditGame(props) {
   };
 
   const onDeleteConfirmed = async () => {
-    const { status, data } = await api(
-      formatRoute('/api/entity/game', null, {
-        eventId: game.eventId,
-        gameId: game.id,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
+    const { status, data } = await deleteGame(game.eventId, game.id);
     if (data && data.reason) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,

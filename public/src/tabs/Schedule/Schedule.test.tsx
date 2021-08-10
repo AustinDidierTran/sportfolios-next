@@ -24,8 +24,8 @@ describe('sortGames', () => {
   const res1: { games: Games[]; pastGames: Games[] } = { games: allGames1, pastGames: [] };
 
   const allGames2: Games[] = [
-    { startTime: moment().subtract(1, 'week').format(), ...game, positions: [] },
     { startTime: moment().subtract(1, 'day').format(), ...game, positions: [] },
+    { startTime: moment().subtract(1, 'week').format(), ...game, positions: [] },
   ];
   const res2: { games: Games[]; pastGames: Games[] } = { games: [], pastGames: allGames2 };
 

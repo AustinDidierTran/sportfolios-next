@@ -30,6 +30,8 @@ import {
   Report,
   ForYouPagePost,
   User,
+  Person,
+  Membership,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
 
@@ -89,6 +91,18 @@ export function hasMemberships(organizationId: string): Promise<boolean> {
   );
 }
 
+export function getPersonInfos(entityId: string): Promise<Person> {
+  return api(formatRoute(`${BASE_URL}/personInfos`, null, { entityId }), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getPrimaryPerson(): Promise<Person> {
+  return api(formatRoute(`${BASE_URL}/primaryPerson`, null, null), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getOwnedPersons(): Promise<Person> {
+  return api(formatRoute(`${BASE_URL}/primaryPerson`, null, null), { method: 'GET' }).then((res) => res.data);
+}
+
 export function getPlayers(teamId: string): Promise<Player[]> {
   return api(formatRoute(`${BASE_URL}/players`, null, { teamId }), { method: 'GET' }).then((res) => res.data);
 }
@@ -136,6 +150,12 @@ export function getMembers(organizationId: string, personId: string): Promise<Me
 
 export function getMemberships(id: string): Promise<EntityMembership[]> {
   return api(formatRoute(`${BASE_URL}/memberships`, null, { id }), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getMembership(organizationId: string, membershipType: number): Promise<Membership> {
+  return api(formatRoute(`${BASE_URL}/membership`, null, { organizationId, membershipType }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getMyRosters(eventId: string): Promise<{ rosterId: string; name: string }[]> {

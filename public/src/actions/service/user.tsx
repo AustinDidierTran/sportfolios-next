@@ -6,9 +6,7 @@ import { GLOBAL_ENUM } from '../../../common/enums';
 const BASE_URL = '/api/user';
 
 export async function getOwnedPerson(): Promise<Person[]> {
-  const { data } = await api(formatRoute(`${BASE_URL}/ownedPersons`, null, { type: GLOBAL_ENUM.PERSON }), {
-    method: 'GET',
-  });
-
-  return data;
+  return api(formatRoute(`${BASE_URL}/ownedPersons`, null, { type: GLOBAL_ENUM.PERSON }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
