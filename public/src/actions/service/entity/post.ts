@@ -3,7 +3,6 @@ import api from '../../api';
 import { Member, Person, Player } from '../../../../../typescript/types';
 import { EXERCISES_TYPE_ENUM, USER_APP_ROLE_ENUM } from '../../../../common/enums';
 
-
 const BASE_URL = '/api/entity';
 
 export function addRoster(
@@ -55,7 +54,6 @@ export function addPhase(phase: string, spots: number, eventId: string, type: st
     (res) => res.status
   );
 }
-
 
 export function addMemberWithCoupon(body: {
   membershipId: string;
@@ -124,7 +122,6 @@ export function unregisterTeams({ eventId, rosterIds }: { eventId: string; roste
   return api(`${BASE_URL}/unregisterTeams`, { method: 'POST', body: JSON.stringify({ eventId, rosterIds }) });
 }
 
-
 export function addRole(entityIdAdmin: string, role: number, entityId: string): Promise<any> {
   return api(`${BASE_URL}/role`, {
     method: 'POST',
@@ -159,7 +156,6 @@ export function addSpirit(
   }).then((res) => res.status);
 }
 
-
 export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promise<void> {
   return api('/api/admin/updateUserRole', {
     method: 'POST',
@@ -168,4 +164,4 @@ export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promis
       role,
     }),
   });
-
+}
