@@ -47,7 +47,12 @@ export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> 
   );
 }
 
-export function globalSearch(body: any): Promise<any> {
+export function globalSearch(body: {
+  whiteList?: string[];
+  blackList?: string[];
+  query: string;
+  type: string;
+}): Promise<any> {
   return api(formatRoute('/api/search/global', null, body), { method: 'GET' });
 }
 
@@ -74,9 +79,14 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
 export function getRole(entityId: string): Promise<{ status: number; data: ENTITIES_ROLE_ENUM }> {
   return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' }).then((res) => res);
 }
+export function getAllPeopleRegisteredInfos(eventId: string): Promise<Person[]> {
+  return api(formatRoute(`${BASE_URL}/allPeopleRegisteredInfos`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
-  return api(`${BASE_URL}/roles?id=${id}`, { method: 'GET' }).then((res) => res);
+  return api(formatRoute(`${BASE_URL}/roles`, null, { id }), { method: 'GET' }).then((res) => res);
 }
 
 export function getPlayerTeamRole(teamId: string): Promise<{ status: number; data: ROSTER_ROLE_ENUM }> {
