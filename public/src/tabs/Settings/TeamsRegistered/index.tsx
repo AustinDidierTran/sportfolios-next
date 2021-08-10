@@ -211,7 +211,7 @@ const TeamsRegistered: React.FunctionComponent = () => {
         duration: 4000,
       });
     }
-    getTeams();
+    await getTeams();
   };
 
   const onUnregisterAll = async (): Promise<void> => {

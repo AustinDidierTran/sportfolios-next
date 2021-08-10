@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import styles from './MultipleTeamGame.module.css';
 
@@ -13,7 +13,6 @@ import { Positions } from '../../../../../../typescript/types';
 import Card from '@material-ui/core/Card';
 import { goTo } from '../../../../actions/goTo';
 import { ROUTES_ENUM } from '../../../../../common/enums';
-import router from 'next/router';
 
 interface IProps {
   game: IGame;

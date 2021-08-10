@@ -146,8 +146,9 @@ export default function PlayersRegistered() {
         duration: 4000,
       });
     }
-    getPlayers();
-    setIsLoading(false);
+    await getPlayers().then(() => {
+      setIsLoading(false);
+    });
   };
 
   const onUnregisterAll = async () => {
