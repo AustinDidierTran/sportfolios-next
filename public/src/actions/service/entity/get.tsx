@@ -137,6 +137,11 @@ export function getCanUnregisterTeamsList(eventId: string, rosterIds: string[]):
 export function getEventInfo(eventId: string): Promise<Event> {
   return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 }
+export function getAllPlayersAcceptedRegistered(eventId: string): Promise<any> {
+  return api(formatRoute(`${BASE_URL}/allPlayersAcceptedRegistered`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
 
 export function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {
   return api(formatRoute(`${BASE_URL}/teamPlayersPending`, null, { teamId }), { method: 'GET' }).then(

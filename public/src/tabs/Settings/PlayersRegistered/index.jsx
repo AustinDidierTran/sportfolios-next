@@ -27,6 +27,7 @@ import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { COLORS } from '../../../utils/colors';
 import { unregisterPeople } from '../../../actions/service/entity/post';
+import { getAllPlayersAcceptedRegistered, getEventInfo } from '../../../actions/service/entity/get';
 
 export default function PlayersRegistered() {
   const { t } = useTranslation();
@@ -178,15 +179,15 @@ export default function PlayersRegistered() {
   };
 
   const getMaximumSpots = async () => {
-    const { data } = await api(formatRoute('/api/entity/event', null, { eventId }), { method: 'GET' });
-    setMaximumSpots(data.maximum_spots);
+    getEventInfo(eventId).then((data) => {
+      setMaximumSpots(data.maximum_spots);
+    });
   };
 
-  const getAcceptedSpots = async () => {
-    const { data } = await api(formatRoute('/api/entity/allPlayersAcceptedRegistered', null, { eventId }), {
-      method: 'GET',
+  const getAcceptedSpots = () => {
+    getAllPlayersAcceptedRegistered().then((data) => {
+      setAcceptedSpots(data?.length);
     });
-    setAcceptedSpots(data?.length);
   };
 
   useEffect(() => {
