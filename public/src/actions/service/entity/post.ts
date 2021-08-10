@@ -1,6 +1,7 @@
 import api from '../../api';
+
 import { Member, Person, Player } from '../../../../../typescript/types';
-import { EXERCISES_TYPE_ENUM } from '../../../../common/enums';
+import { EXERCISES_TYPE_ENUM, USER_APP_ROLE_ENUM } from '../../../../common/enums';
 
 const BASE_URL = '/api/entity';
 
@@ -153,4 +154,14 @@ export function addSpirit(
       comment,
     }),
   }).then((res) => res.status);
+}
+
+export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promise<void> {
+  return api('/api/admin/updateUserRole', {
+    method: 'POST',
+    body: JSON.stringify({
+      userId,
+      role,
+    }),
+  });
 }

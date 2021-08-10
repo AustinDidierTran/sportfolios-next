@@ -1381,6 +1381,7 @@ export default {
     remove_player_confirmation: 'Are you sure you want to remove this {{name}} from your team?',
     remove_roster_player_confirmation: 'Are you sure you want to remove this {{name}} from your roster?',
     remove: 'Remove',
+    remove_admin: 'Remove admin',
     renew_membership: 'Renew Membership',
     repetitions: 'Repetitions',
     report_created: 'Report created',
@@ -1568,6 +1569,7 @@ export default {
     viewer: 'Viewer',
     volleyball: 'Volleyball',
     vs: 'vs',
+    warning: 'Warning',
     waiting_for_payment: 'Your payment is being processed. Thank you for your patience',
     website: 'Website',
     with_taxes_the_total_for_a_player_is: 'With taxes, the total for a player is {{total}}$',
@@ -1585,6 +1587,7 @@ export default {
     yes: 'yes',
 
     yesterday_at: 'Yesterday, at {{date_time}}',
+    you_will_lose_your_role: 'If you continue, you will lose your role of admin. Are you sure you want to continue?',
 
     zip_code: 'Zip code',
     sizes_enum: {

@@ -1395,6 +1395,7 @@ export default {
     remove_roster_player_confirmation: 'Êtes-vous certain de vouloir retirer {{name}} de votre alignement?',
     remove_terms_and_conditions: 'Retirer les termes et conditions',
     remove: 'Retirer',
+    remove_admin: "Retirer l'administrateur",
     renew_membership: 'Renouveler',
     repetitions: 'Répétitions',
     report_created: 'Rapport créé',
@@ -1587,6 +1588,7 @@ export default {
     volleyball: 'Volleyball',
     vs: 'vs',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
+    warning: 'Attention',
     website: 'Site web',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
     with_taxes_the_total_for_a_team_is: 'Avec les taxes, le total pour une équipe est {{total}}$',
@@ -1602,6 +1604,8 @@ export default {
     yearly: 'Annuel',
     yes: 'oui',
     yesterday_at: 'Hier, à {{date_time}}',
+    you_will_lose_your_role: "Si vous continuez, vous allez perdre votre rôle d'administrateur. Voulez-vous continuer?",
+
     zip_code: 'Code postal',
     sizes_enum: {
       [SIZES_ENUM.XXXS]: '3X-Small',
