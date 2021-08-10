@@ -29,6 +29,7 @@ import {
   Options,
   Report,
   ForYouPagePost,
+  User,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM } from '../../../../common/enums';
 
@@ -42,6 +43,10 @@ export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> 
   return api(formatRoute(`${BASE_URL}/ownedEvents`, null, { organizationId }), { method: 'GET' }).then(
     (res) => res.data
   );
+}
+
+export function getAllUsers(limitNumber: number): Promise<User> {
+  return api(formatRoute('/api/admin/users', null, { limitNumber }), { method: 'GET' }).then((res) => res.data);
 }
 
 export function getGames(eventId: string): Promise<Games[]> {

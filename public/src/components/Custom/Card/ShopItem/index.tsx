@@ -15,6 +15,7 @@ import EditItem from '../../../../tabs/Shop/EditItem';
 import { Store } from '../../../../Store';
 import { deleteShopItem } from '../../../../actions/service/stripe';
 import { AlertDialog } from '../..';
+import { Tax } from '../../../../../../typescript/types';
 
 interface IProps {
   label: string;
@@ -24,8 +25,15 @@ interface IProps {
   stripePriceId: string;
   stripeProductId: string;
   sizes: string[];
+  taxRatesId: string[];
   adminView: string;
   update: () => void;
+  allTaxes: TaxesOption[];
+}
+
+interface TaxesOption extends Tax {
+  display: string;
+  value: string;
 }
 
 const ShopItem: React.FunctionComponent<IProps> = (props) => {
@@ -41,8 +49,10 @@ const ShopItem: React.FunctionComponent<IProps> = (props) => {
     stripePriceId,
     stripeProductId,
     sizes,
+    taxRatesId,
     adminView,
     update,
+    allTaxes,
   } = props;
   const {
     state: { id },
@@ -78,6 +88,8 @@ const ShopItem: React.FunctionComponent<IProps> = (props) => {
           stripePriceId,
           stripeProductId,
           sizes,
+          taxRatesId,
+          allTaxes,
         }}
         fetchItems={update}
         isEditing={isEditing}
@@ -88,55 +100,53 @@ const ShopItem: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <>
-    <CustomPaper className={styles.root}>
-      <ImageCard className={styles.media} image={photoUrl} onClick={onPaperClick} />
-      <CardContent className={styles.infos}>
-        <Typography gutterBottom variant="h5" className={styles.name}>
-          {name}
-        </Typography>
-        <Typography variant="h5" className={styles.price}>
-          {formatPrice(price)}
-        </Typography>
-        <Typography
-          variant="body1"
-          color="textSecondary"
-          component="p"
-          className={styles.description}
-          placeholder={t('description.description')}
-        >
-          {text}
-        </Typography>
+      <CustomPaper className={styles.root}>
+        <ImageCard className={styles.media} image={photoUrl} onClick={onPaperClick} />
+        <CardContent className={styles.infos}>
+          <Typography gutterBottom variant="h5" className={styles.name}>
+            {name}
+          </Typography>
+          <Typography variant="h5" className={styles.price}>
+            {formatPrice(price)}
+          </Typography>
+          <Typography
+            variant="body1"
+            color="textSecondary"
+            component="p"
+            className={styles.description}
+            placeholder={t('description.description')}
+          >
+            {text}
+          </Typography>
 
-        {adminView ? (
-          <div className={styles.buttons}>
-            <CustomButton onClick={editItem} endIcon="Edit" color="primary" className={styles.button}>
-              {t('edit.edit')}
-            </CustomButton>
-            <CustomButton onClick={onClickDelete} endIcon="Delete" color="secondary" className={styles.button}>
-              {t('delete.delete')}
-            </CustomButton>
-          </div>
-        ) : (
-          <div className={styles.otherButtonMain}>
-            <CustomButton
-              onClick={() => goTo(ROUTES.shopDetails, { id, stripePriceId })}
-              className={styles.otherButton}
-            >
-              {t('learn_more')}
-            </CustomButton>
-          </div>
-        )}
-      </CardContent>
-    </CustomPaper>
-    <AlertDialog
-    open={openDelete}
-    onCancel={() => 
-      setOpenDelete(false)
-    }
-    title={t('delete.delete_this_item_from_shop')}
-    onSubmit={deleteItem}
-    />
-  </>
+          {adminView ? (
+            <div className={styles.buttons}>
+              <CustomButton onClick={editItem} endIcon="Edit" color="primary" className={styles.button}>
+                {t('edit.edit')}
+              </CustomButton>
+              <CustomButton onClick={onClickDelete} endIcon="Delete" color="secondary" className={styles.button}>
+                {t('delete.delete')}
+              </CustomButton>
+            </div>
+          ) : (
+            <div className={styles.otherButtonMain}>
+              <CustomButton
+                onClick={() => goTo(ROUTES.shopDetails, { id, stripePriceId })}
+                className={styles.otherButton}
+              >
+                {t('learn_more')}
+              </CustomButton>
+            </div>
+          )}
+        </CardContent>
+      </CustomPaper>
+      <AlertDialog
+        open={openDelete}
+        onCancel={() => setOpenDelete(false)}
+        title={t('delete.delete_this_item_from_shop')}
+        onSubmit={deleteItem}
+      />
+    </>
   );
 };
 export default ShopItem;

@@ -85,7 +85,7 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
   };
 
   const openEventDetailed = async (id: string, eventId?: string): Promise<void> => {
-    if (event.type == CARD_TYPE_ENUM.PRACTICE) {
+    if (!eventId) {
       openPracticeDetailed(id);
     } else {
       openGameDetailed(id, eventId);
@@ -168,8 +168,8 @@ const MyEventsTeam: React.FunctionComponent<IProps> = (props) => {
         </CustomButton>
       )}
       {events?.length ? (
-        events.map((event) => (
-          <div key={event.id}>
+        events.map((event, index) => (
+          <div key={index}>
             <CustomCard
               items={{
                 ...event,

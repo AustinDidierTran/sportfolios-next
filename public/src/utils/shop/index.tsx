@@ -10,8 +10,9 @@ const createItem = async (params: {
   photoUrl: string;
   entityId: string;
   sizes: string[];
+  taxRatesId: string[];
 }): Promise<number> => {
-  const { name, description, amount, photoUrl, entityId, sizes } = params;
+  const { name, description, amount, photoUrl, entityId, sizes, taxRatesId } = params;
   const itemParams = {
     stripeProduct: {
       name: name,
@@ -30,6 +31,7 @@ const createItem = async (params: {
     },
     entityId,
     photoUrl,
+    taxRatesId,
   };
 
   return await createShopItem(itemParams);
@@ -43,8 +45,9 @@ const editItem = async (params: {
   entityId: string;
   sizes: string[];
   stripePriceIdToUpdate: string;
+  taxRatesId: string[];
 }): Promise<number> => {
-  const { name, description, amount, photoUrl, entityId, sizes, stripePriceIdToUpdate } = params;
+  const { name, description, amount, photoUrl, entityId, sizes, stripePriceIdToUpdate, taxRatesId } = params;
   const itemParams = {
     stripeProduct: {
       name: name,
@@ -68,6 +71,7 @@ const editItem = async (params: {
     entityId,
     photoUrl,
     stripePriceIdToUpdate,
+    taxRatesId,
   };
 
   return editShopItem(itemParams);

@@ -666,11 +666,11 @@ export interface PersonAdmin {
 
 export interface Tax {
   id: string;
-  displayName: string;
-  description: string;
-  inclusive: boolean;
-  active: boolean;
-  percentage: number;
+  displayName?: string;
+  description?: string;
+  inclusive?: boolean;
+  active?: boolean;
+  percentage?: number;
 }
 
 export interface TeamsSchedule {
@@ -714,6 +714,7 @@ export interface ShopItems {
   stripePriceId: string;
   stripeProductId: string;
   sizes: string;
+  taxRatesId: string;
 }
 
 export interface ShopCartItems {
