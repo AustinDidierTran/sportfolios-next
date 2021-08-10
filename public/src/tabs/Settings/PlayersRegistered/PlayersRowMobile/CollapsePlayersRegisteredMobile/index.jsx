@@ -26,7 +26,7 @@ export default function CollapsePlayersRegisteredMobile(props) {
           <ListItemText
             className={styles.text}
             primary={`${player.option.name} (${
-              player.option.individual_price === 0 ? t('free') : formatPrice(player.option.individual_price)
+              player.option.individualPrice === 0 ? t('free') : formatPrice(player.option.individualPrice)
             })`}
             secondary={t('option')}
           />

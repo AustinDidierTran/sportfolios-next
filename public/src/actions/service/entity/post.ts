@@ -121,6 +121,13 @@ export function unregisterTeams({ eventId, rosterIds }: { eventId: string; roste
   return api(`${BASE_URL}/unregisterTeams`, { method: 'POST', body: JSON.stringify({ eventId, rosterIds }) });
 }
 
+export function addRole(entityIdAdmin: string, role: number, entityId: string): Promise<any> {
+  return api(`${BASE_URL}/role`, {
+    method: 'POST',
+    body: JSON.stringify({ entity_id_admin: entityIdAdmin, role, entity_id: entityId }),
+  });
+}
+
 export function sendRequestToJoinTeam(teamId: string, personId: string): Promise<number> {
   return api(`${BASE_URL}/joinTeam`, { method: 'POST', body: JSON.stringify({ teamId, personId }) }).then(
     (res) => res.status

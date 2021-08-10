@@ -211,8 +211,7 @@ const TeamsRegistered: React.FunctionComponent = () => {
         duration: 4000,
       });
     }
-
-    setTeams(res.data);
+    await getTeams();
   };
 
   const onUnregisterAll = async (): Promise<void> => {
@@ -359,6 +358,10 @@ const TeamsRegistered: React.FunctionComponent = () => {
       </>
     );
   };
+
+  if (teams.length < 1) {
+    return null;
+  }
 
   if (width < MOBILE_WIDTH) {
     return (

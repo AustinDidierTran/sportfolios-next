@@ -1182,6 +1182,7 @@ export default {
     joined: 'Joined',
     junior_member: 'Junior member',
     junior: 'Junior',
+    last_admin: "This is the last admin you can't remove it",
     last_name: 'Last Name',
     last_team_higher_than_spots: 'The number of spots cannot be lower than the last ranked team.',
     learn_more: 'Learn More',

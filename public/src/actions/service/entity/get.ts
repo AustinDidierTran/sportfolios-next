@@ -47,6 +47,19 @@ export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> 
   );
 }
 
+export function globalSearch(body: {
+  whiteList?: string[];
+  blackList?: string[];
+  query: string;
+  type: string;
+}): Promise<any> {
+  return api(formatRoute('/api/search/global', null, body), { method: 'GET' });
+}
+
+export function myTeamsSearch(query: string, eventId: string): Promise<any> {
+  return api(formatRoute('/api/search/myTeamsSearch', null, { query, eventId }), { method: 'GET' });
+}
+
 export function getAllUsers(limitNumber: number): Promise<User> {
   return api(formatRoute('/api/admin/users', null, { limitNumber }), { method: 'GET' }).then((res) => res.data);
 }
@@ -64,11 +77,25 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
 }
 
 export function getRole(entityId: string): Promise<{ status: number; data: ENTITIES_ROLE_ENUM }> {
-  return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' }).then((res) => res);
+  return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' });
+}
+
+export function getPlayersPendingAndRefused(
+  eventId: string
+): Promise<{ pending: { id: string }[]; refused: { id: string }[] }> {
+  return api(formatRoute(`${BASE_URL}/playersPendingAndRefused`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
+
+export function getAllPeopleRegisteredInfos(eventId: string): Promise<Person[]> {
+  return api(formatRoute(`${BASE_URL}/allPeopleRegisteredInfos`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getRoles(id: string): Promise<{ status: string; data: EntityRole[] }> {
-  return api(`${BASE_URL}/roles?id=${id}`, { method: 'GET' }).then((res) => res);
+  return api(formatRoute(`${BASE_URL}/roles`, null, { id }), { method: 'GET' }).then((res) => res);
 }
 
 export function getPlayerTeamRole(teamId: string): Promise<{ status: number; data: ROSTER_ROLE_ENUM }> {
@@ -128,6 +155,12 @@ export function getCanUnregisterTeamsList(eventId: string, rosterIds: string[]):
 
 export function getEventInfo(eventId: string): Promise<Event> {
   return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
+}
+
+export function getAllPlayersAcceptedRegistered(eventId: string): Promise<any> {
+  return api(formatRoute(`${BASE_URL}/allPlayersAcceptedRegistered`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getTeamPlayersPending(teamId: string): Promise<PendingPlayer[]> {

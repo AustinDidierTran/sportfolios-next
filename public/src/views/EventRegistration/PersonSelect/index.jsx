@@ -70,6 +70,7 @@ export default function PersonSelect(props) {
         <PersonItem
           key={p.id}
           completeName={p.complete_name}
+          photoUrl={p.photoUrl}
           onClick={() => {
             removePerson(p);
           }}
@@ -98,6 +99,7 @@ export default function PersonSelect(props) {
               onClick={() => {
                 addPerson(p);
               }}
+              photoUrl={p.photoUrl}
               disabled={p.registered}
               secondary={p.registered ? t('register.registered_singular') : null}
               secondaryActions={[
