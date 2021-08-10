@@ -54,14 +54,44 @@ export function addPhase(phase: string, spots: number, eventId: string, type: st
   );
 }
 
-export function addMemberWithCoupon(body: any): Promise<Member> {
+export function addMemberWithCoupon(body: {
+  membershipId: string;
+  membershipType: string;
+  organizationId: string;
+  termsAndConditionsId: string;
+  personId: string;
+  expirationDate: string;
+  birthDate: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  emergencyName: string;
+  emergencySurname: string;
+  emergencyPhoneNumber: string;
+  medicalConditions: string;
+  tokenId: string;
+}): Promise<Member> {
   return api(`${BASE_URL}/memberWithCoupon`, {
     method: 'POST',
     body: JSON.stringify(body),
   });
 }
 
-export function addMember(body: any): Promise<Member> {
+export function addMember(body: {
+  membershipId: string;
+  membershipType: string;
+  organizationId: string;
+  personId: string;
+  expirationDate: string;
+  birthDate: string;
+  gender: string;
+  phoneNumber: string;
+  address: string;
+  emergencyName: string;
+  emergencySurname: string;
+  emergencyPhoneNumber: string;
+  medicalConditions: string;
+}): Promise<Member> {
   return api(`${BASE_URL}/member`, {
     method: 'POST',
     body: JSON.stringify(body),
