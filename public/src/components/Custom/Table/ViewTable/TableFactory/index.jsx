@@ -19,12 +19,14 @@ export default function TableFactory(props) {
   const { t } = useTranslation();
 
   const [alertIsOpen, setAlertIsOpen] = useState(false);
+  const [activeRole, setActiveRole] = useState(d.role);
 
   async function handleUpdateRole(userId, role) {
     if (userInfo.userId === userId && role === ENTITIES_ROLE_ENUM.VIEWER) {
       setAlertIsOpen(true);
     } else {
       await updateUserRole(userId, role);
+      setActiveRole(role);
     }
   }
   if (h.type === 'button') {
@@ -45,7 +47,7 @@ export default function TableFactory(props) {
     return (
       <TableCell>
         <>
-          {d[h.value] === ENTITIES_ROLE_ENUM.ADMIN ? (
+          {activeRole === ENTITIES_ROLE_ENUM.ADMIN ? (
             <CustomButton color="secondary" onClick={() => handleUpdateRole(d.id, ENTITIES_ROLE_ENUM.VIEWER)}>
               {t('remove_admin')}
             </CustomButton>
