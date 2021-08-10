@@ -77,8 +77,17 @@ export function getGeneralInfos(entityId: string): Promise<Entity> {
 }
 
 export function getRole(entityId: string): Promise<{ status: number; data: ENTITIES_ROLE_ENUM }> {
-  return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' }).then((res) => res);
+  return api(formatRoute(`${BASE_URL}/role`, null, { entityId }), { method: 'GET' });
 }
+
+export function getPlayersPendingAndRefused(
+  eventId: string
+): Promise<{ pending: { id: string }[]; refused: { id: string }[] }> {
+  return api(formatRoute(`${BASE_URL}/playersPendingAndRefused`, null, { eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
+
 export function getAllPeopleRegisteredInfos(eventId: string): Promise<Person[]> {
   return api(formatRoute(`${BASE_URL}/allPeopleRegisteredInfos`, null, { eventId }), { method: 'GET' }).then(
     (res) => res.data
