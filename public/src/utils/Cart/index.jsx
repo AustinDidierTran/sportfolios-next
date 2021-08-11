@@ -1,4 +1,4 @@
-import { GLOBAL_ENUM } from '../../../common/enums';
+import { GLOBAL_ENUM, CART_ITEM } from '../../../common/enums';
 import { getMembershipName } from '../stringFormats';
 import i18n from '../../i18n';
 
@@ -33,10 +33,10 @@ const getNbInCart = (cart, key) => {
 };
 
 const getProductName = (type) => {
-  if (type === GLOBAL_ENUM.MEMBERSHIP) {
+  if (type === CART_ITEM.MEMBERSHIP) {
     return i18n.t('member.membership');
   }
-  if (type === GLOBAL_ENUM.SHOP_ITEM) {
+  if (type === CART_ITEM.SHOP_ITEM) {
     return i18n.t(type);
   }
   if (type === GLOBAL_ENUM.EVENT) {
@@ -47,9 +47,9 @@ const getProductName = (type) => {
 
 const getProductDetail = (metadata) => {
   switch (metadata.type) {
-    case GLOBAL_ENUM.MEMBERSHIP:
+    case CART_ITEM.MEMBERSHIP:
       return getMembershipName(metadata.membership_type);
-    case GLOBAL_ENUM.SHOP_ITEM:
+    case CART_ITEM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:
       if (metadata.person) {
@@ -66,9 +66,9 @@ const getProductDetail = (metadata) => {
 
 const getRegistrationFor = (metadata) => {
   switch (metadata.type) {
-    case GLOBAL_ENUM.MEMBERSHIP:
+    case CART_ITEM.MEMBERSHIP:
       return `${metadata?.person?.name} ${metadata?.person?.surname}`;
-    case GLOBAL_ENUM.SHOP_ITEM:
+    case CART_ITEM.SHOP_ITEM:
       return '';
     case GLOBAL_ENUM.EVENT:
       if (metadata.person) {

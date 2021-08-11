@@ -4,7 +4,7 @@ import moment from 'moment';
 import List from '../../../components/Custom/List';
 import Paper from '../../../components/Custom/Paper';
 import { formatDate, getMembershipName } from '../../../utils/stringFormats';
-import { GLOBAL_ENUM, INVOICE_STATUS_ENUM } from '../../../../common/enums';
+import { GLOBAL_ENUM, CART_ITEM, INVOICE_STATUS_ENUM } from '../../../../common/enums';
 import { useTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -65,7 +65,7 @@ const MyMemberships: React.FunctionComponent<IProps> = (props) => {
               primary: getMembershipName(d.memberType),
               secondary: getSecondary(d),
               status: d.status,
-              type: GLOBAL_ENUM.MEMBERSHIP,
+              type: CART_ITEM.MEMBERSHIP,
               key: index,
             }))
           );

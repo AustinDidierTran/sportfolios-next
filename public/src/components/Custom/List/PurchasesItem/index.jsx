@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GLOBAL_ENUM } from '../../../../../common/enums';
+import { GLOBAL_ENUM, CART_ITEM } from '../../../../../common/enums';
 import PersonItem from './PersonItem';
 import ShopItem from './ShopItem';
 import TeamItem from './TeamItem';
@@ -54,7 +54,7 @@ export default function PurchasesItem(props) {
     }
     return null;
   }
-  if (type === GLOBAL_ENUM.MEMBERSHIP) {
+  if (type === CART_ITEM.MEMBERSHIP) {
     const { organization, person } = metadata;
     return (
       <MembershipItem
@@ -69,7 +69,7 @@ export default function PurchasesItem(props) {
     );
   }
 
-  if (type === GLOBAL_ENUM.SHOP_ITEM) {
+  if (type === CART_ITEM.SHOP_ITEM) {
     const { size } = metadata;
     return (
       <ShopItem
@@ -84,7 +84,7 @@ export default function PurchasesItem(props) {
     );
   }
 
-  if (type === GLOBAL_ENUM.DONATION) {
+  if (type === CART_ITEM.DONATION) {
     const { person, organization } = metadata;
     return (
       <DonationItem
