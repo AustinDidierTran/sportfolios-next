@@ -157,7 +157,7 @@ export default function EditMembershipTermsAndConditions(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('edit.edit_membership')}
+      title={t('edit.edit_terms_and_conditions')}
       buttons={buttons}
       fields={fields}
       formik={formik}

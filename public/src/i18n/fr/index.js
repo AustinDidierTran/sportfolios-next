@@ -670,6 +670,7 @@ export default {
       edit_image: "Modifier l'image",
       edit_infos: 'Modifier les infos',
       edit_membership: 'Modifier une affiliation',
+      edit_partner: 'Modifier un partenaire',
       edit_mode: 'Mode édition',
       edit_phase: 'Modifier la phase',
       edit_player_fees: 'Modifier les frais par joueur',
