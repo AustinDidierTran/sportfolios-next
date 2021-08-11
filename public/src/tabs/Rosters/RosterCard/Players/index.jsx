@@ -43,13 +43,9 @@ export default function Players(props) {
       return;
     }
     setIsLoading(true);
-    const { data } = await api(
-      formatRoute('/api/entity/getRoster', null, {
-        rosterId,
-        withSub: true,
-      }),
-      { method: 'GET' }
-    );
+    const { data } = await api(formatRoute('/api/entity/getRoster', null, { rosterId, withSub: true }), {
+      method: 'GET',
+    });
     setBlackList(data.map((d) => d.personId));
     setIsLoading(false);
   };

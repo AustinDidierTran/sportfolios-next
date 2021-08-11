@@ -72,15 +72,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
   };
 
   const deletePlayerFromRoster = async (id: string) => {
-    const res = await api(
-      formatRoute('/api/entity/deletePlayerFromRoster', null, {
-        id,
-      }),
-      {
-        method: 'DELETE',
-      }
-    );
-
+    const res = await api(formatRoute('/api/entity/deletePlayerFromRoster', null, { id }), { method: 'DELETE' });
     if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,

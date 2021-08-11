@@ -28,7 +28,7 @@ interface IProps {
 }
 
 const Roster: React.FunctionComponent<IProps> = (props) => {
-  const { roster, index, isAdmin, update } = props;
+  const { roster, index, isAdmin } = props;
   const { t } = useTranslation();
 
   const { dispatch } = useContext(Store);
@@ -73,7 +73,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     } else {
       setDeleteRoster(false);
     }
-    update();
+    getPlayers();
   };
 
   const onDeletePlayer = async (id: string) => {
@@ -95,7 +95,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
         duration: 4000,
       });
     }
-    update();
+    getPlayers();
   };
   return (
     <Accordion expanded={expanded} onChange={onExpand}>
@@ -151,10 +151,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
             onClose: () => setEdit(false),
             roster,
             players,
-            update: () => {
-              getPlayers();
-              update();
-            },
+            update: getPlayers(),
           }}
         />
       </AccordionDetails>

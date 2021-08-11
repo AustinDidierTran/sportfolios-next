@@ -53,6 +53,13 @@ const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
           severity: SEVERITY_ENUM.ERROR,
           duration: 4000,
         });
+      } else if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
+        dispatch({
+          type: ACTION_ENUM.SNACK_BAR,
+          message: t('team.team_player_role_error'),
+          severity: SEVERITY_ENUM.ERROR,
+          duration: 4000,
+        });
       } else {
         handleClose();
       }

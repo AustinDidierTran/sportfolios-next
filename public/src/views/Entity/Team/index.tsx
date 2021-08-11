@@ -113,17 +113,20 @@ const Team: React.FunctionComponent<IProps> = (props) => {
 
   const getRole = async (): Promise<void> => {
     const res = await getRoleApi(id);
+    let isAdmin = false;
     if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
       const newInfos = basicInfos;
       newInfos.role = res.data;
       setBasicInfos(newInfos);
-      setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
+      isAdmin = res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN;
     }
-
-    const playerRole = await getPlayerTeamRole(id);
-    if (playerRole.status === REQUEST_STATUS_ENUM.SUCCESS) {
-      setIsAdmin(playerRole.data === ROSTER_ROLE_ENUM.CAPTAIN || playerRole.data === ROSTER_ROLE_ENUM.COACH || isAdmin);
+    if (!isAdmin) {
+      const playerRole = await getPlayerTeamRole(id);
+      if (playerRole.status === REQUEST_STATUS_ENUM.SUCCESS) {
+        isAdmin = playerRole.data === ROSTER_ROLE_ENUM.CAPTAIN || playerRole.data === ROSTER_ROLE_ENUM.COACH || isAdmin;
+      }
     }
+    setIsAdmin(isAdmin);
   };
 
   return (
