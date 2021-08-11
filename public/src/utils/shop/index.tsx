@@ -1,4 +1,4 @@
-import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
+import { CART_ITEM, REQUEST_STATUS_ENUM } from '../../../common/enums';
 import { uploadPicture } from '../../actions/aws';
 import { editShopItem, createShopItem } from '../../actions/service/stripe';
 import { ACTION_ENUM } from '../../Store';
@@ -21,7 +21,7 @@ const createItem = async (params: {
       metadata: {
         seller_entity_id: entityId,
         sizes: JSON.stringify(sizes),
-        type: GLOBAL_ENUM.SHOP_ITEM,
+        type: CART_ITEM.SHOP_ITEM,
       },
     },
     stripePrice: {
@@ -56,7 +56,7 @@ const editItem = async (params: {
       metadata: {
         seller_entity_id: entityId,
         sizes: JSON.stringify(sizes),
-        type: GLOBAL_ENUM.SHOP_ITEM,
+        type: CART_ITEM.SHOP_ITEM,
       },
     },
     stripePrice: {
@@ -64,7 +64,7 @@ const editItem = async (params: {
       unit_amount: Math.floor(+amount * 100).toString(),
       active: true,
       metadata: {
-        type: GLOBAL_ENUM.SHOP_ITEM,
+        type: CART_ITEM.SHOP_ITEM,
         id: entityId,
       },
     },

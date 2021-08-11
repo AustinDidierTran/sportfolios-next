@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { formatRoute } from '../../../../utils/stringFormats';
-import { GLOBAL_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
+import { GLOBAL_ENUM, CART_ITEM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import api from '../../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
@@ -114,7 +114,7 @@ export default function CartItem(props) {
       );
     }
   }
-  if (type === GLOBAL_ENUM.MEMBERSHIP) {
+  if (type === CART_ITEM.MEMBERSHIP) {
     const { person, organization } = metadata;
     return (
       <MembershipItem
@@ -133,7 +133,7 @@ export default function CartItem(props) {
       />
     );
   }
-  if (type === GLOBAL_ENUM.SHOP_ITEM) {
+  if (type === CART_ITEM.SHOP_ITEM) {
     const { size } = metadata;
     return (
       <ShopItem
@@ -152,7 +152,7 @@ export default function CartItem(props) {
       />
     );
   }
-  if (type === GLOBAL_ENUM.DONATION) {
+  if (type === CART_ITEM.DONATION) {
     const { person, organization, note } = metadata;
     return (
       <DonationItem

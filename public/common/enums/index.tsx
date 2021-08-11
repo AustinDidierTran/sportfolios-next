@@ -467,6 +467,9 @@ export enum GLOBAL_ENUM {
   TEAM = 3,
   EVENT = 4,
   GAME = 5,
+}
+
+export enum CART_ITEM {
   MEMBERSHIP = 'membership',
   DONATION = 'donation',
   SHOP_ITEM = 'shop_item',
