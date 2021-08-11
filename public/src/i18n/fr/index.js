@@ -499,8 +499,7 @@ export default {
       team_added: 'Équipe ajoutée',
       team_already_registered: 'Équipe déjà inscrite',
       team_history: "Historique de l'équipe",
-      team_player_role_error:
-        "Il doit en tout temps y avoir au moins un entraîneur ou capitaine dans l'équipe.",
+      team_player_role_error: "Il doit en tout temps y avoir au moins un entraîneur ou capitaine dans l'équipe.",
       team_select: "Choix de l'équipe",
       team_selected_add_your_roster:
         'Équipe {{name}} sélectionnée! Ajoutez votre alignement. Entrez le nom des joueurs. Si le joueur à déjà un compte, il apparaîtra sous la barre de recherche.',

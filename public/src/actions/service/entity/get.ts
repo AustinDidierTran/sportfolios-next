@@ -60,6 +60,12 @@ export function myTeamsSearch(query: string, eventId: string): Promise<any> {
   return api(formatRoute('/api/search/myTeamsSearch', null, { query, eventId }), { method: 'GET' });
 }
 
+export function getRoster(rosterId: string, withSub: boolean): Promise<any> {
+  return api(formatRoute(`${BASE_URL}/getRoster`, null, { rosterId, withSub }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+}
+
 export function getAllUsers(limitNumber: number): Promise<User> {
   return api(formatRoute('/api/admin/users', null, { limitNumber }), { method: 'GET' }).then((res) => res.data);
 }
