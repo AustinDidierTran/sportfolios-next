@@ -10,7 +10,7 @@ import CardSection from '../../../utils/stripe/CardSection';
 import { useTranslation } from 'react-i18next';
 
 export async function getCustomer() {
-  const { data } = await api('/api/stripe/getCustomer');
+  const { data } = await api('/api/stripe/getCustomer', { method: 'GET' });
   return data;
 }
 

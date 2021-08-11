@@ -22,9 +22,14 @@ export default function EventSettings() {
   const getInfos = async () => {
     if (eventId) {
       const { data } = await api(
-        formatRoute('/api/entity/event', null, {
-          eventId,
-        })
+        formatRoute(
+          '/api/entity/event',
+          null,
+          {
+            eventId,
+          },
+          { method: 'GET' }
+        )
       );
       let start = data.start_date;
       if (start) {

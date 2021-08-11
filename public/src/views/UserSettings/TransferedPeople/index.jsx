@@ -19,7 +19,7 @@ export default function TransferedPeople() {
   const [width] = useWindowSize();
 
   const fetchTransferedPeople = async () => {
-    const { data } = await api('/api/user/transferedPeople');
+    const { data } = await api('/api/user/transferedPeople', { method: 'GET' });
     setPeople(data);
     setIsLoading(false);
   };

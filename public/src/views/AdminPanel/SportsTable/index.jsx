@@ -13,7 +13,7 @@ export default function SportsTable() {
   const [sports, setSports] = useState([]);
 
   const updateSports = async () => {
-    const res = await api('/api/admin/sports');
+    const res = await api('/api/admin/sports', { method: 'GET' });
 
     setSports(res.data);
   };

@@ -12,7 +12,7 @@ import TextField from '../../../components/Custom/TextField';
 import CountrySelect from '../../../views/AddBankAccount/CountrySelect';
 
 export async function getCustomer() {
-  const { data } = await api('/api/stripe/getCustomer');
+  const { data } = await api('/api/stripe/getCustomer', { method: 'GET' });
   return data;
 }
 

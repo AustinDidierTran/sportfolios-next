@@ -22,7 +22,7 @@ export default function EntityList(props) {
   const getEntities = async () => {
     const route = type ? `/api/entity/all?type=${type}` : '/api/entity/all';
 
-    const { data } = await api(route);
+    const { data } = await api(route, { method: 'GET' });
 
     setEntities(data);
   };

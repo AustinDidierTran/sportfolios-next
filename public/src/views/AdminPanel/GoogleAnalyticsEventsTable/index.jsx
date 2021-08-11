@@ -12,7 +12,7 @@ export default function GaEventsTable() {
   const [events, setEvents] = useState([]);
 
   const updateEvents = async () => {
-    const res = await api('/api/admin/gaEvents');
+    const res = await api('/api/admin/gaEvents', { method: 'GET' });
 
     const newEvents = res.data.map((d) => {
       const onToggle = async (event) => {

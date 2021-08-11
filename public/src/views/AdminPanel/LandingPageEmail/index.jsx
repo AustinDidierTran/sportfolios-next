@@ -20,7 +20,7 @@ export default function LandingPageEmail() {
   const { dispatch } = useContext(Store);
 
   const getEmails = async () => {
-    const res = await api('/api/admin/emailsLandingPage');
+    const res = await api('/api/admin/emailsLandingPage', { method: 'GET' });
     const data = res.data.map((r) => ({
       email: r,
       icon: 'Delete',
