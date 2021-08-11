@@ -6,12 +6,11 @@ import PlayerCard from './PlayerCard';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { LoadingSpinner, PersonSearchList } from '../../../../components/Custom';
-import api from '../../../../actions/api';
 import PersonsQuickAdd from './PersonsQuickAdd';
 import { Store } from '../../../../Store';
 import RosterInviteLink from '../RosterInviteLink';
 import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
-import { formatRoute } from '../../../../utils/stringFormats';
+import { getRoster } from '../../../../actions/service/entity/get';
 
 export default function Players(props) {
   const { t } = useTranslation();
@@ -43,9 +42,8 @@ export default function Players(props) {
       return;
     }
     setIsLoading(true);
-    const { data } = await api(formatRoute('/api/entity/getRoster', null, { rosterId, withSub: true }), {
-      method: 'GET',
-    });
+    const data = await getRoster(rosterId, true);
+
     setBlackList(data.map((d) => d.personId));
     setIsLoading(false);
   };

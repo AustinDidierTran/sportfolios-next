@@ -21,6 +21,12 @@ export function deleteGame(eventId: string, gameId: string): Promise<Game> {
   return api(formatRoute(`${BASE_URL}/game`, null, { eventId, gameId }), { method: 'DELETE' });
 }
 
+export function deletePlayerFromRoster(id: string): Promise<number> {
+  return api(formatRoute(`${BASE_URL}/deletePlayerFromRoster`, null, { id }), { method: 'DELETE' }).then(
+    (res) => res.status
+  );
+}
+
 export function deleteRoster(id: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/roster`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
 }

@@ -12,10 +12,10 @@ import { ROSTER_ROLE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../.
 import api from '../../../actions/api';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { useTranslation } from 'react-i18next';
-import { formatRoute } from '../../../utils/stringFormats';
 import { COLORS } from '../../../utils/colors';
 import { AllTeamsAcceptedInfos, Member } from '../../../../../typescript/types';
 import { remainsOneCaptainOrCoach } from '../../../utils/validators';
+import { deletePlayerFromRoster as deletePlayerFromRosterApi } from '../../../actions/service/entity/delete';
 
 interface Player {
   personId: string;
@@ -72,8 +72,9 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
   };
 
   const deletePlayerFromRoster = async (id: string) => {
-    const res = await api(formatRoute('/api/entity/deletePlayerFromRoster', null, { id }), { method: 'DELETE' });
-    if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
+    const status = await deletePlayerFromRosterApi(id);
+
+    if (status === REQUEST_STATUS_ENUM.FORBIDDEN) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('cant_delete_paid_player'),
@@ -82,7 +83,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
       });
       return;
     }
-    if (res.status === REQUEST_STATUS_ENUM.METHOD_NOT_ALLOWED) {
+    if (status === REQUEST_STATUS_ENUM.METHOD_NOT_ALLOWED) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('team.team_player_role_error'),
@@ -91,7 +92,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
       });
       return;
     }
-    if (res.status === REQUEST_STATUS_ENUM.ERROR) {
+    if (status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),

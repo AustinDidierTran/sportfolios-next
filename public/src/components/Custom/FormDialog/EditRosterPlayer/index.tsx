@@ -3,11 +3,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { COMPONENT_TYPE_ENUM, ROSTER_ROLE_ENUM, SEVERITY_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
-import api from '../../../../actions/api';
 import BasicFormDialog from '../BasicFormDialog';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { ERROR_ENUM } from '../../../../../common/errors';
 import { Player } from '../../../../../../typescript/types';
+import { updateRosterPlayer } from '../../../../actions/service/entity/put';
 
 interface IProps {
   open: boolean;
@@ -39,21 +39,15 @@ const EditRosterPlayer: React.FunctionComponent<IProps> = (props) => {
     },
     onSubmit: async (values) => {
       const { role } = values;
-      const res = await api('/api/entity/rosterPlayer', {
-        method: 'PUT',
-        body: JSON.stringify({
-          id: player.id,
-          role,
-        }),
-      });
-      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
+      const status = await updateRosterPlayer(player.id, role);
+      if (status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: ERROR_ENUM.ERROR_OCCURED,
           severity: SEVERITY_ENUM.ERROR,
           duration: 4000,
         });
-      } else if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
+      } else if (status === REQUEST_STATUS_ENUM.FORBIDDEN) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('team.team_player_role_error'),
