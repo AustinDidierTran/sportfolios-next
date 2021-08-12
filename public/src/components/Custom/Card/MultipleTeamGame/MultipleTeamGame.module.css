@@ -71,13 +71,6 @@
   margin: auto;
 }
 
-.teamContent {
-  display: flex;
-  margin: 8px 0;
-  padding: 0px 5px;
-  justify-content: space-between;
-}
-
 .teamInfos {
   display: flex;
   flex-direction: row;
@@ -88,6 +81,7 @@
 
 .teamInfos:hover {
   cursor: pointer;
+  background-color: #f9f9f9 !important;
 }
 
 .generalGameTeam {

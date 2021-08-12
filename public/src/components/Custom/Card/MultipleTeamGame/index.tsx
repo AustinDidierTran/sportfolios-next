@@ -44,14 +44,13 @@ const MultipleTeamGame: React.FunctionComponent<IProps> = (props) => {
       <>
         <div className={styles.teams}>
           {positions?.map((position, i) => (
-            <div className={styles.teamContent} key={i}>
-              <div
-                className={teamsAreClickable ? styles.teamInfos : styles.generalGameTeam}
-                onClick={() => (teamsAreClickable ? goTo(ROUTES_ENUM.entity, { id: position.id }) : null)}
-              >
-                <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
-                <Typography className={styles.name}>{position.name}</Typography>
-              </div>
+            <div
+              key={i}
+              className={teamsAreClickable ? styles.teamInfos : styles.generalGameTeam}
+              onClick={() => (teamsAreClickable ? goTo(ROUTES_ENUM.entity, { id: position.id }) : null)}
+            >
+              <Avatar photoUrl={position.photoUrl} className={styles.avatar}></Avatar>
+              <Typography className={styles.name}>{position.name}</Typography>
               <Typography className={styles.score}>{position.score}</Typography>
             </div>
           ))}

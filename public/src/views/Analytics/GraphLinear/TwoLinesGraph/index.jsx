@@ -70,7 +70,7 @@ export default function TwoLinesGraph(props) {
               </div>
               <div style={{ color: value - initialValue >= 0 ? 'green' : 'red', fontSize: 18 }}>
                 {value - initialValue >= 0 ? '+' : ''}
-                {formatData(value - initialValue)}
+                {formatData(value - initialValue).toFixed(2)}
                 {isMoney ? '$' : ''} {value - initialValue > 1 ? t(lines[0]?.name) : t(lines[0]?.nameSingular)} (
                 {percentage} %)
               </div>
@@ -80,7 +80,7 @@ export default function TwoLinesGraph(props) {
               </div>
               <div style={{ color: secondValue - secondInitialValue >= 0 ? 'green' : 'red', fontSize: 18 }}>
                 {secondValue - secondInitialValue >= 0 ? '+' : ''}
-                {formatData(secondValue - secondInitialValue)}
+                {formatData(secondValue - secondInitialValue).toFixed(2)}
                 {isMoney ? '$' : ''}{' '}
                 {secondValue - secondInitialValue > 1 ? t(lines[1]?.name) : t(lines[1]?.nameSingular)} (
                 {secondPercentage} %)
