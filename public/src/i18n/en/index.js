@@ -672,6 +672,7 @@ export default {
       edit_image: 'Edit image',
       edit_infos: 'Edit infos',
       edit_membership: 'Edit membership',
+      edit_partner: 'Edit partner',
       edit_mode: 'Edit mode',
       edit_phase: 'Edit phase',
       edit_player_fees: 'Edit player fees',

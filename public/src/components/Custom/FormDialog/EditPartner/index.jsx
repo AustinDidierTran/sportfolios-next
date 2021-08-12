@@ -167,7 +167,7 @@ export default function EditPartner(props) {
   return (
     <BasicFormDialog
       open={open}
-      title={t('edit.edit_membership')}
+      title={t('edit.edit_partner')}
       buttons={buttons}
       fields={fields}
       formik={formik}
