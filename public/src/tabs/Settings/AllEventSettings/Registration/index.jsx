@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import dynamic from 'next/dynamic';
 import Icon from '../../../../components/Custom/Icon';
@@ -10,6 +10,10 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { COLORS } from '../../../../utils/colors';
+import { useContext } from 'react';
+import { Store } from '../../../../Store';
+import { getEvent } from '../../../../actions/service/entity/get';
+import { EVENT_TYPE } from '../../../../../common/enums';
 
 const AddOptionsEvent = dynamic(() => import('../../AddOptionsEvent'));
 const TeamsRegistered = dynamic(() => import('../../TeamsRegistered'));
@@ -26,8 +30,18 @@ const useStyles = makeStyles(() => ({
 
 export default function Registration() {
   const { t } = useTranslation();
+  const {
+    state: { id },
+  } = useContext(Store);
+  const [event, setEvent] = useState();
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if (id) {
+      getEvent(id).then(setEvent);
+    }
+  }, [id]);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -44,8 +58,7 @@ export default function Registration() {
           <ListItemText primary={t('register.registrations')} />
         </AccordionSummary>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <TeamsRegistered />
-          <PlayersRegistered />
+          {event.eventType === EVENT_TYPE.TEAM ? <TeamsRegistered /> : <PlayersRegistered />}
           <AddOptionsEvent />
         </Collapse>
       </Accordion>

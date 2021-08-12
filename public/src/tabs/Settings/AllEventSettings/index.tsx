@@ -33,9 +33,9 @@ const AllEventSettings: React.FunctionComponent<IProps> = (props) => {
     <div>
       <General basicInfos={basicInfos} role={role} />
       <Registration />
-      {isAdmin && <Admin role={role} basicInfos={basicInfos} id={id} />}
+      {isAdmin && <Admin role={role} basicInfos={basicInfos} />}
       <BottomPageLogo />
     </div>
   );
-}
+};
 export default AllEventSettings;

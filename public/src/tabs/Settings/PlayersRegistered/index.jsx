@@ -271,10 +271,6 @@ export default function PlayersRegistered() {
     },
   }))(TableRow);
 
-  if (players.length < 1) {
-    return null;
-  }
-
   if (width < MOBILE_WIDTH) {
     return (
       <Paper className={styles.paper}>

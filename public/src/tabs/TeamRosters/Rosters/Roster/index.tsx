@@ -28,7 +28,7 @@ interface IProps {
 }
 
 const Roster: React.FunctionComponent<IProps> = (props) => {
-  const { roster, index, isAdmin } = props;
+  const { roster, index, isAdmin, update } = props;
   const { t } = useTranslation();
 
   const { dispatch } = useContext(Store);
@@ -73,7 +73,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     } else {
       setDeleteRoster(false);
     }
-    getPlayers();
+    update();
   };
 
   const onDeletePlayer = async (id: string) => {
@@ -97,6 +97,7 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
     }
     getPlayers();
   };
+
   return (
     <Accordion expanded={expanded} onChange={onExpand}>
       <AccordionSummary className={style} expandIcon={<Icon icon="ExpandMore" />}>
@@ -104,16 +105,24 @@ const Roster: React.FunctionComponent<IProps> = (props) => {
       </AccordionSummary>
       <AccordionDetails className={styles.accordionDetail}>
         <List className={styles.list}>
-          {players.map((player, index) => (
-            <RosterPlayer
-              key={player.id}
-              player={player}
-              index={index}
-              update={getPlayers}
-              isAdmin={isAdmin}
-              onDeletePlayer={onDeletePlayer}
-            />
-          ))}
+          {players.length < 1 ? (
+            <Typography color="textSecondary" style={{ margin: '16px' }}>
+              {t('no.no_players')}
+            </Typography>
+          ) : (
+            <>
+              {players.map((player, index) => (
+                <RosterPlayer
+                  key={player.id}
+                  player={player}
+                  index={index}
+                  update={getPlayers}
+                  isAdmin={isAdmin}
+                  onDeletePlayer={onDeletePlayer}
+                />
+              ))}
+            </>
+          )}
           {isAdmin ? (
             <div className={styles.divButton}>
               <Button
