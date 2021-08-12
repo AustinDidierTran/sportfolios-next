@@ -10,6 +10,7 @@ import styles from './Rosters.module.css';
 import Roster from './Roster';
 import { Roster as RosterType } from '../../../../../typescript/types';
 import { getRosters as getRostersApi } from '../../../actions/service/entity/get';
+import Typography from '@material-ui/core/Typography';
 
 interface IProps {
   adminView: boolean;
@@ -53,9 +54,17 @@ const Rosters: React.FunctionComponent<IProps> = (props) => {
             {t('add.add_roster')}
           </Button>
         ) : null}
-        {rosters?.map((roster, index) => (
-          <Roster key={roster.id} roster={roster} index={index} update={getRosters} isAdmin={adminView} />
-        ))}
+        {rosters.length < 1 ? (
+          <Typography color="textSecondary" style={{ margin: '16px' }}>
+            {t('no.no_roster')}
+          </Typography>
+        ) : (
+          <>
+            {rosters?.map((roster, index) => (
+              <Roster key={roster.id} roster={roster} index={index} update={getRosters} isAdmin={adminView} />
+            ))}
+          </>
+        )}
       </Paper>
       <FormDialog
         type={FORM_DIALOG_TYPE_ENUM.ADD_ROSTER}

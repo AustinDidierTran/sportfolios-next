@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import dynamic from 'next/dynamic';
 import Icon from '../../../../components/Custom/Icon';
@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { CARD_TYPE_ENUM, GLOBAL_ENUM } from '../../../../../common/enums';
 import { COLORS } from '../../../../utils/colors';
+import { Store } from '../../../../Store';
 
 const ManageRoles = dynamic(() => import('../../ManageRoles'));
 
@@ -23,11 +24,13 @@ const useStyles = makeStyles(() => ({
     position: 'static',
   },
 }));
-
 export default function Admin(props) {
   const { t } = useTranslation();
+  const {
+    state: { id },
+  } = useContext(Store);
 
-  const { role, basicInfos, id } = props;
+  const { role, basicInfos } = props;
 
   const classes = useStyles();
 

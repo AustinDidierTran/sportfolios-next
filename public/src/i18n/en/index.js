@@ -759,6 +759,7 @@ export default {
       no_partners: 'No partners',
       no_payment_method_selected: 'No payment method selected',
       no_person_selected: 'No person selected',
+      no_players: 'No players',
       no_players_registered: 'No players registered',
       no_purchases_message: 'You did not purchase anything yet',
       no_remaining_spots:

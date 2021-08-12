@@ -14,6 +14,7 @@ import { getPlayers as getPlayersApi } from '../../../actions/service/entity/get
 import { deletePlayer } from '../../../actions/service/entity/delete';
 import { ERROR_ENUM } from '../../../../common/errors';
 import { remainsOneCaptainOrCoach } from '../../../utils/validators';
+import Typography from '@material-ui/core/Typography';
 
 interface IProps {
   adminView: boolean;
@@ -82,16 +83,24 @@ const Players: React.FunctionComponent<IProps> = (props) => {
           </Button>
         ) : null}
         <List className={styles.list}>
-          {players.map((player, index) => (
-            <Player
-              key={player.id}
-              player={player}
-              index={index}
-              update={getPlayers}
-              onDelete={onDelete}
-              isAdmin={adminView}
-            />
-          ))}
+          {players.length < 1 ? (
+            <Typography color="textSecondary" style={{ margin: '16px' }}>
+              {t('no.no_players')}
+            </Typography>
+          ) : (
+            <>
+              {players.map((player, index) => (
+                <Player
+                  key={player.id}
+                  player={player}
+                  index={index}
+                  update={getPlayers}
+                  onDelete={onDelete}
+                  isAdmin={adminView}
+                />
+              ))}
+            </>
+          )}
         </List>
       </Paper>
       <FormDialog
