@@ -22,9 +22,9 @@ interface IProps {
 const CustomAccordion: React.FunctionComponent<IProps> = (props) => {
   const { title, subtitle, content, ...otherProps } = props;
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
-  const onExpand = () => {
+  const onExpand = (): void => {
     const exp = !expanded;
     setExpanded(exp);
   };
