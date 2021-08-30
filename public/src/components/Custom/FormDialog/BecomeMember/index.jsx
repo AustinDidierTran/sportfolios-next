@@ -117,7 +117,7 @@ export default function BecomeMember(props) {
       setMemberships(memberships);
       if (defaultTypeValue) {
         formik.setFieldValue('type', defaultTypeValue);
-      } else if (memberships[0]) {
+      } else if (memberships[0] && !memberships.map(m => m.value).includes(formik.values.type)) {
         formik.setFieldValue('type', memberships[0].value);
       }
     }

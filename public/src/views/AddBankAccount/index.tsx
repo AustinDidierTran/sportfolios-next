@@ -36,9 +36,9 @@ interface IValues {
   country?: string;
   currency?: string;
   accountHolderName?: string;
-  transitNumber?: number;
-  institutionNumber?: number;
-  accountNumber?: number;
+  transitNumber?: string;
+  institutionNumber?: string;
+  accountNumber?: string;
 }
 
 const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
@@ -64,27 +64,27 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
       errors.accountHolderName = t('value_is_required');
     }
 
-    if (!isANumber(transitNumber)) {
+    if (!isANumber(Number(transitNumber))) {
       errors.transitNumber = t('value_must_be_numeric');
-    } else if (!hasXDigits(transitNumber, 5)) {
+    } else if (transitNumber.length < 5) {
       errors.transitNumber = t('value_must_have_x_digits', {
         digits: 5,
       });
     }
 
-    if (!isANumber(institutionNumber)) {
+    if (!isANumber(Number(institutionNumber))) {
       errors.institutionNumber = t('value_must_be_numeric');
-    } else if (!hasXDigits(institutionNumber, 5)) {
+    } else if (institutionNumber.length < 3) {
       errors.institutionNumber = t('value_must_have_x_digits', {
-        digits: 5,
+        digits: 3,
       });
     }
 
     if (!accountNumber) {
       errors.accountNumber = t('value_is_required');
-    } else if (!isANumber(accountNumber)) {
+    } else if (!isANumber(Number(accountNumber))) {
       errors.accountNumber = t('value_must_be_numeric');
-    } else if (!hasXDigits(accountNumber, 7)) {
+    } else if (accountNumber.length < 7) {
       errors.transitNumber = t('value_must_have_x_digits', {
         digits: 7,
       });
@@ -155,14 +155,12 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
               <TextField
                 namespace="transitNumber"
                 formik={formik}
-                type="number"
                 label={t('transit_number')}
                 fullWidth
               />
               <TextField
                 namespace="institutionNumber"
                 formik={formik}
-                type="number"
                 label={t('institution_number')}
                 fullWidth
               />
