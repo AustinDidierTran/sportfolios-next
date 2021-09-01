@@ -305,14 +305,12 @@ describe('ValidateExpirationDate', () => {
   const futureDate: any = moment.utc().add(1, 'month');
   const expectedPreviousDate: any = formatDate(moment.utc().set('year', moment().get('year') + 1));
   const expectedFutureDate: any = formatDate(moment.utc().set('month', moment().get('month') + 1));
-  const emptyString = '';
 
   it('should return expiration date', () => {
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.ONE_MONTH)).toBe(oneMonthDate);
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.SIX_MONTH)).toBe(sixMonthDate);
     expect(getExpirationDate(MEMBERSHIP_LENGTH_ENUM.ONE_YEAR)).toBe(oneYearDate);
     expect(getExpirationDate(0, previousDate)).toBe(expectedPreviousDate);
-    expect(getExpirationDate(0, currentDate)).toBe(emptyString);
     expect(getExpirationDate(0, futureDate)).toBe(expectedFutureDate);
     expect(getExpirationDate(randomType)).toBe(currentDate);
     expect(getExpirationDate(0, '')).toBe(null);
