@@ -33,7 +33,7 @@ export default function Registration() {
   const {
     state: { id },
   } = useContext(Store);
-  const [event, setEvent] = useState();
+  const [event, setEvent] = useState({});
 
   const classes = useStyles();
 
