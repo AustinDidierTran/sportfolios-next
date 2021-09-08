@@ -24,8 +24,6 @@ const EntityMap = {
 export default function EntityRoute({ response }) {
   const { t } = useTranslation();
 
-  console.log('gabriel');
-
   const EntityObject = EntityMap[response.basicInfos.type];
 
   if (!response || !EntityObject) {
