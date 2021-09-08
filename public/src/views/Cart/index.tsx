@@ -61,6 +61,12 @@ const Cart: React.FunctionComponent = () => {
     return CartTab;
   }, [index, tabs]);
 
+  const gabriel = true;
+
+  if (!gabriel) {
+    return <></>;
+  }
+
   return (
     <IgContainer>
       <Paper style={{ marginBottom: '8px' }}>
