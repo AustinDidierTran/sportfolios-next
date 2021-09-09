@@ -1427,6 +1427,7 @@ export default {
     roster_name: "Nom de l'alignement",
     roster_selection_message:
       'Ajoutez vos cooéquipiers qui ont déjà un compte. Lorsque vous allez être inscrit, vous allez pouvoir inviter le reste de votre équipe avec un lien.',
+    Rows_per_page: 'Ligne par page',
     rules_knowledge_and_use: 'Connaissances et application des règlements',
     sales_on: 'Ventes le',
     sales_report_description: "Ce rapport vous permet d'accéder à toutes vos ventes à une date précise",

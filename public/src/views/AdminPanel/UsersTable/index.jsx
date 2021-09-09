@@ -10,14 +10,18 @@ import { formatRoute } from '../../../utils/stringFormats';
 import CustomButton from '../../../components/Custom/Button';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
+import TablePagination  from '@material-ui/core/TablePagination';
+import Pagination  from '@material-ui/lab/Pagination';
 import { getAllUsers } from '../../../actions/service/entity/get';
 
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [initialUsers, setInitialUsers] = useState([]);
-  const [numberToLoad, setNumberToLoad] = useState(50);
+  const [numberToLoad, setNumberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
+  const [pageUserIndex, setPageUserIndex] = useState(0);
+  const [usersPerPage, setUsersPerPage] = useState(5);
 
   const loadUsers = async (number) => {
     setIsLoading(true);
@@ -100,6 +104,16 @@ export default function UsersTable() {
     }
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPageUserIndex(newPage);
+  };
+
+  const handleChangeUsersPerPage = (event) => {
+    setUsersPerPage(parseInt(event.target.value, 10));
+    setNumberToLoad(event.target.value)
+    setPageUserIndex(0);
+  };
+
   useEffect(() => {
     loadUsers(50);
   }, []);
@@ -132,6 +146,18 @@ export default function UsersTable() {
             ) : (
               <Typography>{t('all_users_are_displayed')}</Typography>
             )}
+          </div>
+          <div className={styles.buttonContainer}>
+            <TablePagination
+              rowsPerPageOptions={[10]}
+              component="div"
+              count={users.length}
+              rowsPerPage={numberToLoad}
+              page={pageUserIndex}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeUsersPerPage}
+              labelRowsPerPage={t('Rows_per_page')+":"}
+            />
           </div>
         </>
       )}
