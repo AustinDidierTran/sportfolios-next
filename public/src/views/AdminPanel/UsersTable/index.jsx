@@ -12,20 +12,24 @@ import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
 import TablePagination  from '@material-ui/core/TablePagination';
 import Pagination  from '@material-ui/lab/Pagination';
-import { getAllUsers } from '../../../actions/service/entity/get';
+import { getUsersAndSecond } from '../../../actions/service/entity/get';
+import Button from '@material-ui/core/Button';
+import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
+  const [filter, setfilter] = useState('');
   const [initialUsers, setInitialUsers] = useState([]);
   const [numberToLoad, setNumberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-  const [pageUserIndex, setPageUserIndex] = useState(0);
-  const [usersPerPage, setUsersPerPage] = useState(5);
+  const [pageUserIndex, setPageUserIndex] = useState(0);  
+  const [offsetUser, setOffsetUser] = useState(0);
 
-  const loadUsers = async (number) => {
+  const loadUsers = async (offset,filter) => {
     setIsLoading(true);
-    const fetchedUsers = await getAllUsers(number);
+    const fetchedUsers = await getUsersAndSecond(offset,filter);
 
     const tempUser = fetchedUsers.map((user) => ({
       ...user,
@@ -52,7 +56,7 @@ export default function UsersTable() {
         method: 'DELETE',
       }
     );
-    loadUsers(numberToLoad);
+    loadUsers(offsetUser,filter);
   };
 
   const headers = [
@@ -76,6 +80,7 @@ export default function UsersTable() {
   const filterArray = ['name', 'emails', 'surname'];
 
   const handleFilter = (event) => {
+
     if (!event.target.value) {
       setUsers(initialUsers);
     } else {
@@ -106,20 +111,20 @@ export default function UsersTable() {
 
   const handleChangePage = (event, newPage) => {
     setPageUserIndex(newPage);
+    setOffsetUser(newPage*10);
+    loadUsers(newPage*10,filter);
   };
-
-  const handleChangeUsersPerPage = (event) => {
-    setUsersPerPage(parseInt(event.target.value, 10));
-    setNumberToLoad(event.target.value)
-    setPageUserIndex(0);
+  const handleChangePage2 = (newPage) => {
+    setPageUserIndex(newPage);
+    setOffsetUser(newPage*10);
+    loadUsers(newPage*10,filter);
   };
-
   useEffect(() => {
-    loadUsers(50);
+    loadUsers(offsetUser,filter);
   }, []);
 
   useEffect(() => {
-    loadUsers(numberToLoad);
+    loadUsers(offsetUser,filter);
   }, [numberToLoad]);
 
   return (
@@ -149,16 +154,27 @@ export default function UsersTable() {
           </div>
           <div className={styles.buttonContainer}>
             <TablePagination
-              rowsPerPageOptions={[10]}
+              rowsPerPageOptions={[numberToLoad]}
               component="div"
-              count={users.length}
               rowsPerPage={numberToLoad}
               page={pageUserIndex}
               onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeUsersPerPage}
               labelRowsPerPage={t('Rows_per_page')+":"}
+              labelDisplayedRows={function ddefaultLabelDisplayedRows({ from, to, count }) { return `${from}-${from+numberToLoad-1}`; }}
             />
           </div>
+          <div className={styles.buttonContainer}>
+            {pageUserIndex===0?(
+              <Button startIcon={<ArrowBackIosRoundedIcon />} disabled onClick={() => handleChangePage2(pageUserIndex -1)}></Button >
+            ):(
+              <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => handleChangePage2(pageUserIndex -1)}></Button >
+            )
+            }
+            <Typography>{`${offsetUser+1}-${offsetUser+numberToLoad}`}</Typography>
+            <Button startIcon={<ArrowForwardIosRoundedIcon />}  onClick={() => handleChangePage2(pageUserIndex +1)}></Button >
+
+          </div>
+          
         </>
       )}
     </Paper>
