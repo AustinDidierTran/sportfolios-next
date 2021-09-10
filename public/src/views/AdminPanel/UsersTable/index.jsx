@@ -109,16 +109,12 @@ export default function UsersTable() {
     }
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPageUserIndex(newPage);
     setOffsetUser(newPage*10);
     loadUsers(newPage*10,filter);
   };
-  const handleChangePage2 = (newPage) => {
-    setPageUserIndex(newPage);
-    setOffsetUser(newPage*10);
-    loadUsers(newPage*10,filter);
-  };
+
   useEffect(() => {
     loadUsers(offsetUser,filter);
   }, []);
@@ -153,25 +149,19 @@ export default function UsersTable() {
             )}
           </div>
           <div className={styles.buttonContainer}>
-            <TablePagination
-              rowsPerPageOptions={[numberToLoad]}
-              component="div"
-              rowsPerPage={numberToLoad}
-              page={pageUserIndex}
-              onPageChange={handleChangePage}
-              labelRowsPerPage={t('Rows_per_page')+":"}
-              labelDisplayedRows={function ddefaultLabelDisplayedRows({ from, to, count }) { return `${from}-${from+numberToLoad-1}`; }}
-            />
-          </div>
-          <div className={styles.buttonContainer}>
             {pageUserIndex===0?(
-              <Button startIcon={<ArrowBackIosRoundedIcon />} disabled onClick={() => handleChangePage2(pageUserIndex -1)}></Button >
+              <Button startIcon={<ArrowBackIosRoundedIcon />} disabled ></Button >
             ):(
-              <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => handleChangePage2(pageUserIndex -1)}></Button >
+              <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => handleChangePage(pageUserIndex -1)}></Button >
             )
             }
             <Typography>{`${offsetUser+1}-${offsetUser+numberToLoad}`}</Typography>
-            <Button startIcon={<ArrowForwardIosRoundedIcon />}  onClick={() => handleChangePage2(pageUserIndex +1)}></Button >
+            {users.length === numberToLoad ? (
+              <Button startIcon={<ArrowForwardIosRoundedIcon />}  onClick={() => handleChangePage(pageUserIndex +1)}></Button >
+            ) : (
+              <Button startIcon={<ArrowForwardIosRoundedIcon />} disabled ></Button >
+            )}
+            
 
           </div>
           
