@@ -7,6 +7,10 @@ import { formatPrice } from '../../../utils/stringFormats';
 import api from '../../../actions/api';
 import { formatRoute } from '../../../utils/stringFormats';
 import { Store } from '../../../Store';
+import { Typography } from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
+
+
 
 export default function PaymentOptionSelect(props) {
   const { t } = useTranslation();
@@ -62,14 +66,20 @@ export default function PaymentOptionSelect(props) {
 
   return (
     <div className={styles.main}>
-      {/* <Typography
+      <WarningIcon 
+         color= "primary"
+         style={{ fontSize: 25, marginRight: '0.4rem',marginBottom : '0rem'}}
+         /> 
+      <Typography
         variant="body2"
-        color="textSecondary"
-        component="p"
-        style={{ marginBottom: '8px' }}
+        color= "textSecondary"
+        //component="p"
+        paragraph="true"
+        align="center"
+        style={{ marginBottom: '3rem', marginLeft : '8rem',marginRight :'8rem', lineHeight: '2', fontSize : '0.75rem' }}
       >
-        {t('register.registration_can_be_payed_later')}
-      </Typography> */}
+        {t('captain_only_warning')}
+      </Typography>
       <RadioGroup
         namespace="paymentOptions"
         options={formik.values.paymentOptions}

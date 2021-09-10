@@ -980,6 +980,7 @@ export default {
     cant_transfer_person_to_your_own_email: "You can't transfer someone to your own email",
     captain: 'Captain',
     captains: 'Captains',
+    captain_only_warning: 'You are about to register a team. This operation should be done by captains only. If you are a player looking to be added to your roster, please contact your captain.',
     card_ending_with: 'Card ending with {{last4}}',
     cart_empty_go_shop: "Your cart is empty, it's time to shop!",
     cart: 'Cart',
