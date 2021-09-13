@@ -66,20 +66,17 @@ export default function PaymentOptionSelect(props) {
 
   return (
     <div className={styles.main}>
-      <WarningIcon 
-         color= "primary"
-         style={{ fontSize: 25, marginRight: '0.4rem',marginBottom : '0rem'}}
-         /> 
-      <Typography
-        variant="body2"
-        color= "textSecondary"
-        //component="p"
-        paragraph="true"
-        align="center"
-        style={{ marginBottom: '3rem', marginLeft : '8rem',marginRight :'8rem', lineHeight: '2', fontSize : '0.75rem' }}
-      >
-        {t('captain_only_warning')}
-      </Typography>
+      <div className={styles.header}>
+        <WarningIcon className={styles.warning} fontSize="large"/> 
+        <Typography
+          variant="body2"
+          color= "textSecondary"
+          align="center"
+          className={styles.typography}
+          >
+          {t('captain_only_warning')}
+        </Typography>
+      </div>
       <RadioGroup
         namespace="paymentOptions"
         options={formik.values.paymentOptions}
