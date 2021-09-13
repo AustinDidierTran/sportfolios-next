@@ -23,11 +23,11 @@ export default function UsersTable() {
   const [initialUsers, setInitialUsers] = useState([]);
   const [numberToLoad, setNumberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-  const [pageUserIndex, setPageUserIndex] = useState(0);  
+  const [pageUserIndex, setPageUserIndex] = useState(0);
   const [offsetUser, setOffsetUser] = useState(0);
 
-  const loadUsers = async (offset,filter) => {
-    const fetchedUsers = await getUsersAndSecond(offset,filter);
+  const loadUsers = async (offset, filter) => {
+    const fetchedUsers = await getUsersAndSecond(offset, filter);
 
     const tempUser = fetchedUsers.map((user) => ({
       ...user,
@@ -40,7 +40,6 @@ export default function UsersTable() {
         icon: 'Delete',
       })),
     }));
-    console.log(tempUser);
     setUsers(tempUser);
     setInitialUsers(tempUser);
   };
@@ -54,7 +53,7 @@ export default function UsersTable() {
         method: 'DELETE',
       }
     );
-    loadUsers(offsetUser,filter);
+    loadUsers(offsetUser, filter);
   };
 
   const headers = [
@@ -75,24 +74,21 @@ export default function UsersTable() {
     { display: t('delete.delete'), value: 'role', type: 'iconButton', width: '10%' },
   ];
 
-  const handleChangePage = (newPage) => {
-    if(newPage<0){
-      newPage=0;
-    }
+  const handleChangePage = (value) => {
+    const newPage = Math.max(0, value);
     setPageUserIndex(newPage);
-    setOffsetUser(newPage*10);
-    loadUsers(newPage*10,filter);
+    setOffsetUser(newPage * numberToLoad);
   };
 
   useEffect(() => {
     setIsLoading(true);
-    loadUsers(offsetUser,filter);
+    loadUsers(offsetUser, filter);
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    loadUsers(offsetUser,filter);
-  }, [filter]);
+    loadUsers(offsetUser, filter);
+  }, [filter, offsetUser]);
 
   return (
     <Paper className={styles.card}>
@@ -103,7 +99,7 @@ export default function UsersTable() {
           <CardContent className={styles.inputs}>
             <Table
               filter
-              filterhandler={e=> setFilter(e.target.value)}
+              filterhandler={(e) => setFilter(e.target.value)}
               data={users}
               headers={headers}
               secondHeaders={secondHeaders}
@@ -113,21 +109,25 @@ export default function UsersTable() {
             />
           </CardContent>
           <div className={styles.pageIndex}>
-            {pageUserIndex===0?(
-              <Button startIcon={<ArrowBackIosRoundedIcon />} disabled ></Button >
-            ):(
-              <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => handleChangePage(pageUserIndex -1)}></Button >
-            )
-            }
-            <Typography>{`${offsetUser+1}-${offsetUser+numberToLoad}`}</Typography>
-            {users.length === numberToLoad ? (
-              <Button startIcon={<ArrowForwardIosRoundedIcon />}  onClick={() => handleChangePage(pageUserIndex +1)}></Button >
+            {pageUserIndex === 0 ? (
+              <Button startIcon={<ArrowBackIosRoundedIcon />} disabled></Button>
             ) : (
-              <Button startIcon={<ArrowForwardIosRoundedIcon />} disabled ></Button >
+              <Button
+                startIcon={<ArrowBackIosRoundedIcon />}
+                onClick={() => handleChangePage(pageUserIndex - 1)}
+              ></Button>
             )}
-            <TextField label="#" type="search" onChange={e=> handleChangePage(e.target.value-1)}/>
+            <Typography>{`${offsetUser + 1}-${offsetUser + numberToLoad}`}</Typography>
+            {users.length === numberToLoad ? (
+              <Button
+                startIcon={<ArrowForwardIosRoundedIcon />}
+                onClick={() => handleChangePage(pageUserIndex + 1)}
+              ></Button>
+            ) : (
+              <Button startIcon={<ArrowForwardIosRoundedIcon />} disabled></Button>
+            )}
+            <TextField label="#" type="search" onChange={(e) => handleChangePage(e.target.value - 1)} />
           </div>
-          
         </>
       )}
     </Paper>
