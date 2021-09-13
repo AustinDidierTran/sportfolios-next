@@ -10,17 +10,16 @@ import { formatRoute } from '../../../utils/stringFormats';
 import CustomButton from '../../../components/Custom/Button';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
-import TablePagination  from '@material-ui/core/TablePagination';
-import Pagination  from '@material-ui/lab/Pagination';
 import { getUsersAndSecond } from '../../../actions/service/entity/get';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
+import TextField from '@material-ui/core/TextField';
 
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
-  const [filter, setfilter] = useState('');
+  const [filter, setFilter] = useState('');
   const [initialUsers, setInitialUsers] = useState([]);
   const [numberToLoad, setNumberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +27,6 @@ export default function UsersTable() {
   const [offsetUser, setOffsetUser] = useState(0);
 
   const loadUsers = async (offset,filter) => {
-    setIsLoading(true);
     const fetchedUsers = await getUsersAndSecond(offset,filter);
 
     const tempUser = fetchedUsers.map((user) => ({
@@ -42,9 +40,9 @@ export default function UsersTable() {
         icon: 'Delete',
       })),
     }));
+    console.log(tempUser);
     setUsers(tempUser);
     setInitialUsers(tempUser);
-    setIsLoading(false);
   };
 
   const deleteSecondPerson = async (entityId) => {
@@ -77,51 +75,24 @@ export default function UsersTable() {
     { display: t('delete.delete'), value: 'role', type: 'iconButton', width: '10%' },
   ];
 
-  const filterArray = ['name', 'emails', 'surname'];
-
-  const handleFilter = (event) => {
-
-    if (!event.target.value) {
-      setUsers(initialUsers);
-    } else {
-      const userTemp = initialUsers.map((obj) => {
-        const objUser = { ...obj };
-        objUser.secondAccount = objUser.secondAccount.filter((o) => {
-          return JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
-            .toLowerCase()
-            .includes(event.target.value.toLowerCase());
-        });
-        return objUser;
-      });
-
-      setUsers(
-        userTemp.filter((o) => {
-          return (
-            JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
-              .toLowerCase()
-              .includes(event.target.value.toLowerCase()) ||
-            JSON.stringify(Object.values(JSON.parse(JSON.stringify(o.secondAccount, filterArray))))
-              .toLowerCase()
-              .includes(event.target.value.toLowerCase())
-          );
-        })
-      );
-    }
-  };
-
   const handleChangePage = (newPage) => {
+    if(newPage<0){
+      newPage=0;
+    }
     setPageUserIndex(newPage);
     setOffsetUser(newPage*10);
     loadUsers(newPage*10,filter);
   };
 
   useEffect(() => {
+    setIsLoading(true);
     loadUsers(offsetUser,filter);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
     loadUsers(offsetUser,filter);
-  }, [numberToLoad]);
+  }, [filter]);
 
   return (
     <Paper className={styles.card}>
@@ -132,7 +103,7 @@ export default function UsersTable() {
           <CardContent className={styles.inputs}>
             <Table
               filter
-              filterhandler={handleFilter}
+              filterhandler={e=> setFilter(e.target.value)}
               data={users}
               headers={headers}
               secondHeaders={secondHeaders}
@@ -141,14 +112,7 @@ export default function UsersTable() {
               title={t('users_table_title')}
             />
           </CardContent>
-          <div className={styles.buttonContainer}>
-            {users.length === numberToLoad ? (
-              <CustomButton onClick={() => setNumberToLoad(numberToLoad + 50)}>{t('load_more')}</CustomButton>
-            ) : (
-              <Typography>{t('all_users_are_displayed')}</Typography>
-            )}
-          </div>
-          <div className={styles.buttonContainer}>
+          <div className={styles.pageIndex}>
             {pageUserIndex===0?(
               <Button startIcon={<ArrowBackIosRoundedIcon />} disabled ></Button >
             ):(
@@ -161,8 +125,7 @@ export default function UsersTable() {
             ) : (
               <Button startIcon={<ArrowForwardIosRoundedIcon />} disabled ></Button >
             )}
-            
-
+            <TextField label="#" type="search" onChange={e=> handleChangePage(e.target.value-1)}/>
           </div>
           
         </>
