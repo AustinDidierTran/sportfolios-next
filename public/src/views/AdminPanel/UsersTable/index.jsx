@@ -82,8 +82,7 @@ export default function UsersTable() {
 
   useEffect(() => {
     setIsLoading(true);
-    loadUsers(offsetUser, filter);
-    setIsLoading(false);
+    loadUsers(offsetUser, filter).then(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
