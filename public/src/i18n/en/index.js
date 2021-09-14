@@ -1414,6 +1414,7 @@ export default {
     roster_name: 'Roster name',
     roster_selection_message:
       "Add your teammates that already have an account. When registered you'll be able to invite the rest of your team with a link.",
+    rows_per_page: 'Row per page',
     rules_knowledge_and_use: 'Rules Knowledge and Use',
     sales_on: 'Sales on',
     sales_report_description: 'This report allows you to see your sales at a certain date',

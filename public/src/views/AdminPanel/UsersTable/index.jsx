@@ -10,18 +10,24 @@ import { formatRoute } from '../../../utils/stringFormats';
 import CustomButton from '../../../components/Custom/Button';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
-import { getAllUsers } from '../../../actions/service/entity/get';
+import { getUsersAndSecond } from '../../../actions/service/entity/get';
+import Button from '@material-ui/core/Button';
+import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
+import TextField from '@material-ui/core/TextField';
 
 export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
+  const [filter, setFilter] = useState('');
   const [initialUsers, setInitialUsers] = useState([]);
-  const [numberToLoad, setNumberToLoad] = useState(50);
+  const [numberToLoad, setNumberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
+  const [pageUserIndex, setPageUserIndex] = useState(0);
+  const [offsetUser, setOffsetUser] = useState(0);
 
-  const loadUsers = async (number) => {
-    setIsLoading(true);
-    const fetchedUsers = await getAllUsers(number);
+  const loadUsers = async (offset, filter) => {
+    const fetchedUsers = await getUsersAndSecond(offset, filter);
 
     const tempUser = fetchedUsers.map((user) => ({
       ...user,
@@ -36,7 +42,6 @@ export default function UsersTable() {
     }));
     setUsers(tempUser);
     setInitialUsers(tempUser);
-    setIsLoading(false);
   };
 
   const deleteSecondPerson = async (entityId) => {
@@ -48,7 +53,7 @@ export default function UsersTable() {
         method: 'DELETE',
       }
     );
-    loadUsers(numberToLoad);
+    loadUsers(offsetUser, filter);
   };
 
   const headers = [
@@ -69,44 +74,20 @@ export default function UsersTable() {
     { display: t('delete.delete'), value: 'role', type: 'iconButton', width: '10%' },
   ];
 
-  const filterArray = ['name', 'emails', 'surname'];
-
-  const handleFilter = (event) => {
-    if (!event.target.value) {
-      setUsers(initialUsers);
-    } else {
-      const userTemp = initialUsers.map((obj) => {
-        const objUser = { ...obj };
-        objUser.secondAccount = objUser.secondAccount.filter((o) => {
-          return JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
-            .toLowerCase()
-            .includes(event.target.value.toLowerCase());
-        });
-        return objUser;
-      });
-
-      setUsers(
-        userTemp.filter((o) => {
-          return (
-            JSON.stringify(Object.values(JSON.parse(JSON.stringify(o, filterArray))))
-              .toLowerCase()
-              .includes(event.target.value.toLowerCase()) ||
-            JSON.stringify(Object.values(JSON.parse(JSON.stringify(o.secondAccount, filterArray))))
-              .toLowerCase()
-              .includes(event.target.value.toLowerCase())
-          );
-        })
-      );
-    }
+  const handleChangePage = (value) => {
+    const newPage = Math.max(0, value);
+    setPageUserIndex(newPage);
+    setOffsetUser(newPage * numberToLoad);
   };
 
   useEffect(() => {
-    loadUsers(50);
+    setIsLoading(true);
+    loadUsers(offsetUser, filter).then(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
-    loadUsers(numberToLoad);
-  }, [numberToLoad]);
+    loadUsers(offsetUser, filter);
+  }, [filter, offsetUser]);
 
   return (
     <Paper className={styles.card}>
@@ -117,7 +98,7 @@ export default function UsersTable() {
           <CardContent className={styles.inputs}>
             <Table
               filter
-              filterhandler={handleFilter}
+              filterhandler={(e) => setFilter(e.target.value)}
               data={users}
               headers={headers}
               secondHeaders={secondHeaders}
@@ -126,12 +107,25 @@ export default function UsersTable() {
               title={t('users_table_title')}
             />
           </CardContent>
-          <div className={styles.buttonContainer}>
-            {users.length === numberToLoad ? (
-              <CustomButton onClick={() => setNumberToLoad(numberToLoad + 50)}>{t('load_more')}</CustomButton>
+          <div className={styles.pageIndex}>
+            {pageUserIndex === 0 ? (
+              <Button startIcon={<ArrowBackIosRoundedIcon />} disabled></Button>
             ) : (
-              <Typography>{t('all_users_are_displayed')}</Typography>
+              <Button
+                startIcon={<ArrowBackIosRoundedIcon />}
+                onClick={() => handleChangePage(pageUserIndex - 1)}
+              ></Button>
             )}
+            <Typography>{`${offsetUser + 1}-${offsetUser + numberToLoad}`}</Typography>
+            {users.length === numberToLoad ? (
+              <Button
+                startIcon={<ArrowForwardIosRoundedIcon />}
+                onClick={() => handleChangePage(pageUserIndex + 1)}
+              ></Button>
+            ) : (
+              <Button startIcon={<ArrowForwardIosRoundedIcon />} disabled></Button>
+            )}
+            <TextField label="#" type="search" onChange={(e) => handleChangePage(e.target.value - 1)} />
           </div>
         </>
       )}
