@@ -829,6 +829,7 @@ export default {
       score_suggestions: 'Suggestions de résultats',
       score_type: 'Type de pointage',
       score: 'Pointage',
+      spirit: 'Esprit sportif',
     },
     you: {
       you_added_no_players_to_your_roster:

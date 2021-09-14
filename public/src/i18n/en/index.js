@@ -832,6 +832,7 @@ export default {
       score_suggestions: 'Score suggestions',
       score_type: 'Score Type',
       score: 'Score',
+      spirit: 'Spirit',
     },
     you: {
       you_added_no_players_to_your_roster: 'You did not add players to your roster. Choose your payment option.',
