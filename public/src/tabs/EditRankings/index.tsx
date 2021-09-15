@@ -15,6 +15,9 @@ import { useWindowSize } from '../../hooks/window';
 import { MOBILE_WIDTH } from '../../../common/constants';
 import { getPhases, getPreranking, getPrerankPhase } from '../../actions/service/entity/get';
 import { Phase, Preranking, Ranking } from '../../../../typescript/types';
+import { ISpiritRanking } from '../../../../typescript/event';
+import SpiritRanking from '../Rankings/SpiritRanking';
+import { getEventRankings } from '../../actions/service/event/get';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -49,6 +52,7 @@ const EditRankings: React.FunctionComponent = () => {
   const [phases, setPhases] = useState<Phase[]>([]);
   const [preranking, setPreranking] = useState<Preranking[]>();
   const [expandedPhases, setExpandedPhases] = useState<string[]>([]);
+  const [spiritRanking, setSpiritRanking] = useState<[ISpiritRanking]>();
 
   const [phaseToEnd, setPhaseToEnd] = useState<Phase>();
   const [phaseToDelete, setPhaseToDelete] = useState<Phase>();
@@ -77,6 +81,10 @@ const EditRankings: React.FunctionComponent = () => {
   const getData = async (): Promise<void> => {
     const prerankPhase = await getPrerankPhase(eventId);
     setPrerankPhase(prerankPhase);
+
+    const { spirit } = await getEventRankings(eventId);
+
+    setSpiritRanking(spirit);
 
     const { preranking: ranking } = await getPreranking(eventId);
     const phases = await getPhases(eventId);
@@ -431,6 +439,7 @@ const EditRankings: React.FunctionComponent = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <SpiritRanking spirit={spiritRanking} />
       <AddPhase isOpen={openPhase} onClose={closePhaseDialog} update={update}></AddPhase>
       <AlertDialog
         open={openAlertDialog}

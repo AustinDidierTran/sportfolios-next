@@ -7,9 +7,12 @@ import dynamic from 'next/dynamic';
 import { Store } from '../../Store';
 import { getPreranking, getTeamgames } from '../../actions/service/entity/get';
 import { Ranking as RankingType } from '../../../../typescript/types';
+import { ISpiritRanking } from '../../../../typescript/event';
+import { getEventRankings } from '../../actions/service/event/get';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));
 const Ranking = dynamic(() => import('./Ranking'));
+const SpiritRanking = dynamic(() => import('./SpiritRanking'));
 
 interface IRanking extends RankingType {
   position: any;
@@ -29,6 +32,7 @@ const Rankings: React.FunctionComponent = () => {
 
   const [preranking, setPreranking] = useState<IPreranking[]>([]);
   const [prerankPhaseId, setPrerankPhaseId] = useState<string>();
+  const [spiritRanking, setSpiritRanking] = useState<[ISpiritRanking]>(null);
   const [ranking, setRanking] = useState<IRanking[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -61,6 +65,10 @@ const Rankings: React.FunctionComponent = () => {
         }))
       );
     }
+
+    const { spirit } = await getEventRankings(eventId);
+
+    setSpiritRanking(spirit);
 
     const games = await getTeamgames(eventId);
     const playedGames = games.reduce((prev: any, curr: any) => {
@@ -99,6 +107,7 @@ const Rankings: React.FunctionComponent = () => {
       <Ranking ranking={preranking} title={t('preranking')} />
       <PhaseRanking prerankPhaseId={prerankPhaseId} />
       <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition />
+      <SpiritRanking spirit={spiritRanking} />
     </>
   );
 };

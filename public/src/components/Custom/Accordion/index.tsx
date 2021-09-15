@@ -15,12 +15,12 @@ const AccordionSummary = withStyles({
 
 interface IProps {
   title: string;
-  content: any;
+  content?: any;
   subtitle?: string;
 }
 
 const CustomAccordion: React.FunctionComponent<IProps> = (props) => {
-  const { title, subtitle, content, ...otherProps } = props;
+  const { title, subtitle, children, content, ...otherProps } = props;
 
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -41,7 +41,10 @@ const CustomAccordion: React.FunctionComponent<IProps> = (props) => {
         </MuiAccordionSummary>
       )}
 
-      <AccordionDetails>{content}</AccordionDetails>
+      <AccordionDetails>
+        {content}
+        {children}
+      </AccordionDetails>
     </Accordion>
   );
 };
