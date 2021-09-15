@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ScoreSuggestion(props) {
+export default function ScoreSuggestionCard(props) {
   const { game, suggestion, index, update } = props;
   const { t } = useTranslation();
   const classes = useStyles();

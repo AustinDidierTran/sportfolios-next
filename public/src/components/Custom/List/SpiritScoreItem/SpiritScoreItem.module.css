@@ -1,0 +1,18 @@
+.main {
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  grid-template-areas: 'position name spirit';
+  width: 100%;
+}
+
+.position {
+  grid-area: position;
+}
+
+.name {
+  grid-area: name;
+}
+
+.spirit {
+  grid-area: spirit;
+}

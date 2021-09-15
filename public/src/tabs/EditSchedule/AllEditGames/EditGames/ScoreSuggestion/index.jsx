@@ -10,6 +10,7 @@ import styles from './ScoreSuggestion.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { formatRoute } from '../../../../../utils/stringFormats';
 import { COLORS } from '../../../../../utils/colors';
+import ScoreSuggestionCard from '../../../../../components/Custom/Card/ScoreSuggestion';
 
 const useStyles = makeStyles(() => ({
   primary: {
@@ -81,14 +82,11 @@ export default function ScoreSuggestion(props) {
           </div>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             {suggestions.map((suggestion, index) => (
-              <Card
-                type={CARD_TYPE_ENUM.SCORE_SUGGESTION}
-                items={{
-                  game,
-                  suggestion,
-                  index,
-                  update: updateSuggestions,
-                }}
+              <ScoreSuggestionCard
+                game={game}
+                suggestion={suggestion}
+                index={index}
+                update={updateSuggestions}
                 key={index}
               />
             ))}

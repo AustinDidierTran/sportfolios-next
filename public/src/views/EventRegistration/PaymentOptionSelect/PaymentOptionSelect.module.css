@@ -3,3 +3,20 @@
   margin: auto !important;
   margin-bottom: 32px !important;
 }
+
+.warning {
+  color: #f8d105;
+}
+
+.typography {
+  margin-bottom: 3rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
+  line-height: 2rem;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 3rem 3rem 3rem;
+}

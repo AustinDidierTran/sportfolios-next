@@ -104,7 +104,7 @@ export default function TabEventInfo() {
   }, [remainingSpots]);
 
   const isFull = useMemo(() => {
-    return remainingSpots && remainingSpots < 1;
+    return remainingSpots !== null && remainingSpots < 1;
   }, [remainingSpots]);
 
   const hasNoLimit = useMemo(() => {

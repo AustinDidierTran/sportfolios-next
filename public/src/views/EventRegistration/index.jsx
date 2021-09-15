@@ -88,12 +88,15 @@ export default function EventRegistration() {
             status: data.status,
             eventId,
           });
-        } else if (status === errors[ERROR_ENUM.REGISTRATION_ERROR].code) {
+          return;
+        }
+        if (status === errors[ERROR_ENUM.REGISTRATION_ERROR].code) {
           goTo(ROUTES.registrationStatus, null, {
             status: data.status,
             reason: data.reason,
             eventId,
           });
+          return;
         }
         return;
       }

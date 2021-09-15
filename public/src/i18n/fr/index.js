@@ -830,6 +830,7 @@ export default {
       score_suggestions: 'Suggestions de résultats',
       score_type: 'Type de pointage',
       score: 'Pointage',
+      spirit: 'Esprit sportif',
     },
     you: {
       you_added_no_players_to_your_roster:
@@ -992,6 +993,7 @@ export default {
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
     captain: 'Capitaine 🏅',
     captains: 'Capitaines',
+    captain_only_warning: 'Vous êtes sur le point d’inscrire une équipe. Cette opération est nécessaire que pour les capitaines. Si vous êtes un joueur qui cherche à être ajouté à un alignement, veuillez contacter votre capitaine.',
     card_ending_with: 'Carte finissant avec {{last4}}',
     cart_empty_go_shop: "Votre panier est vide! C'est l'heure d'aller faire des achats!",
     cart: 'Panier',
@@ -1609,6 +1611,7 @@ export default {
     yes: 'oui',
     yesterday_at: 'Hier, à {{date_time}}',
     you_will_lose_your_role: "Si vous continuez, vous allez perdre votre rôle d'administrateur. Voulez-vous continuer?",
+
 
     zip_code: 'Code postal',
     sizes_enum: {

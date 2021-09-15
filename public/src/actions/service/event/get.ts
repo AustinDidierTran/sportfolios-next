@@ -1,39 +1,7 @@
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../api';
-import {
-  Entity,
-  Player,
-  PendingPlayer,
-  OwnedEvents,
-  Practice,
-  Roster,
-  EntityRole,
-  Member,
-  EntityMembership,
-  PhaseGameAndTeams,
-  Partner,
-  SubmissionerInfos,
-  GameInfo,
-  Phase,
-  Games,
-  Exercise,
-  Evaluation,
-  EventTeam,
-  Image,
-  GameOptions,
-  GameSubmissionInfo,
-  Preranking,
-  PhaseGames,
-  AllTeamsAcceptedInfos,
-  EventInfos,
-  Options,
-  Report,
-  ForYouPagePost,
-  User,
-  Person,
-  Membership,
-} from '../../../../../typescript/types';
-import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
+import { Person } from '../../../../../typescript/types';
+import { IEventRankings } from '../../../../../typescript/event';
 
 const BASE_URL = '/api/event';
 
@@ -42,3 +10,7 @@ export function getAllPeopleRegisteredNotInTeamsInfos(eventId: string): Promise<
     method: 'GET',
   }).then((res) => res.data);
 }
+
+export const getEventRankings = (eventId: string): Promise<IEventRankings> => {
+  return api(formatRoute(`${BASE_URL}/rankings`, null, { eventId })).then((res) => res.data);
+};

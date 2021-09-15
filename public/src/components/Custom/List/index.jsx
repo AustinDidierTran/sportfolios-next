@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CustomList(props) {
-  const { title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { children, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 
   const classes = useStyles();
 
@@ -45,6 +45,7 @@ export default function CustomList(props) {
       disablePadding
     >
       {items && items.map(rowRenderer || defaultRowRenderer)}
+      {children}
     </List>
   );
 }
