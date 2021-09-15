@@ -1,9 +1,6 @@
+import { Entity } from './entity';
 import { Person } from './person';
 
-export interface Team {
-  id: string;
-  name: string;
-  photoUrl: string;
+export interface Team extends Entity {
   admins: Person[];
-  deletedAt: Date;
 }

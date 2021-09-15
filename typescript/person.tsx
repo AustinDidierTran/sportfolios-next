@@ -1,6 +1,5 @@
-export interface Person {
-  id: string;
-  name: string;
+import { Entity } from './entity';
+
+export interface Person extends Entity {
   surname: string;
-  photoUrl: string;
 }

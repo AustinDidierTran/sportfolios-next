@@ -55,7 +55,6 @@ export default function AdminPanel(): React.ReactElement {
         ]}
       />
       <SelectedComponent />
-      {/* <AdminGeneralView /> */}
     </Container>
   );
 }
