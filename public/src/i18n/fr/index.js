@@ -538,6 +538,7 @@ export default {
       memberships_available: 'Affiliations disponibles',
       my_memberships: 'Mes affiliations',
       new_members: 'Nouveau membres',
+      not_member: 'Non-Membre',
     },
     add: {
       add_admin: 'Ajouter admin',
@@ -1338,6 +1339,7 @@ export default {
     player_view: 'Vue Joueur',
     player: 'Joueur',
     players: 'Joueurs',
+    players_availables: 'Joueurs disponibles',
     players_request: 'Demandes de joueurs',
     pool: 'Pool',
     position: 'Position',
