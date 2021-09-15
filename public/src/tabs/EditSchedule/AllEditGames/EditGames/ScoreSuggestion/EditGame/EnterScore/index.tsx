@@ -17,6 +17,20 @@ interface IProps {
   onClose: () => void;
 }
 
+interface IValues {
+  score1: number;
+  score2: number;
+  spirit1: number;
+  spirit2: number;
+}
+
+interface IErrors {
+  score1?: string;
+  score2?: string;
+  spirit1?: string;
+  spirit2?: string;
+}
+
 const EnterScore: React.FunctionComponent<IProps> = (props) => {
   const { game, update, open: openProps, onClose } = props;
   const { t } = useTranslation();
@@ -31,16 +45,24 @@ const EnterScore: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     formik.setFieldValue('score1', game.positions[0].score);
     formik.setFieldValue('score2', game.positions[1].score);
+    formik.setFieldValue('spirit1', game.positions[0].spirit);
+    formik.setFieldValue('spirit2', game.positions[1].spirit);
   }, [game]);
 
-  const validate = (values: { score1: number; score2: number }): { score1?: string; score2?: string } => {
-    const { score1, score2 } = values;
-    const errors: { score1?: string; score2?: string } = {};
+  const validate = (values: IValues): IErrors => {
+    const { score1, score2, spirit1, spirit2 } = values;
+    const errors: IErrors = {};
     if (isNaN(score1)) {
       errors.score1 = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
     if (isNaN(score2)) {
       errors.score2 = t(ERROR_ENUM.VALUE_IS_INVALID);
+    }
+    if (isNaN(spirit1)) {
+      errors.spirit1 = t(ERROR_ENUM.VALUE_IS_INVALID);
+    }
+    if (isNaN(spirit2)) {
+      errors.spirit2 = t(ERROR_ENUM.VALUE_IS_INVALID);
     }
     return errors;
   };
@@ -49,22 +71,31 @@ const EnterScore: React.FunctionComponent<IProps> = (props) => {
     initialValues: {
       score1: null,
       score2: null,
+      spirit1: null,
+      spirit2: null,
     },
     validate,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
-      const { score1, score2 } = values;
-      const res = await api('/api/entity/gameScore', {
-        method: 'POST',
+      const { score1, score2, spirit1, spirit2 } = values;
+      const res = await api('/api/game/score', {
+        method: 'PUT',
         body: JSON.stringify({
           eventId: game.eventId,
           gameId: game.id,
-          score: {
-            [game.positions[0].rosterId]: score1,
-            [game.positions[1].rosterId]: score2,
-          },
-          isManualAdd: true,
+          rosters: [
+            {
+              rosterId: game.positions[0].rosterId,
+              score: score1,
+              spirit: spirit1,
+            },
+            {
+              rosterId: game.positions[1].rosterId,
+              score: score2,
+              spirit: spirit2,
+            },
+          ],
         }),
       });
       resetForm();
@@ -102,6 +133,12 @@ const EnterScore: React.FunctionComponent<IProps> = (props) => {
         type: 'number',
         namespace: `score${index + 1}`,
         label: `${t('score.score')} :  ${curr.name}`,
+        autoFocus: index === 0,
+      },
+      {
+        type: 'number',
+        namespace: `spirit${index + 1}`,
+        label: `${t('score.spirit')} :  ${curr.name}`,
         autoFocus: index === 0,
       },
     ],

@@ -149,8 +149,8 @@ const AllEditGames: React.FunctionComponent<IProps> = (props) => {
             />
           ))}
         </Tabs>
-        <EditGames games={games} isOpen={index == 0 ? true : false} update={update} />
-        <EditGames games={pastGames} isOpen={index == 1 ? true : false} update={update} />
+        <EditGames games={games} isOpen={index === 0} update={update} />
+        <EditGames games={pastGames} isOpen={index === 1} update={update} />
       </div>
     </>
   );
