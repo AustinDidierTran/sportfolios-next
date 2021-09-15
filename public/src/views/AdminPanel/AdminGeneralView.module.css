@@ -1,0 +1,8 @@
+.container {
+  display: grid !important;
+  grid-template-areas: 'users' 'newsletter' 'sports' 'gaEvents' 'gaPageviews';
+  grid-template-columns: 1fr;
+  column-gap: 32px;
+  row-gap: 32px;
+  margin-bottom: 32px;
+}

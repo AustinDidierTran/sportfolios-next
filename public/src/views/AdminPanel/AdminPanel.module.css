@@ -1,16 +1,12 @@
 .title {
-  margin-top: 32px;
-  grid-area: title;
+  margin-top: 2rem;
 }
 
-.container {
-  display: grid !important;
-  grid-template-areas: 'title' 'users' 'newsletter' 'sports' 'gaEvents' 'gaPageviews';
-  grid-template-columns: 1fr;
-  column-gap: 32px;
-  row-gap: 32px;
-  margin-bottom: 32px;
+.select {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
+
 /* 
 @media (min-width: 600px) {
     .container {
