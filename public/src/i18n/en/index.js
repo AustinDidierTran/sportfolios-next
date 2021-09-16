@@ -505,6 +505,7 @@ export default {
       team_refused: 'Team refused',
       team_registration_description: 'Notification sent when you register your team to an event',
       team_registration: 'Team registration',
+      team_registration_event: 'Team registration event',
       team_select: 'Team select',
       team_selected_add_your_roster:
         'Team {{name}} selected! Time to add your roster. Enter players name, if player already have an account he will appear below search bar.',
@@ -717,6 +718,7 @@ export default {
       event_start_date: 'Start date',
       event_start_time: 'Start time',
       event: 'Event',
+      event_type: 'Event type',
       events_that_might_interest_you: 'Events that might interest you',
       events: 'Events',
     },
@@ -981,7 +983,8 @@ export default {
     cant_transfer_person_to_your_own_email: "You can't transfer someone to your own email",
     captain: 'Captain',
     captains: 'Captains',
-    captain_only_warning: 'You are about to register a team. This operation should be done by captains only. If you are a player looking to be added to your roster, please contact your captain.',
+    captain_only_warning:
+      'You are about to register a team. This operation should be done by captains only. If you are a player looking to be added to your roster, please contact your captain.',
     card_ending_with: 'Card ending with {{last4}}',
     cart_empty_go_shop: "Your cart is empty, it's time to shop!",
     cart: 'Cart',
@@ -1310,6 +1313,7 @@ export default {
     phase_started: 'Phase started!',
     phase_updated: 'phase is updated!',
     phone_number: 'Phone Number',
+    pick_up_league: 'Pick-up event',
     places_left: 'places left',
     plateform_fees: 'Plateform fees',
     player_acceptation_step_message:
