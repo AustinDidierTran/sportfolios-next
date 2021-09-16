@@ -11,17 +11,10 @@
 .player {
   flex: 1 1 auto;
   display: grid;
-  grid-template-columns: 1fr 50px 8fr auto auto;
-  grid-template-areas: 'avatar position name chip icon';
-  justify-content: center;
+  grid-template-columns: 1fr 8fr auto auto auto;
+  grid-template-areas: 'avatar name chip memberChip icon add';
+  justify-content: left;
   margin: 4px 0;
-}
-
-.position {
-  grid-area: position;
-  display: flex;
-  justify-self: center;
-  align-self: center;
 }
 
 .avatar {
@@ -38,7 +31,8 @@
 .name {
   grid-area: name;
   justify-self: start;
-  align-self: center;
+  align-self: left;
+  text-align: left;
 }
 
 .chip {
@@ -52,4 +46,17 @@
   justify-self: end;
   align-self: center;
   width: 100%;
+}
+
+.add {
+  grid-area: add;
+  display: flex;
+  justify-self: end;
+  align-self: center;
+  width: 100%;
+}
+
+.memberChip {
+  grid-area: memberChip;
+  align-self: center;
 }

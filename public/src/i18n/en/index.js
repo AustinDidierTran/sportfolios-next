@@ -541,6 +541,7 @@ export default {
       memberships_available: 'Available memberships',
       my_memberships: 'My memberships',
       new_members: 'New members',
+      not_member: 'Not member',
     },
     add: {
       add_admin: 'Add Admin',
@@ -1325,6 +1326,7 @@ export default {
     player_view: 'Player view',
     player: 'Player',
     players: 'Players',
+    players_availables: 'Available players',
     players_request: 'Players request',
     pool: 'Pool',
     position: 'Position',

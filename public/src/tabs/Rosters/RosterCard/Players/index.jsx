@@ -11,6 +11,7 @@ import { Store } from '../../../../Store';
 import RosterInviteLink from '../RosterInviteLink';
 import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
 import { getRoster } from '../../../../actions/service/entity/get';
+import { getAllPeopleRegisteredNotInTeamsInfos } from '../../../../actions/service/event/get';
 
 export default function Players(props) {
   const { t } = useTranslation();
@@ -26,8 +27,14 @@ export default function Players(props) {
     onRoleUpdate,
     withPlayersInfos,
   } = props;
+  const {
+    dispatch,
+    state: { id: eventId },
+  } = useContext(Store);
   const [blackList, setBlackList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [acceptedSpots, setAcceptedSpots] = useState();
+  const [playersRegistered, setPlayersRegistered] = useState([]);
 
   const {
     state: { userInfo },
@@ -36,6 +43,10 @@ export default function Players(props) {
   useEffect(() => {
     getBlackList();
   }, [rosterId, editableRoster, withMyPersonsQuickAdd]);
+
+  useEffect(() => {
+    getPlayers();
+  }, [eventId, players]);
 
   const getBlackList = async () => {
     if (!(editableRoster || withMyPersonsQuickAdd)) {
@@ -59,6 +70,12 @@ export default function Players(props) {
     await onAdd(player, rosterId);
     setBlackList([...blackList, player.personId]);
     setIsLoading(false);
+  };
+
+  const getPlayers = () => {
+    if (eventId) {
+      getAllPeopleRegisteredNotInTeamsInfos(eventId).then(setPlayersRegistered);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -110,6 +127,27 @@ export default function Players(props) {
   if (editableRoster) {
     return (
       <div className={styles.card}>
+        {players.length ? (
+          <div className={styles.player}>
+            <Typography className={styles.listTitle} variant="h6">
+              {t('roster')}
+            </Typography>
+            <Divider className={styles.divider} />
+            {players.map((player, index) => (
+              <PlayerCard
+                index={index}
+                player={player}
+                isEditable={editableRole}
+                onDelete={handleDelete}
+                onRoleUpdate={handleRoleUpdate}
+                key={players.id}
+                editableRoster={editableRoster}
+              />
+            ))}
+          </div>
+        ) : (
+          <Typography>{t('empty_roster')}</Typography>
+        )}
         <Typography className={styles.listTitle} variant="h6">
           {t('add.add_players')}
         </Typography>
@@ -135,27 +173,24 @@ export default function Players(props) {
           onRemove={handleDelete}
           personsSortingFunction={playersSortingFunction}
         />
-        {players.length ? (
-          <div className={styles.player}>
-            <Typography className={styles.listTitle} variant="h6">
-              {t('roster')}
-            </Typography>
-            <Divider className={styles.divider} />
-            {players.map((player, index) => (
+        <div className={styles.player}>
+          <Typography className={styles.listTitle} variant="h6">
+            {t('players_availables')}
+          </Typography>
+          <Divider className={styles.divider} />
+          {playersRegistered.map((player, index) => (
+            <div>
               <PlayerCard
                 index={index}
                 player={player}
-                isEditable={editableRole}
-                onDelete={handleDelete}
-                onRoleUpdate={handleRoleUpdate}
-                withInfos={withPlayersInfos}
-                key={player.id}
+                key={playersRegistered.id}
+                onPlayerAddToRoster={onPlayerAddToRoster}
+                isAvailable={true}
+                editableRoster={editableRoster}
               />
-            ))}
-          </div>
-        ) : (
-          <Typography>{t('empty_roster')}</Typography>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -182,7 +217,6 @@ export default function Players(props) {
                   <PlayerCard
                     index={index}
                     player={player}
-                    isEditable={editableRole}
                     onDelete={handleDelete}
                     onRoleUpdate={handleRoleUpdate}
                     withInfos={withPlayersInfos}
