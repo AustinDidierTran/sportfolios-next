@@ -22,7 +22,7 @@ import { useFormInput } from '../../../hooks/forms';
 
 const TEAM_LIMIT = 10;
 
-export function Teams(/*props*/) {
+export function Teams() {
   const { t } = useTranslation();
 
   const [teams, setTeams] = useState<Team[]>([]);
