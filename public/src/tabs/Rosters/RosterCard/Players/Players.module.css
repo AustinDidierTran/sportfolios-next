@@ -22,6 +22,6 @@
   margin-bottom: 16px !important;
 }
 
-.listPlayers:nth-child(2n) {
+.listPlayers > *:nth-child(2n) {
   background-color: rgb(240, 240, 240);
 }
