@@ -211,30 +211,28 @@ export default function Players(props) {
         {t('roster')}
       </Typography>
       <Divider className={styles.divider} />
-      <div className={styles.listPlayers}>
-        {
-          <>
-            {players.length ? (
-              <div className={styles.player}>
-                {players.map((player, index) => {
-                  return (
-                    <PlayerCard
-                      index={index}
-                      player={player}
-                      onDelete={handleDelete}
-                      onRoleUpdate={handleRoleUpdate}
-                      withInfos={withPlayersInfos}
-                      key={player.id}
-                    />
-                  );
-                })}
-              </div>
-            ) : (
-              <Typography>{t('empty_roster')}</Typography>
-            )}
-          </>
-        }
-      </div>
+      {
+        <>
+          {players.length ? (
+            <div className={styles.listPlayers}>
+              {players.map((player, index) => {
+                return (
+                  <PlayerCard
+                    index={index}
+                    player={player}
+                    onDelete={handleDelete}
+                    onRoleUpdate={handleRoleUpdate}
+                    withInfos={withPlayersInfos}
+                    key={player.id}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <Typography>{t('empty_roster')}</Typography>
+          )}
+        </>
+      }
     </div>
   );
 }
