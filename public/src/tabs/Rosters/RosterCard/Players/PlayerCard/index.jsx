@@ -86,7 +86,7 @@ export default function PlayerCard(props) {
 
   if (editableRoster) {
     return (
-      <div className={styles.card}>
+      <div className={className}>
         <div className={styles.player}>
           <Avatar className={styles.avatar} photoUrl={player.photoUrl} />
           <div className={styles.name}>

@@ -45,9 +45,7 @@ export default function Players(props) {
   }, [rosterId, editableRoster, withMyPersonsQuickAdd]);
 
   useEffect(() => {
-    if (eventId) {
-      getPlayers();
-    }
+    getPlayers();
   }, [eventId, players]);
 
   const getBlackList = async () => {
@@ -75,7 +73,9 @@ export default function Players(props) {
   };
 
   const getPlayers = () => {
-    getAllPeopleRegisteredNotInTeamsInfos(eventId).then(setPlayersRegistered);
+    if (eventId) {
+      getAllPeopleRegisteredNotInTeamsInfos(eventId).then(setPlayersRegistered);
+    }
   };
 
   const handleDelete = async (id) => {
