@@ -1,4 +1,4 @@
-import { Team } from '../../../../../typescript/team';
+import { Team } from '../../../../../typescript/entity';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../api';
 

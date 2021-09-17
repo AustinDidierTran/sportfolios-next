@@ -9,23 +9,12 @@ import { formatPrice, formatDate } from '../../../../utils/stringFormats';
 import moment from 'moment';
 import CustomAvatar from '../../Avatar';
 import MailToButton from '../../MailToButton';
+import { SoldItem } from '../../../../../../typescript/shop';
 
-interface IProps {
-  photoUrl: string;
-  createdAt: string;
-  label: string;
-  amount: number;
-  metadata: any;
-  quantity: number;
-  email: string;
-}
-
-const SalesItem: React.FunctionComponent<IProps> = (props) => {
+const SalesItem: React.FunctionComponent<SoldItem> = (props) => {
   const { t } = useTranslation();
 
-  const { photoUrl, createdAt, label, amount, metadata, quantity, email } = props;
-
-  const emails = useMemo((): { email: string }[] => [{ email }], [email]);
+  const { photoUrl, createdAt, label, amount, metadata, quantity, buyer } = props;
 
   return (
     <ListItem button style={{ width: '100%' }}>
@@ -39,9 +28,13 @@ const SalesItem: React.FunctionComponent<IProps> = (props) => {
           secondary={metadata.size ? t('sizes_enum_' + metadata.size.toLowerCase()) : null}
         />
         <ListItemText className={styles.quantity} primary={formatPrice(amount)} secondary={t('qt', { quantity })} />
-        {email ? <ListItemText secondary={`${t('by')}: ${email}`} className={styles.email} /> : <></>}
+        <ListItemText
+          primary={`${t('by')}: ${buyer.primaryPerson.name} ${buyer.primaryPerson.surname}`}
+          secondary={buyer.email}
+          className={styles.email}
+        />
 
-        <MailToButton emails={emails} />
+        <MailToButton emails={[{ email: buyer.email }]} />
         <ListItemText
           className={styles.date}
           secondary={`${t('purchased_on')}: ${formatDate(moment.utc(createdAt))}`}
