@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import styles from './AdminEntitiesView.module.css';
+import styles from '../AdminEntitiesView.module.css';
 import CustomAvatar from '../../../components/Custom/Avatar';
 import Delete from '@material-ui/icons/Delete';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
