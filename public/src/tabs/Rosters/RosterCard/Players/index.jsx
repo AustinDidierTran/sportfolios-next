@@ -127,12 +127,12 @@ export default function Players(props) {
   if (editableRoster) {
     return (
       <div className={styles.card}>
+        <Typography className={styles.listTitle} variant="h6">
+          {t('roster')}
+        </Typography>
+        <Divider className={styles.divider} />
         {players.length ? (
-          <div className={styles.player}>
-            <Typography className={styles.listTitle} variant="h6">
-              {t('roster')}
-            </Typography>
-            <Divider className={styles.divider} />
+          <div className={styles.listPlayers}>
             {players.map((player, index) => (
               <PlayerCard
                 index={index}
@@ -142,6 +142,7 @@ export default function Players(props) {
                 onRoleUpdate={handleRoleUpdate}
                 key={players.id}
                 editableRoster={editableRoster}
+                withInfos
               />
             ))}
           </div>
@@ -178,18 +179,20 @@ export default function Players(props) {
             {t('players_availables')}
           </Typography>
           <Divider className={styles.divider} />
-          {playersRegistered.map((player, index) => (
-            <div>
-              <PlayerCard
-                index={index}
-                player={player}
-                key={playersRegistered.id}
-                onPlayerAddToRoster={onPlayerAddToRoster}
-                isAvailable={true}
-                editableRoster={editableRoster}
-              />
-            </div>
-          ))}
+          <div className={styles.listPlayers}>
+            {playersRegistered.map((player, index) => (
+              <div>
+                <PlayerCard
+                  index={index}
+                  player={player}
+                  key={playersRegistered.id}
+                  onPlayerAddToRoster={onPlayerAddToRoster}
+                  isAvailable={true}
+                  editableRoster={editableRoster}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -211,7 +214,7 @@ export default function Players(props) {
       {
         <>
           {players.length ? (
-            <div className={styles.player}>
+            <div className={styles.listPlayers}>
               {players.map((player, index) => {
                 return (
                   <PlayerCard

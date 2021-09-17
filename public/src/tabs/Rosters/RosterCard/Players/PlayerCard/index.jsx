@@ -76,17 +76,9 @@ export default function PlayerCard(props) {
     onPlayerAddToRoster(p);
   };
 
-  const className = useMemo(() => {
-    if (index % 2 === 0) {
-      return styles.card;
-    } else {
-      return styles.greycard;
-    }
-  }, [index]);
-
   if (editableRoster) {
     return (
-      <div className={className}>
+      <div className={styles.card}>
         <div className={styles.player}>
           <Avatar className={styles.avatar} photoUrl={player.photoUrl} />
           <div className={styles.name}>
@@ -147,7 +139,7 @@ export default function PlayerCard(props) {
   }
 
   return (
-    <div className={className}>
+    <div className={styles.card}>
       <div className={styles.player}>
         <Avatar className={styles.avatar} photoUrl={player.photoUrl} />
         <div className={styles.name}>
