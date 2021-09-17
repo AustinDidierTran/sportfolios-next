@@ -17,7 +17,7 @@ export default function Sales() {
 
   useEffect(() => {
     getSales();
-  }, []);
+  }, [id]);
 
   const getSales = async () => {
     setIsLoading(true);
