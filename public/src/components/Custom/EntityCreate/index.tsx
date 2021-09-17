@@ -144,14 +144,14 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
         {
           componentType: COMPONENT_TYPE_ENUM.LIST_ITEM,
           primaryTypographyProps: { variant: 'h6' },
-          primary: t('register.registration_type'),
+          primary: t('event.event_type'),
         },
         {
           namespace: 'eventType',
-          componentType: COMPONENT_TYPE_ENUM.RADIO_GROUP,
+          componentType: COMPONENT_TYPE_ENUM.SELECT,
           options: [
-            { display: t('by_team'), value: EVENT_TYPE.TEAM },
-            { display: t('by_player'), value: EVENT_TYPE.PLAYER },
+            { display: t('team.team_registration_event'), value: EVENT_TYPE.TEAM },
+            { display: t('pick_up_event'), value: EVENT_TYPE.PLAYER },
           ],
           onChange: (e: any) => {
             onChangeEventType(e);
