@@ -17,7 +17,7 @@ import IconButton from '../../../IconButton';
 import Collapse from '../../../Collapse';
 import Button from '../../../Button';
 import { SpiritSubmission, SubmissionerInfos } from '../../../../../../../typescript/types';
-import { addSpirit } from '../../../../../actions/service/entity/post';
+import { submitSpirit } from '../../../../../actions/service/game/index';
 
 interface IProps {
   submittedSpirit: SpiritSubmission;
@@ -39,7 +39,7 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
     onSubmit: async (values) => {
       const { spirit, comment } = values;
 
-      addSpirit(
+      submitSpirit(
         submissionerInfos.myTeam.rosterId,
         submissionerInfos.person.entityId,
         gameId,

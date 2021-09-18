@@ -135,27 +135,6 @@ export function sendRequestToJoinTeam(teamId: string, personId: string): Promise
   );
 }
 
-export function addSpirit(
-  submitted_by_roster: string,
-  submitted_by_person: string,
-  game_id: string,
-  submitted_for_roster: string,
-  spirit_score: number,
-  comment: string
-): Promise<number> {
-  return api(`${BASE_URL}/spirit`, {
-    method: 'POST',
-    body: JSON.stringify({
-      submitted_by_roster,
-      submitted_by_person,
-      game_id,
-      submitted_for_roster,
-      spirit_score,
-      comment,
-    }),
-  }).then((res) => res.status);
-}
-
 export function updateUserRole(userId: string, role: USER_APP_ROLE_ENUM): Promise<void> {
   return api('/api/admin/updateUserRole', {
     method: 'POST',

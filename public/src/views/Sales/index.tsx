@@ -31,8 +31,10 @@ const Sales: React.FunctionComponent = () => {
         setSales(
           res.filter(
             (d) =>
-              `${d.buyer.primaryPerson.name} ${d.buyer.primaryPerson.surname}`.includes(searchQuery.value) ||
-              d.buyer.email.includes(searchQuery.value)
+              `${d.buyer.primaryPerson.name} ${d.buyer.primaryPerson.surname}`
+                .toLowerCase()
+                .includes(searchQuery.value.toLowerCase()) ||
+              d.buyer.email.toLowerCase().includes(searchQuery.value.toLowerCase())
           )
         );
       });
