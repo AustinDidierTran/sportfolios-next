@@ -146,6 +146,7 @@ export function getAllTeamsRegisteredInfos(eventId: string, pills: string[]): Pr
   );
 }
 
+
 export function getAllTeamsAcceptedRegistered(eventId: string): Promise<EventTeam[]> {
   return api(formatRoute(`${BASE_URL}/allTeamsAcceptedRegistered`, null, { eventId }), { method: 'GET' }).then(
     (res) => res.data

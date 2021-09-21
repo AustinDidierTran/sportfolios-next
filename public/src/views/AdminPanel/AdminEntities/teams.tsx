@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
-import { Team } from '../../../../../typescript/team';
+import { Team } from '../../../../../typescript/entity';
 import { deleteTeam, getTeams } from '../../../actions/service/team/admin';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';

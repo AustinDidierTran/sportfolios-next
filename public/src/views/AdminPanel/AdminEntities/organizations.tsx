@@ -16,5 +16,70 @@ import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounde
 import Restore from '@material-ui/icons/Restore';
 import Button from '@material-ui/core/Button';
 import { useFormInput } from '../../../hooks/forms';
+import { Organization } from '../../../../../typescript/entity';
+import { getAllTheOrganizations, deleteOrganization } from '../../../actions/service/organization/admin';
+import styles from '../AdminEntitiesView.module.css';
 
 const ORGANIZATION_LIMIT = 10;
+
+export function Organizations() {
+  const { t } = useTranslation();
+
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [organizationCount, setOrganizationCount] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const organizationSearchQuery = useFormInput('');
+
+  const pageAmount = useMemo(
+    () => Math.ceil(organizationCount / ORGANIZATION_LIMIT),
+    [organizationCount, ORGANIZATION_LIMIT]
+  );
+
+  const updateOrganizations = useCallback(() => {
+    getAllTheOrganizations(ORGANIZATION_LIMIT, page, organizationSearchQuery.value).then((res) => {
+      setOrganizations(res.organizations);
+      setOrganizationCount(res.count);
+    });
+  }, [ORGANIZATION_LIMIT, page, organizationSearchQuery.value]);
+
+  const onOrganizationDelete = useCallback((id, restore) => {
+    deleteOrganization(id, restore).then(() => updateEvents());
+  }, []);
+
+  useEffect(() => {
+    updateOrganizations();
+  }, [updateOrganizations]);
+
+  return (
+    <Paper className={styles.card}>
+      <Typography gutterBottom variant="h5" component="h2">
+        {t('organizations')}
+      </Typography>
+      <TextField {...organizationSearchQuery.inputProps} placeholder={t('search')} />
+      <div className={styles.paging}>
+        <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => setPage((page) => Math.max(1, page - 1))} />
+        <span>
+          Page {page} of {pageAmount}
+        </span>
+        <Button
+          endIcon={<ArrowForwardIosRoundedIcon />}
+          onClick={() => setPage((page) => Math.min(pageAmount, page + 1))}
+        />
+      </div>
+      <List>
+        {organizations?.map((t: Organization, index: number) => (
+          <React.Fragment key={index}>
+            <ListItem>
+              <CustomAvatar photoUrl={t.photoUrl} />
+              <ListItemText primary={t.name} />
+              <IconButton edge="end" onClick={() => onOrganizationDelete(t.id, Boolean(t.deletedAt))}>
+                {t.deletedAt ? <Restore /> : <Delete />}
+              </IconButton>
+            </ListItem>
+            <Divider />
+          </React.Fragment>
+        ))}
+      </List>
+    </Paper>
+  );
+}

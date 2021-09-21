@@ -7,11 +7,13 @@ export function deletePlayer(id: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/player`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
 }
 
+
 export async function deletePractice(teamId: string, practiceId: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/practice`, null, { teamId, practiceId }), { method: 'DELETE' }).then(
     (res) => res.status
   );
 }
+
 
 export function deleteRosterPlayer(id: string): Promise<number> {
   return api(formatRoute(`${BASE_URL}/rosterPlayer`, null, { id }), { method: 'DELETE' }).then((res) => res.status);
