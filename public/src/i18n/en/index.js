@@ -805,6 +805,7 @@ export default {
       person: 'Person',
       personal_information: 'Personal Information',
       persons: 'Persons',
+      people: 'People',
     },
     select: {
       select: 'Select',

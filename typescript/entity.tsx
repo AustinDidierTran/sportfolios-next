@@ -12,3 +12,8 @@ export interface Person extends Entity {
 export interface Team extends Entity {
   admins: Person[];
 }
+
+export interface Event {
+  name: string;
+  type: string;
+}

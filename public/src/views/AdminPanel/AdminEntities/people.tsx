@@ -17,4 +17,4 @@ import Restore from '@material-ui/icons/Restore';
 import Button from '@material-ui/core/Button';
 import { useFormInput } from '../../../hooks/forms';
 
-const PERSON_LIMIT =10;
+const PERSON_LIMIT = 10;
