@@ -43,7 +43,7 @@ export function Organizations() {
   }, [ORGANIZATION_LIMIT, page, organizationSearchQuery.value]);
 
   const onOrganizationDelete = useCallback((id, restore) => {
-    deleteOrganization(id, restore).then(() => updateEvents());
+    deleteOrganization(id, restore).then(() => updateOrganizations());
   }, []);
 
   useEffect(() => {
