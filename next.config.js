@@ -6,16 +6,21 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withPlugins([
-  [withBundleAnalyzer],
+module.exports = withPlugins(
   [
-    withWorkbox,
-    {
-      workbox: {
-        swDest: '/sw.js',
-        swSrc: '/worker.js',
-        force: false,
+    [withBundleAnalyzer],
+    [
+      withWorkbox,
+      {
+        workbox: {
+          swDest: '/sw.js',
+          swSrc: '/worker.js',
+          force: false,
+        },
       },
-    },
+    ],
   ],
-]);
+  {
+    webpack5: false,
+  }
+);
