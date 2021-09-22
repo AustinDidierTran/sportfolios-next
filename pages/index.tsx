@@ -9,6 +9,11 @@ import { getForYouPage } from '../public/src/actions/service/entity/get';
 import { ForYouPagePost } from '../typescript/types';
 import { Store } from '../public/src/Store';
 
+import { Amplify, API, withSSRContext } from 'aws-amplify';
+import awsExports from '../src/aws-exports';
+
+Amplify.configure({ ...awsExports, ssr: true });
+
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
 const Home = dynamic(import('../public/src/views/Home'));
