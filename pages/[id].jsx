@@ -73,7 +73,7 @@ export default function EntityRoute({ response }) {
   );
 }
 
-export async function getServerSidePropx(context) {
+export async function getServerSideProps(context) {
   const { data: id } = await api(formatRoute('/api/entity/realId', null, { id: context.params.id }), { method: 'GET' });
 
   const res = await api(formatRoute('/api/entity', null, { id }), { method: 'GET' });
