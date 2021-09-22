@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { Games as IGames } from '../../../../../../typescript/types';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 interface IProps {
   games: IGames[];
@@ -26,7 +27,8 @@ const Games: React.FunctionComponent<IProps> = (props) => {
           <Typography color="textSecondary">{t('no.no_games')}</Typography>
         )}
       </div>
-      <div>
+      <div className={styles.other_game_comming}>
+        <AccessTimeIcon className={styles.clock} />
         <Typography color="textSecondary">{t('other_game_comming')}</Typography>
       </div>
     </div>
