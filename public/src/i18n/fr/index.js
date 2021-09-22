@@ -800,6 +800,7 @@ export default {
       person: 'Personne',
       personal_information: 'Informations personnelles',
       persons: 'Personnes',
+      people: 'Personnes',
       person_registration: 'Inscription individuelle',
       person_registration_description: 'Notification envoyée lorsque vous vous inscrivez à un événement individuel',
     },

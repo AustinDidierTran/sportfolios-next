@@ -12,3 +12,20 @@ export interface Person extends Entity {
 export interface Team extends Entity {
   admins: Person[];
 }
+
+export interface Event extends Entity {
+  admins: Person[];
+}
+export interface ISpiritRanking {
+  name: string;
+  rosterId: string;
+  spirit: number;
+}
+
+export interface IEventRankings {
+  spirit: [ISpiritRanking];
+}
+
+export interface Organization extends Entity {
+  admins: Person[];
+}
