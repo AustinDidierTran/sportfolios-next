@@ -26,6 +26,9 @@ const Games: React.FunctionComponent<IProps> = (props) => {
           <Typography color="textSecondary">{t('no.no_games')}</Typography>
         )}
       </div>
+      <div>
+        <Typography color="textSecondary">{t('other_game_comming')}</Typography>
+      </div>
     </div>
   );
 };
