@@ -8,7 +8,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([
   [withBundleAnalyzer],
-
   [
     withWorkbox,
     {
