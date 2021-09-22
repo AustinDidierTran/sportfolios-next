@@ -68,7 +68,7 @@ export function People() {
           <React.Fragment key={index}>
             <ListItem>
               <CustomAvatar photoUrl={t.photoUrl} />
-              <ListItemText primary={t.name} />
+              <ListItemText primary={t.name + t.surname} />
               <IconButton edge="end" onClick={() => onPersonDelete(t.id, Boolean(t.deletedAt))}>
                 {t.deletedAt ? <Restore /> : <Delete />}
               </IconButton>

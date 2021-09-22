@@ -7,7 +7,11 @@ const ADMIN_BASE_URL = '/api/admin/person';
 /**
  * Requires app admin role
  */
-export function getAllThePeople(limit: number, page: number, query?: string): Promise<{ count: number; people: Person[] }> {
+export function getAllThePeople(
+  limit: number,
+  page: number,
+  query?: string
+): Promise<{ count: number; people: Person[] }> {
   return api(formatRoute(ADMIN_BASE_URL, null, { limit, page, query }), { method: 'GET' }).then((res) => res.data);
 }
 
