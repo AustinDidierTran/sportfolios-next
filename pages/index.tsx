@@ -10,7 +10,7 @@ import { ForYouPagePost } from '../typescript/types';
 import { Store } from '../public/src/Store';
 
 import { Amplify, API, withSSRContext } from 'aws-amplify';
-import awsExports from '../src/aws-exports';
+import awsExports from '../src/aws-exports.js';
 
 Amplify.configure({ ...awsExports, ssr: true });
 
