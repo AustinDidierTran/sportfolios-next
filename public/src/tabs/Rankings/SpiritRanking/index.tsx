@@ -3,7 +3,7 @@ import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 
-import { ISpiritRanking } from '../../../../../typescript/entity';
+import { ISpiritRanking } from '../../../../../typescript/event';
 import { List } from '../../../components/Custom';
 import Accordion from '../../../components/Custom/Accordion';
 import SpiritScoreItem from '../../../components/Custom/List/SpiritScoreItem';
