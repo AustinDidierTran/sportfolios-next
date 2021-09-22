@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ISpiritRanking } from '../../../../../../typescript/event';
+import { ISpiritRanking } from '../../../../../../typescript/entity';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import styles from './SpiritScoreItem.module.css';

@@ -15,7 +15,7 @@ import { useWindowSize } from '../../hooks/window';
 import { MOBILE_WIDTH } from '../../../common/constants';
 import { getPhases, getPreranking, getPrerankPhase } from '../../actions/service/entity/get';
 import { Phase, Preranking, Ranking } from '../../../../typescript/types';
-import { ISpiritRanking } from '../../../../typescript/event';
+import { ISpiritRanking } from '../../../../typescript/entity';
 import SpiritRanking from '../Rankings/SpiritRanking';
 import { getEventRankings } from '../../actions/service/event/get';
 
