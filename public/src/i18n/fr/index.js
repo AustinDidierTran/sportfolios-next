@@ -1307,7 +1307,7 @@ export default {
     other_team_submitted_a_score: "L'équipe adverse a soumis son score",
     Other: 'Autre',
     other: 'Autre',
-    other_game_comming: "D'autres parties peuvent être ajoutées, restez alertes! ",
+    other_game_coming: "D'autres parties peuvent être ajoutées, restez alertes! ",
     our_team: 'Notre Équipe',
     page_not_found: 'Page non trouvée',
     password_changed: 'Mot de passe changé avec succès',

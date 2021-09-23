@@ -27,9 +27,9 @@ const Games: React.FunctionComponent<IProps> = (props) => {
           <Typography color="textSecondary">{t('no.no_games')}</Typography>
         )}
       </div>
-      <div className={styles.other_game_comming}>
+      <div className={styles.other_game_coming}>
         <AccessTimeIcon className={styles.clock} />
-        <Typography color="textSecondary">{t('other_game_comming')}</Typography>
+        <Typography color="textSecondary">{t('other_game_coming')}</Typography>
       </div>
     </div>
   );

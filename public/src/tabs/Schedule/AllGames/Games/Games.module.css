@@ -21,7 +21,7 @@
   margin-bottom: 0.5rem !important;
   margin-top: 0.5rem !important;
 }
-.other_game_comming {
+.other_game_coming {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,6 +29,6 @@
   margin-top: 1rem;
 }
 .clock {
-  margin-right: 0.7rem;
+  margin-right: 0.75rem;
   color: grey;
 }
