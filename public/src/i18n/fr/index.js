@@ -1277,6 +1277,7 @@ export default {
     of_teams: 'des équipes',
     of_phase: 'de la phase',
     of_phases: 'des phases',
+    ok: 'OK',
     old_password: 'Ancien mot de passe',
     old_members: 'Membres anciens',
     on_going_events: 'Événements en cours',

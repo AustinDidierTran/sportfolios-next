@@ -1263,6 +1263,7 @@ export default {
     of_teams: 'of teams',
     of_phase: 'of phase',
     of_phases: 'of phases',
+    ok: 'OK',
     old_members: 'Old members',
     old_password: 'Old password',
     on_going_events: 'On Going Events',
