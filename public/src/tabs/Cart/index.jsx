@@ -126,25 +126,23 @@ export default function Cart() {
           }}
           type={CARD_TYPE_ENUM.CART_SUMMARY}
         />
-        <Button
-          size="small"
-          variant="contained"
-          endIcon="Delete"
-          onClick={() => {
-            setOpen(true);
-          }}
-          className={styles.delete}
-          color="secondary"
-        >
-          {t('clear_cart')}
-        </Button>
-      </div>
-      <ContainerBottomFixed>
         <div className={styles.buttonDiv}>
           <Button
             size="small"
             variant="contained"
-            endIcon="Check"
+            endIcon="Delete"
+            onClick={() => {
+              setOpen(true);
+            }}
+            className={styles.delete}
+            color="secondary"
+          >
+            {t('clear_cart')}
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            endIcon="AttachMoney"
             onClick={() => {
               goTo(ROUTES.checkout);
             }}
@@ -155,7 +153,7 @@ export default function Cart() {
             {t('checkout')}
           </Button>
         </div>
-      </ContainerBottomFixed>
+      </div>
       <AlertDialog
         open={open}
         onCancel={() => {

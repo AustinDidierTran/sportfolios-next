@@ -20,13 +20,14 @@
 
 .button {
   flex: 1 1 auto;
+  max-width: fit-content;
 }
 
 .buttonDiv {
+  margin-top: 0.7rem;
   flex: 1 1 auto;
   display: flex;
-  width: 100%;
-  justify-content: center;
+  justify-content: left;
 }
 
 .delete {
