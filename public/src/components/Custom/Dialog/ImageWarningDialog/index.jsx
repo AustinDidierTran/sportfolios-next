@@ -17,10 +17,10 @@ export default function ImageWarningDialog(props) {
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
         <DialogTitle>
           {' '}
-          {t('warning')} <GavelIcon />{' '}
+          {t('disclaimer')} <GavelIcon />{' '}
         </DialogTitle>
         <DialogContent dividers>
-          <Typography>{t('transfer_person_description')} </Typography>
+          <Typography>{t('disclaimer_picture')} </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant="text">
