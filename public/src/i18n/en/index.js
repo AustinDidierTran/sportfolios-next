@@ -1293,6 +1293,7 @@ export default {
     other_team_submitted_a_score: 'Opponent team submitted a score',
     Other: 'Other',
     other: 'Other',
+    other_game_coming: 'There may be other games comming, stay tuned!',
     our_team: 'Our Team',
     page_not_found: 'Page not found',
     password_changed: 'Password has been changed successfully',
