@@ -242,9 +242,10 @@ const TeamsRegistered: React.FunctionComponent = () => {
     setTeams(res.data);
   };
 
-  const getMaximumSpots = (): void => {
-    //@ts-ignore
-    getEventInfo(eventId).then((res) => setMaximumSpots(res.maximumSpots));
+  const getMaximumSpots = async () => {
+    getEventInfo(eventId).then((res) => {
+      setMaximumSpots(res.maximum_spots);
+    });
   };
 
   const getAcceptedSpots = (): void => {

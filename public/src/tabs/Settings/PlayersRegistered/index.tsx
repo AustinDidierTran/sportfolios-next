@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState, useContext } from 'react';
+import React, { useCallback, useMemo, useEffect, useState, useContext } from 'react';
 
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import IconButton from '../../../components/Custom/IconButton';
@@ -100,9 +100,9 @@ export default function PlayersRegistered() {
     setOpenUnregisterAll(false);
   };
 
-  const getPlayers = () => {
+  const getPlayers = useCallback(async () => {
     getAllPeopleRegisteredInfos(eventId).then(setPlayers);
-  };
+  }, [eventId]);
 
   useEffect(() => {
     if (eventId) {
@@ -110,7 +110,7 @@ export default function PlayersRegistered() {
     }
   }, [eventId]);
 
-  const handleUnregisterClick = (personId) => {
+  const handleUnregisterClick = (personId: string) => {
     setPersonId(personId);
     setOpenUnregister(true);
   };
@@ -182,7 +182,7 @@ export default function PlayersRegistered() {
   };
 
   const getAcceptedSpots = () => {
-    getAllPlayersAcceptedRegistered().then((data) => {
+    getAllPlayersAcceptedRegistered(eventId).then((data) => {
       setAcceptedSpots(data?.length);
     });
   };
@@ -190,7 +190,7 @@ export default function PlayersRegistered() {
   useEffect(() => {
     getMaximumSpots();
     getAcceptedSpots();
-  }, [players]);
+  }, [players, maximumSpots]);
 
   const handlePlayer = async () => {
     if (playerAsc) {
@@ -323,7 +323,7 @@ export default function PlayersRegistered() {
             </TableHead>
             <TableBody>
               {isLoading ? (
-                <StyledTableRow align="center">
+                <StyledTableRow>
                   <StyledTableCell colSpan={2}>{t('register.unregister_pending')}</StyledTableCell>
                   <StyledTableCell>
                     <LoadingSpinner isComponent />
@@ -336,7 +336,7 @@ export default function PlayersRegistered() {
                   ))}
                 </>
               ) : (
-                <StyledTableRow align="center">
+                <StyledTableRow>
                   <StyledTableCell colSpan={3}>{t('no.no_players_registered')}</StyledTableCell>
                 </StyledTableRow>
               )}
@@ -424,7 +424,7 @@ export default function PlayersRegistered() {
           </TableHead>
           <TableBody>
             {isLoading ? (
-              <StyledTableRow align="center">
+              <StyledTableRow>
                 <StyledTableCell colSpan={4}>{t('register.unregister_pending')}</StyledTableCell>
                 <StyledTableCell>
                   <LoadingSpinner isComponent />
@@ -437,7 +437,7 @@ export default function PlayersRegistered() {
                 ))}
               </>
             ) : (
-              <StyledTableRow align="center">
+              <StyledTableRow>
                 <StyledTableCell colSpan={5}>{t('no.no_players_registered')}</StyledTableCell>
               </StyledTableRow>
             )}
