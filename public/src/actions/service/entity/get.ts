@@ -32,8 +32,10 @@ import {
   User,
   Person,
   Membership,
+  Event,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
+import { AnySchema } from 'yup';
 
 const BASE_URL = '/api/entity';
 
@@ -146,7 +148,6 @@ export function getAllTeamsRegisteredInfos(eventId: string, pills: string[]): Pr
   );
 }
 
-
 export function getAllTeamsAcceptedRegistered(eventId: string): Promise<EventTeam[]> {
   return api(formatRoute(`${BASE_URL}/allTeamsAcceptedRegistered`, null, { eventId }), { method: 'GET' }).then(
     (res) => res.data
@@ -161,7 +162,10 @@ export function getCanUnregisterTeamsList(eventId: string, rosterIds: string[]):
 }
 
 export function getEventInfo(eventId: string): Promise<Event> {
-  return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => ({
+    ...res.data,
+    maximumSpots: res.data.maximum_spots,
+  }));
 }
 
 export function getAllPlayersAcceptedRegistered(eventId: string): Promise<any> {

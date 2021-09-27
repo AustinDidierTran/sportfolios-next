@@ -244,7 +244,7 @@ const TeamsRegistered: React.FunctionComponent = () => {
 
   const getMaximumSpots = async () => {
     getEventInfo(eventId).then((res) => {
-      setMaximumSpots(res.maximum_spots);
+      setMaximumSpots(res.maximumSpots);
     });
   };
 

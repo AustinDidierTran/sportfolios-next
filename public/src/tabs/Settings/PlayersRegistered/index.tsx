@@ -41,7 +41,7 @@ export default function PlayersRegistered() {
 
   const [players, setPlayers] = useState([]);
   const [personId, setPersonId] = useState('');
-  const [maximumSpots, setMaximumSpots] = useState();
+  const [maximumSpots, setMaximumSpots] = useState<number>(0);
   const [acceptedSpots, setAcceptedSpots] = useState();
   const [openUnregister, setOpenUnregister] = useState(false);
   const [openUnregisterAll, setOpenUnregisterAll] = useState(false);
@@ -177,7 +177,7 @@ export default function PlayersRegistered() {
 
   const getMaximumSpots = async () => {
     getEventInfo(eventId).then((data) => {
-      setMaximumSpots(data.maximum_spots);
+      setMaximumSpots(data.maximumSpots);
     });
   };
 
