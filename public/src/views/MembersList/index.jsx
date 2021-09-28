@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
@@ -8,8 +8,11 @@ import { FORM_DIALOG_TYPE_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enum
 import styles from './MembersList.module.css';
 import dynamic from 'next/dynamic';
 import { formatRoute } from '../../utils/stringFormats';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Store } from '../../Store';
+import { useFormInput } from '../../hooks/forms';
+import * as organizationService from '../../actions/service/organization';
 
 const ListMembers = dynamic(() => import('./MembersList'));
 const CustomPaper = dynamic(() => import('../../components/Custom/Paper'));
@@ -26,6 +29,7 @@ export default function MembersList() {
   const [organization, setOrganization] = useState(null);
   const [members, setMembers] = useState([]);
   const [open, setOpen] = useState(false);
+  const searchQuery = useFormInput('');
 
   useEffect(() => {
     organization
@@ -34,32 +38,43 @@ export default function MembersList() {
   }, [organization]);
 
   useEffect(() => {
-    if (id) {
-      getEntity();
-      getMembers();
-    }
-  }, [id]);
+    getEntity();
+  }, [getEntity]);
 
-  const getEntity = async () => {
+  useEffect(() => {
+    getMembers();
+  }, [getMembers]);
+
+  useEffect(() => {
+    getMembers();
+  }, [searchQuery.value]);
+
+  const getEntity = useCallback(async () => {
+    if (!id) {
+      return;
+    }
     const {
       data: { basicInfos: data },
     } = await api(formatRoute('/api/entity', null, { id }), { method: 'GET' });
     setOrganization(data);
-  };
+  }, [id]);
 
-  const getMembers = async () => {
-    const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }), { method: 'GET' });
-    if (status === REQUEST_STATUS_ENUM.ERROR_STRING) {
-      goToAndReplace(ROUTES.entityNotFound);
-    } else {
-      const res = data.map((d, index) => ({
-        ...d,
-        update: getMembers,
-        key: index,
-      }));
-      setMembers(res);
+  const getMembers = useCallback(async () => {
+    if (!id) {
+      return;
     }
-  };
+
+    // const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }), { method: 'GET' });
+
+    const data = await organizationService.getMembers(id, searchQuery.value);
+    console.log('data: ', data);
+    const res = data.map((d, index) => ({
+      ...d,
+      update: getMembers,
+      key: index,
+    }));
+    setMembers(res);
+  }, [id, searchQuery.value]);
 
   const onOpen = () => {
     setOpen(true);
@@ -68,6 +83,8 @@ export default function MembersList() {
   const onClose = () => {
     setOpen(false);
   };
+
+  console.log({ members });
 
   return (
     <IgContainer>
@@ -98,6 +115,7 @@ export default function MembersList() {
             {t('add.add_member')}
           </CustomButton>
         </div>
+        <TextField placeholder={t('search')} {...searchQuery.inputProps} />
         {members.length < 1 ? (
           <Typography color="textSecondary" style={{ margin: '16px' }}>
             {t('no.no_members_message')}
