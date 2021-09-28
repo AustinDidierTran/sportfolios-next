@@ -17,12 +17,17 @@ import Restore from '@material-ui/icons/Restore';
 import Button from '@material-ui/core/Button';
 import { useFormInput } from '../../../hooks/forms';
 import { Organization } from '../../../../../typescript/entity';
-import { getAllTheOrganizations, deleteOrganization } from '../../../actions/service/organization/admin';
+import {
+  getAllTheOrganizations,
+  deleteOrganization,
+  verifyOrganization,
+} from '../../../actions/service/organization/admin';
 import styles from '../AdminEntitiesView.module.css';
+import CustomButton from '../../../components/Custom/Button';
 
 const ORGANIZATION_LIMIT = 10;
 
-export function Organizations() {
+export function Organizations(): React.ReactElement {
   const { t } = useTranslation();
 
   const [organizations, setOrganizations] = useState<Organization[]>([]);
@@ -44,6 +49,10 @@ export function Organizations() {
 
   const onOrganizationDelete = useCallback((id, restore) => {
     deleteOrganization(id, restore).then(() => updateOrganizations());
+  }, []);
+
+  const onVerifyOrganization = useCallback((id, verify) => {
+    verifyOrganization(id, !verify).then(() => updateOrganizations());
   }, []);
 
   useEffect(() => {
@@ -72,6 +81,9 @@ export function Organizations() {
             <ListItem>
               <CustomAvatar photoUrl={t.photoUrl} />
               <ListItemText primary={t.name} />
+              <CustomButton onClick={() => onVerifyOrganization(t.id, Boolean(t.verifiedAt))}>
+                {!t.verifiedAt ? 'Verify' : 'Verified'}
+              </CustomButton>
               <IconButton edge="end" onClick={() => onOrganizationDelete(t.id, Boolean(t.deletedAt))}>
                 {t.deletedAt ? <Restore /> : <Delete />}
               </IconButton>
