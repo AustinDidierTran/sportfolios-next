@@ -23,6 +23,7 @@ export default function TeamSearchList(props) {
   } = props;
   const { t } = useTranslation();
   const [options, setOptions] = useState([]);
+  const [sameName, setSameName] = useState(false);
 
   useEffect(() => {
     getOptions();
@@ -30,6 +31,7 @@ export default function TeamSearchList(props) {
 
   const getOptions = async () => {
     const { data, status } = await myTeamsSearch(formik.values.teamSearchQuery, eventId);
+    console.log('query:', formik.values.teamSearchQuery, 'data : ', data, 'status : ', status);
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setOptions(formatOptions(data));
     } else {

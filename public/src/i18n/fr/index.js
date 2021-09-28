@@ -512,6 +512,7 @@ export default {
       team_registration: "Inscription d'équipe",
       team_registration_event: 'Événement demandant une inscription par équipe',
       team_registration_description: "Notification envoyée lors de l'inscription de votre équipe",
+      team_not_unique: "Il y a déjà une équipe d'inscrite avec le même nom. Êtes-vous sûre de vouloir continuer?",
     },
     member: {
       active_members: 'Membres actifs',
@@ -1532,6 +1533,7 @@ export default {
     terms_and_conditions: 'Termes et conditions',
     terms_and_conditions_description:
       'Vous pouvez écrire une courte description et téléverser un fichier PDF contenant vos termes et conditions que les joueurs devront accepter pour devenir membre de votre organisation',
+    test: 'test',
     there_is_no_rosters_for_this_event: "Il n'y a pas d'alignements pour cet événement.",
     there_are_no_more_team_to_accept: "Il n'y a plus d'équipe en attente",
     this_coupon_is_only_good_once: 'Ce coupon est valide pour une utilisation seulement',

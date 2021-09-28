@@ -3,3 +3,12 @@
   margin: auto !important;
   margin-bottom: 16px !important;
 }
+.warning {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  justify-content: center;
+}
+.warningIcon {
+  color: #f8d925;
+}
