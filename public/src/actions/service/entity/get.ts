@@ -163,8 +163,26 @@ export function getCanUnregisterTeamsList(eventId: string, rosterIds: string[]):
 
 export function getEventInfo(eventId: string): Promise<Event> {
   return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => ({
-    ...res.data,
+    startDate: res.data.startDate,
+    endDate: res.data.endDate,
+    alias: res.data.alias,
+    fields: res.data.fields,
+    timeSlots: res.data.timeSlots,
+    paymentOptions: res.data.paymentOptions,
+    persons: res.data.persons,
+    teams: res.data.teams,
+    phases: res.data.phases,
     maximumSpots: res.data.maximum_spots,
+    id: res.data.id,
+    type: res.data.type,
+    role: res.data.role,
+    name: res.data.name,
+    description: res.data.description,
+    quickDescription: res.data.quickDescription,
+    photoUrl: res.data.photoUrl,
+    infosSuppId: res.data.infosSuppId,
+    admins: res.data.admins,
+    posts: res.data.posts,
   }));
 }
 
