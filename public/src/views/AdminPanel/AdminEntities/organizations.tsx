@@ -81,7 +81,6 @@ export function Organizations(): React.ReactElement {
             <ListItem>
               <CustomAvatar photoUrl={t.photoUrl} />
               <ListItemText primary={t.name} />
-              {/*  */}
               <CustomButton onClick={() => onVerifyOrganization(t.id, Boolean(t.verifiedAt))}>
                 {!t.verifiedAt ? 'Verify' : 'Verified'}
               </CustomButton>
