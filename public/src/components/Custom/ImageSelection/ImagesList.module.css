@@ -67,3 +67,9 @@
   margin-top: 8px !important;
   margin-bottom: 16px !important;
 }
+.disclaimer {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  justify-content: center;
+}

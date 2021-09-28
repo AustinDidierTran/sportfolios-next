@@ -1061,6 +1061,9 @@ export default {
     default: 'Default',
     distance: 'Distance',
     disconnect_app: 'Disconnect {{appName}} app from your account',
+    disclaimer: 'Disclaimer',
+    disclaimer_picture:
+      'Any image containing nudity, violence or other content considered inappropriate may result in a ban from the Sportfolios platform.',
     display_name: 'Display name',
     do_not_specify: 'Do not specify',
     donate: 'Make a donation',
@@ -1263,6 +1266,7 @@ export default {
     of_teams: 'of teams',
     of_phase: 'of phase',
     of_phases: 'of phases',
+    ok: 'OK',
     old_members: 'Old members',
     old_password: 'Old password',
     on_going_events: 'On Going Events',
