@@ -17,5 +17,4 @@ export const getEventRankings = (eventId: string): Promise<IEventRankings> => {
 
 export const verifyTeamNameUnique = (name: string, eventId: string): Promise<boolean> => {
   return api(formatRoute(`${BASE_URL}/verifyTeamNameIsUnique`, null, { name, eventId })).then((res) => res.data);
-  //return Promise.resolve(true);
 };

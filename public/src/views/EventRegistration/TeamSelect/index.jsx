@@ -56,7 +56,7 @@ export default function TeamSelect(props) {
         </Typography>
         <TeamItem {...team} secondary="Selected Team" className={styles.main} notClickable />
         {teamNameIsUnique ? (
-          <>{}</>
+          <></>
         ) : (
           <div className={styles.warning}>
             <WarningIcon className={styles.warningIcon} />
