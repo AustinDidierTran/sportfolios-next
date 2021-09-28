@@ -67,7 +67,6 @@ export default function MembersList() {
     // const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }), { method: 'GET' });
 
     const data = await organizationService.getMembers(id, searchQuery.value);
-    console.log('data: ', data);
     const res = data.map((d, index) => ({
       ...d,
       update: getMembers,
@@ -83,8 +82,6 @@ export default function MembersList() {
   const onClose = () => {
     setOpen(false);
   };
-
-  console.log({ members });
 
   return (
     <IgContainer>
