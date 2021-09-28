@@ -32,8 +32,10 @@ import {
   User,
   Person,
   Membership,
+  Event,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
+import { AnySchema } from 'yup';
 
 const BASE_URL = '/api/entity';
 
@@ -146,7 +148,6 @@ export function getAllTeamsRegisteredInfos(eventId: string, pills: string[]): Pr
   );
 }
 
-
 export function getAllTeamsAcceptedRegistered(eventId: string): Promise<EventTeam[]> {
   return api(formatRoute(`${BASE_URL}/allTeamsAcceptedRegistered`, null, { eventId }), { method: 'GET' }).then(
     (res) => res.data
@@ -161,7 +162,28 @@ export function getCanUnregisterTeamsList(eventId: string, rosterIds: string[]):
 }
 
 export function getEventInfo(eventId: string): Promise<Event> {
-  return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/event`, null, { eventId }), { method: 'GET' }).then((res) => ({
+    startDate: res.data.startDate,
+    endDate: res.data.endDate,
+    alias: res.data.alias,
+    fields: res.data.fields,
+    timeSlots: res.data.timeSlots,
+    paymentOptions: res.data.paymentOptions,
+    persons: res.data.persons,
+    teams: res.data.teams,
+    phases: res.data.phases,
+    maximumSpots: res.data.maximum_spots,
+    id: res.data.id,
+    type: res.data.type,
+    role: res.data.role,
+    name: res.data.name,
+    description: res.data.description,
+    quickDescription: res.data.quickDescription,
+    photoUrl: res.data.photoUrl,
+    infosSuppId: res.data.infosSuppId,
+    admins: res.data.admins,
+    posts: res.data.posts,
+  }));
 }
 
 export function getAllPlayersAcceptedRegistered(eventId: string): Promise<any> {
