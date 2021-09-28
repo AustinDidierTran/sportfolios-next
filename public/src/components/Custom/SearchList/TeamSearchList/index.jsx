@@ -23,6 +23,7 @@ export default function TeamSearchList(props) {
   } = props;
   const { t } = useTranslation();
   const [options, setOptions] = useState([]);
+  const [sameName, setSameName] = useState(false);
 
   useEffect(() => {
     getOptions();

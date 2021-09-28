@@ -515,6 +515,7 @@ export default {
       teams_saved: 'Teams saved!',
       teams_unregister_success: 'Teams unregistered successfully',
       teams: 'Teams',
+      team_not_unique: 'There is already a registered team with the same name. Are you sure you want to continue?',
     },
     member: {
       active_members: 'Active members',
@@ -1521,6 +1522,7 @@ export default {
     terms_and_conditions: 'Terms and conditions',
     terms_and_conditions_description:
       'You can write a short description and import a PDF file concerning your short description that players are going to accept to become a member of your organization',
+    test: 'test',
     there_is_no_rosters_for_this_event: 'There are no rosters for this event.',
     there_are_no_more_team_to_accept: 'There are no more teams pending',
     this_coupon_is_only_good_once: 'This coupon is only good once',

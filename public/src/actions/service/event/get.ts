@@ -14,3 +14,7 @@ export function getAllPeopleRegisteredNotInTeamsInfos(eventId: string): Promise<
 export const getEventRankings = (eventId: string): Promise<IEventRankings> => {
   return api(formatRoute(`${BASE_URL}/rankings`, null, { eventId })).then((res) => res.data);
 };
+
+export const verifyTeamNameUnique = (name: string, eventId: string): Promise<boolean> => {
+  return api(formatRoute(`${BASE_URL}/verifyTeamNameIsUnique`, null, { name, eventId })).then((res) => res.data);
+};
