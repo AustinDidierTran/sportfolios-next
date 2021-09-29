@@ -27,6 +27,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { COLORS } from '../../utils/colors';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 
+import Amplify, { Auth } from 'aws-amplify';
+import { REGION, USER_POOL_ID, CLIENT_ID } from '../../../../conf.js';
+Amplify.configure({
+  Auth: {
+    region: REGION,
+    userPoolId: USER_POOL_ID,
+    userPoolWebClientId: CLIENT_ID,
+  },
+});
+
 export default function Login() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -66,6 +76,71 @@ export default function Login() {
     validationSchema,
     onSubmit: async (values) => {
       const { email, password } = values;
+
+      try {
+        const user = await Auth.signIn(email, password);
+        console.log(user.challengeName);
+        if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+          //we need to do better!!!
+          throw 'password need to be change';
+        }
+        const token = user.signInUserSession.idToken.jwtToken;
+        const res = await api('/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email,
+            token,
+          }),
+        });
+        let { data } = res;
+
+        if (data) {
+          if (typeof data === 'string') {
+            data = JSON.parse(data);
+          }
+          const { userInfo } = data;
+
+          dispatch({
+            type: ACTION_ENUM.LOGIN,
+            payload: token,
+          });
+          dispatch({
+            type: ACTION_ENUM.UPDATE_USER_INFO,
+            payload: userInfo,
+          });
+          if (redirectUrl) {
+            goTo(redirectUrl);
+          } else {
+            goTo(ROUTES.home);
+          }
+        }
+        console.log(user);
+      } catch (error) {
+        console.log('error signing in', error);
+        if (error.code === 'NotAuthorizedException') {
+          const res = await api('/api/auth/migrate', {
+            method: 'POST',
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          });
+          console.log(res);
+          if (res.status === 200) {
+            console.log('password need to be change');
+          }
+        } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
+          // Email is not validated
+          formik.setFieldError('email', t('email.email_not_confirmed'));
+        } else if (error === errors[ERROR_ENUM.ERROR_OCCURED].code) {
+          // Password is not good
+          formik.setFieldError('password', t('email.email_password_no_match'));
+        } else if (error === errors[ERROR_ENUM.INVALID_EMAIL].code) {
+          formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+        }
+      }
+      /*
+      //old code for login
       const res = await api('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({
@@ -111,6 +186,7 @@ export default function Login() {
           }
         }
       }
+    */
     },
   });
 

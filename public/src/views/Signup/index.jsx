@@ -28,6 +28,16 @@ import { useRouter } from 'next/router';
 import { COLORS } from '../../utils/colors';
 import { errors, ERROR_ENUM } from '../../../common/errors';
 
+import Amplify, { Auth } from 'aws-amplify';
+import { REGION, USER_POOL_ID, CLIENT_ID } from '../../../../conf.js';
+Amplify.configure({
+  Auth: {
+    region: REGION,
+    userPoolId: USER_POOL_ID,
+    userPoolWebClientId: CLIENT_ID,
+  },
+});
+
 export default function Signup() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -61,23 +71,34 @@ export default function Signup() {
     onSubmit: async (values) => {
       const { firstName, lastName, email, password } = values;
 
-      const res = await api('/api/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          password,
-          redirectUrl: redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
-          newsLetterSubscription: isSubscribed,
-        }),
-      });
-      if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
-        formik.setFieldError('email', t('email.email_already_used'));
-      } else if (res.status >= 400) {
-        formik.setFieldError('firstName', t('something_went_wrong'));
-      } else {
-        goTo(ROUTES.confirmationEmailSent, { email });
+      try {
+        //need to check if email is in database first?
+        const user = await Amplify.Auth.signUp({
+          username: email,
+          password: password,
+        });
+        const token = user.signInUserSession.idToken.jwtToken;
+        const res = await api('/api/auth/signup', {
+          method: 'POST',
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+            redirectUrl: redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
+            newsLetterSubscription: isSubscribed,
+            idUser: user.userSub,
+          }),
+        });
+        if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
+          formik.setFieldError('email', t('email.email_already_used'));
+        } else if (res.status >= 400) {
+          formik.setFieldError('firstName', t('something_went_wrong'));
+        } else {
+          goTo(ROUTES.confirmationEmailSent, { email });
+        }
+      } catch (error) {
+        console.log('error signing up:', error);
       }
     },
   });
