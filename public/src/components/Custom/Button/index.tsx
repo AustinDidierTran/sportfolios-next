@@ -11,12 +11,14 @@ interface IProps extends ButtonProps {
 
 const CustomButton: React.FC<IProps> = (props) => {
   const { color = 'primary', variant = 'contained', size = 'small', textColor, style, ...otherProps } = props;
-
-  let defaultTextColor = 'white';
-  if (variant === 'outlined' || variant === 'text') {
-    defaultTextColor = 'primary';
-  }
-
+  const defaultTextColor = useMemo(() => {
+    if (variant === 'outlined' || variant === 'text') {
+      return '#18B393';
+    }
+    if (variant === 'contained') {
+      return 'white';
+    }
+  }, [variant]);
   const startIcon = useMemo(() => {
     if (!props.startIcon) {
       return null;
