@@ -78,7 +78,7 @@ export default function Signup() {
           password: password,
         });
         const token = user.signInUserSession.idToken.jwtToken;
-        const res = await api('/api/auth/signup', {
+        const res = await api('/api/auth/signupWithCognito', {
           method: 'POST',
           body: JSON.stringify({
             firstName,
