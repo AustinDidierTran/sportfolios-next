@@ -85,7 +85,7 @@ export default function Login() {
           throw 'password need to be change';
         }
         const token = user.signInUserSession.idToken.jwtToken;
-        const res = await api('/api/auth/login', {
+        const res = await api('/api/auth/loginWithCognito', {
           method: 'POST',
           body: JSON.stringify({
             email,
