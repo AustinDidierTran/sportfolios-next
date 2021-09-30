@@ -14,6 +14,13 @@ import { Typography } from '@material-ui/core';
 import { ACTION_ENUM, Store } from '../../../Store';
 import Upload from 'rc-upload';
 import { uploadPicture } from '../../../actions/aws';
+import IconButton from '../IconButton';
+import { grey } from '@material-ui/core/colors';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import ImageWarningDialog from '../Dialog/ImageWarningDialog';
 
 interface IProps {
   formik: any;
@@ -40,9 +47,18 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
     state: { id: entityId },
   } = useContext(Store);
 
+  const [open, setOpen] = useState(false);
   const [imageList, setImageList] = useState<Image[]>([]);
   const [imageType, setImageType] = useState<string>(IMAGE_TYPE_ENUM.ALL);
   const [img, setImg] = useState<Iimage>(null);
+
+  const openPlayerAcceptation = () => {
+    setOpen(true);
+  };
+
+  const closePlayerAcceptation = () => {
+    setOpen(false);
+  };
 
   useEffect((): void => {
     getImages();
@@ -121,9 +137,18 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <>
-      <Typography className={styles.title} color={hasNoImage ? 'error' : 'textPrimary'}>
-        {t('select.select_image')}
-      </Typography>
+      <div className={styles.disclaimer}>
+        <Typography className={styles.title} color={hasNoImage ? 'error' : 'textPrimary'}>
+          {t('select.select_image')}
+        </Typography>
+        <IconButton
+          icon="Info"
+          style={{ color: grey }}
+          onClick={openPlayerAcceptation}
+          tooltip={t('warning')}
+          fontsize="small"
+        />
+      </div>
       <div className={styles.dialogContent}>
         {CHIPS_MAP.map((c: any, index: number) => (
           <Chip
@@ -162,6 +187,9 @@ const ImagesList: React.FunctionComponent<IProps> = (props) => {
             ))
           : null}
       </ImageList>
+      <div>
+        <ImageWarningDialog open={open} onClose={closePlayerAcceptation} />
+      </div>
     </>
   );
 };

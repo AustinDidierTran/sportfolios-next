@@ -39,8 +39,8 @@ export default function EventSettings() {
       if (end) {
         end = new Date(data.end_date);
       }
-      formik.setFieldValue('limit', data.maximum_spots != null);
-      formik.setFieldValue('maximumSpots', data.maximum_spots || 0);
+      formik.setFieldValue('limit', data.maximumSpots != null);
+      formik.setFieldValue('maximumSpots', data.maximumSpots || 0);
       formik.setFieldValue('startDate', data.start_varchar?.split(' ')[0]);
       formik.setFieldValue('startTime', data.start_varchar?.split(' ')[1]);
       formik.setFieldValue('endDate', data.end_varchar?.split(' ')[0]);

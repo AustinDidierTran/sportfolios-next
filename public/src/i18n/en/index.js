@@ -515,6 +515,7 @@ export default {
       teams_saved: 'Teams saved!',
       teams_unregister_success: 'Teams unregistered successfully',
       teams: 'Teams',
+      team_not_unique: 'There is already a registered team with the same name. Are you sure you want to continue?',
     },
     member: {
       active_members: 'Active members',
@@ -805,6 +806,7 @@ export default {
       person: 'Person',
       personal_information: 'Personal Information',
       persons: 'Persons',
+      people: 'People',
     },
     select: {
       select: 'Select',
@@ -1060,6 +1062,9 @@ export default {
     default: 'Default',
     distance: 'Distance',
     disconnect_app: 'Disconnect {{appName}} app from your account',
+    disclaimer: 'Disclaimer',
+    disclaimer_picture:
+      'Any image containing nudity, violence or other content considered inappropriate may result in a ban from the Sportfolios platform.',
     display_name: 'Display name',
     do_not_specify: 'Do not specify',
     donate: 'Make a donation',
@@ -1262,6 +1267,7 @@ export default {
     of_teams: 'of teams',
     of_phase: 'of phase',
     of_phases: 'of phases',
+    ok: 'OK',
     old_members: 'Old members',
     old_password: 'Old password',
     on_going_events: 'On Going Events',
@@ -1292,6 +1298,7 @@ export default {
     other_team_submitted_a_score: 'Opponent team submitted a score',
     Other: 'Other',
     other: 'Other',
+    other_game_coming: 'There may be other games comming, stay tuned!',
     our_team: 'Our Team',
     page_not_found: 'Page not found',
     password_changed: 'Password has been changed successfully',
@@ -1515,6 +1522,7 @@ export default {
     terms_and_conditions: 'Terms and conditions',
     terms_and_conditions_description:
       'You can write a short description and import a PDF file concerning your short description that players are going to accept to become a member of your organization',
+    test: 'test',
     there_is_no_rosters_for_this_event: 'There are no rosters for this event.',
     there_are_no_more_team_to_accept: 'There are no more teams pending',
     this_coupon_is_only_good_once: 'This coupon is only good once',

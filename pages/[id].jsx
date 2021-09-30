@@ -73,14 +73,7 @@ export default function EntityRoute({ response }) {
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [], //indicates that no page needs be created at build time
-    fallback: 'blocking', //indicates the type of fallback
-  };
-}
-
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { data: id } = await api(formatRoute('/api/entity/realId', null, { id: context.params.id }), { method: 'GET' });
 
   const res = await api(formatRoute('/api/entity', null, { id }), { method: 'GET' });
@@ -92,6 +85,5 @@ export async function getStaticProps(context) {
   }
   return {
     props: { response: res.data }, // will be passed to the page component as props
-    revalidate: 1, // In seconds
   };
 }
