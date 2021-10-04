@@ -17,13 +17,22 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
     goTo(ROUTES.login);
   };
 
+  const goToValidation = (): void => {
+    goTo(ROUTES.validationAccount);
+  };
+
   const buttons = [
+    {
+      name: 'validation code',
+      onClick: goToValidation,
+      color: 'primary',
+    },
     {
       name: t('go_back_to_login'),
       onClick: goToLogin,
       endIcon: 'Undo',
       color: 'primary',
-    },
+    }
   ];
 
   return (
