@@ -27,15 +27,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { COLORS } from '../../utils/colors';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 
-import Amplify, { Auth } from 'aws-amplify';
-import { REGION, USER_POOL_ID, CLIENT_ID } from '../../../../conf.js';
-Amplify.configure({
-  Auth: {
-    region: REGION,
-    userPoolId: USER_POOL_ID,
-    userPoolWebClientId: CLIENT_ID,
-  },
-});
+import { Auth } from 'aws-amplify';
+import '../../utils/amplify/amplifyConfig.jsx';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -79,7 +72,7 @@ export default function Login() {
 
       try {
         const user = await Auth.signIn(email, password);
-        console.log(user.challengeName);
+        console.log(user);
         if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
           //we need to do better!!!
           throw 'password need to be change';
