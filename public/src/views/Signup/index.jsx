@@ -28,15 +28,8 @@ import { useRouter } from 'next/router';
 import { COLORS } from '../../utils/colors';
 import { errors, ERROR_ENUM } from '../../../common/errors';
 
-import Amplify, { Auth } from 'aws-amplify';
-import { REGION, USER_POOL_ID, CLIENT_ID } from '../../../../conf.js';
-Amplify.configure({
-  Auth: {
-    region: REGION,
-    userPoolId: USER_POOL_ID,
-    userPoolWebClientId: CLIENT_ID,
-  },
-});
+import { Auth } from 'aws-amplify';
+import '../../utils/amplify/amplifyConfig.jsx';
 
 export default function Signup() {
   const { t } = useTranslation();
@@ -73,7 +66,7 @@ export default function Signup() {
 
       try {
         //need to check if email is in database first?
-        const user = await Amplify.Auth.signUp({
+        const user = await Auth.signUp({
           username: email,
           password: password,
         });
