@@ -338,6 +338,7 @@ export enum ROUTES_ENUM {
   productAddedToCart = '/page/productAddedToCart',
   redirectWithToken = '/page/redirect',
   registrationStatus = '/page/registrationStatus',
+  resentValidationCode = '/page/resentValidationCode',
   rosterInviteLink = '/page/inviteRoster/:token',
   sales = '/page/sales/:id',
   scheduleInteractiveTool = '/page/scheduleInteractiveTool/:id',
