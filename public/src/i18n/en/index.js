@@ -505,7 +505,7 @@ export default {
       team_refused: 'Team refused',
       team_registration_description: 'Notification sent when you register your team to an event',
       team_registration: 'Team registration',
-      team_registration_event: 'Team registration event type',
+      team_registration_event: 'League with team registration',
       team_select: 'Team select',
       team_selected_add_your_roster:
         'Team {{name}} selected! Time to add your roster. Enter players name, if player already have an account he will appear below search bar.',
@@ -516,6 +516,7 @@ export default {
       teams_unregister_success: 'Teams unregistered successfully',
       teams: 'Teams',
       team_not_unique: 'There is already a registered team with the same name. Are you sure you want to continue?',
+      team_tournament: 'Tournament with team registration',
     },
     member: {
       active_members: 'Active members',
@@ -1321,7 +1322,7 @@ export default {
     phase_started: 'Phase started!',
     phase_updated: 'phase is updated!',
     phone_number: 'Phone Number',
-    pick_up_event: 'Pick-up event',
+    pick_up_event: 'Pick-up league',
     places_left: 'places left',
     plateform_fees: 'Plateform fees',
     player_acceptation_step_message:

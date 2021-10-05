@@ -510,9 +510,10 @@ export default {
       teams: 'Équipes',
       team_skipped: 'Équipe passée',
       team_registration: "Inscription d'équipe",
-      team_registration_event: 'Événement demandant une inscription par équipe',
+      team_registration_event: 'Ligue demandant une inscription par équipe',
       team_registration_description: "Notification envoyée lors de l'inscription de votre équipe",
       team_not_unique: "Il y a déjà une équipe d'inscrite avec le même nom. Êtes-vous sûre de vouloir continuer?",
+      team_tournament: 'Tournoi demandant une inscription par équipe',
     },
     member: {
       active_members: 'Membres actifs',
@@ -1336,7 +1337,7 @@ export default {
     phase_started: 'Phase démarée!',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
-    pick_up_event: 'Événement de type "pick-up"',
+    pick_up_event: 'Ligue de type "pick-up"',
     places_left: 'places restantes',
     plateform_fees: 'Frais de plateforme',
     player_acceptation_step_message:

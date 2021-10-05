@@ -32,7 +32,7 @@ export const useFields = (type, options) => {
           componentType: COMPONENT_TYPE_ENUM.DIVIDER,
           style: { marginBottom: '24px', marginTop: '16px' },
         },
-        eventType === EVENT_TYPE.TEAM
+        eventType === EVENT_TYPE.TEAM_LEAGUE || eventType === EVENT_TYPE.TEAM_TOURNAMENT
           ? teamPriceTotal
             ? {
                 namespace: 'showTeamPrice',

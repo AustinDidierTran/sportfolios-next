@@ -24,7 +24,7 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const { t } = useTranslation();
-  const [rosters, setRosters] = useState<AllTeamsAcceptedInfos[]>();
+  const [rosters, setRosters] = useState<AllTeamsAcceptedInfos[]>(); //ici
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [team, setTeam] = useState<boolean>(false);
 
