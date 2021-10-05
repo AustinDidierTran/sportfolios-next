@@ -602,6 +602,13 @@ export default {
       choose: 'Choisir',
       choose_later_date: 'Veuillez choisir une date ultérieure',
     },
+    code_validation: {
+      code_message: 'Validation du compte de l\'adresse: ',
+      code_length: 'La taille doit être de 6 caractères',
+      only_number: 'Seuls des chiffres sont acceptés',
+      invalide_code: 'Le code n\'est pas valide',
+      value_is_required: 'Une valeur est requise',
+    },
     create: {
       create_a_game: 'Créer une partie',
       create_a_phase: 'Créer une phase',
