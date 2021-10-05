@@ -89,7 +89,7 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
               className={styles.button}
               style={{ color: COLORS.white }}
             >
-              {'Resent email'}
+              {t('code_validation.new_code')}
             </Button>
             <Button
               size="small"

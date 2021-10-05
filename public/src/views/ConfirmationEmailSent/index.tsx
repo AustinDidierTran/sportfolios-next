@@ -18,12 +18,12 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
   };
 
   const goToValidation = (): void => {
-    goTo(ROUTES.validationAccount);
+    goTo(ROUTES.validationAccount, { email });
   };
 
   const buttons = [
     {
-      name: 'validation code',
+      name: t('code_validation.validate_account'),
       onClick: goToValidation,
       color: 'primary',
     },
@@ -32,7 +32,7 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
       onClick: goToLogin,
       endIcon: 'Undo',
       color: 'primary',
-    }
+    },
   ];
 
   return (

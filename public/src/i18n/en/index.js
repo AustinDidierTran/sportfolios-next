@@ -614,8 +614,11 @@ export default {
       code_message: 'Account validation of the address: ',
       code_length: 'The size must be 6 characters',
       only_number: 'Only numbers are accepted',
+      new_code: 'New code',
       invalide_code: 'The code is not valid',
+      resent_validation_code: 'Send back the validation code',
       value_is_required: 'A value is required',
+      validate_account: 'Validate my account',
     },
     create: {
       create_a_game: 'Create a game',
