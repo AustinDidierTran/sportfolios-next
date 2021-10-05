@@ -606,6 +606,13 @@ export default {
       choose: 'Choose',
       choose_later_date: 'Choose a later date',
     },
+    code_validation: {
+      code_message: 'Account validation of the address: ',
+      code_length: 'The size must be 6 characters',
+      only_number: 'Only numbers are accepted',
+      invalide_code: 'The code is not valid',
+      value_is_required: 'A value is required',
+    },
     create: {
       create_a_game: 'Create a game',
       create_a_phase: 'Create a phase',
