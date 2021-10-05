@@ -8,7 +8,7 @@ import LoadingSpinner from '../../../public/src/components/Custom/LoadingSpinner
 
 const ValidationAccount = dynamic(() => import('../../../public/src/views/ValidationAccount'));
 
-const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
+const ValidationAccountRoute: React.FunctionComponent = () => {
   const router = useRouter();
   const { email: emailProps } = router.query;
   const { t } = useTranslation();
@@ -30,4 +30,4 @@ const ConfirmationEmailSentRoute: React.FunctionComponent = () => {
     </>
   );
 };
-export default ConfirmationEmailSentRoute;
+export default ValidationAccountRoute;
