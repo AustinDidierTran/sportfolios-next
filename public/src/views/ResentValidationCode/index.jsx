@@ -12,11 +12,13 @@ import TextField from '../../components/Custom/TextField';
 import Container from '../../components/Custom/Container';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { LOGO_ENUM, REQUEST_STATUS_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { goTo, ROUTES } from '../../actions/goTo';
-import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
 import { COLORS } from '../../utils/colors';
+
+import { Auth } from 'aws-amplify';
+import '../../utils/amplify/amplifyConfig.jsx';
 
 export default function ResentValidationCode() {
   const { t } = useTranslation();
@@ -34,21 +36,14 @@ export default function ResentValidationCode() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { email } = values;
-      const res = await api('/api/auth/recoveryEmail', {
-        method: 'POST',
-        body: JSON.stringify({
-          email,
-        }),
-      });
-
-      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
-        // Email not found
-        formik.setFieldError('email', t('email.email_not_found'));
-      }
-      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
+      try {
+        await Auth.resendSignUp(email);
+        goTo(ROUTES.validationAccount, { email });
+      } catch (err) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('confirmation_email_sent'),
+          message: t('an_error_has_occured'),
+          severity: SEVERITY_ENUM.ERROR,
         });
       }
     },
@@ -74,7 +69,7 @@ export default function ResentValidationCode() {
                 type="submit"
                 style={{ color: COLORS.white }}
               >
-                {t('send_password_recovery_email')}
+                {t('submit')}
               </Button>
             </CardActions>
             <Divider />
@@ -85,20 +80,7 @@ export default function ResentValidationCode() {
                   textDecoration: 'none',
                   textAlign: 'center',
                   color: COLORS.grey,
-                  margin: '0 16px',
-                  cursor: 'pointer',
-                }}
-                onClick={() => goTo(ROUTES.login)}
-              >
-                {t('have_an_account_signin')}
-              </Typography>
-              <Typography
-                style={{
-                  fontSize: 12,
-                  textDecoration: 'none',
-                  textAlign: 'center',
-                  color: COLORS.grey,
-                  margin: '0 16px',
+                  margin: '0 auto',
                   cursor: 'pointer',
                 }}
                 onClick={() => goTo(ROUTES.signup)}

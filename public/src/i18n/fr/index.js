@@ -612,8 +612,11 @@ export default {
       code_message: 'Validation du compte de l\'adresse: ',
       code_length: 'La taille doit être de 6 caractères',
       only_number: 'Seuls des chiffres sont acceptés',
+      new_code: 'Nouveau code',
       invalide_code: 'Le code n\'est pas valide',
+      resent_validation_code: 'Renvoyer le code de validation',
       value_is_required: 'Une valeur est requise',
+      validate_account: 'Valider mon compte',
     },
     create: {
       create_a_game: 'Créer une partie',

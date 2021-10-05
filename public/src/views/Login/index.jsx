@@ -264,7 +264,7 @@ export default function Login() {
               }}
               onClick={() => goTo(ROUTES.resentValidationCode)}
             >
-              {t('resent_validation_code')}
+              {t('code_validation.resent_validation_code')}
             </Typography>
           </CardActions>
         </form>

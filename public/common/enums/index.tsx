@@ -352,7 +352,7 @@ export enum ROUTES_ENUM {
   transferPerson = '/page/transferPerson/:token',
   transferPersonExpired = '/page/transferPersonExpired',
   userSettings = '/page/userSettings',
-  validationAccount = '/page/validationAccount',
+  validationAccount = '/page/validationAccount/:email',
 }
 
 export enum REQUEST_STATUS_ENUM {
