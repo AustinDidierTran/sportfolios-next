@@ -4,22 +4,8 @@
   margin-left: auto;
   margin-right: auto;
 }
-.loginButton {
-  margin-left: auto;
-  margin-right: auto;
-}
-.linksContainer {
-  justify-content: space-between;
-}
 .button {
   width: 100%;
-}
-.or {
-  color: gray;
-  margin: 8px auto;
-}
-.buttonSignup {
-  margin: 0 8px !important;
 }
 .logo {
   margin: 0 auto;

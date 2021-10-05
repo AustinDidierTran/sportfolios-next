@@ -31,35 +31,29 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
   const validationSchema = yup.object().shape({
     validationCode: yup
       .string()
-      .matches(codeReg, 'only_number')
-      .min(6, 'code_length')
-      .max(6, 'code_length')
-      .required('value_is_required'),
+      .matches(codeReg, t('code_validation.only_number'))
+      .min(6, t('code_validation.code_length'))
+      .max(6, t('code_validation.code_length'))
+      .required(t('code_validation.value_is_required')),
   });
 
   const formik = useFormik({
     initialValues: {
-      code: '',
+      validationCode: '',
     },
     validateOnChange: false,
     validationSchema,
     onSubmit: async (values) => {
-      const { code } = values;
+      const { validationCode } = values;
+
       try {
-        await Auth.confirmSignUp(email, code);
+        await Auth.confirmSignUp(email, validationCode);
+        goTo(ROUTES.login);
       } catch (error) {
-        console.log('error confirming sign up', error);
+        formik.setFieldError('validationCode', t('code_validation.invalide_code'));
       }
     },
   });
-
-  const resentEmail = async () => {
-    try {
-      await Auth.resendSignUp(email);
-    } catch (err) {
-      console.log('error resending code: ', err);
-    }
-  };
 
   return (
     <Container className={styles.container}>
@@ -69,19 +63,10 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
       <Paper className={styles.signup}>
         <form onSubmit={formik.handleSubmit}>
           <CardContent>
-            <Typography className={styles.content}>{'Validation du compte ' + email}</Typography>
+            <Typography className={styles.content}>{t('code_validation.code_message') + email}</Typography>
             <TextField namespace="validationCode" formik={formik} type="text" label={'validation code'} fullWidth />
           </CardContent>
           <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={resentEmail}
-              className={styles.button}
-              style={{ color: COLORS.white }}
-            >
-              {'Resent email'}
-            </Button>
             <Button
               size="small"
               color="primary"
@@ -90,7 +75,7 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
               type="submit"
               style={{ color: COLORS.white }}
             >
-              {'Valider'}
+              {t('submit')}
             </Button>
           </CardActions>
         </form>
