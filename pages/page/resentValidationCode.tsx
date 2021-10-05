@@ -12,8 +12,8 @@ const ResentValidationCodeRoute: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.forgotPassword.title')} />
-        <meta property="og:description" content={t('metadata.forgotPassword.description')} />
+        <meta property="og:title" content={t('metadata.resentValidationCode.title')} />
+        <meta property="og:description" content={t('metadata.resentValidationCode.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
       <ResentValidationCode />
