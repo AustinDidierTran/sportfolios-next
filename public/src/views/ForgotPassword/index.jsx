@@ -18,6 +18,9 @@ import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
 import { COLORS } from '../../utils/colors';
 
+import { Auth } from 'aws-amplify';
+import '../../utils/amplify/amplifyConfig.jsx';
+
 export default function ForgotPassword() {
   const { t } = useTranslation();
   const { dispatch } = React.useContext(Store);
@@ -34,22 +37,27 @@ export default function ForgotPassword() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { email } = values;
+      /*
+      //old code
       const res = await api('/api/auth/recoveryEmail', {
         method: 'POST',
         body: JSON.stringify({
           email,
         }),
       });
-
-      if (res.status === REQUEST_STATUS_ENUM.ERROR) {
-        // Email not found
-        formik.setFieldError('email', t('email.email_not_found'));
-      }
-      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
+      */
+      try {
+        const res = await Auth.forgotPassword(email);
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
           message: t('confirmation_email_sent'),
         });
+      } catch (err) {
+        console.log(err);
+        if (res.status === REQUEST_STATUS_ENUM.ERROR) {
+          // Email not found
+          formik.setFieldError('email', t('email.email_not_found'));
+        }
       }
     },
   });
