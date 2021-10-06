@@ -628,6 +628,7 @@ export const MESSENGER_MESSAGES_EN = {
 };
 
 export enum EVENT_TYPE {
-  PLAYER = 'player',
-  TEAM = 'team',
+  PICK_UP_LEAGUE = 'player',
+  TEAM_LEAGUE = 'team',
+  TEAM_TOURNAMENT = 'teamTournament',
 }
