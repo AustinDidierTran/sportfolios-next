@@ -7,11 +7,11 @@ interface IProps {
   isEventAdmin: boolean;
   rosters: AllTeamsAcceptedInfos[];
   update: () => void;
+  eventInfo: any;
 }
 
 const Rosters: React.FunctionComponent<IProps> = (props) => {
-  const { isEventAdmin, rosters, update } = props;
-
+  const { isEventAdmin, rosters, update, eventInfo } = props;
   if (!rosters || !rosters.length) {
     // TODO: It should say there are no rosters [WCS-372]
 
@@ -27,6 +27,7 @@ const Rosters: React.FunctionComponent<IProps> = (props) => {
           index={index}
           key={roster.rosterId}
           update={update}
+          eventInfo={eventInfo}
         />
       ))}
     </div>

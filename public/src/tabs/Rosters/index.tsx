@@ -15,10 +15,11 @@ const Rosters = dynamic(() => import('./Rosters'));
 
 interface IProps {
   isEventAdmin: boolean;
+  eventInfo: any;
 }
 
 const TabRosters: React.FunctionComponent<IProps> = (props) => {
-  const { isEventAdmin } = props;
+  const { isEventAdmin, eventInfo } = props;
   const {
     state: { id: eventId },
   } = useContext(Store);
@@ -60,7 +61,7 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
           {t('there_is_no_rosters_for_this_event')}
         </Typography>
       ) : (
-        <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />
+        <Rosters eventInfo={eventInfo} isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />
       )}
       <AddTeam
         isOpen={team}

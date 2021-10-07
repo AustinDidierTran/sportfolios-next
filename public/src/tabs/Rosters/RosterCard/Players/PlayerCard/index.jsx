@@ -12,7 +12,10 @@ import Avatar from '../../../../../components/Custom/Avatar';
 import { COLORS } from '../../../../../utils/colors';
 import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import Button from '../../../../../components/Custom/Button';
+import Link from 'next/link';
+import BasicInfos from '../../../../Settings/BasicInfos';
+import { getEventInfo } from '../../../../../actions/service/entity/get';
 export default function PlayerCard(props) {
   const {
     isEditable,
@@ -24,6 +27,7 @@ export default function PlayerCard(props) {
     onPlayerAddToRoster,
     isAvailable,
     editableRoster = false,
+    eventInfo,
   } = props;
   const { t } = useTranslation();
   const [playerInfos, setPlayerInfos] = useState(null);
@@ -51,7 +55,6 @@ export default function PlayerCard(props) {
     // do things
     closePlayerAcceptation();
   };
-
   const getPersonInfos = async () => {
     const { data } = await api(
       formatRoute('/api/entity/personInfos', null, {
@@ -75,7 +78,6 @@ export default function PlayerCard(props) {
     const p = { id: player.personId };
     onPlayerAddToRoster(p);
   };
-
   if (editableRoster) {
     return (
       <div className={styles.card}>
@@ -90,11 +92,15 @@ export default function PlayerCard(props) {
           <div className={styles.chip}>
             <StatusChip status={player.paymentStatus ?? player.status} />
           </div>
-          <div className={styles.memberChip}>
+          <div className={styles.memberButton}>
             {player.isMember || player.isSub ? (
-              <Chip label={t('member.member')} color="primary" variant="outlined" />
+              <Button color="primary" variant="outlined">
+                <Link href={eventInfo.creator.id}>{t('member.member')}</Link>
+              </Button>
             ) : (
-              <Chip label={t('member.not_member')} color="secondary" variant="outlined" />
+              <Button color="secondary" variant="outlined" textColor="red">
+                <Link href={eventInfo.creator.id}>{t('member.not_member')}</Link>
+              </Button>
             )}
           </div>
           {isEditable ? (

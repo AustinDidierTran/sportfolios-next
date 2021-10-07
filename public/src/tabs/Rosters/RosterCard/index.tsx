@@ -46,6 +46,7 @@ interface IProps {
   withMyPersonsQuickAdd?: boolean;
   editableRoster?: boolean;
   editableRole?: boolean;
+  eventInfo: any;
 }
 
 const RosterCard: React.FunctionComponent<IProps> = (props) => {
@@ -61,6 +62,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
     withMyPersonsQuickAdd,
     editableRoster: editableRosterProp,
     editableRole: editableRoleProp,
+    eventInfo,
   } = props;
   const { name, players, rosterId, role } = roster;
 
@@ -195,6 +197,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
       </AccordionSummary>
       <AccordionDetails>
         <Players
+          eventInfo={eventInfo}
           className={styles.players}
           withPlayersInfos={isEventAdmin}
           editableRoster={editableRoster}
