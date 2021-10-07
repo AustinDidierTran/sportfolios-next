@@ -67,7 +67,6 @@ export default function PasswordRecovery() {
 
         if (res === 'SUCCESS') {
           const user = await Auth.signIn(email, password);
-          console.log(user);
           const token = user.signInUserSession.idToken.jwtToken;
           const res = await api('/api/auth/loginWithCognito', {
             method: 'POST',

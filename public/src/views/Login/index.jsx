@@ -72,7 +72,6 @@ export default function Login() {
 
       try {
         const user = await Auth.signIn(email, password);
-        console.log(user);
         if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
           //we need to do better!!!
           throw 'password need to be change';
@@ -107,9 +106,8 @@ export default function Login() {
             goTo(ROUTES.home);
           }
         }
-        console.log(user);
       } catch (error) {
-        console.log('error signing in', error);
+        //console.log('error signing in', error);
         if (error.code === 'NotAuthorizedException') {
           const res = await api('/api/auth/migrate', {
             method: 'POST',

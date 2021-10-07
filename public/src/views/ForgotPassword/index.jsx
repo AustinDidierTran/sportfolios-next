@@ -53,7 +53,6 @@ export default function ForgotPassword() {
           message: t('confirmation_email_sent'),
         });
       } catch (err) {
-        console.log(err);
         if (res.status === REQUEST_STATUS_ENUM.ERROR) {
           // Email not found
           formik.setFieldError('email', t('email.email_not_found'));
