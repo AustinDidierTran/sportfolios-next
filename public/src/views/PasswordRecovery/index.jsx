@@ -64,7 +64,7 @@ export default function PasswordRecovery() {
       */
       try {
         const res = await Auth.forgotPasswordSubmit(email, validationCode, password);
-        console.log(res);
+
         if (res === 'SUCCESS') {
           const user = await Auth.signIn(email, password);
           console.log(user);
@@ -92,7 +92,6 @@ export default function PasswordRecovery() {
           goTo(ROUTES.home);
         }
       } catch (err) {
-        console.log(err.code);
         if (err.code === REQUEST_STATUS_ENUM.FORBIDDEN) {
           // Token expired
           formik.setFieldError('password', t('token_expired'));
