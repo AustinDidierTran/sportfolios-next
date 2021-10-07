@@ -616,6 +616,7 @@ export default {
       only_number: 'Only numbers are accepted',
       invalide_code: 'The code is not valid',
       value_is_required: 'A value is required',
+      message: 'Validation code',
     },
     create: {
       create_a_game: 'Create a game',

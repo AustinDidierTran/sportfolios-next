@@ -613,6 +613,7 @@ export default {
       only_number: 'Seuls des chiffres sont acceptés',
       invalide_code: 'Le code n\'est pas valide',
       value_is_required: 'Une valeur est requise',
+      message: 'Code de validation',
     },
     create: {
       create_a_game: 'Créer une partie',

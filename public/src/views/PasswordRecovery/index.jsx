@@ -64,7 +64,6 @@ export default function PasswordRecovery() {
       */
       try {
         const res = await Auth.forgotPasswordSubmit(email, validationCode, password);
-        console.log(res);
         if (res === 'SUCCESS') {
           const user = await Auth.signIn(email, password);
           console.log(user);
@@ -92,7 +91,7 @@ export default function PasswordRecovery() {
           goTo(ROUTES.home);
         }
       } catch (err) {
-        console.log(err.code);
+        //console.log(err.code);
         if (err.code === REQUEST_STATUS_ENUM.FORBIDDEN) {
           // Token expired
           formik.setFieldError('password', t('token_expired'));
@@ -122,7 +121,13 @@ export default function PasswordRecovery() {
             >
               {t('you.you_can_now_change_your_password', { email })}
             </Typography>
-            <TextField namespace="validationCode" formik={formik} label={t('validation_code')} type="text" fullWidth />
+            <TextField
+              namespace="validationCode"
+              formik={formik}
+              label={t('code_validation.message')}
+              type="text"
+              fullWidth
+            />
             <TextField namespace="password" formik={formik} label={t('new_password')} type="password" fullWidth />
           </CardContent>
           <CardActions>
