@@ -310,6 +310,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      resentValidationCode: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
     },
     landingPage: {
       header: {
@@ -510,7 +515,7 @@ export default {
       team_refused: 'Team refused',
       team_registration_description: 'Notification sent when you register your team to an event',
       team_registration: 'Team registration',
-      team_registration_event: 'Team registration event type',
+      team_registration_event: 'League with team registration',
       team_select: 'Team select',
       team_selected_add_your_roster:
         'Team {{name}} selected! Time to add your roster. Enter players name, if player already have an account he will appear below search bar.',
@@ -521,6 +526,7 @@ export default {
       teams_unregister_success: 'Teams unregistered successfully',
       teams: 'Teams',
       team_not_unique: 'There is already a registered team with the same name. Are you sure you want to continue?',
+      team_tournament: 'Tournament with team registration',
     },
     member: {
       active_members: 'Active members',
@@ -614,9 +620,12 @@ export default {
       code_message: 'Account validation of the address: ',
       code_length: 'The size must be 6 characters',
       only_number: 'Only numbers are accepted',
+      new_code: 'New code',
       invalide_code: 'The code is not valid',
+      resent_validation_code: 'Send back the validation code',
       value_is_required: 'A value is required',
       message: 'Validation code',
+      validate_account: 'Validate my account',
     },
     create: {
       create_a_game: 'Create a game',
@@ -1334,7 +1343,7 @@ export default {
     phase_started: 'Phase started!',
     phase_updated: 'phase is updated!',
     phone_number: 'Phone Number',
-    pick_up_event: 'Pick-up event',
+    pick_up_event: 'Pick-up league',
     places_left: 'places left',
     plateform_fees: 'Plateform fees',
     player_acceptation_step_message:

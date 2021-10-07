@@ -253,6 +253,20 @@ export default function Login() {
               {t('forgot_password')}
             </Typography>
           </CardActions>
+          <CardActions className={styles.linksContainer}>
+            <Typography
+              style={{
+                fontSize: 12,
+                textDecoration: 'none',
+                color: COLORS.grey,
+                margin: '0 auto',
+                cursor: 'pointer',
+              }}
+              onClick={() => goTo(ROUTES.resentValidationCode)}
+            >
+              {t('code_validation.resent_validation_code')}
+            </Typography>
+          </CardActions>
         </form>
       </Paper>
       <div className={styles.or}>

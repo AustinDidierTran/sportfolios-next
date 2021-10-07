@@ -338,6 +338,7 @@ export enum ROUTES_ENUM {
   productAddedToCart = '/page/productAddedToCart',
   redirectWithToken = '/page/redirect',
   registrationStatus = '/page/registrationStatus',
+  resentValidationCode = '/page/resentValidationCode',
   rosterInviteLink = '/page/inviteRoster/:token',
   sales = '/page/sales/:id',
   scheduleInteractiveTool = '/page/scheduleInteractiveTool/:id',
@@ -351,7 +352,7 @@ export enum ROUTES_ENUM {
   transferPerson = '/page/transferPerson/:token',
   transferPersonExpired = '/page/transferPersonExpired',
   userSettings = '/page/userSettings',
-  validationAccount = '/page/validationAccount',
+  validationAccount = '/page/validationAccount/:email',
 }
 
 export enum REQUEST_STATUS_ENUM {
@@ -629,6 +630,7 @@ export const MESSENGER_MESSAGES_EN = {
 };
 
 export enum EVENT_TYPE {
-  PLAYER = 'player',
-  TEAM = 'team',
+  PICK_UP_LEAGUE = 'player',
+  TEAM_LEAGUE = 'team',
+  TEAM_TOURNAMENT = 'teamTournament',
 }
