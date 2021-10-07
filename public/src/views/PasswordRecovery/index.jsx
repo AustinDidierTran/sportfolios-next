@@ -65,11 +65,21 @@ export default function PasswordRecovery() {
       try {
         const res = await Auth.forgotPasswordSubmit(email, validationCode, password);
         console.log(res);
-        if (res.code === REQUEST_STATUS_ENUM.SUCCESS) {
-          const { authToken, userInfo } = res.data;
+        if (res === 'SUCCESS') {
+          const user = await Auth.signIn(email, password);
+          console.log(user);
+          const token = user.signInUserSession.idToken.jwtToken;
+          const res = await api('/api/auth/loginWithCognito', {
+            method: 'POST',
+            body: JSON.stringify({
+              email,
+              token,
+            }),
+          });
+          let { userInfo } = res;
           dispatch({
             type: ACTION_ENUM.LOGIN,
-            payload: authToken,
+            payload: token,
           });
           dispatch({
             type: ACTION_ENUM.UPDATE_USER_INFO,
