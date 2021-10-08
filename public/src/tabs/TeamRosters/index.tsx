@@ -16,7 +16,6 @@ const TabTeamRosters: React.FunctionComponent<IProps> = (props) => {
   return (
     <>
       <PendingPlayers role={basicInfos.role} />
-      {adminView ? <Rosters adminView={adminView} /> : <></>}
       <Players adminView={adminView} />
     </>
   );
