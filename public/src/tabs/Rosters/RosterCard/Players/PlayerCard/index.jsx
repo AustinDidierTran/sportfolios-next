@@ -33,7 +33,6 @@ export default function PlayerCard(props) {
   const [playerInfos, setPlayerInfos] = useState(null);
   const [open, setOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
-
   const closePlayerAcceptation = () => {
     setOpen(false);
   };
