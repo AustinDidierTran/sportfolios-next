@@ -42,7 +42,6 @@ export default function Registration() {
       getEvent(id).then(setEvent);
     }
   }, [id]);
-
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -58,7 +57,11 @@ export default function Registration() {
           <ListItemText primary={t('register.registrations')} />
         </AccordionSummary>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          {event.eventType === EVENT_TYPE.TEAM ? <TeamsRegistered /> : <PlayersRegistered />}
+          {event.eventType === EVENT_TYPE.TEAM_LEAGUE || event.eventType === EVENT_TYPE.TEAM_TOURNAMENT ? (
+            <TeamsRegistered />
+          ) : (
+            <PlayersRegistered />
+          )}
           <AddOptionsEvent />
         </Collapse>
       </Accordion>

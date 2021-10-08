@@ -254,14 +254,14 @@ export default function OptionPayment() {
       closeDate: moment().add(1, 'month').format('YYYY-MM-DD'),
       closeTime: '23:59',
       informations: '',
-      eventType: EVENT_TYPE.TEAM,
+      eventType: EVENT_TYPE.TEAM_LEAGUE,
       manualAcceptation: false,
     },
     validationSchema,
     validate,
     validateOnChange: false,
     onSubmit: (values) => {
-      if (values.eventType === EVENT_TYPE.PLAYER) {
+      if (values.eventType === EVENT_TYPE.PICK_UP_LEAGUE) {
         values.teamPrice = undefined;
       }
       setIsSubmitting(true);

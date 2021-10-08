@@ -23,7 +23,7 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
 
   const buttons = [
     {
-      name: 'validation code',
+      name: t('code_validation.validate_account'),
       onClick: goToValidation,
       color: 'primary',
     },
