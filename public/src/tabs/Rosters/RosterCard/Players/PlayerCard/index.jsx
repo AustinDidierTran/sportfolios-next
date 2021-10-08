@@ -14,8 +14,6 @@ import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '../../../../../components/Custom/Button';
 import Link from 'next/link';
-import BasicInfos from '../../../../Settings/BasicInfos';
-import { getEventInfo } from '../../../../../actions/service/entity/get';
 export default function PlayerCard(props) {
   const {
     isEditable,
