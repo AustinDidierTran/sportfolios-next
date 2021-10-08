@@ -12,7 +12,6 @@ import Avatar from '../../../../../components/Custom/Avatar';
 import { COLORS } from '../../../../../utils/colors';
 import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '../../../../../components/Custom/Button';
 import Link from 'next/link';
 export default function PlayerCard(props) {
   const {
@@ -89,15 +88,21 @@ export default function PlayerCard(props) {
           <div className={styles.chip}>
             <StatusChip status={player.paymentStatus ?? player.status} />
           </div>
-          <div className={styles.memberButton}>
+          <div className={styles.memberChip}>
             {player.isMember || player.isSub ? (
-              <Button color="primary" variant="outlined">
-                <Link href={eventInfo.creator.id}>{t('member.member')}</Link>
-              </Button>
+              <Link href={eventInfo.creator.id}>
+                <Chip color="primary" variant="outlined" clickable="true" label={t('member.member')}></Chip>
+              </Link>
             ) : (
-              <Button color="secondary" variant="outlined" textColor="red">
-                <Link href={eventInfo.creator.id}>{t('member.not_member')}</Link>
-              </Button>
+              <Link href={eventInfo.creator.id}>
+                <Chip
+                  color="secondary"
+                  variant="outlined"
+                  textColor="red"
+                  clickable="true"
+                  label={t('member.not_member')}
+                ></Chip>
+              </Link>
             )}
           </div>
           {isEditable ? (
