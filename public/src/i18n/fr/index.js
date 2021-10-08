@@ -621,6 +621,7 @@ export default {
       invalide_code: 'Le code n\'est pas valide',
       resent_validation_code: 'Renvoyer le code de validation',
       value_is_required: 'Une valeur est requise',
+      message: 'Code de validation',
       validate_account: 'Valider mon compte',
     },
     create: {
