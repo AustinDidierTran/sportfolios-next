@@ -632,4 +632,5 @@ export enum EVENT_TYPE {
   PICK_UP_LEAGUE = 'player',
   TEAM_LEAGUE = 'team',
   TEAM_TOURNAMENT = 'teamTournament',
+  GAME = 'game',
 }

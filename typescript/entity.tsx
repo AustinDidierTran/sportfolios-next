@@ -15,9 +15,15 @@ export interface Team extends Entity {
 }
 
 export interface Event extends Entity {
-  admins: Person[];
-  maximumSpots: number;
+  creator: Organization;
+  eventType: string;
+  startDate: Date;
+  admins?: Person[];
+  endDate?: Date;
+  maximumSpots?: number;
+  ticketLimit?: number;
 }
+
 export interface ISpiritRanking {
   name: string;
   rosterId: string;
