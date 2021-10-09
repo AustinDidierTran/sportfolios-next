@@ -628,6 +628,8 @@ export default {
       created_by: 'Created by {{name}}',
       created_on: 'Created on',
       creation_date: 'Creation date',
+      additional_informations: 'Additionnal information',
+      waiting_for_type: 'Waiting for type selection',
     },
     delete: {
       delete_field_confirmation: 'Are you sure you want to delete this field?',
@@ -724,6 +726,11 @@ export default {
       events_that_might_interest_you: 'Events that might interest you',
       events: 'Events',
       event_type: 'Event type',
+      team_league: { title: 'Team league', description: 'Perfect for regular leagues with team registration fees' },
+      pick_up: { title: 'Pick-up league', description: 'Adapted for pick-up leagues with individual fees' },
+      team_tournament: { title: 'Team tournament', description: 'Perfect for tournaments with team registration' },
+      game: { title: 'Single Game', description: 'Perfect for a game with a nice spectator experience' },
+      ticket_limit: 'Ticket limit',
     },
     invalid: {
       invalid_64_length: 'Must be 64 or less characters long.',
