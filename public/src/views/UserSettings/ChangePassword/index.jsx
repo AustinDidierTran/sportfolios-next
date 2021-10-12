@@ -61,7 +61,6 @@ export default function ChangePassword() {
           return Auth.changePassword(user, oldPassword, newPassword);
         })
         .then((data) => {
-          console.log(data);
           if (data === 'SUCCESS') {
             resetForm();
             dispatch({
