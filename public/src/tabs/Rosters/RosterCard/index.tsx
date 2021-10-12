@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface IProps {
-  isEventAdmin: boolean;
+  isAdmin: boolean;
   roster: AllTeamsAcceptedInfos;
   whiteList?: Member;
   index: number;
@@ -46,6 +46,7 @@ interface IProps {
   withMyPersonsQuickAdd?: boolean;
   editableRoster?: boolean;
   editableRole?: boolean;
+  eventInfo: any;
 }
 
 const RosterCard: React.FunctionComponent<IProps> = (props) => {
@@ -53,7 +54,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const {
-    isEventAdmin,
+    isAdmin,
     roster,
     whiteList,
     index = 0,
@@ -61,6 +62,7 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
     withMyPersonsQuickAdd,
     editableRoster: editableRosterProp,
     editableRole: editableRoleProp,
+    eventInfo,
   } = props;
   const { name, players, rosterId, role } = roster;
 
@@ -167,15 +169,15 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
 
   const isTeamEditor = useMemo(() => role == ROSTER_ROLE_ENUM.CAPTAIN || role == ROSTER_ROLE_ENUM.COACH, [role]);
   const editableRoster = useMemo(
-    () => editableRosterProp || isTeamEditor || isEventAdmin,
-    [editableRosterProp, isTeamEditor, isEventAdmin]
+    () => editableRosterProp || isTeamEditor || isAdmin,
+    [editableRosterProp, isTeamEditor, isAdmin]
   );
   const editableRole = useMemo(
-    () => editableRoleProp || isTeamEditor || isEventAdmin,
-    [editableRoleProp, isTeamEditor, isEventAdmin]
+    () => editableRoleProp || isTeamEditor || isAdmin,
+    [editableRoleProp, isTeamEditor, isAdmin]
   );
 
-  const greenBackground = isEventAdmin || role != ROSTER_ROLE_ENUM.VIEWER;
+  const greenBackground = isAdmin || role != ROSTER_ROLE_ENUM.VIEWER;
   const style = useMemo(() => {
     if (greenBackground && isEven(index)) {
       return classes.evenGreen;
@@ -195,8 +197,9 @@ const RosterCard: React.FunctionComponent<IProps> = (props) => {
       </AccordionSummary>
       <AccordionDetails>
         <Players
+          eventInfo={eventInfo}
           className={styles.players}
-          withPlayersInfos={isEventAdmin}
+          withPlayersInfos={isAdmin}
           editableRoster={editableRoster}
           editableRole={editableRole}
           whiteList={whiteList}

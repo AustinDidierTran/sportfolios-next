@@ -14,11 +14,12 @@ import { AllTeamsAcceptedInfos } from '../../../../typescript/types';
 const Rosters = dynamic(() => import('./Rosters'));
 
 interface IProps {
-  isEventAdmin: boolean;
+  isAdmin: boolean;
+  eventInfo: any;
 }
 
 const TabRosters: React.FunctionComponent<IProps> = (props) => {
-  const { isEventAdmin } = props;
+  const { isAdmin, eventInfo } = props;
   const {
     state: { id: eventId },
   } = useContext(Store);
@@ -27,7 +28,6 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
   const [rosters, setRosters] = useState<AllTeamsAcceptedInfos[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [team, setTeam] = useState<boolean>(false);
-
   useEffect((): void => {
     if (eventId) {
       getData();
@@ -50,7 +50,7 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <>
-      {isEventAdmin ? (
+      {isAdmin ? (
         <Button size="small" variant="contained" endIcon="Add" onClick={() => setTeam(true)} className={styles.button}>
           {t('add.add_team')}
         </Button>
@@ -60,7 +60,7 @@ const TabRosters: React.FunctionComponent<IProps> = (props) => {
           {t('there_is_no_rosters_for_this_event')}
         </Typography>
       ) : (
-        <Rosters isEventAdmin={isEventAdmin} rosters={rosters} update={getData} />
+        <Rosters eventInfo={eventInfo} isAdmin={isAdmin} rosters={rosters} update={getData} />
       )}
       <AddTeam
         isOpen={team}

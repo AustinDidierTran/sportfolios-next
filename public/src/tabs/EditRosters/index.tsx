@@ -4,7 +4,13 @@ import dynamic from 'next/dynamic';
 
 const Rosters = dynamic(() => import('../Rosters'));
 
-const EditRosters: React.FunctionComponent = () => {
-  return <Rosters isEventAdmin />;
+interface IProps {
+  isAdmin: boolean;
+  eventInfo: any;
 }
+
+const EditRosters: React.FunctionComponent<IProps> = (props) => {
+  const { isAdmin, eventInfo } = props;
+  return <Rosters eventInfo={eventInfo} isAdmin={isAdmin} />;
+};
 export default EditRosters;
