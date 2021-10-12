@@ -625,6 +625,8 @@ export default {
       created_by: 'Créé par {{name}}',
       created_on: 'Créé le',
       creation_date: 'Date de création',
+      additional_informations: 'Informations additionnelles',
+      waiting_for_type: 'En attente du sélection du type',
     },
     delete: {
       delete_field_confirmation: 'Êtes-vous certain de vouloir supprimer ce terrain?',
@@ -722,6 +724,17 @@ export default {
       events_that_might_interest_you: 'Événements qui pourrait vous intéresser',
       event_type: "Type d'événements",
       events: 'Événements',
+      team_league: {
+        title: 'Ligue avec inscription par équipe',
+        description: 'Parfait pour les ligues régulières avec des frais par équipe',
+      },
+      pick_up: { title: 'Ligue pick-up', description: 'Adapté aux ligues pick-ups avec des frais individuels' },
+      team_tournament: {
+        title: 'Tournoi avec inscription par équipe',
+        description: 'Parfait pour les tournoi avec inscription par équipe',
+      },
+      game: { title: 'Partie unique', description: 'Parfait pour un match avec une belle expérience de spectateurs' },
+      ticket_limit: 'Limite de billets',
     },
     invalid: {
       invalid_64_length: 'Doit être 64 caractères ou moins.',
