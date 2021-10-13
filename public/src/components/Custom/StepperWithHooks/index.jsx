@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -8,11 +9,24 @@ import styles from './Stepper.module.css';
 import { useTranslation } from 'react-i18next';
 import ContainerBottomFixed from '../ContainerBottomFixed';
 import { COLORS } from '../../../utils/colors';
+import RosterUpdateDialog from '../Dialog/RosterUpdateDialog';
 
 export default function CustomStepperWithHooks(props) {
-  const { activeStep, completed, Back, handleBack, handleNext, Next, handleReset, finish, steps } = props;
+  const { activeStep, completed, Back, handleBack, handleNext, Next, handleReset, finish, steps, rosterUpdate } = props;
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const closeRosterUpdate = () => {
+    setOpen(false);
+    finish();
+  };
+  const onFinish = () => {
+    setOpen(true);
+  };
 
+  const acceptRosterUpdate = () => {
+    setOpen(false);
+    rosterUpdate();
+  };
   return (
     <div className={styles.main}>
       <Stepper activeStep={activeStep} className={styles.stepper} alternativeLabel>
@@ -56,16 +70,19 @@ export default function CustomStepperWithHooks(props) {
                   </Button>
                 </div>
                 {finish && activeStep === steps.length - 1 ? (
-                  <div className={styles.button}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={finish}
-                      disabled={!completed.has(activeStep)}
-                      style={{ color: COLORS.white }}
-                    >
-                      {t('finish')}
-                    </Button>
+                  <div>
+                    <div className={styles.button}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={onFinish}
+                        disabled={!completed.has(activeStep)}
+                        style={{ color: COLORS.white }}
+                      >
+                        {t('finish')}
+                      </Button>
+                    </div>
+                    <RosterUpdateDialog open={open} onClose={closeRosterUpdate} onAccept={acceptRosterUpdate} />
                   </div>
                 ) : (
                   <div className={styles.button}>

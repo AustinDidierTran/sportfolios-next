@@ -1585,6 +1585,8 @@ export default {
     unsubscribed: 'Désabonné',
     unsupported_language: 'Langue non supportée',
     upcoming_games: 'Prochaines parties',
+    update_roster: 'Mise à jour de votre alignement',
+    update_roster_message: "Voulez-vous que l'alignement de votre équipe corresponde à celui de cet événement ? ",
     upload: 'Téléverser',
     upload_image: 'Téléverser une image',
     upload_terms_and_conditions: 'Téléverser (PDF)',
