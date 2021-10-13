@@ -101,7 +101,7 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
   };
 
   const onChangeEventType = (e: any): void => {
-    formik.setFieldValue('eventType', e.target.value);
+    formik.setFieldValue('eventType', e);
   };
 
   useEffect((): void => {
@@ -150,13 +150,14 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
           namespace: 'eventType',
           componentType: COMPONENT_TYPE_ENUM.SELECT,
           options: [
-            { display: t('team.team_registration_event'), value: EVENT_TYPE.TEAM },
-            { display: t('pick_up_event'), value: EVENT_TYPE.PLAYER },
+            { display: t('team.team_registration_event'), value: EVENT_TYPE.TEAM_LEAGUE },
+            { display: t('pick_up_event'), value: EVENT_TYPE.PICK_UP_LEAGUE },
+            { display: t('team.team_tournament'), value: EVENT_TYPE.TEAM_TOURNAMENT },
           ],
           onChange: (e: any) => {
             onChangeEventType(e);
           },
-          defaultValue: EVENT_TYPE.TEAM,
+          defaultValue: EVENT_TYPE.TEAM_LEAGUE,
           row: true,
         },
         {
@@ -275,7 +276,7 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
       startTime: '09:00',
       endDate: '',
       endTime: '',
-      eventType: EVENT_TYPE.TEAM,
+      eventType: EVENT_TYPE.TEAM_LEAGUE,
       photoUrl: '',
     },
     validationSchema,

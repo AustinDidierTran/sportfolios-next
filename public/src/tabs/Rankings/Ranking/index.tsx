@@ -51,7 +51,9 @@ const Ranking: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <div className={styles.div}>
-      <Accordion title={title} subtitle={subtitle} content={<List items={items} />} />
+      <Accordion title={title} subtitle={subtitle}>
+        <List items={items} />
+      </Accordion>
     </div>
   );
 };

@@ -305,6 +305,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      resentValidationCode: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
     },
     landingPage: {
       header: {
@@ -515,9 +520,10 @@ export default {
       teams: 'Équipes',
       team_skipped: 'Équipe passée',
       team_registration: "Inscription d'équipe",
-      team_registration_event: 'Événement demandant une inscription par équipe',
+      team_registration_event: 'Ligue demandant une inscription par équipe',
       team_registration_description: "Notification envoyée lors de l'inscription de votre équipe",
       team_not_unique: "Il y a déjà une équipe d'inscrite avec le même nom. Êtes-vous sûre de vouloir continuer?",
+      team_tournament: 'Tournoi demandant une inscription par équipe',
     },
     member: {
       active_members: 'Membres actifs',
@@ -611,8 +617,12 @@ export default {
       code_message: 'Validation du compte de l\'adresse: ',
       code_length: 'La taille doit être de 6 caractères',
       only_number: 'Seuls des chiffres sont acceptés',
+      new_code: 'Nouveau code',
       invalide_code: 'Le code n\'est pas valide',
+      resent_validation_code: 'Renvoyer le code de validation',
       value_is_required: 'Une valeur est requise',
+      message: 'Code de validation',
+      validate_account: 'Valider mon compte',
     },
     create: {
       create_a_game: 'Créer une partie',
@@ -1348,7 +1358,7 @@ export default {
     phase_started: 'Phase démarée!',
     phase_updated: 'phase mise à jour!',
     phone_number: 'Numéro de téléphone',
-    pick_up_event: 'Événement de type "pick-up"',
+    pick_up_event: 'Ligue de type "pick-up"',
     places_left: 'places restantes',
     plateform_fees: 'Frais de plateforme',
     player_acceptation_step_message:

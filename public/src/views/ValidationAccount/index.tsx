@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './ValidationAccount.module.css';
 
@@ -10,10 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '../../components/Custom/TextField';
 import Button from '@material-ui/core/Button';
 
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, SEVERITY_ENUM } from '../../../common/enums';
 import { useFormik } from 'formik';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { COLORS } from '../../utils/colors';
+import { ACTION_ENUM, Store } from '../../Store';
 import * as yup from 'yup';
 
 import { Auth } from 'aws-amplify';
@@ -27,6 +28,7 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
   const { email } = props;
   const { t } = useTranslation();
   const codeReg = /[0-9]{6}/;
+  const { dispatch } = useContext(Store);
 
   const validationSchema = yup.object().shape({
     validationCode: yup
@@ -55,6 +57,18 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
+  const resentEmail = async () => {
+    try {
+      await Auth.resendSignUp(email);
+    } catch (err) {
+      dispatch({
+        type: ACTION_ENUM.SNACK_BAR,
+        message: t('an_error_has_occured'),
+        severity: SEVERITY_ENUM.ERROR,
+      });
+    }
+  };
+
   return (
     <Container className={styles.container}>
       <div className={styles.logo}>
@@ -67,6 +81,16 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
             <TextField namespace="validationCode" formik={formik} type="text" label={t('validation_code')} fullWidth />
           </CardContent>
           <CardActions>
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              onClick={resentEmail}
+              className={styles.button}
+              style={{ color: COLORS.white }}
+            >
+              {t('code_validation.new_code')}
+            </Button>
             <Button
               size="small"
               color="primary"
