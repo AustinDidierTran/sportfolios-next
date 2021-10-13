@@ -232,15 +232,7 @@ export function StoreProvider(props) {
   };
 
   const init = async () => {
-    const dataAWS = await Auth.currentAuthenticatedUser();
     const authToken = handleLocalAuthToken(localStorage.getItem('authToken'));
-
-    if (dataAWS.signInUserSession.idToken.jwtToken && (authToken !== dataAWS.signInUserSession.idToken.jwtToken)) {
-      dispatch({
-        type: ACTION_ENUM.LOGIN,
-        payload: dataAWS.signInUserSession.idToken.jwtToken,
-      });
-    }
 
     if (authToken) {
       const res = await fetch(`${API_BASE_URL}/api/user/userInfo`, {
