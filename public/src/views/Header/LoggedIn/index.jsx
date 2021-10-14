@@ -12,6 +12,7 @@ import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';
 import useStyles from './useStyles';
 import { useTranslation } from 'react-i18next';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 import styles from './LoggedIn.module.css';
 import { ROUTES } from '../../../actions/goTo';
@@ -152,6 +153,17 @@ export default function LoggedIn(props) {
                 withBadge
                 badgeContent={totalCartItems}
               />
+            </div>
+            <div>
+              <Link href={'page/FAQ'}>
+                <IconButton
+                  className={styles.iconButton}
+                  icon="Help"
+                  size="medium"
+                  style={{ color: COLORS.white }}
+                  tooltip={t('question')}
+                ></IconButton>
+              </Link>
             </div>
             <HeaderFlyout
               refCreateEntity={refCreateEntity}
