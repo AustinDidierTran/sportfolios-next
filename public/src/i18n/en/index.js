@@ -140,6 +140,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      FAQ: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       addPaymentMethod: {
         title: 'Sportfolios',
         description:
@@ -944,6 +949,7 @@ export default {
     app_role: 'App Role',
     apply: 'Apply',
     assistant_captain: 'Assistant captain',
+    ask_questions: 'If you have other questions, you can ask them here.',
     at: 'at',
     athlete_history: 'Athlete history',
     attendances: 'Attendances',
@@ -1113,6 +1119,7 @@ export default {
     facebook_description: 'Connect with Facebook to find your friends on Sportfolios',
     fair_mindedness: 'Fair Mindedness',
     false: 'False',
+    FAQ: 'Frequently asked questions',
     feature_coming_soon: 'Feature coming soon!',
     fees: 'Fees',
     Female: 'Female',
@@ -1167,6 +1174,8 @@ export default {
     home: 'Home',
     hour_ago_plural: '{{count}} hours ago',
     hour_ago: '{{count}} hour ago',
+    how_to_join_us: 'How to join us ? ',
+    how_to_join_us_message: 'Dial 819-580-2378 or send an email to austindidier@sportfolios.app to join us. ',
     i_want_to_be_anonyme: 'I want to be anonyme',
     images_list: 'Images list',
     image_required: 'Image required',
@@ -1368,6 +1377,7 @@ export default {
     purchases: 'Purchases',
     qt: 'Qt: {{quantity}}',
     quantity: 'Quantity',
+    question: 'Question',
     quick_description: 'Short description',
     quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them?',
     quit_interactive_tool: 'WARNING',
@@ -1537,6 +1547,8 @@ export default {
     time_hour: 'Hours',
     time_minute: 'Minutes',
     time_second: 'Seconds',
+    time_before_payment: 'When will I receive the payments from player who are registered to my event ?  ',
+    time_before_payment_message: 'You will receive the payments 24h after the transaction.',
     to_invite_people_to_your_roster_share_the_invite_link: 'To invite people to join your team, share the invite link',
     to_see_your_receipt:
       'A copy of your receipt has been sent to you by email. You can consult it now on Stripe, our safe payment plateform.',

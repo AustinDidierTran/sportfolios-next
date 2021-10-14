@@ -951,6 +951,7 @@ export default {
     app_role: 'App Role',
     apply: 'Appliquer',
     assistant_captain: 'Assistant capitaine',
+    ask_questions: "Si vous avez d'autres questions, vous pouvez les poser ici.",
     at: 'à',
     athlete_history: "Historique de l'athlète",
     attendances: 'Présences',
@@ -1127,6 +1128,7 @@ export default {
     facebook_description: 'Connecte ton compte Facebook pour retrouver tes amis sur Sportfolios',
     fair_mindedness: 'Honnêteté et équité',
     false: 'Faux',
+    FAQ: 'Questions souvent posées',
     feature_coming_soon: 'Fonctionnalité à venir!',
     fees: 'Frais',
     Female: 'Femme',
@@ -1178,6 +1180,9 @@ export default {
     heard_organization: 'Comment avez-vous entendu parler de cette organisation?',
     here: 'ici',
     hide_password: 'Masquer le mot de passe',
+    how_to_join_us: 'Comment nous rejoindre ?',
+    how_to_join_us_message:
+      "Pour nous rejoindre, contactez-nous par téléphone au 819-580-2378 ou par courriel à l'adresse suivante: austindidier@sportfolios.app .",
     home: 'Accueil',
     hour_ago_plural: 'Il y a {{count}} heures',
     i_want_to_be_anonyme: 'Je veux être anonyme',
@@ -1384,6 +1389,7 @@ export default {
     purchased_on: 'Acheté le',
     purchases: 'Achats',
     quantity: 'Quantité',
+    question: 'Question',
     quick_description: 'Description courte',
     quit_interactive_tool_confirmation: 'Des changements ont été apportés. Voulez-vous quitter sans les sauvergarder?',
     quit_interactive_tool: 'AVERTISSEMENT',
@@ -1553,6 +1559,9 @@ export default {
     time_hour: 'Heures',
     time_minute: 'Minutes',
     time_second: 'Secondes',
+    time_before_payment:
+      'À quelle moment receverai-je les paiements des participants qui se sont inscrits à mon événement ? ',
+    time_before_payment_message: 'Vous recevrez les paiements 24h après la transaction.',
     to_invite_people_to_your_roster_share_the_invite_link:
       "Pour inviter des amis à rejoindre votre équipe, partagez le lien d'invitation",
     to_see_your_receipt:

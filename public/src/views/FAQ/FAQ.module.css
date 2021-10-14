@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 55rem;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  margin-top: 1rem;
+}
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.help {
+  margin-left: 1rem;
+  color: #18b393;
+}
+.dividerTitle {
+  padding-bottom: 0.2rem;
+  background-color: #18b393 !important;
+}
