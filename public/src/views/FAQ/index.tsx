@@ -17,31 +17,9 @@ import Post from '../../components/Custom/Card/Post';
 const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
 const FAQ: React.FunctionComponent = () => {
-  const {
-    state: { userInfo: userInfo },
-  } = useContext(Store);
   const { t } = useTranslation();
 
-  // const [basicInfos, setBasicInfos] = useState([]);
-
-  /*const getBasicInfos = async () => {
-    const { data } = await api('/api/user/userInfo', { method: 'GET' });
-    setBasicInfos(data);
-  };
-  */
-  console.log('userInfos : ', userInfo);
   return (
-    /*<Posts
-      userInfo={userInfo}
-      allowPostImage
-      allowNewPost
-      entityIdCreatePost={userInfo.userId}
-      allowComment
-      allowLike
-      locationId={userInfo.userId}
-      elevation={1}
-      placeholder={t('start_a_post')}
-    />*/
     <div className={styles.center}>
       <Card className={styles.card}>
         <CardHeader
@@ -59,19 +37,6 @@ const FAQ: React.FunctionComponent = () => {
               <ListItemText primary={t('how_to_join_us')} secondary={t('how_to_join_us_message')} />
               <Divider />
               <ListItemText primary={t('time_before_payment')} secondary={t('time_before_payment_message')} />
-              <Divider />
-              <Typography variant="body1">{t('ask_questions')}</Typography>
-              <Posts
-                userInfo={userInfo}
-                allowPostImage
-                allowNewPost
-                entityIdCreatePost={userInfo.userId}
-                allowComment
-                allowLike
-                locationId={userInfo.userId}
-                elevation={1}
-                placeholder={t('start_a_post')}
-              />
             </List>
           </div>
         </CardContent>
