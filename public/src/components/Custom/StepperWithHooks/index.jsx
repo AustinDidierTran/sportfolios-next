@@ -10,9 +10,22 @@ import { useTranslation } from 'react-i18next';
 import ContainerBottomFixed from '../ContainerBottomFixed';
 import { COLORS } from '../../../utils/colors';
 import RosterUpdateDialog from '../Dialog/RosterUpdateDialog';
+import { Formik } from 'formik';
 
 export default function CustomStepperWithHooks(props) {
-  const { activeStep, completed, Back, handleBack, handleNext, Next, handleReset, finish, steps, rosterUpdate } = props;
+  const {
+    activeStep,
+    completed,
+    Back,
+    handleBack,
+    handleNext,
+    Next,
+    handleReset,
+    finish,
+    steps,
+    rosterUpdate,
+    formik,
+  } = props;
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const closeRosterUpdate = () => {
@@ -20,7 +33,12 @@ export default function CustomStepperWithHooks(props) {
     finish();
   };
   const onFinish = () => {
-    setOpen(true);
+    if (formik.values.team.id !== undefined) {
+      setOpen(true);
+    }
+    if (formik.values.team.id === undefined) {
+      finish();
+    }
   };
 
   const acceptRosterUpdate = () => {

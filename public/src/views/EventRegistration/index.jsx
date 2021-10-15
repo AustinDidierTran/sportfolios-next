@@ -151,7 +151,7 @@ export default function EventRegistration() {
   });
 
   const rosterUpdate = () => {
-    console.log('update le roster');
+    console.log('update le roster pour ce roster là : ', formik.values.roster);
     formik.handleSubmit();
   };
   useEffect(() => {
@@ -257,6 +257,7 @@ export default function EventRegistration() {
               ? [...individualSteps, additionalInformation]
               : individualSteps
           }
+          formik={formik}
           rosterUpdate={rosterUpdate}
           finish={formik.handleSubmit}
           Next={() => {}}

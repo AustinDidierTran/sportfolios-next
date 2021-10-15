@@ -1,0 +1,11 @@
+.title {
+  display: flex;
+  flex-direction: row;
+
+  align-content: center;
+  align-items: center;
+}
+.accountCircle {
+  margin-left: 0.5rem;
+  color: #18b393;
+}
