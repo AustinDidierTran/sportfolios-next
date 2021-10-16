@@ -63,7 +63,6 @@ function MyApp({ Component, pageProps }) {
               <div className={styles.main}>
                 <Component {...pageProps} />
               </div>
-              <SpeedDial />
               <SnackBar />
               {router.pathname !== ROUTES_ENUM.landingPage ? <BottomNavigation /> : null}
             </div>

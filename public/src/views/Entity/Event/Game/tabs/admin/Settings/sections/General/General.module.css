@@ -1,0 +1,12 @@
+.container {
+  padding: 1rem 2rem 2rem 1rem;
+}
+
+.container button {
+  margin-top: 1rem;
+}
+
+.container > button {
+  margin-top: 1rem;
+  margin-left: auto;
+}

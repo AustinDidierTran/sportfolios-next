@@ -25,12 +25,12 @@ export const verifyTeamNameUnique = (name: string, eventId: string): Promise<boo
 
 interface ICreatePayload {
   name: string;
-  creator: string;
+  creatorId: string;
   maximumSpots: number;
   ticketLimit: number;
-  start: string;
-  end: string;
-  eventType: EVENT_TYPE;
+  startDate: string;
+  endDate: string;
+  type: EVENT_TYPE;
   photoUrl: string;
 }
 
@@ -42,12 +42,12 @@ export const create = (data: ICreatePayload): Promise<any> => {
     method: 'POST',
     body: JSON.stringify({
       name: data.name,
-      creator: data.creator,
+      creatorId: data.creatorId,
       maximumSpots: data.maximumSpots,
       ticketLimit: data.ticketLimit,
-      start: data.start,
-      end: data.end,
-      eventType: data.eventType,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      type: data.type,
       photoUrl: data.photoUrl,
     }),
   });

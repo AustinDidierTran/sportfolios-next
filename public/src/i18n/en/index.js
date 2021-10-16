@@ -736,6 +736,7 @@ export default {
       team_tournament: { title: 'Team tournament', description: 'Perfect for tournaments with team registration' },
       game: { title: 'Single Game', description: 'Perfect for a game with a nice spectator experience' },
       ticket_limit: 'Ticket limit',
+      buy_ticket: 'Buy tickets',
     },
     invalid: {
       invalid_64_length: 'Must be 64 or less characters long.',
@@ -1562,6 +1563,7 @@ export default {
     this_organization_has_no_events: 'This organization has no events',
     this_organization_has_no_memberships_available: 'This organization has no memberships available',
     this_team_cannot_be_deleted: "This team can't be unregistered from the event since it is already in a game.",
+    tickets: 'Tickets',
     time_slot_added: 'Time slot added',
     time_slot: 'Time slot',
     time: 'Time',

@@ -223,6 +223,8 @@ export enum TABS_ENUM {
   SHOP = 'shop',
   TEAM_EVENTS = 'teamEvents',
   TEAM_ROSTERS = 'teamRosters',
+  TICKETS = 'tickets',
+  ADMIN_TICKETS = 'adminTickets',
 }
 
 export enum FORM_DIALOG_TYPE_ENUM {

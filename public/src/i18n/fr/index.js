@@ -735,6 +735,7 @@ export default {
       },
       game: { title: 'Partie unique', description: 'Parfait pour un match avec une belle expérience de spectateurs' },
       ticket_limit: 'Limite de billets',
+      buy_ticket: 'Acheter des billets',
     },
     invalid: {
       invalid_64_length: 'Doit être 64 caractères ou moins.',
@@ -1579,6 +1580,7 @@ export default {
     this_organization_has_no_memberships_available: "Cette organisation n'a pas d'affilitations disponibles",
     this_team_cannot_be_deleted:
       "Cette équipe ne peut pas être désinscrite de l'événement puisqu'elle est déjà dans une partie ou une phase démarrée.",
+    tickets: 'Billets',
     time_slot_added: 'Plage horaire ajoutée',
     time_slot: 'Plage horaire',
     time: 'Temps',

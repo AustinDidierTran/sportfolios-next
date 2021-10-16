@@ -24,8 +24,6 @@ interface IOption {
   display: string;
 }
 
-const EntityCreate = dynamic(() => import('../../components/Custom/EntityCreate'));
-
 const CreateEvent: React.FunctionComponent = () => {
   const { t } = useTranslation();
   useEffect(() => {
@@ -53,7 +51,7 @@ const CreateEvent: React.FunctionComponent = () => {
   ];
 
   const validationSchema = yup.object().shape({
-    creator: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
+    creatorId: yup.string().required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     name: yup.string().max(64, t('invalid.invalid_64_length')).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     maximumSpots: yup.number().min(0, t(ERROR_ENUM.VALUE_IS_INVALID)).required(t(ERROR_ENUM.VALUE_IS_REQUIRED)),
     photoUrl: yup.string().test('validate', (): boolean => {
@@ -76,7 +74,7 @@ const CreateEvent: React.FunctionComponent = () => {
   const formik = useFormik({
     initialValues: {
       name: '',
-      creator: '',
+      creatorId: '',
       maximumSpots: 16,
       hasSpotLimit: false,
       ticketLimit: 250,
@@ -91,9 +89,10 @@ const CreateEvent: React.FunctionComponent = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
+      console.log('submitting');
       const {
         name,
-        creator,
+        creatorId,
         maximumSpots,
         hasSpotLimit,
         ticketLimit,
@@ -111,12 +110,12 @@ const CreateEvent: React.FunctionComponent = () => {
 
       const { id, status } = await eventService.create({
         name,
-        creator,
+        creatorId,
         maximumSpots: maximum,
         ticketLimit: eventType === EVENT_TYPE.GAME ? ticketLimit : null,
-        start,
-        end,
-        eventType,
+        startDate: start,
+        endDate: end,
+        type: eventType,
         photoUrl,
       });
 
@@ -130,183 +129,181 @@ const CreateEvent: React.FunctionComponent = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(formik.values);
-  }, [formik.values]);
+  console.log(formik.isValid);
 
   return (
     <IgContainer>
-      <CustomPaper title={t('create.create_event')} className={styles.paper}>
-        <CardContent>
-          <div className={styles.eventTypeContainer}>
-            {eventTypeOptions.map((eventTypeOption, index) => (
-              <div
-                key={index}
-                className={
-                  formik.values.eventType === eventTypeOption.value
-                    ? `${styles.eventType} ${styles.selected}`
-                    : styles.eventType
-                }
-                onClick={() => formik.setFieldValue('eventType', eventTypeOption.value)}
-              >
-                <h3>{t(`event.${eventTypeOption.labelKey}.title`)}</h3>
-                <p>{t(`event.${eventTypeOption.labelKey}.description`)}</p>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </CustomPaper>
-      <CustomPaper title={t('create.additional_informations')} className={styles.paper}>
-        <CardContent>
-          {!formik.values.eventType ? (
-            <p>{t('create.waiting_for_type')}</p>
-          ) : formik.values.eventType === EVENT_TYPE.GAME ? (
-            <>
-              <TextField formik={formik} fullWidth namespace="name" label={t('name')} />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="ticketLimit"
-                label={t('event.ticket_limit')}
-                type="number"
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="startDate"
-                type="date"
-                label={t('event.event_start_date')}
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="startTime"
-                type="time"
-                label={t('event.event_start_time')}
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="endDate"
-                type="date"
-                label={t('event.event_end_date')}
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="endTime"
-                type="time"
-                label={t('event.event_end_time')}
-                InputLabelProps={{ shrink: true }}
-              />
-              <Select formik={formik} namespace="creator" label={t('create.create_as')} options={creatorOptions} />
-              <Avatar namespace="photoUrl" photoUrl={formik.values.photoUrl} size="lg" />
-              <ImagesList formik={formik} hasNoImage={Boolean(!formik.values.photoUrl)} />
-              <CardActions style={{ marginTop: '1rem' }}>
-                <CustomButton
-                  size="small"
-                  color="secondary"
-                  variant="contained"
-                  endIcon="Close"
-                  style={{ marginLeft: 'auto' }}
-                  disabled={formik.isSubmitting}
+      <form onSubmit={formik.handleSubmit}>
+        <CustomPaper title={t('create.create_event')} className={styles.paper}>
+          <CardContent>
+            <div className={styles.eventTypeContainer}>
+              {eventTypeOptions.map((eventTypeOption, index) => (
+                <div
+                  key={index}
+                  className={
+                    formik.values.eventType === eventTypeOption.value
+                      ? `${styles.eventType} ${styles.selected}`
+                      : styles.eventType
+                  }
+                  onClick={() => formik.setFieldValue('eventType', eventTypeOption.value)}
                 >
-                  {t('cancel')}
-                </CustomButton>
-                <CustomButton
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                  endIcon="Check"
-                  type="submit"
-                  disabled={formik.isSubmitting}
-                >
-                  {t('create.create_event')}
-                </CustomButton>
-              </CardActions>
-            </>
-          ) : (
-            <>
-              <TextField formik={formik} fullWidth namespace="name" label={t('name')} />
-              <CheckBox formik={formik} namespace="hasSpotLimit" label={t('set_limit_of_spots')} />
-              {formik.values.hasSpotLimit ? (
+                  <h3>{t(`event.${eventTypeOption.labelKey}.title`)}</h3>
+                  <p>{t(`event.${eventTypeOption.labelKey}.description`)}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </CustomPaper>
+        <CustomPaper title={t('create.additional_informations')} className={styles.paper}>
+          <CardContent>
+            {!formik.values.eventType ? (
+              <p>{t('create.waiting_for_type')}</p>
+            ) : formik.values.eventType === EVENT_TYPE.GAME ? (
+              <>
+                <TextField formik={formik} fullWidth namespace="name" label={t('name')} />
                 <TextField
                   formik={formik}
                   fullWidth
-                  namespace="maximumSpots"
-                  label={t('maximum_spots')}
+                  namespace="ticketLimit"
+                  label={t('event.ticket_limit')}
                   type="number"
                 />
-              ) : (
-                <></>
-              )}
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="startDate"
-                type="date"
-                label={t('event.event_start_date')}
-                shrink
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="startTime"
-                type="time"
-                label={t('event.event_start_time')}
-                shrink
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="endDate"
-                type="date"
-                label={t('event.event_end_date')}
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                formik={formik}
-                fullWidth
-                namespace="endTime"
-                type="time"
-                label={t('event.event_end_time')}
-                InputLabelProps={{ shrink: true }}
-              />
-              <Select formik={formik} namespace="creator" label={t('create.create_as')} options={creatorOptions} />
-              <Avatar namespace="photoUrl" photoUrl={formik.values.photoUrl} size="lg" />
-              <ImagesList formik={formik} hasNoImage={Boolean(!formik.values.photoUrl)} />
-              <CardActions style={{ marginTop: '1rem' }}>
-                <CustomButton
-                  size="small"
-                  color="secondary"
-                  variant="contained"
-                  endIcon="Close"
-                  style={{ marginLeft: 'auto' }}
-                  disabled={formik.isSubmitting}
-                >
-                  {t('cancel')}
-                </CustomButton>
-                <CustomButton
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                  endIcon="Check"
-                  type="submit"
-                  disabled={formik.isSubmitting}
-                >
-                  {t('create.create_event')}
-                </CustomButton>
-              </CardActions>
-            </>
-          )}
-        </CardContent>
-      </CustomPaper>
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="startDate"
+                  type="date"
+                  label={t('event.event_start_date')}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="startTime"
+                  type="time"
+                  label={t('event.event_start_time')}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="endDate"
+                  type="date"
+                  label={t('event.event_end_date')}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="endTime"
+                  type="time"
+                  label={t('event.event_end_time')}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <Select formik={formik} namespace="creatorId" label={t('create.create_as')} options={creatorOptions} />
+                <Avatar namespace="photoUrl" photoUrl={formik.values.photoUrl} size="lg" />
+                <ImagesList formik={formik} hasNoImage={Boolean(!formik.values.photoUrl)} />
+                <CardActions style={{ marginTop: '1rem' }}>
+                  <CustomButton
+                    size="small"
+                    color="secondary"
+                    variant="contained"
+                    endIcon="Close"
+                    style={{ marginLeft: 'auto' }}
+                    disabled={formik.isSubmitting}
+                  >
+                    {t('cancel')}
+                  </CustomButton>
+                  <CustomButton
+                    size="small"
+                    color="primary"
+                    variant="contained"
+                    endIcon="Check"
+                    type="submit"
+                    disabled={formik.isSubmitting}
+                  >
+                    {t('create.create_event')}
+                  </CustomButton>
+                </CardActions>
+              </>
+            ) : (
+              <>
+                <TextField formik={formik} fullWidth namespace="name" label={t('name')} />
+                <CheckBox formik={formik} namespace="hasSpotLimit" label={t('set_limit_of_spots')} />
+                {formik.values.hasSpotLimit ? (
+                  <TextField
+                    formik={formik}
+                    fullWidth
+                    namespace="maximumSpots"
+                    label={t('maximum_spots')}
+                    type="number"
+                  />
+                ) : (
+                  <></>
+                )}
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="startDate"
+                  type="date"
+                  label={t('event.event_start_date')}
+                  shrink
+                />
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="startTime"
+                  type="time"
+                  label={t('event.event_start_time')}
+                  shrink
+                />
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="endDate"
+                  type="date"
+                  label={t('event.event_end_date')}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <TextField
+                  formik={formik}
+                  fullWidth
+                  namespace="endTime"
+                  type="time"
+                  label={t('event.event_end_time')}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <Select formik={formik} namespace="creatorId" label={t('create.create_as')} options={creatorOptions} />
+                <Avatar namespace="photoUrl" photoUrl={formik.values.photoUrl} size="lg" />
+                <ImagesList formik={formik} hasNoImage={Boolean(!formik.values.photoUrl)} />
+                <CardActions style={{ marginTop: '1rem' }}>
+                  <CustomButton
+                    size="small"
+                    color="secondary"
+                    variant="contained"
+                    endIcon="Close"
+                    style={{ marginLeft: 'auto' }}
+                    disabled={formik.isSubmitting}
+                  >
+                    {t('cancel')}
+                  </CustomButton>
+                  <CustomButton
+                    size="small"
+                    color="primary"
+                    variant="contained"
+                    endIcon="Check"
+                    type="submit"
+                    disabled={formik.isSubmitting}
+                  >
+                    {t('create.create_event')}
+                  </CustomButton>
+                </CardActions>
+              </>
+            )}
+          </CardContent>
+        </CustomPaper>
+      </form>
     </IgContainer>
   );
-
-  return <EntityCreate type={GLOBAL_ENUM.EVENT} />;
 };
 export default CreateEvent;
