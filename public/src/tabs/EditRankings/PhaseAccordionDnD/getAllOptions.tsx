@@ -70,23 +70,25 @@ const getPrerankingOptions = (preranking: Preranking[], allRankings: Ranking[], 
     index: d.position,
   }));
 
-  const unavailablePrerankPositions = allRankings
-    .filter((r) => r.originPhase && r.originPosition)
-    .map((r) => {
-      const unavailablePrerankPosition = prerankingPositions.find((p) => {
-        if (p.phaseId === r.originPhase.id) {
-          if (p.index === r.originPosition) {
-            return p;
-          }
-        }
-      });
-      if (unavailablePrerankPosition) {
-        return unavailablePrerankPosition.value;
-      }
-    })
-    .filter((p) => p !== undefined);
+  // Removed the filter so that we can access all teams
+  // const unavailablePrerankPositions = allRankings
+  //   .filter((r) => r.originPhase && r.originPosition)
+  //   .map((r) => {
+  //     const unavailablePrerankPosition = prerankingPositions.find((p) => {
+  //       if (p.phaseId === r.originPhase.id) {
+  //         if (p.index === r.originPosition) {
+  //           return p;
+  //         }
+  //       }
+  //     });
+  //     if (unavailablePrerankPosition) {
+  //       return unavailablePrerankPosition.value;
+  //     }
+  //   })
+  //   .filter((p) => p !== undefined);
 
-  const filteredPositions = prerankingPositions.filter((p) => !unavailablePrerankPositions.includes(p.value));
+  // const filteredPositions = prerankingPositions.filter((p) => !unavailablePrerankPositions.includes(p.value));
+  const filteredPositions = prerankingPositions;
   return filteredPositions;
 };
 

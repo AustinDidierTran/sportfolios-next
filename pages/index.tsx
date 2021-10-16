@@ -34,7 +34,7 @@ const HomeRoute: React.FunctionComponent = () => {
     if (status === REQUEST_STATUS_ENUM.SUCCESS) {
       setPosts(data);
     } else {
-      goTo(ROUTES.landingPage);
+      goTo(ROUTES.login);
     }
     setIsLoading(false);
   };
