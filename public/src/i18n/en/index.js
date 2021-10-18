@@ -949,7 +949,6 @@ export default {
     app_role: 'App Role',
     apply: 'Apply',
     assistant_captain: 'Assistant captain',
-    ask_questions: 'If you have other questions, you can ask them here.',
     at: 'at',
     athlete_history: 'Athlete history',
     attendances: 'Attendances',
@@ -1563,8 +1562,6 @@ export default {
     time_hour: 'Hours',
     time_minute: 'Minutes',
     time_second: 'Seconds',
-    time_before_payment: 'When will I receive the payments from player who are registered to my event ?  ',
-    time_before_payment_message: 'You will receive the payments 24h after the transaction.',
     to_invite_people_to_your_roster_share_the_invite_link: 'To invite people to join your team, share the invite link',
     to_see_your_receipt:
       'A copy of your receipt has been sent to you by email. You can consult it now on Stripe, our safe payment plateform.',

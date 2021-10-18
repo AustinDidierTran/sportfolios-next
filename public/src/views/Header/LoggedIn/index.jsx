@@ -12,7 +12,6 @@ import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';
 import useStyles from './useStyles';
 import { useTranslation } from 'react-i18next';
-import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 import styles from './LoggedIn.module.css';
 import { ROUTES } from '../../../actions/goTo';

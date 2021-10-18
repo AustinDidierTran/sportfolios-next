@@ -951,7 +951,6 @@ export default {
     app_role: 'App Role',
     apply: 'Appliquer',
     assistant_captain: 'Assistant capitaine',
-    ask_questions: "Si vous avez d'autres questions, vous pouvez les poser ici.",
     at: 'à',
     athlete_history: "Historique de l'athlète",
     attendances: 'Présences',
@@ -1574,9 +1573,6 @@ export default {
     time_hour: 'Heures',
     time_minute: 'Minutes',
     time_second: 'Secondes',
-    time_before_payment:
-      'À quelle moment receverai-je les paiements des participants qui se sont inscrits à mon événement ? ',
-    time_before_payment_message: 'Vous recevrez les paiements 24h après la transaction.',
     to_invite_people_to_your_roster_share_the_invite_link:
       "Pour inviter des amis à rejoindre votre équipe, partagez le lien d'invitation",
     to_see_your_receipt:
