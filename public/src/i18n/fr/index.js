@@ -1141,7 +1141,7 @@ export default {
             'Toutes nos transactions passent par Stripe, qui est utilisé par les géants du commerce électronique. Nous respectons également la norme PCI DSS.',
         },
         how_to_become_verified: {
-          question: "Comment est-ce que je fais pour obtenir le status d'organisation vérifiée ?",
+          question: "Comment puis-je obtenir le status d'organisation vérifiée ?",
           answer:
             "Afin d'obtenir le status d'organisation vérifiée, vous pouvez nous contacter directement à l'adresse suivante: austindidier@sportfolios.app.",
         },
