@@ -23,7 +23,7 @@ import Link from 'next/link';
 import { goTo, ROUTES } from '../../actions/goTo';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import api from '../../actions/api';
+import { validEmail, signup } from '../../actions/service/auth/auth';
 import { useRouter } from 'next/router';
 import { COLORS } from '../../utils/colors';
 import { errors, ERROR_ENUM } from '../../../common/errors';
@@ -65,36 +65,30 @@ export default function Signup() {
       const { firstName, lastName, email, password } = values;
 
       try {
-        const validEmail = await api('/api/auth/validEmail', {
-          method: 'POST',
-          body: JSON.stringify({
-            email,
-          }),
-        });
-        if (validEmail) {
-          const user = await Auth.signUp({
-            username: email,
-            password: password,
-          });
-          const res = await api('/api/auth/signupWithCognito', {
-            method: 'POST',
-            body: JSON.stringify({
-              firstName,
-              lastName,
-              email,
-              password,
-              redirectUrl: redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
-              newsLetterSubscription: isSubscribed,
-              idUser: user.userSub,
-            }),
-          });
-          if (res.status >= 400) {
-            formik.setFieldError('firstName', t('something_went_wrong'));
-          } else {
-            goTo(ROUTES.confirmationEmailSent, { email });
-          }
-        } else {
+        const validEmail = await validEmail(email);
+
+        if (!validEmail) {
           formik.setFieldError('email', t('email.email_already_used'));
+          return;
+        }
+
+        const user = await Auth.signUp({
+          username: email,
+          password: password,
+        });
+        const res = await signup(
+          firstName,
+          lastName,
+          email,
+          password,
+          redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
+          isSubscribed,
+          user.userSub
+        );
+        if (res.status >= 400) {
+          formik.setFieldError('firstName', t('something_went_wrong'));
+        } else {
+          goTo(ROUTES.confirmationEmailSent, { email });
         }
       } catch (error) {
         if (error.code === AuthErrorTypes.InvalidUsername) {
