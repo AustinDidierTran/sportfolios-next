@@ -14,34 +14,45 @@ import Typography from '@material-ui/core/Typography';
 import ForumIcon from '@material-ui/icons/Forum';
 import Divider from '@material-ui/core/Divider';
 import Post from '../../components/Custom/Card/Post';
+import IgContainer from '../../components/Custom/IgContainer';
 const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
 const FAQ: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
+  const questions = ['how_to_join_us'];
+
   return (
-    <div className={styles.center}>
-      <Card className={styles.card}>
-        <CardHeader
-          title={
-            <div className={styles.header}>
-              <Typography variant="h4">{t('FAQ')}</Typography>
-              <ForumIcon fontSize="large" className={styles.help} />
+    <IgContainer>
+      <div className={styles.center}>
+        <Card className={styles.card}>
+          <CardHeader
+            title={
+              <div className={styles.header}>
+                <Typography variant="h4">{t('FAQ.title')}</Typography>
+                <ForumIcon fontSize="large" className={styles.help} />
+              </div>
+            }
+          />
+          <Divider className={styles.dividerTitle} />
+          <CardContent>
+            <div>
+              <List>
+                {questions.map((q, index) => (
+                  <>
+                    {index > 0 ? <Divider className={styles.questionDivider} /> : null}
+                    <ListItemText
+                      primary={t(`FAQ.questions.${q}.question`)}
+                      secondary={t(`FAQ.questions.${q}.answer`)}
+                    />
+                  </>
+                ))}
+              </List>
             </div>
-          }
-        />
-        <Divider className={styles.dividerTitle} />
-        <CardContent>
-          <div>
-            <List>
-              <ListItemText primary={t('how_to_join_us')} secondary={t('how_to_join_us_message')} />
-              <Divider />
-              <ListItemText primary={t('time_before_payment')} secondary={t('time_before_payment_message')} />
-            </List>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </div>
+    </IgContainer>
   );
 };
 export default FAQ;

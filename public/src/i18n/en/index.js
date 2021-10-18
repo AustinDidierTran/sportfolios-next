@@ -1119,7 +1119,15 @@ export default {
     facebook_description: 'Connect with Facebook to find your friends on Sportfolios',
     fair_mindedness: 'Fair Mindedness',
     false: 'False',
-    FAQ: 'Frequently asked questions',
+    FAQ: {
+      title: 'Frequently asked questions',
+      questions: {
+        how_to_join_us: {
+          question: 'How to join us ?',
+          answer: 'Send an email to austindidier@sportfolios.app to join us.',
+        },
+      },
+    },
     feature_coming_soon: 'Feature coming soon!',
     fees: 'Fees',
     Female: 'Female',
@@ -1174,8 +1182,7 @@ export default {
     home: 'Home',
     hour_ago_plural: '{{count}} hours ago',
     hour_ago: '{{count}} hour ago',
-    how_to_join_us: 'How to join us ? ',
-    how_to_join_us_message: 'Dial 819-580-2378 or send an email to austindidier@sportfolios.app to join us. ',
+
     i_want_to_be_anonyme: 'I want to be anonyme',
     images_list: 'Images list',
     image_required: 'Image required',
