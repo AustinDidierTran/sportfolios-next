@@ -1128,7 +1128,25 @@ export default {
     facebook_description: 'Connecte ton compte Facebook pour retrouver tes amis sur Sportfolios',
     fair_mindedness: 'Honnêteté et équité',
     false: 'Faux',
-    FAQ: 'Questions souvent posées',
+    FAQ: {
+      title: 'Questions souvent posées',
+      questions: {
+        how_to_join_us: {
+          question: 'Comment nous rejoindre ?',
+          answer: "Pour nous rejoindre, envoyez-nous un courriel à l'adresse suivante: austindidier@sportfolios.app .",
+        },
+        safe_transactions: {
+          question: 'Est-ce que les transactions sont sécuritaires ?',
+          answer:
+            'Toutes nos transactions passent par Stripe, qui est utilisé par les géants du commerce électronique. Nous respectons également la norme PCI DSS.',
+        },
+        how_to_become_verified: {
+          question: "Comment est-ce que je fais pour obtenir le status d'organisation vérifiée ?",
+          answer:
+            "Afin d'obtenir le status d'organisation vérifiée, vous pouvez nous contacter directement à l'adresse suivante: austindidier@sportfolios.app.",
+        },
+      },
+    },
     feature_coming_soon: 'Fonctionnalité à venir!',
     fees: 'Frais',
     Female: 'Femme',
@@ -1180,9 +1198,6 @@ export default {
     heard_organization: 'Comment avez-vous entendu parler de cette organisation?',
     here: 'ici',
     hide_password: 'Masquer le mot de passe',
-    how_to_join_us: 'Comment nous rejoindre ?',
-    how_to_join_us_message:
-      "Pour nous rejoindre, contactez-nous par téléphone au 819-580-2378 ou par courriel à l'adresse suivante: austindidier@sportfolios.app .",
     home: 'Accueil',
     hour_ago_plural: 'Il y a {{count}} heures',
     i_want_to_be_anonyme: 'Je veux être anonyme',

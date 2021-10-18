@@ -1126,6 +1126,15 @@ export default {
           question: 'How to join us ?',
           answer: 'Send an email to austindidier@sportfolios.app to join us.',
         },
+        safe_transactions: {
+          question: 'Are the transactions safe ? ',
+          answer:
+            'All of our transactions are managed by the application Stripe, which is use by giants of electronic. We also respect the PCI DSS standard',
+        },
+        how_to_become_verified: {
+          question: 'How can my organization become verified ?',
+          answer: 'To get the verified status, contact us at austindidier@sportfolios.app .',
+        },
       },
     },
     feature_coming_soon: 'Feature coming soon!',

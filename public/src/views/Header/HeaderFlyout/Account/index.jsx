@@ -73,6 +73,10 @@ export default function Plus() {
     dispatch({ type: ACTION_ENUM.LOGOUT });
   };
 
+  const handleViewFAQCLick = () => {
+    goTo(ROUTES.FAQ);
+    handleItemClick();
+  };
   const listItems = [
     {
       primary: t('cart'),
@@ -85,6 +89,11 @@ export default function Plus() {
       icon: 'Settings',
       onClick: () => handleViewSettingsClick(),
       badgeContent: 0,
+    },
+    {
+      primary: t('FAQ.title'),
+      icon: 'Help',
+      onClick: () => handleViewFAQCLick(),
     },
   ];
 

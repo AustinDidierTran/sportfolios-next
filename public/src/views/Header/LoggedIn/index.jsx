@@ -154,17 +154,6 @@ export default function LoggedIn(props) {
                 badgeContent={totalCartItems}
               />
             </div>
-            <div>
-              <Link href={'page/FAQ'}>
-                <IconButton
-                  className={styles.iconButton}
-                  icon="Help"
-                  size="medium"
-                  style={{ color: COLORS.white }}
-                  tooltip={t('question')}
-                ></IconButton>
-              </Link>
-            </div>
             <HeaderFlyout
               refCreateEntity={refCreateEntity}
               refNotifications={refNotifications}

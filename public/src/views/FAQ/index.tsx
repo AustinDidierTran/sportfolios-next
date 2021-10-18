@@ -11,16 +11,15 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ForumIcon from '@material-ui/icons/Forum';
+import HelpIcon from '@material-ui/icons/Help';
 import Divider from '@material-ui/core/Divider';
-import Post from '../../components/Custom/Card/Post';
 import IgContainer from '../../components/Custom/IgContainer';
 const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
 const FAQ: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const questions = ['how_to_join_us'];
+  const questions = ['how_to_join_us', 'safe_transactions', 'how_to_become_verified'];
 
   return (
     <IgContainer>
@@ -30,7 +29,7 @@ const FAQ: React.FunctionComponent = () => {
             title={
               <div className={styles.header}>
                 <Typography variant="h4">{t('FAQ.title')}</Typography>
-                <ForumIcon fontSize="large" className={styles.help} />
+                <HelpIcon fontSize="large" className={styles.help} />
               </div>
             }
           />
