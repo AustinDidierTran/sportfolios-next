@@ -138,6 +138,16 @@ export default function LoggedIn(props) {
                 tooltip={t('create.create')}
               />
             </div>
+            <Link href="/page/messages">
+              <IconButton
+                className={styles.iconButton}
+                icon="Chat"
+                size="medium"
+                style={{ color: COLORS.white }}
+                tooltip={t('messages')}
+              />
+            </Link>
+            <div></div>
             <div ref={refNotifications}>
               <NotificationModule className={styles.iconButton} onClick={handleNotificationClick} />
             </div>

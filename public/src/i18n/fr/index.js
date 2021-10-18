@@ -1303,6 +1303,7 @@ export default {
     medical_conditions: 'Conditions Médicales',
     menu: 'Menu',
     message: 'Message',
+    messages: 'Messages',
     message_sent: 'Message envoyé',
     messenger_description: 'Connecte ton compte Messenger pour activer le chatbot Sportfolios',
     minute_ago_plural: 'Il y a {{count}} minutes',

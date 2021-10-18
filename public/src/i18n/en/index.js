@@ -1289,6 +1289,7 @@ export default {
     medical_conditions: 'Medical conditions',
     menu: 'Menu',
     message: 'Message',
+    messages: 'Messages',
     message_sent: 'Message sent',
     messenger_description: "Connect with Messenger to enable Sportfolios' chatbot",
     minute_ago_plural: '{{count}} minutes ago',
