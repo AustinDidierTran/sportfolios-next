@@ -28,6 +28,8 @@ export default function CartItem(props) {
     fetchItems,
   } = props;
 
+  console.log({ props });
+
   const [disabled, setDisabled] = useState(false);
   const [open, setOpen] = useState(false);
 

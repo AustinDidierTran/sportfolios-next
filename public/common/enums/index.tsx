@@ -480,6 +480,7 @@ export enum CART_ITEM {
   MEMBERSHIP = 'membership',
   DONATION = 'donation',
   SHOP_ITEM = 'shop_item',
+  EVENT_TICKET = 'event_ticket',
 }
 
 export enum SOCKET_EVENT {

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../../../../../../components/Custom/Button';
 import TicketOption from '../../../../../../../components/Custom/TicketOption';
 import styles from './About.module.css';
-import * as gameService from '../../../../../../../actions/service/game';
+import * as eventService from '../../../../../../../actions/service/event';
 
 interface ITicketOption {
   name: string;
@@ -42,7 +42,7 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
   }, [options]);
 
   useEffect(() => {
-    console.log({ ticketSelection });
+    console.log({ ticketSelection }, Object.entries(ticketSelection));
   }, [ticketSelection]);
 
   return (
@@ -75,7 +75,19 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
               }
             />
           ))}
-          <Button endIcon="ShoppingCart" onClick={() => gameService.addTicketsToCart(ticketSelection)}>
+          <Button
+            endIcon="ShoppingCart"
+            onClick={() =>
+              eventService.addTicketsToCart(
+                Object.entries(ticketSelection)
+                  .map((r) => ({
+                    id: r[0],
+                    quantity: r[1],
+                  }))
+                  .filter((r) => r.quantity > 0)
+              )
+            }
+          >
             {t('add.add_to_cart')}
           </Button>
         </Paper>

@@ -52,3 +52,10 @@ export const create = (data: ICreatePayload): Promise<any> => {
     }),
   });
 };
+
+export const addTicketsToCart = (ticketSelection: any): Promise<any> => {
+  return api(`${BASE_URL}/tickets`, {
+    method: 'POST',
+    body: JSON.stringify(ticketSelection),
+  });
+};
