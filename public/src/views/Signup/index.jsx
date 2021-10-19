@@ -65,9 +65,8 @@ export default function Signup() {
       const { firstName, lastName, email, password } = values;
 
       try {
-        const validEmail = await validEmail(email);
-
-        if (!validEmail) {
+        const emailValid = await validEmail(email);
+        if (!emailValid) {
           formik.setFieldError('email', t('email.email_already_used'));
           return;
         }

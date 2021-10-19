@@ -1,12 +1,12 @@
 import api from '../../api';
 
-const AUTH_BASE_URL = '/api/auth/';
+const AUTH_BASE_URL = '/api/auth';
 
 export async function validEmail(email: string): Promise<boolean> {
   return api(`${AUTH_BASE_URL}/validEmail`, {
     method: 'POST',
     body: JSON.stringify({ email }),
-  });
+  }).then((res) => res.data);
 }
 
 export async function signup(
