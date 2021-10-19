@@ -12,6 +12,9 @@ import api from '../../../actions/api';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 
+import { Auth } from 'aws-amplify';
+import '../../../utils/amplify/amplifyConfig.jsx';
+
 export default function ChangePassword() {
   const {
     state: { authToken },
@@ -53,29 +56,25 @@ export default function ChangePassword() {
     validateOnBlur: false,
     onSubmit: async (values, { resetForm }) => {
       const { oldPassword, newPassword } = values;
-      const res = await api('/api/user/changePassword', {
-        method: 'POST',
-        body: JSON.stringify({
-          authToken,
-          oldPassword,
-          newPassword,
-        }),
-      });
-
-      if (res.status < 300) {
-        resetForm();
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('password_changed'),
-          severity: 'success',
+      await Auth.currentAuthenticatedUser()
+        .then((user) => Auth.changePassword(user, oldPassword, newPassword))
+        .then((data) => {
+          resetForm();
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('password_changed'),
+            severity: 'success',
+          });
+        })
+        .catch((err) => {
+          if (err.code === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
+            // Token is expired, redirect
+            goTo(ROUTES.login);
+          } else if (err.code === REQUEST_STATUS_ENUM.FORBIDDEN) {
+            // old password doesn't match
+            formik.setFieldError('oldPassword', t('wrong_password'));
+          }
         });
-      } else if (res.status === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
-        // Token is expired, redirect
-        goTo(ROUTES.login);
-      } else if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
-        // old password doesn't match
-        formik.setFieldError('oldPassword', t('wrong_password'));
-      }
     },
   });
 
