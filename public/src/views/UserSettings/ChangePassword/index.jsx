@@ -57,18 +57,14 @@ export default function ChangePassword() {
     onSubmit: async (values, { resetForm }) => {
       const { oldPassword, newPassword } = values;
       await Auth.currentAuthenticatedUser()
-        .then((user) => {
-          return Auth.changePassword(user, oldPassword, newPassword);
-        })
+        .then((user) => Auth.changePassword(user, oldPassword, newPassword))
         .then((data) => {
-          if (data === 'SUCCESS') {
-            resetForm();
-            dispatch({
-              type: ACTION_ENUM.SNACK_BAR,
-              message: t('password_changed'),
-              severity: 'success',
-            });
-          }
+          resetForm();
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('password_changed'),
+            severity: 'success',
+          });
         })
         .catch((err) => {
           if (err.code === REQUEST_STATUS_ENUM.UNAUTHORIZED) {
@@ -79,17 +75,6 @@ export default function ChangePassword() {
             formik.setFieldError('oldPassword', t('wrong_password'));
           }
         });
-
-      /*
-      const res = await api('/api/user/changePassword', {
-        method: 'POST',
-        body: JSON.stringify({
-          authToken,
-          oldPassword,
-          newPassword,
-        }),
-      });
-      */
     },
   });
 
