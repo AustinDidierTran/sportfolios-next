@@ -1,11 +1,19 @@
 import { API_BASE_URL } from '../../../../conf';
+import { Auth } from 'aws-amplify';
+import '../../utils/amplify/amplifyConfig.jsx';
 
 const api = async (route: string, { method, body }: { method?: string; body?: string } = {}): Promise<any> => {
   const headers: any = { 'Content-Type': 'application/json' };
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
 
   if (authToken && authToken !== 'null') {
-    headers.Authorization = authToken;
+    const dataAWS = await Auth.currentAuthenticatedUser();
+    if (!dataAWS.signInUserSession.idToken.jwtToken) {
+      headers.Authorization = authToken;
+    } else {
+      localStorage.setItem('authToken', dataAWS.signInUserSession.idToken.jwtToken);
+      headers.Authorization = dataAWS.signInUserSession.idToken.jwtToken;
+    }
   }
 
   if (method === 'POST') {
@@ -40,7 +48,6 @@ const api = async (route: string, { method, body }: { method?: string; body?: st
 
   if (method === 'GET') {
     const headers: any = { Authorization: authToken };
-
     const res = await fetch(`${API_BASE_URL}${route}`, { headers });
 
     const status = res.status;
