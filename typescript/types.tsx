@@ -747,7 +747,7 @@ export interface ConversationMessageApp {
       name: string;
       photoUrl: string;
     };
-    sent_at: string;
+    sent_at: Date;
     content: string;
   };
 }

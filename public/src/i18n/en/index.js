@@ -1323,6 +1323,7 @@ export default {
     new_organization: 'New organization',
     new_password: 'New Password',
     new_team: 'New team',
+    new_message: 'Send a new message',
     next: 'Next',
     no_location: 'No location',
     not_available: 'N/A',

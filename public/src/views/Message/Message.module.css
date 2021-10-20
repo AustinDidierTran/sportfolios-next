@@ -1,5 +1,10 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .title {
-  font-weight: 700 !important;
+  font-weight: 750 !important;
 }
 .divider {
   margin-top: 1rem !important;
@@ -22,4 +27,26 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%;
+  color: #b3b3b3 !important;
+  font-size: 0.75rem !important;
+}
+.time {
+  margin-right: 2rem !important;
+  white-space: nowrap;
+  color: #b3b3b3;
+  font-size: 0.75rem !important;
+}
+.name {
+  font-weight: 750 !important;
+}
+
+.create {
+  color: #b3b3b3 !important;
+  background-color: #eeeeee !important;
 }

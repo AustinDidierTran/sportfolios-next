@@ -1337,6 +1337,7 @@ export default {
     new_organization: 'Nouvelle Organisation',
     new_password: 'Nouveau mot de passe',
     new_team: 'Nouvelle Équipe',
+    new_message: 'Écrire un nouveau message',
     next: 'Prochain',
     no_location: 'Pas de location',
     not_available: 'N/A',
