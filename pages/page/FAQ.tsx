@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 const Question = dynamic(() => import('../../public/src/views/FAQ'));
-//const TeamCreation = dynamic(() => import('../../public/src/views/CreateTeam'));
 
 const FAQ: React.FunctionComponent = () => {
   const { t } = useTranslation();

@@ -1128,7 +1128,7 @@ export default {
     fair_mindedness: 'Honnêteté et équité',
     false: 'Faux',
     FAQ: {
-      title: 'Questions souvent posées',
+      title: 'Foire aux questions',
       questions: {
         how_to_join_us: {
           question: 'Comment nous rejoindre ?',
