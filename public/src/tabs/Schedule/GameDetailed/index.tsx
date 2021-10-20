@@ -190,7 +190,20 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
       handleChooseSubmitterClose();
     },
   });
-
+  const disableSpirit = () => {
+    if (game.positions[0].spirit !== null && game.positions[1].spirit !== null) {
+      return true;
+    }
+    return false;
+  };
+  const disableScore = () => {
+    if (game.scoreSubmited) {
+      return true;
+    }
+    if (!game.scoreSubmited) {
+      return false;
+    }
+  };
   const handleChooseSubmitterClose = (): void => {
     setChooseSubmitter(false);
     formik.resetForm();
@@ -294,7 +307,6 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.root}>
@@ -330,19 +342,18 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
             teamsAreClickable
           />
           <div className={styles.scoreButton}>
-            {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
+            {possibleSubmissioners.length > 0 && (
               <div style={{ display: 'inline-grid' }}>
-                <CustomButton style={{ margin: '4px' }} onClick={openSubmitScore}>
+                <CustomButton style={{ margin: '4px' }} disabled={disableScore()} onClick={openSubmitScore}>
                   {t('submit_score')}
                 </CustomButton>
                 {hasSpirit ? (
-                  <CustomButton style={{ margin: '4px' }} onClick={openSpiritScore}>
+                  <CustomButton style={{ margin: '4px' }} disabled={disableSpirit()} onClick={openSpiritScore}>
                     {t('submit_spirit')}
                   </CustomButton>
                 ) : null}
               </div>
             )}
-            {possibleSubmissioners.length > 0 && game.scoreSubmited && <div>{t('score.score_confirmed')}</div>}
           </div>
         </div>
         <Divider variant="middle" />
