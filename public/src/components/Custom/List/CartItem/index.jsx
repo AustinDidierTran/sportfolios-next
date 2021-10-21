@@ -174,5 +174,7 @@ export default function CartItem(props) {
       />
     );
   }
+  if (type === CART_ITEM.EVENT_TICKET) {
+  }
   return null;
 }
