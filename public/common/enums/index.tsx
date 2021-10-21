@@ -351,6 +351,7 @@ export enum ROUTES_ENUM {
   transferPerson = '/page/transferPerson/:token',
   transferPersonExpired = '/page/transferPersonExpired',
   userSettings = '/page/userSettings',
+  FAQ = 'page/FAQ',
 }
 
 export enum REQUEST_STATUS_ENUM {
