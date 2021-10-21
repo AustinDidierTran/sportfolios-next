@@ -72,11 +72,13 @@ export default function Login() {
       const { email, password } = values;
 
       try {
-        const user = await Auth.signIn(email, password);
-        if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
-          await Auth.forgotPassword(email);
-          goTo(ROUTES.recoveryEmail, { email });
-        }
+        const user = await Auth.signIn(email, password).then((user) => {
+          if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
+            return Auth.completeNewPassword(user, password);
+          }
+          return user;
+        });
+
         const token = user.signInUserSession.idToken.jwtToken;
         const data = await loginWithCognito(email, token);
 
@@ -101,13 +103,12 @@ export default function Login() {
           }
         }
       } catch (error) {
-        //console.log('error signing in', error);
+        console.log('error signing in', error);
         if (error.code === 'NotAuthorizedException') {
           const res = await migrate(email, password);
 
           if (res.status === 200) {
-            await Auth.forgotPassword(email);
-            goTo(ROUTES.recoveryEmail, { email });
+            dispatchEvent(new Event('submit', { cancelable: true }));
           }
         } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
           // Email is not validated

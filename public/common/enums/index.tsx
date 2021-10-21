@@ -336,7 +336,7 @@ export enum ROUTES_ENUM {
   playersAcceptation = '/page/playersAcceptation/:id',
   privacyPolicy = '/page/privacy',
   productAddedToCart = '/page/productAddedToCart',
-  recoveryEmail = '/page/recoveryEmail/:email',
+  recoveryEmail = '/page/recoveryEmail',
   redirectWithToken = '/page/redirect',
   registrationStatus = '/page/registrationStatus',
   resentValidationCode = '/page/resentValidationCode',
