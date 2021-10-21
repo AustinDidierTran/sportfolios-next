@@ -734,20 +734,16 @@ export interface Message {
     name: string;
     photoUrl: string;
   };
-  sent_at: string;
+  sentAt: string;
   content: string;
 }
 
-export interface ConversationMessageApp {
+export interface ConversationMessageView {
   id: string; //conversationId
-  lastMessage: {
-    id: string;
-    sender: {
-      id: string;
-      name: string;
-      photoUrl: string;
-    };
-    sent_at: Date;
-    content: string;
-  };
+  lastMessage: Message;
+}
+
+export interface ConversationView {
+  id: string;
+  messages: Message[];
 }

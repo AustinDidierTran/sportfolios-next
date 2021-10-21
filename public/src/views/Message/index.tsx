@@ -13,82 +13,83 @@ import React, { useEffect, useContext, useMemo } from 'react';
 import CustomAvatar from '../../components/Custom/Avatar';
 import moment from 'moment';
 import { Store } from '../../Store';
-import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '../../components/Custom/IconButton';
-import CreateIcon from '@material-ui/icons/Create';
-import Button from '@material-ui/core/Button';
+import { goTo, ROUTES } from '../../actions/goTo';
+import { ConversationMessageView } from '../../../../typescript/types';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 
 const message: React.FunctionComponent = () => {
   const { t } = useTranslation();
-  const {
-    state: { userInfo: userInfo },
-  } = useContext(Store);
 
-  const conversationMessagApp = [
+  const conversationMessagApp: ConversationMessageView[] = [
     {
-      id: 1,
+      id: 'asuhdi23',
       lastMessage: {
-        id: 1,
+        id: 'fwnerjv',
         sender: {
           id: 'a5f36c06-b0ce-4071-b761-e21293aed4bb',
           name: 'Matthiew Visosckis',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-8az1a-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sent_at: moment().year(2021).month(9).date(12).hour(11).minute(1).second(50),
+        sentAt: '2021-10-21 11:20:12',
         content: 'Allo gab!',
       },
     },
     {
-      id: 2,
+      id: 'dhjaefhew',
       lastMessage: {
-        id: 2,
+        id: 'fjwnvbf',
         sender: {
           id: '4f8930fc-e1c4-469f-8864-7e4847d0264c',
           name: 'Sabrina Vincent',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-2jd9f-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sent_at: moment().year(2021).month(9).date(20).hour(8).minute(1).second(5),
+        sentAt: '2021-10-21 11:30:12',
         content: 'Oui, ce sera parfait!',
       },
     },
     {
-      id: 3,
+      id: 'fhiauhbvue',
       lastMessage: {
-        id: 3,
+        id: 'kfivjren',
         sender: {
           id: '359a363a-e459-415c-b615-c431e641aadc',
           name: 'Sylvie Lamer',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sent_at: moment().year(2021).month(9).date(20).hour(10).minute(33).second(10),
+        sentAt: '2021-10-21 09:41:12',
         content: 'On se voit demain! ',
       },
     },
 
     {
-      id: 4,
+      id: 'fijcna',
       lastMessage: {
-        id: 4,
+        id: 'fhgeruvwjieko',
         sender: {
           id: 'e9fd6cc3-5fea-4990-880a-307b7c4461ac',
           name: 'Yanick Bertrand',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sent_at: moment().year(2021).month(9).date(20).hour(10).minute(37).second(7),
+        sentAt: '2021-10-21 10:42:12',
         content:
           "blue his house. with a blue little. and a blue carvet. and everything is blue for him. and him self. and everybody around. cause he ain't got nobody to listen. Im blue (daba dee ba da die) x7. Im blue (daba dee ba da die) x7. ",
       },
     },
   ];
   conversationMessagApp.sort(
-    (a, b) => b.lastMessage.sent_at.diff(moment(), 'seconds') - a.lastMessage.sent_at.diff(moment(), 'seconds')
+    (a, b) =>
+      moment(b.lastMessage.sentAt).diff(moment(), 'seconds') - moment(a.lastMessage.sentAt).diff(moment(), 'seconds')
   );
 
-  const handleMessageView = (c: any) => {};
+  const handleConversation = (id: any) => {
+    goTo(ROUTES.conversation, { id });
+  };
+
   return (
     <IgContainer>
       <div className={styles.center}>
@@ -105,21 +106,21 @@ const message: React.FunctionComponent = () => {
           />
           <CardContent>
             <Divider className={styles.divider} />
+
             <List>
               {conversationMessagApp.map((c, index) => (
                 <>
                   {index > 0 ? <Divider className={styles.divider} /> : null}
-                  <div className={styles.message}>
+                  <div className={styles.message} onClick={() => handleConversation(c.id)}>
                     <CustomAvatar size="md" photoUrl={c.lastMessage.sender.photoUrl} />
                     <ListItemText
                       secondaryTypographyProps={{ className: styles.text }}
                       primaryTypographyProps={{ className: styles.name }}
                       primary={c.lastMessage.sender.name}
                       secondary={c.lastMessage.content}
-                      onClick={() => handleMessageView(c)}
                     />
                     <Typography variant="body2" className={styles.time}>
-                      {moment(c.lastMessage.sent_at).fromNow()}
+                      {moment(c.lastMessage.sentAt).fromNow()}
                     </Typography>
                   </div>
                 </>

@@ -1,0 +1,33 @@
+.container {
+  background-color: #eceef2 !important;
+}
+.conversation {
+  display: flex;
+  flex-direction: column;
+}
+.friend {
+  position: fixed;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+
+  box-shadow: 0rem 0rem 1rem 0 #909090;
+}
+.name {
+  font-weight: 750 !important;
+  margin-left: 0.5rem !important;
+}
+.box {
+  background-color: brown;
+  margin-top: 10rem;
+}
+.back {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.exchange {
+  margin-top: 5rem;
+}

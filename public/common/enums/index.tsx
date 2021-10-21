@@ -314,6 +314,7 @@ export enum ROUTES_ENUM {
   confirmEmail = '/page/confirmEmail/:token',
   confirmEmailFailure = '/page/ConfirmEmailFailure',
   confirmEmailSuccess = '/page/confirmEmailSuccess',
+  conversation = '/page/conversation/:id',
   createEvent = '/page/createEvent',
   createOrganization = '/page/createOrganization',
   createPerson = '/page/createPerson',
