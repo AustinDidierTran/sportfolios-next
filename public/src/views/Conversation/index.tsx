@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { ListItemText, Typography } from '@material-ui/core';
 import moment from 'moment';
 import { Store } from '../../Store';
-import { ConversationView } from '../../../../typescript/types';
+import { ConversationView, Message } from '../../../../typescript/types';
 import IgContainer from '../../components/Custom/IgContainer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -45,7 +45,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sentAt: '2021-10-21 11:20:12',
+        sentAt: '2021-10-21 07:20:12',
         content: 'Allo ! Comment ca va? ',
       },
       {
@@ -66,7 +66,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sentAt: '2021-10-21 08:43:12',
+        sentAt: '2021-10-21 12:43:12',
         content: 'Derien ! ',
       },
       {
@@ -76,7 +76,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           name: userInfo.primaryPerson?.name,
           photoUrl: userInfo.primaryPerson?.photoUrl,
         },
-        sentAt: '2021-10-21 08:41:12',
+        sentAt: '2021-10-21 06:41:12',
         content: 'Salut! ',
       },
       {
@@ -87,14 +87,29 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sentAt: '2021-10-21 07:43:12',
+        sentAt: '2021-10-21 10:43:12',
         content:
           "blue his house. with a blue little. and a blue carvet. and everything is blue for him. and him self. and everybody around. cause he ain't got nobody to listen. Im blue (daba dee ba da die) x7. Im blue (daba dee ba da die) x7. ",
       },
     ],
   };
 
-  console.log('userInfo: ', userInfo);
+  const test = (m: any) => {
+    console.log('m.sender.id : ', m.sender.id, 'userInfo.id : ', userInfo.primaryPerson?.personId);
+    let truth = false;
+    if (m.sender.id === userInfo.pirmaryPersonon?.personId) {
+      truth = true;
+      console.log(truth);
+      return truth;
+    }
+    console.log(truth);
+    return truth;
+  };
+
+  conversation.messages.sort(
+    (a, b) => moment(a.sentAt).diff(moment(), 'seconds') - moment(b.sentAt).diff(moment(), 'seconds')
+  );
+
   const { t } = useTranslation();
   return (
     <IgContainer className={styles.container}>
@@ -109,7 +124,8 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         <div className={styles.exchange}>
           <List>
             {conversation.messages.map((m, index) => (
-              <div>
+              <div className={styles.avatarConvo}>
+                {test(m) ? <></> : <CustomAvatar photoUrl={m.sender.photoUrl} />}
                 <ListItemText primary={m.content} />
               </div>
             ))}

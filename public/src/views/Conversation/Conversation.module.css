@@ -31,3 +31,8 @@
 .exchange {
   margin-top: 5rem;
 }
+.avatarConvo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
