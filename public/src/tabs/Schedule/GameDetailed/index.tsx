@@ -190,13 +190,21 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
       handleChooseSubmitterClose();
     },
   });
-  const disableSpirit = () => {
+  /*const disableSpirit = () => {
     if (game.positions[0].spirit !== null && game.positions[1].spirit !== null) {
       return true;
     }
     return false;
+    
+
   };
-  const disableScore = () => {
+  */
+
+  const spiritIsDisabled = useMemo(
+    () => game.positions[0].spirit !== null && game.positions[1].spirit !== null,
+    [game.positions[0].spirit, game.positions[1].spirit]
+  );
+  /*const disableScore = () => {
     if (game.scoreSubmited) {
       return true;
     }
@@ -204,6 +212,9 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
       return false;
     }
   };
+  */
+  const scoreIsDisabled = useMemo(() => game.scoreSubmited, [game.scoreSubmited]);
+
   const handleChooseSubmitterClose = (): void => {
     setChooseSubmitter(false);
     formik.resetForm();
