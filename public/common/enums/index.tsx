@@ -652,4 +652,5 @@ export enum AuthErrorTypes {
   DeviceConfig = 'deviceConfig',
   NetworkError = 'networkError',
   NewPasswordRequired = 'NEW_PASSWORD_REQUIRED',
+  NotAuthorizedException = 'NotAuthorizedException',
 }

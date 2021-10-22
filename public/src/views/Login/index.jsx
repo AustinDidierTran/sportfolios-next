@@ -78,37 +78,17 @@ export default function Login() {
           }
           return user;
         });
-
-        const token = user.signInUserSession.idToken.jwtToken;
-        const data = await loginWithCognito(email, token);
-
-        if (data) {
-          if (typeof data === 'string') {
-            data = JSON.parse(data);
-          }
-          const { userInfo } = data;
-
-          dispatch({
-            type: ACTION_ENUM.LOGIN,
-            payload: token,
-          });
-          dispatch({
-            type: ACTION_ENUM.UPDATE_USER_INFO,
-            payload: userInfo,
-          });
-          if (redirectUrl) {
-            goTo(redirectUrl);
-          } else {
-            goTo(ROUTES.home);
-          }
-        }
+        login(user, email);
       } catch (error) {
-        console.log('error signing in', error);
-        if (error.code === 'NotAuthorizedException') {
+        if (error.code === AuthErrorTypes.NotAuthorizedException) {
           const res = await migrate(email, password);
 
           if (res.status === 200) {
-            dispatchEvent(new Event('submit', { cancelable: true }));
+            await Auth.signIn(email, password)
+              .then((user) => {
+                Auth.completeNewPassword(user, password).then((user) => login(user, email));
+              })
+              .catch((err) => formik.setFieldError('password', t('email.email_password_no_match')));
           }
         } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
           // Email is not validated
@@ -128,6 +108,32 @@ export default function Login() {
       goTo(ROUTES.signup, null, { redirectUrl: encodeURIComponent(redirectUrl) });
     } else {
       goTo(ROUTES.signup);
+    }
+  };
+
+  const login = async (user, email) => {
+    const token = user.signInUserSession.idToken.jwtToken;
+    const data = await loginWithCognito(email, token);
+
+    if (data) {
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+      const { userInfo } = data;
+
+      dispatch({
+        type: ACTION_ENUM.LOGIN,
+        payload: token,
+      });
+      dispatch({
+        type: ACTION_ENUM.UPDATE_USER_INFO,
+        payload: userInfo,
+      });
+      if (redirectUrl) {
+        goTo(redirectUrl);
+      } else {
+        goTo(ROUTES.home);
+      }
     }
   };
 
