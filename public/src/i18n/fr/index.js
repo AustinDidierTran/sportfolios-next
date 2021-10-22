@@ -1148,6 +1148,25 @@ export default {
     facebook_description: 'Connecte ton compte Facebook pour retrouver tes amis sur Sportfolios',
     fair_mindedness: 'Honnêteté et équité',
     false: 'Faux',
+    FAQ: {
+      title: 'Foire aux questions',
+      questions: {
+        how_to_join_us: {
+          question: 'Comment nous rejoindre ?',
+          answer: "Pour nous rejoindre, envoyez-nous un courriel à l'adresse suivante: austindidier@sportfolios.app .",
+        },
+        safe_transactions: {
+          question: 'Est-ce que les transactions sont sécuritaires ?',
+          answer:
+            'Toutes nos transactions passent par Stripe, qui est utilisé par les géants du commerce électronique. Nous respectons également la norme PCI DSS.',
+        },
+        how_to_become_verified: {
+          question: "Comment puis-je obtenir le status d'organisation vérifiée ?",
+          answer:
+            "Afin d'obtenir le status d'organisation vérifiée, vous pouvez nous contacter directement à l'adresse suivante: austindidier@sportfolios.app.",
+        },
+      },
+    },
     feature_coming_soon: 'Fonctionnalité à venir!',
     fees: 'Frais',
     Female: 'Femme',
@@ -1405,6 +1424,7 @@ export default {
     purchased_on: 'Acheté le',
     purchases: 'Achats',
     quantity: 'Quantité',
+    question: 'Question',
     quick_description: 'Description courte',
     quit_interactive_tool_confirmation: 'Des changements ont été apportés. Voulez-vous quitter sans les sauvergarder?',
     quit_interactive_tool: 'AVERTISSEMENT',

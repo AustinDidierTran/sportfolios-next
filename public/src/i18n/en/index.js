@@ -140,6 +140,11 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
+      FAQ: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       addPaymentMethod: {
         title: 'Sportfolios',
         description:
@@ -1134,6 +1139,24 @@ export default {
     facebook_description: 'Connect with Facebook to find your friends on Sportfolios',
     fair_mindedness: 'Fair Mindedness',
     false: 'False',
+    FAQ: {
+      title: 'Frequently asked questions',
+      questions: {
+        how_to_join_us: {
+          question: 'How to join us ?',
+          answer: 'Send an email to austindidier@sportfolios.app to join us.',
+        },
+        safe_transactions: {
+          question: 'Are the transactions safe ? ',
+          answer:
+            'All of our transactions are managed by the application Stripe, which is use by giants of electronic. We also respect the PCI DSS standard',
+        },
+        how_to_become_verified: {
+          question: 'How can my organization become verified ?',
+          answer: 'To get the verified status, contact us at austindidier@sportfolios.app .',
+        },
+      },
+    },
     feature_coming_soon: 'Feature coming soon!',
     fees: 'Fees',
     Female: 'Female',
@@ -1188,6 +1211,7 @@ export default {
     home: 'Home',
     hour_ago_plural: '{{count}} hours ago',
     hour_ago: '{{count}} hour ago',
+
     i_want_to_be_anonyme: 'I want to be anonyme',
     images_list: 'Images list',
     image_required: 'Image required',
@@ -1389,6 +1413,7 @@ export default {
     purchases: 'Purchases',
     qt: 'Qt: {{quantity}}',
     quantity: 'Quantity',
+    question: 'Question',
     quick_description: 'Short description',
     quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them?',
     quit_interactive_tool: 'WARNING',

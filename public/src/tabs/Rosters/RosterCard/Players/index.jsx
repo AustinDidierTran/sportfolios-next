@@ -26,6 +26,7 @@ export default function Players(props) {
     onAdd,
     onRoleUpdate,
     withPlayersInfos,
+    eventInfo,
   } = props;
   const {
     dispatch,
@@ -135,6 +136,7 @@ export default function Players(props) {
           <div className={styles.listPlayers}>
             {players.map((player, index) => (
               <PlayerCard
+                eventInfo={eventInfo}
                 index={index}
                 player={player}
                 isEditable={editableRole}
@@ -183,6 +185,7 @@ export default function Players(props) {
             {playersRegistered.map((player, index) => (
               <div>
                 <PlayerCard
+                  eventInfo={eventInfo}
                   index={index}
                   player={player}
                   key={playersRegistered.id}

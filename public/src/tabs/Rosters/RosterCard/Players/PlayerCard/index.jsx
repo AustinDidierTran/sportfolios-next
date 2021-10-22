@@ -12,7 +12,7 @@ import Avatar from '../../../../../components/Custom/Avatar';
 import { COLORS } from '../../../../../utils/colors';
 import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import Link from 'next/link';
 export default function PlayerCard(props) {
   const {
     isEditable,
@@ -24,12 +24,12 @@ export default function PlayerCard(props) {
     onPlayerAddToRoster,
     isAvailable,
     editableRoster = false,
+    eventInfo,
   } = props;
   const { t } = useTranslation();
   const [playerInfos, setPlayerInfos] = useState(null);
   const [open, setOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
-
   const closePlayerAcceptation = () => {
     setOpen(false);
   };
@@ -51,7 +51,6 @@ export default function PlayerCard(props) {
     // do things
     closePlayerAcceptation();
   };
-
   const getPersonInfos = async () => {
     const { data } = await api(
       formatRoute('/api/entity/personInfos', null, {
@@ -75,7 +74,6 @@ export default function PlayerCard(props) {
     const p = { id: player.personId };
     onPlayerAddToRoster(p);
   };
-
   if (editableRoster) {
     return (
       <div className={styles.card}>
@@ -92,9 +90,19 @@ export default function PlayerCard(props) {
           </div>
           <div className={styles.memberChip}>
             {player.isMember || player.isSub ? (
-              <Chip label={t('member.member')} color="primary" variant="outlined" />
+              <Link href={eventInfo.creator.id}>
+                <Chip color="primary" variant="outlined" clickable="true" label={t('member.member')}></Chip>
+              </Link>
             ) : (
-              <Chip label={t('member.not_member')} color="secondary" variant="outlined" />
+              <Link href={eventInfo.creator.id}>
+                <Chip
+                  color="secondary"
+                  variant="outlined"
+                  textColor="red"
+                  clickable="true"
+                  label={t('member.not_member')}
+                ></Chip>
+              </Link>
             )}
           </div>
           {isEditable ? (
