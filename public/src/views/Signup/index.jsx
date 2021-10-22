@@ -18,12 +18,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, AuthErrorTypes } from '../../../common/enums';
 import Link from 'next/link';
 import { goTo, ROUTES } from '../../actions/goTo';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import api from '../../actions/api';
+import { validEmail, signup } from '../../actions/service/auth/auth';
 import { useRouter } from 'next/router';
 import { COLORS } from '../../utils/colors';
 import { errors, ERROR_ENUM } from '../../../common/errors';
@@ -65,32 +65,36 @@ export default function Signup() {
       const { firstName, lastName, email, password } = values;
 
       try {
-        //need to check if email is in database first?
+        const emailValid = await validEmail(email);
+        if (!emailValid) {
+          formik.setFieldError('email', t('email.email_already_used'));
+          return;
+        }
+
         const user = await Auth.signUp({
           username: email,
           password: password,
         });
-        const res = await api('/api/auth/signupWithCognito', {
-          method: 'POST',
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password,
-            redirectUrl: redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
-            newsLetterSubscription: isSubscribed,
-            idUser: user.userSub,
-          }),
-        });
-        if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
-          formik.setFieldError('email', t('email.email_already_used'));
-        } else if (res.status >= 400) {
+        const res = await signup(
+          firstName,
+          lastName,
+          email,
+          password,
+          redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
+          isSubscribed,
+          user.userSub
+        );
+        if (res.status >= 400) {
           formik.setFieldError('firstName', t('something_went_wrong'));
         } else {
           goTo(ROUTES.confirmationEmailSent, { email });
         }
       } catch (error) {
-        console.log('error signing up:', error);
+        if (error.code === AuthErrorTypes.InvalidUsername) {
+          formik.setFieldError('firstName', t('something_went_wrong'));
+        } else if (error.code === AuthErrorTypes.SignUpError) {
+          formik.setFieldError('firstName', t('something_went_wrong'));
+        }
       }
     },
   });

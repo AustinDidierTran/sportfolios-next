@@ -634,3 +634,20 @@ export enum EVENT_TYPE {
   TEAM_LEAGUE = 'team',
   TEAM_TOURNAMENT = 'teamTournament',
 }
+
+export enum AuthErrorTypes {
+  NoConfig = 'noConfig',
+  MissingAuthConfig = 'missingAuthConfig',
+  EmptyUsername = 'emptyUsername',
+  InvalidUsername = 'invalidUsername',
+  EmptyPassword = 'emptyPassword',
+  EmptyCode = 'emptyCode',
+  SignUpError = 'signUpError',
+  NoMFA = 'noMFA',
+  InvalidMFA = 'invalidMFA',
+  EmptyChallengeResponse = 'emptyChallengeResponse',
+  NoUserSession = 'noUserSession',
+  Default = 'default',
+  DeviceConfig = 'deviceConfig',
+  NetworkError = 'networkError',
+}
