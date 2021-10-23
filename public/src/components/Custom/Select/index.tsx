@@ -25,7 +25,7 @@ interface IProps {
   onChange?: any;
   options: IOption[];
   showtextifonlyoneoption?: boolean;
-  value?: string;
+  value?: any;
 }
 
 const CustomSelect: React.FunctionComponent<IProps> = (props) => {
