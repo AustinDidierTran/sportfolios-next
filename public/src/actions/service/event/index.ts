@@ -12,9 +12,18 @@ export function getAllPeopleRegisteredNotInTeamsInfos(eventId: string): Promise<
 }
 
 export const getEventRankings = (eventId: string): Promise<IEventRankings> => {
-  return api(formatRoute(`${BASE_URL}/rankings`, null, { eventId })).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/rankings`, null, { eventId }), { method: 'GET' }).then((res) => res.data);
 };
 
 export const verifyTeamNameUnique = (name: string, eventId: string): Promise<boolean> => {
-  return api(formatRoute(`${BASE_URL}/verifyTeamNameIsUnique`, null, { name, eventId })).then((res) => res.data);
+  return api(formatRoute(`${BASE_URL}/verifyTeamNameIsUnique`, null, { name, eventId }), { method: 'GET' }).then(
+    (res) => res.data
+  );
+};
+
+export const updateRosterIdInRankings = (newRosterId: string, rankingId: string): Promise<any> => {
+  return api(`${BASE_URL}/rosterIdInRankings`, {
+    method: 'PUT',
+    body: JSON.stringify({ newRosterId, rankingId }),
+  }).then((res) => res.data);
 };

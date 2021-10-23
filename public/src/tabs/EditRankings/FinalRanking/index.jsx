@@ -13,8 +13,6 @@ import { updateRanking } from '../../Rankings/RankingFunctions';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Switch from '@material-ui/core/Switch';
@@ -22,22 +20,17 @@ import Icon from '../../../components/Custom/Icon';
 import Button from '../../../components/Custom/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControlLabel } from '@material-ui/core';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { getPhasesGameAndTeams } from '../../../actions/service/entity/get';
 import { COLORS } from '../../../utils/colors';
+import RankingItem from './RankingItem';
 
 const AccordionSummary = withStyles({
   content: {
     margin: '4px 0',
   },
 })(MuiAccordionSummary);
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: 'none',
-  background: isDragging ? COLORS.draggedWhite : COLORS.white,
-  ...draggableStyle,
-});
 
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? COLORS.whiteSmoke : COLORS.white,
@@ -52,7 +45,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function FinalRanking(props) {
-  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, prerankPhaseId, update, ...otherProps } = props;
+  const { phase, expandedPhases, onShrink, onExpand, onOpenAlertDialog, preRanking, prerankPhaseId, update } = props;
   const { phaseId } = phase;
   const { t } = useTranslation();
   const {
@@ -96,6 +89,7 @@ export default function FinalRanking(props) {
         positionName: t.positionName,
         initialPosition: t.initialPosition,
         finalPosition: t.finalPosition,
+        rankingId: t.rankingId,
       };
     });
 
@@ -165,7 +159,7 @@ export default function FinalRanking(props) {
 
   return (
     <>
-      <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand} {...otherProps}>
+      <Accordion expanded={expanded} onChange={expanded ? onShrink : onExpand}>
         <AccordionSummary expandIcon={<Icon icon="ExpandMore" />}>
           <div className={styles.reorder}>
             <ListItemIcon>{!(expanded || isOneExpanded) && <Icon icon="Reorder" color="textSecondary" />}</ListItemIcon>
@@ -236,51 +230,14 @@ export default function FinalRanking(props) {
                     style={getListStyle(snapshot.isDraggingOver)}
                   >
                     {items.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.id} index={index} isDragDisabled={!isOverride}>
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                          >
-                            <div key={index}>
-                              <ListItem>
-                                {isOverride && (
-                                  <ListItemIcon>
-                                    <Icon icon="Reorder" color="textSecondary" />
-                                  </ListItemIcon>
-                                )}
-                                <div className={styles.stats}>
-                                  <ListItemText
-                                    className={styles.position}
-                                    secondary={item.finalPosition ? item.finalPosition : index + 1}
-                                  />
-                                  <ListItemText
-                                    className={styles.team}
-                                    primary={item.name}
-                                    secondary={item.positionName}
-                                  />
-                                  <ListItemText className={styles.win} primary={item.wins} secondary={'W'} />
-                                  <ListItemText className={styles.lose} primary={item.loses} secondary={'L'} />
-                                  <ListItemText className={styles.pointFor} primary={item.pointFor} secondary={'+'} />
-                                  <ListItemText
-                                    className={styles.pointAgainst}
-                                    primary={item.pointAgainst}
-                                    secondary={'-'}
-                                  />
-                                  <ListItemText
-                                    className={styles.delta}
-                                    primary={item.pointFor - item.pointAgainst}
-                                    secondary={'+/-'}
-                                  />
-                                </div>
-                              </ListItem>
-                              <Divider />
-                            </div>
-                          </div>
-                        )}
-                      </Draggable>
+                      <RankingItem
+                        key={index}
+                        item={item}
+                        index={index}
+                        isOverride={isOverride}
+                        preRanking={preRanking}
+                        update={update}
+                      />
                     ))}
                     {provided.placeholder}
                   </div>
