@@ -100,7 +100,6 @@ const EditRankings: React.FunctionComponent = () => {
       }));
     }
 
-    console.log('austin2', { phases });
     const allPhases = phases
       .map((d) => ({
         content: d.name,
@@ -111,7 +110,6 @@ const EditRankings: React.FunctionComponent = () => {
         order: d.phaseOrder,
         type: d.type,
         ranking: d.ranking.map((r) => {
-          console.log('austin1', { r });
           if (r && r.rosterId) {
             if (r.originPhase.id === prerankPhase.phaseId) {
               return {
