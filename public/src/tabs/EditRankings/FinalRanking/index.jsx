@@ -67,7 +67,9 @@ export default function FinalRanking(props) {
   const expanded = useMemo(() => expandedPhases.includes(phaseId), [expandedPhases, phaseId]);
 
   const getRankings = async () => {
+    console.log('austin3', phase.id);
     const { games, teams: allTeams } = await getPhasesGameAndTeams(eventId, phase.id);
+    console.log('austin4', { teams });
     const teams = allTeams.map((team) => {
       let positionName = `${team.originPosition}. ${team.currentPhase.name}`;
       if (team.originPhase.id === prerankPhaseId) {
@@ -79,6 +81,7 @@ export default function FinalRanking(props) {
     const res = updateRanking(teams, games);
 
     const rankingStats = res.map((r, index) => {
+      console.log('austin5', { teams, r });
       const t = teams.find((t) => t.id === r.id);
 
       return {
