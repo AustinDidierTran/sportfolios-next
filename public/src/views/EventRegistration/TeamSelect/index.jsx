@@ -7,7 +7,7 @@ import { useFormInput } from '../../../hooks/forms';
 import TeamItem from '../../../components/Custom/List/TeamItem';
 import styles from './TeamSelect.module.css';
 import { Store } from '../../../Store';
-import { verifyTeamNameUnique } from '../../../actions/service/event/get.ts';
+import { verifyTeamNameUnique } from '../../../actions/service/event/index.ts';
 import WarningIcon from '@material-ui/icons/Warning';
 
 export default function TeamSelect(props) {

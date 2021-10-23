@@ -9,7 +9,26 @@ import Typography from '@material-ui/core/Typography';
 
 import { SELECT_ENUM } from '../../../../common/enums';
 
-export default function CustomSelect(props) {
+interface IOption {
+  disabled?: boolean;
+  display?: string;
+  displayKey?: string;
+  value: string;
+}
+
+interface IProps {
+  className?: string;
+  error?: string;
+  formik?: any;
+  label?: string;
+  namespace?: string;
+  onChange?: any;
+  options: IOption[];
+  showtextifonlyoneoption?: boolean;
+  value?: string;
+}
+
+const CustomSelect: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const {
     className,
@@ -19,7 +38,7 @@ export default function CustomSelect(props) {
     namespace,
     onChange,
     options,
-    showtextifonlyoneoption = 'false',
+    showtextifonlyoneoption = false,
     value: valueProp,
   } = props;
 
@@ -31,7 +50,7 @@ export default function CustomSelect(props) {
     value = valueProp;
   }
 
-  const handleChange = (event, ...args) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>, ...args: any[]) => {
     if (formik) {
       formik.handleChange(event, ...args);
     }
@@ -41,7 +60,7 @@ export default function CustomSelect(props) {
     }
   };
 
-  if (showtextifonlyoneoption === 'true' && options.length) {
+  if (showtextifonlyoneoption && options.length === 1) {
     return <Typography align="left">{`${label}: ${options[0].display}`}</Typography>;
   }
 
@@ -79,4 +98,6 @@ export default function CustomSelect(props) {
       </FormHelperText>
     </FormControl>
   );
-}
+};
+
+export default CustomSelect;
