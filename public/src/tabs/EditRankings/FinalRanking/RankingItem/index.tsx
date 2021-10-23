@@ -56,6 +56,7 @@ const RankingItem: React.FunctionComponent<IProps> = (props) => {
     [item.rankingId]
   );
 
+  console.log('austin6', { item });
   return (
     <Draggable draggableId={item.id} index={index} isDragDisabled={!isOverride}>
       {(provided, snapshot) => (
