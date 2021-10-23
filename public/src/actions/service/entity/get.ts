@@ -325,6 +325,9 @@ export function getGameOptions(eventId: string): Promise<GameOptions> {
 }
 
 export function getHasSpirit(eventId: string): Promise<boolean> {
+  if (!eventId) {
+    throw new Error('You must provide an event id for spirit');
+  }
   return api(formatRoute(`${BASE_URL}/hasSpirit`, null, { eventId }), { method: 'GET' }).then(
     (res) => res.data.hasSpirit
   );

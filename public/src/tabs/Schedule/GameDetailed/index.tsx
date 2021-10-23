@@ -190,30 +190,13 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
       handleChooseSubmitterClose();
     },
   });
-  /*const disableSpirit = () => {
-    if (game.positions[0].spirit !== null && game.positions[1].spirit !== null) {
-      return true;
-    }
-    return false;
-    
-
-  };
-  */
 
   const spiritIsDisabled = useMemo(
-    () => game.positions[0].spirit !== null && game.positions[1].spirit !== null,
-    [game.positions[0].spirit, game.positions[1].spirit]
+    () => Boolean(game && game.positions[0].spirit !== null && game.positions[1].spirit !== null),
+    [game?.positions[0].spirit, game?.positions[1].spirit]
   );
-  /*const disableScore = () => {
-    if (game.scoreSubmited) {
-      return true;
-    }
-    if (!game.scoreSubmited) {
-      return false;
-    }
-  };
-  */
-  const scoreIsDisabled = useMemo(() => game.scoreSubmited, [game.scoreSubmited]);
+
+  const scoreIsDisabled = useMemo(() => Boolean(game?.scoreSubmited), [game?.scoreSubmited]);
 
   const handleChooseSubmitterClose = (): void => {
     setChooseSubmitter(false);
@@ -355,11 +338,11 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
           <div className={styles.scoreButton}>
             {possibleSubmissioners.length > 0 && (
               <div style={{ display: 'inline-grid' }}>
-                <CustomButton style={{ margin: '4px' }} disabled={disableScore()} onClick={openSubmitScore}>
+                <CustomButton style={{ margin: '4px' }} disabled={scoreIsDisabled} onClick={openSubmitScore}>
                   {t('submit_score')}
                 </CustomButton>
                 {hasSpirit ? (
-                  <CustomButton style={{ margin: '4px' }} disabled={disableSpirit()} onClick={openSpiritScore}>
+                  <CustomButton style={{ margin: '4px' }} disabled={spiritIsDisabled} onClick={openSpiritScore}>
                     {t('submit_spirit')}
                   </CustomButton>
                 ) : null}
