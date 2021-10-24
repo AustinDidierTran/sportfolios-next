@@ -600,6 +600,10 @@ export default {
       added_to_team_notif_title: 'You have been added to a team',
       added_to_team: 'Added to a team',
     },
+    cart: {
+      remove_item: '0 (remove item)',
+      title: 'Cart',
+    },
     choose: {
       choose_date: 'Choose date',
       choose_membership: 'Choose membership',

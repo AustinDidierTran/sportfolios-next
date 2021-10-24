@@ -8,8 +8,10 @@ import { ERROR_ENUM } from '../../../../../../../../../../common/errors';
 import { Button, Icon, TextField } from '../../../../../../../../../components/Custom';
 import { formatDate } from '../../../../../../../../../utils/stringFormats';
 import styles from './General.module.css';
+import * as service from '../../../../../../../../../actions/service/game';
 
 interface IProps {
+  id: string;
   name: string;
   description: string;
   tickets: {
@@ -44,6 +46,7 @@ const General: React.FunctionComponent<IProps> = (props) => {
 
   const formik = useFormik({
     initialValues: {
+      description: '',
       name: '',
       ticketLimit: 250,
       startDate: formatDate(moment.parseZone(new Date().toLocaleString()), 'YYYY-MM-DD'),
@@ -55,7 +58,12 @@ const General: React.FunctionComponent<IProps> = (props) => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      console.log({ values });
+      await service.updateGame({
+        gameId: props.id,
+        name: values.name,
+        ticketLimit: values.ticketLimit,
+        description: values.description,
+      });
     },
   });
 
@@ -86,6 +94,7 @@ const General: React.FunctionComponent<IProps> = (props) => {
             rows={1}
             rowsMax={20}
             label={t('description.description')}
+            InputLabelProps={{ shrink: true }}
             fullWidth
           />
           <Button size="small" type="submit" endIcon="SaveIcon">

@@ -592,6 +592,10 @@ export default {
       added_to_team_notif_title: 'Vous avez été ajouté à une équipe',
       added_to_team: 'Ajouté à une équipe',
     },
+    cart: {
+      remove_item: '0 (retirer article)',
+      title: 'Panier',
+    },
     choose: {
       choose_date: 'Choisir la date',
       choose_membership: "Choisir l'affiliation",
@@ -1016,7 +1020,6 @@ export default {
       'Vous êtes sur le point d’inscrire une équipe. Cette opération est nécessaire que pour les capitaines. Si vous êtes un joueur qui cherche à être ajouté à un alignement, veuillez contacter votre capitaine.',
     card_ending_with: 'Carte finissant avec {{last4}}',
     cart_empty_go_shop: "Votre panier est vide! C'est l'heure d'aller faire des achats!",
-    cart: 'Panier',
     category: 'Catégorie',
     change_password: 'Changer votre mot de passe',
     change_picture: 'Changer la photo',

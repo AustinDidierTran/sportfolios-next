@@ -2,6 +2,10 @@ import api from '../../api';
 
 const BASE_URL = '/api/game';
 
+/**
+ * POST
+ */
+
 export function submitSpirit(
   submittedByRoster: string,
   submittedByPerson: string,
@@ -47,6 +51,28 @@ export const addTicketsToCart = (ticketSelection: any): Promise<any> => {
     method: 'POST',
     body: JSON.stringify({
       ticketSelection,
+    }),
+  });
+};
+
+interface IUpdateGame {
+  gameId: string;
+  name: string;
+  ticketLimit: number;
+  description: string;
+}
+
+/**
+ * PUT
+ */
+export const updateGame = (body: IUpdateGame): Promise<any> => {
+  return api(BASE_URL, {
+    method: 'PUT',
+    body: JSON.stringify({
+      gameId: body.gameId,
+      name: body.name,
+      ticketLimit: body.ticketLimit,
+      description: body.description,
     }),
   });
 };

@@ -62,7 +62,7 @@ export default function RegistrationStatus() {
           <RosterInviteLink message={t('to_invite_people_to_your_roster_share_the_invite_link')} rosterId={rosterId} />
         ),
         onClick: goToCart,
-        button: t('cart'),
+        button: t('cart.title'),
         endIcon: 'ShoppingCart',
       };
       break;

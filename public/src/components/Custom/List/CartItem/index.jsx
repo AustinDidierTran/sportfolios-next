@@ -10,9 +10,12 @@ import PersonItem from './PersonItem';
 import DonationItem from './DonationItem';
 import MembershipItem from './MembershipItem';
 import ShopItem from './ShopItem';
+import TicketItem from './TicketItem';
+import { useTranslation } from 'react-i18next';
 
 export default function CartItem(props) {
   const { dispatch } = useContext(Store);
+  const { t } = useTranslation();
 
   const {
     id,
@@ -28,8 +31,6 @@ export default function CartItem(props) {
     fetchItems,
   } = props;
 
-  console.log({ props });
-
   const [disabled, setDisabled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -37,7 +38,7 @@ export default function CartItem(props) {
     .fill(0)
     .map((_, index) => ({
       value: index,
-      display: index,
+      display: index === 0 ? t('cart.remove_item') : index,
     }));
 
   const handleChange = async () => {
@@ -175,6 +176,22 @@ export default function CartItem(props) {
     );
   }
   if (type === CART_ITEM.EVENT_TICKET) {
+    return (
+      <TicketItem
+        photoUrl={metadata.photoUrl}
+        eventName={metadata.name}
+        taxLength={taxRates.length}
+        quantity={quantity}
+        quantityOptions={quantityOptions}
+        updateQuantity={updateQuantity}
+        amount={amount}
+        label={label}
+        handleChange={handleChange}
+        disabled={disabled}
+        checked={checked}
+        id={id}
+      />
+    );
   }
   return null;
 }

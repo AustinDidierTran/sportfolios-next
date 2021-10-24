@@ -6,6 +6,7 @@ import { Button, Icon, TextField } from '../../../../../../../../../components/C
 import styles from './Tickets.module.css';
 import TicketOption from '../../../../../../../../../components/Custom/TicketOption';
 import * as gameService from '../../../../../../../../../actions/service/game';
+import { ITicketOption } from '../../../../../../../../../../../typescript/game';
 
 interface IProps {
   creator: {
@@ -16,6 +17,7 @@ interface IProps {
   description: string;
   tickets: {
     limit: number;
+    options: ITicketOption[];
   };
 }
 
@@ -61,9 +63,9 @@ const General: React.FunctionComponent<IProps> = (props) => {
       description: '',
       price: 0,
     },
-    validate: (values) => {
-      const { name, description, price } = values;
-      const errors = {};
+    validate: (values: ITicketOption) => {
+      const { name, price } = values;
+      const errors: any = {};
 
       if (name.length > 64) {
         errors.name = t('invalid.invalid_64_length');
@@ -80,8 +82,6 @@ const General: React.FunctionComponent<IProps> = (props) => {
     onSubmit: async (values) => {
       const { name, description, price } = values;
       const res = await gameService.addTicketOption(id, name, description, price, creatorId);
-
-      console.log({ res });
     },
   });
 
@@ -99,9 +99,11 @@ const General: React.FunctionComponent<IProps> = (props) => {
           {options.map((o, index) => (
             <TicketOption
               key={index}
-              name={o.name}
-              price={o.price}
-              description={o.description}
+              ticketOption={{
+                name: o.name,
+                price: o.price,
+                description: o.description,
+              }}
               action={
                 <Button size="small" color="secondary" endIcon="Delete">
                   {t('delete.delete')}

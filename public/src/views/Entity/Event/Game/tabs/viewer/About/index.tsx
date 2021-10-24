@@ -5,6 +5,7 @@ import Button from '../../../../../../../components/Custom/Button';
 import TicketOption from '../../../../../../../components/Custom/TicketOption';
 import styles from './About.module.css';
 import * as eventService from '../../../../../../../actions/service/event';
+import { goTo, ROUTES } from '../../../../../../../actions/goTo';
 
 interface ITicketOption {
   name: string;
@@ -18,15 +19,19 @@ interface IProps {
   tickets: {
     options: ITicketOption[];
   };
+  name: string;
+  photoUrl: string;
 }
 
 const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const {
+    description,
+    name,
+    photoUrl,
     tickets: { options },
   } = props;
 
-  const description = "Match du Vert & Or Volleyball les opposant aux Carabins de l'Université de Montréal";
   const [ticketSelection, setTicketSelection] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -41,9 +46,26 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
     );
   }, [options]);
 
-  useEffect(() => {
-    console.log({ ticketSelection }, Object.entries(ticketSelection));
-  }, [ticketSelection]);
+  const onAddTickets = () => {
+    eventService
+      .addTicketsToCart(
+        Object.entries(ticketSelection)
+          .map((r) => ({
+            metadata: {
+              id: r[0],
+              quantity: r[1],
+              name,
+              photoUrl,
+            },
+            id: r[0],
+            quantity: r[1],
+          }))
+          .filter((r) => r.quantity > 0)
+      )
+      .then(() => {
+        goTo(ROUTES.cart);
+      });
+  };
 
   return (
     <>
@@ -57,9 +79,11 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
           {options.map((to, index: number) => (
             <TicketOption
               key={index}
-              name={to.name}
-              price={to.price}
-              description={to.description}
+              ticketOption={{
+                name: to.name,
+                price: to.price,
+                description: to.description,
+              }}
               action={
                 <TextField
                   type="number"
@@ -75,19 +99,7 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
               }
             />
           ))}
-          <Button
-            endIcon="ShoppingCart"
-            onClick={() =>
-              eventService.addTicketsToCart(
-                Object.entries(ticketSelection)
-                  .map((r) => ({
-                    id: r[0],
-                    quantity: r[1],
-                  }))
-                  .filter((r) => r.quantity > 0)
-              )
-            }
-          >
+          <Button endIcon="ShoppingCart" onClick={onAddTickets}>
             {t('add.add_to_cart')}
           </Button>
         </Paper>

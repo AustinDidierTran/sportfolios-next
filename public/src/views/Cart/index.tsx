@@ -29,7 +29,7 @@ const Cart: React.FunctionComponent = () => {
     {
       value: TABS_ENUM.CART,
       component: CartTab,
-      label: t('cart'),
+      label: t('cart.title'),
       icon: 'ShoppingCartOutlined',
     },
 
