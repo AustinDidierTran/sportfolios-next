@@ -42,7 +42,6 @@ const getRankingInfos = (teams: ITeams[], games: PhaseGames[]): any => {
     random: Math.random(),
     number: 1,
   }));
-  console.log('austin10', allRankings);
 
   games.reduce((ranking, game) => {
     const index0 = ranking.findIndex((r) => r.id === game.teams[0].teamId);
@@ -73,7 +72,7 @@ const getRankingInfos = (teams: ITeams[], games: PhaseGames[]): any => {
       pointFor: pointFor1,
       pointAgainst: pointAgainst1,
       random: random1,
-    } = ranking[index1] || {};
+    } = ranking[index1];
 
     let w0 = wins0;
     let w1 = wins1;

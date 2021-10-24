@@ -73,7 +73,7 @@ export default function FinalRanking(props) {
       if (team.originPhase.id === prerankPhaseId) {
         positionName = `${team.originPosition}. ${t('preranking')}`;
       }
-      return { ...team, position: team.initiaxlPosition, id: team.teamId, rosterId: team.rosterId, positionName };
+      return { ...team, position: team.initialPosition, id: team.teamId, rosterId: team.rosterId, positionName };
     });
 
     const res = updateRanking(teams, games);
