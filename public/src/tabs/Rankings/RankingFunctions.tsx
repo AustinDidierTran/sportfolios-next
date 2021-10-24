@@ -46,6 +46,12 @@ const getRankingInfos = (teams: ITeams[], games: PhaseGames[]): any => {
   games.reduce((ranking, game) => {
     const index0 = ranking.findIndex((r) => r.id === game.teams[0].teamId);
     const index1 = ranking.findIndex((r) => r.id === game.teams[1].teamId);
+
+    if (index0 === -1 || index1 === -1) {
+      // TODO: FIX THIS, THIS IS URGENT
+      return ranking;
+    }
+
     const {
       id: id0,
       rosterId: rosterId0,
