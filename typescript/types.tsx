@@ -542,7 +542,7 @@ export interface Positions {
   rosterId: string;
   score: number;
   name: string;
-  spirit: string;
+  spirit: number;
   rankingId: string;
   position?: number;
   photoUrl?: string;
