@@ -100,7 +100,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     if (gameId) {
       getGame();
-      getHasSpirit(entityId).then(setHasSpirit);
+      getHasSpirit(gameId).then(setHasSpirit);
     }
   }, [gameId]);
 
