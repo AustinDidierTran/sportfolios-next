@@ -198,7 +198,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
 
   // This logic is not enough
   const spiritIsDisabled = useMemo(
-    () => Boolean(game && game.positions[0].spirit !== 0 && game.positions[1].spirit !== 0),
+    () => Boolean(game && Boolean(game.positions[0].spirit) && Boolean(game.positions[1].spirit !== 0)),
     [game?.positions[0].spirit, game?.positions[1].spirit]
   );
 
