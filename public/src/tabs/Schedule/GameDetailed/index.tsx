@@ -100,9 +100,14 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     if (gameId) {
       getGame();
-      getHasSpirit(gameId).then(setHasSpirit);
     }
   }, [gameId]);
+
+  useEffect((): void => {
+    if (entityId) {
+      getHasSpirit(entityId).then(setHasSpirit);
+    }
+  }, [entityId]);
 
   useEffect((): void => {
     if (!game || !game.positions) {
