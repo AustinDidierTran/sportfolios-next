@@ -196,10 +196,12 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
     },
   });
 
-  const spiritIsDisabled = useMemo(
-    () => Boolean(game && game.positions[0].spirit !== null && game.positions[1].spirit !== null),
-    [game?.positions[0].spirit, game?.positions[1].spirit]
-  );
+  const spiritIsDisabled = useMemo(() => {
+    if (game) {
+      console.log('austin123', game.positions[0], game.positions[1]);
+    }
+    return Boolean(game && game.positions[0].spirit !== null && game.positions[1].spirit !== null);
+  }, [game?.positions[0].spirit, game?.positions[1].spirit]);
 
   const scoreIsDisabled = useMemo(() => Boolean(game?.scoreSubmited), [game?.scoreSubmited]);
 
