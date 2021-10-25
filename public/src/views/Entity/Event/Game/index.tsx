@@ -26,7 +26,7 @@ import Divider from '@material-ui/core/Divider';
 import { getRole as getRoleApi } from '../../../../actions/service/entity/get';
 import CustomButton from '../../../../components/Custom/Button';
 
-interface IProps {
+export interface IGameProps {
   id: string;
   name: string;
   description: string;
@@ -34,11 +34,10 @@ interface IProps {
   startDate: string;
 }
 
-const Game: React.FunctionComponent<IProps> = (props) => {
+const Game: React.FunctionComponent<IGameProps> = (props) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { mode, tab } = router.query;
-  console.log(123, { props });
 
   const [role, setRole] = useState<ENTITIES_ROLE_ENUM>(ENTITIES_ROLE_ENUM.VIEWER);
   const { id, name, description, photoUrl, startDate } = props;

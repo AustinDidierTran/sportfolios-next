@@ -23,6 +23,9 @@ export const verifyTeamNameUnique = (name: string, eventId: string): Promise<boo
   return api(formatRoute(`${BASE_URL}/verifyTeamNameIsUnique`, null, { name, eventId })).then((res) => res.data);
 };
 
+/**
+ * POST
+ */
 interface ICreatePayload {
   name: string;
   creatorId: string;
@@ -34,9 +37,6 @@ interface ICreatePayload {
   photoUrl: string;
 }
 
-/**
- * POST
- */
 export const create = (data: ICreatePayload): Promise<any> => {
   return api(BASE_URL, {
     method: 'POST',

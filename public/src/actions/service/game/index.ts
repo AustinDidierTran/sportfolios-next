@@ -1,6 +1,16 @@
+import { ITicket } from '../../../../../typescript/game';
+import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../api';
 
 const BASE_URL = '/api/game';
+
+/**
+ * GET
+ */
+
+export const getPurchasedTickets = (gameId: string): Promise<ITicket> => {
+  return api(formatRoute(`${BASE_URL}/purchasedTickets`, null, { gameId }), { method: 'GET' }).then((res) => res.data);
+};
 
 /**
  * POST
