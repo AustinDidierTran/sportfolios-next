@@ -50,10 +50,10 @@ export default function Signup() {
       label: 'English',
     },
   ];
-  const [lang, setLang] = React.useState('fr');
+  const [language, setLanguage] = React.useState('fr');
 
   const handleChangeLanguage = (event) => {
-    setLang(event);
+    setLanguage(event);
     i18n.changeLanguage(event);
   };
 
@@ -88,7 +88,7 @@ export default function Signup() {
           password,
           redirectUrl: redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
           newsLetterSubscription: isSubscribed,
-          lang,
+          language,
         }),
       });
       if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
@@ -137,7 +137,7 @@ export default function Signup() {
               type="text"
               label={t('select.select_language')}
               fullWidth
-              value={lang}
+              value={language}
               onChange={handleChangeLanguage}
             >
               {languages.map((option) => (
