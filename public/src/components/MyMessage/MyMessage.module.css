@@ -1,0 +1,23 @@
+.me {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.bubble {
+  margin-right: 2rem;
+  background-color: #18b393;
+  max-width: 60%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.text {
+  color: white;
+  text-align: justify;
+}

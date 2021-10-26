@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 const Conversation = dynamic(() => import('../../public/src/views/Message'));
-//const TeamCreation = dynamic(() => import('../../public/src/views/CreateTeam'));
 
 const message: React.FunctionComponent = () => {
   const { t } = useTranslation();

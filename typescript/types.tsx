@@ -727,23 +727,3 @@ export interface ShopCartItems {
   photoUrl: string;
   createdAt: string;
 }
-export interface Message {
-  id: string;
-  sender: {
-    id: string;
-    name: string;
-    photoUrl: string;
-  };
-  sentAt: string;
-  content: string;
-}
-
-export interface ConversationMessageView {
-  id: string; //conversationId
-  lastMessage: Message;
-}
-
-export interface ConversationView {
-  id: string;
-  messages: Message[];
-}

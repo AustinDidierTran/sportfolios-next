@@ -329,6 +329,8 @@ export enum ROUTES_ENUM {
   login = '/page/login',
   membersList = '/page/membersList',
   menu = '/page/menu',
+  messages = '/page/message',
+  newMessage = '/page/newMessage',
   mockEvent = '/page/mock/Event/:openTab',
   notifications = '/page/notifications',
   optionPayment = '/page/optionPayment/:id',

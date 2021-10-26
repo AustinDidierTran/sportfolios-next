@@ -3,6 +3,11 @@ import { SIZES_ENUM } from '../../../common/enums';
 export default {
   translations: {
     metadata: {
+      newMessage: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       conversation: {
         title: 'Sportfolios',
         description:
@@ -657,6 +662,7 @@ export default {
       create_activity: 'Créer une activité',
       create_report: 'Créer un rapport',
       create_team: 'Créer une équipe',
+      create_message: 'Créer le message',
       create: 'Créer',
       created_by: 'Créé par {{name}}',
       created_on: 'Créé le',
@@ -1052,6 +1058,7 @@ export default {
     cant_join_team_yet: 'Vous ne pouvez pas rejoindre cette équipe. Vous devez être invité à rejoindre cette équipe',
     cant_transfer_person_to_your_own_email:
       'Vous ne pouvez pas transférer une personne à votre propre adresse courriel',
+    cant_new_message: "Vous ne pouvez pas envoyer un message à vous-même ou à quelqu'un qui a déjà été séléctionné.",
     captain: 'Capitaine 🏅',
     captains: 'Capitaines',
     captain_only_warning:
@@ -1574,6 +1581,7 @@ export default {
     some_teams_cannot_be_deleted:
       "Des équipes n'ont pas pu être désinscrites de l'événement puisqu'elles sont déjà dans des parties.",
     something_went_wrong: "Une erreur s'est produite. Veuillez réessayer.",
+    someone_new: 'Nouveau message',
     spirit_chart_ligue_mardi: '0: Mauvais  1: Moyen  2: Bon ou rien à signaler  3: Très bon  4: Mémorable',
     spirit: 'Esprit de jeu',
     sports_table_title: 'Liste des sports',
@@ -1585,6 +1593,7 @@ export default {
     start_a_post: 'Commencer un post',
     start_in: 'Début dans',
     start_phase: 'Démarrer',
+    start_message: 'Créer le message',
     step_1: 'Étape 1',
     step_2: 'Étape 2',
     step_3: 'Étape 3',
@@ -1643,6 +1652,7 @@ export default {
     total: 'Total',
     totals: 'Totaux',
     total_income: 'Revenu total',
+    to: 'À :',
     new_income: 'Nouveau revenu',
     income: 'Revenus',
     income_and_transaction_fee_for: 'Revenus et frais de transaction pour',
@@ -1656,6 +1666,7 @@ export default {
     true: 'Vrai',
     type_address: 'Entrez une adresse',
     type: 'Type',
+    type_here: 'Écrire ici...',
     unconfirmed_email: 'courriel non confirmé',
     undo: 'Annuler',
     unlink_facebook_account: 'Déconnecter mon compte Facebook',

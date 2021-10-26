@@ -15,20 +15,21 @@ import moment from 'moment';
 import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { ConversationMessageView } from '../../../../typescript/types';
+import { ConversationPreview } from '../../../../typescript/conversation';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 const message: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const conversationMessagApp: ConversationMessageView[] = [
+  const conversationMessagApp: ConversationPreview[] = [
     {
       id: 'asuhdi23',
       lastMessage: {
         id: 'fwnerjv',
         sender: {
           id: 'a5f36c06-b0ce-4071-b761-e21293aed4bb',
-          name: 'Matthiew Visosckis',
+          name: 'Matthiew',
+          surname: 'Visockis',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-8az1a-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
@@ -42,7 +43,8 @@ const message: React.FunctionComponent = () => {
         id: 'fjwnvbf',
         sender: {
           id: '4f8930fc-e1c4-469f-8864-7e4847d0264c',
-          name: 'Sabrina Vincent',
+          name: 'Sabrina',
+          surname: 'Vincent',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-2jd9f-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
@@ -56,11 +58,12 @@ const message: React.FunctionComponent = () => {
         id: 'kfivjren',
         sender: {
           id: '359a363a-e459-415c-b615-c431e641aadc',
-          name: 'Sylvie Lamer',
+          name: 'Sylvie',
+          surname: 'Lamer',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sentAt: '2021-10-21 09:41:12',
+        sentAt: '2021-10-22 16:20:12',
         content: 'On se voit demain! ',
       },
     },
@@ -71,11 +74,12 @@ const message: React.FunctionComponent = () => {
         id: 'fhgeruvwjieko',
         sender: {
           id: 'e9fd6cc3-5fea-4990-880a-307b7c4461ac',
-          name: 'Yanick Bertrand',
+          name: 'Yanick',
+          surname: 'Bertrand',
           photoUrl:
             'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
         },
-        sentAt: '2021-10-21 10:42:12',
+        sentAt: '2021-10-22 10:42:12',
         content:
           "blue his house. with a blue little. and a blue carvet. and everything is blue for him. and him self. and everybody around. cause he ain't got nobody to listen. Im blue (daba dee ba da die) x7. Im blue (daba dee ba da die) x7. ",
       },
@@ -85,6 +89,9 @@ const message: React.FunctionComponent = () => {
     (a, b) =>
       moment(b.lastMessage.sentAt).diff(moment(), 'seconds') - moment(a.lastMessage.sentAt).diff(moment(), 'seconds')
   );
+  const handleNewMessage = () => {
+    goTo(ROUTES.newMessage);
+  };
 
   const handleConversation = (id: any) => {
     goTo(ROUTES.conversation, { id });
@@ -102,7 +109,15 @@ const message: React.FunctionComponent = () => {
                 </Typography>
               </div>
             }
-            action={<IconButton className={styles.create} tooltip={t('new_message')} icon="Create" size="large" />}
+            action={
+              <IconButton
+                onClick={handleNewMessage}
+                className={styles.create}
+                tooltip={t('new_message')}
+                icon="Create"
+                size="large"
+              />
+            }
           />
           <CardContent>
             <Divider className={styles.divider} />
@@ -116,7 +131,7 @@ const message: React.FunctionComponent = () => {
                     <ListItemText
                       secondaryTypographyProps={{ className: styles.text }}
                       primaryTypographyProps={{ className: styles.name }}
-                      primary={c.lastMessage.sender.name}
+                      primary={c.lastMessage.sender.name + '  ' + c.lastMessage.sender.surname}
                       secondary={c.lastMessage.content}
                     />
                     <Typography variant="body2" className={styles.time}>

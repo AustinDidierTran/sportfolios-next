@@ -1,0 +1,26 @@
+.friends {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: left;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.bubble {
+  background-color: white;
+  max-width: 60%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.avatar {
+  margin-left: 1rem;
+  margin-right: 0.5rem;
+}
+.text {
+  color: #787878;
+  text-align: justify;
+}
