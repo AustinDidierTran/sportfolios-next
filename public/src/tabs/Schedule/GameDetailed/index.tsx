@@ -100,9 +100,14 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     if (gameId) {
       getGame();
-      getHasSpirit(entityId).then(setHasSpirit);
     }
   }, [gameId]);
+
+  useEffect((): void => {
+    if (entityId) {
+      getHasSpirit(entityId).then(setHasSpirit);
+    }
+  }, [entityId]);
 
   useEffect((): void => {
     if (!game || !game.positions) {
@@ -190,11 +195,6 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
       handleChooseSubmitterClose();
     },
   });
-
-  const spiritIsDisabled = useMemo(
-    () => Boolean(game && game.positions[0].spirit !== null && game.positions[1].spirit !== null),
-    [game?.positions[0].spirit, game?.positions[1].spirit]
-  );
 
   const scoreIsDisabled = useMemo(() => Boolean(game?.scoreSubmited), [game?.scoreSubmited]);
 
@@ -342,7 +342,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
                   {t('submit_score')}
                 </CustomButton>
                 {hasSpirit ? (
-                  <CustomButton style={{ margin: '4px' }} disabled={spiritIsDisabled} onClick={openSpiritScore}>
+                  <CustomButton style={{ margin: '4px' }} onClick={openSpiritScore}>
                     {t('submit_spirit')}
                   </CustomButton>
                 ) : null}
