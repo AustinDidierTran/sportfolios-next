@@ -1,4 +1,5 @@
 import api from '../../api';
+import { UserInfo } from '../../../../../typescript/user';
 
 const AUTH_BASE_URL = '/api/auth';
 
@@ -22,6 +23,26 @@ export async function signup(
       lastName,
       email,
       newsLetterSubscription,
+    }),
+  });
+}
+
+export async function loginWithCognito(email: string, token: string): Promise<UserInfo> {
+  return api(`${AUTH_BASE_URL}/loginWithCognito`, {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      token,
+    }),
+  });
+}
+
+export async function migrate(email: string, password: string): Promise<any> {
+  return api(`${AUTH_BASE_URL}/migrate`, {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      password,
     }),
   });
 }

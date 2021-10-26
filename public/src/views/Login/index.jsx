@@ -15,7 +15,7 @@ import TextField from '../../components/Custom/TextField';
 import * as yup from 'yup';
 
 import { PASSWORD_LENGTH_ENUM } from '../../../common/config';
-import { LOGO_ENUM } from '../../../common/enums';
+import { LOGO_ENUM, AuthErrorTypes } from '../../../common/enums';
 import { AddGaEvent } from '../../components/Custom/Analytics';
 import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../Store';
@@ -29,6 +29,7 @@ import { ERROR_ENUM, errors } from '../../../common/errors';
 
 import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
+import { loginWithCognito, migrate } from '../../actions/service/auth/auth';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -71,54 +72,23 @@ export default function Login() {
       const { email, password } = values;
 
       try {
-        const user = await Auth.signIn(email, password);
-        if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-          //we need to do better!!!
-          throw 'password need to be change';
-        }
-        const token = user.signInUserSession.idToken.jwtToken;
-        const res = await api('/api/auth/loginWithCognito', {
-          method: 'POST',
-          body: JSON.stringify({
-            email,
-            token,
-          }),
+        const user = await Auth.signIn(email, password).then((user) => {
+          if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
+            return Auth.completeNewPassword(user, password);
+          }
+          return user;
         });
-        let { data } = res;
-
-        if (data) {
-          if (typeof data === 'string') {
-            data = JSON.parse(data);
-          }
-          const { userInfo } = data;
-
-          dispatch({
-            type: ACTION_ENUM.LOGIN,
-            payload: token,
-          });
-          dispatch({
-            type: ACTION_ENUM.UPDATE_USER_INFO,
-            payload: userInfo,
-          });
-          if (redirectUrl) {
-            goTo(redirectUrl);
-          } else {
-            goTo(ROUTES.home);
-          }
-        }
+        login(user, email);
       } catch (error) {
-        //console.log('error signing in', error);
-        if (error.code === 'NotAuthorizedException') {
-          const res = await api('/api/auth/migrate', {
-            method: 'POST',
-            body: JSON.stringify({
-              email,
-              password,
-            }),
-          });
-          console.log(res);
+        if (error.code === AuthErrorTypes.NotAuthorizedException) {
+          const res = await migrate(email, password);
+
           if (res.status === 200) {
-            console.log('password need to be change');
+            await Auth.signIn(email, password)
+              .then((user) => {
+                Auth.completeNewPassword(user, password).then((user) => login(user, email));
+              })
+              .catch((err) => formik.setFieldError('password', t('email.email_password_no_match')));
           }
         } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
           // Email is not validated
@@ -130,54 +100,6 @@ export default function Login() {
           formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
         }
       }
-      /*
-      //old code for login
-      const res = await api('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      if (res.status === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
-        // Email is not validated
-        await api('/api/auth/sendConfirmationEmail', {
-          method: 'POST',
-          body: JSON.stringify({
-            email,
-          }),
-        });
-        formik.setFieldError('email', t('email.email_not_confirmed'));
-      } else if (res.status === errors[ERROR_ENUM.ERROR_OCCURED].code) {
-        // Password is not good
-        formik.setFieldError('password', t('email.email_password_no_match'));
-      } else if (res.status === errors[ERROR_ENUM.INVALID_EMAIL].code) {
-        formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
-      } else {
-        let { data } = res;
-
-        if (data) {
-          if (typeof data === 'string') {
-            data = JSON.parse(data);
-          }
-          const { token, userInfo } = data;
-
-          dispatch({
-            type: ACTION_ENUM.LOGIN,
-            payload: token,
-          });
-          dispatch({
-            type: ACTION_ENUM.UPDATE_USER_INFO,
-            payload: userInfo,
-          });
-          if (redirectUrl) {
-            goTo(redirectUrl);
-          } else {
-            goTo(ROUTES.home);
-          }
-        }
-      }
-    */
     },
   });
 
@@ -186,6 +108,32 @@ export default function Login() {
       goTo(ROUTES.signup, null, { redirectUrl: encodeURIComponent(redirectUrl) });
     } else {
       goTo(ROUTES.signup);
+    }
+  };
+
+  const login = async (user, email) => {
+    const token = user.signInUserSession.idToken.jwtToken;
+    const data = await loginWithCognito(email, token);
+
+    if (data) {
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+      const { userInfo } = data;
+
+      dispatch({
+        type: ACTION_ENUM.LOGIN,
+        payload: token,
+      });
+      dispatch({
+        type: ACTION_ENUM.UPDATE_USER_INFO,
+        payload: userInfo,
+      });
+      if (redirectUrl) {
+        goTo(redirectUrl);
+      } else {
+        goTo(ROUTES.home);
+      }
     }
   };
 
