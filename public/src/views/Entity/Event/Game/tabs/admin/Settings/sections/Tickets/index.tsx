@@ -29,32 +29,6 @@ const General: React.FunctionComponent<IProps> = (props) => {
   } = props;
   const { t } = useTranslation();
 
-  // const options = [
-  //   {
-  //     name: 'Régulier',
-  //     price: 1200,
-  //     description: 'Billet régulier donnant accès à la partie.',
-  //   },
-  //   {
-  //     name: 'Étudiant',
-  //     price: 800,
-  //     description: "Billet régulier donnant accès à la partie. Nécessite une preuve étudiante à l'entrée",
-  //   },
-  // ];
-
-  // const [allTaxes, setAllTaxes] = useState([]);
-
-  // const getTaxes = async () => {
-  // // This should go inside a service
-  //   const { data } = await api('/api/stripe/getTaxes', { method: 'GET' });
-  //   const res = data.map((d: any) => ({
-  //     id: d.id,
-  //     percentage: d.percentage,
-  //     display: `${d.displayName} ${d.percentage} %`,
-  //   }));
-  //   setAllTaxes(res);
-  // };
-
   const [expanded, setExpanded] = useState<boolean>(false);
 
   const formik = useFormik({

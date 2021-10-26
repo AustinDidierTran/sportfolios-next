@@ -22,18 +22,6 @@ export default function HeaderHome(props) {
     state: { id },
   } = useContext(Store);
 
-  console.log({ navTabs });
-
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
-  // const handleSettingsClick = () => {
-  // };
-
   const goToRegistration = () => {
     goTo(ROUTES.eventRegistration, { id });
   };
