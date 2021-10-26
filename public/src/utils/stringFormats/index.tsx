@@ -60,7 +60,12 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
   }
 
   return Object.keys(queryParams).reduce(
-    (prev, key, index) => (index === 0 ? `${prev}?${key}=${queryParams[key]}` : `${prev}&${key}=${queryParams[key]}`),
+    (prev, key, index) =>
+      !queryParams[key]
+        ? prev
+        : index === 0
+        ? `${prev}?${key}=${queryParams[key]}`
+        : `${prev}&${key}=${queryParams[key]}`,
     withParams
   );
 };

@@ -170,7 +170,12 @@ const Game: React.FunctionComponent<IGameProps> = (props) => {
               <></>
             )}
             <div style={{ flex: 1 }} />
-            <CustomButton size="small" variant="contained" startIcon="ConfirmationNumber">
+            <CustomButton
+              size="small"
+              variant="contained"
+              startIcon="ConfirmationNumber"
+              onClick={() => goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.ABOUT })}
+            >
               {t('event.buy_ticket')}
             </CustomButton>
           </div>

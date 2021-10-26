@@ -309,7 +309,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
             <div>
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
-            <h2>{game.description || t('game')}</h2>
+            <h2>{game.description || t('game.title')}</h2>
             <div className={styles.iconOptions}>
               {isAdmin && (
                 <CustomIconButton

@@ -742,6 +742,11 @@ export default {
       ticket_limit: 'Ticket limit',
       buy_ticket: 'Buy tickets',
     },
+    game: {
+      no_ticket_message: 'You currently have no tickets',
+      tickets: 'Tickets',
+      title: 'Game',
+    },
     invalid: {
       invalid_64_length: 'Must be 64 or less characters long.',
       invalid_alias: 'The alias can only contain alphanumeric characters and dots',
@@ -1176,7 +1181,6 @@ export default {
     game_added: 'Game added',
     game_deleted: 'Game deleted',
     game_updated: 'Game updated',
-    game: 'Game',
     games: 'Games',
     gender: 'Gender',
     general_informations: 'General information',

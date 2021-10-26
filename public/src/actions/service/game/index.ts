@@ -8,8 +8,21 @@ const BASE_URL = '/api/game';
  * GET
  */
 
-export const getPurchasedTickets = (gameId: string): Promise<ITicket> => {
-  return api(formatRoute(`${BASE_URL}/purchasedTickets`, null, { gameId }), { method: 'GET' }).then((res) => res.data);
+export const getPurchasedTickets = ({
+  eventId,
+  gameId,
+  returnAllTickets = false,
+}: {
+  eventId?: string;
+  gameId?: string;
+  returnAllTickets?: boolean;
+}): Promise<ITicket[]> => {
+  if (!eventId && !gameId) {
+    throw new Error('eventId and gameId are not defined');
+  }
+  return api(formatRoute(`${BASE_URL}/purchasedTickets`, null, { eventId, gameId, returnAllTickets }), {
+    method: 'GET',
+  }).then((res) => res.data);
 };
 
 /**

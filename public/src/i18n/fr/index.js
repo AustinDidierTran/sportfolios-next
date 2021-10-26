@@ -741,6 +741,11 @@ export default {
       ticket_limit: 'Limite de billets',
       buy_ticket: 'Acheter des billets',
     },
+    game: {
+      no_ticket_message: "Vous n'avez présentement aucun billet",
+      tickets: 'Billets',
+      title: 'Partie',
+    },
     invalid: {
       invalid_64_length: 'Doit être 64 caractères ou moins.',
       invalid_alias: "L'alias peut seulement contenir des caractères alphanumérique et des points",
@@ -1192,7 +1197,6 @@ export default {
     game_added: 'Partie ajoutée',
     game_deleted: 'Partie supprimée',
     game_updated: 'Partie modifiée',
-    game: 'Partie',
     games: 'Parties',
     gender: 'Genre',
     general_informations: 'Informations générales',
