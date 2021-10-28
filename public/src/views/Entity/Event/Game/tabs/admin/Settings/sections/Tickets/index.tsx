@@ -85,7 +85,7 @@ const General: React.FunctionComponent<IProps> = (props) => {
               }
             />
           ))}
-          <Typography variant="h4">Ajouter une option de billet</Typography>
+          <Typography variant="h4">{t('game.add_ticket_option')}</Typography>
           <TextField formik={formik} namespace="name" label={t('name')} fullWidth />
           <TextField
             formik={formik}

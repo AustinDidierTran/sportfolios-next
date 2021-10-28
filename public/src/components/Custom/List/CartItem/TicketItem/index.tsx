@@ -11,7 +11,22 @@ import styles from '../CartItem.module.css';
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from '../../../../../utils/stringFormats';
 
-export default function TicketItem(props) {
+interface IProps {
+  photoUrl: string;
+  eventName: string;
+  taxLength: number;
+  quantity: number;
+  quantityOptions: any;
+  updateQuantity: any;
+  amount: number;
+  label: string;
+  handleChange: any;
+  disabled: boolean;
+  checked: boolean;
+  id: string;
+}
+
+const TicketItem: React.FunctionComponent<IProps> = (props) => {
   const {
     photoUrl,
     eventName,
@@ -61,4 +76,6 @@ export default function TicketItem(props) {
       <Divider />
     </>
   );
-}
+};
+
+export default TicketItem;

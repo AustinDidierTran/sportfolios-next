@@ -743,6 +743,7 @@ export default {
       buy_ticket: 'Buy tickets',
     },
     game: {
+      add_ticket_option: 'Add a ticket option',
       no_ticket_message: 'You currently have no tickets',
       tickets: 'Tickets',
       title: 'Game',
