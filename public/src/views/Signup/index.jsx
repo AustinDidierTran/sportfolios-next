@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './Signup.module.css';
 
 import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
@@ -27,6 +28,7 @@ import { validEmail, signup } from '../../actions/service/auth/auth';
 import { useRouter } from 'next/router';
 import { COLORS } from '../../utils/colors';
 import { errors, ERROR_ENUM } from '../../../common/errors';
+import i18n from '../../i18n';
 
 import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
@@ -40,6 +42,23 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  const languages = [
+    {
+      value: 'fr',
+      label: 'Français',
+    },
+    {
+      value: 'en',
+      label: 'English',
+    },
+  ];
+  const [language, setLanguage] = React.useState('fr');
+
+  const handleChangeLanguage = (event) => {
+    setLanguage(event);
+    i18n.changeLanguage(event);
+  };
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required(t('value_is_required')),
@@ -120,6 +139,22 @@ export default function Signup() {
                 ),
               }}
             />
+            <TextField
+              namespace="language"
+              select
+              formik={formik}
+              type="text"
+              label={t('select.select_language')}
+              fullWidth
+              value={language}
+              onChange={handleChangeLanguage}
+            >
+              {languages.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
             <div className={styles.subscribe}>
               <Checkbox
                 className={styles.checkbox}

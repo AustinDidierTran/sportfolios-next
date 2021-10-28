@@ -100,9 +100,14 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   useEffect((): void => {
     if (gameId) {
       getGame();
-      getHasSpirit(entityId).then(setHasSpirit);
     }
   }, [gameId]);
+
+  useEffect((): void => {
+    if (entityId) {
+      getHasSpirit(entityId).then(setHasSpirit);
+    }
+  }, [entityId]);
 
   useEffect((): void => {
     if (!game || !game.positions) {
@@ -190,6 +195,8 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
       handleChooseSubmitterClose();
     },
   });
+
+  const scoreIsDisabled = useMemo(() => Boolean(game?.scoreSubmited), [game?.scoreSubmited]);
 
   const handleChooseSubmitterClose = (): void => {
     setChooseSubmitter(false);
@@ -294,7 +301,6 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.root}>
@@ -303,7 +309,7 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
             <div>
               <CustomIconButton size="medium" icon="ArrowBack" style={{ color: 'primary' }} onClick={goBack} />
             </div>
-            <h2>{game.description || t('game')}</h2>
+            <h2>{game.description || t('game.title')}</h2>
             <div className={styles.iconOptions}>
               {isAdmin && (
                 <CustomIconButton
@@ -330,18 +336,18 @@ const GameDetailed: React.FunctionComponent<IProps> = (props) => {
             teamsAreClickable
           />
           <div className={styles.scoreButton}>
-            {possibleSubmissioners.length > 0 && !game.scoreSubmited && (
+            {possibleSubmissioners.length > 0 && (
               <div style={{ display: 'inline-grid' }}>
-                <CustomButton style={{ margin: '4px' }} onClick={openSubmitScore}>
+                <CustomButton style={{ margin: '4px' }} disabled={scoreIsDisabled} onClick={openSubmitScore}>
                   {t('submit_score')}
                 </CustomButton>
-                {hasSpirit ? (
-                  <CustomButton style={{ margin: '4px' }} onClick={openSpiritScore}>
-                    {t('submit_spirit')}
-                  </CustomButton>
-                ) : null}
               </div>
             )}
+            {possibleSubmissioners.length > 0 && hasSpirit ? (
+              <CustomButton style={{ margin: '4px' }} onClick={openSpiritScore}>
+                {t('submit_spirit')}
+              </CustomButton>
+            ) : null}
             {possibleSubmissioners.length > 0 && game.scoreSubmited && <div>{t('score.score_confirmed')}</div>}
           </div>
         </div>

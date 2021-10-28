@@ -29,7 +29,7 @@ export default function Cart() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    document.title = formatPageTitle(t('cart'));
+    document.title = formatPageTitle(t('cart.title'));
   }, []);
 
   const fetchItems = async () => {

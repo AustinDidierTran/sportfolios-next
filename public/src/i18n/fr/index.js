@@ -602,6 +602,10 @@ export default {
       added_to_team_notif_title: 'Vous avez été ajouté à une équipe',
       added_to_team: 'Ajouté à une équipe',
     },
+    cart: {
+      remove_item: '0 (retirer article)',
+      title: 'Panier',
+    },
     choose: {
       choose_date: 'Choisir la date',
       choose_membership: "Choisir l'affiliation",
@@ -646,6 +650,8 @@ export default {
       created_by: 'Créé par {{name}}',
       created_on: 'Créé le',
       creation_date: 'Date de création',
+      additional_informations: 'Informations additionnelles',
+      waiting_for_type: 'En attente du sélection du type',
     },
     delete: {
       delete_field_confirmation: 'Êtes-vous certain de vouloir supprimer ce terrain?',
@@ -743,6 +749,24 @@ export default {
       events_that_might_interest_you: 'Événements qui pourrait vous intéresser',
       event_type: "Type d'événements",
       events: 'Événements',
+      team_league: {
+        title: 'Ligue avec inscription par équipe',
+        description: 'Parfait pour les ligues régulières avec des frais par équipe',
+      },
+      pick_up: { title: 'Ligue pick-up', description: 'Adapté aux ligues pick-ups avec des frais individuels' },
+      team_tournament: {
+        title: 'Tournoi avec inscription par équipe',
+        description: 'Parfait pour les tournoi avec inscription par équipe',
+      },
+      game: { title: 'Partie unique', description: 'Parfait pour un match avec une belle expérience de spectateurs' },
+      ticket_limit: 'Limite de billets',
+      buy_ticket: 'Acheter des billets',
+    },
+    game: {
+      add_ticket_option: 'Ajouter une option de billet',
+      no_ticket_message: "Vous n'avez présentement aucun billet",
+      tickets: 'Billets',
+      title: 'Partie',
     },
     invalid: {
       invalid_64_length: 'Doit être 64 caractères ou moins.',
@@ -1023,7 +1047,6 @@ export default {
       'Vous êtes sur le point d’inscrire une équipe. Cette opération est nécessaire que pour les capitaines. Si vous êtes un joueur qui cherche à être ajouté à un alignement, veuillez contacter votre capitaine.',
     card_ending_with: 'Carte finissant avec {{last4}}',
     cart_empty_go_shop: "Votre panier est vide! C'est l'heure d'aller faire des achats!",
-    cart: 'Panier',
     category: 'Catégorie',
     change_password: 'Changer votre mot de passe',
     change_picture: 'Changer la photo',
@@ -1196,7 +1219,6 @@ export default {
     game_added: 'Partie ajoutée',
     game_deleted: 'Partie supprimée',
     game_updated: 'Partie modifiée',
-    game: 'Partie',
     games: 'Parties',
     gender: 'Genre',
     general_informations: 'Informations générales',
@@ -1587,6 +1609,7 @@ export default {
     this_organization_has_no_memberships_available: "Cette organisation n'a pas d'affilitations disponibles",
     this_team_cannot_be_deleted:
       "Cette équipe ne peut pas être désinscrite de l'événement puisqu'elle est déjà dans une partie ou une phase démarrée.",
+    tickets: 'Billets',
     time_slot_added: 'Plage horaire ajoutée',
     time_slot: 'Plage horaire',
     time: 'Temps',

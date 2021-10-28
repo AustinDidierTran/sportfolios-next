@@ -20,7 +20,6 @@ import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics
 
 const BottomNavigation = dynamic(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = dynamic(() => import('../public/src/components/Custom/SnackBar'));
-const SpeedDial = dynamic(() => import('../public/src/components/Custom/SpeedDial'));
 const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
@@ -63,7 +62,6 @@ function MyApp({ Component, pageProps }) {
               <div className={styles.main}>
                 <Component {...pageProps} />
               </div>
-              <SpeedDial />
               <SnackBar />
               {router.pathname !== ROUTES_ENUM.landingPage ? <BottomNavigation /> : null}
             </div>

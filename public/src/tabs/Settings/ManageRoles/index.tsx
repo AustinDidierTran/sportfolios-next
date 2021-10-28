@@ -106,7 +106,7 @@ const ManageRoles: React.FunctionComponent = () => {
           <Select
             key={`s${index}`}
             value={e.role}
-            labelId="Role"
+            label="Role"
             onChange={(newRole: string) => handleChange(newRole, e.entityId)}
             className={styles.select}
             options={items}

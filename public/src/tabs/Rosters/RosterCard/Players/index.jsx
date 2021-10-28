@@ -11,7 +11,7 @@ import { Store } from '../../../../Store';
 import RosterInviteLink from '../RosterInviteLink';
 import { ROSTER_ROLE_ENUM } from '../../../../../common/enums';
 import { getRoster } from '../../../../actions/service/entity/get';
-import { getAllPeopleRegisteredNotInTeamsInfos } from '../../../../actions/service/event/get';
+import { getAllPeopleRegisteredNotInTeamsInfos } from '../../../../actions/service/event';
 
 export default function Players(props) {
   const { t } = useTranslation();
@@ -183,14 +183,14 @@ export default function Players(props) {
           <Divider className={styles.divider} />
           <div className={styles.listPlayers}>
             {playersRegistered.map((player, index) => (
-              <div>
+              <div key={index}>
                 <PlayerCard
                   eventInfo={eventInfo}
                   index={index}
                   player={player}
                   key={playersRegistered.id}
                   onPlayerAddToRoster={onPlayerAddToRoster}
-                  isAvailable={true}
+                  isAvailable
                   editableRoster={editableRoster}
                 />
               </div>

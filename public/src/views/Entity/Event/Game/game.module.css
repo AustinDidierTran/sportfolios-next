@@ -1,0 +1,69 @@
+.bannerImg {
+  width: 100%;
+}
+
+.rootInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 0 2rem 0;
+  margin-left: 1rem;
+  gap: 1rem;
+}
+
+.rootInfo span {
+  color: #18b393;
+}
+
+.date {
+  border-top: 1.5rem solid red;
+  border-radius: 0.5rem;
+  background: white;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+.date h3 {
+  font-weight: bold;
+}
+
+.buttonRow {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.topContainer > div {
+  width: 100%;
+  max-width: 700px;
+}
+
+.tabs {
+  color: white;
+  background-color: #18b393;
+}
+
+.tabDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tabText {
+  display: none;
+}
+
+@media (min-height: 600px) {
+  .tabs {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .tabText {
+    display: block;
+  }
+}

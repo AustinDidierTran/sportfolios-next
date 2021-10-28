@@ -1,0 +1,43 @@
+.ticket {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.ticket img {
+  object-fit: cover;
+  width: 25%;
+  max-width: 200px;
+  aspect-ratio: 4 / 3;
+}
+
+.content {
+  display: grid;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'option . number' '. . .' 'buyer . price';
+}
+
+.content div:nth-child(1) {
+  grid-area: buyer;
+}
+
+.content div:nth-child(2) {
+  grid-area: option;
+}
+
+.content div:nth-child(3) {
+  grid-area: number;
+}
+
+.content div:nth-child(4) {
+  grid-area: price;
+}
+
+@media (min-width: 600px) {
+  .ticket img {
+    aspect-ratio: 16 / 9;
+  }
+}

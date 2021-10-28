@@ -27,6 +27,7 @@ import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 import Clear from '@material-ui/icons/Clear';
 import Close from '@material-ui/icons/Close';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import ConfirmationNumber from '@material-ui/icons/ConfirmationNumber';
 import Create from '@material-ui/icons/Create';
 import CreditCard from '@material-ui/icons/CreditCard';
 import Deck from '@material-ui/icons/Deck';
@@ -138,6 +139,7 @@ const icons: any = {
   Clear,
   Close,
   CloudUploadIcon,
+  ConfirmationNumber,
   Create,
   CreditCard,
   Deck,

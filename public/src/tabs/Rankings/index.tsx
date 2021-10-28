@@ -8,7 +8,7 @@ import { Store } from '../../Store';
 import { getPreranking, getTeamgames } from '../../actions/service/entity/get';
 import { Ranking as RankingType } from '../../../../typescript/types';
 import { ISpiritRanking } from '../../../../typescript/event';
-import { getEventRankings } from '../../actions/service/event/get';
+import { getEventRankings } from '../../actions/service/event';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));
 const Ranking = dynamic(() => import('./Ranking'));

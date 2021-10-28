@@ -10,6 +10,7 @@ import { NextSeo } from 'next-seo';
 
 const Error = dynamic(() => import('next/error'));
 const Event = dynamic(() => import('../public/src/views/Entity/Event'));
+const Game = dynamic(() => import('../public/src/views/Entity/Event/Game'));
 const Organization = dynamic(() => import('../public/src/views/Entity/Organization'));
 const Person = dynamic(() => import('../public/src/views/Entity/Person'));
 const Team = dynamic(() => import('../public/src/views/Entity/Team'));
@@ -24,7 +25,15 @@ const EntityMap = {
 export default function EntityRoute({ response }) {
   const { t } = useTranslation();
 
-  const EntityObject = EntityMap[response.basicInfos.type];
+  if (response.type === GLOBAL_ENUM.EVENT) {
+    if (response.eventType === 'game') {
+      return <Game {...response} />;
+    }
+  }
+
+  const type = response.basicInfos?.type || response.type;
+
+  const EntityObject = EntityMap[type];
 
   if (!response || !EntityObject) {
     return <Error />;
@@ -58,7 +67,7 @@ export default function EntityRoute({ response }) {
           {
             name: 'keywords',
             content:
-              'Sportfolios.app, Sport, Organization, Athlete, Coach, Schedule, Registration, Results, Statistics, Coaching, Information, Gestion',
+              'Sportfolios.app, Sport, Organization, Athlete, Coach, Schedule, Registration, Results, Statistics, Coaching, Information, Management',
           },
           { name: 'apple-mobile-web-app-capable', content: 'yes' },
         ]}

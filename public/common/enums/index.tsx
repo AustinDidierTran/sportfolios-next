@@ -223,6 +223,8 @@ export enum TABS_ENUM {
   SHOP = 'shop',
   TEAM_EVENTS = 'teamEvents',
   TEAM_ROSTERS = 'teamRosters',
+  TICKETS = 'tickets',
+  ADMIN_TICKETS = 'adminTickets',
 }
 
 export enum FORM_DIALOG_TYPE_ENUM {
@@ -481,6 +483,7 @@ export enum CART_ITEM {
   MEMBERSHIP = 'membership',
   DONATION = 'donation',
   SHOP_ITEM = 'shop_item',
+  EVENT_TICKET = 'event_ticket',
 }
 
 export enum SOCKET_EVENT {
@@ -635,6 +638,7 @@ export enum EVENT_TYPE {
   PICK_UP_LEAGUE = 'player',
   TEAM_LEAGUE = 'team',
   TEAM_TOURNAMENT = 'teamTournament',
+  GAME = 'game',
 }
 
 export enum AuthErrorTypes {

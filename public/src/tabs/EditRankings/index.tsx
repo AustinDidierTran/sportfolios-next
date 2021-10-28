@@ -17,7 +17,7 @@ import { getPhases, getPreranking, getPrerankPhase } from '../../actions/service
 import { Phase, Preranking, Ranking } from '../../../../typescript/types';
 import { ISpiritRanking } from '../../../../typescript/event';
 import SpiritRanking from '../Rankings/SpiritRanking';
-import { getEventRankings } from '../../actions/service/event/get';
+import { getEventRankings } from '../../actions/service/event';
 
 const PhaseAccordionDnD = dynamic(() => import('./PhaseAccordionDnD'));
 const PrerankAccordionDnD = dynamic(() => import('./PrerankAccordionDnd'));
@@ -414,6 +414,7 @@ const EditRankings: React.FunctionComponent = () => {
                               onExpand={() => onExpand(phase.id)}
                               onOpenAlertDialog={onOpenAlertDialog}
                               prerankPhaseId={prerankPhase.phaseId}
+                              preRanking={preranking}
                               update={update}
                             />
                           ) : (
