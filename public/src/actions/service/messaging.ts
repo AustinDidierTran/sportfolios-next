@@ -1,6 +1,6 @@
 import api from '../api';
 import { formatRoute } from '../../utils/stringFormats';
-import { Message, Participant, ConversationPreview, Conversation } from '../../../../typescript/conversation';
+import { IConversationPreview, Conversation } from '../../../../typescript/conversation';
 
 const BASE_URL = '/api/messaging';
 
@@ -12,7 +12,7 @@ export async function getConversations({
   page?: number;
   recipientId: string;
   searchQuery?: string;
-}): Promise<ConversationPreview[]> {
+}): Promise<IConversationPreview[]> {
   return api(formatRoute(BASE_URL, null, { page, recipientId, searchQuery }), { method: 'GET' }).then(
     (res) => res.data
   );

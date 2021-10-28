@@ -9,7 +9,6 @@ import IgContainer from '../../components/Custom/IgContainer';
 import { useTranslation } from 'react-i18next';
 import styles from './Conversations.module.css';
 import React, { useEffect, useCallback, useContext, useState } from 'react';
-import CustomAvatar from '../../components/Custom/Avatar';
 import moment from 'moment';
 import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
