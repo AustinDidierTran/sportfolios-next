@@ -75,15 +75,7 @@ export default function Signup() {
           username: email,
           password: password,
         });
-        const res = await signup(
-          firstName,
-          lastName,
-          email,
-          password,
-          redirectUrl ? encodeURIComponent(redirectUrl) : undefined,
-          isSubscribed,
-          user.userSub
-        );
+        const res = await signup(firstName, lastName, email, isSubscribed);
         if (res.status >= 400) {
           formik.setFieldError('firstName', t('something_went_wrong'));
         } else {

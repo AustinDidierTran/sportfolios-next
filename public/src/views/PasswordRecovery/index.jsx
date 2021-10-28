@@ -22,6 +22,7 @@ import { COLORS } from '../../utils/colors';
 
 import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
+import { loginWithCognito } from '../../actions/service/auth/auth';
 
 export default function PasswordRecovery() {
   const { dispatch } = useContext(Store);
@@ -53,28 +54,14 @@ export default function PasswordRecovery() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { validationCode, password } = values;
-      /*
-      const res = await api('/api/auth/recoverPassword', {
-        method: 'POST',
-        body: JSON.stringify({
-          token,
-          password,
-        }),
-      });
-      */
+
       try {
         const res = await Auth.forgotPasswordSubmit(email, validationCode, password);
         if (res === 'SUCCESS') {
           const user = await Auth.signIn(email, password);
           const token = user.signInUserSession.idToken.jwtToken;
-          const res = await api('/api/auth/loginWithCognito', {
-            method: 'POST',
-            body: JSON.stringify({
-              email,
-              token,
-            }),
-          });
-          let { userInfo } = res;
+          const res = await loginWithCognito(email, token);
+          let { userInfo } = JSON.parse(res.data);
           dispatch({
             type: ACTION_ENUM.LOGIN,
             payload: token,
@@ -91,7 +78,6 @@ export default function PasswordRecovery() {
         }
       } catch (err) {
         if (err.code === REQUEST_STATUS_ENUM.FORBIDDEN) {
-          // Token expired
           formik.setFieldError('password', t('token_expired'));
         } else if (err.code === 'ExpiredCodeException') {
           formik.setFieldError('validationCode', t('token_expired'));
