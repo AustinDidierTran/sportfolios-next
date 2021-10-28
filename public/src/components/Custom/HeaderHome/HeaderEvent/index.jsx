@@ -21,15 +21,6 @@ export default function HeaderHome(props) {
   const {
     state: { id },
   } = useContext(Store);
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
-  // const handleSettingsClick = () => {
-  // };
 
   const goToRegistration = () => {
     goTo(ROUTES.eventRegistration, { id });

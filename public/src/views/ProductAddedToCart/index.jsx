@@ -32,7 +32,7 @@ export default function ProductAddedToCart() {
       onClick: goToShop,
     },
     {
-      name: t('cart'),
+      name: t('cart.title'),
       endIcon: 'ShoppingCart',
       color: 'primary',
       onClick: goToCart,

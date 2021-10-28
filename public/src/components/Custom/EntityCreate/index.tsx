@@ -324,6 +324,7 @@ const EntityCreate: React.FunctionComponent<IProps> = (props) => {
         eventType,
         photoUrl
       );
+
       if (status === REQUEST_STATUS_ENUM.SUCCESS) {
         goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS });
       } else {

@@ -43,7 +43,7 @@ export default function Menu() {
     },
 
     {
-      name: t('cart'),
+      name: t('cart.title'),
       route: formatRoute(ROUTES.cart),
       icon: 'ShoppingCart',
     },

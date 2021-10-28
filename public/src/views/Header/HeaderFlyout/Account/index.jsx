@@ -79,7 +79,7 @@ export default function Plus() {
   };
   const listItems = [
     {
-      primary: t('cart'),
+      primary: t('cart.title'),
       icon: 'ShoppingCartOutlined',
       onClick: () => handleViewCartClick(),
       badgeContent: totalCartItems,

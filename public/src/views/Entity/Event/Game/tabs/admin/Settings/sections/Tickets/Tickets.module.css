@@ -1,0 +1,35 @@
+.container {
+  padding: 1rem 2rem 2rem 1rem;
+}
+
+.ticketOption {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'name . price' 'description description actions';
+  border: solid 1px #5e5e5e;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  align-items: center;
+}
+
+.ticketOption h5 {
+  grid-area: name;
+}
+
+.ticketOption span {
+  grid-area: price;
+}
+
+.ticketOption p {
+  grid-area: description;
+  text-align: left;
+}
+
+.ticketOption div {
+  grid-area: actions;
+}
+
+.container > button {
+  margin-top: 1rem;
+  margin-left: auto;
+}
