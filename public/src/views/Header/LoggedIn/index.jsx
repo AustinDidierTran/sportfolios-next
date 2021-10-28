@@ -138,7 +138,7 @@ export default function LoggedIn(props) {
                 tooltip={t('create.create')}
               />
             </div>
-            <Link href={ROUTES_ENUM.conversation}>
+            <Link href={ROUTES_ENUM.conversations}>
               <IconButton
                 className={styles.iconButton}
                 icon="Chat"
