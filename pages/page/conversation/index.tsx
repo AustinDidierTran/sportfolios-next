@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
-const Conversations = dynamic(() => import('../../public/src/views/Conversations'));
+const Conversations = dynamic(() => import('../../../public/src/views/Conversations'));
 
 const message: React.FunctionComponent = () => {
   const { t } = useTranslation();
