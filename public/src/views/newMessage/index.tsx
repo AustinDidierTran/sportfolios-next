@@ -38,7 +38,7 @@ const newMessage: React.FunctionComponent = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleArrowBack = () => {
-    goTo(ROUTES.messages);
+    goTo(ROUTES.conversations);
   };
   const createConvo = () => {
     let creatorId: string = userInfo.primaryPerson?.personId;

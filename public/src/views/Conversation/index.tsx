@@ -50,7 +50,7 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
   const content = useFormInput('');
 
   const handleArrowBack = () => {
-    goTo(ROUTES.messages);
+    goTo(ROUTES.conversations);
   };
 
   const handleWhoMessage = (m: any) => {

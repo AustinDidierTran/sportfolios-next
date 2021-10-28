@@ -43,7 +43,7 @@ export default function Menu() {
     },
     {
       name: t('messages'),
-      route: formatRoute(ROUTES.messages),
+      route: formatRoute(ROUTES.conversations),
       icon: 'Chat',
     },
     {
