@@ -3,17 +3,17 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
-const Conversation = dynamic(() => import('../../public/src/views/Message'));
+const Conversations = dynamic(() => import('../../public/src/views/Conversations'));
 
 const message: React.FunctionComponent = () => {
   const { t } = useTranslation();
   return (
     <>
       <Head>
-        <meta property="og:title" content={t('metadata.message.title')} />
-        <meta property="og:description" content={t('metadata.message.description')} />
+        <meta property="og:title" content={t('metadata.messaging.title')} />
+        <meta property="og:description" content={t('metadata.messaging.description')} />
       </Head>
-      <Conversation />
+      <Conversations />
     </>
   );
 };
