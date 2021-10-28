@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -19,18 +19,112 @@ import IconButton from '../../components/Custom/IconButton';
 import { useFormInput } from '../../hooks/forms';
 import CustomTextField from '../../components/Custom/TextField';
 import { QueryBuilder } from '@material-ui/icons';
+import { getConversationMessages } from '../../actions/service/messaging';
 
 interface IProps {
   convoId: string;
 }
 
 const conversation: React.FunctionComponent<IProps> = (props) => {
+  const { t } = useTranslation();
   const { convoId } = props;
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
+  //AJOUT BACKEND
+  const [conversation, setConversation] = useState<Conversation>();
 
-  const conversation: Conversation = {
+  const updateConversation = useCallback(() => {
+    getConversationMessages(convoId).then(setConversation);
+  }, [convoId]);
+
+  useEffect(() => {
+    updateConversation();
+  }, [updateConversation]);
+
+  console.log('conversation : ', conversation);
+  console.log(convoId);
+
+  //AJOUT BACKEND
+
+  const content = useFormInput('');
+
+  const handleArrowBack = () => {
+    goTo(ROUTES.messages);
+  };
+
+  const handleWhoMessage = (m: any) => {
+    return m.sender.id === userInfo.primaryPerson?.personId;
+  };
+
+  conversation.messages?.sort(
+    (a, b) => moment(a.sentAt).diff(moment(), 'seconds') - moment(b.sentAt).diff(moment(), 'seconds')
+  );
+
+  let completeName: string = '';
+
+  const otherThanMe = conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
+  otherThanMe.map((t) => {
+    completeName = completeName + t.name + ' ' + t.surname + ', ';
+  });
+
+  const handleSend = () => {
+    console.log(
+      'conversationId : ',
+      convoId,
+      'content : ',
+      content.value,
+      'senderId :',
+      userInfo.primaryPerson?.personId
+    );
+  };
+
+  return (
+    <IgContainer className={styles.container}>
+      <div className={styles.header}>
+        <ArrowBackIosRoundedIcon onClick={handleArrowBack} className={styles.back} />
+        {otherThanMe.length > 1 ? (
+          <Typography variant="h4" className={styles.name}>
+            {completeName}
+          </Typography>
+        ) : (
+          <>
+            <CustomAvatar size="md" className={styles.avatar} photoUrl={otherThanMe[0].photoUrl} />
+            <Typography variant="h4" className={styles.name}>
+              {otherThanMe[0].name + ' ' + otherThanMe[0].surname}
+            </Typography>
+          </>
+        )}
+      </div>
+      <div className={styles.exchange}>
+        {conversation.messages?.map((m: any) =>
+          handleWhoMessage(m) ? <MyMessage message={m} /> : <FriendMessage message={m} />
+        )}
+      </div>
+      <div className={styles.messageInput}>
+        <CustomTextField
+          {...content.inputProps}
+          placeholder={t('type_here')}
+          className={styles.textField}
+          multiline
+          rowsMax={Infinity}
+          inputProps={{ className: styles.writing }}
+          InputProps={{
+            disableUnderline: true,
+            endAdornment: (
+              <div style={{ display: 'flex' }}>
+                <IconButton onClick={handleSend} className={styles.send} icon="Send" />
+              </div>
+            ),
+          }}
+        />
+      </div>
+    </IgContainer>
+  );
+};
+export default conversation;
+
+/*const conversation: Conversation = {
     id: convoId,
     messages: [
       {
@@ -331,81 +425,4 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
       },
     ],
   };
-
-  const content = useFormInput('');
-
-  const handleArrowBack = () => {
-    goTo(ROUTES.messages);
-  };
-
-  const handleWhoMessage = (m: any) => {
-    return m.sender.id === userInfo.primaryPerson?.personId;
-  };
-
-  conversation.messages.sort(
-    (a, b) => moment(a.sentAt).diff(moment(), 'seconds') - moment(b.sentAt).diff(moment(), 'seconds')
-  );
-
-  let completeName: string = '';
-
-  const otherThanMe = conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
-  otherThanMe.map((t) => {
-    completeName = completeName + t.name + ' ' + t.surname + ', ';
-  });
-
-  const handleSend = () => {
-    console.log(
-      'conversationId : ',
-      convoId,
-      'content : ',
-      content.value,
-      'senderId :',
-      userInfo.primaryPerson?.personId
-    );
-  };
-
-  const { t } = useTranslation();
-  return (
-    <IgContainer className={styles.container}>
-      <div className={styles.header}>
-        <ArrowBackIosRoundedIcon onClick={handleArrowBack} className={styles.back} />
-        {otherThanMe.length > 1 ? (
-          <Typography variant="h4" className={styles.name}>
-            {completeName}
-          </Typography>
-        ) : (
-          <>
-            <CustomAvatar size="md" className={styles.avatar} photoUrl={otherThanMe[0].photoUrl} />
-            <Typography variant="h4" className={styles.name}>
-              {otherThanMe[0].name + ' ' + otherThanMe[0].surname}
-            </Typography>
-          </>
-        )}
-      </div>
-      <div className={styles.exchange}>
-        {conversation.messages.map((m: any) =>
-          handleWhoMessage(m) ? <MyMessage message={m} /> : <FriendMessage message={m} />
-        )}
-      </div>
-      <div className={styles.messageInput}>
-        <CustomTextField
-          {...content.inputProps}
-          placeholder={t('type_here')}
-          className={styles.textField}
-          multiline
-          rowsMax={Infinity}
-          inputProps={{ className: styles.writing }}
-          InputProps={{
-            disableUnderline: true,
-            endAdornment: (
-              <div style={{ display: 'flex' }}>
-                <IconButton onClick={handleSend} className={styles.send} icon="Send" />
-              </div>
-            ),
-          }}
-        />
-      </div>
-    </IgContainer>
-  );
-};
-export default conversation;
+*/

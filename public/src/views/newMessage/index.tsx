@@ -18,6 +18,7 @@ import { ContactSupportOutlined } from '@material-ui/icons';
 import Button from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
+import { createConversation } from '../../actions/service/messaging';
 
 interface IPerson {
   id: string;
@@ -40,11 +41,13 @@ const newMessage: React.FunctionComponent = () => {
     goTo(ROUTES.messages);
   };
   const createConvo = () => {
-    let creatorId: string[] = [userInfo.primaryPerson?.personId];
-    let participantsId: string[] = [];
-    participants.map((player) => {
-      participantsId = [...participantsId, player.id];
+    let creatorId: string = userInfo.primaryPerson?.personId;
+    let participantsId: string[] = participants.map((player) => player.id);
+
+    createConversation(participantsId, creatorId).then((newConversationId) => {
+      goTo(ROUTES.conversation, { id: newConversationId });
     });
+
     console.log(
       'les id des personnes participants de la convo sont : ',
       participantsId,
