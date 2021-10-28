@@ -116,10 +116,10 @@ export default function Login() {
     const data = await loginWithCognito(email, token);
 
     if (data) {
-      if (typeof data === 'string') {
-        data = JSON.parse(data);
+      if (typeof data.data === 'string') {
+        data.data = JSON.parse(data.data);
       }
-      const { userInfo } = data;
+      const { userInfo } = data.data;
 
       dispatch({
         type: ACTION_ENUM.LOGIN,
