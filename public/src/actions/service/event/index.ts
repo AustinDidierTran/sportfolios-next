@@ -59,3 +59,11 @@ export const addTicketsToCart = (ticketSelection: any): Promise<any> => {
     body: JSON.stringify(ticketSelection),
   });
 };
+
+/** PUT */
+export const updateRosterIdInRankings = (newRosterId: string, rankingId: string): Promise<any> => {
+  return api(`${BASE_URL}/rosterIdInRankings`, {
+    method: 'PUT',
+    body: JSON.stringify({ newRosterId, rankingId }),
+  }).then((res) => res.data);
+};

@@ -742,6 +742,7 @@ export default {
       buy_ticket: 'Acheter des billets',
     },
     game: {
+      add_ticket_option: 'Ajouter une option de billet',
       no_ticket_message: "Vous n'avez présentement aucun billet",
       tickets: 'Billets',
       title: 'Partie',
