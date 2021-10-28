@@ -11,6 +11,9 @@ import { useWindowSize } from './hooks/window';
 import { useRouter } from 'next/router';
 import { formatRoute } from './utils/stringFormats';
 
+import { Auth } from 'aws-amplify';
+import './utils/amplify/amplifyConfig.jsx';
+
 export const Store = React.createContext();
 
 const handleLocalAuthToken = (token) => {
@@ -118,6 +121,8 @@ function reducer(state, action) {
       };
     }
     case ACTION_ENUM.LOGOUT: {
+      Auth.signOut();
+
       localStorage.removeItem('authToken');
       localStorage.removeItem('userInfo');
       action.payload

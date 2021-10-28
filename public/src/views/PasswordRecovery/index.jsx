@@ -20,11 +20,16 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { COLORS } from '../../utils/colors';
 
+import { Auth } from 'aws-amplify';
+import '../../utils/amplify/amplifyConfig.jsx';
+import { loginWithCognito } from '../../actions/service/auth/auth';
+
 export default function PasswordRecovery() {
   const { dispatch } = useContext(Store);
   const { t } = useTranslation();
   const router = useRouter();
-  const { token, email } = router.query;
+  const { email } = router.query;
+  const codeReg = /[0-9]{6}/;
 
   const validationSchema = yup.object().shape({
     password: yup
@@ -32,42 +37,51 @@ export default function PasswordRecovery() {
       .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('password_length'))
       .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('password_length'))
       .required(t('value_is_required')),
+    validationCode: yup
+      .string()
+      .matches(codeReg, t('code_validation.only_number'))
+      .min(6, t('code_validation.code_length'))
+      .max(6, t('code_validation.code_length'))
+      .required(t('code_validation.value_is_required')),
   });
 
   const formik = useFormik({
     initialValues: {
+      validationCode: '',
       password: '',
     },
     validateOnChange: false,
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const { password } = values;
-      const res = await api('/api/auth/recoverPassword', {
-        method: 'POST',
-        body: JSON.stringify({
-          token,
-          password,
-        }),
-      });
-      if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
-        const { authToken, userInfo } = res.data;
-        dispatch({
-          type: ACTION_ENUM.LOGIN,
-          payload: authToken,
-        });
-        dispatch({
-          type: ACTION_ENUM.UPDATE_USER_INFO,
-          payload: userInfo,
-        });
-        dispatch({
-          type: ACTION_ENUM.SNACK_BAR,
-          message: t('password_reset_message'),
-        });
-        goTo(ROUTES.home);
-      }
-      if (res.status === REQUEST_STATUS_ENUM.FORBIDDEN) {
-        // Token expired
-        formik.setFieldError('password', t('token_expired'));
+      const { validationCode, password } = values;
+
+      try {
+        const res = await Auth.forgotPasswordSubmit(email, validationCode, password);
+        if (res === 'SUCCESS') {
+          const user = await Auth.signIn(email, password);
+          const token = user.signInUserSession.idToken.jwtToken;
+          const res = await loginWithCognito(email, token);
+          let { userInfo } = JSON.parse(res.data);
+          dispatch({
+            type: ACTION_ENUM.LOGIN,
+            payload: token,
+          });
+          dispatch({
+            type: ACTION_ENUM.UPDATE_USER_INFO,
+            payload: userInfo,
+          });
+          dispatch({
+            type: ACTION_ENUM.SNACK_BAR,
+            message: t('password_reset_message'),
+          });
+          goTo(ROUTES.home);
+        }
+      } catch (err) {
+        if (err.code === REQUEST_STATUS_ENUM.FORBIDDEN) {
+          formik.setFieldError('password', t('token_expired'));
+        } else if (err.code === 'ExpiredCodeException') {
+          formik.setFieldError('validationCode', t('token_expired'));
+        }
       }
     },
   });
@@ -91,6 +105,13 @@ export default function PasswordRecovery() {
             >
               {t('you.you_can_now_change_your_password', { email })}
             </Typography>
+            <TextField
+              namespace="validationCode"
+              formik={formik}
+              label={t('code_validation.message')}
+              type="text"
+              fullWidth
+            />
             <TextField namespace="password" formik={formik} label={t('new_password')} type="password" fullWidth />
           </CardContent>
           <CardActions>

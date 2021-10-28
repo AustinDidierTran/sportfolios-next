@@ -9,4 +9,8 @@ module.exports = {
   },
   GOOGLE_ANALYTICS_TRACKING_ID: 'UA-178163285-1',
   GOOGLE_PLACES_API_KEY: 'AIzaSyCQaa2Wue1_hO6LkozWukxUFhrh2nwwZ7U',
+  USER_POOL_ID: 'us-east-2_YFfg7m94Z',
+  CLIENT_ID: '711jelco0umon99s8gg60qgn09',
+  IDENTITY_POOL_ID: 'us-east-2:96bdf3db-5e58-432e-9a9f-49f080fc8f03',
+  REGION: 'us-east-2',
 };

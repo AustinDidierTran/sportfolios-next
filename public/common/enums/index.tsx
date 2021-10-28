@@ -338,8 +338,10 @@ export enum ROUTES_ENUM {
   playersAcceptation = '/page/playersAcceptation/:id',
   privacyPolicy = '/page/privacy',
   productAddedToCart = '/page/productAddedToCart',
+  recoveryEmail = '/page/recoveryEmail',
   redirectWithToken = '/page/redirect',
   registrationStatus = '/page/registrationStatus',
+  resentValidationCode = '/page/resentValidationCode',
   rosterInviteLink = '/page/inviteRoster/:token',
   sales = '/page/sales/:id',
   scheduleInteractiveTool = '/page/scheduleInteractiveTool/:id',
@@ -353,6 +355,7 @@ export enum ROUTES_ENUM {
   transferPerson = '/page/transferPerson/:token',
   transferPersonExpired = '/page/transferPersonExpired',
   userSettings = '/page/userSettings',
+  validationAccount = '/page/validationAccount/:email',
   FAQ = 'page/FAQ',
 }
 
@@ -636,4 +639,23 @@ export enum EVENT_TYPE {
   TEAM_LEAGUE = 'team',
   TEAM_TOURNAMENT = 'teamTournament',
   GAME = 'game',
+}
+
+export enum AuthErrorTypes {
+  NoConfig = 'noConfig',
+  MissingAuthConfig = 'missingAuthConfig',
+  EmptyUsername = 'emptyUsername',
+  InvalidUsername = 'invalidUsername',
+  EmptyPassword = 'emptyPassword',
+  EmptyCode = 'emptyCode',
+  SignUpError = 'signUpError',
+  NoMFA = 'noMFA',
+  InvalidMFA = 'invalidMFA',
+  EmptyChallengeResponse = 'emptyChallengeResponse',
+  NoUserSession = 'noUserSession',
+  Default = 'default',
+  DeviceConfig = 'deviceConfig',
+  NetworkError = 'networkError',
+  NewPasswordRequired = 'NEW_PASSWORD_REQUIRED',
+  NotAuthorizedException = 'NotAuthorizedException',
 }

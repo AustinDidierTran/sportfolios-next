@@ -17,7 +17,16 @@ const ConfirmationEmailSent: React.FunctionComponent<IProps> = (props) => {
     goTo(ROUTES.login);
   };
 
+  const goToValidation = (): void => {
+    goTo(ROUTES.validationAccount, { email });
+  };
+
   const buttons = [
+    {
+      name: t('code_validation.validate_account'),
+      onClick: goToValidation,
+      color: 'primary',
+    },
     {
       name: t('go_back_to_login'),
       onClick: goToLogin,
