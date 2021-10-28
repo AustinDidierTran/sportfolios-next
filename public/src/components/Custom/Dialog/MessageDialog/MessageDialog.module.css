@@ -1,0 +1,12 @@
+.title {
+  display: flex;
+  flex-direction: row;
+
+  align-content: center;
+  align-items: center;
+}
+
+.warning {
+  color: #f7e52b;
+  margin-left: 0.5rem;
+}

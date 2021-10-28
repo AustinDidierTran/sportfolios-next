@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import Warning from '@material-ui/icons/Warning';
+import styles from './MessageDialog.module.css';
 export default function MessageDialog(props) {
   const { open, onClose } = props;
   const { t } = useTranslation();
@@ -14,7 +15,12 @@ export default function MessageDialog(props) {
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
-        <DialogTitle> {t('warning')}</DialogTitle>
+        <DialogTitle>
+          <div className={styles.title}>
+            <Typography variant="h6">{t('warning')}</Typography>
+            <Warning className={styles.warning} />
+          </div>
+        </DialogTitle>
         <DialogContent dividers>
           <Typography>{t('cant_new_message')} </Typography>
         </DialogContent>

@@ -15,13 +15,17 @@ import moment from 'moment';
 import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { ConversationPreview } from '../../../../typescript/conversation';
+import { ConversationPreview, Participant } from '../../../../typescript/conversation';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 const message: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const conversationMessagApp: ConversationPreview[] = [
+  const {
+    state: { userInfo: userInfo },
+  } = useContext(Store);
+
+  const conversationMessageApp: ConversationPreview[] = [
     {
       id: 'asuhdi23',
       lastMessage: {
@@ -36,6 +40,22 @@ const message: React.FunctionComponent = () => {
         sentAt: '2021-10-21 11:20:12',
         content: 'Allo gab!',
       },
+      name: '',
+      participants: [
+        {
+          id: 'a5f36c06-b0ce-4071-b761-e21293aed4bb',
+          name: 'Matthiew',
+          surname: 'Visockis',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-8az1a-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: userInfo.primaryPerson?.personId,
+          name: userInfo.primaryPerson?.name,
+          surname: 'none',
+          photoUrl: userInfo.primaryPerson?.photoUrl,
+        },
+      ],
     },
     {
       id: 'dhjaefhew',
@@ -51,6 +71,22 @@ const message: React.FunctionComponent = () => {
         sentAt: '2021-10-21 11:30:12',
         content: 'Oui, ce sera parfait!',
       },
+      name: '',
+      participants: [
+        {
+          id: userInfo.primaryPerson?.personId,
+          name: userInfo.primaryPerson?.name,
+          surname: 'none',
+          photoUrl: userInfo.primaryPerson?.photoUrl,
+        },
+        {
+          id: '4f8930fc-e1c4-469f-8864-7e4847d0264c',
+          name: 'Sabrina',
+          surname: 'Vincent',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-2jd9f-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+      ],
     },
     {
       id: 'fhiauhbvue',
@@ -66,6 +102,22 @@ const message: React.FunctionComponent = () => {
         sentAt: '2021-10-22 16:20:12',
         content: 'On se voit demain! ',
       },
+      name: '',
+      participants: [
+        {
+          id: userInfo.primaryPerson?.personId,
+          name: userInfo.primaryPerson?.name,
+          surname: 'none',
+          photoUrl: userInfo.primaryPerson?.photoUrl,
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+      ],
     },
 
     {
@@ -83,18 +135,105 @@ const message: React.FunctionComponent = () => {
         content:
           "blue his house. with a blue little. and a blue carvet. and everything is blue for him. and him self. and everybody around. cause he ain't got nobody to listen. Im blue (daba dee ba da die) x7. Im blue (daba dee ba da die) x7. ",
       },
+      name: '',
+      participants: [
+        {
+          id: userInfo.primaryPerson?.personId,
+          name: userInfo.primaryPerson?.name,
+          surname: 'none',
+          photoUrl: userInfo.primaryPerson?.photoUrl,
+        },
+        {
+          id: 'e9fd6cc3-5fea-4990-880a-307b7c4461ac',
+          name: 'Yanick',
+          surname: 'Bertrand',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+        {
+          id: '359a363a-e459-415c-b615-c431e641aadc',
+          name: 'Sylvie',
+          surname: 'Lamer',
+          photoUrl:
+            'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-hajb9-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
+        },
+      ],
     },
   ];
-  conversationMessagApp.sort(
+  //Sort conversation messages by last sent
+  conversationMessageApp.sort(
     (a, b) =>
       moment(b.lastMessage.sentAt).diff(moment(), 'seconds') - moment(a.lastMessage.sentAt).diff(moment(), 'seconds')
   );
+  //Create Title of conversation
+  let otherThanMe: Participant[] = [];
+  conversationMessageApp.map((c) => {
+    otherThanMe = c.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
+    otherThanMe.map((o) => {
+      c.name = c.name + o.name + ' ' + o.surname + ', ';
+    });
+  });
+
   const handleNewMessage = () => {
     goTo(ROUTES.newMessage);
   };
 
   const handleConversation = (id: any) => {
     goTo(ROUTES.conversation, { id });
+  };
+  //Random selection of the participants for the group photo
+  const handleWhoPhoto = (conversation: ConversationPreview) => {
+    const photoGuy = conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
+    return photoGuy[Math.floor(Math.random() * photoGuy.length)].photoUrl;
   };
 
   return (
@@ -123,20 +262,37 @@ const message: React.FunctionComponent = () => {
             <Divider className={styles.divider} />
 
             <List>
-              {conversationMessagApp.map((c, index) => (
+              {conversationMessageApp.map((c, index) => (
                 <>
                   {index > 0 ? <Divider className={styles.divider} /> : null}
                   <div className={styles.message} onClick={() => handleConversation(c.id)}>
-                    <CustomAvatar size="md" photoUrl={c.lastMessage.sender.photoUrl} />
-                    <ListItemText
-                      secondaryTypographyProps={{ className: styles.text }}
-                      primaryTypographyProps={{ className: styles.name }}
-                      primary={c.lastMessage.sender.name + '  ' + c.lastMessage.sender.surname}
-                      secondary={c.lastMessage.content}
-                    />
-                    <Typography variant="body2" className={styles.time}>
-                      {moment(c.lastMessage.sentAt).fromNow()}
-                    </Typography>
+                    {c.participants.length == 2 ? (
+                      <>
+                        <CustomAvatar size="md" photoUrl={handleWhoPhoto(c)} />
+                        <ListItemText
+                          secondaryTypographyProps={{ className: styles.text }}
+                          primaryTypographyProps={{ className: styles.name }}
+                          primary={c.lastMessage.sender.name + '  ' + c.lastMessage.sender.surname}
+                          secondary={c.lastMessage.content}
+                        />
+                        <Typography variant="body2" className={styles.time}>
+                          {moment(c.lastMessage.sentAt).fromNow()}
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <CustomAvatar size="md" photoUrl={handleWhoPhoto(c)} />
+                        <ListItemText
+                          secondaryTypographyProps={{ className: styles.text }}
+                          primaryTypographyProps={{ className: styles.name }}
+                          primary={c.name}
+                          secondary={c.lastMessage.content}
+                        />
+                        <Typography variant="body2" className={styles.time}>
+                          {moment(c.lastMessage.sentAt).fromNow()}
+                        </Typography>
+                      </>
+                    )}
                   </div>
                 </>
               ))}

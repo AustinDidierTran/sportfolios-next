@@ -10,7 +10,6 @@ interface IProps {
 }
 const MyMessage: React.FunctionComponent<IProps> = (props) => {
   const { message } = props;
-  console.log(message.sender.name, ': in my message');
   return (
     <div className={styles.me}>
       <div className={styles.bubble}>

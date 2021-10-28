@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -16,6 +16,10 @@ import FriendMessage from '../../components/FriendMessage';
 import { goTo, ROUTES } from '../../actions/goTo';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '../../components/Custom/IconButton';
+import { useFormInput } from '../../hooks/forms';
+import CustomTextField from '../../components/Custom/TextField';
+import { QueryBuilder } from '@material-ui/icons';
+
 interface IProps {
   convoId: string;
 }
@@ -318,8 +322,17 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
         photoUrl:
           'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20210728-yeekv-8bb2aab0-1292-4e18-9bf8-2b0b10d264f6',
       },
+
+      {
+        id: userInfo.primaryPerson?.personId,
+        name: userInfo.primaryPerson?.name,
+        surname: 'none',
+        photoUrl: userInfo.primaryPerson?.photoUrl,
+      },
     ],
   };
+
+  const content = useFormInput('');
 
   const handleArrowBack = () => {
     goTo(ROUTES.messages);
@@ -333,15 +346,41 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     (a, b) => moment(a.sentAt).diff(moment(), 'seconds') - moment(b.sentAt).diff(moment(), 'seconds')
   );
 
+  let completeName: string = '';
+
+  const otherThanMe = conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
+  otherThanMe.map((t) => {
+    completeName = completeName + t.name + ' ' + t.surname + ', ';
+  });
+
+  const handleSend = () => {
+    console.log(
+      'conversationId : ',
+      convoId,
+      'content : ',
+      content.value,
+      'senderId :',
+      userInfo.primaryPerson?.personId
+    );
+  };
+
   const { t } = useTranslation();
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>
         <ArrowBackIosRoundedIcon onClick={handleArrowBack} className={styles.back} />
-        <CustomAvatar size="md" className={styles.avatar} photoUrl={conversation.messages[1].sender.photoUrl} />
-        <Typography variant="h4" className={styles.name}>
-          {conversation.participants[0].name + ' ' + conversation.participants[0].surname}
-        </Typography>
+        {otherThanMe.length > 1 ? (
+          <Typography variant="h4" className={styles.name}>
+            {completeName}
+          </Typography>
+        ) : (
+          <>
+            <CustomAvatar size="md" className={styles.avatar} photoUrl={otherThanMe[0].photoUrl} />
+            <Typography variant="h4" className={styles.name}>
+              {otherThanMe[0].name + ' ' + otherThanMe[0].surname}
+            </Typography>
+          </>
+        )}
       </div>
       <div className={styles.exchange}>
         {conversation.messages.map((m: any) =>
@@ -349,18 +388,18 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
         )}
       </div>
       <div className={styles.messageInput}>
-        <TextField
+        <CustomTextField
+          {...content.inputProps}
           placeholder={t('type_here')}
           className={styles.textField}
           multiline
           rowsMax={Infinity}
-          //value={editPostContent}
           inputProps={{ className: styles.writing }}
           InputProps={{
             disableUnderline: true,
             endAdornment: (
               <div style={{ display: 'flex' }}>
-                <IconButton className={styles.send} icon="Send" />
+                <IconButton onClick={handleSend} className={styles.send} icon="Send" />
               </div>
             ),
           }}

@@ -45,6 +45,9 @@
 }
 .name {
   font-weight: 750 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .create {

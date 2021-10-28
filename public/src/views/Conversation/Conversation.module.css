@@ -17,6 +17,9 @@
 .name {
   font-weight: 750 !important;
   margin-left: 0.5rem !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .back {

@@ -17,6 +17,7 @@ import { Store } from '../../Store';
 import { ContactSupportOutlined } from '@material-ui/icons';
 import Button from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 
 interface IPerson {
   id: string;
@@ -35,23 +36,27 @@ const newMessage: React.FunctionComponent = () => {
   const [participants, setParticipants] = useState<IPerson[]>([]);
   const [open, setOpen] = useState<boolean>(false);
 
-  /*const handleDisable = () => {
-    return !participants.length;
+  const handleArrowBack = () => {
+    goTo(ROUTES.messages);
   };
-*/
   const createConvo = () => {
-    let participantsId: string[] = [userInfo.primaryPerson?.personId];
+    let creatorId: string[] = [userInfo.primaryPerson?.personId];
+    let participantsId: string[] = [];
     participants.map((player) => {
       participantsId = [...participantsId, player.id];
     });
-    console.log('les id des personnes participants de la convo sont : ', participantsId);
+    console.log(
+      'les id des personnes participants de la convo sont : ',
+      participantsId,
+      'et le creator id : ',
+      creatorId
+    );
     //goTo(ROUTES.conversation,{convoId});
   };
 
   const handleDeleteParticipant = (personId: string) => {
     setParticipants(participants.filter((e) => e.id != personId));
   };
-  console.log('Particpants :', participants);
   const addNewFriend = async (person: IPerson) => {
     let warn = 0;
     participants.map((participant) => {
@@ -60,7 +65,6 @@ const newMessage: React.FunctionComponent = () => {
       }
     });
     if (person.id === userInfo.primaryPerson?.personId) {
-      console.log('allo');
       warn = 1;
     }
     if (warn === 1) {
@@ -79,10 +83,12 @@ const newMessage: React.FunctionComponent = () => {
   return (
     <IgContainer>
       <div className={styles.container}>
-        <Typography className={styles.title} variant="h4">
-          {t('someone_new')}
-        </Typography>
-
+        <div className={styles.header}>
+          <ArrowBackIosRoundedIcon onClick={handleArrowBack} className={styles.back} />
+          <Typography className={styles.title} variant="h4">
+            {t('someone_new')}
+          </Typography>
+        </div>
         <PersonSearchList
           className={styles.search}
           clearOnSelect={false}

@@ -11,7 +11,7 @@ interface IProps {
 }
 const MyMessage: React.FunctionComponent<IProps> = (props) => {
   const { message } = props;
-  console.log(message.sender.name, ': in friend message');
+
   return (
     <div className={styles.friends}>
       <CustomAvatar className={styles.avatar} size="sm" photoUrl={message.sender.photoUrl} />
