@@ -569,6 +569,9 @@ export default {
       new_members: 'Nouveau membres',
       not_member: 'Non-Membre',
     },
+    messaging: {
+      empty_conversation: 'Cette conversation est vide.',
+    },
     add: {
       add_admin: 'Ajouter admin',
       add_bank_account: 'Ajouter un compte bancaire',
@@ -634,11 +637,11 @@ export default {
       choose_later_date: 'Veuillez choisir une date ultérieure',
     },
     code_validation: {
-      code_message: 'Validation du compte de l\'adresse: ',
+      code_message: "Validation du compte de l'adresse: ",
       code_length: 'La taille doit être de 6 caractères',
       only_number: 'Seuls des chiffres sont acceptés',
       new_code: 'Nouveau code',
-      invalide_code: 'Le code n\'est pas valide',
+      invalide_code: "Le code n'est pas valide",
       resent_validation_code: 'Renvoyer le code de validation',
       value_is_required: 'Une valeur est requise',
       message: 'Code de validation',

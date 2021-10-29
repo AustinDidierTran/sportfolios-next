@@ -15,6 +15,7 @@ import { useFormInput } from '../../hooks/forms';
 import CustomTextField from '../../components/Custom/TextField';
 import { getConversationMessages, sendMessage } from '../../actions/service/messaging';
 import { LoadingSpinner } from '../../components/Custom';
+import moment from 'moment';
 
 interface IProps {
   convoId: string;
@@ -33,13 +34,17 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const updateConversation = useCallback(() => {
     getConversationMessages(convoId).then(({ conversation, messages }) => {
       setConversation(conversation);
-      setMessages(messages);
+      setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? 1 : -1)));
     });
   }, [convoId]);
 
   useEffect(() => {
     updateConversation();
   }, [updateConversation]);
+
+  useEffect(() => {
+    setInterval(updateConversation, 10000);
+  }, []);
 
   //AJOUT BACKEND
 
@@ -53,7 +58,10 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, [conversation]);
 
   const onSendMessage = useCallback(() => {
-    sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(updateConversation);
+    sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(() => {
+      updateConversation();
+      content.reset();
+    });
   }, [convoId, content.value, userInfo.primaryPerson?.personId, updateConversation]);
 
   const name = useMemo(() => {

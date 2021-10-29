@@ -577,6 +577,9 @@ export default {
       new_members: 'New members',
       not_member: 'Not member',
     },
+    messaging: {
+      empty_conversation: 'This conversation is empty',
+    },
     add: {
       add_admin: 'Add Admin',
       add_bank_account: 'Add bank account',
