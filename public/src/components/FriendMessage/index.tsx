@@ -8,7 +8,8 @@ import styles from './FriendMessage.module.css';
 interface IProps {
   message: IConversationMessage;
 }
-const MyMessage: React.FunctionComponent<IProps> = (props) => {
+const FriendMessage: React.FunctionComponent<IProps> = (props) => {
+  console.log('Inside friend message');
   const { message } = props;
 
   return (
@@ -22,4 +23,4 @@ const MyMessage: React.FunctionComponent<IProps> = (props) => {
     </div>
   );
 };
-export default MyMessage;
+export default FriendMessage;
