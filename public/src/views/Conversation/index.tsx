@@ -2,7 +2,7 @@ import React, { useContext, useState, useCallback, useEffect, useMemo } from 're
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { Store } from '../../Store';
-import { IConversation, IConversationMessage, IConversationPreview } from '../../../../typescript/conversation';
+import { IConversationMessage, IConversationPreview } from '../../../../typescript/conversation';
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
@@ -13,7 +13,7 @@ import { goTo, ROUTES } from '../../actions/goTo';
 import IconButton from '../../components/Custom/IconButton';
 import { useFormInput } from '../../hooks/forms';
 import CustomTextField from '../../components/Custom/TextField';
-import { getConversationMessages } from '../../actions/service/messaging';
+import { getConversationMessages, sendMessage } from '../../actions/service/messaging';
 import { LoadingSpinner } from '../../components/Custom';
 
 interface IProps {
@@ -52,16 +52,9 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     return (conversation.participants || []).filter((p) => p.id !== userInfo.primaryPerson?.personId);
   }, [conversation]);
 
-  const handleSend = () => {
-    console.log(
-      'conversationId : ',
-      convoId,
-      'content : ',
-      content.value,
-      'senderId :',
-      userInfo.primaryPerson?.personId
-    );
-  };
+  const onSendMessage = useCallback(() => {
+    sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(updateConversation);
+  }, [convoId, content.value, userInfo.primaryPerson?.personId, updateConversation]);
 
   const name = useMemo(() => {
     if (!conversation) {
@@ -119,7 +112,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
             disableUnderline: true,
             endAdornment: (
               <div style={{ display: 'flex' }}>
-                <IconButton onClick={handleSend} className={styles.send} icon="Send" />
+                <IconButton onClick={onSendMessage} className={styles.send} icon="Send" />
               </div>
             ),
           }}
