@@ -96,9 +96,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         </Typography>
       </div>
       <div className={styles.exchange}>
-        {messages?.map((m: IConversationMessage) =>
-          m.sender.id === userInfo.primaryPerson?.personId ? <MyMessage message={m} /> : <FriendMessage message={m} />
-        )}
+        {messages?.map((m: IConversationMessage) => {
+          console.log(m, userInfo.primaryPerson?.personId);
+          return m.sender.id === userInfo.primaryPerson?.personId ? (
+            <MyMessage message={m} />
+          ) : (
+            <FriendMessage message={m} />
+          );
+        })}
       </div>
       <div className={styles.messageInput}>
         <CustomTextField
