@@ -19,6 +19,9 @@ export async function getConversations({
 }
 
 export async function getConversationMessages(conversationId: string, page?: number): Promise<IConversation> {
+  if (!conversationId) {
+    return;
+  }
   return api(formatRoute(`${BASE_URL}/messages`, null, { conversationId, page }), { method: 'GET' }).then(
     (res) => res.data
   );
