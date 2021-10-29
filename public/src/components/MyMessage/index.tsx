@@ -1,8 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { ListItemText, Typography } from '@material-ui/core';
-import moment from 'moment';
-import { Conversation, Message } from '../../../../typescript/conversation';
+import { Typography } from '@material-ui/core';
+import { Message } from '../../../../typescript/conversation';
 import styles from './MyMessage.module.css';
 
 interface IProps {

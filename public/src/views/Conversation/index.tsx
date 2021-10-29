@@ -2,7 +2,7 @@ import React, { useContext, useState, useCallback, useEffect, useMemo } from 're
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { Store } from '../../Store';
-import { Conversation } from '../../../../typescript/conversation';
+import { IConversation } from '../../../../typescript/conversation';
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
@@ -27,7 +27,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
-  const [conversation, setConversation] = useState<Conversation>();
+  const [conversation, setConversation] = useState<IConversation>();
 
   const updateConversation = useCallback(() => {
     getConversationMessages(convoId).then(setConversation);

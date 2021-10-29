@@ -1,8 +1,7 @@
 import React from 'react';
-import { composeInitialProps, useTranslation } from 'react-i18next';
-import { ListItemText, Typography } from '@material-ui/core';
-import moment from 'moment';
-import { Conversation, Message } from '../../../../typescript/conversation';
+
+import { Typography } from '@material-ui/core';
+import { Message } from '../../../../typescript/conversation';
 import CustomAvatar from '../Custom/Avatar';
 import styles from './FriendMessage.module.css';
 

@@ -22,7 +22,7 @@ export interface IConversationPreview {
   participants: Participant[];
 }
 
-export interface Conversation {
+export interface IConversation {
   id: string;
   name: string;
   messages: Message[];
