@@ -33,7 +33,7 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
-  const [conversation, setConversation] = useState<Conversation>();
+  const [conversation, setConversation] = useState<Conversation>({});
 
   const updateConversation = useCallback(() => {
     getConversationMessages(convoId).then(setConversation);
@@ -47,20 +47,12 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
 
   const content = useFormInput('');
 
-  const handleArrowBack = () => {
-    goTo(ROUTES.conversations);
-  };
-
-  conversation.messages?.sort(
-    (a, b) => moment(a.sentAt).diff(moment(), 'seconds') - moment(b.sentAt).diff(moment(), 'seconds')
-  );
-
-  let completeName: string = '';
-
-  const otherParticipants = useMemo(
-    () => conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId),
-    [conversation.participants]
-  );
+  const otherParticipants = useMemo(() => {
+    if (!conversation) {
+      return [];
+    }
+    return conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
+  }, [conversation]);
 
   const handleSend = () => {
     console.log(
@@ -90,14 +82,19 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     return randomParticipant.photoUrl;
   }, [otherParticipants]);
 
-  if (!convoId) {
+  if (!convoId || !conversation) {
     return <LoadingSpinner />;
   }
 
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>
-        <ArrowBackIosRoundedIcon onClick={handleArrowBack} className={styles.back} />
+        <ArrowBackIosRoundedIcon
+          onClick={() => {
+            goTo(ROUTES.conversations);
+          }}
+          className={styles.back}
+        />
         <CustomAvatar size="md" className={styles.avatar} photoUrl={photoUrl} />
         <Typography variant="h4" className={styles.name}>
           {name}
