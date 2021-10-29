@@ -30,7 +30,7 @@ const Conversations: React.FunctionComponent = () => {
   const updateConversations = useCallback(() => {
     getConversations({ recipientId: userInfo.primaryPerson?.id }).then((c) =>
       setConversations(
-        c.sort((a, b) => (moment(b.lastMessage?.sentAt).isBefore(moment(a.lastMessage?.sentAt)) ? 1 : -1))
+        c.sort((a, b) => (moment(b.lastMessage?.sentAt).isBefore(moment(a.lastMessage?.sentAt)) ? -1 : 1))
       )
     );
   }, [userInfo.primaryPerson?.id]);

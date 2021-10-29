@@ -34,7 +34,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const updateConversation = useCallback(() => {
     getConversationMessages(convoId).then(({ conversation, messages }) => {
       setConversation(conversation);
-      setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? 1 : -1)));
+      setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
     });
   }, [convoId]);
 
@@ -43,8 +43,15 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, [updateConversation]);
 
   useEffect(() => {
-    setInterval(updateConversation, 10000);
-  }, []);
+    const interval = setInterval(() => {
+      updateConversation();
+      console.log('calling interval');
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [updateConversation]);
 
   //AJOUT BACKEND
 
@@ -105,7 +112,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
       </div>
       <div className={styles.exchange}>
         {messages?.map((m: IConversationMessage) => {
-          console.log(m, userInfo.primaryPerson?.personId);
           return m.sender.id === userInfo.primaryPerson?.personId ? (
             <MyMessage message={m} />
           ) : (
