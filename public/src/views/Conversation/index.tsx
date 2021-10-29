@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect } from 'react';
+import React, { useContext, useState, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -20,6 +20,7 @@ import { useFormInput } from '../../hooks/forms';
 import CustomTextField from '../../components/Custom/TextField';
 import { QueryBuilder } from '@material-ui/icons';
 import { getConversationMessages } from '../../actions/service/messaging';
+import { LoadingSpinner } from '../../components/Custom';
 
 interface IProps {
   convoId: string;
@@ -42,9 +43,6 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     updateConversation();
   }, [updateConversation]);
 
-  console.log('conversation : ', conversation);
-  console.log(convoId);
-
   //AJOUT BACKEND
 
   const content = useFormInput('');
@@ -53,20 +51,16 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     goTo(ROUTES.conversations);
   };
 
-  const handleWhoMessage = (m: any) => {
-    return m.sender.id === userInfo.primaryPerson?.personId;
-  };
-
   conversation.messages?.sort(
     (a, b) => moment(a.sentAt).diff(moment(), 'seconds') - moment(b.sentAt).diff(moment(), 'seconds')
   );
 
   let completeName: string = '';
 
-  const otherThanMe = conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
-  otherThanMe.map((t) => {
-    completeName = completeName + t.name + ' ' + t.surname + ', ';
-  });
+  const otherParticipants = useMemo(
+    () => conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId),
+    [conversation.participants]
+  );
 
   const handleSend = () => {
     console.log(
@@ -79,26 +73,39 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     );
   };
 
+  const name = useMemo(() => {
+    if (conversation.name) {
+      return conversation.name;
+    }
+
+    return conversation.participants
+      .filter((p) => p.id !== userInfo.primaryPerson?.personId)
+      .map((p) => `${p.name} ${p.surname}`)
+      .join(', ');
+  }, [conversation]);
+
+  const photoUrl = useMemo(() => {
+    const randomParticipant = otherParticipants[Math.floor(Math.random() * otherParticipants.length)];
+
+    return randomParticipant.photoUrl;
+  }, [otherParticipants]);
+
+  if (!convoId) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>
         <ArrowBackIosRoundedIcon onClick={handleArrowBack} className={styles.back} />
-        {otherThanMe.length > 1 ? (
-          <Typography variant="h4" className={styles.name}>
-            {completeName}
-          </Typography>
-        ) : (
-          <>
-            <CustomAvatar size="md" className={styles.avatar} photoUrl={otherThanMe[0].photoUrl} />
-            <Typography variant="h4" className={styles.name}>
-              {otherThanMe[0].name + ' ' + otherThanMe[0].surname}
-            </Typography>
-          </>
-        )}
+        <CustomAvatar size="md" className={styles.avatar} photoUrl={photoUrl} />
+        <Typography variant="h4" className={styles.name}>
+          {name}
+        </Typography>
       </div>
       <div className={styles.exchange}>
         {conversation.messages?.map((m: any) =>
-          handleWhoMessage(m) ? <MyMessage message={m} /> : <FriendMessage message={m} />
+          m.sender.id === userInfo.primaryPerson?.personId ? <MyMessage message={m} /> : <FriendMessage message={m} />
         )}
       </div>
       <div className={styles.messageInput}>

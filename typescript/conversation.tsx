@@ -24,6 +24,7 @@ export interface IConversationPreview {
 
 export interface Conversation {
   id: string;
+  name: string;
   messages: Message[];
   participants: Participant[];
 }
