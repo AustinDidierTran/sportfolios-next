@@ -23,32 +23,6 @@
   flex-direction: column;
   justify-content: center;
 }
-.message {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-}
-.text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 80%;
-  color: #b3b3b3 !important;
-  font-size: 0.75rem !important;
-}
-.time {
-  margin-right: 2rem !important;
-  white-space: nowrap;
-  color: #b3b3b3;
-  font-size: 0.75rem !important;
-}
-.name {
-  font-weight: 750 !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 .create {
   color: #b3b3b3 !important;

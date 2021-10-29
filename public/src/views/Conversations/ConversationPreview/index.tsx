@@ -54,18 +54,16 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <div className={styles.message} onClick={() => goTo(ROUTES.conversation, { id: conversation.id })}>
-      <>
-        <CustomAvatar size="md" photoUrl={photoUrl} />
-        <ListItemText
-          secondaryTypographyProps={{ className: styles.text }}
-          primaryTypographyProps={{ className: styles.name }}
-          primary={primary}
-          secondary={secondary}
-        />
-        <Typography variant="body2" className={styles.time}>
-          {time}
-        </Typography>
-      </>
+      <CustomAvatar size="md" photoUrl={photoUrl} />
+      <ListItemText
+        secondaryTypographyProps={{ className: styles.text }}
+        primaryTypographyProps={{ className: styles.name }}
+        primary={primary}
+        secondary={secondary}
+      />
+      <Typography variant="body2" className={styles.time}>
+        {time}
+      </Typography>
     </div>
   );
 };
