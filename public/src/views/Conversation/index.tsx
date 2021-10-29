@@ -60,6 +60,10 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   };
 
   const name = useMemo(() => {
+    if (!conversation) {
+      return '';
+    }
+
     if (conversation.name) {
       return conversation.name;
     }
@@ -73,7 +77,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const photoUrl = useMemo(() => {
     const randomParticipant = otherParticipants[Math.floor(Math.random() * otherParticipants.length)];
 
-    return randomParticipant.photoUrl;
+    return randomParticipant?.photoUrl;
   }, [otherParticipants]);
 
   if (!convoId || !conversation) {
