@@ -13,7 +13,7 @@ export async function getConversations({
   recipientId: string;
   searchQuery?: string;
 }): Promise<IConversationPreview[]> {
-  return api(formatRoute(BASE_URL, null, { page, recipientId, searchQuery }), { method: 'GET' }).then(
+  return api(formatRoute(BASE_URL, null, { recipientId, page, searchQuery }), { method: 'GET' }).then(
     (res) => res.data
   );
 }
