@@ -45,7 +45,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     if (!conversation) {
       return [];
     }
-    return conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
+    return (conversation.participants || []).filter((p) => p.id !== userInfo.primaryPerson?.personId);
   }, [conversation]);
 
   const handleSend = () => {
@@ -68,7 +68,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
       return conversation.name;
     }
 
-    return conversation.participants
+    return (conversation.participants || [])
       .filter((p) => p.id !== userInfo.primaryPerson?.personId)
       .map((p) => `${p.name} ${p.surname}`)
       .join(', ');
