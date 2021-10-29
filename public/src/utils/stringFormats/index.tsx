@@ -59,15 +59,17 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
     return withParams;
   }
 
-  return Object.keys(queryParams).reduce(
-    (prev, key, index) =>
-      !queryParams[key]
-        ? prev
-        : index === 0
-        ? `${prev}?${key}=${queryParams[key]}`
-        : `${prev}&${key}=${queryParams[key]}`,
-    withParams
-  );
+  return Object.keys(queryParams)
+    .filter((q) => q)
+    .reduce(
+      (prev, key, index) =>
+        !queryParams[key]
+          ? prev
+          : index === 0
+          ? `${prev}?${key}=${queryParams[key]}`
+          : `${prev}&${key}=${queryParams[key]}`,
+      withParams
+    );
 };
 
 export const formatDate = (date: any, format = 'LL'): string => {
