@@ -1,24 +1,18 @@
 import React, { useContext, useState, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import dynamic from 'next/dynamic';
-import Head from 'next/head';
-import { ListItemText, Typography } from '@material-ui/core';
-import moment from 'moment';
+import { Typography } from '@material-ui/core';
 import { Store } from '../../Store';
-import { Conversation, Message } from '../../../../typescript/conversation';
+import { Conversation } from '../../../../typescript/conversation';
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
-import link from 'next/link';
 import MyMessage from '../../components/MyMessage';
 import FriendMessage from '../../components/FriendMessage';
 import { goTo, ROUTES } from '../../actions/goTo';
-import TextField from '@material-ui/core/TextField';
 import IconButton from '../../components/Custom/IconButton';
 import { useFormInput } from '../../hooks/forms';
 import CustomTextField from '../../components/Custom/TextField';
-import { QueryBuilder } from '@material-ui/icons';
 import { getConversationMessages } from '../../actions/service/messaging';
 import { LoadingSpinner } from '../../components/Custom';
 
@@ -26,7 +20,7 @@ interface IProps {
   convoId: string;
 }
 
-const conversation: React.FunctionComponent<IProps> = (props) => {
+const Conversation: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { convoId } = props;
   const {
@@ -126,7 +120,7 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     </IgContainer>
   );
 };
-export default conversation;
+export default Conversation;
 
 /*const conversation: Conversation = {
     id: convoId,
