@@ -2,7 +2,7 @@ import React, { useContext, useState, useCallback, useEffect, useMemo } from 're
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { Store } from '../../Store';
-import { IConversation } from '../../../../typescript/conversation';
+import { IConversation, IConversationMessage, IConversationPreview } from '../../../../typescript/conversation';
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
@@ -27,10 +27,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
-  const [conversation, setConversation] = useState<IConversation>();
+  const [conversation, setConversation] = useState<IConversationPreview>();
+  const [messages, setMessages] = useState<IConversationMessage[]>();
 
   const updateConversation = useCallback(() => {
-    getConversationMessages(convoId).then(setConversation);
+    getConversationMessages(convoId).then(({ conversation, messages }) => {
+      setConversation(conversation);
+      setMessages(messages);
+    });
   }, [convoId]);
 
   useEffect(() => {
@@ -99,7 +103,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         </Typography>
       </div>
       <div className={styles.exchange}>
-        {conversation.messages?.map((m: any) =>
+        {messages?.map((m: IConversationMessage) =>
           m.sender.id === userInfo.primaryPerson?.personId ? <MyMessage message={m} /> : <FriendMessage message={m} />
         )}
       </div>

@@ -1,6 +1,6 @@
 import { Person } from './entity';
 
-export interface Message {
+export interface IConversationMessage {
   id: string;
   sender: Participant;
   sentAt: string;
@@ -23,8 +23,6 @@ export interface IConversationPreview {
 }
 
 export interface IConversation {
-  id: string;
-  name: string;
-  messages: Message[];
-  participants: Participant[];
+  conversation: IConversationPreview;
+  messages: IConversationMessage[];
 }
