@@ -33,7 +33,7 @@ const conversation: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
-  const [conversation, setConversation] = useState<Conversation>({});
+  const [conversation, setConversation] = useState<Conversation>();
 
   const updateConversation = useCallback(() => {
     getConversationMessages(convoId).then(setConversation);
