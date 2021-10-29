@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { Message } from '../../../../typescript/conversation';
+import { IConversationMessage } from '../../../../typescript/conversation';
 import styles from './MyMessage.module.css';
 
 interface IProps {
-  message: Message;
+  message: IConversationMessage;
 }
 const MyMessage: React.FunctionComponent<IProps> = (props) => {
   const { message } = props;
