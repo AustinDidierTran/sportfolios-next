@@ -3,6 +3,22 @@ import { SIZES_ENUM } from '../../../common/enums';
 export default {
   translations: {
     metadata: {
+      newMessage: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
+      conversation: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
+
+      message: {
+        title: 'Sportfolios',
+        description:
+          "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+      },
       forYouPage: {
         title: 'Sportfolios',
         description:
@@ -561,6 +577,9 @@ export default {
       new_members: 'New members',
       not_member: 'Not member',
     },
+    messaging: {
+      empty_conversation: 'This conversation is empty',
+    },
     add: {
       add_admin: 'Add Admin',
       add_bank_account: 'Add bank account',
@@ -660,6 +679,7 @@ export default {
       creation_date: 'Creation date',
       additional_informations: 'Additionnal information',
       waiting_for_type: 'Waiting for type selection',
+      create_message: 'Create message',
     },
     delete: {
       delete_field_confirmation: 'Are you sure you want to delete this field?',
@@ -1029,6 +1049,7 @@ export default {
     cant_have_same_positions: "Can't have a position playing against itself",
     cant_join_team_yet: 'You cant join teams yet, you have to be invited to join this team',
     cant_transfer_person_to_your_own_email: "You can't transfer someone to your own email",
+    cant_new_message: "You can't send a message to yourself or someone who has already been selected.",
     captain: 'Captain',
     captains: 'Captains',
     captain_only_warning:
@@ -1289,6 +1310,7 @@ export default {
     medical_conditions: 'Medical conditions',
     menu: 'Menu',
     message: 'Message',
+    messages: 'Messages',
     message_sent: 'Message sent',
     messenger_description: "Connect with Messenger to enable Sportfolios' chatbot",
     minute_ago_plural: '{{count}} minutes ago',
@@ -1317,6 +1339,7 @@ export default {
     new_organization: 'New organization',
     new_password: 'New Password',
     new_team: 'New team',
+    new_message: 'Send a new message',
     next: 'Next',
     no_location: 'No location',
     not_available: 'N/A',
@@ -1544,6 +1567,7 @@ export default {
     sizes: 'Sizes',
     skip: 'Skip',
     soccer: 'Soccer',
+    someone_new: 'New message',
     some_teams_cannot_be_deleted: "Some teams can't be unregistered from the event since they are already in a game.",
     something_went_wrong: 'Something went wrong, please try again',
     spirit_chart_ligue_mardi: '0: Bad 1: Below average 2: Good or nothing to report 3: Very good 4: Exceptional',
@@ -1613,6 +1637,7 @@ export default {
     total: 'Total',
     totals: 'Totals',
     total_income: 'Total income',
+    to: 'To :',
     new_income: 'New income',
     income: 'Income',
     income_and_transaction_fee_for: 'Income and transaction fees for',
@@ -1626,6 +1651,7 @@ export default {
     true: 'True',
     type_address: 'Type an address',
     type: 'Type',
+    type_here: 'Type here...',
     unconfirmed_email: 'Unconfirmed email',
     undo: 'Undo',
     unlink_facebook_account: 'Disconnect my Facebook account',

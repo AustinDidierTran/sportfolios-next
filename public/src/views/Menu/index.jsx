@@ -41,7 +41,11 @@ export default function Menu() {
       route: formatRoute(ROUTES.createOrganization),
       icon: 'Business',
     },
-
+    {
+      name: t('messages'),
+      route: ROUTES.conversations,
+      icon: 'Chat',
+    },
     {
       name: t('cart.title'),
       route: formatRoute(ROUTES.cart),

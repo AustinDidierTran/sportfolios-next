@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useRef } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM } from '../../../../common/enums';
+import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
 import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,6 +19,7 @@ import api from '../../../actions/api';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { COLORS } from '../../../utils/colors';
+import { FEATURE_MESSAGES_ENABLED } from '../../../../../feature-flags';
 
 export default function LoggedIn(props) {
   const {
@@ -138,6 +139,18 @@ export default function LoggedIn(props) {
                 tooltip={t('create.create')}
               />
             </div>
+            {FEATURE_MESSAGES_ENABLED && (
+              <Link href={ROUTES_ENUM.conversations}>
+                <IconButton
+                  className={styles.iconButton}
+                  icon="Chat"
+                  size="medium"
+                  style={{ color: COLORS.white }}
+                  tooltip={t('messages')}
+                />
+              </Link>
+            )}
+            <div></div>
             <div ref={refNotifications}>
               <NotificationModule className={styles.iconButton} onClick={handleNotificationClick} />
             </div>

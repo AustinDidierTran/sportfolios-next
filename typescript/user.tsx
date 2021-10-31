@@ -7,6 +7,7 @@ export interface User {
 
 export interface UserInfo {
   primaryPerson: {
+    id: string;
     personId: string;
     name: string;
     photoUrl: string;

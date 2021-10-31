@@ -1,0 +1,61 @@
+.container {
+  background-color: white !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: left !important;
+  align-items: left !important;
+  text-align: left;
+  height: fit-content !important;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+.title {
+  font-weight: 750 !important;
+  margin-left: 0.5rem !important;
+}
+.divider {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+.textField {
+  width: 90%;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+  background-color: white;
+  border-radius: 2rem;
+  box-shadow: 0 -0.1rem 0.3rem #909090;
+}
+.send {
+  color: #787878 !important;
+  margin-right: 1rem !important;
+  margin-left: 0.5rem !important;
+}
+.writing {
+  color: #787878 !important;
+  font-size: 0.85rem !important;
+  margin-left: 1rem !important;
+}
+.messageInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.button {
+  width: fit-content;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+.chip {
+  margin-top: 1rem;
+  margin-right: 0.3rem;
+}
+.back {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}

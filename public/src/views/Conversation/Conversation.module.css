@@ -1,0 +1,56 @@
+.container {
+  background-color: #eceef2 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  box-shadow: 0 0.1rem 0.3rem #909090;
+}
+.name {
+  font-weight: 750 !important;
+  margin-left: 0.5rem !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.exchange {
+  margin-top: 1rem;
+  flex: 1;
+  overflow-y: scroll;
+}
+.textField {
+  width: 90%;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+  background-color: white;
+  border-radius: 2rem;
+  box-shadow: 0 -0.1rem 0.3rem #909090;
+}
+.send {
+  color: #787878 !important;
+  margin-right: 1rem !important;
+  margin-left: 0.5rem !important;
+}
+.writing {
+  color: #787878 !important;
+  font-size: 0.85rem !important;
+  margin-left: 1rem !important;
+}
+.messageInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

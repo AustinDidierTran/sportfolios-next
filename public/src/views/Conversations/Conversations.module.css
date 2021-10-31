@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.title {
+  font-weight: 750 !important;
+}
+.divider {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.card {
+  width: 100%;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  text-align: left;
+}
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.create {
+  color: #b3b3b3 !important;
+  background-color: #eeeeee !important;
+}
