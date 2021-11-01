@@ -41,6 +41,22 @@ export default function MembersList() {
     setOrganization(data);
   }, [id]);
 
+  const getMembers = useCallback(async () => {
+    if (!id) {
+      return;
+    }
+
+    // const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }), { method: 'GET' });
+
+    const data = await organizationService.getMembers(id, searchQuery.value);
+    const res = data.map((d, index) => ({
+      ...d,
+      update: getMembers,
+      key: index,
+    }));
+    setMembers(res);
+  }, [id, searchQuery.value]);
+
   useEffect(() => {
     organization
       ? (document.title = formatPageTitle(t('member.members_list', { organization: organization?.name })))
@@ -58,22 +74,6 @@ export default function MembersList() {
   useEffect(() => {
     getMembers();
   }, [searchQuery.value]);
-
-  const getMembers = useCallback(async () => {
-    if (!id) {
-      return;
-    }
-
-    // const { data, status } = await api(formatRoute('/api/entity/organizationMembers', null, { id }), { method: 'GET' });
-
-    const data = await organizationService.getMembers(id, searchQuery.value);
-    const res = data.map((d, index) => ({
-      ...d,
-      update: getMembers,
-      key: index,
-    }));
-    setMembers(res);
-  }, [id, searchQuery.value]);
 
   const onOpen = () => {
     setOpen(true);
