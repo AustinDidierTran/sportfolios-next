@@ -38,17 +38,11 @@ export async function loginWithCognito(email: string, token: string): Promise<Us
 }
 
 export async function migrate(email: string, password: string): Promise<any> {
-  console.log('inside auth service in migrate function', { email, password });
-  try {
-    return api('/api/auth/migrate', {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-  } catch (err) {
-    console.error('inside catch...', err);
-    throw err;
-  }
+  return api('/api/auth/migrate', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 }

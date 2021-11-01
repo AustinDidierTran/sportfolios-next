@@ -9,7 +9,6 @@ interface IProps {
   message: IConversationMessage;
 }
 const FriendMessage: React.FunctionComponent<IProps> = (props) => {
-  console.log('Inside friend message');
   const { message } = props;
 
   return (

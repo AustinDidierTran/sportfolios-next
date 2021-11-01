@@ -72,9 +72,7 @@ export default function Login() {
       const { email, password } = values;
 
       const migrateFct = async (error) => {
-        console.log('inside migrateFct', error.code, AuthErrorTypes.NotAuthorizedException);
         if (error.code === AuthErrorTypes.NotAuthorizedException) {
-          console.log('first error code, should go here');
           const res = await migrate(email, password);
 
           if (res.status === 200) {
@@ -85,18 +83,14 @@ export default function Login() {
               .catch((err) => formik.setFieldError('password', t('email.email_password_no_match')));
           }
         } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
-          console.log('not here');
           // Email is not validated
           formik.setFieldError('email', t('email.email_not_confirmed'));
         } else if (error === errors[ERROR_ENUM.ERROR_OCCURED].code) {
-          console.log('or here');
           // Password is not good
           formik.setFieldError('password', t('email.email_password_no_match'));
         } else if (error === errors[ERROR_ENUM.INVALID_EMAIL].code) {
-          console.log('nor there');
           formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
         } else {
-          console.log('inside else...');
         }
       };
 
@@ -110,32 +104,10 @@ export default function Login() {
             return user;
           })
           .catch((err) => {
-            console.log('inside catch', err);
-            // [REFACTORING - Claude]
             migrateFct(err);
           });
       } catch (error) {
         migrateFct(error);
-        console.log('testing error code', error.code, AuthErrorTypes.NotAuthorizedException);
-        // if (error.code === AuthErrorTypes.NotAuthorizedException) {
-        //   const res = await migrate(email, password);
-
-        //   if (res.status === 200) {
-        //     await Auth.signIn(email, password)
-        //       .then((user) => {
-        //         Auth.completeNewPassword(user, password).then((user) => login(user, email));
-        //       })
-        //       .catch((err) => formik.setFieldError('password', t('email.email_password_no_match')));
-        //   }
-        // } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
-        //   // Email is not validated
-        //   formik.setFieldError('email', t('email.email_not_confirmed'));
-        // } else if (error === errors[ERROR_ENUM.ERROR_OCCURED].code) {
-        //   // Password is not good
-        //   formik.setFieldError('password', t('email.email_password_no_match'));
-        // } else if (error === errors[ERROR_ENUM.INVALID_EMAIL].code) {
-        //   formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
-        // }
       }
     },
   });
@@ -150,7 +122,6 @@ export default function Login() {
 
   const login = async (user, email) => {
     const token = user?.signInUserSession?.idToken?.jwtToken;
-    console.log({ token });
     const data = await loginWithCognito(email, token);
 
     if (data) {
