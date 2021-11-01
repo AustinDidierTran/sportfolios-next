@@ -15,6 +15,6 @@ module.exports = {
   },
   verbose: true,
   transformIgnorePatterns: [
-    'node_modules/(?!(@nuxtjs/svg-sprite|nuxt-i18n)/)'
+    'node_modules/(?!(i18next|i18n)/)'
   ],
 };
