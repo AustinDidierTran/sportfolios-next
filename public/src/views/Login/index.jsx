@@ -150,6 +150,7 @@ export default function Login() {
 
   const login = async (user, email) => {
     const token = user?.signInUserSession?.idToken?.jwtToken;
+    console.log({ token });
     const data = await loginWithCognito(email, token);
 
     if (data) {
