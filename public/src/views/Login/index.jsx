@@ -72,14 +72,19 @@ export default function Login() {
       const { email, password } = values;
 
       try {
-        const user = await Auth.signIn(email, password).then((user) => {
-          if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
-            return Auth.completeNewPassword(user, password);
-          }
-          return user;
-        });
+        const user = await Auth.signIn(email, password)
+          .then((user) => {
+            if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
+              return Auth.completeNewPassword(user, password);
+            }
+            return user;
+          })
+          .catch((err) => {
+            console.log('inside catch', err);
+          });
         login(user, email);
       } catch (error) {
+        console.log('testing error code', error.code, AuthErrorTypes.NotAuthorizedException);
         if (error.code === AuthErrorTypes.NotAuthorizedException) {
           const res = await migrate(email, password);
 
