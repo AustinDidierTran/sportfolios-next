@@ -3,17 +3,32 @@ import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
 
 const api = async (route: string, { method, body }: { method?: string; body?: string } = {}): Promise<any> => {
+  const logthings = route === '/api/auth/migrate';
+
+  if (logthings) {
+    console.log(1);
+  }
   const headers: any = { 'Content-Type': 'application/json' };
+  if (logthings) {
+    console.log(2);
+  }
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
+
+  if (logthings) {
+    console.log(3);
+  }
 
   if (authToken && authToken !== 'null') {
     const dataAWS = await Auth.currentAuthenticatedUser();
     if (!dataAWS?.signInUserSession?.idToken?.jwtToken) {
       headers.Authorization = authToken;
     } else {
-      localStorage.setItem('authToken', dataAWS.signInUserSession.idToken.jwtToken);
-      headers.Authorization = dataAWS.signInUserSession.idToken.jwtToken;
+      localStorage.setItem('authToken', dataAWS?.signInUserSession?.idToken?.jwtToken);
+      headers.Authorization = dataAWS?.signInUserSession?.idToken?.jwtToken;
     }
+  }
+  if (logthings) {
+    console.log(4);
   }
 
   if (method === 'POST') {
