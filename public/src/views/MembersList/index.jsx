@@ -71,10 +71,6 @@ export default function MembersList() {
     getMembers();
   }, [getMembers]);
 
-  useEffect(() => {
-    getMembers();
-  }, [searchQuery.value]);
-
   const onOpen = () => {
     setOpen(true);
   };
