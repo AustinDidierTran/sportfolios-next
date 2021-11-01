@@ -11,8 +11,7 @@ module.exports = {
   },
   transform: {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
-    // '^.+\\.(js|jsx)$': 'babel-jest',
-    '^.+\\.(t|j)sx?$': '@swc/jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
   },
   verbose: true,
   transformIgnorePatterns: [
