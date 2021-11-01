@@ -71,20 +71,7 @@ export default function Login() {
     onSubmit: async (values) => {
       const { email, password } = values;
 
-      try {
-        const user = await Auth.signIn(email, password)
-          .then((user) => {
-            if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
-              return Auth.completeNewPassword(user, password);
-            }
-            return user;
-          })
-          .catch((err) => {
-            console.log('inside catch', err);
-          });
-        login(user, email);
-      } catch (error) {
-        console.log('testing error code', error.code, AuthErrorTypes.NotAuthorizedException);
+      const migrateFct = async (error) => {
         if (error.code === AuthErrorTypes.NotAuthorizedException) {
           const res = await migrate(email, password);
 
@@ -104,6 +91,44 @@ export default function Login() {
         } else if (error === errors[ERROR_ENUM.INVALID_EMAIL].code) {
           formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
         }
+      };
+
+      try {
+        const user = await Auth.signIn(email, password)
+          .then((user) => {
+            if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
+              return Auth.completeNewPassword(user, password);
+            }
+            return user;
+          })
+          .catch((err) => {
+            console.log('inside catch', err);
+            // [REFACTORING - Claude]
+            migrateFct(err);
+          });
+        login(user, email);
+      } catch (error) {
+        migrateFct(error);
+        console.log('testing error code', error.code, AuthErrorTypes.NotAuthorizedException);
+        // if (error.code === AuthErrorTypes.NotAuthorizedException) {
+        //   const res = await migrate(email, password);
+
+        //   if (res.status === 200) {
+        //     await Auth.signIn(email, password)
+        //       .then((user) => {
+        //         Auth.completeNewPassword(user, password).then((user) => login(user, email));
+        //       })
+        //       .catch((err) => formik.setFieldError('password', t('email.email_password_no_match')));
+        //   }
+        // } else if (error === errors[ERROR_ENUM.UNCONFIRMED_EMAIL].code) {
+        //   // Email is not validated
+        //   formik.setFieldError('email', t('email.email_not_confirmed'));
+        // } else if (error === errors[ERROR_ENUM.ERROR_OCCURED].code) {
+        //   // Password is not good
+        //   formik.setFieldError('password', t('email.email_password_no_match'));
+        // } else if (error === errors[ERROR_ENUM.INVALID_EMAIL].code) {
+        //   formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+        // }
       }
     },
   });
