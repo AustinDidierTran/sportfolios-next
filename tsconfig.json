@@ -20,12 +20,14 @@
     "jsx": "preserve",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"],
+    "**/*.tsx"
+  ],
   "exclude": [
     "node_modules",
     "**/*.js",

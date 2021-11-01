@@ -16,6 +16,7 @@ module.exports = withPlugins([
         swSrc: '/worker.js',
         force: false,
       },
+      swcMinify: true,
     },
   ],
 ]);

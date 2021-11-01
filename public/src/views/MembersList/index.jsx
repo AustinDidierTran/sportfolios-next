@@ -31,24 +31,6 @@ export default function MembersList() {
   const [open, setOpen] = useState(false);
   const searchQuery = useFormInput('');
 
-  useEffect(() => {
-    organization
-      ? (document.title = formatPageTitle(t('member.members_list', { organization: organization?.name })))
-      : '';
-  }, [organization]);
-
-  useEffect(() => {
-    getEntity();
-  }, [getEntity]);
-
-  useEffect(() => {
-    getMembers();
-  }, [getMembers]);
-
-  useEffect(() => {
-    getMembers();
-  }, [searchQuery.value]);
-
   const getEntity = useCallback(async () => {
     if (!id) {
       return;
@@ -74,6 +56,20 @@ export default function MembersList() {
     }));
     setMembers(res);
   }, [id, searchQuery.value]);
+
+  useEffect(() => {
+    organization
+      ? (document.title = formatPageTitle(t('member.members_list', { organization: organization?.name })))
+      : '';
+  }, [organization]);
+
+  useEffect(() => {
+    getEntity();
+  }, [getEntity]);
+
+  useEffect(() => {
+    getMembers();
+  }, [getMembers]);
 
   const onOpen = () => {
     setOpen(true);
