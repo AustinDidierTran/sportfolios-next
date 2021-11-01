@@ -38,6 +38,7 @@ export async function loginWithCognito(email: string, token: string): Promise<Us
 }
 
 export async function migrate(email: string, password: string): Promise<any> {
+  console.log('inside auth service in migrate function');
   return api(`${AUTH_BASE_URL}/migrate`, {
     method: 'POST',
     body: JSON.stringify({
