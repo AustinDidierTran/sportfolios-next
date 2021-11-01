@@ -8,7 +8,7 @@ import {
 import isArray from 'lodash/isArray';
 import moment from 'moment';
 import 'moment/locale/fr';
-import { i18n } from '../../i18n';
+import i18n from '../../i18n';
 
 export const getInitialsFromName = (completeName: string | { name: string; surname: string }): string => {
   if (!completeName) {

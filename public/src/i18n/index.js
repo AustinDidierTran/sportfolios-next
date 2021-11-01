@@ -4,7 +4,7 @@ import en from './en';
 import fr from './fr';
 import moment from 'moment';
 
-export const i18n = i18n.use(LanguageDetector).init({
+i18n.use(LanguageDetector).init({
   resources: {
     en,
     fr,
@@ -30,3 +30,5 @@ export const i18n = i18n.use(LanguageDetector).init({
     useSuspense: true,
   },
 });
+
+export default i18n;
