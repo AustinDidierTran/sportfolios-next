@@ -89,7 +89,6 @@ const CreateEvent: React.FunctionComponent = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
-      console.log('submitting');
       const {
         name,
         creatorId,
@@ -128,8 +127,6 @@ const CreateEvent: React.FunctionComponent = () => {
       goTo(ROUTES.entity, { id }, { tab: TABS_ENUM.SETTINGS });
     },
   });
-
-  console.log(formik.isValid);
 
   return (
     <IgContainer>

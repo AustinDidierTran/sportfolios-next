@@ -7,12 +7,17 @@ const api = async (route: string, { method, body }: { method?: string; body?: st
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
 
   if (authToken && authToken !== 'null') {
-    const dataAWS = await Auth.currentAuthenticatedUser();
-    if (!dataAWS.signInUserSession.idToken.jwtToken) {
-      headers.Authorization = authToken;
-    } else {
-      localStorage.setItem('authToken', dataAWS.signInUserSession.idToken.jwtToken);
-      headers.Authorization = dataAWS.signInUserSession.idToken.jwtToken;
+    try {
+      const dataAWS = await Auth.currentAuthenticatedUser();
+      if (!dataAWS) {
+      } else if (!dataAWS?.signInUserSession?.idToken?.jwtToken) {
+        headers.Authorization = authToken;
+      } else {
+        localStorage.setItem('authToken', dataAWS?.signInUserSession?.idToken?.jwtToken);
+        headers.Authorization = dataAWS?.signInUserSession?.idToken?.jwtToken;
+      }
+    } catch (err) {
+      // user is probably not authenticated
     }
   }
 

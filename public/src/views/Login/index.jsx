@@ -71,15 +71,7 @@ export default function Login() {
     onSubmit: async (values) => {
       const { email, password } = values;
 
-      try {
-        const user = await Auth.signIn(email, password).then((user) => {
-          if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
-            return Auth.completeNewPassword(user, password);
-          }
-          return user;
-        });
-        login(user, email);
-      } catch (error) {
+      const migrateFct = async (error) => {
         if (error.code === AuthErrorTypes.NotAuthorizedException) {
           const res = await migrate(email, password);
 
@@ -98,7 +90,24 @@ export default function Login() {
           formik.setFieldError('password', t('email.email_password_no_match'));
         } else if (error === errors[ERROR_ENUM.INVALID_EMAIL].code) {
           formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+        } else {
         }
+      };
+
+      try {
+        const user = await Auth.signIn(email, password)
+          .then((user) => {
+            if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
+              return Auth.completeNewPassword(user, password);
+            }
+            login(user, email);
+            return user;
+          })
+          .catch((err) => {
+            migrateFct(err);
+          });
+      } catch (error) {
+        migrateFct(error);
       }
     },
   });
@@ -112,7 +121,7 @@ export default function Login() {
   };
 
   const login = async (user, email) => {
-    const token = user.signInUserSession.idToken.jwtToken;
+    const token = user?.signInUserSession?.idToken?.jwtToken;
     const data = await loginWithCognito(email, token);
 
     if (data) {

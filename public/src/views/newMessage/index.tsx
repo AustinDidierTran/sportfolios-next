@@ -47,14 +47,6 @@ const newMessage: React.FunctionComponent = () => {
     createConversation(participantsId, creatorId).then((newConversationId) => {
       goTo(ROUTES.conversation, { id: newConversationId });
     });
-
-    console.log(
-      'les id des personnes participants de la convo sont : ',
-      participantsId,
-      'et le creator id : ',
-      creatorId
-    );
-    //goTo(ROUTES.conversation,{convoId});
   };
 
   const handleDeleteParticipant = (personId: string) => {
