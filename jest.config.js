@@ -15,6 +15,6 @@ module.exports = {
   },
   verbose: true,
   transformIgnorePatterns: [
-    'node_modules/(?!(i18next|i18n)/)'
+    '(?!(i18next|i18n))'
   ],
 };
