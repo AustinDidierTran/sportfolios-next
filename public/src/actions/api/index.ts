@@ -3,7 +3,6 @@ import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
 
 const api = async (route: string, { method, body }: { method?: string; body?: string } = {}): Promise<any> => {
-  const logthings = route === '/api/auth/migrate';
   const headers: any = { 'Content-Type': 'application/json' };
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;
 
