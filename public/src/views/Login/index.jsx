@@ -106,6 +106,7 @@ export default function Login() {
             if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
               return Auth.completeNewPassword(user, password);
             }
+            login(user, email);
             return user;
           })
           .catch((err) => {
@@ -113,7 +114,6 @@ export default function Login() {
             // [REFACTORING - Claude]
             migrateFct(err);
           });
-        login(user, email);
       } catch (error) {
         migrateFct(error);
         console.log('testing error code', error.code, AuthErrorTypes.NotAuthorizedException);
@@ -149,7 +149,7 @@ export default function Login() {
   };
 
   const login = async (user, email) => {
-    const token = user.signInUserSession.idToken.jwtToken;
+    const token = user?.signInUserSession?.idToken?.jwtToken;
     const data = await loginWithCognito(email, token);
 
     if (data) {
