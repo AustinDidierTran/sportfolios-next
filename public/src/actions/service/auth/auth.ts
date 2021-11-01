@@ -48,7 +48,7 @@ export async function migrate(email: string, password: string): Promise<any> {
       }),
     });
   } catch (err) {
-    console.error(err);
+    console.error('inside catch...', err);
     throw err;
   }
 }
