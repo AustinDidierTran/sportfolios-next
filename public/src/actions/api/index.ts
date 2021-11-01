@@ -20,6 +20,9 @@ const api = async (route: string, { method, body }: { method?: string; body?: st
 
   if (authToken && authToken !== 'null') {
     const dataAWS = await Auth.currentAuthenticatedUser();
+    if (!dataAWS) {
+      // Yeah, do nothing
+    }
     if (!dataAWS?.signInUserSession?.idToken?.jwtToken) {
       headers.Authorization = authToken;
     } else {
