@@ -20,6 +20,7 @@
     "@pwabuilder/pwaupdate": "^0.2.0",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.15.1",
+    "@swc/core": "^1.2.106",
     "@swc/jest": "^0.2.5",
     "aws-amplify": "^4.3.0",
     "axios": "^0.21.1",
