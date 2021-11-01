@@ -14,4 +14,7 @@ module.exports = {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
   verbose: true,
+  transformIgnorePatterns: [
+    'node_modules/(?!(@nuxtjs/svg-sprite|nuxt-i18n)/)'
+  ],
 };
