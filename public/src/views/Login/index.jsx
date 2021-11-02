@@ -29,7 +29,7 @@ import { ERROR_ENUM, errors } from '../../../common/errors';
 
 import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
-import { loginWithCognito, migrate } from '../../actions/service/auth/auth';
+import { loginWithCognito, migrate, loginWithCognitoToken } from '../../actions/service/auth/auth';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -50,6 +50,12 @@ export default function Login() {
       const route = redirectUrl || ROUTES.home;
       router.push(route);
     }
+    Auth.currentSession()
+      .then((res) => {
+        const token = res.getIdToken().getJwtToken();
+        loginWithCognitoToken(token).then((data) => redirect(data, token));
+      })
+      .catch((err) => {});
   }, [isAuthenticated]);
 
   const validationSchema = yup.object().shape({
@@ -123,7 +129,10 @@ export default function Login() {
   const login = async (user, email) => {
     const token = user?.signInUserSession?.idToken?.jwtToken;
     const data = await loginWithCognito(email, token);
+    redirect(data, token);
+  };
 
+  const redirect = async (data, token) => {
     if (data) {
       if (typeof data.data === 'string') {
         data.data = JSON.parse(data.data);
@@ -144,6 +153,9 @@ export default function Login() {
         goTo(ROUTES.home);
       }
     }
+  };
+  const loginGoogle = () => {
+    Auth.federatedSignIn({ provider: 'Google' });
   };
 
   return (
@@ -191,6 +203,19 @@ export default function Login() {
               }}
             >
               {t('login')}
+            </Button>
+          </CardActions>
+          <CardActions>
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              className={styles.button}
+              type="submit"
+              style={{ color: COLORS.white }}
+              onClick={loginGoogle}
+            >
+              {t('open_google')}
             </Button>
           </CardActions>
           <Divider />
