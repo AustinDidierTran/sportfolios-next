@@ -86,9 +86,15 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, [conversation]);
 
   const photoUrl = useMemo(() => {
-    const randomParticipant = otherParticipants[Math.floor(Math.random() * otherParticipants.length)];
-
-    return randomParticipant?.photoUrl;
+    if (!otherParticipants.length) {
+      return;
+    }
+    const possiblePictures = otherParticipants?.map((o) => o.photoUrl).filter((o) => o !== null);
+    if (possiblePictures.length === 0) {
+      return null;
+    }
+    const randomPhoto = possiblePictures[Math.floor(Math.random() * possiblePictures.length)];
+    return randomPhoto;
   }, [otherParticipants]);
 
   if (!convoId || !conversation) {
