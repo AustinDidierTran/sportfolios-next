@@ -21,6 +21,7 @@ export default function PersonSearchList(props) {
     style,
     autoFocus,
     inputRef,
+    participants,
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
@@ -120,7 +121,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      {query.value.length === 0 ? null : <PersonList items={options} />}
+      <PersonList participants={participants} items={options} />
     </>
   );
 }
