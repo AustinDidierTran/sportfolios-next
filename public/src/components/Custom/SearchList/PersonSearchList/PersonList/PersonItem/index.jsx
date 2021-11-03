@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,6 +10,7 @@ import { useCallback } from 'react';
 import styles from './PersonItem.module.css';
 import { goTo, ROUTES } from '../../../../../../actions/goTo';
 import CustomAvatar from '../../../../Avatar';
+import { Store } from '../../../../../../Store';
 
 export default function PersonItem(props) {
   const { t } = useTranslation();
@@ -27,10 +28,25 @@ export default function PersonItem(props) {
     secondaryActions, //secondaryAction is an array of components, this array should not contain more than 2 or 3 buttons
     notClickable,
     disabled,
+    participants,
   } = props;
+
+  const {
+    state: { userInfo: userInfo },
+  } = useContext(Store);
+
+  const alreadyParticipant = useMemo(() => {
+    if (participants.filter((p) => p.id === id).length === 1 || id === userInfo.primaryPerson?.personId) {
+      return true;
+    }
+    return false;
+  }, [participants]);
 
   const handleClick = useCallback(
     (e) => {
+      if (alreadyParticipant) {
+        return;
+      }
       if (onClick) {
         if (completeName) {
           onClick(e, { id, completeName });
@@ -62,6 +78,7 @@ export default function PersonItem(props) {
           secondaryAction: {
             paddingRight: 96,
           },
+          opacity: alreadyParticipant ? '0.4' : '1',
         }}
         disabled={disabled}
       >
