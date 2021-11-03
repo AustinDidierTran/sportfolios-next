@@ -19,13 +19,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PersonList(props) {
-  const { title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 
   const classes = useStyles();
 
   const defaultRowRenderer = (item, index) => {
     return (
-      <PersonItem {...otherProps} {...item} index={index} key={item?.key || index} selected={selectedIndex === index} />
+      <PersonItem
+        participants={participants}
+        {...otherProps}
+        {...item}
+        index={index}
+        key={item?.key || index}
+        selected={selectedIndex === index}
+      />
     );
   };
 
