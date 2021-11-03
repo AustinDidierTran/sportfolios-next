@@ -211,7 +211,6 @@ export default function Login() {
               color="primary"
               variant="contained"
               className={styles.button}
-              type="submit"
               style={{ color: COLORS.white }}
               onClick={loginGoogle}
             >
