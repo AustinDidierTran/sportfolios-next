@@ -21,6 +21,7 @@ export default function PersonSearchList(props) {
     style,
     autoFocus,
     inputRef,
+    participants,
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
