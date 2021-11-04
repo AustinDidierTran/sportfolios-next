@@ -1,6 +1,7 @@
 import { Person } from './entity';
 
 export interface User {
+  id: string;
   email: string;
   primaryPerson: Person;
 }

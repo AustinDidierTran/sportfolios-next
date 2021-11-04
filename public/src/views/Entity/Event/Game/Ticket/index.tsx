@@ -11,6 +11,7 @@ interface IProps {
 
 const Ticket: React.FunctionComponent<IProps> = (props) => {
   const { photoUrl, ticket } = props;
+  console.log({ ticket });
 
   return (
     <Paper className={styles.ticket}>

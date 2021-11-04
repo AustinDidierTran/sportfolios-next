@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './BasicInfos.module.css';
 
-import { Avatar } from '../../../components/Custom';
+import Avatar from '../../../components/Custom/Avatar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 

@@ -18,7 +18,7 @@ app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
-  }).listen(conf.port || 3000, (err) => {
+  }).listen(conf.PORT || 3000, (err) => {
     if (err) throw err;
     // eslint-disable-next-line no-console
     console.log(`> Ready on ${conf.CLIENT_BASE_URL}`);
