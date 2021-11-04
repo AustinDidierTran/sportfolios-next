@@ -491,6 +491,7 @@ export enum CART_ITEM {
 
 export enum SOCKET_EVENT {
   CONNECTED_USER = 'connectedUser',
+  MESSAGES = 'messages',
   NOTIFICATIONS = 'notifications',
 }
 

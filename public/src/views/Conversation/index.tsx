@@ -16,6 +16,7 @@ import CustomTextField from '../../components/Custom/TextField';
 import { getConversationMessages, sendMessage } from '../../actions/service/messaging';
 import { LoadingSpinner } from '../../components/Custom';
 import moment from 'moment';
+import { SOCKET_EVENT } from '../../../common/enums';
 
 interface IProps {
   convoId: string;
@@ -25,14 +26,25 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { convoId } = props;
   const {
-    state: { userInfo: userInfo },
+    state: { socket, userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
   const [conversation, setConversation] = useState<IConversationPreview>();
   const [messages, setMessages] = useState<IConversationMessage[]>();
 
+  useEffect(() => {
+    socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
+      if (convoId === message.conversationId) {
+        setMessages((messages) => [...messages, message]);
+      }
+    });
+  }, []);
+
   const updateConversation = useCallback(() => {
-    getConversationMessages(convoId).then(({ conversation, messages }) => {
+    getConversationMessages(convoId).then(({ conversation, messages } = { conversation: null, messages: [] }) => {
+      if (!conversation) {
+        return;
+      }
       setConversation(conversation);
       setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
     });
@@ -41,18 +53,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     updateConversation();
   }, [updateConversation]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      updateConversation();
-    }, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [updateConversation]);
-
-  //AJOUT BACKEND
 
   const content = useFormInput('');
 

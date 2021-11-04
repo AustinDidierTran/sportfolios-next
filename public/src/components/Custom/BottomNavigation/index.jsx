@@ -33,9 +33,11 @@ export default function CustomBottomNavigation() {
   const [value, setValue] = useState(null);
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
 
-  socket.on(SOCKET_EVENT.NOTIFICATIONS, (count) => {
-    setUnreadNotificationsCount(count);
-  });
+  useEffect(() => {
+    socket.on(SOCKET_EVENT.NOTIFICATIONS, (count) => {
+      setUnreadNotificationsCount(count);
+    });
+  }, []);
 
   const routeEnum = {
     [TABS_ENUM.HOME]: [ROUTES.home],
