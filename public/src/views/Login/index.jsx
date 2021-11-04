@@ -47,16 +47,6 @@ export default function Login() {
   } = React.useContext(Store);
 
   React.useEffect(() => {
-    try {
-      Auth.currentSession().then((res) => {
-        const token = res.getIdToken().getJwtToken();
-        loginWithCognitoToken(token).then((data) => redirect(data, token));
-      });
-    } catch (error) {
-      dispatch({ type: ACTION_ENUM.LOGOUT });
-      formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
-      return;
-    }
     if (isAuthenticated) {
       const route = redirectUrl || ROUTES.home;
       router.push(route);
