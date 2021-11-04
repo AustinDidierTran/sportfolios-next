@@ -30,6 +30,7 @@ import { ERROR_ENUM, errors } from '../../../common/errors';
 import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
 import { loginWithCognito, migrate, loginWithCognitoToken } from '../../actions/service/auth/auth';
+import { FEATURE_GOOGLE_LOGIN } from '../../../../feature-flags';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -46,16 +47,20 @@ export default function Login() {
   } = React.useContext(Store);
 
   React.useEffect(() => {
+    try {
+      Auth.currentSession().then((res) => {
+        const token = res.getIdToken().getJwtToken();
+        loginWithCognitoToken(token).then((data) => redirect(data, token));
+      });
+    } catch (error) {
+      dispatch({ type: ACTION_ENUM.LOGOUT });
+      formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+      return;
+    }
     if (isAuthenticated) {
       const route = redirectUrl || ROUTES.home;
       router.push(route);
     }
-    Auth.currentSession()
-      .then((res) => {
-        const token = res.getIdToken().getJwtToken();
-        loginWithCognitoToken(token).then((data) => redirect(data, token));
-      })
-      .catch((err) => {});
   }, [isAuthenticated]);
 
   const validationSchema = yup.object().shape({
@@ -133,12 +138,17 @@ export default function Login() {
   };
 
   const redirect = async (data, token) => {
-    if (data) {
+    if (!data.data) {
+      dispatch({ type: ACTION_ENUM.LOGOUT });
+      formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+    } else {
       if (typeof data.data === 'string') {
         data.data = JSON.parse(data.data);
       }
       const { userInfo } = data.data;
-
+      if (!userInfo) {
+        formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+      }
       dispatch({
         type: ACTION_ENUM.LOGIN,
         payload: token,
@@ -205,18 +215,21 @@ export default function Login() {
               {t('login')}
             </Button>
           </CardActions>
-          <CardActions>
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              className={styles.button}
-              style={{ color: COLORS.white }}
-              onClick={loginGoogle}
-            >
-              {t('open_google')}
-            </Button>
-          </CardActions>
+          {FEATURE_GOOGLE_LOGIN && (
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={styles.button}
+                style={{ color: COLORS.white }}
+                onClick={loginGoogle}
+              >
+                {t('open_google')}
+              </Button>
+            </CardActions>
+          )}
+
           <Divider />
           <CardActions className={styles.linksContainer}>
             <Typography
