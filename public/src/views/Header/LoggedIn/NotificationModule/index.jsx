@@ -19,6 +19,9 @@ export default function NotificationModule(props) {
     socket.on(SOCKET_EVENT.NOTIFICATIONS, (count) => {
       setUnreadNotificationsCount(count);
     });
+    return () => {
+      socket.off(SOCKET_EVENT.NOTIFICATIONS);
+    };
   }, []);
 
   const toggleNotification = () => {

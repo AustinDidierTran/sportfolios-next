@@ -37,6 +37,9 @@ export default function CustomBottomNavigation() {
     socket.on(SOCKET_EVENT.NOTIFICATIONS, (count) => {
       setUnreadNotificationsCount(count);
     });
+    return () => {
+      socket.off(SOCKET_EVENT.NOTIFICATIONS);
+    };
   }, []);
 
   const routeEnum = {
