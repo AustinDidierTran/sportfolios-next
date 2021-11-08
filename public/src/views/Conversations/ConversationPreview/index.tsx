@@ -27,7 +27,7 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
       .map((o) => o.photoUrl)
       .filter((o) => o !== null);
 
-    if (possiblePictures.length === 0) {
+    if (!possiblePictures || possiblePictures.length === 0) {
       return null;
     }
     const randomPhoto = possiblePictures[Math.floor(Math.random() * possiblePictures.length)];

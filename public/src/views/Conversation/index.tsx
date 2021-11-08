@@ -86,7 +86,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, [conversation]);
 
   const photoUrl = useMemo(() => {
-    if (!otherParticipants.length) {
+    if (!otherParticipants || !otherParticipants.length) {
       return;
     }
     const possiblePictures = otherParticipants?.map((o) => o.photoUrl).filter((o) => o !== null);
