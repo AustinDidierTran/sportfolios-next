@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useContext, useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { Store } from '../../Store';
@@ -55,6 +55,16 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   //AJOUT BACKEND
 
   const content = useFormInput('');
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const otherParticipants = useMemo(() => {
     if (!conversation) {
@@ -117,6 +127,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
             <FriendMessage message={m} />
           );
         })}
+        <div ref={messagesEndRef} />
       </div>
       <div className={styles.messageInput}>
         <CustomTextField
