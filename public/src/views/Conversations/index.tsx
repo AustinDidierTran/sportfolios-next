@@ -113,7 +113,7 @@ const Conversations: React.FunctionComponent = () => {
           <CardContent>
             <Divider className={styles.divider} />
             <List>
-              {orderedConversations?.map((c) => (
+              {orderedConversations.map((c) => (
                 <>
                   <ConversationPreview conversation={c} userInfo={userInfo} />
                   <Divider className={styles.divider} />
