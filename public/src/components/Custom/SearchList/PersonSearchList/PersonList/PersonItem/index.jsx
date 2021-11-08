@@ -36,7 +36,10 @@ export default function PersonItem(props) {
   } = useContext(Store);
 
   const alreadyParticipant = useMemo(() => {
-    if (participants.filter((p) => p.id === id).length === 1 || id === userInfo.primaryPerson?.personId) {
+    if (participants.filter((p) => p.id === id).length === 1) {
+      return true;
+    }
+    if (id === userInfo.primaryPerson?.personId) {
       return true;
     }
     return false;
