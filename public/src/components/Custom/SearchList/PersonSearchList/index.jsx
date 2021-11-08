@@ -117,7 +117,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      <PersonList items={options} />
+      {query.value.length === 0 ? null : <PersonList items={options} />}
     </>
   );
 }
