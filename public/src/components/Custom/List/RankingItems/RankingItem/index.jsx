@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import styles from './RankingItem.module.css';
 import Divider from '@material-ui/core/Divider';
-import { COLORS } from '../../../../utils/colors';
+import { COLORS } from '../../../../../utils/colors';
 
 export default function RankingItem(props) {
   const { index, name, positionName } = props;

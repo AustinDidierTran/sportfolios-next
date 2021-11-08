@@ -26,7 +26,7 @@ const PartnerItem = dynamic(() => import('./PartnerItem'));
 const PaymentOptionItem = dynamic(() => import('./PaymentOptionItem'));
 const PersonItem = dynamic(() => import('./PersonItem'));
 const PurchasesItem = dynamic(() => import('./PurchasesItem'));
-const RankingItem = dynamic(() => import('./RankingItem'));
+const RankingItem = dynamic(() => import('./RankingItems/RankingItem'));
 const RankingWithStatsItem = dynamic(() => import('./RankingWithStatsItem'));
 const RosterItem = dynamic(() => import('./RosterItem'));
 const SalesItem = dynamic(() => import('./SalesItem'));

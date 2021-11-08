@@ -6,23 +6,13 @@ import { updateRanking } from './RankingFunctions';
 import dynamic from 'next/dynamic';
 import { Store } from '../../Store';
 import { getPreranking, getTeamgames } from '../../actions/service/entity/get';
-import { Ranking as RankingType } from '../../../../typescript/types';
-import { ISpiritRanking } from '../../../../typescript/event';
+import { IPhase, IPreranking, ISpiritRanking } from '../../../../typescript/event';
 import { getEventRankings } from '../../actions/service/event';
 
 const PhaseRanking = dynamic(() => import('./PhaseRanking'));
 const Ranking = dynamic(() => import('./Ranking'));
+const Preranking = dynamic(() => import('./Preranking'));
 const SpiritRanking = dynamic(() => import('./SpiritRanking'));
-
-interface IRanking extends RankingType {
-  position: any;
-  teamId: string;
-}
-
-interface IPreranking extends RankingType {
-  position: any;
-  positionName: string;
-}
 
 const Rankings: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -31,12 +21,22 @@ const Rankings: React.FunctionComponent = () => {
   } = useContext(Store);
 
   const [preranking, setPreranking] = useState<IPreranking[]>([]);
-  const [prerankPhaseId, setPrerankPhaseId] = useState<string>();
-  const [spiritRanking, setSpiritRanking] = useState<[ISpiritRanking]>(null);
-  const [ranking, setRanking] = useState<IRanking[]>();
+  const [spiritRanking, setSpiritRanking] = useState<ISpiritRanking[]>(null);
+  const [phases, setPhases] = useState<IPhase[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getRankings = async () => {
+    const eventRankings = await getEventRankings(eventId);
+
+    console.log({ eventRankings });
+    setPreranking(eventRankings.prerank);
+    setPhases(eventRankings.phases);
+    setSpiritRanking(eventRankings.spirit);
+
+    setIsLoading(false);
+
+    return;
+
     const { preranking, prerankPhaseId } = await getPreranking(eventId);
 
     setPrerankPhaseId(prerankPhaseId);
@@ -66,7 +66,7 @@ const Rankings: React.FunctionComponent = () => {
       );
     }
 
-    const { spirit } = await getEventRankings(eventId);
+    // const { spirit } = await getEventRankings(eventId);
 
     setSpiritRanking(spirit);
 
@@ -82,7 +82,6 @@ const Rankings: React.FunctionComponent = () => {
       const rankingInfos = updateRanking(ranking, games);
       setRanking(rankingInfos);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -91,10 +90,12 @@ const Rankings: React.FunctionComponent = () => {
     }
   }, [eventId]);
 
+  console.log({ preranking });
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  if (!preranking.length && !ranking.length) {
+
+  if (!preranking.length) {
     return (
       <Typography color="textSecondary" style={{ margin: '16px' }}>
         {t('no.no_teams_registered')}
@@ -104,10 +105,13 @@ const Rankings: React.FunctionComponent = () => {
 
   return (
     <>
-      <Ranking ranking={preranking} title={t('preranking')} />
-      <PhaseRanking prerankPhaseId={prerankPhaseId} />
+      <Preranking preranking={preranking} />
+      {phases.map((phase) => (
+        <PhaseRanking key={phase.id} phase={phase} />
+      ))}
+      {/* 
       <Ranking ranking={ranking} title={t('statistics')} withStats withoutPosition />
-      <SpiritRanking spirit={spiritRanking} />
+      <SpiritRanking spirit={spiritRanking} /> */}
     </>
   );
 };

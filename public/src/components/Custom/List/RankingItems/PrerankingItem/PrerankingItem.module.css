@@ -1,0 +1,13 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  grid-template-areas: 'position name';
+}
+
+.position {
+  grid-area: position;
+  align-self: center;
+}
+.name {
+  grid-area: name;
+}
