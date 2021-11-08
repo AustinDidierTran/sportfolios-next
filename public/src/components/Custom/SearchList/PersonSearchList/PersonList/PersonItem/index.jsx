@@ -30,10 +30,6 @@ export default function PersonItem(props) {
     disabled,
   } = props;
 
-  const {
-    state: { userInfo: userInfo },
-  } = useContext(Store);
-
   const handleClick = useCallback(
     (e) => {
       if (onClick) {
@@ -67,7 +63,6 @@ export default function PersonItem(props) {
           secondaryAction: {
             paddingRight: 96,
           },
-          opacity: alreadyParticipant ? '0.4' : '1',
         }}
         disabled={disabled}
       >
