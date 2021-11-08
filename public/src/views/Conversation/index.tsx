@@ -35,9 +35,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
-        setMessages((messages) => [...messages, message]);
+        setMessages((messages) => {
+          return [...messages, message];
+        });
       }
     });
+    return () => {
+      socket.off(SOCKET_EVENT.MESSAGES);
+    };
   }, []);
 
   const updateConversation = useCallback(() => {
