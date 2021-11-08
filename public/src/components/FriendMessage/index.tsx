@@ -14,7 +14,7 @@ const FriendMessage: React.FunctionComponent<IProps> = (props) => {
 
   return (
     <div className={styles.friends}>
-      <Tooltip title={message.sender.name + ' ' + message.sender.surname}>
+      <Tooltip title={`${message.sender.name} ${message.sender.surname}`}>
         <div>
           <CustomAvatar className={styles.avatar} size="sm" photoUrl={message.sender.photoUrl} />
         </div>
