@@ -7,12 +7,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
-import styles from './PersonItem.module.css';
+import styles from './ParticipantsItem.module.css';
 import { goTo, ROUTES } from '../../../../../../actions/goTo';
 import CustomAvatar from '../../../../Avatar';
 import { Store } from '../../../../../../Store';
 
-export default function PersonItem(props) {
+export default function ParticipantsItem(props) {
   const { t } = useTranslation();
 
   const {
@@ -28,14 +28,28 @@ export default function PersonItem(props) {
     secondaryActions, //secondaryAction is an array of components, this array should not contain more than 2 or 3 buttons
     notClickable,
     disabled,
+    participants,
   } = props;
 
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
 
+  const alreadyParticipant = useMemo(() => {
+    if (participants.filter((p) => p.id === id).length === 1) {
+      return true;
+    }
+    if (id === userInfo.primaryPerson?.personId) {
+      return true;
+    }
+    return false;
+  }, [participants]);
+
   const handleClick = useCallback(
     (e) => {
+      if (alreadyParticipant) {
+        return;
+      }
       if (onClick) {
         if (completeName) {
           onClick(e, { id, completeName });

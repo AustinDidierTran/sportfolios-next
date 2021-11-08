@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import CustomTextField from '../../TextField';
 import CustomIcon from '../../Icon';
-import PersonList from './PersonList';
+import ParticipantsList from './ParticipantsList';
 import { globalSearch } from '../../../../actions/service/entity/get';
 
-export default function PersonSearchList(props) {
+export default function ParticipantsSearchList(props) {
   const {
     blackList,
     whiteList,
@@ -21,6 +21,7 @@ export default function PersonSearchList(props) {
     style,
     autoFocus,
     inputRef,
+    participants,
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
@@ -117,7 +118,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      <PersonList items={options} />
+      <ParticipantsList participants={participants} items={options} />
     </>
   );
 }

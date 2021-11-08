@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { useTranslation } from 'react-i18next';
 import IgContainer from '../../components/Custom/IgContainer';
 import { Typography } from '@material-ui/core';
-import PersonSearchList from '../../components/Custom/SearchList/PersonSearchList';
+import ParticipantsSearchList from '../../components/Custom/SearchList/ParticipantsSearchList';
 import { useFormInput } from '../../hooks/forms';
 import { getAllThePeople } from '../../actions/service/person/admin';
 import styles from './newMessage.module.css';
@@ -64,7 +64,7 @@ const newMessage: React.FunctionComponent = () => {
             {t('someone_new')}
           </Typography>
         </div>
-        <PersonSearchList
+        <ParticipantsSearchList
           className={styles.search}
           clearOnSelect={false}
           label={t('to')}
