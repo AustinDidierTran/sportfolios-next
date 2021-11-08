@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Login.module.css';
 
@@ -154,7 +154,8 @@ export default function Login() {
       }
     }
   };
-  const loginGoogle = () => {
+
+  const loginGoogle = async () => {
     Auth.federatedSignIn({ provider: 'Google' });
   };
 
