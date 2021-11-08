@@ -28,7 +28,6 @@ export default function PersonItem(props) {
     secondaryActions, //secondaryAction is an array of components, this array should not contain more than 2 or 3 buttons
     notClickable,
     disabled,
-    participants,
   } = props;
 
   const {
@@ -44,9 +43,6 @@ export default function PersonItem(props) {
 
   const handleClick = useCallback(
     (e) => {
-      if (alreadyParticipant) {
-        return;
-      }
       if (onClick) {
         if (completeName) {
           onClick(e, { id, completeName });

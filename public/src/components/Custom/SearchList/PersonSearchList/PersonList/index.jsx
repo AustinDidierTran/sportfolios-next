@@ -25,14 +25,7 @@ export default function PersonList(props) {
 
   const defaultRowRenderer = (item, index) => {
     return (
-      <PersonItem
-        participants={participants}
-        {...otherProps}
-        {...item}
-        index={index}
-        key={item?.key || index}
-        selected={selectedIndex === index}
-      />
+      <PersonItem {...otherProps} {...item} index={index} key={item?.key || index} selected={selectedIndex === index} />
     );
   };
 
