@@ -13,7 +13,7 @@ import ImageWarningDialog from '../Dialog/ImageWarningDialog';
 import AddParticipantsDialog from '../Dialog/AddParticipantsDialog';
 
 export default function Options(props) {
-  const { open, anchorEl, handleClose } = props;
+  const { open, anchorEl, handleClose, otherParticipants } = props;
   const [openChangeNickname, setOpenChangeNickname] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openAddParticipants, setOpenAddParticipants] = useState(false);
@@ -80,7 +80,11 @@ export default function Options(props) {
       </Menu>
       <ImageWarningDialog open={openChangeName} onClose={closeChangeName} />
       <ImageWarningDialog open={openChangeNickname} onClose={closeChangeNickname} />
-      <AddParticipantsDialog open={openAddParticipants} onClose={closeAddParticipants} />
+      <AddParticipantsDialog
+        open={openAddParticipants}
+        onClose={closeAddParticipants}
+        otherParticipants={otherParticipants}
+      />
       <ImageWarningDialog open={openRemoveParticipants} onClose={closeRemoveParticipants} />
     </div>
   );
