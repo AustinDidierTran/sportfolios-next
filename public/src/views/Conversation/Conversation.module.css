@@ -26,6 +26,14 @@
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+.grow {
+  flex-grow: 1;
+}
+.settings {
+  color: #787878 !important;
+  margin-right: 0.5rem !important;
+  margin-left: 0.5rem !important;
+}
 .exchange {
   margin-top: 1rem;
   flex: 1;

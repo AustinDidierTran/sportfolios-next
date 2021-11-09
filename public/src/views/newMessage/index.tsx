@@ -111,7 +111,7 @@ const newMessage: React.FunctionComponent = () => {
           <></>
         )}
         <Button className={styles.button} disabled={participants.length === 0} onClick={createConvo}>
-          {t('create_message')}
+          {t('create.create_message')}
         </Button>
       </div>
       <MessageDialog open={open} onClose={closeWarning} />
