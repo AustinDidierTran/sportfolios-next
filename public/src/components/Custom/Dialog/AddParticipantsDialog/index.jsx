@@ -8,9 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import Add from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
 import styles from './AddParticipantsDialog.module.css';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
 
 export default function ImageWarningDialog(props) {
-  const { open, onClose } = props;
+  const { open, onClose, otherParticipants } = props;
   const { t } = useTranslation();
 
   return (
@@ -23,7 +25,11 @@ export default function ImageWarningDialog(props) {
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          <Typography>{t('disclaimer_picture')} </Typography>
+          <List>
+            {otherParticipants.map((o) => (
+              <ListItemText primary={`${o.name} ${o.surname}`} />
+            ))}
+          </List>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant="text">
