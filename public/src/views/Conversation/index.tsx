@@ -6,6 +6,7 @@ import { IConversationMessage, IConversationPreview } from '../../../../typescri
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
+import Options from '../../components/Custom/Options';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import MyMessage from '../../components/MyMessage';
 import FriendMessage from '../../components/FriendMessage';
@@ -53,6 +54,15 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, [updateConversation]);
 
   //AJOUT BACKEND
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const content = useFormInput('');
 
@@ -124,6 +134,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         <Typography variant="h4" className={styles.name}>
           {name}
         </Typography>
+        <div className={styles.grow} />
+        <IconButton
+          icon="Settings"
+          size="large"
+          className={styles.settings}
+          tooltip={t('settings')}
+          onClick={handleClick}
+        />
       </div>
       <div className={styles.exchange}>
         {messages?.map((m: IConversationMessage) => {
@@ -153,6 +171,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           }}
         />
       </div>
+      <Options anchorEl={anchorEl} open={open} handleClose={handleClose} />
     </IgContainer>
   );
 };
