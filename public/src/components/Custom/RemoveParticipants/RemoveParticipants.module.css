@@ -1,0 +1,13 @@
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  width: 30rem;
+}
+.writing {
+  font-weight: 600 !important;
+}
+.remove {
+  margin-right: 0.5rem;
+}
