@@ -64,9 +64,8 @@ export default function Email() {
     },
   });
 
+  loadAddEmailConfig();
   const loginGoogle = async () => {
-    await loadAddEmailConfig();
-
     Auth.federatedSignIn({ provider: 'Google' });
   };
 

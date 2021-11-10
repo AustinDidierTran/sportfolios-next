@@ -1,39 +1,44 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Container from '../../../../components/Custom/Container';
-import Paper from '../../../../components/Custom/Paper';
+import Container from '../../../components/Custom/Container';
+import Paper from '../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 
 import styles from './addGmail.module.css';
 import { Auth } from 'aws-amplify';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { validEmail } from '../../../../actions/service/auth/auth';
-import { addEmail } from '../../../../actions/service/user';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { SEVERITY_ENUM, LOGO_ENUM } from '../../../../../common/enums';
-import { loadAddEmailConfig } from '../../../../utils/amplify/amplifyConfig';
+import { goTo, ROUTES } from '../../../actions/goTo';
+import { addEmail } from '../../../actions/service/user';
+import { ACTION_ENUM, Store } from '../../../Store';
+import { SEVERITY_ENUM, LOGO_ENUM } from '../../../../common/enums';
+import { loadSignupGoogleConfig } from '../../../utils/amplify/amplifyConfig.jsx';
+import { signupGoogleToken, validEmail } from '../../../actions/service/auth/auth';
 
 export default function googleLogin() {
   const { t } = useTranslation();
-  const {
-    dispatch,
-    state: { userInfo },
-  } = React.useContext(Store);
-  React.useEffect(() => {
-    verifEmail();
-  }, [userInfo]);
+  const { dispatch } = React.useContext(Store);
 
-  const verifEmail = async () => {
+  loadSignupGoogleConfig();
+
+  React.useEffect(() => {
+    signupGmail();
+  }, [dispatch]);
+
+  const signupGmail = async () => {
+    // await loadSignupGoogleConfig();
+    // Auth.federatedSignIn({ provider: 'Google' }).then((data) => {
+    //   console.log(data);
+    // });
+    console.log(window.location.hash);
     const data = await Auth.currentAuthenticatedUser();
-    const token = data.signInUserSession.idToken.jwtToken;
+    console.log(data);
     if (!data.signInUserSession.idToken.payload.identities) {
-      goTo(ROUTES.userSettings);
+      // goTo(ROUTES.signup);
     }
 
     if (data?.signInUserSession?.idToken?.payload?.identities[0].providerName !== 'Google') {
-      goTo(ROUTES.userSettings);
+      //goTo(ROUTES.userSettings);
     }
     const email = data.signInUserSession.idToken.payload.email;
     const emailValid = await validEmail(email);
@@ -44,21 +49,13 @@ export default function googleLogin() {
         severity: SEVERITY_ENUM.ERROR,
         duration: 2000,
       });
-      goTo(ROUTES.userSettings);
+      goTo(ROUTES.signup);
       return;
     }
 
-    addEmail(userInfo.userId, email, false).then((data) => {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('email_added'),
-        severity: SEVERITY_ENUM.ERROR,
-        duration: 2000,
-      });
-      goTo(ROUTES.userSettings);
-    });
+    const token = data.signInUserSession.idToken.jwtToken;
+    await signupGoogleToken(token);
   };
-  loadAddEmailConfig();
 
   return (
     <Container className={styles.container}>

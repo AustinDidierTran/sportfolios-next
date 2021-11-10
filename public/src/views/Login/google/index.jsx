@@ -13,10 +13,13 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import { loginWithCognitoToken } from '../../../actions/service/auth/auth';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { LOGO_ENUM } from '../../../../common/enums';
+import { loadLoginGoogleConfig } from '../../../utils/amplify/amplifyConfig.jsx';
 
 export default function googleLogin() {
   const { t } = useTranslation();
   const { dispatch } = React.useContext(Store);
+  loadLoginGoogleConfig();
+
   React.useEffect(() => {
     verifLogin();
   }, []);

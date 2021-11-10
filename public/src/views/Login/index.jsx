@@ -28,7 +28,7 @@ import { COLORS } from '../../utils/colors';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 
 import { Auth } from 'aws-amplify';
-import '../../utils/amplify/amplifyConfig.jsx';
+import { loadLoginGoogleConfig } from '../../utils/amplify/amplifyConfig.jsx';
 import { loginWithCognito, migrate, loginWithCognitoToken } from '../../actions/service/auth/auth';
 import { FEATURE_GOOGLE_LOGIN } from '../../../../feature-flags';
 
@@ -155,6 +155,7 @@ export default function Login() {
     }
   };
 
+  loadLoginGoogleConfig();
   const loginGoogle = async () => {
     Auth.federatedSignIn({ provider: 'Google' });
   };
