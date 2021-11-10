@@ -1,30 +1,28 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Auth, Hub } from 'aws-amplify';
+import Container from '../../../components/Custom/Container';
+import Paper from '../../../components/Custom/Paper';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
+import styles from './loginGoogle.module.css';
+
+import { Auth } from 'aws-amplify';
 import '../../../utils/amplify/amplifyConfig.jsx';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { loginWithCognitoToken } from '../../../actions/service/auth/auth';
 import { ACTION_ENUM, Store } from '../../../Store';
-
-Hub.listen('/.*/', (data) => {
-  console.log('hub', data);
-  // const { payload } = data;
-  // this.onAuthEvent(payload);
-  // console.log('A new auth event has happened: ', data.payload.data.username + ' has ' + data.payload.event);
-});
+import { LOGO_ENUM } from '../../../../common/enums';
 
 export default function googleLogin() {
-  //Auth.federatedSignIn({ provider: 'Google' });
+  const { t } = useTranslation();
   const { dispatch } = React.useContext(Store);
   React.useEffect(() => {
     verifLogin();
-  });
+  }, []);
 
   const verifLogin = async () => {
     const data = await Auth.currentAuthenticatedUser();
-    // console.log(data);
-    // console.log(data.signInUserSession.idToken.payload.identities[0].providerName);
     const token = data.signInUserSession.idToken.jwtToken;
     if (data.signInUserSession.idToken.payload.identities[0].providerName !== 'Google') {
       goTo(ROUTES.login);
@@ -54,8 +52,15 @@ export default function googleLogin() {
   };
 
   return (
-    <div>
-      <p>Veuillez patienter pendant la validation de votre identite!</p>
-    </div>
+    <Container className={styles.container}>
+      <div className={styles.logo}>
+        <img src={LOGO_ENUM.LOGO_512X512} height="200px" width="200px" />
+      </div>
+      <Paper className={styles.card}>
+        <CardContent>
+          <Typography>{t('wait_before_redirection')}</Typography>
+        </CardContent>
+      </Paper>
+    </Container>
   );
 }

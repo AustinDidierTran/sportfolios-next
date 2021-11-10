@@ -1249,6 +1249,10 @@ export default {
     getting_involved: "Je suis intéressé à m'impliquer dans cette organisation",
     get_a_new_link: 'Obtenir un nouveau lien',
     go_back_to_login: 'Retourner à la connexion',
+    google: {
+      add_gmail: 'Ajouter un compte google',
+      login_google: 'Connexion avec Google',
+    },
     go_to_cart_to_pay_membership: 'Aller à votre panier pour payer votre affiliation maintenant!',
     go_to_cart: 'Aller à mon panier',
     go_to_event: "Aller vers l'événement",
@@ -1698,6 +1702,7 @@ export default {
     volleyball: 'Volleyball',
     vs: 'vs',
     waiting_for_payment: 'Votre paiement est en cours de traitement. Merci pour votre patience.',
+    wait_before_redirection: 'Veuillez patienter. Vous serez bientôt redirigé.',
     warning: 'Attention',
     website: 'Site web',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',

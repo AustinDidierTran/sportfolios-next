@@ -216,7 +216,7 @@ export default function Login() {
                 style={{ color: COLORS.white }}
                 onClick={loginGoogle}
               >
-                {t('open_google')}
+                {t('google.login_google')}
               </Button>
             </CardActions>
           )}

@@ -1233,6 +1233,10 @@ export default {
     get_a_new_link: 'Get a new link',
     getting_involved: 'I am interested in getting involved in this organization',
     go_back_to_login: 'Go back to login',
+    google: {
+      add_gmail: 'Add a Google account',
+      login_google: 'Login with Google',
+    },
     go_to_cart_to_pay_membership: 'Go to your cart to pay your membership now!',
     go_to_cart: 'Go to cart',
     go_to_event: 'Go to event',
@@ -1681,6 +1685,7 @@ export default {
     vs: 'vs',
     warning: 'Warning',
     waiting_for_payment: 'Your payment is being processed. Thank you for your patience',
+    wait_before_redirection: 'Please wait. You will soon be redirected.',
     website: 'Website',
     with_taxes_the_total_for_a_player_is: 'With taxes, the total for a player is {{total}}$',
     with_taxes_the_total_for_a_team_is: 'With taxes, the total for a team is {{total}}$',

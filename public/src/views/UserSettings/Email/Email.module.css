@@ -12,10 +12,3 @@
 .linksContainer {
   justify-content: space-between;
 }
-.button {
-  width: 100%;
-}
-.addEmail {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-}

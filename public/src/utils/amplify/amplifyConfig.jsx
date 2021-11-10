@@ -15,7 +15,7 @@ Amplify.Auth.configure({
   },
 });
 
-export const loadAddEmailConfig = () => {
+export const loadAddEmailConfig = async () => {
   Amplify.configure({
     Auth: {
       region: REGION,
@@ -24,7 +24,7 @@ export const loadAddEmailConfig = () => {
       oauth: {
         domain: 'devsportfoliosapp.auth.us-east-2.amazoncognito.com',
         scope: ['email', 'profile', 'openid'],
-        redirectSignIn: 'https://localhost:3000/page/userSettings',
+        redirectSignIn: 'https://localhost:3000/page/userSettings/google',
         redirectSignOut: 'https://localhost:3000/page/login',
         responseType: 'token',
       },
