@@ -11,6 +11,9 @@ import ChangeNickname from '../ChangeNickname';
 import RemoveParticipants from '../RemoveParticipants';
 import ImageWarningDialog from '../Dialog/ImageWarningDialog';
 import AddParticipantsDialog from '../Dialog/AddParticipantsDialog';
+import ChangeNameDialog from '../Dialog/ChangeNameDialog';
+import ChangeNicknameDialog from '../Dialog/ChangeNicknameDialog';
+import RemoveParticipantsDialog from '../Dialog/RemoveParticipantsDialog';
 
 export default function Options(props) {
   const { open, anchorEl, handleClose, otherParticipants } = props;
@@ -78,14 +81,22 @@ export default function Options(props) {
           <RemoveParticipants />
         </MenuItem>
       </Menu>
-      <ImageWarningDialog open={openChangeName} onClose={closeChangeName} />
-      <ImageWarningDialog open={openChangeNickname} onClose={closeChangeNickname} />
+      <ChangeNameDialog open={openChangeName} onClose={closeChangeName} otherParticipants={otherParticipants} />
+      <ChangeNicknameDialog
+        open={openChangeNickname}
+        onClose={closeChangeNickname}
+        otherParticipants={otherParticipants}
+      />
       <AddParticipantsDialog
         open={openAddParticipants}
         onClose={closeAddParticipants}
         otherParticipants={otherParticipants}
       />
-      <ImageWarningDialog open={openRemoveParticipants} onClose={closeRemoveParticipants} />
+      <RemoveParticipantsDialog
+        open={openRemoveParticipants}
+        onClose={closeRemoveParticipants}
+        otherParticipants={otherParticipants}
+      />
     </div>
   );
 }
