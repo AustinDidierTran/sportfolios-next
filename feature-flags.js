@@ -1,1 +1,1 @@
-export const FEATURE_MESSAGES_ENABLED = true;
+export const FEATURE_MESSAGES_ENABLED = false;
