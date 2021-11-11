@@ -16,7 +16,7 @@ import ChangeNicknameDialog from '../Dialog/ChangeNicknameDialog';
 import RemoveParticipantsDialog from '../Dialog/RemoveParticipantsDialog';
 
 export default function Options(props) {
-  const { open, anchorEl, handleClose, otherParticipants } = props;
+  const { open, anchorEl, handleClose, otherParticipants, id } = props;
   const [openChangeNickname, setOpenChangeNickname] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openAddParticipants, setOpenAddParticipants] = useState(false);
@@ -66,7 +66,6 @@ export default function Options(props) {
         getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        className={styles.options}
       >
         <MenuItem onClick={handleChangeName}>
           <ChangeName />
@@ -86,6 +85,7 @@ export default function Options(props) {
         open={openChangeNickname}
         onClose={closeChangeNickname}
         otherParticipants={otherParticipants}
+        id={id}
       />
       <AddParticipantsDialog
         open={openAddParticipants}

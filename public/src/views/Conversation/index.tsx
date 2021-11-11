@@ -171,7 +171,13 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           }}
         />
       </div>
-      <Options anchorEl={anchorEl} open={open} handleClose={handleClose} otherParticipants={otherParticipants} />
+      <Options
+        anchorEl={anchorEl}
+        open={open}
+        handleClose={handleClose}
+        otherParticipants={otherParticipants}
+        id={conversation.id}
+      />
     </IgContainer>
   );
 };
