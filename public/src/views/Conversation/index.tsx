@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useContext, useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { Store } from '../../Store';
@@ -56,6 +56,16 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
   const content = useFormInput('');
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const otherParticipants = useMemo(() => {
     if (!conversation) {
       return [];
@@ -86,9 +96,15 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, [conversation]);
 
   const photoUrl = useMemo(() => {
-    const randomParticipant = otherParticipants[Math.floor(Math.random() * otherParticipants.length)];
-
-    return randomParticipant?.photoUrl;
+    if (!otherParticipants || !otherParticipants.length) {
+      return;
+    }
+    const possiblePictures = otherParticipants?.map((o) => o.photoUrl).filter((o) => o !== null);
+    if (!possiblePictures || possiblePictures.length === 0) {
+      return null;
+    }
+    const randomPhoto = possiblePictures[Math.floor(Math.random() * possiblePictures.length)];
+    return randomPhoto;
   }, [otherParticipants]);
 
   if (!convoId || !conversation) {
@@ -117,6 +133,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
             <FriendMessage message={m} />
           );
         })}
+        <div ref={messagesEndRef} />
       </div>
       <div className={styles.messageInput}>
         <CustomTextField

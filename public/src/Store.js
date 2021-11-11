@@ -232,9 +232,18 @@ export function StoreProvider(props) {
   };
 
   const init = async () => {
-    const authToken = handleLocalAuthToken(localStorage.getItem('authToken'));
+    const tempAuthToken = handleLocalAuthToken(localStorage.getItem('authToken'));
+    if (tempAuthToken) {
+      try {
+        const dataAWS = await Auth.currentAuthenticatedUser();
+        if (dataAWS?.signInUserSession?.idToken?.jwtToken !== tempAuthToken) {
+          localStorage.setItem('authToken', dataAWS.signInUserSession.idToken.jwtToken);
+        }
+      } catch (err) {
+        // user is probably not authenticated
+      }
+      const authToken = handleLocalAuthToken(localStorage.getItem('authToken'));
 
-    if (authToken) {
       const res = await fetch(`${API_BASE_URL}/api/user/userInfo`, {
         headers: {
           Authorization: authToken,
