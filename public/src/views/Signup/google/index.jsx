@@ -26,19 +26,13 @@ export default function googleLogin() {
   }, [dispatch]);
 
   const signupGmail = async () => {
-    // await loadSignupGoogleConfig();
-    // Auth.federatedSignIn({ provider: 'Google' }).then((data) => {
-    //   console.log(data);
-    // });
-    console.log(window.location.hash);
     const data = await Auth.currentAuthenticatedUser();
-    console.log(data);
     if (!data.signInUserSession.idToken.payload.identities) {
-      // goTo(ROUTES.signup);
+      goTo(ROUTES.signup);
     }
 
     if (data?.signInUserSession?.idToken?.payload?.identities[0].providerName !== 'Google') {
-      //goTo(ROUTES.userSettings);
+      goTo(ROUTES.userSettings);
     }
     const email = data.signInUserSession.idToken.payload.email;
     const emailValid = await validEmail(email);
@@ -55,6 +49,14 @@ export default function googleLogin() {
 
     const token = data.signInUserSession.idToken.jwtToken;
     await signupGoogleToken(token);
+    dispatch({
+      type: ACTION_ENUM.SNACK_BAR,
+      message: t('signup_done'),
+      severity: SEVERITY_ENUM.SUCCESS,
+      duration: 2000,
+    });
+
+    goTo(ROUTES.login);
   };
 
   return (

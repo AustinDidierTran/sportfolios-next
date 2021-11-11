@@ -1557,6 +1557,7 @@ export default {
     show_more: 'Show more',
     show_password: 'Show password',
     signup: 'Signup',
+    signup_done: "Signup done",
     six_month: 'Six Month',
     size: 'Size',
     sizes_enum_l: 'Large',
