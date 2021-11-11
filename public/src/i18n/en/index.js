@@ -852,6 +852,7 @@ export default {
       none_feminine: 'None',
       none: 'None',
       not_specified: 'Not specified',
+      no_nickname: 'No nickname',
     },
     partner: {
       partner: 'Partner',

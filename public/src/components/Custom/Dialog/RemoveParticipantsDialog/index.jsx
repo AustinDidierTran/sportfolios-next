@@ -10,24 +10,49 @@ import { useTranslation } from 'react-i18next';
 import styles from './RemoveParticipantsDialog.module.css';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+import Avatar from '../../Avatar';
 
 export default function RemoveParticipantsDialog(props) {
   const { open, onClose, otherParticipants } = props;
   const { t } = useTranslation();
 
+  const nickname = (participant) => {
+    if (!participant.nickname) {
+      return t('no.no_nickname');
+    }
+    return participant.nickname;
+  };
+
   return (
     <div>
-      <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
+      <Dialog
+        className={styles.dialog}
+        open={open}
+        onClose={onClose}
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
+        fullWidth="true"
+      >
         <DialogTitle>
           <div className={styles.title}>
-            <Delete className={styles.delete} fontSize="medium" />
+            <Delete className={styles.face} fontSize="medium" />
             <Typography variant="h6">{t('delete.delete_participants')}</Typography>
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          <List>
+          <List className={styles.list}>
             {otherParticipants.map((o) => (
-              <ListItemText primary={`${o.name} ${o.surname}`} />
+              <div className={styles.member}>
+                <div className={styles.profile}>
+                  <Avatar photoUrl={o.photoUrl} className={styles.avatar} />
+                  <div className={styles.text}>
+                    <Typography className={styles.name}>{`${o.name} ${o.surname}`}</Typography>
+                    <Typography className={styles.nickname}>{nickname(o)}</Typography>
+                  </div>
+                </div>
+                <div className={styles.grow} />
+                <Delete className={styles.create} />
+              </div>
             ))}
           </List>
         </DialogContent>
