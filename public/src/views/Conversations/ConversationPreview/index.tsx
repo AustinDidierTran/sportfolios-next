@@ -19,10 +19,19 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
 
   const photoUrl = useMemo(() => {
-    const otherParticipants = conversation.participants.filter((p) => p.id !== userInfo.primaryPerson?.personId);
-    const randomParticipant = otherParticipants[Math.floor(Math.random() * otherParticipants.length)];
+    if (!conversation.participants.length) {
+      return;
+    }
+    const possiblePictures = conversation.participants
+      .filter((p) => p.id !== userInfo.primaryPerson?.personId)
+      .map((o) => o.photoUrl)
+      .filter((o) => o !== null);
 
-    return randomParticipant.photoUrl;
+    if (!possiblePictures || possiblePictures.length === 0) {
+      return null;
+    }
+    const randomPhoto = possiblePictures[Math.floor(Math.random() * possiblePictures.length)];
+    return randomPhoto;
   }, [conversation.participants]);
 
   const primary = useMemo(() => {

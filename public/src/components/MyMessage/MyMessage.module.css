@@ -9,6 +9,7 @@
 .bubble {
   margin-right: 2rem;
   background-color: #18b393;
+  width: fit-content;
   max-width: 60%;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -16,8 +17,10 @@
   padding-right: 1.5rem;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
+  word-wrap: break-word;
 }
 .text {
   color: white;
   text-align: justify;
+  word-wrap: break-word;
 }
