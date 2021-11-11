@@ -6,7 +6,7 @@ import Paper from '../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 
-import styles from './addGmail.module.css';
+import styles from './SignupGmail.module.css';
 import { Auth } from 'aws-amplify';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { addEmail } from '../../../actions/service/user';

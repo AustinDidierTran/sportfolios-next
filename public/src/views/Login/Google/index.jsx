@@ -5,7 +5,7 @@ import Container from '../../../components/Custom/Container';
 import Paper from '../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import styles from './loginGoogle.module.css';
+import styles from './LoginGoogle.module.css';
 
 import { Auth } from 'aws-amplify';
 import '../../../utils/amplify/amplifyConfig.jsx';
