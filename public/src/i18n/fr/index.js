@@ -1252,6 +1252,7 @@ export default {
     google: {
       add_gmail: 'Ajouter un compte google',
       login_google: 'Connexion avec Google',
+      signup: 'S\'enregistrer avec Google',
     },
     go_to_cart_to_pay_membership: 'Aller à votre panier pour payer votre affiliation maintenant!',
     go_to_cart: 'Aller à mon panier',

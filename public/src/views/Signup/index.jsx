@@ -32,6 +32,7 @@ import i18n from '../../i18n';
 
 import { Auth } from 'aws-amplify';
 import { loadSignupGoogleConfig } from '../../utils/amplify/amplifyConfig.jsx';
+import { FEATURE_GOOGLE_LOGIN } from '../../../../feature-flags';
 
 export default function Signup() {
   const { t } = useTranslation();
@@ -187,18 +188,20 @@ export default function Signup() {
               {t('signup')}
             </Button>
           </CardActions>
-          <CardActions>
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              className={styles.button}
-              style={{ color: COLORS.white }}
-              onClick={signupGoogle}
-            >
-              {t('signup_google')}
-            </Button>
-          </CardActions>
+          {FEATURE_GOOGLE_LOGIN && (
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={styles.button}
+                style={{ color: COLORS.white }}
+                onClick={signupGoogle}
+              >
+                {t('google.signup')}
+              </Button>
+            </CardActions>
+          )}
           <Divider />
           <CardActions className={styles.linksContainer}>
             <div className={styles.typo} onClick={() => goTo(ROUTES.login)}>

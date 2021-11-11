@@ -1236,6 +1236,7 @@ export default {
     google: {
       add_gmail: 'Add a Google account',
       login_google: 'Login with Google',
+      signup: 'Signup with Google',
     },
     go_to_cart_to_pay_membership: 'Go to your cart to pay your membership now!',
     go_to_cart: 'Go to cart',
