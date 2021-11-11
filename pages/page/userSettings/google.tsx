@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../../public/common/enums';
 
-const UserSettingsGoogle = dynamic(() => import('../../../public/src/views/UserSettings/Email/google'));
+const UserSettingsGoogle = dynamic(() => import('../../../public/src/views/UserSettings/Email/Google'));
 
 const GoogleLoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

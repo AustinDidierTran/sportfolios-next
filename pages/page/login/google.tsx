@@ -5,7 +5,7 @@ import { CLIENT_BASE_URL } from '../../../conf';
 import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const GoogleLogin = dynamic(() => import('../../../public/src/views/Login/google'));
+const GoogleLogin = dynamic(() => import('../../../public/src/views/Login/Google'));
 
 const GoogleLoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
