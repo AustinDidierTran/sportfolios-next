@@ -176,7 +176,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         open={open}
         handleClose={handleClose}
         otherParticipants={otherParticipants}
-        id={conversation.id}
+        conversationId={conversation.id}
       />
     </IgContainer>
   );

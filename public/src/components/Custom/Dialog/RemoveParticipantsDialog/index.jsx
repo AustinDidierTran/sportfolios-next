@@ -13,7 +13,7 @@ import List from '@material-ui/core/List';
 import Avatar from '../../Avatar';
 
 export default function RemoveParticipantsDialog(props) {
-  const { open, onClose, otherParticipants } = props;
+  const { open, onClose, otherParticipants, conversationId } = props;
   const { t } = useTranslation();
 
   const nickname = (participant) => {
@@ -21,6 +21,10 @@ export default function RemoveParticipantsDialog(props) {
       return t('no.no_nickname');
     }
     return participant.nickname;
+  };
+
+  const handleDelete = (participant) => {
+    console.log(participant.name, 'is removed from conversation ', conversationId);
   };
 
   return (
@@ -51,7 +55,7 @@ export default function RemoveParticipantsDialog(props) {
                   </div>
                 </div>
                 <div className={styles.grow} />
-                <Delete className={styles.create} />
+                <Delete className={styles.delete} onClick={() => handleDelete(o)} />
               </div>
             ))}
           </List>
