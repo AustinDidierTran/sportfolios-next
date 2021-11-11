@@ -21,7 +21,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { useFormInput } from '../../../../hooks/forms';
 
 export default function ChangeNicknameDialog(props) {
-  const { open, onClose, otherParticipants, id } = props;
+  const { open, onClose, otherParticipants, conversationId } = props;
   const { t } = useTranslation();
   const [members, setMembers] = useState(otherParticipants.map((participant) => ({ ...participant, clicked: false })));
   const content = useFormInput('');
@@ -37,7 +37,14 @@ export default function ChangeNicknameDialog(props) {
 
   const handleConfirmed = (participant) => {
     if (open) {
-      console.log('nouveau surnom de ', participant.name, 'est : ', content.value, 'de la conversation ', id);
+      console.log(
+        'nouveau surnom de ',
+        participant.name,
+        'est : ',
+        content.value,
+        'de la conversation ',
+        conversationId
+      );
       let newMembers = members;
       const index = members.indexOf(participant);
       newMembers[index].clicked = false;
