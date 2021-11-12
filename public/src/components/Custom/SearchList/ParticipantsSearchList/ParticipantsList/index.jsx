@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ParticipantsList(props) {
-  const { participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { otherParticipants, participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 
   const classes = useStyles();
 
@@ -26,6 +26,7 @@ export default function ParticipantsList(props) {
     return (
       <ParticipantsItem
         participants={participants}
+        otherParticipants={otherParticipants}
         {...otherProps}
         {...item}
         index={index}

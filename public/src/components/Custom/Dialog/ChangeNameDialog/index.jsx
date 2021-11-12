@@ -10,11 +10,23 @@ import { useTranslation } from 'react-i18next';
 import styles from './ChangeNameDialog.module.css';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+import { useFormInput } from '../../../../hooks/forms';
+import CustomTextField from '../../TextField';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 export default function ChangeNameDialog(props) {
-  const { open, onClose, otherParticipants } = props;
+  const { open, onClose, otherParticipants, conversationId } = props;
   const { t } = useTranslation();
+  const content = useFormInput('');
 
+  const handleConfirmed = () => {
+    console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
+    content.reset();
+  };
+  const handleCanceled = () => {
+    content.reset();
+  };
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
@@ -25,11 +37,24 @@ export default function ChangeNameDialog(props) {
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          <List>
-            {otherParticipants.map((o) => (
-              <ListItemText primary={`${o.name} ${o.surname}`} />
-            ))}
-          </List>
+          <div className={styles.center}>
+            <CustomTextField
+              {...content.inputProps}
+              placeholder={t('type_here')}
+              className={styles.textField}
+              multiline
+              rowsMax={Infinity}
+              inputProps={{ className: styles.writing }}
+              InputProps={{
+                disableUnderline: true,
+                endAdornment: (
+                  <div style={{ display: 'flex' }}>
+                    <CheckCircleIcon className={styles.check} onClick={handleConfirmed} />
+                  </div>
+                ),
+              }}
+            />
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant="text">

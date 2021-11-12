@@ -22,6 +22,7 @@ export default function ParticipantsSearchList(props) {
     autoFocus,
     inputRef,
     participants,
+    otherParticipants,
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
@@ -118,7 +119,7 @@ export default function ParticipantsSearchList(props) {
           }}
         />
       )}
-      <ParticipantsList participants={participants} items={options} />
+      <ParticipantsList participants={participants} items={options} otherParticipants={otherParticipants} />
     </>
   );
 }
