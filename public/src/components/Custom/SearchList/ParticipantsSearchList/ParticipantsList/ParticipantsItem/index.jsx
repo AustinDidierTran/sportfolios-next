@@ -29,6 +29,7 @@ export default function ParticipantsItem(props) {
     notClickable,
     disabled,
     participants,
+    otherParticipants,
   } = props;
 
   const {
@@ -41,6 +42,11 @@ export default function ParticipantsItem(props) {
     }
     if (id === userInfo.primaryPerson?.personId) {
       return true;
+    }
+    if (otherParticipants) {
+      if (otherParticipants.filter((p) => p.id === id).length === 1) {
+        return true;
+      }
     }
     return false;
   }, [participants]);

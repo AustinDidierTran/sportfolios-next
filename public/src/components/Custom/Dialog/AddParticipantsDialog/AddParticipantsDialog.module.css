@@ -8,3 +8,28 @@
 .add {
   margin-right: 0.5rem;
 }
+
+.chip {
+  margin-top: 1rem;
+  margin-right: 0.3rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+}
+.button {
+  color: white !important;
+  background-color: #18b393 !important;
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+}
+.confirmDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.done {
+  color: white !important;
+  margin-left: 0.5rem;
+}

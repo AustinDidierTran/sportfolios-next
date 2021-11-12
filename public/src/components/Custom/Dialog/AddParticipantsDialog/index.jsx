@@ -1,5 +1,6 @@
-import React from 'react';
-import Button from '../../Button';
+import React, { useState, useRef } from 'react';
+import { default as CloseButton } from '../../Button';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,14 +11,45 @@ import { useTranslation } from 'react-i18next';
 import styles from './AddParticipantsDialog.module.css';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+import { useFormInput } from '../../../../hooks/forms';
+import ParticipantsSearchList from '../../SearchList/ParticipantsSearchList';
+import { Chip } from '@material-ui/core';
+import DoneIcon from '@material-ui/icons/Done';
 
 export default function AddParticipantsDialog(props) {
-  const { open, onClose, otherParticipants } = props;
+  const { open, onClose, otherParticipants, conversationId } = props;
   const { t } = useTranslation();
+  const query = useFormInput('');
+  const inputRef = useRef(null);
+  const [newParticipants, setNewParticipants] = useState([]);
+
+  const handleDeleteParticipant = (personId) => {
+    setNewParticipants(newParticipants.filter((e) => e.id != personId));
+  };
+
+  const addNewFriend = async (person) => {
+    setNewParticipants([...newParticipants, person]);
+  };
+
+  const addParticipants = () => {
+    console.log(
+      'Add ',
+      newParticipants.map((p) => p.completeName),
+      'to the convo ',
+      conversationId
+    );
+    setNewParticipants([]);
+  };
 
   return (
     <div>
-      <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
+      <Dialog
+        open={open}
+        onClose={onClose}
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
+        fullWidth="true"
+      >
         <DialogTitle>
           <div className={styles.title}>
             <Add className={styles.add} fontSize="medium" />
@@ -25,16 +57,49 @@ export default function AddParticipantsDialog(props) {
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          <List>
-            {otherParticipants.map((o) => (
-              <ListItemText primary={`${o.name} ${o.surname}`} />
-            ))}
-          </List>
+          <div className={styles.content}>
+            <ParticipantsSearchList
+              className={styles.search}
+              clearOnSelect={false}
+              label={t('search')}
+              onClick={addNewFriend}
+              query={query}
+              secondary={t('player')}
+              withoutIcon
+              autoFocus
+              inputRef={inputRef}
+              participants={newParticipants}
+              otherParticipants={otherParticipants}
+            />
+            {newParticipants.length ? (
+              <List>
+                {newParticipants.map((p) => (
+                  <Chip
+                    className={styles.chip}
+                    label={p.completeName}
+                    color="primary"
+                    variant="outlined"
+                    onDelete={() => handleDeleteParticipant(p.id)}
+                  />
+                ))}
+              </List>
+            ) : (
+              <></>
+            )}
+            <Button className={styles.button} onClick={addParticipants}>
+              <div className={styles.confirmDisplay}>
+                <Typography className={styles.confirm} variant="body2">
+                  {t('confirm')}
+                </Typography>
+                <DoneIcon className={styles.done} />
+              </div>
+            </Button>
+          </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} variant="text">
+          <CloseButton onClick={onClose} variant="text">
             {t('close')}
-          </Button>
+          </CloseButton>
         </DialogActions>
       </Dialog>
     </div>
