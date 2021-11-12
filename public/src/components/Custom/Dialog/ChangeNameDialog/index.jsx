@@ -31,6 +31,13 @@ export default function ChangeNameDialog(props) {
     });
   };
 
+  const handleConfirmed = () => {
+    console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
+    content.reset();
+  };
+  const handleCanceled = () => {
+    content.reset();
+  };
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">
