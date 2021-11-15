@@ -79,6 +79,12 @@ export default function Options(props) {
         conversationId={conversationId}
         updateConversation={updateConversation}
       />
+      <QuitConvoDialog
+        open={openQuitConvo}
+        onClose={closeQuitConvo}
+        otherParticipants={otherParticipants}
+        conversationId={conversationId}
+      />
     </div>
   );
 }
