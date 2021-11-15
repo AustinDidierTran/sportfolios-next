@@ -1014,6 +1014,8 @@ export default {
     at: 'at',
     athlete_history: 'Athlete history',
     attendances: 'Attendances',
+    are_you_sure_quit:
+      'Do you really want to quit this conversation ? You will not be able to write or read messages in this group.',
     awaiting_your_approval: 'Awaiting your approval',
     back_to_shop: 'Back to shop',
     back: 'Back',
@@ -1462,6 +1464,8 @@ export default {
     quick_description: 'Short description',
     quit_interactive_tool_confirmation: 'Changes have been made. Are you sure you want to quit without saving them?',
     quit_interactive_tool: 'WARNING',
+    quit_conversation: 'Quit conversation',
+    quit: 'Quit',
     ranking: 'Ranking',
     rankings: 'Rankings',
     ranking_saved: 'Ranking saved!',

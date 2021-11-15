@@ -1022,6 +1022,8 @@ export default {
     at: 'à',
     athlete_history: "Historique de l'athlète",
     attendances: 'Présences',
+    are_you_sure_quit:
+      'Voulez-vous vraiment quitter la conversaiton ? Vous ne pourrez ni voir ni écrire dans le groupe. ',
     awaiting_your_approval: 'En attente de votre approbation',
     back_to_shop: 'Revenir au magasin',
     back: 'Revenir',
@@ -1478,6 +1480,8 @@ export default {
     quick_description: 'Description courte',
     quit_interactive_tool_confirmation: 'Des changements ont été apportés. Voulez-vous quitter sans les sauvergarder?',
     quit_interactive_tool: 'AVERTISSEMENT',
+    quit_conversation: 'Quitter la conversation',
+    quit: 'Quitter',
     ranking: 'Classement',
     rankings: 'Classements',
     ranking_saved: 'Classement sauvegardé!',

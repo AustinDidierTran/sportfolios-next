@@ -14,13 +14,16 @@ import AddParticipantsDialog from '../Dialog/AddParticipantsDialog';
 import ChangeNameDialog from '../Dialog/ChangeNameDialog';
 import ChangeNicknameDialog from '../Dialog/ChangeNicknameDialog';
 import RemoveParticipantsDialog from '../Dialog/RemoveParticipantsDialog';
+import QuitConvoDialog from '../Dialog/QuitConvoDialog';
+import QuitConvo from '../QuitConvo';
 
 export default function Options(props) {
-  const { conversationName, open, anchorEl, handleClose, otherParticipants, conversationId } = props;
+  const { open, anchorEl, handleClose, otherParticipants, conversationId } = props;
   const [openChangeNickname, setOpenChangeNickname] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openAddParticipants, setOpenAddParticipants] = useState(false);
   const [openRemoveParticipants, setOpenRemoveParticipants] = useState(false);
+  const [openQuitConvo, setOpenQuitConvo] = useState(false);
   const handleChangeName = () => {
     console.log('name');
     setOpenChangeName(true);
@@ -31,6 +34,15 @@ export default function Options(props) {
   const handleChangeNickname = () => {
     console.log('nickname');
     setOpenChangeNickname(true);
+  };
+
+  const handleQuitConvo = () => {
+    console.log('quit');
+    setOpenQuitConvo(true);
+  };
+
+  const closeQuitConvo = () => {
+    setOpenQuitConvo(false);
   };
 
   const closeChangeNickname = () => {
@@ -76,9 +88,17 @@ export default function Options(props) {
         <MenuItem onClick={handleAddParticipants}>
           <AddParticipants />
         </MenuItem>
-        <MenuItem onClick={handleRemoveParticipants}>
-          <RemoveParticipants />
-        </MenuItem>
+
+        {otherParticipants.length === 1 ? null : (
+          <>
+            <MenuItem onClick={handleRemoveParticipants}>
+              <RemoveParticipants />
+            </MenuItem>
+            <MenuItem onClick={handleQuitConvo}>
+              <QuitConvo />
+            </MenuItem>
+          </>
+        )}
       </Menu>
       <ChangeNameDialog
         open={openChangeName}
@@ -101,6 +121,12 @@ export default function Options(props) {
       <RemoveParticipantsDialog
         open={openRemoveParticipants}
         onClose={closeRemoveParticipants}
+        otherParticipants={otherParticipants}
+        conversationId={conversationId}
+      />
+      <QuitConvoDialog
+        open={openQuitConvo}
+        onClose={closeQuitConvo}
         otherParticipants={otherParticipants}
         conversationId={conversationId}
       />
