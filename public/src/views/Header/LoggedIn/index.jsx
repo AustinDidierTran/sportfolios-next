@@ -10,11 +10,12 @@ import IconButton from '../../../components/Custom/IconButton';
 import ProfileChip from '../../../components/Custom/ProfileChip';
 import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';
+import MessagingModule from './MessagingModule';
 import useStyles from './useStyles';
 import { useTranslation } from 'react-i18next';
 
 import styles from './LoggedIn.module.css';
-import { ROUTES } from '../../../actions/goTo';
+import { goTo, ROUTES } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
@@ -91,6 +92,9 @@ export default function LoggedIn(props) {
     updateCart();
   };
 
+  const handleMessagingClick = () => {
+    goTo(ROUTES.conversations);
+  };
   const refCreateEntity = useRef(null);
   const refNotifications = useRef(null);
   const refAccount = useRef(null);
@@ -140,15 +144,7 @@ export default function LoggedIn(props) {
               />
             </div>
             {FEATURE_MESSAGES_ENABLED && (
-              <Link href={ROUTES_ENUM.conversations}>
-                <IconButton
-                  className={styles.iconButton}
-                  icon="Chat"
-                  size="medium"
-                  style={{ color: COLORS.white }}
-                  tooltip={t('messages')}
-                />
-              </Link>
+              <MessagingModule className={styles.iconButton} onClick={handleMessagingClick} />
             )}
             <div></div>
             <div ref={refNotifications}>
