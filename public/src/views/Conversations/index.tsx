@@ -14,7 +14,7 @@ import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { IConversationPreview } from '../../../../typescript/conversation';
-
+import ConversationSearchList from '../../components/Custom/SearchList/ConversationSearchList';
 import { getConversations } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
 
@@ -65,6 +65,7 @@ const Conversations: React.FunctionComponent = () => {
           />
           <CardContent>
             <Divider className={styles.divider} />
+            <ConversationSearchList />
             <List>
               {conversations.map((c) => (
                 <>

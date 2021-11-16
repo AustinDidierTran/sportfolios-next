@@ -1100,6 +1100,7 @@ export default {
     connection_failed: 'Connection failed. Please try again.',
     contact_us: 'Contact us',
     contact: 'Contact',
+    conversation: 'Conversation',
     copied: 'Copied',
     copied_emails: 'Emails copied!',
     copy_emails: 'Copy emails',
