@@ -2,9 +2,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: left;
+}
+.arrow {
+  margin-right: 3%;
 }
 .title {
-  font-weight: 750 !important;
+  font-weight: 775 !important;
 }
 .divider {
   margin-top: 1rem !important;
@@ -25,6 +29,11 @@
 }
 
 .create {
-  color: #b3b3b3 !important;
-  background-color: #eeeeee !important;
+  color: black !important;
+  background-color: #e1e2e1 !important;
+}
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

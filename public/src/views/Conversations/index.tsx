@@ -17,7 +17,7 @@ import { IConversationPreview } from '../../../../typescript/conversation';
 import ConversationSearchList from '../../components/Custom/SearchList/ConversationSearchList';
 import { getConversations } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
-
+import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
 const Conversations: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const [conversations, setConversations] = useState<IConversationPreview[]>([]);
@@ -39,6 +39,10 @@ const Conversations: React.FunctionComponent = () => {
     updateConversations();
   }, [updateConversations]);
 
+  const handleArrowBack = () => {
+    goTo(ROUTES.home);
+  };
+
   return (
     <IgContainer>
       <div className={styles.center}>
@@ -46,7 +50,8 @@ const Conversations: React.FunctionComponent = () => {
           <CardHeader
             title={
               <div className={styles.header}>
-                <Typography className={styles.title} variant="h3">
+                <ArrowBackIosRounded className={styles.arrow} onClick={handleArrowBack} />
+                <Typography className={styles.title} variant="h2">
                   {t('messages')}
                 </Typography>
               </div>
@@ -58,14 +63,17 @@ const Conversations: React.FunctionComponent = () => {
                 }}
                 className={styles.create}
                 tooltip={t('new_message')}
-                icon="Create"
+                icon="Add"
                 size="large"
               />
             }
           />
           <CardContent>
+            <div className={styles.searchBar}>
+              <ConversationSearchList />
+            </div>
+
             <Divider className={styles.divider} />
-            <ConversationSearchList />
             <List>
               {conversations.map((c) => (
                 <>

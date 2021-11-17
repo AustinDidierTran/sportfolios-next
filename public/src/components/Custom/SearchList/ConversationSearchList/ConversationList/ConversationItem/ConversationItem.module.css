@@ -3,7 +3,10 @@
   background-color: white !important;
 }
 .text {
-  overflow: auto;
+  width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .secondaryActions {
@@ -12,4 +15,6 @@
 
 .listItem {
   list-style-type: none !important;
+}
+.names {
 }

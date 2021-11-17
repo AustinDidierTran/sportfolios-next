@@ -20,7 +20,6 @@ export default function ConversationItem(props) {
     id,
     onClick,
     selected,
-    photoUrl,
     name,
     completeName,
     secondary,
@@ -79,6 +78,7 @@ export default function ConversationItem(props) {
     <div className={styles.listItem}>
       <ListItem
         button
+        className={styles.names}
         selected={selected}
         onClick={notClickable ? null : handleClick}
         style={{
@@ -93,9 +93,9 @@ export default function ConversationItem(props) {
           <CustomAvatar className={className} photoUrl={photoUrl} icon={icon} />
         </ListItemIcon>
         <ListItemText
-          className={styles.text}
+          primaryTypographyProps={{ className: styles.text }}
           primary={item.name || participants}
-          secondary={secondary || t('person.person')}
+          secondary={secondary || t('conversation')}
         />
         <ListItemSecondaryAction>
           {secondaryActions ? (

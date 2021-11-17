@@ -10,9 +10,23 @@ import ConversationList from './ConversationList';
 import { globalSearch } from '../../../../actions/service/entity/get';
 import { getConversations } from '../../../../actions/service/messaging';
 import { Store } from '../../../../Store';
+import { StylesContext } from '@material-ui/styles';
+import styles from './ConversationSearchList.module.css';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 
 export default function ConversationSearchList(props) {
-  const { label, onClick, rejectedTypes = [], withoutIcon, secondary, style, autoFocus, inputRef } = props;
+  const {
+    blackList,
+    whiteList,
+    label,
+    onClick,
+    rejectedTypes = [],
+    withoutIcon,
+    secondary,
+    style,
+    autoFocus,
+    inputRef,
+  } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
   const [options, setOptions] = useState([]);
@@ -42,6 +56,9 @@ export default function ConversationSearchList(props) {
   };
 
   const formatOptions = (response) => {
+    if (!response) {
+      return;
+    }
     return response.map((e) => ({
       ...e,
       secondary,
@@ -51,6 +68,11 @@ export default function ConversationSearchList(props) {
       },
       key: e.id,
     }));
+  };
+
+  const goToConversation = async (conversation) => {
+    console.log('here');
+    //goTo(ROUTES.conversation, { id: conversation.id });
   };
 
   const handleChange = (value) => {
@@ -68,39 +90,30 @@ export default function ConversationSearchList(props) {
     }
   };
   return (
-    <>
-      {withoutIcon ? (
-        <CustomTextField
-          {...query.inputProps}
-          onChange={handleChange}
-          variant="outlined"
-          size="small"
-          label={label}
-          autoFocus={autoFocus}
-          style={{ width: '100%', ...style }}
-          onKeyPress={onEnter}
-          inputRef={inputRef}
-        />
-      ) : (
-        <CustomTextField
-          {...query.inputProps}
-          variant="outlined"
-          label={label}
-          style={{ margin: '8px', ...style }}
-          size="small"
-          autoFocus={autoFocus}
-          onKeyPress={onEnter}
-          inputRef={inputRef}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <CustomIcon icon="Search" />
-              </InputAdornment>
-            ),
-          }}
-        />
-      )}
+    <div className={styles.center}>
+      <CustomTextField
+        {...query.inputProps}
+        label={label}
+        size="large"
+        multiline
+        onClick={goToConversation}
+        placeholder={t('search')}
+        rowsMax={Infinity}
+        autoFocus={autoFocus}
+        onKeyPress={onEnter}
+        inputRef={inputRef}
+        className={styles.customTextField}
+        inputProps={{ className: styles.writing }}
+        InputProps={{
+          disableUnderline: true,
+          endAdornment: (
+            <InputAdornment position="end">
+              <CustomIcon icon="Search" />
+            </InputAdornment>
+          ),
+        }}
+      />
       {query.value.length === 0 ? null : <ConversationList items={options} />}
-    </>
+    </div>
   );
 }
