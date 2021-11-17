@@ -44,7 +44,6 @@ export default function ConversationSearchList(props) {
     }
     const data = await getConversations({ recipientId: userInfo.primaryPerson?.id }, { searchQuery: query.value });
 
-    console.log(data);
     setOptions(formatOptions(data));
 
     //possible problème avec status
@@ -70,11 +69,6 @@ export default function ConversationSearchList(props) {
     }));
   };
 
-  const goToConversation = async (conversation) => {
-    console.log('here');
-    //goTo(ROUTES.conversation, { id: conversation.id });
-  };
-
   const handleChange = (value) => {
     if (value.length > 64) {
       query.setError(t('max_length'));
@@ -96,7 +90,6 @@ export default function ConversationSearchList(props) {
         label={label}
         size="large"
         multiline
-        onClick={goToConversation}
         placeholder={t('search')}
         rowsMax={Infinity}
         autoFocus={autoFocus}
@@ -113,7 +106,7 @@ export default function ConversationSearchList(props) {
           ),
         }}
       />
-      {query.value.length === 0 ? null : <ConversationList items={options} />}
+      {query.value.length === 0 ? null : <ConversationList onClick={onClick} items={options} />}
     </div>
   );
 }

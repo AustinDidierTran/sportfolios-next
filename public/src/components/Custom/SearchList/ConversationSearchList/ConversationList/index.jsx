@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ConversationList(props) {
-  const { title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { title, onClick, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 
   const classes = useStyles();
 
@@ -28,6 +28,7 @@ export default function ConversationList(props) {
       <ConversationItem
         {...otherProps}
         item={item}
+        onClick={onClick}
         index={index}
         key={item?.key || index}
         selected={selectedIndex === index}

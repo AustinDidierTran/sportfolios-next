@@ -43,6 +43,10 @@ const Conversations: React.FunctionComponent = () => {
     goTo(ROUTES.home);
   };
 
+  const goToConversation = async (conversation: IConversationPreview) => {
+    goTo(ROUTES.conversation, { id: conversation.id });
+  };
+
   return (
     <IgContainer>
       <div className={styles.center}>
@@ -70,7 +74,7 @@ const Conversations: React.FunctionComponent = () => {
           />
           <CardContent>
             <div className={styles.searchBar}>
-              <ConversationSearchList />
+              <ConversationSearchList onClick={goToConversation} />
             </div>
 
             <Divider className={styles.divider} />

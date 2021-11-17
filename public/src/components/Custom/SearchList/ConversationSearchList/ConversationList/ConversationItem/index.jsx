@@ -30,7 +30,6 @@ export default function ConversationItem(props) {
     disabled,
     item,
   } = props;
-  console.log(item);
   const participants = useMemo(() => {
     return item.participants
       .filter((participant) => participant.id !== userInfo?.primaryPerson?.id)
@@ -56,12 +55,9 @@ export default function ConversationItem(props) {
 
   const handleClick = useCallback(
     (e) => {
+      console.log('e', e);
       if (onClick) {
-        if (item.name) {
-          onClick(e);
-        } else {
-          onClick(e);
-        }
+        onClick(e);
       }
     },
     [id, onClick]
@@ -80,7 +76,7 @@ export default function ConversationItem(props) {
         button
         className={styles.names}
         selected={selected}
-        onClick={notClickable ? null : handleClick}
+        onClick={notClickable ? null : () => handleClick(item)}
         style={{
           width: '100%',
           secondaryAction: {
