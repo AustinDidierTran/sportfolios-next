@@ -12,7 +12,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Workbox } from 'workbox-window';
 import { Helmet } from 'react-helmet';
 import Header from '../public/src/views/Header';
-import { STRIPE_PUBLIC_KEY } from '../conf';
+import conf from '../conf';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { ROUTES_ENUM } from '../public/common/enums';
@@ -20,7 +20,7 @@ import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics
 
 const BottomNavigation = dynamic(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = dynamic(() => import('../public/src/components/Custom/SnackBar'));
-const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(conf.STRIPE.publicKey);
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
