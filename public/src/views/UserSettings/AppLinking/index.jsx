@@ -15,7 +15,7 @@ import {
 import { ERROR_ENUM, errors } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import styles from './AppLinking.module.css';
-import conf from '../../../../../conf';
+import { FACEBOOK_ADMIN_ID, FACEBOOK_PAGE_ID } from '../../../../../conf';
 
 export default function AppLinking() {
   useFacebookSDK();
