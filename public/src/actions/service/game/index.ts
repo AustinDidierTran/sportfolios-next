@@ -50,13 +50,21 @@ export function submitSpirit(
   }).then((res) => res.status);
 }
 
-export const addTicketOption = (
-  eventId: string,
-  name: string,
-  description: string,
-  price: number,
-  creatorId: string
-): Promise<any> => {
+export interface IAddTicketOptionProps {
+  eventId: string;
+  name: string;
+  description?: string;
+  price: number;
+  creatorId: string;
+}
+
+export const addTicketOption = ({
+  eventId,
+  name,
+  description,
+  price,
+  creatorId,
+}: IAddTicketOptionProps): Promise<any> => {
   return api(`${BASE_URL}/ticketOption`, {
     method: 'POST',
     body: JSON.stringify({

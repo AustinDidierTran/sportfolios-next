@@ -41,12 +41,20 @@ const General: React.FunctionComponent<IProps> = (props) => {
       const { name, price } = values;
       const errors: any = {};
 
+      if (name.length === 0) {
+        errors.name = t('invalid.value_is_required');
+      }
+
       if (name.length > 64) {
         errors.name = t('invalid.invalid_64_length');
       }
 
-      if (price !== 0 && price < 500) {
-        errors.price = t('invalid.price_under_500');
+      if (price !== 0 && price < 5) {
+        errors.price = t('invalid.price_under_5');
+      }
+
+      if (!/^\d+(?:[.]\d{2})?$/.test(price.toString())) {
+        errors.price = t('invalid.price');
       }
 
       return errors;
@@ -55,7 +63,16 @@ const General: React.FunctionComponent<IProps> = (props) => {
     validateOnBlur: false,
     onSubmit: async (values) => {
       const { name, description, price } = values;
-      const res = await gameService.addTicketOption(id, name, description, price, creatorId);
+
+      const insertObj: gameService.IAddTicketOptionProps = { eventId: id, name, price, creatorId };
+
+      if (description) {
+        insertObj.description = description;
+      }
+
+      const res = await gameService.addTicketOption(insertObj);
+
+      console.log({ res });
     },
   });
 
@@ -91,7 +108,6 @@ const General: React.FunctionComponent<IProps> = (props) => {
             formik={formik}
             namespace="price"
             label={t('price')}
-            type="number"
             fullWidth
             InputLabelProps={{ shrink: true }}
           />
@@ -102,7 +118,7 @@ const General: React.FunctionComponent<IProps> = (props) => {
             rows={1}
             rowsMax={20}
             label={t('description.description')}
-            placeholder={t('description.enter_description')}
+            placeholder={t('game.enter_description')}
             fullWidth
           />
           <Button size="small" type="submit" endIcon="SaveIcon">

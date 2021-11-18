@@ -1,11 +1,13 @@
-import { Paper, TextField } from '@material-ui/core';
-import React, { useEffect, useMemo, useState } from 'react';
+import Paper from '@material-ui/core/Paper';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../../../../../../../components/Custom/Button';
 import TicketOption from '../../../../../../../components/Custom/TicketOption';
 import styles from './About.module.css';
 import * as eventService from '../../../../../../../actions/service/event';
 import { goTo, ROUTES } from '../../../../../../../actions/goTo';
+import Select from '../../../../../../../components/Custom/Select';
+import { IOption } from '../../../../../../../../../typescript/forms';
 
 interface ITicketOption {
   name: string;
@@ -67,6 +69,13 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
       });
   };
 
+  const quantityOptions: IOption[] = Array(100)
+    .fill(0)
+    .map((_, index: number) => ({
+      value: index,
+      display: `${index}`,
+    }));
+
   return (
     <>
       {description && (
@@ -85,17 +94,17 @@ const ViewerAbout: React.FunctionComponent<IProps> = (props) => {
                 description: to.description,
               }}
               action={
-                <TextField
-                  type="number"
+                <Select
+                  options={quantityOptions}
                   value={ticketSelection[to.id]}
                   label={t('quantity')}
-                  onChange={(e) =>
+                  onChange={(value: any) =>
                     setTicketSelection((ts) => ({
                       ...ts,
-                      [to.id]: Number(e.target.value),
+                      [to.id]: Number(value),
                     }))
                   }
-                ></TextField>
+                ></Select>
               }
             />
           ))}
