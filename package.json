@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node --max_old_space_size=8192 server.js",
+    "dev": "node --max_old_space_size=8192 server.js DEV",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
