@@ -30,7 +30,7 @@ const Conversations: React.FunctionComponent = () => {
   const updateConversations = useCallback(() => {
     getConversations({ recipientId: userInfo.primaryPerson?.id }).then((c) =>
       setConversations(
-        c.sort((a, b) => (moment(b.lastMessage?.sentAt).isBefore(moment(a.lastMessage?.sentAt)) ? -1 : 1))
+        c?.sort((a, b) => (moment(b.lastMessage?.sentAt).isBefore(moment(a.lastMessage?.sentAt)) ? -1 : 1))
       )
     );
   }, [userInfo.primaryPerson?.id]);
@@ -79,7 +79,7 @@ const Conversations: React.FunctionComponent = () => {
 
             <Divider className={styles.divider} />
             <List>
-              {conversations.map((c) => (
+              {conversations?.map((c) => (
                 <>
                   <ConversationPreview conversation={c} userInfo={userInfo} />
                   <Divider className={styles.divider} />
