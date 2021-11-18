@@ -20,8 +20,7 @@ if (process.argv[2] === 'dev') {
       },
     ],
   ]);
-}
-else {
+} else {
   module.exports = withPlugins([
     [withBundleAnalyzer],
     [
@@ -37,5 +36,3 @@ else {
     ],
   ]);
 }
-
-
