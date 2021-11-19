@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../Button';
+import { default as CloseButton } from '../../Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -14,6 +14,8 @@ import { useFormInput } from '../../../../hooks/forms';
 import CustomTextField from '../../TextField';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
+import DoneIcon from '@material-ui/icons/Done';
+import Button from '@material-ui/core/Button';
 
 export default function ChangeNameDialog(props) {
   const { open, onClose, otherParticipants, conversationId } = props;
@@ -38,26 +40,27 @@ export default function ChangeNameDialog(props) {
           <div className={styles.center}>
             <CustomTextField
               {...content.inputProps}
+              variant="standard"
               placeholder={t('type_here')}
               className={styles.textField}
               multiline
               rowsMax={Infinity}
               inputProps={{ className: styles.writing }}
-              InputProps={{
-                disableUnderline: true,
-                endAdornment: (
-                  <div style={{ display: 'flex' }}>
-                    <CheckCircleIcon className={styles.check} onClick={handleConfirmed} />
-                  </div>
-                ),
-              }}
             />
+            <Button className={styles.button} onClick={handleConfirmed}>
+              <div className={styles.confirmDisplay}>
+                <Typography className={styles.confirm} variant="body2">
+                  {t('confirm')}
+                </Typography>
+                <DoneIcon className={styles.done} />
+              </div>
+            </Button>
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} variant="text">
+          <CloseButton onClick={onClose} variant="text">
             {t('close')}
-          </Button>
+          </CloseButton>
         </DialogActions>
       </Dialog>
     </div>

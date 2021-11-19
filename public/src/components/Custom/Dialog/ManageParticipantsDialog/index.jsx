@@ -7,20 +7,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import FaceIcon from '@material-ui/icons/Face';
 import { useTranslation } from 'react-i18next';
-import styles from './ChangeNicknameDialog.module.css';
-import ListItemText from '@material-ui/core/ListItemText';
+import styles from './ManageParticipantsDialog.module.css';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import Avatar from '../../Avatar';
 import CreateIcon from '@material-ui/icons/Create';
-import CustomTextField from '../../TextField';
-import IconButton from '../../IconButton';
-import { Button as CheckButton } from '@material-ui/core';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
+import ChangeNicknameSection from './ChangeNicknameSection';
+import AddParticipantsSection from './AddParticipantsSection';
 import { useFormInput } from '../../../../hooks/forms';
+import Delete from '@material-ui/icons/Delete';
 
-export default function ChangeNicknameDialog(props) {
+export default function ManageParticipantsDialog(props) {
   const { open, onClose, otherParticipants, conversationId } = props;
   const { t } = useTranslation();
   const [members, setMembers] = useState(otherParticipants.map((participant) => ({ ...participant, clicked: false })));
@@ -35,32 +31,8 @@ export default function ChangeNicknameDialog(props) {
     }
   };
 
-  const handleConfirmed = (participant) => {
-    if (open) {
-      console.log(
-        'nouveau surnom de ',
-        participant.name,
-        'est : ',
-        content.value,
-        'de la conversation ',
-        conversationId
-      );
-      let newMembers = members;
-      const index = members.indexOf(participant);
-      newMembers[index].clicked = false;
-      setMembers(newMembers);
-      content.reset();
-    }
-  };
-
-  const handleCanceled = (participant) => {
-    if (open) {
-      let newMembers = members;
-      const index = members.indexOf(participant);
-      newMembers[index].clicked = false;
-      setMembers(newMembers);
-      content.reset();
-    }
+  const handleDelete = (participant) => {
+    console.log(participant.name, 'is removed from conversation ', conversationId);
   };
 
   const nickname = (participant) => {
@@ -83,12 +55,12 @@ export default function ChangeNicknameDialog(props) {
         <DialogTitle>
           <div className={styles.title}>
             <FaceIcon className={styles.face} fontSize="medium" />
-            <Typography variant="h6">{t('change_nicknames')}</Typography>
+            <Typography variant="h6">{t('manage_participants')}</Typography>
           </div>
         </DialogTitle>
         <DialogContent dividers>
           <List className={styles.list}>
-            {members.map((o) =>
+            {members?.map((o) =>
               !o.clicked ? (
                 <div className={styles.member}>
                   <div className={styles.profile}>
@@ -100,31 +72,20 @@ export default function ChangeNicknameDialog(props) {
                   </div>
                   <div className={styles.grow} />
                   <CreateIcon className={styles.create} onClick={() => handleEdit(o)} />
+                  <Delete className={styles.delete} onClick={() => handleDelete(o)} />
                 </div>
               ) : (
-                <div className={styles.messageInput}>
-                  <Avatar photoUrl={o.photoUrl} className={styles.avatar} />
-                  <CustomTextField
-                    {...content.inputProps}
-                    placeholder={t('type_here')}
-                    className={styles.textField}
-                    multiline
-                    rowsMax={Infinity}
-                    inputProps={{ className: styles.writing }}
-                    InputProps={{
-                      disableUnderline: true,
-                      endAdornment: (
-                        <div style={{ display: 'flex' }}>
-                          <CheckCircleIcon className={styles.check} onClick={() => handleConfirmed(o)} />
-                          <CancelIcon className={styles.cancel} onClick={() => handleCanceled(o)} />
-                        </div>
-                      ),
-                    }}
-                  />
-                </div>
+                <ChangeNicknameSection
+                  participant={o}
+                  open={open}
+                  members={members}
+                  setMembers={setMembers}
+                  conversationId={conversationId}
+                />
               )
             )}
           </List>
+          <AddParticipantsSection otherParticipants={otherParticipants} conversationId={conversationId} />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant="text">

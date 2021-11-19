@@ -1,0 +1,23 @@
+.addPeople {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+.writing {
+  font-weight: 550 !important;
+  font-size: 1rem !important;
+  margin-left: 0.75rem !important;
+  max-width: 35vw;
+}
+.add {
+  background-color: #e8e8e6;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  margin-left: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

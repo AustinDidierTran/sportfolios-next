@@ -31,8 +31,9 @@
 }
 .settings {
   color: #787878 !important;
-  margin-right: 0.5rem !important;
-  margin-left: 0.5rem !important;
+
+  background-color: #dfdfdf !important;
+  border-radius: 1rem !important ;
 }
 .exchange {
   margin-top: 1rem;

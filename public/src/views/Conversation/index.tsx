@@ -17,6 +17,9 @@ import CustomTextField from '../../components/Custom/TextField';
 import { getConversationMessages, sendMessage } from '../../actions/service/messaging';
 import { LoadingSpinner } from '../../components/Custom';
 import moment from 'moment';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
 
 interface IProps {
   convoId: string;
@@ -135,13 +138,11 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           {name}
         </Typography>
         <div className={styles.grow} />
-        <IconButton
-          icon="Settings"
-          size="large"
-          className={styles.settings}
-          tooltip={t('settings')}
-          onClick={handleClick}
-        />
+        <Tooltip title={t('settings')}>
+          <Button onClick={handleClick} className={styles.button}>
+            <MoreVertIcon className={styles.settings} />
+          </Button>
+        </Tooltip>
       </div>
       <div className={styles.exchange}>
         {messages?.map((m: IConversationMessage) => {

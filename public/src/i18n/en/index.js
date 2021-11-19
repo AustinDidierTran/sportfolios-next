@@ -1309,6 +1309,7 @@ export default {
     make_donation: 'Make a donation to {{organizationName}}',
     male: 'Male',
     Male: 'Male',
+    manage_participants: 'Manage participants',
     manual_acceptation: 'Manual acceptation',
     manual_ranking: 'Manual ranking',
     manual_ranking_updated: 'Ranking updated!',
