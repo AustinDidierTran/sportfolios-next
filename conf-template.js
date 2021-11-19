@@ -13,5 +13,5 @@ module.exports = {
   CLIENT_ID: '711jelco0umon99s8gg60qgn09',
   IDENTITY_POOL_ID: 'us-east-2:96bdf3db-5e58-432e-9a9f-49f080fc8f03',
   REGION: 'us-east-2',
-  ENVIRONMENT: 'dev',
+  ENVIRONMENT: 'DEV',
 };
