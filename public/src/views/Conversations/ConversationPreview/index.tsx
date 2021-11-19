@@ -51,7 +51,7 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
     }
 
     return conversation.lastMessage.content;
-  }, []);
+  }, [conversation.lastMessage?.content]);
 
   const time = useMemo(() => {
     if (!conversation.lastMessage) {
