@@ -2,16 +2,6 @@
   display: flex;
   flex-direction: row;
   justify-content: left;
-
-  align-items: center;
-}
-.delete {
-  margin-right: 0.5rem;
-}
-.title {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
   align-items: center;
 }
 .face {
@@ -59,7 +49,45 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.delete {
-  margin-left: 1rem;
+.create {
+  margin-left: 0.5rem !important;
+}
+
+.textField {
+  width: 90%;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+  background-color: white;
+  border-radius: 2rem;
+  box-shadow: 0 -0.1rem 0.3rem #909090;
+}
+.send {
+  color: #787878 !important;
+  margin-right: 1rem !important;
+  margin-left: 0.5rem !important;
+}
+.writing {
+  color: #787878 !important;
+  font-size: 0.85rem !important;
+  margin-left: 1rem !important;
+}
+.messageInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  padding-bottom: 0.5rem !important;
+}
+
+.check {
+  color: #18b393 !important;
+  font-size: 2rem !important;
   margin-right: 0.2rem;
+}
+.cancel {
+  font-size: 2rem !important;
+  margin-right: 0.5rem;
+  color: red !important;
+}
+.delete {
+  margin-left: 0.5rem;
 }

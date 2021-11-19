@@ -10,24 +10,38 @@
 }
 .center {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .textField {
   width: 100%;
   margin-left: 1.5% !important;
   margin-right: 1.5% !important;
-  background-color: white;
-  border-radius: 2rem;
-  box-shadow: 0 -0.1rem 0.3rem #909090;
 }
 .writing {
   color: #787878 !important;
-  font-size: 0.85rem !important;
+  font-size: 1rem !important;
   margin-left: 1rem !important;
 }
 .check {
   color: #18b393 !important;
   font-size: 2rem !important;
   margin-right: 0.2rem;
+}
+.button {
+  color: white !important;
+  background-color: #18b393 !important;
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+}
+.confirmDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.done {
+  color: white !important;
+  margin-left: 0.5rem;
 }

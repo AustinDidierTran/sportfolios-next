@@ -1323,6 +1323,7 @@ export default {
     make_donation: 'Faire un don à {{organizationName}}',
     male: 'Homme',
     Male: 'Homme',
+    manage_participants: 'Gérer les participants',
     manual_acceptation: 'Acceptation manuelle',
     manual_ranking: 'Classement manuel',
     manual_ranking_updated: 'Classement mis à jour!',
