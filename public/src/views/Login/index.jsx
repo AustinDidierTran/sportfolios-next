@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Login.module.css';
 
@@ -28,8 +28,9 @@ import { COLORS } from '../../utils/colors';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 
 import { Auth } from 'aws-amplify';
-import '../../utils/amplify/amplifyConfig.jsx';
-import { loginWithCognito, migrate } from '../../actions/service/auth/auth';
+import { loadLoginGoogleConfig } from '../../utils/amplify/amplifyConfig.jsx';
+import { loginWithCognito, migrate, loginWithCognitoToken } from '../../actions/service/auth/auth';
+import { FEATURE_GOOGLE_LOGIN } from '../../../../feature-flags';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -123,13 +124,21 @@ export default function Login() {
   const login = async (user, email) => {
     const token = user?.signInUserSession?.idToken?.jwtToken;
     const data = await loginWithCognito(email, token);
+    redirect(data, token);
+  };
 
-    if (data) {
+  const redirect = async (data, token) => {
+    if (!data.data) {
+      dispatch({ type: ACTION_ENUM.LOGOUT });
+      formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+    } else {
       if (typeof data.data === 'string') {
         data.data = JSON.parse(data.data);
       }
       const { userInfo } = data.data;
-
+      if (!userInfo) {
+        formik.setFieldError('email', t('no.no_existing_account_with_this_email'));
+      }
       dispatch({
         type: ACTION_ENUM.LOGIN,
         payload: token,
@@ -144,6 +153,11 @@ export default function Login() {
         goTo(ROUTES.home);
       }
     }
+  };
+
+  loadLoginGoogleConfig();
+  const loginGoogle = async () => {
+    Auth.federatedSignIn({ provider: 'Google' });
   };
 
   return (
@@ -193,6 +207,21 @@ export default function Login() {
               {t('login')}
             </Button>
           </CardActions>
+          {FEATURE_GOOGLE_LOGIN && (
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={styles.button}
+                style={{ color: COLORS.white }}
+                onClick={loginGoogle}
+              >
+                {t('google.login_google')}
+              </Button>
+            </CardActions>
+          )}
+
           <Divider />
           <CardActions className={styles.linksContainer}>
             <Typography

@@ -10,3 +10,17 @@ export async function getOwnedPerson(): Promise<Person[]> {
     (res) => res.data
   );
 }
+
+export async function addEmail(id: string, email: string, refreshToken: boolean): Promise<any> {
+  return api(
+    `${BASE_URL}/addEmail`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+        email,
+      }),
+    },
+    refreshToken
+  );
+}
