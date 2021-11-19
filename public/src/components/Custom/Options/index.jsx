@@ -23,16 +23,16 @@ export default function Options(props) {
     setOpenManageParticipants(true);
   };
 
+  const closeManageParticipants = () => {
+    setOpenManageParticipants(false);
+  };
+
   const handleQuitConvo = () => {
     setOpenQuitConvo(true);
   };
 
   const closeQuitConvo = () => {
     setOpenQuitConvo(false);
-  };
-
-  const closeManageParticipants = () => {
-    setOpenManageParticipants(false);
   };
 
   return (
@@ -60,24 +60,14 @@ export default function Options(props) {
           </MenuItem>
         )}
       </Menu>
-      <ChangeNameDialog
-        open={openChangeName}
-        onClose={closeChangeName}
-        otherParticipants={otherParticipants}
-        conversationId={conversationId}
-      />
+      <ChangeNameDialog open={openChangeName} onClose={closeChangeName} conversationId={conversationId} />
       <ManageParticipantsDialog
         open={openManageParticipants}
         onClose={closeManageParticipants}
         otherParticipants={otherParticipants}
         conversationId={conversationId}
       />
-      <QuitConvoDialog
-        open={openQuitConvo}
-        onClose={closeQuitConvo}
-        otherParticipants={otherParticipants}
-        conversationId={conversationId}
-      />
+      <QuitConvoDialog open={openQuitConvo} onClose={closeQuitConvo} conversationId={conversationId} />
     </div>
   );
 }

@@ -18,7 +18,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import Button from '@material-ui/core/Button';
 
 export default function ChangeNameDialog(props) {
-  const { open, onClose, otherParticipants, conversationId } = props;
+  const { open, onClose, conversationId } = props;
   const { t } = useTranslation();
   const content = useFormInput('');
 
