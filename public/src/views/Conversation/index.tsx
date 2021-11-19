@@ -20,6 +20,7 @@ import moment from 'moment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
+import { SOCKET_EVENT } from '../../../common/enums';
 
 interface IProps {
   convoId: string;
@@ -29,14 +30,30 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { convoId } = props;
   const {
-    state: { userInfo: userInfo },
+    state: { socket, userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
   const [conversation, setConversation] = useState<IConversationPreview>();
   const [messages, setMessages] = useState<IConversationMessage[]>();
 
+  useEffect(() => {
+    socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
+      if (convoId === message.conversationId) {
+        setMessages((messages) => {
+          return [...messages, message];
+        });
+      }
+    });
+    return () => {
+      socket.off(SOCKET_EVENT.MESSAGES);
+    };
+  }, []);
+
   const updateConversation = useCallback(() => {
-    getConversationMessages(convoId).then(({ conversation, messages }) => {
+    getConversationMessages(convoId).then(({ conversation, messages } = { conversation: null, messages: [] }) => {
+      if (!conversation) {
+        return;
+      }
       setConversation(conversation);
       setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
     });
@@ -44,16 +61,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
   useEffect(() => {
     updateConversation();
-  }, [updateConversation]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      updateConversation();
-    }, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
   }, [updateConversation]);
 
   //AJOUT BACKEND

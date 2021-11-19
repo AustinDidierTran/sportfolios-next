@@ -58,6 +58,9 @@ export default function PersonSearchList(props) {
   };
 
   const formatOptions = (response) => {
+    if (!response) {
+      return;
+    }
     return response.entities
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({

@@ -8,13 +8,13 @@ import Divider from '@material-ui/core/Divider';
 import IgContainer from '../../components/Custom/IgContainer';
 import { useTranslation } from 'react-i18next';
 import styles from './Conversations.module.css';
-import React, { useEffect, useCallback, useContext, useState } from 'react';
+import React, { useEffect, useCallback, useContext, useState, useMemo } from 'react';
 import moment from 'moment';
 import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { IConversationPreview } from '../../../../typescript/conversation';
-
+import { IConversationPreview, IConversationMessage } from '../../../../typescript/conversation';
+import { SOCKET_EVENT } from '../../../common/enums';
 import { getConversations } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
 
@@ -23,21 +23,68 @@ const Conversations: React.FunctionComponent = () => {
   const [conversations, setConversations] = useState<IConversationPreview[]>([]);
 
   const {
-    state: { userInfo: userInfo },
+    state: { userInfo: userInfo, socket },
   } = useContext(Store);
 
   // TODO: Call this function on websocket update
   const updateConversations = useCallback(() => {
-    getConversations({ recipientId: userInfo.primaryPerson?.id }).then((c) =>
-      setConversations(
-        c.sort((a, b) => (moment(b.lastMessage?.sentAt).isBefore(moment(a.lastMessage?.sentAt)) ? -1 : 1))
-      )
-    );
+    getConversations({ recipientId: userInfo.primaryPerson?.id }).then((newConversations: IConversationPreview[]) => {
+      if (!newConversations) {
+        return;
+      }
+      setConversations(newConversations);
+    });
   }, [userInfo.primaryPerson?.id]);
 
   useEffect(() => {
     updateConversations();
   }, [updateConversations]);
+
+  useEffect(() => {
+    // if (!conversations.length) {
+    //   return;
+    // }
+    socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
+      if (!message) {
+        return;
+      }
+
+      setConversations((oldConversations) => {
+        const conversationsCopy: IConversationPreview[] = [...oldConversations];
+
+        const conversationIds = conversationsCopy?.map((c) => c.id);
+        const index = conversationIds.indexOf(message.conversationId);
+        if (!conversationsCopy) {
+          return;
+        }
+        if (index === -1) {
+          return;
+        }
+
+        conversationsCopy[index].lastMessage = message;
+
+        return conversationsCopy;
+      });
+    });
+    return () => {
+      socket.off(SOCKET_EVENT.MESSAGES);
+    };
+  }, [conversations]);
+
+  const orderedConversations = useMemo(
+    () =>
+      conversations.sort((a, b) => {
+        if (!b.lastMessage) {
+          return -1;
+        }
+        if (!a.lastMessage) {
+          return 1;
+        }
+
+        return moment(b.lastMessage.sentAt).isBefore(moment(a.lastMessage.sentAt)) ? -1 : 1;
+      }),
+    [conversations]
+  );
 
   return (
     <IgContainer>
@@ -66,7 +113,7 @@ const Conversations: React.FunctionComponent = () => {
           <CardContent>
             <Divider className={styles.divider} />
             <List>
-              {conversations.map((c) => (
+              {orderedConversations.map((c) => (
                 <>
                   <ConversationPreview conversation={c} userInfo={userInfo} />
                   <Divider className={styles.divider} />
