@@ -2,6 +2,7 @@ import { Person } from './entity';
 
 export interface IConversationMessage {
   id: string;
+  conversationId: string;
   sender: Participant;
   sentAt: string;
   content: string;
