@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 
 import dynamic from 'next/dynamic';
 
+import { Hub } from '@aws-amplify/core';
+
 const AppLinking = dynamic(() => import('./AppLinking'));
 const BasicInfo = dynamic(() => import('./BasicInfo'));
 const BottomPageLogo = dynamic(() => import('../../components/Custom/BottomPageLogo'));
