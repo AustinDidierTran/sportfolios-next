@@ -41,6 +41,11 @@
   margin-bottom: 4px;
 }
 
+.members {
+  font-weight: bold;
+  justify-self: center;
+}
+
 .navigation {
   flex-grow: 1;
   margin: auto;
