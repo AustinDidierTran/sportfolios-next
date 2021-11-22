@@ -1347,6 +1347,7 @@ export default {
     not_member: 'Not member',
     not_going: 'Not going',
     notifications_disabled: 'Notifications disabled',
+    number_of_members: '{{amountOfMembers}} member{{s}}',
     notifications: 'Notifications',
     of_everyone: 'of everyone',
     of_team: 'of team',

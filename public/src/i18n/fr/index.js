@@ -1362,6 +1362,7 @@ export default {
     not_going: 'Absent',
     notifications_disabled: 'Notifications désactivées',
     notifications: 'Notifications',
+    number_of_members: '{{amountOfMembers}} membre{{s}}',
     of_everyone: 'de tout le monde',
     of_team: "de l'équipe",
     of_teams: 'des équipes',

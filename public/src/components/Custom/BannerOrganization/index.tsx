@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Avatar from '../Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +36,13 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
   } = props;
   const { t } = useTranslation();
 
+  const plural = useMemo(() => {
+    if (basicInfos.numberOfMembers?.count > 1) {
+      return 's';
+    }
+    return '';
+  }, [basicInfos.numberOfMembers?.count]);
+
   return (
     <div className={styles.root}>
       <Grid container>
@@ -56,6 +63,11 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
             >
               {t('become_member')}
             </CustomButton>
+          </Grid>
+          <Grid container className={styles.gridText}>
+            <Grid container item className={styles.followers}>
+              {t('number_of_members', { amountOfMembers: basicInfos.numberOfMembers?.count, s: plural })}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

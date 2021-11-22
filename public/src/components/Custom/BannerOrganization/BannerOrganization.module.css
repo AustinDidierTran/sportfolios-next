@@ -6,6 +6,10 @@
   font-size: 2em;
   font-weight: bold;
 }
+.followers {
+  font-size: 1em;
+  font-weight: bold;
+}
 
 .eventButton {
   align-self: right;
@@ -30,6 +34,11 @@
 .paper {
   margin: auto;
   margin-bottom: 4px;
+}
+
+.members {
+  font-weight: bold;
+  justify-self: center;
 }
 
 .navigation {
@@ -109,6 +118,11 @@
   .title {
     justify-content: center;
     font-size: 1.5em;
+    font-weight: bold;
+  }
+  .followers {
+    justify-content: center;
+    font-size: 1em;
     font-weight: bold;
   }
   .subtitle {
