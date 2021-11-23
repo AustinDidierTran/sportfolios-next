@@ -9,7 +9,7 @@ import ManageParticipants from '../ManageParticipants';
 import ManageParticipantsDialog from '../Dialog/ManageParticipantsDialog';
 
 export default function Options(props) {
-  const { open, anchorEl, handleClose, otherParticipants, conversationId } = props;
+  const { open, anchorEl, handleClose, otherParticipants, conversationId, updateConversation } = props;
   const [openManageParticipants, setOpenManageParticipants] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openQuitConvo, setOpenQuitConvo] = useState(false);
@@ -60,12 +60,18 @@ export default function Options(props) {
           </MenuItem>
         )}
       </Menu>
-      <ChangeNameDialog open={openChangeName} onClose={closeChangeName} conversationId={conversationId} />
+      <ChangeNameDialog
+        open={openChangeName}
+        onClose={closeChangeName}
+        conversationId={conversationId}
+        updateConversation={updateConversation}
+      />
       <ManageParticipantsDialog
         open={openManageParticipants}
         onClose={closeManageParticipants}
         otherParticipants={otherParticipants}
         conversationId={conversationId}
+        updateConversation={updateConversation}
       />
       <QuitConvoDialog open={openQuitConvo} onClose={closeQuitConvo} conversationId={conversationId} />
     </div>

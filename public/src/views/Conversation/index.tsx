@@ -188,6 +188,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         handleClose={handleClose}
         otherParticipants={otherParticipants}
         conversationId={conversation.id}
+        updateConversation={updateConversation}
       />
     </IgContainer>
   );

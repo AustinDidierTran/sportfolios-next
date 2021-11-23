@@ -40,3 +40,31 @@ export async function createConversation(participantIds: string[], creatorId: st
     body: JSON.stringify({ participantIds, creatorId }),
   }).then((res) => res.data);
 }
+
+export async function removeParticipant(conversationId: string, participantId: string): Promise<void> {
+  return api(`${BASE_URL}/removeParticipant`, {
+    method: 'PUT',
+    body: JSON.stringify({ conversationId, participantId }),
+  }).then((res) => res.data);
+}
+
+export async function addParticipants(conversationId: string, participantIds: string[]): Promise<void> {
+  return api(`${BASE_URL}/addParticipants`, {
+    method: 'PUT',
+    body: JSON.stringify({ conversationId, participantIds }),
+  }).then((res) => res.data);
+}
+
+export async function updateConversationName(conversationId: string, name: string): Promise<void> {
+  return api(`${BASE_URL}/conversationName`, {
+    method: 'PUT',
+    body: JSON.stringify({ conversationId, name }),
+  }).then((res) => res.data);
+}
+
+export async function updateNickname(conversationId: string, participantId: string, nickname: string): Promise<void> {
+  return api(`${BASE_URL}/nickname`, {
+    method: 'PUT',
+    body: JSON.stringify({ conversationId, participantId, nickname }),
+  }).then((res) => res.data);
+}

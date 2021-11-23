@@ -16,14 +16,17 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DoneIcon from '@material-ui/icons/Done';
 import Button from '@material-ui/core/Button';
+import { updateConversationName } from '../../../../actions/service/messaging';
 
 export default function ChangeNameDialog(props) {
-  const { open, onClose, conversationId } = props;
+  const { open, onClose, conversationId, updateConversation } = props;
   const { t } = useTranslation();
   const content = useFormInput('');
 
   const handleConfirmed = () => {
+    updateConversationName(conversationId, content.value);
     console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
+    updateConversation();
     content.reset();
   };
 
