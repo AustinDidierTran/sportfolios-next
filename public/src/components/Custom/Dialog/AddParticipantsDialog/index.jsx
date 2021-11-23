@@ -15,9 +15,10 @@ import { useFormInput } from '../../../../hooks/forms';
 import ParticipantsSearchList from '../../SearchList/ParticipantsSearchList';
 import { Chip } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
+import { addParticipants } from '../../../../actions/service/messaging';
 
 export default function AddParticipantsDialog(props) {
-  const { open, onClose, otherParticipants, conversationId } = props;
+  const { open, onClose, otherParticipants, conversationId, updateConversation } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
@@ -31,13 +32,18 @@ export default function AddParticipantsDialog(props) {
     setNewParticipants([...newParticipants, person]);
   };
 
-  const addParticipants = () => {
+  const confirmParticipants = () => {
+    addParticipants(
+      conversationId,
+      newParticipants.map((p) => p.id)
+    );
     console.log(
       'Add ',
-      newParticipants.map((p) => p.completeName),
+      newParticipants.map((p) => p.id),
       'to the convo ',
       conversationId
     );
+    updateConversation();
     setNewParticipants([]);
   };
 
@@ -86,7 +92,7 @@ export default function AddParticipantsDialog(props) {
             ) : (
               <></>
             )}
-            <Button className={styles.button} onClick={addParticipants}>
+            <Button className={styles.button} onClick={confirmParticipants}>
               <div className={styles.confirmDisplay}>
                 <Typography className={styles.confirm} variant="body2">
                   {t('confirm')}

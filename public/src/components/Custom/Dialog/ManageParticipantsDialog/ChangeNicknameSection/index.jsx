@@ -6,42 +6,31 @@ import CustomTextField from '../../../TextField';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { useFormInput } from '../../../../../hooks/forms';
+import { updateConversationName, updateNickname } from '../../../../../actions/service/messaging';
 
 export default function ChangeNicknameSection(props) {
-  const { participant, open, members, setMembers, conversationId } = props;
+  const { member, conversationId, setClicked, updateConversation } = props;
   const content = useFormInput('');
   const { t } = useTranslation();
 
-  const handleConfirmed = (participant) => {
-    if (open) {
-      console.log(
-        'nouveau surnom de ',
-        participant.name,
-        'est : ',
-        content.value,
-        'de la conversation ',
-        conversationId
-      );
-      let newMembers = members;
-      const index = members.indexOf(participant);
-      newMembers[index].clicked = false;
-      setMembers(newMembers);
-      content.reset();
-    }
+  const handleConfirmed = () => {
+    updateNickname(conversationId, member.id, content.value).then(() => {
+      console.log('nickname : ', member.nickname);
+    });
+    updateConversation();
+    console.log('nickname : ', member.nickname);
+    console.log('nouveau surnom de ', member.id, 'est : ', content.value, 'de la conversation ', conversationId);
+    content.reset();
+    setClicked(false);
   };
 
-  const handleCanceled = (participant) => {
-    if (open) {
-      let newMembers = members;
-      const index = members.indexOf(participant);
-      newMembers[index].clicked = false;
-      setMembers(newMembers);
-      content.reset();
-    }
+  const handleCanceled = () => {
+    setClicked(false);
+    content.reset();
   };
   return (
     <div className={styles.messageInput}>
-      <Avatar photoUrl={participant.photoUrl} className={styles.avatar} />
+      <Avatar photoUrl={member.photoUrl} className={styles.avatar} />
       <CustomTextField
         {...content.inputProps}
         placeholder={t('type_here')}
@@ -53,8 +42,8 @@ export default function ChangeNicknameSection(props) {
           disableUnderline: true,
           endAdornment: (
             <div style={{ display: 'flex' }}>
-              <CheckCircleIcon className={styles.check} onClick={() => handleConfirmed(participant)} />
-              <CancelIcon className={styles.cancel} onClick={() => handleCanceled(participant)} />
+              <CheckCircleIcon className={styles.check} onClick={handleConfirmed} />
+              <CancelIcon className={styles.cancel} onClick={handleCanceled} />
             </div>
           ),
         }}
