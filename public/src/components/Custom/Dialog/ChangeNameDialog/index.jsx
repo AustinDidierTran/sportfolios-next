@@ -33,6 +33,7 @@ export default function ChangeNameDialog(props) {
 
   const handleConfirmed = () => {
     console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
+    updateConversation();
     content.reset();
   };
 
