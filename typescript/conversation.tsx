@@ -19,6 +19,7 @@ export interface IConversationPreview {
   id: string; //conversationId
   lastMessage: IConversationMessage;
   name?: string;
+  nickName?: string;
   participants: Participant[];
 }
 
