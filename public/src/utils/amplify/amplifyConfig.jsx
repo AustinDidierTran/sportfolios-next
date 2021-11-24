@@ -1,5 +1,5 @@
 import Amplify from 'aws-amplify';
-import { REGION, USER_POOL_ID, CLIENT_ID } from '../../../../conf.js';
+import { REGION, USER_POOL_ID, CLIENT_ID, CLIENT_BASE_URL, COGNITO_DOMAIN } from '../../../../conf.js';
 Amplify.Auth.configure({
   Auth: {
     region: REGION,
@@ -15,10 +15,10 @@ export const loadLoginGoogleConfig = async () => {
       userPoolId: USER_POOL_ID,
       userPoolWebClientId: CLIENT_ID,
       oauth: {
-        domain: 'devsportfoliosapp.auth.us-east-2.amazoncognito.com',
+        domain: COGNITO_DOMAIN,
         scope: ['email', 'profile', 'openid'],
-        redirectSignIn: 'https://localhost:3000/page/login/google',
-        redirectSignOut: 'https://localhost:3000/page/login',
+        redirectSignIn: `${CLIENT_BASE_URL}/page/login/google`,
+        redirectSignOut: `${CLIENT_BASE_URL}/page/login`,
         responseType: 'token',
       },
     },
@@ -32,10 +32,10 @@ export const loadAddEmailConfig = async () => {
       userPoolId: USER_POOL_ID,
       userPoolWebClientId: CLIENT_ID,
       oauth: {
-        domain: 'devsportfoliosapp.auth.us-east-2.amazoncognito.com',
+        domain: COGNITO_DOMAIN,
         scope: ['email', 'profile', 'openid'],
-        redirectSignIn: 'https://localhost:3000/page/userSettings/google',
-        redirectSignOut: 'https://localhost:3000/page/login',
+        redirectSignIn: `${CLIENT_BASE_URL}/page/userSettings/google`,
+        redirectSignOut: `${CLIENT_BASE_URL}/page/login`,
         responseType: 'token',
       },
     },
@@ -49,10 +49,10 @@ export const loadSignupGoogleConfig = async () => {
       userPoolId: USER_POOL_ID,
       userPoolWebClientId: CLIENT_ID,
       oauth: {
-        domain: 'devsportfoliosapp.auth.us-east-2.amazoncognito.com',
+        domain: COGNITO_DOMAIN,
         scope: ['email', 'profile', 'openid'],
-        redirectSignIn: 'https://localhost:3000/page/signup/google',
-        redirectSignOut: 'https://localhost:3000/page/signup',
+        redirectSignIn: `${CLIENT_BASE_URL}/page/signup/google`,
+        redirectSignOut: `${CLIENT_BASE_URL}/page/signup`,
         responseType: 'token',
       },
     },
