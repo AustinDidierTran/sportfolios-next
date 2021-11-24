@@ -10,16 +10,18 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '../../Button';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { Store } from '../../../../Store';
+import { removeParticipant } from '../../../../actions/service/messaging';
 
 export default function QuitConvoDialog(props) {
-  const { open, onClose, conversationId } = props;
+  const { open, onClose, conversationId, updateConversation } = props;
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
   const { t } = useTranslation();
 
   const handleQuit = () => {
-    console.log('Remove ', userInfo.primaryPerson?.name, 'from conversaton ', conversationId);
+    removeParticipant(conversationId, userInfo.primaryPerson?.id);
+    console.log('Remove ', userInfo.primaryPerson?.id, 'from conversaton ', conversationId);
     goTo(ROUTES.conversations);
   };
   return (

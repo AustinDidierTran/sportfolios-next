@@ -39,6 +39,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
+        console.log('websocket 1');
         setMessages((messages) => {
           return [...messages, message];
         });
@@ -49,14 +50,18 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     };
   }, []);
 
-  const updateConversation = useCallback(() => {
-    getConversationMessages(convoId).then(({ conversation, messages } = { conversation: null, messages: [] }) => {
-      if (!conversation) {
-        return;
+  const updateConversation = useCallback(async () => {
+    console.log('update conversation, oonvo ID :', convoId);
+    return getConversationMessages(convoId).then(
+      ({ conversation, messages } = { conversation: null, messages: [] }) => {
+        if (!conversation) {
+          return;
+        }
+
+        setConversation(conversation);
+        setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
       }
-      setConversation(conversation);
-      setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
-    });
+    );
   }, [convoId]);
 
   useEffect(() => {
@@ -95,7 +100,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
   const onSendMessage = useCallback(() => {
     sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(() => {
-      updateConversation();
+      // updateConversation();
       content.reset();
     });
   }, [convoId, content.value, userInfo.primaryPerson?.personId, updateConversation]);

@@ -29,7 +29,7 @@ export default function EditMember(props) {
       return t('no.no_nickname');
     }
     return member.nickname;
-  }, [member.nickname, updateConversation()]);
+  }, [member.nickname]);
 
   if (clicked) {
     return (
