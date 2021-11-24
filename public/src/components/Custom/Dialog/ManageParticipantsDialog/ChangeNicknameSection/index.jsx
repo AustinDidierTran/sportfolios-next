@@ -6,7 +6,7 @@ import CustomTextField from '../../../TextField';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { useFormInput } from '../../../../../hooks/forms';
-import { updateConversationName, updateNickname } from '../../../../../actions/service/messaging';
+import { updateNickname } from '../../../../../actions/service/messaging';
 
 export default function ChangeNicknameSection(props) {
   const { member, conversationId, setClicked, updateConversation } = props;
@@ -14,14 +14,14 @@ export default function ChangeNicknameSection(props) {
   const { t } = useTranslation();
 
   const handleConfirmed = () => {
-    updateNickname(conversationId, member.id, content.value).then(() => {
-      console.log('nickname : ', member.nickname);
+    updateNickname(conversationId, member.id, content.value).then((data) => {
+      console.log('data : ', data);
+      updateConversation();
+      console.log('nouveau surnom de ', member.id, 'est : ', content.value, 'de la conversation ', conversationId);
+      console.log('nicki', member.nickname);
+      content.reset();
+      setClicked(false);
     });
-    updateConversation();
-    console.log('nickname : ', member.nickname);
-    console.log('nouveau surnom de ', member.id, 'est : ', content.value, 'de la conversation ', conversationId);
-    content.reset();
-    setClicked(false);
   };
 
   const handleCanceled = () => {
