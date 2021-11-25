@@ -24,6 +24,7 @@ import { useFormik } from 'formik';
 import { formatRoute } from '../../utils/stringFormats';
 import dynamic from 'next/dynamic';
 import CustomIconButton from '../../components/Custom/IconButton';
+import RosterUpdateDialog from '../../components/Custom/Dialog/RosterUpdateDialog';
 
 const PersonSelect = dynamic(() => import('./PersonSelect'));
 const PaymentOptionSelect = dynamic(() => import('./PaymentOptionSelect/index'));
@@ -149,6 +150,10 @@ export default function EventRegistration() {
     },
   });
 
+  const rosterUpdate = () => {
+    console.log('update le roster pour ce roster là : ', formik.values.roster);
+    formik.handleSubmit();
+  };
   useEffect(() => {
     formik.setFieldValue('teamActivity', true);
     if (!eventId) {
@@ -252,6 +257,8 @@ export default function EventRegistration() {
               ? [...individualSteps, additionalInformation]
               : individualSteps
           }
+          formik={formik}
+          rosterUpdate={rosterUpdate}
           finish={formik.handleSubmit}
           Next={() => {}}
           Back={handleBack}

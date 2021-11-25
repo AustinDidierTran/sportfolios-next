@@ -1664,6 +1664,8 @@ export default {
     unsubscribed: 'Unsubscribed',
     unsupported_language: 'Unsupported language',
     upcoming_games: 'Upcoming games',
+    update_roster: 'Roster update',
+    update_roster_message: "Do you want to update your team's roster to the one used in this event ? ",
     upload: 'Upload',
     upload_image: 'Upload image',
     upload_terms_and_conditions: 'Upload (PDF)',
