@@ -267,7 +267,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
           </>
         }
         title={
-          <Typography className={styles.headerTitle}>
+          <Typography variant="body2" className={styles.headerTitle}>
             {postInfo.surname ? postInfo.name + ' ' + postInfo.surname : postInfo.name}
           </Typography>
         }
