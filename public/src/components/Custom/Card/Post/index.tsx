@@ -137,6 +137,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
   const handleChange = (event: any): void => {
     setEditPostContent(event.target.value);
   };
+  console.log('post Infos : ', postInfo);
 
   const onClickLike = async (e: any): Promise<void> => {
     e.preventDefault();
@@ -266,7 +267,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
             )}
           </>
         }
-        title={postInfo.surname? postInfo.name + ' ' + postInfo.surname : postInfo.name}
+        title={postInfo.surname ? postInfo.name + ' ' + postInfo.surname : postInfo.name}
         subheader={getTimeToShow(postInfo.createdAt)}
       />
       <CardContent className={styles.content}>
