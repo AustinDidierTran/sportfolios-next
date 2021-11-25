@@ -187,10 +187,14 @@ const Post: React.FunctionComponent<IProps> = (props) => {
           className={styles.header}
           classes={{
             content: styles.headerContent,
-            title: styles.headerTitle,
           }}
           avatar={<CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl} />}
-          title={postInfo.name + ' ' + postInfo.surname}
+          title={
+            <Typography variant="body2" className={styles.headerTitle}>
+              {postInfo.surname ? postInfo.name + ' ' + postInfo.surname : postInfo.name}
+              {postInfo.verifiedAt ? <CheckCircleIcon className={styles.verified} /> : <></>}
+            </Typography>
+          }
           subheader={getTimeToShow(postInfo.createdAt)}
         />
         <div>
@@ -269,6 +273,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
         title={
           <Typography variant="body2" className={styles.headerTitle}>
             {postInfo.surname ? postInfo.name + ' ' + postInfo.surname : postInfo.name}
+            {postInfo.verifiedAt ? <CheckCircleIcon className={styles.verified} /> : <></>}
           </Typography>
         }
         subheader={getTimeToShow(postInfo.createdAt)}
@@ -350,6 +355,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
               handleEditComment={handleEditComment}
               handleDeleteComment={onClickDeleteComment}
               isAdmin={entityId === comment.entityId}
+              commentVerifiedAt={comment.verfiedAt}
             />
           ))}
           {elevation === 0 && <Divider className={styles.dividerComment} />}

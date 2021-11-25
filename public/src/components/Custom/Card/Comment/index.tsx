@@ -12,7 +12,9 @@ import CustomAvatar from '../../Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import { Typography } from '@material-ui/core';
 import AlertDialog from '../../Dialog/AlertDialog';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 interface IProps {
   commentId: string;
@@ -23,6 +25,7 @@ interface IProps {
   handleEditComment: (commentId: string, editCommentContent: string) => void;
   handleDeleteComment: (commentId: string) => void;
   isAdmin: boolean;
+  commentVerifiedAt: string;
 }
 
 const Comment: React.FunctionComponent<IProps> = (props) => {
@@ -35,6 +38,7 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
     handleEditComment,
     handleDeleteComment,
     isAdmin,
+    commentVerifiedAt,
   } = props;
 
   const modifyComment = (): void => {
@@ -145,7 +149,6 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
         className={styles.headerComment}
         classes={{
           content: styles.headerCommentContent,
-          title: styles.headerTitle,
           avatar: styles.avatarComment,
           subheader: styles.subheaderComment,
           action: styles.headerAction,
@@ -160,7 +163,12 @@ const Comment: React.FunctionComponent<IProps> = (props) => {
             )}
           </>
         }
-        title={commentFullName}
+        title={
+          <Typography variant="body2" className={styles.headerTitle}>
+            {commentFullName}
+            {commentVerifiedAt ? <CheckCircleIcon className={styles.verified} /> : <></>}
+          </Typography>
+        }
         subheader={commentContent}
       />
       <CardContent className={styles.dateComment}>{commentDate}</CardContent>
