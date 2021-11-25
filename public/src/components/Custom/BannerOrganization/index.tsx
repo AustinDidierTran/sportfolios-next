@@ -9,7 +9,8 @@ import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
 import { Entity } from '../../../../../typescript/types';
 import { COLORS } from '../../../utils/colors';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CheckCirleIcon from '@material-ui/icons/CheckCircle';
+import { Typography } from '@material-ui/core';
 
 interface IProps {
   basicInfos: Entity;
@@ -45,12 +46,10 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} container>
           <Grid container className={styles.gridText}>
-            <Grid container item className={styles.title}>
-              <div className={styles.together}>
-                <p className={styles.name}>{basicInfos.name}</p>
-                <CheckCircleIcon className={styles.verified} />
-              </div>
-            </Grid>
+            <Typography className={styles.title}>
+              {basicInfos.name}
+              {basicInfos.verifiedAt ? <CheckCirleIcon className={styles.verified} /> : <></>}
+            </Typography>
           </Grid>
           <Grid container className={styles.gridButton}>
             <CustomButton

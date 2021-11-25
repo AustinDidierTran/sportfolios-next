@@ -20,7 +20,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import styles from './Post.module.css';
 import { useTranslation } from 'react-i18next';
 import { SEVERITY_ENUM } from '../../../../../common/enums';
@@ -255,7 +255,6 @@ const Post: React.FunctionComponent<IProps> = (props) => {
         className={styles.header}
         classes={{
           content: styles.headerContent,
-          title: styles.headerTitle,
         }}
         avatar={<CustomAvatar aria-label="recipe" className={styles.avatar} photoUrl={postInfo.photoUrl} />}
         action={
@@ -267,7 +266,11 @@ const Post: React.FunctionComponent<IProps> = (props) => {
             )}
           </>
         }
-        title={postInfo.surname ? postInfo.name + ' ' + postInfo.surname : postInfo.name}
+        title={
+          <Typography className={styles.headerTitle}>
+            {postInfo.surname ? postInfo.name + ' ' + postInfo.surname : postInfo.name}
+          </Typography>
+        }
         subheader={getTimeToShow(postInfo.createdAt)}
       />
       <CardContent className={styles.content}>

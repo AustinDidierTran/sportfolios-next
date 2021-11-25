@@ -2,12 +2,14 @@
   display: flex;
   justify-content: center;
 }
-.name {
+.title {
+  font-size: 2em !important;
   font-weight: bold !important;
-  margin-right: 0.5rem !important;
-  font-size: 1.5em !important;
 }
-
+.verified {
+  color: #1a92f8 !important;
+  margin-left: 0.5rem;
+}
 .eventButton {
   align-self: right;
   justify-self: center;
@@ -126,13 +128,4 @@
     max-width: 700px;
     padding: 2px;
   }
-}
-.together {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.verified {
-  color: #1a92f8;
 }
