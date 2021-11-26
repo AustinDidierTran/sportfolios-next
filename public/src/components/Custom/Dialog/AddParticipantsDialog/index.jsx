@@ -36,15 +36,17 @@ export default function AddParticipantsDialog(props) {
     addParticipants(
       conversationId,
       newParticipants.map((p) => p.id)
-    );
-    console.log(
-      'Add ',
-      newParticipants.map((p) => p.id),
-      'to the convo ',
-      conversationId
-    );
-    updateConversation();
-    setNewParticipants([]);
+    ).then(() => {
+      console.log(
+        'Add ',
+        newParticipants.map((p) => p.id),
+        'to the convo ',
+        conversationId
+      );
+      updateConversation().then(() => {
+        setNewParticipants([]);
+      });
+    });
   };
 
   return (
