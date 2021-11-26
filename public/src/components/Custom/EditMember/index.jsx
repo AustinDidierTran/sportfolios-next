@@ -21,7 +21,6 @@ export default function EditMember(props) {
 
   const handleDelete = () => {
     removeParticipant(conversationId, member.id).then(() => {
-      console.log(member.name, 'is removed from conversation ', conversationId);
       updateConversation();
     });
   };

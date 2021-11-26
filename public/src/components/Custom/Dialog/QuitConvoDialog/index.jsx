@@ -21,7 +21,6 @@ export default function QuitConvoDialog(props) {
 
   const handleQuit = () => {
     removeParticipant(conversationId, userInfo.primaryPerson?.id).then(() => {
-      console.log('Remove ', userInfo.primaryPerson?.id, 'from conversaton ', conversationId);
       goTo(ROUTES.conversations);
     });
   };

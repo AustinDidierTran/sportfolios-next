@@ -39,9 +39,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
-        console.log('message: ', message);
         setMessages((messages) => {
-          console.log('[...messages, message]', [...messages, message]);
           return [...messages, message];
         });
       }
@@ -52,7 +50,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, []);
 
   const updateConversation = useCallback(async () => {
-    console.log('update conversation, oonvo ID :', convoId);
     return getConversationMessages(convoId).then(
       ({ conversation, messages } = { conversation: null, messages: [] }) => {
         if (!conversation) {
