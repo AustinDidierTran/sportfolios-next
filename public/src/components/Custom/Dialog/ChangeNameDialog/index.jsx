@@ -24,10 +24,12 @@ export default function ChangeNameDialog(props) {
   const content = useFormInput('');
 
   const handleConfirmed = () => {
-    updateConversationName(conversationId, content.value);
-    console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
-    updateConversation();
-    content.reset();
+    updateConversationName(conversationId, content.value).then(() => {
+      console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
+      updateConversation().then(() => {
+        content.reset();
+      });
+    });
   };
 
   return (

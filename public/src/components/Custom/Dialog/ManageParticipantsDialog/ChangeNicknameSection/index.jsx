@@ -16,7 +16,7 @@ export default function ChangeNicknameSection(props) {
   const handleConfirmed = () => {
     updateNickname(conversationId, member.id, content.value).then((data) => {
       console.log('data : ', data);
-      updateConversation();
+      updateConversation().then(() => {});
       console.log('nouveau surnom de ', member.id, 'est : ', content.value, 'de la conversation ', conversationId);
       console.log('nicki', member.nickname);
       content.reset();

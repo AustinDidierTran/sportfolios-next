@@ -8,6 +8,7 @@ import { Typography } from '@material-ui/core';
 import { removeParticipant } from '../../../actions/service/messaging';
 import { useFormInput } from '../../../hooks/forms';
 import ChangeNicknameSection from '.././Dialog/ManageParticipantsDialog/ChangeNicknameSection';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function EditMember(props) {
   const { t } = useTranslation();
@@ -19,9 +20,10 @@ export default function EditMember(props) {
   };
 
   const handleDelete = () => {
-    removeParticipant(conversationId, member.id);
-    console.log(member.name, 'is removed from conversation ', conversationId);
-    updateConversation();
+    removeParticipant(conversationId, member.id).then(() => {
+      console.log(member.name, 'is removed from conversation ', conversationId);
+      updateConversation();
+    });
   };
 
   const nickname = useMemo(() => {
@@ -53,8 +55,12 @@ export default function EditMember(props) {
         </div>
       </div>
       <div className={styles.grow} />
-      <CreateIcon className={styles.create} onClick={handleEdit} />
-      <Delete className={styles.delete} onClick={handleDelete} />
+      <Tooltip title={t('change_nicknames')}>
+        <CreateIcon className={styles.create} onClick={handleEdit} />
+      </Tooltip>
+      <Tooltip title={t('delete.delete_participants')}>
+        <Delete className={styles.delete} onClick={handleDelete} />
+      </Tooltip>
     </div>
   );
 }

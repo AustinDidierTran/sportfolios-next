@@ -20,9 +20,10 @@ export default function QuitConvoDialog(props) {
   const { t } = useTranslation();
 
   const handleQuit = () => {
-    removeParticipant(conversationId, userInfo.primaryPerson?.id);
-    console.log('Remove ', userInfo.primaryPerson?.id, 'from conversaton ', conversationId);
-    goTo(ROUTES.conversations);
+    removeParticipant(conversationId, userInfo.primaryPerson?.id).then(() => {
+      console.log('Remove ', userInfo.primaryPerson?.id, 'from conversaton ', conversationId);
+      goTo(ROUTES.conversations);
+    });
   };
   return (
     <div>
