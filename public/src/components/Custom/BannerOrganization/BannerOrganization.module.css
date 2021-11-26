@@ -8,7 +8,8 @@
 }
 .verified {
   color: #1a92f8 !important;
-  margin-left: 0.5rem;
+  margin-left: 0.2rem;
+  vertical-align: middle;
 }
 .eventButton {
   align-self: right;

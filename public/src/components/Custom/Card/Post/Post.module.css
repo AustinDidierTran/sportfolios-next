@@ -26,9 +26,9 @@
 
 .verified {
   color: #1a92f8 !important;
-  margin-left: 0.3rem;
+  margin-left: 0.2rem;
   font-size: 1rem !important;
-  justify-self: center !important;
+  vertical-align: middle !important;
 }
 .centerCheck {
   display: flex;
