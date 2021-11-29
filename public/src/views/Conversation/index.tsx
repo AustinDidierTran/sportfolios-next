@@ -39,9 +39,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
-        console.log('message: ', message);
         setMessages((messages) => {
-          console.log('[...messages, message]', [...messages, message]);
           return [...messages, message];
         });
       }
@@ -52,7 +50,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }, []);
 
   const updateConversation = useCallback(async () => {
-    console.log('update conversation, oonvo ID :', convoId);
     return getConversationMessages(convoId).then(
       ({ conversation, messages } = { conversation: null, messages: [] }) => {
         if (!conversation) {
@@ -91,6 +88,19 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const FindNickname = useCallback(
+    (message: IConversationMessage) => {
+      const participantIds = conversation.participants.map((p) => p.id);
+      const index = participantIds.indexOf(message.sender.id);
+      return conversation.participants[index].nickname;
+    },
+    [
+      conversation?.participants.map((p) => {
+        p.nickname;
+      }),
+    ]
+  );
 
   const otherParticipants = useMemo(() => {
     if (!conversation) {
@@ -162,7 +172,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           return m.sender.id === userInfo.primaryPerson?.personId ? (
             <MyMessage message={m} />
           ) : (
-            <FriendMessage message={m} />
+            <FriendMessage message={m} nickname={FindNickname(m)} />
           );
         })}
         <div ref={messagesEndRef} />
