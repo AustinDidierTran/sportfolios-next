@@ -89,6 +89,19 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     scrollToBottom();
   }, [messages]);
 
+  const FindNickname = useCallback(
+    (message: IConversationMessage) => {
+      const participantIds = conversation.participants.map((p) => p.id);
+      const index = participantIds.indexOf(message.sender.id);
+      return conversation.participants[index].nickname;
+    },
+    [
+      conversation?.participants.map((p) => {
+        p.nickname;
+      }),
+    ]
+  );
+
   const otherParticipants = useMemo(() => {
     if (!conversation) {
       return [];
@@ -159,7 +172,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           return m.sender.id === userInfo.primaryPerson?.personId ? (
             <MyMessage message={m} />
           ) : (
-            <FriendMessage message={m} />
+            <FriendMessage message={m} nickname={FindNickname(m)} />
           );
         })}
         <div ref={messagesEndRef} />
