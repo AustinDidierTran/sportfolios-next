@@ -44,9 +44,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
-        console.log('message: ', message);
         setMessages((messages) => {
-          console.log('[...messages, message]', [...messages, message]);
           return [...messages, message];
         });
       }
