@@ -24,11 +24,12 @@ import Button from '@material-ui/core/Button';
 
 interface IProps {
   convoId: string;
+  recipientId: string;
 }
 
 const Conversation: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { convoId } = props;
+  const { convoId, recipientId } = props;
   const {
     state: { socket, userInfo: userInfo },
   } = useContext(Store);
@@ -36,6 +37,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const [conversation, setConversation] = useState<IConversationPreview>();
   const [messages, setMessages] = useState<IConversationMessage[]>();
 
+  console.log(recipientId);
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
@@ -106,15 +108,15 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     if (!conversation) {
       return [];
     }
-    return (conversation.participants || []).filter((p) => p.id !== userInfo.primaryPerson?.personId);
+    return (conversation.participants || []).filter((p) => p.id !== recipientId);
   }, [conversation]);
 
   const onSendMessage = useCallback(() => {
-    sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(() => {
+    sendMessage(convoId, content.value, recipientId).then(() => {
       // updateConversation();
       content.reset();
     });
-  }, [convoId, content.value, userInfo.primaryPerson?.personId, updateConversation]);
+  }, [convoId, content.value, recipientId, updateConversation]);
 
   const name = useMemo(() => {
     if (!conversation) {
@@ -126,7 +128,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     }
 
     return (conversation.participants || [])
-      .filter((p) => p.id !== userInfo.primaryPerson?.personId)
+      .filter((p) => p.id !== recipientId)
       .map((p) => `${p.name} ${p.surname}`)
       .join(', ');
   }, [conversation]);
@@ -146,6 +148,9 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   if (!convoId || !conversation) {
     return <LoadingSpinner />;
   }
+  //TEST
+
+  console.log('otherParticipants : ', otherParticipants);
 
   return (
     <IgContainer className={styles.container}>
@@ -169,7 +174,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
       </div>
       <div className={styles.exchange}>
         {messages?.map((m: IConversationMessage) => {
-          return m.sender.id === userInfo.primaryPerson?.personId ? (
+          return m.sender.id === recipientId ? (
             <MyMessage message={m} />
           ) : (
             <FriendMessage message={m} nickname={FindNickname(m)} />

@@ -26,6 +26,7 @@ const Conversations: React.FunctionComponent = () => {
     state: { userInfo: userInfo, socket },
   } = useContext(Store);
 
+  console.log('userInfo  :', userInfo);
   // TODO: Call this function on websocket update
   const updateConversations = useCallback(() => {
     getConversations({ recipientId: userInfo.primaryPerson?.id }).then((newConversations: IConversationPreview[]) => {
