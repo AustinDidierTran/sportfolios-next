@@ -11,6 +11,7 @@ const Conversation: React.FunctionComponent = () => {
   const { id: convoId, recipientId: recipientId } = router.query;
   const { t } = useTranslation();
 
+  console.log('convoId', convoId, 'recipientId: ', recipientId);
   return (
     <>
       <Head>
