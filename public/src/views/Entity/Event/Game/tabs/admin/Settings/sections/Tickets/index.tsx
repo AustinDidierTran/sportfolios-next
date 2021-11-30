@@ -64,15 +64,13 @@ const General: React.FunctionComponent<IProps> = (props) => {
     onSubmit: async (values) => {
       const { name, description, price } = values;
 
-      const insertObj: gameService.IAddTicketOptionProps = { eventId: id, name, price, creatorId };
+      const insertObj: gameService.IAddTicketOptionProps = { eventId: id, name, price: Number(price), creatorId };
 
       if (description) {
         insertObj.description = description;
       }
 
       const res = await gameService.addTicketOption(insertObj);
-
-      console.log({ res });
     },
   });
 
