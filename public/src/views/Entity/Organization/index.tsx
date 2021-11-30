@@ -64,7 +64,12 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   const [states, setStates] = useState<States[]>(userState);
 
   const tabNotChanging = () => {
-    return adminState.find((s) => s.value === tab) && tab != TABS_ENUM.HOME && tab != TABS_ENUM.EVENTS && tab != TABS_ENUM.SHOP;
+    return (
+      adminState.find((s) => s.value === tab) &&
+      tab != TABS_ENUM.HOME &&
+      tab != TABS_ENUM.EVENTS &&
+      tab != TABS_ENUM.SHOP
+    );
   };
 
   const index = useMemo((): number => {

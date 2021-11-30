@@ -14,11 +14,12 @@ import { List } from '../../components/Custom';
 import { Chip } from '../../components/Custom';
 import MessageDialog from '../../components/Custom/Dialog/MessageDialog';
 import { Store } from '../../Store';
-import { ContactSupportOutlined } from '@material-ui/icons';
+import { ContactSupportOutlined, ReceiptOutlined } from '@material-ui/icons';
 import Button from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import { createConversation } from '../../actions/service/messaging';
+import ChooseRecipientForNew from '../../components/Custom/ChooseRecipientForNew';
 
 interface IPerson {
   id: string;
@@ -31,20 +32,22 @@ const newMessage: React.FunctionComponent = () => {
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
+  console.log(userInfo);
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
   const [participants, setParticipants] = useState<IPerson[]>([]);
+  const [recipient, setRecipient] = useState<Person>(userInfo.primaryPerson);
 
   const handleArrowBack = () => {
     goTo(ROUTES.conversations);
   };
   const createConvo = () => {
-    let creatorId: string = userInfo.primaryPerson?.personId;
+    let creatorId: string = recipient.id;
     let participantsId: string[] = participants.map((player) => player.id);
 
     createConversation(participantsId, creatorId).then((newConversationId) => {
-      goTo(ROUTES.conversation, { id: newConversationId });
+      goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: recipient.id });
     });
   };
 
@@ -67,7 +70,7 @@ const newMessage: React.FunctionComponent = () => {
         <ParticipantsSearchList
           className={styles.search}
           clearOnSelect={false}
-          label={t('to')}
+          label={t('with')}
           onClick={addNewFriend}
           query={query}
           secondary={t('player')}
@@ -75,6 +78,7 @@ const newMessage: React.FunctionComponent = () => {
           autoFocus
           inputRef={inputRef}
           participants={participants}
+          recipient={recipient}
         />
         {participants.length ? (
           <List>
@@ -91,6 +95,9 @@ const newMessage: React.FunctionComponent = () => {
         ) : (
           <></>
         )}
+
+        <ChooseRecipientForNew recipient={recipient} setRecipient={setRecipient} />
+
         <Button className={styles.button} disabled={participants.length === 0} onClick={createConvo}>
           {t('create.create_message')}
         </Button>

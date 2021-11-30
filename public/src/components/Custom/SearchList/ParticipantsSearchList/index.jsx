@@ -23,6 +23,7 @@ export default function ParticipantsSearchList(props) {
     inputRef,
     participants,
     otherParticipants,
+    recipient,
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
@@ -119,7 +120,12 @@ export default function ParticipantsSearchList(props) {
           }}
         />
       )}
-      <ParticipantsList participants={participants} items={options} otherParticipants={otherParticipants} />
+      <ParticipantsList
+        participants={participants}
+        items={options}
+        otherParticipants={otherParticipants}
+        recipient={recipient}
+      />
     </>
   );
 }
