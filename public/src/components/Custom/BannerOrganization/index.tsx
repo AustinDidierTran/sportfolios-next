@@ -10,7 +10,7 @@ import { getMembershipName } from '../../../utils/stringFormats';
 import { Entity } from '../../../../../typescript/types';
 import { COLORS } from '../../../utils/colors';
 import CheckCirleIcon from '@material-ui/icons/CheckCircle';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 interface IProps {
   basicInfos: Entity;
