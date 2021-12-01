@@ -36,11 +36,11 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
   } = props;
   const { t } = useTranslation();
 
-  const plural = useMemo(() => {
+  const membersAmount = useMemo(() => {
     if (basicInfos.numberOfMembers?.count > 1) {
-      return 's';
+      return t('number_of_members', { amountOfMembers: basicInfos.numberOfMembers?.count });
     }
-    return '';
+    return t('number_of_member', { amountOfMembers: basicInfos.numberOfMembers?.count });
   }, [basicInfos.numberOfMembers?.count]);
 
   return (
@@ -66,7 +66,7 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
           </Grid>
           <Grid container className={styles.gridText}>
             <Grid container item className={styles.followers}>
-              {t('number_of_members', { amountOfMembers: basicInfos.numberOfMembers?.count, s: plural })}
+              {membersAmount}
             </Grid>
           </Grid>
         </Grid>
