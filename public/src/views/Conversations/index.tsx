@@ -41,32 +41,23 @@ const Conversations: React.FunctionComponent = () => {
   }, [updateConversations]);
 
   useEffect(() => {
-    // if (!conversations.length) {
-    //   return;
-    // }
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (!message) {
-        console.log('!message');
         return;
       }
 
       setConversations((oldConversations) => {
         const conversationsCopy: IConversationPreview[] = [...oldConversations];
-        console.log('conversaitonsCopy', conversationsCopy);
         const conversationIds = conversationsCopy?.map((c) => c.id);
-        console.log('conversaitonsIds: ', conversationIds);
         const index = conversationIds.indexOf(message.conversationId);
-        console.log('index : ', index);
         if (!conversationsCopy) {
           return;
         }
         if (index === -1) {
           return;
         }
-        console.log('message : ', message);
-        console.log('oldLastMessage : ', conversationsCopy[index].lastMessage);
         conversationsCopy[index].lastMessage = message;
-        console.log('NewLastMessage : ', conversationsCopy[index].lastMessage);
+
         return conversationsCopy;
       });
     });

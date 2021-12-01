@@ -28,7 +28,6 @@ export default function ParticipantsItem(props) {
     secondaryActions, //secondaryAction is an array of components, this array should not contain more than 2 or 3 buttons
     notClickable,
     disabled,
-    participants,
     otherParticipants,
   } = props;
 
@@ -37,7 +36,7 @@ export default function ParticipantsItem(props) {
   } = useContext(Store);
 
   const alreadyParticipant = useMemo(() => {
-    if (participants.filter((p) => p.id === id).length === 1) {
+    if (otherParticipants.filter((p) => p.id === id).length === 1) {
       return true;
     }
     if (id === userInfo.primaryPerson?.personId) {
@@ -49,7 +48,7 @@ export default function ParticipantsItem(props) {
       }
     }
     return false;
-  }, [participants]);
+  }, [otherParticipants]);
 
   const handleClick = useCallback(
     (e) => {

@@ -21,7 +21,6 @@ export default function ParticipantsSearchList(props) {
     style,
     autoFocus,
     inputRef,
-    participants,
     otherParticipants,
   } = props;
   const { t } = useTranslation();
@@ -60,7 +59,10 @@ export default function ParticipantsSearchList(props) {
   };
 
   const formatOptions = (response) => {
-    return response?.entities
+    if (!response) {
+      return null;
+    }
+    return response.entities
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({
         ...e,
@@ -119,7 +121,7 @@ export default function ParticipantsSearchList(props) {
           }}
         />
       )}
-      <ParticipantsList participants={participants} items={options} otherParticipants={otherParticipants} />
+      <ParticipantsList items={options} otherParticipants={otherParticipants} />
     </>
   );
 }
