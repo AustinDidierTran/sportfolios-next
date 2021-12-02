@@ -61,7 +61,10 @@ export default function ParticipantsSearchList(props) {
   };
 
   const formatOptions = (response) => {
-    return response?.entities
+    if (!response) {
+      return null;
+    }
+    return response.entities
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({
         ...e,

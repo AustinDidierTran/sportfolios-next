@@ -38,7 +38,7 @@ export default function ParticipantsItem(props) {
   } = useContext(Store);
 
   const alreadyParticipant = useMemo(() => {
-    if (participants.filter((p) => p.id === id).length === 1) {
+    if (otherParticipants.filter((p) => p.id === id).length === 1) {
       return true;
     }
     if (id === recipientId) {
@@ -50,7 +50,7 @@ export default function ParticipantsItem(props) {
       }
     }
     return false;
-  }, [participants]);
+  }, [otherParticipants]);
 
   const handleClick = useCallback(
     (e) => {

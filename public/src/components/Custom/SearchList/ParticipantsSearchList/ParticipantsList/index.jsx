@@ -26,7 +26,6 @@ export default function ParticipantsList(props) {
   const defaultRowRenderer = (item, index) => {
     return (
       <ParticipantsItem
-        participants={participants}
         otherParticipants={otherParticipants}
         {...otherProps}
         {...item}

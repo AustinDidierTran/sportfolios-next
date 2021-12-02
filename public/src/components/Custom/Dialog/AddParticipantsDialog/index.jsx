@@ -13,7 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import { useFormInput } from '../../../../hooks/forms';
 import ParticipantsSearchList from '../../SearchList/ParticipantsSearchList';
-import { Chip } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
 import DoneIcon from '@material-ui/icons/Done';
 import { addParticipants } from '../../../../actions/service/messaging';
 
@@ -22,30 +22,11 @@ export default function AddParticipantsDialog(props) {
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
-  const [newParticipants, setNewParticipants] = useState([]);
-
-  const handleDeleteParticipant = (personId) => {
-    setNewParticipants(newParticipants.filter((e) => e.id != personId));
-  };
 
   const addNewFriend = async (person) => {
-    setNewParticipants([...newParticipants, person]);
-  };
-
-  const confirmParticipants = () => {
-    addParticipants(
-      conversationId,
-      newParticipants.map((p) => p.id)
-    ).then(() => {
-      console.log(
-        'Add ',
-        newParticipants.map((p) => p.id),
-        'to the convo ',
-        conversationId
-      );
-      updateConversation().then(() => {
-        setNewParticipants([]);
-      });
+    const personId = [person.id];
+    addParticipants(conversationId, personId).then(() => {
+      updateConversation();
     });
   };
 
@@ -76,32 +57,8 @@ export default function AddParticipantsDialog(props) {
               withoutIcon
               autoFocus
               inputRef={inputRef}
-              participants={newParticipants}
               otherParticipants={otherParticipants}
             />
-            {newParticipants.length ? (
-              <List>
-                {newParticipants.map((p) => (
-                  <Chip
-                    className={styles.chip}
-                    label={p.completeName}
-                    color="primary"
-                    variant="outlined"
-                    onDelete={() => handleDeleteParticipant(p.id)}
-                  />
-                ))}
-              </List>
-            ) : (
-              <></>
-            )}
-            <Button className={styles.button} onClick={confirmParticipants}>
-              <div className={styles.confirmDisplay}>
-                <Typography className={styles.confirm} variant="body2">
-                  {t('confirm')}
-                </Typography>
-                <DoneIcon className={styles.done} />
-              </div>
-            </Button>
           </div>
         </DialogContent>
         <DialogActions>
