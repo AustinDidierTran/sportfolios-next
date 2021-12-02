@@ -8,13 +8,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography';
 
 import { SELECT_ENUM } from '../../../../common/enums';
-
-interface IOption {
-  disabled?: boolean;
-  display?: string;
-  displayKey?: string;
-  value: any;
-}
+import { IOption } from '../../../../../typescript/forms';
 
 interface IProps {
   className?: string;
@@ -46,7 +40,7 @@ const CustomSelect: React.FunctionComponent<IProps> = (props) => {
   let value = '';
   if (formik) {
     value = formik.values[namespace];
-  } else if (valueProp) {
+  } else if (valueProp || valueProp === 0) {
     value = valueProp;
   }
 

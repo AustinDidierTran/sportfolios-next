@@ -805,6 +805,9 @@ export default {
       invalid_input: 'Invalid input',
       invalid_roster_role_to_submit_score:
         'You must be a coach, captain or assistant captain to be able to submit a result',
+      price: 'Your price has an invalid format.',
+      price_under_5: 'Your price has to be over 5$.',
+      value_is_required: 'A value is required.',
     },
     invalid_information: 'Invalid information',
     no: {
