@@ -6,6 +6,7 @@ import { IConversationMessage, IConversationPreview } from '../../../../typescri
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
+import Options from '../../components/Custom/Options';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import MyMessage from '../../components/MyMessage';
 import FriendMessage from '../../components/FriendMessage';
@@ -17,6 +18,13 @@ import { getConversationMessages, sendMessage } from '../../actions/service/mess
 import { LoadingSpinner } from '../../components/Custom';
 import moment from 'moment';
 import { SOCKET_EVENT } from '../../../common/enums';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
+interface IHash {
+  [details: string]: string;
+}
 
 interface IProps {
   convoId: string;
@@ -45,19 +53,33 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     };
   }, []);
 
-  const updateConversation = useCallback(() => {
-    getConversationMessages(convoId).then(({ conversation, messages } = { conversation: null, messages: [] }) => {
-      if (!conversation) {
-        return;
+  const updateConversation = useCallback(async () => {
+    return getConversationMessages(convoId).then(
+      ({ conversation, messages } = { conversation: null, messages: [] }) => {
+        if (!conversation) {
+          return;
+        }
+
+        setConversation(conversation);
+        setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
       }
-      setConversation(conversation);
-      setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
-    });
+    );
   }, [convoId]);
 
   useEffect(() => {
     updateConversation();
   }, [updateConversation]);
+
+  //AJOUT BACKEND
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const content = useFormInput('');
 
@@ -71,6 +93,33 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     scrollToBottom();
   }, [messages]);
 
+  const nicknameMap = useMemo<IHash>(() => {
+    if (!conversation) {
+      return {};
+    }
+
+    return conversation.participants.reduce(
+      (prev, participant) => ({
+        ...prev,
+        [participant.id]: participant.nickname,
+      }),
+      {}
+    );
+  }, [
+    conversation?.participants.map((p) => {
+      p.nickname;
+    }),
+  ]);
+
+  const findNickname = useCallback(
+    (message: IConversationMessage) => nicknameMap[message.sender.id],
+    [
+      conversation?.participants.map((p) => {
+        p.nickname;
+      }),
+    ]
+  );
+
   const otherParticipants = useMemo(() => {
     if (!conversation) {
       return [];
@@ -80,7 +129,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
   const onSendMessage = useCallback(() => {
     sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(() => {
-      updateConversation();
+      // updateConversation();
       content.reset();
     });
   }, [convoId, content.value, userInfo.primaryPerson?.personId, updateConversation]);
@@ -96,7 +145,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
     return (conversation.participants || [])
       .filter((p) => p.id !== userInfo.primaryPerson?.personId)
-      .map((p) => `${p.name} ${p.surname}`)
+      .map((p) => p.nickname || `${p.name} ${p.surname}`)
       .join(', ');
   }, [conversation]);
 
@@ -129,13 +178,19 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         <Typography variant="h4" className={styles.name}>
           {name}
         </Typography>
+        <div className={styles.grow} />
+        <Tooltip title={t('settings')}>
+          <Button onClick={handleClick} className={styles.button}>
+            <MoreVertIcon className={styles.settings} />
+          </Button>
+        </Tooltip>
       </div>
       <div className={styles.exchange}>
         {messages?.map((m: IConversationMessage) => {
           return m.sender.id === userInfo.primaryPerson?.personId ? (
             <MyMessage message={m} />
           ) : (
-            <FriendMessage message={m} />
+            <FriendMessage message={m} nickname={nicknameMap[m.sender.id]} />
           );
         })}
         <div ref={messagesEndRef} />
@@ -158,6 +213,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           }}
         />
       </div>
+      <Options
+        anchorEl={anchorEl}
+        open={open}
+        handleClose={handleClose}
+        otherParticipants={otherParticipants}
+        conversationId={conversation.id}
+        updateConversation={updateConversation}
+      />
     </IgContainer>
   );
 };

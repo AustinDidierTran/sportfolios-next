@@ -18,14 +18,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ParticipantsList(props) {
-  const { participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { otherParticipants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 
   const classes = useStyles();
 
   const defaultRowRenderer = (item, index) => {
     return (
       <ParticipantsItem
-        participants={participants}
+        otherParticipants={otherParticipants}
         {...otherProps}
         {...item}
         index={index}

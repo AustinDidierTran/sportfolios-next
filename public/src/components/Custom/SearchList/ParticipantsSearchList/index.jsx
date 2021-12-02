@@ -21,7 +21,7 @@ export default function ParticipantsSearchList(props) {
     style,
     autoFocus,
     inputRef,
-    participants,
+    otherParticipants,
   } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
@@ -59,6 +59,9 @@ export default function ParticipantsSearchList(props) {
   };
 
   const formatOptions = (response) => {
+    if (!response) {
+      return null;
+    }
     return response.entities
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({
@@ -118,7 +121,7 @@ export default function ParticipantsSearchList(props) {
           }}
         />
       )}
-      <ParticipantsList participants={participants} items={options} />
+      <ParticipantsList items={options} otherParticipants={otherParticipants} />
     </>
   );
 }
