@@ -1252,7 +1252,7 @@ export default {
     google: {
       add_gmail: 'Ajouter un compte google',
       login_google: 'Connexion avec Google',
-      signup: 'S\'enregistrer avec Google',
+      signup: "S'enregistrer avec Google",
     },
     go_to_cart_to_pay_membership: 'Aller à votre panier pour payer votre affiliation maintenant!',
     go_to_cart: 'Aller à mon panier',
@@ -1367,6 +1367,8 @@ export default {
     not_going: 'Absent',
     notifications_disabled: 'Notifications désactivées',
     notifications: 'Notifications',
+    number_of_members: '{{amountOfMembers}} membres',
+    number_of_member: '{{amountOfMembers}} membre',
     of_everyone: 'de tout le monde',
     of_team: "de l'équipe",
     of_teams: 'des équipes',
@@ -1572,7 +1574,10 @@ export default {
     show_more: 'Afficher plus',
     show_password: 'Afficher le mot de passe',
     signup: "S'enregistrer",
+
+
     signup_done: "Inscription terminé",
+
     six_month: 'Six mois',
     size: 'Grandeur',
     sizes_enum_l: 'Grand',

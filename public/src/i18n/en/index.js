@@ -1352,6 +1352,8 @@ export default {
     not_member: 'Not member',
     not_going: 'Not going',
     notifications_disabled: 'Notifications disabled',
+    number_of_members: '{{amountOfMembers}} members',
+    number_of_member: '{{amountOfMembers}} member',
     notifications: 'Notifications',
     of_everyone: 'of everyone',
     of_team: 'of team',
@@ -1558,7 +1560,11 @@ export default {
     show_more: 'Show more',
     show_password: 'Show password',
     signup: 'Signup',
+
+    
+
     signup_done: "Signup done",
+
     six_month: 'Six Month',
     size: 'Size',
     sizes_enum_l: 'Large',
