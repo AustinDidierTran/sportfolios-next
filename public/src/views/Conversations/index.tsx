@@ -13,61 +13,66 @@ import moment from 'moment';
 import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { IConversationPreview, IConversationMessage } from '../../../../typescript/conversation';
+import { IConversationPreview, IConversationMessage, Recipient } from '../../../../typescript/conversation';
 import { SOCKET_EVENT } from '../../../common/enums';
 import { getConversations } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
+import ChooseRecipient from '../../components/Custom/ChooseRecipient';
+import { Person } from '../../../../typescript/entity';
+import CustomAvatar from '../../components/Custom/Avatar';
 
-const Conversations: React.FunctionComponent = () => {
+interface IProps {
+  recipientId: string;
+}
+
+const Conversations: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const [conversations, setConversations] = useState<IConversationPreview[]>([]);
-
+  const { recipientId } = props;
   const {
     state: { userInfo: userInfo, socket },
   } = useContext(Store);
+  const [conversations, setConversations] = useState<IConversationPreview[]>([]);
 
-  console.log('userInfo  :', userInfo);
+  const recipientOptions = useMemo<Recipient[]>(() => userInfo.persons || [], [userInfo.persons]);
+
+  const recipient = useMemo<Recipient>(() => {
+    if (!recipientOptions) {
+      return;
+    }
+    return recipientOptions.find((r: any) => r.id === recipientId);
+  }, [recipientId, recipientOptions]);
+
   // TODO: Call this function on websocket update
   const updateConversations = useCallback(() => {
-    getConversations({ recipientId: userInfo.primaryPerson?.id }).then((newConversations: IConversationPreview[]) => {
+    getConversations({ recipientId: recipientId }).then((newConversations: IConversationPreview[]) => {
       if (!newConversations) {
         return;
       }
       setConversations(newConversations);
     });
-  }, [userInfo.primaryPerson?.id]);
+  }, [recipientId]);
 
   useEffect(() => {
     updateConversations();
   }, [updateConversations]);
 
   useEffect(() => {
-    // if (!conversations.length) {
-    //   return;
-    // }
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (!message) {
-        console.log('!message');
         return;
       }
-
       setConversations((oldConversations) => {
         const conversationsCopy: IConversationPreview[] = [...oldConversations];
-        console.log('conversaitonsCopy', conversationsCopy);
         const conversationIds = conversationsCopy?.map((c) => c.id);
-        console.log('conversaitonsIds: ', conversationIds);
         const index = conversationIds.indexOf(message.conversationId);
-        console.log('index : ', index);
         if (!conversationsCopy) {
           return;
         }
         if (index === -1) {
           return;
         }
-        console.log('message : ', message);
-        console.log('oldLastMessage : ', conversationsCopy[index].lastMessage);
         conversationsCopy[index].lastMessage = message;
-        console.log('NewLastMessage : ', conversationsCopy[index].lastMessage);
+
         return conversationsCopy;
       });
     });
@@ -85,11 +90,20 @@ const Conversations: React.FunctionComponent = () => {
         if (!a.lastMessage) {
           return 1;
         }
-
         return moment(b.lastMessage.sentAt).isBefore(moment(a.lastMessage.sentAt)) ? -1 : 1;
       }),
     [conversations]
   );
+  //Change Person
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleChangePerson = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    //Change Person
+  };
 
   return (
     <IgContainer>
@@ -104,15 +118,20 @@ const Conversations: React.FunctionComponent = () => {
               </div>
             }
             action={
-              <IconButton
-                onClick={() => {
-                  goTo(ROUTES.newMessage);
-                }}
-                className={styles.create}
-                tooltip={t('new_message')}
-                icon="Create"
-                size="large"
-              />
+              <div className={styles.options}>
+                <div onClick={handleChangePerson}>
+                  <CustomAvatar photoUrl={recipient?.photoUrl} className={styles.recipient} />
+                </div>
+                <IconButton
+                  onClick={() => {
+                    goTo(ROUTES.newMessage, null, { recipientId: recipientId });
+                  }}
+                  className={styles.create}
+                  tooltip={t('new_message')}
+                  icon="Add"
+                  size="large"
+                />
+              </div>
             }
           />
           <CardContent>
@@ -120,7 +139,7 @@ const Conversations: React.FunctionComponent = () => {
             <List>
               {orderedConversations.map((c) => (
                 <>
-                  <ConversationPreview conversation={c} userInfo={userInfo} />
+                  <ConversationPreview conversation={c} recipient={recipient} />
                   <Divider className={styles.divider} />
                 </>
               ))}
@@ -128,6 +147,14 @@ const Conversations: React.FunctionComponent = () => {
           </CardContent>
         </Card>
       </div>
+      <ChooseRecipient
+        anchorEl={anchorEl}
+        open={open}
+        handleClose={handleClose}
+        recipientOptions={recipientOptions}
+        recipient={recipient}
+        updateConversations={updateConversations}
+      />
     </IgContainer>
   );
 };

@@ -1080,6 +1080,7 @@ export default {
     changes_saved: 'Changements sauvegardés',
     change_conversation_name: 'Modifier le nom de la conversation',
     change_nicknames: 'Modifier les surnoms',
+    change_person: "Changer de personne ou d'organisation",
     chatbot: 'Chatbot',
     checkout: 'Procéder',
     checkout_error: 'Erreur durant le checkout',

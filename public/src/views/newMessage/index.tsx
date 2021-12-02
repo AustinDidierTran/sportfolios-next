@@ -28,26 +28,33 @@ interface IPerson {
   type: number;
 }
 
-const newMessage: React.FunctionComponent = () => {
+interface IProps {
+  recipientId: string;
+}
+
+const newMessage: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
-  console.log(userInfo);
+
+  const { recipientId } = props;
+
+  console.log('newMessage recipientId : ', recipientId);
+
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
   const [participants, setParticipants] = useState<IPerson[]>([]);
-  const [recipient, setRecipient] = useState<Person>(userInfo.primaryPerson);
 
   const handleArrowBack = () => {
-    goTo(ROUTES.conversations);
+    goTo(ROUTES.conversations, null, { recipientId: recipientId });
   };
   const createConvo = () => {
-    let creatorId: string = recipient.id;
+    let creatorId: string = recipientId;
     let participantsId: string[] = participants.map((player) => player.id);
 
     createConversation(participantsId, creatorId).then((newConversationId) => {
-      goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: recipient.id });
+      goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: recipientId });
     });
   };
 
@@ -78,7 +85,7 @@ const newMessage: React.FunctionComponent = () => {
           autoFocus
           inputRef={inputRef}
           participants={participants}
-          recipient={recipient}
+          recipientId={recipientId}
         />
         {participants.length ? (
           <List>
@@ -95,8 +102,6 @@ const newMessage: React.FunctionComponent = () => {
         ) : (
           <></>
         )}
-
-        <ChooseRecipientForNew recipient={recipient} setRecipient={setRecipient} />
 
         <Button className={styles.button} disabled={participants.length === 0} onClick={createConvo}>
           {t('create.create_message')}

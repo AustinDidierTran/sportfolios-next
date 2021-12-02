@@ -14,7 +14,7 @@ import useStyles from './useStyles';
 import { useTranslation } from 'react-i18next';
 
 import styles from './LoggedIn.module.css';
-import { ROUTES } from '../../../actions/goTo';
+import { ROUTES, goTo } from '../../../actions/goTo';
 import api from '../../../actions/api';
 import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
@@ -91,6 +91,10 @@ export default function LoggedIn(props) {
     updateCart();
   };
 
+  const handleConversation = () => {
+    goTo(ROUTES.conversations, null, { recipientId: userInfo.primaryPerson.id });
+  };
+
   const refCreateEntity = useRef(null);
   const refNotifications = useRef(null);
   const refAccount = useRef(null);
@@ -140,15 +144,14 @@ export default function LoggedIn(props) {
               />
             </div>
             {FEATURE_MESSAGES_ENABLED && (
-              <Link href={ROUTES_ENUM.conversations}>
-                <IconButton
-                  className={styles.iconButton}
-                  icon="Chat"
-                  size="medium"
-                  style={{ color: COLORS.white }}
-                  tooltip={t('messages')}
-                />
-              </Link>
+              <IconButton
+                className={styles.iconButton}
+                icon="Chat"
+                size="medium"
+                style={{ color: COLORS.white }}
+                tooltip={t('messages')}
+                onClick={handleConversation}
+              />
             )}
             <div></div>
             <div ref={refNotifications}>

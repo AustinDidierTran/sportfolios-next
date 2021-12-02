@@ -1069,6 +1069,7 @@ export default {
     changes_saved: 'Changes saved',
     change_conversation_name: "Edit conversation's name",
     change_nicknames: 'Edit nicknames',
+    change_person: 'Change person or organization',
     chatbot: 'Chatbot',
     checkout: 'Checkout',
     checkout_error: 'Checkout error',

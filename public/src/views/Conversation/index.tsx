@@ -37,7 +37,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const [conversation, setConversation] = useState<IConversationPreview>();
   const [messages, setMessages] = useState<IConversationMessage[]>();
 
-  console.log(recipientId);
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
@@ -113,7 +112,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
   const onSendMessage = useCallback(() => {
     sendMessage(convoId, content.value, recipientId).then(() => {
-      // updateConversation();
       content.reset();
     });
   }, [convoId, content.value, recipientId, updateConversation]);
@@ -150,14 +148,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }
   //TEST
 
-  console.log('otherParticipants : ', otherParticipants);
+  console.log('recipient dans conversation : ', conversation.participants.filter((p) => p.id === recipientId)[0].name);
 
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>
         <ArrowBackIosRoundedIcon
           onClick={() => {
-            goTo(ROUTES.conversations);
+            goTo(ROUTES.conversations, null, { recipientId: recipientId });
           }}
           className={styles.back}
         />
