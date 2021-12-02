@@ -10,12 +10,14 @@
   color: #1a92f8 !important;
   margin-left: 0.2rem;
   vertical-align: middle;
+
 }
 .followers {
   font-size: 1em;
   font-weight: bold;
-}
 
+
+}
 .eventButton {
   align-self: right;
   justify-self: center;

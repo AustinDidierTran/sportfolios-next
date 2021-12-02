@@ -1574,7 +1574,10 @@ export default {
     show_more: 'Afficher plus',
     show_password: 'Afficher le mot de passe',
     signup: "S'enregistrer",
-    signup_done: 'Inscription terminé',
+
+
+    signup_done: "Inscription terminé",
+
     six_month: 'Six mois',
     size: 'Grandeur',
     sizes_enum_l: 'Grand',
