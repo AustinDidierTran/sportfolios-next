@@ -87,6 +87,7 @@ export interface Entity {
   infosSuppId?: string;
   admins: EntityRole[];
   posts?: Post[];
+  numberOfMembers?: any;
 }
 
 export interface EntityRole {
