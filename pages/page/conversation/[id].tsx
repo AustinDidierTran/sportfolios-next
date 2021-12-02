@@ -10,8 +10,7 @@ const Conversation: React.FunctionComponent = () => {
   const router = useRouter();
   const { id: convoId, recipientId: recipientId } = router.query;
   const { t } = useTranslation();
-
-  console.log('convoId', convoId, 'recipientId: ', recipientId);
+  console.log('page', recipientId);
   return (
     <>
       <Head>

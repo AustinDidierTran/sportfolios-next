@@ -45,7 +45,6 @@ const newMessage: React.FunctionComponent<IProps> = (props) => {
   const query = useFormInput('');
   const inputRef = useRef(null);
   const [participants, setParticipants] = useState<IPerson[]>([]);
-  const [recipient, setRecipient] = useState<Person>(userInfo.primaryPerson);
 
   const handleArrowBack = () => {
     goTo(ROUTES.conversations, null, { recipientId: recipientId });

@@ -41,7 +41,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const [conversation, setConversation] = useState<IConversationPreview>();
   const [messages, setMessages] = useState<IConversationMessage[]>();
 
-  console.log(recipientId);
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (convoId === message.conversationId) {
