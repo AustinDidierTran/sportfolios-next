@@ -78,6 +78,7 @@ export interface Entity {
   type: GLOBAL_ENUM;
   role: ENTITIES_ROLE_ENUM;
   name: string;
+  verifiedAt?: string;
   surname?: string;
   completeName?: string;
   description?: string;
@@ -616,6 +617,7 @@ export interface Post {
   surname: string;
   createdAt: string;
   entityId: string;
+  verifiedAt?: string;
   photoUrl: string;
   content: string;
   locationId: string;
@@ -638,6 +640,7 @@ export interface Comment {
   name: string;
   surname: string;
   photoUrl: string;
+  verfiedAt?: string;
   createdAt: string;
   parentId?: string;
 }

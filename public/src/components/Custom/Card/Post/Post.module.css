@@ -24,6 +24,19 @@
   font-weight: bold !important;
 }
 
+.verified {
+  color: #1a92f8 !important;
+  margin-left: 0.2rem;
+  font-size: 1rem !important;
+  vertical-align: middle !important;
+}
+.centerCheck {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+}
+
 .actions {
   width: 100%;
   justify-content: center;
