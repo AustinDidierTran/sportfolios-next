@@ -3,8 +3,13 @@
   justify-content: center;
 }
 .title {
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 2em !important;
+  font-weight: bold !important;
+}
+.verified {
+  color: #1a92f8 !important;
+  margin-left: 0.2rem;
+  vertical-align: middle;
 }
 .followers {
   font-size: 1em;
@@ -94,9 +99,9 @@
   }
 
   .gridText {
-    justify-content: center;
-    max-width: 300px;
-    margin: auto;
+    justify-content: center !important;
+    max-width: 300px !important;
+    margin: auto !important;
   }
 
   .gridButton {
@@ -111,9 +116,9 @@
   }
 
   .title {
-    justify-content: center;
-    font-size: 1.5em;
-    font-weight: bold;
+    justify-content: center !important;
+    font-size: 1.5em !important;
+    font-weight: bold !important;
   }
   .followers {
     justify-content: center;
