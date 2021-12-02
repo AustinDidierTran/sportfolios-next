@@ -22,6 +22,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 
+interface IHash {
+  [details: string]: string;
+}
+
 interface IProps {
   convoId: string;
 }
@@ -89,12 +93,26 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     scrollToBottom();
   }, [messages]);
 
+  const nicknameMap = useMemo<IHash>(() => {
+    if (!conversation) {
+      return {};
+    }
+
+    return conversation.participants.reduce(
+      (prev, participant) => ({
+        ...prev,
+        [participant.id]: participant.nickname,
+      }),
+      {}
+    );
+  }, [
+    conversation?.participants.map((p) => {
+      p.nickname;
+    }),
+  ]);
+
   const findNickname = useCallback(
-    (message: IConversationMessage) => {
-      const participantIds = conversation.participants.map((p) => p.id);
-      const index = participantIds.indexOf(message.sender.id);
-      return conversation.participants[index].nickname;
-    },
+    (message: IConversationMessage) => nicknameMap[message.sender.id],
     [
       conversation?.participants.map((p) => {
         p.nickname;
@@ -127,7 +145,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
 
     return (conversation.participants || [])
       .filter((p) => p.id !== userInfo.primaryPerson?.personId)
-      .map((p) => `${p.name} ${p.surname}`)
+      .map((p) => p.nickname || `${p.name} ${p.surname}`)
       .join(', ');
   }, [conversation]);
 
@@ -172,7 +190,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           return m.sender.id === userInfo.primaryPerson?.personId ? (
             <MyMessage message={m} />
           ) : (
-            <FriendMessage message={m} nickname={findNickname(m)} />
+            <FriendMessage message={m} nickname={nicknameMap[m.sender.id]} />
           );
         })}
         <div ref={messagesEndRef} />
