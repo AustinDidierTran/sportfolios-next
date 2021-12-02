@@ -27,3 +27,11 @@ export interface IConversation {
   conversation: IConversationPreview;
   messages: IConversationMessage[];
 }
+
+export interface Recipient {
+  id: string;
+  name: string;
+  personId?: string;
+  surname?: string;
+  photoUrl: string;
+}
