@@ -26,6 +26,15 @@
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+.grow {
+  flex-grow: 1;
+}
+.settings {
+  color: #787878 !important;
+
+  background-color: #dfdfdf !important;
+  border-radius: 1rem !important ;
+}
 .exchange {
   margin-top: 1rem;
   flex: 1;

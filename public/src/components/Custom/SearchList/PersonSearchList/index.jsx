@@ -120,7 +120,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      {query.value.length === 0 ? null : <PersonList items={options} />}
+      <PersonList items={options} />
     </>
   );
 }

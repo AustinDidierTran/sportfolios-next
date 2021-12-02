@@ -41,9 +41,6 @@ const Conversations: React.FunctionComponent = () => {
   }, [updateConversations]);
 
   useEffect(() => {
-    // if (!conversations.length) {
-    //   return;
-    // }
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (!message) {
         return;
@@ -51,7 +48,6 @@ const Conversations: React.FunctionComponent = () => {
 
       setConversations((oldConversations) => {
         const conversationsCopy: IConversationPreview[] = [...oldConversations];
-
         const conversationIds = conversationsCopy?.map((c) => c.id);
         const index = conversationIds.indexOf(message.conversationId);
         if (!conversationsCopy) {
@@ -60,7 +56,6 @@ const Conversations: React.FunctionComponent = () => {
         if (index === -1) {
           return;
         }
-
         conversationsCopy[index].lastMessage = message;
 
         return conversationsCopy;

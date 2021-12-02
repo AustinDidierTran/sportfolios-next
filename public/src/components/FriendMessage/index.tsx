@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Typography } from '@material-ui/core';
 import { IConversationMessage } from '../../../../typescript/conversation';
@@ -8,13 +8,20 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 interface IProps {
   message: IConversationMessage;
+  nickname: string;
 }
 const FriendMessage: React.FunctionComponent<IProps> = (props) => {
-  const { message } = props;
+  const { message, nickname } = props;
 
+  const tooltip = useMemo(() => {
+    if (nickname) {
+      return nickname;
+    }
+    return `${message.sender.name} ${message.sender.surname}`;
+  }, [nickname]);
   return (
     <div className={styles.friends}>
-      <Tooltip title={`${message.sender.name} ${message.sender.surname}`}>
+      <Tooltip title={tooltip}>
         <div>
           <CustomAvatar className={styles.avatar} size="sm" photoUrl={message.sender.photoUrl} />
         </div>
