@@ -16,7 +16,7 @@ const TicketOption: React.FunctionComponent<IProps> = (props) => {
   return (
     <div className={styles.ticketOption}>
       <Typography variant="h5">{ticketOption.name}</Typography>
-      <span>{formatPrice(ticketOption.price)}</span>
+      <span>{formatPrice(Number(ticketOption.price))}</span>
       <p>{ticketOption.description}</p>
       <div>{action}</div>
     </div>

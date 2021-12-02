@@ -4,7 +4,7 @@ export interface ITicketOption {
   id?: string;
   name: string;
   description: string;
-  price: number;
+  price: number | string;
 }
 
 export interface ITicket {
