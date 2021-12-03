@@ -6,7 +6,13 @@
   font-size: 2em;
   font-weight: bold;
 }
-
+.chat {
+  height: 1.35rem !important;
+}
+.chatButton {
+  margin-left: 0.5rem !important;
+  height: fit-content !important;
+}
 .eventButton {
   align-self: right;
   justify-self: center;
