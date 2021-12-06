@@ -28,9 +28,11 @@ export default function ParticipantsItem(props) {
     secondaryActions, //secondaryAction is an array of components, this array should not contain more than 2 or 3 buttons
     notClickable,
     disabled,
+
     participants,
     otherParticipants,
     recipientId,
+
   } = props;
 
   const {

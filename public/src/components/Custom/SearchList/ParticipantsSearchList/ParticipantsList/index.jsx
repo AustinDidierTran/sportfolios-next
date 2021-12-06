@@ -18,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ParticipantsList(props) {
+
   const { recipientId, otherParticipants, participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } =
     props;
+
 
   const classes = useStyles();
 
