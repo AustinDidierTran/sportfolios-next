@@ -223,6 +223,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         otherParticipants={otherParticipants}
         conversationId={conversation.id}
         updateConversation={updateConversation}
+        recipientId={recipientId}
       />
     </IgContainer>
   );
