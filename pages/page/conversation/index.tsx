@@ -9,7 +9,7 @@ const Conversations = dynamic(() => import('../../../public/src/views/Conversati
 const message: React.FunctionComponent = () => {
   const router = useRouter();
   const { recipientId: recipientId } = router.query;
-  console.log('recipientId : ', recipientId);
+
   const { t } = useTranslation();
 
   return (
