@@ -166,8 +166,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   }
   //TEST
 
-  console.log('recipient dans conversation : ', conversation.participants.filter((p) => p.id === recipientId)[0].name);
-
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>

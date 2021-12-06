@@ -38,8 +38,6 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
       return conversation.name;
     }
 
-    console.log(123, conversation.participants);
-
     return conversation.participants
       .filter((participant) => participant.id !== recipientId)
       .map((participant) => `${participant.name} ${participant.surname}`)
