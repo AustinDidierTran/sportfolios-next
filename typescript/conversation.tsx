@@ -31,6 +31,7 @@ export interface IConversation {
 export interface Recipient {
   id: string;
   name: string;
+  type: number;
   personId?: string;
   surname?: string;
   photoUrl: string;

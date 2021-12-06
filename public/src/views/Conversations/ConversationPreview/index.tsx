@@ -10,11 +10,11 @@ import moment from 'moment';
 
 interface IProps {
   conversation: IConversationPreview;
-  recipient: Recipient;
+  recipientId: string;
 }
 
 const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
-  const { conversation, recipient } = props;
+  const { conversation, recipientId } = props;
   const { t } = useTranslation();
 
   const photoUrl = useMemo(() => {
@@ -22,7 +22,7 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
       return;
     }
     const possiblePictures = conversation.participants
-      .filter((p) => p.id !== recipient?.id)
+      .filter((p) => p.id !== recipientId)
       .map((o) => o.photoUrl)
       .filter((o) => o !== null);
 
@@ -39,7 +39,7 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
     }
 
     return conversation.participants
-      .filter((participant) => participant.id !== recipient?.id)
+      .filter((participant) => participant.id !== recipientId)
       .map((participant) => `${participant.name} ${participant.surname}`)
       .join(', ');
   }, [conversation.name, conversation.participants]);
@@ -63,7 +63,7 @@ const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
   return (
     <div
       className={styles.message}
-      onClick={() => goTo(ROUTES.conversation, { convoId: conversation.id }, { recipientId: recipient.id })}
+      onClick={() => goTo(ROUTES.conversation, { convoId: conversation.id }, { recipientId: recipientId })}
     >
       <CustomAvatar size="md" photoUrl={photoUrl} />
       <ListItemText

@@ -15,7 +15,7 @@ import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { IConversationPreview, IConversationMessage, Recipient } from '../../../../typescript/conversation';
 import { SOCKET_EVENT } from '../../../common/enums';
-import { getConversations } from '../../actions/service/messaging';
+import { getConversations, getAllOwnedEntitiesMessaging } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
 import ChooseRecipient from '../../components/Custom/ChooseRecipient';
 import { Person } from '../../../../typescript/entity';
@@ -32,25 +32,29 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
     state: { userInfo: userInfo, socket },
   } = useContext(Store);
   const [conversations, setConversations] = useState<IConversationPreview[]>([]);
+  const [recipientOptions, setRecipientOptions] = useState<Recipient[]>([]);
 
-  const recipientOptions = useMemo<Recipient[]>(() => userInfo.persons || [], [userInfo.persons]);
-
-  const recipient = useMemo<Recipient>(() => {
-    if (!recipientOptions) {
-      return;
-    }
-    return recipientOptions.find((r: any) => r.id === recipientId);
-  }, [recipientId, recipientOptions]);
-
-  // TODO: Call this function on websocket update
   const updateConversations = useCallback(() => {
     getConversations({ recipientId: recipientId }).then((newConversations: IConversationPreview[]) => {
       if (!newConversations) {
         return;
       }
       setConversations(newConversations);
+      getAllOwnedEntitiesMessaging().then((recipients: Recipient[]) => {
+        if (!recipients) {
+          return;
+        }
+        setRecipientOptions(recipients);
+      });
     });
   }, [recipientId]);
+
+  const recipient = useMemo<Recipient>(() => {
+    if (recipientOptions.length === 0) {
+      return;
+    }
+    return recipientOptions.find((r: Recipient) => r.id === recipientId);
+  }, [recipientOptions, recipientId]);
 
   useEffect(() => {
     updateConversations();
@@ -139,7 +143,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
             <List>
               {orderedConversations.map((c) => (
                 <>
-                  <ConversationPreview conversation={c} recipient={recipient} />
+                  <ConversationPreview conversation={c} recipientId={recipientId} />
                   <Divider className={styles.divider} />
                 </>
               ))}
@@ -152,7 +156,6 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
         open={open}
         handleClose={handleClose}
         recipientOptions={recipientOptions}
-        recipient={recipient}
         updateConversations={updateConversations}
       />
     </IgContainer>

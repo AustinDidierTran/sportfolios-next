@@ -12,7 +12,7 @@ import { updateConversationName } from '../../../actions/service/messaging';
 
 export default function ChooseRecipient(props) {
   const { t } = useTranslation();
-  const { open, anchorEl, handleClose, recipientOptions, updateConversations } = props;
+  const { open, anchorEl, handleClose, recipientOptions } = props;
 
   const handleNewRecipient = (newRecipient) => {
     goTo(ROUTES.conversations, null, { recipientId: newRecipient.id });
