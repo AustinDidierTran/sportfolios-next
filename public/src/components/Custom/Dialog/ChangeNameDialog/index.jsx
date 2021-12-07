@@ -31,6 +31,7 @@ export default function ChangeNameDialog(props) {
     });
   };
 
+
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">

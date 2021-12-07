@@ -14,7 +14,7 @@ import { List } from '../../components/Custom';
 import { Chip } from '../../components/Custom';
 import MessageDialog from '../../components/Custom/Dialog/MessageDialog';
 import { Store } from '../../Store';
-import { ContactSupportOutlined } from '@material-ui/icons';
+import { ContactSupportOutlined, ReceiptOutlined } from '@material-ui/icons';
 import Button from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
@@ -27,24 +27,31 @@ interface IPerson {
   type: number;
 }
 
-const newMessage: React.FunctionComponent = () => {
+interface IProps {
+  recipientId: string;
+}
+
+const newMessage: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
+
+  const { recipientId } = props;
+
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
   const [participants, setParticipants] = useState<IPerson[]>([]);
 
   const handleArrowBack = () => {
-    goTo(ROUTES.conversations);
+    goTo(ROUTES.conversations, null, { recipientId: recipientId });
   };
   const createConvo = () => {
-    let creatorId: string = userInfo.primaryPerson?.personId;
+    let creatorId: string = recipientId;
     let participantsId: string[] = participants.map((player) => player.id);
 
     createConversation(participantsId, creatorId).then((newConversationId) => {
-      goTo(ROUTES.conversation, { id: newConversationId });
+      goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: recipientId });
     });
   };
 
@@ -67,7 +74,7 @@ const newMessage: React.FunctionComponent = () => {
         <ParticipantsSearchList
           className={styles.search}
           clearOnSelect={false}
-          label={t('to')}
+          label={t('with')}
           onClick={addNewFriend}
           query={query}
           secondary={t('player')}
@@ -75,6 +82,7 @@ const newMessage: React.FunctionComponent = () => {
           autoFocus
           inputRef={inputRef}
           participants={participants}
+          recipientId={recipientId}
         />
         {participants.length ? (
           <List>
@@ -91,6 +99,7 @@ const newMessage: React.FunctionComponent = () => {
         ) : (
           <></>
         )}
+
         <Button className={styles.button} disabled={participants.length === 0} onClick={createConvo}>
           {t('create.create_message')}
         </Button>

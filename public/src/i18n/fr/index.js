@@ -1085,6 +1085,7 @@ export default {
     changes_saved: 'Changements sauvegardés',
     change_conversation_name: 'Modifier le nom de la conversation',
     change_nicknames: 'Modifier les surnoms',
+    change_person: "Changer de personne ou d'organisation",
     chatbot: 'Chatbot',
     checkout: 'Procéder',
     checkout_error: 'Erreur durant le checkout',
@@ -1581,6 +1582,7 @@ export default {
     send_password_recovery_email: 'Envoyer le courriel de réinitialisation de mot de passe',
     send_request_to_team_owner: 'Aimeriez-vous envoyer une demande pour rejoindre cette équipe?',
     send: 'Envoyer',
+    send_as: 'Créer en tant que : ',
     set_limit_of_spots: 'Fixer une limite de place',
     settings: 'Paramètres',
     share: 'Partager',
@@ -1589,10 +1591,7 @@ export default {
     show_more: 'Afficher plus',
     show_password: 'Afficher le mot de passe',
     signup: "S'enregistrer",
-
-
-    signup_done: "Inscription terminé",
-
+    signup_done: 'Inscription terminé',
     six_month: 'Six mois',
     size: 'Grandeur',
     sizes_enum_l: 'Grand',
@@ -1610,7 +1609,7 @@ export default {
     some_teams_cannot_be_deleted:
       "Des équipes n'ont pas pu être désinscrites de l'événement puisqu'elles sont déjà dans des parties.",
     something_went_wrong: "Une erreur s'est produite. Veuillez réessayer.",
-    someone_new: 'Nouveau message',
+    someone_new: 'Nouvelle conversation',
     spirit_chart_ligue_mardi: '0: Mauvais  1: Moyen  2: Bon ou rien à signaler  3: Très bon  4: Mémorable',
     spirit: 'Esprit de jeu',
     sports_table_title: 'Liste des sports',
@@ -1727,6 +1726,7 @@ export default {
     wait_before_redirection: 'Veuillez patienter. Vous serez bientôt redirigé.',
     warning: 'Attention',
     website: 'Site web',
+    with: 'AVEC :',
     with_taxes_the_total_for_a_player_is: 'Avec les taxes, le total pour un joueur est {{total}}$',
     with_taxes_the_total_for_a_team_is: 'Avec les taxes, le total pour une équipe est {{total}}$',
     would_you_like_to_update_info_in_your_profile: 'Aimeriez-vous mettre à jour ces informations dans votre profil?',
