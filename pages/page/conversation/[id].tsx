@@ -8,7 +8,7 @@ const Convo = dynamic(() => import('../../../public/src/views/Conversation'));
 
 const Conversation: React.FunctionComponent = () => {
   const router = useRouter();
-  const { id: convoId, recipientId: recipientId } = router.query;
+  const { id: convoId, recipientId } = router.query;
   const { t } = useTranslation();
 
   return (

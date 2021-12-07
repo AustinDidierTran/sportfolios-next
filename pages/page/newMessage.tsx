@@ -9,7 +9,7 @@ const NewMessage = dynamic(() => import('../../public/src/views/newMessage'));
 const newMessage: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
-  const { recipientId: recipientId } = router.query;
+  const { recipientId } = router.query;
   return (
     <>
       <Head>

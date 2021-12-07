@@ -187,13 +187,13 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         </Tooltip>
       </div>
       <div className={styles.exchange}>
-        {messages?.map((m: IConversationMessage) => {
-          return m.sender.id === recipientId ? (
+        {messages?.map((m: IConversationMessage) =>
+          m.sender.id === recipientId ? (
             <MyMessage message={m} />
           ) : (
             <FriendMessage message={m} nickname={nicknameMap[m.sender.id]} />
-          );
-        })}
+          )
+        )}
         <div ref={messagesEndRef} />
       </div>
       <div className={styles.messageInput}>
