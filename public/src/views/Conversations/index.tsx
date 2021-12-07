@@ -66,13 +66,14 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
         return;
       }
       setConversations((oldConversations) => {
-        const conversationsCopy: IConversationPreview[] = [...oldConversations];
+        const conversationsCopy = [...oldConversations];
         const conversationIds = conversationsCopy?.map((c) => c.id);
         const index = conversationIds.indexOf(message.conversationId);
         if (!conversationsCopy) {
           return;
         }
         if (index === -1) {
+          updateConversations();
           return;
         }
         conversationsCopy[index].lastMessage = message;
@@ -85,19 +86,23 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
     };
   }, [conversations]);
 
-  const orderedConversations = useMemo(
-    () =>
-      conversations.sort((a, b) => {
-        if (!b.lastMessage) {
-          return -1;
-        }
-        if (!a.lastMessage) {
-          return 1;
-        }
-        return moment(b.lastMessage.sentAt).isBefore(moment(a.lastMessage.sentAt)) ? -1 : 1;
-      }),
-    [conversations]
-  );
+  const orderedConversations = useMemo(() => {
+    if (!conversations) {
+      return;
+    }
+    const ordered = conversations.sort((a, b) => {
+      if (!b.lastMessage) {
+        return -1;
+      }
+      if (!a.lastMessage) {
+        return 1;
+      }
+
+      return moment(b.lastMessage.sentAt).isBefore(moment(a.lastMessage.sentAt)) ? -1 : 1;
+    });
+    return ordered;
+  }, [conversations]);
+
   //Change Person
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -141,7 +146,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
           <CardContent>
             <Divider className={styles.divider} />
             <List>
-              {orderedConversations.map((c) => (
+              {orderedConversations?.map((c) => (
                 <>
                   <ConversationPreview conversation={c} recipientId={recipientId} />
                   <Divider className={styles.divider} />

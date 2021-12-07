@@ -31,15 +31,12 @@ export default function ParticipantsItem(props) {
     otherParticipants,
     recipientId,
   } = props;
-  console.log('recipientId :', recipientId);
+
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
 
   const alreadyParticipant = useMemo(() => {
-    if (otherParticipants.filter((p) => p.id === id).length === 1) {
-      return true;
-    }
     if (id === recipientId) {
       return true;
     }
