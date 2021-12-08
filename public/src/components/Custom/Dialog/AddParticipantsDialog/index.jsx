@@ -18,7 +18,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import { addParticipants } from '../../../../actions/service/messaging';
 
 export default function AddParticipantsDialog(props) {
-  const { open, onClose, otherParticipants, conversationId, updateConversation } = props;
+  const { open, onClose, otherParticipants, conversationId, updateConversation, recipientId } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
@@ -58,6 +58,7 @@ export default function AddParticipantsDialog(props) {
               autoFocus
               inputRef={inputRef}
               otherParticipants={otherParticipants}
+              recipientId={recipientId}
             />
           </div>
         </DialogContent>

@@ -1,6 +1,6 @@
 import api from '../api';
 import { formatRoute } from '../../utils/stringFormats';
-import { IConversationPreview, IConversation } from '../../../../typescript/conversation';
+import { IConversationPreview, IConversation, Recipient } from '../../../../typescript/conversation';
 
 const BASE_URL = '/api/messaging';
 
@@ -25,6 +25,10 @@ export async function getConversationMessages(conversationId: string, page?: num
   return api(formatRoute(`${BASE_URL}/messages`, null, { conversationId, page }), { method: 'GET' }).then(
     (res) => res.data
   );
+}
+
+export function getAllOwnedEntitiesMessaging(): Promise<Recipient[]> {
+  return api(formatRoute(`${BASE_URL}/allOwned`, null, { onlyAdmin: true }), { method: 'GET' }).then((res) => res.data);
 }
 
 export async function sendMessage(conversationId: string, content: string, senderId: string): Promise<void> {

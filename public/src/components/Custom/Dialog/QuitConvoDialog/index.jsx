@@ -13,16 +13,15 @@ import { Store } from '../../../../Store';
 import { removeParticipant } from '../../../../actions/service/messaging';
 
 export default function QuitConvoDialog(props) {
-  const { open, onClose, conversationId, updateConversation } = props;
+  const { open, onClose, conversationId, updateConversation, recipientId } = props;
   const {
     state: { userInfo: userInfo },
   } = useContext(Store);
   const { t } = useTranslation();
 
   const handleQuit = () => {
-    removeParticipant(conversationId, userInfo.primaryPerson?.id).then(() => {
-      console.log('Remove ', userInfo.primaryPerson?.id, 'from conversaton ', conversationId);
-      goTo(ROUTES.conversations);
+    removeParticipant(conversationId, recipientId).then(() => {
+      goTo(ROUTES.conversations, null, { recipientId: recipientId });
     });
   };
   return (

@@ -29,6 +29,7 @@ export default function ParticipantsItem(props) {
     notClickable,
     disabled,
     otherParticipants,
+    recipientId,
   } = props;
 
   const {
@@ -36,10 +37,7 @@ export default function ParticipantsItem(props) {
   } = useContext(Store);
 
   const alreadyParticipant = useMemo(() => {
-    if (otherParticipants.filter((p) => p.id === id).length === 1) {
-      return true;
-    }
-    if (id === userInfo.primaryPerson?.personId) {
+    if (id === recipientId) {
       return true;
     }
     if (otherParticipants) {

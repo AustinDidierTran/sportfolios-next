@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ParticipantsList(props) {
-  const { otherParticipants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { recipientId, otherParticipants, participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } =
+    props;
 
   const classes = useStyles();
 
@@ -31,6 +32,7 @@ export default function ParticipantsList(props) {
         index={index}
         key={item?.key || index}
         selected={selectedIndex === index}
+        recipientId={recipientId}
       />
     );
   };
