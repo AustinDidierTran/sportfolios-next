@@ -25,13 +25,11 @@ export default function ChangeNameDialog(props) {
 
   const handleConfirmed = () => {
     updateConversationName(conversationId, content.value).then(() => {
-      console.log('le nouveau nom de la convo  ', conversationId, 'est ', content.value);
       updateConversation().then(() => {
         content.reset();
       });
     });
   };
-
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="dialog-title" aria-describedby="dialog-description">

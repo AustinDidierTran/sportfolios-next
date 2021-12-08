@@ -28,7 +28,6 @@ const Home: React.FunctionComponent<IProps> = (props) => {
   const {
     state: { userInfo },
   } = useContext(Store);
-
   return (
     <IgContainer className={classes.IgContainer}>
       <Description description={basicInfos.description} />

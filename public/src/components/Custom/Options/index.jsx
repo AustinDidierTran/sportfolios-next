@@ -9,7 +9,7 @@ import ManageParticipants from '../ManageParticipants';
 import ManageParticipantsDialog from '../Dialog/ManageParticipantsDialog';
 
 export default function Options(props) {
-  const { open, anchorEl, handleClose, otherParticipants, conversationId, updateConversation } = props;
+  const { open, anchorEl, handleClose, otherParticipants, conversationId, updateConversation, recipientId } = props;
   const [openManageParticipants, setOpenManageParticipants] = useState(false);
   const [openChangeName, setOpenChangeName] = useState(false);
   const [openQuitConvo, setOpenQuitConvo] = useState(false);
@@ -72,12 +72,14 @@ export default function Options(props) {
         otherParticipants={otherParticipants}
         conversationId={conversationId}
         updateConversation={updateConversation}
+        recipientId={recipientId}
       />
       <QuitConvoDialog
         open={openQuitConvo}
         onClose={closeQuitConvo}
         conversationId={conversationId}
         updateConversation={updateConversation}
+        recipientId={recipientId}
       />
     </div>
   );

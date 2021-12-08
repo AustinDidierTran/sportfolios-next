@@ -13,7 +13,7 @@ import AddParticipantsSection from './AddParticipantsSection';
 import EditMember from '../../EditMember';
 
 export default function ManageParticipantsDialog(props) {
-  const { open, onClose, otherParticipants, conversationId, updateConversation } = props;
+  const { open, onClose, otherParticipants, recipientId, conversationId, updateConversation } = props;
   const { t } = useTranslation();
 
   return (
@@ -42,6 +42,7 @@ export default function ManageParticipantsDialog(props) {
             otherParticipants={otherParticipants}
             conversationId={conversationId}
             updateConversation={updateConversation}
+            recipientId={recipientId}
           />
         </DialogContent>
         <DialogActions>

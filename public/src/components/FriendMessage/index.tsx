@@ -19,7 +19,6 @@ const FriendMessage: React.FunctionComponent<IProps> = (props) => {
     }
     return `${message.sender.name} ${message.sender.surname}`;
   }, [nickname]);
-  //const tooltip = useMemo(() => {}, []);
   return (
     <div className={styles.friends}>
       <Tooltip title={tooltip}>

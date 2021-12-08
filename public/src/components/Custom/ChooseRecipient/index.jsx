@@ -34,7 +34,7 @@ export default function ChooseRecipient(props) {
           <div className={styles.item}>
             <CustomAvatar photoUrl={r.photoUrl} />
             <Typography className={styles.writing} variant="body1">
-              {`${r.name}`}
+              {r.name}
             </Typography>
           </div>
         </MenuItem>

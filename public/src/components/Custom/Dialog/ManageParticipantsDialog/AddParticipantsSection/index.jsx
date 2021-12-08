@@ -6,7 +6,7 @@ import styles from './AddParticipantsSection.module.css';
 import AddParticipantsDialog from '../../AddParticipantsDialog';
 
 export default function AddParticipantsSection(props) {
-  const { otherParticipants, conversationId, updateConversation } = props;
+  const { otherParticipants, conversationId, updateConversation, recipientId } = props;
   const { t } = useTranslation();
   const [openAddParticipants, setOpenAddParticipants] = useState(false);
 
@@ -32,6 +32,7 @@ export default function AddParticipantsSection(props) {
         otherParticipants={otherParticipants}
         conversationId={conversationId}
         updateConversation={updateConversation}
+        recipientId={recipientId}
       />
     </div>
   );

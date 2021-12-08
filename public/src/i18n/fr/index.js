@@ -786,6 +786,7 @@ export default {
     },
     game: {
       add_ticket_option: 'Ajouter une option de billet',
+      enter_description: 'Entrer votre description',
       no_ticket_message: "Vous n'avez présentement aucun billet",
       tickets: 'Billets',
       title: 'Partie',
@@ -801,8 +802,12 @@ export default {
       invalid_file_format_pdf: 'Format de fichier invalide. Seulement les fichiers pdf sont acceptés.',
       invalid_file_image: 'Format de fichier invalide. Seulement les fichiers jpg, png et jpeg sont acceptés.',
       invalid_input: 'Valeur incorrect',
+
       invalid_roster_role_to_submit_score:
         'Vous devez être entraîneur, capitaine ou assistant capitaine pour pouvoir soumettre un résultat',
+      price: 'Votre prix a un format invalide.',
+      price_under_5: 'Le prix minimum est de 5$.',
+      value_is_required: 'Une valeur est requise.',
     },
     invalid_information: 'Information non valide',
     no: {
@@ -1376,6 +1381,8 @@ export default {
     not_going: 'Absent',
     notifications_disabled: 'Notifications désactivées',
     notifications: 'Notifications',
+    number_of_members: '{{amountOfMembers}} membres',
+    number_of_member: '{{amountOfMembers}} membre',
     of_everyone: 'de tout le monde',
     of_team: "de l'équipe",
     of_teams: 'des équipes',

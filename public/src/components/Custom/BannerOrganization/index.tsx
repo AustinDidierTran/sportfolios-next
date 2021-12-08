@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import Avatar from '../Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,9 @@ import { COLORS } from '../../../utils/colors';
 import { createConversation } from '../../../actions/service/messaging';
 import { Store } from '../../../Store';
 import { goTo, ROUTES } from '../../../actions/goTo';
+import CheckCirleIcon from '@material-ui/icons/CheckCircle';
+import Typography from '@material-ui/core/Typography';
+
 
 interface IProps {
   basicInfos: Entity;
@@ -50,6 +53,13 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
     });
   };
 
+  const membersAmount = useMemo(() => {
+    if (basicInfos.numberOfMembers?.count > 1) {
+      return t('number_of_members', { amountOfMembers: basicInfos.numberOfMembers?.count });
+    }
+    return t('number_of_member', { amountOfMembers: basicInfos.numberOfMembers?.count });
+  }, [basicInfos.numberOfMembers?.count]);
+
   return (
     <div className={styles.root}>
       <Grid container>
@@ -58,9 +68,10 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} container>
           <Grid container className={styles.gridText}>
-            <Grid container item className={styles.title}>
+            <Typography className={styles.title}>
               {basicInfos.name}
-            </Grid>
+              {basicInfos.verifiedAt ? <CheckCirleIcon className={styles.verified} /> : <></>}
+            </Typography>
           </Grid>
           <Grid container className={styles.gridButton}>
             <CustomButton
@@ -73,6 +84,11 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
             <CustomButton className={styles.chatButton} onClick={handleMessage}>
               <Chat className={styles.chat} />
             </CustomButton>
+          </Grid>
+          <Grid container className={styles.gridText}>
+            <Grid container item className={styles.followers}>
+              {membersAmount}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
