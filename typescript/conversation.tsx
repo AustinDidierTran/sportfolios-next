@@ -2,6 +2,7 @@ import { Person } from './entity';
 
 export interface IConversationMessage {
   id: string;
+  conversationId: string;
   sender: Participant;
   sentAt: string;
   content: string;
@@ -25,4 +26,13 @@ export interface IConversationPreview {
 export interface IConversation {
   conversation: IConversationPreview;
   messages: IConversationMessage[];
+}
+
+export interface Recipient {
+  id: string;
+  name: string;
+  type: number;
+  personId?: string;
+  surname?: string;
+  photoUrl: string;
 }

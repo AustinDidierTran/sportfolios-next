@@ -1,0 +1,17 @@
+.exit {
+  margin-right: 0.5rem;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+
+  align-items: center;
+}
+
+.cancel {
+  color: grey !important;
+}
+.quit {
+  color: red !important;
+}

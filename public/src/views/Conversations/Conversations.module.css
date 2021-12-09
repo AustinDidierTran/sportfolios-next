@@ -28,9 +28,21 @@
   justify-content: center;
 }
 
+.options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .create {
-  color: black !important;
-  background-color: #e1e2e1 !important;
+  color: #b3b3b3 !important;
+  background-color: #eeeeee !important;
+  margin-left: 0.5rem !important;
+}
+.recipient {
+  width: 3.3rem !important;
+  height: 3.3rem !important;
 }
 .searchBar {
   display: flex;

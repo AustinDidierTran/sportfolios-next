@@ -1,0 +1,9 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+.face {
+  margin-right: 0.5rem;
+}

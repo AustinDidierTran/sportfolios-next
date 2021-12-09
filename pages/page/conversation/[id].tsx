@@ -8,7 +8,7 @@ const Convo = dynamic(() => import('../../../public/src/views/Conversation'));
 
 const Conversation: React.FunctionComponent = () => {
   const router = useRouter();
-  const { id: convoId } = router.query;
+  const { id: convoId, recipientId } = router.query;
   const { t } = useTranslation();
 
   return (
@@ -17,7 +17,7 @@ const Conversation: React.FunctionComponent = () => {
         <meta property="og:title" content={t('metadata.conversation.title')} />
         <meta property="og:description" content={t('metadata.conversation.description')} />
       </Head>
-      <Convo convoId={convoId as string} />
+      <Convo convoId={convoId as string} recipientId={recipientId as string} />
     </>
   );
 };

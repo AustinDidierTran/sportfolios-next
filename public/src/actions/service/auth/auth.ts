@@ -27,11 +27,29 @@ export async function signup(
   });
 }
 
+export async function signupGoogleToken(token: string): Promise<number> {
+  return api(`${AUTH_BASE_URL}/signupGoogleToken`, {
+    method: 'POST',
+    body: JSON.stringify({
+      token,
+    }),
+  });
+}
+
 export async function loginWithCognito(email: string, token: string): Promise<UserInfo> {
   return api(`${AUTH_BASE_URL}/loginWithCognito`, {
     method: 'POST',
     body: JSON.stringify({
       email,
+      token,
+    }),
+  });
+}
+
+export async function loginWithCognitoToken(token: string): Promise<UserInfo> {
+  return api(`${AUTH_BASE_URL}/loginWithCognitoToken`, {
+    method: 'POST',
+    body: JSON.stringify({
       token,
     }),
   });

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,6 +10,7 @@ import { useCallback } from 'react';
 import styles from './PersonItem.module.css';
 import { goTo, ROUTES } from '../../../../../../actions/goTo';
 import CustomAvatar from '../../../../Avatar';
+import { Store } from '../../../../../../Store';
 
 export default function PersonItem(props) {
   const { t } = useTranslation();
@@ -28,6 +29,11 @@ export default function PersonItem(props) {
     notClickable,
     disabled,
   } = props;
+
+  const {
+    state: { userInfo: userInfo },
+  } = useContext(Store);
+
 
   const handleClick = useCallback(
     (e) => {
@@ -62,6 +68,7 @@ export default function PersonItem(props) {
           secondaryAction: {
             paddingRight: 96,
           },
+        
         }}
         disabled={disabled}
       >

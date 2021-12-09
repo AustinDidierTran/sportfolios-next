@@ -6,6 +6,7 @@ import { IConversationMessage, IConversationPreview } from '../../../../typescri
 import IgContainer from '../../components/Custom/IgContainer';
 import styles from './Conversation.module.css';
 import CustomAvatar from '../../components/Custom/Avatar';
+import Options from '../../components/Custom/Options';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import MyMessage from '../../components/MyMessage';
 import FriendMessage from '../../components/FriendMessage';
@@ -17,43 +18,70 @@ import { getConversationMessages, sendMessage } from '../../actions/service/mess
 import { LoadingSpinner } from '../../components/Custom';
 import ConversationSearchList from '../../components/Custom/SearchList/ConversationSearchList';
 import moment from 'moment';
+import { SOCKET_EVENT } from '../../../common/enums';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
+interface IHash {
+  [details: string]: string;
+}
 
 interface IProps {
   convoId: string;
+  recipientId: string;
 }
 
 const Conversation: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
-  const { convoId } = props;
+  const { convoId, recipientId } = props;
   const {
-    state: { userInfo: userInfo },
+    state: { socket, userInfo: userInfo },
   } = useContext(Store);
   //AJOUT BACKEND
   const [conversation, setConversation] = useState<IConversationPreview>();
   const [messages, setMessages] = useState<IConversationMessage[]>();
 
-  const updateConversation = useCallback(() => {
-    getConversationMessages(convoId).then(({ conversation, messages }) => {
-      setConversation(conversation);
-      setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
+  useEffect(() => {
+    socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
+      if (convoId === message.conversationId) {
+        setMessages((messages) => {
+          return [...messages, message];
+        });
+      }
     });
+    return () => {
+      socket.off(SOCKET_EVENT.MESSAGES);
+    };
+  }, []);
+
+  const updateConversation = useCallback(async () => {
+    return getConversationMessages(convoId).then(
+      ({ conversation, messages } = { conversation: null, messages: [] }) => {
+        if (!conversation) {
+          return;
+        }
+
+        setConversation(conversation);
+        setMessages(messages.sort((a, b) => (moment(a.sentAt).isBefore(b.sentAt) ? -1 : 1)));
+      }
+    );
   }, [convoId]);
 
   useEffect(() => {
     updateConversation();
   }, [updateConversation]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      updateConversation();
-    }, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [updateConversation]);
-
   //AJOUT BACKEND
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const content = useFormInput('');
 
@@ -67,19 +95,45 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     scrollToBottom();
   }, [messages]);
 
+  const nicknameMap = useMemo<IHash>(() => {
+    if (!conversation) {
+      return {};
+    }
+
+    return conversation.participants.reduce(
+      (prev, participant) => ({
+        ...prev,
+        [participant.id]: participant.nickname,
+      }),
+      {}
+    );
+  }, [
+    conversation?.participants.map((p) => {
+      p.nickname;
+    }),
+  ]);
+
+  const findNickname = useCallback(
+    (message: IConversationMessage) => nicknameMap[message.sender.id],
+    [
+      conversation?.participants.map((p) => {
+        p.nickname;
+      }),
+    ]
+  );
+
   const otherParticipants = useMemo(() => {
     if (!conversation) {
       return [];
     }
-    return (conversation.participants || []).filter((p) => p.id !== userInfo.primaryPerson?.personId);
+    return (conversation.participants || []).filter((p) => p.id !== recipientId);
   }, [conversation]);
 
   const onSendMessage = useCallback(() => {
-    sendMessage(convoId, content.value, userInfo.primaryPerson?.personId).then(() => {
-      updateConversation();
+    sendMessage(convoId, content.value, recipientId).then(() => {
       content.reset();
     });
-  }, [convoId, content.value, userInfo.primaryPerson?.personId, updateConversation]);
+  }, [convoId, content.value, recipientId, updateConversation]);
 
   const name = useMemo(() => {
     if (!conversation) {
@@ -91,7 +145,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     }
 
     return (conversation.participants || [])
-      .filter((p) => p.id !== userInfo.primaryPerson?.personId)
+      .filter((p) => p.id !== recipientId)
       .map((p) => `${p.name} ${p.surname}`)
       .join(', ');
   }, [conversation]);
@@ -111,13 +165,14 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   if (!convoId || !conversation) {
     return <LoadingSpinner />;
   }
+  //TEST
 
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>
         <ArrowBackIosRoundedIcon
           onClick={() => {
-            goTo(ROUTES.conversations);
+            goTo(ROUTES.conversations, null, { recipientId: recipientId });
           }}
           className={styles.back}
         />
@@ -125,15 +180,21 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
         <Typography variant="h4" className={styles.name}>
           {name}
         </Typography>
+        <div className={styles.grow} />
+        <Tooltip title={t('settings')}>
+          <Button onClick={handleClick} className={styles.button}>
+            <MoreVertIcon className={styles.settings} />
+          </Button>
+        </Tooltip>
       </div>
       <div className={styles.exchange}>
-        {messages?.map((m: IConversationMessage) => {
-          return m.sender.id === userInfo.primaryPerson?.personId ? (
+        {messages?.map((m: IConversationMessage) =>
+          m.sender.id === recipientId ? (
             <MyMessage message={m} />
           ) : (
-            <FriendMessage message={m} />
-          );
-        })}
+            <FriendMessage message={m} nickname={nicknameMap[m.sender.id]} />
+          )
+        )}
         <div ref={messagesEndRef} />
       </div>
       <div className={styles.messageInput}>
@@ -154,6 +215,15 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
           }}
         />
       </div>
+      <Options
+        anchorEl={anchorEl}
+        open={open}
+        handleClose={handleClose}
+        otherParticipants={otherParticipants}
+        conversationId={conversation.id}
+        updateConversation={updateConversation}
+        recipientId={recipientId}
+      />
     </IgContainer>
   );
 };

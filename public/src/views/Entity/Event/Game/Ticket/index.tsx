@@ -19,7 +19,7 @@ const Ticket: React.FunctionComponent<IProps> = (props) => {
         <div>{`${ticket.buyer.primaryPerson.name} ${ticket.buyer.primaryPerson.surname}`}</div>
         <div>{ticket.option.name}</div>
         <div>#{ticket.number}</div>
-        <div>{formatPrice(ticket.option.price)}</div>
+        <div>{formatPrice(Number(ticket.option.price))}</div>
       </div>
     </Paper>
   );

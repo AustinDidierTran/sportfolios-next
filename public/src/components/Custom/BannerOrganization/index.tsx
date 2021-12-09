@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Avatar from '../Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,8 @@ import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
 import { Entity } from '../../../../../typescript/types';
 import { COLORS } from '../../../utils/colors';
+import CheckCirleIcon from '@material-ui/icons/CheckCircle';
+import Typography from '@material-ui/core/Typography';
 
 interface IProps {
   basicInfos: Entity;
@@ -36,6 +38,13 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
   } = props;
   const { t } = useTranslation();
 
+  const membersAmount = useMemo(() => {
+    if (basicInfos.numberOfMembers?.count > 1) {
+      return t('number_of_members', { amountOfMembers: basicInfos.numberOfMembers?.count });
+    }
+    return t('number_of_member', { amountOfMembers: basicInfos.numberOfMembers?.count });
+  }, [basicInfos.numberOfMembers?.count]);
+
   return (
     <div className={styles.root}>
       <Grid container>
@@ -44,9 +53,10 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} container>
           <Grid container className={styles.gridText}>
-            <Grid container item className={styles.title}>
+            <Typography className={styles.title}>
               {basicInfos.name}
-            </Grid>
+              {basicInfos.verifiedAt ? <CheckCirleIcon className={styles.verified} /> : <></>}
+            </Typography>
           </Grid>
           <Grid container className={styles.gridButton}>
             <CustomButton
@@ -56,6 +66,11 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
             >
               {t('become_member')}
             </CustomButton>
+          </Grid>
+          <Grid container className={styles.gridText}>
+            <Grid container item className={styles.followers}>
+              {membersAmount}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

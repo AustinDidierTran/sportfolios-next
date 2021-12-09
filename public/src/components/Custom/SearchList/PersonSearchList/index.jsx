@@ -58,7 +58,10 @@ export default function PersonSearchList(props) {
   };
 
   const formatOptions = (response) => {
-    return response?.entities
+    if (!response) {
+      return;
+    }
+    return response.entities
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({
         ...e,
@@ -117,7 +120,7 @@ export default function PersonSearchList(props) {
           }}
         />
       )}
-      {query.value.length === 0 ? null : <PersonList items={options} />}
+      <PersonList items={options} />
     </>
   );
 }
