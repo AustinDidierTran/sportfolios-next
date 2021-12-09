@@ -27,7 +27,6 @@ interface IProps {
   recipientId: string;
 }
 
-
 const Conversations: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { recipientId } = props;
@@ -59,16 +58,18 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
     return recipientOptions.find((r: Recipient) => r.id === recipientId);
   }, [recipientOptions, recipientId]);
 
-
   useEffect(() => {
     updateConversations();
   }, [updateConversations]);
 
-  
+  const goToConversation = async (conversation: IConversationPreview) => {
+    goTo(ROUTES.conversation, { id: conversation.id }, { recipientId: recipientId });
+  };
+
   const handleArrowBack = () => {
     goTo(ROUTES.home);
   };
-  
+
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
       if (!message) {
