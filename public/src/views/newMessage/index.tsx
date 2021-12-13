@@ -19,7 +19,6 @@ import Button from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import { createConversation } from '../../actions/service/messaging';
-import ChooseRecipientForNew from '../../components/Custom/ChooseRecipientForNew';
 
 interface IPerson {
   id: string;

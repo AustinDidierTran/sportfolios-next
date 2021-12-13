@@ -16,7 +16,6 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import CheckCirleIcon from '@material-ui/icons/CheckCircle';
 import Typography from '@material-ui/core/Typography';
 
-
 interface IProps {
   basicInfos: Entity;
   onBecomeMemberButton: () => void;
@@ -47,6 +46,9 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const handleMessage = () => {
+    if (!userInfo || !userInfo.primaryPerson) {
+      goTo(ROUTES.login);
+    }
     const participantId = [basicInfos.id];
     createConversation(participantId, userInfo?.primaryPerson.id).then((newConversationId) => {
       goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: userInfo?.primaryPerson.id });
