@@ -56,7 +56,6 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
     return recipientOptions.find((r: Recipient) => r.id === recipientId);
   }, [recipientOptions, recipientId]);
 
-
   useEffect(() => {
     updateConversations();
   }, [updateConversations]);
@@ -144,17 +143,13 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
               </div>
             }
           />
-          <CardContent>
-            <Divider className={styles.divider} />
+          <div className={styles.cardContent}>
             <List>
               {orderedConversations?.map((c) => (
-                <>
-                  <ConversationPreview conversation={c} recipientId={recipientId} />
-                  <Divider className={styles.divider} />
-                </>
+                <ConversationPreview conversation={c} recipientId={recipientId} />
               ))}
             </List>
-          </CardContent>
+          </div>
         </Card>
       </div>
       <ChooseRecipient

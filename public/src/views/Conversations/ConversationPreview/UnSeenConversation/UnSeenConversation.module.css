@@ -1,8 +1,25 @@
+.block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f3f5f9;
+  height: fit-content;
+}
 .message {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 99%;
   gap: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.75rem;
+}
+.line {
+  float: left;
+  background-color: #18b393;
+  width: 0.25rem;
+  height: 4.5rem;
 }
 
 .text {
@@ -26,4 +43,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.grow {
+  flex-grow: 1;
 }

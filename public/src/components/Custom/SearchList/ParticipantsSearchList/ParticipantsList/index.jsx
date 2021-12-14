@@ -33,6 +33,7 @@ export default function ParticipantsList(props) {
         key={item?.key || index}
         selected={selectedIndex === index}
         recipientId={recipientId}
+        participants={participants}
       />
     );
   };
