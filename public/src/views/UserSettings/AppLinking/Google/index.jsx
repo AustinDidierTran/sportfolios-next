@@ -13,7 +13,7 @@ import { validEmail } from '../../../../actions/service/auth/auth';
 import { addEmail } from '../../../../actions/service/user';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import { SEVERITY_ENUM, LOGO_ENUM } from '../../../../../common/enums';
-import { loadAddEmailConfig } from '../../../../utils/amplify/amplifyConfig';
+import { loadAddEmailConfigGoogle } from '../../../../utils/amplify/amplifyConfig';
 
 export default function googleLogin() {
   const { t } = useTranslation();
@@ -58,7 +58,7 @@ export default function googleLogin() {
       goTo(ROUTES.userSettings);
     });
   };
-  loadAddEmailConfig();
+  loadAddEmailConfigGoogle();
 
   return (
     <Container className={styles.container}>

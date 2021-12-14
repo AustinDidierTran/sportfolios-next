@@ -28,9 +28,9 @@ import { COLORS } from '../../utils/colors';
 import { ERROR_ENUM, errors } from '../../../common/errors';
 
 import { Auth } from 'aws-amplify';
-import { loadLoginGoogleConfig } from '../../utils/amplify/amplifyConfig.jsx';
+import { loadLoginGoogleConfig, loadLoginFacebookConfig } from '../../utils/amplify/amplifyConfig.jsx';
 import { loginWithCognito, migrate, loginWithCognitoToken } from '../../actions/service/auth/auth';
-import { FEATURE_GOOGLE_LOGIN } from '../../../../feature-flags';
+import { FEATURE_GOOGLE_LOGIN, FEATURE_FACEBOOK_LOGIN } from '../../../../feature-flags';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -160,6 +160,11 @@ export default function Login() {
     Auth.federatedSignIn({ provider: 'Google' });
   };
 
+  loadLoginFacebookConfig();
+  const loginFacebook = async () => {
+    Auth.federatedSignIn({ provider: 'Facebook' });
+  };
+
   return (
     <Container className={styles.container}>
       <div className={styles.logo}>
@@ -221,7 +226,20 @@ export default function Login() {
               </Button>
             </CardActions>
           )}
-
+          {FEATURE_FACEBOOK_LOGIN && (
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={styles.button}
+                style={{ color: COLORS.white }}
+                onClick={loginFacebook}
+              >
+                {t('facebook.login_facebook')}
+              </Button>
+            </CardActions>
+          )}
           <Divider />
           <CardActions className={styles.linksContainer}>
             <Typography

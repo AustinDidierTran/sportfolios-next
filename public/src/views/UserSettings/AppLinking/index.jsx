@@ -16,6 +16,9 @@ import { ERROR_ENUM, errors } from '../../../../common/errors';
 import { Store, ACTION_ENUM } from '../../../Store';
 import styles from './AppLinking.module.css';
 import conf from '../../../../../conf';
+import { loadAddEmailConfigGoogle, loadAddEmailConfigFacebook } from '../../../utils/amplify/amplifyConfig';
+import { FEATURE_GOOGLE_LOGIN, FEATURE_FACEBOOK_LOGIN } from '../../../../../feature-flags';
+import { Auth, Hub } from 'aws-amplify';
 
 export default function AppLinking() {
   useFacebookSDK();
@@ -51,6 +54,16 @@ export default function AppLinking() {
   useEffect(() => {
     fetchConnectedApp();
   }, []);
+
+  const loginGoogle = async () => {
+    loadAddEmailConfigGoogle();
+    Auth.federatedSignIn({ provider: 'Google' });
+  };
+
+  const loginFacebook = async () => {
+    loadAddEmailConfigFacebook();
+    Auth.federatedSignIn({ provider: 'Facebook' });
+  };
 
   const onSuccessfulFBConnection = () => {
     window.FB.api('/me', 'GET', { fields: 'id,email,picture,first_name,last_name' }, async function (response) {
@@ -171,30 +184,54 @@ export default function AppLinking() {
   };
 
   const items = [
-    {
-      onConnect: () => {
-        window.FB.login((response) => loginCallback(response), {
-          scope: 'public_profile, email',
-        });
-      },
-      onDisconnect: onFBUnlink,
-      app: APP_ENUM.FACEBOOK,
-      isConnected: isLinkedFB,
-      type: LIST_ITEM_ENUM.APP_ITEM,
-      description: t('facebook_description'),
-      key: APP_ENUM.FACEBOOK,
-    },
-    {
-      onConnect: onMessengerConnect,
-      onDisconnect: onMessengerUnlink,
-      app: APP_ENUM.MESSENGER,
-      isConnected: isLinkedMessenger,
-      type: LIST_ITEM_ENUM.APP_ITEM,
-      description: t('messenger_description'),
-      key: APP_ENUM.MESSENGER,
-      disabled: true,
-    },
+    // {
+    //   onConnect: () => {
+    //     window.FB.login((response) => loginCallback(response), {
+    //       scope: 'public_profile, email',
+    //     });
+    //   },
+    //   onDisconnect: onFBUnlink,
+    //   app: APP_ENUM.FACEBOOK,
+    //   isConnected: isLinkedFB,
+    //   type: LIST_ITEM_ENUM.APP_ITEM,
+    //   description: t('facebook_description'),
+    //   key: APP_ENUM.FACEBOOK,
+    // },
+    // {
+    //   onConnect: onMessengerConnect,
+    //   onDisconnect: onMessengerUnlink,
+    //   app: APP_ENUM.MESSENGER,
+    //   isConnected: isLinkedMessenger,
+    //   type: LIST_ITEM_ENUM.APP_ITEM,
+    //   description: t('messenger_description'),
+    //   key: APP_ENUM.MESSENGER,
+    //   disabled: true,
+    // },
   ];
+
+  if (FEATURE_FACEBOOK_LOGIN) {
+    items.push({
+      onConnect: loginFacebook,
+      // onDisconnect: onFBUnlink,
+      app: APP_ENUM.FACEBOOK,
+      // isConnected: isLinkedFB,
+      type: LIST_ITEM_ENUM.APP_ITEM,
+      description: t('facebook.add_email'),
+      key: APP_ENUM.FACEBOOK,
+    });
+  }
+
+  if (FEATURE_GOOGLE_LOGIN) {
+    items.push({
+      onConnect: loginGoogle,
+      // onDisconnect: onFBUnlink,
+      app: APP_ENUM.GOOGLE,
+      // isConnected: isLinkedFB,
+      type: LIST_ITEM_ENUM.APP_ITEM,
+      description: t('google.add_gmail'),
+      key: APP_ENUM.GOOGLE,
+    });
+  }
 
   const unlinkConfirmedFunctions = {
     [APP_ENUM.FACEBOOK]: onFBUnlinkConfirmed,

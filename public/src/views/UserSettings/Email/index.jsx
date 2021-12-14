@@ -13,9 +13,6 @@ import { addEmail } from '../../../actions/service/user';
 import { Store, ACTION_ENUM } from '../../../Store';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { Auth, Hub } from 'aws-amplify';
-import { loadAddEmailConfig } from '../../../utils/amplify/amplifyConfig';
-import { FEATURE_GOOGLE_LOGIN } from '../../../../../feature-flags';
 
 export default function Email() {
   const { t } = useTranslation();
@@ -64,11 +61,6 @@ export default function Email() {
     },
   });
 
-  loadAddEmailConfig();
-  const loginGoogle = async () => {
-    Auth.federatedSignIn({ provider: 'Google' });
-  };
-
   return (
     <Paper className={styles.card}>
       <List title={t('my_email')} />
@@ -77,13 +69,6 @@ export default function Email() {
           <ConfirmedEmailField email={email} key={index} />
         ))}
       </CardContent>
-      <form onSubmit={formik.handleSubmit}>
-        {FEATURE_GOOGLE_LOGIN && (
-          <Button onClick={loginGoogle} color="primary" style={{ margin: '8px' }}>
-            {t('google.add_gmail')}
-          </Button>
-        )}
-      </form>
     </Paper>
   );
 }
