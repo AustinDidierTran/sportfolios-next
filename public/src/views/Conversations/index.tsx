@@ -119,6 +119,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
       <div className={styles.center}>
         <Card className={styles.card}>
           <CardHeader
+            className={styles.cardHeader}
             title={
               <div className={styles.header}>
                 <Typography className={styles.title} variant="h3">
