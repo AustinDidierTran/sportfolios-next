@@ -647,6 +647,7 @@ export default {
       value_is_required: 'Une valeur est requise',
       message: 'Code de validation',
       validate_account: 'Valider mon compte',
+      validation_code: 'Code de validation',
     },
     create: {
       create_a_game: 'Créer une partie',
@@ -1203,6 +1204,11 @@ export default {
     expired_on: 'A expiré le',
     expired: 'Expiré',
     facebook_description: 'Connecte ton compte Facebook pour retrouver tes amis sur Sportfolios',
+    facebook: {
+      add_email: 'Ajouter un compte google',
+      login_facebook: 'Connexion avec Facebook',
+      signup: "S'enregistrer avec Facebook",
+    },
     fair_mindedness: 'Honnêteté et équité',
     false: 'Faux',
     FAQ: {
