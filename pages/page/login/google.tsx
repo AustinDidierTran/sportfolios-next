@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../../../conf';
 import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import dynamic from 'next/dynamic';
+import { FACEBOOK_APP_ID } from '../../../conf';
 
 const GoogleLogin = dynamic(() => import('../../../public/src/views/Login/Google'));
 
@@ -36,7 +37,7 @@ const GoogleLoginRoute: React.FunctionComponent = () => {
           },
           { name: 'apple-mobile-web-app-capable', content: 'yes' },
         ]}
-        facebook={{ appId: '346677216672687' }}
+        facebook={{ appId: FACEBOOK_APP_ID }}
         twitter={{
           site: '@sportfoliosapp',
           cardType: 'summary_large_image',

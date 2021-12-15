@@ -32,7 +32,7 @@ export default function googleLogin() {
     }
     const user = await loginWithCognitoToken(token);
     if (!user || !user?.data) {
-      console.log('user not define');
+      console.error('user not define');
       goTo(ROUTES.login);
       return;
     }

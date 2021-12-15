@@ -21,14 +21,10 @@ export default function googleLogin() {
     dispatch,
     state: { userInfo },
   } = React.useContext(Store);
-  React.useEffect(() => {
-    verifEmail();
-  }, [userInfo]);
 
-  const verifEmail = async () => {
+  const verifyEmail = useCallback(async () => {
     const data = await Auth.currentAuthenticatedUser();
-    const token = data.signInUserSession.idToken.jwtToken;
-    if (!data.signInUserSession.idToken.payload.identities) {
+    if (!data?.signInUserSession.idToken.payload.identities) {
       goTo(ROUTES.userSettings);
     }
 
@@ -48,17 +44,34 @@ export default function googleLogin() {
       return;
     }
 
-    addEmail(userInfo.userId, email, false).then((data) => {
+    const result = await addEmail(userInfo.userId, email, false);
+
+    if (result.data !== 200) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
-        message: t('email_added'),
+        message: t('an_error_has_occured'),
         severity: SEVERITY_ENUM.ERROR,
         duration: 2000,
       });
       goTo(ROUTES.userSettings);
+      return;
+    }
+
+    dispatch({
+      type: ACTION_ENUM.SNACK_BAR,
+      message: t('email_added'),
+      severity: SEVERITY_ENUM.SUCCESS,
+      duration: 2000,
     });
-  };
-  loadAddEmailConfigGoogle();
+    goTo(ROUTES.userSettings);
+  });
+
+  React.useEffect(() => {
+    if (userInfo.userId !== undefined) {
+      loadAddEmailConfigGoogle();
+      verifyEmail();
+    }
+  }, [userInfo]);
 
   return (
     <Container className={styles.container}>
