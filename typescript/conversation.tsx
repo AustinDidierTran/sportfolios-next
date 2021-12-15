@@ -35,4 +35,5 @@ export interface Recipient {
   personId?: string;
   surname?: string;
   photoUrl: string;
+  unreadMessagesAmount: number;
 }
