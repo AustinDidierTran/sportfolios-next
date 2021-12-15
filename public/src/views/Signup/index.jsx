@@ -31,8 +31,8 @@ import { errors, ERROR_ENUM } from '../../../common/errors';
 import i18n from '../../i18n';
 
 import { Auth } from 'aws-amplify';
-import { loadSignupGoogleConfig } from '../../utils/amplify/amplifyConfig.jsx';
-import { FEATURE_GOOGLE_LOGIN } from '../../../../feature-flags';
+import { loadSignupGoogleConfig, loadSignupFacebookConfig } from '../../utils/amplify/amplifyConfig.jsx';
+import { FEATURE_GOOGLE_LOGIN, FEATURE_FACEBOOK_LOGIN } from '../../../../feature-flags';
 
 export default function Signup() {
   const { t } = useTranslation();
@@ -111,10 +111,14 @@ export default function Signup() {
     },
   });
 
-  loadSignupGoogleConfig();
-
   const signupGoogle = async () => {
+    loadSignupGoogleConfig();
     Auth.federatedSignIn({ provider: 'Google' });
+  };
+
+  const signupFacebook = async () => {
+    loadSignupFacebookConfig();
+    Auth.federatedSignIn({ provider: 'Facebook' });
   };
 
   return (
@@ -199,6 +203,20 @@ export default function Signup() {
                 onClick={signupGoogle}
               >
                 {t('google.signup')}
+              </Button>
+            </CardActions>
+          )}
+          {FEATURE_FACEBOOK_LOGIN && (
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={styles.button}
+                style={{ color: COLORS.white }}
+                onClick={signupFacebook}
+              >
+                {t('facebook.signup')}
               </Button>
             </CardActions>
           )}

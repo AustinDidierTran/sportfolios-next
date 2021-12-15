@@ -15,4 +15,5 @@ module.exports = {
   REGION: 'us-east-2',
   COGNITO_DOMAIN: 'devsportfoliosapp.auth.us-east-2.amazoncognito.com',
   ENVIRONMENT: 'DEV',
+  FACEBOOK_APP_ID: '346677216672687',
 };

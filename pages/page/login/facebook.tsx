@@ -6,9 +6,9 @@ import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import dynamic from 'next/dynamic';
 import { FACEBOOK_APP_ID } from '../../../conf';
 
-const GoogleLogin = dynamic(() => import('../../../public/src/views/Login/Google'));
+const FacebookLogin = dynamic(() => import('../../../public/src/views/Login/Facebook'));
 
-const GoogleLoginRoute: React.FunctionComponent = () => {
+const FacebookLoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
@@ -19,7 +19,7 @@ const GoogleLoginRoute: React.FunctionComponent = () => {
         canonical={CLIENT_BASE_URL}
         openGraph={{
           type: 'website',
-          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.login}/google`,
+          url: `${CLIENT_BASE_URL}${ROUTES_ENUM.login}/facebook`,
           title: t('metadata.login.title'),
           description: t('metadata.login.description'),
           images: [
@@ -43,9 +43,9 @@ const GoogleLoginRoute: React.FunctionComponent = () => {
           cardType: 'summary_large_image',
         }}
       />
-      <GoogleLogin />
+      <FacebookLogin />
     </>
   );
 };
 
-export default GoogleLoginRoute;
+export default FacebookLoginRoute;

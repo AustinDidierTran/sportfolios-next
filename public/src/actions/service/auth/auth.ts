@@ -36,6 +36,15 @@ export async function signupGoogleToken(token: string): Promise<number> {
   });
 }
 
+export async function signupFacebookToken(token: string): Promise<number> {
+  return api(`${AUTH_BASE_URL}/signupFacebookToken`, {
+    method: 'POST',
+    body: JSON.stringify({
+      token,
+    }),
+  });
+}
+
 export async function loginWithCognito(email: string, token: string): Promise<UserInfo> {
   return api(`${AUTH_BASE_URL}/loginWithCognito`, {
     method: 'POST',
