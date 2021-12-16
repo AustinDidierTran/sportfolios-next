@@ -27,7 +27,7 @@ export async function getConversationMessages(conversationId: string, page?: num
   );
 }
 
-export function getAllOwnedEntitiesMessaging(): Promise<Recipient[]> {
+export async function getAllOwnedEntitiesMessaging(): Promise<Recipient[]> {
   return api(formatRoute(`${BASE_URL}/allOwned`, null, { onlyAdmin: true }), { method: 'GET' }).then((res) => res.data);
 }
 
@@ -35,6 +35,20 @@ export async function sendMessage(conversationId: string, content: string, sende
   return api(`${BASE_URL}/message`, {
     method: 'POST',
     body: JSON.stringify({ conversationId, content, senderId }),
+  }).then((res) => res.data);
+}
+
+export async function seeMessages(entityId: string): Promise<void> {
+  return api(`${BASE_URL}/seeMessages`, {
+    method: 'POST',
+    body: JSON.stringify({ entityId }),
+  }).then((res) => res.data);
+}
+
+export async function seeConversation(entityId: string, conversationId: string): Promise<void> {
+  return api(`${BASE_URL}/seeConversation`, {
+    method: 'POST',
+    body: JSON.stringify({ entityId, conversationId }),
   }).then((res) => res.data);
 }
 

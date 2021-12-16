@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../../public/common/enums';
 
-const UserSettingsGoogle = dynamic(() => import('../../../public/src/views/UserSettings/AppLinking/Google'));
+const UserSettingsFacebook = dynamic(() => import('../../../public/src/views/UserSettings/AppLinking/Facebook'));
 
-const GoogleLoginRoute: React.FunctionComponent = () => {
+const FacebookLoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
@@ -16,9 +16,9 @@ const GoogleLoginRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.userSettings.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <UserSettingsGoogle />
+      <UserSettingsFacebook />
     </>
   );
 };
 
-export default GoogleLoginRoute;
+export default FacebookLoginRoute;

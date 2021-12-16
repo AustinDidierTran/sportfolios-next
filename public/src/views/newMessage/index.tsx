@@ -37,7 +37,6 @@ const newMessage: React.FunctionComponent<IProps> = (props) => {
   } = useContext(Store);
 
   const { recipientId } = props;
-
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);

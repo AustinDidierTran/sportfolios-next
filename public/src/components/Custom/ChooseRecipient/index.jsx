@@ -1,22 +1,19 @@
 import React, { useState, useContext, useMemo } from 'react';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ManageParticipants from '../ManageParticipants';
-import CustomAvatar from '../Avatar';
 import { useTranslation } from 'react-i18next';
-import styles from './ChooseRecipient.module.css';
+
 import { Store } from '../../../Store';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import Typography from '@material-ui/core/Typography';
-import { updateConversationName } from '../../../actions/service/messaging';
+import RecipientOption from './RecipientOption';
 
 export default function ChooseRecipient(props) {
   const { t } = useTranslation();
-  const { open, anchorEl, handleClose, recipientOptions } = props;
 
-  const handleNewRecipient = (newRecipient) => {
-    goTo(ROUTES.conversations, null, { recipientId: newRecipient.id });
-  };
+  const { open, anchorEl, handleClose, recipientOptions, setRecipientOptions } = props;
+  const {
+    state: { userInfo: userInfo, socket },
+  } = useContext(Store);
+
 
   return (
     <Menu
@@ -30,14 +27,7 @@ export default function ChooseRecipient(props) {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     >
       {recipientOptions?.map((r) => (
-        <MenuItem onClick={() => handleNewRecipient(r)}>
-          <div className={styles.item}>
-            <CustomAvatar photoUrl={r.photoUrl} />
-            <Typography className={styles.writing} variant="body1">
-              {r.name}
-            </Typography>
-          </div>
-        </MenuItem>
+        <RecipientOption recipientOption={r} setRecipientOptions={setRecipientOptions} />
       ))}
     </Menu>
   );

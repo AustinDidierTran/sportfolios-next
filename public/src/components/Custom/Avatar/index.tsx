@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomIcon from '../Icon';
@@ -21,10 +21,13 @@ interface IProps {
   'aria-label'?: string;
   style?: any;
   namespace?: string;
+  withBadge?: Boolean;
+  badgeColor?: any;
+  badgeContent?: number;
 }
 
 const CustomAvatar: React.FunctionComponent<IProps> = (props) => {
-  const { photoUrl, icon, ...otherProps } = props;
+  const { withBadge = false, badgeColor = 'error', badgeContent = 0, photoUrl, icon, ...otherProps } = props;
   const classes = useStyles();
 
   let className = clsx(styles.avatar, props.className);
@@ -38,21 +41,29 @@ const CustomAvatar: React.FunctionComponent<IProps> = (props) => {
     iconStyle = { width: 80, height: 80 };
   }
   if (photoUrl) {
-    return <Avatar {...otherProps} className={[className, classes.white].join(' ')} src={photoUrl} />;
+    return (
+      <Badge invisible={!badgeContent} badgeContent={badgeContent} color={badgeColor}>
+        <Avatar {...otherProps} className={[className, classes.white].join(' ')} src={photoUrl} />
+      </Badge>
+    );
   }
 
   if (icon) {
     return (
-      <Avatar {...otherProps} className={className}>
-        <CustomIcon icon={icon} />
-      </Avatar>
+      <Badge invisible={!badgeContent} badgeContent={badgeContent} color={badgeColor}>
+        <Avatar {...otherProps} className={className}>
+          <CustomIcon icon={icon} />
+        </Avatar>
+      </Badge>
     );
   }
 
   return (
-    <Avatar {...otherProps} className={className}>
-      <CustomIcon style={iconStyle} icon={'Person'} />
-    </Avatar>
+    <Badge invisible={!badgeContent} badgeContent={badgeContent} color={badgeColor}>
+      <Avatar {...otherProps} className={className}>
+        <CustomIcon style={iconStyle} icon={'Person'} />
+      </Avatar>
+    </Badge>
   );
 };
 export default CustomAvatar;

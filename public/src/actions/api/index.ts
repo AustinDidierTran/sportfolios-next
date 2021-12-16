@@ -1,6 +1,7 @@
 import { API_BASE_URL } from '../../../../conf';
 import { Auth } from 'aws-amplify';
 import '../../utils/amplify/amplifyConfig.jsx';
+import { ROUTES_ENUM } from '../../../common/enums';
 
 const api = async (
   route: string,
@@ -12,7 +13,12 @@ const api = async (
   if (authToken && authToken !== 'null') {
     try {
       const dataAWS = await Auth.currentAuthenticatedUser();
-      if (!dataAWS || !refreshToken) {
+      if (
+        !dataAWS ||
+        !refreshToken ||
+        window.location.pathname === ROUTES_ENUM.userSettingsFacebook ||
+        window.location.pathname === ROUTES_ENUM.userSettingsGoogle
+      ) {
         headers.Authorization = authToken;
       } else if (!dataAWS?.signInUserSession?.idToken?.jwtToken) {
         headers.Authorization = authToken;

@@ -6,20 +6,20 @@ import Paper from '../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 
-import styles from './SignupGmail.module.css';
+import styles from './SignupFacebook.module.css';
 import { Auth } from 'aws-amplify';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { addEmail } from '../../../actions/service/user';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { SEVERITY_ENUM, LOGO_ENUM } from '../../../../common/enums';
-import { loadSignupGoogleConfig } from '../../../utils/amplify/amplifyConfig.jsx';
-import { signupGoogleToken, validEmail } from '../../../actions/service/auth/auth';
+import { loadSignupFacebookConfig } from '../../../utils/amplify/amplifyConfig.jsx';
+import { signupFacebookToken, validEmail } from '../../../actions/service/auth/auth';
 
-export default function googleSignup() {
+export default function facebookSignup() {
   const { t } = useTranslation();
   const { dispatch } = React.useContext(Store);
 
-  loadSignupGoogleConfig();
+  loadSignupFacebookConfig();
 
   React.useEffect(() => {
     signupGmail();
@@ -27,11 +27,12 @@ export default function googleSignup() {
 
   const signupGmail = async () => {
     const data = await Auth.currentAuthenticatedUser();
+    console.log(data);
     if (!data.signInUserSession.idToken.payload.identities) {
       goTo(ROUTES.signup);
     }
 
-    if (data?.signInUserSession?.idToken?.payload?.identities[0].providerName !== 'Google') {
+    if (data?.signInUserSession?.idToken?.payload?.identities[0].providerName !== 'Facebook') {
       goTo(ROUTES.userSettings);
     }
     const email = data.signInUserSession.idToken.payload.email;
@@ -48,7 +49,7 @@ export default function googleSignup() {
     }
 
     const token = data.signInUserSession.idToken.jwtToken;
-    await signupGoogleToken(token);
+    await signupFacebookToken(token);
     dispatch({
       type: ACTION_ENUM.SNACK_BAR,
       message: t('signup_done'),

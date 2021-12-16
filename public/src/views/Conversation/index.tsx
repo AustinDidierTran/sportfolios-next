@@ -27,6 +27,7 @@ interface IHash {
   [details: string]: string;
 }
 
+
 interface IProps {
   convoId: string;
   recipientId: string;
@@ -53,7 +54,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     return () => {
       socket.off(SOCKET_EVENT.MESSAGES);
     };
-  }, []);
+  }, [convoId]);
 
   const updateConversation = useCallback(async () => {
     return getConversationMessages(convoId).then(
@@ -95,11 +96,11 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     scrollToBottom();
   }, [messages]);
 
+
   const nicknameMap = useMemo<IHash>(() => {
     if (!conversation) {
       return {};
     }
-
     return conversation.participants.reduce(
       (prev, participant) => ({
         ...prev,
@@ -166,7 +167,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     return <LoadingSpinner />;
   }
   //TEST
-
   return (
     <IgContainer className={styles.container}>
       <div className={styles.header}>

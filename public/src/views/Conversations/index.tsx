@@ -23,6 +23,9 @@ import ChooseRecipient from '../../components/Custom/ChooseRecipient';
 import { Person } from '../../../../typescript/entity';
 import CustomAvatar from '../../components/Custom/Avatar';
 import { FEATURE_CONVERSATION_SEARCH_BAR } from '../../../../feature-flags';
+import { CodeSharp } from '@material-ui/icons';
+import { cloneNode, isFunctionTypeParam } from '@babel/types';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 interface IProps {
   recipientId: string;
@@ -37,20 +40,69 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
   const [conversations, setConversations] = useState<IConversationPreview[]>([]);
   const [recipientOptions, setRecipientOptions] = useState<Recipient[]>([]);
 
-  const updateConversations = useCallback(() => {
-    getConversations({ recipientId: recipientId }).then((newConversations: IConversationPreview[]) => {
-      if (!newConversations) {
-        return;
-      }
-      setConversations(newConversations);
-      getAllOwnedEntitiesMessaging().then((recipients: Recipient[]) => {
-        if (!recipients) {
-          return;
-        }
-        setRecipientOptions(recipients);
-      });
-    });
+  const updateConversations = useCallback(async () => {
+    const newConversations: IConversationPreview[] = await getConversations({ recipientId: recipientId });
+
+    if (!newConversations) {
+      return;
+    }
+
+    setConversations(newConversations);
+
+    const recipients: Recipient[] = await getAllOwnedEntitiesMessaging();
+    if (!recipients) {
+      return;
+    }
+    setRecipientOptions(recipients);
   }, [recipientId]);
+
+  const resetUnseenMessages = useCallback(
+    async (message) => {
+      if (!conversations) {
+        return [];
+      }
+      const conversationsCopy = [...conversations];
+      const index = conversations.map((c) => c.id).indexOf(message.conversationId);
+      if (index === -1) {
+        updateConversations();
+        return [];
+      }
+      conversationsCopy[index].participants = conversationsCopy[index].participants.map((p) => {
+        if (p.id !== message.sender.id) {
+          p.readLastMessageAt = null;
+          return p;
+        }
+        return p;
+      });
+      return conversationsCopy;
+    },
+    [conversations, recipientOptions, updateConversations]
+  );
+
+  const incrementUnSeenMessages = useCallback(
+    async (message, conversationChoices: IConversationPreview[]) => {
+      if (!recipientOptions || recipientOptions.length === 0) {
+        return [];
+      }
+      const recipientOptionsCopy = [...recipientOptions];
+      const activeConversation = conversationChoices.filter((c) => c.id === message.conversationId);
+      if (activeConversation.length === 0) {
+        updateConversations();
+        return [];
+      }
+      const participantsId = activeConversation[0].participants.map((p) => p.id);
+      participantsId.forEach((p) => {
+        const optionsId = recipientOptions.map((op) => op.id);
+        const index = optionsId.indexOf(p);
+        if (index !== -1 && recipientOptions[index].id !== message.sender.id) {
+          recipientOptionsCopy[index].unreadMessagesAmount = recipientOptionsCopy[index].unreadMessagesAmount + 1;
+        }
+      });
+      setRecipientOptions(recipientOptionsCopy);
+      return conversationChoices;
+    },
+    [recipientOptions, conversations, updateConversations]
+  );
 
   const recipient = useMemo<Recipient>(() => {
     if (recipientOptions.length === 0) {
@@ -72,12 +124,14 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
   };
 
   useEffect(() => {
-    socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
+    socket.on(SOCKET_EVENT.MESSAGES, async (message: IConversationMessage) => {
       if (!message) {
         return;
       }
+      const conversationChoices = await resetUnseenMessages(message);
+      await incrementUnSeenMessages(message, conversationChoices);
       setConversations((oldConversations) => {
-        const conversationsCopy = [...oldConversations];
+        const conversationsCopy = [...conversationChoices];
         const conversationIds = conversationsCopy?.map((c) => c.id);
         const index = conversationIds.indexOf(message.conversationId);
         if (!conversationsCopy) {
@@ -95,7 +149,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
     return () => {
       socket.off(SOCKET_EVENT.MESSAGES);
     };
-  }, [conversations]);
+  }, [conversations, recipientOptions, resetUnseenMessages, incrementUnSeenMessages]);
 
   const orderedConversations = useMemo(() => {
     if (!conversations) {
@@ -130,6 +184,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
       <div className={styles.center}>
         <Card className={styles.card}>
           <CardHeader
+            className={styles.cardHeader}
             title={
               <div className={styles.header}>
                 <ArrowBackIosRounded className={styles.arrow} onClick={handleArrowBack} />
@@ -143,37 +198,36 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
                 <div onClick={handleChangePerson}>
                   <CustomAvatar photoUrl={recipient?.photoUrl} className={styles.recipient} />
                 </div>
-                <IconButton
-                  onClick={() => {
-                    goTo(ROUTES.newMessage, null, { recipientId: recipientId });
-                  }}
-                  className={styles.create}
-                  tooltip={t('new_message')}
-                  icon="Add"
-                  size="large"
-                />
+                {recipient?.type !== 2 ? (
+                  <IconButton
+                    onClick={() => {
+                      goTo(ROUTES.newMessage, null, { recipientId: recipientId });
+                    }}
+                    className={styles.create}
+                    tooltip={t('new_message')}
+                    icon="Add"
+                    size="large"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
             }
           />
-          <CardContent>
-            {FEATURE_CONVERSATION_SEARCH_BAR ? (
+          <div className={styles.cardContent}>
+             {FEATURE_CONVERSATION_SEARCH_BAR ? (
               <div className={styles.searchBar}>
                 <ConversationSearchList onClick={goToConversation} />
               </div>
             ) : (
               <></>
             )}
-
-            <Divider className={styles.divider} />
             <List>
               {orderedConversations?.map((c) => (
-                <>
-                  <ConversationPreview conversation={c} recipientId={recipientId} />
-                  <Divider className={styles.divider} />
-                </>
+                <ConversationPreview conversation={c} recipientId={recipientId} />
               ))}
             </List>
-          </CardContent>
+          </div>
         </Card>
       </div>
       <ChooseRecipient
@@ -182,6 +236,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
         handleClose={handleClose}
         recipientOptions={recipientOptions}
         updateConversations={updateConversations}
+        setRecipientOptions={setRecipientOptions}
       />
     </IgContainer>
   );
