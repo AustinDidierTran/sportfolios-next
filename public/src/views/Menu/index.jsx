@@ -46,7 +46,7 @@ export default function Menu() {
     },
     {
       name: t('messages'),
-      route: formatRoute(ROUTES.conversations, null, { recipientId: userInfo.primaryPerson.id }),
+      route: formatRoute(ROUTES.conversations, null, { recipientId: userInfo?.primaryPerson?.id }),
       icon: 'Chat',
     },
     {
