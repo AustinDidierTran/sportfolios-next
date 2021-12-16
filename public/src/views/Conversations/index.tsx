@@ -22,6 +22,7 @@ import ConversationPreview from './ConversationPreview';
 import ChooseRecipient from '../../components/Custom/ChooseRecipient';
 import { Person } from '../../../../typescript/entity';
 import CustomAvatar from '../../components/Custom/Avatar';
+import { FEATURE_CONVERSATION_SEARCH_BAR } from '../../../../feature-flags';
 
 interface IProps {
   recipientId: string;
@@ -155,9 +156,13 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
             }
           />
           <CardContent>
-            <div className={styles.searchBar}>
-              <ConversationSearchList onClick={goToConversation} />
-            </div>
+            {FEATURE_CONVERSATION_SEARCH_BAR ? (
+              <div className={styles.searchBar}>
+                <ConversationSearchList onClick={goToConversation} />
+              </div>
+            ) : (
+              <></>
+            )}
 
             <Divider className={styles.divider} />
             <List>
