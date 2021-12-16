@@ -1,0 +1,20 @@
+.avatar {
+  color: #18b393 !important;
+  background-color: white !important;
+}
+.text {
+  width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.secondaryActions {
+  display: inline-flex;
+}
+
+.listItem {
+  list-style-type: none !important;
+}
+.names {
+}

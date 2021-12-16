@@ -1125,6 +1125,7 @@ export default {
     connection: 'Connexion',
     connection_failed: 'La connexion au compte a échoué, veuillez réessayer',
     contact_us: 'Contactez-nous',
+    conversation: 'Conversation',
     contact: 'Contact',
     copied: 'Copié',
     copied_emails: 'Adresses courriels copiées!',

@@ -14,12 +14,15 @@ import { Store } from '../../Store';
 import IconButton from '../../components/Custom/IconButton';
 import { goTo, ROUTES } from '../../actions/goTo';
 import { IConversationPreview, IConversationMessage, Recipient } from '../../../../typescript/conversation';
+import ConversationSearchList from '../../components/Custom/SearchList/ConversationSearchList';
+import ArrowBackIosRounded from '@material-ui/icons/ArrowBackIosRounded';
 import { SOCKET_EVENT } from '../../../common/enums';
 import { getConversations, getAllOwnedEntitiesMessaging } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
 import ChooseRecipient from '../../components/Custom/ChooseRecipient';
 import { Person } from '../../../../typescript/entity';
 import CustomAvatar from '../../components/Custom/Avatar';
+import { FEATURE_CONVERSATION_SEARCH_BAR } from '../../../../feature-flags';
 import { CodeSharp } from '@material-ui/icons';
 import { cloneNode, isFunctionTypeParam } from '@babel/types';
 import { ConsoleLogger } from '@aws-amplify/core';
@@ -112,6 +115,14 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
     updateConversations();
   }, [updateConversations]);
 
+  const goToConversation = async (conversation: IConversationPreview) => {
+    goTo(ROUTES.conversation, { id: conversation.id }, { recipientId: recipientId });
+  };
+
+  const handleArrowBack = () => {
+    goTo(ROUTES.home);
+  };
+
   useEffect(() => {
     socket.on(SOCKET_EVENT.MESSAGES, async (message: IConversationMessage) => {
       if (!message) {
@@ -176,7 +187,8 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
             className={styles.cardHeader}
             title={
               <div className={styles.header}>
-                <Typography className={styles.title} variant="h3">
+                <ArrowBackIosRounded className={styles.arrow} onClick={handleArrowBack} />
+                <Typography className={styles.title} variant="h2">
                   {t('messages')}
                 </Typography>
               </div>
@@ -203,6 +215,13 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
             }
           />
           <div className={styles.cardContent}>
+             {FEATURE_CONVERSATION_SEARCH_BAR ? (
+              <div className={styles.searchBar}>
+                <ConversationSearchList onClick={goToConversation} />
+              </div>
+            ) : (
+              <></>
+            )}
             <List>
               {orderedConversations?.map((c) => (
                 <ConversationPreview conversation={c} recipientId={recipientId} />
