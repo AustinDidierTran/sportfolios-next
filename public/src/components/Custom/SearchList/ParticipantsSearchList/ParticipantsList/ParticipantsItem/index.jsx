@@ -30,6 +30,7 @@ export default function ParticipantsItem(props) {
     disabled,
     otherParticipants,
     recipientId,
+    participants,
   } = props;
 
   const {
@@ -42,6 +43,11 @@ export default function ParticipantsItem(props) {
     }
     if (otherParticipants) {
       if (otherParticipants.filter((p) => p.id === id).length === 1) {
+        return true;
+      }
+    }
+    if (participants) {
+      if (participants.filter((p) => p.id === id).length === 1) {
         return true;
       }
     }

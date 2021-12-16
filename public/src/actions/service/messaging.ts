@@ -38,6 +38,20 @@ export async function sendMessage(conversationId: string, content: string, sende
   }).then((res) => res.data);
 }
 
+export async function seeMessages(entityId: string): Promise<void> {
+  return api(`${BASE_URL}/seeMessages`, {
+    method: 'POST',
+    body: JSON.stringify({ entityId }),
+  }).then((res) => res.data);
+}
+
+export async function seeConversation(entityId: string, conversationId: string): Promise<void> {
+  return api(`${BASE_URL}/seeConversation`, {
+    method: 'POST',
+    body: JSON.stringify({ entityId, conversationId }),
+  }).then((res) => res.data);
+}
+
 export async function createConversation(participantIds: string[], creatorId: string): Promise<string> {
   return api(`${BASE_URL}/conversation`, {
     method: 'POST',

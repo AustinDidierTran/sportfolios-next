@@ -14,6 +14,7 @@ export interface Participant {
   surname: string;
   nickname?: string;
   photoUrl: string;
+  readLastMessageAt: string;
 }
 export interface IConversationPreview {
   id: string; //conversationId
@@ -35,4 +36,5 @@ export interface Recipient {
   personId?: string;
   surname?: string;
   photoUrl: string;
+  unreadMessagesAmount: number;
 }

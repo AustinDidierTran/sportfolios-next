@@ -12,7 +12,6 @@ import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';
 import useStyles from './useStyles';
 import { useTranslation } from 'react-i18next';
-
 import styles from './LoggedIn.module.css';
 import { ROUTES, goTo } from '../../../actions/goTo';
 import api from '../../../actions/api';
@@ -147,8 +146,8 @@ export default function LoggedIn(props) {
               <IconButton
                 className={styles.iconButton}
                 icon="Chat"
-                size="medium"
                 style={{ color: COLORS.white }}
+                size="medium"
                 tooltip={t('messages')}
                 onClick={handleConversation}
               />

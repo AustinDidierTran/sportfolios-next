@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ParticipantsList(props) {
   const { recipientId, otherParticipants, participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } =
     props;
+
   const classes = useStyles();
 
   const defaultRowRenderer = (item, index) => {
@@ -32,6 +33,7 @@ export default function ParticipantsList(props) {
         key={item?.key || index}
         selected={selectedIndex === index}
         recipientId={recipientId}
+        participants={participants}
       />
     );
   };

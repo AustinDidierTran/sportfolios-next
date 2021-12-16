@@ -53,7 +53,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     return () => {
       socket.off(SOCKET_EVENT.MESSAGES);
     };
-  }, []);
+  }, [convoId]);
 
   const updateConversation = useCallback(async () => {
     return getConversationMessages(convoId).then(
