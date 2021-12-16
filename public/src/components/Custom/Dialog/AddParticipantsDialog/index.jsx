@@ -22,7 +22,6 @@ export default function AddParticipantsDialog(props) {
   const { t } = useTranslation();
   const query = useFormInput('');
   const inputRef = useRef(null);
-
   const addNewFriend = async (person) => {
     const personId = [person.id];
     addParticipants(conversationId, personId).then(() => {
