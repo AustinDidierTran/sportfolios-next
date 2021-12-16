@@ -21,7 +21,7 @@ import ChooseRecipient from '../../components/Custom/ChooseRecipient';
 import { Person } from '../../../../typescript/entity';
 import CustomAvatar from '../../components/Custom/Avatar';
 import { CodeSharp } from '@material-ui/icons';
-import { cloneNode } from '@babel/types';
+import { cloneNode, isFunctionTypeParam } from '@babel/types';
 import { ConsoleLogger } from '@aws-amplify/core';
 
 interface IProps {
@@ -37,62 +37,58 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
   const [conversations, setConversations] = useState<IConversationPreview[]>([]);
   const [recipientOptions, setRecipientOptions] = useState<Recipient[]>([]);
 
-  const updateConversations = useCallback(() => {
-    getConversations({ recipientId: recipientId }).then((newConversations: IConversationPreview[]) => {
-      if (!newConversations) {
-        return;
-      }
-      setConversations(newConversations);
-      getAllOwnedEntitiesMessaging().then((recipients: Recipient[]) => {
-        if (!recipients) {
-          return;
-        }
-        setRecipientOptions(recipients);
-      });
-    });
+  const updateConversations = useCallback(async () => {
+    const newConversations: IConversationPreview[] = await getConversations({ recipientId: recipientId });
+
+    if (!newConversations) {
+      return;
+    }
+
+    setConversations(newConversations);
+
+    const recipients: Recipient[] = await getAllOwnedEntitiesMessaging();
+    if (!recipients) {
+      return;
+    }
+    setRecipientOptions(recipients);
   }, [recipientId]);
 
   const resetUnseenMessages = useCallback(
     async (message) => {
-      console.log('message : ', message);
       if (!conversations) {
-        console.log('la? ');
-        return;
+        return [];
       }
       const conversationsCopy = [...conversations];
       const index = conversations.map((c) => c.id).indexOf(message.conversationId);
-      console.log('index : ', index);
       if (index === -1) {
-        console.log('here  ?  ');
         updateConversations();
-        return;
+        return [];
       }
-      conversationsCopy[index].participants.map((p) => {
+      conversationsCopy[index].participants = conversationsCopy[index].participants.map((p) => {
         if (p.id !== message.sender.id) {
           p.readLastMessageAt = null;
           return p;
         }
         return p;
       });
-      console.log('conversationsCopy : ', conversationsCopy);
-      setConversations(conversationsCopy);
+      return conversationsCopy;
     },
-    [conversations, updateConversations]
+    [conversations, recipientOptions, updateConversations]
   );
 
   const incrementUnSeenMessages = useCallback(
-    async (message) => {
-      if (!recipientOptions) {
-        return;
+    async (message, conversationChoices: IConversationPreview[]) => {
+      if (!recipientOptions || recipientOptions.length === 0) {
+        return [];
       }
       const recipientOptionsCopy = [...recipientOptions];
-      const activeConversation = conversations.filter((c) => c.id === message.conversationId);
+      const activeConversation = conversationChoices.filter((c) => c.id === message.conversationId);
       if (activeConversation.length === 0) {
         updateConversations();
-        return;
+        return [];
       }
       const participantsId = activeConversation[0].participants.map((p) => p.id);
-      participantsId.map((p) => {
+      participantsId.forEach((p) => {
         const optionsId = recipientOptions.map((op) => op.id);
         const index = optionsId.indexOf(p);
         if (index !== -1 && recipientOptions[index].id !== message.sender.id) {
@@ -100,6 +96,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
         }
       });
       setRecipientOptions(recipientOptionsCopy);
+      return conversationChoices;
     },
     [recipientOptions, conversations, updateConversations]
   );
@@ -116,34 +113,32 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
   }, [updateConversations]);
 
   useEffect(() => {
-    socket.on(SOCKET_EVENT.MESSAGES, (message: IConversationMessage) => {
+    socket.on(SOCKET_EVENT.MESSAGES, async (message: IConversationMessage) => {
       if (!message) {
         return;
       }
-      resetUnseenMessages(message).then(() => {
-        incrementUnSeenMessages(message).then(() => {
-          setConversations((oldConversations) => {
-            const conversationsCopy = [...oldConversations];
-            const conversationIds = conversationsCopy?.map((c) => c.id);
-            const index = conversationIds.indexOf(message.conversationId);
-            if (!conversationsCopy) {
-              return;
-            }
-            if (index === -1) {
-              updateConversations();
-              return;
-            }
-            conversationsCopy[index].lastMessage = message;
+      const conversationChoices = await resetUnseenMessages(message);
+      await incrementUnSeenMessages(message, conversationChoices);
+      setConversations((oldConversations) => {
+        const conversationsCopy = [...conversationChoices];
+        const conversationIds = conversationsCopy?.map((c) => c.id);
+        const index = conversationIds.indexOf(message.conversationId);
+        if (!conversationsCopy) {
+          return;
+        }
+        if (index === -1) {
+          updateConversations();
+          return;
+        }
+        conversationsCopy[index].lastMessage = message;
 
-            return conversationsCopy;
-          });
-        });
+        return conversationsCopy;
       });
     });
     return () => {
       socket.off(SOCKET_EVENT.MESSAGES);
     };
-  }, [conversations]);
+  }, [conversations, recipientOptions, resetUnseenMessages, incrementUnSeenMessages]);
 
   const orderedConversations = useMemo(() => {
     if (!conversations) {

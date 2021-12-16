@@ -13,6 +13,7 @@ export default function ChooseRecipient(props) {
     state: { userInfo: userInfo, socket },
   } = useContext(Store);
 
+
   return (
     <Menu
       id="menu-appbar"
