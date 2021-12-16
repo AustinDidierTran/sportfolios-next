@@ -10,7 +10,6 @@ import IconButton from '../../../components/Custom/IconButton';
 import ProfileChip from '../../../components/Custom/ProfileChip';
 import HeaderFlyout from '../HeaderFlyout';
 import NotificationModule from './NotificationModule';
-import MessagingModule from './MessagingModule';
 import useStyles from './useStyles';
 import { useTranslation } from 'react-i18next';
 import styles from './LoggedIn.module.css';
@@ -144,7 +143,14 @@ export default function LoggedIn(props) {
               />
             </div>
             {FEATURE_MESSAGES_ENABLED && (
-              <MessagingModule className={styles.iconButton} onClick={handleConversation} />
+              <IconButton
+                className={styles.iconButton}
+                icon="Chat"
+                style={{ color: COLORS.white }}
+                size="medium"
+                tooltip={t('messages')}
+                onClick={handleConversation}
+              />
             )}
             <div></div>
             <div ref={refNotifications}>
