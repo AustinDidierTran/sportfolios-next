@@ -11,13 +11,13 @@ export default function RecipientOption(props) {
   const { t } = useTranslation();
   const { recipientOption, setRecipientOptions } = props;
   const handleNewRecipient = () => {
-    setRecipientOptions((oldRecipientOptions) => {
-      const newRecipientOptions = [...oldRecipientOptions];
-      const index = newRecipientOptions.map((r) => r.id).indexOf(recipientOption.id);
-      newRecipientOptions[index].unreadMessagesAmount = 0;
-      return newRecipientOptions;
-    });
     seeMessages(recipientOption.id).then(() => {
+      setRecipientOptions((oldRecipientOptions) => {
+        const newRecipientOptions = [...oldRecipientOptions];
+        const index = newRecipientOptions.map((r) => r.id).indexOf(recipientOption.id);
+        newRecipientOptions[index].unreadMessagesAmount = 0;
+        return newRecipientOptions;
+      });
       goTo(ROUTES.conversations, null, { recipientId: recipientOption.id });
     });
   };

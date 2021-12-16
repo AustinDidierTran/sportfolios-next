@@ -9,6 +9,7 @@ import { goTo, ROUTES } from '../../../../actions/goTo';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import { seeConversation } from '../../../../actions/service/messaging';
 
 interface IProps {
   conversation: IConversationPreview;
@@ -62,16 +63,19 @@ const UnSeenConversation: React.FunctionComponent<IProps> = (props) => {
     return moment(conversation.lastMessage?.sentAt).fromNow();
   }, [conversation.lastMessage]);
 
+  const handleConversation = () => {
+    seeConversation(recipientId, conversation.id).then(() => {
+      goTo(ROUTES.conversation, { convoId: conversation.id }, { recipientId: recipientId });
+    });
+  };
+
   return (
     <React.Fragment>
       <Divider />
       <div className={styles.block}>
         <div className={styles.line} />
 
-        <div
-          className={styles.message}
-          onClick={() => goTo(ROUTES.conversation, { convoId: conversation.id }, { recipientId: recipientId })}
-        >
+        <div className={styles.message} onClick={handleConversation}>
           <CustomAvatar size="md" photoUrl={photoUrl} />
           <ListItemText
             secondaryTypographyProps={{ className: styles.text }}

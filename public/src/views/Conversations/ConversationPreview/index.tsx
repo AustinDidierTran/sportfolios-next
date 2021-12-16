@@ -13,11 +13,22 @@ interface IProps {
 const ConversationPreview: React.FunctionComponent<IProps> = (props) => {
   const { conversation, recipientId } = props;
   const { t } = useTranslation();
-
   const seen = useMemo<Boolean>(() => {
-    const rand = Boolean(Math.round(Math.random()));
-    return rand;
-  }, []);
+    const index = conversation.participants.map((p) => p.id).indexOf(recipientId);
+    console.log('indexPreview(participants)', index);
+    if (index === -1) {
+      console.log('herePreview');
+      return;
+    }
+    if (!conversation.participants[index].readLastMessageAt) {
+      console.log('unseen');
+      return false;
+    }
+    console.log('seen');
+    return true;
+    //const rand = Boolean(Math.round(Math.random()));
+    //return rand;
+  }, [conversation]);
 
   return (
     <>

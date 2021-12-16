@@ -21,6 +21,8 @@ import ChooseRecipient from '../../components/Custom/ChooseRecipient';
 import { Person } from '../../../../typescript/entity';
 import CustomAvatar from '../../components/Custom/Avatar';
 import { CodeSharp } from '@material-ui/icons';
+import { cloneNode } from '@babel/types';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 interface IProps {
   recipientId: string;
@@ -43,26 +45,49 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
       setConversations(newConversations);
       getAllOwnedEntitiesMessaging().then((recipients: Recipient[]) => {
         if (!recipients) {
-          console.log('!recipient');
           return;
         }
-        console.log('recipientOptions : ', recipients);
         setRecipientOptions(recipients);
       });
     });
   }, [recipientId]);
+
+  const resetUnseenMessages = useCallback(
+    async (message) => {
+      console.log('message : ', message);
+      if (!conversations) {
+        console.log('la? ');
+        return;
+      }
+      const conversationsCopy = [...conversations];
+      const index = conversations.map((c) => c.id).indexOf(message.conversationId);
+      console.log('index : ', index);
+      if (index === -1) {
+        console.log('here  ?  ');
+        updateConversations();
+        return;
+      }
+      conversationsCopy[index].participants.map((p) => {
+        if (p.id !== message.sender.id) {
+          p.readLastMessageAt = null;
+          return p;
+        }
+        return p;
+      });
+      console.log('conversationsCopy : ', conversationsCopy);
+      setConversations(conversationsCopy);
+    },
+    [conversations, updateConversations]
+  );
 
   const incrementUnSeenMessages = useCallback(
     async (message) => {
       if (!recipientOptions) {
         return;
       }
-      console.log('message', message);
       const recipientOptionsCopy = [...recipientOptions];
       const activeConversation = conversations.filter((c) => c.id === message.conversationId);
-      console.log('activeConversation', activeConversation);
       if (activeConversation.length === 0) {
-        console.log('renter');
         updateConversations();
         return;
       }
@@ -70,14 +95,10 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
       participantsId.map((p) => {
         const optionsId = recipientOptions.map((op) => op.id);
         const index = optionsId.indexOf(p);
-        console.log('index:', index);
         if (index !== -1 && recipientOptions[index].id !== message.sender.id) {
-          console.log('recipient qui est dans la convo', recipientOptionsCopy[index].name);
           recipientOptionsCopy[index].unreadMessagesAmount = recipientOptionsCopy[index].unreadMessagesAmount + 1;
         }
       });
-      console.log('recipientOptionsCopy : ', recipientOptionsCopy);
-      console.log('recpientoptions : ', recipientOptions);
       setRecipientOptions(recipientOptionsCopy);
     },
     [recipientOptions, conversations, updateConversations]
@@ -99,21 +120,23 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
       if (!message) {
         return;
       }
-      incrementUnSeenMessages(message).then(() => {
-        setConversations((oldConversations) => {
-          const conversationsCopy = [...oldConversations];
-          const conversationIds = conversationsCopy?.map((c) => c.id);
-          const index = conversationIds.indexOf(message.conversationId);
-          if (!conversationsCopy) {
-            return;
-          }
-          if (index === -1) {
-            updateConversations();
-            return;
-          }
-          conversationsCopy[index].lastMessage = message;
+      resetUnseenMessages(message).then(() => {
+        incrementUnSeenMessages(message).then(() => {
+          setConversations((oldConversations) => {
+            const conversationsCopy = [...oldConversations];
+            const conversationIds = conversationsCopy?.map((c) => c.id);
+            const index = conversationIds.indexOf(message.conversationId);
+            if (!conversationsCopy) {
+              return;
+            }
+            if (index === -1) {
+              updateConversations();
+              return;
+            }
+            conversationsCopy[index].lastMessage = message;
 
-          return conversationsCopy;
+            return conversationsCopy;
+          });
         });
       });
     });

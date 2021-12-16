@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styles from './More.module.css';
-import { ROUTES } from '../../actions/goTo/index';
+import { ROUTES, goTo } from '../../actions/goTo/index';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../Store';
 
@@ -15,6 +15,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 export default function Menu() {
   const router = useRouter();
   const { dispatch } = useContext(Store);
+  const {
+    state: { userInfo: userInfo },
+  } = useContext(Store);
 
   const { t } = useTranslation();
 
@@ -43,7 +46,7 @@ export default function Menu() {
     },
     {
       name: t('messages'),
-      route: ROUTES.conversations,
+      route: formatRoute(ROUTES.conversations, null, { recipientId: userInfo.primaryPerson.id }),
       icon: 'Chat',
     },
     {
