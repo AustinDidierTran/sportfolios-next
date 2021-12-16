@@ -12,11 +12,16 @@
   vertical-align: middle;
 
 }
+.chat {
+  height: 1.35rem !important;
+}
+.chatButton {
+  margin-left: 0.5rem !important;
+  height: fit-content !important;
+}
 .followers {
   font-size: 1em;
   font-weight: bold;
-
-
 }
 .eventButton {
   align-self: right;

@@ -186,15 +186,19 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
                 <div onClick={handleChangePerson}>
                   <CustomAvatar photoUrl={recipient?.photoUrl} className={styles.recipient} />
                 </div>
-                <IconButton
-                  onClick={() => {
-                    goTo(ROUTES.newMessage, null, { recipientId: recipientId });
-                  }}
-                  className={styles.create}
-                  tooltip={t('new_message')}
-                  icon="Add"
-                  size="large"
-                />
+                {recipient?.type !== 2 ? (
+                  <IconButton
+                    onClick={() => {
+                      goTo(ROUTES.newMessage, null, { recipientId: recipientId });
+                    }}
+                    className={styles.create}
+                    tooltip={t('new_message')}
+                    icon="Add"
+                    size="large"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
             }
           />

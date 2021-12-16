@@ -5,7 +5,7 @@ import Container from '../../../components/Custom/Container';
 import Paper from '../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import styles from './LoginGoogle.module.css';
+import styles from './LoginFacebook.module.css';
 
 import { Auth } from 'aws-amplify';
 import '../../../utils/amplify/amplifyConfig.jsx';
@@ -13,12 +13,12 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 import { loginWithCognitoToken } from '../../../actions/service/auth/auth';
 import { ACTION_ENUM, Store } from '../../../Store';
 import { LOGO_ENUM } from '../../../../common/enums';
-import { loadLoginGoogleConfig } from '../../../utils/amplify/amplifyConfig.jsx';
+import { loadLoginFacebookConfig } from '../../../utils/amplify/amplifyConfig.jsx';
 
-export default function googleLogin() {
+export default function facebookLogin() {
   const { t } = useTranslation();
   const { dispatch } = React.useContext(Store);
-  loadLoginGoogleConfig();
+  loadLoginFacebookConfig();
 
   React.useEffect(() => {
     verifLogin();
@@ -27,7 +27,7 @@ export default function googleLogin() {
   const verifLogin = async () => {
     const data = await Auth.currentAuthenticatedUser();
     const token = data.signInUserSession.idToken.jwtToken;
-    if (data.signInUserSession.idToken.payload.identities[0].providerName !== 'Google') {
+    if (data.signInUserSession.idToken.payload.identities[0].providerName !== 'Facebook') {
       goTo(ROUTES.login);
     }
     const user = await loginWithCognitoToken(token);

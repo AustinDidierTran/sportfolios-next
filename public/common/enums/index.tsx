@@ -358,6 +358,8 @@ export enum ROUTES_ENUM {
   transferPerson = '/page/transferPerson/:token',
   transferPersonExpired = '/page/transferPersonExpired',
   userSettings = '/page/userSettings',
+  userSettingsFacebook = '/page/userSettings/facebook',
+  userSettingsGoogle = '/page/userSettings/google',
   validationAccount = '/page/validationAccount/:email',
   FAQ = 'page/FAQ',
 }

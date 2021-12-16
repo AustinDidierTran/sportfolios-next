@@ -27,7 +27,7 @@ export async function getConversationMessages(conversationId: string, page?: num
   );
 }
 
-export function getAllOwnedEntitiesMessaging(): Promise<Recipient[]> {
+export async function getAllOwnedEntitiesMessaging(): Promise<Recipient[]> {
   return api(formatRoute(`${BASE_URL}/allOwned`, null, { onlyAdmin: true }), { method: 'GET' }).then((res) => res.data);
 }
 

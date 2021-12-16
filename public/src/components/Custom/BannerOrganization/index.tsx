@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import Avatar from '../Avatar';
 import CustomButton from '../Button';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,11 @@ import Chip from '@material-ui/core/Chip';
 import styles from './BannerOrganization.module.css';
 import { getMembershipName } from '../../../utils/stringFormats';
 import { Entity } from '../../../../../typescript/types';
+import Chat from '@material-ui/icons/Chat';
 import { COLORS } from '../../../utils/colors';
+import { createConversation } from '../../../actions/service/messaging';
+import { Store } from '../../../Store';
+import { goTo, ROUTES } from '../../../actions/goTo';
 import CheckCirleIcon from '@material-ui/icons/CheckCircle';
 import Typography from '@material-ui/core/Typography';
 
@@ -37,6 +41,19 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
     member,
   } = props;
   const { t } = useTranslation();
+  const {
+    state: { userInfo: userInfo },
+  } = useContext(Store);
+
+  const handleMessage = () => {
+    if (!userInfo || !userInfo.primaryPerson) {
+      goTo(ROUTES.login);
+    }
+    const participantId = [basicInfos.id];
+    createConversation(participantId, userInfo?.primaryPerson.id).then((newConversationId) => {
+      goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: userInfo?.primaryPerson.id });
+    });
+  };
 
   const membersAmount = useMemo(() => {
     if (basicInfos.numberOfMembers?.count > 1) {
@@ -65,6 +82,9 @@ const BannerOrganization: React.FunctionComponent<IProps> = (props) => {
               disabled={!hasMemberships && isAuthenticated}
             >
               {t('become_member')}
+            </CustomButton>
+            <CustomButton className={styles.chatButton} onClick={handleMessage}>
+              <Chat className={styles.chat} />
             </CustomButton>
           </Grid>
           <Grid container className={styles.gridText}>

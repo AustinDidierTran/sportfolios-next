@@ -14,6 +14,7 @@ const images = {
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20201015-swk3f-03819b6b-b74e-4cb8-9a1a-299a9ee3b2fc',
   [APP_ENUM.MESSENGER]:
     'https://sportfolios-images.s3.amazonaws.com/development/images/entity/20201016-9hha3-03819b6b-b74e-4cb8-9a1a-299a9ee3b2fc',
+  [APP_ENUM.GOOGLE]: 'https://sportfolios-images.s3.amazonaws.com/development/images/entity/google.png',
 };
 
 const defaultImage =
@@ -42,7 +43,7 @@ export default function AppItem(props) {
       <ListItemIcon>
         <img src={imageSrc} height="40px" />
       </ListItemIcon>
-      <ListItemText className={styles.text} primary={app + ' (Beta)'} secondary={description} />
+      <ListItemText className={styles.text} primary={app} secondary={description} />
       <ListItemSecondaryAction>
         <>{actions}</>
       </ListItemSecondaryAction>

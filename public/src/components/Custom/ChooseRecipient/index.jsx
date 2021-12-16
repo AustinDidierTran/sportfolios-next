@@ -8,6 +8,7 @@ import RecipientOption from './RecipientOption';
 
 export default function ChooseRecipient(props) {
   const { t } = useTranslation();
+
   const { open, anchorEl, handleClose, recipientOptions, setRecipientOptions } = props;
   const {
     state: { userInfo: userInfo, socket },

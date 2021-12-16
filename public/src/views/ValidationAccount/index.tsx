@@ -78,7 +78,13 @@ const ValidationAccount: React.FunctionComponent<IProps> = (props) => {
         <form onSubmit={formik.handleSubmit}>
           <CardContent>
             <Typography className={styles.content}>{t('code_validation.code_message') + email}</Typography>
-            <TextField namespace="validationCode" formik={formik} type="text" label={t('validation_code')} fullWidth />
+            <TextField
+              namespace="validationCode"
+              formik={formik}
+              type="text"
+              label={t('code_validation.validation_code')}
+              fullWidth
+            />
           </CardContent>
           <CardActions>
             <Button
