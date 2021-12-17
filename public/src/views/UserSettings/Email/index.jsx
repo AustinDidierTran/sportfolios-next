@@ -31,7 +31,7 @@ export default function Email() {
     fetchAllEmails();
   }, []);
 
-  const [confirmedEmails] = partition(emails, (email) => email.confirmed_email_at);
+  const [confirmedEmails, unconfirmedEmails] = partition(emails, (email) => email.confirmed_email_at);
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -65,7 +65,7 @@ export default function Email() {
     <Paper className={styles.card}>
       <List title={t('my_email')} />
       <CardContent style={{ paddingTop: '0px' }}>
-        {confirmedEmails.map((email, index) => (
+        {emails.map((email, index) => (
           <ConfirmedEmailField email={email} key={index} />
         ))}
       </CardContent>
