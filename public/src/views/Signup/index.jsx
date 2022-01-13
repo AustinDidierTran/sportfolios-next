@@ -91,11 +91,13 @@ export default function Signup() {
           return;
         }
 
-        const user = await Auth.signUp({
+        await Auth.signUp({
           username: email,
           password: password,
         });
+
         const res = await signup(firstName, lastName, email, isSubscribed);
+
         if (res.status >= 400) {
           formik.setFieldError('firstName', t('something_went_wrong'));
         } else {
@@ -122,9 +124,9 @@ export default function Signup() {
   };
 
   return (
-    <Container className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.logo}>
-        <img src={LOGO_ENUM.LOGO_512X512} height="200px" width="200px" />
+        <img src={LOGO_ENUM.ICON_180X180} height={180} width={180} />
       </div>
       <Paper className={styles.signup}>
         <form onSubmit={formik.handleSubmit}>
@@ -249,6 +251,6 @@ export default function Signup() {
           </CardContent>
         </form>
       </Paper>
-    </Container>
+    </div>
   );
 }

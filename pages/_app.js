@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { StoreProvider } from '../public/src/Store';
 import '../styles/globals.css';
@@ -17,6 +17,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { ROUTES_ENUM } from '../public/common/enums';
 import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics';
+import { ROUTES } from '../public/src/actions/goTo';
 
 const BottomNavigation = dynamic(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = dynamic(() => import('../public/src/components/Custom/SnackBar'));
@@ -43,6 +44,11 @@ function MyApp({ Component, pageProps }) {
     AddGaPageView();
   });
 
+  const hasHeader = useMemo(
+    () => ![ROUTES_ENUM.landingPage, ROUTES.signup].includes(router.pathname),
+    [router.pathname]
+  );
+
   return (
     <StoreProvider>
       <link rel="manifest" href="/manifest.webmanifest" />
@@ -54,7 +60,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <Elements stripe={stripePromise}>
             <div className={styles.app}>
-              {router.pathname !== ROUTES_ENUM.landingPage ? (
+              {hasHeader ? (
                 <div className={styles.header}>
                   <Header />
                 </div>
