@@ -1,47 +1,40 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Button, Paper } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import { goTo, ROUTES } from '../../../actions/goTo';
 
 import { List } from '../../../components/Custom';
-import { LIST_ITEM_ENUM, REPORT_TYPE_ENUM } from '../../../../common/enums';
 import { Store } from '../../../Store';
-import { getReports as getReportsApi } from '../../../actions/service/entity/get';
+import ReportItem from '../../../components/Custom/List/ReportItemFactory/SalesReportItem';
+import { getReports } from '../../../actions/service/organization';
+import { Report } from '../../../../../typescript/types';
 
-interface IReportItem {
-  metadata: string;
-  reportType: REPORT_TYPE_ENUM;
-  type: LIST_ITEM_ENUM;
-  reportId: string;
-  key: string;
-  update: () => Promise<void>;
-}
 const Analytics: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     state: { id },
   } = useContext(Store);
 
-  const [items, setItems] = useState<IReportItem[]>();
+  const [reports, setReports] = useState<Report[]>([]);
 
-  useEffect((): void => {
-    if (id) {
-      getReports();
+  const updateReports = useCallback(async (): Promise<void> => {
+    if (!id) {
+      return;
     }
-  }, [id]);
 
-  const getReports = async (): Promise<void> => {
-    const data = await getReportsApi(id);
+    const data = await getReports(id);
     const items = data.map((d) => ({
       metadata: d.metadata,
-      reportType: d.type,
-      type: LIST_ITEM_ENUM.REPORT,
+      type: d.type,
       reportId: d.reportId,
       key: d.reportId,
-      update: getReports,
     }));
-    setItems(items);
-  };
+    setReports(items);
+  }, [id]);
+
+  useEffect((): void => {
+    updateReports();
+  }, [updateReports]);
 
   return (
     <Paper title={t('analytics_and_reports')}>
@@ -55,7 +48,18 @@ const Analytics: React.FunctionComponent = () => {
       >
         {t('see_my_analytics')}
       </Button>
-      <List items={items} />
+      {/* <List items={items} /> */}
+      <List>
+        {reports.map((report) => (
+          <ReportItem
+            metadata={report.metadata}
+            type={report.type}
+            reportId={report.reportId}
+            key={report.reportId}
+            update={updateReports}
+          />
+        ))}
+      </List>
     </Paper>
   );
 };

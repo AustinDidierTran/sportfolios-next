@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatPrice, formatRoute, getPaymentStatusName } from '../../../../../utils/stringFormats';
-import api from '../../../../../actions/api';
-import { REQUEST_STATUS_ENUM, SEVERITY_ENUM } from '../../../../../../common/enums';
+import { formatDate, formatPrice, getPaymentStatusName } from '../../../../../utils/stringFormats';
+import { SEVERITY_ENUM } from '../../../../../../common/enums';
 import moment from 'moment';
 import { ACTION_ENUM, Store } from '../../../../../Store';
 import { ERROR_ENUM } from '../../../../../../common/errors';
@@ -14,14 +13,18 @@ import AlertDialog from '../../../Dialog/AlertDialog';
 import { getProductDetail, getRegistrationFor, getProductName } from '../../../../../utils/Cart';
 import CustomIconButton from '../../../IconButton';
 import DownloadReportDialog from '../../../Dialog/DownloadReportDialog';
+import { deleteReport, generateReport } from '../../../../../actions/service/organization';
 
 export default function ReportItem(props) {
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
-  const { metadata, update, reportId } = props;
+  const { metadata, update, reportId, type } = props;
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const [reportData, setReportData] = useState({
+    data: [],
+    headers: [],
+  });
   const [openDelete, setOpenDelete] = useState(false);
 
   const onCancel = () => {
@@ -32,83 +35,107 @@ export default function ReportItem(props) {
     setOpenDelete(true);
   };
 
-  const confirmDelete = async () => {
-    await api(formatRoute('/api/entity/report', null, { reportId }), { method: 'DELETE' });
+  const confirmDelete = useCallback(async () => {
+    await deleteReport(reportId);
     setOpenDelete(false);
     update();
-  };
+  }, [reportId, update]);
 
-  const handleClick = async () => {
-    const res = await api(formatRoute('/api/entity/generateReport', null, { reportId }), { method: 'GET' });
-    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
-      let sumSubTotal = 0;
-      let sumTotalTax = 0;
-      let sumTotal = 0;
-      let sumPlateformFees = 0;
-      let sumTotalNet = 0;
-      let sumQuantity = 0;
-      const formattedData = res.data.map((d) => {
-        sumSubTotal = sumSubTotal + d.subtotal;
-        sumTotalTax = sumTotalTax + d.totalTax;
-        sumTotal = sumTotal + d.total;
-        sumPlateformFees = sumPlateformFees + d.plateformFees;
-        sumTotalNet = sumTotalNet + d.totalNet;
-        sumQuantity = sumQuantity + d.quantity;
-        return {
-          type: getProductName(d.metadata.type),
-          detail: getProductDetail(d.metadata),
-          registrationFor: getRegistrationFor(d.metadata),
-          status: getPaymentStatusName(d.status),
-          name: `${d?.name} ${d?.surname}`,
-          email: d.email,
-          purchasedOn: formatDate(moment.utc(d.createdAt), 'YYYY-MM-DD HH:mm'),
-          price: formatPrice(d.unitAmount),
-          quantity: d.quantity,
-          subtotal: formatPrice(d.subtotal),
-          totalTax: formatPrice(d.totalTax),
-          total: formatPrice(d.total),
-          plateformFees: formatPrice(d.plateformFees),
-          totalNet: formatPrice(d.totalNet),
-        };
+  const handleClick = useCallback(async () => {
+    try {
+      const { data, headers } = await generateReport(reportId);
+
+      console.log({ data });
+      const formattedData = data.map((d) => {
+        const tempStructure = {};
+
+        Object.keys(d).forEach((dataKey) => {
+          const datum = d[dataKey];
+          tempStructure[dataKey] = datum.value || t(datum.valueKey);
+        });
+
+        return tempStructure;
       });
-      const totalRow = {
-        price: `${t('totals')}:`,
-        quantity: sumQuantity,
-        subtotal: formatPrice(sumSubTotal),
-        totalTax: formatPrice(sumTotalTax),
-        total: formatPrice(sumTotal),
-        plateformFees: formatPrice(sumPlateformFees),
-        totalNet: formatPrice(sumTotalNet),
-      };
-      const emptyRow = {};
-      setData([totalRow, emptyRow, ...formattedData]);
+
+      console.log({ formattedData });
+
+      setReportData({
+        data: formattedData,
+        headers: headers.map((header) => ({
+          label: header.labelKey ? t(header.labelKey) : header.label,
+          key: header.key,
+        })),
+      });
       setOpen(true);
-    } else {
+
+      return;
+      // let sumSubTotal = 0;
+      // let sumTotalTax = 0;
+      // let sumTotal = 0;
+      // let sumPlateformFees = 0;
+      // let sumTotalNet = 0;
+      // let sumQuantity = 0;
+      // const formattedData = data.map((d) => {
+      //   sumSubTotal = sumSubTotal + d.subtotal;
+      //   sumTotalTax = sumTotalTax + d.totalTax;
+      //   sumTotal = sumTotal + d.total;
+      //   sumPlateformFees = sumPlateformFees + d.plateformFees;
+      //   sumTotalNet = sumTotalNet + d.totalNet;
+      //   sumQuantity = sumQuantity + d.quantity;
+      //   return {
+      //     type: getProductName(d.metadata.type),
+      //     detail: getProductDetail(d.metadata),
+      //     registrationFor: getRegistrationFor(d.metadata),
+      //     status: getPaymentStatusName(d.status),
+      //     name: `${d?.name} ${d?.surname}`,
+      //     email: d.email,
+      //     purchasedOn: formatDate(moment.utc(d.createdAt), 'YYYY-MM-DD HH:mm'),
+      //     price: formatPrice(d.unitAmount),
+      //     quantity: d.quantity,
+      //     subtotal: formatPrice(d.subtotal),
+      //     totalTax: formatPrice(d.totalTax),
+      //     total: formatPrice(d.total),
+      //     plateformFees: formatPrice(d.plateformFees),
+      //     totalNet: formatPrice(d.totalNet),
+      //   };
+      // });
+      // const totalRow = {
+      //   price: `${t('totals')}:`,
+      //   quantity: sumQuantity,
+      //   subtotal: formatPrice(sumSubTotal),
+      //   totalTax: formatPrice(sumTotalTax),
+      //   total: formatPrice(sumTotal),
+      //   plateformFees: formatPrice(sumPlateformFees),
+      //   totalNet: formatPrice(sumTotalNet),
+      // };
+      // const emptyRow = {};
+      // setData([totalRow, emptyRow, ...formattedData]);
+    } catch (err) {
+      console.log(err);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
         severity: SEVERITY_ENUM.ERROR,
       });
     }
-  };
-  const reportName = `${t('sales_on')} ${formatDate(moment.utc(metadata.date))}`;
+  }, [reportId]);
 
-  const headers = [
-    { label: t('type'), key: 'type' },
-    { label: t('product_detail'), key: 'detail' },
-    { label: t('register.registration_for'), key: 'registrationFor' },
-    { label: t('status'), key: 'status' },
-    { label: t('buyers_name'), key: 'name' },
-    { label: t('email.email'), key: 'email' },
-    { label: t('purchased_on'), key: 'purchasedOn' },
-    { label: t('price'), key: 'price' },
-    { label: t('quantity'), key: 'quantity' },
-    { label: t('subtotal'), key: 'subtotal' },
-    { label: t('tax_total'), key: 'totalTax' },
-    { label: t('total'), key: 'total' },
-    { label: t('plateform_fees'), key: 'plateformFees' },
-    { label: t('total_net'), key: 'totalNet' },
-  ];
+  // const headers = [
+  //   { label: t('type'), key: 'type' },
+  //   { label: t('product_detail'), key: 'detail' },
+  //   { label: t('register.registration_for'), key: 'registrationFor' },
+  //   { label: t('status'), key: 'status' },
+  //   { label: t('buyers_name'), key: 'name' },
+  //   { label: t('email.email'), key: 'email' },
+  //   { label: t('purchased_on'), key: 'purchasedOn' },
+  //   { label: t('price'), key: 'price' },
+  //   { label: t('quantity'), key: 'quantity' },
+  //   { label: t('subtotal'), key: 'subtotal' },
+  //   { label: t('tax_total'), key: 'totalTax' },
+  //   { label: t('total'), key: 'total' },
+  //   { label: t('plateform_fees'), key: 'plateformFees' },
+  //   { label: t('total_net'), key: 'totalNet' },
+  // ];
 
   const fileName = `${metadata.organizationName} ${t('sales')} ${formatDate(
     moment.utc(metadata.date),
@@ -118,7 +145,7 @@ export default function ReportItem(props) {
   return (
     <>
       <ListItem style={{ width: '100%' }}>
-        <ListItemText primary={reportName} />
+        <ListItemText primary={t(`reports.${type}`)} secondary={formatDate(moment.utc(metadata.date))} />
         <CustomIconButton
           variant="contained"
           icon="GetApp"
@@ -140,8 +167,8 @@ export default function ReportItem(props) {
             setOpen(false);
           }}
           title={t('download_report')}
-          data={data}
-          headers={headers}
+          data={reportData.data}
+          headers={reportData.headers}
         />
       </ListItem>
       <AlertDialog
