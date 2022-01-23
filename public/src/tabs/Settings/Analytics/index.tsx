@@ -5,7 +5,7 @@ import { goTo, ROUTES } from '../../../actions/goTo';
 
 import { List } from '../../../components/Custom';
 import { Store } from '../../../Store';
-import ReportItem from '../../../components/Custom/List/ReportItemFactory/SalesReportItem';
+import ReportItem from '../../../components/Custom/List/ReportItem';
 import { getReports } from '../../../actions/service/organization';
 import { Report } from '../../../../../typescript/types';
 
@@ -48,7 +48,6 @@ const Analytics: React.FunctionComponent = () => {
       >
         {t('see_my_analytics')}
       </Button>
-      {/* <List items={items} /> */}
       <List>
         {reports.map((report) => (
           <ReportItem
