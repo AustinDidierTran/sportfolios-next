@@ -1570,6 +1570,7 @@ export default {
           product_detail: 'Product detail',
           registration_for: 'Registration for',
           transaction_type: 'Transaction Type',
+          transaction_fees: 'Transaction fees',
           buyers_user_id: "Buyer's user id",
           email: 'Email',
           made_on: 'Made on',

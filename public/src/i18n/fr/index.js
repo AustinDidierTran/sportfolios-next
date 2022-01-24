@@ -1563,6 +1563,7 @@ export default {
           type: 'Type',
           product_detail: 'Détail du produit',
           registration_for: 'Inscription pour',
+          transaction_fees: 'Frais de transaction',
           transaction_type: 'Type de transaction',
           buyers_user_id: "Identifiant de l'utilisateur de l'acheteur",
           email: 'Courriel',
