@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
   });
 
   const hasHeader = useMemo(
-    () => ![ROUTES_ENUM.landingPage, ROUTES.signup].includes(router.pathname),
+    () => ![ROUTES_ENUM.landingPage, ROUTES.login, ROUTES.loginEmail, ROUTES.signup].includes(router.pathname),
     [router.pathname]
   );
 

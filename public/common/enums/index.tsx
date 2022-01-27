@@ -328,6 +328,7 @@ export enum ROUTES_ENUM {
   importMembers = '/page/importMembers',
   landingPage = '/page/landingPage',
   login = '/page/login',
+  loginEmail = '/page/login/email',
   membersList = '/page/membersList',
   menu = '/page/menu',
   newMessage = '/page/newMessage',

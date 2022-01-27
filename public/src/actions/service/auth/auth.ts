@@ -3,19 +3,19 @@ import { UserInfo } from '../../../../../typescript/user';
 
 const AUTH_BASE_URL = '/api/auth';
 
-export async function validEmail(email: string): Promise<boolean> {
+export const validEmail = async (email: string): Promise<boolean> => {
   return api(`${AUTH_BASE_URL}/validEmail`, {
     method: 'POST',
     body: JSON.stringify({ email }),
   }).then((res) => res.data);
-}
+};
 
-export async function signup(
+export const signup = async (
   firstName: string,
   lastName: string,
   email: string,
   newsLetterSubscription: boolean
-): Promise<number> {
+): Promise<number> => {
   return api(`${AUTH_BASE_URL}/signupWithCognito`, {
     method: 'POST',
     body: JSON.stringify({
@@ -25,46 +25,46 @@ export async function signup(
       newsLetterSubscription,
     }),
   });
-}
+};
 
-export async function signupGoogleToken(token: string): Promise<number> {
+export const signupGoogleToken = async (token: string): Promise<number> => {
   return api(`${AUTH_BASE_URL}/signupGoogleToken`, {
     method: 'POST',
     body: JSON.stringify({
       token,
     }),
   });
-}
+};
 
-export async function signupFacebookToken(token: string): Promise<number> {
+export const signupFacebookToken = async (token: string): Promise<number> => {
   return api(`${AUTH_BASE_URL}/signupFacebookToken`, {
     method: 'POST',
     body: JSON.stringify({
       token,
     }),
   });
-}
+};
 
-export async function loginWithCognito(email: string, token: string): Promise<UserInfo> {
+export const loginWithCognito = async (email: string, token: string): Promise<UserInfo> => {
   return api(`${AUTH_BASE_URL}/loginWithCognito`, {
     method: 'POST',
     body: JSON.stringify({
       email,
       token,
     }),
-  });
-}
+  }).then((res) => res.data);
+};
 
-export async function loginWithCognitoToken(token: string): Promise<UserInfo> {
+export const loginWithCognitoToken = async (token: string): Promise<UserInfo> => {
   return api(`${AUTH_BASE_URL}/loginWithCognitoToken`, {
     method: 'POST',
     body: JSON.stringify({
       token,
     }),
   });
-}
+};
 
-export async function migrate(email: string, password: string): Promise<any> {
+export const migrate = async (email: string, password: string): Promise<any> => {
   return api(`${AUTH_BASE_URL}/migrate`, {
     method: 'POST',
     body: JSON.stringify({
@@ -72,4 +72,4 @@ export async function migrate(email: string, password: string): Promise<any> {
       password,
     }),
   });
-}
+};

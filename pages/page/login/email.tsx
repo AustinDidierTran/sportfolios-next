@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
-import { CLIENT_BASE_URL } from '../../conf';
-import { ROUTES_ENUM, IMAGE_ENUM } from '../../public/common/enums';
+import { CLIENT_BASE_URL } from '../../../conf';
+import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const Login = dynamic(() => import('../../public/src/views/Login'));
+const LoginEmail = dynamic(() => import('../../../public/src/views/Login/Email'));
 
 const LoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ const LoginRoute: React.FunctionComponent = () => {
           cardType: 'summary_large_image',
         }}
       />
-      <Login />
+      <LoginEmail />
     </>
   );
 };
