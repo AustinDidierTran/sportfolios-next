@@ -1318,9 +1318,16 @@ export default {
     location_description: 'Location description',
     location_unspecified: 'Location unspecified',
     login: {
+      fields: {
+        name: 'Name',
+        surname: 'Surname',
+        email: 'Email',
+        password: 'Password',
+      },
+      register_sportfolios: 'Register to Sportfolios',
+      already_account: 'Already have an account?',
+      signup_with_email: 'Signup with email',
       login: 'Login',
-      email: 'Email',
-      password: 'Password',
       invalid_values: 'Email or password is invalid.',
       title: 'Login',
       login_to_sportfolios: 'Login to Sportfolios',

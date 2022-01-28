@@ -1,23 +1,23 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './LoginEmail.module.css';
-import templateStyles from '../Login.module.css';
+import templateStyles from '../../Authentication.module.css';
 import Link from 'next/link';
 
-import SportfoliosLogo from '../../../../images/svg/logo/sportfolios_teal.svg';
+import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
 
 import * as yup from 'yup';
 
-import { PASSWORD_LENGTH_ENUM } from '../../../../common/config';
+import { PASSWORD_LENGTH_ENUM } from '../../../../../common/config';
 import { useRouter } from 'next/router';
-import { ACTION_ENUM, Store } from '../../../Store';
-import { ROUTES } from '../../../actions/goTo';
-import { useRedirectUrl } from '../../../hooks/url';
-import LoginFooter from '../components/Footer/Footer';
-import TextInput from '../../../components/V2/TextInput';
-import { loginWithEmail } from '../../../actions/utils/auth/auth';
-import { useEnterListener } from '../../../hooks/forms';
-import Button from '../../../components/V2/Button';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { ROUTES } from '../../../../actions/goTo';
+import { useRedirectUrl } from '../../../../hooks/url';
+import LoginFooter from '../../components/Footer/Footer';
+import TextInput from '../../../../components/V2/TextInput';
+import { loginWithEmail } from '../../../../actions/utils/auth/auth';
+import { useEnterListener } from '../../../../hooks/forms';
+import Button from '../../../../components/V2/Button';
 
 const LoginEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -37,12 +37,11 @@ const LoginEmail: React.FunctionComponent = () => {
   }, [isAuthenticated]);
 
   const validationSchema = yup.object().shape({
-    email: yup.string().email(t('invalid.invalid_email')).required(t('value_is_required')),
+    email: yup.string().email(t('invalid.invalid_email')).required(t('login.errors.invalid_email')),
     password: yup
       .string()
-      .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('password_length'))
-      .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('password_length'))
-      .required(t('value_is_required')),
+      .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('login.errors.invalid_password'))
+      .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('login.errors.invalid_password')),
   });
 
   const [email, setEmail] = useState<string>('');
@@ -91,7 +90,7 @@ const LoginEmail: React.FunctionComponent = () => {
           classes={{
             container: styles.input,
           }}
-          placeholder={t('login.email')}
+          placeholder={t('login.fields.email')}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           value={email}
         />
@@ -99,7 +98,7 @@ const LoginEmail: React.FunctionComponent = () => {
           classes={{
             container: styles.input,
           }}
-          placeholder={t('login.password')}
+          placeholder={t('login.fields.password')}
           type="password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           value={password}

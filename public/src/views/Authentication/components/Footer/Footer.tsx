@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import styles from '../../Login.module.css';
+import styles from '../../Authentication.module.css';
 import { useTranslation } from 'react-i18next';
 
 const LoginFooter = () => {

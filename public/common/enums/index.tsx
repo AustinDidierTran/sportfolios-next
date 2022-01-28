@@ -353,6 +353,7 @@ export enum ROUTES_ENUM {
   search = '/page/search',
   shopDetails = '/page/shopDetails/:id/:stripePriceId',
   signup = '/page/signup',
+  signupEmail = '/page/signup/email',
   stripe = '/page/stripe',
   teamPlayersAcceptation = '/page/teamPlayersAcceptation/:id',
   teamsAcceptation = '/page/teamsAcceptation/:id',

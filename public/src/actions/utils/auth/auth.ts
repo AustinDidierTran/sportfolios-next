@@ -2,8 +2,7 @@ import Auth from '@aws-amplify/auth';
 import { UserInfo } from '../../../../../typescript/user';
 import { AuthErrorTypes } from '../../../../common/enums';
 import { AUTH_ERROR_ENUM, errors, ERROR_ENUM } from '../../../../common/errors';
-import { CognitoUser } from '@aws-amplify/auth';
-import { loginWithCognito, migrate } from '../../service/auth/auth';
+import { loginWithCognito, migrate, signup, validEmail } from '../../service/auth/auth';
 
 interface LoginEmailResponse {
   userInfo: UserInfo;
@@ -66,6 +65,34 @@ export const loginWithEmail = async (email: string, password: string): Promise<L
       throw new Error(AUTH_ERROR_ENUM.UNCONFIRMED_EMAIL);
     }
 
+    throw new Error(AUTH_ERROR_ENUM.ERROR_OCCURED);
+  }
+};
+
+export const signupWithEmail = async (
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+  newsLetterSubscription: boolean
+): Promise<void> => {
+  try {
+    const isEmailValid = await validEmail(email);
+
+    if (!isEmailValid) {
+      throw new Error(AUTH_ERROR_ENUM.EMAIL_ALREADY_TAKEN);
+    }
+
+    await Auth.signUp({
+      username: email,
+      password,
+    });
+
+    await signup(firstName, lastName, email, newsLetterSubscription);
+  } catch (error) {
+    if (error.code === AuthErrorTypes.InvalidUsername) {
+      throw new Error(AUTH_ERROR_ENUM.EMAIL_ALREADY_TAKEN);
+    }
     throw new Error(AUTH_ERROR_ENUM.ERROR_OCCURED);
   }
 };

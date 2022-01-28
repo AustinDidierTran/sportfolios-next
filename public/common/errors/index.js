@@ -21,6 +21,7 @@ export const ERROR_ENUM = {
 };
 
 export const AUTH_ERROR_ENUM = {
+  EMAIL_ALREADY_TAKEN: 'email_already_taken',
   ERROR_OCCURED: 'error_occured',
   MIGRATION_ERROR: 'migration_error',
   NO_EXISTING_ACCOUNT: 'no_existing_account',
