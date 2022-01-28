@@ -65,6 +65,7 @@ export const loginWithCognitoToken = async (token: string): Promise<UserInfo> =>
 };
 
 export const migrate = async (email: string, password: string): Promise<any> => {
+  console.log('calling migrate');
   return api(`${AUTH_BASE_URL}/migrate`, {
     method: 'POST',
     body: JSON.stringify({

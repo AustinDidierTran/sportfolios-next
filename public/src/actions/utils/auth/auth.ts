@@ -2,30 +2,22 @@ import Auth from '@aws-amplify/auth';
 import { UserInfo } from '../../../../../typescript/user';
 import { AuthErrorTypes } from '../../../../common/enums';
 import { AUTH_ERROR_ENUM, errors, ERROR_ENUM } from '../../../../common/errors';
+import { CognitoUser } from '@aws-amplify/auth';
 import { loginWithCognito, migrate } from '../../service/auth/auth';
 
-const migrateFct = async (error: any, email: string, password: string) => {
-  if (error.code === AuthErrorTypes.NotAuthorizedException) {
-    const res = await migrate(email, password);
-    if (res.status === 200) {
-      await Auth.signIn(email, password).then((user) => {
-        // Auth.completeNewPassword(user, password).then((user) => )
-      });
-    }
-  }
-};
+interface LoginEmailResponse {
+  userInfo: UserInfo;
+  token: string;
+}
 
-const loginEmailFct = async (email: string, password: string): Promise<UserInfo> => {
+const loginEmailFct = async (email: string, password: string): Promise<LoginEmailResponse> => {
   // Login With Cognito
-  const user = await Auth.signIn(email, password).then((user) => {
-    // On the first login with cognito, we need to initiate first password
-    if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
-      // This function also logins in the user
-      return Auth.completeNewPassword(user, password);
-    }
-
-    return user;
-  });
+  let user = await Auth.signIn(email, password);
+  // On the first login with cognito, we need to initiate first password
+  if (user.challengeName === AuthErrorTypes.NewPasswordRequired) {
+    // This function also logins in the user
+    user = await Auth.completeNewPassword(user, password);
+  }
 
   // Login to replicate the behavior of the if statement
   const token = user?.signInUserSession?.idToken?.jwtToken;
@@ -40,24 +32,32 @@ const loginEmailFct = async (email: string, password: string): Promise<UserInfo>
   if (!userInfo) {
     throw new Error(AUTH_ERROR_ENUM.NO_EXISTING_ACCOUNT);
   }
-  return userInfo;
+
+  return { userInfo, token };
 };
 
-export const loginWithEmail = async (email: string, password: string): Promise<UserInfo> => {
+const migrateFct = async (email: string, password: string) => {
   try {
-    return loginEmailFct(email, password);
+    const res = await migrate(email, password);
+    if (res.status !== 200) {
+      throw new Error(AUTH_ERROR_ENUM.MIGRATION_ERROR);
+    }
+  } catch (error) {
+    console.log('migrateFct', error);
+  }
+};
+
+export const loginWithEmail = async (email: string, password: string): Promise<LoginEmailResponse> => {
+  try {
+    return await loginEmailFct(email, password);
   } catch (error) {
     if (error.code === AuthErrorTypes.NotAuthorizedException) {
-      const res = await migrate(email, password);
+      // Migration will fail if
+      await migrateFct(email, password);
 
-      if (res.status !== 200) {
-        throw new Error(AUTH_ERROR_ENUM.MIGRATION_ERROR);
-      }
-
-      // Migration has been succesful, we don't need to look for other cases
+      // Migration has been succesful
       return loginEmailFct(email, password);
     }
-
     // eslint-disable-next-line
     console.error('Unexpected login error...', error);
 

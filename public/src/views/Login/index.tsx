@@ -7,6 +7,8 @@ import FacebookLogo from '../../../images/svg/logo/facebook.svg';
 import GoogleLogo from '../../../images/svg/logo/google.svg';
 import SportfoliosLogo from '../../../images/svg/logo/sportfolios_teal.svg';
 
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth/lib/types';
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { useRouter } from 'next/router';
@@ -18,7 +20,7 @@ import { loadLoginGoogleConfig, loadLoginFacebookConfig } from '../../utils/ampl
 import LoginFooter from './components/Footer/Footer';
 import { useRedirectUrl } from '../../hooks/url';
 
-export default function Login() {
+const Login: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const { redirectUrl } = router.query;
@@ -29,24 +31,24 @@ export default function Login() {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      const route = redirectUrl || ROUTES.home;
+      const route = (redirectUrl as string) || ROUTES.home;
       router.push(route);
     }
   }, [isAuthenticated]);
 
   loadLoginGoogleConfig();
   const loginGoogle = async () => {
-    Auth.federatedSignIn({ provider: 'Google' });
+    Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
   };
 
   loadLoginFacebookConfig();
   const loginFacebook = async () => {
-    Auth.federatedSignIn({ provider: 'Facebook' });
+    Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
   };
 
-  const loginEmailRoute = useRedirectUrl(ROUTES.login, redirectUrl);
+  const loginEmailRoute = useRedirectUrl(ROUTES.loginEmail, redirectUrl as string);
 
-  const signupRoute = useRedirectUrl(ROUTES.signup, redirectUrl);
+  const signupRoute = useRedirectUrl(ROUTES.signup, redirectUrl as string);
 
   return (
     <div className={styles.container}>
@@ -80,4 +82,6 @@ export default function Login() {
       <LoginFooter />
     </div>
   );
-}
+};
+
+export default Login;

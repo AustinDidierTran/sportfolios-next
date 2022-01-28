@@ -1065,7 +1065,6 @@ export default {
       'You are about to register a team. This operation should be done by captains only. If you are a player looking to be added to your roster, please contact your captain.',
     card_ending_with: 'Card ending with {{last4}}',
     cart_empty_go_shop: "Your cart is empty, it's time to shop!",
-    cart: 'Cart',
     category: 'Category',
     change_password: 'Change password',
     change_picture: 'Change picture',
@@ -1319,6 +1318,10 @@ export default {
     location_description: 'Location description',
     location_unspecified: 'Location unspecified',
     login: {
+      login: 'Login',
+      email: 'Email',
+      password: 'Password',
+      invalid_values: 'Email or password is invalid.',
       title: 'Login',
       login_to_sportfolios: 'Login to Sportfolios',
       login_with_email: 'Login with email',

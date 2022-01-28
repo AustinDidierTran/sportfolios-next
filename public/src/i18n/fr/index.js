@@ -1335,6 +1335,10 @@ export default {
     location_description: 'Description de la location',
     location_unspecified: 'Lieu non spécifié',
     login: {
+      login: 'Connexion',
+      email: 'Courriel',
+      invalid_values: 'Votre courriel ou votre mot de passe est invalide.',
+      password: 'Mot de passe',
       title: 'Connexion',
       login_to_sportfolios: 'Connecte-toi à Sportfolios',
       login_with_email: 'Continuer avec un e-mail',
