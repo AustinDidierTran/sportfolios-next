@@ -10,19 +10,11 @@ export const validEmail = async (email: string): Promise<boolean> => {
   }).then((res) => res.data);
 };
 
-export const signup = async (
-  firstName: string,
-  lastName: string,
-  email: string,
-  newsLetterSubscription: boolean
-): Promise<number> => {
+export const signup = async (email: string): Promise<number> => {
   return api(`${AUTH_BASE_URL}/signupWithCognito`, {
     method: 'POST',
     body: JSON.stringify({
-      firstName,
-      lastName,
       email,
-      newsLetterSubscription,
     }),
   });
 };

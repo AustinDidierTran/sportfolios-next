@@ -14,10 +14,10 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { ROUTES } from '../../../../actions/goTo';
 import { useRedirectUrl } from '../../../../hooks/url';
 import LoginFooter from '../../components/Footer/Footer';
-import TextInput from '../../../../components/V2/TextInput';
+import TextInput from '../../../../components/Styled/TextInput';
 import { loginWithEmail, signupWithEmail } from '../../../../actions/utils/auth/auth';
 import { useEnterListener } from '../../../../hooks/forms';
-import Button from '../../../../components/V2/Button';
+import Button from '../../../../components/Styled/Button';
 
 const SignupEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -43,39 +43,24 @@ const SignupEmail: React.FunctionComponent = () => {
       .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('login.errors.invalid_password'))
       .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('login.errors.invalid_password'))
       .required(t('login.errors.invalid_password')),
-    name: yup.string().required(t('login.errors.invalid_name')),
-    surname: yup.string().required(t('login.errors.invalid_surname')),
   });
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [surname, setSurname] = useState<string>('');
-  const [subscribeToNewsLetter, setSubscribeToNewsLetter] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSignup = useCallback(async () => {
     setIsLoading(true);
     try {
-      console.log({ email, password, name, surname });
-      await validationSchema.validate({ email, password, name, surname });
+      await validationSchema.validate({ email, password });
 
-      const { userInfo, token } = await signupWithEmail(email, password, name, surname, subscribeToNewsLetter);
-
-      dispatch({
-        type: ACTION_ENUM.LOGIN,
-        payload: token,
-      });
-      dispatch({
-        type: ACTION_ENUM.UPDATE_USER_INFO,
-        payload: userInfo,
-      });
+      await signupWithEmail(email, password);
     } catch (error) {
       setErrorMessage(error.message);
       setIsLoading(false);
     }
-  }, [email, password, name, surname, loginWithEmail]);
+  }, [email, password, signupWithEmail]);
 
   useEnterListener(onSignup);
 
@@ -103,24 +88,6 @@ const SignupEmail: React.FunctionComponent = () => {
           type="password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           value={password}
-        />
-        <TextInput
-          autofocus
-          classes={{
-            container: styles.input,
-          }}
-          placeholder={t('login.fields.name')}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-          value={name}
-        />
-        <TextInput
-          autofocus
-          classes={{
-            container: styles.input,
-          }}
-          placeholder={t('login.fields.surname')}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value)}
-          value={surname}
         />
         {errorMessage && <span className={styles.error}>{errorMessage}</span>}
         <Button className={styles.button} disabled={isLoading} onClick={onSignup}>

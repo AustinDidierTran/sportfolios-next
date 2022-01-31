@@ -69,13 +69,7 @@ export const loginWithEmail = async (email: string, password: string): Promise<L
   }
 };
 
-export const signupWithEmail = async (
-  email: string,
-  password: string,
-  firstName: string,
-  lastName: string,
-  newsLetterSubscription: boolean
-): Promise<void> => {
+export const signupWithEmail = async (email: string, password: string): Promise<void> => {
   try {
     const isEmailValid = await validEmail(email);
 
@@ -88,7 +82,7 @@ export const signupWithEmail = async (
       password,
     });
 
-    await signup(firstName, lastName, email, newsLetterSubscription);
+    await signup(email);
   } catch (error) {
     if (error.code === AuthErrorTypes.InvalidUsername) {
       throw new Error(AUTH_ERROR_ENUM.EMAIL_ALREADY_TAKEN);

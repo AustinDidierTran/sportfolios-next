@@ -14,10 +14,10 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import { ROUTES } from '../../../../actions/goTo';
 import { useRedirectUrl } from '../../../../hooks/url';
 import LoginFooter from '../../components/Footer/Footer';
-import TextInput from '../../../../components/V2/TextInput';
+import TextInput from '../../../../components/Styled/TextInput';
 import { loginWithEmail } from '../../../../actions/utils/auth/auth';
 import { useEnterListener } from '../../../../hooks/forms';
-import Button from '../../../../components/V2/Button';
+import Button from '../../../../components/Styled/Button';
 
 const LoginEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -52,14 +52,7 @@ const LoginEmail: React.FunctionComponent = () => {
   const onLogin = useCallback(async () => {
     setIsLoading(true);
     try {
-      const inputIsValid = await validationSchema.isValid({ email, password });
-
-      if (!inputIsValid) {
-        setErrorMessage(t('login.invalid_values'));
-        setIsLoading(false);
-        return;
-      }
-
+      await validationSchema.validate({ email, password });
       const { userInfo, token } = await loginWithEmail(email, password);
 
       dispatch({
@@ -71,7 +64,7 @@ const LoginEmail: React.FunctionComponent = () => {
         payload: userInfo,
       });
     } catch (error) {
-      setErrorMessage(t('login.invalid_values'));
+      setErrorMessage(error.message);
       setIsLoading(false);
     }
   }, [email, password, loginWithEmail]);

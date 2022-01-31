@@ -2,11 +2,10 @@ import React from 'react';
 
 import { GLOBAL_ENUM, IMAGE_ENUM } from '../public/common/enums';
 import dynamic from 'next/dynamic';
-import { formatRoute } from '../public/src/utils/stringFormats';
 import { useTranslation } from 'react-i18next';
-import api from '../public/src/actions/api';
 import { CLIENT_BASE_URL } from '../conf';
 import { NextSeo } from 'next-seo';
+import { getEntity, getRealEntityId } from '../public/src/actions/service/entity/get';
 
 const Error = dynamic(() => import('next/error'));
 const Event = dynamic(() => import('../public/src/views/Entity/Event'));
@@ -83,16 +82,16 @@ export default function EntityRoute({ response }) {
 }
 
 export async function getServerSideProps(context) {
-  const { data: id } = await api(formatRoute('/api/entity/realId', null, { id: context.params.id }), { method: 'GET' });
+  const id = await getRealEntityId(context.params.id);
 
-  const res = await api(formatRoute('/api/entity', null, { id }), { method: 'GET' });
+  const entity = await getEntity(id);
 
-  if (!res) {
+  if (!entity) {
     return {
       notFound: true,
     };
   }
   return {
-    props: { response: res.data }, // will be passed to the page component as props
+    props: { response: entity }, // will be passed to the page component as props
   };
 }
