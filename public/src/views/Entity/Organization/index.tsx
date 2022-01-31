@@ -109,12 +109,13 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
 
   const getRole = async (): Promise<void> => {
     const res = await getRoleApi(id);
-    if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
-      const newInfos = basicInfos;
-      newInfos.role = res.data;
-      setBasicInfos(newInfos);
-      setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
+    if (res.status !== REQUEST_STATUS_ENUM.SUCCESS) {
+      return;
     }
+    const newInfos = basicInfos;
+    newInfos.role = res.data;
+    setBasicInfos(newInfos);
+    setIsAdmin(res.data === ENTITIES_ROLE_ENUM.EDITOR || res.data === ENTITIES_ROLE_ENUM.ADMIN);
   };
 
   return (

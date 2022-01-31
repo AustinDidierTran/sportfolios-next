@@ -60,6 +60,10 @@ export default function SearchList(props) {
   };
 
   const formatOptions = (response) => {
+    if (!response) {
+      return [];
+    }
+
     if (allowCreate) {
       let uniqueSecondary = '';
       if (type === GLOBAL_ENUM.TEAM) {
@@ -90,6 +94,7 @@ export default function SearchList(props) {
           })),
       ];
     }
+
     return response.entities
       .filter((entity) => !rejectedTypes.includes(entity.type))
       .map((e) => ({

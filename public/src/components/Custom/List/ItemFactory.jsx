@@ -28,7 +28,6 @@ const PersonItem = dynamic(() => import('./PersonItem'));
 const PurchasesItem = dynamic(() => import('./PurchasesItem'));
 const RankingItem = dynamic(() => import('./RankingItem'));
 const RankingWithStatsItem = dynamic(() => import('./RankingWithStatsItem'));
-const ReportItemFactory = dynamic(() => import('./ReportItemFactory'));
 const RosterItem = dynamic(() => import('./RosterItem'));
 const SalesItem = dynamic(() => import('./SalesItem'));
 const ScoreSubmissionConflictNotificationItem = dynamic(() =>
@@ -61,7 +60,6 @@ const ItemMap = {
   [LIST_ITEM_ENUM.PURCHASES]: PurchasesItem,
   [LIST_ITEM_ENUM.RANKING_WITH_STATS]: RankingWithStatsItem,
   [LIST_ITEM_ENUM.RANKING]: RankingItem,
-  [LIST_ITEM_ENUM.REPORT]: ReportItemFactory,
   [LIST_ITEM_ENUM.ROSTER_ITEM]: RosterItem,
   [LIST_ITEM_ENUM.SALES]: SalesItem,
   [NOTIFICATION_TYPE.ADDED_TO_EVENT]: AddedToEventItem,

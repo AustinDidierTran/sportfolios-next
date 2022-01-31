@@ -56,7 +56,7 @@ export default function MembersReport(props) {
       } else {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
-          message: t('report_created'),
+          message: t('reports.report_created'),
           severity: SEVERITY_ENUM.SUCCESS,
           duration: 4000,
         });
