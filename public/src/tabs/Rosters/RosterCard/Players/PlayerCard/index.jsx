@@ -74,6 +74,7 @@ export default function PlayerCard(props) {
     const p = { id: player.personId };
     onPlayerAddToRoster(p);
   };
+
   if (editableRoster) {
     return (
       <div className={styles.card}>
@@ -94,7 +95,7 @@ export default function PlayerCard(props) {
                 <Chip color="primary" variant="outlined" clickable="true" label={t('member.member')}></Chip>
               </Link>
             ) : (
-              <Link href={eventInfo.creator.id}>
+              <Link href={eventInfo?.creator.id || ''}>
                 <Chip
                   color="secondary"
                   variant="outlined"
