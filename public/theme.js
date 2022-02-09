@@ -1,8 +1,12 @@
 const theme = {
-  primary: { main: 'rgba(34, 185, 149, 1)' },
+  primary: { main: '#22B995' },
+  blue: {
+    main: '#2196F3',
+  },
   shadesOfGrey: {
-    light: 'rgba(235, 235, 235, 1)',
-    primary: 'rgba(186, 186, 186, 1)',
+    light: '#EBEBEB',
+    primary: '#BABABA',
+    dark: '#959595',
   },
 };
 

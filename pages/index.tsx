@@ -8,6 +8,7 @@ import { IMAGE_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM } from '../public/common/e
 import { getForYouPage } from '../public/src/actions/service/entity/get';
 import { ForYouPagePost } from '../typescript/types';
 import { Store } from '../public/src/Store';
+import { useRouter } from 'next/router';
 
 const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
 const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
@@ -15,17 +16,28 @@ const Home = dynamic(import('../public/src/views/Home'));
 
 const HomeRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [posts, setPosts] = useState<ForYouPagePost[]>([]);
   const {
-    state: { isAuthenticated },
+    state: { isAuthenticated, userInfo },
   } = useContext(Store);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      getPosts();
+    if (!isAuthenticated) {
+      goTo(ROUTES.login, null, { redirectUrl: encodeURIComponent(router.asPath) });
+      return;
     }
+
+    if (!userInfo.persons.length) {
+      // You need to create a primary person
+      console.log('No primary person, go setup one!');
+      goTo(ROUTES_ENUM.setupPrimaryPerson);
+    }
+    console.log(userInfo);
+
+    getPosts();
   }, [isAuthenticated]);
 
   const getPosts = async (): Promise<void> => {

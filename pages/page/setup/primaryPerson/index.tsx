@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
-import { CLIENT_BASE_URL } from '../../../conf';
-import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
+import { CLIENT_BASE_URL } from '../../../../conf';
+import { ROUTES_ENUM, IMAGE_ENUM } from '../../../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const SignupEmail = dynamic(() => import('../../../public/src/views/Authentication/Signup/Email'));
+const SetupPrimaryPerson = dynamic(() => import('../../../../public/src/views/Authentication/Setup/PrimaryPerson'));
 
-const SignupEmailRoute: React.FunctionComponent = () => {
+const SetupPrimaryPersonRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
@@ -42,9 +42,9 @@ const SignupEmailRoute: React.FunctionComponent = () => {
           cardType: 'summary_large_image',
         }}
       />
-      <SignupEmail />
+      <SetupPrimaryPerson />
     </>
   );
 };
 
-export default SignupEmailRoute;
+export default SetupPrimaryPersonRoute;

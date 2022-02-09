@@ -11,15 +11,15 @@ const LoginFooter = () => {
 
   return (
     <div className={styles.footer}>
-      {t('login.footer.by_continuing')}{' '}
+      {t('auth.footer.by_continuing')}{' '}
       <Link href={termsConditions}>
-        <b>{t('login.footer.terms_and_conditions')}</b>
+        <b>{t('auth.footer.terms_and_conditions')}</b>
       </Link>{' '}
-      {t('login.footer.sportfolios_confirm')}{' '}
+      {t('auth.footer.sportfolios_confirm')}{' '}
       <Link href={privacyPolicy}>
-        <b>{t('login.footer.privacy_policy')}</b>
+        <b>{t('auth.footer.privacy_policy')}</b>
       </Link>{' '}
-      {t('login.footer.of_sportfolios')}
+      {t('auth.footer.of_sportfolios')}
     </div>
   );
 };

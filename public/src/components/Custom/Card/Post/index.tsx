@@ -370,7 +370,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
         title={t('login_to_continue')}
         onCancel={onCloseToLoggin}
         onSubmit={goToLogin}
-        onSubmitText={t('login.title')}
+        onSubmitText={t('auth.title')}
       />
     </Card>
   );

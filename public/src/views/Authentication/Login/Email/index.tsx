@@ -11,13 +11,14 @@ import * as yup from 'yup';
 import { PASSWORD_LENGTH_ENUM } from '../../../../../common/config';
 import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../../../Store';
-import { ROUTES } from '../../../../actions/goTo';
+import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useRedirectUrl } from '../../../../hooks/url';
 import LoginFooter from '../../components/Footer/Footer';
 import TextInput from '../../../../components/Styled/TextInput';
 import { loginWithEmail } from '../../../../actions/utils/auth/auth';
 import { useEnterListener } from '../../../../hooks/forms';
 import Button from '../../../../components/Styled/Button';
+import { ROUTES_ENUM } from '../../../../../common/enums';
 
 const LoginEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -37,11 +38,11 @@ const LoginEmail: React.FunctionComponent = () => {
   }, [isAuthenticated]);
 
   const validationSchema = yup.object().shape({
-    email: yup.string().email(t('invalid.invalid_email')).required(t('login.errors.invalid_email')),
+    email: yup.string().email(t('invalid.invalid_email')).required(t('auth.errors.invalid_email')),
     password: yup
       .string()
-      .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('login.errors.invalid_password'))
-      .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('login.errors.invalid_password')),
+      .min(PASSWORD_LENGTH_ENUM.MIN_LENGTH, t('auth.errors.invalid_password'))
+      .max(PASSWORD_LENGTH_ENUM.MAX_LENGTH, t('auth.errors.invalid_password')),
   });
 
   const [email, setEmail] = useState<string>('');
@@ -51,6 +52,7 @@ const LoginEmail: React.FunctionComponent = () => {
 
   const onLogin = useCallback(async () => {
     setIsLoading(true);
+    console.log({ email, password });
     try {
       await validationSchema.validate({ email, password });
       const { userInfo, token } = await loginWithEmail(email, password);
@@ -64,6 +66,9 @@ const LoginEmail: React.FunctionComponent = () => {
         payload: userInfo,
       });
     } catch (error) {
+      if (error.message === 'User is not confirmed.') {
+        goTo(ROUTES_ENUM.signupEmailValidate, null, { email });
+      }
       setErrorMessage(error.message);
       setIsLoading(false);
     }
@@ -77,13 +82,13 @@ const LoginEmail: React.FunctionComponent = () => {
     <div className={templateStyles.container}>
       <div className={templateStyles.content}>
         <SportfoliosLogo height={120} width={120} />
-        <h3>{t('login.login_to_sportfolios')}</h3>
+        <h3>{t('auth.login_to_sportfolios')}</h3>
         <TextInput
           autofocus
           classes={{
             container: styles.input,
           }}
-          placeholder={t('login.fields.email')}
+          placeholder={t('auth.fields.email')}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           value={email}
         />
@@ -91,17 +96,17 @@ const LoginEmail: React.FunctionComponent = () => {
           classes={{
             container: styles.input,
           }}
-          placeholder={t('login.fields.password')}
+          placeholder={t('auth.fields.password')}
           type="password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           value={password}
         />
         {errorMessage && <span className={styles.error}>{errorMessage}</span>}
         <Button className={styles.button} disabled={isLoading} onClick={onLogin}>
-          {t('login.login')}
+          {t('auth.login')}
         </Button>
         <p>
-          {t('login.no_account')} <Link href={signupRoute}>{t('login.signup')}</Link>
+          {t('auth.no_account')} <Link href={signupRoute}>{t('auth.signup')}</Link>
         </p>
       </div>
       <LoginFooter />

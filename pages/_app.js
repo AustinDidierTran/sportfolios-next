@@ -48,9 +48,15 @@ function MyApp({ Component, pageProps }) {
 
   const hasHeader = useMemo(
     () =>
-      ![ROUTES_ENUM.landingPage, ROUTES.login, ROUTES.loginEmail, ROUTES.signup, ROUTES.signupEmail].includes(
-        router.pathname
-      ),
+      ![
+        ROUTES.landingPage,
+        ROUTES.login,
+        ROUTES.loginEmail,
+        ROUTES.setupPrimaryPerson,
+        ROUTES.signup,
+        ROUTES.signupEmail,
+        ROUTES.signupEmailValidate,
+      ].includes(router.pathname),
     [router.pathname]
   );
 

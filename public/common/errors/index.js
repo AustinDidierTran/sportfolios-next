@@ -20,6 +20,11 @@ export const ERROR_ENUM = {
   VALUE_IS_TOO_LONG: 'value_is_too_long',
 };
 
+export const COGNITO_ERROR_ENUM = {
+  INVALID_CODE: 'Invalid verification code provided, please try again.',
+  EMPTY_CODE: 'Confirmation code cannot be empty',
+};
+
 export const AUTH_ERROR_ENUM = {
   EMAIL_ALREADY_TAKEN: 'email_already_taken',
   ERROR_OCCURED: 'error_occured',

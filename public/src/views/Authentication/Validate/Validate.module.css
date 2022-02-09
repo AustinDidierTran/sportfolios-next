@@ -1,0 +1,21 @@
+.input {
+  width: 100%;
+}
+
+.input:not(:nth-of-type(4)) {
+  margin-bottom: 1.625rem;
+}
+.input:nth-of-type(4) {
+  margin-bottom: 1rem;
+}
+
+.button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.error {
+  font-size: 0.75rem;
+  color: red;
+  text-align: left;
+}

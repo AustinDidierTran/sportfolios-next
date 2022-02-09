@@ -65,7 +65,7 @@ export const loginWithEmail = async (email: string, password: string): Promise<L
       throw new Error(AUTH_ERROR_ENUM.UNCONFIRMED_EMAIL);
     }
 
-    throw new Error(AUTH_ERROR_ENUM.ERROR_OCCURED);
+    throw error;
   }
 };
 
@@ -87,6 +87,15 @@ export const signupWithEmail = async (email: string, password: string): Promise<
     if (error.code === AuthErrorTypes.InvalidUsername) {
       throw new Error(AUTH_ERROR_ENUM.EMAIL_ALREADY_TAKEN);
     }
-    throw new Error(AUTH_ERROR_ENUM.ERROR_OCCURED);
+
+    throw error;
   }
+};
+
+export const validateEmail = async (email: string, validationCode: string): Promise<void> => {
+  await Auth.confirmSignUp(email, validationCode);
+};
+
+export const resendValidationCode = async (email: string): Promise<void> => {
+  return Auth.resendSignUp(email);
 };

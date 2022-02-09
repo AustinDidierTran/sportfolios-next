@@ -54,29 +54,29 @@ const Login: React.FunctionComponent = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <SportfoliosLogo height={120} width={120} />
-        <h3>{t('login.login_to_sportfolios')}</h3>
+        <h3>{t('auth.login_to_sportfolios')}</h3>
         <Link href={loginEmailRoute}>
           <div className={styles.loginCard}>
             <span className={styles.cardIcon}>
               <AccountCircle />
             </span>
-            {t('login.login_with_email')}
+            {t('auth.login_with_email')}
           </div>
         </Link>
         <div className={styles.loginCard} onClick={loginGoogle}>
           <span className={styles.cardIcon}>
             <GoogleLogo height={24} width={24} />
           </span>
-          {t('login.login_with_google')}
+          {t('auth.login_with_google')}
         </div>
         <div className={styles.loginCard} onClick={loginFacebook}>
           <span className={styles.cardIcon}>
             <FacebookLogo height={24} width={24} />
           </span>
-          {t('login.login_with_facebook')}
+          {t('auth.login_with_facebook')}
         </div>
         <p>
-          {t('login.no_account')} <Link href={signupRoute}>{t('login.signup')}</Link>
+          {t('auth.no_account')} <Link href={signupRoute}>{t('auth.signup')}</Link>
         </p>
       </div>
       <LoginFooter />
