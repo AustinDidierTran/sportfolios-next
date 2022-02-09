@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import { RadioGroup } from '../../../components/Custom';
 import { useTranslation } from 'react-i18next';
 import styles from './PaymentOptionSelect.module.css';
@@ -9,8 +9,6 @@ import { formatRoute } from '../../../utils/stringFormats';
 import { Store } from '../../../Store';
 import { Typography } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
-
-
 
 export default function PaymentOptionSelect(props) {
   const { t } = useTranslation();
@@ -50,6 +48,10 @@ export default function PaymentOptionSelect(props) {
     formik.setFieldValue('paymentOptions', options);
   };
 
+  const hasTeamActivity = useMemo(() => {
+    return formik.values.paymentOptions.some((option) => option.teamActivity);
+  });
+
   const getPaymentOptionDisplay = (option) => {
     if (option.teamPrice === 0 && option.individualPrice === 0) {
       return t('free');
@@ -67,15 +69,14 @@ export default function PaymentOptionSelect(props) {
   return (
     <div className={styles.main}>
       <div className={styles.header}>
-        <WarningIcon className={styles.warning} fontSize="large"/> 
-        <Typography
-          variant="body2"
-          color= "textSecondary"
-          align="center"
-          className={styles.typography}
-          >
-          {t('captain_only_warning')}
-        </Typography>
+        {hasTeamActivity ? (
+          <>
+            <WarningIcon className={styles.warning} fontSize="large" />
+            <Typography variant="body2" color="textSecondary" align="center" className={styles.typography}>
+              {t('captain_only_warning')}
+            </Typography>
+          </>
+        ) : null}
       </div>
       <RadioGroup
         namespace="paymentOptions"
