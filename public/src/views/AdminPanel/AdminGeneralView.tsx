@@ -30,18 +30,22 @@ const AdminGeneralView: React.FunctionComponent = () => {
   } = useContext(Store);
 
   const getDataGraph = async () => {
-    const { data } = await api(
-      formatRoute('/api/entity/graphUserCount', null, {
-        date: dateFilter,
-        language: userInfo.language,
-      }),
-      { method: 'GET' }
-    );
-    if (!data) {
-      return;
+    try {
+      const { data } = await api(
+        formatRoute('/api/entity/graphUserCount', null, {
+          date: dateFilter,
+          language: userInfo.language,
+        }),
+        { method: 'GET' }
+      );
+      if (!data) {
+        return;
+      }
+      setGraphData(data);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(1, { err });
     }
-    setGraphData(data);
-    setIsLoading(false);
   };
 
   useEffect(() => {
