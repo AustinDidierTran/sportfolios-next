@@ -29,12 +29,17 @@ export const getPurchasedTickets = ({
  * POST
  */
 
+interface SpiritValues {
+  [key: string]: number;
+}
+
 export function submitSpirit(
   submittedByRoster: string,
   submittedByPerson: string,
   gameId: string,
   submittedForRoster: string,
   spiritScore: number,
+  spiritDetails: SpiritValues,
   comment: string
 ): Promise<number> {
   return api(`${BASE_URL}/spirit`, {
@@ -45,6 +50,7 @@ export function submitSpirit(
       gameId,
       submittedForRoster,
       spiritScore,
+      spiritDetails,
       comment,
     }),
   }).then((res) => res.status);
