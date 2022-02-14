@@ -26,14 +26,34 @@ interface IProps {
   submissionerInfos: SubmissionerInfos;
 }
 
+const spiritCategories = [
+  'rules_knowledge_and_use',
+  'fouls_and_body_contact',
+  'fair_mindedness',
+  'positive_attitude_and_self_control',
+  'communication',
+];
+
+interface SpiritValues {
+  [key: string]: number;
+}
+
 const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
   const { submittedSpirit, gameId, IsSubmittedCheck, submissionerInfos } = props;
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
 
+  const initialSpiritValues: SpiritValues = spiritCategories.reduce(
+    (prev, curr) => ({
+      ...prev,
+      [curr]: 2,
+    }),
+    {}
+  );
+
   const formik = useFormik({
     initialValues: {
-      spirit: [2, 2, 2, 2, 2],
+      spirit: initialSpiritValues,
       comment: '',
     },
     onSubmit: async (values) => {
@@ -44,7 +64,8 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
         submissionerInfos.person.entityId,
         gameId,
         submissionerInfos.enemyTeam.rosterId,
-        spirit.reduce((a, b) => a + b, 0),
+        Object.values(spirit).reduce((a, b) => a + b, 0),
+        spirit,
         comment
       ).then((status) => {
         if (status === REQUEST_STATUS_ENUM.SUCCESS) {
@@ -66,7 +87,10 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
     (): 'KeyboardArrowUp' | 'KeyboardArrowDown' => (!expanded ? 'KeyboardArrowDown' : 'KeyboardArrowUp'),
     [expanded]
   );
-  const spiritTotal = useMemo((): number => formik.values.spirit.reduce((a, b) => a + b, 0), [formik.values.spirit]);
+  const spiritTotal = useMemo(
+    (): number => Object.values(formik.values.spirit).reduce((a, b) => a + b, 0),
+    [formik.values.spirit]
+  );
 
   useEffect((): void => {
     submittedState(Boolean(submittedSpirit?.spiritScore));
@@ -81,40 +105,31 @@ const SectionSpirit: React.FunctionComponent<IProps> = (props) => {
     formik.setFieldValue(`spirit[${event.target.name.substring(1)}]`, Number(event.target.value));
   };
 
-  const spiritCategories = [
-    'rules_knowledge_and_use',
-    'fouls_and_body_contact',
-    'fair_mindedness',
-    'positive_attitude_and_self_control',
-    'communication',
-  ];
-  const RadioButtons = Array(5)
-    .fill(0)
-    .map((_, indexCategory) => (
-      <FormControl className={styles.radioGroup} component="fieldset" key={indexCategory} size="small">
-        <FormLabel component="legend">{`${indexCategory + 1}. ${t(spiritCategories[indexCategory])}`}</FormLabel>
-        <RadioGroup
-          className={styles.radioGroupContainer}
-          row
-          name={`r${indexCategory}`}
-          onChange={handleRadioChange}
-          value={formik.values.spirit[indexCategory]}
-        >
-          {Array(5)
-            .fill(0)
-            .map((_, indexRadioButton) => (
-              <FormControlLabel
-                className={styles.radioGroupControlLabel}
-                key={indexRadioButton}
-                value={indexRadioButton}
-                control={<Radio color="primary" size="small" disabled={isSubmitted} />}
-                label={indexRadioButton}
-                labelPlacement="bottom"
-              />
-            ))}
-        </RadioGroup>
-      </FormControl>
-    ));
+  const RadioButtons = spiritCategories.map((category, indexCategory) => (
+    <FormControl className={styles.radioGroup} component="fieldset" key={indexCategory} size="small">
+      <FormLabel component="legend">{`${indexCategory + 1}. ${t(category)}`}</FormLabel>
+      <RadioGroup
+        className={styles.radioGroupContainer}
+        row
+        name={`r${category}`}
+        onChange={handleRadioChange}
+        value={formik.values.spirit[category]}
+      >
+        {Array(5)
+          .fill(0)
+          .map((_, indexRadioButton) => (
+            <FormControlLabel
+              className={styles.radioGroupControlLabel}
+              key={indexRadioButton}
+              value={indexRadioButton}
+              control={<Radio color="primary" size="small" disabled={isSubmitted} />}
+              label={indexRadioButton}
+              labelPlacement="bottom"
+            />
+          ))}
+      </RadioGroup>
+    </FormControl>
+  ));
 
   return (
     <div>
