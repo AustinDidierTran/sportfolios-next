@@ -31,7 +31,7 @@ const CustomSelect: React.FunctionComponent<IProps> = (props) => {
     label,
     namespace,
     onChange,
-    options,
+    options = [],
     showtextifonlyoneoption = false,
     value: valueProp,
   } = props;
