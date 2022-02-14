@@ -1193,6 +1193,9 @@ export default {
     enter_score: 'Entrez le pointage',
     enter_team_name: "Entrez votre nom d'équipe",
     entity_not_found: "Cette entité n'existe pas",
+    errors: {
+      error_occured: 'Une erreur est survenue.',
+    },
     error_close_date_before_start_date: "La date de fermeture doit être après la date d'ouverture",
     error_start_date_before_end: 'La date de départ devrait être avant la date de fin.',
     exercise: 'Exercice',
@@ -1345,6 +1348,9 @@ export default {
         invalid_code: 'Code invalide',
       },
       fields: {
+        card_name: 'Nom',
+        name_on_card: 'Nom indiqué sur la carte',
+        address: 'Adresse',
         birthDate: 'Date de naissance',
         email: 'Courriel',
         gender: 'Genre',
@@ -1358,10 +1364,16 @@ export default {
         female: 'Femme',
         not_specified: 'Ne pas spécifier',
       },
+      emergency_contact: "Contact d'urgence",
+      emergency_contact_description:
+        "Pour participer à certaines activités, vous allez avoir de besoin d'ajouter une personne à contacter en cas d'urgence.",
       new_code: 'Nouveau code',
       new_code_sent: 'Nouveau code envoyé',
       next: 'Suivant',
       enter_6_digit_code: 'Entrer le code à 6 chiffres envoyé à',
+      payment_method: 'Mode de paiement',
+      payment_method_description:
+        "Pour accélérer le processus d'inscription, vous pouvez ajouter un mode de paiement dès maintenant. Vous pouvez aussi le faire plus tard.",
       validate: 'Valider',
       register_sportfolios: 'Inscription à Sportfolios',
       already_account: 'Tu as déjà un compte?',
@@ -1375,6 +1387,8 @@ export default {
       login_with_facebook: 'Continuer avec Facebook',
       no_account: "Tu n'as pas de compte?",
       signup: 'Inscription',
+      skip: 'Passer',
+      done: 'Terminer',
       footer: {
         by_continuing: 'En continuant, tu acceptes les',
         terms_and_conditions: "Conditions d'utilisation",
@@ -1747,6 +1761,11 @@ export default {
     step_2: 'Étape 2',
     step_3: 'Étape 3',
     street_address: 'Adresse',
+    stripe: {
+      card_number: 'N. De la carte',
+      expiry_date: "Date d'expiration",
+      verification_code: 'Code de vérification',
+    },
     sub_added: 'Remplaçant ajouté',
     sub: 'Remplaçant',
     submit_as: 'Soumettre le résultat en tant que',

@@ -1176,6 +1176,9 @@ export default {
     enter_score: 'Enter score',
     enter_team_name: 'Enter team name',
     entity_not_found: 'Entity not found',
+    errors: {
+      error_occured: 'An error occured.',
+    },
     error_close_date_before_start_date: 'Close date must be after open date',
     error_start_date_before_end: 'Start date should be before end date.',
     exercise: 'Exercise',
@@ -1319,6 +1322,7 @@ export default {
     location_unspecified: 'Location unspecified',
     auth: {
       add_profile_picture: 'Add a profile picture',
+      skip: 'Skip',
       errors: {
         empty_code: 'Validation code cannot be empty',
         invalid_email: 'Invalid email',
@@ -1328,6 +1332,7 @@ export default {
         invalid_code: 'Invalid code',
       },
       fields: {
+        address: 'Address',
         birthDate: 'Birth Date',
         email: 'Email',
         gender: 'Gender',
@@ -1341,6 +1346,9 @@ export default {
         female: 'Femme',
         not_specified: 'Ne pas spécifier',
       },
+      emergency_contact: 'Emergency contact',
+      emergency_contact_description:
+        'To participate in some activities, you will need to add someone to contact in case of emergency',
       new_code: 'New code',
       new_code_sent: 'New code sent',
       next: 'Next',
@@ -1348,6 +1356,7 @@ export default {
       validate: 'Validate',
       register_sportfolios: 'Register to Sportfolios',
       already_account: 'Already have an account?',
+      done: 'Done',
       signup_with_email: 'Signup with email',
       login: 'Login',
       invalid_values: 'Email or password is invalid.',
@@ -1727,6 +1736,11 @@ export default {
     step_2: 'Step 2',
     step_3: 'Step 3',
     street_address: 'Street address',
+    stripe: {
+      card_number: 'Card number',
+      expiry_date: 'Expiry Date',
+      verification_code: 'CVC',
+    },
     sub_added: 'Sub added',
     sub: 'Sub',
     submit_as: 'Submit the result as',

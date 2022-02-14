@@ -669,3 +669,7 @@ export enum AuthErrorTypes {
   NewPasswordRequired = 'NEW_PASSWORD_REQUIRED',
   NotAuthorizedException = 'NotAuthorizedException',
 }
+
+export enum ERROR_ENUM {
+  ERROR_OCCURED = 'error_occured',
+}

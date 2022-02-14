@@ -94,7 +94,6 @@ export const useStepper = () => {
 };
 
 export const useDeleteListener = (onDelete) => {
-  // const debounced = _.debounce(onDelete, 250);
   React.useEffect(() => {
     const eventListener = (event) => {
       if (event.code === 'Backspace') {
@@ -119,5 +118,5 @@ export const useEnterListener = (onEnter) => {
     window.addEventListener('keyup', eventListener);
 
     return () => window.removeEventListener('keyup', eventListener);
-  }, []);
+  }, [onEnter]);
 };

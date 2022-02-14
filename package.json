@@ -23,6 +23,7 @@
     "@svgr/webpack": "^6.2.0",
     "@swc/core": "^1.2.106",
     "@swc/jest": "^0.2.5",
+    "@types/google.maps": "^3.47.4",
     "@types/styled-components": "^5.1.21",
     "aws-amplify": "^4.3.4",
     "axios": "^0.21.1",

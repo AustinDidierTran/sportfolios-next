@@ -52,7 +52,6 @@ const LoginEmail: React.FunctionComponent = () => {
 
   const onLogin = useCallback(async () => {
     setIsLoading(true);
-    console.log({ email, password });
     try {
       await validationSchema.validate({ email, password });
       const { userInfo, token } = await loginWithEmail(email, password);

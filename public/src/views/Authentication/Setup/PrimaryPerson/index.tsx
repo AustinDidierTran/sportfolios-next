@@ -1,19 +1,43 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { RcFile } from 'rc-upload/lib/interface';
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import Upload from 'rc-upload';
-import * as yup from 'yup';
 
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import SetupPrimaryPersonFirstPage, { PrimaryPersonState } from './FirstPage';
+import SetupPrimaryPersonSecondPage, { EmergencyContactState } from './SecondPage';
+import SetupPrimaryPersonThirdPage, { PaymentMethodState } from './ThirdPage';
+import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { postInitialUserConfig } from '../../../../actions/service/user';
+import { CreateTokenCardData } from '@stripe/stripe-js';
+import { ERROR_ENUM } from '../../../../../common/enums';
 
-import LabelAndTextInput from '../../../../components/Styled/LabelAndInput/LabelAndTextInput';
-import LabelAndSelectInput from '../../../../components/Styled/LabelAndInput/LabelAndSelectInput';
-import LabelAndDateInput from '../../../../components/Styled/LabelAndInput/LabelAndDateInput';
-import moment from 'moment';
-import LabelAndPhoneNumberInput from '../../../../components/Styled/LabelAndInput/LabelAndPhoneNumberInput';
+export interface InitialUserConfig {
+  primaryPerson: PrimaryPersonState;
+  emergencyContact: EmergencyContactState;
+  stripeToken: string;
+}
+
+const PreviousButton = styled.button`
+  border: none;
+  background: none;
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+  color: ${(props) => (props.disabled ? props.theme.shadesOfGrey.main : props.theme.shadesOfGrey.dark)};
+
+  svg {
+    height: 1rem !important;
+    width: 1rem;
+  }
+`;
+
+const ActionButton = styled.button`
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: ${(props) => (props.disabled ? props.theme.shadesOfGrey.main : props.theme.blue.main)};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+`;
 
 const Container = styled.div`
   margin-left: auto;
@@ -43,160 +67,277 @@ const ActionDiv = styled.div`
   flex-direction: row;
   align-items: center;
   height: 3rem;
-  justify-content: end;
-  color: ${(props) => props.theme.blue.main};
+  justify-content: space-between;
+
   width: 100%;
-
-  span {
-    cursor: pointer;
-  }
 `;
 
-const AvatarImage = styled.img`
-  height: 5.5rem;
-  width: 5.5rem;
-  border-radius: 50%;
-  margin-bottom: 0.5rem;
+const Footer = styled.div`
+  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
-const UploadText = styled.span`
-  cursor: pointer;
-  color: ${(props) => props.theme.blue.main};
-  font-size: 0.75rem;
-  font-family: 'SF Pro, Semibold';
+const DotContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
 `;
 
-const Divider = styled.hr`
-  height: 1px;
-  background-color: ${(props) => props.theme.shadesOfGrey.light};
+const Dot = styled.button`
   border: none;
-  width: 100%;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background-color: ${(props) => (props.disabled ? props.theme.shadesOfGrey.light : props.theme.blue.main)};
 `;
 
-const FormContainer = styled.div`
+export const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem 1rem;
+  flex: 1;
 `;
+
+export enum GENDER_OPTIONS {
+  MALE = 'male',
+  FEMALE = 'female',
+  NOT_SPECIFIED = 'not_specified',
+}
 
 const SetupPrimaryPerson: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const { redirectUrl } = router.query;
 
-  const validationSchema = yup.object().shape({
-    name: yup.string().required(),
-    surname: yup.string().required(),
-    gender: yup.string().oneOf(['male', 'female', 'not_specified']),
-    birthDay: yup.number().required(),
-    birthMonth: yup.number().required(),
-    birthYear: yup.number().required(),
-    phoneNumber: yup.number().required(),
-    address: yup.string().required(),
-  });
-
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const stripe = useStripe();
+  const elements = useElements();
 
   // NEW CODE HERE
+  const [primaryPersonState, setPrimaryPersonState] = useState<PrimaryPersonState>({
+    image: null,
+    photoUrl: '',
+    name: '',
+    surname: '',
+    gender: GENDER_OPTIONS.MALE,
+    birthDate: '',
+    phoneNumber: '',
+    formattedAddress: '',
+    outputAddress: null,
+  });
 
-  // Photo
-  const uploadImageProps = {
-    multiple: false,
-    accept: '.jpg, .png, .jpeg, .gif, .webp',
-    onStart(file: RcFile) {
-      if (file.type.split('/')[0] === 'image') {
-        console.log(file);
-        setImage(file);
-        setPhotoUrl(URL.createObjectURL(file));
-      } else {
-        setErrorMessage('upload has failed');
-      }
-    },
-  };
-  const [image, setImage] = useState<RcFile>(null);
-  const [photoUrl, setPhotoUrl] = useState<string>('');
+  const [emergencyContactState, setEmergencyContactState] = useState<EmergencyContactState>({
+    name: '',
+    surname: '',
+    phoneNumber: '',
+    formattedAddress: '',
+    outputAddress: null,
+  });
 
-  // Form
-  const [name, setName] = useState<string>('');
-  const [surname, setSurname] = useState<string>('');
-  const [gender, setGender] = useState<string>('male');
-  const [birthDate, setBirthDate] = useState<string>('');
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [paymentMethodState, setPaymentMethodState] = useState<PaymentMethodState>({
+    name: '',
+    formattedBillingAddress: '',
+    outputBillingAddress: null,
+    token: '',
+  });
+
+  const firstFormComplete = useMemo(() => {
+    if (!primaryPersonState.name) {
+      return false;
+    }
+    if (!primaryPersonState.surname) {
+      return false;
+    }
+    if (!primaryPersonState.phoneNumber) {
+      return false;
+    }
+    if (!primaryPersonState.outputAddress) {
+      return false;
+    }
+
+    return true;
+  }, [
+    primaryPersonState.name,
+    primaryPersonState.surname,
+    primaryPersonState.phoneNumber,
+    primaryPersonState.outputAddress,
+  ]);
+
+  const secondFormComplete = useMemo(() => {
+    if (!emergencyContactState.name) {
+      return false;
+    }
+    if (!emergencyContactState.surname) {
+      return false;
+    }
+    if (!emergencyContactState.phoneNumber) {
+      return false;
+    }
+    if (!emergencyContactState.outputAddress) {
+      return false;
+    }
+    return true;
+  }, [
+    emergencyContactState.name,
+    emergencyContactState.surname,
+    emergencyContactState.phoneNumber,
+    emergencyContactState.outputAddress,
+  ]);
+
+  const [formIndex, setFormIndex] = useState<number>(0);
 
   useEffect(() => {
-    console.log(image);
-  }, [image]);
+    setPaymentMethodState((p: PaymentMethodState) => ({
+      ...p,
+      formattedBillingAddress: primaryPersonState.formattedAddress,
+      outputBillingAddress: primaryPersonState.outputAddress,
+    }));
+  }, [primaryPersonState.formattedAddress]);
 
-  const genderOptions = useMemo(
-    () => [
-      {
-        value: 'male',
-        display: t('auth.gender.male'),
-      },
-      {
-        value: 'female',
-        display: t('auth.gender.female'),
-      },
-      {
-        value: 'not_specified',
-        display: t('auth.gender.not_specified'),
-      },
-    ],
-    []
+  const [paymentMethodError, setPaymentMethodError] = useState<string>('');
+
+  const onSubmit = useCallback(
+    async (skipStripe) => {
+      console.log(456, skipStripe);
+      try {
+        let token = null;
+
+        if (!skipStripe) {
+          // Fetch token, and send error message if it doesn't work
+
+          if (!paymentMethodState.name) {
+            console.log(1);
+            throw new Error(ERROR_ENUM.ERROR_OCCURED);
+          }
+
+          if (!paymentMethodState.formattedBillingAddress) {
+            console.log(2);
+            throw new Error(ERROR_ENUM.ERROR_OCCURED);
+          }
+
+          console.log(3);
+          const stripeExtraData: CreateTokenCardData = {
+            name: paymentMethodState.name,
+            address_line1: paymentMethodState.outputBillingAddress.street_address,
+            address_city: paymentMethodState.outputBillingAddress.city,
+            address_state: paymentMethodState.outputBillingAddress.state,
+            address_zip: paymentMethodState.outputBillingAddress.zip,
+            address_country: paymentMethodState.outputBillingAddress.country,
+            currency: 'CAD',
+          };
+
+          const res = await stripe.createToken(elements.getElement(CardNumberElement), stripeExtraData);
+          token = res.token.id;
+        }
+
+        // Send data to backend
+        const data = {
+          primaryPerson: primaryPersonState,
+          emergencyContact: secondFormComplete ? emergencyContactState : null,
+          stripeToken: token,
+        };
+
+        const res = await postInitialUserConfig(data);
+      } catch (error) {
+        setPaymentMethodError(t(`errors.${error.message}`));
+        console.error(error);
+      }
+    },
+    [primaryPersonState, secondFormComplete, emergencyContactState, paymentMethodState]
   );
+
+  const stepsData = [
+    {
+      previous: {
+        disabled: true,
+      },
+      next: {
+        disabled: !firstFormComplete,
+        onClick: () => {
+          setFormIndex(1);
+          if (!paymentMethodState.name)
+            setPaymentMethodState((state) => ({
+              ...state,
+              name: `${primaryPersonState.name} ${primaryPersonState.surname}`,
+            }));
+        },
+        label: t('auth.next'),
+      },
+      skip: {
+        hidden: true,
+      },
+    },
+    {
+      previous: {
+        disabled: false,
+        onClick: () => setFormIndex(0),
+      },
+      next: {
+        disabled: !secondFormComplete,
+        onClick: () => setFormIndex(2),
+        label: t('auth.next'),
+      },
+      skip: {
+        hidden: false,
+        onClick: () => setFormIndex(2),
+      },
+    },
+    {
+      previous: {
+        disabled: true,
+        onClick: () => setFormIndex(1),
+      },
+      next: {
+        onClick: () => onSubmit(false),
+        label: t('auth.done'),
+      },
+      skip: {
+        hidden: false,
+        onClick: () => onSubmit(true),
+      },
+    },
+  ];
 
   return (
     <Container>
       <ActionDiv>
-        <span>{t('auth.next')}</span>
+        <PreviousButton
+          disabled={stepsData[formIndex].previous.disabled}
+          onClick={stepsData[formIndex].previous.onClick}
+        >
+          <ArrowBackIos></ArrowBackIos>
+        </PreviousButton>
+        <ActionButton disabled={stepsData[formIndex].next.disabled} onClick={stepsData[formIndex].next.onClick}>
+          {stepsData[formIndex].next.label}
+        </ActionButton>
       </ActionDiv>
-      {image ? <AvatarImage src={photoUrl} /> : <AccountCircle width={88} height={88} />}
-      <Upload {...uploadImageProps}>
-        <UploadText>{t('auth.add_profile_picture')}</UploadText>
-      </Upload>
-      <Divider />
-      <FormContainer>
-        <LabelAndTextInput
-          label={t('auth.fields.name')}
-          placeholder={t('auth.fields.name')}
-          value={name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setName(e.target.value);
-          }}
+      {formIndex === 0 ? (
+        <SetupPrimaryPersonFirstPage state={primaryPersonState} setState={setPrimaryPersonState} />
+      ) : formIndex === 1 ? (
+        <SetupPrimaryPersonSecondPage state={emergencyContactState} setState={setEmergencyContactState} />
+      ) : (
+        <SetupPrimaryPersonThirdPage
+          state={paymentMethodState}
+          setState={setPaymentMethodState}
+          error={paymentMethodError}
         />
-        <LabelAndTextInput
-          label={t('auth.fields.surname')}
-          placeholder={t('auth.fields.surname')}
-          value={surname}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSurname(e.target.value);
-          }}
-        />
-        <LabelAndSelectInput
-          label={t('auth.fields.gender')}
-          placeholder={t('auth.fields.gender')}
-          options={genderOptions}
-          value={gender}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setGender(e.target.value);
-          }}
-        />
-        <LabelAndDateInput
-          label={t('auth.fields.birthDate')}
-          placeholder={t('auth.fields.birthDate')}
-          value={birthDate}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setBirthDate(e.target.value);
-          }}
-        />
-        <LabelAndPhoneNumberInput
-          label={t('auth.fields.phoneNumber')}
-          placeholder={t('auth.fields.phoneNumber')}
-          value={phoneNumber}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setPhoneNumber(e.target.value);
-          }}
-        />
-      </FormContainer>
+      )}
+      <Footer>
+        <DotContainer>
+          {Array(3)
+            .fill(0)
+            .map((_, index) => (
+              <Dot key={index} disabled={formIndex !== index} />
+            ))}
+        </DotContainer>
+        <ActionButton hidden={stepsData[formIndex].skip.hidden} onClick={stepsData[formIndex].skip.onClick}>
+          {t('auth.skip')}
+        </ActionButton>
+      </Footer>
     </Container>
   );
 };
