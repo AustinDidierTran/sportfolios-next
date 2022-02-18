@@ -22,7 +22,7 @@ import { useFormInput } from '../../../hooks/forms';
 
 const TEAM_LIMIT = 10;
 
-export function Teams() {
+const Teams: React.FunctionComponent<Record<string, unknown>> = () => {
   const { t } = useTranslation();
 
   const [teams, setTeams] = useState<Team[]>([]);
@@ -79,4 +79,6 @@ export function Teams() {
       </List>
     </Paper>
   );
-}
+};
+
+export default Teams;

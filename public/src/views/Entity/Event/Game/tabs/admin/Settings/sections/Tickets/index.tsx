@@ -25,7 +25,7 @@ const General: React.FunctionComponent<IProps> = (props) => {
   const {
     creator: { id: creatorId },
     id,
-    tickets: { limit: ticketLimit, options },
+    tickets: { options },
   } = props;
   const { t } = useTranslation();
 
@@ -70,7 +70,7 @@ const General: React.FunctionComponent<IProps> = (props) => {
         insertObj.description = description;
       }
 
-      const res = await gameService.addTicketOption(insertObj);
+      await gameService.addTicketOption(insertObj);
     },
   });
 

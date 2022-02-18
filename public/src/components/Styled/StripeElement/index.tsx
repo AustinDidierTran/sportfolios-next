@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardCvcElement, CardElement, CardExpiryElement, CardNumberElement } from '@stripe/react-stripe-js';
+import { CardCvcElement, CardExpiryElement, CardNumberElement } from '@stripe/react-stripe-js';
 import styles from './StripeElement.module.css';
 import LabelAndInput from '../LabelAndInput';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ const CARD_ELEMENT_OPTIONS = {
   // hidePostalCode: true,
 };
 
-const StripeElement = () => {
+const StripeElement: React.FunctionComponent<Record<string, unknown>> = () => {
   const { t } = useTranslation();
   return (
     <>

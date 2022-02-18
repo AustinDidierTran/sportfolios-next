@@ -8,7 +8,6 @@ import { Store } from '../../../../../../Store';
 import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import styles from './ConversationItem.module.css';
-import { goTo, ROUTES } from '../../../../../../actions/goTo';
 import CustomAvatar from '../../../../Avatar';
 
 export default function ConversationItem(props) {
@@ -20,8 +19,6 @@ export default function ConversationItem(props) {
     id,
     onClick,
     selected,
-    name,
-    completeName,
     secondary,
     icon,
     inverseColor,
@@ -55,7 +52,6 @@ export default function ConversationItem(props) {
 
   const handleClick = useCallback(
     (e) => {
-      console.log('e', e);
       if (onClick) {
         onClick(e);
       }

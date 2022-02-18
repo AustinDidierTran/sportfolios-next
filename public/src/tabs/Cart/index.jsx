@@ -8,7 +8,6 @@ import { formatPageTitle } from '../../utils/stringFormats';
 import Button from '../../components/Custom/Button';
 import MessageAndButtons from '../../components/Custom/MessageAndButtons';
 import List from '../../components/Custom/List';
-import ContainerBottomFixed from '../../components/Custom/ContainerBottomFixed';
 import LoadingSpinner from '../../components/Custom/LoadingSpinner';
 import Card from '../../components/Custom/Card';
 import AlertDialog from '../../components/Custom/Dialog/AlertDialog';

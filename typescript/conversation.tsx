@@ -1,5 +1,3 @@
-import { Person } from './entity';
-
 export interface IConversationMessage {
   id: string;
   conversationId: string;

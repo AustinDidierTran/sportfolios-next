@@ -21,13 +21,12 @@ interface IProps {
   'aria-label'?: string;
   style?: any;
   namespace?: string;
-  withBadge?: Boolean;
   badgeColor?: any;
   badgeContent?: number;
 }
 
 const CustomAvatar: React.FunctionComponent<IProps> = (props) => {
-  const { withBadge = false, badgeColor = 'error', badgeContent = 0, photoUrl, icon, ...otherProps } = props;
+  const { badgeColor = 'error', badgeContent = 0, photoUrl, icon, ...otherProps } = props;
   const classes = useStyles();
 
   let className = clsx(styles.avatar, props.className);

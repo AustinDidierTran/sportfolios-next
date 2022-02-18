@@ -12,7 +12,7 @@ import TextInput from '../../../../components/Styled/TextInput';
 import { Auth } from 'aws-amplify';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { useEnterListener } from '../../../../hooks/forms';
-import { AUTH_ERROR_ENUM, AUTH_STATUS_ENUM, ERROR_ENUM } from '../../../../../common/errors';
+import { AUTH_ERROR_ENUM, AUTH_STATUS_ENUM } from '../../../../../common/errors';
 import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../../../Store';
 import Link from 'next/link';

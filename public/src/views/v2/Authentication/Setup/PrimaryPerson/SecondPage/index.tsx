@@ -1,4 +1,4 @@
-import React, { Dispatch, useCallback, useMemo } from 'react';
+import React, { Dispatch, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { FormContainer } from '..';

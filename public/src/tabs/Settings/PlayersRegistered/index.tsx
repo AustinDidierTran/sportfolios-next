@@ -31,7 +31,7 @@ import {
   getEventInfo,
 } from '../../../actions/service/entity/get';
 
-export default function PlayersRegistered() {
+const PlayersRegistered: React.FunctionComponent<Record<string, unknown>> = () => {
   const { t } = useTranslation();
   const {
     dispatch,
@@ -460,4 +460,6 @@ export default function PlayersRegistered() {
       />
     </Paper>
   );
-}
+};
+
+export default PlayersRegistered;

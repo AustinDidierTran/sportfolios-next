@@ -1,20 +1,15 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import IgContainer from '../../components/Custom/IgContainer';
 import { Typography } from '@material-ui/core';
 import ParticipantsSearchList from '../../components/Custom/SearchList/ParticipantsSearchList';
 import { useFormInput } from '../../hooks/forms';
-import { getAllThePeople } from '../../actions/service/person/admin';
+
 import styles from './newMessage.module.css';
-import { Divider } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '../../components/Custom/IconButton';
-import { Person } from '../../../../typescript/entity';
+
 import { List } from '../../components/Custom';
 import { Chip } from '../../components/Custom';
-import MessageDialog from '../../components/Custom/Dialog/MessageDialog';
-import { Store } from '../../Store';
-import { ContactSupportOutlined, ReceiptOutlined } from '@material-ui/icons';
+
 import Button from '../../components/Custom/Button';
 import { goTo, ROUTES } from '../../actions/goTo';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
@@ -32,10 +27,6 @@ interface IProps {
 }
 
 const newMessage: React.FunctionComponent<IProps> = (props) => {
-  const {
-    state: { userInfo: userInfo },
-  } = useContext(Store);
-
   const { recipientId } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
@@ -46,8 +37,8 @@ const newMessage: React.FunctionComponent<IProps> = (props) => {
     goTo(ROUTES.conversations, null, { recipientId: recipientId });
   };
   const createConvo = () => {
-    let creatorId: string = recipientId;
-    let participantsId: string[] = participants.map((player) => player.id);
+    const creatorId: string = recipientId;
+    const participantsId: string[] = participants.map((player) => player.id);
 
     createConversation(participantsId, creatorId).then((newConversationId) => {
       goTo(ROUTES.conversation, { convoId: newConversationId }, { recipientId: recipientId });
@@ -87,6 +78,7 @@ const newMessage: React.FunctionComponent<IProps> = (props) => {
           <List>
             {participants.map((p) => (
               <Chip
+                key={p.completeName}
                 className={styles.chip}
                 label={p.completeName}
                 color="primary"

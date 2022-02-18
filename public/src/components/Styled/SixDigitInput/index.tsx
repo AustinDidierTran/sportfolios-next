@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
-import { ERROR_ENUM } from '../../../../common/errors';
+
 import { useDeleteListener } from '../../../hooks/forms';
 
 const Container = styled.div`

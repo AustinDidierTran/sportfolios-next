@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ import styles from './AdminPanel.module.css';
 import Typography from '@material-ui/core/Typography';
 import Container from '../../components/Custom/Container';
 import dynamic from 'next/dynamic';
-import { Store } from '../../Store';
+
 import { useFormInput } from '../../hooks/forms';
 import { Select } from '../../components/Custom';
 

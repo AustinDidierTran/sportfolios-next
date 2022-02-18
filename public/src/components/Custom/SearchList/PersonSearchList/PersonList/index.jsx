@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PersonList(props) {
-  const { participants, title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
+  const { title, items, ref, rowRenderer, selectedIndex, ...otherProps } = props;
 
   const classes = useStyles();
 

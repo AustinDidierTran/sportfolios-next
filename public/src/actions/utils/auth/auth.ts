@@ -42,7 +42,8 @@ const migrateFct = async (email: string, password: string) => {
       throw new Error(AUTH_ERROR_ENUM.MIGRATION_ERROR);
     }
   } catch (error) {
-    console.log('migrateFct', error);
+    // eslint-disable-next-line
+    console.error('migrateFct', error);
   }
 };
 

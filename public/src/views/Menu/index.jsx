@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styles from './More.module.css';
-import { ROUTES, goTo } from '../../actions/goTo/index';
+import { ROUTES } from '../../actions/goTo/index';
 import { useTranslation } from 'react-i18next';
 import { Store, ACTION_ENUM } from '../../Store';
 

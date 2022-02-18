@@ -57,7 +57,7 @@ interface Props {
 const SetupPrimaryPersonFirstPage: React.FunctionComponent<Props> = (props) => {
   const { t } = useTranslation();
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [, setErrorMessage] = useState<string>('');
 
   const onChange = useCallback(
     (key, value) =>

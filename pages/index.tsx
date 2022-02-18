@@ -32,10 +32,8 @@ const HomeRoute: React.FunctionComponent = () => {
 
     if (!userInfo?.persons.length) {
       // You need to create a primary person
-      console.log('No primary person, go setup one!');
       goTo(ROUTES_ENUM.setupPrimaryPerson);
     }
-    console.log(userInfo);
 
     getPosts();
   }, [isAuthenticated]);

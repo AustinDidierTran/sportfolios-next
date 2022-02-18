@@ -1,7 +1,7 @@
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import Icon from '../../../../components/Custom/Icon';
 import Select from '../../../../components/Custom/Select';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { COLORS } from '../../../../utils/colors';
 

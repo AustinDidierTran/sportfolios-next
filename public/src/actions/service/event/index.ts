@@ -53,6 +53,8 @@ export const create = (data: ICreatePayload): Promise<any> => {
   });
 };
 
+// is going to be migrated
+// eslint-disable-next-line
 export const addTicketsToCart = (ticketSelection: any): Promise<any> => {
   return api(`${BASE_URL}/tickets`, {
     method: 'POST',

@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import _ from 'lodash';
 
 export const useFormInput = (initialValue) => {
   const [defaultValue, setDefaultValue] = useState(initialValue);

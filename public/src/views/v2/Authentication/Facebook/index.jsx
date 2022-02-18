@@ -32,7 +32,6 @@ export default function facebookLogin() {
     }
     const user = await loginWithCognitoToken(token);
     if (!user || !user?.data) {
-      console.error('user not define');
       goTo(ROUTES.login);
       return;
     }

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Container from '../../../components/Custom/Container';
@@ -32,7 +32,6 @@ export default function googleLogin() {
     }
     const user = await loginWithCognitoToken(token);
     if (!user || !user?.data) {
-      console.error('user not define');
       goTo(ROUTES.login);
       return;
     }

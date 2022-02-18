@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './ChangeNicknameSection.module.css';
 import Avatar from '../../../Avatar';
@@ -14,7 +14,7 @@ export default function ChangeNicknameSection(props) {
   const { t } = useTranslation();
 
   const handleConfirmed = () => {
-    updateNickname(conversationId, member.id, content.value).then((data) => {
+    updateNickname(conversationId, member.id, content.value).then(() => {
       updateConversation().then(() => {
         content.reset();
         setClicked(false);

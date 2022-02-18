@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
@@ -112,8 +111,6 @@ export enum GENDER_OPTIONS {
 
 const SetupPrimaryPerson: React.FunctionComponent = () => {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { redirectUrl } = router.query;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -243,7 +240,6 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
         goTo(ROUTES.home);
       } catch (error) {
         setPaymentMethodError(t(`errors.${error.message}`));
-        console.error(error);
       }
     },
     [primaryPersonState, secondFormComplete, emergencyContactState, paymentMethodState]

@@ -20,7 +20,6 @@ import Button from '../../../../../components/Styled/Button';
 import { ROUTES_ENUM } from '../../../../../../common/enums';
 import Container from '../../components/Container';
 import Content from '../../components/Content';
-import styled from 'styled-components';
 import { ActionText } from '../../components';
 
 const LoginEmail: React.FunctionComponent = () => {

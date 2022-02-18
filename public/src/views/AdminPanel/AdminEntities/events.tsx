@@ -22,7 +22,7 @@ import styles from '../AdminEntitiesView.module.css';
 
 const EVENT_LIMIT = 10;
 
-export function Events() {
+const Events: React.FunctionComponent<Record<string, unknown>> = () => {
   const { t } = useTranslation();
 
   const [events, setEvents] = useState<Event[]>([]);
@@ -79,4 +79,6 @@ export function Events() {
       </List>
     </Paper>
   );
-}
+};
+
+export default Events;

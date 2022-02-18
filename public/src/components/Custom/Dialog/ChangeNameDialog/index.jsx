@@ -8,12 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import CreateIcon from '@material-ui/icons/Create';
 import { useTranslation } from 'react-i18next';
 import styles from './ChangeNameDialog.module.css';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
+
 import { useFormInput } from '../../../../hooks/forms';
 import CustomTextField from '../../TextField';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
+
 import DoneIcon from '@material-ui/icons/Done';
 import Button from '@material-ui/core/Button';
 import { updateConversationName } from '../../../../actions/service/messaging';

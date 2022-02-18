@@ -3,7 +3,6 @@ import Container from '../components/Container';
 import Content from '../components/Content';
 
 import styles from './ForgotPassword.module.css';
-import styled from 'styled-components';
 
 import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
 import { useTranslation } from 'react-i18next';
