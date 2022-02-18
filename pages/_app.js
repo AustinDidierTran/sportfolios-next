@@ -49,9 +49,11 @@ function MyApp({ Component, pageProps }) {
   const hasHeader = useMemo(
     () =>
       ![
+        ROUTES.forgotPassword,
         ROUTES.landingPage,
         ROUTES.login,
         ROUTES.loginEmail,
+        ROUTES.recoveryEmail,
         ROUTES.setupPrimaryPerson,
         ROUTES.signup,
         ROUTES.signupEmail,

@@ -1,24 +1,27 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './LoginEmail.module.css';
-import templateStyles from '../../Authentication.module.css';
 import Link from 'next/link';
 
-import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
+import SportfoliosLogo from '../../../../../../images/svg/logo/sportfolios_teal.svg';
 
 import * as yup from 'yup';
 
-import { PASSWORD_LENGTH_ENUM } from '../../../../../common/config';
+import { PASSWORD_LENGTH_ENUM } from '../../../../../../common/config';
 import { useRouter } from 'next/router';
-import { ACTION_ENUM, Store } from '../../../../Store';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { useRedirectUrl } from '../../../../hooks/url';
-import LoginFooter from '../../components/Footer/Footer';
-import TextInput from '../../../../components/Styled/TextInput';
-import { loginWithEmail } from '../../../../actions/utils/auth/auth';
-import { useEnterListener } from '../../../../hooks/forms';
-import Button from '../../../../components/Styled/Button';
-import { ROUTES_ENUM } from '../../../../../common/enums';
+import { ACTION_ENUM, Store } from '../../../../../Store';
+import { goTo, ROUTES } from '../../../../../actions/goTo';
+import { useRedirectUrl } from '../../../../../hooks/url';
+import LoginFooter from '../../components/Footer';
+import TextInput from '../../../../../components/Styled/TextInput';
+import { loginWithEmail } from '../../../../../actions/utils/auth/auth';
+import { useEnterListener } from '../../../../../hooks/forms';
+import Button from '../../../../../components/Styled/Button';
+import { ROUTES_ENUM } from '../../../../../../common/enums';
+import Container from '../../components/Container';
+import Content from '../../components/Content';
+import styled from 'styled-components';
+import { ActionText } from '../../components';
 
 const LoginEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -78,8 +81,8 @@ const LoginEmail: React.FunctionComponent = () => {
   const signupRoute = useRedirectUrl(ROUTES.signup, redirectUrl as string);
 
   return (
-    <div className={templateStyles.container}>
-      <div className={templateStyles.content}>
+    <Container>
+      <Content>
         <SportfoliosLogo height={120} width={120} />
         <h3>{t('auth.login_to_sportfolios')}</h3>
         <TextInput
@@ -107,9 +110,12 @@ const LoginEmail: React.FunctionComponent = () => {
         <p>
           {t('auth.no_account')} <Link href={signupRoute}>{t('auth.signup')}</Link>
         </p>
-      </div>
+        <ActionText>
+          <Link href={ROUTES.forgotPassword}>{t('auth.forgot_password')}</Link>
+        </ActionText>
+      </Content>
       <LoginFooter />
-    </div>
+    </Container>
   );
 };
 

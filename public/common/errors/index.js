@@ -33,6 +33,10 @@ export const AUTH_ERROR_ENUM = {
   UNCONFIRMED_EMAIL: 'unconfirmed_email',
 };
 
+export const AUTH_STATUS_ENUM = {
+  SUCCESS: 'SUCCESS',
+};
+
 export const errors = {
   [ERROR_ENUM.ACCESS_DENIED]: {
     message: ERROR_ENUM.ACCESS_DENIED,

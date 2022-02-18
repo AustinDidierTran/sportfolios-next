@@ -1,4 +1,4 @@
-const { withPlugins, extend } = require('next-compose-plugins');
+const { withPlugins } = require('next-compose-plugins');
 
 const withWorkbox = require('next-with-workbox');
 
@@ -14,6 +14,9 @@ const baseConfig = {
     });
 
     return config;
+  },
+  compiler: {
+    styledComponents: true,
   },
 };
 if (process.argv[2] === 'dev') {

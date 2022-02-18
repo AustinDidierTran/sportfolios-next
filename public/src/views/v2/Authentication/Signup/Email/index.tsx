@@ -1,24 +1,25 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './SignupEmail.module.css';
-import templateStyles from '../../Authentication.module.css';
 import Link from 'next/link';
 
 import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
 
 import * as yup from 'yup';
 
-import { PASSWORD_LENGTH_ENUM } from '../../../../../common/config';
+import { PASSWORD_LENGTH_ENUM } from '../../../../../../common/config';
 import { useRouter } from 'next/router';
-import { Store } from '../../../../Store';
-import { goTo, ROUTES } from '../../../../actions/goTo';
-import { useRedirectUrl } from '../../../../hooks/url';
-import LoginFooter from '../../components/Footer/Footer';
-import TextInput from '../../../../components/Styled/TextInput';
-import { loginWithEmail, signupWithEmail } from '../../../../actions/utils/auth/auth';
-import { useEnterListener } from '../../../../hooks/forms';
-import Button from '../../../../components/Styled/Button';
-import { ROUTES_ENUM } from '../../../../../common/enums';
+import { Store } from '../../../../../Store';
+import { goTo, ROUTES } from '../../../../../actions/goTo';
+import { useRedirectUrl } from '../../../../../hooks/url';
+import LoginFooter from '../../components/Footer';
+import TextInput from '../../../../../components/Styled/TextInput';
+import { loginWithEmail, signupWithEmail } from '../../../../../actions/utils/auth/auth';
+import { useEnterListener } from '../../../../../hooks/forms';
+import Button from '../../../../../components/Styled/Button';
+import { ROUTES_ENUM } from '../../../../../../common/enums';
+import Container from '../../components/Container';
+import Content from '../../components/Content';
 
 const SignupEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -81,8 +82,8 @@ const SignupEmail: React.FunctionComponent = () => {
   const loginRoute = useRedirectUrl(ROUTES.login, redirectUrl as string);
 
   return (
-    <div className={templateStyles.container}>
-      <div className={templateStyles.content}>
+    <Container>
+      <Content>
         <SportfoliosLogo height={120} width={120} />
         <h3>{t('auth.register_sportfolios')}</h3>
         <TextInput
@@ -110,9 +111,9 @@ const SignupEmail: React.FunctionComponent = () => {
         <p>
           {t('auth.already_account')} <Link href={loginRoute}>{t('auth.login')}</Link>
         </p>
-      </div>
+      </Content>
       <LoginFooter />
-    </div>
+    </Container>
   );
 };
 

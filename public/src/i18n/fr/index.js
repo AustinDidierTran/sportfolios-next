@@ -1355,8 +1355,10 @@ export default {
         email: 'Courriel',
         gender: 'Genre',
         name: 'Prénom',
+        new_password: 'Nouveau mot de passe',
         password: 'Mot de passe',
         phoneNumber: '# de téléphone',
+        recovery_code: 'Code de réinitialisation',
         surname: 'Nom de famille',
       },
       gender: {
@@ -1364,9 +1366,16 @@ export default {
         female: 'Femme',
         not_specified: 'Ne pas spécifier',
       },
+      recover_password:
+        'Un code de réinitialisation a été envoyé à {{email}}. Veuillez le trouver pour réinitialiser votre mot de passe.',
+      reset_password: 'Réinitialiser le mot de passe',
+      go_to_login_email: 'Aller à la connexion',
       emergency_contact: "Contact d'urgence",
       emergency_contact_description:
         "Pour participer à certaines activités, vous allez avoir de besoin d'ajouter une personne à contacter en cas d'urgence.",
+      forgot_password: 'Mot de passe oublié?',
+      forgotten_password: 'Entrez votre courriel et nous vous enverrons un code de réinitialisation.',
+      send_recovery_code: 'Envoyer un code de réinitialisation',
       new_code: 'Nouveau code',
       new_code_sent: 'Nouveau code envoyé',
       next: 'Suivant',

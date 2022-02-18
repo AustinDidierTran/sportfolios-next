@@ -1,14 +1,12 @@
-import React, { Dispatch, useCallback, useMemo } from 'react';
+import React, { Dispatch, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { FormContainer, GENDER_OPTIONS } from '..';
+import { FormContainer } from '..';
 import LabelAndAddressInput, {
   OutputAddress,
-} from '../../../../../components/Styled/LabelAndInput/LabelAndAddressInput';
-import LabelAndPhoneNumberInput from '../../../../../components/Styled/LabelAndInput/LabelAndPhoneNumberInput';
-import LabelAndTextInput from '../../../../../components/Styled/LabelAndInput/LabelAndTextInput';
-import StripeElement from '../../../../../components/Styled/StripeElement';
-import CardSection from '../../../../../utils/stripe/CardSection';
+} from '../../../../../../components/Styled/LabelAndInput/LabelAndAddressInput';
+import LabelAndTextInput from '../../../../../../components/Styled/LabelAndInput/LabelAndTextInput';
+import StripeElement from '../../../../../../components/Styled/StripeElement';
 
 export interface PaymentMethodState {
   name: string;

@@ -30,7 +30,7 @@ const HomeRoute: React.FunctionComponent = () => {
       return;
     }
 
-    if (!userInfo.persons.length) {
+    if (!userInfo?.persons.length) {
       // You need to create a primary person
       console.log('No primary person, go setup one!');
       goTo(ROUTES_ENUM.setupPrimaryPerson);

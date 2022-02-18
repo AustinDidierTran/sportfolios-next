@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { FormContainer, GENDER_OPTIONS } from '..';
 import LabelAndAddressInput, {
   OutputAddress,
-} from '../../../../../components/Styled/LabelAndInput/LabelAndAddressInput';
-import LabelAndDateInput from '../../../../../components/Styled/LabelAndInput/LabelAndDateInput';
-import LabelAndPhoneNumberInput from '../../../../../components/Styled/LabelAndInput/LabelAndPhoneNumberInput';
-import LabelAndSelectInput from '../../../../../components/Styled/LabelAndInput/LabelAndSelectInput';
-import LabelAndTextInput from '../../../../../components/Styled/LabelAndInput/LabelAndTextInput';
+} from '../../../../../../components/Styled/LabelAndInput/LabelAndAddressInput';
+import LabelAndDateInput from '../../../../../../components/Styled/LabelAndInput/LabelAndDateInput';
+import LabelAndPhoneNumberInput from '../../../../../../components/Styled/LabelAndInput/LabelAndPhoneNumberInput';
+import LabelAndSelectInput from '../../../../../../components/Styled/LabelAndInput/LabelAndSelectInput';
+import LabelAndTextInput from '../../../../../../components/Styled/LabelAndInput/LabelAndTextInput';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 

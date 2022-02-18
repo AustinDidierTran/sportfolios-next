@@ -9,9 +9,10 @@ import SetupPrimaryPersonFirstPage, { PrimaryPersonState } from './FirstPage';
 import SetupPrimaryPersonSecondPage, { EmergencyContactState } from './SecondPage';
 import SetupPrimaryPersonThirdPage, { PaymentMethodState } from './ThirdPage';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { postInitialUserConfig } from '../../../../actions/service/user';
+import { postInitialUserConfig } from '../../../../../actions/service/user';
 import { CreateTokenCardData } from '@stripe/stripe-js';
-import { ERROR_ENUM } from '../../../../../common/enums';
+import { ERROR_ENUM } from '../../../../../../common/enums';
+import { goTo, ROUTES } from '../../../../../actions/goTo';
 
 export interface InitialUserConfig {
   primaryPerson: PrimaryPersonState;
@@ -202,7 +203,6 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
 
   const onSubmit = useCallback(
     async (skipStripe) => {
-      console.log(456, skipStripe);
       try {
         let token = null;
 
@@ -210,16 +210,13 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
           // Fetch token, and send error message if it doesn't work
 
           if (!paymentMethodState.name) {
-            console.log(1);
             throw new Error(ERROR_ENUM.ERROR_OCCURED);
           }
 
           if (!paymentMethodState.formattedBillingAddress) {
-            console.log(2);
             throw new Error(ERROR_ENUM.ERROR_OCCURED);
           }
 
-          console.log(3);
           const stripeExtraData: CreateTokenCardData = {
             name: paymentMethodState.name,
             address_line1: paymentMethodState.outputBillingAddress.street_address,
@@ -241,7 +238,9 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
           stripeToken: token,
         };
 
-        const res = await postInitialUserConfig(data);
+        await postInitialUserConfig(data);
+
+        goTo(ROUTES.home);
       } catch (error) {
         setPaymentMethodError(t(`errors.${error.message}`));
         console.error(error);

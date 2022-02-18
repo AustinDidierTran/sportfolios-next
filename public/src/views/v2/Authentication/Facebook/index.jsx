@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Container from '../../../components/Custom/Container';
-import Paper from '../../../components/Custom/Paper';
+import Container from '../../../../components/Custom/Container';
+import Paper from '../../../../components/Custom/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import styles from './LoginFacebook.module.css';
 
 import { Auth } from 'aws-amplify';
-import '../../../utils/amplify/amplifyConfig.jsx';
-import { goTo, ROUTES } from '../../../actions/goTo';
-import { loginWithCognitoToken } from '../../../actions/service/auth/auth';
-import { ACTION_ENUM, Store } from '../../../Store';
-import { LOGO_ENUM } from '../../../../common/enums';
-import { loadLoginFacebookConfig } from '../../../utils/amplify/amplifyConfig.jsx';
+import '../../../../utils/amplify/amplifyConfig.jsx';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import { loginWithCognitoToken } from '../../../../actions/service/auth/auth';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { LOGO_ENUM } from '../../../../../common/enums';
+import { loadLoginFacebookConfig } from '../../../../utils/amplify/amplifyConfig.jsx';
 
 export default function facebookLogin() {
   const { t } = useTranslation();
