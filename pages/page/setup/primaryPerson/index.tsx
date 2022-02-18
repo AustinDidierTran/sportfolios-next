@@ -5,7 +5,7 @@ import { CLIENT_BASE_URL } from '../../../../conf';
 import { ROUTES_ENUM, IMAGE_ENUM } from '../../../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const SetupPrimaryPerson = dynamic(() => import('../../../../public/src/views/Authentication/Setup/PrimaryPerson'));
+const SetupPrimaryPerson = dynamic(() => import('../../../../public/src/views/v2/Authentication/Setup/PrimaryPerson'));
 
 const SetupPrimaryPersonRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

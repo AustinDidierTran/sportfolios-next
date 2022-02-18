@@ -5,7 +5,7 @@ import { CLIENT_BASE_URL } from '../../../../conf';
 import { ROUTES_ENUM, IMAGE_ENUM } from '../../../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const SignupEmail = dynamic(() => import('../../../../public/src/views/Authentication/Signup/Email'));
+const SignupEmail = dynamic(() => import('../../../../public/src/views/v2/Authentication/Signup/Email'));
 
 const SignupEmailRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

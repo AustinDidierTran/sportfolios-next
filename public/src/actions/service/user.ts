@@ -2,7 +2,7 @@ import { formatRoute } from '../../utils/stringFormats';
 import api from '../api';
 import { Person } from '../../../../typescript/types';
 import { GLOBAL_ENUM } from '../../../common/enums';
-import { InitialUserConfig } from '../../views/Authentication/Setup/PrimaryPerson';
+import { InitialUserConfig } from '../../views/v2/Authentication/Setup/PrimaryPerson';
 
 const BASE_URL = '/api/user';
 

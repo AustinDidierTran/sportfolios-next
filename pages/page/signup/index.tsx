@@ -5,7 +5,7 @@ import { CLIENT_BASE_URL } from '../../../conf';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 
-const Signup = dynamic(() => import('../../../public/src/views/Authentication/Signup'));
+const Signup = dynamic(() => import('../../../public/src/views/v2/Authentication/Signup'));
 
 const SignupRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

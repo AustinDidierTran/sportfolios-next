@@ -5,7 +5,7 @@ import { CLIENT_BASE_URL } from '../../../conf';
 import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import dynamic from 'next/dynamic';
 
-const Login = dynamic(() => import('../../../public/src/views/Authentication/Login'));
+const Login = dynamic(() => import('../../../public/src/views/v2/Authentication/Login'));
 
 const LoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
