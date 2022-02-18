@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Validate.module.css';
 
-import SportfoliosLogo from '../../../../images/svg/logo/sportfolios_teal.svg';
+import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
 
 import { useRouter } from 'next/router';
 import { Store } from '../../../../Store';

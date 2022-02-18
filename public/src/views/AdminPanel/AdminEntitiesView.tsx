@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Teams } from './AdminEntities/teams';
-import { Events } from './AdminEntities/events';
-import { People } from './AdminEntities/people';
-import { Organizations } from './AdminEntities/organizations';
+import Teams from './AdminEntities/teams';
+import Events from './AdminEntities/events';
+import People from './AdminEntities/people';
+import Organizations from './AdminEntities/organizations';
 
 const AdminEntitiesView: React.FunctionComponent = () => {
   return (

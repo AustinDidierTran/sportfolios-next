@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './SignupEmail.module.css';
 import Link from 'next/link';
 
-import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
+import SportfoliosLogo from '../../../../../../images/svg/logo/sportfolios_teal.svg';
 
 import * as yup from 'yup';
 
