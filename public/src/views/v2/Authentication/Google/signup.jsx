@@ -1,18 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Container from '../../../components/Custom/Container';
-import Paper from '../../../components/Custom/Paper';
-import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
+import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
 
-import styles from './Google.module.css';
 import { Auth } from 'aws-amplify';
-import { goTo, ROUTES } from '../../../actions/goTo';
-import { ACTION_ENUM, Store } from '../../../Store';
-import { SEVERITY_ENUM, LOGO_ENUM } from '../../../../common/enums';
-import { loadSignupGoogleConfig } from '../../../utils/amplify/amplifyConfig.jsx';
-import { signupGoogleToken, validEmail } from '../../../actions/service/auth/auth';
+import { goTo, ROUTES } from '../../../../actions/goTo';
+import { ACTION_ENUM, Store } from '../../../../Store';
+import { SEVERITY_ENUM } from '../../../../../common/enums';
+import { loadSignupGoogleConfig } from '../../../../utils/amplify/amplifyConfig.jsx';
+import { signupGoogleToken, validEmail } from '../../../../actions/service/auth/auth';
+import Container from '../components/Container';
+import Content from '../components/Content';
+import { DescriptionText } from '../components';
 
 export default function googleSignup() {
   const { t } = useTranslation();
@@ -59,15 +58,12 @@ export default function googleSignup() {
   };
 
   return (
-    <Container className={styles.container}>
-      <div className={styles.logo}>
-        <img src={LOGO_ENUM.LOGO_512X512} height="200px" width="200px" />
-      </div>
-      <Paper className={styles.card}>
-        <CardContent>
-          <Typography>{t('wait_before_redirection')}</Typography>
-        </CardContent>
-      </Paper>
+    <Container>
+      <Content>
+        <SportfoliosLogo height={120} width={120} />
+
+        <DescriptionText>{t('wait_before_redirection')}</DescriptionText>
+      </Content>
     </Container>
   );
 }

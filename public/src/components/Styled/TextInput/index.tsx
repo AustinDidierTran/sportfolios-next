@@ -42,7 +42,7 @@ interface Classes {
 
 interface TextInputProps {
   autofocus?: boolean;
-  classes: Classes;
+  classes?: Classes;
   onChange: ChangeEventHandler<HTMLInputElement>;
   placeholder: string;
   type?: string;

@@ -1,24 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Container from '../../../../components/Custom/Container';
-import Paper from '../../../../components/Custom/Paper';
-import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
-import styles from './LoginFacebook.module.css';
+import SportfoliosLogo from '../../../../../images/svg/logo/sportfolios_teal.svg';
 
 import { Auth } from 'aws-amplify';
 import '../../../../utils/amplify/amplifyConfig.jsx';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import { loginWithCognitoToken } from '../../../../actions/service/auth/auth';
 import { ACTION_ENUM, Store } from '../../../../Store';
-import { LOGO_ENUM } from '../../../../../common/enums';
-import { loadLoginFacebookConfig } from '../../../../utils/amplify/amplifyConfig.jsx';
+import { loadLoginGoogleConfig } from '../../../../utils/amplify/amplifyConfig.jsx';
+import Container from '../components/Container';
+import Content from '../components/Content';
+import { DescriptionText } from '../components';
 
-export default function facebookLogin() {
+export default function googleLogin() {
   const { t } = useTranslation();
   const { dispatch } = React.useContext(Store);
-  loadLoginFacebookConfig();
+  loadLoginGoogleConfig();
 
   React.useEffect(() => {
     verifLogin();
@@ -27,7 +25,7 @@ export default function facebookLogin() {
   const verifLogin = async () => {
     const data = await Auth.currentAuthenticatedUser();
     const token = data.signInUserSession.idToken.jwtToken;
-    if (data.signInUserSession.idToken.payload.identities[0].providerName !== 'Facebook') {
+    if (data.signInUserSession.idToken.payload.identities[0].providerName !== 'Google') {
       goTo(ROUTES.login);
     }
     const user = await loginWithCognitoToken(token);
@@ -54,15 +52,11 @@ export default function facebookLogin() {
   };
 
   return (
-    <Container className={styles.container}>
-      <div className={styles.logo}>
-        <img src={LOGO_ENUM.LOGO_512X512} height="200px" width="200px" />
-      </div>
-      <Paper className={styles.card}>
-        <CardContent>
-          <Typography>{t('wait_before_redirection')}</Typography>
-        </CardContent>
-      </Paper>
+    <Container>
+      <Content>
+        <SportfoliosLogo height={120} width={120} />
+        <DescriptionText>{t('wait_before_redirection')}</DescriptionText>
+      </Content>
     </Container>
   );
 }

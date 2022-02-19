@@ -6,7 +6,7 @@ import { ROUTES_ENUM, IMAGE_ENUM } from '../../../public/common/enums';
 import dynamic from 'next/dynamic';
 import { FACEBOOK_APP_ID } from '../../../conf';
 
-const FacebookLogin = dynamic(() => import('../../../public/src/views/v2/Authentication/Facebook'));
+const FacebookLogin = dynamic(() => import('../../../public/src/views/v2/Authentication/Facebook/login'));
 
 const FacebookLoginRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
