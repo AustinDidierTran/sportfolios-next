@@ -6,7 +6,7 @@ import { ROUTES_ENUM } from '../../../common/enums';
 const api = async (
   route: string,
   { method, body }: { method?: string; body?: string } = {},
-  refreshToken: boolean = true
+  refreshToken = true
 ): Promise<any> => {
   const headers: any = { 'Content-Type': 'application/json' };
   const authToken = (typeof window !== 'undefined' && localStorage.getItem('authToken')) || null;

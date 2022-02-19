@@ -41,6 +41,7 @@ export const getIconFromRole = (role: string): string => {
   }
 };
 
+// eslint-disable-next-line
 export const formatRoute = (route: string, params: any, queryParams: any): string => {
   if (!route) {
     /* eslint-disable-next-line */
@@ -72,6 +73,7 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
     );
 };
 
+// eslint-disable-next-line
 export const formatDate = (date: any, format = 'LL'): string => {
   if (!date.isValid()) {
     return '';
@@ -86,6 +88,7 @@ export const formatDate = (date: any, format = 'LL'): string => {
   return moment.utc(date).format(format);
 };
 
+// eslint-disable-next-line
 export const formatIntervalDate = (start: any, end: any): string | null => {
   let word = 'to';
   let split = true;
@@ -290,6 +293,7 @@ export const validateEmail = (email: string): boolean => {
   return (email ? true : false) && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 };
 
+// eslint-disable-next-line
 export function timestampToRelativeTime(timeStamp: any): string {
   const msPerMinute = 60 * 1000;
   const msPerHour = msPerMinute * 60;

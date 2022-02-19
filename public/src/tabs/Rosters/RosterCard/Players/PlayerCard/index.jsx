@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import styles from './PlayerCard.module.css';
 import { ROSTER_ROLE_ENUM, FORM_DIALOG_TYPE_ENUM } from '../../../../../../common/enums';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import FormDialog from '../../../../../components/Custom/FormDialog';
 import StatusChip from '../../../../../components/Custom/StatusChip';
 import PersonInfoDialog from '../../../../../components/Custom/Dialog/PersonInfosDialog';
 import api from '../../../../../actions/api';
-import { formatRoute, getIconFromRole } from '../../../../../utils/stringFormats';
+import { formatRoute } from '../../../../../utils/stringFormats';
 import Avatar from '../../../../../components/Custom/Avatar';
 import { COLORS } from '../../../../../utils/colors';
 import Chip from '@material-ui/core/Chip';
@@ -20,7 +20,6 @@ export default function PlayerCard(props) {
     onDelete,
     onRoleUpdate,
     withInfos,
-    index,
     onPlayerAddToRoster,
     isAvailable,
     editableRoster = false,

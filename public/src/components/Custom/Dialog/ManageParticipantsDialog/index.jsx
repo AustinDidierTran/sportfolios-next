@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React from 'react';
 import Button from '../../Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -35,7 +35,12 @@ export default function ManageParticipantsDialog(props) {
         <DialogContent dividers>
           <List>
             {otherParticipants?.map((o) => (
-              <EditMember member={o} conversationId={conversationId} updateConversation={updateConversation} />
+              <EditMember
+                key={conversationId}
+                member={o}
+                conversationId={conversationId}
+                updateConversation={updateConversation}
+              />
             ))}
           </List>
           <AddParticipantsSection

@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useRef } from 'react';
 import { Store, ACTION_ENUM } from '../../../Store';
-import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM, ROUTES_ENUM } from '../../../../common/enums';
+import { SOCKET_EVENT, HEADER_FLYOUT_TYPE_ENUM } from '../../../../common/enums';
 import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';

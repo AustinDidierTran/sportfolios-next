@@ -137,7 +137,6 @@ const Post: React.FunctionComponent<IProps> = (props) => {
   const handleChange = (event: any): void => {
     setEditPostContent(event.target.value);
   };
-  console.log('post Infos : ', postInfo);
 
   const onClickLike = async (e: any): Promise<void> => {
     e.preventDefault();
@@ -370,7 +369,7 @@ const Post: React.FunctionComponent<IProps> = (props) => {
         title={t('login_to_continue')}
         onCancel={onCloseToLoggin}
         onSubmit={goToLogin}
-        onSubmitText={t('login')}
+        onSubmitText={t('auth.title')}
       />
     </Card>
   );

@@ -16,10 +16,6 @@ import Upload from 'rc-upload';
 import { uploadPicture } from '../../../actions/aws';
 import IconButton from '../IconButton';
 import { grey } from '@material-ui/core/colors';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
 import ImageWarningDialog from '../Dialog/ImageWarningDialog';
 
 interface IProps {

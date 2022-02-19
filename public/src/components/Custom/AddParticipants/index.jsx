@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import styles from './AddParticipants.module.css';
 import Add from '@material-ui/icons/Add';
 
-export default function AddParticipants(props) {
+export default function AddParticipants() {
   const { t } = useTranslation();
   return (
     <div className={styles.item}>

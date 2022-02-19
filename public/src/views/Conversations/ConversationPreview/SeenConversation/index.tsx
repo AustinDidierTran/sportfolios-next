@@ -2,13 +2,12 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import { IConversationPreview, Recipient } from '../../../../../../typescript/conversation';
+import { IConversationPreview } from '../../../../../../typescript/conversation';
 import styles from './SeenConversation.module.css';
 import CustomAvatar from '../../../../components/Custom/Avatar';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
 
 interface IProps {
   conversation: IConversationPreview;

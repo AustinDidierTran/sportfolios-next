@@ -29,12 +29,10 @@ export default function Players(props) {
     eventInfo,
   } = props;
   const {
-    dispatch,
     state: { id: eventId },
   } = useContext(Store);
   const [blackList, setBlackList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [acceptedSpots, setAcceptedSpots] = useState();
   const [playersRegistered, setPlayersRegistered] = useState([]);
 
   const {

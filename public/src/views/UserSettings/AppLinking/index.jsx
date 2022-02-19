@@ -5,33 +5,23 @@ import AlertDialog from '../../../components/Custom/Dialog/AlertDialog';
 import { useFacebookSDK } from '../../../hooks/setup';
 import { useTranslation } from 'react-i18next';
 import api from '../../../actions/api';
-import {
-  REQUEST_STATUS_ENUM,
-  SEVERITY_ENUM,
-  APP_ENUM,
-  FACEBOOK_STATUS_ENUM,
-  LIST_ITEM_ENUM,
-} from '../../../../common/enums';
-import { ERROR_ENUM, errors } from '../../../../common/errors';
+import { REQUEST_STATUS_ENUM, SEVERITY_ENUM, APP_ENUM, LIST_ITEM_ENUM } from '../../../../common/enums';
 import { Store, ACTION_ENUM } from '../../../Store';
 import styles from './AppLinking.module.css';
 import conf from '../../../../../conf';
 import { loadAddEmailConfigGoogle, loadAddEmailConfigFacebook } from '../../../utils/amplify/amplifyConfig';
 import { FEATURE_GOOGLE_LOGIN, FEATURE_FACEBOOK_LOGIN } from '../../../../../feature-flags';
-import { Auth, Hub } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 
 export default function AppLinking() {
   useFacebookSDK();
-  const [isLinkedFB, setIsLinkedFB] = useState(false);
-  const [isLinkedMessenger, setIsLinkedMessenger] = useState(false);
+  const [, setIsLinkedFB] = useState(false);
+  const [, setIsLinkedMessenger] = useState(false);
   const { t } = useTranslation();
   const { dispatch } = useContext(Store);
   const [alertDialog, setAlertDialog] = useState(false);
-  const [selectedApp, setSelectedApp] = useState('');
+  const [selectedApp] = useState('');
   const [fbUserId, setFBUserId] = useState();
-  const {
-    state: { userInfo },
-  } = useContext(Store);
 
   const fetchConnectedApp = async () => {
     const res = await api('/api/user/connectedApps', { method: 'GET' });
@@ -65,30 +55,30 @@ export default function AppLinking() {
     Auth.federatedSignIn({ provider: 'Facebook' });
   };
 
-  const onSuccessfulFBConnection = () => {
-    window.FB.api('/me', 'GET', { fields: 'id,email,picture,first_name,last_name' }, async function (response) {
-      const { id: facebook_id, first_name: name, last_name: surname, email, picture } = response;
-      const res = await api('/api/user/facebookConnection', {
-        method: 'POST',
-        body: JSON.stringify({
-          facebook_id,
-          name,
-          surname,
-          email,
-          picture: picture ? picture.data.url : null,
-        }),
-      });
-      if (res.status === errors[ERROR_ENUM.ACCESS_DENIED].code) {
-        showErrorToast(t('account_already_linked'));
-      } else if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
-        setIsLinkedFB(true);
-        setFBUserId(facebook_id);
-      } else {
-        showErrorToast();
-        onFBUnlink();
-      }
-    });
-  };
+  // const onSuccessfulFBConnection = () => {
+  //   window.FB.api('/me', 'GET', { fields: 'id,email,picture,first_name,last_name' }, async function (response) {
+  //     const { id: facebook_id, first_name: name, last_name: surname, email, picture } = response;
+  //     const res = await api('/api/user/facebookConnection', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //         facebook_id,
+  //         name,
+  //         surname,
+  //         email,
+  //         picture: picture ? picture.data.url : null,
+  //       }),
+  //     });
+  //     if (res.status === errors[ERROR_ENUM.ACCESS_DENIED].code) {
+  //       showErrorToast(t('account_already_linked'));
+  //     } else if (res.status === REQUEST_STATUS_ENUM.SUCCESS) {
+  //       setIsLinkedFB(true);
+  //       setFBUserId(facebook_id);
+  //     } else {
+  //       showErrorToast();
+  //       onFBUnlink();
+  //     }
+  //   });
+  // };
 
   const showErrorToast = (message, duration) => {
     dispatch({
@@ -99,23 +89,14 @@ export default function AppLinking() {
     });
   };
 
-  const onFBConnectionFailure = () => {
-    showErrorToast();
-  };
-  const loginCallback = (response) => {
-    if (response.status === FACEBOOK_STATUS_ENUM.CONNECTED) {
-      onSuccessfulFBConnection();
-    } else if (response.status === FACEBOOK_STATUS_ENUM.NOT_AUTHORIZED) {
-      onFBConnectionFailure();
-    } else {
-      onFBConnectionFailure();
-    }
-  };
+  // const onFBConnectionFailure = () => {
+  //   showErrorToast();
+  // };
 
-  const onFBUnlink = () => {
-    setSelectedApp(APP_ENUM.FACEBOOK);
-    setAlertDialog(true);
-  };
+  // const onFBUnlink = () => {
+  //   setSelectedApp(APP_ENUM.FACEBOOK);
+  //   setAlertDialog(true);
+  // };
 
   const onFBUnlinkConfirmed = async () => {
     const res = await api('/api/user/facebookConnection', {
@@ -138,38 +119,38 @@ export default function AppLinking() {
     setAlertDialog(false);
   };
 
-  const openMessenger = () => {
-    const win = window.open(`https://www.m.me/${conf.FACEBOOK_PAGE_ID}?ref=${userInfo.userId}`, '_blank');
-    if (win != null) {
-      win.focus();
-    }
-  };
+  // const openMessenger = () => {
+  //   const win = window.open(`https://www.m.me/${conf.FACEBOOK_PAGE_ID}?ref=${userInfo.userId}`, '_blank');
+  //   if (win != null) {
+  //     win.focus();
+  //   }
+  // };
 
-  const onMessengerConnect = async () => {
-    //if is already linked on facebook, try to link automaticaly by getting his messenger ID
-    if (fbUserId) {
-      const res = await api('/api/user/messengerConnection', {
-        method: 'POST',
-        body: JSON.stringify({
-          facebook_id: fbUserId,
-        }),
-      });
-      if (res.status == errors[ERROR_ENUM.VALUE_IS_INVALID].code) {
-        openMessenger();
-      } else if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
-        setIsLinkedMessenger(true);
-      } else {
-        showErrorToast();
-      }
-    } else {
-      openMessenger();
-    }
-  };
+  // const onMessengerConnect = async () => {
+  //   //if is already linked on facebook, try to link automaticaly by getting his messenger ID
+  //   if (fbUserId) {
+  //     const res = await api('/api/user/messengerConnection', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //         facebook_id: fbUserId,
+  //       }),
+  //     });
+  //     if (res.status == errors[ERROR_ENUM.VALUE_IS_INVALID].code) {
+  //       openMessenger();
+  //     } else if (res.status == REQUEST_STATUS_ENUM.SUCCESS) {
+  //       setIsLinkedMessenger(true);
+  //     } else {
+  //       showErrorToast();
+  //     }
+  //   } else {
+  //     openMessenger();
+  //   }
+  // };
 
-  const onMessengerUnlink = async () => {
-    setSelectedApp(APP_ENUM.MESSENGER);
-    setAlertDialog(true);
-  };
+  // const onMessengerUnlink = async () => {
+  //   setSelectedApp(APP_ENUM.MESSENGER);
+  //   setAlertDialog(true);
+  // };
 
   const onMessengerUnlinkConfirmed = async () => {
     const res = await api('/api/user/messengerConnection', {

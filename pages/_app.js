@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { StoreProvider } from '../public/src/Store';
 import '../styles/globals.css';
 import { I18nextProvider } from 'react-i18next';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from 'styled-components';
 import theme from '../public/theme';
+import muiTheme from '../public/mui-theme';
 import i18n from '../public/src/i18n';
 import styles from './App.module.css';
 import { Elements } from '@stripe/react-stripe-js';
@@ -17,6 +18,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { ROUTES_ENUM } from '../public/common/enums';
 import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics';
+import { ROUTES } from '../public/src/actions/goTo';
+import { MuiThemeProvider } from '@material-ui/core';
 
 const BottomNavigation = dynamic(() => import('../public/src/components/Custom/BottomNavigation'));
 const SnackBar = dynamic(() => import('../public/src/components/Custom/SnackBar'));
@@ -43,6 +46,26 @@ function MyApp({ Component, pageProps }) {
     AddGaPageView();
   });
 
+  const hasHeader = useMemo(
+    () =>
+      ![
+        ROUTES.forgotPassword,
+        ROUTES.landingPage,
+        ROUTES.login,
+        ROUTES.loginEmail,
+        ROUTES.loginFacebook,
+        ROUTES.loginGoogle,
+        ROUTES.recoveryEmail,
+        ROUTES.setupPrimaryPerson,
+        ROUTES.signup,
+        ROUTES.signupEmail,
+        ROUTES.signupEmailValidate,
+        ROUTES.signupFacebook,
+        ROUTES.signupGoogle,
+      ].includes(router.pathname),
+    [router.pathname]
+  );
+
   return (
     <StoreProvider>
       <link rel="manifest" href="/manifest.webmanifest" />
@@ -51,22 +74,24 @@ function MyApp({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="src/images/icon-180x180.png" />
       </Helmet>
       <I18nextProvider i18n={i18n}>
-        <ThemeProvider theme={theme}>
-          <Elements stripe={stripePromise}>
-            <div className={styles.app}>
-              {router.pathname !== ROUTES_ENUM.landingPage ? (
-                <div className={styles.header}>
-                  <Header />
+        <MuiThemeProvider theme={muiTheme}>
+          <ThemeProvider theme={theme}>
+            <Elements stripe={stripePromise}>
+              <div className={styles.app}>
+                {hasHeader ? (
+                  <div className={styles.header}>
+                    <Header />
+                  </div>
+                ) : null}
+                <div className={styles.main}>
+                  <Component {...pageProps} />
                 </div>
-              ) : null}
-              <div className={styles.main}>
-                <Component {...pageProps} />
+                <SnackBar />
+                {router.pathname !== ROUTES_ENUM.landingPage ? <BottomNavigation /> : null}
               </div>
-              <SnackBar />
-              {router.pathname !== ROUTES_ENUM.landingPage ? <BottomNavigation /> : null}
-            </div>
-          </Elements>
-        </ThemeProvider>
+            </Elements>
+          </ThemeProvider>
+        </MuiThemeProvider>
       </I18nextProvider>
     </StoreProvider>
   );

@@ -77,6 +77,7 @@ const editItem = async (params: {
   return editShopItem(itemParams);
 };
 
+// eslint-disable-next-line
 const onImgUpload = async (id: string, img: any, dispatch: any): Promise<{ status: number; photoUrl: string }> => {
   const photoUrl = await uploadPicture(id, img);
 

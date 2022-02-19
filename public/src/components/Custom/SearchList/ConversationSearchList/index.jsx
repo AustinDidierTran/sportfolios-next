@@ -3,30 +3,15 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useFormInput } from '../../../../hooks/forms';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useTranslation } from 'react-i18next';
-import { GLOBAL_ENUM, REQUEST_STATUS_ENUM } from '../../../../../common/enums';
 import CustomTextField from '../../TextField';
 import CustomIcon from '../../Icon';
 import ConversationList from './ConversationList';
-import { globalSearch } from '../../../../actions/service/entity/get';
 import { getConversations } from '../../../../actions/service/messaging';
 import { Store } from '../../../../Store';
-import { StylesContext } from '@material-ui/styles';
 import styles from './ConversationSearchList.module.css';
-import { goTo, ROUTES } from '../../../../actions/goTo';
 
 export default function ConversationSearchList(props) {
-  const {
-    blackList,
-    whiteList,
-    label,
-    onClick,
-    rejectedTypes = [],
-    withoutIcon,
-    secondary,
-    style,
-    autoFocus,
-    inputRef,
-  } = props;
+  const { label, onClick, secondary, autoFocus, inputRef } = props;
   const { t } = useTranslation();
   const query = useFormInput('');
   const [options, setOptions] = useState([]);
@@ -67,15 +52,6 @@ export default function ConversationSearchList(props) {
       },
       key: e.id,
     }));
-  };
-
-  const handleChange = (value) => {
-    if (value.length > 64) {
-      query.setError(t('max_length'));
-    } else {
-      query.setError(null);
-      query.onChange(value);
-    }
   };
 
   const onEnter = (e) => {

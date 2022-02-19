@@ -27,7 +27,7 @@ import CustomButton from '../../../components/Custom/Button';
 
 const ORGANIZATION_LIMIT = 10;
 
-export function Organizations(): React.ReactElement {
+const Organizations: React.FunctionComponent<Record<string, unknown>> = () => {
   const { t } = useTranslation();
 
   const [organizations, setOrganizations] = useState<Organization[]>([]);
@@ -98,4 +98,6 @@ export function Organizations(): React.ReactElement {
       </List>
     </Paper>
   );
-}
+};
+
+export default Organizations;

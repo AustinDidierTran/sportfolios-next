@@ -7,7 +7,6 @@ import styles from './UsersTable.module.css';
 import api from '../../../actions/api';
 import Router from 'next/router';
 import { formatRoute } from '../../../utils/stringFormats';
-import CustomButton from '../../../components/Custom/Button';
 import LoadingSpinner from '../../../components/Custom/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
 import { getUsersAndSecond } from '../../../actions/service/entity/get';
@@ -20,8 +19,8 @@ export default function UsersTable() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState('');
-  const [initialUsers, setInitialUsers] = useState([]);
-  const [numberToLoad, setNumberToLoad] = useState(10);
+  const [, setInitialUsers] = useState([]);
+  const [numberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const [pageUserIndex, setPageUserIndex] = useState(0);
   const [offsetUser, setOffsetUser] = useState(0);

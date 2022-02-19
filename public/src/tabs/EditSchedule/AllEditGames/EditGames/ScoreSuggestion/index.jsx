@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { CARD_TYPE_ENUM, STATUS_ENUM } from '../../../../../../common/enums';
+import { STATUS_ENUM } from '../../../../../../common/enums';
 import api from '../../../../../actions/api';
 import EditGame from './EditGame';
-import { Card, IconButton, Collapse } from '../../../../../components/Custom';
+import { IconButton, Collapse } from '../../../../../components/Custom';
 import Typography from '@material-ui/core/Typography';
 
 import { useTranslation } from 'react-i18next';

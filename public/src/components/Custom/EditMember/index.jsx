@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './EditMember.module.css';
 import Delete from '@material-ui/icons/Delete';
@@ -6,7 +6,7 @@ import Avatar from '../Avatar';
 import CreateIcon from '@material-ui/icons/Create';
 import { Typography } from '@material-ui/core';
 import { removeParticipant } from '../../../actions/service/messaging';
-import { useFormInput } from '../../../hooks/forms';
+
 import ChangeNicknameSection from '.././Dialog/ManageParticipantsDialog/ChangeNicknameSection';
 import Tooltip from '@material-ui/core/Tooltip';
 

@@ -16,7 +16,6 @@ import { useFormInput } from '../../hooks/forms';
 import CustomTextField from '../../components/Custom/TextField';
 import { getConversationMessages, sendMessage } from '../../actions/service/messaging';
 import { LoadingSpinner } from '../../components/Custom';
-import ConversationSearchList from '../../components/Custom/SearchList/ConversationSearchList';
 import moment from 'moment';
 import { SOCKET_EVENT } from '../../../common/enums';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -27,7 +26,6 @@ interface IHash {
   [details: string]: string;
 }
 
-
 interface IProps {
   convoId: string;
   recipientId: string;
@@ -37,7 +35,7 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { convoId, recipientId } = props;
   const {
-    state: { socket, userInfo: userInfo },
+    state: { socket },
   } = useContext(Store);
   //AJOUT BACKEND
   const [conversation, setConversation] = useState<IConversationPreview>();
@@ -96,7 +94,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
     scrollToBottom();
   }, [messages]);
 
-
   const nicknameMap = useMemo<IHash>(() => {
     if (!conversation) {
       return {};
@@ -113,15 +110,6 @@ const Conversation: React.FunctionComponent<IProps> = (props) => {
       p.nickname;
     }),
   ]);
-
-  const findNickname = useCallback(
-    (message: IConversationMessage) => nicknameMap[message.sender.id],
-    [
-      conversation?.participants.map((p) => {
-        p.nickname;
-      }),
-    ]
-  );
 
   const otherParticipants = useMemo(() => {
     if (!conversation) {

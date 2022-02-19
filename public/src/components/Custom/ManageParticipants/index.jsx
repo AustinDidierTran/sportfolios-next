@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import styles from './ManageParticipants.module.css';
 import FaceIcon from '@material-ui/icons/Face';
 
-export default function ManageParticipants(props) {
+export default function ManageParticipants() {
   const { t } = useTranslation();
   return (
     <div className={styles.item}>

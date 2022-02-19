@@ -1,14 +1,12 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import CustomAvatar from '../../Avatar';
-import { useTranslation } from 'react-i18next';
 import styles from './RecipientOption.module.css';
 import { seeMessages } from '../../../../actions/service/messaging';
 import { goTo, ROUTES } from '../../../../actions/goTo';
 import Typography from '@material-ui/core/Typography';
 
 export default function RecipientOption(props) {
-  const { t } = useTranslation();
   const { recipientOption, setRecipientOptions } = props;
   const handleNewRecipient = () => {
     seeMessages(recipientOption.id).then(() => {

@@ -1,19 +1,10 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React from 'react';
 import Menu from '@material-ui/core/Menu';
-import { useTranslation } from 'react-i18next';
 
-import { Store } from '../../../Store';
-import { goTo, ROUTES } from '../../../actions/goTo';
 import RecipientOption from './RecipientOption';
 
 export default function ChooseRecipient(props) {
-  const { t } = useTranslation();
-
   const { open, anchorEl, handleClose, recipientOptions, setRecipientOptions } = props;
-  const {
-    state: { userInfo: userInfo, socket },
-  } = useContext(Store);
-
 
   return (
     <Menu
@@ -27,7 +18,7 @@ export default function ChooseRecipient(props) {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     >
       {recipientOptions?.map((r) => (
-        <RecipientOption recipientOption={r} setRecipientOptions={setRecipientOptions} />
+        <RecipientOption key={r} recipientOption={r} setRecipientOptions={setRecipientOptions} />
       ))}
     </Menu>
   );
