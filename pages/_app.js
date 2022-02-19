@@ -53,11 +53,15 @@ function MyApp({ Component, pageProps }) {
         ROUTES.landingPage,
         ROUTES.login,
         ROUTES.loginEmail,
+        ROUTES.loginFacebook,
+        ROUTES.loginGoogle,
         ROUTES.recoveryEmail,
         ROUTES.setupPrimaryPerson,
         ROUTES.signup,
         ROUTES.signupEmail,
         ROUTES.signupEmailValidate,
+        ROUTES.signupFacebook,
+        ROUTES.signupGoogle,
       ].includes(router.pathname),
     [router.pathname]
   );
