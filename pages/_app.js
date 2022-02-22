@@ -49,15 +49,12 @@ function MyApp({ Component, pageProps }) {
     () =>
       ![
         ROUTES.forgotPassword,
-        ROUTES.home,
         ROUTES.landingPage,
         ROUTES.login,
         ROUTES.loginEmail,
         ROUTES.loginFacebook,
         ROUTES.loginGoogle,
-        ROUTES.notifications,
         ROUTES.recoveryEmail,
-        ROUTES.search,
         ROUTES.setupPrimaryPerson,
         ROUTES.signup,
         ROUTES.signupEmail,
