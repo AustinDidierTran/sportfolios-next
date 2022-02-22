@@ -3,13 +3,15 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { COMPONENT_TYPE_ENUM, PHASE_STATUS_ENUM, SEVERITY_ENUM } from '../../../../common/enums';
 import { ERROR_ENUM } from '../../../../common/errors';
-import FormDialog from '../../../components/Custom/FormDialog';
+import { DialogPresentation } from '../../../components/Custom/FormDialog';
 import { formatDate } from '../../../utils/stringFormats';
 import moment from 'moment';
 import * as yup from 'yup';
 import { Store, ACTION_ENUM } from '../../../Store';
 import { haveDifferentPhase } from './AddGame.utils';
 import { Field, Game, Phase, Ranking, TimeSlot } from '../../../../../typescript/types';
+import Select from '../../../components/Custom/Select';
+import Button from '@material-ui/core/Button';
 
 interface IProps {
   isOpen: boolean;
@@ -114,19 +116,6 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
     onSubmit: sendToInteractiveTool,
   });
 
-  const buttons = [
-    {
-      onClick: onFinish,
-      name: t('cancel'),
-      color: 'secondary',
-    },
-    {
-      type: 'submit',
-      name: t('add.add'),
-      color: 'primary',
-    },
-  ];
-
   useEffect((): void => {
     if (formik.values.phase !== '' && formik.values.position1 === '' && formik.values.position2 === '') {
       formik.setFieldValue('position1', '');
@@ -170,37 +159,28 @@ const AddGame: React.FunctionComponent<IProps> = (props) => {
     }
   }, [formik.values.position1, formik.values.position2]);
 
-  const fields = [
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: phases,
-      namespace: 'phase',
-      label: t('phase'),
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: firstPositionOptions,
-      namespace: 'position1',
-      label: 'Position 1',
-    },
-    {
-      componentType: COMPONENT_TYPE_ENUM.SELECT,
-      options: secondPositionOptions,
-      namespace: 'position2',
-      label: 'Position 2',
-    },
-  ];
-
   return (
-    <FormDialog
+    <DialogPresentation
       open={isOpen}
       title={t('create.create_a_game')}
-      description={description}
-      buttons={buttons}
-      fields={fields}
       formik={formik}
       onClose={onClose}
-    />
+      buttons={
+        <>
+          <Button onClick={onFinish} color="secondary">
+            {t('cancel')}
+          </Button>
+          <Button type="submit" color="primary">
+            {t('add.add')}
+          </Button>
+        </>
+      }
+    >
+      {description}
+      <Select options={phases} namespace="phase" label={t('phase')} formik={formik} />
+      <Select options={firstPositionOptions} namespace="position1" label={t('Position 1')} formik={formik} />
+      <Select options={secondPositionOptions} namespace="position2" label={t('Position 2')} formik={formik} />
+    </DialogPresentation>
   );
 };
 export default AddGame;
