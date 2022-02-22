@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,14 +9,10 @@ import styles from './QuitConvoDialog.module.css';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '../../Button';
 import { goTo, ROUTES } from '../../../../actions/goTo';
-import { Store } from '../../../../Store';
 import { removeParticipant } from '../../../../actions/service/messaging';
 
 export default function QuitConvoDialog(props) {
-  const { open, onClose, conversationId, updateConversation, recipientId } = props;
-  const {
-    state: { userInfo: userInfo },
-  } = useContext(Store);
+  const { open, onClose, conversationId, recipientId } = props;
   const { t } = useTranslation();
 
   const handleQuit = () => {

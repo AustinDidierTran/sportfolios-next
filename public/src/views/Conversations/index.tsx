@@ -1,10 +1,7 @@
-import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IgContainer from '../../components/Custom/IgContainer';
 import { useTranslation } from 'react-i18next';
 import styles from './Conversations.module.css';
@@ -20,12 +17,8 @@ import { SOCKET_EVENT } from '../../../common/enums';
 import { getConversations, getAllOwnedEntitiesMessaging } from '../../actions/service/messaging';
 import ConversationPreview from './ConversationPreview';
 import ChooseRecipient from '../../components/Custom/ChooseRecipient';
-import { Person } from '../../../../typescript/entity';
 import CustomAvatar from '../../components/Custom/Avatar';
 import { FEATURE_CONVERSATION_SEARCH_BAR } from '../../../../feature-flags';
-import { CodeSharp } from '@material-ui/icons';
-import { cloneNode, isFunctionTypeParam } from '@babel/types';
-import { ConsoleLogger } from '@aws-amplify/core';
 
 interface IProps {
   recipientId: string;
@@ -35,7 +28,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
   const { t } = useTranslation();
   const { recipientId } = props;
   const {
-    state: { userInfo: userInfo, socket },
+    state: { socket },
   } = useContext(Store);
   const [conversations, setConversations] = useState<IConversationPreview[]>([]);
   const [recipientOptions, setRecipientOptions] = useState<Recipient[]>([]);
@@ -130,7 +123,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
       }
       const conversationChoices = await resetUnseenMessages(message);
       await incrementUnSeenMessages(message, conversationChoices);
-      setConversations((oldConversations) => {
+      setConversations(() => {
         const conversationsCopy = [...conversationChoices];
         const conversationIds = conversationsCopy?.map((c) => c.id);
         const index = conversationIds.indexOf(message.conversationId);
@@ -215,7 +208,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
             }
           />
           <div className={styles.cardContent}>
-             {FEATURE_CONVERSATION_SEARCH_BAR ? (
+            {FEATURE_CONVERSATION_SEARCH_BAR ? (
               <div className={styles.searchBar}>
                 <ConversationSearchList onClick={goToConversation} />
               </div>
@@ -224,7 +217,7 @@ const Conversations: React.FunctionComponent<IProps> = (props) => {
             )}
             <List>
               {orderedConversations?.map((c) => (
-                <ConversationPreview conversation={c} recipientId={recipientId} />
+                <ConversationPreview key={recipientId} conversation={c} recipientId={recipientId} />
               ))}
             </List>
           </div>

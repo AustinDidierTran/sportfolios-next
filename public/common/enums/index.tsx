@@ -328,6 +328,9 @@ export enum ROUTES_ENUM {
   importMembers = '/page/importMembers',
   landingPage = '/page/landingPage',
   login = '/page/login',
+  loginEmail = '/page/login/email',
+  loginFacebook = '/page/login/facebook',
+  loginGoogle = '/page/login/google',
   membersList = '/page/membersList',
   menu = '/page/menu',
   newMessage = '/page/newMessage',
@@ -350,8 +353,13 @@ export enum ROUTES_ENUM {
   scheduleInteractiveTool = '/page/scheduleInteractiveTool/:id',
   scheduleManager = '/page/scheduleManager',
   search = '/page/search',
+  setupPrimaryPerson = '/page/setup/primaryPerson',
   shopDetails = '/page/shopDetails/:id/:stripePriceId',
   signup = '/page/signup',
+  signupEmail = '/page/signup/email',
+  signupEmailValidate = '/page/signup/email/validate',
+  signupFacebook = '/page/signup/facebook',
+  signupGoogle = '/page/signup/google',
   stripe = '/page/stripe',
   teamPlayersAcceptation = '/page/teamPlayersAcceptation/:id',
   teamsAcceptation = '/page/teamsAcceptation/:id',
@@ -664,4 +672,8 @@ export enum AuthErrorTypes {
   NetworkError = 'networkError',
   NewPasswordRequired = 'NEW_PASSWORD_REQUIRED',
   NotAuthorizedException = 'NotAuthorizedException',
+}
+
+export enum ERROR_ENUM {
+  ERROR_OCCURED = 'error_occured',
 }

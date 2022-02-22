@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Paper from '../../../components/Custom/Paper';
@@ -9,6 +8,7 @@ import Button from '../../../components/Custom/Button';
 import { useTranslation } from 'react-i18next';
 import styles from './RegisterCard.module.css';
 import { COLORS } from '../../../utils/colors';
+import { TextField } from '../../../components/Custom';
 
 export default function RegisterCard(props) {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export default function RegisterCard(props) {
           >
             {t('create.create_an_account_to_accept_person_transfer')}
           </Typography>
-          <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth formikDisabled />
+          <TextField namespace="email" formik={formik} type="email" label={t('email.email')} fullWidth />
           <TextField namespace="password" formik={formik} label={t('password')} type="password" fullWidth />
         </CardContent>
         <CardActions>

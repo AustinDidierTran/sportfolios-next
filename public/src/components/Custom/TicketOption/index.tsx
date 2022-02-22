@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './TicketOption.module.css';
 import { Typography } from '@material-ui/core';
 import { formatPrice } from '../../../utils/stringFormats';
-import { useTranslation } from 'react-i18next';
 import { ITicketOption } from '../../../../../typescript/game';
 
 interface IProps {

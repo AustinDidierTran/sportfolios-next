@@ -35,13 +35,16 @@ import {
   Event,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
-import { AnySchema } from 'yup';
 
 const BASE_URL = '/api/entity';
 
 export function getEntity(id: string): Promise<Entity> {
-  return api(formatRoute(`${BASE_URL}`, null, { id }), { method: 'GET' }).then((res) => res.data.basicInfos);
+  return api(formatRoute(BASE_URL, null, { id }), { method: 'GET' }).then((res) => res.data);
 }
+
+export const getRealEntityId = (id: string): Promise<string> => {
+  return api(formatRoute(`${BASE_URL}/realId`, null, { id }), { method: 'GET' }).then((res) => res.data);
+};
 
 export function getEntityEvents(organizationId: string): Promise<OwnedEvents[]> {
   return api(formatRoute(`${BASE_URL}/ownedEvents`, null, { organizationId }), { method: 'GET' }).then(

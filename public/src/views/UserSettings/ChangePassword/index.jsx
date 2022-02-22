@@ -8,7 +8,6 @@ import TextField from '../../../components/Custom/TextField';
 import styles from './ChangePassword.module.css';
 
 import { Store, ACTION_ENUM } from '../../../Store';
-import api from '../../../actions/api';
 import { goTo, ROUTES } from '../../../actions/goTo';
 import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 
@@ -16,10 +15,7 @@ import { Auth } from 'aws-amplify';
 import '../../../utils/amplify/amplifyConfig.jsx';
 
 export default function ChangePassword() {
-  const {
-    state: { authToken },
-    dispatch,
-  } = useContext(Store);
+  const { dispatch } = useContext(Store);
   const { t } = useTranslation();
 
   const validate = (values) => {
@@ -58,7 +54,7 @@ export default function ChangePassword() {
       const { oldPassword, newPassword } = values;
       await Auth.currentAuthenticatedUser()
         .then((user) => Auth.changePassword(user, oldPassword, newPassword))
-        .then((data) => {
+        .then(() => {
           resetForm();
           dispatch({
             type: ACTION_ENUM.SNACK_BAR,

@@ -56,6 +56,7 @@ export default function TransferPerson() {
     dispatch({
       type: ACTION_ENUM.CLEAR_USER_INFO,
     });
+
     formik.setFieldValue('email', email);
     setPersonId(personId);
     setIsLoading(false);

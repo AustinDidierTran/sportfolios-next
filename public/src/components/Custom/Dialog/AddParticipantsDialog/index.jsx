@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { default as CloseButton } from '../../Button';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,12 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Add from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
 import styles from './AddParticipantsDialog.module.css';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
 import { useFormInput } from '../../../../hooks/forms';
 import ParticipantsSearchList from '../../SearchList/ParticipantsSearchList';
-import Chip from '@material-ui/core/Chip';
-import DoneIcon from '@material-ui/icons/Done';
 import { addParticipants } from '../../../../actions/service/messaging';
 
 export default function AddParticipantsDialog(props) {

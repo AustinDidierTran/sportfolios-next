@@ -1,4 +1,4 @@
-const ERROR_ENUM = {
+export const ERROR_ENUM = {
   ACCESS_DENIED: 'Access denied',
   CLOSE_AFTER_OPEN: 'error_close_date_before_start_date',
   EMAIL_ALREADY_EXIST: 'email_already_exist',
@@ -20,7 +20,24 @@ const ERROR_ENUM = {
   VALUE_IS_TOO_LONG: 'value_is_too_long',
 };
 
-const errors = {
+export const COGNITO_ERROR_ENUM = {
+  INVALID_CODE: 'Invalid verification code provided, please try again.',
+  EMPTY_CODE: 'Confirmation code cannot be empty',
+};
+
+export const AUTH_ERROR_ENUM = {
+  EMAIL_ALREADY_TAKEN: 'email_already_taken',
+  ERROR_OCCURED: 'error_occured',
+  MIGRATION_ERROR: 'migration_error',
+  NO_EXISTING_ACCOUNT: 'no_existing_account',
+  UNCONFIRMED_EMAIL: 'unconfirmed_email',
+};
+
+export const AUTH_STATUS_ENUM = {
+  SUCCESS: 'SUCCESS',
+};
+
+export const errors = {
   [ERROR_ENUM.ACCESS_DENIED]: {
     message: ERROR_ENUM.ACCESS_DENIED,
     code: 401,
@@ -90,4 +107,3 @@ const errors = {
     code: 411,
   },
 };
-module.exports = { ERROR_ENUM, errors };

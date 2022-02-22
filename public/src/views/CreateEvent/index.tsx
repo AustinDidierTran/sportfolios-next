@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { EVENT_TYPE, GLOBAL_ENUM, REQUEST_STATUS_ENUM, TABS_ENUM } from '../../../common/enums';
 import { useTranslation } from 'react-i18next';
-import dynamic from 'next/dynamic';
 import { formatDate, formatPageTitle } from '../../utils/stringFormats';
 import IgContainer from '../../components/Custom/IgContainer';
 import CustomPaper from '../../components/Custom/Paper';

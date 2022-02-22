@@ -1,4 +1,3 @@
-import { Organization } from '../../../../../typescript/entity';
 import { formatRoute } from '../../../utils/stringFormats';
 import api from '../../api';
 import { Member, Report } from '../../../../../typescript/types';

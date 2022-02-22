@@ -8,7 +8,6 @@ import styles from './AddBankAccount.module.css';
 import CountrySelect from './CountrySelect';
 import CurrencySelect from './CurrencySelect';
 import { goTo, ROUTES } from '../../actions/goTo';
-import { hasXDigits } from '../../utils/validators';
 import Button from '../../components/Custom/Button';
 import IgContainer from '../../components/Custom/IgContainer';
 import Paper from '../../components/Custom/Paper';
@@ -152,18 +151,8 @@ const AddBankAccount: React.FunctionComponent<IProps> = (props) => {
                 label={t('account_holder_name')}
                 fullWidth
               />
-              <TextField
-                namespace="transitNumber"
-                formik={formik}
-                label={t('transit_number')}
-                fullWidth
-              />
-              <TextField
-                namespace="institutionNumber"
-                formik={formik}
-                label={t('institution_number')}
-                fullWidth
-              />
+              <TextField namespace="transitNumber" formik={formik} label={t('transit_number')} fullWidth />
+              <TextField namespace="institutionNumber" formik={formik} label={t('institution_number')} fullWidth />
               <TextField
                 namespace="accountNumber"
                 formik={formik}

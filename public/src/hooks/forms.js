@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 
 export const useFormInput = (initialValue) => {
   const [defaultValue, setDefaultValue] = useState(initialValue);
@@ -90,4 +90,32 @@ export const useStepper = () => {
     handleNotCompleted,
     handleReset,
   };
+};
+
+export const useDeleteListener = (onDelete) => {
+  React.useEffect(() => {
+    const eventListener = (event) => {
+      if (event.code === 'Backspace') {
+        onDelete();
+      }
+    };
+
+    window.addEventListener('keyup', eventListener);
+
+    return () => window.removeEventListener('keyup', eventListener);
+  }, [onDelete]);
+};
+
+export const useEnterListener = (onEnter) => {
+  React.useEffect(() => {
+    const eventListener = (event) => {
+      if (event.code === 'Enter') {
+        onEnter();
+      }
+    };
+
+    window.addEventListener('keyup', eventListener);
+
+    return () => window.removeEventListener('keyup', eventListener);
+  }, [onEnter]);
 };

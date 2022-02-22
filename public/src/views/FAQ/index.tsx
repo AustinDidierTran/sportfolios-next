@@ -1,10 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import dynamic from 'next/dynamic';
-import Button from '@material-ui/core/Button';
 import styles from './FAQ.module.css';
-import { Store } from '../../Store';
-import api from '../../actions/api';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
@@ -14,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
 import Divider from '@material-ui/core/Divider';
 import IgContainer from '../../components/Custom/IgContainer';
-const Posts = dynamic(() => import('../../components/Custom/Posts'));
 
 const FAQ: React.FunctionComponent = () => {
   const { t } = useTranslation();
