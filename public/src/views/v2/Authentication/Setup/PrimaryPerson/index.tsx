@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
@@ -9,14 +9,16 @@ import SetupPrimaryPersonSecondPage, { EmergencyContactState } from './SecondPag
 import SetupPrimaryPersonThirdPage, { PaymentMethodState } from './ThirdPage';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { postInitialUserConfig } from '../../../../../actions/service/user';
-import { CreateTokenCardData } from '@stripe/stripe-js';
-import { ERROR_ENUM } from '../../../../../../common/enums';
+import { CreateTokenCardData, Token } from '@stripe/stripe-js';
+import { ERROR_ENUM, ROUTES_ENUM } from '../../../../../../common/enums';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
+import { keepOnlyDigits } from '../../../../../utils/stringFormats';
+import { ACTION_ENUM, Store } from '../../../../../Store';
 
 export interface InitialUserConfig {
   primaryPerson: PrimaryPersonState;
   emergencyContact: EmergencyContactState;
-  stripeToken: string;
+  stripeToken: Token;
 }
 
 const PreviousButton = styled.button`
@@ -104,9 +106,9 @@ export const FormContainer = styled.div`
 `;
 
 export enum GENDER_OPTIONS {
-  MALE = 'male',
-  FEMALE = 'female',
-  NOT_SPECIFIED = 'not_specified',
+  MALE = 'Male',
+  FEMALE = 'Female',
+  NOT_SPECIFIED = 'Other',
 }
 
 const SetupPrimaryPerson: React.FunctionComponent = () => {
@@ -114,6 +116,17 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const {
+    state: { userInfo },
+    dispatch,
+  } = useContext(Store);
+
+  useEffect(() => {
+    if (userInfo?.persons?.length) {
+      goTo(ROUTES_ENUM.home);
+    }
+  }, [userInfo?.persons?.length]);
 
   // NEW CODE HERE
   const [primaryPersonState, setPrimaryPersonState] = useState<PrimaryPersonState>({
@@ -201,7 +214,7 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
   const onSubmit = useCallback(
     async (skipStripe) => {
       try {
-        let token = null;
+        let token: Token = null;
 
         if (!skipStripe) {
           // Fetch token, and send error message if it doesn't work
@@ -225,17 +238,40 @@ const SetupPrimaryPerson: React.FunctionComponent = () => {
           };
 
           const res = await stripe.createToken(elements.getElement(CardNumberElement), stripeExtraData);
-          token = res.token.id;
+          token = res.token;
         }
 
         // Send data to backend
         const data = {
-          primaryPerson: primaryPersonState,
-          emergencyContact: secondFormComplete ? emergencyContactState : null,
+          primaryPerson: {
+            image: primaryPersonState.image,
+            photoUrl: primaryPersonState.photoUrl,
+            name: primaryPersonState.name,
+            surname: primaryPersonState.surname,
+            gender: primaryPersonState.gender,
+            birthDate: primaryPersonState.birthDate,
+            phoneNumber: keepOnlyDigits(primaryPersonState.phoneNumber),
+            formattedAddress: primaryPersonState.formattedAddress,
+            outputAddress: primaryPersonState.outputAddress,
+          },
+          emergencyContact: secondFormComplete
+            ? {
+                name: emergencyContactState.name,
+                surname: emergencyContactState.surname,
+                phoneNumber: keepOnlyDigits(emergencyContactState.phoneNumber),
+                formattedAddress: emergencyContactState.formattedAddress,
+                outputAddress: emergencyContactState.outputAddress,
+              }
+            : null,
           stripeToken: token,
         };
 
-        await postInitialUserConfig(data);
+        const userInfo = await postInitialUserConfig(data);
+
+        dispatch({
+          type: ACTION_ENUM.UPDATE_USER_INFO,
+          payload: userInfo,
+        });
 
         goTo(ROUTES.home);
       } catch (error) {

@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 const FooterContainer = styled.div`
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: Montserrat;
   font-size: 0.5625rem;
   text-align: center;
 

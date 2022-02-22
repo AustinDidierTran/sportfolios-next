@@ -30,6 +30,7 @@ const AdminGeneralView: React.FunctionComponent = () => {
   } = useContext(Store);
 
   const getDataGraph = async () => {
+    // eslint-disable-next-line no-useless-catch
     try {
       const { data } = await api(
         formatRoute('/api/entity/graphUserCount', null, {
@@ -44,7 +45,7 @@ const AdminGeneralView: React.FunctionComponent = () => {
       setGraphData(data);
       setIsLoading(false);
     } catch (err) {
-      console.log(1, { err });
+      throw err;
     }
   };
 

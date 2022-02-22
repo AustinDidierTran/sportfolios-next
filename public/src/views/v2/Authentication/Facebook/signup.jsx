@@ -21,12 +21,11 @@ export default function facebookSignup() {
   loadSignupFacebookConfig();
 
   React.useEffect(() => {
-    signupGmail();
+    signupFacebook();
   }, [dispatch]);
 
-  const signupGmail = async () => {
+  const signupFacebook = async () => {
     const data = await Auth.currentAuthenticatedUser();
-    console.log(data);
     if (!data.signInUserSession.idToken.payload.identities) {
       goTo(ROUTES.signup);
     }

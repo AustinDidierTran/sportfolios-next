@@ -343,3 +343,5 @@ export function getTimeToShow(date: string): string {
     return moment.utc(newDate).format('DD MMMM YYYY');
   }
 }
+
+export const keepOnlyDigits = (message: string): string => message.replace(/[^0-9]/g, '');

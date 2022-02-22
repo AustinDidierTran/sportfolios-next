@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Content = styled.div`
+  font-family: Montserrat;
   flex: 1;
   display: flex;
   flex-direction: column;

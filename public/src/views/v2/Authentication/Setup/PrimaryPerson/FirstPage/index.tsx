@@ -27,7 +27,6 @@ const UploadText = styled.span`
   cursor: pointer;
   color: ${(props) => props.theme.blue.main};
   font-size: 0.75rem;
-  font-family: 'SF Pro, Semibold';
 `;
 
 const Divider = styled.hr`

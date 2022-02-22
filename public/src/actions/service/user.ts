@@ -30,5 +30,5 @@ export const postInitialUserConfig = async (data: InitialUserConfig): Promise<an
   return api(`${BASE_URL}/initialUserConfig`, {
     method: 'POST',
     body: JSON.stringify(data),
-  });
+  }).then((res) => res.data);
 };

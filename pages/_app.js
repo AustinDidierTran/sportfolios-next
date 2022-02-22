@@ -16,7 +16,6 @@ import Header from '../public/src/views/Header';
 import conf from '../conf';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { ROUTES_ENUM } from '../public/common/enums';
 import { AddGaPageView, InitGa } from '../public/src/components/Custom/Analytics';
 import { ROUTES } from '../public/src/actions/goTo';
 import { MuiThemeProvider } from '@material-ui/core';
@@ -87,7 +86,7 @@ function MyApp({ Component, pageProps }) {
                   <Component {...pageProps} />
                 </div>
                 <SnackBar />
-                {router.pathname !== ROUTES_ENUM.landingPage ? <BottomNavigation /> : null}
+                {hasHeader ? <BottomNavigation /> : null}
               </div>
             </Elements>
           </ThemeProvider>
