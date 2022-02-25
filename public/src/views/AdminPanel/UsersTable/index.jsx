@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Table from '../../../components/Custom/Table';
 import Paper from '../../../components/Custom/Paper';
@@ -23,8 +23,7 @@ export default function UsersTable() {
   const [initialUsers, setInitialUsers] = useState([]);
   const [numberToLoad, setNumberToLoad] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-  const [pageUserIndex, setPageUserIndex] = useState(0);
-  const [offsetUser, setOffsetUser] = useState(0);
+  const [pageUserIndex, setPageUserIndex] = useState(1);
 
   const loadUsers = async (offset, filter) => {
     const fetchedUsers = await getUsersAndSecond(offset, filter);
@@ -74,10 +73,11 @@ export default function UsersTable() {
     { display: t('delete.delete'), value: 'role', type: 'iconButton', width: '10%' },
   ];
 
+  const offsetUser = useMemo(() => (pageUserIndex - 1) * numberToLoad, [pageUserIndex, numberToLoad]);
+
   const handleChangePage = (value) => {
-    const newPage = Math.max(0, value);
+    const newPage = Math.max(1, value);
     setPageUserIndex(newPage);
-    setOffsetUser(newPage * numberToLoad);
   };
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function UsersTable() {
             />
           </CardContent>
           <div className={styles.pageIndex}>
-            {pageUserIndex === 0 ? (
+            {pageUserIndex === 1 ? (
               <Button startIcon={<ArrowBackIosRoundedIcon />} disabled></Button>
             ) : (
               <Button
@@ -125,7 +125,12 @@ export default function UsersTable() {
             ) : (
               <Button startIcon={<ArrowForwardIosRoundedIcon />} disabled></Button>
             )}
-            <TextField label="#" type="search" onChange={(e) => handleChangePage(e.target.value - 1)} />
+            <TextField
+              label="#"
+              type="search"
+              onChange={(e) => handleChangePage(e.target.value)}
+              value={pageUserIndex}
+            />
           </div>
         </>
       )}
