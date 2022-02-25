@@ -72,7 +72,9 @@ export function getRoster(rosterId: string, withSub: boolean): Promise<any> {
 }
 
 export function getUsersAndSecond(offset: number, filter: string): Promise<User> {
-  return api(formatRoute('/api/admin/users', null, { offset, filter }), { method: 'GET' }).then((res) => res.data);
+  return api(formatRoute('/api/admin/users', null, { offset: offset.toString(), filter }), { method: 'GET' }).then(
+    (res) => res.data
+  );
 }
 
 export function getGames(eventId: string): Promise<Games[]> {
