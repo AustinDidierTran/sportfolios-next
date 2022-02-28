@@ -1,3 +1,4 @@
+import { Search } from '@material-ui/icons';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import React, { ChangeEventHandler, useEffect, useMemo, useRef, useState } from 'react';
@@ -95,6 +96,20 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
             height={16}
             width={16}
             onClick={() => setShowPassword((sp) => !sp)}
+            className={classes.icon}
+            style={{
+              width: '1rem',
+              height: '1rem',
+              color: 'rgba(186, 186, 186, 1)',
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        {type === 'search' ? (
+          <Search
+            height={16}
+            width={16}
             className={classes.icon}
             style={{
               width: '1rem',

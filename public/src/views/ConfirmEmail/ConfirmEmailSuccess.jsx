@@ -34,7 +34,7 @@ export default function ConfirmEmailSuccess() {
 
   const buttons = [
     {
-      name: t('home'),
+      name: t('home.title'),
       onClick: () => {
         goTo(ROUTES.home);
       },

@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../public/common/enums';
 
-const Search = dynamic(() => import('../../public/src/views/Search'));
+// const Search = dynamic(() => import('../../public/src/views/Search'));
+const Search = dynamic(() => import('../../public/src/views/v2/Search'));
 
 const SearchRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

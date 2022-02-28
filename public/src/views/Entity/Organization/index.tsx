@@ -44,7 +44,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   }, [id]);
 
   const userState = [
-    { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
+    { component: Home, value: TABS_ENUM.HOME, label: t('home.title'), icon: 'Home' },
     { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
     { component: Memberships, value: TABS_ENUM.MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
     { component: Partners, value: TABS_ENUM.PARTNERS, label: t('partner.partners'), icon: 'EmojiPeople' },
@@ -52,7 +52,7 @@ const Organization: React.FunctionComponent<IProps> = (props) => {
   ];
 
   const adminState = [
-    { component: Home, value: TABS_ENUM.HOME, label: t('home'), icon: 'Home' },
+    { component: Home, value: TABS_ENUM.HOME, label: t('home.title'), icon: 'Home' },
     { component: Events, value: TABS_ENUM.EVENTS, label: t('event.events'), icon: 'Event' },
     { component: EditMemberships, value: TABS_ENUM.EDIT_MEMBERSHIPS, label: t('member.memberships'), icon: 'Group' },
     { component: Settings, value: TABS_ENUM.SETTINGS, label: t('settings'), icon: 'Settings' },

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { EventPost } from '../../../../../../../typescript/event';
 import { ROUTES } from '../../../../../actions/goTo';
@@ -63,6 +64,7 @@ interface Props {
 }
 
 const EventCard: React.FunctionComponent<Props> = (props) => {
+  const { t } = useTranslation();
   const { post } = props;
 
   const description = useMemo(
@@ -80,7 +82,7 @@ const EventCard: React.FunctionComponent<Props> = (props) => {
       <Content>
         {post.name ? <EventName>{post.name}</EventName> : <></>}
         <EventDescription>{decodeURIComponent(description)}</EventDescription>
-        <ReadMore href={formatRoute(ROUTES.entity, { id: post.eventId }, null)}>Read more</ReadMore>
+        <ReadMore href={formatRoute(ROUTES.entity, { id: post.eventId }, null)}>{t('home.read_more')}</ReadMore>
       </Content>
     </Container>
   );

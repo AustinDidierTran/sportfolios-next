@@ -79,14 +79,14 @@ export default function RegistrationStatus() {
         values = {
           message: t('no.no_remaining_spots'),
           onClick: returnHome,
-          button: t('home'),
+          button: t('home.title'),
           endIcon: 'Home',
         };
       } else {
         values = {
           message: t('register.registration_refused'),
           onClick: returnHome,
-          button: t('home'),
+          button: t('home.title'),
           endIcon: 'Home',
         };
       }

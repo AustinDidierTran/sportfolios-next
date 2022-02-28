@@ -60,7 +60,7 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
     return withParams;
   }
 
-  return Object.keys(queryParams)
+  const abc = Object.keys(queryParams)
     .filter((q) => q)
     .reduce(
       (prev, key, index) =>
@@ -71,6 +71,8 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
           : `${prev}&${key}=${queryParams[key]}`,
       withParams
     );
+
+  return abc;
 };
 
 // eslint-disable-next-line

@@ -23,7 +23,7 @@ export default function CollapseTable(props) {
       </Typography>
       {filter && (
         <div>
-          <TextField onChange={filterhandler} label={t('search')} />
+          <TextField onChange={filterhandler} label={t('search.title')} />
         </div>
       )}
       <Table className={styles.table}>

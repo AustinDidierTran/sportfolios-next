@@ -95,7 +95,7 @@ export default function Cart() {
   if (items.length < 1) {
     const buttons = [
       {
-        name: t('home'),
+        name: t('home.title'),
         onClick: () => {
           goTo(ROUTES.home);
         },

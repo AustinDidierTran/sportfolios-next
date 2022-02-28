@@ -1,9 +1,18 @@
+export enum EntityType {
+  PERSON = '1',
+  ORGANIZATION = '2',
+  TEAM = '3',
+  EVENT = '4',
+}
+
 export interface Entity {
   id: string;
   name: string;
   photoUrl: string;
+  createdAt?: Date;
   verifiedAt?: Date;
   deletedAt?: Date;
+  type?: number;
 }
 
 export interface Person extends Entity {

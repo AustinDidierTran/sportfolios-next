@@ -72,7 +72,7 @@ export default function OrderProcessed() {
             goTo('/');
           }}
         >
-          {t('home')}
+          {t('home.title')}
         </Button>
         <Button
           size="small"

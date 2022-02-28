@@ -6,22 +6,17 @@ import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { Store } from '../../../Store';
 import { useRouter } from 'next/router';
 import { goTo, ROUTES } from '../../../actions/goTo';
-import HomeContainer from './components/Container';
 import HomeHeader from '../common/Header';
-import HomeFooter from '../common/Footer';
+import MainFooter from '../common/MainLayout/Footer';
 import HomeContent from './components/Content';
 import EventCard from '../common/Cards/Event';
 import { EventPost } from '../../../../../typescript/event';
 import CartModule from './components/CartModule';
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
+import MainContainer from '../common/MainLayout/Container';
+import MainContent from '../common/MainLayout/Content';
 
 const CenterOnPage = styled.div`
-  height: 100vh;
+  height: calc(100vh - 11rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,24 +55,30 @@ const ForYouPage: React.FunctionComponent<Record<string, unknown>> = () => {
 
   if (isLoading) {
     return (
-      <CenterOnPage>
-        <CircularProgress />
-      </CenterOnPage>
+      <MainContainer>
+        <HomeHeader />
+        <MainContent>
+          <CenterOnPage>
+            <CircularProgress />
+          </CenterOnPage>
+        </MainContent>
+        <MainFooter />
+      </MainContainer>
     );
   }
 
   return (
     <MainContainer>
       <HomeHeader />
-      <HomeContainer>
+      <MainContent>
         <HomeContent>
           {posts.map((post) => (
             <EventCard key={post.eventId} post={post} />
           ))}
         </HomeContent>
         <CartModule />
-      </HomeContainer>
-      <HomeFooter />
+      </MainContent>
+      <MainFooter />
     </MainContainer>
   );
 };
