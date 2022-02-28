@@ -49,6 +49,7 @@ function MyApp({ Component, pageProps }) {
     () =>
       ![
         ROUTES.forgotPassword,
+        ROUTES.home,
         ROUTES.landingPage,
         ROUTES.login,
         ROUTES.loginEmail,

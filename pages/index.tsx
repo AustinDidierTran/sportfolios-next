@@ -1,53 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
-import { goTo, ROUTES } from '../public/src/actions/goTo';
 import { useTranslation } from 'react-i18next';
 import { NextSeo } from 'next-seo';
 import { CLIENT_BASE_URL } from '../conf';
-import { IMAGE_ENUM, REQUEST_STATUS_ENUM, ROUTES_ENUM } from '../public/common/enums';
-import { getForYouPage } from '../public/src/actions/service/entity/get';
-import { ForYouPagePost } from '../typescript/types';
-import { Store } from '../public/src/Store';
-import { useRouter } from 'next/router';
+import { IMAGE_ENUM, ROUTES_ENUM } from '../public/common/enums';
 
-const LoadingSpinner = dynamic(import('../public/src/components/Custom/LoadingSpinner'));
-const IgContainer = dynamic(import('../public/src/components/Custom/IgContainer'));
-const Home = dynamic(import('../public/src/views/Home'));
+const ForYouPage = dynamic(import('../public/src/views/v2/ForYouPage'));
 
 const HomeRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
-  const router = useRouter();
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [posts, setPosts] = useState<ForYouPagePost[]>([]);
-  const {
-    state: { isAuthenticated, userInfo },
-  } = useContext(Store);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      goTo(ROUTES.login, null, { redirectUrl: encodeURIComponent(router.asPath) });
-      return;
-    }
-
-    if (!userInfo?.persons.length) {
-      // You need to create a primary person
-      goTo(ROUTES_ENUM.setupPrimaryPerson);
-    }
-
-    getPosts();
-  }, [isAuthenticated]);
-
-  const getPosts = async (): Promise<void> => {
-    setIsLoading(true);
-    const { status, data } = await getForYouPage();
-    if (status === REQUEST_STATUS_ENUM.SUCCESS) {
-      setPosts(data);
-    } else {
-      goTo(ROUTES.login);
-    }
-    setIsLoading(false);
-  };
 
   return (
     <>
@@ -81,13 +42,7 @@ const HomeRoute: React.FunctionComponent = () => {
           cardType: 'summary_large_image',
         }}
       />
-      {isLoading ? (
-        <IgContainer>
-          <LoadingSpinner />
-        </IgContainer>
-      ) : (
-        <Home posts={posts} />
-      )}
+      <ForYouPage />
     </>
   );
 };

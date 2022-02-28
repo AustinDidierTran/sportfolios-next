@@ -28,13 +28,13 @@ import {
   EventInfos,
   Options,
   Report,
-  ForYouPagePost,
   User,
   Person,
   Membership,
   Event,
 } from '../../../../../typescript/types';
 import { ENTITIES_ROLE_ENUM, ROSTER_ROLE_ENUM } from '../../../../common/enums';
+import { EventPost } from '../../../../../typescript/event';
 
 const BASE_URL = '/api/entity';
 
@@ -113,7 +113,7 @@ export function getPlayerTeamRole(teamId: string): Promise<{ status: number; dat
   return api(formatRoute(`${BASE_URL}/playerTeamRole`, null, { teamId }), { method: 'GET' });
 }
 
-export function getForYouPage(): Promise<{ status: number; data: ForYouPagePost[] }> {
+export function getForYouPage(): Promise<{ status: number; data: EventPost[] }> {
   return api(`${BASE_URL}/forYouPage`, { method: 'GET' }).then((res) => res);
 }
 

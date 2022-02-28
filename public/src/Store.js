@@ -6,13 +6,14 @@ import i18n from './i18n';
 import api from './actions/api';
 import { errors, ERROR_ENUM } from '../common/errors';
 import { io } from 'socket.io-client';
-import { HEADER_FLYOUT_TYPE_ENUM } from '../common/enums';
+import { HEADER_FLYOUT_TYPE_ENUM, SOCKET_EVENT } from '../common/enums';
 import { useWindowSize } from './hooks/window';
 import { useRouter } from 'next/router';
 import { formatRoute } from './utils/stringFormats';
 
 import { Auth } from 'aws-amplify';
 import './utils/amplify/amplifyConfig.jsx';
+import { getNotificationsCount } from './actions/service/notifications';
 
 export const Store = React.createContext();
 
@@ -55,6 +56,8 @@ const initialState = {
   activeGaEvents: [],
   socket: io(API_BASE_URL),
   id: undefined,
+  unreadMessagesCount: 0,
+  unreadNotificationsCount: 0,
 };
 
 export const ACTION_ENUM = {
@@ -69,6 +72,8 @@ export const ACTION_ENUM = {
   UPDATE_STORE_ITEM_PICTURE: 'update_store_item_picture',
   UPDATE_CART: 'update_cart',
   UPDATE_ORGANIZATION_PROFILE_PICTURE: 'update_organization_profile_picture',
+  UPDATE_UNREAD_MESSAGES_COUNT: 'update_unread_messages_count',
+  UPDATE_UNREAD_NOTIFICATIONS_COUNT: 'update_unread_notifications_count',
   UPDATE_USER_INFO: 'update_user_info',
   WINDOW_RESIZE: 'window_resize',
   SET_GA_PAGEVIEWS: 'set_ga_pageviews',
@@ -118,6 +123,18 @@ function reducer(state, action) {
         authToken: action.payload.authToken || action.payload,
         userInfo: action.payload.userInfo || state.userInfo,
         isAuthenticated: true,
+      };
+    }
+    case ACTION_ENUM.UPDATE_UNREAD_MESSAGES_COUNT: {
+      return {
+        ...state,
+        unreadMessagesCount: action.payload,
+      };
+    }
+    case ACTION_ENUM.UPDATE_UNREAD_NOTIFICATIONS_COUNT: {
+      return {
+        ...state,
+        unreadNotificationsCount: action.payload,
       };
     }
     case ACTION_ENUM.LOGOUT: {
@@ -317,6 +334,44 @@ export function StoreProvider(props) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Notifications
+  useEffect(() => {
+    state.socket.on(SOCKET_EVENT.NOTIFICATIONS, (count) => {
+      dispatch({
+        type: ACTION_ENUM.UPDATE_UNREAD_NOTIFICATIONS_COUNT,
+        payload: count,
+      });
+    });
+
+    return () => {
+      state.socket.off(SOCKET_EVENT.NOTIFICATIONS);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      getNotificationsCount().then((newCount) => {
+        dispatch({
+          type: ACTION_ENUM.UPDATE_UNREAD_NOTIFICATIONS_COUNT,
+          payload: +newCount,
+        });
+      });
+    }
+  }, [state.isAuthenticated]);
+
+  useEffect(() => {
+    state.socket.on(SOCKET_EVENT.MESSAGES, () => {
+      dispatch({
+        type: ACTION_ENUM.UPDATE_UNREAD_MESSAGES_COUNT,
+        payload: state.unreadMessagesCount + 1,
+      });
+    });
+
+    return () => {
+      state.socket.off(SOCKET_EVENT.MESSAGES);
+    };
+  });
 
   return <Store.Provider value={value}>{props.children}</Store.Provider>;
 }

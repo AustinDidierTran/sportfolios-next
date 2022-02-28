@@ -3,6 +3,7 @@ const theme = {
   text: {
     description: '#707070',
     link: 'rgba(45, 197, 168, 1)',
+    font: 'Montserrat',
   },
   blue: {
     main: '#2196F3',
