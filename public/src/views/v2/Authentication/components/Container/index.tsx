@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.text.font};
   margin-left: auto;
   margin-right: auto;
   display: flex;

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 const FooterContainer = styled.div`
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.text.font};
   font-size: 0.5625rem;
   text-align: center;
 
