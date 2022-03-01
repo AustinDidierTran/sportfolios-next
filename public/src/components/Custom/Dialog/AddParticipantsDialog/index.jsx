@@ -44,7 +44,7 @@ export default function AddParticipantsDialog(props) {
             <ParticipantsSearchList
               className={styles.search}
               clearOnSelect={false}
-              label={t('search')}
+              label={t('search.title')}
               onClick={addNewFriend}
               query={query}
               secondary={t('player')}

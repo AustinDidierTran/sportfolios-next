@@ -64,7 +64,7 @@ const Organizations: React.FunctionComponent<Record<string, unknown>> = () => {
       <Typography gutterBottom variant="h5" component="h2">
         {t('organizations')}
       </Typography>
-      <TextField {...organizationSearchQuery.inputProps} placeholder={t('search')} />
+      <TextField {...organizationSearchQuery.inputProps} placeholder={t('search.title')} />
       <div className={styles.paging}>
         <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => setPage((page) => Math.max(1, page - 1))} />
         <span>

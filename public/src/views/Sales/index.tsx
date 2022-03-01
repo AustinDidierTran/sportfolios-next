@@ -97,7 +97,7 @@ const Sales: React.FunctionComponent = () => {
           />
         </div>
         <Select {...selectedItem.inputProps} options={itemLabelsForSale} />
-        <TextField {...searchQuery.inputProps} placeholder={t('search')} />
+        <TextField {...searchQuery.inputProps} placeholder={t('search.title')} />
 
         <p>
           {t('total')}: {totalSales}

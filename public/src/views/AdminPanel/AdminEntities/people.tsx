@@ -52,7 +52,7 @@ const People: React.FunctionComponent<Record<string, unknown>> = () => {
       <Typography gutterBottom variant="h5" component="h2">
         {t('person.people')}
       </Typography>
-      <TextField {...personSearchQuery.inputProps} placeholder={t('search')} />
+      <TextField {...personSearchQuery.inputProps} placeholder={t('search.title')} />
       <div className={styles.paging}>
         <Button startIcon={<ArrowBackIosRoundedIcon />} onClick={() => setPage((page) => Math.max(1, page - 1))} />
         <span>

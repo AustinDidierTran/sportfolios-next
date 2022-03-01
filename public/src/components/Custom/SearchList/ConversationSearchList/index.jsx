@@ -66,7 +66,7 @@ export default function ConversationSearchList(props) {
         label={label}
         size="large"
         multiline
-        placeholder={t('search')}
+        placeholder={t('search.title')}
         rowsMax={Infinity}
         autoFocus={autoFocus}
         onKeyPress={onEnter}

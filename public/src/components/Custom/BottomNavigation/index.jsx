@@ -79,7 +79,7 @@ export default function CustomBottomNavigation() {
 
   return displayNav ? (
     <BottomNavigation value={value} onChange={handleChange} className={styles.bottomnavigation}>
-      <BottomNavigationAction label={t('home')} value={TABS_ENUM.HOME} icon={<CustomIcon icon="Home" />} />
+      <BottomNavigationAction label={t('home.title')} value={TABS_ENUM.HOME} icon={<CustomIcon icon="Home" />} />
       <BottomNavigationAction label={t('profile')} value={TABS_ENUM.PROFILE} icon={<CustomIcon icon="Person" />} />
       <BottomNavigationAction
         label={t('notifications')}

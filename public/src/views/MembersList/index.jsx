@@ -107,7 +107,7 @@ export default function MembersList() {
             {t('add.add_member')}
           </CustomButton>
         </div>
-        <TextField placeholder={t('search')} {...searchQuery.inputProps} />
+        <TextField placeholder={t('search.title')} {...searchQuery.inputProps} />
         {members.length < 1 ? (
           <Typography color="textSecondary" style={{ margin: '16px' }}>
             {t('no.no_members_message')}
