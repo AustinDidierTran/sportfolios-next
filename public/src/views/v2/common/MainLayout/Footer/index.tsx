@@ -13,6 +13,9 @@ const FooterContainer = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
+  max-width: ${(props) => props.theme.breakpoints.container};
+  margin-left: auto;
+  margin-right: auto;
   height: 5.5rem;
   display: flex;
   background: #a0a0a0;

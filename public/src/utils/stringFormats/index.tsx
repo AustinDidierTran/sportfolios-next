@@ -60,7 +60,7 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
     return withParams;
   }
 
-  const abc = Object.keys(queryParams)
+  return Object.keys(queryParams)
     .filter((q) => q)
     .reduce(
       (prev, key, index) =>
@@ -71,8 +71,6 @@ export const formatRoute = (route: string, params: any, queryParams: any): strin
           : `${prev}&${key}=${queryParams[key]}`,
       withParams
     );
-
-  return abc;
 };
 
 // eslint-disable-next-line
@@ -347,3 +345,6 @@ export function getTimeToShow(date: string): string {
 }
 
 export const keepOnlyDigits = (message: string): string => message.replace(/[^0-9]/g, '');
+
+export const formatScore = (scoreObj: any): string =>
+  Object.entries(scoreObj).reduce((acc, [name, score]) => `${acc}${name}: ${score} `, '\n');

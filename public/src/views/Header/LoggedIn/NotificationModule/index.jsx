@@ -50,7 +50,7 @@ export default function NotificationModule(props) {
       icon="Notifications"
       style={{ color: COLORS.white }}
       size="medium"
-      tooltip={t('notifications')}
+      tooltip={t('notifications.title')}
       withBadge
       badgeContent={unreadNotificationsCount}
       aria-label={`show ${unreadNotificationsCount} new notifications`}

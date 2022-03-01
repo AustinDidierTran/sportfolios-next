@@ -9,6 +9,10 @@ const Container = styled.div`
   position: fixed;
   right: 1rem;
   bottom: 7rem;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.container}) {
+    right: calc((100vw - 700px) / 2 + 1rem);
+  }
 `;
 
 const Circle = styled.div`

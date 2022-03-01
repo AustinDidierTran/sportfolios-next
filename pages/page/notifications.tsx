@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../public/common/enums';
 
-const NotificationsMobile = dynamic(() => import('../../public/src/views/Notifications'));
+const NotificationsView = dynamic(() => import('../../public/src/views/v2/Notifications'));
 
 const NotificationsRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ const NotificationsRoute: React.FunctionComponent = () => {
         <meta property="og:description" content={t('metadata.notifications.description')} />
         <meta property="og:image" content={IMAGE_ENUM.SPORTFOLIOS_BANNER} />
       </Head>
-      <NotificationsMobile />
+      <NotificationsView />
     </>
   );
 };
