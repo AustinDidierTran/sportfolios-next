@@ -6,7 +6,7 @@ const MainContent = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 700px;
+  max-width: ${(props) => props.theme.breakpoints.container};
   flex: 1;
   overflow-y: scroll;
 `;

@@ -454,13 +454,11 @@ describe('ValidateTimestampToRelativeTime', () => {
   const minutesAgoDate: any = moment.utc().subtract(1, 'minutes');
   const hoursAgoDate: any = moment.utc().subtract(1, 'hours');
   const daysAgoDate: any = moment.utc().subtract(1, 'days');
-  const monthAgoDate: any = moment.utc().subtract(1, 'month');
   const yearAgoDate: any = moment.utc().subtract(1, 'year');
   const inSeconds = '0 seconds ago';
   const inMinutes = '1 minute ago';
   const inHours = '1 hour ago';
   const inDays = '1 day ago';
-  const inMonth = '1 month ago';
   const inYear = '1 year ago';
 
   it('should return timestamp relative to time', () => {
@@ -468,7 +466,6 @@ describe('ValidateTimestampToRelativeTime', () => {
     expect(timestampToRelativeTime(minutesAgoDate)).toBe(inMinutes);
     expect(timestampToRelativeTime(hoursAgoDate)).toBe(inHours);
     expect(timestampToRelativeTime(daysAgoDate)).toBe(inDays);
-    expect(timestampToRelativeTime(monthAgoDate)).toBe(inMonth);
     expect(timestampToRelativeTime(yearAgoDate)).toBe(inYear);
   });
 });

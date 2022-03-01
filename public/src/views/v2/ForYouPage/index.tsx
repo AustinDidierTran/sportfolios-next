@@ -14,6 +14,7 @@ import { EventPost } from '../../../../../typescript/event';
 import CartModule from './components/CartModule';
 import MainContainer from '../common/MainLayout/Container';
 import MainContent from '../common/MainLayout/Content';
+import CenteredLoadingSpinner from '../common/CenteredLoadingSpinner';
 
 const CenterOnPage = styled.div`
   height: calc(100vh - 11rem);
@@ -53,30 +54,25 @@ const ForYouPage: React.FunctionComponent<Record<string, unknown>> = () => {
     });
   }, []);
 
-  if (isLoading) {
-    return (
-      <MainContainer>
-        <HomeHeader />
-        <MainContent>
-          <CenterOnPage>
-            <CircularProgress />
-          </CenterOnPage>
-        </MainContent>
-        <MainFooter />
-      </MainContainer>
-    );
-  }
-
   return (
     <MainContainer>
       <HomeHeader />
       <MainContent>
-        <HomeContent>
-          {posts.map((post) => (
-            <EventCard key={post.eventId} post={post} />
-          ))}
-        </HomeContent>
-        <CartModule />
+        {(() => {
+          if (isLoading) {
+            return <CenteredLoadingSpinner />;
+          }
+          return (
+            <React.Fragment>
+              <HomeContent>
+                {posts.map((post) => (
+                  <EventCard key={post.eventId} post={post} />
+                ))}
+              </HomeContent>
+              <CartModule />
+            </React.Fragment>
+          );
+        })()}
       </MainContent>
       <MainFooter />
     </MainContainer>

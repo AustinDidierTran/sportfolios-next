@@ -1467,7 +1467,14 @@ export default {
     not_member: 'Non membre',
     not_going: 'Absent',
     notifications_disabled: 'Notifications désactivées',
-    notifications: 'Notifications',
+    notifications: {
+      description: {
+        no_new_notifications: "Vous n'avez aucune nouvelle notification.",
+        one_new_notification: 'Vous avez 1 nouvelle notification.',
+        many_new_notifications: 'Vous avez {{count}} nouvelles notifications.',
+      },
+      title: 'Notifications',
+    },
     number_of_members: '{{amountOfMembers}} membres',
     number_of_member: '{{amountOfMembers}} membre',
     of_everyone: 'de tout le monde',

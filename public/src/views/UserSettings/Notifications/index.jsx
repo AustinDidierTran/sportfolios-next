@@ -102,7 +102,7 @@ export default function Notifications() {
   return (
     <Card className={styles.card}>
       <List
-        title={t('notifications')}
+        title={t('notifications.title')}
         items={Object.values(NOTIFICATION_TYPE).map((notifType) => ({
           type: LIST_ITEM_ENUM.NOTIFICATION_SETTING,
           email: switchesState[getStateKey(notifType, NOTIFICATION_MEDIA.EMAIL)],

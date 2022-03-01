@@ -55,6 +55,7 @@ function MyApp({ Component, pageProps }) {
         ROUTES.loginEmail,
         ROUTES.loginFacebook,
         ROUTES.loginGoogle,
+        ROUTES.notifications,
         ROUTES.recoveryEmail,
         ROUTES.search,
         ROUTES.setupPrimaryPerson,

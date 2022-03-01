@@ -82,7 +82,7 @@ export default function CustomBottomNavigation() {
       <BottomNavigationAction label={t('home.title')} value={TABS_ENUM.HOME} icon={<CustomIcon icon="Home" />} />
       <BottomNavigationAction label={t('profile')} value={TABS_ENUM.PROFILE} icon={<CustomIcon icon="Person" />} />
       <BottomNavigationAction
-        label={t('notifications')}
+        label={t('notifications.title')}
         value={TABS_ENUM.NOTIFICATIONS}
         onClick={() => setUnreadNotificationsCount(0)}
         icon={

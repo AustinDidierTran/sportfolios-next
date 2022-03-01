@@ -1446,7 +1446,14 @@ export default {
     notifications_disabled: 'Notifications disabled',
     number_of_members: '{{amountOfMembers}} members',
     number_of_member: '{{amountOfMembers}} member',
-    notifications: 'Notifications',
+    notifications: {
+      description: {
+        no_new_notifications: 'You have no new notification.',
+        one_new_notification: 'You have 1 new notification.',
+        many_new_notifications: 'You have {{count}} new notifications.',
+      },
+      title: 'Notifications',
+    },
     of_everyone: 'of everyone',
     of_team: 'of team',
     of_teams: 'of teams',
