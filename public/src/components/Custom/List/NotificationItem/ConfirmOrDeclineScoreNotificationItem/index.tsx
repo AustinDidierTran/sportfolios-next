@@ -6,6 +6,7 @@ import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, TABS_ENUM } from '../../../../../..
 import api from '../../../../../actions/api';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
 import Button from '../../../Button';
+import { acceptScoreFromNotification } from '../../../../../actions/service/notifications';
 
 interface Imetadata {
   eventId: string;
@@ -58,27 +59,23 @@ const ConfirmOrDeclineScoreNotificationItem: React.FunctionComponent<IProps> = (
     if (onClick) {
       onClick();
     }
-    const res = await api('/api/entity/acceptScore', {
-      method: 'POST',
-      body: JSON.stringify({
-        submitted_by_roster: myRosterId,
-        id: scoreId,
-        submitted_by_person: myPlayerId,
-      }),
-    });
+    const res = await acceptScoreFromNotification(myRosterId, scoreId, myPlayerId);
+
     if (!res || res.status === REQUEST_STATUS_ENUM.ERROR) {
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: t('an_error_has_occured'),
         severity: SEVERITY_ENUM.ERROR,
       });
-    } else {
-      dispatch({
-        type: ACTION_ENUM.SNACK_BAR,
-        message: t('score.score_submitted'),
-        severity: SEVERITY_ENUM.SUCCESS,
-      });
+
+      return;
     }
+
+    dispatch({
+      type: ACTION_ENUM.SNACK_BAR,
+      message: t('score.score_submitted'),
+      severity: SEVERITY_ENUM.SUCCESS,
+    });
   }
 
   function formatScore(): string {

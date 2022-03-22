@@ -7,11 +7,11 @@ import Badge from '../Badge';
 
 const Container = styled.div`
   position: fixed;
-  right: 1rem;
+  right: 1.5rem;
   bottom: 7rem;
 
   @media (min-width: ${(props) => props.theme.breakpoints.container}) {
-    right: calc((100vw - 700px) / 2 + 1rem);
+    right: calc((100vw - 700px) / 2 + 1.5rem);
   }
 `;
 

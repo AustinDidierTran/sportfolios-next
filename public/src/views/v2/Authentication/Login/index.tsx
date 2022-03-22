@@ -22,6 +22,13 @@ import Container from '../components/Container';
 import Content from '../components/Content';
 import LoginCard from '../components/LoginCard';
 
+import styled from 'styled-components';
+
+const Title = styled.h3`
+  text-align: center;
+  width: 100vw;
+`;
+
 const Login: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -56,7 +63,7 @@ const Login: React.FunctionComponent = () => {
     <Container>
       <Content>
         <SportfoliosLogo height={120} width={120} />
-        <h3>{t('auth.login_to_sportfolios')}</h3>
+        <Title>{t('auth.login_to_sportfolios')}</Title>
         <LoginCard label={t('auth.login_with_email')} onClick={() => goTo(loginEmailRoute)}>
           <AccountCircle />
         </LoginCard>

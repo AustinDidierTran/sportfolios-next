@@ -21,6 +21,12 @@ import { ROUTES_ENUM } from '../../../../../../common/enums';
 import Container from '../../components/Container';
 import Content from '../../components/Content';
 import { ActionText } from '../../components';
+import styled from 'styled-components';
+
+const Title = styled.h3`
+  text-align: center;
+  width: 100vw;
+`;
 
 const LoginEmail: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -83,7 +89,7 @@ const LoginEmail: React.FunctionComponent = () => {
     <Container>
       <Content>
         <SportfoliosLogo height={120} width={120} />
-        <h3>{t('auth.login_to_sportfolios')}</h3>
+        <Title>{t('auth.login_to_sportfolios')}</Title>
         <TextInput
           autofocus
           classes={{

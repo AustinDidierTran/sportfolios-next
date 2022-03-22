@@ -1473,6 +1473,14 @@ export default {
         one_new_notification: 'Vous avez 1 nouvelle notification.',
         many_new_notifications: 'Vous avez {{count}} nouvelles notifications.',
       },
+      content: {
+        other_team_submitted_a_score: {
+          1: "L'équipe ",
+          2: ' a soumis le score: ',
+          3: " pour votre partie de l'événement ",
+          4: '. Voulez vous confirmer le résultat?',
+        },
+      },
       title: 'Notifications',
     },
     number_of_members: '{{amountOfMembers}} membres',
