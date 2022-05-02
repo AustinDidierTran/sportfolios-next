@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import api from '../../actions/api';
 import { ACTION_ENUM, Store } from '../../Store';
 import dynamic from 'next/dynamic';
+import { getCartItems } from '../../actions/service/cart';
 
 const RosterInviteLink = dynamic(() => import('../../tabs/Rosters/RosterCard/RosterInviteLink'));
 
@@ -18,11 +19,13 @@ export default function RegistrationStatus() {
   const { dispatch } = useContext(Store);
 
   const updateCart = async () => {
-    const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
-    dispatch({
-      type: ACTION_ENUM.UPDATE_CART,
-      payload: cartItems,
-    });
+    const cartItems = await getCartItems();
+    if (cartItems) {
+      dispatch({
+        type: ACTION_ENUM.UPDATE_CART,
+        payload: cartItems,
+      });
+    }
   };
 
   useEffect(() => {

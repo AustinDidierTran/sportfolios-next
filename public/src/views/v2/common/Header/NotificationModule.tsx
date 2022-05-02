@@ -5,7 +5,7 @@ import { ACTION_ENUM, Store } from '../../../../Store';
 import Notifications from '@material-ui/icons/Notifications';
 import Badge from '../../ForYouPage/components/Badge';
 
-const NotificationModule: React.FunctionComponent<Record<string, unknown>> = () => {
+const NotificationModule: React.FunctionComponent = () => {
   const {
     state: { unreadNotificationsCount },
     dispatch,

@@ -31,7 +31,7 @@ import {
   getEventInfo,
 } from '../../../actions/service/entity/get';
 
-const PlayersRegistered: React.FunctionComponent<Record<string, unknown>> = () => {
+const PlayersRegistered: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     dispatch,

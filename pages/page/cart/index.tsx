@@ -1,10 +1,10 @@
 import React from 'react';
-import { IMAGE_ENUM } from '../../public/common/enums';
+import { IMAGE_ENUM } from '../../../public/common/enums';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 
-const Cart = dynamic(() => import('../../public/src/views/Cart'));
+const Cart = dynamic(() => import('../../../public/src/views/v2/Cart'));
 
 const CartRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

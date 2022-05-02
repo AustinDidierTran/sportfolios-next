@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { FEATURE_PROFILE } from '../../../../../../../feature-flags';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
 import { Store } from '../../../../../Store';
 
@@ -35,7 +36,7 @@ const ButtonContainer = styled.button`
   color: ${(props) => (props.color === 'active' ? props.theme.primary.main : props.theme.shadesOfGrey.dark)};
 `;
 
-const MainFooter: React.FunctionComponent<Record<string, unknown>> = () => {
+const MainFooter: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const {
     state: { userInfo },
@@ -48,7 +49,7 @@ const MainFooter: React.FunctionComponent<Record<string, unknown>> = () => {
   const searchColor = useMemo(() => (router.pathname === ROUTES.search ? 'active' : ''), [router.pathname]);
 
   const profileColor = useMemo(() => '', [router.pathname]);
-  const menuColor = useMemo(() => '', [router.pathname]);
+  const menuColor = useMemo(() => (router.pathname === ROUTES.menu ? 'active' : ''), [router.pathname]);
 
   return (
     <FooterContainer>
@@ -60,10 +61,12 @@ const MainFooter: React.FunctionComponent<Record<string, unknown>> = () => {
         <Search />
         <span>{t('footer.search')}</span>
       </ButtonContainer>
-      <ButtonContainer color={profileColor} onClick={() => goTo(ROUTES.entity, { id: userInfo.primaryPerson.id })}>
-        <AccountCircle />
-        <span>{t('footer.profile')}</span>
-      </ButtonContainer>
+      {FEATURE_PROFILE && (
+        <ButtonContainer color={profileColor} onClick={() => goTo(ROUTES.entity, { id: userInfo.primaryPerson.id })}>
+          <AccountCircle />
+          <span>{t('footer.profile')}</span>
+        </ButtonContainer>
+      )}
       <ButtonContainer color={menuColor} onClick={() => goTo(ROUTES.menu)}>
         <Menu />
         <span>{t('footer.menu')}</span>

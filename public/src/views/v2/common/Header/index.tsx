@@ -11,7 +11,7 @@ const LogoText = styled.span`
   font-weight: 700;
 `;
 
-const HomeHeader: React.FunctionComponent<Record<string, unknown>> = () => {
+const HomeHeader: React.FunctionComponent = () => {
   return (
     <MainHeader>
       <LogoText>Sportfolios</LogoText>

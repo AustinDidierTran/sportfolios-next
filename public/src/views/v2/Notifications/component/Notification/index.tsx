@@ -54,6 +54,7 @@ const NotificationCard: React.FunctionComponent<Props> = (props) => {
             return <OtherTeamSubmittedAScore notification={props.notification} />;
           }
 
+          // TO BE IMPLEMENTED
           if (props.notification.type === NOTIFICATION_TYPE.ADDED_TO_EVENT) {
             return <></>;
           }
@@ -61,18 +62,23 @@ const NotificationCard: React.FunctionComponent<Props> = (props) => {
           if (props.notification.type === NOTIFICATION_TYPE.ADDED_TO_TEAM) {
             return <></>;
           }
+
           if (props.notification.type === NOTIFICATION_TYPE.REQUEST_TO_JOIN_TEAM) {
             return <></>;
           }
+
           if (props.notification.type === NOTIFICATION_TYPE.SCORE_SUBMISSION_CONFLICT) {
             return <></>;
           }
+
           if (props.notification.type === NOTIFICATION_TYPE.SCORE_SUBMISSION_REQUEST) {
             return <></>;
           }
+
           if (props.notification.type === NOTIFICATION_TYPE.PERSON_REGISTRATION) {
             return <></>;
           }
+
           if (props.notification.type === NOTIFICATION_TYPE.TEAM_REGISTRATION) {
             return <></>;
           }

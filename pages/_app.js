@@ -54,6 +54,8 @@ function MyApp({ Component, pageProps }) {
         ROUTES.loginEmail,
         ROUTES.loginFacebook,
         ROUTES.loginGoogle,
+        ROUTES.menu,
+        ROUTES.notifications,
         ROUTES.recoveryEmail,
         ROUTES.setupPrimaryPerson,
         ROUTES.signup,
@@ -61,7 +63,7 @@ function MyApp({ Component, pageProps }) {
         ROUTES.signupEmailValidate,
         ROUTES.signupFacebook,
         ROUTES.signupGoogle,
-      ].includes(router.pathname),
+      ].includes(router.pathname) && ![ROUTES.cart].some((r) => router.pathname.indexOf(r) !== -1),
     [router.pathname]
   );
 

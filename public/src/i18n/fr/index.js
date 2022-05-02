@@ -2,6 +2,33 @@ import { SIZES_ENUM } from '../../../common/enums';
 
 export default {
   translations: {
+    page: {
+      cart: {
+        for_person_title: 'Panier de {{name}}',
+        pay: 'Payer',
+        subtotal: 'Sous-total :',
+        taxes: 'Taxes :',
+        title: 'Panier',
+        total: 'Total :',
+      },
+      menu: {
+        metadata: {
+          title: 'Sportfolios',
+          description:
+            "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
+        },
+        options: {
+          cart: 'Panier',
+          create_person: 'Créer une personne',
+          create_event: 'Créer un événement',
+          create_team: 'Créer une équipe',
+          create_organization: 'Créer une organisation',
+          logout: 'Se déconnecter',
+          messaging: 'Messagerie',
+          settings: 'Paramètres',
+        },
+      },
+    },
     metadata: {
       newMessage: {
         title: 'Sportfolios',

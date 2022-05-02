@@ -13,7 +13,7 @@ import dynamic from 'next/dynamic';
 import Typography from '@material-ui/core/Typography';
 import { getMembers, getMemberships as getMembershipsApi } from '../../actions/service/entity/get';
 import { EntityMembership, Member } from '../../../../typescript/types';
-import { getCartItems } from '../../actions/service/shop';
+import { getCartItems } from '../../actions/service/cart';
 
 const MyMemberships = dynamic(() => import('./MyMemberships'));
 

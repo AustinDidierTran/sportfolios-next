@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import styled from 'styled-components';
 import { getForYouPage } from '../../../actions/service/entity/get';
 import { REQUEST_STATUS_ENUM } from '../../../../common/enums';
 import { Store } from '../../../Store';
@@ -16,14 +14,7 @@ import MainContainer from '../common/MainLayout/Container';
 import MainContent from '../common/MainLayout/Content';
 import CenteredLoadingSpinner from '../common/CenteredLoadingSpinner';
 
-const CenterOnPage = styled.div`
-  height: calc(100vh - 11rem);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ForYouPage: React.FunctionComponent<Record<string, unknown>> = () => {
+const ForYouPage: React.FunctionComponent = () => {
   const router = useRouter();
   const {
     state: { isAuthenticated, userInfo },

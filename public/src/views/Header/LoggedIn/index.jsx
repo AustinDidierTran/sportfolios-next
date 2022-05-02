@@ -19,14 +19,11 @@ import { useWindowSize } from '../../../hooks/window';
 import { MOBILE_WIDTH } from '../../../../common/constants';
 import { COLORS } from '../../../utils/colors';
 import { FEATURE_MESSAGES_ENABLED } from '../../../../../feature-flags';
+import { getCartItems } from '../../../actions/service/cart';
 
 export default function LoggedIn(props) {
   const {
-    state: {
-      userInfo = {},
-      socket,
-      cart: { items },
-    },
+    state: { userInfo = {}, socket, cart },
     dispatch,
   } = useContext(Store);
   const { showBar = true } = props;
@@ -60,14 +57,18 @@ export default function LoggedIn(props) {
     return '';
   }, [userInfo.primaryPerson?.personId]);
 
-  const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
+  console.log(cart);
+
+  const totalCartItems = useMemo(() => cart.total.itemCount, [cart]);
 
   const updateCart = async () => {
-    const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
-    dispatch({
-      type: ACTION_ENUM.UPDATE_CART,
-      payload: cartItems,
-    });
+    const cartItems = await getCartItems();
+    if (cartItems) {
+      dispatch({
+        type: ACTION_ENUM.UPDATE_CART,
+        payload: cartItems,
+      });
+    }
   };
 
   const handleCreateClick = () => {

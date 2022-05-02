@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { IMAGE_ENUM } from '../../public/common/enums';
 
-const Menu = dynamic(() => import('../../public/src/views/Menu'));
+const Menu = dynamic(() => import('../../public/src/views/v2/Menu'));
 
 const MenuRoute: React.FunctionComponent = () => {
   const { t } = useTranslation();

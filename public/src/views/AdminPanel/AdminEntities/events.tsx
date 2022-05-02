@@ -22,7 +22,7 @@ import styles from '../AdminEntitiesView.module.css';
 
 const EVENT_LIMIT = 10;
 
-const Events: React.FunctionComponent<Record<string, unknown>> = () => {
+const Events: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const [events, setEvents] = useState<Event[]>([]);

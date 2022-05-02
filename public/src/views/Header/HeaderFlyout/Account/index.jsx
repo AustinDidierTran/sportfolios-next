@@ -31,7 +31,9 @@ export default function Plus() {
   const {
     state: {
       userInfo = {},
-      cart: { items },
+      cart: {
+        total: { itemCount },
+      },
     },
     dispatch,
   } = useContext(Store);
@@ -46,8 +48,6 @@ export default function Plus() {
     }),
     [userInfo.primaryPerson]
   );
-
-  const totalCartItems = useMemo(() => items.reduce((prev, item) => prev + item.quantity, 0), [items]);
 
   const handleItemClick = () => {
     dispatch({
@@ -82,7 +82,7 @@ export default function Plus() {
       primary: t('cart.title'),
       icon: 'ShoppingCartOutlined',
       onClick: () => handleViewCartClick(),
-      badgeContent: totalCartItems,
+      badgeContent: itemCount,
     },
     {
       primary: t('settings'),

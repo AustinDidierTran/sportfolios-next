@@ -13,6 +13,9 @@ const theme = {
     primary: '#BABABA',
     dark: '#959595',
   },
+  shadow: {
+    primary: '0 3px 6px rgba(0, 0, 0, 0.16)',
+  },
   breakpoints: {
     container: '700px',
   },

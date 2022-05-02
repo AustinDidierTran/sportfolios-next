@@ -1,6 +1,7 @@
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components';
+import { CartItemBuyer, CartItemSeller } from '../../../../../../../typescript/cart';
 import { goTo, ROUTES } from '../../../../../actions/goTo';
 import { Store } from '../../../../../Store';
 import Badge from '../Badge';
@@ -30,14 +31,23 @@ const Circle = styled.div`
   }
 `;
 
-const CartModule: React.FunctionComponent<Record<string, unknown>> = () => {
+const CartModule: React.FunctionComponent = () => {
   const {
-    state: {
-      cart: { items },
-    },
+    state: { cart },
   } = useContext(Store);
 
-  const count = useMemo(() => items.length, [items.length]);
+  const count = useMemo(() => {
+    if (!cart.buyers) {
+      return 0;
+    }
+
+    return cart.buyers.reduce(
+      (prevBuyer: number, buyer: CartItemBuyer) =>
+        buyer.sellers.reduce((prevSeller: number, seller: CartItemSeller) => seller.items.length + prevSeller, 0) +
+        prevBuyer,
+      0
+    );
+  }, [cart]);
 
   return (
     <Container>

@@ -12,6 +12,7 @@ import { goTo } from '../../actions/goTo';
 import { useRouter } from 'next/router';
 import { ACTION_ENUM, Store } from '../../Store';
 import api from '../../actions/api';
+import { getCartItems } from '../../actions/service/cart';
 
 export default function OrderProcessed() {
   const router = useRouter();
@@ -20,11 +21,13 @@ export default function OrderProcessed() {
   const { dispatch } = useContext(Store);
 
   const updateCart = async () => {
-    const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
-    dispatch({
-      type: ACTION_ENUM.UPDATE_CART,
-      payload: cartItems,
-    });
+    const cartItems = await getCartItems();
+    if (cartItems) {
+      dispatch({
+        type: ACTION_ENUM.UPDATE_CART,
+        payload: cartItems,
+      });
+    }
   };
 
   useEffect(() => {

@@ -2,6 +2,33 @@ import { SIZES_ENUM } from '../../../common/enums';
 
 export default {
   translations: {
+    page: {
+      cart: {
+        for_person_title: "{{name}}'s cart",
+        pay: 'Pay',
+        subtotal: 'Subtotal',
+        taxes: 'Taxes',
+        title: 'Cart',
+        total: 'Total',
+      },
+      menu: {
+        metadata: {
+          title: 'Sportfolios',
+          description:
+            "Signup or login on Sportfolios. Modernize your organizations's image and gain efficiency. Spend less time on your operations and more with your members",
+        },
+        options: {
+          cart: 'Cart',
+          create_person: 'Create a person',
+          create_event: 'Create an event',
+          create_team: 'Create a team',
+          create_organization: 'Create an organization',
+          logout: 'Logout',
+          messaging: 'Messaging',
+          settings: 'Settings',
+        },
+      },
+    },
     metadata: {
       newMessage: {
         title: 'Sportfolios',
@@ -13,7 +40,6 @@ export default {
         description:
           "Créez-vous un compte ou connectez-vous sur Sportfolios. Modernisez l'image de votre organisation et gagnez en efficacité. Passez moins de temps sur vos opérations et plus de temps avec vos membres.",
       },
-
       message: {
         title: 'Sportfolios',
         description:

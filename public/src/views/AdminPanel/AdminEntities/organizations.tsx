@@ -27,7 +27,7 @@ import CustomButton from '../../../components/Custom/Button';
 
 const ORGANIZATION_LIMIT = 10;
 
-const Organizations: React.FunctionComponent<Record<string, unknown>> = () => {
+const Organizations: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const [organizations, setOrganizations] = useState<Organization[]>([]);

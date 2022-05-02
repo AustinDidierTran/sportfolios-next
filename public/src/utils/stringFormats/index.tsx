@@ -222,11 +222,8 @@ export const getExpirationDate = (length?: number, date?: string): string | null
   }
 };
 
-export const formatPrice = (price?: number): string => {
-  if (!price) {
-    return '0.00$';
-  }
-  return `${(price / 100).toFixed(2)}$`;
+export const formatPrice = (price = 0): string => {
+  return `${(price / 100).toFixed(2)} $`;
 };
 
 export const validateDate = (dateProps: string): boolean => {

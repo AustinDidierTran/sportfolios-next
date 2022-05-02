@@ -14,7 +14,7 @@ const FooterContainer = styled.div`
   }
 `;
 
-const LoginFooter: React.FunctionComponent<Record<string, unknown>> = () => {
+const LoginFooter: React.FunctionComponent = () => {
   const { t } = useTranslation();
   const privacyPolicy = 'https://sportfolios-images.s3.amazonaws.com/production/privacy-policy/privacy-policy.html';
   const termsConditions = 'https://www.termsconditionstemplate.net/live.php?token=BCbkqtde4eVFO4unde1jCE7Wq6xucBzV';

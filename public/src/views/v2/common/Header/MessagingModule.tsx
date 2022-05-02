@@ -5,7 +5,7 @@ import Badge from '../../ForYouPage/components/Badge';
 import Chat from '@material-ui/icons/Chat';
 import { FEATURE_MESSAGES_ENABLED } from '../../../../../../feature-flags';
 
-const MessagingModule: React.FunctionComponent<Record<string, unknown>> = () => {
+const MessagingModule: React.FunctionComponent = () => {
   const {
     state: { unreadMessagesCount },
     dispatch,

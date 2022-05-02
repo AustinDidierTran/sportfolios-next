@@ -22,7 +22,7 @@ import { useFormInput } from '../../../hooks/forms';
 
 const TEAM_LIMIT = 10;
 
-const Teams: React.FunctionComponent<Record<string, unknown>> = () => {
+const Teams: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const [teams, setTeams] = useState<Team[]>([]);

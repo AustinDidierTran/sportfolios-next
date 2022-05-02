@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 interface Props {
   count: number;
-  onClick: () => void;
+  onClick?: () => void;
   position?: string;
+  pillSize?: string;
+  pillFontSize?: string;
 }
 
 const Container = styled.div`
@@ -15,7 +17,7 @@ const Container = styled.div`
 const Pill = styled.div`
   position: absolute;
   width: 1rem;
-  height: 1rem;
+  aspect-ratio: 1 / 1;
   font-size: 0.625rem;
   border-radius: 50%;
   display: flex;
@@ -28,7 +30,19 @@ const Pill = styled.div`
 const Badge: React.FunctionComponent<Props> = (props) => {
   return (
     <Container onClick={props.onClick}>
-      {props.count > 0 ? <Pill style={{ right: props.position === 'right' ? 0 : null }}>{props.count}</Pill> : <></>}
+      {props.count > 0 ? (
+        <Pill
+          style={{
+            right: props.position === 'right' ? 0 : null,
+            fontSize: props.pillFontSize || undefined,
+            width: props.pillSize || undefined,
+          }}
+        >
+          {props.count}
+        </Pill>
+      ) : (
+        <></>
+      )}
       {props.children}
     </Container>
   );

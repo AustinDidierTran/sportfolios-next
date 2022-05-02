@@ -21,7 +21,7 @@ const CARD_ELEMENT_OPTIONS = {
   // hidePostalCode: true,
 };
 
-const StripeElement: React.FunctionComponent<Record<string, unknown>> = () => {
+const StripeElement: React.FunctionComponent = () => {
   const { t } = useTranslation();
   return (
     <>

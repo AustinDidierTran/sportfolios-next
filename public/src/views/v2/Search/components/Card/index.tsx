@@ -1,3 +1,4 @@
+import { AccountCircle } from '@material-ui/icons';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { SearchResult } from '../..';
@@ -29,6 +30,22 @@ const NameText = styled.span`
   flex: 1;
 `;
 
+const MissingPhoto = styled.div`
+  background-color: ${(props) => props.theme.primary.main};
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  & > svg {
+    height: 50%;
+    width: 50%;
+  }
+`;
+
 const Card: React.FunctionComponent<Props> = (props) => {
   const { result } = props;
 
@@ -38,7 +55,13 @@ const Card: React.FunctionComponent<Props> = (props) => {
 
   return (
     <Container onClick={onClick}>
-      <Image src={result.photoUrl} />
+      {result.photoUrl ? (
+        <Image src={result.photoUrl} />
+      ) : (
+        <MissingPhoto>
+          <AccountCircle />
+        </MissingPhoto>
+      )}
       <NameText>{result.name || result.completeName}</NameText>
     </Container>
   );

@@ -13,26 +13,36 @@ import Card from '../../components/Custom/Card';
 import AlertDialog from '../../components/Custom/Dialog/AlertDialog';
 import { Store, ACTION_ENUM } from '../../Store';
 import { ERROR_ENUM } from '../../../common/errors';
-
-const getCartItems = async () => {
-  const { data: cartItems } = await api('/api/shop/getCartItems', { method: 'GET' });
-  return cartItems;
-};
+import { getCartItems } from '../../actions/service/cart';
 
 export default function Cart() {
-  const { dispatch } = useContext(Store);
+  const {
+    state: { cart },
+    dispatch,
+  } = useContext(Store);
   const { t } = useTranslation();
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
 
+  const updateCartItems = async () => {
+    const cartItems = await getCartItems();
+    if (cartItems) {
+      dispatch({
+        type: ACTION_ENUM.UPDATE_CART,
+        payload: cartItems,
+      });
+    }
+    return cartItems;
+  };
+
   useEffect(() => {
     document.title = formatPageTitle(t('cart.title'));
   }, []);
 
   const fetchItems = async () => {
-    const data = await getCartItems();
+    const data = await updateCartItems();
     const { items: itemsProp, total: totalProp } = data;
     setItems(itemsProp);
     setTotal(totalProp);
@@ -92,7 +102,7 @@ export default function Cart() {
     return <LoadingSpinner />;
   }
 
-  if (items.length < 1) {
+  if (cart.total.itemCount) {
     const buttons = [
       {
         name: t('home.title'),

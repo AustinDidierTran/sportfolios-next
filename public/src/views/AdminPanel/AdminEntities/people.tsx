@@ -22,7 +22,7 @@ import styles from '../AdminEntitiesView.module.css';
 
 const PERSON_LIMIT = 10;
 
-const People: React.FunctionComponent<Record<string, unknown>> = () => {
+const People: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   const [people, setPeople] = useState<Person[]>([]);

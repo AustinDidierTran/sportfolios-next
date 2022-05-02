@@ -311,6 +311,7 @@ export enum ROUTES_ENUM {
   adminPanel = '/page/adminPanel',
   analytics = '/page/analytics',
   cart = '/page/cart',
+  cartForPerson = '/page/cart/:id',
   checkout = '/page/checkout',
   confirmationEmailSent = '/page/confirmationEmailSent/:email',
   confirmEmail = '/page/confirmEmail/:token',

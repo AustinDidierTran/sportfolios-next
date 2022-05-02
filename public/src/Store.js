@@ -14,6 +14,7 @@ import { formatRoute } from './utils/stringFormats';
 import { Auth } from 'aws-amplify';
 import './utils/amplify/amplifyConfig.jsx';
 import { getNotificationsCount } from './actions/service/notifications';
+import { getCartItems } from './actions/service/cart';
 
 export const Store = React.createContext();
 
@@ -48,7 +49,12 @@ const initialState = {
   authToken: undefined,
   screenSize: SCREENSIZE_ENUM.xs,
   cart: {
-    items: [],
+    total: {
+      subtotal: 0,
+      taxes: [],
+      itemCount: 0,
+    },
+    buyers: [],
   },
   flyoutType: HEADER_FLYOUT_TYPE_ENUM.CLOSED,
   userInfo: {},
@@ -289,11 +295,11 @@ export function StoreProvider(props) {
           i18n.changeLanguage(data.language);
         }
 
-        const res2 = await api('/api/shop/getCartItems', { method: 'GET' });
-        if (res2 && res2.data) {
+        const cartItems = await getCartItems();
+        if (cartItems) {
           dispatch({
             type: ACTION_ENUM.UPDATE_CART,
-            payload: res2.data,
+            payload: cartItems,
           });
         }
       }
