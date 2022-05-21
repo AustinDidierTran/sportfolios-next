@@ -249,6 +249,7 @@ export enum FORM_DIALOG_TYPE_ENUM {
   ENTER_EMAIL = 'email',
   JOIN_TEAM = 'join team',
   MEMBERS_REPORT = 'members report',
+  PAYOUTS_REPORT = 'payouts_report',
   ROSTER_PLAYER_OPTIONS = 'roster player options',
   SALES_REPORT = 'sales_report',
   SUBMIT_SCORE_AND_SPIRIT = 'score and spirit',
@@ -265,6 +266,7 @@ export enum HEADER_FLYOUT_TYPE_ENUM {
 
 export enum REPORT_TYPE_ENUM {
   MEMBERS = 'members',
+  PAYOUTS = 'payouts',
   SALES = 'sales',
 }
 

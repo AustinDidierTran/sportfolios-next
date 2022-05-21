@@ -26,6 +26,7 @@ const EnterEmail = dynamic(() => import('./EnterEmail'));
 const JoinTeam = dynamic(() => import('./JoinTeam'));
 const MembersReport = dynamic(() => import('./MembersReport'));
 const RosterPlayerOptions = dynamic(() => import('./RosterPlayerOptions'));
+const PayoutsReport = dynamic(() => import('./PayoutsReport'));
 const SalesReport = dynamic(() => import('./SalesReport'));
 const SubmitScoreAndSpiritForm = dynamic(() => import('./SubmitScoreSpiritForm'));
 
@@ -53,6 +54,7 @@ const FormDialogMap = {
   [FORM_DIALOG_TYPE_ENUM.JOIN_TEAM]: JoinTeam,
   [FORM_DIALOG_TYPE_ENUM.MEMBERS_REPORT]: MembersReport,
   [FORM_DIALOG_TYPE_ENUM.ROSTER_PLAYER_OPTIONS]: RosterPlayerOptions,
+  [FORM_DIALOG_TYPE_ENUM.PAYOUTS_REPORT]: PayoutsReport,
   [FORM_DIALOG_TYPE_ENUM.SALES_REPORT]: SalesReport,
   [FORM_DIALOG_TYPE_ENUM.SUBMIT_SCORE_AND_SPIRIT]: SubmitScoreAndSpiritForm,
 };
