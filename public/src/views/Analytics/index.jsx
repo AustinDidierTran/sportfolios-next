@@ -18,6 +18,7 @@ import { Store } from '../../Store';
 
 const GraphLinear = dynamic(() => import('./GraphLinear'));
 const MembersReport = dynamic(() => import('./MembersReport'));
+const PayoutsReport = dynamic(() => import('./PayoutsReport'));
 const SalesReport = dynamic(() => import('./SalesReport'));
 
 export default function Analytics() {
@@ -80,6 +81,7 @@ export default function Analytics() {
           <ListItemText primary={t('choose.choose_your_report')} className={styles.title} />
         </div>
         <MembersReport />
+        <PayoutsReport />
         <SalesReport />
       </Paper>
       <Paper title={t('graphs')}>
