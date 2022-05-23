@@ -2,11 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { ERROR_ENUM } from '../../../../../common/errors';
-import api from '../../../../actions/api';
 import { Store, ACTION_ENUM } from '../../../../Store';
 import { SEVERITY_ENUM, REQUEST_STATUS_ENUM, REPORT_TYPE_ENUM } from '../../../../../common/enums';
 import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
+import { createReport } from '../../../../actions/service/report';
 
 export default function MembersReport(props) {
   const { open: openProps, onClose, handleCreated } = props;
@@ -38,14 +38,8 @@ export default function MembersReport(props) {
     onSubmit: async (values) => {
       setIsSubmitting(true);
       const { date } = values;
-      const res = await api(`/api/entity/report`, {
-        method: 'POST',
-        body: JSON.stringify({
-          type: REPORT_TYPE_ENUM.MEMBERS,
-          organizationId: entityId,
-          date,
-        }),
-      });
+      const res = await createReport(REPORT_TYPE_ENUM.MEMBERS, entityId, date);
+
       if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
           type: ACTION_ENUM.SNACK_BAR,
