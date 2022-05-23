@@ -12,7 +12,8 @@ import { ERROR_ENUM } from '../../../../../common/errors';
 import AlertDialog from '../../Dialog/AlertDialog';
 import CustomIconButton from '../../IconButton';
 import DownloadReportDialog from '../../Dialog/DownloadReportDialog';
-import { deleteReport, generateReport } from '../../../../actions/service/organization';
+import { getReport } from '../../../../actions/service/report';
+import { deleteReport } from '../../../../actions/service/organization';
 
 export default function ReportItem(props) {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ export default function ReportItem(props) {
 
   const handleClick = useCallback(async () => {
     try {
-      const { data, fileName, headers } = await generateReport(reportId);
+      const { data, fileName, headers } = await getReport(reportId);
 
       const formattedData = data.map((d) => {
         const tempStructure = {};
@@ -69,7 +70,7 @@ export default function ReportItem(props) {
       return;
     } catch (err) {
       // eslint-disable-next-line
-      console.log(err);
+      console.error(err);
       dispatch({
         type: ACTION_ENUM.SNACK_BAR,
         message: ERROR_ENUM.ERROR_OCCURED,
@@ -81,7 +82,7 @@ export default function ReportItem(props) {
   return (
     <>
       <ListItem style={{ width: '100%' }}>
-        <ListItemText primary={t(`reports.${type}`)} secondary={formatDate(moment.utc(metadata.date))} />
+        <ListItemText primary={t(`reports.${type}.title`)} secondary={formatDate(moment.utc(metadata.date))} />
         <CustomIconButton
           variant="contained"
           icon="GetApp"

@@ -8,7 +8,7 @@ import BasicFormDialog from '../BasicFormDialog';
 import moment from 'moment';
 import { createReport } from '../../../../actions/service/report';
 
-export default function SalesReport(props) {
+export default function PayoutsReport(props) {
   const { open: openProps, onClose, handleCreated } = props;
   const { t } = useTranslation();
   const {
@@ -38,7 +38,7 @@ export default function SalesReport(props) {
     onSubmit: async (values) => {
       setIsSubmitting(true);
       const { date } = values;
-      const res = await createReport(REPORT_TYPE_ENUM.SALES, entityId, date);
+      const res = await createReport(REPORT_TYPE_ENUM.PAYOUTS, entityId, date);
 
       if (res.status === REQUEST_STATUS_ENUM.ERROR) {
         dispatch({
