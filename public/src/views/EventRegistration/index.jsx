@@ -58,10 +58,10 @@ export default function EventRegistration() {
       informations: '',
     },
     onSubmit: async (values) => {
-      const { event, team, roster, paymentOption, persons, teamActivity, informations } = values;
+      const { event, team, roster, paymentOption, persons, informations } = values;
       let newTeamId = null;
       setIsLoading(true);
-      if (teamActivity) {
+      if (event.eventType === 'teamTournament' || formik.values.event.eventType === 'team') {
         if (!team.id) {
           const tempTeam = await api('/api/entity', {
             method: 'POST',
