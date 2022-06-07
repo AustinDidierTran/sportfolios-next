@@ -244,7 +244,7 @@ export default function EventRegistration() {
         </div>
         <StepperWithHooks
           steps={
-            formik.values.teamActivity
+            formik.values.event.eventType === 'teamTournament' || formik.values.event.eventType === 'team'
               ? requiredInfos
                 ? [...steps, additionalInformation]
                 : steps

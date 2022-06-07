@@ -38,7 +38,7 @@ export default function PaymentOptionSelect(props) {
           {
             display: `${d.name} | ${getPaymentOptionDisplay(d)}`,
             value: d.id,
-            secondary: d.teamActivity ? t('team.team_activity') : t('individual_activity'),
+            // secondary: d.teamActivity ? t('team.team_activity') : t('individual_activity'),
             teamActivity: d.teamActivity,
             informations: d.informations,
           },
